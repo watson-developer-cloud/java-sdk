@@ -1,5 +1,5 @@
 # Watson Developer Cloud Java Wrapper
-
+[![Build Status](https://secure.travis-ci.org/watson-developer-cloud/java-wrapper.png)](http://travis-ci.org/watson-developer-cloud/java-wrapper)  
 Wrapper to use the [Watson Developer Cloud][wdc] services.
 A collection of REST APIs and SDKs that use cognitive computing
 to solve complex problems.
