@@ -1,0 +1,12 @@
+.classpath
+.codepro
+.DS_Store
+.gradle
+.idea
+.project
+.settings
+build
+gradle
+gradlew
+gradlew.bat
+target
