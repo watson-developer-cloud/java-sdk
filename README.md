@@ -65,6 +65,7 @@ apps.
 ### Concept Expansion
 Map euphemisms or colloquial terms to more commonly understood phrases using
 the [Concept Expansion][concept_expansion] service.
+Example: Create a job, wait for it to finish, and retrieve results.
 
 ```java
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
@@ -90,7 +91,6 @@ while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
 
 System.out.println(service.getJobResult(job));
 ```
-**Node:** The example above only create the job, check the `/examples` folder for a complete example.
 
 
 ### Language Identification
