@@ -38,7 +38,7 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 
 ## Installation
 
-Download the [jar][downloads] and add it to your project.
+Download the [jar][releases] and add it to your project.
 
 ## Usage
 
@@ -396,4 +396,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [HttpMime]: http://hc.apache.org/httpcomponents-client-ga/httpmime
 [json-java]: http://json.org/java/
 [apache_maven]: http://maven.apache.org/
-[downloads]: https://github.com/watson-developer-cloud/java-wrapper/downloads
+[releases]: https://github.com/watson-developer-cloud/java-wrapper/releases
