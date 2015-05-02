@@ -8,6 +8,8 @@ to solve complex problems.
   * [Watson Developer Cloud][wdc]
     * [Questions](#questions)
     * [Installation](#installation)
+      * [Maven](#maven)
+      * [Gradle](#gradle)
     * [Usage](#usage)
     * [Getting the Service Credentials](#getting-the-service-credentials)
     * [IBM Watson Services](#ibm-watson-services)
@@ -39,6 +41,21 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 ## Installation
 
 Download the [jar][releases] and add it to your project.
+
+##### Maven
+```xml
+<dependency>
+	<groupId>com.ibm.watson.developer_cloud</groupId>
+	<artifactId>java-wrapper</artifactId>
+	<version>0.1.4</version>
+</dependency>
+```
+
+##### Gradle
+
+```gradle
+'com.ibm.watson.developer_cloud:java-wrapper:0.1.4'
+```
 
 ## Usage
 
