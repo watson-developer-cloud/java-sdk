@@ -204,8 +204,9 @@ QuestionAndAnswer service = new QuestionAndAnswer();
 service.setUsernameAndPassword("<username>", "<password>");
 
 service.setDataset(QuestionAndAnswerDataset.HEALTHCARE);
-List<Pipeline> pipelines = service.ask("What is HIV?");
-System.out.println(pipelines);
+WatsonAnswer watsonAnswers = service.ask("What is HIV?");
+
+System.out.println(watsonAnswers);
 ```
 
 ### Relationship Extraction
