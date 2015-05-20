@@ -23,9 +23,9 @@ import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.InputStreamEntity;
-import org.json.JSONObject;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
@@ -93,13 +93,12 @@ public class SpeechToText extends WatsonService {
 		HttpRequestBase request = Request.Post("/v1/sessions").build();
 		try {
 			HttpResponse response = execute(request);
-			JSONObject sessionJson = ResponseUtil.getJSON(response);
-
-			if (response.getStatusLine().getStatusCode() != 201)
-				throw new RuntimeException("Cound't create a session:"
-						+ sessionJson.getString("error"));
-
-			String sessionId = sessionJson.getString("session_id");
+			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+			if (response.getStatusLine().getStatusCode() != 201){
+				String error = jsonObject.get("error").getAsString();
+				throw new RuntimeException("Cound't create a session:" + error);
+			}
+			String sessionId = jsonObject.get("session_id").getAsString();
 			return sessionId;
 		} catch (Exception e) {
 			throw new RuntimeException(e);

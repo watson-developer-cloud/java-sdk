@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.question_and_answer.v1;
+package java.com.ibm.watson.developer_cloud.question_and_answer.v1;
 
 
+import com.ibm.watson.developer_cloud.question_and_answer.v1.QuestionAndAnswer;
 import com.ibm.watson.developer_cloud.question_and_answer.v1.model.QuestionAndAnswerDataset;
 import com.ibm.watson.developer_cloud.question_and_answer.v1.model.WatsonAnswer;
 

@@ -13,11 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.speech_to_text.v1;
+package java.com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import java.io.File;
 import java.net.URISyntaxException;
 
+import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
 

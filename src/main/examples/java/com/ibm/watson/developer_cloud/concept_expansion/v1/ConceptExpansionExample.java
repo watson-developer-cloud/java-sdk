@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.concept_expansion.v1;
+package java.com.ibm.watson.developer_cloud.concept_expansion.v1;
 
+import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.ConceptExpansionDataset;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job;
 

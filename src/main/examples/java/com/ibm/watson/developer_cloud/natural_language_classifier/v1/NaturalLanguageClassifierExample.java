@@ -13,23 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package java.com.ibm.watson.developer_cloud.text_to_speech.v1;
+package java.com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceSet;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 
-public class TextToSpeechExample extends WatsonServiceTest {
+public class NaturalLanguageClassifierExample {
 
-
-	public static void main(String[] args) throws FileNotFoundException {
-		TextToSpeech service = new TextToSpeech();
+	public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+		NaturalLanguageClassifier service = new NaturalLanguageClassifier();
 		service.setUsernameAndPassword("<username>", "<password>");
 
-		VoiceSet voices = service.getVoices();
-		System.out.println(voices);
-	}
+		// Call the service and get the classification
+		Classification classification = service.classify("<classifier-id>",
+				"Is it sunny?");
 
+		System.out.println(classification);
+	}
 }

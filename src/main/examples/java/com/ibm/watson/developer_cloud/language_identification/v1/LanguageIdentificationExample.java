@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.language_identification.v1;
+package java.com.ibm.watson.developer_cloud.language_identification.v1;
 
+import com.ibm.watson.developer_cloud.language_identification.v1.LanguageIdentification;
 import com.ibm.watson.developer_cloud.language_identification.v1.model.IdentifiedLanguage;
 
 public class LanguageIdentificationExample {

@@ -13,8 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.message_resonance.v1;
+package java.com.ibm.watson.developer_cloud.message_resonance.v1;
 
+import com.ibm.watson.developer_cloud.message_resonance.v1.MessageResonance;
 import com.ibm.watson.developer_cloud.message_resonance.v1.model.Message;
 import com.ibm.watson.developer_cloud.message_resonance.v1.model.MessageResonanceDataset;
 

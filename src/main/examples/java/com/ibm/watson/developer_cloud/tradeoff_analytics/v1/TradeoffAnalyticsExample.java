@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
+package java.com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Column;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Dilemma;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Option;

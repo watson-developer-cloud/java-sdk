@@ -19,9 +19,8 @@ import java.io.IOException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.json.JSONException;
-import org.json.JSONObject;
 
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.language_identification.v1.model.IdentifiedLanguage;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -41,6 +40,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class LanguageIdentification extends WatsonService {
 
+	private static final String LANG = "lang";
 	private static String URL = "https://gateway.watsonplatform.net/language-identification-beta/api";
 
 	/**
@@ -64,11 +64,9 @@ public class LanguageIdentification extends WatsonService {
 
 		try {
 			HttpResponse response = execute(request);
-			JSONObject ret = ResponseUtil.getJSON(response);
-			return new IdentifiedLanguage(ret.getString("lang"));
+			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+			return new IdentifiedLanguage(jsonObject.get(LANG).getAsString());
 		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} catch (JSONException e) {
 			throw new RuntimeException(e);
 		}
 	}

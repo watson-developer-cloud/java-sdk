@@ -15,7 +15,6 @@ repositories {
 }
 dependencies {
     compile group: 'org.apache.httpcomponents', name: 'httpmime', version:'4.0.3'
-    compile group: 'org.json', name: 'json', version:'20141113'
     compile group: 'com.google.code.gson', name: 'gson', version:'2.3.1'
     compile group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.0.3'
     testCompile group: 'org.mockito', name: 'mockito-core', version:'1.10.19'

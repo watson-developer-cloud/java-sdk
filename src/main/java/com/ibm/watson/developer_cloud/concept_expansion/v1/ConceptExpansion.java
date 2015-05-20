@@ -27,6 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Concept;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.ConceptExpansionDataset;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job;
@@ -244,11 +245,9 @@ public class ConceptExpansion extends WatsonService {
 
 		try {
 			HttpResponse response = execute(request);
-			JSONObject ret = ResponseUtil.getJSON(response);
-			return Status.fromString(ret.getString(PARAM_STATE));
+			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+			return Status.fromString(jsonObject.get(PARAM_STATE).getAsString());
 		} catch (final IOException e) {
-			throw new RuntimeException(e);
-		} catch (JSONException e) {
 			throw new RuntimeException(e);
 		}
 	}

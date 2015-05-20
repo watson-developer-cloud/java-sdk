@@ -17,6 +17,7 @@ to solve complex problems.
       * [Language Identification](#language-identification)
       * [Machine Translation](#machine-translation)
       * [Message Resonance](#message-resonance)
+      * [Natural Language Classifier](#natural-language-classifier)      
       * [Personality Insights](#personality-insights)
       * [Question and Answer](#question-and-answer)
       * [Relationship Extraction](#relationship-extraction)
@@ -153,6 +154,24 @@ service.setDataset(MessageResonanceDataset.BIG_DATA);
 Message message = service.getResonance("IBM Watson Developer Cloud");
 System.out.println(message);
 ```
+
+### Natural Language Classifier
+
+Use [Natural Language Classifier](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/nl-classifier/) service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.
+
+```java
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
+
+NaturalLanguageClassifier service = new NaturalLanguageClassifier();
+service.setUsernameAndPassword("<username>", "<password>");
+
+Classification classification = service.classify("<classifier-id>", "Is it sunny?");
+
+System.out.println(classification);
+```
+
+**Note:** You will need to create and train a classifier in order to be able to classify phrases.
 
 
 ### Personality Insights

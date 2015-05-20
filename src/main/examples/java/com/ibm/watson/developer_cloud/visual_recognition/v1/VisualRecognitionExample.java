@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.visual_recognition.v1;
+package java.com.ibm.watson.developer_cloud.visual_recognition.v1;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.visual_recognition.v1.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v1.model.RecognizedImage;
 
 public class VisualRecognitionExample extends WatsonServiceTest {

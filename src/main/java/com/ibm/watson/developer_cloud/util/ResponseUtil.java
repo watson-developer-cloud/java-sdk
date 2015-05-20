@@ -27,6 +27,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 /**
  * Utility class to manage service responses
  * 
@@ -39,11 +44,11 @@ public class ResponseUtil {
 	public static final int BUFFER_SIZE = 8192; // 8 kb
 
 	/**
-	 * Returns a JSON {@link String} in human-readable form.
+	 * Returns a Json {@link String} in human-readable form.
 	 * 
 	 * @param json
-	 *            the JSON string
-	 * @return the humar-readable string
+	 *            the Json string
+	 * @return the human-readable string
 	 */
 	public static String formatJSON(String json) {
 		try {
@@ -60,7 +65,7 @@ public class ResponseUtil {
 	}
 
 	/**
-	 * Return a JSON representation of the response.
+	 * Return a {@link JsonElement} representation of the response.
 	 * 
 	 * @param response
 	 *            the HttpResponse
@@ -68,40 +73,38 @@ public class ResponseUtil {
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	public static JSONObject getJSON(HttpResponse response) throws IOException {
+	public static JsonElement getJsonElement(HttpResponse response) throws IOException {
 		final String json = getString(response);
 		if (json == null || json.length() == 0)
 			throw new IOException("JSON response is empty");
-		try {
-			return new JSONObject(json);
-		} catch (JSONException e) {
-			log.log(Level.SEVERE,json + " is not a JSONObject", e);
-			throw new IOException("could not parse JSON document: "+ e.getMessage());
-		}
+
+		JsonElement element = new JsonParser().parse(json);
+		return element;
 	}
 
 	/**
-	 * Returns a JSONArray representation of the response.
+	 * Returns a {@link JsonArray} representation of the response.
+	 * 
+	 * @param response
+	 *            an HTTP response
+	 * @return the content body as JsonArray
+	 */
+	public static JsonArray getJsonArray(HttpResponse response)
+			throws IOException {
+		final JsonElement json = getJsonElement(response);
+		return json.getAsJsonArray();
+	}
+
+
+	/**
+	 * Returns a {@link JsonObject} representation of the response.
 	 * 
 	 * @param response
 	 *            an HTTP response
 	 * @return the content body as JSONArray
-	 * @throws IOException
-	 *             network error
 	 */
-	public static JSONArray getJSONArray(HttpResponse response)
-			throws IOException {
-		final String json = getString(response);
-		if (json == null || json.length() == 0)
-			throw new IOException("JSON response is empty");
-		try {
-			return new JSONArray(json);
-		} catch (JSONException e) {
-			log.log(Level.SEVERE,json + " is not a JSONObject", e);
-			throw new IOException("could not parse JSON document: "
-					+ e.getMessage()+ " "
-					+ (json.length() > 80 ? json.substring(0, 79) + "...": json));
-		}
+	public static JsonObject getJsonObject(HttpResponse response) throws IOException {
+		return getJsonElement(response).getAsJsonObject();
 	}
 
 	/**
