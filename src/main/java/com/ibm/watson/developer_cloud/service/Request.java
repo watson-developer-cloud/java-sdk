@@ -32,8 +32,8 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONObject;
 
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.RequestUtil;
 
@@ -332,11 +332,11 @@ public class Request {
 	 * {@link org.apache.http.entity.StringEntity.StringEntity StringEntity}
 	 * encoded with UTF-8 and use "application/json" as Content-Type
 	 * @param json
-	 *            the JSONObject
+	 *            the JsonObject json
 	 * 
 	 * @return this
 	 */
-	public Request withContent(JSONObject json) {
+	public Request withContent(JsonObject json) {
 		return withContent(json.toString(), MediaType.APPLICATION_JSON);
 	}
 

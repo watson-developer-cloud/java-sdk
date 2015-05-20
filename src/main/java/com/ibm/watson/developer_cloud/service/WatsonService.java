@@ -34,9 +34,10 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
-import org.json.JSONObject;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
@@ -226,13 +227,13 @@ public abstract class WatsonService {
 		String error = null;
 		try {
 			error = ResponseUtil.getString(resp);
-			JSONObject respJson = new JSONObject(error);
-			error = respJson.getString("error");
+			JsonParser parser = new JsonParser();
+			JsonObject respJson = parser.parse(error).getAsJsonObject();
+			error = respJson.get("error").getAsString();
 			if (error != null && error.isEmpty()) {
 				error = null;
 			}
-		} catch (Exception e) {
-		}
+		} catch (Exception e) {}
 
 		return error;
 	}

@@ -23,10 +23,9 @@ import java.util.logging.Logger;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.protocol.HTTP;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -52,15 +51,12 @@ public class ResponseUtil {
 	 */
 	public static String formatJSON(String json) {
 		try {
-			return new JSONObject(json).toString(4);
-		} catch (JSONException e) {
-			log.log(Level.SEVERE,json + " is not a JSONObject", e);
-			try {
-				return new JSONArray(json).toString(4);
-			} catch (JSONException e2) {
-				log.log(Level.SEVERE,json + " is not a JSONArray", e2);
-				return json;
-			}
+			JsonParser parser = new JsonParser();
+			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			return gson.toJson(parser.parse(json));
+		} catch (Exception e) {
+			log.log(Level.SEVERE,json + " is not valid", e);
+			return json;
 		}
 	}
 

@@ -31,7 +31,6 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.TrainingData;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
@@ -100,8 +99,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 		log.info("createClassifier with: " + contentJson.getAsString());
 		HttpRequestBase request = Request
 				.Post("/v1/classifiers")
-				.withContent(contentJson.toString(),
-						MediaType.APPLICATION_JSON).build();
+				.withContent(contentJson).build();
 
 		try {
 			HttpResponse response = execute(request);
@@ -139,8 +137,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 
 		HttpRequestBase request = Request
 				.Post(path)
-				.withContent(contentJson.toString(),
-						MediaType.APPLICATION_JSON).build();
+				.withContent(contentJson).build();
 
 		try {
 			HttpResponse response = execute(request);

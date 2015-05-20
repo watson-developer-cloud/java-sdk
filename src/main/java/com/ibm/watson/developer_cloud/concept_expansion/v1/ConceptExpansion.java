@@ -23,11 +23,12 @@ import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Concept;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.ConceptExpansionDataset;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job;
@@ -104,17 +105,22 @@ public class ConceptExpansion extends WatsonService {
 	 */
 	public Job createJob(final String label, final String[] seeds) {
 		if (dataset == null)
-			throw new IllegalArgumentException("dataset can not be null");
+			throw new IllegalArgumentException("dataset can not be null or empty");
 		if (label == null)
-			throw new IllegalArgumentException("label can not be null");
-		if (seeds == null)
-			throw new IllegalArgumentException("seeds can not be null");
+			throw new IllegalArgumentException("label can not be null or empty");
+		if (seeds == null || seeds.length == 0)
+			throw new IllegalArgumentException("seeds can not be null or empty");
 
 		try {
-			JSONObject payload = new JSONObject();
-			payload.put("label", label);
-			payload.put("dataset", dataset.getId());
-			payload.put("seeds", seeds);
+			JsonArray seedJsonArray = new JsonArray();
+			for (String seed : seeds) {
+				seedJsonArray.add(new JsonPrimitive(seed));
+			}
+
+			JsonObject payload = new JsonObject();
+			payload.addProperty("label", label);
+			payload.addProperty("dataset", dataset.getId());
+			payload.add("seeds",seedJsonArray);
 
 			HttpRequestBase request = Request.Post("/v1/upload")
 					.withContent(payload).build();
@@ -123,8 +129,6 @@ public class ConceptExpansion extends WatsonService {
 			String jsonJob = ResponseUtil.getString(response);
 			return getGson().fromJson(jsonJob,Job.class);
 		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} catch (JSONException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -156,12 +160,10 @@ public class ConceptExpansion extends WatsonService {
 	 * <code> { result:"apple", prevalence:"20" }</code>
 	 * </pre>
 	 * @return the concept as POJO Object
-	 * @throws JSONException
-	 *             the JSON exception
 	 */
-	private Concept formatConcept(JSONObject conceptJson) throws JSONException {
-		return new Concept(conceptJson.getString("result"),
-				conceptJson.getInt("prevalence"));
+	private Concept formatConcept(JsonObject conceptJson){
+		return new Concept(conceptJson.get("result").getAsString(),
+				conceptJson.get("prevalence").getAsInt());
 	}
 
 	/**
@@ -173,13 +175,12 @@ public class ConceptExpansion extends WatsonService {
 	 * @throws JSONException
 	 *             the JSON exception
 	 */
-	private List<Concept> formatConcepts(JSONObject conceptsJson)
-			throws JSONException {
-		JSONArray conceptArray = conceptsJson.getJSONArray("return_seeds");
+	private List<Concept> formatConcepts(JsonObject conceptsJson) {
+		JsonArray conceptArray = conceptsJson.get("return_seeds").getAsJsonArray();
 		List<Concept> concepts = new ArrayList<Concept>();
 
-		for (int i = 0; i < conceptArray.length(); i++) {
-			concepts.add(formatConcept(conceptArray.getJSONObject(i)));
+		for (JsonElement conceptJson :conceptArray) {
+			concepts.add(formatConcept(conceptJson.getAsJsonObject()));
 		}
 		return concepts;
 	}
@@ -210,18 +211,17 @@ public class ConceptExpansion extends WatsonService {
 			throw new IllegalArgumentException("job.id can not be null");
 
 		try {
-			JSONObject payload = new JSONObject();
-			payload.put(PARAM_JOBID, job.getId());
+			JsonObject payload = new JsonObject();
+			payload.addProperty(PARAM_JOBID, job.getId());
 
 			HttpRequestBase request = Request.Put("/v1/result")
 					.withContent(payload).build();
 
 			HttpResponse response = execute(request);
 			String encodedResult = ResponseUtil.getString(response);
-			return formatConcepts(new JSONObject(decodeResult(encodedResult)));
+			JsonParser parser = new JsonParser();
+			return formatConcepts(parser.parse(decodeResult(encodedResult)).getAsJsonObject());
 		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} catch (JSONException e) {
 			throw new RuntimeException(e);
 		}
 	}
