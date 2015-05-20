@@ -7,6 +7,8 @@ com.ibm.watson.developer_cloud.machine_translation.v1
 com.ibm.watson.developer_cloud.machine_translation.v1.model
 com.ibm.watson.developer_cloud.message_resonance.v1
 com.ibm.watson.developer_cloud.message_resonance.v1.model
+com.ibm.watson.developer_cloud.natural_language_classifier.v1
+com.ibm.watson.developer_cloud.natural_language_classifier.v1.model
 com.ibm.watson.developer_cloud.personality_insights.v2
 com.ibm.watson.developer_cloud.personality_insights.v2.model
 com.ibm.watson.developer_cloud.question_and_answer.v1
