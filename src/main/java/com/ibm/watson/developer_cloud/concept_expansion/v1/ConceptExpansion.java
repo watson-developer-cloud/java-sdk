@@ -48,6 +48,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  *      Concept Expansion</a>
  * 
  * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * 
  */
 public class ConceptExpansion extends WatsonService {
 

@@ -44,9 +44,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * 
  * @version v1
  * 
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html">
- *      Personality Insights</a>
+ * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html"> Natural Language Classifier</a>
  * 
  * @author German Attanasio Ruiz <germanatt@us.ibm.com>
  */
