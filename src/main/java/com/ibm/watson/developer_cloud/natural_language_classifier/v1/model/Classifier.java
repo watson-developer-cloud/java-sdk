@@ -29,8 +29,20 @@ public class Classifier {
 	@SerializedName("classifier_id")
 	private String id;
 	private String url;
-	private String status;
+	private Status status;
 
+	public enum Status {
+		@SerializedName("Non Existent")
+		NON_EXISTENT,
+		@SerializedName("Training")
+		TRAINING,
+		@SerializedName("Failed")
+		FAILED,
+		@SerializedName("Available")
+		AVAILABLE,
+		@SerializedName("Unavailable")
+		UNAVAILABLE
+	}
 	@SerializedName("status_description")
 	private String statusDescription;
 
@@ -77,7 +89,7 @@ public class Classifier {
 	 * 
 	 * @return the status
 	 */
-	public String getStatus() {
+	public Status getStatus() {
 		return status;
 	}
 
@@ -87,7 +99,7 @@ public class Classifier {
 	 * @param status
 	 *            the new status
 	 */
-	public void setStatus(String status) {
+	public void setStatus(Status status) {
 		this.status = status;
 	}
 

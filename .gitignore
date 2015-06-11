@@ -10,3 +10,4 @@ gradle
 gradlew
 gradlew.bat
 target
+src/test
