@@ -49,13 +49,13 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-wrapper</artifactId>
-	<version>0.1.4</version>
+	<version>0.1.7</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-wrapper:0.1.4'
+'com.ibm.watson.developer_cloud:java-wrapper:0.1.7'
 ```
 
 ## Usage
