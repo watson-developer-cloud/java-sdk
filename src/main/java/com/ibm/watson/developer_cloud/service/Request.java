@@ -39,14 +39,15 @@ import com.ibm.watson.developer_cloud.util.RequestUtil;
 
 /**
  * Convenience class for constructing HTTP/HTTPS requests. <br>
- * Example: <code><pre>
+ * Example: <pre>
+ * {@code
  *  HttpRequestBase request = Request
  *     .Get("/v1/translate")
  *     .withQuery("from", "en", "to", "es", "text", "Good Morning")
  *     .build();
- * </pre></code>
+ * }</pre>
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Request {
 
@@ -329,7 +330,7 @@ public class Request {
 	/**
 	 * Adds a JSON content to the request (used with POST/PUT). This will
 	 * encapsulate the json into a
-	 * {@link org.apache.http.entity.StringEntity.StringEntity StringEntity}
+	 * {@link org.apache.http.entity.StringEntity StringEntity}
 	 * encoded with UTF-8 and use "application/json" as Content-Type
 	 * @param json
 	 *            the JsonObject json
@@ -343,7 +344,7 @@ public class Request {
 	/**
 	 * Adds string content to the request (used with POST/PUT). This will
 	 * encapsulate the string into a
-	 * {@link org.apache.http.entity.StringEntity.StringEntity StringEntity}
+	 * {@link org.apache.http.entity.StringEntity StringEntity}
 	 * encoded with UTF-8
 	 * 
 	 * @param content

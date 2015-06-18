@@ -35,7 +35,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * back to the client with minimal delay.
  * 
  * @version v1
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html">
  *      Text to Speech</a>

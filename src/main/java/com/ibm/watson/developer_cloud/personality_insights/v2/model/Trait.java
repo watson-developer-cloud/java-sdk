@@ -50,7 +50,7 @@ public class Trait {
 	 * Sets the sampling error of the percentage based on the
 	 * number of words in the input.
 	 * 
-	 * @param sampling error
+	 * @param samplingError error
 	 *            the new sampling error
 	 */
 	public void setSamplingError(double samplingError) {

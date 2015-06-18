@@ -40,7 +40,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * as more speech is heard.
  * 
  * @version v1
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/speech-to-text.html">
  *      Speech to Text</a>

@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLang
  * adapt a system to a domain (the ground truth)
  * 
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see NaturalLanguageClassifier
  */
 public class TrainingData {

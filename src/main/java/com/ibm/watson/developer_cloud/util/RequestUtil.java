@@ -27,7 +27,7 @@ import org.apache.http.protocol.HTTP;
 /**
  * Utility functions to use when creating a {@link com.ibm.watson.developer_cloud.service.Request }
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class RequestUtil {
 	private static final Logger log = Logger.getLogger(RequestUtil.class

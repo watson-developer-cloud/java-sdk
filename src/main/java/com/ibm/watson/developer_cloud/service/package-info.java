@@ -6,7 +6,7 @@
 
  * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud">
  * IBM Watson Developer Cloud</a>
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 package com.ibm.watson.developer_cloud.service;
 
