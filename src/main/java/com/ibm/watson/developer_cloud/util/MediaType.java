@@ -21,7 +21,7 @@ package com.ibm.watson.developer_cloud.util;
  * @see <a
  *      href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.7">HTTP/1.1
  *      section 3.7</a>
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class MediaType {
 

@@ -36,7 +36,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-identification.html">
  *      Language Identification</a>
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class LanguageIdentification extends WatsonService {
 

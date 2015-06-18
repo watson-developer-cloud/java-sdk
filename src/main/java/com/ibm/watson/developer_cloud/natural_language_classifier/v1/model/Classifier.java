@@ -22,7 +22,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLang
 /**
  * Classifier used by the {@link NaturalLanguageClassifier} service
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Classifier {
 

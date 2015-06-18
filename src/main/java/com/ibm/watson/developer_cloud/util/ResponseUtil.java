@@ -34,7 +34,7 @@ import com.google.gson.JsonParser;
 /**
  * Utility class to manage service responses
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see org.apache.http.HttpResponse HttpResponse
  */
 public class ResponseUtil {
@@ -83,6 +83,8 @@ public class ResponseUtil {
 	 * 
 	 * @param response
 	 *            an HTTP response
+	 * @throws IOException  If an input or output 
+	 * 						exception occurred
 	 * @return the content body as JsonArray
 	 */
 	public static JsonArray getJsonArray(HttpResponse response)
@@ -97,6 +99,8 @@ public class ResponseUtil {
 	 * 
 	 * @param response
 	 *            an HTTP response
+	 * @throws IOException  If an input or output 
+	 * 						exception occurred
 	 * @return the content body as JSONArray
 	 */
 	public static JsonObject getJsonObject(HttpResponse response) throws IOException {

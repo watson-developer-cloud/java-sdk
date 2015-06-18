@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.language_identification.v1.LanguageIdentif
 /**
  * Language detected by the {@link LanguageIdentification} service
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class IdentifiedLanguage {
 

@@ -24,7 +24,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLang
 /**
  * Classification class used by the {@link NaturalLanguageClassifier} service
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Classification {
 
@@ -70,7 +70,7 @@ public class Classification {
 	/**
 	 * Sets the top class.
 	 * 
-	 * @param top class
+	 * @param topClass class
 	 *            the new top class
 	 */
 	public void setTopClass(String topClass) {

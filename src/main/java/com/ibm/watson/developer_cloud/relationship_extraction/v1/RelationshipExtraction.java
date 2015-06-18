@@ -30,7 +30,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * components (nouns, verbs, subjects, objects, etc.)
  * 
  * @version v1
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/relationship-extraction.html">
  *      Relationship Extraction</a>
