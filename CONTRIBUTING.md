@@ -9,8 +9,8 @@ If you encounter an issue with the java library, you are welcome to submit a [bu
 # Pull Requests
 
 If you want to contribute to the repository, here's a quick guide:
-	1. Fork the repository
-	2. develop and test your code changes, maven: `mvn test` or gradle: `gradle test`
-	4. Make the test pass
-	5. Commit your changes
-	6. Push to your fork and submit a pull request
+  1. Fork the repository
+  2. develop and test your code changes, maven: `mvn test` or gradle: `gradle test`
+  3. Make the test pass
+  4. Commit your changes
+  5. Push to your fork and submit a pull request
