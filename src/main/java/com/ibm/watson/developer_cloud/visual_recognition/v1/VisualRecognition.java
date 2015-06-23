@@ -43,7 +43,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v1.model.VisualRecognit
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
  *      Visual Recognition</a>
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class VisualRecognition extends WatsonService {
 

@@ -46,7 +46,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * 
  * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html"> Natural Language Classifier</a>
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class NaturalLanguageClassifier extends WatsonService {
 
@@ -170,7 +170,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 
 	/**
 	 * Deletes a classifier
-	 * 
+	 * @param classifierId the classifier ID 
 	 * @see Classifier
 	 */
 	public void deleteClassifier(String classifierId) {
@@ -185,6 +185,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 	/**
 	 * Retrieves a classifier
 	 * 
+	 * @param classifierId the classifier ID 
 	 * @return the classifier list
 	 * @see Classifier
 	 */

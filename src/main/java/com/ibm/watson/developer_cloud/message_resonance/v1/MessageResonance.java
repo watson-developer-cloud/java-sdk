@@ -39,7 +39,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/message-resonance.html">
  *      Message Resonance</a>
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class MessageResonance extends WatsonService {
 

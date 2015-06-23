@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.machine_translation.v1.MachineTranslation;
 /**
  * Language utilized by the {@link MachineTranslation} service
  *
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Language {
 
