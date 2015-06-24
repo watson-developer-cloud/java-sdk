@@ -19,36 +19,59 @@ import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 
 /**
- * Language detected by the {@link LanguageTranslation} service.
+ * Identifiable language used  by the {@link LanguageTranslation} service.
  *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
-public class IdentifiedLanguage extends IdentifiableLanguage{
+public class IdentifiableLanguage {
+
+	/** The language. */
+	private final String language;
 
 	/** The confidence. */
-	private final Double confidence;
+	private final String name;
+
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Instantiates a new identifiable language.
+	 *
+	 * @param language the language
+	 * @param name the name
+	 */
+	public IdentifiableLanguage(String language, String name) {
+		super();
+		this.language = language;
+		this.name = name;
+	}
 
 	/**
 	 * Instantiates a new language.
 	 *
 	 * @param language
 	 *            the language
-	 * @param confidence
-	 *            the confidence
 	 */
-	public IdentifiedLanguage(String language, double confidence) {
-		super(language);
-		this.confidence = confidence;
+	public IdentifiableLanguage(String language) {
+		this.language = language;
+		this.name = null;
 	}
 
 	/**
-	 * Gets the confidence.
+	 * Gets the language.
 	 *
-	 * @return the confidence
+	 * @return the language
 	 */
-	public Double getConfidence() {
-		return confidence;
+	public String getLanguage() {
+		return language;
 	}
+
 
 	/*
 	 * (non-Javadoc)

@@ -5,7 +5,7 @@ import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslatio
 
 /**
  * Language Model used by the {@link LanguageTranslation}
- * 
+ *
  * @author German Attanasio Ruiz <germanatt@us.ibm.com>
  */
 public class LanguageModel {
@@ -13,33 +13,33 @@ public class LanguageModel {
 	/** The model id. */
 	@SerializedName("model_id")
 	private String modelId;
-	
+
 	/** The source. */
 	private String source;
-	
+
 	/** The target. */
 	private String target;
-	
+
 	/** The base model id. */
 	@SerializedName("base_model_id")
 	private String baseModelId;
-	
+
 	/** The domain. */
 	private String domain;
-	
+
 	/** The customizable. */
 	private boolean customizable;
-	
+
 	/** The default model. */
 	@SerializedName("default_model")
 	private boolean defaultModel;
-	
+
 	/** The owner. */
 	private String owner;
-	
+
 	/** The status. */
 	private String status;
-	
+
 	/** The name. */
 	private String name;
 

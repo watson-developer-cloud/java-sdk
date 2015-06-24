@@ -17,15 +17,15 @@ public class TranslationResult {
 
     /** The translations. */
     private List<Translation> translations = new ArrayList<Translation>();
-    
+
     /** The word count. */
     @SerializedName("word_count")
     private int wordCount;
-    
+
     /** The character count. */
     @SerializedName("character_count")
     private int characterCount;
-    
+
     /**
      * Gets the translations.
      *

@@ -26,6 +26,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.LanguageModel;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
@@ -37,23 +38,26 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 /**
  * The IBM Watson Language Translation service translate text from one language
  * to another and identifies the language in which text is written.
- * 
+ *
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-translation.html">
  *      Language Translation</a>
- * 
+ *
  * @version v2
- * 
+ *
  * @author German Attanasio Ruiz <germanatt@us.ibm.com>
  */
 public class LanguageTranslation extends WatsonService {
 
 	private static String URL = "https://gateway.watsonplatform.net/language-translation/api";
 
-	private Type modelListType = new TypeToken<List<LanguageModel>>() {
+	private final Type modelListType = new TypeToken<List<LanguageModel>>() {
 	}.getType();
 
-	private Type languageModelListType = new TypeToken<List<IdentifiedLanguage>>() {
+	private final Type languageModelListType = new TypeToken<List<IdentifiedLanguage>>() {
+	}.getType();
+
+	private final Type identifiableLanguagesListType = new TypeToken<List<IdentifiableLanguage>>() {
 	}.getType();
 
 	/**
@@ -65,7 +69,7 @@ public class LanguageTranslation extends WatsonService {
 
 	/**
 	 * Translate text using a model.
-	 * 
+	 *
 	 * @param paragraphs
 	 *            The submitted paragraphs to translate
 	 * @param modelId
@@ -75,10 +79,10 @@ public class LanguageTranslation extends WatsonService {
 	public TranslationResult translate(final String[] paragraphs, final String modelId) {
 		return translate(paragraphs, null, null, modelId);
 	}
-	
+
 	/**
 	 * Translate text using a model.
-	 * 
+	 *
 	 * @param text
 	 *            The submitted text to translate
 	 * @param modelId
@@ -88,12 +92,12 @@ public class LanguageTranslation extends WatsonService {
 	public TranslationResult translate(final String text, final String modelId) {
 		return translate(new String[] {text}, null, null, modelId);
 	}
-	
+
 	/**
 	 * Translate text using a source and target and target needs to be specified
 	 * Returns an error if source or target are 2letter language code and no
 	 * suitable default can be found (such as "zh")
-	 * 
+	 *
 	 * @param paragraphs
 	 *            The submitted paragraphs to translate
 	 * @param source
@@ -102,18 +106,18 @@ public class LanguageTranslation extends WatsonService {
 	 *            multiple supported languages.
 	 * @param target
 	 *            the target language
-	 * 
+	 *
 	 * @return the translation of text from source to target
 	 */
 	public TranslationResult translate(final String[] paragraphs, final String source, final String target) {
 		return translate(paragraphs, source, target, null);
 	}
-	
+
 	/**
 	 * Translate text using a source and target and target needs to be specified
 	 * Returns an error if source or target are 2letter language code and no
 	 * suitable default can be found (such as "zh")
-	 * 
+	 *
 	 * @param text
 	 *            The submitted text to translate
 	 * @param source
@@ -122,7 +126,7 @@ public class LanguageTranslation extends WatsonService {
 	 *            multiple supported languages.
 	 * @param target
 	 *            the target language
-	 * 
+	 *
 	 * @return the translation of text from source to target
 	 */
 	public TranslationResult translate(final String text, final String source,
@@ -133,7 +137,7 @@ public class LanguageTranslation extends WatsonService {
 	/**
 	 * Translate paragraphs of text using a model and or source and target
 	 * modeId or source and target needs to be specified
-	 * 
+	 *
 	 * @param text
 	 *            The submitted paragraphs to translate
 	 * @param source
@@ -189,7 +193,7 @@ public class LanguageTranslation extends WatsonService {
 
 	/**
 	 * Identify language in which text is written.
-	 * 
+	 *
 	 * @param text
 	 *            the text to identify
 	 * @return the identified language
@@ -212,7 +216,7 @@ public class LanguageTranslation extends WatsonService {
 
 	/**
 	 * Retrieves the list of models.
-	 * 
+	 *
 	 * @param showDefault
 	 *            show default models
 	 * @param source
@@ -248,8 +252,29 @@ public class LanguageTranslation extends WatsonService {
 	}
 
 	/**
+	 * Retrieves the list of identifiable languages.
+	 *
+	 * @return the identifiable languages
+	 * @see LanguageModel
+	 */
+	public List<IdentifiableLanguage> getIdentifiableLanguages() {
+		Request request = Request.Get("/v2/identifiable_languages");
+
+		HttpRequestBase requestBase = request.build();
+		try {
+			HttpResponse response = execute(requestBase);
+			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+			List<IdentifiableLanguage> langs = getGson().fromJson(
+					jsonObject.get("languages"), identifiableLanguagesListType);
+			return langs;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
 	 * Retrieves the list of models.
-	 * 
+	 *
 	 * @return the translation models
 	 * @see LanguageModel
 	 */
@@ -259,7 +284,7 @@ public class LanguageTranslation extends WatsonService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
