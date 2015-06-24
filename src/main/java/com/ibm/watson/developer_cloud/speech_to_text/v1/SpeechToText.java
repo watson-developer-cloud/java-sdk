@@ -47,7 +47,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class SpeechToText extends WatsonService {
 
-	private static String URL = "https://stream.watsonplatform.net/speech-to-text-beta/api";
+	private static String URL = "https://stream.watsonplatform.net/speech-to-text/api";
 
 	/**
 	 * Instantiates a new speech to text.
