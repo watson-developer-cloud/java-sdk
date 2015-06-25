@@ -15,6 +15,7 @@ to solve complex problems.
     * [IBM Watson Services](#ibm-watson-services)
       * [Concept Expansion](#concept-expansion)
       * [Language Identification](#language-identification)
+      * [Language Translation](#language-translation)
       * [Machine Translation](#machine-translation)
       * [Message Resonance](#message-resonance)
       * [Natural Language Classifier](#natural-language-classifier)      
@@ -49,13 +50,13 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-wrapper</artifactId>
-	<version>0.1.7</version>
+	<version>0.1.8</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-wrapper:0.1.7'
+'com.ibm.watson.developer_cloud:java-wrapper:0.1.8'
 ```
 
 ## Usage
@@ -125,6 +126,18 @@ IdentifiedLanguage lang = service.identify("The language identification service 
 System.out.println(lang);
 ```
 
+### Language Translation
+Example: Translate 'hello' from English to Spanish using the [Language Translation][language_translation] service.
+
+```java
+import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
+
+LanguageTranslation service = new LanguageTranslation();
+service.setUsernameAndPassword("<username>", "<password>");
+
+TranslationResult translationResult = service.translate("hello", "en", "es");
+System.out.println(translationResult);
 
 ### Machine Translation
 Example: Translate text from one language to another using the [Machine Translation][machine_translation] service.
@@ -266,7 +279,7 @@ System.out.println(transcript);
 #### WebSocket support
 
 Speech to Text supports WebSocket so you can use a websocket client like the one in: http://java-websocket.org/
-The websocket url is: `wss://stream.watsonplatform.net/speech-to-text-beta/api/v1/recognize`
+The websocket url is: `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
 
 ### Text to Speech
 Use the [Text to Speech][text_to_speech] service to get the available voices to synthesize.
@@ -370,7 +383,7 @@ Gradle:
 
   ```sh
   $ cd java-wrapper
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-alpha-0.0.9.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-0.1.8.jar)
   $ gradle test # run tests
   ```
 
@@ -419,6 +432,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [concept_expansion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/glimpseapi/
 [relationship_extraction]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/sireapi/
 
+[language_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/
 [visual_recognition]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-recognition/
 [tradeoff_analytics]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tradeoff-analytics/
 [text_to_speech]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/
