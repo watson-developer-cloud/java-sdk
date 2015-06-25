@@ -28,9 +28,11 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SessionStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModelSet;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
@@ -57,13 +59,50 @@ public class SpeechToText extends WatsonService {
 	}
 
 	/**
-	 * Gets the model.
+	 * Get the recognize status.
+	 * @see #getRecognizeStatus(String)
+	 */
+	public SessionStatus getRecognizeStatus(final SpeechSession session) {
+		if (session == null)
+			throw new IllegalArgumentException("session was not specified");
+		return getRecognizeStatus(session.getSessionId());
+	}
+	
+	/**
+	 * Gets the session status. Concurrent recognition tasks during the same
+	 * session are not allowed. This method offers a way to check whether the
+	 * session can accept another recognition task. The returned state must be
+	 * "initialized" to call {@link #recognize(File, String)} or {@link #recognize(File, String, String, boolean)}.
+	 * 
+	 * @param sessionId
+	 *            the session id
+	 * @return the model
+	 */
+	public SessionStatus getRecognizeStatus(final String sessionId) {
+		if (sessionId == null)
+			throw new IllegalArgumentException("sessionId was not specified");
+
+		HttpRequestBase request = Request.Get(
+				"/v1/sessions/" + sessionId + "/recognize").build();
+		try {
+			HttpResponse response = execute(request);
+			String resultJson = ResponseUtil.getString(response);
+			SessionStatus sessionStatus = new Gson().fromJson(resultJson,
+					SessionStatus.class);
+			return sessionStatus;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * Gets the speech model.
 	 * 
 	 * @param name
 	 *            the name
 	 * @return the model
 	 */
-	public SpeechModel getModel(String name) {
+	public SpeechModel getModel(final String name) {
 		if (name == null)
 			throw new IllegalArgumentException("name was not specified");
 
@@ -87,6 +126,39 @@ public class SpeechToText extends WatsonService {
 	 * that uses this session. The session expires after 15 minutes of
 	 * inactivity.
 	 * 
+	 * @param modelId
+	 *            the model id
+	 * @return the session id
+	 */
+	public SpeechSession createSession(final String modelId) {
+		String path = "/v1/sessions";
+
+		if (modelId != null && !modelId.isEmpty())
+			path += "?model=" + modelId;
+
+		HttpRequestBase request = Request.Post(path).build();
+		try {
+			HttpResponse response = execute(request);
+			String sessionString = ResponseUtil.getString(response);
+			SpeechSession speechSession = getGson().fromJson(sessionString,
+					SpeechSession.class);
+			speechSession.setCookieSession(response
+					.getFirstHeader("set-cookie").getValue());
+			return speechSession;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	/**
+	 * Create a session to lock an engine to the session. You can use the
+	 * session for multiple recognition requests, so that each request is
+	 * processed with the same speech-to-text engine. Use the cookie that is
+	 * returned from this operation in the Set-Cookie header for each request
+	 * that uses this session. The session expires after 15 minutes of
+	 * inactivity.
+	 * 
 	 * @return the session id
 	 */
 	public String createSession() {
@@ -94,7 +166,7 @@ public class SpeechToText extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			if (response.getStatusLine().getStatusCode() != 201){
+			if (response.getStatusLine().getStatusCode() != 201) {
 				String error = jsonObject.get("error").getAsString();
 				throw new RuntimeException("Cound't create a session:" + error);
 			}
@@ -109,10 +181,22 @@ public class SpeechToText extends WatsonService {
 	/**
 	 * Delete a session.
 	 * 
+	 * @param session
+	 *            the speech session
+	 */
+	public void deleteSession(final SpeechSession session) {
+		if (session == null)
+			throw new IllegalArgumentException("session was not specified");
+		deleteSession(session.getSessionId());
+	}
+
+	/**
+	 * Delete a session.
+	 * 
 	 * @param sessionId
 	 *            the session id
 	 */
-	public void deleteSession(String sessionId) {
+	public void deleteSession(final String sessionId) {
 		if (sessionId == null)
 			throw new IllegalArgumentException("sessionId was not specified");
 
@@ -150,7 +234,7 @@ public class SpeechToText extends WatsonService {
 	 *            the content type
 	 * @return the speech results
 	 */
-	public SpeechResults recognize(File audio, String contentType) {
+	public SpeechResults recognize(final File audio,final String contentType) {
 		return recognize(audio, contentType, null, false);
 	}
 
@@ -167,8 +251,8 @@ public class SpeechToText extends WatsonService {
 	 *            the continuous
 	 * @return the list
 	 */
-	public SpeechResults recognize(File audio, String contentType,
-			String session, boolean continuous) {
+	public SpeechResults recognize(final File audio,final  String contentType,
+			final String session,final boolean continuous) {
 		if (audio == null || !audio.exists() || !audio.isFile())
 			throw new IllegalArgumentException(
 					"audio is not a valid audio file");
@@ -212,7 +296,7 @@ public class SpeechToText extends WatsonService {
 	 *            the watson model
 	 * @return the model
 	 */
-	public SpeechModel getModel(SpeechModel watsonModel) {
+	public SpeechModel getModel(final SpeechModel watsonModel) {
 		return getModel(watsonModel.getName());
 	}
 }
