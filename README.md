@@ -18,7 +18,7 @@ to solve complex problems.
       * [Language Translation](#language-translation)
       * [Machine Translation](#machine-translation)
       * [Message Resonance](#message-resonance)
-      * [Natural Language Classifier](#natural-language-classifier)      
+      * [Natural Language Classifier](#natural-language-classifier)
       * [Personality Insights](#personality-insights)
       * [Question and Answer](#question-and-answer)
       * [Relationship Extraction](#relationship-extraction)
@@ -62,8 +62,7 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 ## Usage
 
 The examples below assume that you already have service credentials. If not,
-you will have to create and bind the service in [Bluemix][bluemix]. See the
-[Getting Started][getting_started] page for more details.
+you will have to create and bind the service in [Bluemix][bluemix].
 
 If you are running your application in Bluemix, you don't need to specify the
 credentials; the wrapper will get them for you by looking at the `VCAP_SERVICES`
@@ -138,6 +137,7 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 TranslationResult translationResult = service.translate("hello", "en", "es");
 System.out.println(translationResult);
+```
 
 ### Machine Translation
 Example: Translate text from one language to another using the [Machine Translation][machine_translation] service.
@@ -431,14 +431,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [machine_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/mtapi/
 [concept_expansion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/glimpseapi/
 [relationship_extraction]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/sireapi/
-
 [language_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/
 [visual_recognition]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-recognition/
 [tradeoff_analytics]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tradeoff-analytics/
 [text_to_speech]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/
 [speech_to_text]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/speech-to-text/
-
-[getting_started]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/getstarted.html
 [wdc]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/
 [vcap_environment]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/getting_started/index.html#EnvVars
 [bluemix]: https://console.ng.bluemix.net
