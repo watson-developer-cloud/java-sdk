@@ -286,12 +286,12 @@ Use the [Text to Speech][text_to_speech] service to get the available voices to 
 
 ```java
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceSet;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 
 TextToSpeech service = new TextToSpeech();
 service.setUsernameAndPassword("<username>", "<password>");
 
-VoiceSet voices = service.getVoices();
+List<Voice> voices = service.getVoices();
 System.out.println(voices);
 ```
 
