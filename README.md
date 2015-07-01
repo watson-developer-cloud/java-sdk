@@ -1,8 +1,6 @@
 # Watson Developer Cloud Java Wrapper
 [![Build Status](https://secure.travis-ci.org/watson-developer-cloud/java-wrapper.png)](http://travis-ci.org/watson-developer-cloud/java-wrapper)  
-Wrapper to use the [Watson Developer Cloud][wdc] services.
-A collection of REST APIs and SDKs that use cognitive computing
-to solve complex problems.
+Java code wrappers to quickly get started with the various [Watson Developer Cloud][wdc] services - A collection of REST APIs and SDKs that use cognitive computing to solve complex problems.
 
 ## Table of Contents
   * [Watson Developer Cloud][wdc]
@@ -42,7 +40,7 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 
 ## Installation
 
-Download the [jar][releases] and add it to your project.  
+Download the [jar][releases], and add it to your project.  
 Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-wrapper/tree/master/src/main/examples/java/com/ibm/watson/developer_cloud).
 
 ##### Maven
@@ -61,7 +59,7 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 
 ## Usage
 
-The examples below assume that you already have service credentials. If not,
+The examples below assumes that you already have service credentials. If you don't have service credentials,
 you will have to create and bind the service in [Bluemix][bluemix].
 
 If you are running your application in Bluemix, you don't need to specify the
@@ -74,16 +72,16 @@ The credentials for the services are stored in the
 [VCAP_SERVICES][vcap_environment] environment variable. To get them, you need
 to first create and bind the service to your application.
 
-You will need the `username` and `password` credentials for each service these are *not* your Bluemix credentials, and are found in the VCAP_SERVICES variable on Bluemix for each service.
+You will need the `username` and `password` credentials for each service these are *not* your Bluemix credentials, and are found in the VCAP_SERVICES variable on Bluemix, and they are different for each service.
 
 ## IBM Watson Services
 The Watson Developer Cloud offers a variety of services for building cognitive
-apps.
+applications.
 
 ### Concept Expansion
 Map euphemisms or colloquial terms to more commonly understood phrases using
 the [Concept Expansion][concept_expansion] service.
-Example: Create a job, wait for it to finish, and retrieve results.
+Example: Create a job, wait for it to finish, and then retrieve results.
 
 ```java
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
@@ -126,6 +124,8 @@ System.out.println(lang);
 ```
 
 ### Language Translation
+Select a domain, then identify or select the language of text, and then translate the text from one supported language to another.
+
 Example: Translate 'hello' from English to Spanish using the [Language Translation][language_translation] service.
 
 ```java
@@ -153,6 +153,8 @@ System.out.println(response);
 ```
 
 ### Message Resonance
+Send a word and Watson responds with the resonance scoring for the word, allowing you to enhance the effectiveness of your language for the intended audience.
+
 Example: Get resonance information for individual words in a sentence from the [Message Resonance][message_resonance] service.
 
 ```java
@@ -188,6 +190,8 @@ System.out.println(classification);
 
 
 ### Personality Insights
+Use linguistic analytics to infer personality and social characteristics, including Big Five, Needs, and Values, from text. 
+
 Example: Analyze text and get a personality profile using the [Personality Insights][personality_insights] service.
 
 ```java
