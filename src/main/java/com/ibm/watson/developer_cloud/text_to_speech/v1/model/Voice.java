@@ -25,7 +25,7 @@ import com.google.gson.GsonBuilder;
 public class Voice {
 
 	/** The Constant ES_ENRIQUE. */
-	public static final Voice ES_ENRIQUE = new Voice("VoiceEsEsEnrique", "male", "es-ES");
+	public static final Voice ES_ENRIQUE = new Voice("es-ES_EnriqueVoice", "male", "es-ES");
 	
 	/** The Constant ES_LAURA. */
 	public static final Voice ES_LAURA = new Voice("es-ES_LauraVoice", "female", "es-US");
