@@ -318,7 +318,7 @@ public abstract class WatsonService {
 	 * @return the user agent
 	 */
 	private final String getUserAgent() {
-		return "watson-developer-cloud-java-wrapper-0.1.8";
+		return "watson-developer-cloud-java-wrapper-0.1.9";
 	}
 
 	/**
