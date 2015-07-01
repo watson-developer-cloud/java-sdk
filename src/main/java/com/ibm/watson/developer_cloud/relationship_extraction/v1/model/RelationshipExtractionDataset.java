@@ -18,6 +18,7 @@ package com.ibm.watson.developer_cloud.relationship_extraction.v1.model;
 import com.google.gson.GsonBuilder;
 
 /**
+ * The Class RelationshipExtractionDataset.
  */
 public class RelationshipExtractionDataset {
 	/**

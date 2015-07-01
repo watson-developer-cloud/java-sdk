@@ -27,8 +27,12 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
+/**
+ * The Class TradeoffAnalytics.
+ */
 public class TradeoffAnalytics extends WatsonService {
 
+	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/tradeoff-analytics/api";
 
 	/**

@@ -17,12 +17,19 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class QuestionAndAnswerDataset.
+ */
 public class QuestionAndAnswerDataset {
 
+	/** The Constant TRAVEL. */
 	public static final QuestionAndAnswerDataset TRAVEL = new QuestionAndAnswerDataset("travel");
+	
+	/** The Constant HEALTHCARE. */
 	public static final QuestionAndAnswerDataset HEALTHCARE = new QuestionAndAnswerDataset("healthcare");
 
 
+	/** The id. */
 	private final String id;
 
 	/**

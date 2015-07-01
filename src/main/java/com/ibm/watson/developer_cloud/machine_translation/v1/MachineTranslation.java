@@ -28,19 +28,20 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
- * The Machine Translation service translate text from one language to another
- * 
+ * The Machine Translation service translate text from one language to another.
+ *
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
- * 
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/machine-translation.html">
  *      Machine Translation</a>
- * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class MachineTranslation extends WatsonService {
 
+	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/machine-translation-beta/api";
+	
+	/** The supported sids. */
 	private static List<String> supportedSids = new ArrayList<String>();
 
 	static {

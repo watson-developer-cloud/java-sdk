@@ -15,20 +15,23 @@
  */
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
 
 /**
- * Dialog used by the {@link DialogService}
- * 
+ * Dialog used by the {@link DialogService}.
+ *
  * @author German Attanasio Ruiz <germanatt@us.ibm.com>
  */
 public class Dialog {
 
+	/** The id. */
 	@SerializedName("dialog_id")
 	private String id;
+	
+	/** The name. */
 	private String name;
-
 
 	/**
 	 * Gets the id.
@@ -45,7 +48,7 @@ public class Dialog {
 	 * @param id
 	 *            the new dialog id
 	 */
-	public void setId(String id) {
+	public void setId(final String id) {
 		this.id = id;
 	}
 
@@ -56,7 +59,7 @@ public class Dialog {
 	 *            the id
 	 * @return the dialog
 	 */
-	public Dialog withDialogId(String id) {
+	public Dialog withDialogId(final String id) {
 		this.id = id;
 		return this;
 	}
@@ -76,7 +79,7 @@ public class Dialog {
 	 * @param name
 	 *            The name
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -87,9 +90,19 @@ public class Dialog {
 	 *            the name
 	 * @return the dialog
 	 */
-	public Dialog withName(String name) {
+	public Dialog withName(final String name) {
 		this.name = name;
 		return this;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }

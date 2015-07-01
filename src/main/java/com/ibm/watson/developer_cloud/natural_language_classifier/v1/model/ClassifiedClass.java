@@ -20,14 +20,17 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 
 /**
- * Classified class used by the {@link NaturalLanguageClassifier} service
- * 
+ * Classified class used by the {@link NaturalLanguageClassifier} service.
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class ClassifiedClass {
 
+	/** The name. */
 	@SerializedName("class_name")
 	private String name;
+	
+	/** The confidence. */
 	private double confidence;
 
 	/**

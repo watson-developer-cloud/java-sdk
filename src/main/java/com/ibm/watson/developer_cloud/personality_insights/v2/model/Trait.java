@@ -21,16 +21,27 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * The personality trait/model POJO class
+ * The personality trait/model POJO class.
  */
 public class Trait {
 
+	/** The id. */
 	private String id;
+	
+	/** The name. */
 	private String name;
+	
+	/** The category. */
 	private String category;
+	
+	/** The percentage. */
 	private double percentage;
+	
+	/** The sampling error. */
 	@SerializedName("sampling_error")
 	private double samplingError;
+	
+	/** The children. */
 	private List<Trait> children;
 
 	/**

@@ -18,9 +18,12 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import com.google.gson.GsonBuilder;
 
-
+/**
+ * The Class SpeechAlternative.
+ */
 public class SpeechAlternative {
 
+	/** The transcript. */
 	private String transcript;
 
 	/**
@@ -38,7 +41,7 @@ public class SpeechAlternative {
 	 * @param transcript
 	 *            The transcript
 	 */
-	public void setTranscript(String transcript) {
+	public void setTranscript(final String transcript) {
 		this.transcript = transcript;
 	}
 
@@ -49,12 +52,14 @@ public class SpeechAlternative {
 	 *            the transcript
 	 * @return the alternative
 	 */
-	public SpeechAlternative withTranscript(String transcript) {
+	public SpeechAlternative withTranscript(final String transcript) {
 		this.transcript = transcript;
 		return this;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

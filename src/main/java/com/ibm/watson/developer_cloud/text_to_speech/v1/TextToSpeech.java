@@ -17,15 +17,18 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceSet;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
@@ -33,15 +36,20 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * The Text to Speech service uses IBM's speech synthesis capabilities to
  * convert English or Spanish text to an audio signal. The audio is streamed
  * back to the client with minimal delay.
- * 
- * @version v1
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
+ * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html">
  *      Text to Speech</a>
  */
 public class TextToSpeech extends WatsonService {
+	
+	/** The url. */
 	private static String URL = "https://stream.watsonplatform.net/text-to-speech/api";
+
+	/** The list voice type. */
+	private Type listVoiceType = new TypeToken<List<Voice>>() {}.getType();
 
 	/**
 	 * Instantiates a new text to speech.
@@ -61,7 +69,8 @@ public class TextToSpeech extends WatsonService {
 	 *            the output format
 	 * @return the input stream
 	 */
-	public InputStream synthesize(String text, Voice voice, String format) {
+	public InputStream synthesize(final String text, final Voice voice,
+			final String format) {
 		if (text == null)
 			throw new IllegalArgumentException("text can not be null");
 		if (voice == null)
@@ -72,9 +81,11 @@ public class TextToSpeech extends WatsonService {
 		request.withQuery("voice", voice.getName());
 
 		if (format != null && !format.startsWith("audio/"))
-			throw new IllegalArgumentException("format needs to be an audio mime type, for example: audio/wav or audio/ogg; codecs=opus");
+			throw new IllegalArgumentException(
+					"format needs to be an audio mime type, for example: audio/wav or audio/ogg; codecs=opus");
 
-		request.withQuery("accept", format != null ? format: MediaType.AUDIO_WAV);
+		request.withQuery("accept", format != null ? format
+				: MediaType.AUDIO_WAV);
 
 		try {
 			HttpResponse response = execute(request.build());
@@ -94,10 +105,9 @@ public class TextToSpeech extends WatsonService {
 	 *            the voice
 	 * @return the input stream
 	 */
-	public InputStream synthesize(String text, Voice voice) {
+	public InputStream synthesize(final String text, final Voice voice) {
 		return synthesize(text, voice, MediaType.AUDIO_WAV);
 	}
-
 
 	/**
 	 * Synthesize.
@@ -105,10 +115,11 @@ public class TextToSpeech extends WatsonService {
 	 * @param text
 	 *            the text
 	 * @param format
-	 *            the format, it needs to be an audio mime type, for example: audio/wav or audio/ogg; codecs=opus
+	 *            the format, it needs to be an audio mime type, for example:
+	 *            audio/wav or audio/ogg; codecs=opus
 	 * @return the input stream
 	 */
-	public InputStream synthesize(String text, String format) {
+	public InputStream synthesize(final String text, final String format) {
 		return synthesize(text, Voice.EN_MICHAEL, format);
 	}
 
@@ -117,13 +128,14 @@ public class TextToSpeech extends WatsonService {
 	 * 
 	 * @return the voices
 	 */
-	public VoiceSet getVoices() {
+	public List<Voice> getVoices() {
 		HttpRequestBase request = Request.Get("/v1/voices").build();
 		try {
 			HttpResponse response = execute(request);
-			String voiceSetJson = ResponseUtil.getString(response);
-			VoiceSet voiceSet = new Gson().fromJson(voiceSetJson, VoiceSet.class);
-			return voiceSet;
+			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+			List<Voice> voices = new Gson().fromJson(
+					jsonObject.get("voices"), listVoiceType);
+			return voices;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

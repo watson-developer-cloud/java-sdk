@@ -16,12 +16,21 @@
 
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The Class HitNode.
+ */
 public class HitNode {
 
+	/** The details. */
 	private String details;
+	
+	/** The label. */
 	private String label;
+	
+	/** The type. */
 	private String type;
 
 	/**
@@ -45,7 +54,7 @@ public class HitNode {
 	 * @param details
 	 *            The details
 	 */
-	public void setDetails(String details) {
+	public void setDetails(final String details) {
 		this.details = details;
 	}
 
@@ -56,7 +65,7 @@ public class HitNode {
 	 *            the details
 	 * @return the hit node
 	 */
-	public HitNode withDetails(String details) {
+	public HitNode withDetails(final String details) {
 		this.details = details;
 		return this;
 	}
@@ -76,7 +85,7 @@ public class HitNode {
 	 * @param label
 	 *            The label
 	 */
-	public void setLabel(String label) {
+	public void setLabel(final String label) {
 		this.label = label;
 	}
 
@@ -87,7 +96,7 @@ public class HitNode {
 	 *            the label
 	 * @return the hit node
 	 */
-	public HitNode withLabel(String label) {
+	public HitNode withLabel(final String label) {
 		this.label = label;
 		return this;
 	}
@@ -107,7 +116,7 @@ public class HitNode {
 	 * @param type
 	 *            The type
 	 */
-	public void setType(String type) {
+	public void setType(final String type) {
 		this.type = type;
 	}
 
@@ -118,7 +127,7 @@ public class HitNode {
 	 *            the type
 	 * @return the hit node
 	 */
-	public HitNode withType(String type) {
+	public HitNode withType(final String type) {
 		this.type = type;
 		return this;
 	}
@@ -138,7 +147,7 @@ public class HitNode {
 	 * @param nodeId
 	 *            The node_id
 	 */
-	public void setNodeId(int nodeId) {
+	public void setNodeId(final int nodeId) {
 		this.nodeId = nodeId;
 	}
 
@@ -149,9 +158,19 @@ public class HitNode {
 	 *            the node id
 	 * @return the hit node
 	 */
-	public HitNode withNodeId(int nodeId) {
+	public HitNode withNodeId(final int nodeId) {
 		this.nodeId = nodeId;
 		return this;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }

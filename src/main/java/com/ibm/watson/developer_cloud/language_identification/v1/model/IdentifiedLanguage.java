@@ -19,13 +19,16 @@ import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.language_identification.v1.LanguageIdentification;
 
 /**
- * Language detected by the {@link LanguageIdentification} service
- * 
+ * Language detected by the {@link LanguageIdentification} service.
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class IdentifiedLanguage {
 
+	/** The id. */
 	private final String id;
+	
+	/** The confidence. */
 	private final Double confidence;
 
 	/**

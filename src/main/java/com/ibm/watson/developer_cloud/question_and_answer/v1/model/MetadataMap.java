@@ -18,15 +18,33 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class MetadataMap.
+ */
 public class MetadataMap {
 
+	/** The docno. */
 	private String DOCNO;
+	
+	/** The _abstract. */
 	private String _abstract;
+	
+	/** The corpus name. */
 	private String corpusName;
+	
+	/** The deepqaid. */
 	private String deepqaid;
+	
+	/** The description. */
 	private String description;
+	
+	/** The file name. */
 	private String fileName;
+	
+	/** The originalfile. */
 	private String originalfile;
+	
+	/** The title. */
 	private String title;
 
 	/**

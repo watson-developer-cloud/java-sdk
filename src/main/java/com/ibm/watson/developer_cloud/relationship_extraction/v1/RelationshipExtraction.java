@@ -28,16 +28,19 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 /**
  * Relationship Extraction intelligently finds relationships between sentence
  * components (nouns, verbs, subjects, objects, etc.)
- * 
- * @version v1
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
+ * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/relationship-extraction.html">
  *      Relationship Extraction</a>
  */
 public class RelationshipExtraction extends WatsonService {
 
+	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/relationship-extraction-beta/api";
+	
+	/** The dataset. */
 	private RelationshipExtractionDataset dataset;
 
 	/**

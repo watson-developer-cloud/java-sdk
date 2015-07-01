@@ -20,26 +20,50 @@ import java.util.Date;
 import com.google.gson.GsonBuilder;
 
 /**
- * The Content to be analyzed
+ * The Content to be analyzed.
  */
 public class ContentItem {
 
+	/** The id. */
 	private String id;
+	
+	/** The sourceid. */
 	private String sourceid;
+	
+	/** The userid. */
 	private String userid;
+	
+	/** The contenttype. */
 	private String contenttype;
+	
+	/** The charset. */
 	private String charset;
+	
+	/** The language. */
 	private String language;
+	
+	/** The content. */
 	private String content;
+	
+	/** The parentid. */
 	private String parentid;
+	
+	/** The created. */
 	private Date created;
+	
+	/** The updated. */
 	private Date updated;
+	
+	/** The reply. */
 	private boolean reply;
+	
+	/** The forward. */
 	private boolean forward;
 
 
 	/**
-	 * Gets the unique identifier for the author of this content
+	 * Gets the unique identifier for the author of this content.
+	 *
 	 * @return the user identifier
 	 */
 	public String getUserid() {
@@ -47,10 +71,9 @@ public class ContentItem {
 	}
 
 	/**
-	 * Sets the unique identifier for the author of this content
-	 * 
-	 * @param userid
-	 *            the new user identifier
+	 * Sets the unique identifier for the author of this content.
+	 *
+	 * @param userid            the new user identifier
 	 */
 	public void setUserid(String userid) {
 		this.userid = userid;
@@ -161,10 +184,9 @@ public class ContentItem {
 	}
 
 	/**
-	 * Sets the character set of the text, for example, "UTF-8"
-	 * 
-	 * @param charset
-	 *            the new character set of the text, for example, "UTF-8"
+	 * Sets the character set of the text, for example, "UTF-8".
+	 *
+	 * @param charset            the new character set of the text, for example, "UTF-8"
 	 */
 	public void setCharset(String charset) {
 		this.charset = charset;

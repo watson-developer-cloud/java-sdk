@@ -22,10 +22,16 @@ import java.util.List;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The Class LabelSet.
+ */
 public class LabelSet {
 
+	/** The label groups. */
 	@SerializedName("label_groups")
 	private List<String> labelGroups = new ArrayList<String>();
+	
+	/** The labels. */
 	@SerializedName("labels")
 	private List<String> labels = new ArrayList<String>();
 

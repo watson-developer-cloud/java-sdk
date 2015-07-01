@@ -21,7 +21,7 @@ import java.util.List;
 import com.google.gson.GsonBuilder;
 
 /**
- * {@link ContentItem} container
+ * {@link ContentItem} container.
  */
 public class Content {
 

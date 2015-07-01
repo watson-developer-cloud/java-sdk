@@ -32,18 +32,19 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 /**
  * The Message Resonance analyzes draft content and scores how well it is likely
  * to be received by a specific target audience.
- * 
+ *
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
- * 
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/message-resonance.html">
  *      Message Resonance</a>
- * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class MessageResonance extends WatsonService {
 
+	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/message-resonance-beta/api";
+	
+	/** The dataset. */
 	private MessageResonanceDataset dataset;
 
 	/**

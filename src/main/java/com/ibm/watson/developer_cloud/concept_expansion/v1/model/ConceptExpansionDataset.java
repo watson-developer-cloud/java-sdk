@@ -19,13 +19,20 @@ import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
 
 /**
- * Dataset used by the {@link ConceptExpansion} service
+ * Dataset used by the {@link ConceptExpansion} service.
  */
 public class ConceptExpansionDataset {
+	
+	/** The Constant TWITTER. */
 	public static final ConceptExpansionDataset TWITTER = new ConceptExpansionDataset("Twitter", "twitter");
+	
+	/** The Constant MT_SAMPLES. */
 	public static final ConceptExpansionDataset MT_SAMPLES = new ConceptExpansionDataset("Medical Transcriptions", "mtsamples");
 
+	/** The id. */
 	private final String id;
+	
+	/** The name. */
 	private final String name;
 
 	/**

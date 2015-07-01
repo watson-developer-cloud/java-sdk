@@ -32,17 +32,16 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * The Watson Personality Insights service uses linguistic analytics to extract
  * a spectrum of cognitive and social characteristics from the text data that a
  * person generates through blogs, tweets, forum posts, and more.
- * 
+ *
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v2
- * 
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/personality-insights.html">
  *      Personality Insights</a>
- * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class PersonalityInsights extends WatsonService {
 
+	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/personality-insights/api";
 
 	/**

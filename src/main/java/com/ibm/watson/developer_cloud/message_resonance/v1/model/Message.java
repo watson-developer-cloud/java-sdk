@@ -23,14 +23,19 @@ import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.message_resonance.v1.MessageResonance;
 
 /**
- * Message returned by the Message Resonance service
- * 
+ * Message returned by the Message Resonance service.
+ *
  * @see MessageResonance
  */
 public class Message {
 
+	/** The text. */
 	private String text;
+	
+	/** The dataset. */
 	private MessageResonanceDataset dataset;
+	
+	/** The resonances. */
 	private List<Resonance> resonances = new ArrayList<Resonance>();
 
 	/**

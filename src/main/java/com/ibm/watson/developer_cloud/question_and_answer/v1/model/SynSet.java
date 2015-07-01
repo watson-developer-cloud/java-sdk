@@ -21,9 +21,15 @@ import java.util.List;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class SynSet.
+ */
 public class SynSet {
 
+	/** The name. */
 	private String name;
+	
+	/** The synonym. */
 	private List<Synonym> synonym = new ArrayList<Synonym>();
 
 	/**

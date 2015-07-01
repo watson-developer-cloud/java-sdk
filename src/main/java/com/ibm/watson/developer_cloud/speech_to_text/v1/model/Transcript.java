@@ -22,9 +22,15 @@ import java.util.List;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The Class Transcript.
+ */
 public class Transcript {
 
+	/** The alternatives. */
 	private List<SpeechAlternative> alternatives = new ArrayList<SpeechAlternative>();
+	
+	/** The _final. */
 	@SerializedName("final")
 	private boolean _final;
 
@@ -43,7 +49,7 @@ public class Transcript {
 	 * @param alternatives
 	 *            The alternatives
 	 */
-	public void setAlternatives(List<SpeechAlternative> alternatives) {
+	public void setAlternatives(final List<SpeechAlternative> alternatives) {
 		this.alternatives = alternatives;
 	}
 
@@ -54,7 +60,8 @@ public class Transcript {
 	 *            the alternatives
 	 * @return the speech
 	 */
-	public Transcript withAlternatives(List<SpeechAlternative> alternatives) {
+	public Transcript withAlternatives(
+			final List<SpeechAlternative> alternatives) {
 		this.alternatives = alternatives;
 		return this;
 	}
@@ -74,7 +81,7 @@ public class Transcript {
 	 * @param _final
 	 *            The final
 	 */
-	public void setFinal(boolean _final) {
+	public void setFinal(final boolean _final) {
 		this._final = _final;
 	}
 
@@ -85,12 +92,14 @@ public class Transcript {
 	 *            the _final
 	 * @return the speech
 	 */
-	public Transcript withFinal(boolean _final) {
+	public Transcript withFinal(final boolean _final) {
 		this._final = _final;
 		return this;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

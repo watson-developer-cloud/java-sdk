@@ -51,6 +51,7 @@ import com.ibm.watson.developer_cloud.util.RequestUtil;
  */
 public class Request {
 
+	/** The Constant UTF_8. */
 	private static final String UTF_8 = "UTF-8";
 
 	/**
@@ -114,12 +115,22 @@ public class Request {
 		return new Request(HttpPut.class, url, args);
 	}
 
+	/** The form params. */
 	private List<NameValuePair> formParams = new ArrayList<NameValuePair>();
+	
+	/** The headers. */
 	private List<NameValuePair> headers = new ArrayList<NameValuePair>();
+	
+	/** The query params. */
 	private List<NameValuePair> queryParams = new ArrayList<NameValuePair>();
 
+	/** The body. */
 	private HttpEntity body;
+	
+	/** The method. */
 	private HttpRequestBase method;
+	
+	/** The url. */
 	private String url;
 
 	/**

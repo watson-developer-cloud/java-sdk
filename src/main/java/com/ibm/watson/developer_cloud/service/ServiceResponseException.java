@@ -20,7 +20,10 @@ package com.ibm.watson.developer_cloud.service;
  */
 public class ServiceResponseException extends RuntimeException {
 
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	
+	/** The status code. */
 	private int statusCode;
 
 	/**

@@ -20,29 +20,49 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 
 /**
- * Classifier used by the {@link NaturalLanguageClassifier} service
- * 
+ * Classifier used by the {@link NaturalLanguageClassifier} service.
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Classifier {
 
+	/** The id. */
 	@SerializedName("classifier_id")
 	private String id;
+	
+	/** The url. */
 	private String url;
+	
+	/** The status. */
 	private Status status;
 
+	/**
+	 * The Enum Status.
+	 */
 	public enum Status {
+		
+		/** The non existent. */
 		@SerializedName("Non Existent")
 		NON_EXISTENT,
+		
+		/** The training. */
 		@SerializedName("Training")
 		TRAINING,
+		
+		/** The failed. */
 		@SerializedName("Failed")
 		FAILED,
+		
+		/** The available. */
 		@SerializedName("Available")
 		AVAILABLE,
+		
+		/** The unavailable. */
 		@SerializedName("Unavailable")
 		UNAVAILABLE
 	}
+	
+	/** The status description. */
 	@SerializedName("status_description")
 	private String statusDescription;
 

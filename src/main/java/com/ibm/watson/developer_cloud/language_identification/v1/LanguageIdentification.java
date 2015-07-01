@@ -29,18 +29,19 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 /**
  * The Language Identification service identifies the language in which text is
  * written.
- * 
+ *
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
- * 
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-identification.html">
  *      Language Identification</a>
- * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class LanguageIdentification extends WatsonService {
 
+	/** The Constant LANG. */
 	private static final String LANG = "lang";
+	
+	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/language-identification-beta/api";
 
 	/**

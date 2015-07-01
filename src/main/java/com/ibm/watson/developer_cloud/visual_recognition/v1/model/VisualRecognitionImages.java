@@ -22,8 +22,12 @@ import java.util.List;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
+/**
+ * The Class VisualRecognitionImages.
+ */
 public class VisualRecognitionImages {
 
+	/** The images. */
 	@Expose
 	private List<RecognizedImage> images = new ArrayList<RecognizedImage>();
 

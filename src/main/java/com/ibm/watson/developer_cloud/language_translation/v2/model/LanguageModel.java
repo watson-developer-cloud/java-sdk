@@ -1,10 +1,11 @@
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 
 /**
- * Language Model used by the {@link LanguageTranslation}
+ * Language Model used by the {@link LanguageTranslation}.
  *
  * @author German Attanasio Ruiz <germanatt@us.ibm.com>
  */
@@ -45,7 +46,7 @@ public class LanguageModel {
 
 	/**
 	 * Gets the model id.
-	 *
+	 * 
 	 * @return The modelId
 	 */
 	public String getModelId() {
@@ -54,27 +55,29 @@ public class LanguageModel {
 
 	/**
 	 * Sets the model id.
-	 *
-	 * @param modelId            The model_id
+	 * 
+	 * @param modelId
+	 *            The model_id
 	 */
-	public void setModelId(String modelId) {
+	public void setModelId(final String modelId) {
 		this.modelId = modelId;
 	}
 
 	/**
 	 * With model id.
-	 *
-	 * @param modelId the model id
+	 * 
+	 * @param modelId
+	 *            the model id
 	 * @return the language model set
 	 */
-	public LanguageModel withModelId(String modelId) {
+	public LanguageModel withModelId(final String modelId) {
 		this.modelId = modelId;
 		return this;
 	}
 
 	/**
 	 * Gets the source.
-	 *
+	 * 
 	 * @return The source
 	 */
 	public String getSource() {
@@ -83,27 +86,29 @@ public class LanguageModel {
 
 	/**
 	 * Sets the source.
-	 *
-	 * @param source            The source
+	 * 
+	 * @param source
+	 *            The source
 	 */
-	public void setSource(String source) {
+	public void setSource(final String source) {
 		this.source = source;
 	}
 
 	/**
 	 * With source.
-	 *
-	 * @param source the source
+	 * 
+	 * @param source
+	 *            the source
 	 * @return the language model set
 	 */
-	public LanguageModel withSource(String source) {
+	public LanguageModel withSource(final String source) {
 		this.source = source;
 		return this;
 	}
 
 	/**
 	 * Gets the target.
-	 *
+	 * 
 	 * @return The target
 	 */
 	public String getTarget() {
@@ -112,27 +117,29 @@ public class LanguageModel {
 
 	/**
 	 * Sets the target.
-	 *
-	 * @param target            The target
+	 * 
+	 * @param target
+	 *            The target
 	 */
-	public void setTarget(String target) {
+	public void setTarget(final String target) {
 		this.target = target;
 	}
 
 	/**
 	 * With target.
-	 *
-	 * @param target the target
+	 * 
+	 * @param target
+	 *            the target
 	 * @return the language model set
 	 */
-	public LanguageModel withTarget(String target) {
+	public LanguageModel withTarget(final String target) {
 		this.target = target;
 		return this;
 	}
 
 	/**
 	 * Gets the base model id.
-	 *
+	 * 
 	 * @return The baseModelId
 	 */
 	public String getBaseModelId() {
@@ -141,27 +148,29 @@ public class LanguageModel {
 
 	/**
 	 * Sets the base model id.
-	 *
-	 * @param baseModelId            The base_model_id
+	 * 
+	 * @param baseModelId
+	 *            The base_model_id
 	 */
-	public void setBaseModelId(String baseModelId) {
+	public void setBaseModelId(final String baseModelId) {
 		this.baseModelId = baseModelId;
 	}
 
 	/**
 	 * With base model id.
-	 *
-	 * @param baseModelId the base model id
+	 * 
+	 * @param baseModelId
+	 *            the base model id
 	 * @return the language model set
 	 */
-	public LanguageModel withBaseModelId(String baseModelId) {
+	public LanguageModel withBaseModelId(final String baseModelId) {
 		this.baseModelId = baseModelId;
 		return this;
 	}
 
 	/**
 	 * Gets the domain.
-	 *
+	 * 
 	 * @return The domain
 	 */
 	public String getDomain() {
@@ -170,27 +179,29 @@ public class LanguageModel {
 
 	/**
 	 * Sets the domain.
-	 *
-	 * @param domain            The domain
+	 * 
+	 * @param domain
+	 *            The domain
 	 */
-	public void setDomain(String domain) {
+	public void setDomain(final String domain) {
 		this.domain = domain;
 	}
 
 	/**
 	 * With domain.
-	 *
-	 * @param domain the domain
+	 * 
+	 * @param domain
+	 *            the domain
 	 * @return the language model set
 	 */
-	public LanguageModel withDomain(String domain) {
+	public LanguageModel withDomain(final String domain) {
 		this.domain = domain;
 		return this;
 	}
 
 	/**
 	 * Checks if is customizable.
-	 *
+	 * 
 	 * @return The customizable
 	 */
 	public boolean isCustomizable() {
@@ -199,27 +210,29 @@ public class LanguageModel {
 
 	/**
 	 * Sets the customizable.
-	 *
-	 * @param customizable            The customizable
+	 * 
+	 * @param customizable
+	 *            The customizable
 	 */
-	public void setCustomizable(boolean customizable) {
+	public void setCustomizable(final boolean customizable) {
 		this.customizable = customizable;
 	}
 
 	/**
 	 * With customizable.
-	 *
-	 * @param customizable the customizable
+	 * 
+	 * @param customizable
+	 *            the customizable
 	 * @return the language model set
 	 */
-	public LanguageModel withCustomizable(boolean customizable) {
+	public LanguageModel withCustomizable(final boolean customizable) {
 		this.customizable = customizable;
 		return this;
 	}
 
 	/**
 	 * Checks if is default model.
-	 *
+	 * 
 	 * @return The defaultModel
 	 */
 	public boolean isDefaultModel() {
@@ -228,27 +241,29 @@ public class LanguageModel {
 
 	/**
 	 * Sets the default model.
-	 *
-	 * @param defaultModel            The default_model
+	 * 
+	 * @param defaultModel
+	 *            The default_model
 	 */
-	public void setDefaultModel(boolean defaultModel) {
+	public void setDefaultModel(final boolean defaultModel) {
 		this.defaultModel = defaultModel;
 	}
 
 	/**
 	 * With default model.
-	 *
-	 * @param defaultModel the default model
+	 * 
+	 * @param defaultModel
+	 *            the default model
 	 * @return the language model set
 	 */
-	public LanguageModel withDefaultModel(boolean defaultModel) {
+	public LanguageModel withDefaultModel(final boolean defaultModel) {
 		this.defaultModel = defaultModel;
 		return this;
 	}
 
 	/**
 	 * Gets the owner.
-	 *
+	 * 
 	 * @return The owner
 	 */
 	public String getOwner() {
@@ -257,27 +272,29 @@ public class LanguageModel {
 
 	/**
 	 * Sets the owner.
-	 *
-	 * @param owner            The owner
+	 * 
+	 * @param owner
+	 *            The owner
 	 */
-	public void setOwner(String owner) {
+	public void setOwner(final String owner) {
 		this.owner = owner;
 	}
 
 	/**
 	 * With owner.
-	 *
-	 * @param owner the owner
+	 * 
+	 * @param owner
+	 *            the owner
 	 * @return the language model set
 	 */
-	public LanguageModel withOwner(String owner) {
+	public LanguageModel withOwner(final String owner) {
 		this.owner = owner;
 		return this;
 	}
 
 	/**
 	 * Gets the status.
-	 *
+	 * 
 	 * @return The status
 	 */
 	public String getStatus() {
@@ -286,27 +303,29 @@ public class LanguageModel {
 
 	/**
 	 * Sets the status.
-	 *
-	 * @param status            The status
+	 * 
+	 * @param status
+	 *            The status
 	 */
-	public void setStatus(String status) {
+	public void setStatus(final String status) {
 		this.status = status;
 	}
 
 	/**
 	 * With status.
-	 *
-	 * @param status the status
+	 * 
+	 * @param status
+	 *            the status
 	 * @return the language model set
 	 */
-	public LanguageModel withStatus(String status) {
+	public LanguageModel withStatus(final String status) {
 		this.status = status;
 		return this;
 	}
 
 	/**
 	 * Gets the name.
-	 *
+	 * 
 	 * @return The name
 	 */
 	public String getName() {
@@ -315,22 +334,34 @@ public class LanguageModel {
 
 	/**
 	 * Sets the name.
-	 *
-	 * @param name            The name
+	 * 
+	 * @param name
+	 *            The name
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
 	/**
 	 * With name.
-	 *
-	 * @param name the name
+	 * 
+	 * @param name
+	 *            the name
 	 * @return the language model set
 	 */
-	public LanguageModel withName(String name) {
+	public LanguageModel withName(final String name) {
 		this.name = name;
 		return this;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }

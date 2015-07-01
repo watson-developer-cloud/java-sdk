@@ -52,6 +52,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public abstract class WatsonService {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(WatsonService.class
 			.getName());
 
@@ -65,9 +66,9 @@ public abstract class WatsonService {
 	private static final String AUTHORIZATION = "Authorization";
 
 	/**
-	 * Field CONNECTION_TIMEOUT. (value is 20000)
+	 * Field CONNECTION_TIMEOUT. (value is 60000)
 	 */
-	private static final int CONNECTION_TIMEOUT = 20000;
+	private static final int CONNECTION_TIMEOUT = 60000;
 	/**
 	 * Field MAX_TOTAL_CONNECTIONS. (value is 10)
 	 */
@@ -169,7 +170,9 @@ public abstract class WatsonService {
 		// There was a Client Error 4xx or a Server Error 5xx
 		// Get the error message and create the exception
 		String error = getErrorMessage(response);
-		log.log(Level.SEVERE, "Error message from service:" + error);
+		log.log(Level.SEVERE, "HTTP Status: " + status);
+		log.log(Level.SEVERE, "Error message from service: " + error);
+	
 
 		switch (status) {
 		case HttpStatus.SC_BAD_REQUEST: // HTTP 400

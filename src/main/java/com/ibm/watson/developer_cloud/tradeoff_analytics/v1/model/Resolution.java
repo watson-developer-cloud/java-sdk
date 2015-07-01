@@ -21,23 +21,27 @@ import java.util.List;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class Resolution.
+ */
 public class Resolution {
 
+	/** The solutions. */
 	private List<Solution> solutions = new ArrayList<Solution>();
 
 	/**
-	 * 
-	 * @return
-	 *     The solutions
+	 * Gets the solutions.
+	 *
+	 * @return     The solutions
 	 */
 	public List<Solution> getSolutions() {
 		return solutions;
 	}
 
 	/**
-	 * 
-	 * @param solutions
-	 *     The solutions
+	 * Sets the solutions.
+	 *
+	 * @param solutions     The solutions
 	 */
 	public void setSolutions(List<Solution> solutions) {
 		this.solutions = solutions;

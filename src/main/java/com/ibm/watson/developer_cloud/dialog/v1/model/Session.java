@@ -18,18 +18,30 @@ package com.ibm.watson.developer_cloud.dialog.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The Class Session.
+ */
 public class Session {
 
+	/** The hit nodes. */
 	@SerializedName("hit_nodes")
 	private List<HitNode> hitNodes = new ArrayList<HitNode>();
-	@SerializedName("Session_id")
-	private int SessionId;
+	
+	/** The conversation id. */
+	@SerializedName("conversation_id")
+	private int conversationId;
+	
+	/** The client id. */
 	@SerializedName("client_id")
-
 	private int clientId;
+	
+	/** The messages. */
 	private List<Message> messages = new ArrayList<Message>();
+	
+	/** The profile. */
 	private List<NameValue> profile = new ArrayList<NameValue>();
 
 	/**
@@ -47,7 +59,7 @@ public class Session {
 	 * @param hitNodes
 	 *            The hit_nodes
 	 */
-	public void setHitNodes(List<HitNode> hitNodes) {
+	public void setHitNodes(final List<HitNode> hitNodes) {
 		this.hitNodes = hitNodes;
 	}
 
@@ -58,7 +70,7 @@ public class Session {
 	 *            the hit nodes
 	 * @return the Session
 	 */
-	public Session withHitNodes(List<HitNode> hitNodes) {
+	public Session withHitNodes(final List<HitNode> hitNodes) {
 		this.hitNodes = hitNodes;
 		return this;
 	}
@@ -69,7 +81,7 @@ public class Session {
 	 * @return The SessionId
 	 */
 	public int getSessionId() {
-		return SessionId;
+		return conversationId;
 	}
 
 	/**
@@ -78,8 +90,8 @@ public class Session {
 	 * @param SessionId
 	 *            The Session_id
 	 */
-	public void setSessionId(int SessionId) {
-		this.SessionId = SessionId;
+	public void setSessionId(final int SessionId) {
+		this.conversationId = SessionId;
 	}
 
 	/**
@@ -89,8 +101,8 @@ public class Session {
 	 *            the Session id
 	 * @return the Session
 	 */
-	public Session withSessionId(int SessionId) {
-		this.SessionId = SessionId;
+	public Session withSessionId(final int SessionId) {
+		this.conversationId = SessionId;
 		return this;
 	}
 
@@ -109,7 +121,7 @@ public class Session {
 	 * @param clientId
 	 *            The client_id
 	 */
-	public void setClientId(int clientId) {
+	public void setClientId(final int clientId) {
 		this.clientId = clientId;
 	}
 
@@ -140,7 +152,7 @@ public class Session {
 	 * @param messages
 	 *            The messages
 	 */
-	public void setMessages(List<Message> messages) {
+	public void setMessages(final List<Message> messages) {
 		this.messages = messages;
 	}
 
@@ -151,7 +163,7 @@ public class Session {
 	 *            the messages
 	 * @return the Session
 	 */
-	public Session withMessages(List<Message> messages) {
+	public Session withMessages(final List<Message> messages) {
 		this.messages = messages;
 		return this;
 	}
@@ -171,7 +183,7 @@ public class Session {
 	 * @param profile
 	 *            The profile
 	 */
-	public void setProfile(List<NameValue> profile) {
+	public void setProfile(final List<NameValue> profile) {
 		this.profile = profile;
 	}
 
@@ -182,9 +194,19 @@ public class Session {
 	 *            the profile
 	 * @return the Session
 	 */
-	public Session withProfile(List<NameValue> profile) {
+	public Session withProfile(final List<NameValue> profile) {
 		this.profile = profile;
 		return this;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }

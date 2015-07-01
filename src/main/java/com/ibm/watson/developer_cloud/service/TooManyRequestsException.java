@@ -21,7 +21,10 @@ package com.ibm.watson.developer_cloud.service;
  */
 public class TooManyRequestsException extends ServiceResponseException {
 
+	/** The Constant TOO_MANY_REQUESTS. */
 	private static final int TOO_MANY_REQUESTS = 429;
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

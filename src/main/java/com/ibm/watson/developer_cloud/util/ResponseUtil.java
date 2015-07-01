@@ -32,14 +32,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 /**
- * Utility class to manage service responses
- * 
+ * Utility class to manage service responses.
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see org.apache.http.HttpResponse HttpResponse
  */
 public class ResponseUtil {
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(ResponseUtil.class
 			.getName());
+	
+	/** The Constant BUFFER_SIZE. */
 	public static final int BUFFER_SIZE = 8192; // 8 kb
 
 	/**
@@ -80,12 +84,11 @@ public class ResponseUtil {
 
 	/**
 	 * Returns a {@link JsonArray} representation of the response.
-	 * 
-	 * @param response
-	 *            an HTTP response
-	 * @throws IOException  If an input or output 
-	 * 						exception occurred
+	 *
+	 * @param response            an HTTP response
 	 * @return the content body as JsonArray
+	 * @throws IOException  If an input or output
+	 * 						exception occurred
 	 */
 	public static JsonArray getJsonArray(HttpResponse response)
 			throws IOException {
@@ -96,12 +99,11 @@ public class ResponseUtil {
 
 	/**
 	 * Returns a {@link JsonObject} representation of the response.
-	 * 
-	 * @param response
-	 *            an HTTP response
-	 * @throws IOException  If an input or output 
-	 * 						exception occurred
+	 *
+	 * @param response            an HTTP response
 	 * @return the content body as JSONArray
+	 * @throws IOException  If an input or output
+	 * 						exception occurred
 	 */
 	public static JsonObject getJsonObject(HttpResponse response) throws IOException {
 		return getJsonElement(response).getAsJsonObject();

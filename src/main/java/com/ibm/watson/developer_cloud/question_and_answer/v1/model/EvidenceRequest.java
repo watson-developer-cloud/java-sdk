@@ -18,9 +18,15 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class EvidenceRequest.
+ */
 public class EvidenceRequest {
 
+	/** The items. */
 	private int items;
+	
+	/** The profile. */
 	private String profile;
 
 	/**

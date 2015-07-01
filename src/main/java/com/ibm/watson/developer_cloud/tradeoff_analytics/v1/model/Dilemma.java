@@ -24,45 +24,54 @@ import com.google.gson.GsonBuilder;
  */
 public class Dilemma {
 
+	/** The problem. */
 	private Problem problem;
+	
+	/** The resolution. */
 	private Resolution resolution;
 
 	/**
-	 * 
-	 * @return
-	 *     The problem
+	 * Gets the problem.
+	 *
+	 * @return     The problem
 	 */
 	public Problem getProblem() {
 		return problem;
 	}
 
 	/**
-	 * 
-	 * @param problem
-	 *     The problem
+	 * Sets the problem.
+	 *
+	 * @param problem     The problem
 	 */
 	public void setProblem(Problem problem) {
 		this.problem = problem;
 	}
 
+	/**
+	 * With problem.
+	 *
+	 * @param problem the problem
+	 * @return the dilemma
+	 */
 	public Dilemma withProblem(Problem problem) {
 		this.problem = problem;
 		return this;
 	}
 
 	/**
-	 * 
-	 * @return
-	 *     The resolution
+	 * Gets the resolution.
+	 *
+	 * @return     The resolution
 	 */
 	public Resolution getResolution() {
 		return resolution;
 	}
 
 	/**
-	 * 
-	 * @param resolution
-	 *     The resolution
+	 * Sets the resolution.
+	 *
+	 * @param resolution     The resolution
 	 */
 	public void setResolution(Resolution resolution) {
 		this.resolution = resolution;

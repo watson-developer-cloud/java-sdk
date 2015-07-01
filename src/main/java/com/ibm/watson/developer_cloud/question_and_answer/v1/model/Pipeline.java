@@ -19,8 +19,12 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The Class Pipeline.
+ */
 public class Pipeline {
 
+	/** The watson answer. */
 	@SerializedName("question")
 	private WatsonAnswer watsonAnswer;
 

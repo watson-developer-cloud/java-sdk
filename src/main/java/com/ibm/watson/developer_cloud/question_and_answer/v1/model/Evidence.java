@@ -18,15 +18,33 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class Evidence.
+ */
 public class Evidence {
 
+	/** The copyright. */
 	private String copyright;
+	
+	/** The document. */
 	private String document;
+	
+	/** The id. */
 	private String id;
+	
+	/** The metadata map. */
 	private MetadataMap metadataMap;
+	
+	/** The terms of use. */
 	private String termsOfUse;
+	
+	/** The text. */
 	private String text;
+	
+	/** The title. */
 	private String title;
+	
+	/** The value. */
 	private String value;
 
 	/**

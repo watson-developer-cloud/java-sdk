@@ -22,25 +22,56 @@ import java.util.List;
 import com.google.gson.GsonBuilder;
 
 /**
- * A POJO class with the question and the answers
+ * A POJO class with the question and the answers.
  */
 public class WatsonAnswer {
 
+	/** The answers. */
 	private List<Answer> answers = new ArrayList<Answer>();
+	
+	/** The category. */
 	private String category;
+	
+	/** The error notifications. */
 	private List<Object> errorNotifications = new ArrayList<Object>();
+	
+	/** The evidence request. */
 	private EvidenceRequest evidenceRequest;
+	
+	/** The evidencelist. */
 	private List<Evidence> evidencelist = new ArrayList<Evidence>();
+	
+	/** The focuslist. */
 	private List<Focus> focuslist = new ArrayList<Focus>();
+	
+	/** The formatted answer. */
 	private boolean formattedAnswer;
+	
+	/** The id. */
 	private String id;
+	
+	/** The items. */
 	private int items;
+	
+	/** The latlist. */
 	private List<Latlist> latlist = new ArrayList<Latlist>();
+	
+	/** The passthru. */
 	private String passthru;
+	
+	/** The pipelineid. */
 	private String pipelineid;
+	
+	/** The qclasslist. */
 	private List<QClassList> qclasslist = new ArrayList<QClassList>();
+	
+	/** The question text. */
 	private String questionText;
+	
+	/** The status. */
 	private String status;
+	
+	/** The synonym list. */
 	private List<SynonymList> synonymList = new ArrayList<SynonymList>();
 
 	/**

@@ -18,18 +18,42 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class Question.
+ */
 public class Question {
 
+	/** The question text. */
 	private String questionText;
+	
+	/** The items. */
 	private Integer items;
+	
+	/** The evidence request. */
 	private EvidenceRequest evidenceRequest;
+	
+	/** The answer assertion. */
 	private String answerAssertion;
+	
+	/** The category. */
 	private String category;
+	
+	/** The context. */
 	private String context;
+	
+	/** The formatted answer. */
 	private boolean formattedAnswer;
+	
+	/** The passthru. */
 	private String passthru;
+	
+	/** The synonyms. */
 	private String synonyms;
+	
+	/** The lat. */
 	private String lat;
+	
+	/** The filters. */
 	private Filters filters;
 
 	/**

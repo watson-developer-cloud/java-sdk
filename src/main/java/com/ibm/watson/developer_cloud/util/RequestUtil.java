@@ -30,6 +30,8 @@ import org.apache.http.protocol.HTTP;
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class RequestUtil {
+	
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(RequestUtil.class
 			.getName());
 	

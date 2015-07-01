@@ -23,6 +23,7 @@ import com.google.gson.GsonBuilder;
  */
 public class WatsonQuestion {
 
+	/** The question. */
 	private Question question;
 
 	/**

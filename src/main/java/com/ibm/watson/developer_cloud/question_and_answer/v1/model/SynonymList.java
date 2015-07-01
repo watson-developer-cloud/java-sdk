@@ -26,9 +26,16 @@ import com.google.gson.GsonBuilder;
  */
 public class SynonymList {
 
+	/** The lemma. */
 	private String lemma;
+	
+	/** The part of speech. */
 	private String partOfSpeech;
+	
+	/** The syn set. */
 	private List<SynSet> synSet = new ArrayList<SynSet>();
+	
+	/** The value. */
 	private String value;
 
 	/**

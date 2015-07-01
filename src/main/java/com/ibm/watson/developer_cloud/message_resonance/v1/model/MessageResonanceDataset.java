@@ -19,14 +19,20 @@ import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.message_resonance.v1.MessageResonance;
 
 /**
- * Dataset used by the {@link MessageResonance} service
+ * Dataset used by the {@link MessageResonance} service.
  */
 public class MessageResonanceDataset {
 
+	/** The Constant CLOUD. */
 	public static final MessageResonanceDataset CLOUD = new MessageResonanceDataset("Cloud Computing", 1);
+	
+	/** The Constant BIG_DATA. */
 	public static final MessageResonanceDataset BIG_DATA = new MessageResonanceDataset("Big Data & Analytics", 2);
 
+	/** The id. */
 	private final int id;
+	
+	/** The name. */
 	private final String name;
 
 	/**

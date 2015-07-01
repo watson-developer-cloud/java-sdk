@@ -16,13 +16,22 @@
 
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The Class Message.
+ */
 public class Message {
 
+	/** The text. */
 	private String text;
+	
+	/** The date time. */
 	@SerializedName("date_time")
 	private String dateTime;
+	
+	/** The from client. */
 	@SerializedName("from_client")
 	private String fromClient;
 
@@ -41,7 +50,7 @@ public class Message {
 	 * @param text
 	 *            The text
 	 */
-	public void setText(String text) {
+	public void setText(final String text) {
 		this.text = text;
 	}
 
@@ -52,7 +61,7 @@ public class Message {
 	 *            the text
 	 * @return the message
 	 */
-	public Message withText(String text) {
+	public Message withText(final String text) {
 		this.text = text;
 		return this;
 	}
@@ -72,7 +81,7 @@ public class Message {
 	 * @param dateTime
 	 *            The date_time
 	 */
-	public void setDateTime(String dateTime) {
+	public void setDateTime(final String dateTime) {
 		this.dateTime = dateTime;
 	}
 
@@ -83,7 +92,7 @@ public class Message {
 	 *            the date time
 	 * @return the message
 	 */
-	public Message withDateTime(String dateTime) {
+	public Message withDateTime(final String dateTime) {
 		this.dateTime = dateTime;
 		return this;
 	}
@@ -103,7 +112,7 @@ public class Message {
 	 * @param fromClient
 	 *            The from_client
 	 */
-	public void setFromClient(String fromClient) {
+	public void setFromClient(final String fromClient) {
 		this.fromClient = fromClient;
 	}
 
@@ -114,9 +123,19 @@ public class Message {
 	 *            the from client
 	 * @return the message
 	 */
-	public Message withFromClient(String fromClient) {
+	public Message withFromClient(final String fromClient) {
 		this.fromClient = fromClient;
 		return this;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }

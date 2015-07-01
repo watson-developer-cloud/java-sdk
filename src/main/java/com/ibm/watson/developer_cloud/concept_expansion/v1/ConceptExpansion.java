@@ -40,22 +40,28 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 /**
  * The Concept Expansion service analyzes text and interprets its meaning based
  * on usage in other similar contexts.
- * 
+ *
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
- * 
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept-expansion.html">
  *      Concept Expansion</a>
- * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
- * 
  */
 public class ConceptExpansion extends WatsonService {
 
+	/** The Constant PARAM_STATE. */
 	private static final String PARAM_STATE = "state";
+	
+	/** The Constant PARAM_JOBID. */
 	private static final String PARAM_JOBID = "jobid";
+	
+	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/concept-expansion-beta/api";
+	
+	/** The Constant decoderHash. */
 	private static final Map<String, String> decoderHash = new HashMap<String, String>();
+	
+	/** The dataset. */
 	private ConceptExpansionDataset dataset;
 
 	static {
@@ -169,12 +175,9 @@ public class ConceptExpansion extends WatsonService {
 
 	/**
 	 * Map JSON concepts to POJO Objects.
-	 * 
-	 * @param conceptsJson
-	 *            the concepts as json
+	 *
+	 * @param conceptsJson            the concepts as json
 	 * @return the list
-	 * @throws JSONException
-	 *             the JSON exception
 	 */
 	private List<Concept> formatConcepts(JsonObject conceptsJson) {
 		JsonArray conceptArray = conceptsJson.get("return_seeds").getAsJsonArray();

@@ -46,6 +46,8 @@ public class BadRequestException extends ServiceResponseException {
 	public BadRequestException(String message) {
 		super(HttpStatus.SC_BAD_REQUEST, message);
 	}
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 }

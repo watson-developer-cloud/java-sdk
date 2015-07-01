@@ -21,11 +21,21 @@ import java.util.HashMap;
 import com.google.gson.GsonBuilder;
 
 
+/**
+ * The Class Option.
+ */
 public class Option {
 
+	/** The key. */
 	private String key;
+	
+	/** The name. */
 	private String name;
+	
+	/** The values. */
 	private HashMap<String,String> values;
+	
+	/** The description html. */
 	private String descriptionHtml;
 
 

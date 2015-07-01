@@ -20,6 +20,9 @@ import java.util.List;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class Filters.
+ */
 public class Filters {
 
 	/**

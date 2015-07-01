@@ -22,9 +22,15 @@ import java.util.List;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The Class SpeechResults.
+ */
 public class SpeechResults {
 
+	/** The results. */
 	private List<Transcript> results = new ArrayList<Transcript>();
+	
+	/** The result index. */
 	@SerializedName("result_index")
 	private int resultIndex;
 
@@ -43,7 +49,7 @@ public class SpeechResults {
 	 * @param results
 	 *            The results
 	 */
-	public void setResults(List<Transcript> results) {
+	public void setResults(final List<Transcript> results) {
 		this.results = results;
 	}
 
@@ -54,7 +60,7 @@ public class SpeechResults {
 	 *            the results
 	 * @return the speech results
 	 */
-	public SpeechResults withResults(List<Transcript> results) {
+	public SpeechResults withResults(final List<Transcript> results) {
 		this.results = results;
 		return this;
 	}
@@ -74,7 +80,7 @@ public class SpeechResults {
 	 * @param resultIndex
 	 *            The result_index
 	 */
-	public void setResultIndex(int resultIndex) {
+	public void setResultIndex(final int resultIndex) {
 		this.resultIndex = resultIndex;
 	}
 
@@ -85,12 +91,14 @@ public class SpeechResults {
 	 *            the result index
 	 * @return the speech results
 	 */
-	public SpeechResults withResultIndex(int resultIndex) {
+	public SpeechResults withResultIndex(final int resultIndex) {
 		this.resultIndex = resultIndex;
 		return this;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

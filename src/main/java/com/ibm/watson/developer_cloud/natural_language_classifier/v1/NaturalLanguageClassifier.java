@@ -41,20 +41,21 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * answering a question. After training, the service returns information for
  * texts that it hasn't seen before. The response includes the name of the top
  * classes and confidence values.
- * 
- * @version v1
- * 
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html"> Natural Language Classifier</a>
- * 
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
+ * @version v1
+ * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html"> Natural Language Classifier</a>
  */
 public class NaturalLanguageClassifier extends WatsonService {
 
+	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/natural-language-classifier-experimental/api";
 
+	/** The Constant log. */
 	private static final Logger log = Logger
 			.getLogger(NaturalLanguageClassifier.class.getName());
 
+	/** The list type. */
 	private Type listType = new TypeToken<List<Classifier>>() {
 	}.getType();
 
@@ -111,12 +112,10 @@ public class NaturalLanguageClassifier extends WatsonService {
 	}
 
 	/**
-	 * Returns classification information for a classifier on a phrase
-	 * 
-	 * @param classifierId
-	 *            The classifier id
-	 * @param text
-	 *            The submitted phrase to classify
+	 * Returns classification information for a classifier on a phrase.
+	 *
+	 * @param classifierId            The classifier id
+	 * @param text            The submitted phrase to classify
 	 * @return the classification of a phrase with a given classifier
 	 */
 	public Classification classify(String classifierId, String text) {
@@ -149,8 +148,8 @@ public class NaturalLanguageClassifier extends WatsonService {
 	}
 
 	/**
-	 * Retrieves the list of classifiers for the user
-	 * 
+	 * Retrieves the list of classifiers for the user.
+	 *
 	 * @return the classifier list
 	 * @see Classifier
 	 */
@@ -169,8 +168,9 @@ public class NaturalLanguageClassifier extends WatsonService {
 	}
 
 	/**
-	 * Deletes a classifier
-	 * @param classifierId the classifier ID 
+	 * Deletes a classifier.
+	 *
+	 * @param classifierId the classifier ID
 	 * @see Classifier
 	 */
 	public void deleteClassifier(String classifierId) {
@@ -183,9 +183,9 @@ public class NaturalLanguageClassifier extends WatsonService {
 	}
 
 	/**
-	 * Retrieves a classifier
-	 * 
-	 * @param classifierId the classifier ID 
+	 * Retrieves a classifier.
+	 *
+	 * @param classifierId the classifier ID
 	 * @return the classifier list
 	 * @see Classifier
 	 */

@@ -25,9 +25,22 @@ import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
  */
 public class Job {
 
+	/**
+	 * The Enum Status.
+	 */
 	public enum Status {
-		AWAITING_WORK("Awaiting Work", "A"), IN_FLIGHT("In Flight", "G"), FAILED(
-				"Failed", "F"), RETRIEVED("Retrieved", "R"), DONE("Done", "D");
+		
+		/** The awaiting work. */
+		AWAITING_WORK("Awaiting Work", "A"), 
+ /** The in flight. */
+ IN_FLIGHT("In Flight", "G"), 
+ /** The failed. */
+ FAILED(
+				"Failed", "F"), 
+ /** The retrieved. */
+ RETRIEVED("Retrieved", "R"), 
+ /** The done. */
+ DONE("Done", "D");
 
 		/**
 		 * Returns the job status that match the given id.
@@ -44,7 +57,10 @@ public class Job {
 			return null;
 		}
 
+		/** The id. */
 		private String id;
+		
+		/** The name. */
 		private String name;
 
 		/**
@@ -81,7 +97,10 @@ public class Job {
 		}
 	}
 
+	/** The status. */
 	private Status status;
+	
+	/** The id. */
 	@SerializedName("jobid")
 	private String id;
 

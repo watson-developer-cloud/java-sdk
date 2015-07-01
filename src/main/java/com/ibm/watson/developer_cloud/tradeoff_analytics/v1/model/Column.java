@@ -20,14 +20,26 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 
+/**
+ * The Class Column.
+ */
 public class Column {
 
+	/** The key. */
 	private String key;
+	
+	/** The full name. */
 	@SerializedName("full_name")
 	private String fullName;
+	
+	/** The type. */
 	private String type;
+	
+	/** The is objective. */
 	@SerializedName("is_objective")
 	private boolean isObjective;
+	
+	/** The goal. */
 	private String goal;
 
 

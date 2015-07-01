@@ -4,13 +4,14 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Speech session used by {@link SpeechToText}
+ * Speech session used by {@link SpeechToText}.
  */
 public class SpeechSession {
 
 	/** The cookie session. */
+	@SerializedName("cookie_session")
 	private String cookieSession;
-	
+
 	/** The new session uri. */
 	@SerializedName("new_session_uri")
 	private String newSessionUri;
@@ -18,20 +19,20 @@ public class SpeechSession {
 	/** The observe result. */
 	@SerializedName("observe_result")
 	private String observeResult;
-	
+
 	/** The recognize. */
 	private String recognize;
-	
+
 	/** The recognize ws. */
 	private String recognizeWS;
-	
+
 	/** The session id. */
 	@SerializedName("session_id")
 	private String sessionId;
 
 	/**
 	 * Gets the cookie session.
-	 *
+	 * 
 	 * @return the cookie session
 	 */
 	public String getCookieSession() {
@@ -40,7 +41,7 @@ public class SpeechSession {
 
 	/**
 	 * Gets the new session uri.
-	 *
+	 * 
 	 * @return The newSessionUri
 	 */
 	public String getNewSessionUri() {
@@ -49,7 +50,7 @@ public class SpeechSession {
 
 	/**
 	 * Gets the observe result.
-	 *
+	 * 
 	 * @return The observeResult
 	 */
 	public String getObserveResult() {
@@ -58,7 +59,7 @@ public class SpeechSession {
 
 	/**
 	 * Gets the recognize.
-	 *
+	 * 
 	 * @return The recognize
 	 */
 	public String getRecognize() {
@@ -67,7 +68,7 @@ public class SpeechSession {
 
 	/**
 	 * Gets the recognize ws.
-	 *
+	 * 
 	 * @return The recognizeWS
 	 */
 	public String getRecognizeWS() {
@@ -76,7 +77,7 @@ public class SpeechSession {
 
 	/**
 	 * Gets the session id.
-	 *
+	 * 
 	 * @return The sessionId
 	 */
 	public String getSessionId() {
@@ -85,8 +86,9 @@ public class SpeechSession {
 
 	/**
 	 * Sets the cookie session.
-	 *
-	 * @param cookieSession the new cookie session
+	 * 
+	 * @param cookieSession
+	 *            the new cookie session
 	 */
 	public void setCookieSession(final String cookieSession) {
 		this.cookieSession = cookieSession;
@@ -94,8 +96,9 @@ public class SpeechSession {
 
 	/**
 	 * Sets the new session uri.
-	 *
-	 * @param newSessionUri            The new_session_uri
+	 * 
+	 * @param newSessionUri
+	 *            The new_session_uri
 	 */
 	public void setNewSessionUri(final String newSessionUri) {
 		this.newSessionUri = newSessionUri;
@@ -103,8 +106,9 @@ public class SpeechSession {
 
 	/**
 	 * Sets the observe result.
-	 *
-	 * @param observeResult            The observe_result
+	 * 
+	 * @param observeResult
+	 *            The observe_result
 	 */
 	public void setObserveResult(final String observeResult) {
 		this.observeResult = observeResult;
@@ -112,8 +116,9 @@ public class SpeechSession {
 
 	/**
 	 * Sets the recognize.
-	 *
-	 * @param recognize            The recognize
+	 * 
+	 * @param recognize
+	 *            The recognize
 	 */
 	public void setRecognize(final String recognize) {
 		this.recognize = recognize;
@@ -121,8 +126,9 @@ public class SpeechSession {
 
 	/**
 	 * Sets the recognize ws.
-	 *
-	 * @param recognizeWS            The recognizeWS
+	 * 
+	 * @param recognizeWS
+	 *            The recognizeWS
 	 */
 	public void setRecognizeWS(final String recognizeWS) {
 		this.recognizeWS = recognizeWS;
@@ -130,8 +136,9 @@ public class SpeechSession {
 
 	/**
 	 * Sets the session id.
-	 *
-	 * @param sessionId            The session_id
+	 * 
+	 * @param sessionId
+	 *            The session_id
 	 */
 	public void setSessionId(final String sessionId) {
 		this.sessionId = sessionId;
@@ -139,8 +146,9 @@ public class SpeechSession {
 
 	/**
 	 * With new session uri.
-	 *
-	 * @param newSessionUri the new session uri
+	 * 
+	 * @param newSessionUri
+	 *            the new session uri
 	 * @return the speech session
 	 */
 	public SpeechSession withNewSessionUri(final String newSessionUri) {
@@ -150,8 +158,9 @@ public class SpeechSession {
 
 	/**
 	 * With observe result.
-	 *
-	 * @param observeResult the observe result
+	 * 
+	 * @param observeResult
+	 *            the observe result
 	 * @return the speech session
 	 */
 	public SpeechSession withObserveResult(final String observeResult) {
@@ -161,8 +170,9 @@ public class SpeechSession {
 
 	/**
 	 * With recognize.
-	 *
-	 * @param recognize the recognize
+	 * 
+	 * @param recognize
+	 *            the recognize
 	 * @return the speech session
 	 */
 	public SpeechSession withRecognize(final String recognize) {
@@ -172,8 +182,9 @@ public class SpeechSession {
 
 	/**
 	 * With recognize ws.
-	 *
-	 * @param recognizeWS the recognize ws
+	 * 
+	 * @param recognizeWS
+	 *            the recognize ws
 	 * @return the speech session
 	 */
 	public SpeechSession withRecognizeWS(final String recognizeWS) {
@@ -183,16 +194,19 @@ public class SpeechSession {
 
 	/**
 	 * With session id.
-	 *
-	 * @param sessionId the session id
+	 * 
+	 * @param sessionId
+	 *            the session id
 	 * @return the speech session
 	 */
 	public SpeechSession withSessionId(final String sessionId) {
 		this.sessionId = sessionId;
 		return this;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

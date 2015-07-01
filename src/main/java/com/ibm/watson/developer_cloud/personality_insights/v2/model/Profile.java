@@ -23,11 +23,19 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Profile {
 
+	/** The id. */
 	private String id;
+	
+	/** The source. */
 	private String source;
+	
+	/** The tree. */
 	private Trait tree;
+	
+	/** The word_count. */
 	private int word_count;
 
+	/** The word count message. */
 	@SerializedName("word_count_message")
 	private String wordCountMessage;
 
@@ -43,10 +51,9 @@ public class Profile {
 
 	/**
 	 * Sets a message indicating the number of words found and where that
-	 * value falls in the range of required/suggested number of words
-	 * 
-	 * @param wordCountMessage
-	 *            the new word count message
+	 * value falls in the range of required/suggested number of words.
+	 *
+	 * @param wordCountMessage            the new word count message
 	 */
 	public void setWordCountMessage(String wordCountMessage) {
 		this.wordCountMessage = wordCountMessage;
@@ -54,8 +61,8 @@ public class Profile {
 
 	/**
 	 * Gets the unique identifier for which these characteristics were computed,
-	 * from the "userid" field of the input {@link ContentItem}
-	 * 
+	 * from the "userid" field of the input {@link ContentItem}.
+	 *
 	 * @return the unique identifier
 	 */
 	public String getId() {
@@ -64,8 +71,8 @@ public class Profile {
 
 	/**
 	 * Gets the source for which these characteristics were computed,
-	 * from the "sourceid" field of the input {@link ContentItem}
-	 * 
+	 * from the "sourceid" field of the input {@link ContentItem}.
+	 *
 	 * @return the source
 	 */
 	public String getSource() {
@@ -82,8 +89,8 @@ public class Profile {
 	}
 
 	/**
-	 * Gets the number of words found in the input
-	 * 
+	 * Gets the number of words found in the input.
+	 *
 	 * @return the number of words
 	 */
 	public int getWord_count() {
@@ -92,10 +99,9 @@ public class Profile {
 
 	/**
 	 * Sets the unique identifier for which these characteristics were computed,
-	 * from the "userid" field of the input {@link ContentItem}
-	 * 
-	 * @param id
-	 *            the unique identifier
+	 * from the "userid" field of the input {@link ContentItem}.
+	 *
+	 * @param id            the unique identifier
 	 */
 	public void setId(String id) {
 		this.id = id;
@@ -103,10 +109,9 @@ public class Profile {
 
 	/**
 	 * Sets the source for which these characteristics were computed,
-	 * from the "sourceid" field of the input {@link ContentItem}
-	 * 
-	 * @param source
-	 *            the source
+	 * from the "sourceid" field of the input {@link ContentItem}.
+	 *
+	 * @param source            the source
 	 */
 	public void setSource(String source) {
 		this.source = source;
@@ -123,10 +128,9 @@ public class Profile {
 	}
 
 	/**
-	 * Sets the number of words found in the input
-	 * 
-	 * @param word_count
-	 *            the number of words
+	 * Sets the number of words found in the input.
+	 *
+	 * @param word_count            the number of words
 	 */
 	public void setWord_count(int word_count) {
 		this.word_count = word_count;

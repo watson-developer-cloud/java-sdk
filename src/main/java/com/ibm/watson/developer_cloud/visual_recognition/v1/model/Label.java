@@ -19,11 +19,16 @@ package com.ibm.watson.developer_cloud.visual_recognition.v1.model;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The Class Label.
+ */
 public class Label {
 
+	/** The name. */
 	@SerializedName("label_name")
 	private String name;
 
+	/** The score. */
 	@SerializedName("label_score")
 	private double score;
 

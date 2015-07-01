@@ -18,16 +18,13 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import com.google.gson.GsonBuilder;
 
-
-
 public class SpeechModel {
 
-	public static final SpeechModel WATSON_MODEL = new SpeechModel("WatsonModel");
+	public static final SpeechModel ES_BROADBAND16K = new SpeechModel("es-ES_BroadbandModel");
 
 	private String name;
 	private int rate;
 	private String sessions;
-
 
 	/**
 	 * Instantiates a new speech model.
@@ -55,7 +52,7 @@ public class SpeechModel {
 	 * @param rate
 	 *            The rate
 	 */
-	public void setRate(int rate) {
+	public void setRate(final int rate) {
 		this.rate = rate;
 	}
 
@@ -66,7 +63,7 @@ public class SpeechModel {
 	 *            the rate
 	 * @return the model
 	 */
-	public SpeechModel withRate(int rate) {
+	public SpeechModel withRate(final int rate) {
 		this.rate = rate;
 		return this;
 	}
@@ -78,7 +75,7 @@ public class SpeechModel {
 	 *            the sessions
 	 * @return the model
 	 */
-	public SpeechModel withSessions(String sessions) {
+	public SpeechModel withSessions(final String sessions) {
 		this.sessions = sessions;
 		return this;
 	}
@@ -98,7 +95,7 @@ public class SpeechModel {
 	 * @param name
 	 *            The name
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -109,7 +106,7 @@ public class SpeechModel {
 	 *            the name
 	 * @return the model
 	 */
-	public SpeechModel withName(String name) {
+	public SpeechModel withName(final String name) {
 		this.name = name;
 		return this;
 	}
@@ -129,11 +126,13 @@ public class SpeechModel {
 	 * @param sessions
 	 *            the new sessions
 	 */
-	public void setSessions(String sessions) {
+	public void setSessions(final String sessions) {
 		this.sessions = sessions;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

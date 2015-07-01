@@ -18,11 +18,21 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class Answer.
+ */
 public class Answer {
 
+	/** The confidence. */
 	private double confidence;
+	
+	/** The id. */
 	private int id;
+	
+	/** The pipeline. */
 	private String pipeline;
+	
+	/** The text. */
 	private String text;
 
 	/**

@@ -23,8 +23,13 @@ import com.google.gson.GsonBuilder;
  */
 public class Synonym {
 
+	/** The is chosen. */
 	private boolean isChosen;
+	
+	/** The value. */
 	private String value;
+	
+	/** The weight. */
 	private int weight;
 
 	/**

@@ -18,49 +18,59 @@ package com.ibm.watson.developer_cloud.dialog.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
 
+/**
+ * Conversation used by the {@link DialogService}.
+ *
+ * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ */
 public class Conversation {
 
-	private List<String> response = new ArrayList<String>();
-	private String input;
-
-	@SerializedName("conversation_id")
-	private int conversationId;
-	private int confidence;
-
+	/** The client id. */
 	@SerializedName("client_id")
 	private int clientId;
 
+	/** The confidence. */
+	private double confidence;
+
+	/** The id. */
+	@SerializedName("conversation_id")
+	private int id;
+
+	/** The input. */
+	private String input;
+
+	/** The response. */
+	private List<String> response = new ArrayList<String>();
+
 	/**
-	 * Gets the response.
+	 * Gets the client id.
 	 * 
-	 * @return The response
+	 * @return The clientId
 	 */
-	public List<String> getResponse() {
-		return response;
+	public int getClientId() {
+		return clientId;
 	}
 
 	/**
-	 * Sets the response.
+	 * Gets the confidence.
 	 * 
-	 * @param response
-	 *            The response
+	 * @return The confidence
 	 */
-	public void setResponse(List<String> response) {
-		this.response = response;
+	public double getConfidence() {
+		return confidence;
 	}
 
 	/**
-	 * With response.
+	 * Gets the id.
 	 * 
-	 * @param response
-	 *            the response
-	 * @return the conversation
+	 * @return the id
 	 */
-	public Conversation withResponse(List<String> response) {
-		this.response = response;
-		return this;
+	public int getId() {
+		return id;
 	}
 
 	/**
@@ -73,96 +83,12 @@ public class Conversation {
 	}
 
 	/**
-	 * Sets the input.
+	 * Gets the response.
 	 * 
-	 * @param input
-	 *            The input
+	 * @return The response
 	 */
-	public void setInput(String input) {
-		this.input = input;
-	}
-
-	/**
-	 * With input.
-	 * 
-	 * @param input
-	 *            the input
-	 * @return the conversation
-	 */
-	public Conversation withInput(String input) {
-		this.input = input;
-		return this;
-	}
-
-	/**
-	 * Gets the conversation id.
-	 * 
-	 * @return The conversationId
-	 */
-	public int getConversationId() {
-		return conversationId;
-	}
-
-	/**
-	 * Sets the conversation id.
-	 * 
-	 * @param conversationId
-	 *            The conversation_id
-	 */
-	public void setConversationId(int conversationId) {
-		this.conversationId = conversationId;
-	}
-
-	/**
-	 * With conversation id.
-	 * 
-	 * @param conversationId
-	 *            the conversation id
-	 * @return the conversation
-	 */
-	public Conversation withConversationId(int conversationId) {
-		this.conversationId = conversationId;
-		return this;
-	}
-
-	/**
-	 * Gets the confidence.
-	 * 
-	 * @return The confidence
-	 */
-	public int getConfidence() {
-		return confidence;
-	}
-
-	/**
-	 * Sets the confidence.
-	 * 
-	 * @param confidence
-	 *            The confidence
-	 */
-	public void setConfidence(int confidence) {
-		this.confidence = confidence;
-	}
-
-	/**
-	 * With confidence.
-	 * 
-	 * @param confidence
-	 *            the confidence
-	 * @return the conversation
-	 */
-	public Conversation withConfidence(int confidence) {
-		this.confidence = confidence;
-		return this;
-	}
-
-	/**
-	 * Gets the client id.
-	 * 
-	 * @return The clientId
-	 */
-	public int getClientId() {
-		return clientId;
+	public List<String> getResponse() {
+		return response;
 	}
 
 	/**
@@ -176,14 +102,113 @@ public class Conversation {
 	}
 
 	/**
+	 * Sets the confidence.
+	 * 
+	 * @param confidence
+	 *            The confidence
+	 */
+	public void setConfidence(double confidence) {
+		this.confidence = confidence;
+	}
+
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id
+	 *            the new id
+	 */
+	public void setId(final int id) {
+		this.id = id;
+	}
+
+	/**
+	 * Sets the input.
+	 * 
+	 * @param input
+	 *            The input
+	 */
+	public void setInput(final String input) {
+		this.input = input;
+	}
+
+	/**
+	 * Sets the response.
+	 * 
+	 * @param response
+	 *            The response
+	 */
+	public void setResponse(final List<String> response) {
+		this.response = response;
+	}
+
+	/**
 	 * With client id.
 	 * 
 	 * @param clientId
 	 *            the client id
 	 * @return the conversation
 	 */
-	public Conversation withClientId(int clientId) {
+	public Conversation withClientId(final int clientId) {
 		this.clientId = clientId;
 		return this;
+	}
+
+	/**
+	 * With confidence.
+	 * 
+	 * @param confidence
+	 *            the confidence
+	 * @return the conversation
+	 */
+	public Conversation withConfidence(final double confidence) {
+		this.confidence = confidence;
+		return this;
+	}
+
+	/**
+	 * With conversation id.
+	 * 
+	 * @param id
+	 *            the id
+	 * @return the conversation
+	 */
+	public Conversation withId(final int id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * With input.
+	 * 
+	 * @param input
+	 *            the input
+	 * @return the conversation
+	 */
+	public Conversation withInput(final String input) {
+		this.input = input;
+		return this;
+	}
+
+	/**
+	 * With response.
+	 * 
+	 * @param response
+	 *            the response
+	 * @return the conversation
+	 */
+	public Conversation withResponse(final List<String> response) {
+		this.response = response;
+		return this;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
 	}
 }

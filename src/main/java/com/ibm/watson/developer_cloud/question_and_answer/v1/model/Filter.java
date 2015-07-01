@@ -17,10 +17,18 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class Filter.
+ */
 public class Filter {
 
+	/** The filter type. */
 	private String filterType;
+	
+	/** The filter name. */
 	private String filterName;
+	
+	/** The values. */
 	private String values;
 
 	/**

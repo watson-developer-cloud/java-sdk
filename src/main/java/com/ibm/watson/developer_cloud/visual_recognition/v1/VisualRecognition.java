@@ -36,17 +36,16 @@ import com.ibm.watson.developer_cloud.visual_recognition.v1.model.VisualRecognit
 /**
  * The Visual Recognition service analyzes images, enabling you to understand
  * their content without any accompanying descriptive text.
- * 
+ *
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
- * 
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
  *      Visual Recognition</a>
- * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class VisualRecognition extends WatsonService {
 
+	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/visual-recognition-beta/api";
 
 	/**

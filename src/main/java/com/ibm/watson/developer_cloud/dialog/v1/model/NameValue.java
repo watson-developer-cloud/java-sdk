@@ -15,11 +15,41 @@
  */
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
+import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
 
+/**
+ * Name value class used by the {@link DialogService}.
+ *
+ * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ */
 public class NameValue {
 
+	/** The name. */
 	private String name;
+	
+	/** The value. */
 	private String value;
+
+
+	/**
+	 * Instantiates a new name value.
+	 */
+	public NameValue() {
+		super();
+	}
+
+	/**
+	 * Instantiates a new name value.
+	 *
+	 * @param name the name
+	 * @param value the value
+	 */
+	public NameValue(String name, String value) {
+		super();
+		this.name = name;
+		this.value = value;
+	}
 
 	/**
 	 * Gets the name.
@@ -36,7 +66,7 @@ public class NameValue {
 	 * @param name
 	 *            The name
 	 */
-	public void setName(String name) {
+	public void setName(final String name) {
 		this.name = name;
 	}
 
@@ -47,7 +77,7 @@ public class NameValue {
 	 *            the name
 	 * @return the name value
 	 */
-	public NameValue withName(String name) {
+	public NameValue withName(final String name) {
 		this.name = name;
 		return this;
 	}
@@ -67,7 +97,7 @@ public class NameValue {
 	 * @param value
 	 *            The value
 	 */
-	public void setValue(String value) {
+	public void setValue(final String value) {
 		this.value = value;
 	}
 
@@ -78,9 +108,19 @@ public class NameValue {
 	 *            the value
 	 * @return the name value
 	 */
-	public NameValue withValue(String value) {
+	public NameValue withValue(final String value) {
 		this.value = value;
 		return this;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }

@@ -21,10 +21,18 @@ import java.util.List;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class Problem.
+ */
 public class Problem {
 
+	/** The subject. */
 	private String subject;
+	
+	/** The columns. */
 	private List<Column> columns = new ArrayList<Column>();
+	
+	/** The options. */
 	private List<Option> options = new ArrayList<Option>();
 
 

@@ -25,7 +25,10 @@ import com.google.gson.GsonBuilder;
  */
 public class Solution {
 
+	/** The status. */
 	private String status;
+	
+	/** The solution ref. */
 	private String solutionRef;
 
 	/**

@@ -22,15 +22,17 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLang
 
 /**
  * The set of questions and their "keys" used to
- * adapt a system to a domain (the ground truth)
- * 
- * 
+ * adapt a system to a domain (the ground truth).
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see NaturalLanguageClassifier
  */
 public class TrainingData {
 
+	/** The text. */
 	private String text;
+	
+	/** The classes. */
 	private List<String> classes;
 
 	/**

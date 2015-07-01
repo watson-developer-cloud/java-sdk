@@ -27,6 +27,9 @@ import junit.framework.AssertionFailedError;
 
 import org.junit.Ignore;
 
+/**
+ * The Class TestUtils.
+ */
 @Ignore
 public final class TestUtils {
 

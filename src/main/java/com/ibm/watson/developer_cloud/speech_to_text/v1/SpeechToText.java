@@ -18,7 +18,9 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -60,6 +62,7 @@ public class SpeechToText extends WatsonService {
 
 	/**
 	 * Get the recognize status.
+	 * 
 	 * @see #getRecognizeStatus(String)
 	 */
 	public SessionStatus getRecognizeStatus(final SpeechSession session) {
@@ -67,12 +70,13 @@ public class SpeechToText extends WatsonService {
 			throw new IllegalArgumentException("session was not specified");
 		return getRecognizeStatus(session.getSessionId());
 	}
-	
+
 	/**
 	 * Gets the session status. Concurrent recognition tasks during the same
 	 * session are not allowed. This method offers a way to check whether the
 	 * session can accept another recognition task. The returned state must be
-	 * "initialized" to call {@link #recognize(File, String)} or {@link #recognize(File, String, String, boolean)}.
+	 * "initialized" to call {@link #recognize(File, String)} or
+	 * {@link #recognize(File, String, String, boolean)}.
 	 * 
 	 * @param sessionId
 	 *            the session id
@@ -130,11 +134,11 @@ public class SpeechToText extends WatsonService {
 	 *            the model id
 	 * @return the session id
 	 */
-	public SpeechSession createSession(final String modelId) {
+	public SpeechSession createSession(final String model) {
 		String path = "/v1/sessions";
 
-		if (modelId != null && !modelId.isEmpty())
-			path += "?model=" + modelId;
+		if (model != null && !model.isEmpty())
+			path += "?model=" + model;
 
 		HttpRequestBase request = Request.Post(path).build();
 		try {
@@ -229,45 +233,57 @@ public class SpeechToText extends WatsonService {
 	 * Recognize.
 	 * 
 	 * @param audio
-	 *            the audio
+	 *            the audio file
 	 * @param contentType
 	 *            the content type
 	 * @return the speech results
 	 */
-	public SpeechResults recognize(final File audio,final String contentType) {
-		return recognize(audio, contentType, null, false);
+	public SpeechResults recognize(final File audio, final String contentType) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("audio", audio);
+		params.put("content_type", contentType);
+		return recognize(params);
 	}
 
 	/**
 	 * Recognize.
 	 * 
-	 * @param audio
-	 *            the audio
-	 * @param contentType
-	 *            the content type
-	 * @param session
-	 *            the session
-	 * @param continuous
-	 *            the continuous
-	 * @return the list
+	 * @param params
+	 *            the parameters to use for the recognition. for example:
+	 *            "word_confidence", "continuous", "max_alternatives",
+	 *            "timestamps", "inactivity_timeout", "model", "session_id",
+	 *            content_type
+	 * @return the speech results
 	 */
-	public SpeechResults recognize(final File audio,final  String contentType,
-			final String session,final boolean continuous) {
+	public SpeechResults recognize(Map<String, Object> params) {
+
+		File audio = (File) params.get("audio");
 		if (audio == null || !audio.exists() || !audio.isFile())
 			throw new IllegalArgumentException(
 					"audio is not a valid audio file");
 
+		String contentType = (String) params.get("content_type");
 		if (contentType == null)
 			throw new IllegalArgumentException("contentType was not specified");
 
 		// Build the recognize url
 		StringBuilder urlBuider = new StringBuilder();
 		urlBuider.append("/v1");
-		urlBuider.append(session != null ? "/sessions/" + session : "");
+		urlBuider.append(params.containsKey("session_id") ? "/sessions/"
+				+ params.get("session_id") : "");
 		urlBuider.append("/recognize");
 
 		Request request = Request.Post(urlBuider.toString());
 		request.withHeader("Content-Type", contentType);
+
+		String[] queryParameters = new String[] { "word_confidence",
+				"continuous", "max_alternatives", "timestamps",
+				"inactivity_timeout", "model" };
+
+		for (String param : queryParameters) {
+			if (params.containsKey(param))
+				request.withQuery(param, params.get(param));
+		}
 
 		InputStreamEntity reqEntity = null;
 		try {

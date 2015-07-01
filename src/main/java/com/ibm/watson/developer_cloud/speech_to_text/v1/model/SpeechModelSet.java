@@ -22,8 +22,12 @@ import java.util.List;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 
+/**
+ * The Class SpeechModelSet.
+ */
 public class SpeechModelSet {
 
+	/** The models. */
 	@Expose
 	private List<SpeechModel> models = new ArrayList<SpeechModel>();
 
@@ -42,7 +46,7 @@ public class SpeechModelSet {
 	 * @param models
 	 *            The models
 	 */
-	public void setModels(List<SpeechModel> models) {
+	public void setModels(final List<SpeechModel> models) {
 		this.models = models;
 	}
 
@@ -53,12 +57,14 @@ public class SpeechModelSet {
 	 *            the models
 	 * @return the speech models
 	 */
-	public SpeechModelSet withModels(List<SpeechModel> models) {
+	public SpeechModelSet withModels(final List<SpeechModel> models) {
 		this.models = models;
 		return this;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

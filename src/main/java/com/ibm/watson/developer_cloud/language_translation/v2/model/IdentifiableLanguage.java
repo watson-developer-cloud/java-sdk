@@ -19,8 +19,8 @@ import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 
 /**
- * Identifiable language used  by the {@link LanguageTranslation} service.
- *
+ * Identifiable language used by the {@link LanguageTranslation} service.
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class IdentifiableLanguage {
@@ -33,7 +33,7 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Gets the name.
-	 *
+	 * 
 	 * @return the name
 	 */
 	public String getName() {
@@ -42,11 +42,13 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Instantiates a new identifiable language.
-	 *
-	 * @param language the language
-	 * @param name the name
+	 * 
+	 * @param language
+	 *            the language
+	 * @param name
+	 *            the name
 	 */
-	public IdentifiableLanguage(String language, String name) {
+	public IdentifiableLanguage(final String language, final String name) {
 		super();
 		this.language = language;
 		this.name = name;
@@ -54,28 +56,27 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Instantiates a new language.
-	 *
+	 * 
 	 * @param language
 	 *            the language
 	 */
-	public IdentifiableLanguage(String language) {
+	public IdentifiableLanguage(final String language) {
 		this.language = language;
 		this.name = null;
 	}
 
 	/**
 	 * Gets the language.
-	 *
+	 * 
 	 * @return the language
 	 */
 	public String getLanguage() {
 		return language;
 	}
 
-
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

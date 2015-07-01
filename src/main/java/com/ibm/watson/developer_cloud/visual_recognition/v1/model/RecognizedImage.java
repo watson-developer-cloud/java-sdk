@@ -23,14 +23,20 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * The Class RecognizedImage.
+ */
 public class RecognizedImage {
 
+	/** The id. */
 	@SerializedName("image_id")
 	private String id;
 
+	/** The name. */
 	@SerializedName("image_name")
 	private String name;
 
+	/** The labels. */
 	@Expose
 	private List<Label> labels = new ArrayList<Label>();
 

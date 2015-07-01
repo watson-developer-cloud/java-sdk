@@ -18,13 +18,27 @@ package com.ibm.watson.developer_cloud.message_resonance.v1.model;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class Resonance.
+ */
 public class Resonance {
 
+	/** The word. */
 	private String word;
+	
+	/** The overall. */
 	private int overall;
+	
+	/** The prevalence. */
 	private int prevalence;
+	
+	/** The volume. */
 	private int volume;
+	
+	/** The duration. */
 	private int duration;
+	
+	/** The word offset. */
 	private int wordOffset;
 
 	/**

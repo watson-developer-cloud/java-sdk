@@ -24,7 +24,8 @@ import java.util.Properties;
 import org.junit.Before;
 
 /**
- * Utility class to test the Watson Services
+ * Utility class to test the Watson Services.
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public abstract class WatsonServiceTest {

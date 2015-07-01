@@ -20,30 +20,30 @@ import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslatio
 
 /**
  * Language detected by the {@link LanguageTranslation} service.
- *
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
-public class IdentifiedLanguage extends IdentifiableLanguage{
+public class IdentifiedLanguage extends IdentifiableLanguage {
 
 	/** The confidence. */
 	private final Double confidence;
 
 	/**
 	 * Instantiates a new language.
-	 *
+	 * 
 	 * @param language
 	 *            the language
 	 * @param confidence
 	 *            the confidence
 	 */
-	public IdentifiedLanguage(String language, double confidence) {
+	public IdentifiedLanguage(final String language, final double confidence) {
 		super(language);
 		this.confidence = confidence;
 	}
 
 	/**
 	 * Gets the confidence.
-	 *
+	 * 
 	 * @return the confidence
 	 */
 	public Double getConfidence() {
@@ -52,7 +52,7 @@ public class IdentifiedLanguage extends IdentifiableLanguage{
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

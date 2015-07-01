@@ -34,19 +34,19 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * The Question and Answer interprets and answers user questions directly based
  * on primary data sources (brochures, web pages, manuals, records, etc.) that
  * have been selected and gathered into a body of data or 'corpus'
- * 
+ *
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
- * 
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/question-answer.html">
  *      Question and Answer</a>
- * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class QuestionAndAnswer extends WatsonService {
 
+	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/question-and-answer-beta/api";
 
+	/** The dataset. */
 	private QuestionAndAnswerDataset dataset;
 
 	/**

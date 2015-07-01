@@ -20,13 +20,16 @@ import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
 
 /**
- * This class map a Concept returned by {@link ConceptExpansion}
- * 
+ * This class map a Concept returned by {@link ConceptExpansion}.
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Concept {
 
+	/** The name. */
 	private String name;
+	
+	/** The prevalence. */
 	private int prevalence;
 
 	/**

@@ -18,8 +18,12 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class Latlist.
+ */
 public class Latlist {
 
+	/** The value. */
 	private String value;
 
 	/**
