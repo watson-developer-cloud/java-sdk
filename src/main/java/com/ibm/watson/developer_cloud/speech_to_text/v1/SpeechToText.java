@@ -42,15 +42,16 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * convert English speech into text. The transcription of incoming audio is
  * continuously sent back to the client with minimal delay, and it is corrected
  * as more speech is heard.
- * 
- * @version v1
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
+ * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/speech-to-text.html">
  *      Speech to Text</a>
  */
 public class SpeechToText extends WatsonService {
 
+	/** The url. */
 	private static String URL = "https://stream.watsonplatform.net/speech-to-text/api";
 
 	/**
@@ -62,7 +63,9 @@ public class SpeechToText extends WatsonService {
 
 	/**
 	 * Get the recognize status.
-	 * 
+	 *
+	 * @param session the session
+	 * @return the recognize status
 	 * @see #getRecognizeStatus(String)
 	 */
 	public SessionStatus getRecognizeStatus(final SpeechSession session) {
@@ -129,9 +132,8 @@ public class SpeechToText extends WatsonService {
 	 * returned from this operation in the Set-Cookie header for each request
 	 * that uses this session. The session expires after 15 minutes of
 	 * inactivity.
-	 * 
-	 * @param modelId
-	 *            the model id
+	 *
+	 * @param model the model
 	 * @return the session id
 	 */
 	public SpeechSession createSession(final String model) {

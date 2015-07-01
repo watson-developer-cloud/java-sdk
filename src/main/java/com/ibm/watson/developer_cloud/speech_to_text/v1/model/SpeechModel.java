@@ -18,12 +18,21 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import com.google.gson.GsonBuilder;
 
+/**
+ * The Class SpeechModel.
+ */
 public class SpeechModel {
 
+	/** The Constant ES_BROADBAND16K. */
 	public static final SpeechModel ES_BROADBAND16K = new SpeechModel("es-ES_BroadbandModel");
 
+	/** The name. */
 	private String name;
+	
+	/** The rate. */
 	private int rate;
+	
+	/** The sessions. */
 	private String sessions;
 
 	/**
