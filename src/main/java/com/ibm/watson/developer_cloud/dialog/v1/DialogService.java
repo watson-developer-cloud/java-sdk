@@ -49,7 +49,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * questions, show personality, decide, provide guidance, and even perform
  * tasks.
  *
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/dialog.html">
@@ -261,7 +261,7 @@ public class DialogService extends WatsonService {
 	}
 
 	/**
-	 * Returns a {@link DialogProfile}.
+	 * Returns a list of name-value pars associated with a client id.
 	 *
 	 * @param dialogId            The dialog identifier
 	 * @param clientId the client id
@@ -380,11 +380,10 @@ public class DialogService extends WatsonService {
 	}
 
 	/**
-	 * Get content for nodes.
+	 * Updates a dialog 
 	 *
-	 * @param dialogId            the dialog id
+	 * @param dialogId the dialog id
 	 * @param dialogFile the dialog file
-	 * @return the content for nodes
 	 */
 	public void updateContent(final String dialogId, final File dialogFile) {
 		if (dialogId == null || dialogId.isEmpty())
@@ -442,7 +441,7 @@ public class DialogService extends WatsonService {
 	}
 
 	/**
-	 * Updates a {@link DialogProfile}.
+	 * Updates dialog profile
 	 * 
 	 * @param dialogId
 	 *            The dialog identifier

@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
 /**
  * Name value class used by the {@link DialogService}.
  *
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class NameValue {
 

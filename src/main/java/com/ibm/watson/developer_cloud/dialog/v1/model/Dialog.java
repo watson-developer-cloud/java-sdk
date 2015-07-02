@@ -22,7 +22,7 @@ import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
 /**
  * Dialog used by the {@link DialogService}.
  *
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Dialog {
 

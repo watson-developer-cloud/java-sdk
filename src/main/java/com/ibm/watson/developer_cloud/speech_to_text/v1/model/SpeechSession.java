@@ -4,7 +4,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Speech session used by {@link SpeechToText}.
+ * Speech session.
  */
 public class SpeechSession {
 

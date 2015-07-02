@@ -20,7 +20,7 @@ import com.google.gson.GsonBuilder;
 /**
  * The Class Voice.
  *
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Voice {
 

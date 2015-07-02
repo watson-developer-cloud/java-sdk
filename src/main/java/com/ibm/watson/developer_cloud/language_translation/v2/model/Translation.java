@@ -7,7 +7,7 @@ import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslatio
 /**
  * The Translation result used as POJO by the {@link LanguageTranslation}.
  *
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Translation {
 

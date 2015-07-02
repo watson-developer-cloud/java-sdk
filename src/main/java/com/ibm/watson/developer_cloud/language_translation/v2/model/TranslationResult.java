@@ -11,7 +11,7 @@ import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslatio
  * Translation results from calling the translate method. This case is used as
  * POJO by the {@link LanguageTranslation}
  * 
- * @author German Attanasio Ruiz <germanatt@us.ibm.com>
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class TranslationResult {
 
