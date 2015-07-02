@@ -1,8 +1,12 @@
 com.ibm.watson.developer_cloud
 com.ibm.watson.developer_cloud.concept_expansion.v1
 com.ibm.watson.developer_cloud.concept_expansion.v1.model
+com.ibm.watson.developer_cloud.dialog.v1
+com.ibm.watson.developer_cloud.dialog.v1.model
 com.ibm.watson.developer_cloud.language_identification.v1
 com.ibm.watson.developer_cloud.language_identification.v1.model
+com.ibm.watson.developer_cloud.language_translation.v2
+com.ibm.watson.developer_cloud.language_translation.v2.model
 com.ibm.watson.developer_cloud.machine_translation.v1
 com.ibm.watson.developer_cloud.machine_translation.v1.model
 com.ibm.watson.developer_cloud.message_resonance.v1

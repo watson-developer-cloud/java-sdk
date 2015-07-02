@@ -20,13 +20,8 @@
 
     <section class="main-content">
 
-<h1>Watson Developer Cloud Java Wrapper</h1>
-
-Wrapper to use the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/">Watson Developer Cloud</a> services.
-A collection of REST APIs and SDKs that use cognitive computing
-to solve complex problems.</p>
-
-<p>Documentation: <a href="docs">javadocs</a></p>
+    <h1 id="watson-developer-cloud-java-wrapper">Watson Developer Cloud Java Wrapper</h1>
+    <p>Java code wrappers to quickly get started with the various <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/">Watson Developer Cloud</a> services - A collection of REST APIs and SDKs that use cognitive computing to solve complex problems.</p>
     <h2 id="table-of-contents">Table of Contents</h2>
     <ul>
         <li><a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/">Watson Developer Cloud</a>
@@ -44,9 +39,10 @@ to solve complex problems.</p>
                     <ul>
                         <li><a href="#concept-expansion">Concept Expansion</a></li>
                         <li><a href="#language-identification">Language Identification</a></li>
+                        <li><a href="#language-translation">Language Translation</a></li>
                         <li><a href="#machine-translation">Machine Translation</a></li>
                         <li><a href="#message-resonance">Message Resonance</a></li>
-                        <li><a href="#natural-language-classifier">Natural Language Classifier</a> </li>
+                        <li><a href="#natural-language-classifier">Natural Language Classifier</a></li>
                         <li><a href="#personality-insights">Personality Insights</a></li>
                         <li><a href="#question-and-answer">Question and Answer</a></li>
                         <li><a href="#relationship-extraction">Relationship Extraction</a></li>
@@ -69,31 +65,30 @@ to solve complex problems.</p>
     <p>If you are having difficulties using the APIs or have a question about the IBM Watson Services, please ask a question on
         <a href="https://developer.ibm.com/answers/questions/ask/?topics=watson">dW Answers</a> or <a href="http://stackoverflow.com/questions/ask?tags=ibm-watson">Stack Overflow</a>.</p>
     <h2 id="installation">Installation</h2>
-    <p>Download the <a href="https://github.com/watson-developer-cloud/java-wrapper/releases">jar</a> and add it to your project.
+    <p>Download the <a href="https://github.com/watson-developer-cloud/java-wrapper/releases">jar</a>, and add it to your project.
         <br>Now, you are ready to see some <a href="https://github.com/watson-developer-cloud/java-wrapper/tree/master/src/main/examples/java/com/ibm/watson/developer_cloud">examples</a>.</p>
     <h5 id="maven">Maven</h5>
     <pre><code class="lang-xml"><span class="hljs-tag">&lt;<span class="hljs-title">dependency</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">groupId</span>&gt;</span>com.ibm.watson.developer_cloud<span class="hljs-tag">&lt;/<span class="hljs-title">groupId</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">artifactId</span>&gt;</span>java-wrapper<span class="hljs-tag">&lt;/<span class="hljs-title">artifactId</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">version</span>&gt;</span>0.1.4<span class="hljs-tag">&lt;/<span class="hljs-title">version</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">version</span>&gt;</span>0.1.9<span class="hljs-tag">&lt;/<span class="hljs-title">version</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">dependency</span>&gt;</span>
 </code></pre>
     <h5 id="gradle">Gradle</h5>
-    <pre><code class="lang-gradle"><span class="hljs-string">'com.ibm.watson.developer_cloud:java-wrapper:0.1.4'</span>
+    <pre><code class="lang-gradle"><span class="hljs-string">'com.ibm.watson.developer_cloud:java-wrapper:0.1.9'</span>
 </code></pre>
     <h2 id="usage">Usage</h2>
-    <p>The examples below assume that you already have service credentials. If not, you will have to create and bind the service in <a href="https://console.ng.bluemix.net">Bluemix</a>. See the
-        <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/getstarted.html">Getting Started</a> page for more details.</p>
-    <p>If you are running your application in Bluemix, you don't need to specify the credentials; the wrapper will get them for you by looking at the <code>VCAP_SERVICES</code> environment variable.</p>
+    <p>The examples below assumes that you already have service credentials. If you don&#39;t have service credentials, you will have to create and bind the service in <a href="https://console.ng.bluemix.net">Bluemix</a>.</p>
+    <p>If you are running your application in Bluemix, you don&#39;t need to specify the credentials; the wrapper will get them for you by looking at the <code>VCAP_SERVICES</code> environment variable.</p>
     <h3 id="getting-the-service-credentials">Getting the Service Credentials</h3>
     <p>The credentials for the services are stored in the
         <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/getting_started/index.html#EnvVars">VCAP_SERVICES</a> environment variable. To get them, you need to first create and bind the service to your application.</p>
-    <p>You will need the <code>username</code> and <code>password</code> credentials for each service these are <em>not</em> your Bluemix credentials, and are found in the VCAP_SERVICES variable on Bluemix for each service.</p>
+    <p>You will need the <code>username</code> and <code>password</code> credentials for each service these are <em>not</em> your Bluemix credentials, and are found in the VCAP_SERVICES variable on Bluemix, and they are different for each service.</p>
     <h2 id="ibm-watson-services">IBM Watson Services</h2>
-    <p>The Watson Developer Cloud offers a variety of services for building cognitive apps.
+    <p>The Watson Developer Cloud offers a variety of services for building cognitive applications.
     </p>
     <h3 id="concept-expansion">Concept Expansion</h3>
-    <p>Map euphemisms or colloquial terms to more commonly understood phrases using the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/glimpseapi/">Concept Expansion</a> service. Example: Create a job, wait for it to finish, and retrieve results.</p>
+    <p>Map euphemisms or colloquial terms to more commonly understood phrases using the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/glimpseapi/">Concept Expansion</a> service. Example: Create a job, wait for it to finish, and then retrieve results.</p>
     <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
 <span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.concept_expansion.v1.model.ConceptExpansionDataset;
 <span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job;
@@ -101,8 +96,8 @@ to solve complex problems.</p>
 ConceptExpansion service = <span class="hljs-keyword">new</span> ConceptExpansion();
 service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
 
-<span class="hljs-keyword">String</span>[] seeds = <span class="hljs-keyword">new</span> <span class="hljs-keyword">String</span>[]{<span class="hljs-string">"motrin"</span>,<span class="hljs-string">"tylenol"</span>,<span class="hljs-string">"aspirin"</span>};
-<span class="hljs-keyword">String</span> label = <span class="hljs-string">"medicine"</span>;
+String[] seeds = <span class="hljs-keyword">new</span> String[]{<span class="hljs-string">"motrin"</span>,<span class="hljs-string">"tylenol"</span>,<span class="hljs-string">"aspirin"</span>};
+String label = <span class="hljs-string">"medicine"</span>;
 service.setDataset(ConceptExpansionDataset.MT_SAMPLES);
 Job job = service.createJob(label, seeds);
 
@@ -115,18 +110,30 @@ Job job = service.createJob(label, seeds);
     }
 }
 
-System.out.<span class="hljs-built_in">println</span>(service.getJobResult(job));
+System.out.println(service.getJobResult(job));
 </code></pre>
     <h3 id="language-identification">Language Identification</h3>
     <p>Example: Identify a language using the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/lidapi/">Language Identification</a> service.</p>
-    <pre><code class="lang-java"><span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.language_identification.v1.LanguageIdentification;</span>
-<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.language_identification.v1.model.IdentifiedLanguage;</span>
+    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.language_identification.v1.LanguageIdentification;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.language_identification.v1.model.IdentifiedLanguage;
 
 LanguageIdentification service = <span class="hljs-keyword">new</span> LanguageIdentification();
 service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
 
 IdentifiedLanguage lang = service.identify(<span class="hljs-string">"The language identification service takes text input and identifies the language used."</span>);
 System.out.println(lang);
+</code></pre>
+    <h3 id="language-translation">Language Translation</h3>
+    <p>Select a domain, then identify or select the language of text, and then translate the text from one supported language to another.</p>
+    <p>Example: Translate &#39;hello&#39; from English to Spanish using the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/">Language Translation</a> service.</p>
+    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
+
+LanguageTranslation service = <span class="hljs-keyword">new</span> LanguageTranslation();
+service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
+
+TranslationResult translationResult = service.translate(<span class="hljs-string">"hello"</span>, <span class="hljs-string">"en"</span>, <span class="hljs-string">"es"</span>);
+System.out.println(translationResult);
 </code></pre>
     <h3 id="machine-translation">Machine Translation</h3>
     <p>Example: Translate text from one language to another using the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/mtapi/">Machine Translation</a> service.</p>
@@ -135,26 +142,27 @@ System.out.println(lang);
 
 MachineTranslation service = <span class="hljs-keyword">new</span> MachineTranslation();
 service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
-<span class="hljs-keyword">String</span> response = service.<span class="hljs-built_in">translate</span>(<span class="hljs-string">"The IBM Watson team is awesome"</span>, Language.ENGLISH, Language.SPANISH);
-System.out.<span class="hljs-built_in">println</span>(response);
+String response = service.translate(<span class="hljs-string">"The IBM Watson team is awesome"</span>, Language.ENGLISH, Language.SPANISH);
+System.out.println(response);
 </code></pre>
     <h3 id="message-resonance">Message Resonance</h3>
+    <p>Send a word and Watson responds with the resonance scoring for the word, allowing you to enhance the effectiveness of your language for the intended audience.</p>
     <p>Example: Get resonance information for individual words in a sentence from the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/mrapi/">Message Resonance</a> service.</p>
-    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.message_resonance.v1.<span class="hljs-constant">Message</span>Resonance;
-<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.message_resonance.v1.model.<span class="hljs-constant">Message</span>ResonanceDataset;
-<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.message_resonance.v1.model.<span class="hljs-constant">Message</span>;
+    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.message_resonance.v1.MessageResonance;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.message_resonance.v1.model.MessageResonanceDataset;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.message_resonance.v1.model.Message;
 
-<span class="hljs-constant">Message</span>Resonance <span class="hljs-keyword">service</span> = new <span class="hljs-constant">Message</span>Resonance();
-<span class="hljs-keyword">service</span>.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
+MessageResonance service = <span class="hljs-keyword">new</span> MessageResonance();
+service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
 
-<span class="hljs-keyword">service</span>.setDataset(<span class="hljs-constant">Message</span>ResonanceDataset.<span class="hljs-constant">B</span>IG_DATA);
-<span class="hljs-constant">Message</span> <span class="hljs-literal">message</span> = <span class="hljs-keyword">service</span>.getResonance(<span class="hljs-string">"IBM Watson Developer Cloud"</span>);
-<span class="hljs-constant">System</span>.out.println(<span class="hljs-literal">message</span>);
+service.setDataset(MessageResonanceDataset.BIG_DATA);
+Message message = service.getResonance(<span class="hljs-string">"IBM Watson Developer Cloud"</span>);
+System.out.println(message);
 </code></pre>
     <h3 id="natural-language-classifier">Natural Language Classifier</h3>
     <p>Use <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/nl-classifier/">Natural Language Classifier</a> service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.</p>
-    <pre><code class="lang-java"><span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;</span>
-<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;</span>
+    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 
 NaturalLanguageClassifier service = <span class="hljs-keyword">new</span> NaturalLanguageClassifier();
 service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
@@ -165,41 +173,42 @@ System.out.println(classification);
 </code></pre>
     <p><strong>Note:</strong> You will need to create and train a classifier in order to be able to classify phrases.</p>
     <h3 id="personality-insights">Personality Insights</h3>
+    <p>Use linguistic analytics to infer personality and social characteristics, including Big Five, Needs, and Values, from text. </p>
     <p>Example: Analyze text and get a personality profile using the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/personality-insights/">Personality Insights</a> service.</p>
-    <pre><code class="lang-java">import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
+    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 
-PersonalityInsights service = new PersonalityInsights();
-service.setUsernameAndPassword("&lt;username&gt;", "&lt;password&gt;");
+PersonalityInsights service = <span class="hljs-keyword">new</span> PersonalityInsights();
+service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
 
-// Demo content <span class="hljs-keyword">from</span> Moby Dick <span class="hljs-keyword">by</span> Hermann Melville (Chapter 1)
-String text = "Call me Ishmael. Some years ago-never mind how long precisely-having "
-    + "little <span class="hljs-keyword">or</span> no money <span class="hljs-keyword">in</span> my purse, <span class="hljs-keyword">and</span> nothing particular to interest me on shore, "
-    + "I thought I would sail about a little <span class="hljs-keyword">and</span> see the watery part <span class="hljs-keyword">of</span> the world. "
-    + "It <span class="hljs-keyword">is</span> a way I have <span class="hljs-keyword">of</span> driving off the spleen <span class="hljs-keyword">and</span> regulating the circulation. "
-    + "Whenever I find myself growing grim about the mouth; whenever it <span class="hljs-keyword">is</span> a damp, "
-    + "drizzly November <span class="hljs-keyword">in</span> my soul; whenever I find myself involuntarily pausing before "
-    + "coffin warehouses, <span class="hljs-keyword">and</span> bringing up the rear <span class="hljs-keyword">of</span> every funeral I meet; <span class="hljs-keyword">and</span> especially "
-    + "whenever my hypos get <span class="hljs-keyword">such</span> an upper hand <span class="hljs-keyword">of</span> me, <span class="hljs-keyword">that</span> it requires a strong moral "
-    + "principle to prevent me <span class="hljs-keyword">from</span> deliberately stepping into the street, <span class="hljs-keyword">and</span> methodically "
-    + "knocking people's hats off-<span class="hljs-keyword">then</span>, I account it high time to get to sea <span class="hljs-keyword">as</span> soon <span class="hljs-keyword">as</span> I can. "
-    + "This <span class="hljs-keyword">is</span> my substitute <span class="hljs-keyword">for</span> pistol <span class="hljs-keyword">and</span> ball. With a philosophical flourish Cato throws himself "
-    + "upon his sword; I quietly <span class="hljs-keyword">take</span> to the ship. There <span class="hljs-keyword">is</span> nothing surprising <span class="hljs-keyword">in</span> this. "
-    + "If they but knew it, almost all men <span class="hljs-keyword">in</span> their degree, some time <span class="hljs-keyword">or</span> other, cherish "
-    + "very nearly the same feelings towards the ocean with me. There <span class="hljs-keyword">now</span> <span class="hljs-keyword">is</span> your insular "
-    + "city <span class="hljs-keyword">of</span> the Manhattoes, belted round <span class="hljs-keyword">by</span> wharves <span class="hljs-keyword">as</span> Indian isles <span class="hljs-keyword">by</span> coral reefs-commerce surrounds "
-    + "it with her surf. Right <span class="hljs-keyword">and</span> left, the streets <span class="hljs-keyword">take</span> you waterward.";
+<span class="hljs-comment">// Demo content from Moby Dick by Hermann Melville (Chapter 1)</span>
+String text = <span class="hljs-string">"Call me Ishmael. Some years ago-never mind how long precisely-having "</span>
+    + <span class="hljs-string">"little or no money in my purse, and nothing particular to interest me on shore, "</span>
+    + <span class="hljs-string">"I thought I would sail about a little and see the watery part of the world. "</span>
+    + <span class="hljs-string">"It is a way I have of driving off the spleen and regulating the circulation. "</span>
+    + <span class="hljs-string">"Whenever I find myself growing grim about the mouth; whenever it is a damp, "</span>
+    + <span class="hljs-string">"drizzly November in my soul; whenever I find myself involuntarily pausing before "</span>
+    + <span class="hljs-string">"coffin warehouses, and bringing up the rear of every funeral I meet; and especially "</span>
+    + <span class="hljs-string">"whenever my hypos get such an upper hand of me, that it requires a strong moral "</span>
+    + <span class="hljs-string">"principle to prevent me from deliberately stepping into the street, and methodically "</span>
+    + <span class="hljs-string">"knocking people's hats off-then, I account it high time to get to sea as soon as I can. "</span>
+    + <span class="hljs-string">"This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself "</span>
+    + <span class="hljs-string">"upon his sword; I quietly take to the ship. There is nothing surprising in this. "</span>
+    + <span class="hljs-string">"If they but knew it, almost all men in their degree, some time or other, cherish "</span>
+    + <span class="hljs-string">"very nearly the same feelings towards the ocean with me. There now is your insular "</span>
+    + <span class="hljs-string">"city of the Manhattoes, belted round by wharves as Indian isles by coral reefs-commerce surrounds "</span>
+    + <span class="hljs-string">"it with her surf. Right and left, the streets take you waterward."</span>;
 
 Profile profile = service.getProfile(text);
 System.out.println(profile);
 </code></pre>
-    <p><strong>Node:</strong> Don't forget to update the <code>text</code> variable! Also, if you experience authentication errors, remember that the Personality Insights service is not a free service.</p>
+    <p><strong>Node:</strong> Don&#39;t forget to update the <code>text</code> variable! Also, if you experience authentication errors, remember that the Personality Insights service is not a free service.</p>
     <h3 id="question-and-answer">Question and Answer</h3>
     <p>Ask a healthcare-related question of the
         <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/qaapi/">Question and Answer</a> service.</p>
-    <pre><code class="lang-java"><span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.question_and_answer.v1.QuestionAndAnswer;</span>
-<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.question_and_answer.v1.model.Pipeline;</span>
-<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.question_and_answer.v1.model.QuestionAndAnswerDataset;</span>
+    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.question_and_answer.v1.QuestionAndAnswer;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.question_and_answer.v1.model.Pipeline;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.question_and_answer.v1.model.QuestionAndAnswerDataset;
 
 
 QuestionAndAnswer service = <span class="hljs-keyword">new</span> QuestionAndAnswer();
@@ -213,41 +222,41 @@ System.out.println(watsonAnswers);
     <h3 id="relationship-extraction">Relationship Extraction</h3>
     <p>Analyze an English news article and get the relationships between sentence components (nouns, verbs, subjects, objects, etc.) by using the
         <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/sireapi/">Relationship Extraction</a> service.</p>
-    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.relationship_extraction.v1.<span class="hljs-constant">Relationship</span>Extraction;
-<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.relationship_extraction.v1.model.<span class="hljs-constant">Relationship</span>ExtractionDataset;
+    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.relationship_extraction.v1.RelationshipExtraction;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.relationship_extraction.v1.model.RelationshipExtractionDataset;
 
-<span class="hljs-constant">Relationship</span>Extraction <span class="hljs-keyword">service</span> = new <span class="hljs-constant">Relationship</span>Extraction();
-<span class="hljs-keyword">service</span>.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
+RelationshipExtraction service = <span class="hljs-keyword">new</span> RelationshipExtraction();
+service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
 
-<span class="hljs-keyword">service</span>.setDataset(<span class="hljs-constant">Relationship</span>ExtractionDataset.<span class="hljs-constant">E</span>NGLISH_NEWS);
-<span class="hljs-constant">String</span> response = <span class="hljs-keyword">service</span>.extract(<span class="hljs-string">"IBM Watson Developer Cloud"</span>);
-<span class="hljs-constant">System</span>.out.println(response);
+service.setDataset(RelationshipExtractionDataset.ENGLISH_NEWS);
+String response = service.extract(<span class="hljs-string">"IBM Watson Developer Cloud"</span>);
+System.out.println(response);
 </code></pre>
     <h3 id="speech-to-text">Speech to Text</h3>
     <p>Use the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/speech-to-text/">Speech to Text</a> service to recognize the text from a .wav file.</p>
     <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 <span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
-<span class="hljs-keyword">import</span> java.io.<span class="hljs-keyword">File</span>;
+<span class="hljs-keyword">import</span> java.io.File;
 
 SpeechToText service = <span class="hljs-keyword">new</span> SpeechToText();
 service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
 
-<span class="hljs-keyword">File</span> audio = <span class="hljs-keyword">new</span> <span class="hljs-keyword">File</span>(<span class="hljs-string">"sample1.wav"</span>);
+File audio = <span class="hljs-keyword">new</span> File(<span class="hljs-string">"sample1.wav"</span>);
 
 SpeechResults transcript = service.recognize(audio, <span class="hljs-string">"audio/l16; rate=44100"</span>);
-System.out.<span class="hljs-keyword">println</span>(transcript);
+System.out.println(transcript);
 </code></pre>
     <h4 id="websocket-support">WebSocket support</h4>
-    <p>Speech to Text supports WebSocket so you can use a websocket client like the one in: <a href="http://java-websocket.org/">http://java-websocket.org/</a> The websocket url is: <code>wss://stream.watsonplatform.net/speech-to-text-beta/api/v1/recognize</code></p>
+    <p>Speech to Text supports WebSocket so you can use a websocket client like the one in: <a href="http://java-websocket.org/">http://java-websocket.org/</a> The websocket url is: <code>wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize</code></p>
     <h3 id="text-to-speech">Text to Speech</h3>
     <p>Use the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/">Text to Speech</a> service to get the available voices to synthesize.</p>
-    <pre><code class="lang-java"><span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;</span>
-<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceSet;</span>
+    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 
 TextToSpeech service = <span class="hljs-keyword">new</span> TextToSpeech();
 service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
 
-VoiceSet voices = service.getVoices();
+List&lt;Voice&gt; voices = service.getVoices();
 System.out.println(voices);
 </code></pre>
     <h3 id="tradeoff-analytics">Tradeoff Analytics</h3>
@@ -264,43 +273,43 @@ Problem problem = <span class="hljs-keyword">new</span> Problem(<span class="hlj
 <span class="hljs-comment">// Define the objectives</span>
 List&lt;Column&gt; columns = <span class="hljs-keyword">new</span> ArrayList&lt;Column&gt;();
 problem.setColumns(columns);
-columns.<span class="hljs-built_in">add</span>(<span class="hljs-keyword">new</span> Column(<span class="hljs-string">"price"</span>, <span class="hljs-string">"Price"</span>, <span class="hljs-string">"NUMERIC"</span>, <span class="hljs-keyword">true</span>, <span class="hljs-string">"MIN"</span>));
-columns.<span class="hljs-built_in">add</span>(<span class="hljs-keyword">new</span> Column(<span class="hljs-string">"ram"</span>, <span class="hljs-string">"Ram"</span>, <span class="hljs-string">"NUMERIC"</span>, <span class="hljs-keyword">false</span>, <span class="hljs-string">"MAX"</span>));
-columns.<span class="hljs-built_in">add</span>(<span class="hljs-keyword">new</span> Column(<span class="hljs-string">"screen"</span>, <span class="hljs-string">"Screen"</span>, <span class="hljs-string">"NUMERIC"</span>, <span class="hljs-keyword">true</span>, <span class="hljs-string">"MAX"</span>));
+columns.add(<span class="hljs-keyword">new</span> Column(<span class="hljs-string">"price"</span>, <span class="hljs-string">"Price"</span>, <span class="hljs-string">"NUMERIC"</span>, <span class="hljs-keyword">true</span>, <span class="hljs-string">"MIN"</span>));
+columns.add(<span class="hljs-keyword">new</span> Column(<span class="hljs-string">"ram"</span>, <span class="hljs-string">"Ram"</span>, <span class="hljs-string">"NUMERIC"</span>, <span class="hljs-keyword">false</span>, <span class="hljs-string">"MAX"</span>));
+columns.add(<span class="hljs-keyword">new</span> Column(<span class="hljs-string">"screen"</span>, <span class="hljs-string">"Screen"</span>, <span class="hljs-string">"NUMERIC"</span>, <span class="hljs-keyword">true</span>, <span class="hljs-string">"MAX"</span>));
 
 <span class="hljs-comment">// Define the options to choose</span>
 List&lt;Option&gt; options = <span class="hljs-keyword">new</span> ArrayList&lt;Option&gt;();
 problem.setOptions(options);
 
-<span class="hljs-keyword">HashMap</span>&lt;<span class="hljs-keyword">String</span>, <span class="hljs-keyword">String</span>&gt; galaxySpecs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">HashMap</span>&lt;<span class="hljs-keyword">String</span>, <span class="hljs-keyword">String</span>&gt;();
+HashMap&lt;String, String&gt; galaxySpecs = <span class="hljs-keyword">new</span> HashMap&lt;String, String&gt;();
 galaxySpecs.put(<span class="hljs-string">"price"</span>, <span class="hljs-string">"300"</span>);
 galaxySpecs.put(<span class="hljs-string">"ram"</span>, <span class="hljs-string">"45"</span>);
 galaxySpecs.put(<span class="hljs-string">"screen"</span>, <span class="hljs-string">"5"</span>);
-options.<span class="hljs-built_in">add</span>(<span class="hljs-keyword">new</span> Option(<span class="hljs-string">"1"</span>, <span class="hljs-string">"Galaxy S4"</span>, galaxySpecs, <span class="hljs-string">""</span>));
+options.add(<span class="hljs-keyword">new</span> Option(<span class="hljs-string">"1"</span>, <span class="hljs-string">"Galaxy S4"</span>, galaxySpecs, <span class="hljs-string">""</span>));
 
-<span class="hljs-keyword">HashMap</span>&lt;<span class="hljs-keyword">String</span>, <span class="hljs-keyword">String</span>&gt; iphoneSpecs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">HashMap</span>&lt;<span class="hljs-keyword">String</span>, <span class="hljs-keyword">String</span>&gt;();
+HashMap&lt;String, String&gt; iphoneSpecs = <span class="hljs-keyword">new</span> HashMap&lt;String, String&gt;();
 iphoneSpecs.put(<span class="hljs-string">"price"</span>, <span class="hljs-string">"400"</span>);
 iphoneSpecs.put(<span class="hljs-string">"ram"</span>, <span class="hljs-string">"40"</span>);
 iphoneSpecs.put(<span class="hljs-string">"screen"</span>, <span class="hljs-string">"4"</span>);
-options.<span class="hljs-built_in">add</span>(<span class="hljs-keyword">new</span> Option(<span class="hljs-string">"2"</span>, <span class="hljs-string">"iPhone 5"</span>, iphoneSpecs, <span class="hljs-string">""</span>));
+options.add(<span class="hljs-keyword">new</span> Option(<span class="hljs-string">"2"</span>, <span class="hljs-string">"iPhone 5"</span>, iphoneSpecs, <span class="hljs-string">""</span>));
 
-<span class="hljs-keyword">HashMap</span>&lt;<span class="hljs-keyword">String</span>, <span class="hljs-keyword">String</span>&gt; optimusSpecs = <span class="hljs-keyword">new</span> <span class="hljs-keyword">HashMap</span>&lt;<span class="hljs-keyword">String</span>, <span class="hljs-keyword">String</span>&gt;();
+HashMap&lt;String, String&gt; optimusSpecs = <span class="hljs-keyword">new</span> HashMap&lt;String, String&gt;();
 optimusSpecs.put(<span class="hljs-string">"price"</span>, <span class="hljs-string">"300"</span>);
 optimusSpecs.put(<span class="hljs-string">"ram"</span>, <span class="hljs-string">"300"</span>);
 optimusSpecs.put(<span class="hljs-string">"screen"</span>, <span class="hljs-string">"5"</span>);
-options.<span class="hljs-built_in">add</span>(<span class="hljs-keyword">new</span> Option(<span class="hljs-string">"3"</span>, <span class="hljs-string">"LG Optimus G"</span>, optimusSpecs, <span class="hljs-string">""</span>));
+options.add(<span class="hljs-keyword">new</span> Option(<span class="hljs-string">"3"</span>, <span class="hljs-string">"LG Optimus G"</span>, optimusSpecs, <span class="hljs-string">""</span>));
 
 <span class="hljs-comment">// Call the service and get the resolution</span>
 Dilemma dilemma = service.dilemmas(problem);
-System.out.<span class="hljs-built_in">println</span>(dilemma);
+System.out.println(dilemma);
 </code></pre>
     <h3 id="visual-recognition">Visual Recognition</h3>
     <p>Use the <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-recognition/">Visual Recognition</a> service to recognize the following picture.</p>
     <p><img src="http://visual-recognition-demo.mybluemix.net/images/73388.jpg" alt="Car"></p>
-    <pre><code class="lang-java"><span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.visual_recognition.v1.VisualRecognition;</span>
-<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.visual_recognition.v1.model.RecognizedImage;</span>
-<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.visual_recognition.v1.model.LabelSet;</span>
-<span class="hljs-preprocessor"><span class="hljs-keyword">import</span> java.io.File;</span>
+    <pre><code class="lang-java"><span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.visual_recognition.v1.VisualRecognition;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.visual_recognition.v1.model.RecognizedImage;
+<span class="hljs-keyword">import</span> com.ibm.watson.developer_cloud.visual_recognition.v1.model.LabelSet;
+<span class="hljs-keyword">import</span> java.io.File;
 
 VisualRecognition service = <span class="hljs-keyword">new</span> VisualRecognition();
 service.setUsernameAndPassword(<span class="hljs-string">"&lt;username&gt;"</span>, <span class="hljs-string">"&lt;password&gt;"</span>);
@@ -315,46 +324,43 @@ System.out.println(recognizedImage);
 </code></pre>
     <h2 id="android">Android</h2>
     <p>The wrapper works well on Android. It depends on
-        <a href="http://hc.apache.org/httpcomponents-client-ga/">Apache HttpClient</a> (including the <a href="http://hc.apache.org/httpcomponents-client-ga/httpmime">HttpMime</a> module) and <a href="http://json.org/java/">json-java</a>. Android SDK already comes with these two libraries so you don't need to include them when using the wrapper there.</p>
+        <a href="http://hc.apache.org/httpcomponents-client-ga/">Apache HttpClient</a> (including the <a href="http://hc.apache.org/httpcomponents-client-ga/httpmime">HttpMime</a> module) and <a href="http://json.org/java/">json-java</a>. Android SDK already comes with these two libraries so you don&#39;t need to include them when using the wrapper there.</p>
     <h2 id="build-test">Build + Test</h2>
     <p>To build and test the project you can use <a href="http://www.gradle.org/">Gradle</a> (version 1.x): or <a href="http://maven.apache.org/">Apache Maven</a>.</p>
     <p>Gradle:</p>
-    <pre><code class="lang-sh">  <span class="hljs-variable">$ </span>cd java-wrapper
-  <span class="hljs-variable">$ </span>gradle jar  <span class="hljs-comment"># build jar file (build/libs/watson-developer-cloud-alpha-0.0.9.jar)</span>
-  <span class="hljs-variable">$ </span>gradle test <span class="hljs-comment"># run tests</span>
+    <pre><code class="lang-sh">  $ <span class="hljs-built_in">cd</span> java-wrapper
+  $ gradle jar  <span class="hljs-comment"># build jar file (build/libs/watson-developer-cloud-0.1.8.jar)</span>
+  $ gradle test <span class="hljs-comment"># run tests</span>
 </code></pre>
     <p>or Maven:</p>
-    <pre><code class="lang-sh">  <span class="hljs-variable">$ </span>cd java-wrapper
-  <span class="hljs-variable">$ </span>mvn install
+    <pre><code class="lang-sh">  $ <span class="hljs-built_in">cd</span> java-wrapper
+  $ mvn install
 </code></pre>
     <h2 id="working-with-eclipse-and-intellij-idea">Working with Eclipse and Intellij IDEA</h2>
     <p>If you want to work on the code in an IDE instead of a text editor you can easily create project files with gradle:</p>
-    <pre><code class="lang-sh">  <span class="hljs-variable">$ </span>gradle idea     <span class="hljs-comment"># Intellij IDEA</span>
-  <span class="hljs-variable">$ </span>gradle eclipse  <span class="hljs-comment"># Eclipse</span>
+    <pre><code class="lang-sh">  $ gradle idea     <span class="hljs-comment"># Intellij IDEA</span>
+  $ gradle eclipse  <span class="hljs-comment"># Eclipse</span>
 </code></pre>
     <p>or maven:</p>
-    <pre><code class="lang-sh">  <span class="hljs-variable">$ </span>mvn <span class="hljs-symbol">idea:</span>idea <span class="hljs-comment"># Intellij IDEA</span>
-  <span class="hljs-variable">$ </span>mvn <span class="hljs-symbol">eclipse:</span>eclipse <span class="hljs-comment"># Eclipse</span>
+    <pre><code class="lang-sh">  $ mvn idea:idea <span class="hljs-comment"># Intellij IDEA</span>
+  $ mvn eclipse:eclipse <span class="hljs-comment"># Eclipse</span>
 </code></pre>
     <h2 id="open-source-ibm">Open Source @ IBM</h2>
     <p>Find more open source projects on the <a href="http://ibm.github.io/">IBM Github Page</a></p>
     <h2 id="license">License</h2>
-    <p>This library is licensed under Apache 2.0.</p>
-
-
-    </section>
-
-            <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-59827755-4");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
+    <p>This library is licensed under Apache 2.0. Full license text is available in <a href="https://raw.githubusercontent.com/watson-developer-cloud/java-wrapper/master/LICENSE">LICENSE</a>.</p>
+    <h2 id="contributing">Contributing</h2>
+    <p>See <a href="https://raw.githubusercontent.com/watson-developer-cloud/java-wrapper/master/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
+</section>
+        <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        try {
+          var pageTracker = _gat._getTracker("UA-59827755-4");
+        pageTracker._trackPageview();
+        } catch(err) {}
+      </script>
   </body>
 </html>
-
