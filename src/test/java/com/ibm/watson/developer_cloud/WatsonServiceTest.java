@@ -96,7 +96,8 @@ public abstract class WatsonServiceTest {
 		System.setProperty("org.apache.commons.logging.simplelog.showdatetime", "true");
 		System.setProperty("org.apache.commons.logging.simplelog.log.httpclient.wire", "debug");
 		System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http", "debug");
-		System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.headers", "debug");
+		System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.impl.conn", "debug");
+		System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.impl.client", "debug");
 	}
 
 }
