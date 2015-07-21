@@ -22,9 +22,9 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * The Class Session.
+ * Conversation data stores information about a conversation.
  */
-public class Session {
+public class ConversationData {
 
 	/** The hit nodes. */
 	@SerializedName("hit_nodes")
@@ -32,11 +32,11 @@ public class Session {
 	
 	/** The conversation id. */
 	@SerializedName("conversation_id")
-	private int conversationId;
+	private Integer conversationId;
 	
 	/** The client id. */
 	@SerializedName("client_id")
-	private int clientId;
+	private Integer clientId;
 	
 	/** The messages. */
 	private List<Message> messages = new ArrayList<Message>();
@@ -51,6 +51,34 @@ public class Session {
 	 */
 	public List<HitNode> getHitNodes() {
 		return hitNodes;
+	}
+
+	
+	/**
+	 * Gets the conversation id.
+	 *
+	 * @return the conversation id
+	 */
+	public Integer getConversationId() {
+		return conversationId;
+	}
+
+	/**
+	 * Sets the conversation id.
+	 *
+	 * @param conversationId the new conversation id
+	 */
+	public void setConversationId(Integer conversationId) {
+		this.conversationId = conversationId;
+	}
+
+	/**
+	 * Sets the client id.
+	 *
+	 * @param clientId the new client id
+	 */
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
 	}
 
 	/**
@@ -68,41 +96,10 @@ public class Session {
 	 * 
 	 * @param hitNodes
 	 *            the hit nodes
-	 * @return the Session
+	 * @return The {@link ConversationData}
 	 */
-	public Session withHitNodes(final List<HitNode> hitNodes) {
+	public ConversationData withHitNodes(final List<HitNode> hitNodes) {
 		this.hitNodes = hitNodes;
-		return this;
-	}
-
-	/**
-	 * Gets the Session id.
-	 * 
-	 * @return The SessionId
-	 */
-	public int getSessionId() {
-		return conversationId;
-	}
-
-	/**
-	 * Sets the Session id.
-	 * 
-	 * @param SessionId
-	 *            The Session_id
-	 */
-	public void setSessionId(final int SessionId) {
-		this.conversationId = SessionId;
-	}
-
-	/**
-	 * With Session id.
-	 * 
-	 * @param SessionId
-	 *            the Session id
-	 * @return the Session
-	 */
-	public Session withSessionId(final int SessionId) {
-		this.conversationId = SessionId;
 		return this;
 	}
 
@@ -130,9 +127,9 @@ public class Session {
 	 * 
 	 * @param clientId
 	 *            the client id
-	 * @return the Session
+	 * @return the {@link ConversationData}
 	 */
-	public Session withClientId(int clientId) {
+	public ConversationData withClientId(Integer clientId) {
 		this.clientId = clientId;
 		return this;
 	}
@@ -140,7 +137,7 @@ public class Session {
 	/**
 	 * Gets the messages.
 	 * 
-	 * @return The messages
+	 * @return A list of {@link Message}
 	 */
 	public List<Message> getMessages() {
 		return messages;
@@ -161,9 +158,9 @@ public class Session {
 	 * 
 	 * @param messages
 	 *            the messages
-	 * @return the Session
+	 * @return the {@link ConversationData }
 	 */
-	public Session withMessages(final List<Message> messages) {
+	public ConversationData withMessages(final List<Message> messages) {
 		this.messages = messages;
 		return this;
 	}
@@ -171,7 +168,7 @@ public class Session {
 	/**
 	 * Gets the profile.
 	 * 
-	 * @return The profile
+	 * @return A list of  {@link NameValue } pars
 	 */
 	public List<NameValue> getProfile() {
 		return profile;
@@ -192,13 +189,25 @@ public class Session {
 	 * 
 	 * @param profile
 	 *            the profile
-	 * @return the Session
+	 * @return the {@link ConversationData }
 	 */
-	public Session withProfile(final List<NameValue> profile) {
+	public ConversationData withProfile(final List<NameValue> profile) {
 		this.profile = profile;
 		return this;
 	}
 
+	/**
+	 * With conversationId.
+	 * 
+	 * @param conversationId
+	 *            the conversation identifier
+	 * @return the {@link ConversationData }
+	 */
+	public ConversationData withConversationId(final Integer conversationId) {
+		this.conversationId = conversationId;
+		return this;
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 

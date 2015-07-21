@@ -32,14 +32,14 @@ public class Conversation {
 
 	/** The client id. */
 	@SerializedName("client_id")
-	private int clientId;
+	private Integer clientId;
 
 	/** The confidence. */
-	private double confidence;
+	private Double confidence;
 
 	/** The id. */
 	@SerializedName("conversation_id")
-	private int id;
+	private Integer id;
 
 	/** The input. */
 	private String input;
@@ -52,7 +52,7 @@ public class Conversation {
 	 * 
 	 * @return The clientId
 	 */
-	public int getClientId() {
+	public Integer getClientId() {
 		return clientId;
 	}
 
@@ -70,7 +70,7 @@ public class Conversation {
 	 * 
 	 * @return the id
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
@@ -98,7 +98,7 @@ public class Conversation {
 	 * @param clientId
 	 *            The client_id
 	 */
-	public void setClientId(int clientId) {
+	public void setClientId(final int clientId) {
 		this.clientId = clientId;
 	}
 
@@ -108,7 +108,7 @@ public class Conversation {
 	 * @param confidence
 	 *            The confidence
 	 */
-	public void setConfidence(double confidence) {
+	public void setConfidence(final double confidence) {
 		this.confidence = confidence;
 	}
 

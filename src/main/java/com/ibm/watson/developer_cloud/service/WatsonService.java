@@ -132,6 +132,20 @@ public abstract class WatsonService {
 	}
 
 	/**
+	 * Execute the Http request and discard the response.
+	 * Use this when you don't want to get the response but you want to make sure
+	 * we read it so that the underline connection is released
+	 */
+	protected void executeWithoutResponse(HttpRequestBase request) { 
+		HttpResponse response = execute(request);
+		try {
+			ResponseUtil.getString(response);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
 	 * Execute the Http request.
 	 *
 	 * @param request
