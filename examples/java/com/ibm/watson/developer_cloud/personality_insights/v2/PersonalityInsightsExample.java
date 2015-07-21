@@ -15,6 +15,9 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v2;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 
 public class PersonalityInsightsExample {
@@ -37,7 +40,10 @@ public class PersonalityInsightsExample {
 				+ "the street, and methodically knocking people's hats off-then, "
 				+ "I account it high time to get to sea as soon as I can.";
 
-		Profile profile = service.getProfile(myProfile);
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put("text",myProfile);
+
+		Profile profile = service.getProfile(params);
 		System.out.println(profile);
 	}
 }

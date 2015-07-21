@@ -25,48 +25,32 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Trait {
 
+	/** The category. */
+	private String category;
+	
+	/** The children. */
+	private List<Trait> children;
+	
 	/** The id. */
 	private String id;
 	
 	/** The name. */
 	private String name;
 	
-	/** The category. */
-	private String category;
-	
 	/** The percentage. */
 	private double percentage;
+
+	/** The raw sampling error. */
+	@SerializedName("raw_sampling_error")
+	private Double rawSamplingError;
+	
+	/** The raw score. */
+	@SerializedName("raw_score")
+	private Double rawScore;
 	
 	/** The sampling error. */
 	@SerializedName("sampling_error")
 	private double samplingError;
-	
-	/** The children. */
-	private List<Trait> children;
-
-	/**
-	 * Indicates the sampling error of the percentage, based on the
-	 * number of words in the input. The number defines a 95% confidence
-	 * interval around the percentage. For example, the sampling error is
-	 * 4% and percentage is 61%. It is 95% likely that the actual percentage
-	 * value is between 57% and 65% if more words are given.
-	 * 
-	 * @return the sampling error
-	 */
-	public double getSamplingError() {
-		return samplingError;
-	}
-
-	/**
-	 * Sets the sampling error of the percentage based on the
-	 * number of words in the input.
-	 * 
-	 * @param samplingError error
-	 *            the new sampling error
-	 */
-	public void setSamplingError(double samplingError) {
-		this.samplingError = samplingError;
-	}
 
 	/**
 	 * Gets the personality model category.
@@ -114,6 +98,37 @@ public class Trait {
 	 */
 	public double getPercentage() {
 		return percentage;
+	}
+
+	/**
+	 * Gets the raw sampling error.
+	 *
+	 * @return the raw sampling error
+	 */
+	public double getRawSamplingError() {
+		return rawSamplingError;
+	}
+
+	/**
+	 * Gets the raw score.
+	 *
+	 * @return the raw score
+	 */
+	public double getRawScore() {
+		return rawScore;
+	}
+
+	/**
+	 * Indicates the sampling error of the percentage, based on the
+	 * number of words in the input. The number defines a 95% confidence
+	 * interval around the percentage. For example, the sampling error is
+	 * 4% and percentage is 61%. It is 95% likely that the actual percentage
+	 * value is between 57% and 65% if more words are given.
+	 * 
+	 * @return the sampling error
+	 */
+	public double getSamplingError() {
+		return samplingError;
 	}
 
 	/**
@@ -165,6 +180,35 @@ public class Trait {
 	 */
 	public void setPercentage(double percentage) {
 		this.percentage = percentage;
+	}
+
+	/**
+	 * Sets the raw sampling error.
+	 *
+	 * @param rawSamplingError the new raw sampling error
+	 */
+	public void setRawSamplingError(double rawSamplingError) {
+		this.rawSamplingError = rawSamplingError;
+	}
+
+	/**
+	 * Sets the raw score.
+	 *
+	 * @param rawScore the new raw score
+	 */
+	public void setRawScore(double rawScore) {
+		this.rawScore = rawScore;
+	}
+
+	/**
+	 * Sets the sampling error of the percentage based on the
+	 * number of words in the input.
+	 * 
+	 * @param samplingError error
+	 *            the new sampling error
+	 */
+	public void setSamplingError(double samplingError) {
+		this.samplingError = samplingError;
 	}
 
 	/* (non-Javadoc)

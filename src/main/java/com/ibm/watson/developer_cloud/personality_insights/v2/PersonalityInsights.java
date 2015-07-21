@@ -16,9 +16,10 @@
 package com.ibm.watson.developer_cloud.personality_insights.v2;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.logging.Logger;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.protocol.HTTP;
 
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
@@ -40,7 +41,10 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  *      Personality Insights</a>
  */
 public class PersonalityInsights extends WatsonService {
-
+	
+	/** The Constant log. */
+	private static final Logger log = Logger.getLogger(PersonalityInsights.class.getName());
+	
 	/** The url. */
 	private static String URL = "https://gateway.watsonplatform.net/personality-insights/api";
 
@@ -52,57 +56,43 @@ public class PersonalityInsights extends WatsonService {
 	}
 
 	/**
-	 * Accepts a {@link Content} object and analyzes the text. The response is
-	 * {@link Profile} with a tree of characteristics that include personality,
-	 * needs, and values. If you include either created or updated timestamps,
-	 * the response also includes a summary of the author's writing habits with
-	 * respect to time of day.
-	 * 
-	 * @param content
-	 *            the content
-	 * @return the profile
-	 * @see Content
-	 */
-	public Profile getProfile(Content content) {
-		if (content == null)
-			throw new IllegalArgumentException("content can not be null");
-
-		if (content.getContentItems() == null || content.getContentItems().isEmpty())
-			throw new IllegalArgumentException("content needs to have contentItems.");
-
-		String contentJson = getGson().toJson(content);
-		HttpRequestBase request = Request.Post("/v2/profile")
-				.withContent(contentJson, MediaType.APPLICATION_JSON).build();
-
-		try {
-			HttpResponse response = execute(request);
-			String profileJson = ResponseUtil.getString(response);
-			Profile profile = getGson().fromJson(profileJson, Profile.class);
-			return profile;
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	/**
-	 * Accepts text and responds with a {@link Profile} with a tree of
-	 * characteristics that include personality, needs, and values. If you
-	 * include either created or updated timestamps, the response also includes
+	 * Accepts text or a {@link Content} object and responds with a {@link Profile}
+	 * with a tree of characteristics that include personality, needs, and values.
+	 * If you include either created or updated timestamps, the response also includes
 	 * a summary of the author's writing habits with respect to time of day.
 	 * 
-	 * @param text
-	 *            the text to analyze
-	 * @return the personality profile
-	 * @see Content
+	 * @param params
+	 *            The parameters to generate the profile. Either text or content need
+	 *            to be specified
+	 * @return The personality profile
 	 */
-	public Profile getProfile(String text) {
-		if (text == null)
-			throw new IllegalArgumentException("text can not be null");
+	public Profile getProfile(Map<String, Object> params) {
+		if (!params.containsKey("text") && !params.containsKey("content"))
+			throw new IllegalArgumentException("text or content need to be specified");
+		else if (params.containsKey("text") && params.containsKey("content"))
+			log.warning("text and content were specified, only text will be used");
+			
+		
+		Request request = Request.Post("/v2/profile");
+		
+		if (params.containsKey("text")) {
+			request.withContent(params.get("text").toString(), HTTP.PLAIN_TEXT_TYPE);
+		} else {
+			String contentJson = getGson().toJson(params.get("content"));
+			request.withContent(contentJson, MediaType.APPLICATION_JSON);
+		}
+		
+		if (params.containsKey("includeRaw"))
+			request.withQuery("include_raw", params.get("includeRaw"));
+		
+		if (params.containsKey("language"))
+			request.withHeader("Content-Language", params.get("language"));
 
-		HttpRequestBase request = Request.Post("/v2/profile")
-				.withContent(text, HTTP.PLAIN_TEXT_TYPE).build();
+		if (params.containsKey("acceptLanguage"))
+			request.withHeader("Accept-Language", params.get("acceptLanguage"));
 
-		HttpResponse response = execute(request);
+		HttpResponse response = execute(request.build());
+
 		try {
 			String profileJson = ResponseUtil.getString(response);
 			Profile profile = getGson().fromJson(profileJson, Profile.class);
@@ -111,7 +101,7 @@ public class PersonalityInsights extends WatsonService {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 

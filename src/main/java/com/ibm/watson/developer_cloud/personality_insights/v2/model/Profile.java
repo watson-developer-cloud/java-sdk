@@ -33,11 +33,35 @@ public class Profile {
 	private Trait tree;
 	
 	/** The word_count. */
-	private int word_count;
+	@SerializedName("word_count")
+	private int wordCount;
 
 	/** The word count message. */
 	@SerializedName("word_count_message")
 	private String wordCountMessage;
+
+	/** The word count message. */
+	@SerializedName("processed_lang")
+	private String processedLanguage;
+	
+	
+	/**
+	 * Gets the processed language.
+	 *
+	 * @return the processed language
+	 */
+	public String getProcessedLanguage() {
+		return processedLanguage;
+	}
+
+	/**
+	 * Sets the processed language.
+	 *
+	 * @param processedLanguage the new processed language
+	 */
+	public void setProcessedLanguage(String processedLanguage) {
+		this.processedLanguage = processedLanguage;
+	}
 
 	/**
 	 * Gets A message indicating the number of words found and where that value
@@ -93,8 +117,8 @@ public class Profile {
 	 *
 	 * @return the number of words
 	 */
-	public int getWord_count() {
-		return word_count;
+	public int getWordCount() {
+		return wordCount;
 	}
 
 	/**
@@ -130,10 +154,10 @@ public class Profile {
 	/**
 	 * Sets the number of words found in the input.
 	 *
-	 * @param word_count            the number of words
+	 * @param wordCount            the number of words
 	 */
-	public void setWord_count(int word_count) {
-		this.word_count = word_count;
+	public void setWordCount(int wordCount) {
+		this.wordCount = wordCount;
 	}
 
 	/*
