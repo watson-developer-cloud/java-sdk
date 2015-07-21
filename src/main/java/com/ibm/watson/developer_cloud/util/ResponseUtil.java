@@ -20,9 +20,10 @@ import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.http.Header;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.protocol.HTTP;
+import org.apache.http.ParseException;
+import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -119,37 +120,22 @@ public class ResponseUtil {
 	 *             network error
 	 * */
 	public static String getString(HttpResponse response) throws IOException {
-		InputStream is;
+		HttpEntity entity;
 		try {
-			is = response.getEntity().getContent();
-			if (is == null)
+			entity = response.getEntity();
+			if (entity == null)
 				return null;
-
-			int length = BUFFER_SIZE;
-			Header contentLength = response.getFirstHeader(HTTP.CONTENT_LEN);
-
-			if (contentLength != null) {
-				try {
-					length = Integer.parseInt(contentLength.getValue());
-				} catch (NumberFormatException e) {
-					log.log(Level.SEVERE,contentLength.getValue() + " is not a number", e);
-					throw new RuntimeException(e);
-				}
-			}
-
-			final StringBuilder sb = new StringBuilder(length);
-			int n;
-			byte[] buffer = new byte[BUFFER_SIZE];
-			while ((n = is.read(buffer)) != -1) {
-				sb.append(new String(buffer, 0, n));
-			}
-			return sb.toString();
-		} catch (IOException e) {
+			else
+				return EntityUtils.toString(entity, "UTF-8");
+		} catch (ParseException e) {
+			log.log(Level.SEVERE,"Could not parse service response", e);
+			throw new IOException("Could not parse service response:" + e.getMessage());
+		}  catch (IOException e) {
 			log.log(Level.SEVERE,"Could not read service response", e);
-			throw new IOException("Could not read service response:"
-					+ e.getMessage());
+			throw new IOException("Could not read service response:" + e.getMessage());
 		}
 	}
+	
 	/**
 	 * Returns a String representation of the response.
 	 * 

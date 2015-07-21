@@ -28,8 +28,11 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.client.params.HttpClientParams;
+import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.params.ConnManagerParams;
+import org.apache.http.conn.params.ConnPerRouteBean;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
@@ -37,14 +40,13 @@ import org.apache.http.params.HttpProtocolParams;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It
  * handle authentication and default url
- * 
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/">
@@ -52,48 +54,56 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public abstract class WatsonService {
 
+	/**
+	 * Field ACCEPT. (value is ""Accept"")
+	 */
+	private static final String ACCEPT = "Accept";
+
+	/**
+	 * Field AUTHORIZATION. (value is ""Authorization"")
+	 */
+	private static final String AUTHORIZATION = "Authorization";
+	/**
+	 * Field CONNECTION_TIMEOUT. (value is 120000)
+	 */
+	private static final int CONNECTION_TIMEOUT = 120000;
+
 	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(WatsonService.class
 			.getName());
 
 	/**
-	 * Field ACCEPT. (value is ""Accept"")
+	 * Field MAX_TOTAL_CONNECTIONS. (value is 1000)
 	 */
-	private static final String ACCEPT = "Accept";
-	/**
-	 * Field AUTHORIZATION. (value is ""Authorization"")
-	 */
-	private static final String AUTHORIZATION = "Authorization";
+	private static final int MAX_CONNECTIONS_PER_ROUTE = 1000;
 
 	/**
-	 * Field CONNECTION_TIMEOUT. (value is 60000)
+	 * Field MAX_TOTAL_CONNECTIONS. (value is 1000)
 	 */
-	private static final int CONNECTION_TIMEOUT = 60000;
-	/**
-	 * Field MAX_TOTAL_CONNECTIONS. (value is 10)
-	 */
-	private static final int MAX_TOTAL_CONNECTIONS = 10;
-	/**
-	 * Field httpClient.
-	 */
-	private HttpClient httpClient;
+	private static final int MAX_TOTAL_CONNECTIONS = 1000;
 
-	/**
-	 * Field gson.
-	 */
-	private Gson gson = new Gson();
 	/**
 	 * Field apiKey.
 	 */
 	private String apiKey;
+
 	/**
 	 * Field endPoint.
 	 */
 	private String endPoint;
 
 	/**
+	 * Field gson.
+	 */
+	private Gson gson = new Gson();
+	/**
+	 * Field httpClient.
+	 */
+	private HttpClient httpClient;
+
+	/**
 	 * Instantiates a new Watson service.
-	 * 
+	 *
 	 */
 	public WatsonService() {
 	}
@@ -102,10 +112,10 @@ public abstract class WatsonService {
 	 * Builds the request URI appending the service end point to the path.<br>
 	 * <b>From:</b> /v1/foo/bar <br>
 	 * <b>to:</b>https://host:port/api/v1/foo/bar
-	 * 
+	 *
 	 * @param request
 	 *            the http request
-	 * 
+	 *
 	 * @return the URI including the service end point
 	 */
 	private URI buildRequestURI(HttpRequestBase request) {
@@ -123,10 +133,10 @@ public abstract class WatsonService {
 
 	/**
 	 * Execute the Http request.
-	 * 
+	 *
 	 * @param request
 	 *            the http request
-	 * 
+	 *
 	 * @return the http response
 	 */
 	protected HttpResponse execute(HttpRequestBase request) {
@@ -153,7 +163,8 @@ public abstract class WatsonService {
 		HttpResponse response;
 		log.log(Level.FINEST, "Request to: " + request.getURI());
 		try {
-			response = getHttpClient().execute(request);
+			//response = getHttpClient().execute(request);
+			response = getThreadSafeClient().execute(request);
 		} catch (ClientProtocolException e) {
 			log.log(Level.SEVERE, "ClientProtocolException", e);
 			throw new RuntimeException(e);
@@ -161,6 +172,7 @@ public abstract class WatsonService {
 			log.log(Level.SEVERE, "IOException", e);
 			throw new RuntimeException(e);
 		}
+
 		final int status = response.getStatusLine().getStatusCode();
 		log.log(Level.FINEST, "Response HTTP Status: " + status);
 
@@ -172,7 +184,6 @@ public abstract class WatsonService {
 		String error = getErrorMessage(response);
 		log.log(Level.SEVERE, "HTTP Status: " + status);
 		log.log(Level.SEVERE, "Error message from service: " + error);
-	
 
 		switch (status) {
 		case HttpStatus.SC_BAD_REQUEST: // HTTP 400
@@ -211,40 +222,9 @@ public abstract class WatsonService {
 	}
 
 	/**
-	 * Gets the error message from a JSON response
-	 * 
-	 * <pre>
-	 * {
-	 *   code: 400
-	 *   error: 'bad request'
-	 * }
-	 * </pre>
-	 * 
-	 * .
-	 * 
-	 * @param resp
-	 *            the HTTP response
-	 * @return the error message from the json object
-	 */
-	private String getErrorMessage(HttpResponse resp) {
-		String error = null;
-		try {
-			error = ResponseUtil.getString(resp);
-			JsonParser parser = new JsonParser();
-			JsonObject respJson = parser.parse(error).getAsJsonObject();
-			error = respJson.get("error").getAsString();
-			if (error != null && error.isEmpty()) {
-				error = null;
-			}
-		} catch (Exception e) {}
-
-		return error;
-	}
-
-	/**
 	 * Gets the API key.
-	 * 
-	 * 
+	 *
+	 *
 	 * @return the API key
 	 */
 	public String getApiKey() {
@@ -253,8 +233,8 @@ public abstract class WatsonService {
 
 	/**
 	 * Gets the default content type.
-	 * 
-	 * 
+	 *
+	 *
 	 * @return the default content type
 	 */
 	protected String getDefaultContentType() {
@@ -263,8 +243,8 @@ public abstract class WatsonService {
 
 	/**
 	 * Gets the default request.
-	 * 
-	 * 
+	 *
+	 *
 	 * @return the default request
 	 */
 	protected HttpParams getDefaultRequestParams() {
@@ -274,14 +254,14 @@ public abstract class WatsonService {
 		HttpClientParams.setRedirecting(params, false);
 		HttpProtocolParams.setUserAgent(params, getUserAgent());
 		ConnManagerParams.setMaxTotalConnections(params, MAX_TOTAL_CONNECTIONS);
-
+		ConnManagerParams.setMaxConnectionsPerRoute(params, new ConnPerRouteBean(MAX_CONNECTIONS_PER_ROUTE));
 		return params;
 	}
 
 	/**
 	 * Gets the API end point.
-	 * 
-	 * 
+	 *
+	 *
 	 * @return the API end point
 	 */
 	public String getEndPoint() {
@@ -289,9 +269,41 @@ public abstract class WatsonService {
 	}
 
 	/**
+	 * Gets the error message from a JSON response
+	 *
+	 * <pre>
+	 * {
+	 *   code: 400
+	 *   error: 'bad request'
+	 * }
+	 * </pre>
+	 *
+	 * .
+	 *
+	 * @param response
+	 *            the HTTP response
+	 * @return the error message from the json object
+	 */
+	private String getErrorMessage(HttpResponse response) {
+		String error = null;
+		try {
+			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+			if (jsonObject.has("error")) {
+				error = jsonObject.get("error").getAsString();
+			} else if (jsonObject.has("error_message")) {
+				error = jsonObject.get("error_message").getAsString();
+			} else {
+				error = jsonObject.getAsString();
+			}
+		} catch (Exception e) {}
+
+		return error;
+	}
+
+	/**
 	 * Gets the gson.
-	 * 
-	 * 
+	 *
+	 *
 	 * @return the gson
 	 */
 	protected Gson getGson() {
@@ -300,8 +312,8 @@ public abstract class WatsonService {
 
 	/**
 	 * Gets the http client.
-	 * 
-	 * 
+	 *
+	 *
 	 * @return the http client
 	 */
 	public HttpClient getHttpClient() {
@@ -311,10 +323,22 @@ public abstract class WatsonService {
 		return httpClient;
 	}
 
+	public HttpClient getThreadSafeClient() {
+
+	    DefaultHttpClient client = new DefaultHttpClient(getDefaultRequestParams());
+	    ClientConnectionManager mgr = client.getConnectionManager();
+	    HttpParams params = client.getParams();
+
+	    client = new DefaultHttpClient(new ThreadSafeClientConnManager(params,
+	    		mgr.getSchemeRegistry()), params);
+
+	    return client;
+	}
+
 	/**
 	 * Gets the user agent.
-	 * 
-	 * 
+	 *
+	 *
 	 * @return the user agent
 	 */
 	private final String getUserAgent() {
@@ -323,7 +347,7 @@ public abstract class WatsonService {
 
 	/**
 	 * Sets the API key.
-	 * 
+	 *
 	 * @param apiKey
 	 *            the new API key
 	 */
@@ -333,7 +357,7 @@ public abstract class WatsonService {
 
 	/**
 	 * Sets the end point.
-	 * 
+	 *
 	 * @param endPoint
 	 *            the new end point
 	 */
@@ -343,7 +367,7 @@ public abstract class WatsonService {
 
 	/**
 	 * Sets the username and password.
-	 * 
+	 *
 	 * @param username
 	 *            the username
 	 * @param password
@@ -356,7 +380,7 @@ public abstract class WatsonService {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
