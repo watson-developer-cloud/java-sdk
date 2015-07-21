@@ -49,7 +49,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 public class NaturalLanguageClassifier extends WatsonService {
 
 	/** The url. */
-	private static String URL = "https://gateway.watsonplatform.net/natural-language-classifier-experimental/api";
+	private static String URL = "https://gateway.watsonplatform.net/natural-language-classifier-beta/api";
 
 	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(NaturalLanguageClassifier.class.getName());
