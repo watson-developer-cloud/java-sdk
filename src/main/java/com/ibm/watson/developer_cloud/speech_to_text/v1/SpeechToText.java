@@ -27,7 +27,6 @@ import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.InputStreamEntity;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SessionStatus;
@@ -51,14 +50,145 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class SpeechToText extends WatsonService {
 
+	public static final String MODEL = "model";
+	public static final String INACTIVITY_TIMEOUT = "inactivity_timeout";
+	public static final String TIMESTAMPS = "timestamps";
+	public static final String MAX_ALTERNATIVES = "max_alternatives";
+	public static final String WORD_CONFIDENCE = "word_confidence";
+	public static final String CONTINUOUS = "continuous";
+	public static final String SESSION_ID = "session_id";
+	public static final String CONTENT_TYPE = "content_type";
+	public static final String AUDIO = "audio";
+	
 	/** The url. */
-	private static String URL = "https://stream.watsonplatform.net/speech-to-text/api";
+	private final static String URL = "https://stream.watsonplatform.net/speech-to-text/api";
 
 	/**
 	 * Instantiates a new speech to text.
 	 */
 	public SpeechToText() {
 		setEndPoint(URL);
+	}
+
+	/**
+	 * Create a session to lock an engine to the session. You can use the
+	 * session for multiple recognition requests, so that each request is
+	 * processed with the same speech-to-text engine. Use the cookie that is
+	 * returned from this operation in the Set-Cookie header for each request
+	 * that uses this session. The session expires after 15 minutes of
+	 * inactivity.
+	 * 
+	 * @return the {@link SpeechSession}
+	 */
+	public SpeechSession createSession() {
+		return createSession(null);
+	}
+
+	/**
+	 * Create a session to lock an engine to the session. You can use the
+	 * session for multiple recognition requests, so that each request is
+	 * processed with the same speech-to-text engine. Use the cookie that is
+	 * returned from this operation in the Set-Cookie header for each request
+	 * that uses this session. The session expires after 15 minutes of
+	 * inactivity.
+	 *
+	 * @param model the model
+	 * @return the {@link SpeechSession}
+	 */
+	public SpeechSession createSession(final String model) {
+		String path = "/v1/sessions";
+
+		if (model != null && !model.isEmpty())
+			path += "?model=" + model;
+
+		HttpRequestBase request = Request.Post(path).build();
+		try {
+			HttpResponse response = execute(request);
+			String sessionString = ResponseUtil.getString(response);
+			SpeechSession speechSession = getGson().fromJson(sessionString,
+					SpeechSession.class);
+			speechSession.setCookieSession(response
+					.getFirstHeader("set-cookie").getValue());
+			return speechSession;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+	}
+
+	/**
+	 * Delete a session.
+	 * 
+	 * @param session
+	 *            the speech session
+	 */
+	public void deleteSession(final SpeechSession session) {
+		if (session == null)
+			throw new IllegalArgumentException("session was not specified");
+
+		HttpRequestBase request = Request.Delete("/v1/sessions/" + session.getSessionId())
+				.build();
+		HttpResponse response = execute(request);
+		
+		try {
+			ResponseUtil.getString(response);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		if (response.getStatusLine().getStatusCode() != 204)
+			throw new RuntimeException("Cound't delete session");	
+	}
+
+	/**
+	 * Gets the model.
+	 * 
+	 * @param watsonModel
+	 *            the watson model
+	 * @return the model
+	 */
+	public SpeechModel getModel(final SpeechModel watsonModel) {
+		return getModel(watsonModel.getName());
+	}
+
+	/**
+	 * Gets the speech model.
+	 * 
+	 * @param name
+	 *            the name
+	 * @return the model
+	 */
+	public SpeechModel getModel(final String name) {
+		if (name == null)
+			throw new IllegalArgumentException("name was not specified");
+
+		HttpRequestBase request = Request.Get("/v1/models/" + name).build();
+		try {
+			HttpResponse response = execute(request);
+			String resultJson = ResponseUtil.getString(response);
+			SpeechModel model = new Gson().fromJson(resultJson,
+					SpeechModel.class);
+			return model;
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * Gets the models.
+	 * 
+	 * @return the models
+	 */
+	public List<SpeechModel> getModels() {
+		HttpRequestBase request = Request.Get("/v1/models").build();
+		try {
+			HttpResponse response = execute(request);
+			String speechModelsJson = ResponseUtil.getString(response);
+			SpeechModelSet speechModels = new Gson().fromJson(speechModelsJson,
+					SpeechModelSet.class);
+			return speechModels.getModels();
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -102,135 +232,6 @@ public class SpeechToText extends WatsonService {
 	}
 
 	/**
-	 * Gets the speech model.
-	 * 
-	 * @param name
-	 *            the name
-	 * @return the model
-	 */
-	public SpeechModel getModel(final String name) {
-		if (name == null)
-			throw new IllegalArgumentException("name was not specified");
-
-		HttpRequestBase request = Request.Get("/v1/models/" + name).build();
-		try {
-			HttpResponse response = execute(request);
-			String resultJson = ResponseUtil.getString(response);
-			SpeechModel model = new Gson().fromJson(resultJson,
-					SpeechModel.class);
-			return model;
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	/**
-	 * Create a session to lock an engine to the session. You can use the
-	 * session for multiple recognition requests, so that each request is
-	 * processed with the same speech-to-text engine. Use the cookie that is
-	 * returned from this operation in the Set-Cookie header for each request
-	 * that uses this session. The session expires after 15 minutes of
-	 * inactivity.
-	 *
-	 * @param model the model
-	 * @return the session id
-	 */
-	public SpeechSession createSession(final String model) {
-		String path = "/v1/sessions";
-
-		if (model != null && !model.isEmpty())
-			path += "?model=" + model;
-
-		HttpRequestBase request = Request.Post(path).build();
-		try {
-			HttpResponse response = execute(request);
-			String sessionString = ResponseUtil.getString(response);
-			SpeechSession speechSession = getGson().fromJson(sessionString,
-					SpeechSession.class);
-			speechSession.setCookieSession(response
-					.getFirstHeader("set-cookie").getValue());
-			return speechSession;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-
-	}
-
-	/**
-	 * Create a session to lock an engine to the session. You can use the
-	 * session for multiple recognition requests, so that each request is
-	 * processed with the same speech-to-text engine. Use the cookie that is
-	 * returned from this operation in the Set-Cookie header for each request
-	 * that uses this session. The session expires after 15 minutes of
-	 * inactivity.
-	 * 
-	 * @return the session id
-	 */
-	public String createSession() {
-		HttpRequestBase request = Request.Post("/v1/sessions").build();
-		try {
-			HttpResponse response = execute(request);
-			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			if (response.getStatusLine().getStatusCode() != 201) {
-				String error = jsonObject.get("error").getAsString();
-				throw new RuntimeException("Cound't create a session:" + error);
-			}
-			String sessionId = jsonObject.get("session_id").getAsString();
-			return sessionId;
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-
-	}
-
-	/**
-	 * Delete a session.
-	 * 
-	 * @param session
-	 *            the speech session
-	 */
-	public void deleteSession(final SpeechSession session) {
-		if (session == null)
-			throw new IllegalArgumentException("session was not specified");
-		deleteSession(session.getSessionId());
-	}
-
-	/**
-	 * Delete a session.
-	 * 
-	 * @param sessionId
-	 *            the session id
-	 */
-	public void deleteSession(final String sessionId) {
-		if (sessionId == null)
-			throw new IllegalArgumentException("sessionId was not specified");
-
-		HttpRequestBase request = Request.Delete("/v1/sessions/" + sessionId)
-				.build();
-		HttpResponse response = execute(request);
-		if (response.getStatusLine().getStatusCode() != 204)
-			throw new RuntimeException("Cound't delete session");
-	}
-
-	/**
-	 * Gets the models.
-	 * 
-	 * @return the models
-	 */
-	public List<SpeechModel> getModels() {
-		HttpRequestBase request = Request.Get("/v1/models").build();
-		try {
-			HttpResponse response = execute(request);
-			String speechModelsJson = ResponseUtil.getString(response);
-			SpeechModelSet speechModels = new Gson().fromJson(speechModelsJson,
-					SpeechModelSet.class);
-			return speechModels.getModels();
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	/**
 	 * Recognize.
 	 * 
 	 * @param audio
@@ -241,8 +242,8 @@ public class SpeechToText extends WatsonService {
 	 */
 	public SpeechResults recognize(final File audio, final String contentType) {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("audio", audio);
-		params.put("content_type", contentType);
+		params.put(AUDIO, audio);
+		params.put(CONTENT_TYPE, contentType);
 		return recognize(params);
 	}
 
@@ -258,28 +259,28 @@ public class SpeechToText extends WatsonService {
 	 */
 	public SpeechResults recognize(Map<String, Object> params) {
 
-		File audio = (File) params.get("audio");
+		File audio = (File) params.get(AUDIO);
 		if (audio == null || !audio.exists() || !audio.isFile())
 			throw new IllegalArgumentException(
 					"audio is not a valid audio file");
 
-		String contentType = (String) params.get("content_type");
+		String contentType = (String) params.get(CONTENT_TYPE);
 		if (contentType == null)
 			throw new IllegalArgumentException("contentType was not specified");
 
 		// Build the recognize url
 		StringBuilder urlBuider = new StringBuilder();
 		urlBuider.append("/v1");
-		urlBuider.append(params.containsKey("session_id") ? "/sessions/"
-				+ params.get("session_id") : "");
+		urlBuider.append(params.containsKey(SESSION_ID) ? "/sessions/"
+				+ params.get(SESSION_ID) : "");
 		urlBuider.append("/recognize");
 
 		Request request = Request.Post(urlBuider.toString());
 		request.withHeader("Content-Type", contentType);
 
-		String[] queryParameters = new String[] { "word_confidence",
-				"continuous", "max_alternatives", "timestamps",
-				"inactivity_timeout", "model" };
+		String[] queryParameters = new String[] { WORD_CONFIDENCE,
+				CONTINUOUS, MAX_ALTERNATIVES, TIMESTAMPS,
+				INACTIVITY_TIMEOUT, MODEL };
 
 		for (String param : queryParameters) {
 			if (params.containsKey(param))
@@ -304,16 +305,5 @@ public class SpeechToText extends WatsonService {
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	/**
-	 * Gets the model.
-	 * 
-	 * @param watsonModel
-	 *            the watson model
-	 * @return the model
-	 */
-	public SpeechModel getModel(final SpeechModel watsonModel) {
-		return getModel(watsonModel.getName());
 	}
 }

@@ -49,6 +49,12 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class ConceptExpansion extends WatsonService {
 
+	public static final String SEEDS = "seeds";
+
+	public static final String DATASET = "dataset";
+
+	public static final String LABEL = "label";
+
 	/** The Constant PARAM_STATE. */
 	private static final String PARAM_STATE = "state";
 	
@@ -125,9 +131,9 @@ public class ConceptExpansion extends WatsonService {
 			}
 
 			JsonObject payload = new JsonObject();
-			payload.addProperty("label", label);
-			payload.addProperty("dataset", dataset.getId());
-			payload.add("seeds",seedJsonArray);
+			payload.addProperty(LABEL, label);
+			payload.addProperty(DATASET, dataset.getId());
+			payload.add(SEEDS,seedJsonArray);
 
 			HttpRequestBase request = Request.Post("/v1/upload")
 					.withContent(payload).build();

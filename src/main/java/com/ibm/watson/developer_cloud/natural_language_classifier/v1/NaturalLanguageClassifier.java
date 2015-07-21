@@ -52,12 +52,10 @@ public class NaturalLanguageClassifier extends WatsonService {
 	private static String URL = "https://gateway.watsonplatform.net/natural-language-classifier-experimental/api";
 
 	/** The Constant log. */
-	private static final Logger log = Logger
-			.getLogger(NaturalLanguageClassifier.class.getName());
+	private static final Logger log = Logger.getLogger(NaturalLanguageClassifier.class.getName());
 
 	/** The list type. */
-	private Type listType = new TypeToken<List<Classifier>>() {
-	}.getType();
+	private Type listType = new TypeToken<List<Classifier>>() {}.getType();
 
 	/**
 	 * Instantiates a new Natural Language Classifier service.
@@ -79,7 +77,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 	 * @return the classifier
 	 * @see Classifier
 	 */
-	public Classifier createClassifier(String language, List<TrainingData> trainingData) {
+	public Classifier createClassifier(final String language,final List<TrainingData> trainingData) {
 		if (trainingData == null)
 			throw new IllegalArgumentException("data can not be null");
 
@@ -118,7 +116,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 	 * @param text            The submitted phrase to classify
 	 * @return the classification of a phrase with a given classifier
 	 */
-	public Classification classify(String classifierId, String text) {
+	public Classification classify(final String classifierId,final String text) {
 		if (classifierId == null || classifierId.isEmpty())
 			throw new IllegalArgumentException(
 					"classifierId can not be null or empty");
@@ -179,7 +177,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 					"classifierId can not be null or empty");
 
 		HttpRequestBase request = Request.Delete("/v1/classifiers/"+ classifierId).build();
-		execute(request);
+		executeWithoutResponse(request);
 	}
 
 	/**

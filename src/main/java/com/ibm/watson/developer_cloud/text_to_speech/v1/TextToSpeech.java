@@ -46,10 +46,10 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 public class TextToSpeech extends WatsonService {
 	
 	/** The url. */
-	private static String URL = "https://stream.watsonplatform.net/text-to-speech/api";
+	private final static String URL = "https://stream.watsonplatform.net/text-to-speech/api";
 
 	/** The list voice type. */
-	private Type listVoiceType = new TypeToken<List<Voice>>() {}.getType();
+	private final static Type listVoiceType = new TypeToken<List<Voice>>() {}.getType();
 
 	/**
 	 * Instantiates a new text to speech.
@@ -59,7 +59,7 @@ public class TextToSpeech extends WatsonService {
 	}
 
 	/**
-	 * Synthesize.
+	 * Synthesize text using a voice and format
 	 * 
 	 * @param text
 	 *            the text
@@ -69,8 +69,7 @@ public class TextToSpeech extends WatsonService {
 	 *            the output format
 	 * @return the input stream
 	 */
-	public InputStream synthesize(final String text, final Voice voice,
-			final String format) {
+	public InputStream synthesize(final String text, final Voice voice, final String format) {
 		if (text == null)
 			throw new IllegalArgumentException("text can not be null");
 		if (voice == null)
@@ -97,10 +96,10 @@ public class TextToSpeech extends WatsonService {
 	}
 
 	/**
-	 * Synthesize.
+	 * Synthesize text using a voice
 	 * 
 	 * @param text
-	 *            the text
+	 *            the text to synthesize
 	 * @param voice
 	 *            the voice
 	 * @return the input stream
@@ -110,14 +109,14 @@ public class TextToSpeech extends WatsonService {
 	}
 
 	/**
-	 * Synthesize.
+	 * Synthesize text using format
 	 * 
 	 * @param text
-	 *            the text
+	 *            the text to synthesize
 	 * @param format
 	 *            the format, it needs to be an audio mime type, for example:
 	 *            audio/wav or audio/ogg; codecs=opus
-	 * @return the input stream
+	 * @return the input stream with the synthesized audio
 	 */
 	public InputStream synthesize(final String text, final String format) {
 		return synthesize(text, Voice.EN_MICHAEL, format);
@@ -126,7 +125,7 @@ public class TextToSpeech extends WatsonService {
 	/**
 	 * Gets the voices.
 	 * 
-	 * @return the voices
+	 * @return the list of {@link Voice}
 	 */
 	public List<Voice> getVoices() {
 		HttpRequestBase request = Request.Get("/v1/voices").build();

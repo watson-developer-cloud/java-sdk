@@ -16,6 +16,7 @@
 package com.ibm.watson.developer_cloud.personality_insights.v2;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -26,6 +27,7 @@ import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.HttpHeaders;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
@@ -42,11 +44,17 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class PersonalityInsights extends WatsonService {
 	
+	public static final String ACCEPT_LANGUAGE = "accept_language";
+	public static final String CONTENT = "content";
+	public static final String INCLUDE_RAW = "include_raw";
+	public static final String LANGUAGE = "language";
+	public static final String TEXT = "text";
+	
 	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(PersonalityInsights.class.getName());
-	
+
 	/** The url. */
-	private static String URL = "https://gateway.watsonplatform.net/personality-insights/api";
+	private static final String URL = "https://gateway.watsonplatform.net/personality-insights/api";
 
 	/**
 	 * Instantiates a new Personality Insights service.
@@ -66,30 +74,30 @@ public class PersonalityInsights extends WatsonService {
 	 *            to be specified
 	 * @return The personality profile
 	 */
-	public Profile getProfile(Map<String, Object> params) {
-		if (!params.containsKey("text") && !params.containsKey("content"))
+	public Profile getProfile(final Map<String, Object> params) {
+		if (!params.containsKey(TEXT) && !params.containsKey(CONTENT))
 			throw new IllegalArgumentException("text or content need to be specified");
-		else if (params.containsKey("text") && params.containsKey("content"))
+		else if (params.containsKey(TEXT) && params.containsKey(CONTENT))
 			log.warning("text and content were specified, only text will be used");
 			
 		
 		Request request = Request.Post("/v2/profile");
 		
-		if (params.containsKey("text")) {
-			request.withContent(params.get("text").toString(), HTTP.PLAIN_TEXT_TYPE);
+		if (params.containsKey(TEXT)) {
+			request.withContent(params.get(TEXT).toString(), HTTP.PLAIN_TEXT_TYPE);
 		} else {
-			String contentJson = getGson().toJson(params.get("content"));
+			String contentJson = getGson().toJson(params.get(CONTENT));
 			request.withContent(contentJson, MediaType.APPLICATION_JSON);
 		}
 		
-		if (params.containsKey("include_raw"))
-			request.withQuery("include_raw", params.get("include_raw"));
+		if (params.containsKey(INCLUDE_RAW))
+			request.withQuery(INCLUDE_RAW, params.get(INCLUDE_RAW));
 		
-		if (params.containsKey("language"))
-			request.withHeader("Content-Language", params.get("language"));
+		if (params.containsKey(LANGUAGE))
+			request.withHeader(HttpHeaders.CONTENT_LANGUAGE, params.get(LANGUAGE));
 
-		if (params.containsKey("accept_language"))
-			request.withHeader("Accept-Language", params.get("accept_language"));
+		if (params.containsKey(ACCEPT_LANGUAGE))
+			request.withHeader(HttpHeaders.ACCEPT_LANGUAGE, params.get(ACCEPT_LANGUAGE));
 
 		HttpResponse response = execute(request.build());
 
@@ -102,6 +110,24 @@ public class PersonalityInsights extends WatsonService {
 		}
 	}
 	
+	/**
+	 * Accepts text and responds with a {@link Profile}
+	 * with a tree of characteristics that include personality, needs, and values.
+	 * 
+	 * @param text
+	 *            Text to analyze
+	 *            
+	 * @return The personality {@link profile}
+	 */
+	public Profile getProfile(final String text) {
+		if (text == null || text.isEmpty())
+			throw new IllegalArgumentException("text can not be null or empty");
+		
+		Map<String, Object> params = new HashMap<String,Object>();
+		params.put(TEXT, text);
+		return getProfile(params);
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -5,11 +5,10 @@ import java.util.List;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 
 /**
- * Translation results from calling the translate method. This case is used as
- * POJO by the {@link LanguageTranslation}
+ * Translation results from calling the translate method.
+ * Contains the word count, character count and the {@link Translation} list
  * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */

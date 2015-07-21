@@ -42,7 +42,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 public class MessageResonance extends WatsonService {
 
 	/** The url. */
-	private static String URL = "https://gateway.watsonplatform.net/message-resonance-beta/api";
+	private static final String URL = "https://gateway.watsonplatform.net/message-resonance-beta/api";
 	
 	/** The dataset. */
 	private MessageResonanceDataset dataset;
@@ -65,7 +65,7 @@ public class MessageResonance extends WatsonService {
 	 * 
 	 * @return the message
 	 */
-	private Message formatResponseMessage(String text, List<Resonance> resonances) {
+	private Message formatResponseMessage(final String text,final List<Resonance> resonances) {
 		Message message = new Message();
 		message.setText(text);
 		message.setDataset(dataset);

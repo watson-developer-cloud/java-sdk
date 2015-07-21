@@ -33,7 +33,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 public class TradeoffAnalytics extends WatsonService {
 
 	/** The url. */
-	private static String URL = "https://gateway.watsonplatform.net/tradeoff-analytics/api";
+	private final static String URL = "https://gateway.watsonplatform.net/tradeoff-analytics/api";
 
 	/**
 	 * Instantiates a new tradeoff analytics.
@@ -49,7 +49,7 @@ public class TradeoffAnalytics extends WatsonService {
 	 *            the problem
 	 * @return the dilemma
 	 */
-	public Dilemma dilemmas(Problem problem) {
+	public Dilemma dilemmas(final Problem problem) {
 		if (problem == null)
 			throw new IllegalArgumentException("problem was not specified");
 

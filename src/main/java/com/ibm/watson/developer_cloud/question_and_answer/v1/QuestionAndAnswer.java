@@ -44,7 +44,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 public class QuestionAndAnswer extends WatsonService {
 
 	/** The url. */
-	private static String URL = "https://gateway.watsonplatform.net/question-and-answer-beta/api";
+	private static final String URL = "https://gateway.watsonplatform.net/question-and-answer-beta/api";
 
 	/** The dataset. */
 	private QuestionAndAnswerDataset dataset;
@@ -63,7 +63,7 @@ public class QuestionAndAnswer extends WatsonService {
 	 *            the string question
 	 * @return the answers
 	 */
-	public WatsonAnswer ask(String question) {
+	public WatsonAnswer ask(final String question) {
 		if (question == null || question.trim().isEmpty())
 			throw new IllegalArgumentException("question can not be null or empty");
 
@@ -79,7 +79,7 @@ public class QuestionAndAnswer extends WatsonService {
 	 *            the question
 	 * @return the JSON array
 	 */
-	public WatsonAnswer ask(Question question) {
+	public WatsonAnswer ask(final Question question) {
 		if (dataset == null)
 			throw new IllegalArgumentException("dataset can not be null");
 
@@ -109,7 +109,7 @@ public class QuestionAndAnswer extends WatsonService {
 	 * @param dataset
 	 *            the new dataset
 	 */
-	public void setDataset(QuestionAndAnswerDataset dataset) {
+	public void setDataset(final QuestionAndAnswerDataset dataset) {
 		this.dataset = dataset;
 	}
 

@@ -45,8 +45,10 @@ import com.ibm.watson.developer_cloud.visual_recognition.v1.model.VisualRecognit
  */
 public class VisualRecognition extends WatsonService {
 
+	public static final String LABELS_TO_CHECK = "labels_to_check";
+	public static final String IMG_FILE = "imgFile";
 	/** The url. */
-	private static String URL = "https://gateway.watsonplatform.net/visual-recognition-beta/api";
+	private static final String URL = "https://gateway.watsonplatform.net/visual-recognition-beta/api";
 
 	/**
 	 * Instantiates a new visual recognition.
@@ -67,7 +69,7 @@ public class VisualRecognition extends WatsonService {
 	 *            the labels to classify against
 	 * @return the visual recognition images
 	 */
-	public RecognizedImage recognize(File image, LabelSet labelSet) {
+	public RecognizedImage recognize(final File image,final LabelSet labelSet) {
 		if (image == null)
 			throw new IllegalArgumentException("image can not be null");
 		try {
@@ -78,14 +80,14 @@ public class VisualRecognition extends WatsonService {
 
 			// Set the image_file
 			FileBody bin = new FileBody(image);
-			reqEntity.addPart("imgFile", bin);
+			reqEntity.addPart(IMG_FILE, bin);
 
 			if (labelSet != null) {
 				StringBody labels = new StringBody(new Gson().toJson(labelSet),
 						Charset.forName("UTF-8"));
 
 				// Set the labels_to_check
-				reqEntity.addPart("labels_to_check", labels);
+				reqEntity.addPart(LABELS_TO_CHECK, labels);
 			}
 			request.withEntity(reqEntity);
 
@@ -125,7 +127,7 @@ public class VisualRecognition extends WatsonService {
 	 *            the image file
 	 * @return the visual recognition images
 	 */
-	public RecognizedImage recognize(File image) {
+	public RecognizedImage recognize(final File image) {
 		return recognize(image, null);
 	}
 }

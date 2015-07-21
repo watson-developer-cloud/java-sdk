@@ -38,7 +38,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 public class RelationshipExtraction extends WatsonService {
 
 	/** The url. */
-	private static String URL = "https://gateway.watsonplatform.net/relationship-extraction-beta/api";
+	private static final String URL = "https://gateway.watsonplatform.net/relationship-extraction-beta/api";
 	
 	/** The dataset. */
 	private RelationshipExtractionDataset dataset;
@@ -59,7 +59,7 @@ public class RelationshipExtraction extends WatsonService {
 	 * 
 	 * @return the string
 	 */
-	public String extract(String text) {
+	public String extract(final String text) {
 		if (dataset == null)
 			throw new IllegalArgumentException("dataset can not be null");
 		if (text == null)
@@ -94,7 +94,7 @@ public class RelationshipExtraction extends WatsonService {
 	 * @param dataset
 	 *            the new dataset
 	 */
-	public void setDataset(RelationshipExtractionDataset dataset) {
+	public void setDataset(final RelationshipExtractionDataset dataset) {
 		this.dataset = dataset;
 	}
 
