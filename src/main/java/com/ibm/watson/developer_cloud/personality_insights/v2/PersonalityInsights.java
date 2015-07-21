@@ -82,14 +82,14 @@ public class PersonalityInsights extends WatsonService {
 			request.withContent(contentJson, MediaType.APPLICATION_JSON);
 		}
 		
-		if (params.containsKey("includeRaw"))
-			request.withQuery("include_raw", params.get("includeRaw"));
+		if (params.containsKey("include_raw"))
+			request.withQuery("include_raw", params.get("include_raw"));
 		
 		if (params.containsKey("language"))
 			request.withHeader("Content-Language", params.get("language"));
 
-		if (params.containsKey("acceptLanguage"))
-			request.withHeader("Accept-Language", params.get("acceptLanguage"));
+		if (params.containsKey("accept_language"))
+			request.withHeader("Accept-Language", params.get("accept_language"));
 
 		HttpResponse response = execute(request.build());
 
