@@ -54,7 +54,7 @@ public class ToneAnalyzer extends WatsonService {
 
 	private static final Logger log = Logger.getLogger(ToneAnalyzer.class
 			.getName());
-	private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer-beta/api";
+	private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer-experimental/api";
 
 	private static final Type listScorecardsType = new TypeToken<List<Scorecard>>() {
 	}.getType();
@@ -64,6 +64,22 @@ public class ToneAnalyzer extends WatsonService {
 	 */
 	public ToneAnalyzer() {
 		setEndPoint(URL);
+	}
+
+	/**
+	 * Analyzes the "tone" of a piece of text using the default scorecard.
+	 * The message is analyzed from several tones (social tone, emotional tone,
+	 * writing tone), and for each of them various traits are derived
+	 * (such as conscientiousness, agreeableness, openness).
+	 * 
+	 * 
+	 * @param text
+	 *            The text to analyze
+	 * @return the {@link Tone} with the response
+	 * 
+	 */
+	public Tone getTone(final String text) {
+		return getTone(text,null);
 	}
 
 	/**
@@ -87,7 +103,9 @@ public class ToneAnalyzer extends WatsonService {
 
 		JsonObject contentJson = new JsonObject();
 		contentJson.addProperty(TEXT, text);
-		contentJson.addProperty(SCORECARD, text);
+
+		if (scorecard != null)
+			contentJson.addProperty(SCORECARD, text);
 
 		HttpRequestBase request = Request.Post("/v1/tone")
 				.withContent(contentJson).build();
@@ -135,7 +153,7 @@ public class ToneAnalyzer extends WatsonService {
 	 * 
 	 * @return {@link SynonymResult}
 	 */
-	public SynonymResult getSynynyms(Map<String, Object> params) {
+	public SynonymResult getSynonyms(Map<String, Object> params) {
 		String[] words = (String[]) params.get("words");
 		String[] traits = (String[]) params.get("traits");
 		String[] context = (String[]) params.get("context");
