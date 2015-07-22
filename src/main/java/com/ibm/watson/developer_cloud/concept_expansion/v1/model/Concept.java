@@ -30,7 +30,7 @@ public class Concept {
 	private String name;
 	
 	/** The prevalence. */
-	private int prevalence;
+	private Double prevalence;
 
 	/**
 	 * Instantiates a new concept.
@@ -40,7 +40,7 @@ public class Concept {
 	 * @param prevalence
 	 *            the prevalence
 	 */
-	public Concept(String name, int prevalence) {
+	public Concept(String name, Double prevalence) {
 		super();
 		this.name = name;
 		this.prevalence = prevalence;
@@ -62,7 +62,7 @@ public class Concept {
 	 * 
 	 * @return the prevalence
 	 */
-	public int getPrevalence() {
+	public Double getPrevalence() {
 		return prevalence;
 	}
 

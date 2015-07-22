@@ -176,7 +176,7 @@ public class ConceptExpansion extends WatsonService {
 	 */
 	private Concept formatConcept(JsonObject conceptJson){
 		return new Concept(conceptJson.get("result").getAsString(),
-				conceptJson.get("prevalence").getAsInt());
+				conceptJson.get("prevalence").getAsDouble());
 	}
 
 	/**
