@@ -19,6 +19,7 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -38,11 +39,11 @@ public class ToneTrait {
 
     /** A percentile comparing the current score (raw_score) to a given population.  */
     @SerializedName("normalized_score")
-    private Integer normalizedScore;
+    private Double normalizedScore;
 
     /** A raw score computed by the algorithms. */
     @SerializedName("raw_score")
-    private Integer rawScore;
+    private Double rawScore;
     
     /** The linguistic evidence. */
     @SerializedName("linguistic_evidence")
@@ -140,7 +141,7 @@ public class ToneTrait {
      *
      * @return     The normalizedScore
      */
-    public Integer getNormalizedScore() {
+    public Double getNormalizedScore() {
         return normalizedScore;
     }
 
@@ -149,7 +150,7 @@ public class ToneTrait {
      *
      * @param normalizedScore     The normalized_score
      */
-    public void setNormalizedScore(final Integer normalizedScore) {
+    public void setNormalizedScore(final Double normalizedScore) {
         this.normalizedScore = normalizedScore;
     }
 
@@ -159,7 +160,7 @@ public class ToneTrait {
      * @param normalizedScore the normalized score
      * @return the tone trait
      */
-    public ToneTrait withNormalizedScore(final Integer normalizedScore) {
+    public ToneTrait withNormalizedScore(final Double normalizedScore) {
         this.normalizedScore = normalizedScore;
         return this;
     }
@@ -169,7 +170,7 @@ public class ToneTrait {
      *
      * @return     The rawScore
      */
-    public Integer getRawScore() {
+    public Double getRawScore() {
         return rawScore;
     }
 
@@ -178,7 +179,7 @@ public class ToneTrait {
      *
      * @param rawScore     The raw score
      */
-    public void setRawScore(final Integer rawScore) {
+    public void setRawScore(final Double rawScore) {
         this.rawScore = rawScore;
     }
 
@@ -188,7 +189,7 @@ public class ToneTrait {
      * @param rawScore the raw score
      * @return the tone trait
      */
-    public ToneTrait withRawScore(final Integer rawScore) {
+    public ToneTrait withRawScore(final Double rawScore) {
         this.rawScore = rawScore;
         return this;
     }
@@ -222,4 +223,14 @@ public class ToneTrait {
         return this;
     }
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }

@@ -19,18 +19,18 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.visual_recognition.v1.model.RecognizedImage;
 
-public class VisualRecognitionExample extends WatsonServiceTest {
+public class VisualRecognitionExample {
 
 	public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
 		VisualRecognition service = new VisualRecognition();
 		service.setUsernameAndPassword("<username>", "<password>");
 
-		File image = new File("car.png");
+		File image = new File("src/test/resources/car.png");
+		
 		RecognizedImage recognizedImage = service.recognize(image);
-
 		System.out.println(recognizedImage);
+		
 	}
 }

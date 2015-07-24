@@ -127,6 +127,7 @@ public class SpeechToText extends WatsonService {
 			throw new IllegalArgumentException("session was not specified");
 
 		HttpRequestBase request = Request.Delete("/v1/sessions/" + session.getSessionId())
+				.withHeader("Cookie", session.getCookieSession())
 				.build();
 		HttpResponse response = execute(request);
 		

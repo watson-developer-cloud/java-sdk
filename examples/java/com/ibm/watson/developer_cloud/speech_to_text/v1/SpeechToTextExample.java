@@ -27,7 +27,7 @@ public class SpeechToTextExample {
 		SpeechToText service = new SpeechToText();
 		service.setUsernameAndPassword("<username>", "<password>");
 
-		File audio = new File("sample1.wav");
+		File audio = new File("src/test/resources/sample1.wav");
 		SpeechResults transcript = service.recognize(audio, "audio/l16; rate=44100");
 
 		System.out.println(transcript);

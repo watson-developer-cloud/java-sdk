@@ -16,19 +16,36 @@
 
 package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 
+import com.google.gson.GsonBuilder;
+
 
 /**
  * The Scorecard
  */
 public class Scorecard {
 
-    /** A description of what this scorecard is evaluating or how it was obtained. */
+	public static final Scorecard EMAIL = new Scorecard("email");
+	
+    /** A description of what this scorecard 
+     * is evaluating or how it was obtained. 
+     */
     private String description;
     
     /**  Scorecard identifier. */
     private String id;
 
+    
     /**
+     * Instantiates a new scorecard.
+     *
+     * @param id the identifier
+     */
+    public Scorecard(String id) {
+		super();
+		this.id = id;
+	}
+
+	/**
      * With description.
      *
      * @param description the description
@@ -86,4 +103,14 @@ public class Scorecard {
 		this.description = description;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }

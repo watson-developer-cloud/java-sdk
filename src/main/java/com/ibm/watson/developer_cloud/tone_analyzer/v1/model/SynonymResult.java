@@ -19,6 +19,8 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.GsonBuilder;
+
 /**
  * The SynonymResult.
  */
@@ -120,4 +122,14 @@ public class SynonymResult {
         return this;
     }
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }

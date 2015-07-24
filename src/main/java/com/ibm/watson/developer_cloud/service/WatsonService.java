@@ -196,8 +196,7 @@ public abstract class WatsonService {
 		// There was a Client Error 4xx or a Server Error 5xx
 		// Get the error message and create the exception
 		String error = getErrorMessage(response);
-		log.log(Level.SEVERE, "HTTP Status: " + status);
-		log.log(Level.SEVERE, "Error message from service: " + error);
+		log.log(Level.SEVERE, "HTTP Status: " + status + ", message: "+ error);
 
 		switch (status) {
 		case HttpStatus.SC_BAD_REQUEST: // HTTP 400
@@ -356,7 +355,7 @@ public abstract class WatsonService {
 	 * @return the user agent
 	 */
 	private final String getUserAgent() {
-		return "watson-developer-cloud-java-wrapper-0.1.9";
+		return "watson-developer-cloud-java-wrapper-1.0.1";
 	}
 
 	/**

@@ -19,13 +19,13 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -49,16 +49,20 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 public class ToneAnalyzer extends WatsonService {
 
 	// parameters
-	public static final String TEXT = null;
-	public static final String SCORECARD = null;
+	public static final String HOPS = "hops";
+	public static final String LIMIT = "limit";
+	public static final String CONTEXT = "context";
+	public static final String TRAITS = "traits";
+	public static final String WORDS = "words";
+	public static final String TEXT = "text";
+	public static final String SCORECARD = "scorecard";
 
-	private static final Logger log = Logger.getLogger(ToneAnalyzer.class
-			.getName());
 	private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer-experimental/api";
 
-	private static final Type listScorecardsType = new TypeToken<List<Scorecard>>() {
-	}.getType();
+	/** The synonym list. */
+	private static final Type synonymListType = new TypeToken<List<SynonymResult>>() {}.getType();
 
+	
 	/**
 	 * Instantiates a new Tone Analyzer service with the default url
 	 */
@@ -96,7 +100,7 @@ public class ToneAnalyzer extends WatsonService {
 	 * @return the {@link Tone} with the response
 	 * 
 	 */
-	public Tone getTone(final String text, final String scorecard) {
+	public Tone getTone(final String text, final Scorecard scorecard) {
 
 		if (text == null || text.isEmpty())
 			throw new IllegalArgumentException("text can not be null or empty");
@@ -105,7 +109,7 @@ public class ToneAnalyzer extends WatsonService {
 		contentJson.addProperty(TEXT, text);
 
 		if (scorecard != null)
-			contentJson.addProperty(SCORECARD, text);
+			contentJson.addProperty(SCORECARD, scorecard.getId());
 
 		HttpRequestBase request = Request.Post("/v1/tone")
 				.withContent(contentJson).build();
@@ -153,48 +157,57 @@ public class ToneAnalyzer extends WatsonService {
 	 * 
 	 * @return {@link SynonymResult}
 	 */
-	public SynonymResult getSynonyms(Map<String, Object> params) {
-		String[] words = (String[]) params.get("words");
-		String[] traits = (String[]) params.get("traits");
-		String[] context = (String[]) params.get("context");
+	public List<SynonymResult> getSynonyms(Map<String, Object> params) {
+		String[] words = (String[]) params.get(WORDS);
+		String[] traits = (String[]) params.get(TRAITS);
+		String[] contexts = (String[]) params.get(CONTEXT);
 
 		if (words == null || words.length == 0)
 			throw new IllegalArgumentException("words can not be null or empty");
 
-		JsonObject jsonObject = new JsonObject();
-		// TODO: add all the properties to the json object
+		JsonObject contentJson = new JsonObject();
+		
+		// words
+		JsonArray wordsJson = new JsonArray();
+		for (String word : words) {
+			wordsJson.add(new JsonPrimitive(word));
+		}
+		contentJson.add(WORDS,wordsJson);
+		
+		// traits
+		if (traits != null && traits.length > 0) {
+			JsonArray traisJson = new JsonArray();
+			for (String trait : traits) {
+				traisJson.add(new JsonPrimitive(trait));
+			}
+			contentJson.add(TRAITS, traisJson);
+		}
+		
+		// context
+		if (contexts != null && contexts.length > 0) {
+			JsonArray contextsJson = new JsonArray();
+			for (String context : contexts) {
+				contextsJson.add(new JsonPrimitive(context));
+			}
+			contentJson.add(CONTEXT, contextsJson);
+		}
+
+		if (params.containsKey(LIMIT))
+			contentJson.addProperty(LIMIT,(Integer)params.get(LIMIT));
+
+		if (params.containsKey(HOPS))
+			contentJson.addProperty(HOPS,(Integer)params.get(HOPS));
+				
 		HttpRequestBase request = Request.Post("/v1/synonym")
-				.withContent(jsonObject).build();
+				.withContent(contentJson).build();
 
 		HttpResponse response = execute(request);
 		try {
 			String synonymResultJson = ResponseUtil.getString(response);
-			SynonymResult synonymResult = getGson().fromJson(synonymResultJson,
-					SynonymResult.class);
-			return synonymResult;
+			List<SynonymResult> synonyms = getGson().fromJson(synonymResultJson, synonymListType);
+			return synonyms;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
-
-	/**
-	 * Returns a list of available scorecards. Scorecards are implementations of 
-	 * Tone evaluations for different domains.
-	 *
-	 * @return A list of {@link Scorecard }
-	 */
-	public List<Scorecard> getScorecards() {
-		HttpRequestBase request = Request.Get("/v1/scorecards").build();
-		HttpResponse response = execute(request);
-		
-		try {
-			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<Scorecard> scorecards = new Gson().fromJson(
-					jsonObject.get("scorecards"), listScorecardsType);
-			return scorecards;
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 }

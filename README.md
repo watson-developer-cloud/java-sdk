@@ -1,5 +1,6 @@
 # Watson Developer Cloud Java Wrapper
 [![Build Status](https://secure.travis-ci.org/watson-developer-cloud/java-wrapper.png)](http://travis-ci.org/watson-developer-cloud/java-wrapper)  
+
 Java code wrappers to quickly get started with the various [Watson Developer Cloud][wdc] services - A collection of REST APIs and SDKs that use cognitive computing to solve complex problems.
 
 ## Table of Contents
@@ -12,6 +13,7 @@ Java code wrappers to quickly get started with the various [Watson Developer Clo
     * [Getting the Service Credentials](#getting-the-service-credentials)
     * [IBM Watson Services](#ibm-watson-services)
       * [Concept Expansion](#concept-expansion)
+      * [Dialog](#dialog)
       * [Language Identification](#language-identification)
       * [Language Translation](#language-translation)
       * [Machine Translation](#machine-translation)
@@ -22,6 +24,7 @@ Java code wrappers to quickly get started with the various [Watson Developer Clo
       * [Relationship Extraction](#relationship-extraction)
       * [Speech to Text](#speech-to-text)
       * [Text to Speech](#text-to-speech)
+      * [Tone Analyzer](#tone-analyzer)
       * [Tradeoff Analytics](#tradeoff-analytics)
       * [Visual Recognition](#visual-recognition)
     * [Running in Bluemix](#running-in-bluemix)
@@ -48,13 +51,13 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-wrapper</artifactId>
-	<version>0.1.9</version>
+	<version>1.0.1</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-wrapper:0.1.9'
+'com.ibm.watson.developer_cloud:java-wrapper:1.0.1'
 ```
 
 ## Usage
@@ -108,6 +111,19 @@ while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
 System.out.println(service.getJobResult(job));
 ```
 
+### Dialog
+Returns the dialog list using the [Dialog][dialog] service.
+
+```java
+import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
+import com.ibm.watson.developer_cloud.dialog.v1.model.Dialog;
+
+DialogService service = new DialogService();
+service.setUsernameAndPassword("<username>", "<password>");
+
+List<Dialog> dialogs = service.getDialogs();
+System.out.println(dialogs);
+```
 
 ### Language Identification
 Example: Identify a language using the [Language Identification][language_identification] service.
@@ -274,7 +290,7 @@ import java.io.File;
 SpeechToText service = new SpeechToText();
 service.setUsernameAndPassword("<username>", "<password>");
 
-File audio = new File("sample1.wav");
+File audio = new File("src/test/resources/sample1.wav");
 
 SpeechResults transcript = service.recognize(audio, "audio/l16; rate=44100");
 System.out.println(transcript);
@@ -282,7 +298,7 @@ System.out.println(transcript);
 
 #### WebSocket support
 
-Speech to Text supports WebSocket so you can use a websocket client like the one in: http://java-websocket.org/
+Speech to Text supports WebSocket so you can use a WebSocket client like the one in: http://java-websocket.org/
 The websocket url is: `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
 
 ### Text to Speech
@@ -298,6 +314,30 @@ service.setUsernameAndPassword("<username>", "<password>");
 List<Voice> voices = service.getVoices();
 System.out.println(voices);
 ```
+
+### Tone Analyzer
+Use the [Tone Analyzer][tone_analyzer] service to get the tone of your email.
+
+```java
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.ToneAnalyzer;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Scorecard;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymResult;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
+
+ToneAnalyzer service = new ToneAnalyzer();
+service.setUsernameAndPassword("<username>", "<password>");
+
+String text = "I know the times are difficult! Our sales have been "
+	+ "disappointing for the past three quarters for our data analytics "
+	+ "product suite. We have a competitive data analytics product "
+	+ "suite in the industry. But we need to do our job selling it! "
+	+ "We need to acknowledge and fix our sales challenges.";
+
+// Call the service and get the tone
+Tone tone = service.getTone(text, Scorecard.EMAIL);
+System.out.println(tone);
+```
+
 
 ### Tradeoff Analytics
 Use the [Tradeoff Analytics][tradeoff_analytics] service to find the best
@@ -362,10 +402,10 @@ import java.io.File;
 VisualRecognition service = new VisualRecognition();
 service.setUsernameAndPassword("<username>", "<password>");
 
-File image = new File("car.png");
+File image = new File("src/test/resources/car.png");
 
 LabelSet labelSet = new LabelSet();
-labelSet.withLabelGroup("Animal").withLabelGroup("Food");
+labelSet.withLabelGroup("Auto Racing").withLabelGroup("Sports");
 
 RecognizedImage recognizedImage = service.recognize(image, labelSet);
 System.out.println(recognizedImage);
@@ -387,7 +427,7 @@ Gradle:
 
   ```sh
   $ cd java-wrapper
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-0.1.8.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-1.0.1.jar)
   $ gradle test # run tests
   ```
 
@@ -440,6 +480,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [tradeoff_analytics]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tradeoff-analytics/
 [text_to_speech]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/
 [speech_to_text]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/speech-to-text/
+[tone-analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
+[dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
+
 [wdc]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/
 [vcap_environment]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/getting_started/index.html#EnvVars
 [bluemix]: https://console.ng.bluemix.net

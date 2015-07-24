@@ -19,6 +19,7 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -29,7 +30,7 @@ public class LinguisticEvidence {
 
     /** A score telling how much this evidence contributes to the trait */
     @SerializedName("evidence_score")
-    private Integer evidenceScore;
+    private Double evidenceScore;
 
     /** Number of words found to show evidence with this trait, */
     @SerializedName("word_count")
@@ -48,7 +49,7 @@ public class LinguisticEvidence {
      *
      * @return     The evidenceScore
      */
-    public Integer getEvidenceScore() {
+    public Double getEvidenceScore() {
         return evidenceScore;
     }
 
@@ -57,7 +58,7 @@ public class LinguisticEvidence {
      *
      * @param evidenceScore     The evidence_score
      */
-    public void setEvidenceScore(final Integer evidenceScore) {
+    public void setEvidenceScore(final Double evidenceScore) {
         this.evidenceScore = evidenceScore;
     }
 
@@ -67,7 +68,7 @@ public class LinguisticEvidence {
      * @param evidenceScore the evidence score
      * @return the linguistic evidence
      */
-    public LinguisticEvidence withEvidenceScore(final Integer evidenceScore) {
+    public LinguisticEvidence withEvidenceScore(final Double evidenceScore) {
         this.evidenceScore = evidenceScore;
         return this;
     }
@@ -159,4 +160,14 @@ public class LinguisticEvidence {
         return this;
     }
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }

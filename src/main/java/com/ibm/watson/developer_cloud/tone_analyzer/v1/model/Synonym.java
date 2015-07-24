@@ -16,6 +16,7 @@
 
 package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -183,4 +184,15 @@ public class Synonym {
         this.semanticType = semanticType;
         return this;
     }
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	}
 }
