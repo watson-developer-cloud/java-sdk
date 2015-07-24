@@ -298,8 +298,10 @@ System.out.println(transcript);
 
 #### WebSocket support
 
-Speech to Text supports WebSocket so you can use a WebSocket client like the one in: http://java-websocket.org/
-The websocket url is: `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
+Speech to Text supports WebSocket, the url is:  
+  `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`  
+
+We recommend you use [this](http://java-websocket.org/) java client.
 
 ### Text to Speech
 Use the [Text to Speech][text_to_speech] service to get the available voices to synthesize.
