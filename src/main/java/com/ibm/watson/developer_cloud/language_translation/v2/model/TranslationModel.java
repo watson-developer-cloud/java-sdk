@@ -2,14 +2,13 @@ package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 
 /**
- * Language Model used by the {@link LanguageTranslation}.
+ * Language Model used by the {@link TranslationModel}.
  *
  * @author German Attanasio Ruiz germanatt@us.ibm.com
  */
-public class LanguageModel {
+public class TranslationModel {
 
 	/** The model id. */
 	@SerializedName("model_id")
@@ -70,7 +69,7 @@ public class LanguageModel {
 	 *            the model id
 	 * @return the language model set
 	 */
-	public LanguageModel withModelId(final String modelId) {
+	public TranslationModel withModelId(final String modelId) {
 		this.modelId = modelId;
 		return this;
 	}
@@ -101,7 +100,7 @@ public class LanguageModel {
 	 *            the source
 	 * @return the language model set
 	 */
-	public LanguageModel withSource(final String source) {
+	public TranslationModel withSource(final String source) {
 		this.source = source;
 		return this;
 	}
@@ -132,7 +131,7 @@ public class LanguageModel {
 	 *            the target
 	 * @return the language model set
 	 */
-	public LanguageModel withTarget(final String target) {
+	public TranslationModel withTarget(final String target) {
 		this.target = target;
 		return this;
 	}
@@ -163,7 +162,7 @@ public class LanguageModel {
 	 *            the base model id
 	 * @return the language model set
 	 */
-	public LanguageModel withBaseModelId(final String baseModelId) {
+	public TranslationModel withBaseModelId(final String baseModelId) {
 		this.baseModelId = baseModelId;
 		return this;
 	}
@@ -194,7 +193,7 @@ public class LanguageModel {
 	 *            the domain
 	 * @return the language model set
 	 */
-	public LanguageModel withDomain(final String domain) {
+	public TranslationModel withDomain(final String domain) {
 		this.domain = domain;
 		return this;
 	}
@@ -225,7 +224,7 @@ public class LanguageModel {
 	 *            the customizable
 	 * @return the language model set
 	 */
-	public LanguageModel withCustomizable(final boolean customizable) {
+	public TranslationModel withCustomizable(final boolean customizable) {
 		this.customizable = customizable;
 		return this;
 	}
@@ -256,7 +255,7 @@ public class LanguageModel {
 	 *            the default model
 	 * @return the language model set
 	 */
-	public LanguageModel withDefaultModel(final boolean defaultModel) {
+	public TranslationModel withDefaultModel(final boolean defaultModel) {
 		this.defaultModel = defaultModel;
 		return this;
 	}
@@ -287,7 +286,7 @@ public class LanguageModel {
 	 *            the owner
 	 * @return the language model set
 	 */
-	public LanguageModel withOwner(final String owner) {
+	public TranslationModel withOwner(final String owner) {
 		this.owner = owner;
 		return this;
 	}
@@ -318,7 +317,7 @@ public class LanguageModel {
 	 *            the status
 	 * @return the language model set
 	 */
-	public LanguageModel withStatus(final String status) {
+	public TranslationModel withStatus(final String status) {
 		this.status = status;
 		return this;
 	}
@@ -349,7 +348,7 @@ public class LanguageModel {
 	 *            the name
 	 * @return the language model set
 	 */
-	public LanguageModel withName(final String name) {
+	public TranslationModel withName(final String name) {
 		this.name = name;
 		return this;
 	}

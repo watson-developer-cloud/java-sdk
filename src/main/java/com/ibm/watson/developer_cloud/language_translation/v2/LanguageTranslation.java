@@ -30,7 +30,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.LanguageModel;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -65,11 +65,11 @@ public class LanguageTranslation extends WatsonService {
 	}.getType();
 
 	/** The language model list type. */
-	private final Type languageModelListType = new TypeToken<List<IdentifiedLanguage>>() {
+	private final Type translationModelListType = new TypeToken<List<IdentifiedLanguage>>() {
 	}.getType();
 
 	/** The model list type. */
-	private final Type modelListType = new TypeToken<List<LanguageModel>>() {
+	private final Type modelListType = new TypeToken<List<TranslationModel>>() {
 	}.getType();
 
 	/**
@@ -85,7 +85,7 @@ public class LanguageTranslation extends WatsonService {
 	 * Retrieves the list of identifiable languages.
 	 * 
 	 * @return the identifiable languages
-	 * @see LanguageModel
+	 * @see TranslationModel
 	 */
 	public List<IdentifiableLanguage> getIdentifiableLanguages() {
 		Request request = Request.Get("/v2/identifiable_languages");
@@ -106,9 +106,9 @@ public class LanguageTranslation extends WatsonService {
 	 * Retrieves the list of models.
 	 * 
 	 * @return the translation models
-	 * @see LanguageModel
+	 * @see TranslationModel
 	 */
-	public List<LanguageModel> getModels() {
+	public List<TranslationModel> getModels() {
 		return getModels(null, null, null);
 	}
 
@@ -122,9 +122,9 @@ public class LanguageTranslation extends WatsonService {
 	 * @param target
 	 *            the target
 	 * @return the translation models
-	 * @see LanguageModel
+	 * @see TranslationModel
 	 */
-	public List<LanguageModel> getModels(final Boolean showDefault,
+	public List<TranslationModel> getModels(final Boolean showDefault,
 			final String source, final String target) {
 		Request request = Request.Get("/v2/models");
 
@@ -141,7 +141,7 @@ public class LanguageTranslation extends WatsonService {
 		try {
 			HttpResponse response = execute(requestBase);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<LanguageModel> models = getGson().fromJson(
+			List<TranslationModel> models = getGson().fromJson(
 					jsonObject.get("models"), modelListType);
 			return models;
 		} catch (IOException e) {
@@ -165,7 +165,7 @@ public class LanguageTranslation extends WatsonService {
 			HttpResponse response = execute(request);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
 			List<IdentifiedLanguage> identifiedLanguages = getGson().fromJson(
-					jsonObject.get(LANGUAGES), languageModelListType);
+					jsonObject.get(LANGUAGES), translationModelListType);
 			return identifiedLanguages;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
