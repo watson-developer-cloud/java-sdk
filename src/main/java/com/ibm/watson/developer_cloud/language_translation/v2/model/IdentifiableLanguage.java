@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslatio
 
 /**
  * Identifiable language used by the {@link LanguageTranslation} service.
- * 
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class IdentifiableLanguage {
@@ -33,7 +33,7 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Gets the name.
-	 * 
+	 *
 	 * @return the name
 	 */
 	public String getName() {
@@ -42,7 +42,7 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Instantiates a new identifiable language.
-	 * 
+	 *
 	 * @param language
 	 *            the language
 	 * @param name
@@ -56,7 +56,7 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Instantiates a new language.
-	 * 
+	 *
 	 * @param language
 	 *            the language
 	 */
@@ -67,7 +67,7 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Gets the language.
-	 * 
+	 *
 	 * @return the language
 	 */
 	public String getLanguage() {
@@ -76,7 +76,7 @@ public class IdentifiableLanguage {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

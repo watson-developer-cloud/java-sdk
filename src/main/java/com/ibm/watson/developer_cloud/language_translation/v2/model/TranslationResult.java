@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Translation results from calling the translate method.
  * Contains the word count, character count and the {@link Translation} list
- * 
+ *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class TranslationResult {
@@ -27,7 +27,7 @@ public class TranslationResult {
 
 	/**
 	 * Gets the translations.
-	 * 
+	 *
 	 * @return The translations
 	 */
 	public List<Translation> getTranslations() {
@@ -36,7 +36,7 @@ public class TranslationResult {
 
 	/**
 	 * Sets the translations.
-	 * 
+	 *
 	 * @param translations
 	 *            The translations
 	 */
@@ -46,7 +46,7 @@ public class TranslationResult {
 
 	/**
 	 * With translations.
-	 * 
+	 *
 	 * @param translations
 	 *            the translations
 	 * @return the translation result
@@ -59,7 +59,7 @@ public class TranslationResult {
 
 	/**
 	 * Gets the word count.
-	 * 
+	 *
 	 * @return The word count
 	 */
 	public int getWordCount() {
@@ -68,7 +68,7 @@ public class TranslationResult {
 
 	/**
 	 * Sets the word count.
-	 * 
+	 *
 	 * @param wordCount
 	 *            The word count
 	 */
@@ -78,7 +78,7 @@ public class TranslationResult {
 
 	/**
 	 * With word count.
-	 * 
+	 *
 	 * @param wordCount
 	 *            the word count
 	 * @return the translation result
@@ -90,7 +90,7 @@ public class TranslationResult {
 
 	/**
 	 * Gets the character count.
-	 * 
+	 *
 	 * @return The characterCount
 	 */
 	public int getCharacterCount() {
@@ -99,7 +99,7 @@ public class TranslationResult {
 
 	/**
 	 * Sets the character count.
-	 * 
+	 *
 	 * @param characterCount
 	 *            The character count
 	 */
@@ -109,7 +109,7 @@ public class TranslationResult {
 
 	/**
 	 * With character count.
-	 * 
+	 *
 	 * @param characterCount
 	 *            the character count
 	 * @return the translation result
@@ -121,7 +121,7 @@ public class TranslationResult {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

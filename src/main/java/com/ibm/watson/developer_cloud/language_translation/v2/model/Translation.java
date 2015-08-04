@@ -17,7 +17,7 @@ public class Translation {
 
 	/**
 	 * Gets the translation.
-	 * 
+	 *
 	 * @return The translation
 	 */
 	public String getTranslation() {
@@ -26,7 +26,7 @@ public class Translation {
 
 	/**
 	 * Sets the translation.
-	 * 
+	 *
 	 * @param translation
 	 *            The translation
 	 */
@@ -36,7 +36,7 @@ public class Translation {
 
 	/**
 	 * With translation.
-	 * 
+	 *
 	 * @param translation
 	 *            the translation
 	 * @return the translation
@@ -48,7 +48,7 @@ public class Translation {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

@@ -10,6 +10,10 @@ import com.google.gson.annotations.SerializedName;
  */
 public class TranslationModel {
 
+	public static final String STATUS_TRAINING = "training";
+	public static final String STATUS_ERROR = "training";
+	public static final String STATUS_AVAILABLE = "training";
+
 	/** The model id. */
 	@SerializedName("model_id")
 	private String modelId;
@@ -45,7 +49,7 @@ public class TranslationModel {
 
 	/**
 	 * Gets the model id.
-	 * 
+	 *
 	 * @return The modelId
 	 */
 	public String getModelId() {
@@ -54,7 +58,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the model id.
-	 * 
+	 *
 	 * @param modelId
 	 *            The model_id
 	 */
@@ -64,7 +68,7 @@ public class TranslationModel {
 
 	/**
 	 * With model id.
-	 * 
+	 *
 	 * @param modelId
 	 *            the model id
 	 * @return the language model set
@@ -76,7 +80,7 @@ public class TranslationModel {
 
 	/**
 	 * Gets the source.
-	 * 
+	 *
 	 * @return The source
 	 */
 	public String getSource() {
@@ -85,7 +89,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the source.
-	 * 
+	 *
 	 * @param source
 	 *            The source
 	 */
@@ -95,7 +99,7 @@ public class TranslationModel {
 
 	/**
 	 * With source.
-	 * 
+	 *
 	 * @param source
 	 *            the source
 	 * @return the language model set
@@ -107,7 +111,7 @@ public class TranslationModel {
 
 	/**
 	 * Gets the target.
-	 * 
+	 *
 	 * @return The target
 	 */
 	public String getTarget() {
@@ -116,7 +120,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the target.
-	 * 
+	 *
 	 * @param target
 	 *            The target
 	 */
@@ -126,7 +130,7 @@ public class TranslationModel {
 
 	/**
 	 * With target.
-	 * 
+	 *
 	 * @param target
 	 *            the target
 	 * @return the language model set
@@ -138,7 +142,7 @@ public class TranslationModel {
 
 	/**
 	 * Gets the base model id.
-	 * 
+	 *
 	 * @return The baseModelId
 	 */
 	public String getBaseModelId() {
@@ -147,7 +151,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the base model id.
-	 * 
+	 *
 	 * @param baseModelId
 	 *            The base_model_id
 	 */
@@ -157,7 +161,7 @@ public class TranslationModel {
 
 	/**
 	 * With base model id.
-	 * 
+	 *
 	 * @param baseModelId
 	 *            the base model id
 	 * @return the language model set
@@ -169,7 +173,7 @@ public class TranslationModel {
 
 	/**
 	 * Gets the domain.
-	 * 
+	 *
 	 * @return The domain
 	 */
 	public String getDomain() {
@@ -178,7 +182,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the domain.
-	 * 
+	 *
 	 * @param domain
 	 *            The domain
 	 */
@@ -188,7 +192,7 @@ public class TranslationModel {
 
 	/**
 	 * With domain.
-	 * 
+	 *
 	 * @param domain
 	 *            the domain
 	 * @return the language model set
@@ -200,7 +204,7 @@ public class TranslationModel {
 
 	/**
 	 * Checks if is customizable.
-	 * 
+	 *
 	 * @return The customizable
 	 */
 	public boolean isCustomizable() {
@@ -209,7 +213,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the customizable.
-	 * 
+	 *
 	 * @param customizable
 	 *            The customizable
 	 */
@@ -219,7 +223,7 @@ public class TranslationModel {
 
 	/**
 	 * With customizable.
-	 * 
+	 *
 	 * @param customizable
 	 *            the customizable
 	 * @return the language model set
@@ -231,7 +235,7 @@ public class TranslationModel {
 
 	/**
 	 * Checks if is default model.
-	 * 
+	 *
 	 * @return The defaultModel
 	 */
 	public boolean isDefaultModel() {
@@ -240,7 +244,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the default model.
-	 * 
+	 *
 	 * @param defaultModel
 	 *            The default_model
 	 */
@@ -250,7 +254,7 @@ public class TranslationModel {
 
 	/**
 	 * With default model.
-	 * 
+	 *
 	 * @param defaultModel
 	 *            the default model
 	 * @return the language model set
@@ -262,7 +266,7 @@ public class TranslationModel {
 
 	/**
 	 * Gets the owner.
-	 * 
+	 *
 	 * @return The owner
 	 */
 	public String getOwner() {
@@ -271,7 +275,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the owner.
-	 * 
+	 *
 	 * @param owner
 	 *            The owner
 	 */
@@ -281,7 +285,7 @@ public class TranslationModel {
 
 	/**
 	 * With owner.
-	 * 
+	 *
 	 * @param owner
 	 *            the owner
 	 * @return the language model set
@@ -293,7 +297,7 @@ public class TranslationModel {
 
 	/**
 	 * Gets the status.
-	 * 
+	 *
 	 * @return The status
 	 */
 	public String getStatus() {
@@ -302,7 +306,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the status.
-	 * 
+	 *
 	 * @param status
 	 *            The status
 	 */
@@ -312,7 +316,7 @@ public class TranslationModel {
 
 	/**
 	 * With status.
-	 * 
+	 *
 	 * @param status
 	 *            the status
 	 * @return the language model set
@@ -324,7 +328,7 @@ public class TranslationModel {
 
 	/**
 	 * Gets the name.
-	 * 
+	 *
 	 * @return The name
 	 */
 	public String getName() {
@@ -333,7 +337,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the name.
-	 * 
+	 *
 	 * @param name
 	 *            The name
 	 */
@@ -343,7 +347,7 @@ public class TranslationModel {
 
 	/**
 	 * With name.
-	 * 
+	 *
 	 * @param name
 	 *            the name
 	 * @return the language model set
@@ -355,7 +359,7 @@ public class TranslationModel {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
