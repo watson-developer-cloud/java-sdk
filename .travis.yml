@@ -1,3 +1,4 @@
 language: java
-install: gradle assemble
-script: gradle test
+script: mvn test
+after_success:
+  + mvn clean cobertura:cobertura coveralls:report
