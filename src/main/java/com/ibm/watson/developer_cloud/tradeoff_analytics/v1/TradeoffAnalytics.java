@@ -77,7 +77,7 @@ public class TradeoffAnalytics extends WatsonService {
 		try {
 			HttpResponse response = execute(request.build());
 			String dilemmaJson = ResponseUtil.getString(response);
-			System.out.println(dilemmaJson);
+
 			Dilemma dilemma = GsonSingleton.getGson().fromJson(dilemmaJson, Dilemma.class);
 			return dilemma;
 		} catch (IOException e) {
