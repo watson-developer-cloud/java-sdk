@@ -16,7 +16,7 @@
 
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class SpeechAlternative.
@@ -65,7 +65,7 @@ public class SpeechAlternative {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

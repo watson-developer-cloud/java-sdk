@@ -16,7 +16,7 @@
 
 package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 
-import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class MetadataMap.
@@ -215,7 +215,7 @@ public class MetadataMap {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

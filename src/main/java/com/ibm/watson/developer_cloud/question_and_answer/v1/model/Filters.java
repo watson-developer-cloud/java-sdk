@@ -18,7 +18,7 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class Filters.
@@ -57,7 +57,7 @@ public class Filters {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

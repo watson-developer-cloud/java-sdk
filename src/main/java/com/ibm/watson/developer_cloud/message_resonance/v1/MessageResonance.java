@@ -27,6 +27,7 @@ import com.ibm.watson.developer_cloud.message_resonance.v1.model.MessageResonanc
 import com.ibm.watson.developer_cloud.message_resonance.v1.model.Resonance;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
@@ -131,7 +132,7 @@ public class MessageResonance extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String resonanceJson = ResponseUtil.getString(response);
-			return getGson().fromJson(resonanceJson, Resonance.class);
+			return GsonSingleton.getGson().fromJson(resonanceJson, Resonance.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

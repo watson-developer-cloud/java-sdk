@@ -15,9 +15,9 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Classified class used by the {@link NaturalLanguageClassifier} service.
@@ -80,6 +80,6 @@ public class ClassifiedClass {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

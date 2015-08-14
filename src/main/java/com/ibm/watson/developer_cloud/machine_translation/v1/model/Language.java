@@ -15,8 +15,8 @@
  */
 package com.ibm.watson.developer_cloud.machine_translation.v1.model;
 
-import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.machine_translation.v1.MachineTranslation;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Language utilized by the {@link MachineTranslation} service.
@@ -74,6 +74,6 @@ public class Language {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

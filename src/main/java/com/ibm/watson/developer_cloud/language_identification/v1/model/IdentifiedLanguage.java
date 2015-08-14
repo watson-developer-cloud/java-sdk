@@ -15,8 +15,8 @@
  */
 package com.ibm.watson.developer_cloud.language_identification.v1.model;
 
-import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.language_identification.v1.LanguageIdentification;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Language detected by the {@link LanguageIdentification} service.
@@ -81,6 +81,6 @@ public class IdentifiedLanguage {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

@@ -19,20 +19,20 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class LinguisticEvidence.
  */
 public class LinguisticEvidence {
 
-    /** A score telling how much this evidence contributes to the trait */
+    /**  A score telling how much this evidence contributes to the trait. */
     @SerializedName("evidence_score")
     private Double evidenceScore;
 
-    /** Number of words found to show evidence with this trait, */
+    /**  Number of words found to show evidence with this trait,. */
     @SerializedName("word_count")
     private Integer wordCount;
 
@@ -168,6 +168,6 @@ public class LinguisticEvidence {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

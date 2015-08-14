@@ -16,7 +16,7 @@
 
 package com.ibm.watson.developer_cloud.message_resonance.v1.model;
 
-import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class Resonance.
@@ -165,6 +165,6 @@ public class Resonance {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

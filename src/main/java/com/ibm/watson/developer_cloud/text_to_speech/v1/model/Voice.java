@@ -15,7 +15,7 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
-import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class Voice.
@@ -196,6 +196,6 @@ public class Voice {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

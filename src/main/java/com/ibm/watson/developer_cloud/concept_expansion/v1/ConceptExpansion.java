@@ -35,6 +35,7 @@ import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job.Status;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
@@ -49,10 +50,13 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class ConceptExpansion extends WatsonService {
 
+	/** The Constant SEEDS. */
 	public static final String SEEDS = "seeds";
 
+	/** The Constant DATASET. */
 	public static final String DATASET = "dataset";
 
+	/** The Constant LABEL. */
 	public static final String LABEL = "label";
 
 	/** The Constant PARAM_STATE. */
@@ -140,7 +144,7 @@ public class ConceptExpansion extends WatsonService {
 
 			HttpResponse response = execute(request);
 			String jsonJob = ResponseUtil.getString(response);
-			return getGson().fromJson(jsonJob,Job.class);
+			return GsonSingleton.getGson().fromJson(jsonJob,Job.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

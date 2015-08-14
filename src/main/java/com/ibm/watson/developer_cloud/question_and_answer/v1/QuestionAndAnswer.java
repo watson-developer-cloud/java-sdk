@@ -27,6 +27,7 @@ import com.ibm.watson.developer_cloud.question_and_answer.v1.model.WatsonAnswer;
 import com.ibm.watson.developer_cloud.question_and_answer.v1.model.WatsonQuestion;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
@@ -88,12 +89,12 @@ public class QuestionAndAnswer extends WatsonService {
 
 		HttpRequestBase request = Request.Post("/v1/question/%s", dataset.getId())
 				.withHeader("X-synctimeout", "30")
-				.withContent(getGson().toJson(new WatsonQuestion(question)), MediaType.APPLICATION_JSON).build();
+				.withContent(GsonSingleton.getGson().toJson(new WatsonQuestion(question)), MediaType.APPLICATION_JSON).build();
 
 		try {
 			HttpResponse response = execute(request);
 			String answersString = ResponseUtil.getString(response);
-			Pipeline[] pipelines = getGson().fromJson(answersString,
+			Pipeline[] pipelines = GsonSingleton.getGson().fromJson(answersString,
 					Pipeline[].class);
 			// Return the results from the first pipeline
 			return pipelines[0].getWatsonAnswer();

@@ -15,8 +15,8 @@
  */
 package com.ibm.watson.developer_cloud.message_resonance.v1.model;
 
-import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.message_resonance.v1.MessageResonance;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Dataset used by the {@link MessageResonance} service.
@@ -75,6 +75,6 @@ public class MessageResonanceDataset {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

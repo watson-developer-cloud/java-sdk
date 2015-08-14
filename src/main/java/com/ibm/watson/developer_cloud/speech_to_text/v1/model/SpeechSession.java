@@ -1,7 +1,7 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Speech session.
@@ -212,6 +212,6 @@ public class SpeechSession {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

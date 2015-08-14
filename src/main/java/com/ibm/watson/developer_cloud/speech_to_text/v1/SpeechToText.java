@@ -26,7 +26,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.InputStreamEntity;
 
-import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SessionStatus;
@@ -34,6 +33,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModelSet;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
@@ -50,14 +50,31 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class SpeechToText extends WatsonService {
 
+	/** The Constant MODEL. */
 	public static final String MODEL = "model";
+	
+	/** The Constant INACTIVITY_TIMEOUT. */
 	public static final String INACTIVITY_TIMEOUT = "inactivity_timeout";
+	
+	/** The Constant TIMESTAMPS. */
 	public static final String TIMESTAMPS = "timestamps";
+	
+	/** The Constant MAX_ALTERNATIVES. */
 	public static final String MAX_ALTERNATIVES = "max_alternatives";
+	
+	/** The Constant WORD_CONFIDENCE. */
 	public static final String WORD_CONFIDENCE = "word_confidence";
+	
+	/** The Constant CONTINUOUS. */
 	public static final String CONTINUOUS = "continuous";
+	
+	/** The Constant SESSION_ID. */
 	public static final String SESSION_ID = "session_id";
+	
+	/** The Constant CONTENT_TYPE. */
 	public static final String CONTENT_TYPE = "content_type";
+	
+	/** The Constant AUDIO. */
 	public static final String AUDIO = "audio";
 	
 	/** The url. */
@@ -105,7 +122,7 @@ public class SpeechToText extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String sessionString = ResponseUtil.getString(response);
-			SpeechSession speechSession = getGson().fromJson(sessionString,
+			SpeechSession speechSession = GsonSingleton.getGson().fromJson(sessionString,
 					SpeechSession.class);
 			speechSession.setCookieSession(response
 					.getFirstHeader("set-cookie").getValue());
@@ -166,7 +183,7 @@ public class SpeechToText extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String resultJson = ResponseUtil.getString(response);
-			SpeechModel model = new Gson().fromJson(resultJson,
+			SpeechModel model = GsonSingleton.getGson().fromJson(resultJson,
 					SpeechModel.class);
 			return model;
 		} catch (IOException e) {
@@ -184,7 +201,7 @@ public class SpeechToText extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String speechModelsJson = ResponseUtil.getString(response);
-			SpeechModelSet speechModels = new Gson().fromJson(speechModelsJson,
+			SpeechModelSet speechModels = GsonSingleton.getGson().fromJson(speechModelsJson,
 					SpeechModelSet.class);
 			return speechModels.getModels();
 		} catch (IOException e) {
@@ -224,7 +241,7 @@ public class SpeechToText extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String resultJson = ResponseUtil.getString(response);
-			SessionStatus sessionStatus = new Gson().fromJson(resultJson,
+			SessionStatus sessionStatus = GsonSingleton.getGson().fromJson(resultJson,
 					SessionStatus.class);
 			return sessionStatus;
 		} catch (IOException e) {
@@ -300,7 +317,7 @@ public class SpeechToText extends WatsonService {
 			String speechResultJson;
 
 			speechResultJson = ResponseUtil.getString(response);
-			SpeechResults speechResults = new Gson().fromJson(speechResultJson,
+			SpeechResults speechResults = GsonSingleton.getGson().fromJson(speechResultJson,
 					SpeechResults.class);
 			return speechResults;
 		} catch (IOException e) {

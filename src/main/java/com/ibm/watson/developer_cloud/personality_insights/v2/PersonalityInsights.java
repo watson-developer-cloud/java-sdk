@@ -27,6 +27,7 @@ import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.HttpHeaders;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
@@ -44,10 +45,19 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class PersonalityInsights extends WatsonService {
 	
+	/** The Constant ACCEPT_LANGUAGE. */
 	public static final String ACCEPT_LANGUAGE = "accept_language";
+	
+	/** The Constant CONTENT. */
 	public static final String CONTENT = "content";
+	
+	/** The Constant INCLUDE_RAW. */
 	public static final String INCLUDE_RAW = "include_raw";
+	
+	/** The Constant LANGUAGE. */
 	public static final String LANGUAGE = "language";
+	
+	/** The Constant TEXT. */
 	public static final String TEXT = "text";
 	
 	/** The Constant log. */
@@ -86,7 +96,7 @@ public class PersonalityInsights extends WatsonService {
 		if (params.containsKey(TEXT)) {
 			request.withContent(params.get(TEXT).toString(), HTTP.PLAIN_TEXT_TYPE);
 		} else {
-			String contentJson = getGson().toJson(params.get(CONTENT));
+			String contentJson = GsonSingleton.getGson().toJson(params.get(CONTENT));
 			request.withContent(contentJson, MediaType.APPLICATION_JSON);
 		}
 		
@@ -103,7 +113,7 @@ public class PersonalityInsights extends WatsonService {
 
 		try {
 			String profileJson = ResponseUtil.getString(response);
-			Profile profile = getGson().fromJson(profileJson, Profile.class);
+			Profile profile = GsonSingleton.getGson().fromJson(profileJson, Profile.class);
 			return profile;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -117,7 +127,7 @@ public class PersonalityInsights extends WatsonService {
 	 * @param text
 	 *            Text to analyze
 	 *            
-	 * @return The personality {@link profile}
+	 * @return The personality {@link Profile}
 	 */
 	public Profile getProfile(final String text) {
 		if (text == null || text.isEmpty())

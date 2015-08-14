@@ -17,7 +17,7 @@ package com.ibm.watson.developer_cloud.personality_insights.v2.model;
 
 import java.util.Date;
 
-import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Content to be analyzed.
@@ -307,7 +307,7 @@ public class ContentItem {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

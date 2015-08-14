@@ -15,9 +15,9 @@
  */
 package com.ibm.watson.developer_cloud.concept_expansion.v1.model;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Job created by the {@link ConceptExpansion} service. It contains and id and a
@@ -170,7 +170,7 @@ public class Job {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

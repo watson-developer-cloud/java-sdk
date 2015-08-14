@@ -19,8 +19,8 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class ToneTrait.
@@ -231,6 +231,6 @@ public class ToneTrait {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

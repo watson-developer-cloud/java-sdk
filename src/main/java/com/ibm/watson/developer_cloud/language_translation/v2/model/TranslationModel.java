@@ -1,7 +1,7 @@
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Language Model used by the {@link TranslationModel}.
@@ -10,8 +10,13 @@ import com.google.gson.annotations.SerializedName;
  */
 public class TranslationModel {
 
+	/** The Constant STATUS_TRAINING. */
 	public static final String STATUS_TRAINING = "training";
+	
+	/** The Constant STATUS_ERROR. */
 	public static final String STATUS_ERROR = "training";
+	
+	/** The Constant STATUS_AVAILABLE. */
 	public static final String STATUS_AVAILABLE = "training";
 
 	/** The model id. */
@@ -365,6 +370,6 @@ public class TranslationModel {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

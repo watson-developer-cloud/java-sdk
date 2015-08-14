@@ -19,8 +19,8 @@ package com.ibm.watson.developer_cloud.message_resonance.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.message_resonance.v1.MessageResonance;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Message returned by the Message Resonance service.
@@ -106,6 +106,6 @@ public class Message {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

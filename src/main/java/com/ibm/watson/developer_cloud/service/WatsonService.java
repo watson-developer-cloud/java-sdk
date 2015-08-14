@@ -38,7 +38,6 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
@@ -92,10 +91,6 @@ public abstract class WatsonService {
 	 */
 	private String endPoint;
 
-	/**
-	 * Field gson.
-	 */
-	private Gson gson = new Gson();
 	/**
 	 * Field httpClient.
 	 */
@@ -316,16 +311,6 @@ public abstract class WatsonService {
 	}
 
 	/**
-	 * Gets the gson.
-	 *
-	 *
-	 * @return the gson
-	 */
-	protected Gson getGson() {
-		return gson;
-	};
-
-	/**
 	 * Gets the http client.
 	 *
 	 *
@@ -338,6 +323,11 @@ public abstract class WatsonService {
 		return httpClient;
 	}
 
+	/**
+	 * Gets the thread safe client.
+	 *
+	 * @return the thread safe client
+	 */
 	public HttpClient getThreadSafeClient() {
 
 	    DefaultHttpClient client = new DefaultHttpClient(getDefaultRequestParams());

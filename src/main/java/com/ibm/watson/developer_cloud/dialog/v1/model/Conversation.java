@@ -18,9 +18,9 @@ package com.ibm.watson.developer_cloud.dialog.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Conversation used by the {@link DialogService}.
@@ -210,6 +210,6 @@ public class Conversation {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

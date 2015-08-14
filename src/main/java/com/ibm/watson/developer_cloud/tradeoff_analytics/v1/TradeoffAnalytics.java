@@ -23,6 +23,7 @@ import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Dilemma;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
@@ -65,7 +66,7 @@ public class TradeoffAnalytics extends WatsonService {
 		if (problem == null)
 			throw new IllegalArgumentException("problem was not specified");
 	
-		String contentJson = getGson().toJson(problem);
+		String contentJson = GsonSingleton.getGson().toJson(problem);
 		
 		Request request = Request.Post("/v1/dilemmas")
 				.withContent(contentJson, MediaType.APPLICATION_JSON);
@@ -77,7 +78,7 @@ public class TradeoffAnalytics extends WatsonService {
 			HttpResponse response = execute(request.build());
 			String dilemmaJson = ResponseUtil.getString(response);
 			System.out.println(dilemmaJson);
-			Dilemma dilemma = getGson().fromJson(dilemmaJson, Dilemma.class);
+			Dilemma dilemma = GsonSingleton.getGson().fromJson(dilemmaJson, Dilemma.class);
 			return dilemma;
 		} catch (IOException e) {
 			throw new RuntimeException(e);

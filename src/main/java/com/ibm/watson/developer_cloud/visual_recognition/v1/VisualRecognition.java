@@ -25,9 +25,9 @@ import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 
-import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.visual_recognition.v1.model.LabelSet;
 import com.ibm.watson.developer_cloud.visual_recognition.v1.model.RecognizedImage;
@@ -45,7 +45,10 @@ import com.ibm.watson.developer_cloud.visual_recognition.v1.model.VisualRecognit
  */
 public class VisualRecognition extends WatsonService {
 
+	/** The Constant LABELS_TO_CHECK. */
 	public static final String LABELS_TO_CHECK = "labels_to_check";
+	
+	/** The Constant IMG_FILE. */
 	public static final String IMG_FILE = "imgFile";
 	/** The url. */
 	private static final String URL = "https://gateway.watsonplatform.net/visual-recognition-beta/api";
@@ -83,7 +86,7 @@ public class VisualRecognition extends WatsonService {
 			reqEntity.addPart(IMG_FILE, bin);
 
 			if (labelSet != null) {
-				StringBody labels = new StringBody(new Gson().toJson(labelSet),
+				StringBody labels = new StringBody(GsonSingleton.getGson().toJson(labelSet),
 						Charset.forName("UTF-8"));
 
 				// Set the labels_to_check
@@ -93,7 +96,7 @@ public class VisualRecognition extends WatsonService {
 
 			HttpResponse response = execute(request.build());
 			String resultJson = ResponseUtil.getString(response);
-			VisualRecognitionImages recognizedImages = new Gson().fromJson(
+			VisualRecognitionImages recognizedImages = GsonSingleton.getGson().fromJson(
 					resultJson, VisualRecognitionImages.class);
 			return recognizedImages.getImages().get(0);
 		} catch (IOException e) {
@@ -111,7 +114,7 @@ public class VisualRecognition extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String jsonLabelSet = ResponseUtil.getString(response);
-			return new Gson().fromJson(jsonLabelSet, LabelSet.class);
+			return GsonSingleton.getGson().fromJson(jsonLabelSet, LabelSet.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

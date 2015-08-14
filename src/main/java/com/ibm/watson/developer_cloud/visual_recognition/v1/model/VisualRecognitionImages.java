@@ -19,8 +19,8 @@ package com.ibm.watson.developer_cloud.visual_recognition.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class VisualRecognitionImages.
@@ -56,7 +56,7 @@ public class VisualRecognitionImages {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

@@ -32,6 +32,7 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Scorecard;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymResult;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
@@ -48,15 +49,29 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class ToneAnalyzer extends WatsonService {
 
+	/** The Constant HOPS. */
 	// parameters
 	public static final String HOPS = "hops";
+	
+	/** The Constant LIMIT. */
 	public static final String LIMIT = "limit";
+	
+	/** The Constant CONTEXT. */
 	public static final String CONTEXT = "context";
+	
+	/** The Constant TRAITS. */
 	public static final String TRAITS = "traits";
+	
+	/** The Constant WORDS. */
 	public static final String WORDS = "words";
+	
+	/** The Constant TEXT. */
 	public static final String TEXT = "text";
+	
+	/** The Constant SCORECARD. */
 	public static final String SCORECARD = "scorecard";
 
+	/** The Constant URL. */
 	private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer-experimental/api";
 
 	/** The synonym list. */
@@ -64,7 +79,7 @@ public class ToneAnalyzer extends WatsonService {
 
 	
 	/**
-	 * Instantiates a new Tone Analyzer service with the default url
+	 * Instantiates a new Tone Analyzer service with the default url.
 	 */
 	public ToneAnalyzer() {
 		setEndPoint(URL);
@@ -117,7 +132,7 @@ public class ToneAnalyzer extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String toneAsJson = ResponseUtil.getString(response);
-			Tone tone = getGson().fromJson(toneAsJson, Tone.class);
+			Tone tone = GsonSingleton.getGson().fromJson(toneAsJson, Tone.class);
 			return tone;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -126,35 +141,8 @@ public class ToneAnalyzer extends WatsonService {
 
 	/**
 	 * Starts or continue conversations.
-	 * 
-	 * @param words
-	 *            (string[]),
-	 * @param traits
-	 *            (string[], optional),
-	 * @param limit
-	 *            (long, optional) Limits the number of words to return on each
-	 *            trait. The most heavily correlated (positive and negative) to
-	 *            each trait are returned; approximately limit/2 each of
-	 *            positively correlated words negatively correlated words if
-	 *            there are enough available.
-	 * @param hops
-	 *            (long, optional): The number of 'hops' to explore for synonyms
-	 *            or related words: 0 indicates words directly related to the
-	 *            input; 1 gives words related to them, and so on. The greater
-	 *            this number, the richer the word set returned (but at the same
-	 *            time, less tightly related to the input).
-	 * @param context
-	 *            (string[], optional)
-	 * @param index
-	 *            (long, optional): The position (0-based) in `context`
-	 *            parameter where the requested word appears. This parameter can
-	 *            only be passed when `context` is also present and there is
-	 *            only one word requested (length(`words`)=0), and it makes
-	 *            sense only if `context[index]` is equal to `words[0]`.
-	 * 
-	 * @param params
-	 *            The map with the parameters described above
-	 * 
+	 *
+	 * @param params            The map with the parameters described above
 	 * @return {@link SynonymResult}
 	 */
 	public List<SynonymResult> getSynonyms(Map<String, Object> params) {
@@ -204,7 +192,7 @@ public class ToneAnalyzer extends WatsonService {
 		HttpResponse response = execute(request);
 		try {
 			String synonymResultJson = ResponseUtil.getString(response);
-			List<SynonymResult> synonyms = getGson().fromJson(synonymResultJson, synonymListType);
+			List<SynonymResult> synonyms = GsonSingleton.getGson().fromJson(synonymResultJson, synonymListType);
 			return synonyms;
 		} catch (IOException e) {
 			throw new RuntimeException(e);

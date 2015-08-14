@@ -23,12 +23,12 @@ import java.util.List;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
@@ -59,14 +59,11 @@ public class TextToSpeech extends WatsonService {
 	}
 
 	/**
-	 * Synthesize text using a voice and format
-	 * 
-	 * @param text
-	 *            the text
-	 * @param voice
-	 *            the voice
-	 * @param format
-	 *            the output format
+	 * Synthesize text using a voice and format.
+	 *
+	 * @param text            the text
+	 * @param voice            the voice
+	 * @param format            the output format
 	 * @return the input stream
 	 */
 	public InputStream synthesize(final String text, final Voice voice, final String format) {
@@ -96,12 +93,10 @@ public class TextToSpeech extends WatsonService {
 	}
 
 	/**
-	 * Synthesize text using a voice
-	 * 
-	 * @param text
-	 *            the text to synthesize
-	 * @param voice
-	 *            the voice
+	 * Synthesize text using a voice.
+	 *
+	 * @param text            the text to synthesize
+	 * @param voice            the voice
 	 * @return the input stream
 	 */
 	public InputStream synthesize(final String text, final Voice voice) {
@@ -109,12 +104,10 @@ public class TextToSpeech extends WatsonService {
 	}
 
 	/**
-	 * Synthesize text using format
-	 * 
-	 * @param text
-	 *            the text to synthesize
-	 * @param format
-	 *            the format, it needs to be an audio mime type, for example:
+	 * Synthesize text using format.
+	 *
+	 * @param text            the text to synthesize
+	 * @param format            the format, it needs to be an audio mime type, for example:
 	 *            audio/wav or audio/ogg; codecs=opus
 	 * @return the input stream with the synthesized audio
 	 */
@@ -132,7 +125,7 @@ public class TextToSpeech extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<Voice> voices = new Gson().fromJson(
+			List<Voice> voices = GsonSingleton.getGson().fromJson(
 					jsonObject.get("voices"), listVoiceType);
 			return voices;
 		} catch (IOException e) {

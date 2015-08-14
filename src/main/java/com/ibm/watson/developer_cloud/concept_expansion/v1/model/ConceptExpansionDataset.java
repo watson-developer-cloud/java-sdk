@@ -15,8 +15,8 @@
  */
 package com.ibm.watson.developer_cloud.concept_expansion.v1.model;
 
-import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Dataset used by the {@link ConceptExpansion} service.
@@ -76,6 +76,6 @@ public class ConceptExpansionDataset {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

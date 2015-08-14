@@ -17,8 +17,8 @@ package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
 import java.util.List;
 
-import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The set of questions and their "keys" used to
@@ -83,6 +83,6 @@ public class TrainingData {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

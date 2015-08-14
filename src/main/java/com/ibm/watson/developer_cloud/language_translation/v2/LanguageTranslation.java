@@ -35,6 +35,7 @@ import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationM
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.HttpHeaders;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
@@ -51,15 +52,31 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class LanguageTranslation extends WatsonService {
 
+	/** The Constant BASE_MODEL_ID. */
 	public static final String BASE_MODEL_ID = "base_model_id";
+	
+	/** The Constant FORCED_GLOSSARY. */
 	public static final String FORCED_GLOSSARY = "forced_glossary";
+	
+	/** The Constant DEFAULT. */
 	public static final String DEFAULT = "default";
+	
+	/** The Constant MODEL_ID. */
 	public static final String MODEL_ID = "model_id";
+	
+	/** The Constant SOURCE. */
 	public static final String SOURCE = "source";
+	
+	/** The Constant TARGET. */
 	public static final String TARGET = "target";
+	
+	/** The Constant TEXT. */
 	public static final String TEXT = "text";
+	
+	/** The Constant NAME. */
 	public static final String NAME = "name";
 
+	/** The Constant LANGUAGES. */
 	private static final String LANGUAGES = "languages";
 
 	/** The url. */
@@ -99,7 +116,7 @@ public class LanguageTranslation extends WatsonService {
 		try {
 			HttpResponse response = execute(requestBase);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<IdentifiableLanguage> langs = getGson().fromJson(
+			List<IdentifiableLanguage> langs = GsonSingleton.getGson().fromJson(
 					jsonObject.get(LANGUAGES), identifiableLanguagesListType);
 			return langs;
 		} catch (IOException e) {
@@ -133,7 +150,7 @@ public class LanguageTranslation extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String modelAsString = ResponseUtil.getString(response);
-			TranslationModel model = getGson().fromJson(modelAsString,TranslationModel.class);
+			TranslationModel model = GsonSingleton.getGson().fromJson(modelAsString,TranslationModel.class);
 			return model;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -156,9 +173,10 @@ public class LanguageTranslation extends WatsonService {
 	/**
 	 * Creates a translation models.
 	 *
- 	 * @param params String name the model name,
- 	 * 				 String base_model_id the model id to use as base model,
- 	 * 				 File forced_glossary the tmx file use in the model
+	 * @param params String name the model name,
+	 * 				 String base_model_id the model id to use as base model,
+	 * 				 File forced_glossary the tmx file use in the model
+	 * @return the translation model
 	 */
 	public TranslationModel createModel(Map<String,Object> params) {
 		// forced_glossary
@@ -183,7 +201,7 @@ public class LanguageTranslation extends WatsonService {
 		try {
 			HttpResponse response = execute(requestBase);
 			String modelAsString = ResponseUtil.getString(response);
-			TranslationModel model = getGson().fromJson(modelAsString, TranslationModel.class);
+			TranslationModel model = GsonSingleton.getGson().fromJson(modelAsString, TranslationModel.class);
 			return model;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -218,7 +236,7 @@ public class LanguageTranslation extends WatsonService {
 		try {
 			HttpResponse response = execute(requestBase);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<TranslationModel> models = getGson().fromJson(
+			List<TranslationModel> models = GsonSingleton.getGson().fromJson(
 					jsonObject.get("models"), modelListType);
 			return models;
 		} catch (IOException e) {
@@ -241,7 +259,7 @@ public class LanguageTranslation extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<IdentifiedLanguage> identifiedLanguages = getGson().fromJson(
+			List<IdentifiedLanguage> identifiedLanguages = GsonSingleton.getGson().fromJson(
 					jsonObject.get(LANGUAGES), translationModelListType);
 			return identifiedLanguages;
 		} catch (IOException e) {
@@ -268,10 +286,7 @@ public class LanguageTranslation extends WatsonService {
 	 * model_id or source and target needs to be specified.
 	 * If both are specified, then only model_id will be used
 	 *
-	 * @param text            The submitted paragraphs to translate
-	 * @param source            the source language
-	 * @param target            the target language
-	 * @param model_id            the model id
+	 * @param params the params
 	 * @return The {@link TranslationResult}
 	 */
 	public TranslationResult translate(final Map<String, Object> params) {
@@ -324,7 +339,7 @@ public class LanguageTranslation extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String translationResult = ResponseUtil.getString(response);
-			TranslationResult translation = getGson().fromJson(
+			TranslationResult translation = GsonSingleton.getGson().fromJson(
 					translationResult, TranslationResult.class);
 			return translation;
 		} catch (IOException e) {
@@ -335,10 +350,10 @@ public class LanguageTranslation extends WatsonService {
 
 
 	/**
-	 * Translate text using a model
+	 * Translate text using a model.
 	 *
 	 * @param text            The submitted paragraphs to translate
-	 * @param model_id            the model id
+	 * @param modelId the model id
 	 * @return The {@link TranslationResult}
 	 */
 	public TranslationResult translate(final String text,final  String modelId) {
@@ -349,7 +364,7 @@ public class LanguageTranslation extends WatsonService {
 	}
 
 	/**
-	 * Translate text using source and target languages
+	 * Translate text using source and target languages.
 	 *
 	 * @param text            The submitted paragraphs to translate
 	 * @param source          The source language

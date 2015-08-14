@@ -16,14 +16,15 @@
 
 package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 
-import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 
 /**
- * The Scorecard
+ * The Scorecard.
  */
 public class Scorecard {
 
+	/** The Constant EMAIL. */
 	public static final Scorecard EMAIL = new Scorecard("email");
 	
     /** A description of what this scorecard 
@@ -111,6 +112,6 @@ public class Scorecard {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

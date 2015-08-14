@@ -23,7 +23,6 @@ import java.util.logging.Logger;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
@@ -31,6 +30,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.TrainingData;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
@@ -91,7 +91,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 			contentJson.addProperty("language", language);
 		}
 
-		contentJson.addProperty("training_data", getGson().toJson(trainingData));
+		contentJson.addProperty("training_data", GsonSingleton.getGson().toJson(trainingData));
 
 		log.info("createClassifier with: " + contentJson.getAsString());
 		HttpRequestBase request = Request
@@ -101,7 +101,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String classifierAsJson = ResponseUtil.getString(response);
-			Classifier classifier = getGson().fromJson(classifierAsJson,
+			Classifier classifier = GsonSingleton.getGson().fromJson(classifierAsJson,
 					Classifier.class);
 			return classifier;
 		} catch (IOException e) {
@@ -137,7 +137,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String classifierAsJson = ResponseUtil.getString(response);
-			Classification classification = getGson().fromJson(
+			Classification classification = GsonSingleton.getGson().fromJson(
 					classifierAsJson, Classification.class);
 			return classification;
 		} catch (IOException e) {
@@ -157,7 +157,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<Classifier> classifiers = new Gson().fromJson(
+			List<Classifier> classifiers = GsonSingleton.getGson().fromJson(
 					jsonObject.get("classifiers"), listType);
 			return classifiers;
 		} catch (IOException e) {
@@ -197,7 +197,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String classifierJson = ResponseUtil.getString(response);
-			Classifier classifier = new Gson().fromJson(classifierJson,Classifier.class);
+			Classifier classifier = GsonSingleton.getGson().fromJson(classifierJson,Classifier.class);
 			return classifier;
 		} catch (IOException e) {
 			throw new RuntimeException(e);

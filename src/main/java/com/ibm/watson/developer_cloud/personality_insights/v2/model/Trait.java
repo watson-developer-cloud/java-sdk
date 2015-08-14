@@ -17,8 +17,8 @@ package com.ibm.watson.developer_cloud.personality_insights.v2.model;
 
 import java.util.List;
 
-import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The personality trait/model POJO class.
@@ -217,7 +217,7 @@ public class Trait {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 
 

@@ -15,8 +15,8 @@
  */
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
-import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Name value class used by the {@link DialogService}.
@@ -121,6 +121,6 @@ public class NameValue {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }

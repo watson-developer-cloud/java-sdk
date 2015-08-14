@@ -15,7 +15,7 @@
  */
 package com.ibm.watson.developer_cloud.relationship_extraction.v1.model;
 
-import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class RelationshipExtractionDataset.
@@ -69,6 +69,6 @@ public class RelationshipExtractionDataset {
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+				+ GsonSingleton.getGson().toJson(this);
 	}
 }
