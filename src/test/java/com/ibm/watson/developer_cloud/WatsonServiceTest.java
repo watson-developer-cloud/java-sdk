@@ -36,7 +36,7 @@ public abstract class WatsonServiceTest {
 	 * @param is the input stream
 	 * @return the string from input stream
 	 */
-	protected static String getStringFromInputStream(InputStream is) {
+	public static String getStringFromInputStream(InputStream is) {
 		BufferedReader br = null;
 		StringBuilder sb = new StringBuilder();
 

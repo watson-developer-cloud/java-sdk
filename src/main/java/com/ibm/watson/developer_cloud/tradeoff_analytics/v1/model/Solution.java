@@ -16,7 +16,8 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
-import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 
 
@@ -25,11 +26,25 @@ import com.google.gson.GsonBuilder;
  */
 public class Solution {
 
+	/** The solution ref. */
+	@SerializedName("solution_ref")
+	private String solutionRef;
+	
 	/** The status. */
 	private String status;
 	
-	/** The solution ref. */
-	private String solutionRef;
+	/** The status cause. */
+	@SerializedName("status_cause")
+	private StatusCause statusCause;
+
+	/**
+	 * Gets the solution ref.
+	 * 
+	 * @return The solutionRef
+	 */
+	public String getSolutionRef() {
+		return solutionRef;
+	}
 
 	/**
 	 * Gets the status.
@@ -38,6 +53,16 @@ public class Solution {
 	 */
 	public String getStatus() {
 		return status;
+	}
+
+	/**
+	 * Sets the solution ref.
+	 * 
+	 * @param solutionRef
+	 *            The solution_ref
+	 */
+	public void setSolutionRef(String solutionRef) {
+		this.solutionRef = solutionRef;
 	}
 
 	/**
@@ -50,35 +75,13 @@ public class Solution {
 		this.status = status;
 	}
 
-	/**
-	 * With status.
-	 * 
-	 * @param status
-	 *            the status
-	 * @return the solution
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public Solution withStatus(String status) {
-		this.status = status;
-		return this;
-	}
-
-	/**
-	 * Gets the solution ref.
-	 * 
-	 * @return The solutionRef
-	 */
-	public String getSolutionRef() {
-		return solutionRef;
-	}
-
-	/**
-	 * Sets the solution ref.
-	 * 
-	 * @param solutionRef
-	 *            The solution_ref
-	 */
-	public void setSolutionRef(String solutionRef) {
-		this.solutionRef = solutionRef;
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ GsonSingleton.getGson().toJson(this);
 	}
 
 	/**
@@ -93,13 +96,16 @@ public class Solution {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * With status.
+	 * 
+	 * @param status
+	 *            the status
+	 * @return the solution
 	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	public Solution withStatus(String status) {
+		this.status = status;
+		return this;
 	}
 
 }

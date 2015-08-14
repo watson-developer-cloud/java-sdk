@@ -18,7 +18,6 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 import java.io.IOException;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
 
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -32,6 +31,9 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  */
 public class TradeoffAnalytics extends WatsonService {
 
+	/** The Constant GENERATE_VISUALIZATION. */
+	private static final String GENERATE_VISUALIZATION = "GENERATE_VISUALIZATION";
+	
 	/** The url. */
 	private final static String URL = "https://gateway.watsonplatform.net/tradeoff-analytics/api";
 
@@ -50,17 +52,31 @@ public class TradeoffAnalytics extends WatsonService {
 	 * @return the dilemma
 	 */
 	public Dilemma dilemmas(final Problem problem) {
+		return dilemmas(problem, null);
+	}
+	/**
+	 * Dilemmas.
+	 *
+	 * @param problem the problem
+	 * @param generateVisualization the generate visualization
+	 * @return the dilemma
+	 */
+	public Dilemma dilemmas(final Problem problem,final Boolean generateVisualization) {
 		if (problem == null)
 			throw new IllegalArgumentException("problem was not specified");
-
+	
 		String contentJson = getGson().toJson(problem);
-
-		HttpRequestBase request = Request.Post("/v1/dilemmas")
-				.withContent(contentJson, MediaType.APPLICATION_JSON).build();
-
+		
+		Request request = Request.Post("/v1/dilemmas")
+				.withContent(contentJson, MediaType.APPLICATION_JSON);
+	
+		if (generateVisualization != null)
+			request.withQuery(GENERATE_VISUALIZATION,generateVisualization);
+		
 		try {
-			HttpResponse response = execute(request);
+			HttpResponse response = execute(request.build());
 			String dilemmaJson = ResponseUtil.getString(response);
+			System.out.println(dilemmaJson);
 			Dilemma dilemma = getGson().fromJson(dilemmaJson, Dilemma.class);
 			return dilemma;
 		} catch (IOException e) {

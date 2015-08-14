@@ -16,7 +16,7 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
-import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 
 /**
@@ -40,12 +40,39 @@ public class Dilemma {
 	}
 
 	/**
+	 * Gets the resolution.
+	 *
+	 * @return     The resolution
+	 */
+	public Resolution getResolution() {
+		return resolution;
+	}
+
+	/**
 	 * Sets the problem.
 	 *
 	 * @param problem     The problem
 	 */
 	public void setProblem(Problem problem) {
 		this.problem = problem;
+	}
+
+	/**
+	 * Sets the resolution.
+	 *
+	 * @param resolution     The resolution
+	 */
+	public void setResolution(Resolution resolution) {
+		this.resolution = resolution;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ GsonSingleton.getGson().toJson(this);
 	}
 
 	/**
@@ -60,24 +87,6 @@ public class Dilemma {
 	}
 
 	/**
-	 * Gets the resolution.
-	 *
-	 * @return     The resolution
-	 */
-	public Resolution getResolution() {
-		return resolution;
-	}
-
-	/**
-	 * Sets the resolution.
-	 *
-	 * @param resolution     The resolution
-	 */
-	public void setResolution(Resolution resolution) {
-		this.resolution = resolution;
-	}
-
-	/**
 	 * With resolution.
 	 * 
 	 * @param resolution
@@ -87,15 +96,6 @@ public class Dilemma {
 	public Dilemma withResolution(Resolution resolution) {
 		this.resolution = resolution;
 		return this;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
 	}
 
 }

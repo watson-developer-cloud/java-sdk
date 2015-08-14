@@ -17,8 +17,10 @@
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
 import java.util.HashMap;
+import java.util.Map;
 
-import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 
 /**
@@ -26,6 +28,14 @@ import com.google.gson.GsonBuilder;
  */
 public class Option {
 
+	/** The app_data. */
+	@SerializedName("app_data")
+	private Map<String,String> appData;
+
+	/** The description html. */
+	@SerializedName("description_html")
+	private String descriptionHtml;
+	
 	/** The key. */
 	private String key;
 	
@@ -33,12 +43,7 @@ public class Option {
 	private String name;
 	
 	/** The values. */
-	private HashMap<String,String> values;
-	
-	/** The description html. */
-	private String descriptionHtml;
-
-
+	private HashMap<String,Object> values;
 
 	/**
 	 * Instantiates a new option.
@@ -54,18 +59,41 @@ public class Option {
 	 *            the key
 	 * @param name
 	 *            the name
+	 */
+	public Option(String key, String name) {
+		super();
+		this.key = key;
+		this.name = name;
+	}
+
+	/**
+	 * Instantiates a new option.
+	 * 
+	 * @param key
+	 *            the key
+	 * @param name
+	 *            the name
 	 * @param values
 	 *            the values
 	 * @param descriptionHtml
 	 *            the description html
 	 */
-	public Option(String key, String name, HashMap<String, String> values,
+	public Option(String key, String name, HashMap<String, Object> values,
 			String descriptionHtml) {
 		super();
 		this.key = key;
 		this.name = name;
 		this.values = values;
 		this.descriptionHtml = descriptionHtml;
+	}
+
+	/**
+	 * Gets the description html.
+	 * 
+	 * @return The descriptionHtml
+	 */
+	public String getDescriptionHtml() {
+		return descriptionHtml;
 	}
 
 	/**
@@ -78,6 +106,34 @@ public class Option {
 	}
 
 	/**
+	 * Gets the name.
+	 * 
+	 * @return The name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Gets the values.
+	 * 
+	 * @return The values
+	 */
+	public HashMap<String, Object> getValues() {
+		return values;
+	}
+
+	/**
+	 * Sets the description html.
+	 * 
+	 * @param descriptionHtml
+	 *            The description_html
+	 */
+	public void setDescriptionHtml(String descriptionHtml) {
+		this.descriptionHtml = descriptionHtml;
+	}
+
+	/**
 	 * Sets the key.
 	 * 
 	 * @param key
@@ -85,6 +141,58 @@ public class Option {
 	 */
 	public void setKey(String key) {
 		this.key = key;
+	}
+
+	/**
+	 * Sets the name.
+	 * 
+	 * @param name
+	 *            The name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
+	 * Sets the values.
+	 * 
+	 * @param values
+	 *            The values
+	 */
+	public void setValues(HashMap<String, Object>  values) {
+		this.values = values;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ GsonSingleton.getGson().toJson(this);
+	}
+
+	/**
+	 * With application data.
+	 *
+	 * @param appData the app data
+	 * @return the option
+	 */
+	public Option withAppData(HashMap<String, String>  appData) {
+		this.appData = appData;
+		return this;
+	}
+	
+	/**
+	 * With description html.
+	 * 
+	 * @param descriptionHtml
+	 *            the description html
+	 * @return the option
+	 */
+	public Option withDescriptionHtml(String descriptionHtml) {
+		this.descriptionHtml = descriptionHtml;
+		return this;
 	}
 
 	/**
@@ -100,25 +208,6 @@ public class Option {
 	}
 
 	/**
-	 * Gets the name.
-	 * 
-	 * @return The name
-	 */
-	public String getName() {
-		return name;
-	}
-
-	/**
-	 * Sets the name.
-	 * 
-	 * @param name
-	 *            The name
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	/**
 	 * With name.
 	 * 
 	 * @param name
@@ -131,22 +220,21 @@ public class Option {
 	}
 
 	/**
-	 * Gets the values.
+	 * With value.
 	 * 
-	 * @return The values
+	 * @param name
+	 *            the name
+	 * @param value
+	 *            the value
+	 * @return the option
 	 */
-	public HashMap<String, String> getValues() {
-		return values;
-	}
+	public Option withValue(String name, Object value) {
+		if (values == null) {
+			values = new HashMap<String, Object>();
+		}
 
-	/**
-	 * Sets the values.
-	 * 
-	 * @param values
-	 *            The values
-	 */
-	public void setValues(HashMap<String, String>  values) {
-		this.values = values;
+		values.put(name, value);
+		return this;
 	}
 
 	/**
@@ -156,67 +244,9 @@ public class Option {
 	 *            the values
 	 * @return the option
 	 */
-	public Option withValues(HashMap<String, String>  values) {
+	public Option withValues(HashMap<String, Object>  values) {
 		this.values = values;
 		return this;
-	}
-
-	/**
-	 * With value.
-	 * 
-	 * @param name
-	 *            the name
-	 * @param value
-	 *            the value
-	 * @return the option
-	 */
-	public Option withValue(String name, String value) {
-		if (values == null) {
-			values = new HashMap<String, String>();
-		}
-
-		values.put(name, value);
-		return this;
-	}
-
-	/**
-	 * Gets the description html.
-	 * 
-	 * @return The descriptionHtml
-	 */
-	public String getDescriptionHtml() {
-		return descriptionHtml;
-	}
-
-	/**
-	 * Sets the description html.
-	 * 
-	 * @param descriptionHtml
-	 *            The description_html
-	 */
-	public void setDescriptionHtml(String descriptionHtml) {
-		this.descriptionHtml = descriptionHtml;
-	}
-
-	/**
-	 * With description html.
-	 * 
-	 * @param descriptionHtml
-	 *            the description html
-	 * @return the option
-	 */
-	public Option withDescriptionHtml(String descriptionHtml) {
-		this.descriptionHtml = descriptionHtml;
-		return this;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
 	}
 
 }

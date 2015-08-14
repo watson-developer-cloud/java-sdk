@@ -14,37 +14,50 @@
  * limitations under the License.
  */
 
-package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
+package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
+
+
 /**
- * The Class Resolution.
+ * Date column.
+ *
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
-public class Resolution {
-
-	/** The solutions. */
-	private List<Solution> solutions = new ArrayList<Solution>();
-
+public class DateColumn extends Column {
+	
+	/** The high. */
+	private Date high;
+	
+	/** The range. */
+	private Date low;
+	
 	/**
-	 * Gets the solutions.
-	 *
-	 * @return     The solutions
+	 * Instantiates a new date column.
 	 */
-	public List<Solution> getSolutions() {
-		return solutions;
+	public DateColumn() {
+		super(ColumnType.DATETIME);
 	}
-
+	
 	/**
-	 * Sets the solutions.
+	 * Gets the high.
 	 *
-	 * @param solutions     The solutions
+	 * @return the high
 	 */
-	public void setSolutions(List<Solution> solutions) {
-		this.solutions = solutions;
+	public Date getHigh() {
+		return high;
+	}
+	
+	/**
+	 * Gets the low.
+	 *
+	 * @return the low
+	 */
+	public Date getLow() {
+		return low;
 	}
 
 	/* (non-Javadoc)
@@ -57,14 +70,15 @@ public class Resolution {
 	}
 
 	/**
-	 * With solutions.
-	 * 
-	 * @param solutions
-	 *            the solutions
-	 * @return the resolution
+	 * With range.
+	 *
+	 * @param low the low
+	 * @param high the high
+	 * @return the date column
 	 */
-	public Resolution withSolutions(List<Solution> solutions) {
-		this.solutions = solutions;
+	public DateColumn withRange(Date low, Date high) {
+		this.low = low;
+		this.high = high;
 		return this;
 	}
 

@@ -21,13 +21,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Column;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Dilemma;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Option;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column.Goal;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.NumericColumn;
 
 public class TradeoffAnalyticsExample {
-
 
 	public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
 		TradeoffAnalytics service = new TradeoffAnalytics();
@@ -35,34 +36,39 @@ public class TradeoffAnalyticsExample {
 
 		Problem problem = new Problem("phone");
 
+		String price = "price";
+		String ram = "ram";
+		String screen = "screen";
+
 		// Define the objectives
 		List<Column> columns = new ArrayList<Column>();
 		problem.setColumns(columns);
-		columns.add(new Column("price", "Price", "NUMERIC", true, "MIN"));
-		columns.add(new Column("ram", "Ram", "NUMERIC", false, "MAX"));
-		columns.add(new Column("screen", "Screen", "NUMERIC", true, "MAX"));
+		
+		columns.add(new NumericColumn().withRange(0, 100).withKey(price).withGoal(Goal.MIN).withObjective(true));
+		columns.add(new NumericColumn().withKey(screen).withGoal(Goal.MAX).withObjective(true));
+		columns.add(new NumericColumn().withKey(ram).withGoal(Goal.MAX));
 
 		// Define the options to choose
 		List<Option> options = new ArrayList<Option>();
 		problem.setOptions(options);
 
-		HashMap<String, String> galaxySpecs = new HashMap<String, String>();
-		galaxySpecs.put("price", "300");
-		galaxySpecs.put("ram", "45");
-		galaxySpecs.put("screen", "5");
-		options.add(new Option("1", "Galaxy S4", galaxySpecs, ""));
+		HashMap<String, Object> galaxySpecs = new HashMap<String, Object>();
+		galaxySpecs.put(price, 50);
+		galaxySpecs.put(ram, 45);
+		galaxySpecs.put(screen, 5);
+		options.add(new Option("1", "Galaxy S4").withValues(galaxySpecs));
 
-		HashMap<String, String> iphoneSpecs = new HashMap<String, String>();
-		iphoneSpecs.put("price", "400");
-		iphoneSpecs.put("ram", "40");
-		iphoneSpecs.put("screen", "4");
-		options.add(new Option("2", "iPhone 5", iphoneSpecs, ""));
+		HashMap<String, Object> iphoneSpecs = new HashMap<String, Object>();
+		iphoneSpecs.put(price, 99);
+		iphoneSpecs.put(ram, 40);
+		iphoneSpecs.put(screen, 4);
+		options.add(new Option("2", "iPhone 5").withValues(iphoneSpecs));
 
-		HashMap<String, String> optimusSpecs = new HashMap<String, String>();
-		optimusSpecs.put("price", "300");
-		optimusSpecs.put("ram", "300");
-		optimusSpecs.put("screen", "5");
-		options.add(new Option("3", "LG Optimus G", optimusSpecs, ""));
+		HashMap<String, Object> optimusSpecs = new HashMap<String, Object>();
+		optimusSpecs.put(price, 10);
+		optimusSpecs.put(ram, 300);
+		optimusSpecs.put(screen, 5);
+		options.add(new Option("3", "LG Optimus G").withValues(optimusSpecs));
 
 		// Call the service and get the resolution
 		Dilemma dilemma = service.dilemmas(problem);

@@ -14,39 +14,24 @@
  * limitations under the License.
  */
 
-package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
-
-import java.util.ArrayList;
-import java.util.List;
+package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
- * The Class Resolution.
+ * Text column.
+ *
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com>)
  */
-public class Resolution {
-
-	/** The solutions. */
-	private List<Solution> solutions = new ArrayList<Solution>();
-
+public class TextColumn extends Column {
+		
 	/**
-	 * Gets the solutions.
-	 *
-	 * @return     The solutions
+	 * Instantiates a new date column.
 	 */
-	public List<Solution> getSolutions() {
-		return solutions;
+	public TextColumn() {
+		super(ColumnType.TEXT);
 	}
-
-	/**
-	 * Sets the solutions.
-	 *
-	 * @param solutions     The solutions
-	 */
-	public void setSolutions(List<Solution> solutions) {
-		this.solutions = solutions;
-	}
-
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -54,18 +39,6 @@ public class Resolution {
 	public String toString() {
 		return getClass().getName() + " "
 				+ GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With solutions.
-	 * 
-	 * @param solutions
-	 *            the solutions
-	 * @return the resolution
-	 */
-	public Resolution withSolutions(List<Solution> solutions) {
-		this.solutions = solutions;
-		return this;
 	}
 
 }

@@ -19,21 +19,22 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.GsonBuilder;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class Problem.
  */
 public class Problem {
 
-	/** The subject. */
-	private String subject;
-	
 	/** The columns. */
 	private List<Column> columns = new ArrayList<Column>();
 	
 	/** The options. */
 	private List<Option> options = new ArrayList<Option>();
+	
+	/** The subject. */
+	private String subject;
 
 
 	/**
@@ -55,12 +56,50 @@ public class Problem {
 	}
 
 	/**
+	 * Gets the columns.
+	 * 
+	 * @return The columns
+	 */
+	public List<Column> getColumns() {
+		return columns;
+	}
+
+	/**
+	 * Gets the options.
+	 * 
+	 * @return The options
+	 */
+	public List<Option> getOptions() {
+		return options;
+	}
+
+	/**
 	 * Gets the subject.
 	 * 
 	 * @return The subject
 	 */
 	public String getSubject() {
 		return subject;
+	}
+
+	/**
+	 * Sets the columns.
+	 * 
+	 * @param columns
+	 *            The columns
+	 */
+	public void setColumns(List<Column> columns) {
+		this.columns = columns;
+	}
+
+	/**
+	 * Sets the options.
+	 * 
+	 * @param options
+	 *            The options
+	 */
+	public void setOptions(List<Option> options) {
+		this.options = options;
 	}
 
 	/**
@@ -73,35 +112,13 @@ public class Problem {
 		this.subject = subject;
 	}
 
-	/**
-	 * With subject.
-	 * 
-	 * @param subject
-	 *            the subject
-	 * @return the problem
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
 	 */
-	public Problem withSubject(String subject) {
-		this.subject = subject;
-		return this;
-	}
-
-	/**
-	 * Gets the columns.
-	 * 
-	 * @return The columns
-	 */
-	public List<Column> getColumns() {
-		return columns;
-	}
-
-	/**
-	 * Sets the columns.
-	 * 
-	 * @param columns
-	 *            The columns
-	 */
-	public void setColumns(List<Column> columns) {
-		this.columns = columns;
+	@Override
+	public String toString() {
+		return getClass().getName() + " "
+				+ GsonSingleton.getGson().toJson(this);
 	}
 
 	/**
@@ -117,25 +134,6 @@ public class Problem {
 	}
 
 	/**
-	 * Gets the options.
-	 * 
-	 * @return The options
-	 */
-	public List<Option> getOptions() {
-		return options;
-	}
-
-	/**
-	 * Sets the options.
-	 * 
-	 * @param options
-	 *            The options
-	 */
-	public void setOptions(List<Option> options) {
-		this.options = options;
-	}
-
-	/**
 	 * With options.
 	 * 
 	 * @param options
@@ -147,13 +145,16 @@ public class Problem {
 		return this;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * With subject.
+	 * 
+	 * @param subject
+	 *            the subject
+	 * @return the problem
 	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ new GsonBuilder().setPrettyPrinting().create().toJson(this);
+	public Problem withSubject(String subject) {
+		this.subject = subject;
+		return this;
 	}
 
 }

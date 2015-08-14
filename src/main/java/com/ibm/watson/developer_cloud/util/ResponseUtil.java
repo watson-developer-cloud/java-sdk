@@ -26,7 +26,6 @@ import org.apache.http.ParseException;
 import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -57,7 +56,7 @@ public class ResponseUtil {
 	public static String formatJSON(String json) {
 		try {
 			JsonParser parser = new JsonParser();
-			Gson gson = new GsonBuilder().setPrettyPrinting().create();
+			Gson gson = GsonSingleton.getGson();
 			return gson.toJson(parser.parse(json));
 		} catch (Exception e) {
 			log.log(Level.SEVERE,json + " is not valid", e);
