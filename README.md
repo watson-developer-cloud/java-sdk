@@ -1,6 +1,6 @@
 # Watson Developer Cloud Java Wrapper
 [![Build Status](https://secure.travis-ci.org/watson-developer-cloud/java-wrapper.png)](http://travis-ci.org/watson-developer-cloud/java-wrapper)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-wrapper/badge.svg)](https://maven-badges.herokuapp.com/maven-central/cz.jirutka.rsql/rsql-parser)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-wrapper/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-wrapper)
 [![Coverage Status](https://coveralls.io/repos/watson-developer-cloud/java-wrapper/badge.svg?branch=master&service=github)](https://coveralls.io/github/watson-developer-cloud/java-wrapper?branch=master)
 
 Java code wrappers to quickly get started with the various [Watson Developer Cloud][wdc] services - A collection of REST APIs and SDKs that use cognitive computing to solve complex problems.
