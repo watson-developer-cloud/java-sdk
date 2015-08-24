@@ -57,11 +57,27 @@ public class SpeechAlternative {
 		return this;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SpeechAlternative that = (SpeechAlternative) o;
+
+		return transcript.equals(that.transcript);
+
+	}
+
+	@Override
+	public int hashCode() {
+		return transcript.hashCode();
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

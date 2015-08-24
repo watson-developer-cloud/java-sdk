@@ -142,11 +142,34 @@ public class Classifier {
 		this.statusDescription = statusDescription;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Classifier that = (Classifier) o;
+
+		if (!id.equals(that.id)) return false;
+		if (url != null ? !url.equals(that.url) : that.url != null) return false;
+		if (status != that.status) return false;
+		return !(statusDescription != null ? !statusDescription.equals(that.statusDescription) : that.statusDescription != null);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id.hashCode();
+		result = 31 * result + (url != null ? url.hashCode() : 0);
+		result = 31 * result + (status != null ? status.hashCode() : 0);
+		result = 31 * result + (statusDescription != null ? statusDescription.hashCode() : 0);
+		return result;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

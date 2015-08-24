@@ -97,11 +97,30 @@ public class Transcript {
 		return this;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Transcript that = (Transcript) o;
+
+		if (_final != that._final) return false;
+		return alternatives.equals(that.alternatives);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = alternatives.hashCode();
+		result = 31 * result + (_final ? 1 : 0);
+		return result;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

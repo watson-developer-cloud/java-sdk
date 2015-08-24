@@ -188,11 +188,38 @@ public class Voice {
 		this.url = url;
 	}
 
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Voice voice = (Voice) o;
+
+		if (name != null ? !name.equals(voice.name) : voice.name != null) return false;
+		if (language != null ? !language.equals(voice.language) : voice.language != null) return false;
+		if (gender != null ? !gender.equals(voice.gender) : voice.gender != null) return false;
+		if (url != null ? !url.equals(voice.url) : voice.url != null) return false;
+		return !(description != null ? !description.equals(voice.description) : voice.description != null);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = name != null ? name.hashCode() : 0;
+		result = 31 * result + (language != null ? language.hashCode() : 0);
+		result = 31 * result + (gender != null ? gender.hashCode() : 0);
+		result = 31 * result + (url != null ? url.hashCode() : 0);
+		result = 31 * result + (description != null ? description.hashCode() : 0);
+		return result;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+         * (non-Javadoc)
+
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
