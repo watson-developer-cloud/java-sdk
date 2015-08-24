@@ -18,7 +18,6 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.List;
 
@@ -27,18 +26,18 @@ import java.util.List;
  *
  * @see DocumentConversion
  */
-public class Batch {
+public class Batch extends DocumentConversionModel {
 
     /**
      * The id of the batch
      */
-    @Expose
+    //@Expose
     private String batchId;
 
     /**
      * Name of the batch
      */
-    @Expose
+    //@Expose
     private String name;
 
     private List<Link> links;
@@ -65,17 +64,6 @@ public class Batch {
 
     public void setLinks(List<Link> links) {
         this.links = links;
-    }
-
-    /*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Object#toString()
-         */
-    @Override
-    public String toString() {
-        return getClass().getName() + " "
-                + GsonSingleton.getGson().toJson(this);
     }
 
 }

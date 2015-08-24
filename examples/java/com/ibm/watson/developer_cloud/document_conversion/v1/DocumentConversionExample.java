@@ -16,6 +16,7 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Batch;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Output;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -26,7 +27,7 @@ public class DocumentConversionExample {
 
     public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
         DocumentConversion service = new DocumentConversion();
-        //service.setUsernameAndPassword("<username>", "<password>");
+        service.setUsernameAndPassword("<username>", "<password>");
         File document = null;
 
         // ## Scenario 1: Convert a document without persistence ##
@@ -34,24 +35,25 @@ public class DocumentConversionExample {
 
         // ## Scenario 2: Convert a document using a batch operation ##
         // Step 1. Upload a document
-        String documentId = service.addDocument(document);
+        //String documentId = service.addDocument(document);
         // Step 2. Create a batch
         Batch batch = service.createBatch();
-        String batchId = batch.getBatchId();
-        System.out.println("Batch was created successfully with id = " + batchId);
+        System.out.println("Batch was created=" + batch);
+        //String batchId = batch.getBatchId();
+        //System.out.println("Batch was created successfully with id = " + batchId);
 
         // Step 3. Add the document to the batch
-        service.addDocumentToBatch(batchId, documentId);
+        //service.addDocumentToBatch(batchId, documentId);
         // Step 3. Create a new job with the batch
-        String jobId = service.createJob(batchId);
+        //String jobId = service.createJob(batchId);
         // Step 4. Get information about the job
-        String status = service.getJobStatus(jobId);
+        //String status = service.getJob(jobId).toString();
         // Step 5. Get the converted document output when the job is completed
-        if( "COMPLETE".equals(status) ) {
-            List<String> output = service.getOutput(jobId);
-            System.out.println("Conversion is complete=" + output);
-        } else {
-            System.out.println("Conversion did not complete, job status=" + status);
-        }
+        //if( "COMPLETE".equals(status) ) {
+            //Output output = service.getOutput(jobId);
+            //System.out.println("Conversion is complete=" + output);
+        //} else {
+            //System.out.println("Conversion did not complete, job status=" + status);
+        //}
     }
 }

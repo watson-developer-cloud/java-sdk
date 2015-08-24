@@ -13,27 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.document_conversion.v1.model;
+package com.ibm.watson.developer_cloud.document_conversion.v1.handlers;
 
-public class Link {
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
-    private String name;
-    private String link;
+import java.io.File;
 
-    public String getName() {
-        return name;
+public class ConvertDocumentHandler {
+
+    private DocumentConversion docConversionService;
+
+    public ConvertDocumentHandler(DocumentConversion docConversionService) {
+        this.docConversionService = docConversionService;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String convertDocument(File document) {
+        return null;
     }
 
-    public String getLink() {
-        return link;
+    public String convertDocument(String documentId) {
+        return null;
     }
-
-    public void setLink(String link) {
-        this.link = link;
-    }
-
 }
