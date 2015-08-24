@@ -140,11 +140,37 @@ public class Classification {
 		return classes;
 	}
 
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Classification that = (Classification) o;
+
+		if (!id.equals(that.id)) return false;
+		if (url != null ? !url.equals(that.url) : that.url != null) return false;
+		if (text != null ? !text.equals(that.text) : that.text != null) return false;
+		if (topClass != null ? !topClass.equals(that.topClass) : that.topClass != null) return false;
+		return !(classes != null ? !classes.equals(that.classes) : that.classes != null);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id.hashCode();
+		result = 31 * result + (url != null ? url.hashCode() : 0);
+		result = 31 * result + (text != null ? text.hashCode() : 0);
+		result = 31 * result + (topClass != null ? topClass.hashCode() : 0);
+		result = 31 * result + (classes != null ? classes.hashCode() : 0);
+		return result;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

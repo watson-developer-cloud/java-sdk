@@ -160,11 +160,35 @@ public class LinguisticEvidence {
         return this;
     }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        LinguisticEvidence that = (LinguisticEvidence) o;
+
+        if (evidenceScore != null ? !evidenceScore.equals(that.evidenceScore) : that.evidenceScore != null)
+            return false;
+        if (wordCount != null ? !wordCount.equals(that.wordCount) : that.wordCount != null) return false;
+        if (words != null ? !words.equals(that.words) : that.words != null) return false;
+        return correlation.equals(that.correlation);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = evidenceScore != null ? evidenceScore.hashCode() : 0;
+        result = 31 * result + (wordCount != null ? wordCount.hashCode() : 0);
+        result = 31 * result + (words != null ? words.hashCode() : 0);
+        result = 31 * result + correlation.hashCode();
+        return result;
+    }
+
+    /*
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

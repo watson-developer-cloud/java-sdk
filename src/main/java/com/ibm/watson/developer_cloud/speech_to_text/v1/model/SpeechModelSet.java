@@ -62,11 +62,27 @@ public class SpeechModelSet {
 		return this;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SpeechModelSet that = (SpeechModelSet) o;
+
+		return !(models != null ? !models.equals(that.models) : that.models != null);
+
+	}
+
+	@Override
+	public int hashCode() {
+		return models != null ? models.hashCode() : 0;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

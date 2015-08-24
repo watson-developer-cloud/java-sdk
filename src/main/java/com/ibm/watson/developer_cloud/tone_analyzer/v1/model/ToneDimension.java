@@ -122,11 +122,32 @@ public class ToneDimension {
         return this;
     }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ToneDimension that = (ToneDimension) o;
+
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (!id.equals(that.id)) return false;
+        return !(children != null ? !children.equals(that.children) : that.children != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + id.hashCode();
+        result = 31 * result + (children != null ? children.hashCode() : 0);
+        return result;
+    }
+
+    /*
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

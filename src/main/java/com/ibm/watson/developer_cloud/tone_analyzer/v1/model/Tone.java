@@ -93,11 +93,30 @@ public class Tone {
         return this;
     }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Tone tone = (Tone) o;
+
+        if (!scorecard.equals(tone.scorecard)) return false;
+        return !(children != null ? !children.equals(tone.children) : tone.children != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = scorecard.hashCode();
+        result = 31 * result + (children != null ? children.hashCode() : 0);
+        return result;
+    }
+
+    /*
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

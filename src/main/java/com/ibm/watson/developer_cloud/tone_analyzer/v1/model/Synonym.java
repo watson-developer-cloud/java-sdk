@@ -40,6 +40,9 @@ public class Synonym {
     @SerializedName("semantic-type")
     private String semanticType;
 
+//    /** The weight. */
+    private Double weight;
+
     /**
      * Gets the word.
      *
@@ -185,11 +188,68 @@ public class Synonym {
         return this;
     }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+    /**
+     * Gets the weight.
+     *
+     * @return     The weight
+     */
+    public Double getWeight() {
+        return weight;
+    }
+
+    /**
+     * Sets the weight.
+     *
+     * @param weight
+     */
+    public void setWeight(final Double weight) {
+        this.weight = weight;
+    }
+
+    /**
+     * With weight.
+     *
+     * @param weight
+     * @return the synonym
+     */
+    public Synonym withWeight(final Double weight) {
+        this.weight = weight;
+        return this;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Synonym synonym = (Synonym) o;
+
+        if (word != null ? !word.equals(synonym.word) : synonym.word != null) return false;
+        if (sense != null ? !sense.equals(synonym.sense) : synonym.sense != null) return false;
+        if (meaning != null ? !meaning.equals(synonym.meaning) : synonym.meaning != null) return false;
+        if (hops != null ? !hops.equals(synonym.hops) : synonym.hops != null) return false;
+        if (semanticType != null ? !semanticType.equals(synonym.semanticType) : synonym.semanticType != null)
+            return false;
+        return !(weight != null ? !weight.equals(synonym.weight) : synonym.weight != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = word != null ? word.hashCode() : 0;
+        result = 31 * result + (sense != null ? sense.hashCode() : 0);
+        result = 31 * result + (meaning != null ? meaning.hashCode() : 0);
+        result = 31 * result + (hops != null ? hops.hashCode() : 0);
+        result = 31 * result + (semanticType != null ? semanticType.hashCode() : 0);
+        result = 31 * result + (weight != null ? weight.hashCode() : 0);
+        return result;
+    }
+
+    /*
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

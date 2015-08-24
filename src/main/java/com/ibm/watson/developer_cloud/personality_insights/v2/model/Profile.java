@@ -160,11 +160,39 @@ public class Profile {
 		this.wordCount = wordCount;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Profile profile = (Profile) o;
+
+		if (wordCount != profile.wordCount) return false;
+		if (!id.equals(profile.id)) return false;
+		if (source != null ? !source.equals(profile.source) : profile.source != null) return false;
+		if (tree != null ? !tree.equals(profile.tree) : profile.tree != null) return false;
+		if (wordCountMessage != null ? !wordCountMessage.equals(profile.wordCountMessage) : profile.wordCountMessage != null)
+			return false;
+		return !(processedLanguage != null ? !processedLanguage.equals(profile.processedLanguage) : profile.processedLanguage != null);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id.hashCode();
+		result = 31 * result + (source != null ? source.hashCode() : 0);
+		result = 31 * result + (tree != null ? tree.hashCode() : 0);
+		result = 31 * result + wordCount;
+		result = 31 * result + (wordCountMessage != null ? wordCountMessage.hashCode() : 0);
+		result = 31 * result + (processedLanguage != null ? processedLanguage.hashCode() : 0);
+		return result;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
