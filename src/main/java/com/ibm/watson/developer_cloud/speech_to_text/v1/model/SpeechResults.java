@@ -96,11 +96,30 @@ public class SpeechResults {
 		return this;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SpeechResults that = (SpeechResults) o;
+
+		if (resultIndex != that.resultIndex) return false;
+		return results.equals(that.results);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = results.hashCode();
+		result = 31 * result + resultIndex;
+		return result;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

@@ -223,11 +223,39 @@ public class ToneTrait {
         return this;
     }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ToneTrait toneTrait = (ToneTrait) o;
+
+        if (name != null ? !name.equals(toneTrait.name) : toneTrait.name != null) return false;
+        if (!id.equals(toneTrait.id)) return false;
+        if (wordCount != null ? !wordCount.equals(toneTrait.wordCount) : toneTrait.wordCount != null) return false;
+        if (normalizedScore != null ? !normalizedScore.equals(toneTrait.normalizedScore) : toneTrait.normalizedScore != null)
+            return false;
+        if (rawScore != null ? !rawScore.equals(toneTrait.rawScore) : toneTrait.rawScore != null) return false;
+        return !(linguisticEvidence != null ? !linguisticEvidence.equals(toneTrait.linguisticEvidence) : toneTrait.linguisticEvidence != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + id.hashCode();
+        result = 31 * result + (wordCount != null ? wordCount.hashCode() : 0);
+        result = 31 * result + (normalizedScore != null ? normalizedScore.hashCode() : 0);
+        result = 31 * result + (rawScore != null ? rawScore.hashCode() : 0);
+        result = 31 * result + (linguisticEvidence != null ? linguisticEvidence.hashCode() : 0);
+        return result;
+    }
+
+    /*
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

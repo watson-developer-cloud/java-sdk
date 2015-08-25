@@ -72,11 +72,33 @@ public class ClassifiedClass {
 		this.confidence = confidence;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		ClassifiedClass that = (ClassifiedClass) o;
+
+		if (Double.compare(that.confidence, confidence) != 0) return false;
+		return name.equals(that.name);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result;
+		long temp;
+		result = name.hashCode();
+		temp = Double.doubleToLongBits(confidence);
+		result = 31 * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "

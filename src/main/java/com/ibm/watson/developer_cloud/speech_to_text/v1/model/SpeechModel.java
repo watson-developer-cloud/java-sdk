@@ -139,11 +139,32 @@ public class SpeechModel {
 		this.sessions = sessions;
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		SpeechModel that = (SpeechModel) o;
+
+		if (rate != that.rate) return false;
+		if (name != null ? !name.equals(that.name) : that.name != null) return false;
+		return !(sessions != null ? !sessions.equals(that.sessions) : that.sessions != null);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = name != null ? name.hashCode() : 0;
+		result = 31 * result + rate;
+		result = 31 * result + (sessions != null ? sessions.hashCode() : 0);
+		return result;
+	}
+
 	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
+             * (non-Javadoc)
+             *
+             * @see java.lang.Object#toString()
+             */
 	@Override
 	public String toString() {
 		return getClass().getName() + " "
