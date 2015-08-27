@@ -18,58 +18,58 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
+import java.util.List;
+
 /**
- * Structure for links
+ * Structure to store a collection of batches
  *
  * @see DocumentConversion
  */
-public class Link extends DocumentConversionModel {
-
+public class BatchCollection extends DocumentConversionModel {
     /**
-     * The name of the link
+     * List of batches
      */
     @Expose
-    private String name;
-
-    /**
-     * The link to the document
+    List<Batch> batches;
+    /**1
+     * List of links
      */
     @Expose
-    private String link;
+    List<Link> links;
 
     /**
-     * Returns the name of the link
+     * Returns the batches in the store
      *
      * @return
      */
-    public String getName() {
-        return name;
+    public List<Batch> getBatches() {
+        return batches;
     }
 
     /**
-     * Sets the name of the link
+     * Sets the batches in the store
      *
-     * @param name
+     * @param batches
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setBatches(List<Batch> batches) {
+        this.batches = batches;
     }
 
     /**
-     * Returns the link to the document
+     * Returns the links to the batches
      *
      * @return
      */
-    public String getLink() {
-        return link;
+    public List<Link> getLinks() {
+        return links;
     }
 
     /**
-     * Sets the link to the document
-     * @param link
+     * Sets the links to the batches
+     *
+     * @param links
      */
-    public void setLink(String link) {
-        this.link = link;
+    public void setLinks(List<Link> links) {
+        this.links = links;
     }
-
 }

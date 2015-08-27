@@ -15,61 +15,36 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
+
 import com.google.gson.annotations.Expose;
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 /**
- * Structure for links
+ * Structure to provide a response for batch documents
  *
- * @see DocumentConversion
+ * @see com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion
  */
-public class Link extends DocumentConversionModel {
-
+public class BatchDocumentResponse extends DocumentConversionModel {
     /**
-     * The name of the link
+     * The document of the batch
      */
     @Expose
-    private String name;
+    BatchDocument document;
 
     /**
-     * The link to the document
-     */
-    @Expose
-    private String link;
-
-    /**
-     * Returns the name of the link
+     * Retrieves the BatchDocument from the response
      *
      * @return
      */
-    public String getName() {
-        return name;
+    public BatchDocument getDocument() {
+        return document;
     }
 
     /**
-     * Sets the name of the link
+     * Sets the document for Batch document response
      *
-     * @param name
+     * @param document
      */
-    public void setName(String name) {
-        this.name = name;
+    public void setDocument(BatchDocument document) {
+        this.document = document;
     }
-
-    /**
-     * Returns the link to the document
-     *
-     * @return
-     */
-    public String getLink() {
-        return link;
-    }
-
-    /**
-     * Sets the link to the document
-     * @param link
-     */
-    public void setLink(String link) {
-        this.link = link;
-    }
-
 }

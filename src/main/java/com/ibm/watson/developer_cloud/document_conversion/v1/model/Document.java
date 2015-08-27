@@ -15,10 +15,109 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
+import com.google.gson.annotations.Expose;
+
+import java.util.List;
+
 /**
  * Structure to store a document
  *
  * @see com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion
  */
 public class Document extends DocumentConversionModel {
+    /**
+     * The id of the document
+     */
+    @Expose
+    private String id;
+
+    /**
+     * Name of the document
+     */
+    @Expose
+    private String name;
+
+    /**
+     * Mediatype of the document
+     */
+    @Expose
+    String media_type;
+
+    /**
+     * Link to the documents
+     */
+    @Expose
+    private List<Link> links;
+
+    /**
+     * Returns the id of the document
+     *
+     * @return
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the id of the document
+     *
+     * @param id
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Returns the name of the document
+     *
+     * @return
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the name of the document
+     *
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Returns the links to the document
+     *
+     * @return
+     */
+    public List<Link> getLinks() {
+        return links;
+    }
+
+    /**
+     * Sets the links to the document
+     *
+     *  @param links
+     */
+    public void setLinks(List<Link> links) {
+        this.links = links;
+    }
+
+    /**
+     * Returns the media type of the document
+     *
+     * @return
+     */
+    public String getMedia_type() {
+        return media_type;
+    }
+
+    /**
+     * Sets the media type of the document
+     *
+     * @param media_type
+     */
+    public void setMedia_type(String media_type) {
+        this.media_type = media_type;
+    }
 }

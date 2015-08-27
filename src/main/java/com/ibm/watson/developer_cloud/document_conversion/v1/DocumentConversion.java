@@ -15,19 +15,13 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
-import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.document_conversion.v1.handlers.*;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
-import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -55,12 +49,17 @@ public class DocumentConversion extends WatsonService {
      */
     private static final String URL = "http://localhost:8090";
 
-    private BatchHandler batchHandler = new BatchHandler(this);
-    private ConvertDocumentHandler convertDocumentHandler = new ConvertDocumentHandler(this);
-    private DocumentHandler documentHandler = new DocumentHandler(this);
-    private JobHandler jobHandler = new JobHandler(this);
-    private OutputHandler outputHandler = new OutputHandler(this);
+    private final BatchHandler batchHandler = new BatchHandler(this);
+    private final DocumentHandler documentHandler = new DocumentHandler(this);
+    private final BatchDocumentHandler batchDocumentHandler = new BatchDocumentHandler(this);
+    private final JobHandler jobHandler = new JobHandler(this);
+    private final OutputHandler outputHandler = new OutputHandler(this);
+    private final ConvertDocumentHandler convertDocumentHandler = new ConvertDocumentHandler(this);
 
+
+    /**
+     * Sets the endpoint url for the service
+     */
     public DocumentConversion() {
         setEndPoint(URL);
     }
@@ -69,10 +68,28 @@ public class DocumentConversion extends WatsonService {
      * Gets a list of existing batches
      *
      * GET /v1/batches
-     * @return List
+     * @return BatchCollection
      */
-    public List<Batch> getBatches() {
-        return batchHandler.getBatches();
+    public BatchCollection getBatchCollection() {
+        return getBatchCollection(null, null, null, null);
+    }
+
+    /**
+     * Gets a list of existing batches with parameters
+     *
+     * GET /v1/batches
+     * @param token
+     *          token to the navigate to the next page
+     * @param limit
+     *          number of batches per page
+     * @param name
+     *          name of the batch to be filtered on
+     * @param since
+     *          the batches which are created after the date/time
+     * @return BatchCollection
+     */
+    public BatchCollection getBatchCollection(final String token, final String limit, final String name, final String since) {
+        return batchHandler.getBatchCollection(token, limit, name, since);
     }
 
     /**
@@ -82,7 +99,33 @@ public class DocumentConversion extends WatsonService {
      * @return Batch
      */
     public Batch createBatch() {
-        return batchHandler.createBatch();
+        return createBatch(null, null);
+    }
+
+    /**
+     * Creates a new batch with a name
+     *
+     * POST /v1/batches
+     * @param name
+     *         the name of the created batch
+     * @return Batch
+     */
+    public Batch createBatch(final String name) {
+        return createBatch(name, null);
+    }
+
+    /**
+     * Creates a new batch with name and properties
+     *
+     * POST /v1/batches
+     * @param name
+     *         the name of the created batch
+     * @param properties
+     *         the properties for the created batch
+     * @return Batch
+     */
+    public Batch createBatch(final String name, final List<Property> properties) {
+        return batchHandler.createBatch(name, properties);
     }
 
     /**
@@ -90,9 +133,10 @@ public class DocumentConversion extends WatsonService {
      *
      * GET /v1/batches/{batch_id}
      * @param batchId
+     *          id for the batch to be updated
      * @return Batch
      */
-    public Batch getBatch(String batchId) {
+    public Batch getBatch(final String batchId) {
         return batchHandler.getBatch(batchId);
     }
 
@@ -101,30 +145,112 @@ public class DocumentConversion extends WatsonService {
      *
      * PUT /v1/batches/{batch_id}
      * @param batchId
+     *          id for the batch to be updated
+     * @param name
+     *          name of the batch to be updated
+     * @param properties
+     *          properties of the batch to be updated
+     *
      */
-    public void updateBatch(String batchId) {
-        batchHandler.updateBatch(batchId);
+    public Batch updateBatch(final String batchId, final String name, final List<Property> properties) {
+        return batchHandler.updateBatch(batchId, name, properties);
+    }
+
+    /**
+     * Gets a list of uploaded documents
+     *
+     * GET /v1/documents
+     * @return Document
+     */
+    public DocumentCollection getDocumentCollection() {
+        return getDocumentCollection(null, null, null, null, null);
+    }
+
+    /**
+     * Gets a list of existing documents with parameters
+     *
+     * GET /v1/documents
+     * @param token
+     *          token to the navigate to the next page
+     * @param limit
+     *          number of documents per page
+     * @param since
+     *          the documents which are created after the date/time
+     * @param mediaType
+     *          the documents with the given mediaType
+     * @return DocumentCollection
+     */
+    public DocumentCollection getDocumentCollection(final String token, final String limit, final String name, final String since, final String mediaType) {
+        return documentHandler.getDocumentCollection(token, limit, name, since, mediaType);
+    }
+
+    /**
+     * Adds a document
+     *
+     * POST /v1/documents
+     * @param document
+     *          the document to be uploaded
+     * @return Document
+     */
+    public Document uploadDocument(final File document) {
+        return documentHandler.uploadDocument(document);
+    }
+
+    /**
+     * Gets a document
+     *
+     * GET /v1/documents/{document_id}
+     * @param documentId
+     *              document to be retrieved
+     * @return String
+     */
+    public String getDocument(final String documentId) {
+        return documentHandler.getDocument(documentId);
     }
 
     /**
      * Gets a list of existing documents in the batch
      *
      * GET /v1/batches/{batch_id}/documents
-     * @return BatchDocument
+     *  @param batchId
+     *          the id for the batch whose documents are to be paged
+     * @return BatchDocumentCollection
      */
-    public List<BatchDocument> getBatchDocuments() {
-        return batchHandler.getBatchDocuments();
+    public BatchDocumentCollection getBatchDocumentCollection(final String batchId) {
+        return getBatchDocumentCollection(batchId, null, null, null);
     }
+
+    /**
+     * Gets a list of existing documents in the batch
+     *
+     * GET /v1/batches/{batch_id}/documents
+     * @param batchId
+     *          the id for the batch whose documents are to be paged
+     * @param token
+     *          token to the navigate to the next page
+     * @param limit
+     *          number of batches per page
+     * @param since
+     *          the batches which are created after the date/time
+     * @return BatchDocumentCollection
+     */
+    public BatchDocumentCollection getBatchDocumentCollection(final String batchId, final String token, final String limit, final String since) {
+        return batchDocumentHandler.getBatchDocumentCollection(batchId, token, limit, since);
+    }
+
 
     /**
      * Gets a document in the batch
      *
      * GET /v1/batches/{batch_id}/documents/{document_id}
+     * @param batchId
+     *          id of the batch to be retrieved
      * @param documentId
-     * @return BatchDocument
+     *          id of the document to be retrieved
+     * @return BatchDocumentResponse
      */
-    public BatchDocument getBatchDocument(String documentId) {
-        return batchHandler.getBatchDocument(documentId);
+    public BatchDocumentResponse getBatchDocument(final String batchId, final String documentId) {
+        return batchDocumentHandler.getBatchDocument(batchId, documentId);
     }
 
     /**
@@ -132,12 +258,14 @@ public class DocumentConversion extends WatsonService {
      *
      * PUT /v1/batches/{batch_id}/documents/{document_id}
      * @param batchId
+     *          id of the batch to be retrieved
      * @param documentId
+     *          id of the document to be retrieved
+     * @return BatchDocumentResponse
      */
-    public void addDocumentToBatch(String batchId, String documentId) {
-        batchHandler.addDocumentToBatch(batchId, documentId);
+    public BatchDocumentResponse addDocumentToBatch(final String batchId, final String documentId) {
+        return batchDocumentHandler.addDocumentToBatch(batchId, documentId);
     }
-
 
     /**
      * Synchronously converts a new document without persistence
@@ -146,7 +274,7 @@ public class DocumentConversion extends WatsonService {
      * @param document
      * @return String
      */
-    public String convertDocument(File document) {
+    public String convertDocument(final File document) {
         return convertDocumentHandler.convertDocument(document);
     }
 
@@ -157,40 +285,8 @@ public class DocumentConversion extends WatsonService {
      * @param documentId
      * @return String
      */
-    public String convertDocument(String documentId) {
+    public String convertDocument(final String documentId) {
         return convertDocumentHandler.convertDocument(documentId);
-    }
-
-    /**
-     * Gets a list of uploaded documents
-     *
-     * GET /v1/documents
-     * @return Document
-     */
-    public List<Document> getDocuments() {
-        return documentHandler.getDocuments();
-    }
-
-    /**
-     * Adds a document
-     *
-     * POST /v1/documents
-     * @param document
-     * @return String
-     */
-    public String addDocument(File document) {
-        return documentHandler.addDocument(document);
-    }
-
-    /**
-     * Gets a document
-     *
-     * GET /v1/documents/{document_id}
-     * @param documentId
-     * @return Document
-     */
-    public Document getDocument(String documentId) {
-        return documentHandler.getDocument(documentId);
     }
 
     /**
@@ -210,7 +306,7 @@ public class DocumentConversion extends WatsonService {
      * @param batchId
      * @return String
      */
-    public String createJob(String batchId) {
+    public String createJob(final String batchId) {
         return jobHandler.createJob(batchId);
     }
 
@@ -221,7 +317,7 @@ public class DocumentConversion extends WatsonService {
      * @param jobId
      * @return Job
      */
-    public Job getJob(String jobId) {
+    public Job getJob(final String jobId) {
         return jobHandler.getJob(jobId);
     }
 
@@ -232,7 +328,7 @@ public class DocumentConversion extends WatsonService {
      * @param jobId
      * @return String
      */
-    public String getJobLog(String jobId) {
+    public String getJobLog(final String jobId) {
         return jobHandler.getJobLog(jobId);
     }
 
@@ -253,12 +349,12 @@ public class DocumentConversion extends WatsonService {
      * @param outputId
      * @return List
      */
-    public Output getOutput(String outputId) {
+    public Output getOutput(final String outputId) {
         return outputHandler.getOutput(outputId);
     }
 
     @Override
-    public HttpResponse execute(HttpRequestBase request) {
+    public HttpResponse execute(final HttpRequestBase request) {
         return super.execute(request);
     }
 

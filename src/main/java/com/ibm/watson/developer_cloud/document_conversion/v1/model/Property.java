@@ -15,30 +15,41 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
+
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 /**
- * Structure for links
+ * Structure for properties of the batch
  *
  * @see DocumentConversion
  */
-public class Link extends DocumentConversionModel {
-
+public class Property extends DocumentConversionModel {
     /**
-     * The name of the link
+     * The name of the property
      */
     @Expose
-    private String name;
+    String name;
 
     /**
-     * The link to the document
+     * The value of the property
      */
     @Expose
-    private String link;
+    String value;
 
     /**
-     * Returns the name of the link
+     * Constructor to create a property
+     *
+     * @param name
+     * @param value
+     */
+    public Property(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
+
+    /**
+     * Returns the name of property
      *
      * @return
      */
@@ -47,7 +58,7 @@ public class Link extends DocumentConversionModel {
     }
 
     /**
-     * Sets the name of the link
+     * Sets the name of the property
      *
      * @param name
      */
@@ -56,20 +67,20 @@ public class Link extends DocumentConversionModel {
     }
 
     /**
-     * Returns the link to the document
+     * Returns the value of the property
      *
      * @return
      */
-    public String getLink() {
-        return link;
+    public String getValue() {
+        return value;
     }
 
     /**
-     * Sets the link to the document
-     * @param link
+     * Sets the value of the property
+     *
+     * @param value
      */
-    public void setLink(String link) {
-        this.link = link;
+    public void setValue(String value) {
+        this.value = value;
     }
-
 }

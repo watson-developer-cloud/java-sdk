@@ -31,39 +31,142 @@ public class Batch extends DocumentConversionModel {
     /**
      * The id of the batch
      */
-    //@Expose
-    private String batchId;
+    @Expose
+    private String id;
 
     /**
      * Name of the batch
      */
-    //@Expose
+    @Expose
     private String name;
 
+    /**
+     * Date/time on which batch was created on
+     */
+    @Expose
+    private String created_on;
+
+    /**
+     * Date/time on which batch was updated on
+     */
+    @Expose
+    private String updated_on;
+
+    /**
+     * Properties of the batch
+     */
+    @Expose
+    private List<Property> properties;
+
+    /**
+     * Link to the batch
+     */
+    @Expose
     private List<Link> links;
 
-    public String getBatchId() {
-        return batchId;
+
+    /**
+     * Returns the id of the batch
+     *
+     * @return
+     */
+    public String getId() { return id; }
+
+    /**
+     * Sets the id for the batch
+     *
+     * @param id
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public void setBatchId(String batchId) {
-        this.batchId = batchId;
-    }
-
+    /**
+     * Returns the name of the batch
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name of the batch
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Returns the date/time on which the batch was created on
+
+     * @return
+     */
+    public String getCreated_on() {
+        return created_on;
+    }
+
+    /**
+     * Sets the date/time on which the batch was created on
+     * @param created_on
+     */
+    public void setCreated_on(String created_on) {
+        this.created_on = created_on;
+    }
+
+    /**
+     * Returns the date/time on which the batch was updated on
+     *
+     * @return
+     */
+    public String getUpdated_on() {
+        return updated_on;
+    }
+
+    /**
+     * Sets the date/time on which batch was updated on
+     *
+     * @param updated_on
+     */
+    public void setUpdated_on(String updated_on) {
+        this.updated_on = updated_on;
+    }
+
+    /**
+     * Returns the properties of the batch
+     *
+     * @return
+     */
+    public List<Property> getProperties() {
+        return properties;
+    }
+
+    /**
+     * Sets the properties for the batch
+     *
+     * @param properties
+     */
+    public void setProperties(List<Property> properties) {
+        this.properties = properties;
+    }
+
+    /**
+     * Returns the links to the batch
+     *
+     * @return
+     */
     public List<Link> getLinks() {
         return links;
     }
 
+    /**
+     * Sets the links to the batch
+     *
+     * @param links
+     */
     public void setLinks(List<Link> links) {
         this.links = links;
     }
-
 }
