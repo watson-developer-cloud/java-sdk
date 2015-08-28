@@ -29,6 +29,9 @@ public class DocumentConversionExample{
         DocumentConversion service = new DocumentConversion();
         service.setUsernameAndPassword("<username>", "<password>");
 
+        // TODO: Remove the localhost endpoint once experimental is available
+        service.setEndPoint("http://localhost:8090");
+
         // ## Scenario 1: Convert a document without persistence ##
         File html = createTempFile("new.html", "<html>\n"
                 +"\t\t<title>Sample html</title>\n"
@@ -52,12 +55,12 @@ public class DocumentConversionExample{
         // ## Scenario 2: Convert a document using a batch operation ##
         // Step 1. Upload a document
          System.out.println("-------------------- Upload a document ------------------------------");
-         File tempFile1 = createTempFile("sample.txt","This is the new text file");
-         Document doc1 = service.uploadDocument(tempFile1);
+         File tempFile1 = createTempFile("sample.html","<html><title>Html File</title><body>Test Doc<h2>Heading One</h2><h2>Heading Two</h2></body></html>");
+         Document doc1 = service.uploadDocument(tempFile1, MediaType.TEXT_HTML);
          System.out.println("1st Document Uploaded : \n"+doc1);
 
          File tempFile2 = createTempFile("new.html", "<html>\n" +"\t\t<title>Sample html</title>\n"+"\t<body>\n" + "\t\tThis is a sample html file\n" + "\t</body>\n" + "</html>");
-         Document doc2 = service.uploadDocument(tempFile2);
+         Document doc2 = service.uploadDocument(tempFile2, MediaType.TEXT_HTML);
          System.out.println("2nd Document Uploaded : \n"+doc2);
 
          System.out.println("-------------------- Document Collection ------------------------------");

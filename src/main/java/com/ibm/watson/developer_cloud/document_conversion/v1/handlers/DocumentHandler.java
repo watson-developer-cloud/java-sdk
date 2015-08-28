@@ -75,16 +75,19 @@ public class DocumentHandler {
      *
      * @param document
      *          input document
+     * @param mediaType The Internet mediaType of the file
      * @return
      *
-     * @see DocumentConversion#uploadDocument(File)
+     * @see DocumentConversion#uploadDocument(File, String)
      */
-    public Document uploadDocument(final File document) {
+    public Document uploadDocument(final File document, final String mediaType) {
         if(document == null || !document.exists())
             throw new IllegalArgumentException("document cannot be null and must exist");
+        if (mediaType == null || mediaType.isEmpty())
+            throw new IllegalArgumentException("media type can not be null or empty");
         try {
             MultipartEntity reqEntity = new MultipartEntity();
-            reqEntity.addPart("file", new FileBody(document, MediaType.TEXT_HTML));
+            reqEntity.addPart("file", new FileBody(document, mediaType));
             HttpRequestBase request = Request.Post("/v1/documents")
                                              .withEntity(reqEntity).build();
 

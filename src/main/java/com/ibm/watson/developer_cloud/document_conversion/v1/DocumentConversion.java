@@ -38,17 +38,7 @@ import java.util.List;
 public class DocumentConversion extends WatsonService {
 
     /** The Constant URL. */
-    //private static final String URL = "https://gateway.watsonplatform.net/document-conversion/api";
-    /**
-     * TODO: Remove LocalHost URL. Currently only used for testing purposes!
-     * NOTES:
-     * For testing locally:
-     * 1. Start the ingestion service "gradlew :ingestion-service-server: run"
-     * 2. Start the document conversion service "gradlew :document-conversion-service-server: run"
-     * 3. You can access IS url's via: http://localhost:8080 (ex. http://localhost:8080/v1/documents)
-     * 4. You can access DCS urls via: http://localhost:8090 (ex. http://localhost:8090/v1/documents)
-     */
-    private static final String URL = "http://localhost:8090";
+    private static final String URL = "https://gateway.watsonplatform.net/document-conversion-experimental/api";
 
     private final BatchHandler batchHandler = new BatchHandler(this);
     private final DocumentHandler documentHandler = new DocumentHandler(this);
@@ -191,10 +181,11 @@ public class DocumentConversion extends WatsonService {
      * POST /v1/documents
      * @param document
      *          the document to be uploaded
+     * @param mediaType The Internet mediaType of the file
      * @return Document
      */
-    public Document uploadDocument(final File document) {
-        return documentHandler.uploadDocument(document);
+    public Document uploadDocument(final File document, final String mediaType) {
+        return documentHandler.uploadDocument(document, mediaType);
     }
 
     /**
