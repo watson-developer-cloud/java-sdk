@@ -57,20 +57,24 @@ public class ConvertDocumentHandler {
      * Synchronously converts a new document without persistence
      * POST /v1/convert_document
      * @param document The file to convert
+     * @param mediaType The Internet mediaType of the file being converted
      * @param conversionTarget The conversion target to use
      * @return Converted document in the specified format
      *
-     * @see DocumentConversion#convertDocument(File, ConversionTarget)
+     * @see DocumentConversion#convertDocument(File, String, ConversionTarget)
      */
-    public String convertDocument(final File document, final ConversionTarget conversionTarget) {
+    public String convertDocument(final File document, final String mediaType,
+                                  final ConversionTarget conversionTarget) {
         if (document == null || !document.exists())
             throw new IllegalArgumentException("document can not be null and must exist");
+        if (mediaType == null || mediaType.isEmpty())
+            throw new IllegalArgumentException("media type can not be null or empty");
         if (conversionTarget == null)
             throw new IllegalArgumentException("conversion target can not be null");
 
         try {
             MultipartEntity reqEntity = new MultipartEntity();
-            reqEntity.addPart("file", new FileBody(document, MediaType.TEXT_HTML));
+            reqEntity.addPart("file", new FileBody(document, mediaType));
             JsonObject configRequestJson = new JsonObject();
             configRequestJson.addProperty("conversion_target", conversionTarget.toString());
             String json = configRequestJson.toString();

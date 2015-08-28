@@ -273,21 +273,24 @@ public class DocumentConversion extends WatsonService {
      * Uses the ANSWER_UNITS conversion target as the default.
      * POST /v1/convert_document
      * @param document The file to convert
+     * @param mediaType The Internet mediaType of the file being converted
      * @return Converted document as an Answer Unit
      */
-    public String convertDocument(final File document) {
-        return convertDocument(document, ConversionTarget.ANSWER_UNITS);
+    public String convertDocument(final File document, final String mediaType) {
+        return convertDocument(document, mediaType, ConversionTarget.ANSWER_UNITS);
     }
 
     /**
      * Synchronously converts a new document without persistence
      * POST /v1/convert_document
      * @param document The file to convert
+     * @param mediaType The Internet mediaType of the file being converted
      * @param conversionTarget The conversion target to use
      * @return Converted document in the specified format
      */
-    public String convertDocument(final File document, final ConversionTarget conversionTarget) {
-        return convertDocumentHandler.convertDocument(document, conversionTarget);
+    public String convertDocument(final File document, final String mediaType,
+                                  final ConversionTarget conversionTarget) {
+        return convertDocumentHandler.convertDocument(document, mediaType, conversionTarget);
     }
 
     /**

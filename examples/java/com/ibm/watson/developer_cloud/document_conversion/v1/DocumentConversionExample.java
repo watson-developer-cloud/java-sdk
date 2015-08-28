@@ -16,6 +16,7 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
+import com.ibm.watson.developer_cloud.util.MediaType;
 
 import java.io.*;
 import java.net.URISyntaxException;
@@ -29,7 +30,24 @@ public class DocumentConversionExample{
         service.setUsernameAndPassword("<username>", "<password>");
 
         // ## Scenario 1: Convert a document without persistence ##
-        // service.convertDocument(document);
+        File html = createTempFile("new.html", "<html>\n"
+                +"\t\t<title>Sample html</title>\n"
+                +"\t<body>\n"
+                + "\t\tThis is a sample html file\n"
+                + "\t</body>\n"
+                + "</html>");
+
+        System.out.println("-------------------- Convert document to Answer Unit ----------------------");
+        String htmlToAnswerUnit = service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.ANSWER_UNITS);
+        System.out.println("HTML converted to Answer Unit:\n" + htmlToAnswerUnit);
+
+        System.out.println("-------------------- Convert document to Normalized HTML ----------------------");
+        String htmlToNormHtml = service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.NORMALIZED_HTML);
+        System.out.println("HTML converted to Normalized HTML:\n" + htmlToNormHtml);
+
+        System.out.println("-------------------- Convert document to Normalized Text ----------------------");
+        String htmlToNormText = service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.NORMALIZED_TEXT);
+        System.out.println("HTML converted to Normalized Text:\n" + htmlToNormText);
 
         // ## Scenario 2: Convert a document using a batch operation ##
         // Step 1. Upload a document
@@ -130,15 +148,15 @@ public class DocumentConversionExample{
         }
 
         // Step 7. Convert Document for existing document
-        System.out.println("-------------------- Convert existing document to Answer Unit ------------------------------");
+        System.out.println("-------------------- Convert existing document to Answer Unit ----------------------");
         String convertDoc1ToAnswerUnit = service.convertDocument(doc1.getId(), ConversionTarget.ANSWER_UNITS);
         System.out.println("Doc 1 converted to Answer Unit:\n" + convertDoc1ToAnswerUnit);
 
-        System.out.println("-------------------- Convert existing document to Normalized HTML ------------------------------");
+        System.out.println("-------------------- Convert existing document to Normalized HTML ----------------------");
         String convertDoc1ToNormHtml = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_HTML);
         System.out.println("Doc 1 converted to Normalized HTML:\n" + convertDoc1ToNormHtml);
 
-        System.out.println("-------------------- Convert existing document to Normalized Text ------------------------------");
+        System.out.println("-------------------- Convert existing document to Normalized Text ----------------------");
         String convertDoc1ToNormText = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_TEXT);
         System.out.println("Doc 1 converted to Normalized Text:\n" + convertDoc1ToNormText);
 
