@@ -22,6 +22,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.model.Document;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.DocumentCollection;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -83,7 +84,7 @@ public class DocumentHandler {
             throw new IllegalArgumentException("document cannot be null and must exist");
         try {
             MultipartEntity reqEntity = new MultipartEntity();
-            reqEntity.addPart("file", new FileBody(document));
+            reqEntity.addPart("file", new FileBody(document, MediaType.TEXT_HTML));
             HttpRequestBase request = Request.Post("/v1/documents")
                                              .withEntity(reqEntity).build();
 

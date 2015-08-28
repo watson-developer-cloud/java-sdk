@@ -89,17 +89,59 @@ public class DocumentConversionExample{
         BatchDocumentResponse batchDocumentResponse = service.getBatchDocument(batchId2, doc2.getId());
         System.out.println("Get documents from Batch 2 :\n" + batchDocumentResponse);
 
-        // Step 3. Create a new job with the batch
-        //String jobId = service.createJob(batchId);
-        // Step 4. Get information about the job
-        //String status = service.getJob(jobId).toString();
-        // Step 5. Get the converted document output when the job is completed
-        //if( "COMPLETE".equals(status) ) {
-            //Output output = service.getOutput(jobId);
-            //System.out.println("Conversion is complete=" + output);
-        //} else {
-            //System.out.println("Conversion did not complete, job status=" + status);
-        //}
+        // Step 4. Create a job
+        System.out.println("-------------------- Create a job ------------------------------");
+        CreateJobResponse createJobResponse = service.createJob("Job 1", batch2.getId(), ConversionTarget.ANSWER_UNITS);
+        System.out.println("Create Job for Batch 2:\n" + createJobResponse);
+
+        System.out.println("-------------------- Job Collection ------------------------------");
+        JobCollection jobCollection = service.getJobs();
+        System.out.println("Job Collection :\n" + jobCollection);
+
+        // Step 4.1 Get job
+        System.out.println("-------------------- Get a job ------------------------------");
+        Job job = service.getJob(createJobResponse.getId());
+        System.out.println("Get Job 1:\n" + job);
+
+        // Wait for the job to get into a Complete state (5 seconds max)
+        waitForJobToComplete(job, 5000);
+
+        // Step 5. Get Job Logs
+        System.out.println("-------------------- Get a job ------------------------------");
+        String jobLog = service.getJobLog(job.getId());
+        System.out.println("Get logs for Job 1:\n" + jobLog);
+
+        // Step 6. Get Output Collection
+        System.out.println("-------------------- Output Collection ------------------------------");
+        OutputCollection outputCollection = service.getOutputCollection();
+        System.out.println("Get Output Collection:\n" + outputCollection);
+
+        System.out.println("-------------------- Output Collection for Job ------------------------------");
+        OutputCollection job1OutputCollection = service.getOutputCollection(null, 5, null, job.getId(), null);
+        System.out.println("Get Output Collection for Job 1:\n" + job1OutputCollection);
+
+        // Step 6.1 Get Output for Job 1
+        System.out.println("-------------------- Output for Job 1 ------------------------------");
+        List<Output> job1Outputs = job1OutputCollection.getOutput();
+        for (int i = 0; i < job1Outputs.size(); i++) {
+            String outputId = job1Outputs.get(i).getId();
+            String job1Output = service.getOutput(outputId);
+            System.out.println("Job 1, Output " + (i+1) + ":\n" + job1Output);
+        }
+
+        // Step 7. Convert Document for existing document
+        System.out.println("-------------------- Convert existing document to Answer Unit ------------------------------");
+        String convertDoc1ToAnswerUnit = service.convertDocument(doc1.getId(), ConversionTarget.ANSWER_UNITS);
+        System.out.println("Doc 1 converted to Answer Unit:\n" + convertDoc1ToAnswerUnit);
+
+        System.out.println("-------------------- Convert existing document to Normalized HTML ------------------------------");
+        String convertDoc1ToNormHtml = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_HTML);
+        System.out.println("Doc 1 converted to Normalized HTML:\n" + convertDoc1ToNormHtml);
+
+        System.out.println("-------------------- Convert existing document to Normalized Text ------------------------------");
+        String convertDoc1ToNormText = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_TEXT);
+        System.out.println("Doc 1 converted to Normalized Text:\n" + convertDoc1ToNormText);
+
         deleteTempFiles();
     }
 
@@ -124,5 +166,19 @@ public class DocumentConversionExample{
             }
         }
         dir.delete();
+    }
+
+    private static void waitForJobToComplete(Job job, long maxWaitTimeMilliSeconds) {
+        long waitTimeMilliSeconds = 0;
+        long waitIntervalMilliSeconds = 100;
+        while( !JobStatus.COMPLETE.equals(job.getStatus()) && waitTimeMilliSeconds < maxWaitTimeMilliSeconds ) {
+            try {
+                Thread.sleep(waitIntervalMilliSeconds);
+            } catch (InterruptedException e) {
+                // No Action
+            } finally {
+                waitTimeMilliSeconds += waitIntervalMilliSeconds;
+            }
+        }
     }
 }

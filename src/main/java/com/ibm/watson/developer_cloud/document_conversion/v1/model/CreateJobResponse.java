@@ -20,34 +20,25 @@ import com.google.gson.annotations.Expose;
 import java.util.List;
 
 /**
- * Structure to store job output
+ * Structure to provide a response for creating a job
  *
  * @see com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion
  */
-public class Output extends DocumentConversionModel {
-
+public class CreateJobResponse extends DocumentConversionModel {
     /**
-     * The id of the output
+     * The id of the job
      */
     @Expose
     private String id;
+
     /**
-     * The id of the source document that was used to generated this output
+     * The name of the job
      */
     @Expose
-    private String source_document_id;
+    private String name;
+
     /**
-     * The date and time the job was created in ISO 8601 date and time format (YYYY-MM-DDTHH:MM:SSZ)
-     */
-    @Expose
-    private String created_on;
-    /**
-     * The Internet media type of the output
-     */
-    @Expose
-    private String media_type;
-    /**
-     * A self link to the output itself
+     * Link to the job
      */
     @Expose
     private List<Link> links;
@@ -60,28 +51,12 @@ public class Output extends DocumentConversionModel {
         this.id = id;
     }
 
-    public String getSource_document_id() {
-        return source_document_id;
+    public String getName() {
+        return name;
     }
 
-    public void setSource_document_id(String source_document_id) {
-        this.source_document_id = source_document_id;
-    }
-
-    public String getCreated_on() {
-        return created_on;
-    }
-
-    public void setCreated_on(String created_on) {
-        this.created_on = created_on;
-    }
-
-    public String getMedia_type() {
-        return media_type;
-    }
-
-    public void setMedia_type(String media_type) {
-        this.media_type = media_type;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public List<Link> getLinks() {

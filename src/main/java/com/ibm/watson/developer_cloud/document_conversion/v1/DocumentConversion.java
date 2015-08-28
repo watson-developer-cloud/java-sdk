@@ -15,6 +15,7 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.document_conversion.v1.handlers.*;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -268,53 +269,106 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
-     * Synchronously converts a new document without persistence
-     *
+     * Synchronously converts a new document without persistence.
+     * Uses the ANSWER_UNITS conversion target as the default.
      * POST /v1/convert_document
-     * @param document
-     * @return String
+     * @param document The file to convert
+     * @return Converted document as an Answer Unit
      */
     public String convertDocument(final File document) {
-        return convertDocumentHandler.convertDocument(document);
+        return convertDocument(document, ConversionTarget.ANSWER_UNITS);
+    }
+
+    /**
+     * Synchronously converts a new document without persistence
+     * POST /v1/convert_document
+     * @param document The file to convert
+     * @param conversionTarget The conversion target to use
+     * @return Converted document in the specified format
+     */
+    public String convertDocument(final File document, final ConversionTarget conversionTarget) {
+        return convertDocumentHandler.convertDocument(document, conversionTarget);
+    }
+
+    /**
+     * Synchronously converts a single previously uploaded document.
+     * Uses the ANSWER_UNITS conversion target as the default.
+     * POST /v1/convert_document
+     * @param documentId The id of the document to convert
+     * @return Converted document as an Answer Unit
+     */
+    public String convertDocument(final String documentId) {
+        return convertDocument(documentId, ConversionTarget.ANSWER_UNITS);
     }
 
     /**
      * Synchronously converts a single previously uploaded document
-     *
      * POST /v1/convert_document
-     * @param documentId
-     * @return String
+     * @param documentId The id of the document to convert
+     * @param conversionTarget The conversion target to use
+     * @return Converted document in the specified format
      */
-    public String convertDocument(final String documentId) {
-        return convertDocumentHandler.convertDocument(documentId);
+    public String convertDocument(final String documentId, final ConversionTarget conversionTarget) {
+        return convertDocumentHandler.convertDocument(documentId, conversionTarget);
     }
 
     /**
-     * Gets a list of jobs
-     *
+     * Gets a collection of all jobs
      * GET /v1/jobs
-     * @return List
+     * @return Jobs
      */
-    public List<Job> getJobs() {
-        return jobHandler.getJobs();
+    public JobCollection getJobs() {
+        return getJobs(null, 100, null, null, null);
+    }
+
+    /**
+     * Gets a list of all jobs with optional query parameters for filtering results.
+     * GET /v1/jobs
+     * @param token The reference to the starting element of the requested page which is provided
+     *              by the server, pass null to get the first page
+     * @param limit The number of jobs to get, pass null to use the default limit from server (100)
+     * @param name The name of the jobs to get, pass null to exclude this filter
+     * @param since The date to filter on, jobs created on or after the provided date and time format will
+     *              be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
+     *              pass null to exclude this filter
+     * @param status The status of the job to filter on, pass null to exclude this filter
+     * @return Jobs based on filtering parameters provided
+     */
+    public JobCollection getJobs(final String token, final int limit, final String name,
+                                 final String since, final JobStatus status) {
+        return jobHandler.getJobs(token, limit, name, since, status);
     }
 
     /**
      * Creates a new job by submitting a batch for processing
-     *
      * POST /v1/jobs
-     * @param batchId
-     * @return String
+     * @param name The name of the job
+     * @param batchId The id of the batch to process
+     * @param conversionTarget The conversion target to use
+     * @return CreateJobResponse
      */
-    public String createJob(final String batchId) {
-        return jobHandler.createJob(batchId);
+    public CreateJobResponse createJob(final String name, final String batchId, final ConversionTarget conversionTarget) {
+        return createJob(name, batchId, conversionTarget, null);
+    }
+
+    /**
+     * Creates a new job by submitting a batch for processing
+     * POST /v1/jobs
+     * @param name The name of the job
+     * @param batchId The id of the batch to process
+     * @param conversionTarget The conversion target to use
+     * @param config The configuration to use for the job (optional), pass null to use default config
+     * @return CreateJobResponse
+     */
+    public CreateJobResponse createJob(final String name, final String batchId,
+                         final ConversionTarget conversionTarget, final JsonObject config) {
+        return jobHandler.createJob(name, batchId, conversionTarget, config);
     }
 
     /**
      * Gets information about a job
-     *
      * GET /v1/jobs/{job_id}
-     * @param jobId
+     * @param jobId The id of the job
      * @return Job
      */
     public Job getJob(final String jobId) {
@@ -323,33 +377,47 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Gets the job processing log
-     *
      * GET /v1/jobs/{job_id}/log
-     * @param jobId
-     * @return String
+     * @param jobId The id of the job
+     * @return Job's processing log
      */
     public String getJobLog(final String jobId) {
         return jobHandler.getJobLog(jobId);
     }
 
     /**
-     * Gets a collection of generated outputs
-     *
+     * Gets a collection of all generated outputs
      * GET /v1/output
-     * @return List
+     * @return All Outputs
      */
-    public List<Output> getOutputCollection() {
-        return outputHandler.getOutputCollection();
+    public OutputCollection getOutputCollection() {
+        return getOutputCollection(null, 100, null, null, null);
     }
 
     /**
-     * Gets the content of the output
-     *
-     * GET /v1/output/{output_id}
-     * @param outputId
-     * @return List
+     * Gets a collection of all generated outputs with optional query parameters for filtering results.
+     * GET /v1/output
+     * @param token The reference to the starting element of the requested page which is provided
+     *              by the server, pass null to get the first page
+     * @param limit The number of outputs to get, pass null to use the default limit from server (100)
+     * @param since The date to filter on, outputs created on or after the provided date and time format
+     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
+     *              pass null to exclude this filter
+     * @param jobId The id of a job to filter outputs by, pass null to exclude this filter
+     * @param mediaType The Internet media type to filter on, pass null to exclude this filter
+     * @return Outputs based on filtering parameters provided
      */
-    public Output getOutput(final String outputId) {
+    public OutputCollection getOutputCollection(final String token, final int limit, final String since,
+                                                final String jobId, final String mediaType) {
+        return outputHandler.getOutputCollection(token, limit, since, jobId, mediaType);
+    }
+
+    /**
+     * Gets the content of the output requested
+     * @param outputId The id of the output to get
+     * @return The requested Output
+     */
+    public String getOutput(final String outputId) {
         return outputHandler.getOutput(outputId);
     }
 
