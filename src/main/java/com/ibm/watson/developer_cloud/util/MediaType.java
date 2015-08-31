@@ -86,5 +86,13 @@ public interface MediaType {
 	 * Field WILDCARD. (value is "*\/*")
 	 */
 	public final static String WILDCARD = "*/*";
+    /**
+     * Field APPLICATION_PDF. (value is "application/pdf")
+     */
+    public final static String APPLICATION_PDF = "application/pdf";
+    /**
+     * Field APPLICATION_MS_WORD. (value is "application/msword")
+     */
+    public final static String APPLICATION_MS_WORD = "application/msword";
 
 }

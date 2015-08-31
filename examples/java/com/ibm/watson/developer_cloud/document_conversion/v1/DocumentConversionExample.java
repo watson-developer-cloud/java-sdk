@@ -20,6 +20,7 @@ import com.ibm.watson.developer_cloud.util.MediaType;
 
 import java.io.*;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 
@@ -33,38 +34,43 @@ public class DocumentConversionExample{
         service.setEndPoint("http://localhost:8090");
 
         // ## Scenario 1: Convert a document without persistence ##
-        File html = createTempFile("new.html", "<html>\n"
-                +"\t\t<title>Sample html</title>\n"
-                +"\t<body>\n"
-                + "\t\tThis is a sample html file\n"
-                + "\t</body>\n"
-                + "</html>");
+        File html = getResourceFile("document_conversion/html-with-extra-content-input.htm");
+        File pdf = getResourceFile("document_conversion/pdf-with-sections-input.pdf");
+        File doc = getResourceFile("document_conversion/word-document-heading-input.doc");
 
-        System.out.println("-------------------- Convert document to Answer Unit ----------------------");
-        String htmlToAnswerUnit = service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.ANSWER_UNITS);
-        System.out.println("HTML converted to Answer Unit:\n" + htmlToAnswerUnit);
+        System.out.println("-------------------- Convert html document to Answer ----------------------");
+        String htmlToAnswer = service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.ANSWER_UNITS);
+        System.out.println("HTML converted to Answer:\n" + htmlToAnswer);
 
-        System.out.println("-------------------- Convert document to Normalized HTML ----------------------");
+        System.out.println("-------------------- Convert html document to Normalized HTML ----------------------");
         String htmlToNormHtml = service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.NORMALIZED_HTML);
         System.out.println("HTML converted to Normalized HTML:\n" + htmlToNormHtml);
 
-        System.out.println("-------------------- Convert document to Normalized Text ----------------------");
+        System.out.println("-------------------- Convert html document to Normalized Text ----------------------");
         String htmlToNormText = service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.NORMALIZED_TEXT);
         System.out.println("HTML converted to Normalized Text:\n" + htmlToNormText);
+
+        System.out.println("-------------------- Convert pdf document to Answer ----------------------");
+        String pdfToAnswer = service.convertDocument(pdf, MediaType.APPLICATION_PDF, ConversionTarget.ANSWER_UNITS);
+        System.out.println("PDF converted to Answer:\n" + pdfToAnswer);
+
+        System.out.println("-------------------- Convert MS Word document to Answer ----------------------");
+        String docToAnswer = service.convertDocument(doc, MediaType.APPLICATION_MS_WORD, ConversionTarget.ANSWER_UNITS);
+        System.out.println("MS Word converted to Answer:\n" + docToAnswer);
 
         // ## Scenario 2: Convert a document using a batch operation ##
         // Step 1. Upload a document
          System.out.println("-------------------- Upload a document ------------------------------");
-         File tempFile1 = createTempFile("sample.html","<html><title>Html File</title><body>Test Doc<h2>Heading One</h2><h2>Heading Two</h2></body></html>");
-         Document doc1 = service.uploadDocument(tempFile1, MediaType.TEXT_HTML);
+         File tempFile1 = getResourceFile("document_conversion/pdf-with-sections-input.pdf");
+         Document doc1 = service.uploadDocument(tempFile1, MediaType.APPLICATION_PDF);
          System.out.println("1st Document Uploaded : \n"+doc1);
 
-         File tempFile2 = createTempFile("new.html", "<html>\n" +"\t\t<title>Sample html</title>\n"+"\t<body>\n" + "\t\tThis is a sample html file\n" + "\t</body>\n" + "</html>");
+         File tempFile2 = getResourceFile("document_conversion/html-with-extra-content-input.htm");
          Document doc2 = service.uploadDocument(tempFile2, MediaType.TEXT_HTML);
          System.out.println("2nd Document Uploaded : \n"+doc2);
 
          System.out.println("-------------------- Document Collection ------------------------------");
-         DocumentCollection documentCollection = service.getDocumentCollection(doc2.getId(), "2", "sample.html", null, "application/octet-stream");
+         DocumentCollection documentCollection = service.getDocumentCollection(doc2.getId(), "2", "html-with-extra-content-input.htm", null, "application/octet-stream");
          System.out.println("Document Collection with parameters:\n" + documentCollection);
 
          // Step 1.1 Get a document
@@ -151,9 +157,9 @@ public class DocumentConversionExample{
         }
 
         // Step 7. Convert Document for existing document
-        System.out.println("-------------------- Convert existing document to Answer Unit ----------------------");
-        String convertDoc1ToAnswerUnit = service.convertDocument(doc1.getId(), ConversionTarget.ANSWER_UNITS);
-        System.out.println("Doc 1 converted to Answer Unit:\n" + convertDoc1ToAnswerUnit);
+        System.out.println("-------------------- Convert existing document to Answer ----------------------");
+        String convertDoc1ToAnswer = service.convertDocument(doc1.getId(), ConversionTarget.ANSWER_UNITS);
+        System.out.println("Doc 1 converted to Answer:\n" + convertDoc1ToAnswer);
 
         System.out.println("-------------------- Convert existing document to Normalized HTML ----------------------");
         String convertDoc1ToNormHtml = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_HTML);
@@ -162,31 +168,15 @@ public class DocumentConversionExample{
         System.out.println("-------------------- Convert existing document to Normalized Text ----------------------");
         String convertDoc1ToNormText = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_TEXT);
         System.out.println("Doc 1 converted to Normalized Text:\n" + convertDoc1ToNormText);
-
-        deleteTempFiles();
     }
 
-    private static File createTempFile(String fileName, String contents) throws IOException {
-        File dir = new File("tmp");
-        dir.mkdirs();
-        File tmp = new File(dir, fileName);
-        tmp.createNewFile();
-        BufferedWriter bw = new BufferedWriter(new FileWriter(tmp));
-        bw.write(contents);
-        bw.close();
-        return tmp;
-    }
-
-    private static void deleteTempFiles() {
-        File dir = new File("tmp");
-        File[] files = dir.listFiles();
-
-        if(files != null) {
-            for(File f: files) {
-                f.delete();
-            }
+    private static File getResourceFile(String resourceName) throws URISyntaxException, IOException {
+        ClassLoader cl = DocumentConversionExample.class.getClassLoader();
+        URL rescUrl = cl.getResource(resourceName);
+        if( rescUrl == null ) {
+            throw new IOException("Unable to find resource: " + rescUrl);
         }
-        dir.delete();
+        return new File(rescUrl.toURI());
     }
 
     private static void waitForJobToComplete(Job job, long maxWaitTimeMilliSeconds) {
