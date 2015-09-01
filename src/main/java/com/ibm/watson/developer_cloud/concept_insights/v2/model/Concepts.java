@@ -1,0 +1,56 @@
+
+/*
+ * *
+ *  * Copyright 2015 IBM Corp. All Rights Reserved.
+ *  *
+ *  * Licensed under the Apache License, Version 2.0 (the "License");
+ *  * you may not use this file except in compliance with the License.
+ *  * You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  * Unless required by applicable law or agreed to in writing, software
+ *  * distributed under the License is distributed on an "AS IS" BASIS,
+ *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  * See the License for the specific language governing permissions and
+ *  * limitations under the License.
+ *
+ */
+
+package com.ibm.watson.developer_cloud.concept_insights.v2.model;
+
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Concepts returned by the {@link ConceptInsights} service.
+ *
+ * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ */
+
+public class Concepts {
+
+    private List<Concept> concepts = new ArrayList<Concept>();
+
+    /**
+     * @return The concepts
+     */
+    public List<Concept> getConcepts() {
+        return concepts;
+    }
+
+    /**
+     * @param concepts The concepts
+     */
+    public void setConcepts(List<Concept> concepts) {
+        this.concepts = concepts;
+    }
+
+    public Concepts withConcepts(List<Concept> concepts) {
+        this.concepts = concepts;
+        return this;
+    }
+
+}
