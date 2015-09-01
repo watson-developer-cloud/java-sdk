@@ -54,15 +54,11 @@ public class ConceptId {
      *
      * @return conceptId
      */
-    public String build() {
-        return new StringBuilder().append("/").append(GRAPHS).
-                   append("/").append(accountId).append("/").
-                   append(graph).append("/").append(CONCEPTS).append("/").append(concept).toString();
-    }
-
     @Override
     public String toString() {
-        return String.format("ConceptId [accountId=%s, graph=%s,concept=%s ]", accountId, graph,concept);
+        return new StringBuilder().append("/").append(GRAPHS).
+                append("/").append(accountId).append("/").
+                append(graph).append("/").append(CONCEPTS).append("/").append(concept).toString();
     }
 
 }

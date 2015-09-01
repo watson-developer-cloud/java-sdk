@@ -54,15 +54,11 @@ public class DocumentId {
      *
      * @return documentId
      */
-    public String build() {
+    @Override
+    public String toString() {
         return new StringBuilder().append("/").append(CORPORA).
                 append("/").append(accountId).append("/").
                 append(corpus).append("/").append(DOCUMENTS).append("/").append(document).toString();
-    }
-
-    @Override
-    public String toString() {
-        return String.format("DocumentId [accountId=%s, corpus=%s,document=%s ]", accountId, corpus,document);
     }
 
 }

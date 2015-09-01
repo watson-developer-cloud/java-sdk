@@ -48,14 +48,10 @@ public class CorpusId {
      *
      * @return CorpusId
      */
-    public String build() {
-        return new StringBuilder().append("/").append(CORPORA).append("/").
-                   append(accountId).append("/").append(corpus).toString();
-    }
-
     @Override
     public String toString() {
-        return String.format("CorpusId [accountId=%s, corpus=%s ]", accountId, corpus);
+        return new StringBuilder().append("/").append(CORPORA).append("/").
+                   append(accountId).append("/").append(corpus).toString();
     }
 
 }

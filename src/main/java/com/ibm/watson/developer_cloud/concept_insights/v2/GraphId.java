@@ -48,14 +48,9 @@ public class GraphId {
      *
      * @return graphId
      */
-    public String build() {
+    @Override
+    public String toString() {
 
         return new StringBuilder().append("/").append(GRAPHS).append("/").append(accountId).append("/").append(graph).toString();
     }
-
-    @Override
-    public String toString() {
-        return String.format("graph [accountId=%s, graph=%s ]", accountId, graph);
-    }
-
 }

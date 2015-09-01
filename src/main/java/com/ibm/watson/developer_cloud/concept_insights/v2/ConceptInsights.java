@@ -110,7 +110,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(params.get(ConceptInsightsConstants.ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(params.get(ConceptInsightsConstants.GRAPH), "graph can't be null");
         Validate.notNull(params.get(ConceptInsightsConstants.QUERY), "query can't be null");
-        String graph_id = new GraphId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.GRAPH)).build();
+        String graph_id = new GraphId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.GRAPH)).toString();
         Map<String, Object> queryParameters = new HashMap<String, Object>();
         String[] parameters = new String[]{ConceptInsightsConstants.QUERY,
                 ConceptInsightsConstants.PREFIX, ConceptInsightsConstants.LIMIT};
@@ -140,7 +140,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(parameters.get(ConceptInsightsConstants.GRAPH), "graph can't be null");
         if (parameters.get(ConceptInsightsConstants.CONCEPTS) == null && parameters.get(ConceptInsightsConstants.CONCEPT) == null)
             throw new MissingFormatArgumentException("concepts or concept_id should be identified");
-        String graphId = new GraphId((String) parameters.get(ConceptInsightsConstants.ACCOUNT_ID), (String) parameters.get(ConceptInsightsConstants.GRAPH)).build();
+        String graphId = new GraphId((String) parameters.get(ConceptInsightsConstants.ACCOUNT_ID), (String) parameters.get(ConceptInsightsConstants.GRAPH)).toString();
         Map<String, Object> queryParameters = new HashMap<String, Object>();
         String[] queryParms = new String[]{ConceptInsightsConstants.LEVEL,
                 ConceptInsightsConstants.LIMIT};
@@ -172,7 +172,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(params.get(ConceptInsightsConstants.ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(params.get(ConceptInsightsConstants.GRAPH), "graph can't be null");
         Validate.notNull(params.get(ConceptInsightsConstants.BODY), "body can't be null");
-        String graphId = new GraphId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.GRAPH)).build();
+        String graphId = new GraphId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.GRAPH)).toString();
         Request request = Request.Post(VERSION + graphId + FORWARD_SLASH + ConceptInsightsConstants.ANNOTATE_TEXT);
         request.withContent((String) params.get(ConceptInsightsConstants.BODY), MediaType.TEXT_PLAIN)
                 .withHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).build();
@@ -198,7 +198,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(params.get(ConceptInsightsConstants.ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(params.get(ConceptInsightsConstants.GRAPH), "graph can't be null");
         Validate.notNull(params.get(ConceptInsightsConstants.CONCEPT), "concept can't be null");
-        String graphId = new GraphId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.GRAPH)).build();
+        String graphId = new GraphId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.GRAPH)).toString();
         Request request = Request.Get(VERSION + graphId + FORWARD_SLASH + ConceptInsightsConstants.CONCEPTS + FORWARD_SLASH + params.get(ConceptInsightsConstants.CONCEPT));
         HttpRequestBase requestBase = request.build();
         try {
@@ -225,7 +225,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(parameters.get(ConceptInsightsConstants.GRAPH), "graph can't be null");
         Validate.notNull(parameters.get(ConceptInsightsConstants.CONCEPT), "concept can't be null");
         Validate.notNull(parameters.get(ConceptInsightsConstants.CONCEPTS), "concepts can't be null");
-        String graphId = new GraphId((String) parameters.get(ConceptInsightsConstants.ACCOUNT_ID), (String) parameters.get(ConceptInsightsConstants.GRAPH)).build();
+        String graphId = new GraphId((String) parameters.get(ConceptInsightsConstants.ACCOUNT_ID), (String) parameters.get(ConceptInsightsConstants.GRAPH)).toString();
         Map<String, Object> queryParameters = new HashMap<String, Object>();
         JsonObject contentJson = new JsonObject();
         JsonArray conceptsJson = new JsonArray();
@@ -285,7 +285,7 @@ public class ConceptInsights extends WatsonService {
     public Corpus getCorpus(final String accountId, final String corpus) {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
-        Request request = Request.Get(VERSION + new CorpusId(accountId, corpus).build());
+        Request request = Request.Get(VERSION + new CorpusId(accountId, corpus).toString());
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = execute(requestBase);
@@ -307,7 +307,7 @@ public class ConceptInsights extends WatsonService {
     public void deleteCorpus(final String accountId, final String corpus) {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
-        Request request = Request.Delete(VERSION + new CorpusId(accountId, corpus).build());
+        Request request = Request.Delete(VERSION + new CorpusId(accountId, corpus).toString());
         HttpRequestBase requestBase = request.build();
         executeWithoutResponse(requestBase);
     }
@@ -324,7 +324,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
         Validate.notNull(body, "body can't be null");
-        Request request = Request.Post(VERSION + new CorpusId(accountId, corpus).build());
+        Request request = Request.Post(VERSION + new CorpusId(accountId, corpus).toString());
         request.withContent(body, MediaType.TEXT_PLAIN)
                 .withHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).build();
         HttpRequestBase requestBase = request.build();
@@ -343,7 +343,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
         Validate.notNull(body, "body can't be null");
-        Request request = Request.Put(VERSION + new CorpusId(accountId, corpus).build());
+        Request request = Request.Put(VERSION + new CorpusId(accountId, corpus).toString());
         request.withContent(body, MediaType.TEXT_PLAIN)
                 .withHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).build();
         HttpRequestBase requestBase = request.build();
@@ -364,7 +364,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(params.get(ConceptInsightsConstants.CORPUS), "corpus can't be null");
         String[] queryParameters = new String[]{ConceptInsightsConstants.CURSOR,
                 ConceptInsightsConstants.LIMIT};
-        Request request = Request.Get(VERSION + new CorpusId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.CORPUS)).build() + FORWARD_SLASH + ConceptInsightsConstants.DOCUMENTS);
+        Request request = Request.Get(VERSION + new CorpusId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.CORPUS)).toString() + FORWARD_SLASH + ConceptInsightsConstants.DOCUMENTS);
         for (String param : queryParameters) {
             if (params.containsKey(param)) {
                 request.withQuery(param, params.get(param));
@@ -403,7 +403,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
         Validate.notNull(document, "document can't be null");
-        Request request = Request.Get(VERSION + new DocumentId(accountId, corpus, document).build());
+        Request request = Request.Get(VERSION + new DocumentId(accountId, corpus, document).toString());
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = execute(requestBase);
@@ -429,7 +429,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(corpus, "corpus can't be null");
         Validate.notNull(document, "document can't be null");
         Validate.notNull(body, "body can't be null");
-        Request request = Request.Put(VERSION + new DocumentId(accountId, corpus, document).build());
+        Request request = Request.Put(VERSION + new DocumentId(accountId, corpus, document).toString());
         System.out.println(GsonSingleton.getGson().toJson(body));
         request.withContent(GsonSingleton.getGson().toJson(body), MediaType.TEXT_PLAIN)
                 .withHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).build();
@@ -450,7 +450,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(corpus, "corpus can't be null");
         Validate.notNull(document, "document can't be null");
         Validate.notNull(body, "body can't be null");
-        Request request = Request.Post(VERSION + new DocumentId(accountId, corpus, document).build());
+        Request request = Request.Post(VERSION + new DocumentId(accountId, corpus, document).toString());
         System.out.println(GsonSingleton.getGson().toJson(body));
         request.withContent(GsonSingleton.getGson().toJson(body), MediaType.TEXT_PLAIN)
                 .withHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).build();
@@ -469,7 +469,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
         Validate.notNull(document, "document can't be null");
-        Request request = Request.Delete(VERSION + new DocumentId(accountId, corpus, document).build());
+        Request request = Request.Delete(VERSION + new DocumentId(accountId, corpus, document).toString());
         HttpRequestBase requestBase = request.build();
         executeWithoutResponse(requestBase);
     }
@@ -483,7 +483,7 @@ public class ConceptInsights extends WatsonService {
     public CorpusProcessingState getCorpusProcessingState(final String accountId, final String corpus) {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
-        Request request = Request.Get(VERSION + new CorpusId(accountId, corpus).build() + FORWARD_SLASH + ConceptInsightsConstants.PROCESSING_STATE);
+        Request request = Request.Get(VERSION + new CorpusId(accountId, corpus).toString() + FORWARD_SLASH + ConceptInsightsConstants.PROCESSING_STATE);
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = execute(requestBase);
@@ -505,7 +505,7 @@ public class ConceptInsights extends WatsonService {
     public CorpusStats getCorpusStats(final String accountId, final String corpus) {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
-        Request request = Request.Get(VERSION + new CorpusId(accountId, corpus).build() + FORWARD_SLASH + ConceptInsightsConstants.STATS);
+        Request request = Request.Get(VERSION + new CorpusId(accountId, corpus).toString() + FORWARD_SLASH + ConceptInsightsConstants.STATS);
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = execute(requestBase);
@@ -534,7 +534,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(params.get(ConceptInsightsConstants.ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(params.get(ConceptInsightsConstants.CORPUS), "corpus can't be null");
         Validate.notNull(params.get(ConceptInsightsConstants.QUERY), "query can't be null");
-        String corpus_id = new GraphId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.CORPUS)).build();
+        String corpus_id = new GraphId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.CORPUS)).toString();
         Map<String, Object> queryParameters = new HashMap<String, Object>();
         String[] parameters = new String[]{ConceptInsightsConstants.QUERY,
                 ConceptInsightsConstants.PREFIX, ConceptInsightsConstants.LIMIT, ConceptInsightsConstants.CONCEPTS};
@@ -577,7 +577,7 @@ public class ConceptInsights extends WatsonService {
     public Concepts getCorpusRelatedConcepts(Map<String, Object> parameters) {
         Validate.notNull(parameters.get(ConceptInsightsConstants.ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(parameters.get(ConceptInsightsConstants.CORPUS), "corpus can't be null");
-        String corpus_id = new CorpusId((String) parameters.get(ConceptInsightsConstants.ACCOUNT_ID), (String) parameters.get(ConceptInsightsConstants.CORPUS)).build();
+        String corpus_id = new CorpusId((String) parameters.get(ConceptInsightsConstants.ACCOUNT_ID), (String) parameters.get(ConceptInsightsConstants.CORPUS)).toString();
         Map<String, Object> queryParameters = new HashMap<String, Object>();
         String[] params = new String[]{ConceptInsightsConstants.LEVEL, ConceptInsightsConstants.LIMIT};
         for (String param : params) {
@@ -613,7 +613,7 @@ public class ConceptInsights extends WatsonService {
         }
         contentJson.add(ConceptInsightsConstants.CONCEPTS, conceptsJson);
         queryParameters.put(ConceptInsightsConstants.CONCEPTS, conceptsJson.toString());
-        return getRelationScores(VERSION+new CorpusId((String) parameters.get(ConceptInsightsConstants.ACCOUNT_ID), (String) parameters.get(ConceptInsightsConstants.CORPUS)).build()+FORWARD_SLASH+ConceptInsightsConstants.RELATION_SCORES,queryParameters);
+        return getRelationScores(VERSION+new CorpusId((String) parameters.get(ConceptInsightsConstants.ACCOUNT_ID), (String) parameters.get(ConceptInsightsConstants.CORPUS)).toString()+FORWARD_SLASH+ConceptInsightsConstants.RELATION_SCORES,queryParameters);
     }
     /**
      * Performs a conceptual search within a corpus.
@@ -631,7 +631,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(params.get(ConceptInsightsConstants.ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(params.get(ConceptInsightsConstants.CORPUS), "corpus can't be null");
         Validate.notNull(params.get(ConceptInsightsConstants.IDS), "ids can't be null");
-        Request request = Request.Get(VERSION + new CorpusId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.CORPUS)).build()
+        Request request = Request.Get(VERSION + new CorpusId((String) params.get(ConceptInsightsConstants.ACCOUNT_ID), (String) params.get(ConceptInsightsConstants.CORPUS)).toString()
                 + FORWARD_SLASH + ConceptInsightsConstants.CONCEPTUAL_SEARCH);
         String[] queryParameters = new String[]{
                 ConceptInsightsConstants.CURSOR, ConceptInsightsConstants.LIMIT};
@@ -682,7 +682,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
         Validate.notNull(document, "document can't be null");
-        Request request = Request.Get(VERSION+new DocumentId(accountId,corpus,document).build()+FORWARD_SLASH+ConceptInsightsConstants.ANNOTATIONS);
+        Request request = Request.Get(VERSION+new DocumentId(accountId,corpus,document).toString()+FORWARD_SLASH+ConceptInsightsConstants.ANNOTATIONS);
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = execute(requestBase);
@@ -707,7 +707,7 @@ public class ConceptInsights extends WatsonService {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
         Validate.notNull(document, "document can't be null");
-        Request request = Request.Get(VERSION+new DocumentId(accountId,corpus,document).build()+FORWARD_SLASH+ConceptInsightsConstants.PROCESSING_STATE);
+        Request request = Request.Get(VERSION+new DocumentId(accountId,corpus,document).toString()+FORWARD_SLASH+ConceptInsightsConstants.PROCESSING_STATE);
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = execute(requestBase);
@@ -747,7 +747,7 @@ public class ConceptInsights extends WatsonService {
             }
             queryParams.put(ConceptInsightsConstants.CONCEPT_FIELDS, conceptFieldJsonArray.toString());
         }
-        return getRelatedConcepts(VERSION+new DocumentId((String)parameters.get(ConceptInsightsConstants.ACCOUNT_ID),(String)parameters.get(ConceptInsightsConstants.CORPUS),(String)parameters.get(ConceptInsightsConstants.DOCUMENT)).build()+
+        return getRelatedConcepts(VERSION+new DocumentId((String)parameters.get(ConceptInsightsConstants.ACCOUNT_ID),(String)parameters.get(ConceptInsightsConstants.CORPUS),(String)parameters.get(ConceptInsightsConstants.DOCUMENT)).toString()+
                 FORWARD_SLASH+ConceptInsightsConstants.RELATED_CONCEPTS,queryParams);
     }
     /**
@@ -772,7 +772,7 @@ public class ConceptInsights extends WatsonService {
         }
         contentJson.add(ConceptInsightsConstants.CONCEPTS, conceptsJson);
         queryParams.put(ConceptInsightsConstants.CONCEPTS, conceptsJson.toString());
-        return getRelationScores(VERSION+new DocumentId((String)parameters.get(ConceptInsightsConstants.ACCOUNT_ID),(String)parameters.get(ConceptInsightsConstants.CORPUS),(String)parameters.get(ConceptInsightsConstants.DOCUMENT)).build()+
+        return getRelationScores(VERSION+new DocumentId((String)parameters.get(ConceptInsightsConstants.ACCOUNT_ID),(String)parameters.get(ConceptInsightsConstants.CORPUS),(String)parameters.get(ConceptInsightsConstants.DOCUMENT)).toString()+
                 FORWARD_SLASH+ConceptInsightsConstants.RELATION_SCORES,queryParams);
     }
 
