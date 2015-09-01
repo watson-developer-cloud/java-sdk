@@ -46,7 +46,7 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 ## Installation
 
 Download the [jar][releases], and add it to your project.  
-Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-wrapper/tree/master/src/main/examples/java/com/ibm/watson/developer_cloud).
+Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-wrapper/tree/master/examples/java/com/ibm/watson/developer_cloud).
 
 ##### Maven
 ```xml
