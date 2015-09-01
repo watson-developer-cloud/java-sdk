@@ -171,12 +171,7 @@ public class DocumentConversionExample{
     }
 
     private static File getResourceFile(String resourceName) throws URISyntaxException, IOException {
-        ClassLoader cl = DocumentConversionExample.class.getClassLoader();
-        URL rescUrl = cl.getResource(resourceName);
-        if( rescUrl == null ) {
-            throw new IOException("Unable to find resource: " + rescUrl);
-        }
-        return new File(rescUrl.toURI());
+        return DocumentConversionTest.getResourceFile(resourceName);
     }
 
     private static void waitForJobToComplete(Job job, long maxWaitTimeMilliSeconds) {
