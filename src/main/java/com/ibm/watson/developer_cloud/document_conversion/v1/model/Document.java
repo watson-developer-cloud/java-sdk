@@ -16,13 +16,15 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 import java.util.List;
 
 /**
  * Structure to store a document
  *
- * @see com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion
+ * @see DocumentConversion
  */
 public class Document extends DocumentConversionModel {
     /**
@@ -40,8 +42,8 @@ public class Document extends DocumentConversionModel {
     /**
      * Mediatype of the document
      */
-    @Expose
-    String media_type;
+    @SerializedName("media_type")
+    String mediaType;
 
     /**
      * Link to the documents
@@ -108,16 +110,16 @@ public class Document extends DocumentConversionModel {
      *
      * @return
      */
-    public String getMedia_type() {
-        return media_type;
+    public String getMediaType() {
+        return mediaType;
     }
 
     /**
      * Sets the media type of the document
      *
-     * @param media_type
+     * @param mediaType
      */
-    public void setMedia_type(String media_type) {
-        this.media_type = media_type;
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
 }

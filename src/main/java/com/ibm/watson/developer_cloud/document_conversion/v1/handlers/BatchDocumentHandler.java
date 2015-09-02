@@ -3,15 +3,17 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.handlers;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
+import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import java.io.IOException;
+import java.util.Date;
 
 /**
- * Handler for the batch documents
+ * Handler for the batch documents API calls
  *
  * @see DocumentConversion
  */
@@ -32,13 +34,14 @@ public class BatchDocumentHandler {
     }
 
     /**
-     * Adds the document to the batch
+     * Adds a document to the batch whose ids are specified
      *
+     * PUT /v1/batches/{batch_id}/documents/{document_id}
      * @param batchId
-     *          id for the batch
+     *          id of the batch to be retrieved
      * @param documentId
-     *          id to the document
-     * @return
+     *          id of the document to be retrieved
+     * @return BatchDocumentResponse
      *
      * @see DocumentConversion#addDocumentToBatch(String, String)
      */
@@ -52,7 +55,8 @@ public class BatchDocumentHandler {
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchDocumentAsJson = ResponseUtil.getString(response);
-            BatchDocumentResponse batchDocumentResponse = GsonSingleton.getGson().fromJson(batchDocumentAsJson, BatchDocumentResponse.class);
+            BatchDocumentResponse batchDocumentResponse = GsonSingleton.getGson().fromJson(batchDocumentAsJson,
+                                                                                           BatchDocumentResponse.class);
             return batchDocumentResponse;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -60,21 +64,24 @@ public class BatchDocumentHandler {
     }
 
     /**
-     * Gets the document from the batch
+     * Gets a list of existing documents in the batch with optional query parameters for filtering results.
      *
-     * @param batchId
-     *          id for the batch
-     * @param token
-     *          token to the next page
-     * @param limit
-     *          number of batches per page
-     * @param since
-     *          documents added to the batch after 'since'
-     * @return
+     * GET /v1/batches/{batch_id}/documents
+     * @param conversionUtils utils object which supports in conversion of document
+     * @param batchId The id for the batch whose documents are returned
+     * @param token The reference to the starting element of the requested page which is provided
+     *              by the server, pass null to get the first page
+     * @param limit The number of documents in a batch to get, pass null to use the default limit
+     *              from server (100)
+     * @param since The date to filter on, documents added to the batch on or after the provided date and time format
+     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
+     *              pass null to exclude this filter
+     * @return Documents in a batch based on the filtering parameters provided
      *
-     * @see DocumentConversion#getBatchDocumentCollection(String, String, String, String)
+     * @see DocumentConversion#getBatchDocumentCollection(String, String, int, Date)
      */
-    public BatchDocumentCollection getBatchDocumentCollection(final String batchId, final String token, final String limit, final String since) {
+    public BatchDocumentCollection getBatchDocumentCollection(final ConversionUtils conversionUtils, final String batchId,
+                                                              final String token, final int limit, final Date since) {
         if (batchId == null || batchId.isEmpty())
             throw new IllegalArgumentException("batchId cannot be null or empty");
 
@@ -82,17 +89,21 @@ public class BatchDocumentHandler {
         if(token != null && !token.isEmpty())
             request.withQuery("token", token);
 
-        if(limit != null && !limit.isEmpty())
+        if (limit > 0)
             request.withQuery("limit", limit);
+        else
+            request.withQuery("limit", 100);
 
-        if(since != null && !since.isEmpty())
-            request.withQuery("since", since);
+        if(since != null)
+            request.withQuery("since", conversionUtils.convertToISO(since));
 
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = docConversionService.execute(requestBase);
             String batchDocumentCollectionAsJson = ResponseUtil.getString(response);
-            BatchDocumentCollection batchDocumentCollection = GsonSingleton.getGson().fromJson(batchDocumentCollectionAsJson, BatchDocumentCollection.class);
+            BatchDocumentCollection batchDocumentCollection = GsonSingleton.getGson().fromJson
+                                                              (batchDocumentCollectionAsJson,
+                                                               BatchDocumentCollection.class);
             return batchDocumentCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -100,15 +111,16 @@ public class BatchDocumentHandler {
     }
 
     /**
-     * Returns the batch document from the batch
+     * Retrieves the document from the batch whose ids are specified
      *
+     * GET /v1/batches/{batch_id}/documents/{document_id}
      * @param batchId
-     *          id to the batch
+     *          id of the batch to be retrieved
      * @param documentId
-     *          id to the document
-     * @return
+     *          id of the document to be retrieved
+     * @return BatchDocumentResponse
      *
-     * @see DocumentConversion#getBatchDocument(String, String)
+     *  @see DocumentConversion#getBatchDocument(String, String)
      */
     public BatchDocumentResponse getBatchDocument(final String batchId, final String documentId) {
         if (batchId == null || batchId.isEmpty())
@@ -120,7 +132,8 @@ public class BatchDocumentHandler {
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchDocumentAsJson = ResponseUtil.getString(response);
-            BatchDocumentResponse batchDocumentResponse = GsonSingleton.getGson().fromJson(batchDocumentAsJson, BatchDocumentResponse.class);
+            BatchDocumentResponse batchDocumentResponse = GsonSingleton.getGson().fromJson(batchDocumentAsJson,
+                                                                                           BatchDocumentResponse.class);
             return batchDocumentResponse;
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -22,7 +22,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Batch;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchCollection;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Property;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
+import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
@@ -31,10 +31,11 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
- * Handler for the batches
+ * Handler for the batch API calls
  *
  * @see DocumentConversion
  */
@@ -55,14 +56,12 @@ public class BatchHandler {
     }
 
     /**
-     * Creates the batch with the name and properties
+     * Creates a new batch with name and properties
      *
-     * @param name
-     *         name of the batch
-     * @param properties
-     *         properties to the batch
-     * @return
-     *
+     * POST /v1/batches
+     * @param name the name of the created batch
+     * @param properties the properties for the created batch
+     * @return requested Batch
      * @see DocumentConversion#createBatch(String, List)
      */
     public Batch createBatch(final String name, final List<Property> properties) {
@@ -85,38 +84,42 @@ public class BatchHandler {
     }
 
     /**
-     * Returns the batches in the stores which match the parameters
-     * @param token
-     *      token to the next page
-     * @param limit
-     *      number of batches in the page
-     * @param name
-     *      name of the batch
-     * @param since
-     *      the batches created after 'since'
-     * @return
-     *
-     * @see DocumentConversion#getBatchCollection(String, String, String, String)
+     * Gets a collection of all existing batches with optional query parameters for filtering results.
+     * GET /v1/batches
+     * @param conversionUtils utils object which supports in conversion of document
+     * @param token The reference to the starting element of the requested page which is provided
+     *              by the server, pass null to get the first page
+     * @param limit The number of batches to get, pass null to use the default limit from server (100)
+     * @param name The name of batches to get, pass null to exclude this filter
+     * @param since The date to filter on, batches created on or after the provided date and time format
+     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
+     *              pass null to exclude this filter
+     * @return Batches based on filtering parameters provided
+     * @see DocumentConversion#getBatchCollection(String, int, String, Date)
      */
-    public BatchCollection getBatchCollection(final String token, final String limit, final String name, final String since) {
+    public BatchCollection getBatchCollection(final ConversionUtils conversionUtils, final String token,
+                                              final int limit, final String name, final Date since) {
         Request request = Request.Get("/v1/batches");
         if(token != null && !token.isEmpty())
             request.withQuery("token", token);
 
-        if(limit != null && !limit.isEmpty())
+        if (limit > 0)
             request.withQuery("limit", limit);
+        else
+            request.withQuery("limit", 100);
 
         if(name != null && !name.isEmpty())
             request.withQuery("name", name);
 
-        if(since != null && !since.isEmpty())
-            request.withQuery("since", since);
+        if(since != null)
+            request.withQuery("since", conversionUtils.convertToISO(since));
 
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = docConversionService.execute(requestBase);
             String batchCollectionAsJson = ResponseUtil.getString(response);
-            BatchCollection batchCollection = GsonSingleton.getGson().fromJson(batchCollectionAsJson, BatchCollection.class);
+            BatchCollection batchCollection = GsonSingleton.getGson().fromJson(
+                                              batchCollectionAsJson, BatchCollection.class);
             return batchCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -124,11 +127,11 @@ public class BatchHandler {
     }
 
     /**
-     * Returns the batch which matches the id
+     * Gets an existing batch
      *
-     * @param batchId
-     *      id to the batch
-     * @return
+     * GET /v1/batches/{batch_id}
+     * @param batchId id for the batch to be updated
+     * @return requested Batch
      *
      * @see DocumentConversion#getBatch(String)
      */
@@ -146,20 +149,20 @@ public class BatchHandler {
         }
     }
 
+
     /**
-     * Updates the batch which have the name and properties
+     * Updates an existing batch with the provided name and properties
      *
-     * @param batchId
-     *      id to the batch
-     * @param name
-     *      name of the batch
-     * @param properties
-     *      properties of the batch
-     * @return
+     * PUT /v1/batches/{batch_id}
+     * @param batchId id for the batch to be updated
+     * @param name name of the batch to be updated
+     * @param properties properties of the batch to be updated
+     * @return updated Batch
      *
-     * @see DocumentConversion#updateBatch(String, String, List)
+     *@see DocumentConversion#updateBatch(String, String, List)
      */
-    public Batch updateBatch(final String batchId, final String name, final List<Property> properties) {
+    public Batch updateBatch(final String batchId, final String name,
+                             final List<Property> properties) {
         if (batchId == null || batchId.isEmpty())
             throw new IllegalArgumentException("batchId cannot be null or empty");
         JsonObject contentJson = new JsonObject();
@@ -168,7 +171,8 @@ public class BatchHandler {
         if(properties != null && properties.isEmpty())
             contentJson.addProperty("properties", new Gson().toJson(properties));
         HttpRequestBase request = Request.Put("/v1/batches/" + batchId)
-                                         .withContent(filterJson(contentJson), MediaType.APPLICATION_JSON).build();
+                                         .withContent(filterJson(contentJson),
+                                                      MediaType.APPLICATION_JSON).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchAsJson = ResponseUtil.getString(response);
@@ -182,8 +186,8 @@ public class BatchHandler {
     /**
      * Escapes the Json object string to filter and send in the request
      *
-     * @param jsonObject
-     * @return
+     * @param jsonObject Json Object to be filtered
+     * @return filtered Json String
      */
     public String filterJson(JsonObject jsonObject) {
         return jsonObject.toString().replace("\\","").replace("\"[", "[").replaceAll("]\"","]");

@@ -20,9 +20,9 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Document;
 
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.DocumentCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -31,9 +31,10 @@ import org.apache.http.entity.mime.content.FileBody;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 
 /**
- * Handler for the documents
+ * Handler for the document API calls
  *
  * @see DocumentConversion
  */
@@ -44,17 +45,20 @@ public class DocumentHandler {
     @Expose
     private DocumentConversion docConversionService;
 
+    /**
+     * Sets the service object
+     * @param docConversionService
+     */
     public DocumentHandler(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
     }
 
     /**
-     * Returns the document with the id
+     * Retrieves a document from the store with the given id
      *
-     * @param documentId
-     *          id for the document
-     * @return
-     *
+     * GET /v1/documents/{document_id}
+     * @param documentId id of the document to be retrieved
+     * @return requested Document
      * @see DocumentConversion#getDocument(String)
      */
     public String getDocument(final String documentId) {
@@ -71,17 +75,20 @@ public class DocumentHandler {
     }
 
     /**
-     * Uploads the document which is provided to the input
+     * Uploads the document to the store with the given media type
      *
-     * @param document
-     *          input document
-     * @param mediaType The Internet mediaType of the file
-     * @return
+     * POST /v1/documents
+     * @param conversionUtils utils object which supports in conversion of document
+     * @param document the document to be uploaded
+     * @return Document
      *
-     * @see DocumentConversion#uploadDocument(File, String)
+     * @see DocumentConversion#uploadDocument(File)
      */
-    public Document uploadDocument(final File document, final String mediaType) {
-        if(document == null || !document.exists())
+    public Document uploadDocument(final ConversionUtils conversionUtils, final File document) {
+        String mediaType = conversionUtils.getMediaTypeFromFile(document);
+        if (mediaType == null)
+            throw new IllegalArgumentException("file with the given media type is not supported");
+        if (document == null || !document.exists())
             throw new IllegalArgumentException("document cannot be null and must exist");
         if (mediaType == null || mediaType.isEmpty())
             throw new IllegalArgumentException("media type can not be null or empty");
@@ -101,36 +108,38 @@ public class DocumentHandler {
     }
 
     /**
+     * Gets a collection of all existing documents with optional query parameters for filtering results.
+     * GET /v1/documents
+     * @param conversionUtils utils object which supports in conversion of document
+     * @param token The reference to the starting element of the requested page which is provided
+     *              by the server, pass null to get the first page
+     * @param limit The number of documents to get, pass null to use the default limit from server (100)
+     * @param name The name of the documents to get, pass null to exclude this filter
+     * @param since The date to filter on, documents created on or after the provided date and time format
+     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
+     *              pass null to exclude this filter
+     * @param mediaType The Internet media type to filter on, pass null to exclude this filter
+     * @return Documents based on filtering parameters provided
      *
-     * Returns all the documents which match the parameters
-     *
-     * @param token
-     *          token to navigate to the next page
-     * @param limit
-     *          number of documents per page
-     * @param name
-     *          name of the document
-     * @param since
-     *          documents created after since
-     * @param mediaType
-     *          mediatype of the document
-     * @return
-     *
-     * @see DocumentConversion#getDocumentCollection(String, String, String, String, String)
+     * @see DocumentConversion#getDocumentCollection(String, int, String, Date, String)
      */
-    public DocumentCollection getDocumentCollection(final String token, final String limit, final String name, final String since, final String mediaType) {
+    public DocumentCollection getDocumentCollection(final ConversionUtils conversionUtils, final String token,
+                                                    final int limit, final String name,
+                                                    final Date since, final String mediaType) {
         Request request = Request.Get("/v1/documents");
         if(token != null && !token.isEmpty())
             request.withQuery("token", token);
 
-        if(limit != null && !limit.isEmpty())
+        if (limit > 0)
             request.withQuery("limit", limit);
+        else
+            request.withQuery("limit", 100);
 
         if(name != null && !name.isEmpty())
             request.withQuery("name", name);
 
-        if(since != null && !since.isEmpty())
-            request.withQuery("since", since);
+        if(since != null)
+            request.withQuery("since", conversionUtils.convertToISO(since));
 
         if(mediaType != null && !mediaType.isEmpty())
             request.withQuery("media_type", mediaType);
@@ -139,7 +148,8 @@ public class DocumentHandler {
         try {
             HttpResponse response = docConversionService.execute(requestBase);
             String documentCollectionAsJson = ResponseUtil.getString(response);
-            DocumentCollection documentCollection = GsonSingleton.getGson().fromJson(documentCollectionAsJson, DocumentCollection.class);
+            DocumentCollection documentCollection = GsonSingleton.getGson().fromJson(
+                                                    documentCollectionAsJson, DocumentCollection.class);
             return documentCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);

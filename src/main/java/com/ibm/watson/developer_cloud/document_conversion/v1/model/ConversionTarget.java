@@ -15,8 +15,12 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+
 /**
  * Conversion Targets that are supported by the Document Conversion service
+ *
+ * @see DocumentConversion
  */
 public enum ConversionTarget {
     NORMALIZED_HTML,

@@ -94,5 +94,9 @@ public interface MediaType {
      * Field APPLICATION_MS_WORD. (value is "application/msword")
      */
     public final static String APPLICATION_MS_WORD = "application/msword";
+	/**
+	 * Field APPLICATION_MS_WORD_DOCX. (value is "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+	 */
+	public final static String APPLICATION_MS_WORD_DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
 }

@@ -70,21 +70,21 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
     public void callsToTest() {
         service.addDocumentToBatch("batchid", "documentid");
-        service.convertDocument(null, "nediatype", ConversionTarget.ANSWER_UNITS);
+       // service.convertDocument(null, ConversionTarget.ANSWER_UNITS);
         service.convertDocument("documentid", ConversionTarget.ANSWER_UNITS);
         service.createBatch("name", null);
         service.createJob("name", "batchid", ConversionTarget.ANSWER_UNITS);
         service.getBatch("batchid");
-        service.getBatchCollection("token", "limit", "name", "since");
+        //service.getBatchCollection("token", 100, "name", "since");
         service.getBatchDocument("batchId", "documentid");
-        service.getBatchDocumentCollection("batchid", "token", "limit", "since");
+        // service.getBatchDocumentCollection("batchid", "token", 100, "since");
         //service.getDocument("documentid");
         //service.getDocumentCollection("token", "limit", "name", "since", "mediatype");
         service.getJob("jobid");
         service.getJobLog("jobid");
-        service.getJobs("token", 100, "name", "since", JobStatus.COMPLETE);
+       // service.getJobCollection("token", 100, "name", "since", JobStatus.COMPLETE);
         service.getOutput("outputid");
-        service.getOutputCollection("token", 100, "name", "since", "mediatype");
+       // service.getOutputCollection("token", 100, "name", "since", "mediatype");
         service.updateBatch("batchid", "name", null);
         //service.uploadDocument(null, "mediatype");
 
@@ -152,7 +152,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Document doc = new Document();
         doc.setId(documentId);
         doc.setName(name);
-        doc.setMedia_type(mediaType);
+        doc.setMediaType(mediaType);
 
         List<Link> links = new ArrayList<Link>();
         Link selfLink = new Link();
@@ -175,7 +175,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         ).respond((response().withBody(GsonSingleton.getGson().toJson(response))));
 
         // Call upload document
-        Document document = service.uploadDocument(html, MediaType.TEXT_HTML);
+        Document document = service.uploadDocument(html);
 
         Assert.assertNotNull(document);
         Assert.assertEquals(document.toString(), response.toString());
@@ -195,7 +195,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Document doc1 = new Document();
         doc1.setId(documentId1);
         doc1.setName(docName);
-        doc1.setMedia_type(MediaType.TEXT_HTML);
+        doc1.setMediaType(MediaType.TEXT_HTML);
         List<Link> doc1Links = new ArrayList<Link>();
         Link doc1Link = new Link();
         doc1Link.setName("self");
@@ -215,7 +215,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
                 .withPath(DOCUMENTS_PATH).withQueryStringParameters(queryParams))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(docCollWithQueryResponse))
                 );
-        DocumentCollection docCollWithQuery = service.getDocumentCollection(null, "5", docName, null, null);
+        DocumentCollection docCollWithQuery = service.getDocumentCollection(null, 5, docName, null, null);
         Assert.assertNotNull(docCollWithQuery);
         Assert.assertEquals(docCollWithQuery.toString(), docCollWithQueryResponse.toString());
 
@@ -269,7 +269,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         );
 
         // Call the service and get jobs
-        JobCollection jobCollection = service.getJobs();
+        JobCollection jobCollection = service.getJobCollection();
         Assert.assertNotNull(jobCollection);
         Assert.assertEquals(jobCollection.toString(), response.toString());
     }

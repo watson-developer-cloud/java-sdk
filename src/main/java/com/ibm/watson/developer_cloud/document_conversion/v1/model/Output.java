@@ -16,13 +16,15 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 import java.util.List;
 
 /**
  * Structure to store job output
  *
- * @see com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion
+ * @see DocumentConversion
  */
 public class Output extends DocumentConversionModel {
 
@@ -34,60 +36,110 @@ public class Output extends DocumentConversionModel {
     /**
      * The id of the source document that was used to generated this output
      */
-    @Expose
-    private String source_document_id;
+    @SerializedName("source_document_id")
+    private String sourceDocumentId;
     /**
      * The date and time the job was created in ISO 8601 date and time format (YYYY-MM-DDTHH:MM:SSZ)
      */
-    @Expose
-    private String created_on;
+    @SerializedName("created_on")
+    private String createdOn;
     /**
      * The Internet media type of the output
      */
-    @Expose
-    private String media_type;
+    @SerializedName("media_type")
+    private String mediaType;
     /**
      * A self link to the output itself
      */
     @Expose
     private List<Link> links;
 
+    /**
+     * Returns the id of the output
+     *
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Sets the id of the output
+     *
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
-    public String getSource_document_id() {
-        return source_document_id;
+    /**
+     * Returns the source document for the output
+     *
+     * @return
+     */
+    public String getSourceDocumentId() {
+        return sourceDocumentId;
     }
 
-    public void setSource_document_id(String source_document_id) {
-        this.source_document_id = source_document_id;
+    /**
+     * Sets the source document for the output
+     *
+     * @param sourceDocumentId
+     */
+    public void setSourceDocumentId(String sourceDocumentId) {
+        this.sourceDocumentId = sourceDocumentId;
     }
 
-    public String getCreated_on() {
-        return created_on;
+    /**
+     * Returns the date on which the output was created on
+     *
+     * @return
+     */
+    public String getCreatedOn() {
+        return createdOn;
     }
 
-    public void setCreated_on(String created_on) {
-        this.created_on = created_on;
+    /**
+     * Sets the date on which the output was created on
+     *
+     * @param createdOn
+     */
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
     }
 
-    public String getMedia_type() {
-        return media_type;
+    /**
+     * Returns the media type for the output jobs
+     *
+     * @return
+     */
+    public String getMediaType() {
+        return mediaType;
     }
 
-    public void setMedia_type(String media_type) {
-        this.media_type = media_type;
+    /**
+     * Sets the media type for the output jobs
+     *
+     * @param mediaType
+     */
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
     }
 
+    /**
+     * Returns the links to the outputs in the collection
+     *
+     * @return
+     */
     public List<Link> getLinks() {
         return links;
     }
 
+    /**
+     * Sets the links to the outputs in the collection
+     *
+     * @param links
+     */
     public void setLinks(List<Link> links) {
         this.links = links;
     }

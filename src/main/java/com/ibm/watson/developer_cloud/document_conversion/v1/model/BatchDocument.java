@@ -16,13 +16,15 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 import java.util.List;
 
 /**
  * Structure to store a batch documents
  *
- * @see com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion
+ * @see DocumentConversion
  */
 public class BatchDocument extends DocumentConversionModel {
 
@@ -33,10 +35,10 @@ public class BatchDocument extends DocumentConversionModel {
     private String id;
 
     /**
-     * Date/time at which document is added to the batch
+     * The date at which document is added to the batch
      */
-    @Expose
-    private String added_to_batch;
+    @SerializedName("added_to_batch")
+    private String addedToBatch;
 
     /**
      * Link to the batch documents
@@ -62,21 +64,21 @@ public class BatchDocument extends DocumentConversionModel {
     }
 
     /**
-     * Returns the date/time at which the document was added to the batch
+     * Returns the date at which the document was added to the batch
      *
      * @return
      */
-    public String getAdded_to_batch() {
-        return added_to_batch;
+    public String getAddedToBatch() {
+        return addedToBatch;
     }
 
     /**
-     * Sets the date/time at which the document was added to the batch
+     * Sets the date at which the document was added to the batch
      *
-     * @param added_to_batch
+     * @param addedToBatch
      */
-    public void setAdded_to_batch(String added_to_batch) {
-        this.added_to_batch = added_to_batch;
+    public void setAddedToBatch(String addedToBatch) {
+        this.addedToBatch = addedToBatch;
     }
 
     /**

@@ -17,6 +17,7 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 import java.util.List;
@@ -41,16 +42,17 @@ public class Batch extends DocumentConversionModel {
     private String name;
 
     /**
-     * Date/time on which batch was created on
+     * The date on which batch was created on
      */
-    @Expose
-    private String created_on;
+    @SerializedName("created_on")
+    private String createdOn;
 
     /**
-     * Date/time on which batch was updated on
+     * The date on which batch was updated on
      */
-    @Expose
-    private String updated_on;
+    @SerializedName("updated_on")
+    private String updatedOn;
+
 
     /**
      * Properties of the batch
@@ -100,38 +102,38 @@ public class Batch extends DocumentConversionModel {
     }
 
     /**
-     * Returns the date/time on which the batch was created on
+     * Returns the date on which the batch was created on
 
      * @return
      */
-    public String getCreated_on() {
-        return created_on;
+    public String getCreatedOn() {
+        return createdOn;
     }
 
     /**
-     * Sets the date/time on which the batch was created on
-     * @param created_on
+     * Sets the date on which the batch was created on
+     * @param createdOn
      */
-    public void setCreated_on(String created_on) {
-        this.created_on = created_on;
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
     }
 
     /**
-     * Returns the date/time on which the batch was updated on
+     * Returns the date on which the batch was updated on
      *
      * @return
      */
-    public String getUpdated_on() {
-        return updated_on;
+    public String getUpdatedOn() {
+        return updatedOn;
     }
 
     /**
-     * Sets the date/time on which batch was updated on
+     * Sets the date on which batch was updated on
      *
-     * @param updated_on
+     * @param updatedOn
      */
-    public void setUpdated_on(String updated_on) {
-        this.updated_on = updated_on;
+    public void setUpdatedOn(String updatedOn) {
+        this.updatedOn = updatedOn;
     }
 
     /**

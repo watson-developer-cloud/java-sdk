@@ -16,13 +16,14 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.Expose;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 import java.util.List;
 
 /**
  * Structure to store list of jobs
  *
- * @see com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion
+ * @see DocumentConversion
  */
 public class JobCollection extends DocumentConversionModel {
 
@@ -38,18 +39,36 @@ public class JobCollection extends DocumentConversionModel {
     @Expose
     private List<Link> links;
 
+    /**
+     * Returns the jobs in the collection
+     * @return
+     */
     public List<Job> getJobs() {
         return jobs;
     }
 
+    /**
+     * Sets the jobs in the collection
+     * @param jobs
+     */
     public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
     }
 
+    /**
+     * Returns the links to the jobs in the collection
+     *
+     * @return
+     */
     public List<Link> getLinks() {
         return links;
     }
 
+    /**
+     * Sets the links to the jobs in the collection
+     *
+     * @param links
+     */
     public void setLinks(List<Link> links) {
         this.links = links;
     }

@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
+import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.HttpHeaders;
@@ -28,6 +29,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Handler class for all job API calls
@@ -53,6 +55,7 @@ public class JobHandler {
     /**
      * Gets a list of all jobs with optional query parameters for filtering results.
      * GET /v1/jobs
+     * @param conversionUtils utils object which supports in conversion of document
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
      * @param limit The number of jobs to get, pass null to use the default limit from server (100)
@@ -63,10 +66,11 @@ public class JobHandler {
      * @param status The status of the job to filter on, pass null to exclude this filter
      * @return Jobs based on filtering parameters provided
      *
-     * @see DocumentConversion#getJobs(String, int, String, String, JobStatus)
+     * @see DocumentConversion#getJobCollection(String, int, String, Date, JobStatus)
      */
-    public JobCollection getJobs(final String token, final int limit, final String name,
-                                 final String since, final JobStatus status) {
+    public JobCollection getJobCollection(final ConversionUtils conversionUtils, final String token,
+                                          final int limit, final String name,
+                                          final Date since, final JobStatus status) {
         Request request = Request.Get("/v1/jobs");
 
         if (token != null && !token.isEmpty())
@@ -74,12 +78,14 @@ public class JobHandler {
 
         if (limit > 0)
             request.withQuery("limit", limit);
+        else
+            request.withQuery("limit", 100);
 
         if (name != null && !name.isEmpty())
             request.withQuery("name", name);
 
-        if (since != null && !since.isEmpty())
-            request.withQuery("since", since);
+        if (since != null)
+            request.withQuery("since", conversionUtils.convertToISO(since));
 
         if (status != null)
             request.withQuery("status", status.toString());

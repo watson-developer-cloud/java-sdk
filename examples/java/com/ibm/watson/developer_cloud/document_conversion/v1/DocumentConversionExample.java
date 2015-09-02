@@ -16,17 +16,16 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
-import com.ibm.watson.developer_cloud.util.MediaType;
 
 import java.io.*;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 public class DocumentConversionExample{
 
-    public static void main(String[] args) throws URISyntaxException, IOException {
+    public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
         DocumentConversion service = new DocumentConversion();
         service.setUsernameAndPassword("<username>", "<password>");
 
@@ -39,38 +38,42 @@ public class DocumentConversionExample{
         File doc = getResourceFile("document_conversion/word-document-heading-input.doc");
 
         System.out.println("-------------------- Convert html document to Answer ----------------------");
-        String htmlToAnswer = service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.ANSWER_UNITS);
+        String htmlToAnswer = service.convertDocument(html, ConversionTarget.ANSWER_UNITS);
         System.out.println("HTML converted to Answer:\n" + htmlToAnswer);
 
         System.out.println("-------------------- Convert html document to Normalized HTML ----------------------");
-        String htmlToNormHtml = service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.NORMALIZED_HTML);
+        String htmlToNormHtml = service.convertDocument(html, ConversionTarget.NORMALIZED_HTML);
         System.out.println("HTML converted to Normalized HTML:\n" + htmlToNormHtml);
 
         System.out.println("-------------------- Convert html document to Normalized Text ----------------------");
-        String htmlToNormText = service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.NORMALIZED_TEXT);
+        String htmlToNormText = service.convertDocument(html, ConversionTarget.NORMALIZED_TEXT);
         System.out.println("HTML converted to Normalized Text:\n" + htmlToNormText);
 
-        System.out.println("-------------------- Convert pdf document to Answer ----------------------");
-        String pdfToAnswer = service.convertDocument(pdf, MediaType.APPLICATION_PDF, ConversionTarget.ANSWER_UNITS);
-        System.out.println("PDF converted to Answer:\n" + pdfToAnswer);
+        // System.out.println("-------------------- Convert pdf document to Answer ----------------------");
+        // String pdfToAnswer = service.convertDocument(pdf, ConversionTarget.ANSWER_UNITS);
+        // System.out.println("PDF converted to Answer:\n" + pdfToAnswer);
 
         System.out.println("-------------------- Convert MS Word document to Answer ----------------------");
-        String docToAnswer = service.convertDocument(doc, MediaType.APPLICATION_MS_WORD, ConversionTarget.ANSWER_UNITS);
+        String docToAnswer = service.convertDocument(doc, ConversionTarget.ANSWER_UNITS);
         System.out.println("MS Word converted to Answer:\n" + docToAnswer);
 
         // ## Scenario 2: Convert a document using a batch operation ##
         // Step 1. Upload a document
          System.out.println("-------------------- Upload a document ------------------------------");
          File tempFile1 = getResourceFile("document_conversion/pdf-with-sections-input.pdf");
-         Document doc1 = service.uploadDocument(tempFile1, MediaType.APPLICATION_PDF);
+         Document doc1 = service.uploadDocument(tempFile1);
          System.out.println("1st Document Uploaded : \n"+doc1);
 
+         Thread.sleep(1000);
+         Date since = new Date();
+         Thread.sleep(1000);
+
          File tempFile2 = getResourceFile("document_conversion/html-with-extra-content-input.htm");
-         Document doc2 = service.uploadDocument(tempFile2, MediaType.TEXT_HTML);
+         Document doc2 = service.uploadDocument(tempFile2);
          System.out.println("2nd Document Uploaded : \n"+doc2);
 
          System.out.println("-------------------- Document Collection ------------------------------");
-         DocumentCollection documentCollection = service.getDocumentCollection(doc2.getId(), "2", "html-with-extra-content-input.htm", null, "application/octet-stream");
+         DocumentCollection documentCollection = service.getDocumentCollection(10, "html-with-extra-content-input.htm", since, "text/html");
          System.out.println("Document Collection with parameters:\n" + documentCollection);
 
          // Step 1.1 Get a document
@@ -98,7 +101,7 @@ public class DocumentConversionExample{
          System.out.println("Update a Batch 2 :\n" + service.updateBatch(batch2.getId(), "batch_NEW_name", null));
 
          System.out.println("-------------------- Batch Collection ------------------------------");
-         BatchCollection batchCollection = service.getBatchCollection(batch2.getId(), "2", null, null);
+         BatchCollection batchCollection = service.getBatchCollection(batch2.getId(), 2, null, null);
          System.out.println("Batch Collection - Batch list starting from 2nd Batch :\n" + batchCollection);
 
         // Step 3. Add the document to the batch
@@ -122,7 +125,7 @@ public class DocumentConversionExample{
         System.out.println("Create Job for Batch 2:\n" + createJobResponse);
 
         System.out.println("-------------------- Job Collection ------------------------------");
-        JobCollection jobCollection = service.getJobs();
+        JobCollection jobCollection = service.getJobCollection();
         System.out.println("Job Collection :\n" + jobCollection);
 
         // Step 4.1 Get job
@@ -134,7 +137,7 @@ public class DocumentConversionExample{
         waitForJobToComplete(job, 5000);
 
         // Step 5. Get Job Logs
-        System.out.println("-------------------- Get a job ------------------------------");
+        System.out.println("-------------------- Get the logs for the job ------------------------------");
         String jobLog = service.getJobLog(job.getId());
         System.out.println("Get logs for Job 1:\n" + jobLog);
 
@@ -144,7 +147,7 @@ public class DocumentConversionExample{
         System.out.println("Get Output Collection:\n" + outputCollection);
 
         System.out.println("-------------------- Output Collection for Job ------------------------------");
-        OutputCollection job1OutputCollection = service.getOutputCollection(null, 5, null, job.getId(), null);
+        OutputCollection job1OutputCollection = service.getOutputCollection(5, null, job.getId(), null);
         System.out.println("Get Output Collection for Job 1:\n" + job1OutputCollection);
 
         // Step 6.1 Get Output for Job 1
@@ -157,17 +160,17 @@ public class DocumentConversionExample{
         }
 
         // Step 7. Convert Document for existing document
-        System.out.println("-------------------- Convert existing document to Answer ----------------------");
-        String convertDoc1ToAnswer = service.convertDocument(doc1.getId(), ConversionTarget.ANSWER_UNITS);
-        System.out.println("Doc 1 converted to Answer:\n" + convertDoc1ToAnswer);
+        // System.out.println("-------------------- Convert existing document to Answer ----------------------");
+        // String convertDoc1ToAnswer = service.convertDocument(doc1.getId(), ConversionTarget.ANSWER_UNITS);
+        // System.out.println("Doc 1 converted to Answer:\n" + convertDoc1ToAnswer);
 
-        System.out.println("-------------------- Convert existing document to Normalized HTML ----------------------");
-        String convertDoc1ToNormHtml = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_HTML);
-        System.out.println("Doc 1 converted to Normalized HTML:\n" + convertDoc1ToNormHtml);
+        // System.out.println("-------------------- Convert existing document to Normalized HTML ----------------------");
+        // String convertDoc1ToNormHtml = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_HTML);
+        // System.out.println("Doc 1 converted to Normalized HTML:\n" + convertDoc1ToNormHtml);
 
-        System.out.println("-------------------- Convert existing document to Normalized Text ----------------------");
-        String convertDoc1ToNormText = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_TEXT);
-        System.out.println("Doc 1 converted to Normalized Text:\n" + convertDoc1ToNormText);
+        // System.out.println("-------------------- Convert existing document to Normalized Text ----------------------");
+        // String convertDoc1ToNormText = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_TEXT);
+        // System.out.println("Doc 1 converted to Normalized Text:\n" + convertDoc1ToNormText);
     }
 
     private static File getResourceFile(String resourceName) throws URISyntaxException, IOException {

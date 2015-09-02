@@ -18,6 +18,7 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.handlers;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.OutputCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
@@ -25,6 +26,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * Handler class for all output API calls
@@ -60,10 +62,11 @@ public class OutputHandler {
      * @param mediaType The Internet media type to filter on, pass null to exclude this filter
      * @return Outputs based on filtering parameters provided
      *
-     * @see DocumentConversion#getOutputCollection(String, int, String, String, String)
+     * @see DocumentConversion#getOutputCollection(String, int, Date, String, String)
      */
-    public OutputCollection getOutputCollection(final String token, final int limit, final String since,
-                                       final String jobId, final String mediaType) {
+    public OutputCollection getOutputCollection(final ConversionUtils conversionUtils, final String token,
+                                                final int limit, final Date since,
+                                                final String jobId, final String mediaType) {
         Request request = Request.Get("/v1/output");
 
         if (token != null && !token.isEmpty())
@@ -71,9 +74,11 @@ public class OutputHandler {
 
         if (limit > 0)
             request.withQuery("limit", limit);
+        else
+            request.withQuery("limit", 100);
 
-        if (since != null && !since.isEmpty())
-            request.withQuery("since", since);
+        if (since != null)
+            request.withQuery("since", conversionUtils.convertToISO(since));
 
         if (jobId != null && !jobId.isEmpty())
             request.withQuery("job_id", jobId);

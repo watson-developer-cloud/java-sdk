@@ -17,13 +17,15 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 import java.util.List;
 
 /**
  * Structure to store a Job
  *
- * @see com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion
+ * @see DocumentConversion
  */
 public class Job extends DocumentConversionModel {
 
@@ -40,14 +42,14 @@ public class Job extends DocumentConversionModel {
     /**
      * The id of the batch that this job processes
      */
-    @Expose
-    private String batch_id;
+    @SerializedName("batch_id")
+    private String batchId;
     /**
      * The conversion target that the job will execute
      * @see com.ibm.watson.developer_cloud.document_conversion.v1.model.ConversionTarget
      */
-    @Expose
-    private ConversionTarget conversion_target;
+    @SerializedName("conversion_target")
+    private ConversionTarget conversionTarget;
     /**
      * The configuration used for the job
      */
@@ -56,8 +58,8 @@ public class Job extends DocumentConversionModel {
     /**
      * The date and time the job was created in ISO 8601 date and time format (YYYY-MM-DDTHH:MM:SSZ)
      */
-    @Expose
-    private String created_on;
+    @SerializedName("created_on")
+    private String createdOn;
     /**
      * The status of the job
      * @see com.ibm.watson.developer_cloud.document_conversion.v1.model.JobStatus
@@ -77,8 +79,8 @@ public class Job extends DocumentConversionModel {
     /**
      * The document counts of the job (total, pending, successful, failed)
      */
-    @Expose
-    private JsonObject document_counts;
+    @SerializedName("document_counts")
+    private JsonObject documentCounts;
     /**
      * Additional links for the job that includes a self link to the Job itself,
      * a link to the job output and a link to the job logs
@@ -86,90 +88,200 @@ public class Job extends DocumentConversionModel {
     @Expose
     private List<Link> links;
 
+
+    /**
+     * Returns the id for the job
+     *
+     * @return
+     */
     public String getId() {
         return id;
     }
 
+    /**
+     * Sets the id for the job
+     *
+     * @param id
+     */
     public void setId(String id) {
         this.id = id;
     }
 
+    /**
+     * Sets the name of the job
+     *
+     * @return
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Sets the name for the job
+     *
+     * @param name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getBatch_id() {
-        return batch_id;
+    /**
+     * Returns the batch id from the job
+     *
+     * @return
+     */
+    public String getBatchId() {
+        return batchId;
     }
 
-    public void setBatch_id(String batch_id) {
-        this.batch_id = batch_id;
+    /**
+     * Sets the batch id for the job
+     *
+     * @param batchId
+     */
+    public void setBatchId(String batchId) {
+        this.batchId = batchId;
     }
 
-    public ConversionTarget getConversion_target() {
-        return conversion_target;
+    /**
+     * Returns the conversion target for the job
+     *
+     * @return
+     */
+    public ConversionTarget getConversionTarget() {
+        return conversionTarget;
     }
 
-    public void setConversion_target(ConversionTarget conversion_target) {
-        this.conversion_target = conversion_target;
+    /**
+     * Sets the conversion target for the job
+     *
+     * @param conversionTarget
+     */
+    public void setConversionTarget(ConversionTarget conversionTarget) {
+        this.conversionTarget = conversionTarget;
     }
 
+    /**
+     * Returns the configuration for the job
+     *
+     * @return
+     */
     public JsonObject getConfiguration() {
         return configuration;
     }
 
+    /**
+     * Sets the configuration for the job
+     *
+     * @param configuration
+     */
     public void setConfiguration(JsonObject configuration) {
         this.configuration = configuration;
     }
 
-    public String getCreated_on() {
-        return created_on;
+    /**
+     * Returns the date on which the job was created on
+     *
+     * @return
+     */
+    public String getCreatedOn() {
+        return createdOn;
     }
 
-    public void setCreated_on(String created_on) {
-        this.created_on = created_on;
+    /**
+     * Sets the date on which the job was created on
+     *
+     * @param createdOn
+     */
+    public void setCreatedOn(String createdOn) {
+        this.createdOn = createdOn;
     }
 
+    /**
+     * Returns the status of the job
+     *
+     * @return
+     */
     public JobStatus getStatus() {
         return status;
     }
 
+    /**
+     * Sets the status of the job
+     *
+     * @param status
+     */
     public void setStatus(JobStatus status) {
         this.status = status;
     }
 
+    /**
+     * Returns the result of the job
+     *
+     * @return
+     */
     public String getResult() {
         return result;
     }
 
+    /**
+     * Sets the result of the job
+     * @param result
+     */
     public void setResult(String result) {
         this.result = result;
     }
 
+    /**
+     * Returns the duration for the job
+     *
+     * @return
+     */
     public String getDuration() {
         return duration;
     }
 
+    /**
+     * Sets the duration of job execution
+     *
+     * @param duration
+     */
     public void setDuration(String duration) {
         this.duration = duration;
     }
 
-    public JsonObject getDocument_counts() {
-        return document_counts;
+    /**
+     * Returns number of documents from the job
+     *
+     * @return
+     */
+    public JsonObject getDocumentCounts() {
+        return documentCounts;
     }
 
-    public void setDocument_counts(JsonObject document_counts) {
-        this.document_counts = document_counts;
+    /**
+     * Sets the number of documents in the job
+     *
+     * @param documentCounts
+     */
+    public void setDocumentCounts(JsonObject documentCounts) {
+        this.documentCounts = documentCounts;
     }
 
+    /**
+     * Returns the links to the jobs
+     *
+     * @return
+     */
     public List<Link> getLinks() {
         return links;
     }
 
+    /**
+     * Sets the links to the jobs
+     *
+     * @param links
+     */
     public void setLinks(List<Link> links) {
         this.links = links;
     }

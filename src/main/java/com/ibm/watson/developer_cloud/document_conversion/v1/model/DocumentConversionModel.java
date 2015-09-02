@@ -15,12 +15,13 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Model to provide Json methods
  *
- * @see com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion
+ * @see DocumentConversion
  */
 public class DocumentConversionModel {
 

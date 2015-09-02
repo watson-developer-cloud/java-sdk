@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.ConversionTarget;
+import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
@@ -56,15 +57,17 @@ public class ConvertDocumentHandler {
     /**
      * Synchronously converts a new document without persistence
      * POST /v1/convert_document
+     * @param conversionUtils utils object which supports in conversion of document
      * @param document The file to convert
-     * @param mediaType The Internet mediaType of the file being converted
      * @param conversionTarget The conversion target to use
      * @return Converted document in the specified format
      *
-     * @see DocumentConversion#convertDocument(File, String, ConversionTarget)
+     * @see DocumentConversion#convertDocument(File, ConversionTarget)
      */
-    public String convertDocument(final File document, final String mediaType,
-                                  final ConversionTarget conversionTarget) {
+    public String convertDocument(final ConversionUtils conversionUtils, final File document, final ConversionTarget conversionTarget) {
+        String mediaType = conversionUtils.getMediaTypeFromFile(document);
+        if (mediaType == null)
+            throw new IllegalArgumentException("file with the given media type is not supported");
         if (document == null || !document.exists())
             throw new IllegalArgumentException("document can not be null and must exist");
         if (mediaType == null || mediaType.isEmpty())
