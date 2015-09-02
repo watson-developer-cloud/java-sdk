@@ -15,10 +15,13 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
+import org.apache.commons.io.IOUtils;
+import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -27,10 +30,12 @@ import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Parameter;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
@@ -41,7 +46,7 @@ import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
 /**
- * The Class DocumentConversionTest.
+ * The Class DocumentConversionTest
  */
 public class DocumentConversionTest extends WatsonServiceTest {
 
@@ -68,50 +73,6 @@ public class DocumentConversionTest extends WatsonServiceTest {
     /** The service. */
     private DocumentConversion service;
 
-    public void callsToTest() {
-        service.addDocumentToBatch("batchid", "documentid");
-       // service.convertDocument(null, ConversionTarget.ANSWER_UNITS);
-        service.convertDocument("documentid", ConversionTarget.ANSWER_UNITS);
-        service.createBatch("name", null);
-        service.createJob("name", "batchid", ConversionTarget.ANSWER_UNITS);
-        service.getBatch("batchid");
-        //service.getBatchCollection("token", 100, "name", "since");
-        service.getBatchDocument("batchId", "documentid");
-        // service.getBatchDocumentCollection("batchid", "token", 100, "since");
-        //service.getDocument("documentid");
-        //service.getDocumentCollection("token", "limit", "name", "since", "mediatype");
-        service.getJob("jobid");
-        service.getJobLog("jobid");
-       // service.getJobCollection("token", 100, "name", "since", JobStatus.COMPLETE);
-        service.getOutput("outputid");
-       // service.getOutputCollection("token", 100, "name", "since", "mediatype");
-        service.updateBatch("batchid", "name", null);
-        //service.uploadDocument(null, "mediatype");
-
-        //####################
-        // DON"T TEST:
-        //####################
-
-        //service.convertDocument(null, "mediatype");
-        //service.convertDocument("documentid");
-        //service.getBatchCollection();
-        //service.getBatchDocumentCollection("batchid");
-        //service.getDocumentCollection();
-        //service.getJobs();
-        //service.getOutputCollection();
-        //service.createBatch();
-        //service.createBatch("name");
-    }
-
-    public static File getResourceFile(String resourceName) throws URISyntaxException, IOException {
-        ClassLoader cl = DocumentConversionExample.class.getClassLoader();
-        URL rescUrl = cl.getResource(resourceName);
-        if( rescUrl == null ) {
-            throw new IOException("Unable to find resource: " + rescUrl);
-        }
-        return new File(rescUrl.toURI());
-    }
-
     /**
      * Start mock server.
      */
@@ -136,6 +97,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
     public void stopMockServer() {
         mockServer.stop();
     }
+
     /*
      * (non-Javadoc)
      *
@@ -148,26 +110,56 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
     }
 
-    private Document createDocument(String documentId, String name, String mediaType) {
-        Document doc = new Document();
-        doc.setId(documentId);
-        doc.setName(name);
-        doc.setMediaType(mediaType);
+    /**
+     * Test convert document with no persistence
+     */
+    @Test
+    public void testConvertDocumentNoPersistence() throws URISyntaxException, IOException {
+        File expAnswerFile = getResourceFile("document_conversion/html-with-extra-content-input-to-answer.json");
+        File html = getResourceFile("document_conversion/html-with-extra-content-input.htm");
+        byte[] expAnswer = IOUtils.toByteArray(new FileInputStream(expAnswerFile));
 
-        List<Link> links = new ArrayList<Link>();
-        Link selfLink = new Link();
-        selfLink.setName("self");
-        selfLink.setLink(DOCUMENTS_PATH + "/" + documentId);
-        links.add(selfLink);
-        doc.setLinks(links);
+        mockServer.when(
+                request().withMethod("POST").withPath(CONVERT_DOCUMENT_PATH)
+        ).respond(response().withBody(expAnswer));
 
-        return doc;
+        String convertedDoc = service.convertDocument(html, ConversionTarget.ANSWER_UNITS);
+        Assert.assertNotNull(convertedDoc);
+        Assert.assertEquals(convertedDoc, new String(expAnswer));
     }
 
+    /**
+     * Test convert document with persistence
+     */
+    @Test
+    public void testConvertDocumentWithPersistence() throws URISyntaxException, IOException {
+        File expAnswerFile = getResourceFile("document_conversion/html-with-extra-content-input-to-answer.json");
+        File html = getResourceFile("document_conversion/html-with-extra-content-input.htm");
+        byte[] expAnswer = IOUtils.toByteArray(new FileInputStream(expAnswerFile));
+
+        String docId = UUID.randomUUID().toString();
+        Document createDocResponse = createMockDocument(docId, "html-with-extra-content-input.htm", MediaType.TEXT_HTML);
+        mockServer.when(
+                request().withMethod("POST").withPath(DOCUMENTS_PATH)
+        ).respond((response().withBody(GsonSingleton.getGson().toJson(createDocResponse))));
+        service.uploadDocument(html);
+
+        mockServer.when(
+                request().withMethod("POST").withPath(CONVERT_DOCUMENT_PATH)
+        ).respond(response().withBody(expAnswer));
+
+        String convertedDoc = service.convertDocument(docId, ConversionTarget.ANSWER_UNITS);
+        Assert.assertNotNull(convertedDoc);
+        Assert.assertEquals(convertedDoc, new String(expAnswer));
+    }
+
+    /**
+     * Test upload document
+     */
     @Test
     public void testUploadDocument() throws URISyntaxException, IOException {
         String docId = UUID.randomUUID().toString();
-        Document response = createDocument(docId, "html-with-extra-content-input.htm", MediaType.TEXT_HTML);
+        Document response = createMockDocument(docId, "html-with-extra-content-input.htm", MediaType.TEXT_HTML);
         File html = getResourceFile("document_conversion/html-with-extra-content-input.htm");
 
         mockServer.when(
@@ -182,28 +174,66 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Test get document collection.
+     * Test create batch
+     */
+    @Test
+    public void testCreateBatch() {
+        // Expected Mock response
+        String batchId = UUID.randomUUID().toString();
+        String name = "testBatch";
+        String currentTime = DateTime.now().toString();
+        List<Property> propertyList = Arrays.asList(
+                new Property("media_type", MediaType.TEXT_HTML), new Property("num_docs", "2"));
+        Batch response = createMockBatch(batchId, name, currentTime, currentTime, propertyList);
+
+        mockServer.when(
+                request().withMethod("POST").withPath(BATCHES_PATH)
+        ).respond((response().withBody(GsonSingleton.getGson().toJson(response))));
+
+        // Call create batch
+        Batch batch = service.createBatch(name, propertyList);
+        Assert.assertNotNull(batch);
+        Assert.assertEquals(batch.toString(), response.toString());
+    }
+
+    /**
+     * Test create job
+     */
+    @Test
+    public void testCreateJob() {
+        // Expected Mock response
+        String batchId = UUID.randomUUID().toString();
+        String jobId = UUID.randomUUID().toString();
+        String jobName = "testJob";
+
+        CreateJobResponse response = new CreateJobResponse();
+        response.setId(jobId);
+        response.setName(jobName);
+        response.setLinks(Arrays.asList(createLink("self", JOBS_PATH + "/" + jobId)));
+
+        mockServer.when(
+                request().withMethod("POST").withPath(JOBS_PATH)
+        ).respond((response().withBody(GsonSingleton.getGson().toJson(response))));
+
+        // Call create batch
+        CreateJobResponse job = service.createJob(jobName, batchId, ConversionTarget.ANSWER_UNITS);
+        Assert.assertNotNull(job);
+        Assert.assertEquals(job.toString(), response.toString());
+    }
+
+    /**
+     * Test get document collection and get document
      */
     @Test
     public void testGetDocumentCollection() {
         // Expected Mock response
         DocumentCollection docCollWithQueryResponse = new DocumentCollection();
         List<Document> documentsWithQuery = new ArrayList<Document>();
-        String documentId1 = UUID.randomUUID().toString();
+        String docId = UUID.randomUUID().toString();
         String docName = "documentName";
-        String docContent1 = "<html><title>Test</title><body><text>test document</text></body></html>";
-        Document doc1 = new Document();
-        doc1.setId(documentId1);
-        doc1.setName(docName);
-        doc1.setMediaType(MediaType.TEXT_HTML);
-        List<Link> doc1Links = new ArrayList<Link>();
-        Link doc1Link = new Link();
-        doc1Link.setName("self");
-        doc1Link.setLink("/v1/documents/" + documentId1);
-        doc1Links.add(doc1Link);
-        doc1.setLinks(doc1Links);
-        documentsWithQuery.add(doc1);
-        docCollWithQueryResponse.setDocuments(documentsWithQuery);
+        Document doc = createMockDocument(docId, docName, MediaType.TEXT_HTML);
+        String docContent = "<html><title>Test</title><body><text>test document</text></body></html>";
+        documentsWithQuery.add(doc);
         List<Link> links = new ArrayList<Link>();
         docCollWithQueryResponse.setLinks(links);
 
@@ -220,80 +250,336 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Assert.assertEquals(docCollWithQuery.toString(), docCollWithQueryResponse.toString());
 
         // Call get document
-        mockServer.when(request().withPath(DOCUMENTS_PATH + "/" + documentId1)).respond(
-                response().withBody(docContent1)
+        mockServer.when(request().withPath(DOCUMENTS_PATH + "/" + docId)).respond(
+                response().withBody(docContent)
         );
-        String document1 = service.getDocument(documentId1);
+        String document1 = service.getDocument(docId);
         Assert.assertNotNull(document1);
-        Assert.assertEquals(document1, docContent1);
+        Assert.assertEquals(document1, docContent);
     }
 
     /**
-     * Test get batch collection.
+     * Test batches
      */
     @Test
-    public void testGetBatchCollection() {
+    public void testBatches() {
         // Expected Mock response
-        BatchCollection response = new BatchCollection();
-        List<Batch> batches = new ArrayList<Batch>();
-        response.setBatches(batches);
+        BatchCollection batchCollWithQueryResponse = new BatchCollection();
+        List<Batch> batchList = new ArrayList<Batch>();
+        String batchId = UUID.randomUUID().toString();
+        String batchName = "batchName";
+        String currentTime = DateTime.now().toString();
+        List<Property> propertyList = Arrays.asList(
+                new Property("media_type", MediaType.TEXT_HTML), new Property("num_docs", "2"));
+        Batch batch = createMockBatch(batchId, batchName, currentTime, currentTime, propertyList);
+        batchList.add(batch);
+        batchCollWithQueryResponse.setBatches(batchList);
         List<Link> links = new ArrayList<Link>();
-        response.setLinks(links);
+        batchCollWithQueryResponse.setLinks(links);
 
-        mockServer.when(request().withPath(BATCHES_PATH)).respond(
-                response().withBody(GsonSingleton.getGson().toJson(response))
+        // Call get batches with query parameters
+        List<Parameter> queryParams = new ArrayList<Parameter>();
+        queryParams.add(new Parameter("name", batchName));
+        queryParams.add(new Parameter("limit", "10"));
+        mockServer.reset().when(request()
+                .withPath(BATCHES_PATH).withQueryStringParameters(queryParams))
+                .respond(response().withBody(GsonSingleton.getGson().toJson(batchCollWithQueryResponse))
+                );
+        BatchCollection batchCollWithQuery = service.getBatchCollection(null, 10, batchName, null);
+        Assert.assertNotNull(batchCollWithQuery);
+        Assert.assertEquals(batchCollWithQuery.toString(), batchCollWithQueryResponse.toString());
 
+        // Call get batch
+        mockServer.when(request().withPath(BATCHES_PATH + "/" + batchId)).respond(
+                response().withBody(GsonSingleton.getGson().toJson(batch))
+        );
+        Batch getBatch = service.getBatch(batchId);
+        Assert.assertNotNull(getBatch);
+        Assert.assertEquals(getBatch.toString(), batch.toString());
+
+        // Update Batch
+        String newBatchName = "updatedBatchName";
+        List<Property> newPropertyList = Arrays.asList(
+                new Property("media_type", MediaType.APPLICATION_PDF), new Property("num_docs", "6"));
+        String newTime = DateTime.now().toString();
+        Batch updatedBatch = createMockBatch(batchId, newBatchName, currentTime, newTime, newPropertyList);
+
+        // Call update batch
+        mockServer.reset().when(request().withMethod("PUT").withPath(BATCHES_PATH + "/" + batchId)).respond(
+                response().withBody(GsonSingleton.getGson().toJson(updatedBatch))
         );
 
-        // Call the service and get batches
-        BatchCollection batchCollection = service.getBatchCollection();
-        Assert.assertNotNull(batchCollection);
-        Assert.assertEquals(batchCollection.toString(), response.toString());
+        Batch updatedBatchResponse = service.updateBatch(batchId, newBatchName, newPropertyList);
+        Assert.assertNotNull(updatedBatchResponse);
+        Assert.assertEquals(updatedBatch.toString(), updatedBatchResponse.toString());
     }
 
     /**
-     * Test get job collection.
+     * Test get batch documents
      */
     @Test
-    public void testGetJobCollection() {
-        // Expected Mock response
-        JobCollection response = new JobCollection();
-        List<Job> jobs = new ArrayList<Job>();
-        response.setJobs(jobs);
-        List<Link> links = new ArrayList<Link>();
-        response.setLinks(links);
-
-        mockServer.when(request().withPath(JOBS_PATH)).respond(
-                response().withBody(GsonSingleton.getGson().toJson(response))
-
+    public void testGetBatchDocuments() {
+        // Create a mock batch
+        String batchId = UUID.randomUUID().toString();
+        BatchDocumentCollection batchDocCollWithQueryResponse = new BatchDocumentCollection();
+        batchDocCollWithQueryResponse.setLinks(
+                Arrays.asList(createLink("first", BATCHES_PATH + "/" + batchId + "/documents"))
         );
 
-        // Call the service and get jobs
-        JobCollection jobCollection = service.getJobCollection();
-        Assert.assertNotNull(jobCollection);
-        Assert.assertEquals(jobCollection.toString(), response.toString());
+        // Create a mock batch document
+        String batchDocId = UUID.randomUUID().toString();
+        BatchDocument batchDocument = new BatchDocument();
+        batchDocument.setId(batchDocId);
+        batchDocument.setAddedToBatch(DateTime.now().toString());
+        batchDocument.setLinks(Arrays.asList(
+                        createLink("self", BATCHES_PATH + "/" + batchId + "/documents/" + batchDocId),
+                        createLink("document", DOCUMENTS_PATH + "/documents/" + batchDocId)
+                )
+        );
+
+        // Create mock batch document response
+        BatchDocumentResponse batchDocumentResponse = new BatchDocumentResponse();
+        batchDocumentResponse.setDocument(batchDocument);
+
+        // Add document to batch
+        batchDocCollWithQueryResponse.setDocuments(Arrays.asList(batchDocument));
+
+        mockServer.when(request().withMethod("PUT")
+                .withPath(BATCHES_PATH + "/" + batchId + "/documents/" + batchDocId)).respond(
+                response().withBody(GsonSingleton.getGson().toJson(batchDocumentResponse))
+        );
+        BatchDocumentResponse addBatchDocResponse = service.addDocumentToBatch(batchId, batchDocId);
+        Assert.assertNotNull(addBatchDocResponse);
+        Assert.assertEquals(addBatchDocResponse.toString(), batchDocumentResponse.toString());
+
+        // Call get batch documents with query parameters
+        List<Parameter> queryParams = new ArrayList<Parameter>();
+        queryParams.add(new Parameter("limit", "15"));
+        mockServer.reset().when(request()
+                .withPath(BATCHES_PATH + "/" + batchId + "/documents").withQueryStringParameters(queryParams))
+                .respond(response().withBody(GsonSingleton.getGson().toJson(batchDocCollWithQueryResponse))
+                );
+        BatchDocumentCollection batchDocCollWithQuery = service.getBatchDocumentCollection(batchId, null, 15, null);
+        Assert.assertNotNull(batchDocCollWithQuery);
+        Assert.assertEquals(batchDocCollWithQuery.toString(), batchDocCollWithQueryResponse.toString());
+
+        // Call get batch document
+        mockServer.when(request().withPath(BATCHES_PATH + "/" + batchId + "/documents/" + batchDocId)).respond(
+                response().withBody(GsonSingleton.getGson().toJson(batchDocumentResponse))
+        );
+        BatchDocumentResponse response = service.getBatchDocument(batchId, batchDocId);
+        Assert.assertNotNull(response);
+        Assert.assertEquals(response.toString(), batchDocumentResponse.toString());
     }
 
     /**
-     * Test get output collection.
+     * Test jobs
      */
     @Test
-    public void testGetOutputCollection() {
+    public void testJobs() {
         // Expected Mock response
-        OutputCollection response = new OutputCollection();
-        List<Output> outputs = new ArrayList<Output>();
-        response.setOutput(outputs);
+        JobCollection jobCollWithQueryResponse = new JobCollection();
+        List<Job> jobList = new ArrayList<Job>();
+        String jobId = UUID.randomUUID().toString();
+        String batchId = UUID.randomUUID().toString();
+        String documentId = UUID.randomUUID().toString();
+        String jobName = "testJob";
+        String currentTime = DateTime.now().toString();
+        Job job = createMockJob(jobId, jobName, batchId, null, ConversionTarget.ANSWER_UNITS,
+                currentTime, null, "25", "Result", JobStatus.COMPLETE);
+        jobList.add(job);
+        jobCollWithQueryResponse.setJobs(jobList);
         List<Link> links = new ArrayList<Link>();
-        response.setLinks(links);
+        jobCollWithQueryResponse.setLinks(links);
 
-        mockServer.when(request().withPath(OUTPUT_PATH)).respond(
-                response().withBody(GsonSingleton.getGson().toJson(response))
+        // Call get jobs with query parameters
+        List<Parameter> queryParams = new ArrayList<Parameter>();
+        queryParams.add(new Parameter("name", jobName));
+        queryParams.add(new Parameter("limit", "7"));
+        queryParams.add(new Parameter("status", JobStatus.COMPLETE.toString()));
+        mockServer.reset().when(request()
+                .withPath(JOBS_PATH).withQueryStringParameters(queryParams))
+                .respond(response().withBody(GsonSingleton.getGson().toJson(jobCollWithQueryResponse))
+                );
+        JobCollection jobCollWithQuery = service.getJobCollection(null, 7, jobName, null, JobStatus.COMPLETE);
+        Assert.assertNotNull(jobCollWithQuery);
+        Assert.assertEquals(jobCollWithQuery.toString(), jobCollWithQueryResponse.toString());
 
+        // Call get job
+        mockServer.when(request().withPath(JOBS_PATH + "/" + jobId)).respond(
+                response().withBody(GsonSingleton.getGson().toJson(job))
+        );
+        Job getJob = service.getJob(jobId);
+        Assert.assertNotNull(getJob);
+        Assert.assertEquals(getJob.toString(), job.toString());
+
+        // Call get job log
+        String expectedJobLog = "Document " + documentId + " - SUCCESS";
+        mockServer.when(request().withPath(JOBS_PATH + "/" + jobId + "/log")).respond(
+                response().withBody(expectedJobLog)
         );
 
-        // Call the service and get outputs
-        OutputCollection outputCollection = service.getOutputCollection();
-        Assert.assertNotNull(outputCollection);
-        Assert.assertEquals(outputCollection.toString(), response.toString());
+        String jobLog = service.getJobLog(jobId);
+        Assert.assertNotNull(getJob);
+        Assert.assertEquals(expectedJobLog, jobLog);
+    }
+
+    /**
+     * Test outputs
+     */
+    @Test
+    public void testOutputs() throws URISyntaxException, IOException {
+        // Expected Mock response
+        OutputCollection outputCollWithQueryResponse = new OutputCollection();
+        List<Output> outputList = new ArrayList<Output>();
+        String outputId = UUID.randomUUID().toString();
+        String jobId = UUID.randomUUID().toString();
+        Output output = createMockOutput(outputId, null, null, null);
+        outputList.add(output);
+        outputCollWithQueryResponse.setOutput(outputList);
+        List<Link> links = new ArrayList<Link>();
+        outputCollWithQueryResponse.setLinks(links);
+
+        File expAnswerFile = getResourceFile("document_conversion/html-with-extra-content-input-to-answer.json");
+        byte[] expAnswer = IOUtils.toByteArray(new FileInputStream(expAnswerFile));
+
+        // Call get outputs with query parameters
+        List<Parameter> queryParams = new ArrayList<Parameter>();
+        queryParams.add(new Parameter("job_id", jobId));
+        queryParams.add(new Parameter("limit", "8"));
+        mockServer.reset().when(request()
+                .withPath(OUTPUT_PATH).withQueryStringParameters(queryParams))
+                .respond(response().withBody(GsonSingleton.getGson().toJson(outputCollWithQueryResponse))
+                );
+        OutputCollection outputCollWithQuery = service.getOutputCollection(null, 8, null, jobId, null);
+        Assert.assertNotNull(outputCollWithQuery);
+        Assert.assertEquals(outputCollWithQuery.toString(), outputCollWithQueryResponse.toString());
+
+        // Call get output
+        mockServer.when(request().withPath(OUTPUT_PATH + "/" + outputId)).respond(
+                response().withBody(expAnswer.toString())
+        );
+        String getOutput = service.getOutput(outputId);
+        Assert.assertNotNull(getOutput);
+        Assert.assertEquals(getOutput, expAnswer.toString());
+    }
+
+    // ####################################
+    // ########## HELPER METHODS ##########
+    // ####################################
+
+    /**
+     * Gets a local resource file
+     * @param resourceName name of the resource
+     * @return The resource File
+     * @throws URISyntaxException
+     * @throws IOException
+     */
+    public static File getResourceFile(String resourceName) throws URISyntaxException, IOException {
+        ClassLoader cl = DocumentConversionExample.class.getClassLoader();
+        URL url = cl.getResource(resourceName);
+        if( url == null ) {
+            throw new IOException("Unable to find resource: " + url);
+        }
+        return new File(url.toURI());
+    }
+
+    /**
+     * Create a Document object
+     * @param id The id of the document
+     * @param name The name of the document
+     * @param mediaType The Internet media type of the document
+     * @return Document
+     */
+    private Document createMockDocument(String id, String name, String mediaType) {
+        Document doc = new Document();
+        doc.setId(id);
+        doc.setName(name);
+        doc.setMediaType(mediaType);
+        doc.setLinks(Arrays.asList(createLink("self", DOCUMENTS_PATH + "/" + id)));
+        return doc;
+    }
+
+    /**
+     * Create a Batch object
+     * @param id The id of the batch
+     * @param name The name of the batch
+     * @param createdOn The time the batch was created
+     * @param updatedOn The time the batch was updated
+     * @param props The list of properties for the batch
+     * @return Batch
+     */
+    private Batch createMockBatch(String id, String name, String createdOn, String updatedOn, List<Property> props) {
+        Batch batch = new Batch();
+        batch.setId(id);
+        batch.setName(name);
+        batch.setCreatedOn(createdOn);
+        batch.setUpdatedOn(updatedOn);
+        batch.setProperties(props);
+        batch.setLinks(Arrays.asList(createLink("self", BATCHES_PATH + "/" + id)));
+        return batch;
+    }
+
+    /**
+     * Create a Job object
+     * @param id The id of the job
+     * @param name The name of the job
+     * @param batchId The id of the batch that the job will execute
+     * @param config The configuration for the job
+     * @param convTarget The conversion target that the job should run
+     * @param createdOn The time the job was created
+     * @param docCounts The document counts for the job
+     * @param duration The duration of the job
+     * @param result The result of the job
+     * @param status The status of the job
+     * @return Job
+     */
+    private Job createMockJob(String id, String name, String batchId, JsonObject config,
+                              ConversionTarget convTarget, String createdOn, JsonObject docCounts,
+                              String duration, String result, JobStatus status ) {
+        Job job = new Job();
+        job.setId(id);
+        job.setName(name);
+        job.setBatchId(batchId);
+        job.setConfiguration(config);
+        job.setConversionTarget(convTarget);
+        job.setCreatedOn(createdOn);
+        job.setDocumentCounts(docCounts);
+        job.setDuration(duration);
+        job.setResult(result);
+        job.setStatus(status);
+        job.setLinks(Arrays.asList(createLink("self", JOBS_PATH + "/" + id)));
+        return job;
+    }
+
+    /**
+     * Create an Output object
+     * @param id The id of the output
+     * @param srcDocId The id of the source document used to generate this output
+     * @param createdOn The time the output was created
+     * @param mediaType The internet media type of the output
+     * @return Output
+     */
+    private Output createMockOutput(String id, String srcDocId, String createdOn, String mediaType) {
+        Output output = new Output();
+        output.setId(id);
+        output.setSourceDocumentId(srcDocId);
+        output.setCreatedOn(createdOn);
+        output.setMediaType(mediaType);
+        output.setLinks(Arrays.asList(createLink("self", OUTPUT_PATH + "/" + id)));
+        return output;
+    }
+
+    /**
+     * Create a Link object
+     * @param linkName The name of the link
+     * @param linkPath The path of the link
+     * @return Link
+     */
+    private Link createLink(String linkName, String linkPath) {
+        Link selfLink = new Link();
+        selfLink.setName(linkName);
+        selfLink.setLink(linkPath);
+        return selfLink;
     }
 }
