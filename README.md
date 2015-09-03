@@ -417,7 +417,7 @@ System.out.println(recognizedImage);
 ```
 
 ## Concept Insights
-Example: Retrieve concepts that are related (in conceptual sense) to a given concept or set of concepts using the [Concept Insights][concept-insights].
+Example: Retrieve concepts that are related (in conceptual sense) to a given concept or set of concepts using the [Concept Insights][concept-insights] service.
 
 ```
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
