@@ -22,51 +22,52 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 
 /**
- * Concept returned by the {@link ConceptInsights} service.
+ * Concept_ returned by the {@link ConceptInsights} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
+
 public class Concept {
 
-    private Float score;
+    private String id;
 
-    private Concept_ concept;
+    private String label;
 
     /**
-     * @return The score
+     * @return The id
      */
-    public Float getScore() {
-        return score;
+    public String getId() {
+        return id;
     }
 
     /**
-     * @param score The score
+     * @param id The id
      */
-    public void setScore(Float score) {
-        this.score = score;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public Concept withScore(Float score) {
-        this.score = score;
+    public Concept withId(String id) {
+        this.id = id;
         return this;
     }
 
     /**
-     * @return The concept
+     * @return The label
      */
-    public Concept_ getConcept() {
-        return concept;
+    public String getLabel() {
+        return label;
     }
 
     /**
-     * @param concept The concept
+     * @param label The label
      */
-    public void setConcept(Concept_ concept) {
-        this.concept = concept;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
-    public Concept withConcept(Concept_ concept) {
-        this.concept = concept;
+    public Concept withLabel(String label) {
+        this.label = label;
         return this;
     }
 
@@ -75,22 +76,22 @@ public class Concept {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Concept concept1 = (Concept) o;
+        Concept concept_ = (Concept) o;
 
-        if (score != null ? !score.equals(concept1.score) : concept1.score != null) return false;
-        return !(concept != null ? !concept.equals(concept1.concept) : concept1.concept != null);
+        if (id != null ? !id.equals(concept_.id) : concept_.id != null) return false;
+        return !(label != null ? !label.equals(concept_.label) : concept_.label != null);
 
     }
 
     @Override
     public int hashCode() {
-        int result = score != null ? score.hashCode() : 0;
-        result = 31 * result + (concept != null ? concept.hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (label != null ? label.hashCode() : 0);
         return result;
     }
 
     @Override
     public String toString() {
-        return String.format("Annotation [score=%s,concept=%s]", score, concept);
+        return String.format("Concept [id=%s,label=%]", id, label);
     }
 }

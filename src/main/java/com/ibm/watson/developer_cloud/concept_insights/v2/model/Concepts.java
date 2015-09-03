@@ -32,23 +32,23 @@ import java.util.List;
 
 public class Concepts {
 
-    private List<Concept> concepts = new ArrayList<Concept>();
+    private List<ScoredConcept> concepts = new ArrayList<ScoredConcept>();
 
     /**
      * @return The concepts
      */
-    public List<Concept> getConcepts() {
+    public List<ScoredConcept> getConcepts() {
         return concepts;
     }
 
     /**
      * @param concepts The concepts
      */
-    public void setConcepts(List<Concept> concepts) {
+    public void setConcepts(List<ScoredConcept> concepts) {
         this.concepts = concepts;
     }
 
-    public Concepts withConcepts(List<Concept> concepts) {
+    public Concepts withConcepts(List<ScoredConcept> concepts) {
         this.concepts = concepts;
         return this;
     }

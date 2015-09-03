@@ -31,14 +31,14 @@ import java.util.List;
  */
 public class Annotations {
 
-    private List<Concept> annotations = new ArrayList<Concept>();
+    private List<ScoredConcept> annotations = new ArrayList<ScoredConcept>();
 
     /**
      * 
      * @return
      *     The annotations
      */
-    public List<Concept> getAnnotations() {
+    public List<ScoredConcept> getAnnotations() {
         return annotations;
     }
 
@@ -47,11 +47,11 @@ public class Annotations {
      * @param annotations
      *     The annotations
      */
-    public void setAnnotations(List<Concept> annotations) {
+    public void setAnnotations(List<ScoredConcept> annotations) {
         this.annotations = annotations;
     }
 
-    public Annotations withAnnotations(List<Concept> annotations) {
+    public Annotations withAnnotations(List<ScoredConcept> annotations) {
         this.annotations = annotations;
         return this;
     }

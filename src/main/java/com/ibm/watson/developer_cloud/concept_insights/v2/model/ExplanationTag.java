@@ -26,7 +26,7 @@ import java.util.List;
 
 public class ExplanationTag {
 
-    private Concept_ concept;
+    private Concept concept;
 
     private Float score;
 
@@ -41,7 +41,7 @@ public class ExplanationTag {
      * @return
      *     The concept
      */
-    public Concept_ getConcept() {
+    public Concept getConcept() {
         return concept;
     }
 
@@ -50,11 +50,11 @@ public class ExplanationTag {
      * @param concept
      *     The concept
      */
-    public void setConcept(Concept_ concept) {
+    public void setConcept(Concept concept) {
         this.concept = concept;
     }
 
-    public ExplanationTag withConcept(Concept_ concept) {
+    public ExplanationTag withConcept(Concept concept) {
         this.concept = concept;
         return this;
     }

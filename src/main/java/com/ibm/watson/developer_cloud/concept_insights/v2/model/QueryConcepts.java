@@ -28,7 +28,7 @@ import java.util.List;
 public class QueryConcepts {
 
     @SerializedName("query_concepts")
-    private List<Concept_> queryConcepts = new ArrayList<Concept_>();
+    private List<Concept> queryConcepts = new ArrayList<Concept>();
 
     private List<Result> results = new ArrayList<Result>();
 
@@ -37,7 +37,7 @@ public class QueryConcepts {
      * @return
      *     The queryConcepts
      */
-    public List<Concept_> getQueryConcepts() {
+    public List<Concept> getQueryConcepts() {
         return queryConcepts;
     }
 
@@ -46,11 +46,11 @@ public class QueryConcepts {
      * @param queryConcepts
      *     The query_concepts
      */
-    public void setQueryConcepts(List<Concept_> queryConcepts) {
+    public void setQueryConcepts(List<Concept> queryConcepts) {
         this.queryConcepts = queryConcepts;
     }
 
-    public QueryConcepts withQueryConcepts(List<Concept_> queryConcepts) {
+    public QueryConcepts withQueryConcepts(List<Concept> queryConcepts) {
         this.queryConcepts = queryConcepts;
         return this;
     }

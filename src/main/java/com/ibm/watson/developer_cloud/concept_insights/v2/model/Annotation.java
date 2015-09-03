@@ -28,7 +28,7 @@ import java.util.List;
 public class Annotation {
 
 
-    private Concept_ concept;
+    private Concept concept;
 
     private Float score;
 
@@ -43,7 +43,7 @@ public class Annotation {
      * @return
      *     The concept
      */
-    public Concept_ getConcept() {
+    public Concept getConcept() {
         return concept;
     }
 
@@ -52,11 +52,11 @@ public class Annotation {
      * @param concept
      *     The concept
      */
-    public void setConcept(Concept_ concept) {
+    public void setConcept(Concept concept) {
         this.concept = concept;
     }
 
-    public Annotation withConcept(Concept_ concept) {
+    public Annotation withConcept(Concept concept) {
         this.concept = concept;
         return this;
     }
