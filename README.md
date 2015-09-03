@@ -29,6 +29,7 @@ Java code wrappers to quickly get started with the various [Watson Developer Clo
       * [Tone Analyzer](#tone-analyzer)
       * [Tradeoff Analytics](#tradeoff-analytics)
       * [Visual Recognition](#visual-recognition)
+      * [Concept Insights](#concept-insights)
     * [Android](#android)
     * [Build + Test](#build--test)
     * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
@@ -415,6 +416,30 @@ RecognizedImage recognizedImage = service.recognize(image, labelSet);
 System.out.println(recognizedImage);
 ```
 
+## Concept Insights
+Example: Retrieve concepts that are related (in conceptual sense) to a given concept or set of concepts using the [Concept Insights][concept-insights].
+
+```
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concepts;
+
+ConceptInsights service = new ConceptInsights();
+service.setUsernameAndPassword("<username>", "<password>");
+
+Map<String,Object> params = new HashMap<String, Object>();
+params.put("account_id", "wikipedia");
+params.put("graph", "en-20120601");
+List<String> concepts = new ArrayList<String>();
+concepts.add("/graphs/wikipedia/en-20120601/concepts/IBM_Watson");
+params.put("concepts", concepts);
+params.put("limit", 10);
+params.put("level", 1);
+
+Concepts result = service.getGraphsRelatedConcepts(params);
+System.out.println(result);
+
+```
+
 ## Android
 
 The wrapper works well on Android. It depends on
@@ -486,6 +511,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [speech_to_text]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/speech-to-text/
 [tone-analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
 [dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
+[concept-insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
 
 [wdc]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/
 [vcap_environment]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/getting_started/index.html#EnvVars
