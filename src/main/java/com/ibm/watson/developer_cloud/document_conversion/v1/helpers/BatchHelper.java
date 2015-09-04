@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.document_conversion.v1.handlers;
+package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -35,11 +35,11 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Handler for the batch API calls
+ * Helper for the batch API calls
  *
  * @see DocumentConversion
  */
-public class BatchHandler {
+public class BatchHelper {
     /**
      * The document service object
      */
@@ -51,7 +51,7 @@ public class BatchHandler {
      *
      * @param docConversionService
      */
-    public BatchHandler(DocumentConversion docConversionService) {
+    public BatchHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
     }
 
@@ -86,7 +86,6 @@ public class BatchHandler {
     /**
      * Gets a collection of all existing batches with optional query parameters for filtering results.
      * GET /v1/batches
-     * @param conversionUtils utils object which supports in conversion of document
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
      * @param limit The number of batches to get, pass null to use the default limit from server (100)
@@ -97,8 +96,8 @@ public class BatchHandler {
      * @return Batches based on filtering parameters provided
      * @see DocumentConversion#getBatchCollection(String, int, String, Date)
      */
-    public BatchCollection getBatchCollection(final ConversionUtils conversionUtils, final String token,
-                                              final int limit, final String name, final Date since) {
+    public BatchCollection getBatchCollection(final String token, final int limit,
+                                              final String name, final Date since) {
         Request request = Request.Get("/v1/batches");
         if(token != null && !token.isEmpty())
             request.withQuery("token", token);
@@ -112,7 +111,7 @@ public class BatchHandler {
             request.withQuery("name", name);
 
         if(since != null)
-            request.withQuery("since", conversionUtils.convertToISO(since));
+            request.withQuery("since", ConversionUtils.convertToISO(since));
 
         HttpRequestBase requestBase = request.build();
         try {

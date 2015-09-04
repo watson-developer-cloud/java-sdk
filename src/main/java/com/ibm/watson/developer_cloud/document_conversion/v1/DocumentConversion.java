@@ -16,9 +16,8 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.document_conversion.v1.handlers.*;
+import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.*;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
-import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -42,13 +41,12 @@ public class DocumentConversion extends WatsonService {
     /** The Constant URL. */
     private static final String URL = "https://gateway.watsonplatform.net/document-conversion-experimental/api";
 
-    private final BatchHandler batchHandler = new BatchHandler(this);
-    private final DocumentHandler documentHandler = new DocumentHandler(this);
-    private final BatchDocumentHandler batchDocumentHandler = new BatchDocumentHandler(this);
-    private final JobHandler jobHandler = new JobHandler(this);
-    private final OutputHandler outputHandler = new OutputHandler(this);
-    private final ConvertDocumentHandler convertDocumentHandler = new ConvertDocumentHandler(this);
-    private final ConversionUtils conversionUtils = new ConversionUtils();
+    private final BatchHelper batchHelper = new BatchHelper(this);
+    private final DocumentHelper documentHelper = new DocumentHelper(this);
+    private final BatchDocumentHelper batchDocumentHelper = new BatchDocumentHelper(this);
+    private final JobHelper jobHelper = new JobHelper(this);
+    private final OutputHelper outputHelper = new OutputHelper(this);
+    private final ConvertDocumentHelper convertDocumentHelper = new ConvertDocumentHelper(this);
 
 
     /**
@@ -95,7 +93,7 @@ public class DocumentConversion extends WatsonService {
      */
     public BatchCollection getBatchCollection(final String token, final int limit,
                                               final String name, final Date since) {
-        return batchHandler.getBatchCollection(conversionUtils, token, limit, name, since);
+        return batchHelper.getBatchCollection(token, limit, name, since);
     }
 
      /**
@@ -128,7 +126,7 @@ public class DocumentConversion extends WatsonService {
      * @return requested Batch
      */
     public Batch createBatch(final String name, final List<Property> properties) {
-        return batchHandler.createBatch(name, properties);
+        return batchHelper.createBatch(name, properties);
     }
 
     /**
@@ -139,7 +137,7 @@ public class DocumentConversion extends WatsonService {
      * @return requested Batch
      */
     public Batch getBatch(final String batchId) {
-        return batchHandler.getBatch(batchId);
+        return batchHelper.getBatch(batchId);
     }
 
     /**
@@ -154,7 +152,7 @@ public class DocumentConversion extends WatsonService {
      */
     public Batch updateBatch(final String batchId, final String name,
                              final List<Property> properties) {
-        return batchHandler.updateBatch(batchId, name, properties);
+        return batchHelper.updateBatch(batchId, name, properties);
     }
 
     /**
@@ -197,7 +195,7 @@ public class DocumentConversion extends WatsonService {
      */
     public DocumentCollection getDocumentCollection(final String token, final int limit, final String name,
                                                     final Date since, final String mediaType) {
-        return documentHandler.getDocumentCollection(conversionUtils, token, limit, name, since, mediaType);
+        return documentHelper.getDocumentCollection(token, limit, name, since, mediaType);
     }
 
     /**
@@ -208,7 +206,7 @@ public class DocumentConversion extends WatsonService {
      * @return Document
      */
     public Document uploadDocument(final File document) {
-        return documentHandler.uploadDocument(conversionUtils, document);
+        return documentHelper.uploadDocument(document);
     }
 
     /**
@@ -219,7 +217,7 @@ public class DocumentConversion extends WatsonService {
      * @return requested Document
      */
     public String getDocument(final String documentId) {
-        return documentHandler.getDocument(documentId);
+        return documentHelper.getDocument(documentId);
     }
 
     /**
@@ -267,7 +265,7 @@ public class DocumentConversion extends WatsonService {
      */
     public BatchDocumentCollection getBatchDocumentCollection(final String batchId, final String token,
                                                               final int limit, final Date since) {
-        return batchDocumentHandler.getBatchDocumentCollection(conversionUtils, batchId, token, limit, since);
+        return batchDocumentHelper.getBatchDocumentCollection(batchId, token, limit, since);
     }
 
 
@@ -282,7 +280,7 @@ public class DocumentConversion extends WatsonService {
      * @return document from the batch
      */
     public BatchDocumentResponse getBatchDocument(final String batchId, final String documentId) {
-        return batchDocumentHandler.getBatchDocument(batchId, documentId);
+        return batchDocumentHelper.getBatchDocument(batchId, documentId);
     }
 
     /**
@@ -296,7 +294,7 @@ public class DocumentConversion extends WatsonService {
      * @return document from the batch
      */
     public BatchDocumentResponse addDocumentToBatch(final String batchId, final String documentId) {
-        return batchDocumentHandler.addDocumentToBatch(batchId, documentId);
+        return batchDocumentHelper.addDocumentToBatch(batchId, documentId);
     }
 
     /**
@@ -318,7 +316,7 @@ public class DocumentConversion extends WatsonService {
      * @return Converted document in the specified format
      */
     public String convertDocument(final File document, final ConversionTarget conversionTarget) {
-        return convertDocumentHandler.convertDocument(conversionUtils, document, conversionTarget);
+        return convertDocumentHelper.convertDocument(document, conversionTarget);
     }
 
     /**
@@ -340,7 +338,7 @@ public class DocumentConversion extends WatsonService {
      * @return Converted document in the specified format
      */
     public String convertDocument(final String documentId, final ConversionTarget conversionTarget) {
-        return convertDocumentHandler.convertDocument(documentId, conversionTarget);
+        return convertDocumentHelper.convertDocument(documentId, conversionTarget);
     }
 
     /**
@@ -356,11 +354,10 @@ public class DocumentConversion extends WatsonService {
     /**
      * Gets a list of all jobs with optional query parameters for filtering results.
      * GET /v1/jobs
-     * @param limit The number of jobs to get, pass null to use the default limit from server (100)
+     * @param limit The number of jobs to get, pass 0 to use the default limit from server (100)
      * @param name The name of the jobs to get, pass null to exclude this filter
      * @param since The date to filter on, jobs created on or after the provided date and time format will
-     *              be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              be returned.
      * @param status The status of the job to filter on, pass null to exclude this filter
      * @return Jobs based on filtering parameters provided
      */
@@ -374,17 +371,16 @@ public class DocumentConversion extends WatsonService {
      * GET /v1/jobs
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
-     * @param limit The number of jobs to get, pass null to use the default limit from server (100)
+     * @param limit The number of jobs to get, pass 0 to use the default limit from server (100)
      * @param name The name of the jobs to get, pass null to exclude this filter
      * @param since The date to filter on, jobs created on or after the provided date and time format will
-     *              be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              be returned.
      * @param status The status of the job to filter on, pass null to exclude this filter
      * @return Jobs based on filtering parameters provided
      */
     public JobCollection getJobCollection(final String token, final int limit, final String name,
                                           final Date since, final JobStatus status) {
-        return jobHandler.getJobCollection(conversionUtils, token, limit, name, since, status);
+        return jobHelper.getJobCollection(token, limit, name, since, status);
     }
 
     /**
@@ -393,9 +389,9 @@ public class DocumentConversion extends WatsonService {
      * @param name The name of the job
      * @param batchId The id of the batch to process
      * @param conversionTarget The conversion target to use
-     * @return CreateJobResponse
+     * @return JobResponse
      */
-    public CreateJobResponse createJob(final String name, final String batchId, final ConversionTarget conversionTarget) {
+    public JobResponse createJob(final String name, final String batchId, final ConversionTarget conversionTarget) {
         return createJob(name, batchId, conversionTarget, null);
     }
 
@@ -406,11 +402,11 @@ public class DocumentConversion extends WatsonService {
      * @param batchId The id of the batch to process
      * @param conversionTarget The conversion target to use
      * @param config The configuration to use for the job (optional), pass null to use default config
-     * @return CreateJobResponse
+     * @return JobResponse
      */
-    public CreateJobResponse createJob(final String name, final String batchId,
+    public JobResponse createJob(final String name, final String batchId,
                          final ConversionTarget conversionTarget, final JsonObject config) {
-        return jobHandler.createJob(name, batchId, conversionTarget, config);
+        return jobHelper.createJob(name, batchId, conversionTarget, config);
     }
 
     /**
@@ -420,7 +416,7 @@ public class DocumentConversion extends WatsonService {
      * @return Job
      */
     public Job getJob(final String jobId) {
-        return jobHandler.getJob(jobId);
+        return jobHelper.getJob(jobId);
     }
 
     /**
@@ -430,7 +426,7 @@ public class DocumentConversion extends WatsonService {
      * @return Job's processing log
      */
     public String getJobLog(final String jobId) {
-        return jobHandler.getJobLog(jobId);
+        return jobHelper.getJobLog(jobId);
     }
 
     /**
@@ -450,7 +446,7 @@ public class DocumentConversion extends WatsonService {
      *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
      *              pass null to exclude this filter
      * @param jobId The id of a job to filter outputs by, pass null to exclude this filter
-     * @param mediaType The Internet media type to filter on, pass null to exclude this filter
+     * @param mediaType The Internet media type to filter on, pass null to exclude this filter, for example "text/html"
      * @return Outputs based on filtering parameters provided
      */
     public OutputCollection getOutputCollection(final int limit, final Date since,
@@ -473,16 +469,17 @@ public class DocumentConversion extends WatsonService {
      */
     public OutputCollection getOutputCollection(final String token, final int limit, final Date since,
                                                 final String jobId, final String mediaType) {
-        return outputHandler.getOutputCollection(conversionUtils, token, limit, since, jobId, mediaType);
+        return outputHelper.getOutputCollection(token, limit, since, jobId, mediaType);
     }
 
     /**
-     * Gets the content of the output requested
+     * Gets the content of the output of the document conversion process. This can represent a single converted document
+     * or the combined output of multiple input documents.
      * @param outputId The id of the output to get
      * @return The requested Output
      */
     public String getOutput(final String outputId) {
-        return outputHandler.getOutput(outputId);
+        return outputHelper.getOutput(outputId);
     }
 
     @Override

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.document_conversion.v1.handlers;
+package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
@@ -34,11 +34,11 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
 /**
- * Handler class for all convert document API calls
+ * Helper class for all convert document API calls
  *
  * @see DocumentConversion
  */
-public class ConvertDocumentHandler {
+public class ConvertDocumentHelper {
     /**
      * The document service object
      */
@@ -50,22 +50,21 @@ public class ConvertDocumentHandler {
      *
      * @param docConversionService
      */
-    public ConvertDocumentHandler(DocumentConversion docConversionService) {
+    public ConvertDocumentHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
     }
 
     /**
      * Synchronously converts a new document without persistence
      * POST /v1/convert_document
-     * @param conversionUtils utils object which supports in conversion of document
      * @param document The file to convert
      * @param conversionTarget The conversion target to use
      * @return Converted document in the specified format
      *
      * @see DocumentConversion#convertDocument(File, ConversionTarget)
      */
-    public String convertDocument(final ConversionUtils conversionUtils, final File document, final ConversionTarget conversionTarget) {
-        String mediaType = conversionUtils.getMediaTypeFromFile(document);
+    public String convertDocument(final File document, final ConversionTarget conversionTarget) {
+        String mediaType = ConversionUtils.getMediaTypeFromFile(document);
         if (mediaType == null)
             throw new IllegalArgumentException("file with the given media type is not supported");
         if (document == null || !document.exists())

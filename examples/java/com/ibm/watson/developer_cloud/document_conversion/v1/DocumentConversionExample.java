@@ -121,8 +121,8 @@ public class DocumentConversionExample{
 
         // Step 4. Create a job
         System.out.println("-------------------- Create a job ------------------------------");
-        CreateJobResponse createJobResponse = service.createJob("Job 1", batch2.getId(), ConversionTarget.ANSWER_UNITS);
-        System.out.println("Create Job for Batch 2:\n" + createJobResponse);
+        JobResponse jobResponse = service.createJob("Job 1", batch2.getId(), ConversionTarget.ANSWER_UNITS);
+        System.out.println("Create Job for Batch 2:\n" + jobResponse);
 
         System.out.println("-------------------- Job Collection ------------------------------");
         JobCollection jobCollection = service.getJobCollection();
@@ -130,7 +130,7 @@ public class DocumentConversionExample{
 
         // Step 4.1 Get job
         System.out.println("-------------------- Get a job ------------------------------");
-        Job job = service.getJob(createJobResponse.getId());
+        Job job = service.getJob(jobResponse.getId());
         System.out.println("Get Job 1:\n" + job);
 
         // Wait for the job to get into a Complete state (5 seconds max)

@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @see DocumentConversion
  */
-public class CreateJobResponse extends DocumentConversionModel {
+public class JobResponse extends DocumentConversionModel {
     /**
      * The id of the job
      */

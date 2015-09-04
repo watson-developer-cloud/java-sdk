@@ -1,4 +1,4 @@
-package com.ibm.watson.developer_cloud.document_conversion.v1.handlers;
+package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
@@ -13,11 +13,11 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * Handler for the batch documents API calls
+ * Helper for the batch documents API calls
  *
  * @see DocumentConversion
  */
-public class BatchDocumentHandler {
+public class BatchDocumentHelper {
     /**
      * The document service object
      */
@@ -29,7 +29,7 @@ public class BatchDocumentHandler {
      *
      * @param docConversionService
      */
-    public BatchDocumentHandler(DocumentConversion docConversionService) {
+    public BatchDocumentHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
     }
 
@@ -67,21 +67,19 @@ public class BatchDocumentHandler {
      * Gets a list of existing documents in the batch with optional query parameters for filtering results.
      *
      * GET /v1/batches/{batch_id}/documents
-     * @param conversionUtils utils object which supports in conversion of document
      * @param batchId The id for the batch whose documents are returned
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
      * @param limit The number of documents in a batch to get, pass null to use the default limit
      *              from server (100)
      * @param since The date to filter on, documents added to the batch on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned.
      * @return Documents in a batch based on the filtering parameters provided
      *
      * @see DocumentConversion#getBatchDocumentCollection(String, String, int, Date)
      */
-    public BatchDocumentCollection getBatchDocumentCollection(final ConversionUtils conversionUtils, final String batchId,
-                                                              final String token, final int limit, final Date since) {
+    public BatchDocumentCollection getBatchDocumentCollection(final String batchId, final String token,
+                                                              final int limit, final Date since) {
         if (batchId == null || batchId.isEmpty())
             throw new IllegalArgumentException("batchId cannot be null or empty");
 
@@ -95,7 +93,7 @@ public class BatchDocumentHandler {
             request.withQuery("limit", 100);
 
         if(since != null)
-            request.withQuery("since", conversionUtils.convertToISO(since));
+            request.withQuery("since", ConversionUtils.convertToISO(since));
 
         HttpRequestBase requestBase = request.build();
         try {

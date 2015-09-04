@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.document_conversion.v1.handlers;
+package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
@@ -29,11 +29,11 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * Handler class for all output API calls
+ * Helper class for all output API calls
  *
  * @see DocumentConversion
  */
-public class OutputHandler {
+public class OutputHelper {
     /**
      * The document service object
      */
@@ -45,7 +45,7 @@ public class OutputHandler {
      *
      * @param docConversionService
      */
-    public OutputHandler(DocumentConversion docConversionService) {
+    public OutputHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
     }
 
@@ -54,19 +54,17 @@ public class OutputHandler {
      * GET /v1/output
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
-     * @param limit The number of outputs to get, pass null to use the default limit from server (100)
+     * @param limit The number of outputs to get, pass 0 to use the default limit from server (100)
      * @param since The date to filter on, outputs created on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned.
      * @param jobId The id of a job to filter outputs by, pass null to exclude this filter
      * @param mediaType The Internet media type to filter on, pass null to exclude this filter
      * @return Outputs based on filtering parameters provided
      *
      * @see DocumentConversion#getOutputCollection(String, int, Date, String, String)
      */
-    public OutputCollection getOutputCollection(final ConversionUtils conversionUtils, final String token,
-                                                final int limit, final Date since,
-                                                final String jobId, final String mediaType) {
+    public OutputCollection getOutputCollection(final String token, final int limit,
+                                                final Date since, final String jobId, final String mediaType) {
         Request request = Request.Get("/v1/output");
 
         if (token != null && !token.isEmpty())
@@ -78,7 +76,7 @@ public class OutputHandler {
             request.withQuery("limit", 100);
 
         if (since != null)
-            request.withQuery("since", conversionUtils.convertToISO(since));
+            request.withQuery("since", ConversionUtils.convertToISO(since));
 
         if (jobId != null && !jobId.isEmpty())
             request.withQuery("job_id", jobId);

@@ -21,7 +21,7 @@ public class ConversionUtils {
      * @param file the file object for which media type needs to be provided
      * @return Internet media type for the file
      */
-    public String getMediaTypeFromFile(final File file) {
+    public static String getMediaTypeFromFile(final File file) {
         if (file != null) {
             String fileName = file.getName();
             String[] supportedExtensions = {".htm", ".html", ".dot", ".doc", ".docx", ".xml", ".xhtml", ".pdf"};
@@ -45,7 +45,7 @@ public class ConversionUtils {
      * @param date the date to be converted to DateTime
      * @return the date time string for a given date
      */
-    public String convertToISO(Date date) {
+    public static String convertToISO(Date date) {
         TimeZone tz = TimeZone.getTimeZone("UTC");
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
         df.setTimeZone(tz);

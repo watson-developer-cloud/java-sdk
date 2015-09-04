@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.document_conversion.v1.handlers;
+package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
@@ -32,11 +32,11 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * Handler class for all job API calls
+ * Helper class for all job API calls
  *
  * @see DocumentConversion
  */
-public class JobHandler {
+public class JobHelper {
     /**
      * The document service object
      */
@@ -48,14 +48,13 @@ public class JobHandler {
      *
      * @param docConversionService
      */
-    public JobHandler(DocumentConversion docConversionService) {
+    public JobHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
     }
 
     /**
      * Gets a list of all jobs with optional query parameters for filtering results.
      * GET /v1/jobs
-     * @param conversionUtils utils object which supports in conversion of document
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
      * @param limit The number of jobs to get, pass null to use the default limit from server (100)
@@ -68,9 +67,8 @@ public class JobHandler {
      *
      * @see DocumentConversion#getJobCollection(String, int, String, Date, JobStatus)
      */
-    public JobCollection getJobCollection(final ConversionUtils conversionUtils, final String token,
-                                          final int limit, final String name,
-                                          final Date since, final JobStatus status) {
+    public JobCollection getJobCollection(final String token, final int limit,
+                                          final String name, final Date since, final JobStatus status) {
         Request request = Request.Get("/v1/jobs");
 
         if (token != null && !token.isEmpty())
@@ -85,7 +83,7 @@ public class JobHandler {
             request.withQuery("name", name);
 
         if (since != null)
-            request.withQuery("since", conversionUtils.convertToISO(since));
+            request.withQuery("since", ConversionUtils.convertToISO(since));
 
         if (status != null)
             request.withQuery("status", status.toString());
@@ -108,11 +106,11 @@ public class JobHandler {
      * @param batchId The id of the batch to process
      * @param conversionTarget The conversion target to use
      * @param config The configuration to use for the job (optional), pass null to use default config
-     * @return CreateJobResponse
+     * @return JobResponse
      *
      * @see DocumentConversion#createJob(String, String, ConversionTarget, JsonObject)
      */
-    public CreateJobResponse createJob(final String name, final String batchId,
+    public JobResponse createJob(final String name, final String batchId,
                          final ConversionTarget conversionTarget, final JsonObject config) {
         if (name == null || name.isEmpty())
             throw new IllegalArgumentException("name can not be null or empty");
@@ -134,7 +132,7 @@ public class JobHandler {
         try {
             HttpResponse response = docConversionService.execute(request);
             String JobAsJson = ResponseUtil.getString(response);
-            CreateJobResponse job = GsonSingleton.getGson().fromJson(JobAsJson, CreateJobResponse.class);
+            JobResponse job = GsonSingleton.getGson().fromJson(JobAsJson, JobResponse.class);
             return job;
         } catch (IOException e) {
             throw new RuntimeException(e);

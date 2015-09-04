@@ -206,7 +206,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         String jobId = UUID.randomUUID().toString();
         String jobName = "testJob";
 
-        CreateJobResponse response = new CreateJobResponse();
+        JobResponse response = new JobResponse();
         response.setId(jobId);
         response.setName(jobName);
         response.setLinks(Arrays.asList(createLink("self", JOBS_PATH + "/" + jobId)));
@@ -216,7 +216,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         ).respond((response().withBody(GsonSingleton.getGson().toJson(response))));
 
         // Call create batch
-        CreateJobResponse job = service.createJob(jobName, batchId, ConversionTarget.ANSWER_UNITS);
+        JobResponse job = service.createJob(jobName, batchId, ConversionTarget.ANSWER_UNITS);
         Assert.assertNotNull(job);
         Assert.assertEquals(job.toString(), response.toString());
     }

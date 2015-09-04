@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.document_conversion.v1.handlers;
+package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
@@ -34,11 +34,11 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * Handler for the document API calls
+ * Helper for the document API calls
  *
  * @see DocumentConversion
  */
-public class DocumentHandler {
+public class DocumentHelper {
     /**
      * The document service object
      */
@@ -49,7 +49,7 @@ public class DocumentHandler {
      * Sets the service object
      * @param docConversionService
      */
-    public DocumentHandler(DocumentConversion docConversionService) {
+    public DocumentHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
     }
 
@@ -78,14 +78,13 @@ public class DocumentHandler {
      * Uploads the document to the store with the given media type
      *
      * POST /v1/documents
-     * @param conversionUtils utils object which supports in conversion of document
      * @param document the document to be uploaded
      * @return Document
      *
      * @see DocumentConversion#uploadDocument(File)
      */
-    public Document uploadDocument(final ConversionUtils conversionUtils, final File document) {
-        String mediaType = conversionUtils.getMediaTypeFromFile(document);
+    public Document uploadDocument(final File document) {
+        String mediaType = ConversionUtils.getMediaTypeFromFile(document);
         if (mediaType == null)
             throw new IllegalArgumentException("file with the given media type is not supported");
         if (document == null || !document.exists())
@@ -110,7 +109,6 @@ public class DocumentHandler {
     /**
      * Gets a collection of all existing documents with optional query parameters for filtering results.
      * GET /v1/documents
-     * @param conversionUtils utils object which supports in conversion of document
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
      * @param limit The number of documents to get, pass null to use the default limit from server (100)
@@ -123,9 +121,8 @@ public class DocumentHandler {
      *
      * @see DocumentConversion#getDocumentCollection(String, int, String, Date, String)
      */
-    public DocumentCollection getDocumentCollection(final ConversionUtils conversionUtils, final String token,
-                                                    final int limit, final String name,
-                                                    final Date since, final String mediaType) {
+    public DocumentCollection getDocumentCollection(final String token, final int limit,
+                                                    final String name, final Date since, final String mediaType) {
         Request request = Request.Get("/v1/documents");
         if(token != null && !token.isEmpty())
             request.withQuery("token", token);
@@ -139,7 +136,7 @@ public class DocumentHandler {
             request.withQuery("name", name);
 
         if(since != null)
-            request.withQuery("since", conversionUtils.convertToISO(since));
+            request.withQuery("since", ConversionUtils.convertToISO(since));
 
         if(mediaType != null && !mediaType.isEmpty())
             request.withQuery("media_type", mediaType);
