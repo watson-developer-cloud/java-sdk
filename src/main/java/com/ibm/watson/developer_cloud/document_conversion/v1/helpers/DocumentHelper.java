@@ -88,12 +88,26 @@ public class DocumentHelper {
      */
     public Document uploadDocument(final File document) {
         String mediaType = ConversionUtils.getMediaTypeFromFile(document);
-        if (mediaType == null)
+        return uploadDocument(document, mediaType);
+    }
+
+    /**
+     * Uploads the document to the store with the given media type
+     *
+     * POST /v1/documents
+     * @param document the document to be uploaded
+     * @param mediaType the Internet media type for the file
+     * @return Document
+     *
+     * @see DocumentConversion#uploadDocument(File, String)
+     */
+    public Document uploadDocument(final File document, final String mediaType) {
+        if (mediaType == null || mediaType.isEmpty())
+            throw new IllegalArgumentException("media type cannot be null or empty");
+        if(!ConversionUtils.isValidMediaType(mediaType))
             throw new IllegalArgumentException("file with the given media type is not supported");
         if (document == null || !document.exists())
             throw new IllegalArgumentException("document cannot be null and must exist");
-        if (mediaType == null || mediaType.isEmpty())
-            throw new IllegalArgumentException("media type can not be null or empty");
         try {
             MultipartEntity reqEntity = new MultipartEntity();
             reqEntity.addPart("file", new FileBody(document, mediaType));

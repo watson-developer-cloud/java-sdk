@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 /**
- * Util for DocumentConversion
+ * The utilities required for processing the documents in the service.
  *
  * @see DocumentConversion
  */
@@ -37,6 +37,27 @@ public class ConversionUtils {
             }
         }
         return null;
+    }
+
+    /**
+     * Checks if the media type is supported by the service
+     *
+     * @param mediaType  Internet media type for the file
+     * @return true if it is supported, false if not.
+     */
+    public static Boolean isValidMediaType(final String mediaType) {
+        if(mediaType != null) {
+            String[] supportedMediaTypes = {MediaType.TEXT_HTML, MediaType.APPLICATION_MS_WORD,
+                    MediaType.APPLICATION_MS_WORD_DOCX,MediaType.APPLICATION_XHTML_XML,
+                    MediaType.APPLICATION_PDF};
+
+            for (int i = 0; i < supportedMediaTypes.length; i++) {
+                if (mediaType.equalsIgnoreCase(supportedMediaTypes[i])) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**

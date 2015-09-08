@@ -83,12 +83,26 @@ public class ConvertDocumentHelper {
      */
     public String convertDocument(final File document, final ConversionTarget conversionTarget) {
         String mediaType = ConversionUtils.getMediaTypeFromFile(document);
-        if (mediaType == null)
+        return convertDocument(document, mediaType, conversionTarget);
+    }
+
+    /**
+     * Synchronously converts a new document without persistence
+     * POST /v1/convert_document
+     * @param document The file to convert
+     * @param conversionTarget The conversion target to use
+     * @param mediaType Internet media type for the file
+     * @return Converted document in the specified format
+     *
+     * @see DocumentConversion#convertDocument(File, String, ConversionTarget)
+     */
+    public String convertDocument(final File document, String mediaType, final ConversionTarget conversionTarget) {
+        if (mediaType == null || mediaType.isEmpty())
+            throw new IllegalArgumentException("media type cannot be null or empty");
+        if(!ConversionUtils.isValidMediaType(mediaType))
             throw new IllegalArgumentException("file with the given media type is not supported");
         if (document == null || !document.exists())
             throw new IllegalArgumentException("document can not be null and must exist");
-        if (mediaType == null || mediaType.isEmpty())
-            throw new IllegalArgumentException("media type can not be null or empty");
         if (conversionTarget == null)
             throw new IllegalArgumentException("conversion target can not be null");
 

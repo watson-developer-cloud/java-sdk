@@ -212,6 +212,18 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
+     * Uploads the document to the store with the given media type
+     *
+     * POST /v1/documents
+     * @param document the document to be uploaded
+     * @return Document
+     */
+    public Document uploadDocument(final File document, final String mediaType) {
+        return documentHelper.uploadDocument(document, mediaType);
+    }
+
+
+    /**
      * Retrieves a document from the store with the given id
      *
      * GET /v1/documents/{document_id}
@@ -318,6 +330,18 @@ public class DocumentConversion extends WatsonService {
      */
     public String convertDocument(final File document, final ConversionTarget conversionTarget) {
         return convertDocumentHelper.convertDocument(document, conversionTarget);
+    }
+
+    /**
+     * Synchronously converts a new document without persistence
+     * POST /v1/convert_document
+     * @param document The file to convert
+     * @param mediaType Internet media type of the file
+     * @param conversionTarget The conversion target to use
+     * @return Converted document in the specified format
+     */
+    public String convertDocument(final File document, final String mediaType, final ConversionTarget conversionTarget) {
+        return convertDocumentHelper.convertDocument(document, mediaType, conversionTarget);
     }
 
     /**
