@@ -16,6 +16,7 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 import java.util.List;
@@ -28,10 +29,10 @@ import java.util.List;
 public class OutputCollection extends DocumentConversionModel {
 
     /**
-     * List of all outputs
+     * List of all outputs in the collection
      */
-    @Expose
-    private List<Output> output;
+    @SerializedName("output")
+    private List<Output> outputList;
     /**
      * Links for paging through the output. Includes a "first" link for getting the first
      * page of outputs and a "next" link if there are additional pages of outputs
@@ -40,21 +41,21 @@ public class OutputCollection extends DocumentConversionModel {
     private List<Link> links;
 
     /**
-     * Returns the output from the collection
+     * Returns the list of outputs in the collection
      *
      * @return
      */
-    public List<Output> getOutput() {
-        return output;
+    public List<Output> getOutputList() {
+        return outputList;
     }
 
     /**
-     * Sets the output in the collection
+     * Sets the output list in the collection
      *
-     * @param output
+     * @param outputList
      */
-    public void setOutput(List<Output> output) {
-        this.output = output;
+    public void setOutputList(List<Output> outputList) {
+        this.outputList = outputList;
     }
 
     /**

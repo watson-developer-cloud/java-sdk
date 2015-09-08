@@ -18,9 +18,11 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answer;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.ConversionTarget;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import org.apache.http.HttpResponse;
@@ -35,6 +37,9 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * Helper class for all convert document API calls
+ *
+ * NOTE: The methods in this class should not be called directly! Please
+ * make all calls to the service using the DocumentConversion class.
  *
  * @see DocumentConversion
  */
@@ -52,6 +57,19 @@ public class ConvertDocumentHelper {
      */
     public ConvertDocumentHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
+    }
+
+    /**
+     * Converts the provided document to an Answer object
+     * @param document
+     * @return Answer
+     *
+     * @see DocumentConversion#convertDocumentToAnswer(File)
+     */
+    public Answer convertDocumentToAnswer(final File document) {
+        String convertedDocument = convertDocument(document, ConversionTarget.ANSWER_UNITS);
+        Answer answer = GsonSingleton.getGson().fromJson(convertedDocument, Answer.class);
+        return answer;
     }
 
     /**
@@ -90,6 +108,19 @@ public class ConvertDocumentHelper {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Converts the specified document to an Answer object
+     * @param documentId
+     * @return Answer
+     *
+     * @see DocumentConversion#convertDocumentToAnswer(String)
+     */
+    public Answer convertDocumentToAnswer(final String documentId) {
+        String convertedDocument = convertDocument(documentId, ConversionTarget.ANSWER_UNITS);
+        Answer answer = GsonSingleton.getGson().fromJson(convertedDocument, Answer.class);
+        return answer;
     }
 
     /**

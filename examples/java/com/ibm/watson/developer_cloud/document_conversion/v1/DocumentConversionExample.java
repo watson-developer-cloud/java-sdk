@@ -33,12 +33,12 @@ public class DocumentConversionExample{
         service.setEndPoint("http://localhost:8090");
 
         // ## Scenario 1: Convert a document without persistence ##
-        File html = getResourceFile("document_conversion/html-with-extra-content-input.htm");
-        File pdf = getResourceFile("document_conversion/pdf-with-sections-input.pdf");
-        File doc = getResourceFile("document_conversion/word-document-heading-input.doc");
+        File html = new File("src/test/resources/document_conversion/html-with-extra-content-input.htm");
+        File pdf = new File("src/test/resources/document_conversion/pdf-with-sections-input.pdf");
+        File doc = new File("src/test/resources/document_conversion/word-document-heading-input.doc");
 
         System.out.println("-------------------- Convert html document to Answer ----------------------");
-        String htmlToAnswer = service.convertDocument(html, ConversionTarget.ANSWER_UNITS);
+        Answer htmlToAnswer = service.convertDocumentToAnswer(html);
         System.out.println("HTML converted to Answer:\n" + htmlToAnswer);
 
         System.out.println("-------------------- Convert html document to Normalized HTML ----------------------");
@@ -49,18 +49,18 @@ public class DocumentConversionExample{
         String htmlToNormText = service.convertDocument(html, ConversionTarget.NORMALIZED_TEXT);
         System.out.println("HTML converted to Normalized Text:\n" + htmlToNormText);
 
-        // System.out.println("-------------------- Convert pdf document to Answer ----------------------");
-        // String pdfToAnswer = service.convertDocument(pdf, ConversionTarget.ANSWER_UNITS);
-        // System.out.println("PDF converted to Answer:\n" + pdfToAnswer);
+        System.out.println("-------------------- Convert pdf document to Answer ----------------------");
+        Answer pdfToAnswer = service.convertDocumentToAnswer(pdf);
+        System.out.println("PDF converted to Answer:\n" + pdfToAnswer);
 
         System.out.println("-------------------- Convert MS Word document to Answer ----------------------");
-        String docToAnswer = service.convertDocument(doc, ConversionTarget.ANSWER_UNITS);
+        Answer docToAnswer = service.convertDocumentToAnswer(doc);
         System.out.println("MS Word converted to Answer:\n" + docToAnswer);
 
         // ## Scenario 2: Convert a document using a batch operation ##
         // Step 1. Upload a document
          System.out.println("-------------------- Upload a document ------------------------------");
-         File tempFile1 = getResourceFile("document_conversion/pdf-with-sections-input.pdf");
+         File tempFile1 = new File("src/test/resources/document_conversion/pdf-with-sections-input.pdf");
          Document doc1 = service.uploadDocument(tempFile1);
          System.out.println("1st Document Uploaded : \n"+doc1);
 
@@ -68,7 +68,7 @@ public class DocumentConversionExample{
          Date since = new Date();
          Thread.sleep(1000);
 
-         File tempFile2 = getResourceFile("document_conversion/html-with-extra-content-input.htm");
+         File tempFile2 = new File("src/test/resources/document_conversion/html-with-extra-content-input.htm");
          Document doc2 = service.uploadDocument(tempFile2);
          System.out.println("2nd Document Uploaded : \n"+doc2);
 
@@ -134,7 +134,19 @@ public class DocumentConversionExample{
         System.out.println("Get Job 1:\n" + job);
 
         // Wait for the job to get into a Complete state (5 seconds max)
-        waitForJobToComplete(job, 5000);
+        long maxWaitTimeMilliSeconds = 5000;
+        long currentWaitTimeMilliSeconds = 0;
+        long waitIntervalMilliSeconds = 100;
+        while( !JobStatus.COMPLETE.equals(service.getJob(jobResponse.getId()).getStatus())
+                && currentWaitTimeMilliSeconds < maxWaitTimeMilliSeconds ) {
+            try {
+                Thread.sleep(waitIntervalMilliSeconds);
+            } catch (InterruptedException e) {
+                // No Action, keep waiting
+            } finally {
+                currentWaitTimeMilliSeconds += waitIntervalMilliSeconds;
+            }
+        }
 
         // Step 5. Get Job Logs
         System.out.println("-------------------- Get the logs for the job ------------------------------");
@@ -152,7 +164,7 @@ public class DocumentConversionExample{
 
         // Step 6.1 Get Output for Job 1
         System.out.println("-------------------- Output for Job 1 ------------------------------");
-        List<Output> job1Outputs = job1OutputCollection.getOutput();
+        List<Output> job1Outputs = job1OutputCollection.getOutputList();
         for (int i = 0; i < job1Outputs.size(); i++) {
             String outputId = job1Outputs.get(i).getId();
             String job1Output = service.getOutput(outputId);
@@ -160,34 +172,16 @@ public class DocumentConversionExample{
         }
 
         // Step 7. Convert Document for existing document
-        // System.out.println("-------------------- Convert existing document to Answer ----------------------");
-        // String convertDoc1ToAnswer = service.convertDocument(doc1.getId(), ConversionTarget.ANSWER_UNITS);
-        // System.out.println("Doc 1 converted to Answer:\n" + convertDoc1ToAnswer);
+        System.out.println("-------------------- Convert existing document to Answer ----------------------");
+        Answer convertDoc1ToAnswer = service.convertDocumentToAnswer(doc1.getId());
+        System.out.println("Doc 1 converted to Answer:\n" + convertDoc1ToAnswer);
 
-        // System.out.println("-------------------- Convert existing document to Normalized HTML ----------------------");
-        // String convertDoc1ToNormHtml = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_HTML);
-        // System.out.println("Doc 1 converted to Normalized HTML:\n" + convertDoc1ToNormHtml);
+        System.out.println("-------------------- Convert existing document to Normalized HTML ----------------------");
+        String convertDoc1ToNormHtml = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_HTML);
+        System.out.println("Doc 1 converted to Normalized HTML:\n" + convertDoc1ToNormHtml);
 
-        // System.out.println("-------------------- Convert existing document to Normalized Text ----------------------");
-        // String convertDoc1ToNormText = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_TEXT);
-        // System.out.println("Doc 1 converted to Normalized Text:\n" + convertDoc1ToNormText);
-    }
-
-    private static File getResourceFile(String resourceName) throws URISyntaxException, IOException {
-        return DocumentConversionTest.getResourceFile(resourceName);
-    }
-
-    private static void waitForJobToComplete(Job job, long maxWaitTimeMilliSeconds) {
-        long waitTimeMilliSeconds = 0;
-        long waitIntervalMilliSeconds = 100;
-        while( !JobStatus.COMPLETE.equals(job.getStatus()) && waitTimeMilliSeconds < maxWaitTimeMilliSeconds ) {
-            try {
-                Thread.sleep(waitIntervalMilliSeconds);
-            } catch (InterruptedException e) {
-                // No Action
-            } finally {
-                waitTimeMilliSeconds += waitIntervalMilliSeconds;
-            }
-        }
+        System.out.println("-------------------- Convert existing document to Normalized Text ----------------------");
+        String convertDoc1ToNormText = service.convertDocument(doc1.getId(), ConversionTarget.NORMALIZED_TEXT);
+        System.out.println("Doc 1 converted to Normalized Text:\n" + convertDoc1ToNormText);
     }
 }

@@ -38,6 +38,8 @@ import java.util.List;
  */
 public class DocumentConversion extends WatsonService {
 
+    /** The default limit for get requests */
+    public static final int LIMIT = 100;
     /** The Constant URL. */
     private static final String URL = "https://gateway.watsonplatform.net/document-conversion-experimental/api";
 
@@ -62,7 +64,7 @@ public class DocumentConversion extends WatsonService {
      * @return All batches
      */
     public BatchCollection getBatchCollection() {
-        return getBatchCollection(null, 100, null, null);
+        return getBatchCollection(null, LIMIT, null, null);
     }
 
     /**
@@ -161,7 +163,7 @@ public class DocumentConversion extends WatsonService {
      * @return All documents
      */
     public DocumentCollection getDocumentCollection() {
-        return getDocumentCollection(null, 100, null, null, null);
+        return getDocumentCollection(null, LIMIT, null, null, null);
     }
 
     /**
@@ -228,7 +230,7 @@ public class DocumentConversion extends WatsonService {
      * @return All documents in a batch
      */
     public BatchDocumentCollection getBatchDocumentCollection(final String batchId) {
-        return getBatchDocumentCollection(batchId, null, 100, null);
+        return getBatchDocumentCollection(batchId, null, LIMIT, null);
     }
 
 
@@ -298,14 +300,13 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
-     * Synchronously converts a new document without persistence.
-     * Uses the ANSWER_UNITS conversion target as the default.
+     * Synchronously converts a new document without persistence into an Answer object
      * POST /v1/convert_document
      * @param document The file to convert
      * @return Converted document as an Answer Unit
      */
-    public String convertDocument(final File document) {
-        return convertDocument(document, ConversionTarget.ANSWER_UNITS);
+    public Answer convertDocumentToAnswer(final File document) {
+        return convertDocumentHelper.convertDocumentToAnswer(document);
     }
 
     /**
@@ -320,14 +321,13 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
-     * Synchronously converts a single previously uploaded document.
-     * Uses the ANSWER_UNITS conversion target as the default.
+     * Synchronously converts a single previously uploaded document into an Answer object
      * POST /v1/convert_document
      * @param documentId The id of the document to convert
-     * @return Converted document as an Answer Unit
+     * @return Converted document as an Answer
      */
-    public String convertDocument(final String documentId) {
-        return convertDocument(documentId, ConversionTarget.ANSWER_UNITS);
+    public Answer convertDocumentToAnswer(final String documentId) {
+        return convertDocumentHelper.convertDocumentToAnswer(documentId);
     }
 
     /**
@@ -347,7 +347,7 @@ public class DocumentConversion extends WatsonService {
      * @return Jobs
      */
     public JobCollection getJobCollection() {
-        return getJobCollection(null, 100, null, null, null);
+        return getJobCollection(null, LIMIT, null, null, null);
     }
 
 
@@ -435,7 +435,7 @@ public class DocumentConversion extends WatsonService {
      * @return All Outputs
      */
     public OutputCollection getOutputCollection() {
-        return getOutputCollection(null, 100, null, null, null);
+        return getOutputCollection(null, LIMIT, null, null, null);
     }
 
     /**

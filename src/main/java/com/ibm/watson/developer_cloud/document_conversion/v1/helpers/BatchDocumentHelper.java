@@ -15,6 +15,9 @@ import java.util.Date;
 /**
  * Helper for the batch documents API calls
  *
+ * NOTE: The methods in this class should not be called directly! Please
+ * make all calls to the service using the DocumentConversion class.
+ *
  * @see DocumentConversion
  */
 public class BatchDocumentHelper {
@@ -90,7 +93,7 @@ public class BatchDocumentHelper {
         if (limit > 0)
             request.withQuery("limit", limit);
         else
-            request.withQuery("limit", 100);
+            request.withQuery("limit", DocumentConversion.LIMIT);
 
         if(since != null)
             request.withQuery("since", ConversionUtils.convertToISO(since));

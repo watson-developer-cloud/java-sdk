@@ -34,6 +34,9 @@ import java.util.Date;
 /**
  * Helper class for all job API calls
  *
+ * NOTE: The methods in this class should not be called directly! Please
+ * make all calls to the service using the DocumentConversion class.
+ *
  * @see DocumentConversion
  */
 public class JobHelper {
@@ -77,7 +80,7 @@ public class JobHelper {
         if (limit > 0)
             request.withQuery("limit", limit);
         else
-            request.withQuery("limit", 100);
+            request.withQuery("limit", DocumentConversion.LIMIT);
 
         if (name != null && !name.isEmpty())
             request.withQuery("name", name);

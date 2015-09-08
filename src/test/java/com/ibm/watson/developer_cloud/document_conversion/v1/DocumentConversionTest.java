@@ -33,7 +33,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -115,8 +114,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
      */
     @Test
     public void testConvertDocumentNoPersistence() throws URISyntaxException, IOException {
-        File expAnswerFile = getResourceFile("document_conversion/html-with-extra-content-input-to-answer.json");
-        File html = getResourceFile("document_conversion/html-with-extra-content-input.htm");
+        File expAnswerFile = new File("src/test/resources/document_conversion/html-with-extra-content-input-to-answer.json");
+        File html = new File("src/test/resources/document_conversion/html-with-extra-content-input.htm");
         byte[] expAnswer = IOUtils.toByteArray(new FileInputStream(expAnswerFile));
 
         mockServer.when(
@@ -133,8 +132,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
      */
     @Test
     public void testConvertDocumentWithPersistence() throws URISyntaxException, IOException {
-        File expAnswerFile = getResourceFile("document_conversion/html-with-extra-content-input-to-answer.json");
-        File html = getResourceFile("document_conversion/html-with-extra-content-input.htm");
+        File expAnswerFile = new File("src/test/resources/document_conversion/html-with-extra-content-input-to-answer.json");
+        File html = new File("src/test/resources/document_conversion/html-with-extra-content-input.htm");
         byte[] expAnswer = IOUtils.toByteArray(new FileInputStream(expAnswerFile));
 
         String docId = UUID.randomUUID().toString();
@@ -160,7 +159,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
     public void testUploadDocument() throws URISyntaxException, IOException {
         String docId = UUID.randomUUID().toString();
         Document response = createMockDocument(docId, "html-with-extra-content-input.htm", MediaType.TEXT_HTML);
-        File html = getResourceFile("document_conversion/html-with-extra-content-input.htm");
+        File html = new File("src/test/resources/document_conversion/html-with-extra-content-input.htm");
 
         mockServer.when(
                 request().withMethod("POST").withPath(DOCUMENTS_PATH)
@@ -436,11 +435,11 @@ public class DocumentConversionTest extends WatsonServiceTest {
         String jobId = UUID.randomUUID().toString();
         Output output = createMockOutput(outputId, null, null, null);
         outputList.add(output);
-        outputCollWithQueryResponse.setOutput(outputList);
+        outputCollWithQueryResponse.setOutputList(outputList);
         List<Link> links = new ArrayList<Link>();
         outputCollWithQueryResponse.setLinks(links);
 
-        File expAnswerFile = getResourceFile("document_conversion/html-with-extra-content-input-to-answer.json");
+        File expAnswerFile = new File("src/test/resources/document_conversion/html-with-extra-content-input-to-answer.json");
         byte[] expAnswer = IOUtils.toByteArray(new FileInputStream(expAnswerFile));
 
         // Call get outputs with query parameters
@@ -467,22 +466,6 @@ public class DocumentConversionTest extends WatsonServiceTest {
     // ####################################
     // ########## HELPER METHODS ##########
     // ####################################
-
-    /**
-     * Gets a local resource file
-     * @param resourceName name of the resource
-     * @return The resource File
-     * @throws URISyntaxException
-     * @throws IOException
-     */
-    public static File getResourceFile(String resourceName) throws URISyntaxException, IOException {
-        ClassLoader cl = DocumentConversionExample.class.getClassLoader();
-        URL url = cl.getResource(resourceName);
-        if( url == null ) {
-            throw new IOException("Unable to find resource: " + url);
-        }
-        return new File(url.toURI());
-    }
 
     /**
      * Create a Document object
