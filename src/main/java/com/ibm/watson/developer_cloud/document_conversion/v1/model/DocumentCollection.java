@@ -6,7 +6,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import java.util.List;
 
 /**
- * Structure to store a document collection
+ * Structure to store a collection list of Documents added to the service
  *
  * @see DocumentConversion
  */

@@ -22,7 +22,8 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import java.util.List;
 
 /**
- * Structure to store job output
+ * Structure that stores information about the output generated
+ * from a source document that was converted in the service
  *
  * @see DocumentConversion
  */

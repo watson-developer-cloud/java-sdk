@@ -23,7 +23,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import java.util.List;
 
 /**
- * Structure to store a Job
+ * Structure that stores information about a Job that was created in the service
  *
  * @see DocumentConversion
  */

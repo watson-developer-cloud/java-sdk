@@ -22,7 +22,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import java.util.List;
 
 /**
- * Structure to store a document
+ * Structure to store a Document that was uploaded to the service
  *
  * @see DocumentConversion
  */

@@ -22,7 +22,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import java.util.List;
 
 /**
- * Structure to store list of job outputs
+ * Structure to store the collection list of outputs that were generated in the service
  *
  * @see DocumentConversion
  */

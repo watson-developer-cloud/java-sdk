@@ -73,8 +73,7 @@ public class BatchDocumentHelper {
      * @param batchId The id for the batch whose documents are returned
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
-     * @param limit The number of documents in a batch to get, pass null to use the default limit
-     *              from server (100)
+     * @param limit The number of documents in a batch to get, pass 0 to use the default limit from server (100)
      * @param since The date to filter on, documents added to the batch on or after the provided date and time format
      *              will be returned.
      * @return Documents in a batch based on the filtering parameters provided

@@ -128,11 +128,10 @@ public class DocumentHelper {
      * GET /v1/documents
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
-     * @param limit The number of documents to get, pass null to use the default limit from server (100)
+     * @param limit The number of documents to get, pass 0 to use the default limit from server (100)
      * @param name The name of the documents to get, pass null to exclude this filter
      * @param since The date to filter on, documents created on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned, pass null to exclude this filter
      * @param mediaType The Internet media type to filter on, pass null to exclude this filter
      * @return Documents based on filtering parameters provided
      *

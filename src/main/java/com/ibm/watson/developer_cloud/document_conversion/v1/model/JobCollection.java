@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import java.util.List;
 
 /**
- * Structure to store list of jobs
+ * Structure to store a collection list of Jobs in the service
  *
  * @see DocumentConversion
  */

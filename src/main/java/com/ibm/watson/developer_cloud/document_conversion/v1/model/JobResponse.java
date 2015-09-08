@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import java.util.List;
 
 /**
- * Structure to provide a response for creating a job
+ * Structure that provides the response when a Job is created in the service
  *
  * @see DocumentConversion
  */

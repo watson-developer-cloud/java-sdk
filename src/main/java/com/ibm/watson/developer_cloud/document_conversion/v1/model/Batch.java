@@ -23,7 +23,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import java.util.List;
 
 /**
- * Structure to store a collection of documents and execute jobs
+ * Structure that is used to store a collection of documents which can then be passed to a Job for processing
  *
  * @see DocumentConversion
  */

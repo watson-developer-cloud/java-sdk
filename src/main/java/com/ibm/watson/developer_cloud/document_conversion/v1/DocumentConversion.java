@@ -40,15 +40,17 @@ public class DocumentConversion extends WatsonService {
 
     /** The default limit for get requests */
     public static final int LIMIT = 100;
-    /** The Constant URL. */
+
+    /** The default URL for the service */
     private static final String URL = "https://gateway.watsonplatform.net/document-conversion-experimental/api";
 
-    private final BatchHelper batchHelper = new BatchHelper(this);
-    private final DocumentHelper documentHelper = new DocumentHelper(this);
-    private final BatchDocumentHelper batchDocumentHelper = new BatchDocumentHelper(this);
-    private final JobHelper jobHelper = new JobHelper(this);
-    private final OutputHelper outputHelper = new OutputHelper(this);
-    private final ConvertDocumentHelper convertDocumentHelper = new ConvertDocumentHelper(this);
+    // Helper classes used by the service to delegate API calls to
+    private final BatchHelper batchHelper;
+    private final DocumentHelper documentHelper;
+    private final BatchDocumentHelper batchDocumentHelper;
+    private final JobHelper jobHelper;
+    private final OutputHelper outputHelper;
+    private final ConvertDocumentHelper convertDocumentHelper;
 
 
     /**
@@ -56,10 +58,18 @@ public class DocumentConversion extends WatsonService {
      */
     public DocumentConversion() {
         setEndPoint(URL);
+
+        // Initialize the helpers
+        this.batchHelper = new BatchHelper(this);
+        this.documentHelper = new DocumentHelper(this);
+        this.batchDocumentHelper = new BatchDocumentHelper(this);
+        this.jobHelper = new JobHelper(this);
+        this.outputHelper = new OutputHelper(this);
+        this.convertDocumentHelper = new ConvertDocumentHelper(this);
     }
 
     /**
-     * Gets a collection of all existing batches
+     * Gets a collection of all existing batches in the service
      * GET /v1/batches
      * @return All batches
      */
@@ -70,11 +80,10 @@ public class DocumentConversion extends WatsonService {
     /**
      * Gets a collection of all existing batches with optional query parameters for filtering results.
      * GET /v1/batches
-     * @param limit The number of batches to get, pass null to use the default limit from server (100)
+     * @param limit The number of batches to get, pass 0 to use the default limit from server (100)
      * @param name The name of batches to get, pass null to exclude this filter
      * @param since The date to filter on, batches created on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned, pass null to exclude this filter
      * @return Batches based on filtering parameters provided
      */
     public BatchCollection getBatchCollection(final int limit, final String name, final Date since) {
@@ -86,11 +95,10 @@ public class DocumentConversion extends WatsonService {
      * GET /v1/batches
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
-     * @param limit The number of batches to get, pass null to use the default limit from server (100)
+     * @param limit The number of batches to get, pass 0 to use the default limit from server (100)
      * @param name The name of batches to get, pass null to exclude this filter
      * @param since The date to filter on, batches created on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned, pass null to exclude this filter
      * @return Batches based on filtering parameters provided
      */
     public BatchCollection getBatchCollection(final String token, final int limit,
@@ -169,11 +177,10 @@ public class DocumentConversion extends WatsonService {
     /**
      * Gets a collection of all existing documents with optional query parameters for filtering results.
      * GET /v1/documents
-     * @param limit The number of documents to get, pass null to use the default limit from server (100)
+     * @param limit The number of documents to get, pass 0 to use the default limit from server (100)
      * @param name The name of the documents to get, pass null to exclude this filter
      * @param since The date to filter on, documents created on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned, pass null to exclude this filter
      * @param mediaType The Internet media type to filter on, pass null to exclude this filter
      * @return Documents based on filtering parameters provided
      */
@@ -187,11 +194,10 @@ public class DocumentConversion extends WatsonService {
      * GET /v1/documents
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
-     * @param limit The number of documents to get, pass null to use the default limit from server (100)
+     * @param limit The number of documents to get, pass 0 to use the default limit from server (100)
      * @param name The name of the documents to get, pass null to exclude this filter
      * @param since The date to filter on, documents created on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned, pass null to exclude this filter
      * @param mediaType The Internet media type to filter on, pass null to exclude this filter
      * @return Documents based on filtering parameters provided
      */
@@ -201,7 +207,7 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
-     * Uploads the document to the store with the given media type
+     * Uploads the document to the service with the given media type
      *
      * POST /v1/documents
      * @param document the document to be uploaded
@@ -212,7 +218,7 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
-     * Uploads the document to the store with the given media type
+     * Uploads the document to the service with the given media type
      *
      * POST /v1/documents
      * @param document the document to be uploaded
@@ -224,7 +230,7 @@ public class DocumentConversion extends WatsonService {
 
 
     /**
-     * Retrieves a document from the store with the given id
+     * Retrieves a document from the service with the given id
      *
      * GET /v1/documents/{document_id}
      * @param documentId id of the document to be retrieved
@@ -251,11 +257,9 @@ public class DocumentConversion extends WatsonService {
      *
      * GET /v1/batches/{batch_id}/documents
      * @param batchId The id for the batch whose documents are returned
-     * @param limit The number of documents in a batch to get, pass null to use the default limit
-     *              from server (100)
+     * @param limit The number of documents in a batch to get, pass 0 to use the default limit from server (100)
      * @param since The date to filter on, documents added to the batch on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned, pass null to exclude this filter
      * @return Documents in a batch based on the filtering parameters provided
      */
     public BatchDocumentCollection getBatchDocumentCollection(final String batchId, final int limit,
@@ -270,11 +274,9 @@ public class DocumentConversion extends WatsonService {
      * @param batchId The id for the batch whose documents are returned
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
-     * @param limit The number of documents in a batch to get, pass null to use the default limit
-     *              from server (100)
+     * @param limit The number of documents in a batch to get, pass 0 to use the default limit from server (100)
      * @param since The date to filter on, documents added to the batch on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned, pass null to exclude this filter
      * @return Documents in a batch based on the filtering parameters provided
      */
     public BatchDocumentCollection getBatchDocumentCollection(final String batchId, final String token,
@@ -284,7 +286,7 @@ public class DocumentConversion extends WatsonService {
 
 
     /**
-     * Retrieves the document from the batch whose ids are specified
+     * Retrieves the documents from the batch whose ids are specified
      *
      * GET /v1/batches/{batch_id}/documents/{document_id}
      * @param batchId
@@ -315,7 +317,7 @@ public class DocumentConversion extends WatsonService {
      * Synchronously converts a new document without persistence into an Answer object
      * POST /v1/convert_document
      * @param document The file to convert
-     * @return Converted document as an Answer Unit
+     * @return Converted document as an Answer
      */
     public Answer convertDocumentToAnswer(final File document) {
         return convertDocumentHelper.convertDocumentToAnswer(document);
@@ -366,7 +368,7 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
-     * Gets a collection of all jobs
+     * Gets a collection of all jobs in the service
      * GET /v1/jobs
      * @return Jobs
      */
@@ -465,10 +467,9 @@ public class DocumentConversion extends WatsonService {
     /**
      * Gets a collection of all generated outputs with optional query parameters for filtering results.
      * GET /v1/output
-     * @param limit The number of outputs to get, pass null to use the default limit from server (100)
+     * @param limit The number of outputs to get, pass 0 to use the default limit from server (100)
      * @param since The date to filter on, outputs created on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned., pass null to exclude this filter
      * @param jobId The id of a job to filter outputs by, pass null to exclude this filter
      * @param mediaType The Internet media type to filter on, pass null to exclude this filter, for example "text/html"
      * @return Outputs based on filtering parameters provided
@@ -483,10 +484,9 @@ public class DocumentConversion extends WatsonService {
      * GET /v1/output
      * @param token The reference to the starting element of the requested page which is provided
      *              by the server, pass null to get the first page
-     * @param limit The number of outputs to get, pass null to use the default limit from server (100)
+     * @param limit The number of outputs to get, pass 0 to use the default limit from server (100)
      * @param since The date to filter on, outputs created on or after the provided date and time format
-     *              will be returned. NOTE: ISO 8601 date and time format is required: (YYYY-MM-DDTHH:MM:SSZ),
-     *              pass null to exclude this filter
+     *              will be returned, pass null to exclude this filter
      * @param jobId The id of a job to filter outputs by, pass null to exclude this filter
      * @param mediaType The Internet media type to filter on, pass null to exclude this filter
      * @return Outputs based on filtering parameters provided

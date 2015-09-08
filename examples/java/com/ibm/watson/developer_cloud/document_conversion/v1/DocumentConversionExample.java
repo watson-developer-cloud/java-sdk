@@ -23,6 +23,9 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Example class that shows the various usage scenario's of the Document Conversion service
+ */
 public class DocumentConversionExample{
 
     public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {

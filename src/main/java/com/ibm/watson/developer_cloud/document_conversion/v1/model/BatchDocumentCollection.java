@@ -6,7 +6,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import java.util.List;
 
 /**
- * Structure to store collection of batch documents
+ * Structure to store collection list of documents in a Batch
  *
  * @see DocumentConversion
  */

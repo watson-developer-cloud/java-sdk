@@ -20,7 +20,7 @@ import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 /**
- * Structure to provide a response for batch documents
+ * Structure that provides the response when a Document is added to a Batch
  *
  * @see DocumentConversion
  */

@@ -18,7 +18,7 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 /**
- * Supported Job Status for the Document Conversion service
+ * Supported statuses for a Job in the Document Conversion service
  *
  * @see DocumentConversion
  */

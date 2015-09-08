@@ -22,7 +22,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import java.util.List;
 
 /**
- * Structure to store a batch documents
+ * Structure that stores the metadata of a document that has been added to a Batch
  *
  * @see DocumentConversion
  */
