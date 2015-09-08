@@ -15,10 +15,16 @@
  *  * limitations under the License.
  *
  */
-package com.ibm.watson.developer_cloud.language_translation.v2;
+package com.ibm.watson.developer_cloud.concept_insights.v2;
 
 
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concepts;
 
 public class ConceptInsightsExample {
