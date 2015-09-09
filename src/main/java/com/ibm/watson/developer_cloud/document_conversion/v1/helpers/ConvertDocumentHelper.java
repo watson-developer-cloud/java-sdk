@@ -69,7 +69,8 @@ public class ConvertDocumentHelper {
     public Answers convertDocumentToAnswer(final File document) {
         InputStream is = convertDocument(document, ConversionTarget.ANSWER_UNITS);
         String convertedDocument = ConversionUtils.writeInputStreamToString(is);
-        Answers answers = GsonSingleton.getGson().fromJson(convertedDocument, Answers.class);
+        Answers answers = ConversionUtils.getGsonWithIso8601DateDeserializer()
+                .fromJson(convertedDocument, Answers.class);
         return answers;
     }
 
@@ -136,7 +137,8 @@ public class ConvertDocumentHelper {
     public Answers convertDocumentToAnswer(final String documentId) {
         InputStream is = convertDocument(documentId, ConversionTarget.ANSWER_UNITS);
         String convertedDocument = ConversionUtils.writeInputStreamToString(is);
-        Answers answers = GsonSingleton.getGson().fromJson(convertedDocument, Answers.class);
+        Answers answers = ConversionUtils.getGsonWithIso8601DateDeserializer()
+                .fromJson(convertedDocument, Answers.class);
         return answers;
     }
 

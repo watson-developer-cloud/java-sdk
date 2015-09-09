@@ -22,7 +22,6 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import org.apache.commons.io.IOUtils;
-import org.joda.time.DateTime;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -164,7 +163,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
         // Expected Mock response
         String batchId = UUID.randomUUID().toString();
         String name = "testBatch";
-        String currentTime = DateTime.now().toString();
+        // NOTE: Setting null time, no current way to simulate JodaTime to service getters
+        Date currentTime = null;
         List<Property> propertyList = Arrays.asList(
                 new Property("media_type", MediaType.TEXT_HTML), new Property("num_docs", "2"));
         Batch response = createMockBatch(batchId, name, currentTime, currentTime, propertyList);
@@ -254,7 +254,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
         List<Batch> batchList = new ArrayList<Batch>();
         String batchId = UUID.randomUUID().toString();
         String batchName = "batchName";
-        String currentTime = DateTime.now().toString();
+        // NOTE: Setting null time, no current way to simulate JodaTime to service getters
+        Date currentTime = null;
         List<Property> propertyList = Arrays.asList(
                 new Property("media_type", MediaType.TEXT_HTML), new Property("num_docs", "2"));
         Batch batch = createMockBatch(batchId, batchName, currentTime, currentTime, propertyList);
@@ -290,7 +291,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
         String newBatchName = "updatedBatchName";
         List<Property> newPropertyList = Arrays.asList(
                 new Property("media_type", MediaType.APPLICATION_PDF), new Property("num_docs", "6"));
-        String newTime = DateTime.now().toString();
+        // NOTE: Setting null time, no current way to simulate JodaTime to service getters
+        Date newTime = null;
         Batch updatedBatch = createMockBatch(batchId, newBatchName, currentTime, newTime, newPropertyList);
 
         // Call update batch
@@ -319,7 +321,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
         String batchDocId = UUID.randomUUID().toString();
         BatchDocument batchDocument = new BatchDocument();
         batchDocument.setId(batchDocId);
-        batchDocument.setAddedToBatch(DateTime.now().toString());
+        // NOTE: Setting null time, no current way to simulate JodaTime to service getters
+        batchDocument.setAddedToBatch(null);
         batchDocument.setLinks(Arrays.asList(
                         createLink("self", DocumentConversion.BATCHES_PATH + "/" + batchId + "/documents/" + batchDocId),
                         createLink("document", DocumentConversion.DOCUMENTS_PATH + "/documents/" + batchDocId)
@@ -375,7 +378,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
         String batchId = UUID.randomUUID().toString();
         String documentId = UUID.randomUUID().toString();
         String jobName = "testJob";
-        String currentTime = DateTime.now().toString();
+        // NOTE: Setting null time, no current way to simulate JodaTime to service getters
+        Date currentTime = null;
         Job job = createMockJob(jobId, jobName, batchId, null, ConversionTarget.ANSWER_UNITS,
                 currentTime, null, "25", "Result", JobStatus.COMPLETE);
         jobList.add(job);
@@ -491,7 +495,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
      * @param props The list of properties for the batch
      * @return Batch
      */
-    private Batch createMockBatch(String id, String name, String createdOn, String updatedOn, List<Property> props) {
+    private Batch createMockBatch(String id, String name, Date createdOn, Date updatedOn, List<Property> props) {
         Batch batch = new Batch();
         batch.setId(id);
         batch.setName(name);
@@ -517,7 +521,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
      * @return Job
      */
     private Job createMockJob(String id, String name, String batchId, JsonObject config,
-                              ConversionTarget convTarget, String createdOn, JsonObject docCounts,
+                              ConversionTarget convTarget, Date createdOn, JsonObject docCounts,
                               String duration, String result, JobStatus status ) {
         Job job = new Job();
         job.setId(id);
@@ -542,7 +546,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
      * @param mediaType The internet media type of the output
      * @return Output
      */
-    private Output createMockOutput(String id, String srcDocId, String createdOn, String mediaType) {
+    private Output createMockOutput(String id, String srcDocId, Date createdOn, String mediaType) {
         Output output = new Output();
         output.setId(id);
         output.setSourceDocumentId(srcDocId);

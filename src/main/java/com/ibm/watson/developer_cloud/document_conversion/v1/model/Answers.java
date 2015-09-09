@@ -18,6 +18,7 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -36,7 +37,7 @@ public class Answers extends DocumentConversionModel {
     /**
      * The date time when the answer was created
      */
-    private String timestamp;
+    private Date timestamp;
 
     /**
      * The list of answer units generated for the source document
@@ -62,9 +63,9 @@ public class Answers extends DocumentConversionModel {
 
     /**
      * Gets the time stamp of the answer
-     * @return String
+     * @return Date
      */
-    public String getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
@@ -72,7 +73,7 @@ public class Answers extends DocumentConversionModel {
      * Sets the timestamp of the answwer
      * @param timestamp
      */
-    public void setTimestamp(String timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 

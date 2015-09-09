@@ -112,7 +112,8 @@ public class OutputHelper {
         try {
             HttpResponse response = docConversionService.execute(requestBase);
             String OutputsAsJson = ResponseUtil.getString(response);
-            OutputCollection outputs = GsonSingleton.getGson().fromJson(OutputsAsJson, OutputCollection.class);
+            OutputCollection outputs = ConversionUtils.getGsonWithIso8601DateDeserializer()
+                    .fromJson(OutputsAsJson, OutputCollection.class);
             return outputs;
         } catch (IOException e) {
             throw new RuntimeException(e);

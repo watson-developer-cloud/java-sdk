@@ -20,6 +20,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,13 +46,13 @@ public class Batch extends DocumentConversionModel {
      * The date on which batch was created on
      */
     @SerializedName("created_on")
-    private String createdOn;
+    private Date createdOn;
 
     /**
      * The date on which batch was updated on
      */
     @SerializedName("updated_on")
-    private String updatedOn;
+    private Date updatedOn;
 
 
     /**
@@ -106,7 +107,7 @@ public class Batch extends DocumentConversionModel {
 
      * @return
      */
-    public String getCreatedOn() {
+    public Date getCreatedOn() {
         return createdOn;
     }
 
@@ -114,7 +115,7 @@ public class Batch extends DocumentConversionModel {
      * Sets the date on which the batch was created on
      * @param createdOn
      */
-    public void setCreatedOn(String createdOn) {
+    public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
 
@@ -123,7 +124,7 @@ public class Batch extends DocumentConversionModel {
      *
      * @return
      */
-    public String getUpdatedOn() {
+    public Date getUpdatedOn() {
         return updatedOn;
     }
 
@@ -132,7 +133,7 @@ public class Batch extends DocumentConversionModel {
      *
      * @param updatedOn
      */
-    public void setUpdatedOn(String updatedOn) {
+    public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
 

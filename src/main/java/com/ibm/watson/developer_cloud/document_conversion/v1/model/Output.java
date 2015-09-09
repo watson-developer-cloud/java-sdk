@@ -19,6 +19,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,7 +44,7 @@ public class Output extends DocumentConversionModel {
      * The date and time the job was created in ISO 8601 date and time format (YYYY-MM-DDTHH:MM:SSZ)
      */
     @SerializedName("created_on")
-    private String createdOn;
+    private Date createdOn;
     /**
      * The Internet media type of the output
      */
@@ -96,7 +97,7 @@ public class Output extends DocumentConversionModel {
      *
      * @return
      */
-    public String getCreatedOn() {
+    public Date getCreatedOn() {
         return createdOn;
     }
 
@@ -105,7 +106,7 @@ public class Output extends DocumentConversionModel {
      *
      * @param createdOn
      */
-    public void setCreatedOn(String createdOn) {
+    public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
 

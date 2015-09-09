@@ -159,7 +159,7 @@ public class BatchHelper {
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchAsJson = ResponseUtil.getString(response);
-            Batch batch = GsonSingleton.getGson().fromJson(batchAsJson, Batch.class);
+            Batch batch = ConversionUtils.getGsonWithIso8601DateDeserializer().fromJson(batchAsJson, Batch.class);
             return batch;
         } catch (IOException e) {
             throw new RuntimeException(e);

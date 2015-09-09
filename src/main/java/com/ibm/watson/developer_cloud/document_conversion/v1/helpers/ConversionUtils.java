@@ -1,11 +1,13 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
+import com.google.gson.*;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.util.MediaType;
 
 import java.io.File;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -86,4 +88,42 @@ public class ConversionUtils {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
     }
+
+    /**
+     * Gson singleton with an ISO 8601 Date Deserializer
+     * @return Gson
+     */
+    public static Gson getGsonWithIso8601DateDeserializer() {
+        if (gsonWithIso8601DateDeserializer == null) {
+            gsonWithIso8601DateDeserializer = new GsonBuilder()
+                    .registerTypeAdapter(Date.class, iso8601DateDeserializer).create();
+        }
+        return gsonWithIso8601DateDeserializer;
+    }
+
+    /**
+     * Gson singleton with an ISO 8601 Date Deserializer
+     */
+    private static Gson gsonWithIso8601DateDeserializer;
+
+    /**
+     * JSON deserializer for ISO 8601 dates into Java Date objects
+     */
+    private static JsonDeserializer<Date> iso8601DateDeserializer = new JsonDeserializer<Date>() {
+        @Override
+        public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+                throws JsonParseException {
+            if (json == null) {
+                return null;
+            }
+            String date = json.getAsString();
+            SimpleDateFormat iso8601DateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            try {
+                return iso8601DateTimeFormat.parse(date);
+            } catch (Exception e) {
+                throw new JsonParseException("Unable to parse date " + date, e);
+            }
+        }
+    };
+
 }

@@ -58,8 +58,8 @@ public class BatchDocumentHelper {
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchDocumentAsJson = ResponseUtil.getString(response);
-            BatchDocumentResponse batchDocumentResponse = GsonSingleton.getGson().fromJson(batchDocumentAsJson,
-                                                                                           BatchDocumentResponse.class);
+            BatchDocumentResponse batchDocumentResponse = ConversionUtils.getGsonWithIso8601DateDeserializer()
+                    .fromJson(batchDocumentAsJson, BatchDocumentResponse.class);
             return batchDocumentResponse;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -114,9 +114,8 @@ public class BatchDocumentHelper {
         try {
             HttpResponse response = docConversionService.execute(requestBase);
             String batchDocumentCollectionAsJson = ResponseUtil.getString(response);
-            BatchDocumentCollection batchDocumentCollection = GsonSingleton.getGson().fromJson
-                                                              (batchDocumentCollectionAsJson,
-                                                               BatchDocumentCollection.class);
+            BatchDocumentCollection batchDocumentCollection = ConversionUtils.getGsonWithIso8601DateDeserializer()
+                    .fromJson(batchDocumentCollectionAsJson, BatchDocumentCollection.class);
             return batchDocumentCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -145,8 +144,8 @@ public class BatchDocumentHelper {
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchDocumentAsJson = ResponseUtil.getString(response);
-            BatchDocumentResponse batchDocumentResponse = GsonSingleton.getGson().fromJson(batchDocumentAsJson,
-                                                                                           BatchDocumentResponse.class);
+            BatchDocumentResponse batchDocumentResponse = ConversionUtils.getGsonWithIso8601DateDeserializer()
+                    .fromJson(batchDocumentAsJson, BatchDocumentResponse.class);
             return batchDocumentResponse;
         } catch (IOException e) {
             throw new RuntimeException(e);

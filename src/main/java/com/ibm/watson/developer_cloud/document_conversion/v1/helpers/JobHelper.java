@@ -106,7 +106,7 @@ public class JobHelper {
             }
 
             if (jobListParams.get(DocumentConversion.STATUS) != null) {
-                String status = (String) jobListParams.get(DocumentConversion.STATUS);
+                String status = ((JobStatus) jobListParams.get(DocumentConversion.STATUS)).toString();
                 if (!status.isEmpty())
                     request.withQuery(DocumentConversion.STATUS, status);
             }
@@ -179,7 +179,7 @@ public class JobHelper {
         try {
             HttpResponse response = docConversionService.execute(request);
             String JobAsJson = ResponseUtil.getString(response);
-            Job job = GsonSingleton.getGson().fromJson(JobAsJson, Job.class);
+            Job job = ConversionUtils.getGsonWithIso8601DateDeserializer().fromJson(JobAsJson, Job.class);
             return job;
         } catch (IOException e) {
             throw new RuntimeException(e);

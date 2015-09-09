@@ -19,6 +19,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,7 +39,7 @@ public class BatchDocument extends DocumentConversionModel {
      * The date at which document is added to the batch
      */
     @SerializedName("added_to_batch")
-    private String addedToBatch;
+    private Date addedToBatch;
 
     /**
      * Link to the batch documents
@@ -68,7 +69,7 @@ public class BatchDocument extends DocumentConversionModel {
      *
      * @return
      */
-    public String getAddedToBatch() {
+    public Date getAddedToBatch() {
         return addedToBatch;
     }
 
@@ -77,7 +78,7 @@ public class BatchDocument extends DocumentConversionModel {
      *
      * @param addedToBatch
      */
-    public void setAddedToBatch(String addedToBatch) {
+    public void setAddedToBatch(Date addedToBatch) {
         this.addedToBatch = addedToBatch;
     }
 
