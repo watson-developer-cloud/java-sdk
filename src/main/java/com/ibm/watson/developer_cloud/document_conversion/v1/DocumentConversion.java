@@ -23,8 +23,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.File;
-import java.util.Date;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The IBM Watson Document Conversion service converts provided source
@@ -38,8 +39,70 @@ import java.util.List;
  */
 public class DocumentConversion extends WatsonService {
 
-    /** The default limit for get requests */
-    public static final int LIMIT = 100;
+    /**
+     * The Constant TOKEN. (value is "token")
+     */
+    public static final String TOKEN = "token";
+
+    /**
+     * The Constant LIMIT. (value is "limit")
+     */
+    public static final String LIMIT = "limit";
+
+    /**
+     * The Constant NAME. (value is "name")
+     */
+    public static final String NAME = "name";
+
+    /**
+     * The Constant SINCE. (value is "since")
+     */
+    public static final String SINCE = "since";
+
+    /**
+     * The Constant MEDIA_TYPE. (value is "media_type")
+     */
+    public static final String MEDIA_TYPE = "media_type";
+
+    /**
+     * The Constant JOB_ID. (value is "job_id")
+     */
+    public static final String JOB_ID = "job_id";
+
+    /**
+     * The Constant STATUS. (value is "status")
+     */
+    public static final String STATUS = "status";
+
+    /**
+     * The DOCUMENTS_PATH.  (value is "/v1/documents")
+     **/
+    public final static String DOCUMENTS_PATH = "/v1/documents";
+
+    /**
+     * The BATCHES_PATH.  (value is "/v1/batches")
+     **/
+    public final static String BATCHES_PATH = "/v1/batches";
+
+    /**
+     * The JOBS_PATH.  (value is "/v1/jobs")
+     **/
+    public final static String JOBS_PATH = "/v1/jobs";
+
+    /**
+     * The OUTPUT_PATH.  (value is "/v1/output")
+     **/
+    public final static String OUTPUT_PATH = "/v1/output";
+
+    /**
+     * The CONVERT_DOCUMENT_PATH.  (value is "/v1/convert_document")
+     **/
+    public final static String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
+
+    /**
+     * The default limit for get requests
+     **/
+    public static final int DEFAULT_LIMIT = 100;
 
     /** The default URL for the service */
     private static final String URL = "https://gateway.watsonplatform.net/document-conversion-experimental/api";
@@ -74,57 +137,27 @@ public class DocumentConversion extends WatsonService {
      * @return All batches
      */
     public BatchCollection getBatchCollection() {
-        return getBatchCollection(null, LIMIT, null, null);
+        return getBatchCollection(null);
     }
 
     /**
      * Gets a collection of all existing batches with optional query parameters for filtering results.
      * GET /v1/batches
-     * @param limit The number of batches to get, pass 0 to use the default limit from server (100)
-     * @param name The name of batches to get, pass null to exclude this filter
-     * @param since The date to filter on, batches created on or after the provided date and time format
-     *              will be returned, pass null to exclude this filter
+     *
+     * @param batchListParams The parameters to be used in the batch list service call.
+     *                        The parameters - token, limit, name and since are optional
+     * <ul>
+     * <li> String token - The reference to the starting element of the requested page which is provided
+     *                     by the server, pass null to get the first page </li>
+     * <li> int limit - The number of batches to get, pass 0 to use the default limit from server (100) </li>
+     * <li> String name - The name of batches to get, pass null to exclude this filter </li>
+     * <li> Date since - The date to filter on, batches created on or after the provided date and time format
+     *                   will be returned, pass null to exclude this filter </li>
+     * </ul>
      * @return Batches based on filtering parameters provided
      */
-    public BatchCollection getBatchCollection(final int limit, final String name, final Date since) {
-        return getBatchCollection(null, limit, name, since);
-    }
-
-    /**
-     * Gets a collection of all existing batches with optional query parameters for filtering results.
-     * GET /v1/batches
-     * @param token The reference to the starting element of the requested page which is provided
-     *              by the server, pass null to get the first page
-     * @param limit The number of batches to get, pass 0 to use the default limit from server (100)
-     * @param name The name of batches to get, pass null to exclude this filter
-     * @param since The date to filter on, batches created on or after the provided date and time format
-     *              will be returned, pass null to exclude this filter
-     * @return Batches based on filtering parameters provided
-     */
-    public BatchCollection getBatchCollection(final String token, final int limit,
-                                              final String name, final Date since) {
-        return batchHelper.getBatchCollection(token, limit, name, since);
-    }
-
-     /**
-     * Creates a new batch
-     *
-     * POST /v1/batches
-     * @return requested Batch
-     */
-    public Batch createBatch() {
-        return createBatch(null, null);
-    }
-
-    /**
-     * Creates a new batch with a name
-     *
-     * POST /v1/batches
-     * @param name the name of the batch to create
-     * @return requested Batch
-     */
-    public Batch createBatch(final String name) {
-        return createBatch(name, null);
+    public BatchCollection getBatchCollection(Map<String, Object> batchListParams) {
+        return batchHelper.getBatchCollection(batchListParams);
     }
 
     /**
@@ -171,39 +204,27 @@ public class DocumentConversion extends WatsonService {
      * @return All documents
      */
     public DocumentCollection getDocumentCollection() {
-        return getDocumentCollection(null, LIMIT, null, null, null);
+        return getDocumentCollection(null);
     }
 
     /**
      * Gets a collection of all existing documents with optional query parameters for filtering results.
      * GET /v1/documents
-     * @param limit The number of documents to get, pass 0 to use the default limit from server (100)
-     * @param name The name of the documents to get, pass null to exclude this filter
-     * @param since The date to filter on, documents created on or after the provided date and time format
-     *              will be returned, pass null to exclude this filter
-     * @param mediaType The Internet media type to filter on, pass null to exclude this filter
+     *
+     * @param docListParams The parameters to be used in the documents list service call.
+     *                      The parameters - token, limit, name, since and media_type are optional
+     * <ul>
+     * <li> String token - The reference to the starting element of the requested page which is provided
+     *                     by the server, pass null to get the first page </li>
+     * <li> int limit - The number of documents to get, pass 0 to use the default limit from server (100) </li>
+     * <li> String name - The name of the documents to get, pass null to exclude this filter </li>
+     * <li> Date since - The date to filter on, documents created on or after the provided date and time format
+     *                  will be returned, pass null to exclude this filter </li>
+     * <li> String media_type - The Internet media type to filter on, pass null to exclude this filter </li>
      * @return Documents based on filtering parameters provided
-     */
-    public DocumentCollection getDocumentCollection(final int limit, final String name,
-                                                    final Date since, final String mediaType) {
-        return getDocumentCollection (null, limit, name, since, mediaType);
-    }
-
-    /**
-     * Gets a collection of all existing documents with optional query parameters for filtering results.
-     * GET /v1/documents
-     * @param token The reference to the starting element of the requested page which is provided
-     *              by the server, pass null to get the first page
-     * @param limit The number of documents to get, pass 0 to use the default limit from server (100)
-     * @param name The name of the documents to get, pass null to exclude this filter
-     * @param since The date to filter on, documents created on or after the provided date and time format
-     *              will be returned, pass null to exclude this filter
-     * @param mediaType The Internet media type to filter on, pass null to exclude this filter
-     * @return Documents based on filtering parameters provided
-     */
-    public DocumentCollection getDocumentCollection(final String token, final int limit, final String name,
-                                                    final Date since, final String mediaType) {
-        return documentHelper.getDocumentCollection(token, limit, name, since, mediaType);
+     **/
+    public DocumentCollection getDocumentCollection(Map<String, Object> docListParams) {
+        return documentHelper.getDocumentCollection(docListParams);
     }
 
     /**
@@ -236,7 +257,7 @@ public class DocumentConversion extends WatsonService {
      * @param documentId id of the document to be retrieved
      * @return requested Document
      */
-    public String getDocument(final String documentId) {
+    public InputStream getDocument(final String documentId) {
         return documentHelper.getDocument(documentId);
     }
 
@@ -248,40 +269,28 @@ public class DocumentConversion extends WatsonService {
      * @return All documents in a batch
      */
     public BatchDocumentCollection getBatchDocumentCollection(final String batchId) {
-        return getBatchDocumentCollection(batchId, null, LIMIT, null);
-    }
-
-
-    /**
-     * Gets a list of existing documents in the batch with optional query parameters for filtering results.
-     *
-     * GET /v1/batches/{batch_id}/documents
-     * @param batchId The id for the batch whose documents are returned
-     * @param limit The number of documents in a batch to get, pass 0 to use the default limit from server (100)
-     * @param since The date to filter on, documents added to the batch on or after the provided date and time format
-     *              will be returned, pass null to exclude this filter
-     * @return Documents in a batch based on the filtering parameters provided
-     */
-    public BatchDocumentCollection getBatchDocumentCollection(final String batchId, final int limit,
-                                                              final Date since) {
-        return getBatchDocumentCollection(batchId, null, limit, since);
+        return getBatchDocumentCollection(batchId, null);
     }
 
     /**
      * Gets a list of existing documents in the batch with optional query parameters for filtering results.
      *
      * GET /v1/batches/{batch_id}/documents
+     *
      * @param batchId The id for the batch whose documents are returned
-     * @param token The reference to the starting element of the requested page which is provided
-     *              by the server, pass null to get the first page
-     * @param limit The number of documents in a batch to get, pass 0 to use the default limit from server (100)
-     * @param since The date to filter on, documents added to the batch on or after the provided date and time format
-     *              will be returned, pass null to exclude this filter
+     * @param batchDocListParams The parameters to be used in the batch documents list service call.
+     *                         The parameters - token, limit, since, job_id and media_type are optional
+     * <ul>
+     * <li> String token - The reference to the starting element of the requested page which is provided
+     *                     by the server, pass null to get the first page </li>
+     * <li> int limit - The number of documents in a batch to get, pass 0 to use the default limit from server (100) </li>
+     * <li> Date since - The date to filter on, documents added to the batch on or after the provided date and time format
+     *              will be returned. </li>
+     * </ul>
      * @return Documents in a batch based on the filtering parameters provided
      */
-    public BatchDocumentCollection getBatchDocumentCollection(final String batchId, final String token,
-                                                              final int limit, final Date since) {
-        return batchDocumentHelper.getBatchDocumentCollection(batchId, token, limit, since);
+    public BatchDocumentCollection getBatchDocumentCollection(String batchId, Map<String, Object> batchDocListParams) {
+        return batchDocumentHelper.getBatchDocumentCollection(batchId, batchDocListParams);
     }
 
 
@@ -314,99 +323,94 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
-     * Synchronously converts a new document without persistence into an Answer object
+     * Synchronously converts a new document without persistence into an Answers object
      * POST /v1/convert_document
+     *
      * @param document The file to convert
      * @return Converted document as an Answer
      */
-    public Answer convertDocumentToAnswer(final File document) {
+    public Answers convertDocumentToAnswer(final File document) {
         return convertDocumentHelper.convertDocumentToAnswer(document);
     }
 
     /**
      * Synchronously converts a new document without persistence
      * POST /v1/convert_document
+     *
      * @param document The file to convert
      * @param conversionTarget The conversion target to use
      * @return Converted document in the specified format
      */
-    public String convertDocument(final File document, final ConversionTarget conversionTarget) {
+    public InputStream convertDocument(final File document, final ConversionTarget conversionTarget) {
         return convertDocumentHelper.convertDocument(document, conversionTarget);
     }
 
     /**
      * Synchronously converts a new document without persistence
      * POST /v1/convert_document
+     *
      * @param document The file to convert
      * @param mediaType Internet media type of the file
      * @param conversionTarget The conversion target to use
      * @return Converted document in the specified format
      */
-    public String convertDocument(final File document, final String mediaType, final ConversionTarget conversionTarget) {
+    public InputStream convertDocument(final File document, final String mediaType, final ConversionTarget conversionTarget) {
         return convertDocumentHelper.convertDocument(document, mediaType, conversionTarget);
     }
 
     /**
-     * Synchronously converts a single previously uploaded document into an Answer object
+     * Synchronously converts a single previously uploaded document into an Answers object
      * POST /v1/convert_document
+     *
      * @param documentId The id of the document to convert
      * @return Converted document as an Answer
      */
-    public Answer convertDocumentToAnswer(final String documentId) {
+    public Answers convertDocumentToAnswer(final String documentId) {
         return convertDocumentHelper.convertDocumentToAnswer(documentId);
     }
 
     /**
      * Synchronously converts a single previously uploaded document
      * POST /v1/convert_document
+     *
      * @param documentId The id of the document to convert
      * @param conversionTarget The conversion target to use
      * @return Converted document in the specified format
      */
-    public String convertDocument(final String documentId, final ConversionTarget conversionTarget) {
+    public InputStream convertDocument(final String documentId, final ConversionTarget conversionTarget) {
         return convertDocumentHelper.convertDocument(documentId, conversionTarget);
     }
 
     /**
      * Gets a collection of all jobs in the service
      * GET /v1/jobs
-     * @return Jobs
+     * @return All jobs
      */
     public JobCollection getJobCollection() {
-        return getJobCollection(null, LIMIT, null, null, null);
+        return getJobCollection(null);
     }
 
 
     /**
      * Gets a list of all jobs with optional query parameters for filtering results.
      * GET /v1/jobs
-     * @param limit The number of jobs to get, pass 0 to use the default limit from server (100)
-     * @param name The name of the jobs to get, pass null to exclude this filter
-     * @param since The date to filter on, jobs created on or after the provided date and time format will
-     *              be returned.
-     * @param status The status of the job to filter on, pass null to exclude this filter
+     *
+     * @param jobListParams The parameters to be used in the job list service call.
+     *                      The parameters - token, limit, since, name, since and status are optional
+     * <ul>
+     * <li> String token - The reference to the starting element of the requested page which is provided
+     *              by the server, pass null to get the first page </li>
+     * <li> int limit - The number of jobs to get, pass 0 to use the default limit from server (100) </li>
+     * <li> String name - The name of the jobs to get, pass null to exclude this filter </li>
+     * <li> Date since - The date to filter on, jobs created on or after the provided date and time format will
+     *              be returned, pass null to exclude this filter </li>
+     * <li> String status - The status of the job to filter on, pass null to exclude this filter </li>
+     * </ul>
+     *
      * @return Jobs based on filtering parameters provided
      */
-    public JobCollection getJobCollection(final int limit, final String name,
-                                          final Date since, final JobStatus status) {
-        return getJobCollection(null, limit, name, since, status);
-    }
-
-    /**
-     * Gets a list of all jobs with optional query parameters for filtering results.
-     * GET /v1/jobs
-     * @param token The reference to the starting element of the requested page which is provided
-     *              by the server, pass null to get the first page
-     * @param limit The number of jobs to get, pass 0 to use the default limit from server (100)
-     * @param name The name of the jobs to get, pass null to exclude this filter
-     * @param since The date to filter on, jobs created on or after the provided date and time format will
-     *              be returned.
-     * @param status The status of the job to filter on, pass null to exclude this filter
-     * @return Jobs based on filtering parameters provided
-     */
-    public JobCollection getJobCollection(final String token, final int limit, final String name,
-                                          final Date since, final JobStatus status) {
-        return jobHelper.getJobCollection(token, limit, name, since, status);
+    public JobCollection getJobCollection(Map<String, Object> jobListParams) {
+        return jobHelper.getJobCollection(jobListParams);
     }
 
     /**
@@ -451,7 +455,7 @@ public class DocumentConversion extends WatsonService {
      * @param jobId The id of the job
      * @return Job's processing log
      */
-    public String getJobLog(final String jobId) {
+    public InputStream getJobLog(final String jobId) {
         return jobHelper.getJobLog(jobId);
     }
 
@@ -461,39 +465,28 @@ public class DocumentConversion extends WatsonService {
      * @return All Outputs
      */
     public OutputCollection getOutputCollection() {
-        return getOutputCollection(null, LIMIT, null, null, null);
+        return getOutputCollection(null);
     }
 
     /**
      * Gets a collection of all generated outputs with optional query parameters for filtering results.
      * GET /v1/output
-     * @param limit The number of outputs to get, pass 0 to use the default limit from server (100)
-     * @param since The date to filter on, outputs created on or after the provided date and time format
-     *              will be returned., pass null to exclude this filter
-     * @param jobId The id of a job to filter outputs by, pass null to exclude this filter
-     * @param mediaType The Internet media type to filter on, pass null to exclude this filter, for example "text/html"
+     *
+     * @param outputListParams The parameters to be used in the output list service call.
+     *                         The parameters - token, limit, since, job_id and media_type are optional
+     * <ul>
+     * <li> String token - The reference to the starting element of the requested page which is provided
+     *              by the server, pass null to get the first page </li>
+     * <li> int limit - The number of outputs to get, pass 0 to use the default limit from server (100) </li>
+     * <li> Date since - The date to filter on, outputs created on or after the provided date and time format
+     *              will be returned. </li>
+     * <li> String job_id - The id of a job to filter outputs by, pass null to exclude this filter </li>
+     * <li> String media_type - The Internet media type to filter on, pass null to exclude this filter </li>
+     * </ul>
      * @return Outputs based on filtering parameters provided
      */
-    public OutputCollection getOutputCollection(final int limit, final Date since,
-                                                final String jobId, final String mediaType) {
-        return getOutputCollection(null, limit, since, jobId, mediaType);
-    }
-
-    /**
-     * Gets a collection of all generated outputs with optional query parameters for filtering results.
-     * GET /v1/output
-     * @param token The reference to the starting element of the requested page which is provided
-     *              by the server, pass null to get the first page
-     * @param limit The number of outputs to get, pass 0 to use the default limit from server (100)
-     * @param since The date to filter on, outputs created on or after the provided date and time format
-     *              will be returned, pass null to exclude this filter
-     * @param jobId The id of a job to filter outputs by, pass null to exclude this filter
-     * @param mediaType The Internet media type to filter on, pass null to exclude this filter
-     * @return Outputs based on filtering parameters provided
-     */
-    public OutputCollection getOutputCollection(final String token, final int limit, final Date since,
-                                                final String jobId, final String mediaType) {
-        return outputHelper.getOutputCollection(token, limit, since, jobId, mediaType);
+    public OutputCollection getOutputCollection(Map<String, Object> outputListParams) {
+        return outputHelper.getOutputCollection(outputListParams);
     }
 
     /**
@@ -502,7 +495,7 @@ public class DocumentConversion extends WatsonService {
      * @param outputId The id of the output to get
      * @return The requested Output
      */
-    public String getOutput(final String outputId) {
+    public InputStream getOutput(final String outputId) {
         return outputHelper.getOutput(outputId);
     }
 

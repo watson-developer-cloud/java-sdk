@@ -25,7 +25,7 @@ import java.util.List;
  *
  * @see DocumentConversion
  */
-public class Answer extends DocumentConversionModel {
+public class Answers extends DocumentConversionModel {
 
     /**
      * The id of the source document used to derive the answer
@@ -95,7 +95,7 @@ public class Answer extends DocumentConversionModel {
     /**
      * The object that holds the answer units of a source document
      */
-    public class AnswerUnits {
+    public class AnswerUnits extends DocumentConversionModel {
 
         /**
          * The id of the answer unit
@@ -184,7 +184,7 @@ public class Answer extends DocumentConversionModel {
         /**
          * The content of an answer unit
          */
-        public class Content {
+        public class Content extends DocumentConversionModel {
 
             /**
              * The Internet media type of the answer unit

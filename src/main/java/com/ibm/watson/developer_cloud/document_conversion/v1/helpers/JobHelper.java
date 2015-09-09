@@ -19,7 +19,6 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
-import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.HttpHeaders;
@@ -29,7 +28,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Helper class for all job API calls
@@ -58,37 +59,58 @@ public class JobHelper {
     /**
      * Gets a list of all jobs with optional query parameters for filtering results.
      * GET /v1/jobs
-     * @param token The reference to the starting element of the requested page which is provided
-     *              by the server, pass null to get the first page
-     * @param limit The number of jobs to get, pass 0 to use the default limit from server (100)
-     * @param name The name of the jobs to get, pass null to exclude this filter
-     * @param since The date to filter on, jobs created on or after the provided date and time format will
-     *              be returned, pass null to exclude this filter
-     * @param status The status of the job to filter on, pass null to exclude this filter
+     *
+     * @param jobListParams The parameters to be used in the job list service call.
+     *                      The parameters - token, limit, since, name, since and status are optional
+     * <ul>
+     * <li> String token - The reference to the starting element of the requested page which is provided
+     *              by the server, pass null to get the first page </li>
+     * <li> int limit - The number of jobs to get, pass 0 to use the default limit from server (100) </li>
+     * <li> String name - The name of the jobs to get, pass null to exclude this filter </li>
+     * <li> Date since - The date to filter on, jobs created on or after the provided date and time format will
+     *              be returned, pass null to exclude this filter </li>
+     * <li> String status - The status of the job to filter on, pass null to exclude this filter </li>
+     * </ul>
+     *
      * @return Jobs based on filtering parameters provided
      *
-     * @see DocumentConversion#getJobCollection(String, int, String, Date, JobStatus)
+     * @see DocumentConversion#getJobCollection(Map)
      */
-    public JobCollection getJobCollection(final String token, final int limit,
-                                          final String name, final Date since, final JobStatus status) {
-        Request request = Request.Get("/v1/jobs");
+    public JobCollection getJobCollection(Map<String, Object> jobListParams) {
+        Request request = Request.Get(DocumentConversion.JOBS_PATH);
 
-        if (token != null && !token.isEmpty())
-            request.withQuery("token", token);
+        if(jobListParams != null) {
+            if (jobListParams.get(DocumentConversion.TOKEN) != null) {
+                String token = (String) jobListParams.get(DocumentConversion.TOKEN);
+                if (!token.isEmpty())
+                    request.withQuery(DocumentConversion.TOKEN, token);
+            }
 
-        if (limit > 0)
-            request.withQuery("limit", limit);
-        else
-            request.withQuery("limit", DocumentConversion.LIMIT);
+            if (jobListParams.get(DocumentConversion.LIMIT) != null) {
+                int limit = ((Integer) jobListParams.get(DocumentConversion.LIMIT)).intValue();
+                if (limit > 0)
+                    request.withQuery(DocumentConversion.LIMIT, limit);
+                else
+                    request.withQuery(DocumentConversion.LIMIT, DocumentConversion.DEFAULT_LIMIT);
+            }
 
-        if (name != null && !name.isEmpty())
-            request.withQuery("name", name);
+            if (jobListParams.get(DocumentConversion.NAME) != null) {
+                String name = (String) jobListParams.get(DocumentConversion.NAME);
+                if (!name.isEmpty())
+                    request.withQuery(DocumentConversion.NAME, name);
+            }
 
-        if (since != null)
-            request.withQuery("since", ConversionUtils.convertToISO(since));
+            if (jobListParams.get(DocumentConversion.SINCE) != null) {
+                Date since = (Date) jobListParams.get(DocumentConversion.SINCE);
+                request.withQuery(DocumentConversion.SINCE, ConversionUtils.convertToISO(since));
+            }
 
-        if (status != null)
-            request.withQuery("status", status.toString());
+            if (jobListParams.get(DocumentConversion.STATUS) != null) {
+                String status = (String) jobListParams.get(DocumentConversion.STATUS);
+                if (!status.isEmpty())
+                    request.withQuery(DocumentConversion.STATUS, status);
+            }
+        }
 
         HttpRequestBase requestBase = request.build();
         try {
@@ -128,8 +150,8 @@ public class JobHelper {
         if (config != null )
             contentJson.add("config", config);
 
-        HttpRequestBase request = Request.Post("/v1/jobs")
-                .withContent(contentJson).build();
+        HttpRequestBase request = Request.Post(DocumentConversion.JOBS_PATH)
+                                         .withContent(contentJson).build();
 
         try {
             HttpResponse response = docConversionService.execute(request);
@@ -153,7 +175,7 @@ public class JobHelper {
         if (jobId == null || jobId.isEmpty())
             throw new IllegalArgumentException("job id can not be null or empty");
 
-        HttpRequestBase request = Request.Get("/v1/jobs/" + jobId).build();
+        HttpRequestBase request = Request.Get(DocumentConversion.JOBS_PATH + "/" + jobId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             String JobAsJson = ResponseUtil.getString(response);
@@ -172,15 +194,16 @@ public class JobHelper {
      *
      * @see DocumentConversion#getJobLog(String)
      */
-    public String getJobLog(final String jobId) {
+    public InputStream getJobLog(final String jobId) {
         if (jobId == null || jobId.isEmpty())
             throw new IllegalArgumentException("job id can not be null or empty");
 
-        HttpRequestBase request = Request.Get("/v1/jobs/" + jobId + "/log")
-                .withHeader(HttpHeaders.ACCEPT, MediaType.TEXT_PLAIN).build();
+        HttpRequestBase request = Request.Get(DocumentConversion.JOBS_PATH + "/" + jobId + "/log")
+                                         .withHeader(HttpHeaders.ACCEPT, MediaType.TEXT_PLAIN).build();
         try {
             HttpResponse response = docConversionService.execute(request);
-            return ResponseUtil.getString(response);
+            InputStream is = ResponseUtil.getInputStream(response);
+            return is;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

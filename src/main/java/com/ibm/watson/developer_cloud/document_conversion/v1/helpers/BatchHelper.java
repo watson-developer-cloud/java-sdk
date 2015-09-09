@@ -22,7 +22,6 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Batch;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchCollection;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Property;
-import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
@@ -33,6 +32,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Helper for the batch API calls
@@ -74,7 +74,7 @@ public class BatchHelper {
         if(properties != null && !properties.isEmpty())
             contentJson.addProperty("properties", new Gson().toJson(properties));
 
-        HttpRequestBase request = Request.Post("/v1/batches")
+        HttpRequestBase request = Request.Post(DocumentConversion.BATCHES_PATH)
                                          .withContent(filterJson(contentJson), MediaType.APPLICATION_JSON).build();
         try {
             HttpResponse response = docConversionService.execute(request);
@@ -89,31 +89,47 @@ public class BatchHelper {
     /**
      * Gets a collection of all existing batches with optional query parameters for filtering results.
      * GET /v1/batches
-     * @param token The reference to the starting element of the requested page which is provided
-     *              by the server, pass null to get the first page
-     * @param limit The number of batches to get, pass 0 to use the default limit from server (100)
-     * @param name The name of batches to get, pass null to exclude this filter
-     * @param since The date to filter on, batches created on or after the provided date and time format
-     *              will be returned, pass null to exclude this filter
+     *
+     * @param batchListParams The parameters to be used in the batch list service call.
+     *                        The parameters - token, limit, name and since are optional
+     * <ul>
+     * <li> String token - The reference to the starting element of the requested page which is provided
+     *                     by the server, pass null to get the first page </li>
+     * <li> int limit - The number of batches to get, pass 0 to use the default limit from server (100) </li>
+     * <li> String name - The name of batches to get, pass null to exclude this filter </li>
+     * <li> Date since - The date to filter on, batches created on or after the provided date and time format
+     *                   will be returned, pass null to exclude this filter </li>
+     * </ul>
      * @return Batches based on filtering parameters provided
-     * @see DocumentConversion#getBatchCollection(String, int, String, Date)
+     * @see DocumentConversion#getBatchCollection(Map)
      */
-    public BatchCollection getBatchCollection(final String token, final int limit,
-                                              final String name, final Date since) {
-        Request request = Request.Get("/v1/batches");
-        if(token != null && !token.isEmpty())
-            request.withQuery("token", token);
+    public BatchCollection getBatchCollection(Map<String, Object> batchListParams) {
+        Request request = Request.Get(DocumentConversion.BATCHES_PATH);
 
-        if (limit > 0)
-            request.withQuery("limit", limit);
-        else
-            request.withQuery("limit", DocumentConversion.LIMIT);
+        if(batchListParams.get(DocumentConversion.TOKEN) != null){
+            String token = (String) batchListParams.get(DocumentConversion.TOKEN);
+            if(!token.isEmpty())
+                request.withQuery(DocumentConversion.TOKEN, token);
+        }
 
-        if(name != null && !name.isEmpty())
-            request.withQuery("name", name);
+        if(batchListParams.get(DocumentConversion.LIMIT) != null){
+            int limit = ((Integer) batchListParams.get(DocumentConversion.LIMIT)).intValue();
+            if (limit > 0)
+                request.withQuery(DocumentConversion.LIMIT, limit);
+            else
+                request.withQuery(DocumentConversion.LIMIT, DocumentConversion.DEFAULT_LIMIT);
+        }
 
-        if(since != null)
-            request.withQuery("since", ConversionUtils.convertToISO(since));
+        if(batchListParams.get(DocumentConversion.NAME) != null){
+            String name = (String) batchListParams.get(DocumentConversion.NAME);
+            if(!name.isEmpty())
+                request.withQuery(DocumentConversion.NAME, name);
+        }
+
+        if(batchListParams.get(DocumentConversion.SINCE) != null){
+            Date since = (Date) batchListParams.get(DocumentConversion.SINCE);
+            request.withQuery(DocumentConversion.SINCE, ConversionUtils.convertToISO(since));
+        }
 
         HttpRequestBase requestBase = request.build();
         try {
@@ -139,7 +155,7 @@ public class BatchHelper {
     public Batch getBatch(final String batchId) {
         if (batchId == null || batchId.isEmpty())
             throw new IllegalArgumentException("batchId can not be null or empty");
-        HttpRequestBase request = Request.Get("/v1/batches/"+batchId).build();
+        HttpRequestBase request = Request.Get(DocumentConversion.BATCHES_PATH + "/" + batchId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchAsJson = ResponseUtil.getString(response);
@@ -171,7 +187,7 @@ public class BatchHelper {
             contentJson.addProperty("name", name);
         if(properties != null && properties.isEmpty())
             contentJson.addProperty("properties", new Gson().toJson(properties));
-        HttpRequestBase request = Request.Put("/v1/batches/" + batchId)
+        HttpRequestBase request = Request.Put(DocumentConversion.BATCHES_PATH + "/" + batchId)
                                          .withContent(filterJson(contentJson),
                                                       MediaType.APPLICATION_JSON).build();
         try {

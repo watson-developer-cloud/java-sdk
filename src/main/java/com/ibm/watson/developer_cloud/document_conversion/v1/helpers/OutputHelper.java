@@ -18,7 +18,6 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.OutputCollection;
-import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
@@ -26,7 +25,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Helper class for all output API calls
@@ -55,38 +56,58 @@ public class OutputHelper {
     /**
      * Gets a collection of all generated outputs with optional query parameters for filtering results.
      * GET /v1/output
-     * @param token The reference to the starting element of the requested page which is provided
-     *              by the server, pass null to get the first page
-     * @param limit The number of outputs to get, pass 0 to use the default limit from server (100)
-     * @param since The date to filter on, outputs created on or after the provided date and time format
-     *              will be returned.
-     * @param jobId The id of a job to filter outputs by, pass null to exclude this filter
-     * @param mediaType The Internet media type to filter on, pass null to exclude this filter
+     *
+     * @param outputListParams The parameters to be used in the output list service call.
+     *                         The parameters - token, limit, since, job_id and media_type are optional
+     * <ul>
+     * <li> String token - The reference to the starting element of the requested page which is provided
+     *              by the server, pass null to get the first page </li>
+     * <li> int limit - The number of outputs to get, pass 0 to use the default limit from server (100) </li>
+     * <li> Date since - The date to filter on, outputs created on or after the provided date and time format
+     *              will be returned. </li>
+     * <li> String job_id - The id of a job to filter outputs by, pass null to exclude this filter </li>
+     * <li> String media_type - The Internet media type to filter on, pass null to exclude this filter </li>
+     * </ul>
      * @return Outputs based on filtering parameters provided
      *
-     * @see DocumentConversion#getOutputCollection(String, int, Date, String, String)
+     * @see DocumentConversion#getOutputCollection(Map)
      */
-    public OutputCollection getOutputCollection(final String token, final int limit,
-                                                final Date since, final String jobId, final String mediaType) {
-        Request request = Request.Get("/v1/output");
 
-        if (token != null && !token.isEmpty())
-            request.withQuery("token", token);
+    public OutputCollection getOutputCollection(Map<String, Object> outputListParams) {
+        Request request = Request.Get(DocumentConversion.OUTPUT_PATH);
 
-        if (limit > 0)
-            request.withQuery("limit", limit);
-        else
-            request.withQuery("limit", DocumentConversion.LIMIT);
+        if(outputListParams != null) {
+            if (outputListParams.get(DocumentConversion.TOKEN) != null) {
+                String token = (String) outputListParams.get(DocumentConversion.TOKEN);
+                if (!token.isEmpty())
+                    request.withQuery(DocumentConversion.TOKEN, token);
+            }
 
-        if (since != null)
-            request.withQuery("since", ConversionUtils.convertToISO(since));
+            if (outputListParams.get(DocumentConversion.LIMIT) != null) {
+                int limit = ((Integer) outputListParams.get(DocumentConversion.LIMIT)).intValue();
+                if (limit > 0)
+                    request.withQuery(DocumentConversion.LIMIT, limit);
+                else
+                    request.withQuery(DocumentConversion.LIMIT, DocumentConversion.DEFAULT_LIMIT);
+            }
 
-        if (jobId != null && !jobId.isEmpty())
-            request.withQuery("job_id", jobId);
+            if (outputListParams.get(DocumentConversion.SINCE) != null) {
+                Date since = (Date) outputListParams.get(DocumentConversion.SINCE);
+                request.withQuery(DocumentConversion.SINCE, ConversionUtils.convertToISO(since));
+            }
 
-        if (mediaType != null && !mediaType.isEmpty())
-            request.withQuery("media_type", mediaType);
+            if (outputListParams.get(DocumentConversion.JOB_ID) != null) {
+                String jobId = (String) outputListParams.get(DocumentConversion.JOB_ID);
+                if (!jobId.isEmpty())
+                    request.withQuery(DocumentConversion.JOB_ID, jobId);
+            }
 
+            if (outputListParams.get(DocumentConversion.MEDIA_TYPE) != null) {
+                String mediaType = (String) outputListParams.get(DocumentConversion.MEDIA_TYPE);
+                if (!mediaType.isEmpty())
+                    request.withQuery(DocumentConversion.MEDIA_TYPE, mediaType);
+            }
+        }
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = docConversionService.execute(requestBase);
@@ -105,14 +126,15 @@ public class OutputHelper {
      *
      * @see DocumentConversion#getOutput(String)
      */
-    public String getOutput(final String outputId) {
+    public InputStream getOutput(final String outputId) {
         if (outputId == null || outputId.isEmpty())
             throw new IllegalArgumentException("output id can not be null or empty");
 
-        HttpRequestBase request = Request.Get("/v1/output/" + outputId).build();
+        HttpRequestBase request = Request.Get(DocumentConversion.OUTPUT_PATH +"/" + outputId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
-            return ResponseUtil.getString(response);
+            InputStream is = ResponseUtil.getInputStream(response);
+            return is;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

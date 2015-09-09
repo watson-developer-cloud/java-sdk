@@ -32,7 +32,7 @@ public class OutputCollection extends DocumentConversionModel {
      * List of all outputs in the collection
      */
     @SerializedName("output")
-    private List<Output> outputList;
+    private List<Output> outputs;
     /**
      * Links for paging through the output. Includes a "first" link for getting the first
      * page of outputs and a "next" link if there are additional pages of outputs
@@ -45,17 +45,17 @@ public class OutputCollection extends DocumentConversionModel {
      *
      * @return
      */
-    public List<Output> getOutputList() {
-        return outputList;
+    public List<Output> getOutputs() {
+        return outputs;
     }
 
     /**
      * Sets the output list in the collection
      *
-     * @param outputList
+     * @param outputs
      */
-    public void setOutputList(List<Output> outputList) {
-        this.outputList = outputList;
+    public void setOutputs(List<Output> outputs) {
+        this.outputs = outputs;
     }
 
     /**

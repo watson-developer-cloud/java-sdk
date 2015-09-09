@@ -3,7 +3,6 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
-import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
@@ -11,6 +10,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Map;
 
 /**
  * Helper for the batch documents API calls
@@ -54,7 +54,7 @@ public class BatchDocumentHelper {
         if (documentId == null || documentId.isEmpty())
             throw new IllegalArgumentException("documentId cannot be null or empty");
 
-        HttpRequestBase request = Request.Put("/v1/batches/" + batchId + "/documents/"+ documentId).build();
+        HttpRequestBase request = Request.Put(DocumentConversion.BATCHES_PATH + "/"+ batchId + "/documents/"+ documentId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchDocumentAsJson = ResponseUtil.getString(response);
@@ -70,33 +70,46 @@ public class BatchDocumentHelper {
      * Gets a list of existing documents in the batch with optional query parameters for filtering results.
      *
      * GET /v1/batches/{batch_id}/documents
+     *
      * @param batchId The id for the batch whose documents are returned
-     * @param token The reference to the starting element of the requested page which is provided
-     *              by the server, pass null to get the first page
-     * @param limit The number of documents in a batch to get, pass 0 to use the default limit from server (100)
-     * @param since The date to filter on, documents added to the batch on or after the provided date and time format
-     *              will be returned.
+     * @param batchDocListParams The parameters to be used in the batch documents list service call.
+     *                         The parameters - token, limit, since, job_id and media_type are optional
+     * <ul>
+     * <li> String token - The reference to the starting element of the requested page which is provided
+     *                     by the server, pass null to get the first page </li>
+     * <li> int limit - The number of documents in a batch to get, pass 0 to use the default limit from server (100) </li>
+     * <li> Date since - The date to filter on, documents added to the batch on or after the provided date and time format
+     *              will be returned. </li>
+     * </ul>
      * @return Documents in a batch based on the filtering parameters provided
      *
-     * @see DocumentConversion#getBatchDocumentCollection(String, String, int, Date)
+     * @see DocumentConversion#getBatchDocumentCollection(String, Map)
      */
-    public BatchDocumentCollection getBatchDocumentCollection(final String batchId, final String token,
-                                                              final int limit, final Date since) {
+    public BatchDocumentCollection getBatchDocumentCollection(String batchId, Map<String, Object> batchDocListParams) {
         if (batchId == null || batchId.isEmpty())
             throw new IllegalArgumentException("batchId cannot be null or empty");
 
-        Request request = Request.Get("/v1/batches/"+ batchId +"/documents");
-        if(token != null && !token.isEmpty())
-            request.withQuery("token", token);
+        Request request = Request.Get(DocumentConversion.BATCHES_PATH + "/" + batchId +"/documents");
+        if(batchDocListParams != null) {
+            if (batchDocListParams.get(DocumentConversion.TOKEN) != null) {
+                String token = (String) batchDocListParams.get(DocumentConversion.TOKEN);
+                if (!token.isEmpty())
+                    request.withQuery(DocumentConversion.TOKEN, token);
+            }
 
-        if (limit > 0)
-            request.withQuery("limit", limit);
-        else
-            request.withQuery("limit", DocumentConversion.LIMIT);
+            if (batchDocListParams.get(DocumentConversion.LIMIT) != null) {
+                int limit = ((Integer) batchDocListParams.get(DocumentConversion.LIMIT)).intValue();
+                if (limit > 0)
+                    request.withQuery(DocumentConversion.LIMIT, limit);
+                else
+                    request.withQuery(DocumentConversion.LIMIT, DocumentConversion.DEFAULT_LIMIT);
+            }
 
-        if(since != null)
-            request.withQuery("since", ConversionUtils.convertToISO(since));
-
+            if (batchDocListParams.get(DocumentConversion.SINCE) != null) {
+                Date since = (Date) batchDocListParams.get(DocumentConversion.SINCE);
+                request.withQuery(DocumentConversion.SINCE, ConversionUtils.convertToISO(since));
+            }
+        }
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = docConversionService.execute(requestBase);
@@ -128,7 +141,7 @@ public class BatchDocumentHelper {
         if (documentId == null || documentId.isEmpty())
             throw new IllegalArgumentException("documentId cannot be null or empty");
 
-        HttpRequestBase request = Request.Get("/v1/batches/" + batchId + "/documents/"+ documentId).build();
+        HttpRequestBase request = Request.Get(DocumentConversion.BATCHES_PATH + "/" + batchId + "/documents/"+ documentId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchDocumentAsJson = ResponseUtil.getString(response);

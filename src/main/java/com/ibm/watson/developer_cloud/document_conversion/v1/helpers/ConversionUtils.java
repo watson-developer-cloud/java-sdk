@@ -1,9 +1,11 @@
-package com.ibm.watson.developer_cloud.document_conversion.v1.util;
+package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.util.MediaType;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -23,7 +25,7 @@ public class ConversionUtils {
      */
     public static String getMediaTypeFromFile(final File file) {
         if (file != null) {
-            String fileName = file.getName();
+            String fileName = file.getName().toLowerCase();
             String[] supportedExtensions = {".htm", ".html", ".dot", ".doc", ".docx", ".xml", ".xhtml", ".pdf"};
             String[] supportedMediaTypes = {MediaType.TEXT_HTML, MediaType.TEXT_HTML,
                     MediaType.APPLICATION_MS_WORD, MediaType.APPLICATION_MS_WORD,
@@ -72,5 +74,16 @@ public class ConversionUtils {
         df.setTimeZone(tz);
         String dtAsISO = df.format(date);
         return dtAsISO;
+    }
+
+    /**
+     * Write input stream to output stream.
+     *
+     * @param is the input stream
+     * @return String
+     */
+    public static String writeInputStreamToString(InputStream is) {
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
     }
 }

@@ -18,9 +18,8 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answer;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.ConversionTarget;
-import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
@@ -33,6 +32,7 @@ import org.apache.http.entity.mime.content.StringBody;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -60,16 +60,17 @@ public class ConvertDocumentHelper {
     }
 
     /**
-     * Converts the provided document to an Answer object
+     * Converts the provided document to an Answers object
      * @param document
-     * @return Answer
+     * @return Answers
      *
      * @see DocumentConversion#convertDocumentToAnswer(File)
      */
-    public Answer convertDocumentToAnswer(final File document) {
-        String convertedDocument = convertDocument(document, ConversionTarget.ANSWER_UNITS);
-        Answer answer = GsonSingleton.getGson().fromJson(convertedDocument, Answer.class);
-        return answer;
+    public Answers convertDocumentToAnswer(final File document) {
+        InputStream is = convertDocument(document, ConversionTarget.ANSWER_UNITS);
+        String convertedDocument = ConversionUtils.writeInputStreamToString(is);
+        Answers answers = GsonSingleton.getGson().fromJson(convertedDocument, Answers.class);
+        return answers;
     }
 
     /**
@@ -81,7 +82,7 @@ public class ConvertDocumentHelper {
      *
      * @see DocumentConversion#convertDocument(File, ConversionTarget)
      */
-    public String convertDocument(final File document, final ConversionTarget conversionTarget) {
+    public InputStream convertDocument(final File document, final ConversionTarget conversionTarget) {
         String mediaType = ConversionUtils.getMediaTypeFromFile(document);
         return convertDocument(document, mediaType, conversionTarget);
     }
@@ -96,7 +97,7 @@ public class ConvertDocumentHelper {
      *
      * @see DocumentConversion#convertDocument(File, String, ConversionTarget)
      */
-    public String convertDocument(final File document, String mediaType, final ConversionTarget conversionTarget) {
+    public InputStream convertDocument(final File document, String mediaType, final ConversionTarget conversionTarget) {
         if (mediaType == null || mediaType.isEmpty())
             throw new IllegalArgumentException("media type cannot be null or empty");
         if(!ConversionUtils.isValidMediaType(mediaType))
@@ -114,27 +115,29 @@ public class ConvertDocumentHelper {
             String json = configRequestJson.toString();
             reqEntity.addPart("config", new StringBody(json, MediaType.APPLICATION_JSON, StandardCharsets.UTF_8));
 
-            HttpRequestBase request = Request.Post("/v1/convert_document")
+            HttpRequestBase request = Request.Post(DocumentConversion.CONVERT_DOCUMENT_PATH)
                     .withEntity(reqEntity).build();
 
             HttpResponse response = docConversionService.execute(request);
-            return ResponseUtil.getString(response);
+            InputStream is = ResponseUtil.getInputStream(response);
+            return is;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     /**
-     * Converts the specified document to an Answer object
+     * Converts the specified document to an Answers object
      * @param documentId
-     * @return Answer
+     * @return Answers
      *
      * @see DocumentConversion#convertDocumentToAnswer(String)
      */
-    public Answer convertDocumentToAnswer(final String documentId) {
-        String convertedDocument = convertDocument(documentId, ConversionTarget.ANSWER_UNITS);
-        Answer answer = GsonSingleton.getGson().fromJson(convertedDocument, Answer.class);
-        return answer;
+    public Answers convertDocumentToAnswer(final String documentId) {
+        InputStream is = convertDocument(documentId, ConversionTarget.ANSWER_UNITS);
+        String convertedDocument = ConversionUtils.writeInputStreamToString(is);
+        Answers answers = GsonSingleton.getGson().fromJson(convertedDocument, Answers.class);
+        return answers;
     }
 
     /**
@@ -146,7 +149,7 @@ public class ConvertDocumentHelper {
      *
      * @see DocumentConversion#convertDocument(String, ConversionTarget)
      */
-    public String convertDocument(final String documentId, final ConversionTarget conversionTarget) {
+    public InputStream convertDocument(final String documentId, final ConversionTarget conversionTarget) {
         if (documentId == null || documentId.isEmpty())
             throw new IllegalArgumentException("document id can not be null or empty");
         if (conversionTarget == null)
@@ -156,12 +159,13 @@ public class ConvertDocumentHelper {
         contentJson.addProperty("document_id", documentId);
         contentJson.addProperty("conversion_target", conversionTarget.toString());
 
-        HttpRequestBase request = Request.Post("/v1/convert_document")
+        HttpRequestBase request = Request.Post(DocumentConversion.CONVERT_DOCUMENT_PATH)
                 .withContent(contentJson).build();
 
         try {
             HttpResponse response = docConversionService.execute(request);
-            return ResponseUtil.getString(response);
+            InputStream is = ResponseUtil.getInputStream(response);
+            return is;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
