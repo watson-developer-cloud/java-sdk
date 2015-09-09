@@ -15,6 +15,7 @@ Java code wrappers to quickly get started with the various [Watson Developer Clo
     * [Getting the Service Credentials](#getting-the-service-credentials)
     * [IBM Watson Services](#ibm-watson-services)
       * [Concept Expansion](#concept-expansion)
+      * [Concept Insights](#concept-insights)
       * [Dialog](#dialog)
       * [Language Identification](#language-identification)
       * [Language Translation](#language-translation)
@@ -112,6 +113,27 @@ while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
 }
 
 System.out.println(service.getJobResult(job));
+```
+
+### Concept Insights
+Use the Concept Insights service to identify words in the text that
+correspond to concepts in a Wikipedia graph.
+```
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.Annotations;
+
+ConceptInsights service = new ConceptInsights();
+service.setUsernameAndPassword("<username>", "<password>");
+
+Map<String,Object> params = new HashMap<String, Object>();
+params.put(ConceptInsights.ACCOUNT_ID, "wikipedia");
+params.put(ConceptInsights.GRAPH, "en-20120601");
+params.put(ConceptInsights.TEXT, "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
+
+Annotations annotations =  service.annotateText(params);
+
+System.out.println(annotations);
+
 ```
 
 ### Dialog
@@ -414,30 +436,6 @@ labelSet.withLabelGroup("Auto Racing").withLabelGroup("Sports");
 
 RecognizedImage recognizedImage = service.recognize(image, labelSet);
 System.out.println(recognizedImage);
-```
-
-## Concept Insights
-Example: Retrieve concepts that are related (in conceptual sense) to a given concept or set of concepts using the [Concept Insights][concept-insights] service.
-
-```
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concepts;
-
-ConceptInsights service = new ConceptInsights();
-service.setUsernameAndPassword("<username>", "<password>");
-
-Map<String,Object> params = new HashMap<String, Object>();
-params.put("account_id", "wikipedia");
-params.put("graph", "en-20120601");
-List<String> concepts = new ArrayList<String>();
-concepts.add("/graphs/wikipedia/en-20120601/concepts/IBM_Watson");
-params.put("concepts", concepts);
-params.put("limit", 10);
-params.put("level", 1);
-
-Concepts result = service.getGraphsRelatedConcepts(params);
-System.out.println(result);
-
 ```
 
 ## Android

@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,193 +18,268 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
+/**
+ * The Class TopTags.
+ */
 public class TopTags {
 
-    private Integer documents;
+	/** The corpus tags histogram. */
+	@SerializedName("corpus_tags_histogram")
+	private Map<String, Integer> corpusTagsHistogram;
 
-    @SerializedName("total_tags")
-    private Integer totalTags;
+	/** The document length histogram. */
+	@SerializedName("document_length_histogram")
+	private Map<String, Integer> documentLengthHistogram;
 
-    @SerializedName("unique_tags")
-    private Integer uniqueTags;
+	/** The documents. */
+	private Integer documents;
 
-    private List<Tag> tags = new ArrayList<Tag>();
+	/** The document tags histogram. */
+	@SerializedName("document_tags_histogram")
+	private Map<String, Integer> documentTagsHistogram;
 
-    @SerializedName("corpus_tags_histogram")
-    private Map<String,Integer> corpusTagsHistogram = new HashMap<String, Integer>();
+	/** The tags. */
+	private List<Tag> tags = new ArrayList<Tag>();
 
-    @SerializedName("document_tags_histogram")
-    private Map<String,Integer> documentTagsHistogram = new HashMap<String, Integer>();
+	/** The total tags. */
+	@SerializedName("total_tags")
+	private Integer totalTags;
 
-    @SerializedName("document_length_histogram")
-    private Map<String,Integer> documentLengthHistogram = new HashMap<String, Integer>();
+	/** The unique tags. */
+	@SerializedName("unique_tags")
+	private Integer uniqueTags;
 
-    /**
-     * 
-     * @return
-     *     The documents
-     */
-    public Integer getDocuments() {
-        return documents;
-    }
+	/**
+	 * Gets the corpus tags histogram.
+	 * 
+	 * @return The corpusTagsHistogram
+	 */
+	public Map<String, Integer> getCorpusTagsHistogram() {
+		return corpusTagsHistogram;
+	}
 
-    /**
-     * 
-     * @param documents
-     *     The documents
-     */
-    public void setDocuments(Integer documents) {
-        this.documents = documents;
-    }
+	/**
+	 * Gets the document length histogram.
+	 * 
+	 * @return The documentLengthHistogram
+	 */
+	public Map<String, Integer> getDocumentLengthHistogram() {
+		return documentLengthHistogram;
+	}
 
-    public TopTags withDocuments(Integer documents) {
-        this.documents = documents;
-        return this;
-    }
+	/**
+	 * Gets the documents.
+	 * 
+	 * @return The documents
+	 */
+	public Integer getDocuments() {
+		return documents;
+	}
 
-    /**
-     * 
-     * @return
-     *     The totalTags
-     */
-    public Integer getTotalTags() {
-        return totalTags;
-    }
+	/**
+	 * Gets the document tags histogram.
+	 * 
+	 * @return The documentTagsHistogram
+	 */
+	public Map<String, Integer> getDocumentTagsHistogram() {
+		return documentTagsHistogram;
+	}
 
-    /**
-     * 
-     * @param totalTags
-     *     The total_tags
-     */
-    public void setTotalTags(Integer totalTags) {
-        this.totalTags = totalTags;
-    }
+	/**
+	 * Gets the tags.
+	 * 
+	 * @return The tags
+	 */
+	public List<Tag> getTags() {
+		return tags;
+	}
 
-    public TopTags withTotalTags(Integer totalTags) {
-        this.totalTags = totalTags;
-        return this;
-    }
+	/**
+	 * Gets the total tags.
+	 * 
+	 * @return The totalTags
+	 */
+	public Integer getTotalTags() {
+		return totalTags;
+	}
 
-    /**
-     * 
-     * @return
-     *     The uniqueTags
-     */
-    public Integer getUniqueTags() {
-        return uniqueTags;
-    }
+	/**
+	 * Gets the unique tags.
+	 * 
+	 * @return The uniqueTags
+	 */
+	public Integer getUniqueTags() {
+		return uniqueTags;
+	}
 
-    /**
-     * 
-     * @param uniqueTags
-     *     The unique_tags
-     */
-    public void setUniqueTags(Integer uniqueTags) {
-        this.uniqueTags = uniqueTags;
-    }
+	/**
+	 * Sets the corpus tags histogram.
+	 * 
+	 * @param corpusTagsHistogram
+	 *            The corpus_tags_histogram
+	 */
+	public void setCorpusTagsHistogram(Map<String, Integer> corpusTagsHistogram) {
+		this.corpusTagsHistogram = corpusTagsHistogram;
+	}
 
-    public TopTags withUniqueTags(Integer uniqueTags) {
-        this.uniqueTags = uniqueTags;
-        return this;
-    }
+	/**
+	 * Sets the document length histogram.
+	 * 
+	 * @param documentLengthHistogram
+	 *            The document_length_histogram
+	 */
+	public void setDocumentLengthHistogram(Map<String, Integer> documentLengthHistogram) {
+		this.documentLengthHistogram = documentLengthHistogram;
+	}
 
-    /**
-     * 
-     * @return
-     *     The tags
-     */
-    public List<Tag> getTags() {
-        return tags;
-    }
+	/**
+	 * Sets the documents.
+	 * 
+	 * @param documents
+	 *            The documents
+	 */
+	public void setDocuments(Integer documents) {
+		this.documents = documents;
+	}
 
-    /**
-     * 
-     * @param tags
-     *     The tags
-     */
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
+	/**
+	 * Sets the document tags histogram.
+	 * 
+	 * @param documentTagsHistogram
+	 *            The document_tags_histogram
+	 */
+	public void setDocumentTagsHistogram(Map<String, Integer> documentTagsHistogram) {
+		this.documentTagsHistogram = documentTagsHistogram;
+	}
 
-    public TopTags withTags(List<Tag> tags) {
-        this.tags = tags;
-        return this;
-    }
+	/**
+	 * Sets the tags.
+	 * 
+	 * @param tags
+	 *            The tags
+	 */
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;
+	}
 
-    /**
-     * 
-     * @return
-     *     The corpusTagsHistogram
-     */
-    public Map<String,Integer> getCorpusTagsHistogram() {
-        return corpusTagsHistogram;
-    }
+	/**
+	 * Sets the total tags.
+	 * 
+	 * @param totalTags
+	 *            The total_tags
+	 */
+	public void setTotalTags(Integer totalTags) {
+		this.totalTags = totalTags;
+	}
 
-    /**
-     * 
-     * @param corpusTagsHistogram
-     *     The corpus_tags_histogram
-     */
-    public void setCorpusTagsHistogram(Map<String,Integer> corpusTagsHistogram) {
-        this.corpusTagsHistogram = corpusTagsHistogram;
-    }
+	/**
+	 * Sets the unique tags.
+	 * 
+	 * @param uniqueTags
+	 *            The unique_tags
+	 */
+	public void setUniqueTags(Integer uniqueTags) {
+		this.uniqueTags = uniqueTags;
+	}
 
-    public TopTags withCorpusTagsHistogram(Map<String,Integer> corpusTagsHistogram) {
-        this.corpusTagsHistogram = corpusTagsHistogram;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    /**
-     * 
-     * @return
-     *     The documentTagsHistogram
-     */
-    public Map<String,Integer> getDocumentTagsHistogram() {
-        return documentTagsHistogram;
-    }
+	/**
+	 * With corpus tags histogram.
+	 * 
+	 * @param corpusTagsHistogram
+	 *            the corpus tags histogram
+	 * @return the top tags
+	 */
+	public TopTags withCorpusTagsHistogram(Map<String, Integer> corpusTagsHistogram) {
+		this.corpusTagsHistogram = corpusTagsHistogram;
+		return this;
+	}
 
-    /**
-     * 
-     * @param documentTagsHistogram
-     *     The document_tags_histogram
-     */
-    public void setDocumentTagsHistogram(Map<String,Integer> documentTagsHistogram) {
-        this.documentTagsHistogram = documentTagsHistogram;
-    }
+	/**
+	 * With document length histogram.
+	 * 
+	 * @param documentLengthHistogram
+	 *            the document length histogram
+	 * @return the top tags
+	 */
+	public TopTags withDocumentLengthHistogram(Map<String, Integer> documentLengthHistogram) {
+		this.documentLengthHistogram = documentLengthHistogram;
+		return this;
+	}
 
-    public TopTags withDocumentTagsHistogram(Map<String,Integer> documentTagsHistogram) {
-        this.documentTagsHistogram = documentTagsHistogram;
-        return this;
-    }
+	/**
+	 * With documents.
+	 * 
+	 * @param documents
+	 *            the documents
+	 * @return the top tags
+	 */
+	public TopTags withDocuments(Integer documents) {
+		this.documents = documents;
+		return this;
+	}
 
-    /**
-     * 
-     * @return
-     *     The documentLengthHistogram
-     */
-    public Map<String,Integer> getDocumentLengthHistogram() {
-        return documentLengthHistogram;
-    }
+	/**
+	 * With document tags histogram.
+	 * 
+	 * @param documentTagsHistogram
+	 *            the document tags histogram
+	 * @return the top tags
+	 */
+	public TopTags withDocumentTagsHistogram(Map<String, Integer> documentTagsHistogram) {
+		this.documentTagsHistogram = documentTagsHistogram;
+		return this;
+	}
 
-    /**
-     * 
-     * @param documentLengthHistogram
-     *     The document_length_histogram
-     */
-    public void setDocumentLengthHistogram(Map<String,Integer> documentLengthHistogram) {
-        this.documentLengthHistogram = documentLengthHistogram;
-    }
+	/**
+	 * With tags.
+	 * 
+	 * @param tags
+	 *            the tags
+	 * @return the top tags
+	 */
+	public TopTags withTags(List<Tag> tags) {
+		this.tags = tags;
+		return this;
+	}
 
-    public TopTags withDocumentLengthHistogram(Map<String,Integer> documentLengthHistogram) {
-        this.documentLengthHistogram = documentLengthHistogram;
-        return this;
-    }
+	/**
+	 * With total tags.
+	 * 
+	 * @param totalTags
+	 *            the total tags
+	 * @return the top tags
+	 */
+	public TopTags withTotalTags(Integer totalTags) {
+		this.totalTags = totalTags;
+		return this;
+	}
 
+	/**
+	 * With unique tags.
+	 * 
+	 * @param uniqueTags
+	 *            the unique tags
+	 * @return the top tags
+	 */
+	public TopTags withUniqueTags(Integer uniqueTags) {
+		this.uniqueTags = uniqueTags;
+		return this;
+	}
 }

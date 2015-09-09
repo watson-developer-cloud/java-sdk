@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,38 +18,58 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Matches graph returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
-
 public class Matches {
 
-    private List<Match> matches = new ArrayList<Match>();
+	/** The matches. */
+	private List<Match> matches;
 
-    /**
-     * @return The matches
-     */
-    public List<Match> getMatches() {
-        return matches;
-    }
+	/**
+	 * Gets the matches.
+	 * 
+	 * @return The matches
+	 */
+	public List<Match> getMatches() {
+		return matches;
+	}
 
-    /**
-     * @param matches The matches
-     */
-    public void setMatches(List<Match> matches) {
-        this.matches = matches;
-    }
+	/**
+	 * Sets the matches.
+	 * 
+	 * @param matches
+	 *            The matches
+	 */
+	public void setMatches(List<Match> matches) {
+		this.matches = matches;
+	}
 
-    public Matches withMatches(List<Match> matches) {
-        this.matches = matches;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
+	/**
+	 * With matches.
+	 * 
+	 * @param matches
+	 *            the matches
+	 * @return the matches
+	 */
+	public Matches withMatches(List<Match> matches) {
+		this.matches = matches;
+		return this;
+	}
 }

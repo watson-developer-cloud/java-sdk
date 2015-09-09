@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,113 +18,161 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
+/**
+ * The Class ExplanationTag.
+ */
 public class ExplanationTag {
 
-    private Concept concept;
+	/** The concept. */
+	private Concept concept;
 
-    private Float score;
+	/** The parts index. */
+	@SerializedName("parts_index")
+	private Integer partsIndex;
 
-    @SerializedName("parts_index")
-    private Integer partsIndex;
+	/** The score. */
+	private Float score;
 
-    @SerializedName("text_index")
-    private List<Integer> textIndex = new ArrayList<Integer>();
+	/** The text index. */
+	@SerializedName("text_index")
+	private List<Integer> textIndex;
 
-    /**
-     * 
-     * @return
-     *     The concept
-     */
-    public Concept getConcept() {
-        return concept;
-    }
+	/**
+	 * Gets the concept.
+	 * 
+	 * @return The concept
+	 */
+	public Concept getConcept() {
+		return concept;
+	}
 
-    /**
-     * 
-     * @param concept
-     *     The concept
-     */
-    public void setConcept(Concept concept) {
-        this.concept = concept;
-    }
+	/**
+	 * Gets the parts index.
+	 * 
+	 * @return The partsIndex
+	 */
+	public Integer getPartsIndex() {
+		return partsIndex;
+	}
 
-    public ExplanationTag withConcept(Concept concept) {
-        this.concept = concept;
-        return this;
-    }
+	/**
+	 * Gets the score.
+	 * 
+	 * @return The score
+	 */
+	public Float getScore() {
+		return score;
+	}
 
-    /**
-     * 
-     * @return
-     *     The score
-     */
-    public Float getScore() {
-        return score;
-    }
+	/**
+	 * Gets the text index.
+	 * 
+	 * @return The textIndex
+	 */
+	public List<Integer> getTextIndex() {
+		return textIndex;
+	}
 
-    /**
-     * 
-     * @param score
-     *     The score
-     */
-    public void setScore(Float score) {
-        this.score = score;
-    }
+	/**
+	 * Sets the concept.
+	 * 
+	 * @param concept
+	 *            The concept
+	 */
+	public void setConcept(Concept concept) {
+		this.concept = concept;
+	}
 
-    public ExplanationTag withScore(Float score) {
-        this.score = score;
-        return this;
-    }
+	/**
+	 * Sets the parts index.
+	 * 
+	 * @param partsIndex
+	 *            The parts_index
+	 */
+	public void setPartsIndex(Integer partsIndex) {
+		this.partsIndex = partsIndex;
+	}
 
-    /**
-     * 
-     * @return
-     *     The partsIndex
-     */
-    public Integer getPartsIndex() {
-        return partsIndex;
-    }
+	/**
+	 * Sets the score.
+	 * 
+	 * @param score
+	 *            The score
+	 */
+	public void setScore(Float score) {
+		this.score = score;
+	}
 
-    /**
-     * 
-     * @param partsIndex
-     *     The parts_index
-     */
-    public void setPartsIndex(Integer partsIndex) {
-        this.partsIndex = partsIndex;
-    }
+	/**
+	 * Sets the text index.
+	 * 
+	 * @param textIndex
+	 *            The text_index
+	 */
+	public void setTextIndex(List<Integer> textIndex) {
+		this.textIndex = textIndex;
+	}
 
-    public ExplanationTag withPartsIndex(Integer partsIndex) {
-        this.partsIndex = partsIndex;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    /**
-     * 
-     * @return
-     *     The textIndex
-     */
-    public List<Integer> getTextIndex() {
-        return textIndex;
-    }
+	/**
+	 * With concept.
+	 * 
+	 * @param concept
+	 *            the concept
+	 * @return the explanation tag
+	 */
+	public ExplanationTag withConcept(Concept concept) {
+		this.concept = concept;
+		return this;
+	}
 
-    /**
-     * 
-     * @param textIndex
-     *     The text_index
-     */
-    public void setTextIndex(List<Integer> textIndex) {
-        this.textIndex = textIndex;
-    }
+	/**
+	 * With parts index.
+	 * 
+	 * @param partsIndex
+	 *            the parts index
+	 * @return the explanation tag
+	 */
+	public ExplanationTag withPartsIndex(Integer partsIndex) {
+		this.partsIndex = partsIndex;
+		return this;
+	}
 
-    public ExplanationTag withTextIndex(List<Integer> textIndex) {
-        this.textIndex = textIndex;
-        return this;
-    }
+	/**
+	 * With score.
+	 * 
+	 * @param score
+	 *            the score
+	 * @return the explanation tag
+	 */
+	public ExplanationTag withScore(Float score) {
+		this.score = score;
+		return this;
+	}
 
+	/**
+	 * With text index.
+	 * 
+	 * @param textIndex
+	 *            the text index
+	 * @return the explanation tag
+	 */
+	public ExplanationTag withTextIndex(List<Integer> textIndex) {
+		this.textIndex = textIndex;
+		return this;
+	}
 }

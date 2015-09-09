@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,63 +18,92 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
+/**
+ * The Class QueryConcepts.
+ */
 public class QueryConcepts {
 
-    @SerializedName("query_concepts")
-    private List<Concept> queryConcepts = new ArrayList<Concept>();
+	/** The query concepts. */
+	@SerializedName("query_concepts")
+	private List<Concept> queryConcepts;
 
-    private List<Result> results = new ArrayList<Result>();
+	/** The results. */
+	private List<Result> results;
 
-    /**
-     * 
-     * @return
-     *     The queryConcepts
-     */
-    public List<Concept> getQueryConcepts() {
-        return queryConcepts;
-    }
+	/**
+	 * Gets the query concepts.
+	 * 
+	 * @return The queryConcepts
+	 */
+	public List<Concept> getQueryConcepts() {
+		return queryConcepts;
+	}
 
-    /**
-     * 
-     * @param queryConcepts
-     *     The query_concepts
-     */
-    public void setQueryConcepts(List<Concept> queryConcepts) {
-        this.queryConcepts = queryConcepts;
-    }
+	/**
+	 * Gets the results.
+	 * 
+	 * @return The results
+	 */
+	public List<Result> getResults() {
+		return results;
+	}
 
-    public QueryConcepts withQueryConcepts(List<Concept> queryConcepts) {
-        this.queryConcepts = queryConcepts;
-        return this;
-    }
+	/**
+	 * Sets the query concepts.
+	 * 
+	 * @param queryConcepts
+	 *            The query_concepts
+	 */
+	public void setQueryConcepts(List<Concept> queryConcepts) {
+		this.queryConcepts = queryConcepts;
+	}
 
-    /**
-     * 
-     * @return
-     *     The results
-     */
-    public List<Result> getResults() {
-        return results;
-    }
+	/**
+	 * Sets the results.
+	 * 
+	 * @param results
+	 *            The results
+	 */
+	public void setResults(List<Result> results) {
+		this.results = results;
+	}
 
-    /**
-     * 
-     * @param results
-     *     The results
-     */
-    public void setResults(List<Result> results) {
-        this.results = results;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    public QueryConcepts withResults(List<Result> results) {
-        this.results = results;
-        return this;
-    }
+	/**
+	 * With query concepts.
+	 * 
+	 * @param queryConcepts
+	 *            the query concepts
+	 * @return the query concepts
+	 */
+	public QueryConcepts withQueryConcepts(List<Concept> queryConcepts) {
+		this.queryConcepts = queryConcepts;
+		return this;
+	}
 
+	/**
+	 * With results.
+	 * 
+	 * @param results
+	 *            the results
+	 * @return the query concepts
+	 */
+	public QueryConcepts withResults(List<Result> results) {
+		this.results = results;
+		return this;
+	}
 }

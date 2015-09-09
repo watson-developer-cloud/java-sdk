@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,37 +18,58 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Documents returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
 public class Documents {
 
-    private List<String> documents = new ArrayList<String>();
+	/** The documents. */
+	private List<String> documents;
 
-    /**
-     * @return The documents
-     */
-    public List<String> getDocuments() {
-        return documents;
-    }
+	/**
+	 * Gets the documents.
+	 * 
+	 * @return The documents
+	 */
+	public List<String> getDocuments() {
+		return documents;
+	}
 
-    /**
-     * @param documents The documents
-     */
-    public void setDocuments(List<String> documents) {
-        this.documents = documents;
-    }
+	/**
+	 * Sets the documents.
+	 * 
+	 * @param documents
+	 *            The documents
+	 */
+	public void setDocuments(List<String> documents) {
+		this.documents = documents;
+	}
 
-    public Documents withDocuments(List<String> documents) {
-        this.documents = documents;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
+	/**
+	 * With documents.
+	 * 
+	 * @param documents
+	 *            the documents
+	 * @return the documents
+	 */
+	public Documents withDocuments(List<String> documents) {
+		this.documents = documents;
+		return this;
+	}
 }

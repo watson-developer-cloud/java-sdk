@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -23,37 +22,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Accounts returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
 public class Accounts {
+	/** The accounts. */
+	private List<Account> accounts = new ArrayList<Account>();
 
-    private List<Account> accounts = new ArrayList<Account>();
+	/**
+	 * Gets the accounts.
+	 * 
+	 * @return The accounts
+	 */
+	public List<Account> getAccounts() {
+		return accounts;
+	}
 
-    /**
-     * 
-     * @return
-     *     The accounts
-     */
-    public List<Account> getAccounts() {
-        return accounts;
-    }
+	/**
+	 * Sets the accounts.
+	 * 
+	 * @param accounts
+	 *            The accounts
+	 */
+	public void setAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+	}
 
-    /**
-     * 
-     * @param accounts
-     *     The accounts
-     */
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    public Accounts withAccounts(List<Account> accounts) {
-        this.accounts = accounts;
-        return this;
-    }
-
+	/**
+	 * With accounts.
+	 * 
+	 * @param accounts
+	 *            the accounts
+	 * @return the accounts
+	 */
+	public Accounts withAccounts(List<Account> accounts) {
+		this.accounts = accounts;
+		return this;
+	}
 }

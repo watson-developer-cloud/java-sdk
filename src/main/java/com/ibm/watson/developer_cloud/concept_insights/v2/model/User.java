@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -20,74 +19,121 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
+/**
+ * The Class User.
+ */
 public class User {
 
-    @SerializedName("account_id")
-    private String accountId;
+	/** The account id. */
+	@SerializedName("account_id")
+	private String accountId;
 
-    private String permission;
+	/** The permission. */
+	private String permission;
 
-    /**
-     * @return The accountId
-     */
-    public String getAccountId() {
-        return accountId;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
-    /**
-     * @param accountId The account_id
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
+		User user = (User) o;
 
-    public User withAccountId(String accountId) {
-        this.accountId = accountId;
-        return this;
-    }
+		if (accountId != null ? !accountId.equals(user.accountId) : user.accountId != null)
+			return false;
+		return !(permission != null ? !permission.equals(user.permission) : user.permission != null);
 
-    /**
-     * @return The permission
-     */
-    public String getPermission() {
-        return permission;
-    }
+	}
 
-    /**
-     * @param permission The permission
-     */
-    public void setPermission(String permission) {
-        this.permission = permission;
-    }
+	/**
+	 * Gets the account id.
+	 * 
+	 * @return The accountId
+	 */
+	public String getAccountId() {
+		return accountId;
+	}
 
-    public User withPermission(String permission) {
-        this.permission = permission;
-        return this;
-    }
+	/**
+	 * Gets the permission.
+	 * 
+	 * @return The permission
+	 */
+	public String getPermission() {
+		return permission;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int result = accountId != null ? accountId.hashCode() : 0;
+		result = 31 * result + (permission != null ? permission.hashCode() : 0);
+		return result;
+	}
 
-        User user = (User) o;
+	/**
+	 * Sets the account id.
+	 * 
+	 * @param accountId
+	 *            The account_id
+	 */
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
+	}
 
-        if (accountId != null ? !accountId.equals(user.accountId) : user.accountId != null) return false;
-        return !(permission != null ? !permission.equals(user.permission) : user.permission != null);
+	/**
+	 * Sets the permission.
+	 * 
+	 * @param permission
+	 *            The permission
+	 */
+	public void setPermission(String permission) {
+		this.permission = permission;
+	}
 
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    @Override
-    public int hashCode() {
-        int result = accountId != null ? accountId.hashCode() : 0;
-        result = 31 * result + (permission != null ? permission.hashCode() : 0);
-        return result;
-    }
+	/**
+	 * With account id.
+	 * 
+	 * @param accountId
+	 *            the account id
+	 * @return the user
+	 */
+	public User withAccountId(String accountId) {
+		this.accountId = accountId;
+		return this;
+	}
 
-
-    @Override
-    public String toString() {
-        return String.format("User [accountId=%s,permission=%s]", accountId,permission);
-    }
+	/**
+	 * With permission.
+	 * 
+	 * @param permission
+	 *            the permission
+	 * @return the user
+	 */
+	public User withPermission(String permission) {
+		this.permission = permission;
+		return this;
+	}
 }

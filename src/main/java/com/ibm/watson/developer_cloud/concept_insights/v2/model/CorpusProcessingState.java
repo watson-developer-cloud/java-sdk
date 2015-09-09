@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -21,114 +20,159 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * DocumentProcessingState returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
 public class CorpusProcessingState {
 
-    private String id;
+	/** The build status. */
+	@SerializedName("build_status")
+	private BuildStatus buildStatus;
 
-    private Integer documents;
+	/** The documents. */
+	private Integer documents;
 
-    @SerializedName("last_updated")
-    private String lastUpdated;
+	/** The id. */
+	private String id;
 
-    @SerializedName("build_status")
-    private BuildStatus buildStatus;
+	/** The last updated. */
+	@SerializedName("last_updated")
+	private String lastUpdated;
 
-    /**
-     * 
-     * @return
-     *     The id
-     */
-    public String getId() {
-        return id;
-    }
+	/**
+	 * Gets the builds the status.
+	 * 
+	 * @return The buildStatus
+	 */
+	public BuildStatus getBuildStatus() {
+		return buildStatus;
+	}
 
-    /**
-     * 
-     * @param id
-     *     The id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+	/**
+	 * Gets the documents.
+	 * 
+	 * @return The documents
+	 */
+	public Integer getDocuments() {
+		return documents;
+	}
 
-    public CorpusProcessingState withId(String id) {
-        this.id = id;
-        return this;
-    }
+	/**
+	 * Gets the id.
+	 * 
+	 * @return The id
+	 */
+	public String getId() {
+		return id;
+	}
 
-    /**
-     * 
-     * @return
-     *     The documents
-     */
-    public Integer getDocuments() {
-        return documents;
-    }
+	/**
+	 * Gets the last updated.
+	 * 
+	 * @return The lastUpdated
+	 */
+	public String getLastUpdated() {
+		return lastUpdated;
+	}
 
-    /**
-     * 
-     * @param documents
-     *     The documents
-     */
-    public void setDocuments(Integer documents) {
-        this.documents = documents;
-    }
+	/**
+	 * Sets the builds the status.
+	 * 
+	 * @param buildStatus
+	 *            The build_status
+	 */
+	public void setBuildStatus(BuildStatus buildStatus) {
+		this.buildStatus = buildStatus;
+	}
 
-    public CorpusProcessingState withDocuments(Integer documents) {
-        this.documents = documents;
-        return this;
-    }
+	/**
+	 * Sets the documents.
+	 * 
+	 * @param documents
+	 *            The documents
+	 */
+	public void setDocuments(Integer documents) {
+		this.documents = documents;
+	}
 
-    /**
-     * 
-     * @return
-     *     The lastUpdated
-     */
-    public String getLastUpdated() {
-        return lastUpdated;
-    }
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id
+	 *            The id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    /**
-     * 
-     * @param lastUpdated
-     *     The last_updated
-     */
-    public void setLastUpdated(String lastUpdated) {
-        this.lastUpdated = lastUpdated;
-    }
+	/**
+	 * Sets the last updated.
+	 * 
+	 * @param lastUpdated
+	 *            The last_updated
+	 */
+	public void setLastUpdated(String lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
 
-    public CorpusProcessingState withLastUpdated(String lastUpdated) {
-        this.lastUpdated = lastUpdated;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    /**
-     * 
-     * @return
-     *     The buildStatus
-     */
-    public BuildStatus getBuildStatus() {
-        return buildStatus;
-    }
+	/**
+	 * With build status.
+	 * 
+	 * @param buildStatus
+	 *            the build status
+	 * @return the corpus processing state
+	 */
+	public CorpusProcessingState withBuildStatus(BuildStatus buildStatus) {
+		this.buildStatus = buildStatus;
+		return this;
+	}
 
-    /**
-     * 
-     * @param buildStatus
-     *     The build_status
-     */
-    public void setBuildStatus(BuildStatus buildStatus) {
-        this.buildStatus = buildStatus;
-    }
+	/**
+	 * With documents.
+	 * 
+	 * @param documents
+	 *            the documents
+	 * @return the corpus processing state
+	 */
+	public CorpusProcessingState withDocuments(Integer documents) {
+		this.documents = documents;
+		return this;
+	}
 
-    public CorpusProcessingState withBuildStatus(BuildStatus buildStatus) {
-        this.buildStatus = buildStatus;
-        return this;
-    }
+	/**
+	 * With id.
+	 * 
+	 * @param id
+	 *            the id
+	 * @return the corpus processing state
+	 */
+	public CorpusProcessingState withId(String id) {
+		this.id = id;
+		return this;
+	}
 
+	/**
+	 * With last updated.
+	 * 
+	 * @param lastUpdated
+	 *            the last updated
+	 * @return the corpus processing state
+	 */
+	public CorpusProcessingState withLastUpdated(String lastUpdated) {
+		this.lastUpdated = lastUpdated;
+		return this;
+	}
 }

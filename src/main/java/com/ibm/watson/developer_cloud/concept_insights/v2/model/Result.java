@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,96 +18,160 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
+/**
+ * The Class Result.
+ */
 public class Result {
 
-    @SerializedName("explanation_tags")
-    private List<ExplanationTag> explanationTags = new ArrayList<ExplanationTag>();
+	/** The explanation tags. */
+	@SerializedName("explanation_tags")
+	private List<ExplanationTag> explanationTags;
 
-    private String id;
+	/** The id. */
+	private String id;
 
-    private String label;
+	/** The label. */
+	private String label;
 
-    private Float score;
+	/** The score. */
+	private Float score;
 
-    /**
-     * @return The explanationTags
-     */
-    public List<ExplanationTag> getExplanationTags() {
-        return explanationTags;
-    }
+	/**
+	 * Gets the explanation tags.
+	 * 
+	 * @return The explanationTags
+	 */
+	public List<ExplanationTag> getExplanationTags() {
+		return explanationTags;
+	}
 
-    /**
-     * @param explanationTags The explanation_tags
-     */
-    public void setExplanationTags(List<ExplanationTag> explanationTags) {
-        this.explanationTags = explanationTags;
-    }
+	/**
+	 * Gets the id.
+	 * 
+	 * @return The id
+	 */
+	public String getId() {
+		return id;
+	}
 
-    public Result withExplanationTags(List<ExplanationTag> explanationTags) {
-        this.explanationTags = explanationTags;
-        return this;
-    }
+	/**
+	 * Gets the label.
+	 * 
+	 * @return The label
+	 */
+	public String getLabel() {
+		return label;
+	}
 
-    /**
-     * @return The id
-     */
-    public String getId() {
-        return id;
-    }
+	/**
+	 * Gets the score.
+	 * 
+	 * @return The score
+	 */
+	public Float getScore() {
+		return score;
+	}
 
-    /**
-     * @param id The id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+	/**
+	 * Sets the explanation tags.
+	 * 
+	 * @param explanationTags
+	 *            The explanation_tags
+	 */
+	public void setExplanationTags(List<ExplanationTag> explanationTags) {
+		this.explanationTags = explanationTags;
+	}
 
-    public Result withId(String id) {
-        this.id = id;
-        return this;
-    }
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id
+	 *            The id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    /**
-     * @return The label
-     */
-    public String getLabel() {
-        return label;
-    }
+	/**
+	 * Sets the label.
+	 * 
+	 * @param label
+	 *            The label
+	 */
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
-    /**
-     * @param label The label
-     */
-    public void setLabel(String label) {
-        this.label = label;
-    }
+	/**
+	 * Sets the score.
+	 * 
+	 * @param score
+	 *            The score
+	 */
+	public void setScore(Float score) {
+		this.score = score;
+	}
 
-    public Result withLabel(String label) {
-        this.label = label;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    /**
-     * @return The score
-     */
-    public Float getScore() {
-        return score;
-    }
+	/**
+	 * With explanation tags.
+	 * 
+	 * @param explanationTags
+	 *            the explanation tags
+	 * @return the result
+	 */
+	public Result withExplanationTags(List<ExplanationTag> explanationTags) {
+		this.explanationTags = explanationTags;
+		return this;
+	}
 
-    /**
-     * @param score The score
-     */
-    public void setScore(Float score) {
-        this.score = score;
-    }
+	/**
+	 * With id.
+	 * 
+	 * @param id
+	 *            the id
+	 * @return the result
+	 */
+	public Result withId(String id) {
+		this.id = id;
+		return this;
+	}
 
-    public Result withScore(Float score) {
-        this.score = score;
-        return this;
-    }
+	/**
+	 * With label.
+	 * 
+	 * @param label
+	 *            the label
+	 * @return the result
+	 */
+	public Result withLabel(String label) {
+		this.label = label;
+		return this;
+	}
 
+	/**
+	 * With score.
+	 * 
+	 * @param score
+	 *            the score
+	 * @return the result
+	 */
+	public Result withScore(Float score) {
+		this.score = score;
+		return this;
+	}
 }

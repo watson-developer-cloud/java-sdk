@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -21,55 +20,84 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Account returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
-
 public class Account {
 
-    @SerializedName("account_id")
-    private String accountId;
+	/** The id. */
+	@SerializedName("account_id")
+	private String id;
 
-    /**
-     * @return The accountId
-     */
-    public String getAccountId() {
-        return accountId;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
-    /**
-     * @param accountId The account_id
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
+		Account account = (Account) o;
 
-    public Account withAccountId(String accountId) {
-        this.accountId = accountId;
-        return this;
-    }
+		return !(id != null ? !id.equals(account.id) : account.id != null);
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	}
 
-        Account account = (Account) o;
+	/**
+	 * Gets the id.
+	 * 
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
 
-        return !(accountId != null ? !accountId.equals(account.accountId) : account.accountId != null);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
 
-    }
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    @Override
-    public int hashCode() {
-        return accountId != null ? accountId.hashCode() : 0;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    @Override
-    public String toString() {
-        return String.format("Account [accountId=%s]", accountId);
-    }
+	/**
+	 * With id.
+	 * 
+	 * @param id
+	 *            the id
+	 * @return the account
+	 */
+	public Account withId(String id) {
+		this.id = id;
+		return this;
+	}
 }
