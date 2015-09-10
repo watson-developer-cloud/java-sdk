@@ -433,7 +433,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         List<Output> outputList = new ArrayList<Output>();
         String outputId = UUID.randomUUID().toString();
         String jobId = UUID.randomUUID().toString();
-        Output output = createMockOutput(outputId, null, null, null);
+        Output output = createMockOutput(outputId, jobId, null, null, null);
         outputList.add(output);
         outputCollWithQueryResponse.setOutputs(outputList);
         List<Link> links = new ArrayList<Link>();
@@ -527,7 +527,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         job.setId(id);
         job.setName(name);
         job.setBatchId(batchId);
-        job.setConfiguration(config);
+        job.setConfig(config);
         job.setConversionTarget(convTarget);
         job.setCreatedOn(createdOn);
         job.setDocumentCounts(docCounts);
@@ -541,14 +541,16 @@ public class DocumentConversionTest extends WatsonServiceTest {
     /**
      * Create an Output object
      * @param id The id of the output
+     * @param jobId The id of job that generated the output
      * @param srcDocId The id of the source document used to generate this output
      * @param createdOn The time the output was created
      * @param mediaType The internet media type of the output
      * @return Output
      */
-    private Output createMockOutput(String id, String srcDocId, Date createdOn, String mediaType) {
+    private Output createMockOutput(String id, String jobId, String srcDocId, Date createdOn, String mediaType) {
         Output output = new Output();
         output.setId(id);
+        output.setJobId(jobId);
         output.setSourceDocumentId(srcDocId);
         output.setCreatedOn(createdOn);
         output.setMediaType(mediaType);

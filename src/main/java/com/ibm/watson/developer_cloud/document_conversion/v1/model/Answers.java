@@ -17,6 +17,7 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.model.GenericModel;
 
 import java.util.Date;
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.List;
  *
  * @see DocumentConversion
  */
-public class Answers extends DocumentConversionModel {
+public class Answers extends GenericModel {
 
     /**
      * The id of the source document used to derive the answer
@@ -96,7 +97,7 @@ public class Answers extends DocumentConversionModel {
     /**
      * The object that holds the answer units of a source document
      */
-    public class AnswerUnits extends DocumentConversionModel {
+    public class AnswerUnits extends GenericModel {
 
         /**
          * The id of the answer unit
@@ -185,7 +186,7 @@ public class Answers extends DocumentConversionModel {
         /**
          * The content of an answer unit
          */
-        public class Content extends DocumentConversionModel {
+        public class Content extends GenericModel {
 
             /**
              * The Internet media type of the answer unit

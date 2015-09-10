@@ -18,13 +18,14 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.model.GenericModel;
 
 /**
  * Structure that holds custom properties that are added for a Batch
  *
  * @see DocumentConversion
  */
-public class Property extends DocumentConversionModel {
+public class Property extends GenericModel {
     /**
      * The name of the property
      */

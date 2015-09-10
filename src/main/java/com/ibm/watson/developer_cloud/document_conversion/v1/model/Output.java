@@ -18,6 +18,7 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.model.GenericModel;
 
 import java.util.Date;
 import java.util.List;
@@ -28,13 +29,19 @@ import java.util.List;
  *
  * @see DocumentConversion
  */
-public class Output extends DocumentConversionModel {
+public class Output extends GenericModel {
 
     /**
      * The id of the output
      */
     @Expose
     private String id;
+    /**
+     * The id of the job which generated the output
+     */
+    @SerializedName("job_id")
+    private String jobId;
+
     /**
      * The id of the source document that was used to generated this output
      */
@@ -72,6 +79,24 @@ public class Output extends DocumentConversionModel {
      */
     public void setId(String id) {
         this.id = id;
+    }
+
+    /**
+     * Returns the id of the job which generated the output
+     *
+     * @return
+     */
+    public String getJobId() {
+        return jobId;
+    }
+
+    /**
+     * Sets the id of the job which generated the output
+     *
+     * @param jobId
+     */
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
     }
 
     /**

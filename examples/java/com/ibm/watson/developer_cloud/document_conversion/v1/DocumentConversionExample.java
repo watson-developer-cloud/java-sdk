@@ -15,6 +15,7 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.ConversionUtils;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
 
@@ -131,11 +132,21 @@ public class DocumentConversionExample{
         JobResponse jobResponse = service.createJob("Job 1", batch.getId(), ConversionTarget.ANSWER_UNITS);
         System.out.println("Create a job for the batch :\n" + jobResponse);
 
+        // Step 4.1 Create a job with a custom config
+        JsonObject customJobConfig = new JsonObject();
+        JsonObject configOptions = new JsonObject();
+        configOptions.addProperty("selector", "h3");
+        configOptions.addProperty("output.content-types", "text/plain,text/html");
+        customJobConfig.add("html-to-pau", configOptions);
+        JobResponse jobWithConfigResponse = service.createJob("JobWithCustomConfig",
+                batch.getId(), ConversionTarget.ANSWER_UNITS, customJobConfig);
+        System.out.println("Create a job with a custom config for the batch :\n" + jobWithConfigResponse);
+
         System.out.println("-------------------- Job Collection ------------------------------");
         JobCollection jobCollection = service.getJobCollection();
         System.out.println("List of all the jobs :\n" + jobCollection);
 
-        // Step 4.1 Get job
+        // Step 4.2 Get job
         System.out.println("-------------------- Get a job ------------------------------");
         Job job = service.getJob(jobResponse.getId());
         System.out.println("Get job 1:\n" + job);

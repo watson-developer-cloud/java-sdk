@@ -13,17 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.document_conversion.v1.model;
+package com.ibm.watson.developer_cloud.model;
 
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
- * Abstract class to provide a default toString() method in model classes.
- *
- * @see DocumentConversion
+ * Abstract model class to provide a default toString() method in model classes.
  */
-abstract class DocumentConversionModel {
+public abstract class GenericModel {
 
     /*
      *

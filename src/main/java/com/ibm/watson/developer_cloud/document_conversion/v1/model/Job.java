@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.model.GenericModel;
 
 import java.util.Date;
 import java.util.List;
@@ -28,7 +29,7 @@ import java.util.List;
  *
  * @see DocumentConversion
  */
-public class Job extends DocumentConversionModel {
+public class Job extends GenericModel {
 
     /**
      * The id of the job
@@ -55,7 +56,7 @@ public class Job extends DocumentConversionModel {
      * The configuration used for the job
      */
     @Expose
-    private JsonObject configuration;
+    private JsonObject config;
     /**
      * The date and time the job was created in ISO 8601 date and time format (YYYY-MM-DDTHH:MM:SSZ)
      */
@@ -167,17 +168,17 @@ public class Job extends DocumentConversionModel {
      *
      * @return
      */
-    public JsonObject getConfiguration() {
-        return configuration;
+    public JsonObject getConfig() {
+        return config;
     }
 
     /**
      * Sets the configuration for the job
      *
-     * @param configuration
+     * @param config
      */
-    public void setConfiguration(JsonObject configuration) {
-        this.configuration = configuration;
+    public void setConfig(JsonObject config) {
+        this.config = config;
     }
 
     /**

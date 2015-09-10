@@ -18,13 +18,14 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.model.GenericModel;
 
 /**
  * Structure that provides the response when a Document is added to a Batch
  *
  * @see DocumentConversion
  */
-public class BatchDocumentResponse extends DocumentConversionModel {
+public class BatchDocumentResponse extends GenericModel {
     /**
      * The document of the batch
      */
