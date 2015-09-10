@@ -4,7 +4,11 @@ import java.net.URI;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
+
+import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
  * Abstract class which has functionality for the different Alchemy services
@@ -76,4 +80,48 @@ public abstract class AlchemyService extends WatsonService{
     public AlchemyService() {
 		setEndPoint(ENDPOINT);
 	}
+    
+	/**
+	 * Gets the error message from a JSON response
+	 *
+	 * <pre>
+	 * {
+	 *   code: 400
+	 *   error: 'bad request'
+	 * }
+	 * </pre>
+	 *
+	 * @param response
+	 *            the HTTP response
+	 * @return the error message from the json object
+	 */
+	private String getErrorMessage(HttpResponse response) {
+		JsonObject error = null, jsonResponse = null;
+
+		try {
+			jsonResponse = ResponseUtil.getJsonObject(response);
+		} catch (Exception e) {}
+		
+		if (jsonResponse != null && !jsonResponse.get("status").getAsString().equalsIgnoreCase("OK")) {
+			error = new JsonObject();
+			error.addProperty("error", jsonResponse.get("statusInfo").getAsString());
+			error.addProperty("code", "400");
+			return error.toString();
+		} else 
+			return null;
+	}
+
+	
+    /* (non-Javadoc)
+     * @see com.ibm.watson.developer_cloud.service.WatsonService#execute(org.apache.http.client.methods.HttpRequestBase)
+     */
+    @Override
+    protected HttpResponse execute(HttpRequestBase request) {
+    	HttpResponse response = super.execute(request);
+		String error = getErrorMessage(response);
+		if (error == null)
+			return response;
+		else
+			throw new BadRequestException(error);
+    }
 }
