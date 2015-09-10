@@ -15,11 +15,15 @@
  *  * limitations under the License.
  *
  */
-package com.ibm.watson.developer_cloud.language_translation.v2;
+package com.ibm.watson.developer_cloud.concept_insights.v2;
 
 
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concepts;
+import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.Annotations;
 
 public class ConceptInsightsExample {
 
@@ -28,17 +32,13 @@ public class ConceptInsightsExample {
 		service.setUsernameAndPassword("<username>", "<password>");
 
 		Map<String,Object> params = new HashMap<String, Object>();
-		params.put("account_id", "wikipedia");
-		params.put("graph", "en-20120601");
-		List<String> concepts = new ArrayList<String>();
-		concepts.add("/graphs/wikipedia/en-20120601/concepts/IBM_Watson");
-		params.put("concepts", concepts);
-		params.put("limit", 10);
-		params.put("level", 1);
+		params.put(ConceptInsights.ACCOUNT_ID, "wikipedia");
+		params.put(ConceptInsights.GRAPH, "en-20120601");
+		params.put(ConceptInsights.TEXT, "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
 
-		Concepts result =  service.getGraphsRelatedConcepts(params);
+		Annotations annotations =  service.annotateText(params);
 
-		System.out.println(result);
+		System.out.println(annotations);
 	}
 
 }

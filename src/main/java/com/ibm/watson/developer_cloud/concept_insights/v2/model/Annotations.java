@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,41 +18,58 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Annotations returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
 public class Annotations {
 
-    private List<ScoredConcept> annotations = new ArrayList<ScoredConcept>();
+	/** The annotations. */
+	private List<ScoredConcept> annotations;
 
-    /**
-     * 
-     * @return
-     *     The annotations
-     */
-    public List<ScoredConcept> getAnnotations() {
-        return annotations;
-    }
+	/**
+	 * Gets the annotations.
+	 * 
+	 * @return The annotations
+	 */
+	public List<ScoredConcept> getAnnotations() {
+		return annotations;
+	}
 
-    /**
-     * 
-     * @param annotations
-     *     The annotations
-     */
-    public void setAnnotations(List<ScoredConcept> annotations) {
-        this.annotations = annotations;
-    }
+	/**
+	 * Sets the annotations.
+	 * 
+	 * @param annotations
+	 *            The annotations
+	 */
+	public void setAnnotations(List<ScoredConcept> annotations) {
+		this.annotations = annotations;
+	}
 
-    public Annotations withAnnotations(List<ScoredConcept> annotations) {
-        this.annotations = annotations;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
+	/**
+	 * With annotations.
+	 * 
+	 * @param annotations
+	 *            the annotations
+	 * @return the annotations
+	 */
+	public Annotations withAnnotations(List<ScoredConcept> annotations) {
+		this.annotations = annotations;
+		return this;
+	}
 }

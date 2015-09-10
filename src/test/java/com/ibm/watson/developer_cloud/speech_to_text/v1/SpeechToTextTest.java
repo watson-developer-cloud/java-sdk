@@ -203,10 +203,9 @@ public class SpeechToTextTest extends WatsonServiceTest {
 		transcript.setFinal(true);
 		final SpeechAlternative speechAlternative = new SpeechAlternative();
 		speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
-		List<SpeechAlternative> speechAlternatives = new ArrayList<SpeechAlternative>(){{
-			add(speechAlternative);
-
-		}};
+		List<SpeechAlternative> speechAlternatives = new ArrayList<SpeechAlternative>();
+		speechAlternatives.add(speechAlternative);
+		
 		transcript.setAlternatives(speechAlternatives);
 		List<Transcript> transcripts = new ArrayList<Transcript>();
 		transcripts.add(transcript);
@@ -257,10 +256,9 @@ public class SpeechToTextTest extends WatsonServiceTest {
 		transcript.setFinal(true);
 		final SpeechAlternative speechAlternative = new SpeechAlternative();
 		speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
-		List<SpeechAlternative> speechAlternatives = new ArrayList<SpeechAlternative>(){{
-			add(speechAlternative);
+		List<SpeechAlternative> speechAlternatives = new ArrayList<SpeechAlternative>();
+		speechAlternatives.add(speechAlternative);
 
-		}};
 		transcript.setAlternatives(speechAlternatives);
 		List<Transcript> transcripts = new ArrayList<Transcript>();
 		transcripts.add(transcript);

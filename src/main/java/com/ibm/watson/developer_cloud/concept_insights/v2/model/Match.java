@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -18,87 +17,123 @@
  */
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
+
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Match graph returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
-
 public class Match {
 
-    private String id;
-   
-    private String label;
+	/** The id. */
+	private String id;
 
-    /**
-     * 
-     * @return
-     *     The id
-     */
-    public String getId() {
-        return id;
-    }
+	/** The label. */
+	private String label;
 
-    /**
-     * 
-     * @param id
-     *     The id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
-    public Match withId(String id) {
-        this.id = id;
-        return this;
-    }
+		Match match = (Match) o;
 
-    /**
-     * 
-     * @return
-     *     The label
-     */
-    public String getLabel() {
-        return label;
-    }
+		if (id != null ? !id.equals(match.id) : match.id != null)
+			return false;
+		return !(label != null ? !label.equals(match.label) : match.label != null);
 
-    /**
-     * 
-     * @param label
-     *     The label
-     */
-    public void setLabel(String label) {
-        this.label = label;
-    }
+	}
 
-    public Match withLabel(String label) {
-        this.label = label;
-        return this;
-    }
+	/**
+	 * Gets the id.
+	 * 
+	 * @return The id
+	 */
+	public String getId() {
+		return id;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	/**
+	 * Gets the label.
+	 * 
+	 * @return The label
+	 */
+	public String getLabel() {
+		return label;
+	}
 
-        Match match = (Match) o;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int result = id != null ? id.hashCode() : 0;
+		result = 31 * result + (label != null ? label.hashCode() : 0);
+		return result;
+	}
 
-        if (id != null ? !id.equals(match.id) : match.id != null) return false;
-        return !(label != null ? !label.equals(match.label) : match.label != null);
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id
+	 *            The id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    }
+	/**
+	 * Sets the label.
+	 * 
+	 * @param label
+	 *            The label
+	 */
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
-    @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (label != null ? label.hashCode() : 0);
-        return result;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    @Override
-    public String toString() {
-        return String.format("Match [id=%s,label=%s]", id,label);
-    }
+	/**
+	 * With id.
+	 * 
+	 * @param id
+	 *            the id
+	 * @return the match
+	 */
+	public Match withId(String id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * With label.
+	 * 
+	 * @param label
+	 *            the label
+	 * @return the match
+	 */
+	public Match withLabel(String label) {
+		this.label = label;
+		return this;
+	}
 }

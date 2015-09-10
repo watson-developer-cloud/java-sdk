@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,36 +18,58 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Graphs returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
 public class Corpora {
 
-    private List<Corpus> corpora = new ArrayList<Corpus>();
+	/** The corpora. */
+	private List<Corpus> corpora;
 
-    /**
-     * @return The corpora
-     */
-    public List<Corpus> getCorpora() {
-        return corpora;
-    }
+	/**
+	 * Gets the corpora.
+	 * 
+	 * @return The corpora
+	 */
+	public List<Corpus> getCorpora() {
+		return corpora;
+	}
 
-    /**
-     * @param corpora The corpora
-     */
-    public void setCorpora(List<Corpus> corpora) {
-        this.corpora = corpora;
-    }
+	/**
+	 * Sets the corpora.
+	 * 
+	 * @param corpora
+	 *            The corpora
+	 */
+	public void setCorpora(List<Corpus> corpora) {
+		this.corpora = corpora;
+	}
 
-    public Corpora withCorpora(List<Corpus> corpora) {
-        this.corpora = corpora;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
+	/**
+	 * With corpora.
+	 * 
+	 * @param corpora
+	 *            the corpora
+	 * @return the corpora
+	 */
+	public Corpora withCorpora(List<Corpus> corpora) {
+		this.corpora = corpora;
+		return this;
+	}
 }

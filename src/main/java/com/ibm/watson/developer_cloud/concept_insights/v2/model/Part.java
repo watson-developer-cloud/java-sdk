@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -20,83 +19,123 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
+/**
+ * The Class Part.
+ */
 public class Part {
 
-    @SerializedName("content-type")
-    private String contentType;
+	/** The content type. */
+	@SerializedName("content-type")
+	private String contentType;
 
-    private String data;
+	/** The data. */
+	private String data;
 
-    private String name;
+	/** The name. */
+	private String name;
 
-    /**
-     * 
-     * @return
-     *     The contentType
-     */
-    public String getContentType() {
-        return contentType;
-    }
+	/**
+	 * Gets the content type.
+	 * 
+	 * @return The contentType
+	 */
+	public String getContentType() {
+		return contentType;
+	}
 
-    /**
-     * 
-     * @param contentType
-     *     The content-type
-     */
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
+	/**
+	 * Gets the data.
+	 * 
+	 * @return The data
+	 */
+	public String getData() {
+		return data;
+	}
 
-    public Part withContentType(String contentType) {
-        this.contentType = contentType;
-        return this;
-    }
+	/**
+	 * Gets the name.
+	 * 
+	 * @return The name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * 
-     * @return
-     *     The data
-     */
-    public String getData() {
-        return data;
-    }
+	/**
+	 * Sets the content type.
+	 * 
+	 * @param contentType
+	 *            The content-type
+	 */
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
 
-    /**
-     * 
-     * @param data
-     *     The data
-     */
-    public void setData(String data) {
-        this.data = data;
-    }
+	/**
+	 * Sets the data.
+	 * 
+	 * @param data
+	 *            The data
+	 */
+	public void setData(String data) {
+		this.data = data;
+	}
 
-    public Part withData(String data) {
-        this.data = data;
-        return this;
-    }
+	/**
+	 * Sets the name.
+	 * 
+	 * @param name
+	 *            The name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    /**
-     * 
-     * @return
-     *     The name
-     */
-    public String getName() {
-        return name;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    /**
-     * 
-     * @param name
-     *     The name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * With content type.
+	 * 
+	 * @param contentType
+	 *            the content type
+	 * @return the part
+	 */
+	public Part withContentType(String contentType) {
+		this.contentType = contentType;
+		return this;
+	}
 
-    public Part withName(String name) {
-        this.name = name;
-        return this;
-    }
+	/**
+	 * With data.
+	 * 
+	 * @param data
+	 *            the data
+	 * @return the part
+	 */
+	public Part withData(String data) {
+		this.data = data;
+		return this;
+	}
 
+	/**
+	 * With name.
+	 * 
+	 * @param name
+	 *            the name
+	 * @return the part
+	 */
+	public Part withName(String name) {
+		this.name = name;
+		return this;
+	}
 }

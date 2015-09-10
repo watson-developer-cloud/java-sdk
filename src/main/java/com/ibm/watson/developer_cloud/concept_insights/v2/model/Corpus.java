@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,79 +18,116 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 
 /**
  * Graphs returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
 public class Corpus {
 
-    private String id;
+	/** The access. */
+	private String access;
 
-    private String access;
+	/** The id. */
+	private String id;
 
-    private List<User> users = new ArrayList<User>();
+	/** The users. */
+	private List<User> users;
 
-    /**
-     * @return The id
-     */
-    public String getId() {
-        return id;
-    }
+	/**
+	 * Gets the access.
+	 * 
+	 * @return The access
+	 */
+	public String getAccess() {
+		return access;
+	}
 
-    /**
-     * @param id The id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+	/**
+	 * Gets the id.
+	 * 
+	 * @return The id
+	 */
+	public String getId() {
+		return id;
+	}
 
-    public Corpus withId(String id) {
-        this.id = id;
-        return this;
-    }
+	/**
+	 * Gets the users.
+	 * 
+	 * @return The users
+	 */
+	public List<User> getUsers() {
+		return users;
+	}
 
-    /**
-     * @return The access
-     */
-    public String getAccess() {
-        return access;
-    }
+	/**
+	 * Sets the access.
+	 * 
+	 * @param access
+	 *            The access
+	 */
+	public void setAccess(String access) {
+		this.access = access;
+	}
 
-    /**
-     * @param access The access
-     */
-    public void setAccess(String access) {
-        this.access = access;
-    }
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id
+	 *            The id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public Corpus withAccess(String access) {
-        this.access = access;
-        return this;
-    }
+	/**
+	 * Sets the users.
+	 * 
+	 * @param users
+	 *            The users
+	 */
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
 
-    /**
-     * @return The users
-     */
-    public List<User> getUsers() {
-        return users;
-    }
+	/**
+	 * With access.
+	 * 
+	 * @param access
+	 *            the access
+	 * @return the corpus
+	 */
+	public Corpus withAccess(String access) {
+		this.access = access;
+		return this;
+	}
 
-    /**
-     * @param users The users
-     */
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
+	/**
+	 * With id.
+	 * 
+	 * @param id
+	 *            the id
+	 * @return the corpus
+	 */
+	public Corpus withId(String id) {
+		this.id = id;
+		return this;
+	}
 
-    public Corpus withUsers(List<User> users) {
-        this.users = users;
-        return this;
-    }
+	/**
+	 * With users.
+	 * 
+	 * @param users
+	 *            the users
+	 * @return the corpus
+	 */
+	public Corpus withUsers(List<User> users) {
+		this.users = users;
+		return this;
+	}
 
 }

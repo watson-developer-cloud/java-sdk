@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -20,81 +19,121 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
+/**
+ * The Class DocumentProcessingState.
+ */
 public class DocumentProcessingState {
 
-    private String status;
-    @SerializedName("last_modified")
+	/** The last modified. */
+	@SerializedName("last_modified")
+	private String lastModified;
 
-    private String lastModified;
+	/** The status. */
+	private String status;
 
-    /**
-     * 
-     * @return
-     *     The status
-     */
-    public String getStatus() {
-        return status;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
-    /**
-     * 
-     * @param status
-     *     The status
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
+		DocumentProcessingState that = (DocumentProcessingState) o;
 
-    public DocumentProcessingState withStatus(String status) {
-        this.status = status;
-        return this;
-    }
+		if (status != null ? !status.equals(that.status) : that.status != null)
+			return false;
+		return !(lastModified != null ? !lastModified.equals(that.lastModified) : that.lastModified != null);
 
-    /**
-     * 
-     * @return
-     *     The lastModified
-     */
-    public String getLastModified() {
-        return lastModified;
-    }
+	}
 
-    /**
-     * 
-     * @param lastModified
-     *     The last_modified
-     */
-    public void setLastModified(String lastModified) {
-        this.lastModified = lastModified;
-    }
+	/**
+	 * Gets the last modified.
+	 * 
+	 * @return The lastModified
+	 */
+	public String getLastModified() {
+		return lastModified;
+	}
 
-    public DocumentProcessingState withLastModified(String lastModified) {
-        this.lastModified = lastModified;
-        return this;
-    }
+	/**
+	 * Gets the status.
+	 * 
+	 * @return The status
+	 */
+	public String getStatus() {
+		return status;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int result = status != null ? status.hashCode() : 0;
+		result = 31 * result + (lastModified != null ? lastModified.hashCode() : 0);
+		return result;
+	}
 
-        DocumentProcessingState that = (DocumentProcessingState) o;
+	/**
+	 * Sets the last modified.
+	 * 
+	 * @param lastModified
+	 *            The last_modified
+	 */
+	public void setLastModified(String lastModified) {
+		this.lastModified = lastModified;
+	}
 
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
-        return !(lastModified != null ? !lastModified.equals(that.lastModified) : that.lastModified != null);
+	/**
+	 * Sets the status.
+	 * 
+	 * @param status
+	 *            The status
+	 */
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    @Override
-    public int hashCode() {
-        int result = status != null ? status.hashCode() : 0;
-        result = 31 * result + (lastModified != null ? lastModified.hashCode() : 0);
-        return result;
-    }
+	/**
+	 * With last modified.
+	 * 
+	 * @param lastModified
+	 *            the last modified
+	 * @return the document processing state
+	 */
+	public DocumentProcessingState withLastModified(String lastModified) {
+		this.lastModified = lastModified;
+		return this;
+	}
 
-    @Override
-    public String toString() {
-        return String.format("DocumentProcessingState [status=%s,lastModified=%s]", status, lastModified);
-    }
+	/**
+	 * With status.
+	 * 
+	 * @param status
+	 *            the status
+	 * @return the document processing state
+	 */
+	public DocumentProcessingState withStatus(String status) {
+		this.status = status;
+		return this;
+	}
 }

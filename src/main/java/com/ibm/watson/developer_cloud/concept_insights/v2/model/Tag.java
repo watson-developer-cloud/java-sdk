@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,56 +18,88 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
+/**
+ * The Class Tag.
+ */
 public class Tag {
 
-    private String concept;
+	/** The concept. */
+	private String concept;
 
-    private Integer count;
+	/** The count. */
+	private Integer count;
 
-    /**
-     * 
-     * @return
-     *     The concept
-     */
-    public String getConcept() {
-        return concept;
-    }
+	/**
+	 * Gets the concept.
+	 * 
+	 * @return The concept
+	 */
+	public String getConcept() {
+		return concept;
+	}
 
-    /**
-     * 
-     * @param concept
-     *     The concept
-     */
-    public void setConcept(String concept) {
-        this.concept = concept;
-    }
+	/**
+	 * Gets the count.
+	 * 
+	 * @return The count
+	 */
+	public Integer getCount() {
+		return count;
+	}
 
-    public Tag withConcept(String concept) {
-        this.concept = concept;
-        return this;
-    }
+	/**
+	 * Sets the concept.
+	 * 
+	 * @param concept
+	 *            The concept
+	 */
+	public void setConcept(String concept) {
+		this.concept = concept;
+	}
 
-    /**
-     * 
-     * @return
-     *     The count
-     */
-    public Integer getCount() {
-        return count;
-    }
+	/**
+	 * Sets the count.
+	 * 
+	 * @param count
+	 *            The count
+	 */
+	public void setCount(Integer count) {
+		this.count = count;
+	}
 
-    /**
-     * 
-     * @param count
-     *     The count
-     */
-    public void setCount(Integer count) {
-        this.count = count;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    public Tag withCount(Integer count) {
-        this.count = count;
-        return this;
-    }
+	/**
+	 * With concept.
+	 * 
+	 * @param concept
+	 *            the concept
+	 * @return the tag
+	 */
+	public Tag withConcept(String concept) {
+		this.concept = concept;
+		return this;
+	}
 
+	/**
+	 * With count.
+	 * 
+	 * @param count
+	 *            the count
+	 * @return the tag
+	 */
+	public Tag withCount(Integer count) {
+		this.count = count;
+		return this;
+	}
 }

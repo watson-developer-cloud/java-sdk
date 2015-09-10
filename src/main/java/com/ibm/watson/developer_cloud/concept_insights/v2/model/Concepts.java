@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,38 +18,59 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Concepts returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
 
 public class Concepts {
 
-    private List<ScoredConcept> concepts = new ArrayList<ScoredConcept>();
+	/** The concepts. */
+	private List<ScoredConcept> concepts;
 
-    /**
-     * @return The concepts
-     */
-    public List<ScoredConcept> getConcepts() {
-        return concepts;
-    }
+	/**
+	 * Gets the concepts.
+	 * 
+	 * @return The concepts
+	 */
+	public List<ScoredConcept> getConcepts() {
+		return concepts;
+	}
 
-    /**
-     * @param concepts The concepts
-     */
-    public void setConcepts(List<ScoredConcept> concepts) {
-        this.concepts = concepts;
-    }
+	/**
+	 * Sets the concepts.
+	 * 
+	 * @param concepts
+	 *            The concepts
+	 */
+	public void setConcepts(List<ScoredConcept> concepts) {
+		this.concepts = concepts;
+	}
 
-    public Concepts withConcepts(List<ScoredConcept> concepts) {
-        this.concepts = concepts;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
+	/**
+	 * With concepts.
+	 * 
+	 * @param concepts
+	 *            the concepts
+	 * @return the concepts
+	 */
+	public Concepts withConcepts(List<ScoredConcept> concepts) {
+		this.concepts = concepts;
+		return this;
+	}
 }

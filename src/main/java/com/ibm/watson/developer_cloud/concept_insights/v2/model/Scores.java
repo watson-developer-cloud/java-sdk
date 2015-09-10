@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,37 +18,58 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Scores returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
 public class Scores {
 
-    private List<Score> scores = new ArrayList<Score>();
+	/** The scores. */
+	private List<Score> scores;
 
-    /**
-     * @return The scores
-     */
-    public List<Score> getScores() {
-        return scores;
-    }
+	/**
+	 * Gets the scores.
+	 * 
+	 * @return The scores
+	 */
+	public List<Score> getScores() {
+		return scores;
+	}
 
-    /**
-     * @param scores The scores
-     */
-    public void setScores(List<Score> scores) {
-        this.scores = scores;
-    }
+	/**
+	 * Sets the scores.
+	 * 
+	 * @param scores
+	 *            The scores
+	 */
+	public void setScores(List<Score> scores) {
+		this.scores = scores;
+	}
 
-    public Scores withScores(List<Score> scores) {
-        this.scores = scores;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
+	/**
+	 * With scores.
+	 * 
+	 * @param scores
+	 *            the scores
+	 * @return the scores
+	 */
+	public Scores withScores(List<Score> scores) {
+		this.scores = scores;
+		return this;
+	}
 }

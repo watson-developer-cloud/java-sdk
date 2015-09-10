@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,119 +18,175 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
+import java.util.List;
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Document returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
-
 public class Document {
 
-    private String id;
+	/** The id. */
+	private String id;
 
-    private String label;
+	/** The label. */
+	private String label;
 
-    @SerializedName("last_modified")
-    private String lastModified;
+	/** The last modified. */
+	@SerializedName("last_modified")
+	private String lastModified;
 
-    private List<Part> parts = new ArrayList<Part>();
+	/** The parts. */
+	private List<Part> parts;
 
-    /**
-     * 
-     * @return
-     *     The id
-     */
-    public String getId() {
-        return id;
-    }
+	/** The user fields. */
+	@SerializedName("user_fields")
+	private Map<String, String> userFields;
 
-    /**
-     * 
-     * @param id
-     *     The id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+	/**
+	 * Gets the id.
+	 * 
+	 * @return The id
+	 */
+	public String getId() {
+		return id;
+	}
 
-    public Document withId(String id) {
-        this.id = id;
-        return this;
-    }
+	/**
+	 * Gets the label.
+	 * 
+	 * @return The label
+	 */
+	public String getLabel() {
+		return label;
+	}
 
-    /**
-     * 
-     * @return
-     *     The label
-     */
-    public String getLabel() {
-        return label;
-    }
+	/**
+	 * Gets the last modified.
+	 * 
+	 * @return The lastModified
+	 */
+	public String getLastModified() {
+		return lastModified;
+	}
 
-    /**
-     * 
-     * @param label
-     *     The label
-     */
-    public void setLabel(String label) {
-        this.label = label;
-    }
+	/**
+	 * Gets the parts.
+	 * 
+	 * @return The parts
+	 */
+	public List<Part> getParts() {
+		return parts;
+	}
 
-    public Document withLabel(String label) {
-        this.label = label;
-        return this;
-    }
+	/**
+	 * Gets the user fields.
+	 * 
+	 * @return the userFields
+	 */
+	public Map<String, String> getUserFields() {
+		return userFields;
+	}
 
-    /**
-     * 
-     * @return
-     *     The lastModified
-     */
-    public String getLastModified() {
-        return lastModified;
-    }
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id
+	 *            The id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    /**
-     * 
-     * @param lastModified
-     *     The last_modified
-     */
-    public void setLastModified(String lastModified) {
-        this.lastModified = lastModified;
-    }
+	/**
+	 * Sets the label.
+	 * 
+	 * @param label
+	 *            The label
+	 */
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
-    public Document withLastModified(String lastModified) {
-        this.lastModified = lastModified;
-        return this;
-    }
+	/**
+	 * Sets the last modified.
+	 * 
+	 * @param lastModified
+	 *            The last_modified
+	 */
+	public void setLastModified(String lastModified) {
+		this.lastModified = lastModified;
+	}
 
-    /**
-     * 
-     * @return
-     *     The parts
-     */
-    public List<Part> getParts() {
-        return parts;
-    }
+	/**
+	 * Sets the parts.
+	 * 
+	 * @param parts
+	 *            The parts
+	 */
+	public void setParts(List<Part> parts) {
+		this.parts = parts;
+	}
 
-    /**
-     * 
-     * @param parts
-     *     The parts
-     */
-    public void setParts(List<Part> parts) {
-        this.parts = parts;
-    }
+	/**
+	 * Sets the user fields.
+	 * 
+	 * @param userFields
+	 *            the userFields to set
+	 */
+	public void setUserFields(Map<String, String> userFields) {
+		this.userFields = userFields;
+	}
 
-    public Document withParts(List<Part> parts) {
-        this.parts = parts;
-        return this;
-    }
+	/**
+	 * With id.
+	 * 
+	 * @param id
+	 *            the id
+	 * @return the document
+	 */
+	public Document withId(String id) {
+		this.id = id;
+		return this;
+	}
 
+	/**
+	 * With label.
+	 * 
+	 * @param label
+	 *            the label
+	 * @return the document
+	 */
+	public Document withLabel(String label) {
+		this.label = label;
+		return this;
+	}
+
+	/**
+	 * With last modified.
+	 * 
+	 * @param lastModified
+	 *            the last modified
+	 * @return the document
+	 */
+	public Document withLastModified(String lastModified) {
+		this.lastModified = lastModified;
+		return this;
+	}
+
+	/**
+	 * With parts.
+	 * 
+	 * @param parts
+	 *            the parts
+	 * @return the document
+	 */
+	public Document withParts(List<Part> parts) {
+		this.parts = parts;
+		return this;
+	}
 }

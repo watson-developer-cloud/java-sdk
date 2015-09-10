@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,47 +18,58 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Graphs returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
-
 public class Graphs {
 
-    private List<String> graphs = new ArrayList<String>();
+	/** The graphs. */
+	private List<String> graphs;
 
-    /**
-     * 
-     * @return
-     *     The graphs
-     */
-    public List<String> getGraphs() {
-        return graphs;
-    }
+	/**
+	 * Gets the graphs.
+	 * 
+	 * @return The graphs
+	 */
+	public List<String> getGraphs() {
+		return graphs;
+	}
 
-    /**
-     * 
-     * @param graphs
-     *     The graphs
-     */
-    public void setGraphs(List<String> graphs) {
-        this.graphs = graphs;
-    }
+	/**
+	 * Sets the graphs.
+	 * 
+	 * @param graphs
+	 *            The graphs
+	 */
+	public void setGraphs(List<String> graphs) {
+		this.graphs = graphs;
+	}
 
-    public Graphs withGraphs(List<String> graphs) {
-        this.graphs = graphs;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    @Override
-    public String toString() {
-        return String.format("Graphs [graphs=%s]", graphs);
-    }
-
+	/**
+	 * With graphs.
+	 * 
+	 * @param graphs
+	 *            the graphs
+	 * @return the graphs
+	 */
+	public Graphs withGraphs(List<String> graphs) {
+		this.graphs = graphs;
+		return this;
+	}
 }

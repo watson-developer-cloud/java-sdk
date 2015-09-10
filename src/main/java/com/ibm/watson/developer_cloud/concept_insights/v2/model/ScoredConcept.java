@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -20,77 +19,121 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Concept returned by the {@link ConceptInsights} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * 
  */
 public class ScoredConcept {
 
-    private Float score;
+	/** The concept. */
+	private Concept concept;
 
-    private Concept concept;
+	/** The score. */
+	private Float score;
 
-    /**
-     * @return The score
-     */
-    public Float getScore() {
-        return score;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
-    /**
-     * @param score The score
-     */
-    public void setScore(Float score) {
-        this.score = score;
-    }
+		ScoredConcept concept1 = (ScoredConcept) o;
 
-    public ScoredConcept withScore(Float score) {
-        this.score = score;
-        return this;
-    }
+		if (score != null ? !score.equals(concept1.score) : concept1.score != null)
+			return false;
+		return !(concept != null ? !concept.equals(concept1.concept) : concept1.concept != null);
 
-    /**
-     * @return The concept
-     */
-    public Concept getConcept() {
-        return concept;
-    }
+	}
 
-    /**
-     * @param concept The concept
-     */
-    public void setConcept(Concept concept) {
-        this.concept = concept;
-    }
+	/**
+	 * Gets the concept.
+	 * 
+	 * @return The concept
+	 */
+	public Concept getConcept() {
+		return concept;
+	}
 
-    public ScoredConcept withConcept(Concept concept) {
-        this.concept = concept;
-        return this;
-    }
+	/**
+	 * Gets the score.
+	 * 
+	 * @return The score
+	 */
+	public Float getScore() {
+		return score;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int result = score != null ? score.hashCode() : 0;
+		result = 31 * result + (concept != null ? concept.hashCode() : 0);
+		return result;
+	}
 
-        ScoredConcept concept1 = (ScoredConcept) o;
+	/**
+	 * Sets the concept.
+	 * 
+	 * @param concept
+	 *            The concept
+	 */
+	public void setConcept(Concept concept) {
+		this.concept = concept;
+	}
 
-        if (score != null ? !score.equals(concept1.score) : concept1.score != null) return false;
-        return !(concept != null ? !concept.equals(concept1.concept) : concept1.concept != null);
+	/**
+	 * Sets the score.
+	 * 
+	 * @param score
+	 *            The score
+	 */
+	public void setScore(Float score) {
+		this.score = score;
+	}
 
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
-    @Override
-    public int hashCode() {
-        int result = score != null ? score.hashCode() : 0;
-        result = 31 * result + (concept != null ? concept.hashCode() : 0);
-        return result;
-    }
+	/**
+	 * With concept.
+	 * 
+	 * @param concept
+	 *            the concept
+	 * @return the scored concept
+	 */
+	public ScoredConcept withConcept(Concept concept) {
+		this.concept = concept;
+		return this;
+	}
 
-    @Override
-    public String toString() {
-        return String.format("Annotation [score=%s,concept=%s]", score, concept);
-    }
+	/**
+	 * With score.
+	 * 
+	 * @param score
+	 *            the score
+	 * @return the scored concept
+	 */
+	public ScoredConcept withScore(Float score) {
+		this.score = score;
+		return this;
+	}
 }

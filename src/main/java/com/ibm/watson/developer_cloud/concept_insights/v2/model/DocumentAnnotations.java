@@ -1,4 +1,3 @@
-
 /*
  * *
  *  * Copyright 2015 IBM Corp. All Rights Reserved.
@@ -19,88 +18,124 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.Expose;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
-
+/**
+ * The Class DocumentAnnotations.
+ */
 public class DocumentAnnotations {
 
-    @Expose
-    private String id;
-    @Expose
-    private String label;
-    @Expose
-    private List<List<Annotation>> annotations = new ArrayList<List<Annotation>>();
+	/** The annotations. */
+	private List<List<Annotation>> annotations;
 
-    /**
-     * 
-     * @return
-     *     The id
-     */
-    public String getId() {
-        return id;
-    }
+	/** The id. */
+	private String id;
 
-    /**
-     * 
-     * @param id
-     *     The id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+	/** The label. */
+	private String label;
 
-    public DocumentAnnotations withId(String id) {
-        this.id = id;
-        return this;
-    }
+	/**
+	 * Gets the annotations.
+	 * 
+	 * @return The annotations
+	 */
+	public List<List<Annotation>> getAnnotations() {
+		return annotations;
+	}
 
-    /**
-     * 
-     * @return
-     *     The label
-     */
-    public String getLabel() {
-        return label;
-    }
+	/**
+	 * Gets the id.
+	 * 
+	 * @return The id
+	 */
+	public String getId() {
+		return id;
+	}
 
-    /**
-     * 
-     * @param label
-     *     The label
-     */
-    public void setLabel(String label) {
-        this.label = label;
-    }
+	/**
+	 * Gets the label.
+	 * 
+	 * @return The label
+	 */
+	public String getLabel() {
+		return label;
+	}
 
-    public DocumentAnnotations withLabel(String label) {
-        this.label = label;
-        return this;
-    }
+	/**
+	 * Sets the annotations.
+	 * 
+	 * @param annotations
+	 *            The annotations
+	 */
+	public void setAnnotations(List<List<Annotation>> annotations) {
+		this.annotations = annotations;
+	}
 
-    /**
-     * 
-     * @return
-     *     The annotations
-     */
-    public List<List<Annotation>> getAnnotations() {
-        return annotations;
-    }
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id
+	 *            The id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    /**
-     * 
-     * @param annotations
-     *     The annotations
-     */
-    public void setAnnotations(List<List<Annotation>> annotations) {
-        this.annotations = annotations;
-    }
+	/**
+	 * Sets the label.
+	 * 
+	 * @param label
+	 *            The label
+	 */
+	public void setLabel(String label) {
+		this.label = label;
+	}
 
-    public DocumentAnnotations withAnnotations(List<List<Annotation>> annotations) {
-        this.annotations = annotations;
-        return this;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+	}
 
+	/**
+	 * With annotations.
+	 * 
+	 * @param annotations
+	 *            the annotations
+	 * @return the document annotations
+	 */
+	public DocumentAnnotations withAnnotations(List<List<Annotation>> annotations) {
+		this.annotations = annotations;
+		return this;
+	}
+
+	/**
+	 * With id.
+	 * 
+	 * @param id
+	 *            the id
+	 * @return the document annotations
+	 */
+	public DocumentAnnotations withId(String id) {
+		this.id = id;
+		return this;
+	}
+
+	/**
+	 * With label.
+	 * 
+	 * @param label
+	 *            the label
+	 * @return the document annotations
+	 */
+	public DocumentAnnotations withLabel(String label) {
+		this.label = label;
+		return this;
+	}
 }
