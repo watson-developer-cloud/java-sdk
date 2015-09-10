@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Sentiment by the {@link AlchemyDataNews} service.
@@ -91,28 +92,6 @@ public class Sentiment {
         return this;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//
-//        Sentiment sentiment = (Sentiment) o;
-//
-//        if (mixed != sentiment.mixed) return false;
-//        if (score != sentiment.score) return false;
-//        return !(type != null ? !type.equals(sentiment.type) : sentiment.type != null);
-//
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result = mixed;
-//        result = 31 * result + score;
-//        result = 31 * result + (type != null ? type.hashCode() : 0);
-//        return result;
-//    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -139,6 +118,6 @@ public class Sentiment {
 
     @Override
     public String toString() {
-        return String.format("Sentiment [type=%s,score=%s]", type, score);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

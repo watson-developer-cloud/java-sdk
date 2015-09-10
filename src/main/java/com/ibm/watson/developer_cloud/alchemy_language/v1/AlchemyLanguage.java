@@ -111,14 +111,14 @@ public class AlchemyLanguage extends AlchemyService {
      *
      * @param params The parameters to be used in the service call, text, html or url should
      *               be specified.
-     * @return {@link DocumentSentiment}
+     * @return {@link DocumentSentimentResults}
      */
-    public DocumentSentiment getSentiment(Map<String, Object> params) {
+    public DocumentSentimentResults getSentiment(Map<String, Object> params) {
         AlchemyAPI operation = AlchemyAPI.sentiment;
         if (params.get(TARGET) != null)
             operation = AlchemyAPI.sentiment_targeted;
 
-        return executeRequest(params, operation, DocumentSentiment.class, "text", "html", "url");
+        return executeRequest(params, operation, DocumentSentimentResults.class, "text", "html", "url");
     }
 
     /**
@@ -211,8 +211,8 @@ public class AlchemyLanguage extends AlchemyService {
      *               be specified.
      * @return {@link Microformats}
      */
-    public Combined getCombined(Map<String, Object> params) {
-        return executeRequest(params, AlchemyAPI.combined, Combined.class, "text", "html", "url");
+    public CombinedResults getCombined(Map<String, Object> params) {
+        return executeRequest(params, AlchemyAPI.combined, CombinedResults.class, "text", "html", "url");
     }
 
     /**

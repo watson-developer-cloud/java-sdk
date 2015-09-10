@@ -19,6 +19,8 @@
 
 package com.ibm.watson.developer_cloud.alchemy_vision.v1.model;
 
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
 public class ImageFace {
 
 
@@ -200,7 +202,6 @@ public class ImageFace {
 
     @Override
     public String toString() {
-        return String.format("ImageFace [age=%s,gender=%s,height=%s,identity=%s,positionX=%s,positionY=%s,width=%s]", age, gender, height, identity, positionX, positionY, width);
-
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

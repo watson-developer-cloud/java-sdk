@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -159,6 +160,6 @@ public class RelationObject {
      */
     @Override
     public String toString() {
-        return String.format("RelationObject [text=%s,sentiment=%s]", text, sentiment);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

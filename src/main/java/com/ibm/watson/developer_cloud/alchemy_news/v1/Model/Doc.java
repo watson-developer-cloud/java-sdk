@@ -21,6 +21,7 @@ package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Doc returned by the {@link AlchemyDataNews} service.
@@ -116,6 +117,6 @@ public class Doc {
 
     @Override
     public String toString() {
-        return String.format("Doc [id=%s,source=%s]", id, source);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

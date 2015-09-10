@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ import java.util.List;
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Combined {
+public class CombinedResults {
 
     /** The url. */
     private String url;
@@ -76,7 +77,7 @@ public class Combined {
      * @param url the url
      * @return the combined
      */
-    public Combined withUrl(String url) {
+    public CombinedResults withUrl(String url) {
         this.url = url;
         return this;
     }
@@ -105,7 +106,7 @@ public class Combined {
      * @param totalTransactions the total transactions
      * @return the combined
      */
-    public Combined withTotalTransactions(String totalTransactions) {
+    public CombinedResults withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
@@ -134,7 +135,7 @@ public class Combined {
      * @param language the language
      * @return the combined
      */
-    public Combined withLanguage(String language) {
+    public CombinedResults withLanguage(String language) {
         this.language = language;
         return this;
     }
@@ -163,7 +164,7 @@ public class Combined {
      * @param keywords the keywords
      * @return the combined
      */
-    public Combined withKeywords(List<Keyword> keywords) {
+    public CombinedResults withKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
         return this;
     }
@@ -192,7 +193,7 @@ public class Combined {
      * @param concepts the concepts
      * @return the combined
      */
-    public Combined withConcepts(List<Concept> concepts) {
+    public CombinedResults withConcepts(List<Concept> concepts) {
         this.concepts = concepts;
         return this;
     }
@@ -221,7 +222,7 @@ public class Combined {
      * @param entities the entities
      * @return the combined
      */
-    public Combined withEntities(List<Entity> entities) {
+    public CombinedResults withEntities(List<Entity> entities) {
         this.entities = entities;
         return this;
     }
@@ -250,7 +251,7 @@ public class Combined {
      * @param taxonomy the taxonomy
      * @return the combined
      */
-    public Combined withTaxonomy(List<Taxonomy> taxonomy) {
+    public CombinedResults withTaxonomy(List<Taxonomy> taxonomy) {
         this.taxonomy = taxonomy;
         return this;
     }
@@ -263,7 +264,7 @@ public class Combined {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Combined combined = (Combined) o;
+        CombinedResults combined = (CombinedResults) o;
 
         if (url != null ? !url.equals(combined.url) : combined.url != null) return false;
         if (totalTransactions != null ? !totalTransactions.equals(combined.totalTransactions) : combined.totalTransactions != null)
@@ -296,6 +297,6 @@ public class Combined {
      */
     @Override
     public String toString() {
-        return String.format("Combined [url=%s,totalTransactions=%s]", url, totalTransactions);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

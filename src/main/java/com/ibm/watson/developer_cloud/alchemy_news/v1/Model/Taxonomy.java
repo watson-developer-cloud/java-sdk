@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Taxonomy by the {@link AlchemyDataNews} service.
@@ -117,6 +118,6 @@ public class Taxonomy {
 
     @Override
     public String toString() {
-        return String.format("Taxonomy [label=%s,score=%s,confident=%s]", label, score, confident);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

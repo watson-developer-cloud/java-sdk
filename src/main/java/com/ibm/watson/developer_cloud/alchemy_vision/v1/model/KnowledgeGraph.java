@@ -21,6 +21,7 @@ package com.ibm.watson.developer_cloud.alchemy_vision.v1.model;
 
 
 import com.ibm.watson.developer_cloud.alchemy_vision.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * KnowledgeGraph by the {@link AlchemyVision} service.
@@ -69,7 +70,7 @@ public class KnowledgeGraph {
 
     @Override
     public String toString() {
-        return String.format("KnowledgeGraph [typeHierarchy=%s]", typeHierarchy);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 
 }

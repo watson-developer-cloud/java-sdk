@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * DocSentiment returned by the {@link AlchemyLanguage} service.
@@ -28,133 +29,102 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
  */
 public class DocumentSentiment {
 
-    /** The url. */
-    private String url;
+    /** The mixed. */
+    private String mixed;
 
-    /** The total transactions. */
-    private String totalTransactions;
+    /** The score. */
+    private String score;
 
-    /** The language. */
-    private String language;
-
-    /** The doc sentiment. */
-    private DocSentiment docSentiment;
+    /** The type. */
+    private String type;
 
     /**
-     * Gets the url.
+     * Gets the mixed.
      *
-     * @return The url
+     * @return The mixed
      */
-    public String getUrl() {
-        return url;
+    public String getMixed() {
+        return mixed;
     }
 
     /**
-     * Sets the url.
+     * Sets the mixed.
      *
-     * @param url The url
+     * @param mixed The mixed
      */
-    public void setUrl(String url) {
-        this.url = url;
+    public void setMixed(String mixed) {
+        this.mixed = mixed;
     }
 
     /**
-     * With url.
+     * With mixed.
      *
-     * @param url the url
-     * @return the document sentiment
+     * @param mixed the mixed
+     * @return the doc sentiment
      */
-    public DocumentSentiment withUrl(String url) {
-        this.url = url;
+    public DocumentSentiment withMixed(String mixed) {
+        this.mixed = mixed;
         return this;
     }
 
     /**
-     * Gets the total transactions.
+     * Gets the score.
      *
-     * @return The totalTransactions
+     * @return The score
      */
-    public String getTotalTransactions() {
-        return totalTransactions;
+    public String getScore() {
+        return score;
     }
 
     /**
-     * Sets the total transactions.
+     * Sets the score.
      *
-     * @param totalTransactions The totalTransactions
+     * @param score The score
      */
-    public void setTotalTransactions(String totalTransactions) {
-        this.totalTransactions = totalTransactions;
+    public void setScore(String score) {
+        this.score = score;
     }
 
     /**
-     * With total transactions.
+     * With score.
      *
-     * @param totalTransactions the total transactions
-     * @return the document sentiment
+     * @param score the score
+     * @return the doc sentiment
      */
-    public DocumentSentiment withTotalTransactions(String totalTransactions) {
-        this.totalTransactions = totalTransactions;
+    public DocumentSentiment withScore(String score) {
+        this.score = score;
         return this;
     }
 
     /**
-     * Gets the language.
+     * Gets the type.
      *
-     * @return The language
+     * @return The type
      */
-    public String getLanguage() {
-        return language;
+    public String getType() {
+        return type;
     }
 
     /**
-     * Sets the language.
+     * Sets the type.
      *
-     * @param language The language
+     * @param type The type
      */
-    public void setLanguage(String language) {
-        this.language = language;
+    public void setType(String type) {
+        this.type = type;
     }
 
     /**
-     * With language.
+     * With type.
      *
-     * @param language the language
-     * @return the document sentiment
+     * @param type the type
+     * @return the doc sentiment
      */
-    public DocumentSentiment withLanguage(String language) {
-        this.language = language;
+    public DocumentSentiment withType(String type) {
+        this.type = type;
         return this;
     }
 
-    /**
-     * Gets the doc sentiment.
-     *
-     * @return The docSentiment
-     */
-    public DocSentiment getDocSentiment() {
-        return docSentiment;
-    }
-
-    /**
-     * Sets the doc sentiment.
-     *
-     * @param docSentiment The docSentiment
-     */
-    public void setDocSentiment(DocSentiment docSentiment) {
-        this.docSentiment = docSentiment;
-    }
-
-    /**
-     * With doc sentiment.
-     *
-     * @param docSentiment the doc sentiment
-     * @return the document sentiment
-     */
-    public DocumentSentiment withDocSentiment(DocSentiment docSentiment) {
-        this.docSentiment = docSentiment;
-        return this;
-    }
 
     /* (non-Javadoc)
      * @see java.lang.Object#equals(java.lang.Object)
@@ -166,11 +136,9 @@ public class DocumentSentiment {
 
         DocumentSentiment that = (DocumentSentiment) o;
 
-        if (url != null ? !url.equals(that.url) : that.url != null) return false;
-        if (totalTransactions != null ? !totalTransactions.equals(that.totalTransactions) : that.totalTransactions != null)
-            return false;
-        if (language != null ? !language.equals(that.language) : that.language != null) return false;
-        return !(docSentiment != null ? !docSentiment.equals(that.docSentiment) : that.docSentiment != null);
+        if (mixed != null ? !mixed.equals(that.mixed) : that.mixed != null) return false;
+        if (score != null ? !score.equals(that.score) : that.score != null) return false;
+        return !(type != null ? !type.equals(that.type) : that.type != null);
 
     }
 
@@ -179,10 +147,9 @@ public class DocumentSentiment {
      */
     @Override
     public int hashCode() {
-        int result = url != null ? url.hashCode() : 0;
-        result = 31 * result + (totalTransactions != null ? totalTransactions.hashCode() : 0);
-        result = 31 * result + (language != null ? language.hashCode() : 0);
-        result = 31 * result + (docSentiment != null ? docSentiment.hashCode() : 0);
+        int result = mixed != null ? mixed.hashCode() : 0;
+        result = 31 * result + (score != null ? score.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
 
@@ -191,6 +158,6 @@ public class DocumentSentiment {
      */
     @Override
     public String toString() {
-        return String.format("DocumentSentiment [url=%s,totalTransactions=%s,language=%s]", url, totalTransactions, language);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

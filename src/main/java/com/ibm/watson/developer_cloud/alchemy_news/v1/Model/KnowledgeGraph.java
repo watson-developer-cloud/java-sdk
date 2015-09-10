@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Entity returned by the {@link AlchemyDataNews} service.
@@ -67,6 +68,6 @@ public class KnowledgeGraph {
 
     @Override
     public String toString() {
-        return String.format("KnowledgeGraph [typeHierarchy=%s]", typeHierarchy);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

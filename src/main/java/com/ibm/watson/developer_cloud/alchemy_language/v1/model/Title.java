@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Title returned by the {@link AlchemyLanguage} service.
@@ -122,6 +123,6 @@ public class Title {
      */
     @Override
     public String toString() {
-        return String.format("Title [url=%s,title=%s]", url, title);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

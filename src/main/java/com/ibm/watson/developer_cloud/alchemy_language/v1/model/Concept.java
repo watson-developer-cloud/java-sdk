@@ -17,6 +17,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Concept returned by the {@link AlchemyLanguage} service.
@@ -323,6 +324,6 @@ public class Concept {
      */
     @Override
     public String toString() {
-        return String.format("Concept [text=%s,relevance=%s,website=%s,dbpedia=%s,freebase=%s,opencyc=%s,yago=%s,crunchbase=%s]", text, relevance, website, dbpedia, freebase, opencyc, yago, crunchbase);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

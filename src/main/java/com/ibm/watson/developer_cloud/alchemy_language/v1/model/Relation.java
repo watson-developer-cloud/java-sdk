@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Relation returned by the {@link AlchemyLanguage} service.
@@ -224,6 +225,6 @@ public class Relation {
      */
     @Override
     public String toString() {
-        return String.format("Relation [sentence=%s,subject=%s,action=%s,object=%s,location=%s]", sentence, subject, action, object, location);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

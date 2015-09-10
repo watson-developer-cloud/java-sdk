@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_vision.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_vision.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * ImageKeyword by the {@link AlchemyVision} service.
@@ -92,7 +93,7 @@ public class ImageKeyword {
 
     @Override
     public String toString() {
-        return String.format("ImageKeyword [text=%s,score=%s]", text, score);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 
 }

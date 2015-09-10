@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_vision.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_vision.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Identity by the {@link AlchemyVision} service.
@@ -139,6 +140,6 @@ public class Identity {
 
     @Override
     public String toString() {
-        return String.format("Identity [disambiguated=%s,knowledgeGraph=%s,name=%s,score=%s]", disambiguated, knowledgeGraph, name, score);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

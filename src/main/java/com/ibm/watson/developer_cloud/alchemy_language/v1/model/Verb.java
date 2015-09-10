@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Verb returned by the {@link AlchemyLanguage} service.
@@ -123,6 +124,6 @@ public class Verb {
      */
     @Override
     public String toString() {
-        return String.format("Verb [text=%s,tense=%s]", text, tense);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

@@ -17,6 +17,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -226,6 +227,6 @@ public class KeywordExtraction {
      */
     @Override
     public String toString() {
-        return String.format("KeywordExtraction [status=%s,usage=%s,totalTransactions=%s,language=%s]", status, usage, totalTransactions, language);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Text returned by the {@link AlchemyLanguage} service.
@@ -157,6 +158,6 @@ public class Text {
      */
     @Override
     public String toString() {
-        return String.format("Text [url=%s,language=%s,text=%s]", url, language, text);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

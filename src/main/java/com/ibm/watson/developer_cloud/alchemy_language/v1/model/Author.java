@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Author returned by the {@link AlchemyLanguage} service.
@@ -122,7 +123,7 @@ public class Author {
      */
     @Override
     public String toString() {
-        return String.format("Author [url=%s,author=%s,verb=%s]", url, author);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 
 }

@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -136,5 +137,10 @@ public class EnrichedTitle {
         result = 31 * result + (entities != null ? entities.hashCode() : 0);
         result = 31 * result + (taxonomy != null ? taxonomy.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

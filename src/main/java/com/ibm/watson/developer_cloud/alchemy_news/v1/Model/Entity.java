@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,44 +200,44 @@ public class Entity {
         return this;
     }
 
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || getClass() != o.getClass()) return false;
-//
-//        Entity entity = (Entity) o;
-//
-//        if (count != entity.count) return false;
-//        if (Double.compare(entity.relevance, relevance) != 0) return false;
-//        if (disambiguated != null ? !disambiguated.equals(entity.disambiguated) : entity.disambiguated != null)
-//            return false;
-//        if (knowledgeGraph != null ? !knowledgeGraph.equals(entity.knowledgeGraph) : entity.knowledgeGraph != null)
-//            return false;
-//        if (quotations != null ? !quotations.equals(entity.quotations) : entity.quotations != null) return false;
-//        if (sentiment != null ? !sentiment.equals(entity.sentiment) : entity.sentiment != null) return false;
-//        if (text != null ? !text.equals(entity.text) : entity.text != null) return false;
-//        return !(type != null ? !type.equals(entity.type) : entity.type != null);
-//
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        int result;
-//        long temp;
-//        result = count;
-//        result = 31 * result + (disambiguated != null ? disambiguated.hashCode() : 0);
-//        result = 31 * result + (knowledgeGraph != null ? knowledgeGraph.hashCode() : 0);
-//        result = 31 * result + (quotations != null ? quotations.hashCode() : 0);
-//        temp = Double.doubleToLongBits(relevance);
-//        result = 31 * result + (int) (temp ^ (temp >>> 32));
-//        result = 31 * result + (sentiment != null ? sentiment.hashCode() : 0);
-//        result = 31 * result + (text != null ? text.hashCode() : 0);
-//        result = 31 * result + (type != null ? type.hashCode() : 0);
-//        return result;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return String.format("Entity [count=%s,disambiguated=%s,knowledgeGraph=%s,quotations=%s,relevance=%s,sentiment=%s,text=%s,type=%s]", count, disambiguated, knowledgeGraph, quotations, relevance, sentiment, text, type);
-//    }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Entity entity = (Entity) o;
+
+        if (count != entity.count) return false;
+        if (Double.compare(entity.relevance, relevance) != 0) return false;
+        if (disambiguated != null ? !disambiguated.equals(entity.disambiguated) : entity.disambiguated != null)
+            return false;
+        if (knowledgeGraph != null ? !knowledgeGraph.equals(entity.knowledgeGraph) : entity.knowledgeGraph != null)
+            return false;
+        if (quotations != null ? !quotations.equals(entity.quotations) : entity.quotations != null) return false;
+        if (sentiment != null ? !sentiment.equals(entity.sentiment) : entity.sentiment != null) return false;
+        if (text != null ? !text.equals(entity.text) : entity.text != null) return false;
+        return !(type != null ? !type.equals(entity.type) : entity.type != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = count;
+        result = 31 * result + (disambiguated != null ? disambiguated.hashCode() : 0);
+        result = 31 * result + (knowledgeGraph != null ? knowledgeGraph.hashCode() : 0);
+        result = 31 * result + (quotations != null ? quotations.hashCode() : 0);
+        temp = Double.doubleToLongBits(relevance);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (sentiment != null ? sentiment.hashCode() : 0);
+        result = 31 * result + (text != null ? text.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+    }
 }

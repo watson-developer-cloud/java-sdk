@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Url by the {@link AlchemyDataNews} service.
@@ -162,6 +163,6 @@ public class Url {
 
     @Override
     public String toString() {
-        return String.format("Url [author=%s,enrichedTitle=%s,publicationDate=%s,title=%s,url=%s]", author, enrichedTitle, publicationDate, title, url);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

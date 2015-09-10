@@ -23,7 +23,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.alchemy_language.v1.model.DocumentSentiment;
+import com.ibm.watson.developer_cloud.alchemy_language.v1.model.DocumentSentimentResults;
 
 public class AlchemyLanguageExample {
 
@@ -33,7 +33,7 @@ public class AlchemyLanguageExample {
 
 		Map<String,Object> params = new HashMap<String, Object>();
 		params.put(AlchemyLanguage.TEXT, "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
-		DocumentSentiment sentiment =  service.getSentiment(params);
+		DocumentSentimentResults sentiment =  service.getSentiment(params);
 
 		System.out.println(sentiment);
 	}

@@ -21,6 +21,7 @@ package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Language returned by the {@link AlchemyLanguage} service.
@@ -332,6 +333,6 @@ public class Language {
      */
     @Override
     public String toString() {
-        return String.format("Language [url=%s,language=%s,ethnologue=%s,nativeSpeakers=%s,wikipedia=%s]", url, language, ethnologue, nativeSpeakers, wikipedia);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

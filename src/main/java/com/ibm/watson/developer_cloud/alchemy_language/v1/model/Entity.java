@@ -17,6 +17,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Entity returned by the {@link AlchemyLanguage} service.
@@ -256,6 +257,6 @@ public class Entity {
      */
     @Override
     public String toString() {
-        return String.format("Entity [type=%s,relevance=%s,sentiment=%s,count=%s,text=%s]", type, relevance, sentiment, count, text);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

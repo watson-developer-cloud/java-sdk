@@ -21,6 +21,7 @@ package com.ibm.watson.developer_cloud.alchemy_vision.v1.model;
 
 
 import com.ibm.watson.developer_cloud.alchemy_vision.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,6 +120,6 @@ public class ImageKeywords {
 
     @Override
     public String toString() {
-        return String.format("Image [url=%s,totalTransactions=%s,image=%s]", url, totalTransactions);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

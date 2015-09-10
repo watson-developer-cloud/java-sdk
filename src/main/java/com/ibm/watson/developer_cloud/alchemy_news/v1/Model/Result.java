@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Result by the {@link AlchemyDataNews} service.
@@ -138,6 +139,6 @@ public class Result {
 
     @Override
     public String toString() {
-        return String.format("Result [status=%s,usage=%s,totalTransactions=%s]", status, usage, totalTransactions);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * TaxonomyEntry returned by the {@link AlchemyLanguage} service.
@@ -156,6 +157,6 @@ public class TaxonomyEntry {
      */
     @Override
     public String toString() {
-        return String.format("TaxonomyEntry [label=%s,score=%s,confident=%s]", label, score, confident);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

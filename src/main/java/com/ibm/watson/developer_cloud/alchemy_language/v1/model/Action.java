@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Action returned by the {@link AlchemyLanguage} service.
@@ -156,6 +157,6 @@ public class Action {
      */
     @Override
     public String toString() {
-        return String.format("Action [text=%s,lemmatized=%s,verb=%s]", text, lemmatized, verb);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

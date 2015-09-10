@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_vision.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_vision.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * ImageLink by the {@link AlchemyVision} service.
@@ -115,6 +116,6 @@ public class ImageLink {
 
     @Override
     public String toString() {
-        return String.format("ImageLink [url=%s,totalTransactions=%s,image=%s]", url, totalTransactions, image);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

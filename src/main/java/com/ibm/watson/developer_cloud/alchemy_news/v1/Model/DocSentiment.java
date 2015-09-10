@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * DocSentiment returned by the {@link AlchemyDataNews} service.
@@ -117,6 +118,6 @@ public class DocSentiment {
 
     @Override
     public String toString() {
-        return String.format("DocSentiment [mixed=%s,score=%s,type=%s", mixed, score, type);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

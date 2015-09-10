@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_vision.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_vision.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -187,6 +188,6 @@ public class Disambiguated {
 
     @Override
     public String toString() {
-        return String.format("Disambiguated [dbpedia=%s,freebase=%s,name=%s,opencyc=%s,subType=%s,yago=%s]", dbpedia, freebase, name, opencyc, subType, yago);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

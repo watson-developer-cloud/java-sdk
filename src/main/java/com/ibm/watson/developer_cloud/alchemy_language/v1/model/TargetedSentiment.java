@@ -21,6 +21,7 @@ package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,5 +87,13 @@ public class TargetedSentiment {
     @Override
     public int hashCode() {
         return sentimentTargeted != null ? sentimentTargeted.hashCode() : 0;
+    }
+
+    /* (non-Javadoc)
+   * @see java.lang.Object#toString()
+   */
+    @Override
+    public String toString() {
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

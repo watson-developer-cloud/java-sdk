@@ -22,15 +22,12 @@ package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Keywords returned by the {@link AlchemyLanguage} service.
+ * DocSentiment returned by the {@link AlchemyLanguage} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Keywords {
+public class DocumentSentimentResults {
 
     /** The url. */
     private String url;
@@ -41,8 +38,8 @@ public class Keywords {
     /** The language. */
     private String language;
 
-    /** The keywords. */
-    private List<Keyword> keywords = new ArrayList<Keyword>();
+    /** The doc sentiment. */
+    private DocumentSentiment docSentiment;
 
     /**
      * Gets the url.
@@ -66,9 +63,9 @@ public class Keywords {
      * With url.
      *
      * @param url the url
-     * @return the keywords
+     * @return the document sentiment
      */
-    public Keywords withUrl(String url) {
+    public DocumentSentimentResults withUrl(String url) {
         this.url = url;
         return this;
     }
@@ -95,9 +92,9 @@ public class Keywords {
      * With total transactions.
      *
      * @param totalTransactions the total transactions
-     * @return the keywords
+     * @return the document sentiment
      */
-    public Keywords withTotalTransactions(String totalTransactions) {
+    public DocumentSentimentResults withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
@@ -124,39 +121,39 @@ public class Keywords {
      * With language.
      *
      * @param language the language
-     * @return the keywords
+     * @return the document sentiment
      */
-    public Keywords withLanguage(String language) {
+    public DocumentSentimentResults withLanguage(String language) {
         this.language = language;
         return this;
     }
 
     /**
-     * Gets the keywords.
+     * Gets the doc sentiment.
      *
-     * @return The keywords
+     * @return The docSentiment
      */
-    public List<Keyword> getKeywords() {
-        return keywords;
+    public DocumentSentiment getDocSentiment() {
+        return docSentiment;
     }
 
     /**
-     * Sets the keywords.
+     * Sets the doc sentiment.
      *
-     * @param keywords The keywords
+     * @param docSentiment The docSentiment
      */
-    public void setKeywords(List<Keyword> keywords) {
-        this.keywords = keywords;
+    public void setDocSentiment(DocumentSentiment docSentiment) {
+        this.docSentiment = docSentiment;
     }
 
     /**
-     * With keywords.
+     * With doc sentiment.
      *
-     * @param keywords the keywords
-     * @return the keywords
+     * @param docSentiment the doc sentiment
+     * @return the document sentiment
      */
-    public Keywords withKeywords(List<Keyword> keywords) {
-        this.keywords = keywords;
+    public DocumentSentimentResults withDocSentiment(DocumentSentiment docSentiment) {
+        this.docSentiment = docSentiment;
         return this;
     }
 
@@ -168,13 +165,13 @@ public class Keywords {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Keywords keywords1 = (Keywords) o;
+        DocumentSentimentResults that = (DocumentSentimentResults) o;
 
-        if (url != null ? !url.equals(keywords1.url) : keywords1.url != null) return false;
-        if (totalTransactions != null ? !totalTransactions.equals(keywords1.totalTransactions) : keywords1.totalTransactions != null)
+        if (url != null ? !url.equals(that.url) : that.url != null) return false;
+        if (totalTransactions != null ? !totalTransactions.equals(that.totalTransactions) : that.totalTransactions != null)
             return false;
-        if (language != null ? !language.equals(keywords1.language) : keywords1.language != null) return false;
-        return !(keywords != null ? !keywords.equals(keywords1.keywords) : keywords1.keywords != null);
+        if (language != null ? !language.equals(that.language) : that.language != null) return false;
+        return !(docSentiment != null ? !docSentiment.equals(that.docSentiment) : that.docSentiment != null);
 
     }
 
@@ -186,7 +183,7 @@ public class Keywords {
         int result = url != null ? url.hashCode() : 0;
         result = 31 * result + (totalTransactions != null ? totalTransactions.hashCode() : 0);
         result = 31 * result + (language != null ? language.hashCode() : 0);
-        result = 31 * result + (keywords != null ? keywords.hashCode() : 0);
+        result = 31 * result + (docSentiment != null ? docSentiment.hashCode() : 0);
         return result;
     }
 

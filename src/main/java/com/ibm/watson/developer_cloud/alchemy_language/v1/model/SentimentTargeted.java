@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * SentimentTargeted returned by the {@link AlchemyLanguage} service.
@@ -157,6 +158,6 @@ public class SentimentTargeted {
      */
     @Override
     public String toString() {
-        return String.format("SentimentTargeted [text=%s,type=%s,sentiment=%s]", text, type, sentiment);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

@@ -17,6 +17,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Keyword returned by the {@link AlchemyLanguage} service.
@@ -154,7 +155,7 @@ public class Keyword {
      */
     @Override
     public String toString() {
-        return String.format("Keyword [relevance=%s,sentiment=%s,text=%s]", relevance, sentiment, text);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 
 }

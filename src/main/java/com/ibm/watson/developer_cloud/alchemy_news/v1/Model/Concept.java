@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Concept returned by the {@link AlchemyDataNews} service.
@@ -118,6 +119,6 @@ public class Concept {
 
     @Override
     public String toString() {
-        return String.format("Concept [knowledgeGraph=%s,relevance=%s,text=%s]", knowledgeGraph, relevance, text);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

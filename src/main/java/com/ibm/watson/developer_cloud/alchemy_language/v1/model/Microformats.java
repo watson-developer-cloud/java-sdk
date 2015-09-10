@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,6 +126,6 @@ public class Microformats {
      */
     @Override
     public String toString() {
-        return String.format("Microformats [url=%s]", url);
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

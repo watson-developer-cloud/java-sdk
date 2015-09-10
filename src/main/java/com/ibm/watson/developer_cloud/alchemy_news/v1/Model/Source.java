@@ -20,6 +20,7 @@
 package com.ibm.watson.developer_cloud.alchemy_news.v1.Model;
 
 import com.ibm.watson.developer_cloud.alchemy_news.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Source by the {@link AlchemyDataNews} service.
@@ -63,5 +64,10 @@ public class Source {
     @Override
     public int hashCode() {
         return enriched != null ? enriched.hashCode() : 0;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }
