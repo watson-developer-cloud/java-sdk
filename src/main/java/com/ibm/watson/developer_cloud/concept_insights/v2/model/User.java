@@ -26,114 +26,148 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  */
 public class User {
 
-	/** The account id. */
-	@SerializedName("account_id")
-	private String accountId;
+    /**
+     * The account id.
+     */
+    @SerializedName("account_id")
+    private String accountId;
 
-	/** The permission. */
-	private String permission;
+    /**
+     * The  uid.
+     */
+    private String uid;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
+    /**
+     * The permission.
+     */
+    private String permission;
 
-		User user = (User) o;
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
 
-		if (accountId != null ? !accountId.equals(user.accountId) : user.accountId != null)
-			return false;
-		return !(permission != null ? !permission.equals(user.permission) : user.permission != null);
+        User user = (User) o;
 
-	}
+        if (accountId != null ? !accountId.equals(user.accountId) : user.accountId != null)
+            return false;
+        return !(permission != null ? !permission.equals(user.permission) : user.permission != null);
 
-	/**
-	 * Gets the account id.
-	 * 
-	 * @return The accountId
-	 */
-	public String getAccountId() {
-		return accountId;
-	}
+    }
 
-	/**
-	 * Gets the permission.
-	 * 
-	 * @return The permission
-	 */
-	public String getPermission() {
-		return permission;
-	}
+    /**
+     * Gets the account id.
+     *
+     * @return The accountId
+     */
+    public String getAccountId() {
+        return accountId;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		int result = accountId != null ? accountId.hashCode() : 0;
-		result = 31 * result + (permission != null ? permission.hashCode() : 0);
-		return result;
-	}
+    /**
+     * Gets the permission.
+     *
+     * @return The permission
+     */
+    public String getPermission() {
+        return permission;
+    }
 
-	/**
-	 * Sets the account id.
-	 * 
-	 * @param accountId
-	 *            The account_id
-	 */
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        int result = accountId != null ? accountId.hashCode() : 0;
+        result = 31 * result + (permission != null ? permission.hashCode() : 0);
+        return result;
+    }
 
-	/**
-	 * Sets the permission.
-	 * 
-	 * @param permission
-	 *            The permission
-	 */
-	public void setPermission(String permission) {
-		this.permission = permission;
-	}
+    /**
+     * Sets the account id.
+     *
+     * @param accountId The account_id
+     */
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
+    /**
+     * Sets the permission.
+     *
+     * @param permission The permission
+     */
+    public void setPermission(String permission) {
+        this.permission = permission;
+    }
 
-	/**
-	 * With account id.
-	 * 
-	 * @param accountId
-	 *            the account id
-	 * @return the user
-	 */
-	public User withAccountId(String accountId) {
-		this.accountId = accountId;
-		return this;
-	}
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+    }
 
-	/**
-	 * With permission.
-	 * 
-	 * @param permission
-	 *            the permission
-	 * @return the user
-	 */
-	public User withPermission(String permission) {
-		this.permission = permission;
-		return this;
-	}
+    /**
+     * With account id.
+     *
+     * @param accountId the account id
+     * @return the user
+     */
+    public User withAccountId(String accountId) {
+        this.accountId = accountId;
+        return this;
+    }
+
+    /**
+     * With permission.
+     *
+     * @param permission the permission
+     * @return the user
+     */
+    public User withPermission(String permission) {
+        this.permission = permission;
+        return this;
+    }
+
+    /**
+     * Gets the uid.
+     *
+     * @return The uid
+     */
+    public String getUid() {
+        return uid;
+    }
+
+    /**
+     * Sets the uid.
+     *
+     * @param uid The uid
+     */
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    /**
+     * With uid.
+     *
+     * @param uid the uid
+     * @return the user
+     */
+    public User withUid(String uid) {
+        this.uid = uid;
+        return this;
+    }
 }
