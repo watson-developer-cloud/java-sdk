@@ -30,7 +30,7 @@ import java.util.List;
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Image {
+public class ImageKeywords {
 
     private String url;
 
@@ -52,7 +52,7 @@ public class Image {
         this.url = url;
     }
 
-    public Image withUrl(String url) {
+    public ImageKeywords withUrl(String url) {
         this.url = url;
         return this;
     }
@@ -71,7 +71,7 @@ public class Image {
         this.totalTransactions = totalTransactions;
     }
 
-    public Image withTotalTransactions(String totalTransactions) {
+    public ImageKeywords withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
@@ -90,7 +90,7 @@ public class Image {
         this.imageKeywords = imageKeywords;
     }
 
-    public Image withImageKeywords(List<ImageKeyword> imageKeywords) {
+    public ImageKeywords withImageKeywords(List<ImageKeyword> imageKeywords) {
         this.imageKeywords = imageKeywords;
         return this;
     }
@@ -100,7 +100,7 @@ public class Image {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Image image = (Image) o;
+        ImageKeywords image = (ImageKeywords) o;
 
         if (url != null ? !url.equals(image.url) : image.url != null) return false;
         if (totalTransactions != null ? !totalTransactions.equals(image.totalTransactions) : image.totalTransactions != null)

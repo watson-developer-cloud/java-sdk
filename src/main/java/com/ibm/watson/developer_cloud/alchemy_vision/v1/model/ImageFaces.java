@@ -29,7 +29,7 @@ import java.util.List;
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class FaceTag {
+public class ImageFaces {
 
 
     private String url;
@@ -52,7 +52,7 @@ public class FaceTag {
         this.url = url;
     }
 
-    public FaceTag withUrl(String url) {
+    public ImageFaces withUrl(String url) {
         this.url = url;
         return this;
     }
@@ -71,7 +71,7 @@ public class FaceTag {
         this.totalTransactions = totalTransactions;
     }
 
-    public FaceTag withTotalTransactions(String totalTransactions) {
+    public ImageFaces withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
@@ -95,7 +95,7 @@ public class FaceTag {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        FaceTag faceTag = (FaceTag) o;
+        ImageFaces faceTag = (ImageFaces) o;
 
         if (url != null ? !url.equals(faceTag.url) : faceTag.url != null) return false;
         if (totalTransactions != null ? !totalTransactions.equals(faceTag.totalTransactions) : faceTag.totalTransactions != null)
@@ -112,7 +112,7 @@ public class FaceTag {
         return result;
     }
 
-    public FaceTag withImageFaces(List<ImageFace> imageFaces) {
+    public ImageFaces withImageFaces(List<ImageFace> imageFaces) {
         this.imageFaces = imageFaces;
         return this;
 

@@ -42,6 +42,12 @@ public interface MediaType {
 	 * Field APPLICATION_OCTET_STREAM. (value is "application/octet-stream")
 	 */
 	public final static String APPLICATION_OCTET_STREAM = "application/octet-stream";
+
+	/**
+	 * Field BINARY_OCTET_STREAM. (value is "binary/octet-stream")
+	 */
+	public final static String BINARY_OCTET_STREAM = "binary/octet-stream";
+	
 	/**
 	 * Field APPLICATION_SVG_XML. (value is "application/svg+xml")
 	 */
