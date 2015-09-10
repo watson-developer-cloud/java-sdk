@@ -87,7 +87,8 @@ public class DocumentConversionExample{
 
         // Step 1.1 Get a document
         System.out.println("-------------------- Get a document ------------------------------");
-        System.out.println("Get document 2:\n" + service.getDocument(doc2.getId()));
+        InputStream is = service.getDocument(doc2.getId());
+        System.out.println("Get document 2:\n" + ConversionUtils.writeInputStreamToString(is));
 
         // Step 2. Create a batch
         System.out.println("-------------------- Create a batch ------------------------------");
