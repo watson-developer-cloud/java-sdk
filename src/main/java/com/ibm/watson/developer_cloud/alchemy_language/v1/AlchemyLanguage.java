@@ -122,19 +122,6 @@ public class AlchemyLanguage extends AlchemyService {
 	}
 
 	/**
-	 * Categorized through the taxonomy call for text, HTML, or a URLL.
-	 * 
-	 * @param params
-	 *            The parameters to be used in the service call, text, html or url should
-	 *            be specified.
-	 * @return {@link DocumentSentiment}
-	 */
-	public DocumentSentiment getSentiment(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.sentiment, DocumentSentiment.class, "text", "html",
-				"url");
-	}
-
-	/**
 	 * Calculates the sentiment for text, a URL or HTML.
 	 * 
 	 * @param params
@@ -142,10 +129,12 @@ public class AlchemyLanguage extends AlchemyService {
 	 *            be specified.
 	 * @return {@link DocumentSentiment}
 	 */
-	public DocumentSentiment getTargetedSentiment(Map<String, Object> params) {
-		Validate.notNull(params.get(TARGET), "target can't be null");
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.sentiment_targeted, DocumentSentiment.class, "text",
-				"html", "url");
+	public DocumentSentiment getSentiment(Map<String, Object> params) {
+		AlchemyAPI operation = AlchemyAPI.sentiment;
+		if (params.get(TARGET) != null)
+			operation = AlchemyAPI.sentiment_targeted;
+
+			return executeRequest(params, operation, DocumentSentiment.class, "text", "html", "url");
 	}
 
 	/**
