@@ -126,8 +126,11 @@ public class SolrConfigRestSender {
         case HttpStatus.SC_OK:
             try {
                 final File zipFile = File.createTempFile(configurationName, ".zip");
-                try (final FileOutputStream output = new FileOutputStream(zipFile)) {
+                final FileOutputStream output = new FileOutputStream(zipFile);
+                try {
                     IOUtils.copy(response.getEntity().getContent(), output);
+                } finally {
+                    output.close();
                 }
                 return zipFile;
             } catch (final IOException e) {
@@ -158,7 +161,11 @@ public class SolrConfigRestSender {
     private String safelyGetResponseMessage(HttpResponse httpResponse) {
         try {
             return EntityUtils.toString(httpResponse.getEntity());
-        } catch (@SuppressWarnings("unused") IllegalArgumentException | ParseException | IOException e) {
+        } catch (@SuppressWarnings("unused") final IllegalArgumentException e) {
+            return "";
+        } catch (@SuppressWarnings("unused") final ParseException e) {
+            return "";
+        } catch (@SuppressWarnings("unused") final IOException e) {
             return "";
         }
     }

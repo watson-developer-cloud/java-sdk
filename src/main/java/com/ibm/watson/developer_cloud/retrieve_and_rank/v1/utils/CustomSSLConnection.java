@@ -17,6 +17,8 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLContexts;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 
+import com.google.common.base.Throwables;
+
 /**
  * Use a custom JKS truststore to connect to a server securely
  */
@@ -30,12 +32,27 @@ public class CustomSSLConnection {
         } catch (final KeyStoreException e) {
             throw new RuntimeException("Invalid truststore format.", e);
         }
-
-        try (FileInputStream fileStream = new FileInputStream(truststoreFile)) {
+        FileInputStream fileStream = null;
+        try {
+            fileStream = new FileInputStream(truststoreFile);
             truststore.load(fileStream, truststorePassword.toCharArray());
-        } catch (final NoSuchAlgorithmException | CertificateException | IOException e) {
+        } catch (final NoSuchAlgorithmException e) {
             throw new RuntimeException(
                     String.format(Locale.ROOT, "Failed to read truststore [%s].", truststoreFile.getAbsolutePath()), e);
+        } catch (final CertificateException e) {
+            throw new RuntimeException(
+                    String.format(Locale.ROOT, "Failed to read truststore [%s].", truststoreFile.getAbsolutePath()), e);
+        } catch (final IOException e) {
+            throw new RuntimeException(
+                    String.format(Locale.ROOT, "Failed to read truststore [%s].", truststoreFile.getAbsolutePath()), e);
+        } finally {
+            try {
+                if (fileStream != null) {
+                    fileStream.close();
+                }
+            } catch (final IOException e) {
+                Throwables.propagate(e);
+            }
         }
     }
 
@@ -44,7 +61,11 @@ public class CustomSSLConnection {
             return SSLContexts.custom()
                     .loadTrustMaterial(truststore, new TrustSelfSignedStrategy())
                     .build();
-        } catch (KeyManagementException | NoSuchAlgorithmException | KeyStoreException e) {
+        } catch (final KeyManagementException e) {
+            throw new RuntimeException(String.format(Locale.ROOT, "Failed to load truststore."), e);
+        } catch (final NoSuchAlgorithmException e) {
+            throw new RuntimeException(String.format(Locale.ROOT, "Failed to load truststore."), e);
+        } catch (final KeyStoreException e) {
             throw new RuntimeException(String.format(Locale.ROOT, "Failed to load truststore."), e);
         }
     }
