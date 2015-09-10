@@ -112,16 +112,16 @@ public abstract class AlchemyService extends WatsonService{
 	}
 
 	
-    /* (non-Javadoc)
-     * @see com.ibm.watson.developer_cloud.service.WatsonService#execute(org.apache.http.client.methods.HttpRequestBase)
-     */
-    @Override
-    protected HttpResponse execute(HttpRequestBase request) {
-    	HttpResponse response = super.execute(request);
-		String error = getErrorMessage(response);
-		if (error == null)
-			return response;
-		else
-			throw new BadRequestException(error);
-    }
+//    /* (non-Javadoc)
+//     * @see com.ibm.watson.developer_cloud.service.WatsonService#execute(org.apache.http.client.methods.HttpRequestBase)
+//     */
+//    @Override
+//    protected HttpResponse execute(HttpRequestBase request) {
+//    	HttpResponse response = super.execute(request);
+//		String error = getErrorMessage(response);
+//		if (error == null)
+//			return response;
+//		else
+//			throw new BadRequestException(error);
+//    }
 }

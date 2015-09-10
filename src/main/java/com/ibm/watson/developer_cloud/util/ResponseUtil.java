@@ -172,7 +172,7 @@ public class ResponseUtil {
 		String jsonString = getString(response);
 		
 		@SuppressWarnings("unchecked")
-		T pojo = (T) GsonSingleton.getGson().fromJson(jsonString, type.getClass());
+		T pojo = (T) GsonSingleton.getGson().fromJson(jsonString, type);
 		return pojo;
 	}
 
