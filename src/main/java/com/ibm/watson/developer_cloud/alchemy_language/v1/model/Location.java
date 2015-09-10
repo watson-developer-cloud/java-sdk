@@ -32,11 +32,15 @@ import java.util.List;
 public class Location {
 
 
+    /** The text. */
     private String text;
 
+    /** The entities. */
     private List<Entity> entities = new ArrayList<Entity>();
 
     /**
+     * Gets the text.
+     *
      * @return The text
      */
     public String getText() {
@@ -44,18 +48,28 @@ public class Location {
     }
 
     /**
+     * Sets the text.
+     *
      * @param text The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * With text.
+     *
+     * @param text the text
+     * @return the location
+     */
     public Location withText(String text) {
         this.text = text;
         return this;
     }
 
     /**
+     * Gets the entities.
+     *
      * @return The entities
      */
     public List<Entity> getEntities() {
@@ -63,17 +77,28 @@ public class Location {
     }
 
     /**
+     * Sets the entities.
+     *
      * @param entities The entities
      */
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
     }
 
+    /**
+     * With entities.
+     *
+     * @param entities the entities
+     * @return the location
+     */
     public Location withEntities(List<Entity> entities) {
         this.entities = entities;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,6 +111,9 @@ public class Location {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = text != null ? text.hashCode() : 0;
@@ -93,6 +121,9 @@ public class Location {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Location [text=%s]", text);

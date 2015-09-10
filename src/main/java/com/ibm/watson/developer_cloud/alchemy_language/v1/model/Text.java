@@ -29,13 +29,18 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 public class Text {
 
 
+    /** The url. */
     private String url;
 
+    /** The language. */
     private String language;
 
+    /** The text. */
     private String text;
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -43,18 +48,28 @@ public class Text {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the text
+     */
     public Text withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the language.
+     *
      * @return The language
      */
     public String getLanguage() {
@@ -62,18 +77,28 @@ public class Text {
     }
 
     /**
+     * Sets the language.
+     *
      * @param language The language
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    /**
+     * With language.
+     *
+     * @param language the language
+     * @return the text
+     */
     public Text withLanguage(String language) {
         this.language = language;
         return this;
     }
 
     /**
+     * Gets the text.
+     *
      * @return The text
      */
     public String getText() {
@@ -81,17 +106,28 @@ public class Text {
     }
 
     /**
+     * Sets the text.
+     *
      * @param text The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * With text.
+     *
+     * @param text the text
+     * @return the text
+     */
     public Text withText(String text) {
         this.text = text;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,6 +141,9 @@ public class Text {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = url != null ? url.hashCode() : 0;
@@ -113,6 +152,9 @@ public class Text {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Text [url=%s,language=%s,text=%s]", url, language, text);

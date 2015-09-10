@@ -29,131 +29,169 @@ import java.util.List;
 public class KeywordExtraction {
 
 
+    /** The status. */
     private String status;
 
+    /** The usage. */
     private String usage;
 
+    /** The total transactions. */
     private String totalTransactions;
 
+    /** The language. */
     private String language;
 
+    /** The keywords. */
     private List<Keyword> keywords = new ArrayList<Keyword>();
 
     /**
+     * Gets the status.
      *
-     * @return
-     *     The status
+     * @return     The status
      */
     public String getStatus() {
         return status;
     }
 
     /**
+     * Sets the status.
      *
-     * @param status
-     *     The status
+     * @param status     The status
      */
     public void setStatus(String status) {
         this.status = status;
     }
 
+    /**
+     * With status.
+     *
+     * @param status the status
+     * @return the keyword extraction
+     */
     public KeywordExtraction withStatus(String status) {
         this.status = status;
         return this;
     }
 
     /**
+     * Gets the usage.
      *
-     * @return
-     *     The usage
+     * @return     The usage
      */
     public String getUsage() {
         return usage;
     }
 
     /**
+     * Sets the usage.
      *
-     * @param usage
-     *     The usage
+     * @param usage     The usage
      */
     public void setUsage(String usage) {
         this.usage = usage;
     }
 
+    /**
+     * With usage.
+     *
+     * @param usage the usage
+     * @return the keyword extraction
+     */
     public KeywordExtraction withUsage(String usage) {
         this.usage = usage;
         return this;
     }
 
     /**
+     * Gets the total transactions.
      *
-     * @return
-     *     The totalTransactions
+     * @return     The totalTransactions
      */
     public String getTotalTransactions() {
         return totalTransactions;
     }
 
     /**
+     * Sets the total transactions.
      *
-     * @param totalTransactions
-     *     The totalTransactions
+     * @param totalTransactions     The totalTransactions
      */
     public void setTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
     }
 
+    /**
+     * With total transactions.
+     *
+     * @param totalTransactions the total transactions
+     * @return the keyword extraction
+     */
     public KeywordExtraction withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
 
     /**
+     * Gets the language.
      *
-     * @return
-     *     The language
+     * @return     The language
      */
     public String getLanguage() {
         return language;
     }
 
     /**
+     * Sets the language.
      *
-     * @param language
-     *     The language
+     * @param language     The language
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    /**
+     * With language.
+     *
+     * @param language the language
+     * @return the keyword extraction
+     */
     public KeywordExtraction withLanguage(String language) {
         this.language = language;
         return this;
     }
 
     /**
+     * Gets the keywords.
      *
-     * @return
-     *     The keywords
+     * @return     The keywords
      */
     public List<Keyword> getKeywords() {
         return keywords;
     }
 
     /**
+     * Sets the keywords.
      *
-     * @param keywords
-     *     The keywords
+     * @param keywords     The keywords
      */
     public void setKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
     }
 
+    /**
+     * With keywords.
+     *
+     * @param keywords the keywords
+     * @return the keyword extraction
+     */
     public KeywordExtraction withKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -170,6 +208,9 @@ public class KeywordExtraction {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = status != null ? status.hashCode() : 0;
@@ -180,6 +221,9 @@ public class KeywordExtraction {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("KeywordExtraction [status=%s,usage=%s,totalTransactions=%s,language=%s]", status, usage, totalTransactions, language);

@@ -28,13 +28,18 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
  */
 public class Action {
 
+    /** The text. */
     private String text;
 
+    /** The lemmatized. */
     private String lemmatized;
 
+    /** The verb. */
     private Verb verb;
 
     /**
+     * Gets the text.
+     *
      * @return The text
      */
     public String getText() {
@@ -42,18 +47,28 @@ public class Action {
     }
 
     /**
+     * Sets the text.
+     *
      * @param text The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * With text.
+     *
+     * @param text the text
+     * @return the action
+     */
     public Action withText(String text) {
         this.text = text;
         return this;
     }
 
     /**
+     * Gets the lemmatized.
+     *
      * @return The lemmatized
      */
     public String getLemmatized() {
@@ -61,18 +76,28 @@ public class Action {
     }
 
     /**
+     * Sets the lemmatized.
+     *
      * @param lemmatized The lemmatized
      */
     public void setLemmatized(String lemmatized) {
         this.lemmatized = lemmatized;
     }
 
+    /**
+     * With lemmatized.
+     *
+     * @param lemmatized the lemmatized
+     * @return the action
+     */
     public Action withLemmatized(String lemmatized) {
         this.lemmatized = lemmatized;
         return this;
     }
 
     /**
+     * Gets the verb.
+     *
      * @return The verb
      */
     public Verb getVerb() {
@@ -80,17 +105,28 @@ public class Action {
     }
 
     /**
+     * Sets the verb.
+     *
      * @param verb The verb
      */
     public void setVerb(Verb verb) {
         this.verb = verb;
     }
 
+    /**
+     * With verb.
+     *
+     * @param verb the verb
+     * @return the action
+     */
     public Action withVerb(Verb verb) {
         this.verb = verb;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,6 +140,9 @@ public class Action {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = text != null ? text.hashCode() : 0;
@@ -112,6 +151,9 @@ public class Action {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Action [text=%s,lemmatized=%s,verb=%s]", text, lemmatized, verb);

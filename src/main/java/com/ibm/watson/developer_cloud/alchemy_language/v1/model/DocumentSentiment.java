@@ -28,15 +28,21 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
  */
 public class DocumentSentiment {
 
+    /** The url. */
     private String url;
 
+    /** The total transactions. */
     private String totalTransactions;
 
+    /** The language. */
     private String language;
 
+    /** The doc sentiment. */
     private DocSentiment docSentiment;
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -44,18 +50,28 @@ public class DocumentSentiment {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the document sentiment
+     */
     public DocumentSentiment withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the total transactions.
+     *
      * @return The totalTransactions
      */
     public String getTotalTransactions() {
@@ -63,18 +79,28 @@ public class DocumentSentiment {
     }
 
     /**
+     * Sets the total transactions.
+     *
      * @param totalTransactions The totalTransactions
      */
     public void setTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
     }
 
+    /**
+     * With total transactions.
+     *
+     * @param totalTransactions the total transactions
+     * @return the document sentiment
+     */
     public DocumentSentiment withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
 
     /**
+     * Gets the language.
+     *
      * @return The language
      */
     public String getLanguage() {
@@ -82,18 +108,28 @@ public class DocumentSentiment {
     }
 
     /**
+     * Sets the language.
+     *
      * @param language The language
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    /**
+     * With language.
+     *
+     * @param language the language
+     * @return the document sentiment
+     */
     public DocumentSentiment withLanguage(String language) {
         this.language = language;
         return this;
     }
 
     /**
+     * Gets the doc sentiment.
+     *
      * @return The docSentiment
      */
     public DocSentiment getDocSentiment() {
@@ -101,17 +137,28 @@ public class DocumentSentiment {
     }
 
     /**
+     * Sets the doc sentiment.
+     *
      * @param docSentiment The docSentiment
      */
     public void setDocSentiment(DocSentiment docSentiment) {
         this.docSentiment = docSentiment;
     }
 
+    /**
+     * With doc sentiment.
+     *
+     * @param docSentiment the doc sentiment
+     * @return the document sentiment
+     */
     public DocumentSentiment withDocSentiment(DocSentiment docSentiment) {
         this.docSentiment = docSentiment;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -127,6 +174,9 @@ public class DocumentSentiment {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = url != null ? url.hashCode() : 0;
@@ -136,6 +186,9 @@ public class DocumentSentiment {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("DocumentSentiment [url=%s,totalTransactions=%s,language=%s]", url, totalTransactions, language);

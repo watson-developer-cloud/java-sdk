@@ -32,15 +32,21 @@ import java.util.List;
  */
 public class Entities {
 
+    /** The url. */
     private String url;
 
+    /** The total transactions. */
     private String totalTransactions;
 
+    /** The language. */
     private String language;
 
+    /** The entities. */
     private List<Entity> entities = new ArrayList<Entity>();
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -48,18 +54,28 @@ public class Entities {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the entities
+     */
     public Entities withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the total transactions.
+     *
      * @return The totalTransactions
      */
     public String getTotalTransactions() {
@@ -67,18 +83,28 @@ public class Entities {
     }
 
     /**
+     * Sets the total transactions.
+     *
      * @param totalTransactions The totalTransactions
      */
     public void setTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
     }
 
+    /**
+     * With total transactions.
+     *
+     * @param totalTransactions the total transactions
+     * @return the entities
+     */
     public Entities withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
 
     /**
+     * Gets the language.
+     *
      * @return The language
      */
     public String getLanguage() {
@@ -86,18 +112,28 @@ public class Entities {
     }
 
     /**
+     * Sets the language.
+     *
      * @param language The language
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    /**
+     * With language.
+     *
+     * @param language the language
+     * @return the entities
+     */
     public Entities withLanguage(String language) {
         this.language = language;
         return this;
     }
 
     /**
+     * Gets the entities.
+     *
      * @return The entities
      */
     public List<Entity> getEntities() {
@@ -105,17 +141,28 @@ public class Entities {
     }
 
     /**
+     * Sets the entities.
+     *
      * @param entities The entities
      */
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
     }
 
+    /**
+     * With entities.
+     *
+     * @param entities the entities
+     * @return the entities
+     */
     public Entities withEntities(List<Entity> entities) {
         this.entities = entities;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -131,6 +178,9 @@ public class Entities {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = url != null ? url.hashCode() : 0;
@@ -140,6 +190,9 @@ public class Entities {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Entities [url=%s,totalTransactions=%s,language=%s]", url, totalTransactions, language);

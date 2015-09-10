@@ -26,156 +26,201 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 public class Entity {
 
 
+    /** The type. */
     private String type;
 
+    /** The relevance. */
     private String relevance;
 
+    /** The sentiment. */
     private Sentiment sentiment;
 
+    /** The count. */
     private String count;
 
+    /** The text. */
     private String text;
 
+    /** The disambiguated. */
     private Disambiguated disambiguated;
 
     /**
+     * Gets the type.
      *
-     * @return
-     *     The type
+     * @return     The type
      */
     public String getType() {
         return type;
     }
 
     /**
+     * Sets the type.
      *
-     * @param type
-     *     The type
+     * @param type     The type
      */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * With type.
+     *
+     * @param type the type
+     * @return the entity
+     */
     public Entity withType(String type) {
         this.type = type;
         return this;
     }
 
     /**
+     * Gets the relevance.
      *
-     * @return
-     *     The relevance
+     * @return     The relevance
      */
     public String getRelevance() {
         return relevance;
     }
 
     /**
+     * Sets the relevance.
      *
-     * @param relevance
-     *     The relevance
+     * @param relevance     The relevance
      */
     public void setRelevance(String relevance) {
         this.relevance = relevance;
     }
 
+    /**
+     * With relevance.
+     *
+     * @param relevance the relevance
+     * @return the entity
+     */
     public Entity withRelevance(String relevance) {
         this.relevance = relevance;
         return this;
     }
 
     /**
+     * Gets the sentiment.
      *
-     * @return
-     *     The sentiment
+     * @return     The sentiment
      */
     public Sentiment getSentiment() {
         return sentiment;
     }
 
     /**
+     * Sets the sentiment.
      *
-     * @param sentiment
-     *     The sentiment
+     * @param sentiment     The sentiment
      */
     public void setSentiment(Sentiment sentiment) {
         this.sentiment = sentiment;
     }
 
+    /**
+     * With sentiment.
+     *
+     * @param sentiment the sentiment
+     * @return the entity
+     */
     public Entity withSentiment(Sentiment sentiment) {
         this.sentiment = sentiment;
         return this;
     }
 
     /**
+     * Gets the count.
      *
-     * @return
-     *     The count
+     * @return     The count
      */
     public String getCount() {
         return count;
     }
 
     /**
+     * Sets the count.
      *
-     * @param count
-     *     The count
+     * @param count     The count
      */
     public void setCount(String count) {
         this.count = count;
     }
 
+    /**
+     * With count.
+     *
+     * @param count the count
+     * @return the entity
+     */
     public Entity withCount(String count) {
         this.count = count;
         return this;
     }
 
     /**
+     * Gets the text.
      *
-     * @return
-     *     The text
+     * @return     The text
      */
     public String getText() {
         return text;
     }
 
     /**
+     * Sets the text.
      *
-     * @param text
-     *     The text
+     * @param text     The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * With text.
+     *
+     * @param text the text
+     * @return the entity
+     */
     public Entity withText(String text) {
         this.text = text;
         return this;
     }
 
     /**
+     * Gets the disambiguated.
      *
-     * @return
-     *     The disambiguated
+     * @return     The disambiguated
      */
     public Disambiguated getDisambiguated() {
         return disambiguated;
     }
 
     /**
+     * Sets the disambiguated.
      *
-     * @param disambiguated
-     *     The disambiguated
+     * @param disambiguated     The disambiguated
      */
     public void setDisambiguated(Disambiguated disambiguated) {
         this.disambiguated = disambiguated;
     }
 
+    /**
+     * With disambiguated.
+     *
+     * @param disambiguated the disambiguated
+     * @return the entity
+     */
     public Entity withDisambiguated(Disambiguated disambiguated) {
         this.disambiguated = disambiguated;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -192,6 +237,9 @@ public class Entity {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = type != null ? type.hashCode() : 0;
@@ -203,6 +251,9 @@ public class Entity {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Entity [type=%s,relevance=%s,sentiment=%s,count=%s,text=%s]", type, relevance, sentiment, count, text);

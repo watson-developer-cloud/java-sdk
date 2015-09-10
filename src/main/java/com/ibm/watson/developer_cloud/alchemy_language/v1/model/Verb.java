@@ -29,11 +29,15 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 public class Verb {
 
 
+    /** The text. */
     private String text;
 
+    /** The tense. */
     private String tense;
 
     /**
+     * Gets the text.
+     *
      * @return The text
      */
     public String getText() {
@@ -41,18 +45,28 @@ public class Verb {
     }
 
     /**
+     * Sets the text.
+     *
      * @param text The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * With text.
+     *
+     * @param text the text
+     * @return the verb
+     */
     public Verb withText(String text) {
         this.text = text;
         return this;
     }
 
     /**
+     * Gets the tense.
+     *
      * @return The tense
      */
     public String getTense() {
@@ -60,17 +74,28 @@ public class Verb {
     }
 
     /**
+     * Sets the tense.
+     *
      * @param tense The tense
      */
     public void setTense(String tense) {
         this.tense = tense;
     }
 
+    /**
+     * With tense.
+     *
+     * @param tense the tense
+     * @return the verb
+     */
     public Verb withTense(String tense) {
         this.tense = tense;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -83,6 +108,9 @@ public class Verb {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = text != null ? text.hashCode() : 0;
@@ -90,6 +118,9 @@ public class Verb {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Verb [text=%s,tense=%s]", text, tense);

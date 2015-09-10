@@ -28,11 +28,15 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
  */
 public class Author {
 
+    /** The url. */
     private String url;
 
+    /** The author. */
     private String author;
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -40,18 +44,28 @@ public class Author {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the author
+     */
     public Author withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the author.
+     *
      * @return The author
      */
     public String getAuthor() {
@@ -59,17 +73,28 @@ public class Author {
     }
 
     /**
+     * Sets the author.
+     *
      * @param author The author
      */
     public void setAuthor(String author) {
         this.author = author;
     }
 
+    /**
+     * With author.
+     *
+     * @param author the author
+     * @return the author
+     */
     public Author withAuthor(String author) {
         this.author = author;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,6 +107,9 @@ public class Author {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = url != null ? url.hashCode() : 0;
@@ -89,6 +117,9 @@ public class Author {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Author [url=%s,author=%s,verb=%s]", url, author);

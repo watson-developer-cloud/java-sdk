@@ -28,9 +28,12 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
  */
 public class SentimentTargetedEntry {
 
+    /** The type. */
     private String type;
 
     /**
+     * Gets the type.
+     *
      * @return The type
      */
     public String getType() {
@@ -38,17 +41,28 @@ public class SentimentTargetedEntry {
     }
 
     /**
+     * Sets the type.
+     *
      * @param type The type
      */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * With type.
+     *
+     * @param type the type
+     * @return the sentiment targeted entry
+     */
     public SentimentTargetedEntry withType(String type) {
         this.type = type;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -60,11 +74,17 @@ public class SentimentTargetedEntry {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return type != null ? type.hashCode() : 0;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("SentimentTargetedEntry [type=%s]", type);

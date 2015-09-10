@@ -28,131 +28,169 @@ import java.util.List;
  */
 public class Disambiguated {
 
+    /** The sub type. */
     private List<String> subType = new ArrayList<String>();
 
+    /** The name. */
     private String name;
 
+    /** The website. */
     private String website;
 
+    /** The dbpedia. */
     private String dbpedia;
 
+    /** The freebase. */
     private String freebase;
 
     /**
+     * Gets the sub type.
      *
-     * @return
-     *     The subType
+     * @return     The subType
      */
     public List<String> getSubType() {
         return subType;
     }
 
     /**
+     * Sets the sub type.
      *
-     * @param subType
-     *     The subType
+     * @param subType     The subType
      */
     public void setSubType(List<String> subType) {
         this.subType = subType;
     }
 
+    /**
+     * With sub type.
+     *
+     * @param subType the sub type
+     * @return the disambiguated
+     */
     public Disambiguated withSubType(List<String> subType) {
         this.subType = subType;
         return this;
     }
 
     /**
+     * Gets the name.
      *
-     * @return
-     *     The name
+     * @return     The name
      */
     public String getName() {
         return name;
     }
 
     /**
+     * Sets the name.
      *
-     * @param name
-     *     The name
+     * @param name     The name
      */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * With name.
+     *
+     * @param name the name
+     * @return the disambiguated
+     */
     public Disambiguated withName(String name) {
         this.name = name;
         return this;
     }
 
     /**
+     * Gets the website.
      *
-     * @return
-     *     The website
+     * @return     The website
      */
     public String getWebsite() {
         return website;
     }
 
     /**
+     * Sets the website.
      *
-     * @param website
-     *     The website
+     * @param website     The website
      */
     public void setWebsite(String website) {
         this.website = website;
     }
 
+    /**
+     * With website.
+     *
+     * @param website the website
+     * @return the disambiguated
+     */
     public Disambiguated withWebsite(String website) {
         this.website = website;
         return this;
     }
 
     /**
+     * Gets the dbpedia.
      *
-     * @return
-     *     The dbpedia
+     * @return     The dbpedia
      */
     public String getDbpedia() {
         return dbpedia;
     }
 
     /**
+     * Sets the dbpedia.
      *
-     * @param dbpedia
-     *     The dbpedia
+     * @param dbpedia     The dbpedia
      */
     public void setDbpedia(String dbpedia) {
         this.dbpedia = dbpedia;
     }
 
+    /**
+     * With dbpedia.
+     *
+     * @param dbpedia the dbpedia
+     * @return the disambiguated
+     */
     public Disambiguated withDbpedia(String dbpedia) {
         this.dbpedia = dbpedia;
         return this;
     }
 
     /**
+     * Gets the freebase.
      *
-     * @return
-     *     The freebase
+     * @return     The freebase
      */
     public String getFreebase() {
         return freebase;
     }
 
     /**
+     * Sets the freebase.
      *
-     * @param freebase
-     *     The freebase
+     * @param freebase     The freebase
      */
     public void setFreebase(String freebase) {
         this.freebase = freebase;
     }
 
+    /**
+     * With freebase.
+     *
+     * @param freebase the freebase
+     * @return the disambiguated
+     */
     public Disambiguated withFreebase(String freebase) {
         this.freebase = freebase;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -168,6 +206,9 @@ public class Disambiguated {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = subType != null ? subType.hashCode() : 0;
@@ -178,6 +219,9 @@ public class Disambiguated {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Disambiguated [name=%s,website=%s,dbpedia=%s,freebase=%s]", name, website, dbpedia, freebase);

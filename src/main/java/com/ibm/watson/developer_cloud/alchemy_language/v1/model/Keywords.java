@@ -31,15 +31,21 @@ import java.util.List;
  */
 public class Keywords {
 
+    /** The url. */
     private String url;
 
+    /** The total transactions. */
     private String totalTransactions;
 
+    /** The language. */
     private String language;
 
+    /** The keywords. */
     private List<Keyword> keywords = new ArrayList<Keyword>();
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -47,18 +53,28 @@ public class Keywords {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the keywords
+     */
     public Keywords withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the total transactions.
+     *
      * @return The totalTransactions
      */
     public String getTotalTransactions() {
@@ -66,18 +82,28 @@ public class Keywords {
     }
 
     /**
+     * Sets the total transactions.
+     *
      * @param totalTransactions The totalTransactions
      */
     public void setTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
     }
 
+    /**
+     * With total transactions.
+     *
+     * @param totalTransactions the total transactions
+     * @return the keywords
+     */
     public Keywords withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
 
     /**
+     * Gets the language.
+     *
      * @return The language
      */
     public String getLanguage() {
@@ -85,18 +111,28 @@ public class Keywords {
     }
 
     /**
+     * Sets the language.
+     *
      * @param language The language
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    /**
+     * With language.
+     *
+     * @param language the language
+     * @return the keywords
+     */
     public Keywords withLanguage(String language) {
         this.language = language;
         return this;
     }
 
     /**
+     * Gets the keywords.
+     *
      * @return The keywords
      */
     public List<Keyword> getKeywords() {
@@ -104,17 +140,28 @@ public class Keywords {
     }
 
     /**
+     * Sets the keywords.
+     *
      * @param keywords The keywords
      */
     public void setKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
     }
 
+    /**
+     * With keywords.
+     *
+     * @param keywords the keywords
+     * @return the keywords
+     */
     public Keywords withKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -130,6 +177,9 @@ public class Keywords {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = url != null ? url.hashCode() : 0;
@@ -139,6 +189,9 @@ public class Keywords {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Keywords [url=%s,totalTransactions=%s,language=%s]", url, totalTransactions, language);

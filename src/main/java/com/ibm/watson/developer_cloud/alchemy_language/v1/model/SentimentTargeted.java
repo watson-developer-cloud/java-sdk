@@ -29,13 +29,18 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 public class SentimentTargeted {
 
 
+    /** The text. */
     private String text;
 
+    /** The type. */
     private String type;
 
+    /** The sentiment. */
     private SentimentTargetedEntry sentiment;
 
     /**
+     * Gets the text.
+     *
      * @return The text
      */
     public String getText() {
@@ -43,18 +48,28 @@ public class SentimentTargeted {
     }
 
     /**
+     * Sets the text.
+     *
      * @param text The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * With text.
+     *
+     * @param text the text
+     * @return the sentiment targeted
+     */
     public SentimentTargeted withText(String text) {
         this.text = text;
         return this;
     }
 
     /**
+     * Gets the type.
+     *
      * @return The type
      */
     public String getType() {
@@ -62,18 +77,28 @@ public class SentimentTargeted {
     }
 
     /**
+     * Sets the type.
+     *
      * @param type The type
      */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * With type.
+     *
+     * @param type the type
+     * @return the sentiment targeted
+     */
     public SentimentTargeted withType(String type) {
         this.type = type;
         return this;
     }
 
     /**
+     * Gets the sentiment.
+     *
      * @return The sentiment
      */
     public SentimentTargetedEntry getSentiment() {
@@ -81,17 +106,28 @@ public class SentimentTargeted {
     }
 
     /**
+     * Sets the sentiment.
+     *
      * @param sentiment The sentiment
      */
     public void setSentiment(SentimentTargetedEntry sentiment) {
         this.sentiment = sentiment;
     }
 
+    /**
+     * With sentiment.
+     *
+     * @param sentiment the sentiment
+     * @return the sentiment targeted
+     */
     public SentimentTargeted withSentiment(SentimentTargetedEntry sentiment) {
         this.sentiment = sentiment;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,6 +141,9 @@ public class SentimentTargeted {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = text != null ? text.hashCode() : 0;
@@ -113,6 +152,9 @@ public class SentimentTargeted {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("SentimentTargeted [text=%s,type=%s,sentiment=%s]", text, type, sentiment);

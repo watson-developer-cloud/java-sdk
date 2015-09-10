@@ -234,7 +234,7 @@ public abstract class WatsonService {
 	 *
 	 * @return the API key
 	 */
-	public String getApiKey() {
+	protected String getApiKey() {
 		return apiKey;
 	}
 

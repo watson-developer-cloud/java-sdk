@@ -28,13 +28,18 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
  */
 public class TaxonomyEntry {
 
+    /** The label. */
     private String label;
 
+    /** The score. */
     private String score;
 
+    /** The confident. */
     private String confident;
 
     /**
+     * Gets the label.
+     *
      * @return The label
      */
     public String getLabel() {
@@ -42,18 +47,28 @@ public class TaxonomyEntry {
     }
 
     /**
+     * Sets the label.
+     *
      * @param label The label
      */
     public void setLabel(String label) {
         this.label = label;
     }
 
+    /**
+     * With label.
+     *
+     * @param label the label
+     * @return the taxonomy entry
+     */
     public TaxonomyEntry withLabel(String label) {
         this.label = label;
         return this;
     }
 
     /**
+     * Gets the score.
+     *
      * @return The score
      */
     public String getScore() {
@@ -61,18 +76,28 @@ public class TaxonomyEntry {
     }
 
     /**
+     * Sets the score.
+     *
      * @param score The score
      */
     public void setScore(String score) {
         this.score = score;
     }
 
+    /**
+     * With score.
+     *
+     * @param score the score
+     * @return the taxonomy entry
+     */
     public TaxonomyEntry withScore(String score) {
         this.score = score;
         return this;
     }
 
     /**
+     * Gets the confident.
+     *
      * @return The confident
      */
     public String getConfident() {
@@ -80,17 +105,28 @@ public class TaxonomyEntry {
     }
 
     /**
+     * Sets the confident.
+     *
      * @param confident The confident
      */
     public void setConfident(String confident) {
         this.confident = confident;
     }
 
+    /**
+     * With confident.
+     *
+     * @param confident the confident
+     * @return the taxonomy entry
+     */
     public TaxonomyEntry withConfident(String confident) {
         this.confident = confident;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -104,6 +140,9 @@ public class TaxonomyEntry {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = label != null ? label.hashCode() : 0;
@@ -112,6 +151,9 @@ public class TaxonomyEntry {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("TaxonomyEntry [label=%s,score=%s,confident=%s]", label, score, confident);

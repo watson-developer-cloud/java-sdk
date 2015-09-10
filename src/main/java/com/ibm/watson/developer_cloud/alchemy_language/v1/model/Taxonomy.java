@@ -31,15 +31,21 @@ import java.util.List;
  */
 public class Taxonomy {
 
+    /** The url. */
     private String url;
 
+    /** The total transactions. */
     private String totalTransactions;
 
+    /** The language. */
     private String language;
 
+    /** The taxonomy. */
     private List<TaxonomyEntry> taxonomy = new ArrayList<TaxonomyEntry>();
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -47,18 +53,28 @@ public class Taxonomy {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the taxonomy
+     */
     public Taxonomy withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the total transactions.
+     *
      * @return The totalTransactions
      */
     public String getTotalTransactions() {
@@ -66,18 +82,28 @@ public class Taxonomy {
     }
 
     /**
+     * Sets the total transactions.
+     *
      * @param totalTransactions The totalTransactions
      */
     public void setTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
     }
 
+    /**
+     * With total transactions.
+     *
+     * @param totalTransactions the total transactions
+     * @return the taxonomy
+     */
     public Taxonomy withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
 
     /**
+     * Gets the language.
+     *
      * @return The language
      */
     public String getLanguage() {
@@ -85,18 +111,28 @@ public class Taxonomy {
     }
 
     /**
+     * Sets the language.
+     *
      * @param language The language
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    /**
+     * With language.
+     *
+     * @param language the language
+     * @return the taxonomy
+     */
     public Taxonomy withLanguage(String language) {
         this.language = language;
         return this;
     }
 
     /**
+     * Gets the taxonomy.
+     *
      * @return The taxonomy
      */
     public List<TaxonomyEntry> getTaxonomy() {
@@ -104,17 +140,28 @@ public class Taxonomy {
     }
 
     /**
+     * Sets the taxonomy.
+     *
      * @param taxonomy The taxonomy
      */
     public void setTaxonomy(List<TaxonomyEntry> taxonomy) {
         this.taxonomy = taxonomy;
     }
 
+    /**
+     * With taxonomy.
+     *
+     * @param taxonomy the taxonomy
+     * @return the taxonomy
+     */
     public Taxonomy withTaxonomy(List<TaxonomyEntry> taxonomy) {
         this.taxonomy = taxonomy;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -130,6 +177,9 @@ public class Taxonomy {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = url != null ? url.hashCode() : 0;
@@ -139,6 +189,9 @@ public class Taxonomy {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Taxonomy [url=%s,totalTransactions=%s,language=%s,taxonomy=%s]", url, totalTransactions, language, taxonomy);

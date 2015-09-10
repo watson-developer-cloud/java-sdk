@@ -26,81 +26,105 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 public class Keyword {
 
 
+    /** The relevance. */
     private String relevance;
 
+    /** The sentiment. */
     private Sentiment sentiment;
 
+    /** The text. */
     private String text;
 
     /**
+     * Gets the relevance.
      *
-     * @return
-     *     The relevance
+     * @return     The relevance
      */
     public String getRelevance() {
         return relevance;
     }
 
     /**
+     * Sets the relevance.
      *
-     * @param relevance
-     *     The relevance
+     * @param relevance     The relevance
      */
     public void setRelevance(String relevance) {
         this.relevance = relevance;
     }
 
+    /**
+     * With relevance.
+     *
+     * @param relevance the relevance
+     * @return the keyword
+     */
     public Keyword withRelevance(String relevance) {
         this.relevance = relevance;
         return this;
     }
 
     /**
+     * Gets the sentiment.
      *
-     * @return
-     *     The sentiment
+     * @return     The sentiment
      */
     public Sentiment getSentiment() {
         return sentiment;
     }
 
     /**
+     * Sets the sentiment.
      *
-     * @param sentiment
-     *     The sentiment
+     * @param sentiment     The sentiment
      */
     public void setSentiment(Sentiment sentiment) {
         this.sentiment = sentiment;
     }
 
+    /**
+     * With sentiment.
+     *
+     * @param sentiment the sentiment
+     * @return the keyword
+     */
     public Keyword withSentiment(Sentiment sentiment) {
         this.sentiment = sentiment;
         return this;
     }
 
     /**
+     * Gets the text.
      *
-     * @return
-     *     The text
+     * @return     The text
      */
     public String getText() {
         return text;
     }
 
     /**
+     * Sets the text.
      *
-     * @param text
-     *     The text
+     * @param text     The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * With text.
+     *
+     * @param text the text
+     * @return the keyword
+     */
     public Keyword withText(String text) {
         this.text = text;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -114,6 +138,9 @@ public class Keyword {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = relevance != null ? relevance.hashCode() : 0;
@@ -122,6 +149,9 @@ public class Keyword {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Keyword [relevance=%s,sentiment=%s,text=%s]", relevance, sentiment, text);

@@ -31,11 +31,15 @@ import java.util.List;
  */
 public class Feeds {
 
+    /** The url. */
     private String url;
 
+    /** The feeds. */
     private List<Object> feeds = new ArrayList<Object>();
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -43,18 +47,28 @@ public class Feeds {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the feeds
+     */
     public Feeds withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the feeds.
+     *
      * @return The feeds
      */
     public List<Object> getFeeds() {
@@ -62,17 +76,28 @@ public class Feeds {
     }
 
     /**
+     * Sets the feeds.
+     *
      * @param feeds The feeds
      */
     public void setFeeds(List<Object> feeds) {
         this.feeds = feeds;
     }
 
+    /**
+     * With feeds.
+     *
+     * @param feeds the feeds
+     * @return the feeds
+     */
     public Feeds withFeeds(List<Object> feeds) {
         this.feeds = feeds;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,6 +110,9 @@ public class Feeds {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = url != null ? url.hashCode() : 0;
@@ -92,6 +120,9 @@ public class Feeds {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Feeds [url=%s]", url);

@@ -32,18 +32,25 @@ import java.util.List;
 public class Relations {
 
 
+    /** The warning message. */
     private String warningMessage;
 
+    /** The url. */
     private String url;
 
+    /** The total transactions. */
     private String totalTransactions;
 
+    /** The language. */
     private String language;
 
+    /** The relations. */
     private List<Relation> relations = new ArrayList<Relation>();
 
 
     /**
+     * Gets the warning message.
+     *
      * @return The warningMessage
      */
     public String getWarningMessage() {
@@ -51,18 +58,28 @@ public class Relations {
     }
 
     /**
+     * Sets the warning message.
+     *
      * @param warningMessage The warningMessage
      */
     public void setWarningMessage(String warningMessage) {
         this.warningMessage = warningMessage;
     }
 
+    /**
+     * With warning message.
+     *
+     * @param warningMessage the warning message
+     * @return the relations
+     */
     public Relations withWarningMessage(String warningMessage) {
         this.warningMessage = warningMessage;
         return this;
     }
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -70,18 +87,28 @@ public class Relations {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the relations
+     */
     public Relations withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the total transactions.
+     *
      * @return The totalTransactions
      */
     public String getTotalTransactions() {
@@ -89,18 +116,28 @@ public class Relations {
     }
 
     /**
+     * Sets the total transactions.
+     *
      * @param totalTransactions The totalTransactions
      */
     public void setTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
     }
 
+    /**
+     * With total transactions.
+     *
+     * @param totalTransactions the total transactions
+     * @return the relations
+     */
     public Relations withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
 
     /**
+     * Gets the language.
+     *
      * @return The language
      */
     public String getLanguage() {
@@ -108,18 +145,28 @@ public class Relations {
     }
 
     /**
+     * Sets the language.
+     *
      * @param language The language
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    /**
+     * With language.
+     *
+     * @param language the language
+     * @return the relations
+     */
     public Relations withLanguage(String language) {
         this.language = language;
         return this;
     }
 
     /**
+     * Gets the relations.
+     *
      * @return The relations
      */
     public List<Relation> getRelations() {
@@ -127,17 +174,28 @@ public class Relations {
     }
 
     /**
+     * Sets the relations.
+     *
      * @param relations The relations
      */
     public void setRelations(List<Relation> relations) {
         this.relations = relations;
     }
 
+    /**
+     * With relations.
+     *
+     * @param relations the relations
+     * @return the relations
+     */
     public Relations withRelations(List<Relation> relations) {
         this.relations = relations;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -155,6 +213,9 @@ public class Relations {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = warningMessage != null ? warningMessage.hashCode() : 0;
@@ -165,6 +226,9 @@ public class Relations {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Relations [url=%s,totalTransactions=%s,language=%s]", url, totalTransactions, language);

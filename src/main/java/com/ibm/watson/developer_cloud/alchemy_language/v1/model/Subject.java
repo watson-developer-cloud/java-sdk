@@ -31,13 +31,18 @@ import java.util.List;
  */
 public class Subject {
 
+    /** The text. */
     private String text;
 
+    /** The entities. */
     private List<Entity> entities = new ArrayList<Entity>();
 
+    /** The keywords. */
     private List<Keyword> keywords = new ArrayList<Keyword>();
 
     /**
+     * Gets the text.
+     *
      * @return The text
      */
     public String getText() {
@@ -45,18 +50,28 @@ public class Subject {
     }
 
     /**
+     * Sets the text.
+     *
      * @param text The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * With text.
+     *
+     * @param text the text
+     * @return the subject
+     */
     public Subject withText(String text) {
         this.text = text;
         return this;
     }
 
     /**
+     * Gets the entities.
+     *
      * @return The entities
      */
     public List<Entity> getEntities() {
@@ -64,18 +79,28 @@ public class Subject {
     }
 
     /**
+     * Sets the entities.
+     *
      * @param entities The entities
      */
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
     }
 
+    /**
+     * With entities.
+     *
+     * @param entities the entities
+     * @return the subject
+     */
     public Subject withEntities(List<Entity> entities) {
         this.entities = entities;
         return this;
     }
 
     /**
+     * Gets the keywords.
+     *
      * @return The keywords
      */
     public List<Keyword> getKeywords() {
@@ -83,17 +108,28 @@ public class Subject {
     }
 
     /**
+     * Sets the keywords.
+     *
      * @param keywords The keywords
      */
     public void setKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
     }
 
+    /**
+     * With keywords.
+     *
+     * @param keywords the keywords
+     * @return the subject
+     */
     public Subject withKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,6 +143,9 @@ public class Subject {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = text != null ? text.hashCode() : 0;
@@ -115,6 +154,9 @@ public class Subject {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Subject [text=%s]", text);

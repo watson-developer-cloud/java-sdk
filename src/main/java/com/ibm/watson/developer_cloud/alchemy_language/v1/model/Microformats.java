@@ -31,11 +31,15 @@ import java.util.List;
  */
 public class Microformats {
 
+    /** The url. */
     private String url;
 
+    /** The microformats. */
     private List<Object> microformats = new ArrayList<Object>();
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -43,18 +47,28 @@ public class Microformats {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the microformats
+     */
     public Microformats withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the microformats.
+     *
      * @return The microformats
      */
     public List<Object> getMicroformats() {
@@ -62,17 +76,28 @@ public class Microformats {
     }
 
     /**
+     * Sets the microformats.
+     *
      * @param microformats The microformats
      */
     public void setMicroformats(List<Object> microformats) {
         this.microformats = microformats;
     }
 
+    /**
+     * With microformats.
+     *
+     * @param microformats the microformats
+     * @return the microformats
+     */
     public Microformats withMicroformats(List<Object> microformats) {
         this.microformats = microformats;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -85,6 +110,9 @@ public class Microformats {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = url != null ? url.hashCode() : 0;
@@ -92,6 +120,9 @@ public class Microformats {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Microformats [url=%s]", url);

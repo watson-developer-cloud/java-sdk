@@ -31,62 +31,92 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by nizar on 9/2/15.
+ * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class AlchemyEndPoints {
 
-    /**
-     * The Constant log.
-     */
-    private static final Logger log = Logger.getLogger(AlchemyEndPoints.class.getName());
+	/** The Constant log. */
+	private static final Logger log = Logger.getLogger(AlchemyEndPoints.class.getName());
 
-    private static final String filePath = "src/main/resources/alchemy_endpoints.json";
+	/** The Constant filePath. */
+	private static final String filePath = "src/main/resources/alchemy_endpoints.json";
 
-    private static Map<String,Map<String,String>> endPoints;
+	/** The operations. */
+	private static Map<String, Map<String, String>> operations;
 
-    public enum AlchemyAPI {url, html, text,image }
+	static {
+		loadEndPointsFromJsonFile();
+	}
 
-    public enum AlchemyObjects {
-        entities, keywords, concepts, sentiment, sentiment_targeted,
-        category, relations, language, text, text_raw, authors,author, feeds,
-        microformats, title,taxonomy, combined, image_link,
-        image_keywords, image_recognition
-    }
+	/**
+	 * The AlchemyOperations.
+	 */
+	public enum AlchemyAPI {
+		entities,
+		keywords,
+		concepts,
+		sentiment,
+		sentiment_targeted,
+		category,
+		relations,
+		language,
+		text,
+		text_raw,
+		authors,
+		feeds,
+		microformats,
+		title,
+		taxonomy,
+		combined,
+		image_link,
+		image_keywords,
+		image_recognition
+	}
 
-    private static void loadEndPointsFromJsonFile() {
-        log.log(Level.INFO, "Parsing End Points JSON file ");
-        endPoints = new HashMap<String, Map<String, String>>();
-        JsonParser parser = new JsonParser();
-        try {
-            Object obj = parser.parse(new FileReader(filePath));
-            JsonObject jsonObject = (JsonObject) obj;
-            for (AlchemyObjects object : AlchemyObjects.values()) {
-                if(jsonObject.get(object.name())==null) continue;;
-                JsonElement elt = jsonObject.get(object.name()).getAsJsonObject();
-                if (elt.isJsonObject()) {
-                    Map<String, String> records = new HashMap<String, String>();
-                    for (Map.Entry<String, JsonElement> e : elt.getAsJsonObject().entrySet()) {
-                        records.put(e.getKey(), e.getValue().getAsString());
-                    }
-                    endPoints.put(object.name(),records);
-                }
-            }
-        } catch (JsonParseException e) {
-            log.log(Level.SEVERE, "Could not parse Alchemy json end points file " + filePath, e);
-        } catch (FileNotFoundException e) {
-            log.log(Level.SEVERE, "Could not parse Alchemy json end points file " + filePath, e);
-        }
-    }
+	/**
+	 * Load the endpoints from json file.
+	 */
+	private static void loadEndPointsFromJsonFile() {
+		log.log(Level.INFO, "Parsing End Points JSON file ");
+		operations = new HashMap<String, Map<String, String>>();
+		JsonParser parser = new JsonParser();
+		try {
+			Object obj = parser.parse(new FileReader(filePath));
+			JsonObject jsonObject = (JsonObject) obj;
+			for (AlchemyAPI object : AlchemyAPI.values()) {
+				if (jsonObject.get(object.name()) == null)
+					continue;;
+				JsonElement elt = jsonObject.get(object.name()).getAsJsonObject();
+				if (elt.isJsonObject()) {
+					Map<String, String> records = new HashMap<String, String>();
+					for (Map.Entry<String, JsonElement> e : elt.getAsJsonObject().entrySet()) {
+						records.put(e.getKey(), e.getValue().getAsString());
+					}
+					operations.put(object.name(), records);
+				}
+			}
+		} catch (JsonParseException e) {
+			log.log(Level.SEVERE, "Could not parse json file: " + filePath, e);
+		} catch (FileNotFoundException e) {
+			log.log(Level.SEVERE, "File not found: " + filePath, e);
+		}
+	}
 
-    public static String getAlchemyAPI(String objectName,String apiType) {
-        if(endPoints==null || endPoints.isEmpty())
-            loadEndPointsFromJsonFile();
-        Map<String,String> alchemyAPI = endPoints.get(objectName);
-        return alchemyAPI.get(apiType);
-    }
-
-    public static void main(String[] args) {
-        loadEndPointsFromJsonFile();
-    }
+	/**
+	 * Gets the path based on the operation and input type
+	 * 
+	 * @param operation
+	 *            the operation
+	 * @param inputType
+	 *            the input type
+	 * @return the string that represent the path based on the operation
+	 * and input type
+	 */
+	public static String getPath(AlchemyAPI operation, String inputType) {
+		if (operations.get(operation.name()) != null) // check if the operation exists
+			return operations.get(operation.name()).get(inputType);
+		else
+			return null;
+	}
 
 }

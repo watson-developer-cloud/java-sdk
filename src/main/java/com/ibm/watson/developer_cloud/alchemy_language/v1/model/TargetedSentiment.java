@@ -32,10 +32,13 @@ import java.util.List;
  */
 public class TargetedSentiment {
 
+    /** The sentiment targeted. */
     @SerializedName("sentiment_targeted")
     private List<SentimentTargeted> sentimentTargeted = new ArrayList<SentimentTargeted>();
 
     /**
+     * Gets the sentiment targeted.
+     *
      * @return The sentimentTargeted
      */
     public List<SentimentTargeted> getSentimentTargeted() {
@@ -43,18 +46,29 @@ public class TargetedSentiment {
     }
 
     /**
+     * Sets the sentiment targeted.
+     *
      * @param sentimentTargeted The sentiment_targeted
      */
     public void setSentimentTargeted(List<SentimentTargeted> sentimentTargeted) {
         this.sentimentTargeted = sentimentTargeted;
     }
 
+    /**
+     * With sentiment targeted.
+     *
+     * @param sentimentTargeted the sentiment targeted
+     * @return the targeted sentiment
+     */
     public TargetedSentiment withSentimentTargeted(List<SentimentTargeted> sentimentTargeted) {
         this.sentimentTargeted = sentimentTargeted;
         return this;
     }
 
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,6 +80,9 @@ public class TargetedSentiment {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         return sentimentTargeted != null ? sentimentTargeted.hashCode() : 0;

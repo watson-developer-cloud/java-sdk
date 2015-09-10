@@ -28,11 +28,15 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
  */
 public class Title {
 
+    /** The url. */
     private String url;
 
+    /** The title. */
     private String title;
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -40,18 +44,28 @@ public class Title {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the title
+     */
     public Title withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the title.
+     *
      * @return The title
      */
     public String getTitle() {
@@ -59,17 +73,28 @@ public class Title {
     }
 
     /**
+     * Sets the title.
+     *
      * @param title The title
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
+    /**
+     * With title.
+     *
+     * @param title the title
+     * @return the title
+     */
     public Title withTitle(String title) {
         this.title = title;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -82,6 +107,9 @@ public class Title {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = url != null ? url.hashCode() : 0;
@@ -89,6 +117,9 @@ public class Title {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Title [url=%s,title=%s]", url, title);

@@ -31,13 +31,18 @@ import java.util.List;
  */
 public class RelationObject {
 
+    /** The text. */
     private String text;
 
+    /** The sentiment. */
     private Sentiment sentiment;
 
+    /** The keywords. */
     private List<Keyword> keywords = new ArrayList<Keyword>();
 
     /**
+     * Gets the text.
+     *
      * @return The text
      */
     public String getText() {
@@ -45,18 +50,28 @@ public class RelationObject {
     }
 
     /**
+     * Sets the text.
+     *
      * @param text The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
+    /**
+     * With text.
+     *
+     * @param text the text
+     * @return the relation object
+     */
     public RelationObject withText(String text) {
         this.text = text;
         return this;
     }
 
     /**
+     * Gets the sentiment.
+     *
      * @return The sentiment
      */
     public Sentiment getSentiment() {
@@ -64,18 +79,28 @@ public class RelationObject {
     }
 
     /**
+     * Sets the sentiment.
+     *
      * @param sentiment The sentiment
      */
     public void setSentiment(Sentiment sentiment) {
         this.sentiment = sentiment;
     }
 
+    /**
+     * With sentiment.
+     *
+     * @param sentiment the sentiment
+     * @return the relation object
+     */
     public RelationObject withSentiment(Sentiment sentiment) {
         this.sentiment = sentiment;
         return this;
     }
 
     /**
+     * Gets the keywords.
+     *
      * @return The keywords
      */
     public List<Keyword> getKeywords() {
@@ -83,17 +108,28 @@ public class RelationObject {
     }
 
     /**
+     * Sets the keywords.
+     *
      * @param keywords The keywords
      */
     public void setKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
     }
 
+    /**
+     * With keywords.
+     *
+     * @param keywords the keywords
+     * @return the relation object
+     */
     public RelationObject withKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -107,6 +143,9 @@ public class RelationObject {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = text != null ? text.hashCode() : 0;
@@ -115,6 +154,9 @@ public class RelationObject {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("RelationObject [text=%s,sentiment=%s]", text, sentiment);

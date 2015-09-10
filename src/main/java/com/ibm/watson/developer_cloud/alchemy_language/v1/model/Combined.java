@@ -31,21 +31,30 @@ import java.util.List;
  */
 public class Combined {
 
+    /** The url. */
     private String url;
 
+    /** The total transactions. */
     private String totalTransactions;
 
+    /** The language. */
     private String language;
 
+    /** The keywords. */
     private List<Keyword> keywords = new ArrayList<Keyword>();
 
+    /** The concepts. */
     private List<Concept> concepts = new ArrayList<Concept>();
 
+    /** The entities. */
     private List<Entity> entities = new ArrayList<Entity>();
 
+    /** The taxonomy. */
     private List<Taxonomy> taxonomy = new ArrayList<Taxonomy>();
 
     /**
+     * Gets the url.
+     *
      * @return The url
      */
     public String getUrl() {
@@ -53,18 +62,28 @@ public class Combined {
     }
 
     /**
+     * Sets the url.
+     *
      * @param url The url
      */
     public void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * With url.
+     *
+     * @param url the url
+     * @return the combined
+     */
     public Combined withUrl(String url) {
         this.url = url;
         return this;
     }
 
     /**
+     * Gets the total transactions.
+     *
      * @return The totalTransactions
      */
     public String getTotalTransactions() {
@@ -72,18 +91,28 @@ public class Combined {
     }
 
     /**
+     * Sets the total transactions.
+     *
      * @param totalTransactions The totalTransactions
      */
     public void setTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
     }
 
+    /**
+     * With total transactions.
+     *
+     * @param totalTransactions the total transactions
+     * @return the combined
+     */
     public Combined withTotalTransactions(String totalTransactions) {
         this.totalTransactions = totalTransactions;
         return this;
     }
 
     /**
+     * Gets the language.
+     *
      * @return The language
      */
     public String getLanguage() {
@@ -91,18 +120,28 @@ public class Combined {
     }
 
     /**
+     * Sets the language.
+     *
      * @param language The language
      */
     public void setLanguage(String language) {
         this.language = language;
     }
 
+    /**
+     * With language.
+     *
+     * @param language the language
+     * @return the combined
+     */
     public Combined withLanguage(String language) {
         this.language = language;
         return this;
     }
 
     /**
+     * Gets the keywords.
+     *
      * @return The keywords
      */
     public List<Keyword> getKeywords() {
@@ -110,18 +149,28 @@ public class Combined {
     }
 
     /**
+     * Sets the keywords.
+     *
      * @param keywords The keywords
      */
     public void setKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
     }
 
+    /**
+     * With keywords.
+     *
+     * @param keywords the keywords
+     * @return the combined
+     */
     public Combined withKeywords(List<Keyword> keywords) {
         this.keywords = keywords;
         return this;
     }
 
     /**
+     * Gets the concepts.
+     *
      * @return The concepts
      */
     public List<Concept> getConcepts() {
@@ -129,18 +178,28 @@ public class Combined {
     }
 
     /**
+     * Sets the concepts.
+     *
      * @param concepts The concepts
      */
     public void setConcepts(List<Concept> concepts) {
         this.concepts = concepts;
     }
 
+    /**
+     * With concepts.
+     *
+     * @param concepts the concepts
+     * @return the combined
+     */
     public Combined withConcepts(List<Concept> concepts) {
         this.concepts = concepts;
         return this;
     }
 
     /**
+     * Gets the entities.
+     *
      * @return The entities
      */
     public List<Entity> getEntities() {
@@ -148,18 +207,28 @@ public class Combined {
     }
 
     /**
+     * Sets the entities.
+     *
      * @param entities The entities
      */
     public void setEntities(List<Entity> entities) {
         this.entities = entities;
     }
 
+    /**
+     * With entities.
+     *
+     * @param entities the entities
+     * @return the combined
+     */
     public Combined withEntities(List<Entity> entities) {
         this.entities = entities;
         return this;
     }
 
     /**
+     * Gets the taxonomy.
+     *
      * @return The taxonomy
      */
     public List<Taxonomy> getTaxonomy() {
@@ -167,17 +236,28 @@ public class Combined {
     }
 
     /**
+     * Sets the taxonomy.
+     *
      * @param taxonomy The taxonomy
      */
     public void setTaxonomy(List<Taxonomy> taxonomy) {
         this.taxonomy = taxonomy;
     }
 
+    /**
+     * With taxonomy.
+     *
+     * @param taxonomy the taxonomy
+     * @return the combined
+     */
     public Combined withTaxonomy(List<Taxonomy> taxonomy) {
         this.taxonomy = taxonomy;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -196,6 +276,9 @@ public class Combined {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = url != null ? url.hashCode() : 0;
@@ -208,6 +291,9 @@ public class Combined {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Combined [url=%s,totalTransactions=%s]", url, totalTransactions);

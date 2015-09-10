@@ -18,120 +18,118 @@
 
 package com.ibm.watson.developer_cloud.alchemy_news.v1;
 
+import java.io.IOException;
+import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
+
 import com.ibm.watson.developer_cloud.alchemy_news.v1.Model.Result;
 import com.ibm.watson.developer_cloud.alchemy_news.v1.Model.VolumeResult;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
 import com.ibm.watson.developer_cloud.service.Request;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
-
-import java.io.IOException;
-import java.util.Map;
 
 /**
- * AlchemyData News indexes 250k to 300k English language news and blog articles every day with historical search available for the past 60 days.
- *
+ * AlchemyData News indexes 250k to 300k English language news and blog articles every day
+ * with historical search available for the past 60 days.
+ * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  * @version v1
  * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/alchemy-news.html">
- *      Speech to Text</a>
+ *      href="https://alchemyapi.readme.io/v1.0/docs/rest-api-documentation">
+ *      Alchemy Data News</a>
  */
-public class AlchemyDataNews extends AlchemyService{
-    // TODO how to deal with these queries
-    // api doc https://alchemyapi.readme.io/v1.0/docs/rest-api-documentation
+public class AlchemyDataNews extends AlchemyService {
 
-    private String NEWS_END_POINT = "/data/GetNews";
+	private static final String NEWS_END_POINT = "/data/GetNews";
 
-    /** The Constant OUT_PUT_MODE. desired API output format */
-    private String RETURN = "return";
+	public static final String RETURN = "return";
 
-    /** The Constant START. the time (in UTC seconds) of the beginning of the query duration */
-    private String START = "start";
+	/**
+	 * The Constant START. the time (in UTC seconds) of 
+	 * the beginning of the query duration
+	 */
+	public static final  String START = "start";
 
-    /** The Constant END. the time (in UTC seconds) of the end of the query duration */
-    private String END = "end";
+	/** The Constant END. the time (in UTC seconds) 
+	 * of the end of the query duration
+	 */
+	public static final  String END = "end";
 
-    /** The Constant TIME_SLICE. the duration (in seconds) of each time slice */
-    private String TIME_SLICE = "timeSlice";
+	/** The Constant TIME_SLICE. the duration 
+	 * (in seconds) of each time slice 
+	 */
+	public static final  String TIME_SLICE = "timeSlice";
 
-    /** The Constant OUT_PUT_MODE. desired API output format */
-    public static final String OUT_PUT_MODE = "outputMode";
+	/** TIME FORMAT */
+	public static enum TimeFormat {
+		s, m, h, d, M, y, NOW
+	}
 
-    /**  enum TIME FORMAT */
-    public enum TimeFormat {s,m,h,d,M,y,NOW}
+	/**
+	 * Calculates the sentiment for text, a URL or HTML.
+	 * 
+	 * @param parameters
+	 * 		The parameters to be used in the service call, start, end and return.
+	 * @return the Result
+	 */
+	public Result getNews(Map<String, Object> parameters) {
+		Validate.notNull(parameters.get(START), "start time can't be null");
+		Validate.notNull(parameters.get(END), "end time can't be null");
+		Validate.notNull(parameters.get(RETURN), "return can't be null");
+		
+		// Return json
+		parameters.put(OUTPUT_MODE, "json");
 
-    public AlchemyDataNews() {
-        setEndPoint(URL);;
-    }
+		// Prevent jsonp to be returned
+		parameters.remove(JSONP);
+		
+		Request request = Request.Post(NEWS_END_POINT);
+		for (String param : parameters.keySet()) {
+			request.withForm(param, parameters.get(param));
+		}
+		
+		HttpRequestBase requestBase = request.build();
+		try {
+			HttpResponse response = execute(requestBase);
+			return ResponseUtil.getObject(response,Result.class);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-    /**
-     * Calculates the sentiment for text, a URL or HTML.
-     * @param parameters start String the time (in UTC seconds) of the beginning of the query duration,,
-     *                   end String the time (in UTC seconds) of the end of the query duration.
-     *                   timeSlice String the duration (in seconds) of each time slice.
-     *                   count Integer number of results
-     *                   return String This parameter specifies that we want to see the article titles and urls in the response.
-     *                   (parameter String /value String ) Specify the targeted search. i.e.
-      * @return the Result
-     */
-    public Result getNews(Map<String, Object> parameters) {
-         Validate.notNull(parameters.get(START), "start time can't be null");
-        Validate.notNull(parameters.get(END), "end time can't be null");
-        Validate.notNull(parameters.get(RETURN), "return can't be null");
-        Request request = Request.Get(NEWS_END_POINT);
-        // What if they don't pass the return, any default value
-        // default value for start. end and count, TimeSlice
-        for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-            String name = parameter.getKey();
-            Object value = parameter.getValue();
-            request.withQuery(name, value);
-        }
-        request.withQuery(OUT_PUT_MODE,"json");
-        HttpRequestBase requestBase = request.build();
-        try {
-            HttpResponse response = execute(requestBase);
-            String jsonString = ResponseUtil.getString(response);
-            Result result = GsonSingleton.getGson().fromJson(
-                    jsonString, Result.class);
-            return result;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+	/**
+	 * Get a handle on how many documents are relevant for your query
+	 * 
+	 * @param start
+	 *            String the time (in UTC seconds) of the beginning of the query duration,
+	 * @param end
+	 *            String the time (in UTC seconds) of the end of the query duration.
+	 * @param timeSlice
+	 *            String the duration (in seconds) of each time slice.
+	 * @return {@link VolumeResult} 
+	 */
+	public VolumeResult getVolume(final String start, final String end, final String timeSlice) {
+		Validate.notNull(start, "start time can't be null");
+		Validate.notNull(end, "end time can't be null");
 
+		Request request = Request.Get(NEWS_END_POINT);
+		
+		request.withQuery(START, start);
+		request.withQuery(END, end);
+		request.withQuery(OUTPUT_MODE, "json");
+		if (timeSlice != null)
+			request.withQuery(TIME_SLICE, timeSlice);
 
-    /**
-     * Get a handle on how many documents are relevant for your query
-     * @param start     String the time (in UTC seconds) of the beginning of the query duration,
-     * @param end       String the time (in UTC seconds) of the end of the query duration.
-     * @param timeSlice String the duration (in seconds) of each time slice.
-     * @return the Corpus
-     */
-    public VolumeResult getVolume(final String start, final String end,final String timeSlice) {
-        Validate.notNull(start, "start time can't be null");
-        Validate.notNull(end, "end time can't be null");
-        Request request = Request.Get(NEWS_END_POINT);
-
-        request.withQuery(START, start);
-        request.withQuery(END,end);
-        request.withQuery(OUT_PUT_MODE, "json");
-        if(timeSlice!=null)
-            request.withQuery(TIME_SLICE,timeSlice);
-
-        HttpRequestBase requestBase = request.build();
-        try {
-            HttpResponse response = execute(requestBase);
-            String jsonString = ResponseUtil.getString(response);
-            VolumeResult result = GsonSingleton.getGson().fromJson(
-                    jsonString, VolumeResult.class);
-            return result;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
+		HttpRequestBase requestBase = request.build();
+		try {
+			HttpResponse response = execute(requestBase);
+			return ResponseUtil.getObject(response,VolumeResult.class);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 }

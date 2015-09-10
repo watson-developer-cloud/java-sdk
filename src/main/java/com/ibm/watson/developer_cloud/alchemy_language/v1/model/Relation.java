@@ -28,17 +28,24 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
  */
 public class Relation {
 
+    /** The sentence. */
     private String sentence;
 
+    /** The subject. */
     private Subject subject;
 
+    /** The action. */
     private Action action;
 
+    /** The object. */
     private RelationObject object;
 
+    /** The location. */
     private Location location;
 
     /**
+     * Gets the sentence.
+     *
      * @return The sentence
      */
     public String getSentence() {
@@ -46,18 +53,28 @@ public class Relation {
     }
 
     /**
+     * Sets the sentence.
+     *
      * @param sentence The sentence
      */
     public void setSentence(String sentence) {
         this.sentence = sentence;
     }
 
+    /**
+     * With sentence.
+     *
+     * @param sentence the sentence
+     * @return the relation
+     */
     public Relation withSentence(String sentence) {
         this.sentence = sentence;
         return this;
     }
 
     /**
+     * Gets the subject.
+     *
      * @return The subject
      */
     public Subject getSubject() {
@@ -65,18 +82,28 @@ public class Relation {
     }
 
     /**
+     * Sets the subject.
+     *
      * @param subject The subject
      */
     public void setSubject(Subject subject) {
         this.subject = subject;
     }
 
+    /**
+     * With subject.
+     *
+     * @param subject the subject
+     * @return the relation
+     */
     public Relation withSubject(Subject subject) {
         this.subject = subject;
         return this;
     }
 
     /**
+     * Gets the action.
+     *
      * @return The action
      */
     public Action getAction() {
@@ -84,18 +111,28 @@ public class Relation {
     }
 
     /**
+     * Sets the action.
+     *
      * @param action The action
      */
     public void setAction(Action action) {
         this.action = action;
     }
 
+    /**
+     * With action.
+     *
+     * @param action the action
+     * @return the relation
+     */
     public Relation withAction(Action action) {
         this.action = action;
         return this;
     }
 
     /**
+     * Gets the object.
+     *
      * @return The object
      */
     public RelationObject getObject() {
@@ -103,18 +140,28 @@ public class Relation {
     }
 
     /**
+     * Sets the object.
+     *
      * @param object The object
      */
     public void setObject(RelationObject object) {
         this.object = object;
     }
 
+    /**
+     * With object.
+     *
+     * @param object the object
+     * @return the relation
+     */
     public Relation withObject(RelationObject object) {
         this.object = object;
         return this;
     }
 
     /**
+     * Gets the location.
+     *
      * @return The location
      */
     public Location getLocation() {
@@ -122,17 +169,28 @@ public class Relation {
     }
 
     /**
+     * Sets the location.
+     *
      * @param location The location
      */
     public void setLocation(Location location) {
         this.location = location;
     }
 
+    /**
+     * With location.
+     *
+     * @param location the location
+     * @return the relation
+     */
     public Relation withLocation(Location location) {
         this.location = location;
         return this;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -148,6 +206,9 @@ public class Relation {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = sentence != null ? sentence.hashCode() : 0;
@@ -158,6 +219,9 @@ public class Relation {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("Relation [sentence=%s,subject=%s,action=%s,object=%s,location=%s]", sentence, subject, action, object, location);

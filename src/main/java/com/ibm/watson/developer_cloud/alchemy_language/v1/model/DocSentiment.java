@@ -28,13 +28,18 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
  */
 public class DocSentiment {
 
+    /** The mixed. */
     private String mixed;
 
+    /** The score. */
     private String score;
 
+    /** The type. */
     private String type;
 
     /**
+     * Gets the mixed.
+     *
      * @return The mixed
      */
     public String getMixed() {
@@ -42,18 +47,28 @@ public class DocSentiment {
     }
 
     /**
+     * Sets the mixed.
+     *
      * @param mixed The mixed
      */
     public void setMixed(String mixed) {
         this.mixed = mixed;
     }
 
+    /**
+     * With mixed.
+     *
+     * @param mixed the mixed
+     * @return the doc sentiment
+     */
     public DocSentiment withMixed(String mixed) {
         this.mixed = mixed;
         return this;
     }
 
     /**
+     * Gets the score.
+     *
      * @return The score
      */
     public String getScore() {
@@ -61,18 +76,28 @@ public class DocSentiment {
     }
 
     /**
+     * Sets the score.
+     *
      * @param score The score
      */
     public void setScore(String score) {
         this.score = score;
     }
 
+    /**
+     * With score.
+     *
+     * @param score the score
+     * @return the doc sentiment
+     */
     public DocSentiment withScore(String score) {
         this.score = score;
         return this;
     }
 
     /**
+     * Gets the type.
+     *
      * @return The type
      */
     public String getType() {
@@ -80,18 +105,29 @@ public class DocSentiment {
     }
 
     /**
+     * Sets the type.
+     *
      * @param type The type
      */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * With type.
+     *
+     * @param type the type
+     * @return the doc sentiment
+     */
     public DocSentiment withType(String type) {
         this.type = type;
         return this;
     }
 
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,6 +141,9 @@ public class DocSentiment {
 
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
     @Override
     public int hashCode() {
         int result = mixed != null ? mixed.hashCode() : 0;
@@ -113,6 +152,9 @@ public class DocSentiment {
         return result;
     }
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     @Override
     public String toString() {
         return String.format("DocSentiment [mixed=%s,score=%s,type=%s]", mixed, score, type);
