@@ -39,7 +39,6 @@ import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.AlchemyEndPoints;
 import com.ibm.watson.developer_cloud.util.AlchemyEndPoints.AlchemyAPI;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * The Alchemy Language service uses offers 12 text analysis services, each of which uses
@@ -82,6 +81,7 @@ public class AlchemyLanguage extends AlchemyService {
 	public static final String TARGET = "target";
 	public static final String USE_METADATA = "useMetadata";
 	public static final String XPATH = "xpath";
+	public static final String RAW = "raw";
 
 	/**
 	 * Extracts a grouped, ranked list of named entities (people, companies,
@@ -94,7 +94,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Entities}
 	 */
 	public Entities getEntities(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.entities, Entities.class, "text", "html", "url");
+		return executeRequest(params, AlchemyAPI.entities, Entities.class, "text", "html", "url");
 	}
 
 	/**
@@ -106,7 +106,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Keywords}
 	 */
 	public Keywords getKeywords(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.keywords, Keywords.class, "text", "html", "url");
+		return executeRequest(params, AlchemyAPI.keywords, Keywords.class, "text", "html", "url");
 	}
 
 	/**
@@ -118,7 +118,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Taxonomy}
 	 */
 	public Taxonomy geTaxonomy(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.taxonomy, Taxonomy.class, "text", "html", "url");
+		return executeRequest(params, AlchemyAPI.taxonomy, Taxonomy.class, "text", "html", "url");
 	}
 
 	/**
@@ -146,7 +146,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Relations}
 	 */
 	public Relations getRelations(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.relations, Relations.class, "text", "html", "url");
+		return executeRequest(params, AlchemyAPI.relations, Relations.class, "text", "html", "url");
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Language}
 	 */
 	public Language getLanguage(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.language, Language.class, "text", "html", "url");
+		return executeRequest(params, AlchemyAPI.language, Language.class, "text", "html", "url");
 	}
 
 	/**
@@ -170,7 +170,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Title}
 	 */
 	public Title getTitle(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.title, Title.class, "html", "url");
+		return executeRequest(params, AlchemyAPI.title, Title.class, "html", "url");
 	}
 
 	/**
@@ -182,7 +182,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Author}
 	 */
 	public Author getAuthors(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.authors, Author.class, "html", "url");
+		return executeRequest(params, AlchemyAPI.authors, Author.class, "html", "url");
 	}
 
 	/**
@@ -195,7 +195,11 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Text}
 	 */
 	public Text getText(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.text, Text.class, "html", "url");
+		AlchemyAPI operation = AlchemyAPI.text;
+		if (params.get(RAW) != null )
+			operation = AlchemyAPI.text_raw;
+
+		return executeRequest(params, operation, Text.class, "html", "url");
 	}
 
 	/**
@@ -207,7 +211,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Feeds}
 	 */
 	public Feeds getFeeds(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.feeds, Feeds.class, "html", "url");
+		return executeRequest(params, AlchemyAPI.feeds, Feeds.class, "html", "url");
 	}
 
 	/**
@@ -219,7 +223,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Microformats}
 	 */
 	public Microformats getMicroformats(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.microformats, Microformats.class, "html", "url");
+		return executeRequest(params, AlchemyAPI.microformats, Microformats.class, "html", "url");
 	}
 
 	/**
@@ -232,7 +236,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @return {@link Microformats}
 	 */
 	public Combined getCombined(Map<String, Object> params) {
-		return executeRequest(params, AlchemyEndPoints.AlchemyAPI.combined, Combined.class, "text", "html", "url");
+		return executeRequest(params, AlchemyAPI.combined, Combined.class, "text", "html", "url");
 	}
 
 	/**
