@@ -7,7 +7,7 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterListResponse;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterResponse;
 
-public class WatsonSolrClusterCreateAndListExample {
+public class RetrieveAndRankSolrClusterCreateAndListExample {
     /**
      * The URL of the Watson Solr search service.
      */
@@ -95,7 +95,7 @@ public class WatsonSolrClusterCreateAndListExample {
         System.out.println("Client closed.");
     }
 
-    private WatsonSolrClusterCreateAndListExample() {
+    private RetrieveAndRankSolrClusterCreateAndListExample() {
         throw new UnsupportedOperationException(
                 "WatsonSolrClusterCreateAndListExample example cannot be instantiated!");
     }

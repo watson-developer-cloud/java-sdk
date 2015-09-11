@@ -13,7 +13,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.HttpClientFactory;
 
 /** An {@link HttpSolrClient} for interacting with Watson Solr clusters. */
-public class WatsonSolrClient extends HttpSolrClient {
+public class RetrieveAndRankSolrClient extends HttpSolrClient {
 
     private static final long serialVersionUID = -5787191484698145448L;
 
@@ -40,7 +40,7 @@ public class WatsonSolrClient extends HttpSolrClient {
     }
 
     /** Creates a new client for interacting with a Solr cluster. */
-    public WatsonSolrClient(URI serviceUri, String username, String password) {
+    public RetrieveAndRankSolrClient(URI serviceUri, String username, String password) {
         super(getSolrUri(serviceUri).toString(), getHttpClient(serviceUri, username, password));
 
         this.createdHttpClient = true;
@@ -50,7 +50,7 @@ public class WatsonSolrClient extends HttpSolrClient {
      * Creates a new client for interacting with a Solr cluster. The provided httpClient will not be closed by the
      * SolrConfigManager.
      */
-    public WatsonSolrClient(URI serviceUri, CloseableHttpClient httpClient) {
+    public RetrieveAndRankSolrClient(URI serviceUri, CloseableHttpClient httpClient) {
         super(getSolrUri(serviceUri).toString(), validateHttpClient(httpClient));
         this.createdHttpClient = false;
     }

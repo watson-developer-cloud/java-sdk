@@ -13,14 +13,14 @@ import org.apache.solr.client.solrj.response.UpdateResponse;
 import org.apache.solr.common.SolrInputDocument;
 
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.HttpSolrConfigManager;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.WatsonSolrClient;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRankSolrClient;
 
-public class WatsonSolrHttpClientExample {
+public class RetrieveAndRankSolrHttpClientExample {
     /**
      * The URL of the Watson Solr search service.
      * <p>
      * You must first create a Solr cluster and specify its ID here. A Solr cluster can be created with the
-     * {@link WatsonSolrClusterCreateAndListExample}.
+     * {@link RetrieveAndRankSolrClusterCreateAndListExample}.
      */
     private static final String SERVICE_URL = "{your-base-url}/search/api/v1/solr_clusters/{your-cluster-id}";
 
@@ -57,11 +57,11 @@ public class WatsonSolrHttpClientExample {
     private static final String HELLO_FIELD_NAME = "HELLO_FIELD_NAME_s";
     private static final String HELLO_FIELD_VALUE = "HELLO WORLD!";
 
-    private static WatsonSolrClient watsonSolrClient;
+    private static RetrieveAndRankSolrClient watsonSolrClient;
     private static HttpSolrConfigManager solrConfigManager;
 
     public static void main(String[] args) throws SolrServerException, IOException {
-        watsonSolrClient = new WatsonSolrClient(URI.create(SERVICE_URL), USERNAME, PASSWORD);
+        watsonSolrClient = new RetrieveAndRankSolrClient(URI.create(SERVICE_URL), USERNAME, PASSWORD);
         solrConfigManager = new HttpSolrConfigManager(URI.create(SERVICE_URL), USERNAME, PASSWORD);
 
         try {
@@ -161,7 +161,7 @@ public class WatsonSolrHttpClientExample {
         }
     }
 
-    private WatsonSolrHttpClientExample() {
+    private RetrieveAndRankSolrHttpClientExample() {
         throw new UnsupportedOperationException("WatsonSolrClientExample example cannot be instantiated!");
     }
 }
