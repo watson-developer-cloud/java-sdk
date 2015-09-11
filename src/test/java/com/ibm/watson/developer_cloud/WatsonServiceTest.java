@@ -98,7 +98,7 @@ public abstract class WatsonServiceTest {
 		
 		// set logging level		
 		Logger root = (Logger)LoggerFactory.getLogger(Logger.ROOT_LOGGER_NAME);
-		root.setLevel(Level.INFO);
+		root.setLevel(Level.OFF);
 
 //		System.setProperty("org.apache.commons.logging.Log", "org.apache.commons.logging.impl.SimpleLog");
 //		System.setProperty("org.apache.commons.logging.simplelog.showdatetime", "true");
