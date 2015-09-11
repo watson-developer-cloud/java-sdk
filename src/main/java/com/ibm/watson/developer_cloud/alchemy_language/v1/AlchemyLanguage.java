@@ -231,7 +231,7 @@ public class AlchemyLanguage extends AlchemyService {
         String format = getInputFormat(params, acceptedFormats);
         // Get the path that represent this operation based on the operation and format
         String path = AlchemyEndPoints.getPath(operation, format);
-        Validate.notNull(path, "operation:(" + operation + ")" + ", inputFormat:(" + format + ") " + " not found in alchemy_endpoints JSON file...! ");
+
         // Return json
         params.put(OUTPUT_MODE, "json");
 
