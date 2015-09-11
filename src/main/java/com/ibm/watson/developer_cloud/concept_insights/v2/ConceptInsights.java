@@ -25,6 +25,7 @@ import com.ibm.watson.developer_cloud.concept_insights.v2.model.*;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.*;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
@@ -293,7 +294,6 @@ public class ConceptInsights extends WatsonService {
 	 *
      * @return {@link QueryConcepts}
      */
-    @SuppressWarnings("unchecked")
     public QueryConcepts conceptualSearch(Map<String, Object> parameters) {
         Validate.notNull(parameters.get(ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(parameters.get(CORPUS), "corpus can't be null");
@@ -309,7 +309,9 @@ public class ConceptInsights extends WatsonService {
         }
 
         JsonArray IdsJsonArray = new JsonArray();
-        for (String value : (List<String>) parameters.get(IDS)) {
+        @SuppressWarnings("unchecked")
+		List<String> ids = (List<String>) parameters.get(IDS);
+		for (String value : ids) {
             IdsJsonArray.add(new JsonPrimitive(value));
         }
         queryParams.put(IDS, IdsJsonArray.toString());
@@ -335,9 +337,8 @@ public class ConceptInsights extends WatsonService {
      *
      * @param accountId String the Account identifier,
      * @param corpus    String the corpus name.
-     * @return The created {@link Corpus}.
      */
-    public Corpus createCorpus(final String accountId, final Corpus corpus) {
+    public void createCorpus(final String accountId, final Corpus corpus) {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
         Validate.notNull(corpus.getId(), "corpus.id can't be null");
@@ -345,8 +346,6 @@ public class ConceptInsights extends WatsonService {
         HttpRequestBase request = Request.Put(createCorpusIdPath(accountId, corpus.getId()))
                 .withContent(GsonSingleton.getGson().toJson(corpus), MediaType.APPLICATION_JSON).build();
         executeWithoutResponse(request);
-
-        return corpus;
     }
 
     /**
@@ -673,9 +672,8 @@ public class ConceptInsights extends WatsonService {
      * </ul>
      * @return {@link Concepts}
      */
-    @SuppressWarnings("unchecked")
     public Concepts getGraphsRelatedConcepts(Map<String, Object> parameters) {
-        //TODO we may need to divide into 2 methods
+        //TODO: we may need to divide this into 2 methods
         Validate.notNull(parameters.get(ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(parameters.get(GRAPH), "graph can't be null");
         if (parameters.get(CONCEPTS) == null && parameters.get(CONCEPT) == null)
@@ -696,7 +694,9 @@ public class ConceptInsights extends WatsonService {
         if (parameters.get(CONCEPTS) != null) {
             JsonObject contentJson = new JsonObject();
             JsonArray conceptsJson = new JsonArray();
-            for (String value : (List<String>) parameters.get(CONCEPTS)) {
+            @SuppressWarnings("unchecked")
+			List<String> concepts = (List<String>) parameters.get(CONCEPTS);
+			for (String value : concepts) {
                 conceptsJson.add(new JsonPrimitive(value));
             }
             contentJson.add(CONCEPTS, conceptsJson);
@@ -723,7 +723,6 @@ public class ConceptInsights extends WatsonService {
 	 *
      * @return {@link Scores}
      */
-    @SuppressWarnings("unchecked")
     public Scores getGraphsRelationScores(Map<String, Object> parameters) {
         Validate.notNull(parameters.get(ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(parameters.get(GRAPH), "graph can't be null");
@@ -735,7 +734,9 @@ public class ConceptInsights extends WatsonService {
         Map<String, Object> queryParameters = new HashMap<String, Object>();
         JsonObject contentJson = new JsonObject();
         JsonArray conceptsJson = new JsonArray();
-        for (String value : (List<String>) parameters.get(CONCEPTS)) {
+        @SuppressWarnings("unchecked")
+		List<String> concepts = (List<String>) parameters.get(CONCEPTS);
+		for (String value : concepts) {
             conceptsJson.add(new JsonPrimitive(value));
         }
         contentJson.add(CONCEPTS, conceptsJson);
@@ -773,17 +774,16 @@ public class ConceptInsights extends WatsonService {
 	 * <li> String account_id - The account identifier.<br>
 	 * <li> String corpus - The corpus name.<br>
 	 * <li> String concept - The concept name.<br>
-	 * <li> String query - JSON object that allows to filter the list of documents.
+	 * <li> String query - For query syntax see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html">API Explorer</a>.<br> JSON object that allows to filter the list of documents.
 	 * Valid values are {"status":"error"}, {"status":"processing"},
-	 * and {"status":"ready"} which allow to filter documents by status<br>
+	 * and {"status":"ready"} which allow to filter documents by status.<br>
 	 * <li> Integer cursor - The number of possible items to return.
 	 * Specify '0' to return the maximum value of 100,000...<br>
 	 * <li> Integer limit - The number of possible concepts to return..<br>
 	 * </ul>
-	 *
+	 * 
      * @return {@link Documents}
      */
-    @SuppressWarnings("unchecked")
     public Documents listDocuments(Map<String, Object> parameters) {
         Validate.notNull(parameters.get(ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(parameters.get(CORPUS), "corpus can't be null");
@@ -795,7 +795,8 @@ public class ConceptInsights extends WatsonService {
             }
         }
         if (parameters.get(QUERY) != null) {
-            // TODO we may need to work in the query format,for now we do expect the query parameter String formatted as documented in Consept Insights.
+            // TODO we may need to work in the query format,for now we do expect 
+        	// the query parameter String formatted as documented in Concept Insights.
             queryParameters.put(QUERY, parameters.get(QUERY));
         }
 
@@ -871,7 +872,7 @@ public class ConceptInsights extends WatsonService {
 	 * <li> Integer limit - The maximum number of items to be returned.<br>
 	 * <li> RequestedFields concept_fields - An additional fields to include in the concept objects.<br>
 	 * </ul>
-	 * @return the matches
+	 * @return {@link Matches}
 	 */
     public Matches searchGraphsConceptByLabel(Map<String, Object> parameters) {
         Validate.notNull(parameters.get(ACCOUNT_ID), "account_id can't be null");
@@ -892,7 +893,7 @@ public class ConceptInsights extends WatsonService {
             if (fields != null && fields.getFields() != null && !fields.getFields().isEmpty())
                 queryParameters.put(CONCEPT_FIELDS, fields.toString());
         }
-        return executeRequest(graph_id + LABEL_SEARCH_PATH,queryParameters,Matches.class);
+        return executeRequest(graph_id + LABEL_SEARCH_PATH, queryParameters, Matches.class);
     }
 
     /**
@@ -900,9 +901,8 @@ public class ConceptInsights extends WatsonService {
      *
      * @param accountId String the Account identifier.
      * @param corpus    {@link Corpus} the corpus to update.
-     * @return The updated {@link Corpus}.
      */
-    public Corpus updateCorpus(final String accountId, final Corpus corpus) {
+    public void updateCorpus(final String accountId, final Corpus corpus) {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
         Validate.notNull(corpus.getId(), "corpus.id can't be null");
@@ -910,8 +910,6 @@ public class ConceptInsights extends WatsonService {
         HttpRequestBase request = Request.Post(createCorpusIdPath(accountId, corpus.getId()))
                 .withContent(GsonSingleton.getGson().toJson(corpus), MediaType.APPLICATION_JSON).build();
         executeWithoutResponse(request);
-
-        return corpus;
     }
 
     /**
@@ -942,7 +940,7 @@ public class ConceptInsights extends WatsonService {
      * @param returnType      the POJO class to be parsed from the response
      * @return the POJO object that represent the response
      */
-    private <T> T executeRequest(String resourcePath,Map<String, Object> params,  Class<T> returnType) {
+    private <T> T executeRequest(String resourcePath, Map<String, Object> params,  Class<T> returnType) {
         Request request = Request.Get(resourcePath);
         if(params!=null && !params.isEmpty()) {
             for (Map.Entry<String, Object> entry : params.entrySet()) {
