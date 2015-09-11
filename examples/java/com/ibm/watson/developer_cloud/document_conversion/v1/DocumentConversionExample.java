@@ -32,9 +32,6 @@ public class DocumentConversionExample{
         DocumentConversion service = new DocumentConversion();
         service.setUsernameAndPassword("<username>", "<password>");
 
-        // TODO: Remove the localhost endpoint once experimental is available
-        service.setEndPoint("http://localhost:8090");
-
         // ## Scenario 1: Convert a document without persistence ##
         File html = new File("src/test/resources/document_conversion/html-with-extra-content-input.htm");
         File pdf = new File("src/test/resources/document_conversion/pdf-with-sections-input.pdf");
