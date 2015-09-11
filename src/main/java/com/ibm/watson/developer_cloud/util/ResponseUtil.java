@@ -171,7 +171,6 @@ public class ResponseUtil {
 	public static <T> T getObject(HttpResponse response, Class<T> type) throws IOException {
 		String jsonString = getString(response);
 		
-		@SuppressWarnings("unchecked")
 		T pojo = (T) GsonSingleton.getGson().fromJson(jsonString, type);
 		return pojo;
 	}
