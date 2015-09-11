@@ -16,21 +16,21 @@
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.StringBody;
 
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.TrainingData;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.TrainingDataUtils;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
@@ -49,14 +49,11 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 public class NaturalLanguageClassifier extends WatsonService {
 
 	/** The url. */
-	private static String URL = "https://gateway.watsonplatform.net/natural-language-classifier-beta/api";
+	private static String URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 
-	/** The Constant log. */
-	private static final Logger log = Logger.getLogger(NaturalLanguageClassifier.class.getName());
-
-	/** The list type. */
-	private Type listType = new TypeToken<List<Classifier>>() {}.getType();
-
+	/** The Constant LANGUAGE_EN. (value is: "en" )
+	 */
+	public static final String LANGUAGE_EN = "en";
 	/**
 	 * Instantiates a new Natural Language Classifier service.
 	 */
@@ -68,42 +65,38 @@ public class NaturalLanguageClassifier extends WatsonService {
 	 * Sends data to create and train a classifier, and returns information
 	 * about the new classifier. The status has the value of `Training` when the
 	 * operation is successful, and might remain at this status for a while.
-	 * 
-	 * @param language
-	 *            IETF primary language for the classifier
-	 * @param trainingData
-	 *            The set of questions and their "keys" used to adapt a system
+	 *
+	 * @param name the classifier name
+	 * @param language            IETF primary language for the classifier
+	 * @param trainingData            The set of questions and their "keys" used to adapt a system
 	 *            to a domain (the ground truth)
 	 * @return the classifier
 	 * @see Classifier
 	 */
-	public Classifier createClassifier(final String language,final List<TrainingData> trainingData) {
-		if (trainingData == null)
-			throw new IllegalArgumentException("data can not be null");
-
-		if (trainingData.isEmpty())
-			throw new IllegalArgumentException(
-					"data needs to have TrainingData items.");
-
+	public Classifier createClassifier(final String name, final String language, final List<TrainingData> trainingData) {
+		if (trainingData == null || trainingData.isEmpty())
+			throw new IllegalArgumentException("trainingData can not be null or empty");
+		
 		JsonObject contentJson = new JsonObject();
 
-		if (language != null && !language.isEmpty()) {
-			contentJson.addProperty("language", language);
+		contentJson.addProperty("language", language == null ? LANGUAGE_EN : language);
+
+		if (name != null && !name.isEmpty()) {
+			contentJson.addProperty("name", name);
 		}
 
-		contentJson.addProperty("training_data", GsonSingleton.getGson().toJson(trainingData));
-
-		log.info("createClassifier with: " + contentJson.getAsString());
-		HttpRequestBase request = Request
-				.Post("/v1/classifiers")
-				.withContent(contentJson).build();
-
 		try {
+
+			MultipartEntity reqEntity = new MultipartEntity();
+			reqEntity.addPart("training_data", new StringBody(TrainingDataUtils.toCSV(trainingData.toArray(new TrainingData[0]))));
+			reqEntity.addPart("training_metadata", new StringBody(contentJson.toString()));
+			
+			HttpRequestBase request = Request
+					.Post("/v1/classifiers")
+					.withEntity(reqEntity).build();
+	
 			HttpResponse response = execute(request);
-			String classifierAsJson = ResponseUtil.getString(response);
-			Classifier classifier = GsonSingleton.getGson().fromJson(classifierAsJson,
-					Classifier.class);
-			return classifier;
+			return ResponseUtil.getObject(response, Classifier.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -136,10 +129,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 
 		try {
 			HttpResponse response = execute(request);
-			String classifierAsJson = ResponseUtil.getString(response);
-			Classification classification = GsonSingleton.getGson().fromJson(
-					classifierAsJson, Classification.class);
-			return classification;
+			return ResponseUtil.getObject(response, Classification.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -151,15 +141,12 @@ public class NaturalLanguageClassifier extends WatsonService {
 	 * @return the classifier list
 	 * @see Classifier
 	 */
-	public List<Classifier> getClassifiers() {
+	public Classifiers getClassifiers() {
 		HttpRequestBase request = Request.Get("/v1/classifiers").build();
 
 		try {
 			HttpResponse response = execute(request);
-			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<Classifier> classifiers = GsonSingleton.getGson().fromJson(
-					jsonObject.get("classifiers"), listType);
-			return classifiers;
+			return ResponseUtil.getObject(response, Classifiers.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -196,9 +183,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 
 		try {
 			HttpResponse response = execute(request);
-			String classifierJson = ResponseUtil.getString(response);
-			Classifier classifier = GsonSingleton.getGson().fromJson(classifierJson,Classifier.class);
-			return classifier;
+			return ResponseUtil.getObject(response,Classifier.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

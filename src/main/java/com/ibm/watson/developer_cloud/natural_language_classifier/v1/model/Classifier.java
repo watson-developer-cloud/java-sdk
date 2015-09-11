@@ -15,6 +15,8 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
@@ -26,20 +28,19 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  */
 public class Classifier {
 
-	/** The id. */
-	@SerializedName("classifier_id")
-	private String id;
-	
-	/** The url. */
-	private String url;
-	
-	/** The status. */
-	private Status status;
-
+		  
 	/**
 	 * The Enum Status.
 	 */
 	public enum Status {
+		
+		/** The available. */
+		@SerializedName("Available")
+		AVAILABLE,
+		
+		/** The failed. */
+		@SerializedName("Failed")
+		FAILED,
 		
 		/** The non existent. */
 		@SerializedName("Non Existent")
@@ -49,23 +50,62 @@ public class Classifier {
 		@SerializedName("Training")
 		TRAINING,
 		
-		/** The failed. */
-		@SerializedName("Failed")
-		FAILED,
-		
-		/** The available. */
-		@SerializedName("Available")
-		AVAILABLE,
-		
 		/** The unavailable. */
 		@SerializedName("Unavailable")
 		UNAVAILABLE
 	}
 	
+	/** The created. */
+	private Date created;
+
+	/** The id. */
+	@SerializedName("classifier_id")
+	private String id;
+
+	/** The language. */
+	private String language;
+
+	/** The name. */
+	private String name;
+
+	/** The status. */
+	private Status status;
+
 	/** The status description. */
 	@SerializedName("status_description")
 	private String statusDescription;
 
+	/** The url. */
+	private String url;
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Classifier that = (Classifier) o;
+
+		if (!id.equals(that.id)) return false;
+		if (url != null ? !url.equals(that.url) : that.url != null) return false;
+		if (name != null ? !name.equals(that.name) : that.name != null) return false;
+
+		if (status != that.status) return false;
+		return !(statusDescription != null ? !statusDescription.equals(that.statusDescription) : that.statusDescription != null);
+
+	}
+		  
+	/**
+	 * Gets the created.
+	 *
+	 * @return the created
+	 */
+	public Date getCreated() {
+		return created;
+	}
+	
 	/**
 	 * Gets the classifier id.
 	 * 
@@ -73,6 +113,73 @@ public class Classifier {
 	 */
 	public String getId() {
 		return id;
+	}
+	
+	/**
+	 * Gets the language.
+	 *
+	 * @return the language
+	 */
+	public String getLanguage() {
+		return language;
+	}
+
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+	
+	/**
+	 * Gets the status.
+	 * 
+	 * @return the status
+	 */
+	public Status getStatus() {
+		return status;
+	}
+
+	/**
+	 * Gets the status description.
+	 * 
+	 * @return the status description
+	 */
+	public String getStatusDescription() {
+		return statusDescription;
+	}
+
+	/**
+	 * Gets the url.
+	 * 
+	 * @return the url
+	 */
+	public String getUrl() {
+		return url;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		int result = id.hashCode();
+		result = 31 * result + (url != null ? url.hashCode() : 0);
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + (status != null ? status.hashCode() : 0);
+		result = 31 * result + (statusDescription != null ? statusDescription.hashCode() : 0);
+		return result;
+	}
+
+	/**
+	 * Sets the created.
+	 *
+	 * @param created the created to set
+	 */
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
 	/**
@@ -86,31 +193,21 @@ public class Classifier {
 	}
 
 	/**
-	 * Gets the url.
-	 * 
-	 * @return the url
+	 * Sets the language.
+	 *
+	 * @param language the language to set
 	 */
-	public String getUrl() {
-		return url;
+	public void setLanguage(String language) {
+		this.language = language;
 	}
 
 	/**
-	 * Sets the url.
-	 * 
-	 * @param url
-	 *            the new url
+	 * Sets the name.
+	 *
+	 * @param name the name to set
 	 */
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
-	/**
-	 * Gets the status.
-	 * 
-	 * @return the status
-	 */
-	public Status getStatus() {
-		return status;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
@@ -124,15 +221,6 @@ public class Classifier {
 	}
 
 	/**
-	 * Gets the status description.
-	 * 
-	 * @return the status description
-	 */
-	public String getStatusDescription() {
-		return statusDescription;
-	}
-
-	/**
 	 * Sets the status description.
 	 * 
 	 * @param statusDescription
@@ -142,27 +230,14 @@ public class Classifier {
 		this.statusDescription = statusDescription;
 	}
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		Classifier that = (Classifier) o;
-
-		if (!id.equals(that.id)) return false;
-		if (url != null ? !url.equals(that.url) : that.url != null) return false;
-		if (status != that.status) return false;
-		return !(statusDescription != null ? !statusDescription.equals(that.statusDescription) : that.statusDescription != null);
-
-	}
-
-	@Override
-	public int hashCode() {
-		int result = id.hashCode();
-		result = 31 * result + (url != null ? url.hashCode() : 0);
-		result = 31 * result + (status != null ? status.hashCode() : 0);
-		result = 31 * result + (statusDescription != null ? statusDescription.hashCode() : 0);
-		return result;
+	/**
+	 * Sets the url.
+	 * 
+	 * @param url
+	 *            the new url
+	 */
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	/*

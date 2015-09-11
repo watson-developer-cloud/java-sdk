@@ -15,20 +15,10 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
-import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifiedClass;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.MediaType;
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.Header;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,9 +27,21 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockserver.integration.ClientAndServer;
+import org.mockserver.model.Header;
+
+import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifiedClass;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.MediaType;
 
 /**
  * The Class NaturalLanguageClassifierTest.
@@ -209,10 +211,10 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
                         .withBody(GsonSingleton.getGson().toJson(response)));
 
 
-        List<Classifier> classifiers = service.getClassifiers();
-        Assert.assertNotNull(classifiers);
-        Assert.assertFalse(classifiers.isEmpty());
-        Assert.assertFalse(classifiers.contains(classifiersResponse));
+        Classifiers classifiers = service.getClassifiers();
+        Assert.assertNotNull(classifiers.getClassifiers());
+        Assert.assertFalse(classifiers.getClassifiers().isEmpty());
+        Assert.assertFalse(classifiers.getClassifiers().contains(classifiersResponse));
 
     }
 

@@ -15,6 +15,7 @@ Java code wrappers to quickly get started with the various [Watson Developer Clo
     * [Getting the Service Credentials](#getting-the-service-credentials)
     * [IBM Watson Services](#ibm-watson-services)
       * [Concept Expansion](#concept-expansion)
+      * [Concept Insights](#concept-insights)
       * [Dialog](#dialog)
       * [Language Identification](#language-identification)
       * [Language Translation](#language-translation)
@@ -29,6 +30,7 @@ Java code wrappers to quickly get started with the various [Watson Developer Clo
       * [Tone Analyzer](#tone-analyzer)
       * [Tradeoff Analytics](#tradeoff-analytics)
       * [Visual Recognition](#visual-recognition)
+      * [Concept Insights](#concept-insights)
     * [Android](#android)
     * [Build + Test](#build--test)
     * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
@@ -111,6 +113,27 @@ while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
 }
 
 System.out.println(service.getJobResult(job));
+```
+
+### Concept Insights
+Use the Concept Insights service to identify words in the text that
+correspond to concepts in a Wikipedia graph.
+```
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.Annotations;
+
+ConceptInsights service = new ConceptInsights();
+service.setUsernameAndPassword("<username>", "<password>");
+
+Map<String,Object> params = new HashMap<String, Object>();
+params.put(ConceptInsights.ACCOUNT_ID, "wikipedia");
+params.put(ConceptInsights.GRAPH, "en-20120601");
+params.put(ConceptInsights.TEXT, "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
+
+Annotations annotations =  service.annotateText(params);
+
+System.out.println(annotations);
+
 ```
 
 ### Dialog
@@ -486,6 +509,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [speech_to_text]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/speech-to-text/
 [tone-analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
 [dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
+[concept-insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
 
 [wdc]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/
 [vcap_environment]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/getting_started/index.html#EnvVars

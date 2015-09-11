@@ -15,8 +15,10 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.collect.Lists;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
@@ -75,6 +77,41 @@ public class TrainingData {
 		this.classes = classes;
 	}
 
+	/**
+	 * With text.
+	 *
+	 * @param text the text
+	 * @return the training data
+	 */
+	public TrainingData withText(String text) {
+		this.text = text;
+		return this;
+	}
+
+	/**
+	 * With classes.
+	 *
+	 * @param classes the classes
+	 * @return the training data
+	 */
+	public TrainingData withClasses(String... classes) {
+		setClasses(Lists.newArrayList(classes));
+		return this;
+	}
+	
+	/**
+	 * Adds a class to the training data
+	 *
+	 * @param className the class name to add
+	 */
+	public void addClass(String className) {
+		if (this.classes == null)
+			this.classes = new ArrayList<String>();
+		
+		if (!this.classes.contains(className))
+			this.classes.add(className);
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -85,4 +122,5 @@ public class TrainingData {
 		return getClass().getName() + " "
 				+ GsonSingleton.getGson().toJson(this);
 	}
+	
 }

@@ -157,4 +157,22 @@ public class ResponseUtil {
 		}
 		return is;
 	}
+	
+	
+	/**
+	 * Returns <T> after parsing the string response.
+	 *
+	 * @param <T> the generic type to use when parsing the response
+	 * @param response the http response
+	 * @param type the type of the response 
+	 * @return the object
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public static <T> T getObject(HttpResponse response, Class<T> type) throws IOException {
+		String jsonString = getString(response);
+		
+		T pojo = (T) GsonSingleton.getGson().fromJson(jsonString, type);
+		return pojo;
+	}
+
 }
