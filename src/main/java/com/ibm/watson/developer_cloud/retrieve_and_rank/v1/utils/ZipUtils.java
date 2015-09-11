@@ -3,6 +3,7 @@ package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils;
 import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.*;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -16,6 +17,8 @@ import java.util.zip.ZipOutputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
+import com.google.common.base.Throwables;
+
 public class ZipUtils {
     private static final MessageFormatter MSGS = new MessageFormatter(bundleName());
 
@@ -25,7 +28,14 @@ public class ZipUtils {
     public static File buildConfigZip(final String configName, final Path parentDir) {
         final File zipFile = createEmptyZipFile(configName);
 
-        try (final ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zipFile))) {
+        final ZipOutputStream out;
+        try {
+            out = new ZipOutputStream(new FileOutputStream(zipFile));
+        } catch (final FileNotFoundException e) {
+            throw new RuntimeException(MSGS.format(ERROR_ZIPPING_1, parentDir.toString()), e);
+        }
+
+        try {
             Files.walkFileTree(parentDir, new FileVisitor<Path>() {
                 @Override
                 public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
@@ -54,6 +64,14 @@ public class ZipUtils {
             return zipFile;
         } catch (final IOException e) {
             throw new RuntimeException(MSGS.format(ERROR_ZIPPING_1, parentDir.toString()), e);
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (final IOException e) {
+                Throwables.propagate(e);
+            }
         }
     }
 
