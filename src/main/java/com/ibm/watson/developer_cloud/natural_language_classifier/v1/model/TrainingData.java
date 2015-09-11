@@ -15,6 +15,7 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.common.collect.Lists;
@@ -96,6 +97,19 @@ public class TrainingData {
 	public TrainingData withClasses(String... classes) {
 		setClasses(Lists.newArrayList(classes));
 		return this;
+	}
+	
+	/**
+	 * Adds a class to the training data
+	 *
+	 * @param className the class name to add
+	 */
+	public void addClass(String className) {
+		if (this.classes == null)
+			this.classes = new ArrayList<String>();
+		
+		if (!this.classes.contains(className))
+			this.classes.add(className);
 	}
 	
 	/*
