@@ -10,18 +10,16 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 public class SolrConfigList {
+    @SerializedName(SOLR_CONFIGS)
     private final List<String> solrConfigs;
 
-    @JsonCreator
-    public SolrConfigList(@JsonProperty(SOLR_CONFIGS) final List<String> solrConfigs) {
+    public SolrConfigList(final List<String> solrConfigs) {
         this.solrConfigs = solrConfigs;
     }
 
-    @JsonProperty(SOLR_CONFIGS)
     public Collection<String> getSolrConfigs() {
         return solrConfigs;
     }

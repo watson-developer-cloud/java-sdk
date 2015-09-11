@@ -9,23 +9,19 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Response from requesting a list of provisioned Solr Clusters.
  */
 public class SolrClusterListResponse {
-
+    @SerializedName(SOLR_CLUSTER_RESPONSES)
     private final List<SolrClusterResponse> solrClusterResponses;
 
-    @JsonCreator
-    public SolrClusterListResponse(
-            @JsonProperty(SOLR_CLUSTER_RESPONSES) final List<SolrClusterResponse> solrClusterResponses) {
+    public SolrClusterListResponse(final List<SolrClusterResponse> solrClusterResponses) {
         this.solrClusterResponses = solrClusterResponses;
     }
 
-    @JsonProperty(SOLR_CLUSTER_RESPONSES)
     public List<SolrClusterResponse> getSolrClusterResponses() {
         return solrClusterResponses;
     }

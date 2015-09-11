@@ -7,9 +7,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Response from a provisioned Solr Cluster.
@@ -20,44 +18,39 @@ public class SolrClusterResponse {
         NOT_AVAILABLE
     }
 
+    @SerializedName(SOLR_CLUSTER_ID)
     private final String solrClusterId;
+    @SerializedName(CLUSTER_NAME)
     private final String solrClusterName;
+    @SerializedName(CLUSTER_SIZE)
     private final String solrClusterSize;
+    @SerializedName(SOLR_CLUSTER_STATUS)
     private final Status solrClusterStatus;
 
-    @JsonCreator
-    public SolrClusterResponse(
-            @JsonProperty(SOLR_CLUSTER_ID) final String solrClusterId,
-            @JsonProperty(CLUSTER_NAME) final String solrClusterName,
-            @JsonProperty(CLUSTER_SIZE) final String solrClusterSize,
-            @JsonProperty(SOLR_CLUSTER_STATUS) final Status solrClusterStatus) {
+    public SolrClusterResponse(final String solrClusterId, final String solrClusterName, final String solrClusterSize,
+            final Status solrClusterStatus) {
         this.solrClusterId = solrClusterId;
         this.solrClusterName = solrClusterName;
         this.solrClusterSize = solrClusterSize;
         this.solrClusterStatus = solrClusterStatus;
     }
 
-    @JsonProperty(SOLR_CLUSTER_ID)
     public String getSolrClusterId() {
         return solrClusterId;
     }
 
-    @JsonIgnore
     public SolrCluster getSolrCluster() {
         return SolrCluster.fromString(solrClusterId);
     }
 
-    @JsonProperty(CLUSTER_NAME)
     public String getSolrClusterName() {
         return solrClusterName;
     }
 
-    @JsonProperty(CLUSTER_SIZE)
     public String getSolrClusterSize() {
         return solrClusterSize;
     }
 
-    @JsonProperty(SOLR_CLUSTER_STATUS)
     public Status getSolrClusterStatus() {
         return solrClusterStatus;
     }
