@@ -366,15 +366,11 @@ public class Request {
 	 * @return this
 	 */
 	public Request withContent(String content, String contentType) {
-		try {
-			StringEntity stringEntity = new StringEntity(content, UTF_8);
-			if (contentType != null) {
-				stringEntity.setContentType(contentType);
-			}
-			return withEntity(stringEntity);
-		} catch (UnsupportedEncodingException e) {
-			throw new RuntimeException(e);
+		StringEntity stringEntity = new StringEntity(content, UTF_8);
+		if (contentType != null) {
+			stringEntity.setContentType(contentType);
 		}
+		return withEntity(stringEntity);
 	}
 
 	/**
