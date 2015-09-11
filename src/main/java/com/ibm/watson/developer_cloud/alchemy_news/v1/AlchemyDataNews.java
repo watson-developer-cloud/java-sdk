@@ -21,7 +21,6 @@ package com.ibm.watson.developer_cloud.alchemy_news.v1;
 import java.io.IOException;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
@@ -62,7 +61,7 @@ public class AlchemyDataNews extends AlchemyService {
 	/** The Constant TIME_SLICE. the duration 
 	 * (in seconds) of each time slice 
 	 */
-	public static final  String TIME_SLICE = "timeSlice";
+	public static final String TIME_SLICE = "timeSlice";
 
 	/** TIME FORMAT */
 	public static enum TimeFormat {

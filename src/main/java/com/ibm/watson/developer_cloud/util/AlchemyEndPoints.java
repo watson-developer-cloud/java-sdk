@@ -35,13 +35,12 @@ import java.util.logging.Logger;
  */
 public class AlchemyEndPoints {
 
-	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(AlchemyEndPoints.class.getName());
 
-	/** The Constant filePath. */
+	/** The file where alchemy endpoints are described */
 	private static final String filePath = "src/main/resources/alchemy_endpoints.json";
 
-	/** The operations. */
+	/** The alchemy operations. */
 	private static Map<String, Map<String, String>> operations;
 
 	static {
@@ -113,10 +112,13 @@ public class AlchemyEndPoints {
 	 * and input type
 	 */
 	public static String getPath(AlchemyAPI operation, String inputType) {
-		if (operations.get(operation.name()) != null) // check if the operation exists
+		if ((operations.get(operation.name()) != null) && operations.get(operation.name()).get(inputType) != null)
 			return operations.get(operation.name()).get(inputType);
-		else
-			return null;
+		else {
+			String error = "Operation: "+ operation + ", inputType: "+inputType+" not found";
+			log.log(Level.SEVERE,error);
+            throw new IllegalArgumentException(error);
+		}
 	}
 
 }

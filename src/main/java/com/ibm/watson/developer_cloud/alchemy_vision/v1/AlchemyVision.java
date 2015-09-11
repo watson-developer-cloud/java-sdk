@@ -18,6 +18,14 @@
 
 package com.ibm.watson.developer_cloud.alchemy_vision.v1;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.FileEntity;
+
 import com.ibm.watson.developer_cloud.alchemy_vision.v1.model.ImageFaces;
 import com.ibm.watson.developer_cloud.alchemy_vision.v1.model.ImageKeywords;
 import com.ibm.watson.developer_cloud.alchemy_vision.v1.model.ImageLink;
@@ -27,14 +35,6 @@ import com.ibm.watson.developer_cloud.util.AlchemyEndPoints;
 import com.ibm.watson.developer_cloud.util.AlchemyEndPoints.AlchemyAPI;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import com.ibm.watson.developer_cloud.util.Validate;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.entity.FileEntity;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * The Alchemy Vision service uses deep learning innovations to understand a picture’s
@@ -51,28 +51,31 @@ import java.util.Map;
 public class AlchemyVision extends AlchemyService {
 
     /**
-     * The Constant FORCE_SHOW_ALL.
+     * The Constant FORCE_SHOW_ALL. (value is "forceShowAll")
      */
     public static final String FORCE_SHOW_ALL = "forceShowAll";
 
     /**
-     * The Constant KNOWLEDGE_GRAPH
+     * The Constant KNOWLEDGE_GRAPH. (value is "knowledgeGraph")
      */
     public static final String KNOWLEDGE_GRAPH = "knowledgeGraph";
 
     /**
-     * The Constant IMAGE_POST_MODE
+     * The Constant IMAGE_POST_MODE. (value is "imagePostMode")
      */
     public static final String IMAGE_POST_MODE = "imagePostMode";
 
+    /** The Constant RAW. (value is "raw") */
     public static final String RAW = "raw";
 
+    /** The Constant NOT_RAW. (value is "not-raw") */
     public static final String NOT_RAW = "not-raw";
 
+    /** The Constant IMAGE. (value is "image") */
     public static final String IMAGE = "image";
 
     /**
-     * Extract main image link from html or a URL
+     * Extract main image link from html or a URL.
      *
      * @param params The parameters to be used in the service call, html or url should
      *               be specified.
@@ -81,7 +84,7 @@ public class AlchemyVision extends AlchemyService {
     public ImageLink getImageLink(Map<String, Object> params) {
         String inputType = getInputFormat(params, "html", "url");
         String path = AlchemyEndPoints.getPath(AlchemyAPI.image_link, inputType);
-        Validate.notNull(path,"operation:("+ AlchemyAPI.image_link + ")" + ", inputType:("+inputType+") " + " not found in alchemy_endpoints JSON file...! ");
+        
         // Return json
         params.put(OUTPUT_MODE, "json");
 
@@ -140,7 +143,6 @@ public class AlchemyVision extends AlchemyService {
     private <T> T executeRequest(Map<String, Object> params, AlchemyAPI operation, Class<T> returnType) {
         String inputType = getInputFormat(params, "image", "url");
         String path = AlchemyEndPoints.getPath(operation, inputType);
-        Validate.notNull(path,"operation:("+ operation+ ")" + ", inputType:("+inputType+") " + " not found in alchemy_endpoints JSON file...! ");
 
         Request request = Request.Post(path);
         if (inputType == IMAGE) {
