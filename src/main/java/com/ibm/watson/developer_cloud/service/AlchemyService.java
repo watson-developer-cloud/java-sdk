@@ -95,6 +95,7 @@ public abstract class AlchemyService extends WatsonService{
 	 *            the HTTP response
 	 * @return the error message from the json object
 	 */
+	@SuppressWarnings("unused")
 	private String getErrorMessage(HttpResponse response) {
 		JsonObject error = null, jsonResponse = null;
 
