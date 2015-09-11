@@ -5,7 +5,7 @@ import java.net.URI;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.HttpClusterLifecycleClient;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrCluster;
 
-public class WatsonSolrClusterDeleteExample {
+public class RetrieveAndRankSolrClusterDeleteExample {
     /**
      * The URL of the Watson Solr search service.
      */
@@ -76,7 +76,7 @@ public class WatsonSolrClusterDeleteExample {
         System.out.println("Client closed.");
     }
 
-    private WatsonSolrClusterDeleteExample() {
+    private RetrieveAndRankSolrClusterDeleteExample() {
         throw new UnsupportedOperationException("WatsonSolrClusterDeleteExample example cannot be instantiated!");
     }
 }
