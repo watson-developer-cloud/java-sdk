@@ -17,4 +17,5 @@ public class ApiConstants {
     public static final String SOLR_CLUSTERS_PATH_SEGMENT = "solr_clusters";
     public static final String SOLR_CONFIGS = "solr_configs";
     public static final String CONTENT_TYPE = "Content-Type";
+    public static final String ERROR_MESSAGE = "msg";
 }
