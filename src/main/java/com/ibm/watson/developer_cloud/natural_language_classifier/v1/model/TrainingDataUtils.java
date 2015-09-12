@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +15,6 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
-import com.google.common.collect.Lists;
 
 /**
  * Utility class to transform training data to CSV
@@ -43,7 +43,7 @@ public class TrainingDataUtils {
 						|| trainingData.getClasses().isEmpty())
 					log.log(Level.WARNING, trainingData + " couldn't be converted to a csv record");
 				else {
-					List<String> record = Lists.newArrayList(trainingData.getText());
+					List<String> record = Arrays.asList(trainingData.getText());
 					record.addAll(trainingData.getClasses());
 					printer.printRecord(record.toArray());
 				}
@@ -72,7 +72,7 @@ public class TrainingDataUtils {
 		
 		CSVParser parser;
 		try {
-			parser = CSVParser.parse(file,Charset.defaultCharset(), format);
+			parser = CSVParser.parse(file,Charset.forName("UTF-8"), format);
 		for (CSVRecord record : parser) {
 			if (record.size() > 1){
 				trainingData.add(getTrainigDataFromCSVRecord(record));
