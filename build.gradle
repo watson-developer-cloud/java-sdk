@@ -24,16 +24,11 @@ dependencies {
     testCompile group: 'junit', name: 'junit-dep', version:'4.11'
 }
 
-task javadocJar(type: Jar) {
-    classifier = 'javadoc'
-    from javadoc
-}
-
 task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
 }
 
 artifacts {
-    archives javadocJar, sourcesJar
+    archives sourcesJar
 }
