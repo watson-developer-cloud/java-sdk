@@ -72,7 +72,7 @@ public class TrainingDataUtils {
 		
 		CSVParser parser;
 		try {
-			parser = CSVParser.parse(file,Charset.defaultCharset(), format);
+			parser = CSVParser.parse(file,Charset.forName("UTF-8"), format);
 		for (CSVRecord record : parser) {
 			if (record.size() > 1){
 				trainingData.add(getTrainigDataFromCSVRecord(record));
