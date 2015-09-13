@@ -15,59 +15,35 @@
  */
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DocSentiment returned by the {@link AlchemyLanguage} service.
- * 
+ * Feed returned by the {@link AlchemyLanguage} service.
+ *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class DocumentSentiment extends AlchemyLanguageGenericModel {
+public class Feed extends GenericModel {
 
-	/** The text. */
-	private String text;
+    /** The feed. */
+    private String feed;
 
 	/**
-	 * Gets the text.
-	 * 
-	 * @return the text
+	 * Gets the feed.
+	 *
+	 * @return the feed
 	 */
-	public String getText() {
-		return text;
+	public String getFeed() {
+		return feed;
 	}
 
 	/**
-	 * Sets the text.
-	 * 
-	 * @param text
-	 *            the text to set
+	 * Sets the feed.
+	 *
+	 * @param feed the feed to set
 	 */
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	/** The doc sentiment. */
-	@SerializedName("docSentiment")
-	private Sentiment sentiment;
-
-	/**
-	 * Gets the sentiment.
-	 * 
-	 * @return the sentiment
-	 */
-	public Sentiment getSentiment() {
-		return sentiment;
-	}
-
-	/**
-	 * Sets the sentiment.
-	 * 
-	 * @param sentiment
-	 *            the sentiment to set
-	 */
-	public void setSentiment(Sentiment sentiment) {
-		this.sentiment = sentiment;
+	public void setFeed(String feed) {
+		this.feed = feed;
 	}
 
 }

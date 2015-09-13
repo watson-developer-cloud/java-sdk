@@ -15,59 +15,55 @@
  */
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DocSentiment returned by the {@link AlchemyLanguage} service.
- * 
+ * Microformat returned by the {@link AlchemyLanguage} service.
+ *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class DocumentSentiment extends AlchemyLanguageGenericModel {
+public class Microformat extends GenericModel {
 
-	/** The text. */
-	private String text;
-
+	/** The field. */
+	private String field;
+	
 	/**
-	 * Gets the text.
-	 * 
-	 * @return the text
+	 * Gets the field.
+	 *
+	 * @return the field
 	 */
-	public String getText() {
-		return text;
+	public String getField() {
+		return field;
 	}
 
 	/**
-	 * Sets the text.
-	 * 
-	 * @param text
-	 *            the text to set
+	 * Sets the field.
+	 *
+	 * @param field the field to set
 	 */
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	/** The doc sentiment. */
-	@SerializedName("docSentiment")
-	private Sentiment sentiment;
-
-	/**
-	 * Gets the sentiment.
-	 * 
-	 * @return the sentiment
-	 */
-	public Sentiment getSentiment() {
-		return sentiment;
+	public void setField(String field) {
+		this.field = field;
 	}
 
 	/**
-	 * Sets the sentiment.
-	 * 
-	 * @param sentiment
-	 *            the sentiment to set
+	 * Gets the data.
+	 *
+	 * @return the data
 	 */
-	public void setSentiment(Sentiment sentiment) {
-		this.sentiment = sentiment;
+	public String getData() {
+		return data;
 	}
 
+	/**
+	 * Sets the data.
+	 *
+	 * @param data the data to set
+	 */
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	/** The data. */
+	private String data;
 }

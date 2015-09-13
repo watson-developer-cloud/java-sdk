@@ -19,7 +19,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.model.GenericModel;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.Date;
 import java.util.List;

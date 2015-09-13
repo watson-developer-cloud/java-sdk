@@ -19,62 +19,21 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Taxonomy returned by the {@link AlchemyLanguage} service.
+ * PublicationDate returned by the {@link AlchemyLanguage} service.
  * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Taxonomy extends GenericModel {
-
-	/** The label. */
-	private String label;
-
-	/** The score. */
-	private Double score;
+public class PublicationDate extends GenericModel {
 
 	/** The confident. */
 	private String confident;
 
-	/**
-	 * Gets the label.
-	 * 
-	 * @return The label
-	 */
-	public String getLabel() {
-		return label;
-	}
-
-	/**
-	 * Sets the label.
-	 * 
-	 * @param label
-	 *            The label
-	 */
-	public void setLabel(String label) {
-		this.label = label;
-	}
-
-	/**
-	 * Gets the score.
-	 * 
-	 * @return The score
-	 */
-	public Double getScore() {
-		return score;
-	}
-
-	/**
-	 * Sets the score.
-	 * 
-	 * @param score
-	 *            The score
-	 */
-	public void setScore(Double score) {
-		this.score = score;
-	}
+	/** The date. */
+	private String date;
 
 	/**
 	 * Gets the confident.
-	 * 
+	 *
 	 * @return The confident
 	 */
 	public String getConfident() {
@@ -83,12 +42,50 @@ public class Taxonomy extends GenericModel {
 
 	/**
 	 * Sets the confident.
-	 * 
-	 * @param confident
-	 *            The confident
+	 *
+	 * @param confident            The confident
 	 */
 	public void setConfident(String confident) {
 		this.confident = confident;
 	}
 
+	/**
+	 * With confident.
+	 *
+	 * @param confident the confident
+	 * @return the publication date
+	 */
+	public PublicationDate withConfident(String confident) {
+		this.confident = confident;
+		return this;
+	}
+
+	/**
+	 * Gets the date.
+	 *
+	 * @return The date
+	 */
+	public String getDate() {
+		return date;
+	}
+
+	/**
+	 * Sets the date.
+	 *
+	 * @param date            The date
+	 */
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	/**
+	 * With date.
+	 *
+	 * @param date the date
+	 * @return the publication date
+	 */
+	public PublicationDate withDate(String date) {
+		this.date = date;
+		return this;
+	}
 }

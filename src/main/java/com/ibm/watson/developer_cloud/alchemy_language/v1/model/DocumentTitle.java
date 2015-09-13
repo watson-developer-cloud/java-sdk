@@ -15,48 +15,44 @@
  */
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
-import java.util.List;
-
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 
 /**
- * Entities returned by the {@link AlchemyLanguage} service.
+ * Title returned by the {@link AlchemyLanguage} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Entities extends AlchemyLanguageGenericModel {
+public class DocumentTitle extends AlchemyLanguageGenericModel {
 
-    /** The entities. */
-    private List<Entity> entities;
-
+    /** The title. */
+    private String title;
 
     /**
-     * Gets the entities.
+     * Gets the title.
      *
-     * @return The entities
+     * @return The title
      */
-    public List<Entity> getEntities() {
-        return entities;
+    public String getTitle() {
+        return title;
     }
 
     /**
-     * Sets the entities.
+     * Sets the title.
      *
-     * @param entities The entities
+     * @param title The title
      */
-    public void setEntities(List<Entity> entities) {
-        this.entities = entities;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     /**
-     * With entities.
+     * With title.
      *
-     * @param entities the entities
-     * @return the entities
+     * @param title the title
+     * @return the title
      */
-    public Entities withEntities(List<Entity> entities) {
-        this.entities = entities;
+    public DocumentTitle withTitle(String title) {
+        this.title = title;
         return this;
     }
-
 }

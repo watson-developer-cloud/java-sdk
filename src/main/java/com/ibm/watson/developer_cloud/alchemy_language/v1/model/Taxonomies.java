@@ -13,61 +13,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 
 /**
- * DocSentiment returned by the {@link AlchemyLanguage} service.
+ * Taxonomies returned by the {@link AlchemyLanguage} service.
  * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class DocumentSentiment extends AlchemyLanguageGenericModel {
+public class Taxonomies extends AlchemyLanguageGenericModel {
 
-	/** The text. */
-	private String text;
+	/** The taxonomy. */
+	private List<Taxonomy> taxonomy;
 
 	/**
-	 * Gets the text.
+	 * Gets the taxonomy.
 	 * 
-	 * @return the text
+	 * @return The taxonomy
 	 */
-	public String getText() {
-		return text;
+	public List<Taxonomy> getTaxonomy() {
+		return taxonomy;
 	}
 
 	/**
-	 * Sets the text.
+	 * Sets the taxonomy.
 	 * 
-	 * @param text
-	 *            the text to set
+	 * @param taxonomy
+	 *            The taxonomy
 	 */
-	public void setText(String text) {
-		this.text = text;
-	}
-
-	/** The doc sentiment. */
-	@SerializedName("docSentiment")
-	private Sentiment sentiment;
-
-	/**
-	 * Gets the sentiment.
-	 * 
-	 * @return the sentiment
-	 */
-	public Sentiment getSentiment() {
-		return sentiment;
+	public void setTaxonomy(List<Taxonomy> taxonomy) {
+		this.taxonomy = taxonomy;
 	}
 
 	/**
-	 * Sets the sentiment.
+	 * With taxonomy.
 	 * 
-	 * @param sentiment
-	 *            the sentiment to set
+	 * @param taxonomy
+	 *            the taxonomy
+	 * @return the taxonomy
 	 */
-	public void setSentiment(Sentiment sentiment) {
-		this.sentiment = sentiment;
+	public Taxonomies withTaxonomy(List<Taxonomy> taxonomy) {
+		this.taxonomy = taxonomy;
+		return this;
 	}
-
 }

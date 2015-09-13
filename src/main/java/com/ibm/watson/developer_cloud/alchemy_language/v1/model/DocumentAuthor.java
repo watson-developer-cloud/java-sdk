@@ -23,64 +23,42 @@ import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
- * SentimentTargetedEntry returned by the {@link AlchemyLanguage} service.
+ * Author returned by the {@link AlchemyLanguage} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class SentimentTargetedEntry {
+public class DocumentAuthor extends AlchemyLanguageGenericModel {
 
-    /** The type. */
-    private String type;
+    /** The author. */
+    private String author;
 
     /**
-     * Gets the type.
+     * Gets the author.
      *
-     * @return The type
+     * @return The author
      */
-    public String getType() {
-        return type;
+    public String getAuthor() {
+        return author;
     }
 
     /**
-     * Sets the type.
+     * Sets the author.
      *
-     * @param type The type
+     * @param author The author
      */
-    public void setType(String type) {
-        this.type = type;
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     /**
-     * With type.
+     * With author.
      *
-     * @param type the type
-     * @return the sentiment targeted entry
+     * @param author the author
+     * @return the author
      */
-    public SentimentTargetedEntry withType(String type) {
-        this.type = type;
+    public DocumentAuthor withAuthor(String author) {
+        this.author = author;
         return this;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        SentimentTargetedEntry that = (SentimentTargetedEntry) o;
-
-        return !(type != null ? !type.equals(that.type) : that.type != null);
-
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        return type != null ? type.hashCode() : 0;
     }
 
     /* (non-Javadoc)
@@ -90,4 +68,5 @@ public class SentimentTargetedEntry {
     public String toString() {
         return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
+
 }

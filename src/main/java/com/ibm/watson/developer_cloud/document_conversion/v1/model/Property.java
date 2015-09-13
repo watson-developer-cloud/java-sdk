@@ -18,7 +18,7 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.model.GenericModel;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Structure that holds custom properties that are added for a Batch

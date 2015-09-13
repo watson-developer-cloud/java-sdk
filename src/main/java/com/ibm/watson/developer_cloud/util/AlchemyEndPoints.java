@@ -76,7 +76,7 @@ public class AlchemyEndPoints {
 	 * Load the endpoints from json file.
 	 */
 	private static void loadEndPointsFromJsonFile() {
-		log.log(Level.INFO, "Parsing End Points JSON file ");
+		log.log(Level.FINE, "Parsing End Points JSON file ");
 		operations = new HashMap<String, Map<String, String>>();
 		JsonParser parser = new JsonParser();
 		try {

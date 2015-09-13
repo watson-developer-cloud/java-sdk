@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import java.util.List;
@@ -20,64 +21,64 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 
 /**
- * Keywords returned by the {@link AlchemyLanguage} service.
- *
+ * Subject-Action-Object(SAO) relations returned by the {@link AlchemyLanguage} service.
+ * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Keywords extends AlchemyLanguageGenericModel {
+public class SAORelations extends AlchemyLanguageGenericModel {
 
-    /** The keywords. */
-    private List<Keyword> keywords;
+	/** The relations. */
+	private List<SAORelation> relations;
 
-    /** The text. */
-    private String text;
-    
-    
-    /**
-     * Gets the keywords.
-     *
-     * @return The keywords
-     */
-    public List<Keyword> getKeywords() {
-        return keywords;
-    }
+	/** The text. */
+	private String text;
 
 	/**
-     * Gets the text.
-     *
-     * @return the text
-     */
+	 * Gets the relations.
+	 * 
+	 * @return The relations
+	 */
+	public List<SAORelation> getRelations() {
+		return relations;
+	}
+
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
 	public String getText() {
 		return text;
 	}
 
 	/**
-     * Sets the keywords.
-     *
-     * @param keywords The keywords
-     */
-    public void setKeywords(List<Keyword> keywords) {
-        this.keywords = keywords;
-    }
+	 * Sets the relations.
+	 * 
+	 * @param relations
+	 *            The relations
+	 */
+	public void setRelations(List<SAORelation> relations) {
+		this.relations = relations;
+	}
 
-    /**
+	/**
 	 * Sets the text.
 	 *
-	 * @param text the text to set
+	 * @param text            the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;
 	}
 
-    /**
-     * With keywords.
-     *
-     * @param keywords the keywords
-     * @return the keywords
-     */
-    public Keywords withKeywords(List<Keyword> keywords) {
-        this.keywords = keywords;
-        return this;
-    }
-
+	/**
+	 * With relations.
+	 * 
+	 * @param relations
+	 *            the relations
+	 * @return the relations
+	 */
+	public SAORelations withRelations(List<SAORelation> relations) {
+		this.relations = relations;
+		return this;
+	}
 }

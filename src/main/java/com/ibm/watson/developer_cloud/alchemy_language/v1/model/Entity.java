@@ -31,13 +31,13 @@ public class Entity {
     private String type;
 
     /** The relevance. */
-    private String relevance;
+    private Double relevance;
 
     /** The sentiment. */
     private Sentiment sentiment;
 
     /** The count. */
-    private String count;
+    private Integer count;
 
     /** The text. */
     private String text;
@@ -79,7 +79,7 @@ public class Entity {
      *
      * @return     The relevance
      */
-    public String getRelevance() {
+    public Double getRelevance() {
         return relevance;
     }
 
@@ -88,7 +88,7 @@ public class Entity {
      *
      * @param relevance     The relevance
      */
-    public void setRelevance(String relevance) {
+    public void setRelevance(Double relevance) {
         this.relevance = relevance;
     }
 
@@ -98,7 +98,7 @@ public class Entity {
      * @param relevance the relevance
      * @return the entity
      */
-    public Entity withRelevance(String relevance) {
+    public Entity withRelevance(Double relevance) {
         this.relevance = relevance;
         return this;
     }
@@ -137,7 +137,7 @@ public class Entity {
      *
      * @return     The count
      */
-    public String getCount() {
+    public Integer getCount() {
         return count;
     }
 
@@ -146,7 +146,7 @@ public class Entity {
      *
      * @param count     The count
      */
-    public void setCount(String count) {
+    public void setCount(Integer count) {
         this.count = count;
     }
 
@@ -156,7 +156,7 @@ public class Entity {
      * @param count the count
      * @return the entity
      */
-    public Entity withCount(String count) {
+    public Entity withCount(Integer count) {
         this.count = count;
         return this;
     }

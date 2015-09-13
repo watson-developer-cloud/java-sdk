@@ -17,7 +17,6 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Keyword returned by the {@link AlchemyLanguage} service.
@@ -26,9 +25,8 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  */
 public class Keyword {
 
-
     /** The relevance. */
-    private String relevance;
+    private Double relevance;
 
     /** The sentiment. */
     private Sentiment sentiment;
@@ -36,12 +34,33 @@ public class Keyword {
     /** The text. */
     private String text;
 
+    /** The knowledge graph. */
+    private KnowledgeGraph knowledgeGraph;
+    
     /**
+     * Gets the knowledge graph.
+     *
+     * @return the knowledgeGraph
+     */
+	public KnowledgeGraph getKnowledgeGraph() {
+		return knowledgeGraph;
+	}
+
+	/**
+	 * Sets the knowledge graph.
+	 *
+	 * @param knowledgeGraph the knowledgeGraph to set
+	 */
+	public void setKnowledgeGraph(KnowledgeGraph knowledgeGraph) {
+		this.knowledgeGraph = knowledgeGraph;
+	}
+
+	/**
      * Gets the relevance.
      *
      * @return     The relevance
      */
-    public String getRelevance() {
+    public Double getRelevance() {
         return relevance;
     }
 
@@ -50,7 +69,7 @@ public class Keyword {
      *
      * @param relevance     The relevance
      */
-    public void setRelevance(String relevance) {
+    public void setRelevance(Double relevance) {
         this.relevance = relevance;
     }
 
@@ -60,7 +79,7 @@ public class Keyword {
      * @param relevance the relevance
      * @return the keyword
      */
-    public Keyword withRelevance(String relevance) {
+    public Keyword withRelevance(Double relevance) {
         this.relevance = relevance;
         return this;
     }
@@ -121,41 +140,6 @@ public class Keyword {
     public Keyword withText(String text) {
         this.text = text;
         return this;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Keyword keyword = (Keyword) o;
-
-        if (relevance != null ? !relevance.equals(keyword.relevance) : keyword.relevance != null) return false;
-        if (sentiment != null ? !sentiment.equals(keyword.sentiment) : keyword.sentiment != null) return false;
-        return !(text != null ? !text.equals(keyword.text) : keyword.text != null);
-
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        int result = relevance != null ? relevance.hashCode() : 0;
-        result = 31 * result + (sentiment != null ? sentiment.hashCode() : 0);
-        result = 31 * result + (text != null ? text.hashCode() : 0);
-        return result;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 
 }

@@ -17,20 +17,20 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Concept returned by the {@link AlchemyLanguage} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Concept {
+public class Concept extends GenericModel {
 
     /** The text. */
     private String text;
 
     /** The relevance. */
-    private String relevance;
+    private Double relevance;
 
     /** The website. */
     private String website;
@@ -84,7 +84,7 @@ public class Concept {
      *
      * @return The relevance
      */
-    public String getRelevance() {
+    public Double getRelevance() {
         return relevance;
     }
 
@@ -93,7 +93,7 @@ public class Concept {
      *
      * @param relevance The relevance
      */
-    public void setRelevance(String relevance) {
+    public void setRelevance(Double relevance) {
         this.relevance = relevance;
     }
 
@@ -103,7 +103,7 @@ public class Concept {
      * @param relevance the relevance
      * @return the concept
      */
-    public Concept withRelevance(String relevance) {
+    public Concept withRelevance(Double relevance) {
         this.relevance = relevance;
         return this;
     }
@@ -280,50 +280,5 @@ public class Concept {
     public Concept withCrunchbase(String crunchbase) {
         this.crunchbase = crunchbase;
         return this;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Concept concept = (Concept) o;
-
-        if (text != null ? !text.equals(concept.text) : concept.text != null) return false;
-        if (relevance != null ? !relevance.equals(concept.relevance) : concept.relevance != null) return false;
-        if (website != null ? !website.equals(concept.website) : concept.website != null) return false;
-        if (dbpedia != null ? !dbpedia.equals(concept.dbpedia) : concept.dbpedia != null) return false;
-        if (freebase != null ? !freebase.equals(concept.freebase) : concept.freebase != null) return false;
-        if (opencyc != null ? !opencyc.equals(concept.opencyc) : concept.opencyc != null) return false;
-        if (yago != null ? !yago.equals(concept.yago) : concept.yago != null) return false;
-        return !(crunchbase != null ? !crunchbase.equals(concept.crunchbase) : concept.crunchbase != null);
-
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        int result = text != null ? text.hashCode() : 0;
-        result = 31 * result + (relevance != null ? relevance.hashCode() : 0);
-        result = 31 * result + (website != null ? website.hashCode() : 0);
-        result = 31 * result + (dbpedia != null ? dbpedia.hashCode() : 0);
-        result = 31 * result + (freebase != null ? freebase.hashCode() : 0);
-        result = 31 * result + (opencyc != null ? opencyc.hashCode() : 0);
-        result = 31 * result + (yago != null ? yago.hashCode() : 0);
-        result = 31 * result + (crunchbase != null ? crunchbase.hashCode() : 0);
-        return result;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }

@@ -13,22 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.model;
+package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
 
 /**
- * Abstract model class to provide a default toString() method in model classes.
+ * Text extracted from an html or url page and returned by the {@link AlchemyLanguage} service.
+ *
+ * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public abstract class GenericModel {
+public class DocumentText extends AlchemyLanguageGenericModel {
 
-    /*
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-    }
+    /** The text. */
+    private String text;
+
+	/**
+	 * Gets the text.
+	 *
+	 * @return the text
+	 */
+	public String getText() {
+		return text;
+	}
+
+	/**
+	 * Sets the text.
+	 *
+	 * @param text the text to set
+	 */
+	public void setText(String text) {
+		this.text = text;
+	}
 
 }

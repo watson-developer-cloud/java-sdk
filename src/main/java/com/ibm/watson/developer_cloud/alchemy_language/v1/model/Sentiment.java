@@ -16,29 +16,84 @@
 
 package com.ibm.watson.developer_cloud.alchemy_language.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy_language.v1.AlchemyLanguage;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Sentiment returned by the {@link AlchemyLanguage} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Sentiment {
+public class Sentiment extends GenericModel {
+	
+    /**
+	 * Sentiment type enumeration.
+	 */
+	public enum SentimentType {
+		
+		/** negative sentiment. */
+		@SerializedName("negative")	NEGATIVE,
+		
+		/** neutral sentiment. */
+		@SerializedName("neutral")	NEUTRAL,
+		
+		/** positive sentiment. */
+		@SerializedName("positive") POSITIVE
+	}
+	
+	/** The mixed. */
+    private String mixed;
 
-    /** The type. */
-    private String type;
+	/** The score. */
+    private Double score;
 
-    /** The score. */
-    private String score;
+	/** The sentiment type. */
+    private SentimentType type;
+	
+    /**
+     * Gets the mixed.
+     *
+     * @return the mixed
+     */
+	public String getMixed() {
+		return mixed;
+	}
+
+    /**
+     * Gets the score.
+     *
+     * @return the score
+     */
+    public Double getScore() {
+        return score;
+    }
 
     /**
      * Gets the type.
      *
      * @return     The type
      */
-    public String getType() {
+    public SentimentType getType() {
         return type;
+    }
+
+    /**
+     * Sets the mixed.
+     *
+     * @param mixed the mixed to set
+     */
+	public void setMixed(String mixed) {
+		this.mixed = mixed;
+	}
+
+    /**
+     * Sets the score.
+     *
+     * @param score the new score
+     */
+    public void setScore(Double score) {
+        this.score = score;
     }
 
     /**
@@ -46,69 +101,7 @@ public class Sentiment {
      *
      * @param type     The type
      */
-    public void setType(String type) {
+    public void setType(SentimentType type) {
         this.type = type;
-    }
-
-    /**
-     * Gets the score.
-     *
-     * @return the score
-     */
-    public String getScore() {
-        return score;
-    }
-
-    /**
-     * Sets the score.
-     *
-     * @param score the new score
-     */
-    public void setScore(String score) {
-        this.score = score;
-    }
-
-    /**
-     * With type.
-     *
-     * @param type the type
-     * @return the sentiment
-     */
-    public Sentiment withType(String type) {
-        this.type = type;
-        return this;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Sentiment sentiment = (Sentiment) o;
-
-        if (type != null ? !type.equals(sentiment.type) : sentiment.type != null) return false;
-        return !(score != null ? !score.equals(sentiment.score) : sentiment.score != null);
-
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        int result = type != null ? type.hashCode() : 0;
-        result = 31 * result + (score != null ? score.hashCode() : 0);
-        return result;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
     }
 }
