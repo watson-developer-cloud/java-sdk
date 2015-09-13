@@ -15,17 +15,35 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
-import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.*;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
-import com.ibm.watson.developer_cloud.service.WatsonService;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
-
 import java.io.File;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
+
+import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.BatchDocumentHelper;
+import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.BatchHelper;
+import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.ConvertDocumentHelper;
+import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.DocumentHelper;
+import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.JobHelper;
+import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.OutputHelper;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Batch;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchDocumentCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchDocumentResponse;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.ConversionTarget;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Document;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.DocumentCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Job;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.JobCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.JobResponse;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.OutputCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Property;
+import com.ibm.watson.developer_cloud.service.WatsonService;
 
 /**
  * The IBM Watson Document Conversion service converts provided source
@@ -99,25 +117,34 @@ public class DocumentConversion extends WatsonService {
      **/
     public final static String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
 
-    /**
-     * The default limit for get requests
-     **/
+    /** The default limit for get requests. */
     public static final int DEFAULT_LIMIT = 100;
 
-    /** The default URL for the service */
+    /**  The default URL for the service. */
     private static final String URL = "https://gateway.watsonplatform.net/document-conversion-experimental/api";
 
+    /** The batch helper. */
     // Helper classes used by the service to delegate API calls to
     private final BatchHelper batchHelper;
+    
+    /** The document helper. */
     private final DocumentHelper documentHelper;
+    
+    /** The batch document helper. */
     private final BatchDocumentHelper batchDocumentHelper;
+    
+    /** The job helper. */
     private final JobHelper jobHelper;
+    
+    /** The output helper. */
     private final OutputHelper outputHelper;
+    
+    /** The convert document helper. */
     private final ConvertDocumentHelper convertDocumentHelper;
 
 
     /**
-     * Sets the endpoint url for the service
+     * Sets the endpoint url for the service.
      */
     public DocumentConversion() {
         setEndPoint(URL);
@@ -133,7 +160,8 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Gets a collection of all existing batches in the service
-     * GET /v1/batches
+     * GET /v1/batches.
+     *
      * @return All batches
      */
     public BatchCollection getBatchCollection() {
@@ -162,8 +190,9 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Creates a new batch with name and properties
+     * 
+     * POST /v1/batches.
      *
-     * POST /v1/batches
      * @param name the name of the created batch
      * @param properties the properties for the created batch
      * @return requested Batch
@@ -174,8 +203,9 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Gets an existing batch
+     * 
+     * GET /v1/batches/{batch_id}.
      *
-     * GET /v1/batches/{batch_id}
      * @param batchId id for the batch to be updated
      * @return requested Batch
      */
@@ -185,13 +215,13 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Updates an existing batch with the provided name and properties
+     * 
+     * PUT /v1/batches/{batch_id}.
      *
-     * PUT /v1/batches/{batch_id}
      * @param batchId id for the batch to be updated
      * @param name name of the batch to be updated
      * @param properties properties of the batch to be updated
      * @return updated Batch
-     *
      */
     public Batch updateBatch(final String batchId, final String name,
                              final List<Property> properties) {
@@ -200,7 +230,8 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Gets a collection of uploaded documents
-     * GET /v1/documents
+     * GET /v1/documents.
+     *
      * @return All documents
      */
     public DocumentCollection getDocumentCollection() {
@@ -229,8 +260,9 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Uploads the document to the service with the given media type
+     * 
+     * POST /v1/documents.
      *
-     * POST /v1/documents
      * @param document the document to be uploaded
      * @return Document
      */
@@ -240,9 +272,11 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Uploads the document to the service with the given media type
+     * 
+     * POST /v1/documents.
      *
-     * POST /v1/documents
      * @param document the document to be uploaded
+     * @param mediaType the media type
      * @return Document
      */
     public Document uploadDocument(final File document, final String mediaType) {
@@ -252,10 +286,11 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Retrieves a document from the service with the given id
+     * 
+     * GET /v1/documents/{document_id}.
      *
-     * GET /v1/documents/{document_id}
      * @param documentId id of the document to be retrieved
-     * @return requested Document
+     * @return requested Document as InputStream
      */
     public InputStream getDocument(final String documentId) {
         return documentHelper.getDocument(documentId);
@@ -263,8 +298,9 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Gets a collection of existing documents in the batch
+     * 
+     * GET /v1/batches/{batch_id}/documents.
      *
-     * GET /v1/batches/{batch_id}/documents
      * @param batchId The id for the batch whose documents are returned
      * @return All documents in a batch
      */
@@ -296,12 +332,11 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Retrieves the documents from the batch whose ids are specified
+     * 
+     * GET /v1/batches/{batch_id}/documents/{document_id}.
      *
-     * GET /v1/batches/{batch_id}/documents/{document_id}
-     * @param batchId
-     *          id of the batch to be retrieved
-     * @param documentId
-     *          id of the document to be retrieved
+     * @param batchId          id of the batch to be retrieved
+     * @param documentId          id of the document to be retrieved
      * @return document from the batch
      */
     public BatchDocumentResponse getBatchDocument(final String batchId, final String documentId) {
@@ -310,12 +345,11 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Adds a document to the batch whose ids are specified
+     * 
+     * PUT /v1/batches/{batch_id}/documents/{document_id}.
      *
-     * PUT /v1/batches/{batch_id}/documents/{document_id}
-     * @param batchId
-     *          id of the batch to be retrieved
-     * @param documentId
-     *          id of the document to be retrieved
+     * @param batchId          id of the batch to be retrieved
+     * @param documentId          id of the document to be retrieved
      * @return document from the batch
      */
     public BatchDocumentResponse addDocumentToBatch(final String batchId, final String documentId) {
@@ -324,7 +358,7 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Synchronously converts a new document without persistence into an Answers object
-     * POST /v1/convert_document
+     * POST /v1/convert_document.
      *
      * @param document The file to convert
      * @return Converted document as an Answer
@@ -335,7 +369,7 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Synchronously converts a new document without persistence
-     * POST /v1/convert_document
+     * POST /v1/convert_document.
      *
      * @param document The file to convert
      * @param conversionTarget The conversion target to use
@@ -347,7 +381,7 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Synchronously converts a new document without persistence
-     * POST /v1/convert_document
+     * POST /v1/convert_document.
      *
      * @param document The file to convert
      * @param mediaType Internet media type of the file
@@ -360,7 +394,7 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Synchronously converts a single previously uploaded document into an Answers object
-     * POST /v1/convert_document
+     * POST /v1/convert_document.
      *
      * @param documentId The id of the document to convert
      * @return Converted document as an Answer
@@ -371,7 +405,7 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Synchronously converts a single previously uploaded document
-     * POST /v1/convert_document
+     * POST /v1/convert_document.
      *
      * @param documentId The id of the document to convert
      * @param conversionTarget The conversion target to use
@@ -383,7 +417,8 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Gets a collection of all jobs in the service
-     * GET /v1/jobs
+     * GET /v1/jobs.
+     *
      * @return All jobs
      */
     public JobCollection getJobCollection() {
@@ -415,7 +450,8 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Creates a new job by submitting a batch for processing
-     * POST /v1/jobs
+     * POST /v1/jobs.
+     *
      * @param name The name of the job
      * @param batchId The id of the batch to process
      * @param conversionTarget The conversion target to use
@@ -427,7 +463,8 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Creates a new job by submitting a batch for processing
-     * POST /v1/jobs
+     * POST /v1/jobs.
+     *
      * @param name The name of the job
      * @param batchId The id of the batch to process
      * @param conversionTarget The conversion target to use
@@ -441,7 +478,8 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Gets information about a job
-     * GET /v1/jobs/{job_id}
+     * GET /v1/jobs/{job_id}.
+     *
      * @param jobId The id of the job
      * @return Job
      */
@@ -451,7 +489,8 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Gets the job processing log
-     * GET /v1/jobs/{job_id}/log
+     * GET /v1/jobs/{job_id}/log.
+     *
      * @param jobId The id of the job
      * @return Job's processing log
      */
@@ -461,7 +500,8 @@ public class DocumentConversion extends WatsonService {
 
     /**
      * Gets a collection of all generated outputs
-     * GET /v1/output
+     * GET /v1/output.
+     *
      * @return All Outputs
      */
     public OutputCollection getOutputCollection() {
@@ -499,6 +539,9 @@ public class DocumentConversion extends WatsonService {
         return outputHelper.getOutput(outputId);
     }
 
+    /* (non-Javadoc)
+     * @see com.ibm.watson.developer_cloud.service.WatsonService#execute(org.apache.http.client.methods.HttpRequestBase)
+     */
     @Override
     public HttpResponse execute(final HttpRequestBase request) {
         return super.execute(request);

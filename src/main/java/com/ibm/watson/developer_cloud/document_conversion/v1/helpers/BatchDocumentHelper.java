@@ -1,16 +1,18 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
-import com.google.gson.annotations.Expose;
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
-import com.ibm.watson.developer_cloud.service.Request;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
 import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
+
+import com.google.gson.annotations.Expose;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchDocumentCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchDocumentResponse;
+import com.ibm.watson.developer_cloud.service.Request;
+import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
  * Helper for the batch documents API calls

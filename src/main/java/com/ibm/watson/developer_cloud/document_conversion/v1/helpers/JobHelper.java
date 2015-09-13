@@ -15,22 +15,27 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Date;
+import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
+
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.ConversionTarget;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Job;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.JobCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.JobResponse;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.JobStatus;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.HttpHeaders;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Date;
-import java.util.Map;
 
 /**
  * Helper class for all job API calls
