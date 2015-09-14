@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 
 /**
- * Alchemy generic model with the number of transactions of each operation
+ * Alchemy generic model with the number of transactions of each operation.
  */
 public abstract class AlchemyGenericModel extends GenericModel {
 
