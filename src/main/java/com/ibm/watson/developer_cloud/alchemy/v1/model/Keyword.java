@@ -17,13 +17,17 @@
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Keyword returned by the {@link AlchemyLanguage} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Keyword {
+public class Keyword extends GenericModel {
+
+    /** The knowledge graph. */
+    private KnowledgeGraph knowledgeGraph;
 
     /** The relevance. */
     private Double relevance;
@@ -33,9 +37,6 @@ public class Keyword {
 
     /** The text. */
     private String text;
-
-    /** The knowledge graph. */
-    private KnowledgeGraph knowledgeGraph;
     
     /**
      * Gets the knowledge graph.
@@ -47,15 +48,6 @@ public class Keyword {
 	}
 
 	/**
-	 * Sets the knowledge graph.
-	 *
-	 * @param knowledgeGraph the knowledgeGraph to set
-	 */
-	public void setKnowledgeGraph(KnowledgeGraph knowledgeGraph) {
-		this.knowledgeGraph = knowledgeGraph;
-	}
-
-	/**
      * Gets the relevance.
      *
      * @return     The relevance
@@ -64,53 +56,13 @@ public class Keyword {
         return relevance;
     }
 
-    /**
-     * Sets the relevance.
-     *
-     * @param relevance     The relevance
-     */
-    public void setRelevance(Double relevance) {
-        this.relevance = relevance;
-    }
-
-    /**
-     * With relevance.
-     *
-     * @param relevance the relevance
-     * @return the keyword
-     */
-    public Keyword withRelevance(Double relevance) {
-        this.relevance = relevance;
-        return this;
-    }
-
-    /**
+	/**
      * Gets the sentiment.
      *
      * @return     The sentiment
      */
     public Sentiment getSentiment() {
         return sentiment;
-    }
-
-    /**
-     * Sets the sentiment.
-     *
-     * @param sentiment     The sentiment
-     */
-    public void setSentiment(Sentiment sentiment) {
-        this.sentiment = sentiment;
-    }
-
-    /**
-     * With sentiment.
-     *
-     * @param sentiment the sentiment
-     * @return the keyword
-     */
-    public Keyword withSentiment(Sentiment sentiment) {
-        this.sentiment = sentiment;
-        return this;
     }
 
     /**
@@ -123,23 +75,39 @@ public class Keyword {
     }
 
     /**
+	 * Sets the knowledge graph.
+	 *
+	 * @param knowledgeGraph the knowledgeGraph to set
+	 */
+	public void setKnowledgeGraph(KnowledgeGraph knowledgeGraph) {
+		this.knowledgeGraph = knowledgeGraph;
+	}
+
+    /**
+     * Sets the relevance.
+     *
+     * @param relevance     The relevance
+     */
+    public void setRelevance(Double relevance) {
+        this.relevance = relevance;
+    }
+
+    /**
+     * Sets the sentiment.
+     *
+     * @param sentiment     The sentiment
+     */
+    public void setSentiment(Sentiment sentiment) {
+        this.sentiment = sentiment;
+    }
+
+    /**
      * Sets the text.
      *
      * @param text     The text
      */
     public void setText(String text) {
         this.text = text;
-    }
-
-    /**
-     * With text.
-     *
-     * @param text the text
-     * @return the keyword
-     */
-    public Keyword withText(String text) {
-        this.text = text;
-        return this;
     }
 
 }

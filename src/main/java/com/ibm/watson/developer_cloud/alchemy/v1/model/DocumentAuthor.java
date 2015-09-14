@@ -20,7 +20,6 @@
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Author returned by the {@link AlchemyLanguage} service.
@@ -49,24 +48,4 @@ public class DocumentAuthor extends AlchemyLanguageGenericModel {
     public void setAuthor(String author) {
         this.author = author;
     }
-
-    /**
-     * With author.
-     *
-     * @param author the author
-     * @return the author
-     */
-    public DocumentAuthor withAuthor(String author) {
-        this.author = author;
-        return this;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-    }
-
 }

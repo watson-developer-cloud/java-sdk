@@ -20,50 +20,21 @@
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * ImageKeyword by the {@link AlchemyVision} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class ImageKeyword {
+public class ImageKeyword extends GenericModel {
 
-
-    /** The text. */
-    private String text;
 
     /** The score. */
     private Double score;
 
-    /**
-     * Gets the text.
-     *
-     * @return The text
-     */
-    public String getText() {
-        return text;
-    }
-
-    /**
-     * Sets the text.
-     *
-     * @param text The text
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    /**
-     * With text.
-     *
-     * @param text the text
-     * @return the image keyword
-     */
-    public ImageKeyword withText(String text) {
-        this.text = text;
-        return this;
-    }
+    /** The text. */
+    private String text;
 
     /**
      * Gets the score.
@@ -72,6 +43,15 @@ public class ImageKeyword {
      */
     public Double getScore() {
         return score;
+    }
+
+    /**
+     * Gets the text.
+     *
+     * @return The text
+     */
+    public String getText() {
+        return text;
     }
 
     /**
@@ -84,47 +64,12 @@ public class ImageKeyword {
     }
 
     /**
-     * With score.
+     * Sets the text.
      *
-     * @param score the score
-     * @return the image keyword
+     * @param text The text
      */
-    public ImageKeyword withScore(Double score) {
-        this.score = score;
-        return this;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ImageKeyword that = (ImageKeyword) o;
-
-        if (text != null ? !text.equals(that.text) : that.text != null) return false;
-        return !(score != null ? !score.equals(that.score) : that.score != null);
-
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        int result = text != null ? text.hashCode() : 0;
-        result = 31 * result + (score != null ? score.hashCode() : 0);
-        return result;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+    public void setText(String text) {
+        this.text = text;
     }
 
 }

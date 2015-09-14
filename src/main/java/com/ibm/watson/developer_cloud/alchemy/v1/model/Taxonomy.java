@@ -25,14 +25,23 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Taxonomy extends GenericModel {
 
+	/** The confident. */
+	private String confident;
+
 	/** The label. */
 	private String label;
 
 	/** The score. */
 	private Double score;
 
-	/** The confident. */
-	private String confident;
+	/**
+	 * Gets the confident.
+	 * 
+	 * @return The confident
+	 */
+	public String getConfident() {
+		return confident;
+	}
 
 	/**
 	 * Gets the label.
@@ -41,6 +50,25 @@ public class Taxonomy extends GenericModel {
 	 */
 	public String getLabel() {
 		return label;
+	}
+
+	/**
+	 * Gets the score.
+	 * 
+	 * @return The score
+	 */
+	public Double getScore() {
+		return score;
+	}
+
+	/**
+	 * Sets the confident.
+	 * 
+	 * @param confident
+	 *            The confident
+	 */
+	public void setConfident(String confident) {
+		this.confident = confident;
 	}
 
 	/**
@@ -54,15 +82,6 @@ public class Taxonomy extends GenericModel {
 	}
 
 	/**
-	 * Gets the score.
-	 * 
-	 * @return The score
-	 */
-	public Double getScore() {
-		return score;
-	}
-
-	/**
 	 * Sets the score.
 	 * 
 	 * @param score
@@ -70,25 +89,6 @@ public class Taxonomy extends GenericModel {
 	 */
 	public void setScore(Double score) {
 		this.score = score;
-	}
-
-	/**
-	 * Gets the confident.
-	 * 
-	 * @return The confident
-	 */
-	public String getConfident() {
-		return confident;
-	}
-
-	/**
-	 * Sets the confident.
-	 * 
-	 * @param confident
-	 *            The confident
-	 */
-	public void setConfident(String confident) {
-		this.confident = confident;
 	}
 
 }

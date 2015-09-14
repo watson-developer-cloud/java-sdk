@@ -20,74 +20,22 @@
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
-import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
 
 /**
  * Image by the {@link AlchemyVision} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class ImageKeywords {
+public class ImageKeywords extends AlchemyGenericModel {
+
+    /** The image keywords. */
+    private List<ImageKeyword> imageKeywords;
 
     /** The url. */
     private String url;
-
-    /** The total transactions. */
-    private Integer totalTransactions;
-
-    /** The image keywords. */
-    private List<ImageKeyword> imageKeywords = new ArrayList<ImageKeyword>();
-
-    /**
-     * Gets the url.
-     *
-     * @return The url
-     */
-    public String getUrl() {
-        return url;
-    }
-
-    /**
-     * Sets the url.
-     *
-     * @param url The url
-     */
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    /**
-     * With url.
-     *
-     * @param url the url
-     * @return the image keywords
-     */
-    public ImageKeywords withUrl(String url) {
-        this.url = url;
-        return this;
-    }
-
-    /**
-     * Gets the total transactions.
-     *
-     * @return The totalTransactions
-     */
-    public Integer getTotalTransactions() {
-        return totalTransactions;
-    }
-
-    /**
-     * Sets the total transactions.
-     *
-     * @param totalTransactions The totalTransactions
-     */
-    public void setTotalTransactions(Integer totalTransactions) {
-        this.totalTransactions = totalTransactions;
-    }
 
     /**
      * Gets the image keywords.
@@ -96,6 +44,15 @@ public class ImageKeywords {
      */
     public List<ImageKeyword> getImageKeywords() {
         return imageKeywords;
+    }
+
+    /**
+     * Gets the url.
+     *
+     * @return The url
+     */
+    public String getUrl() {
+        return url;
     }
 
     /**
@@ -108,49 +65,11 @@ public class ImageKeywords {
     }
 
     /**
-     * With image keywords.
+     * Sets the url.
      *
-     * @param imageKeywords the image keywords
-     * @return the image keywords
+     * @param url The url
      */
-    public ImageKeywords withImageKeywords(List<ImageKeyword> imageKeywords) {
-        this.imageKeywords = imageKeywords;
-        return this;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ImageKeywords image = (ImageKeywords) o;
-
-        if (url != null ? !url.equals(image.url) : image.url != null) return false;
-        if (totalTransactions != null ? !totalTransactions.equals(image.totalTransactions) : image.totalTransactions != null)
-            return false;
-        return !(imageKeywords != null ? !imageKeywords.equals(image.imageKeywords) : image.imageKeywords != null);
-
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        int result = url != null ? url.hashCode() : 0;
-        result = 31 * result + (totalTransactions != null ? totalTransactions.hashCode() : 0);
-        result = 31 * result + (imageKeywords != null ? imageKeywords.hashCode() : 0);
-        return result;
-    }
-
-    /* (non-Javadoc)
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

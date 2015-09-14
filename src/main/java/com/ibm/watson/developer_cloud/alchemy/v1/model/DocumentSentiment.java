@@ -25,31 +25,12 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
  */
 public class DocumentSentiment extends AlchemyLanguageGenericModel {
 
-	/** The text. */
-	private String text;
-
-	/**
-	 * Gets the text.
-	 * 
-	 * @return the text
-	 */
-	public String getText() {
-		return text;
-	}
-
-	/**
-	 * Sets the text.
-	 * 
-	 * @param text
-	 *            the text to set
-	 */
-	public void setText(String text) {
-		this.text = text;
-	}
-
 	/** The doc sentiment. */
 	@SerializedName("docSentiment")
 	private Sentiment sentiment;
+
+	/** The text. */
+	private String text;
 
 	/**
 	 * Gets the sentiment.
@@ -61,6 +42,15 @@ public class DocumentSentiment extends AlchemyLanguageGenericModel {
 	}
 
 	/**
+	 * Gets the text.
+	 * 
+	 * @return the text
+	 */
+	public String getText() {
+		return text;
+	}
+
+	/**
 	 * Sets the sentiment.
 	 * 
 	 * @param sentiment
@@ -68,6 +58,16 @@ public class DocumentSentiment extends AlchemyLanguageGenericModel {
 	 */
 	public void setSentiment(Sentiment sentiment) {
 		this.sentiment = sentiment;
+	}
+
+	/**
+	 * Sets the text.
+	 * 
+	 * @param text
+	 *            the text to set
+	 */
+	public void setText(String text) {
+		this.text = text;
 	}
 
 }

@@ -26,7 +26,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class SAORelation {
+public class SAORelation extends GenericModel {
 
 	/**
 	 * The Class Action.

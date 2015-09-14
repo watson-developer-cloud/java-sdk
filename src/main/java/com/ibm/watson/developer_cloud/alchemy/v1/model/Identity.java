@@ -20,13 +20,14 @@
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Identity by the {@link AlchemyVision} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Identity {
+public class Identity extends GenericModel {
 
     /** The disambiguated. */
     private Disambiguated disambiguated;

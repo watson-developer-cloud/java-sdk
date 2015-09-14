@@ -26,14 +26,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Concept extends GenericModel {
 
-    /** The text. */
-    private String text;
-
-    /** The relevance. */
-    private Double relevance;
-
-    /** The website. */
-    private String website;
+    /** The crunchbase. */
+    private String crunchbase;
 
     /** The dbpedia. */
     private String dbpedia;
@@ -44,97 +38,25 @@ public class Concept extends GenericModel {
     /** The opencyc. */
     private String opencyc;
 
+    /** The relevance. */
+    private Double relevance;
+
+    /** The text. */
+    private String text;
+
+    /** The website. */
+    private String website;
+
     /** The yago. */
     private String yago;
 
-    /** The crunchbase. */
-    private String crunchbase;
-
     /**
-     * Gets the text.
+     * Gets the crunchbase.
      *
-     * @return The text
+     * @return The crunchbase
      */
-    public String getText() {
-        return text;
-    }
-
-    /**
-     * Sets the text.
-     *
-     * @param text The text
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    /**
-     * With text.
-     *
-     * @param text the text
-     * @return the concept
-     */
-    public Concept withText(String text) {
-        this.text = text;
-        return this;
-    }
-
-    /**
-     * Gets the relevance.
-     *
-     * @return The relevance
-     */
-    public Double getRelevance() {
-        return relevance;
-    }
-
-    /**
-     * Sets the relevance.
-     *
-     * @param relevance The relevance
-     */
-    public void setRelevance(Double relevance) {
-        this.relevance = relevance;
-    }
-
-    /**
-     * With relevance.
-     *
-     * @param relevance the relevance
-     * @return the concept
-     */
-    public Concept withRelevance(Double relevance) {
-        this.relevance = relevance;
-        return this;
-    }
-
-    /**
-     * Gets the website.
-     *
-     * @return The website
-     */
-    public String getWebsite() {
-        return website;
-    }
-
-    /**
-     * Sets the website.
-     *
-     * @param website The website
-     */
-    public void setWebsite(String website) {
-        this.website = website;
-    }
-
-    /**
-     * With website.
-     *
-     * @param website the website
-     * @return the concept
-     */
-    public Concept withWebsite(String website) {
-        this.website = website;
-        return this;
+    public String getCrunchbase() {
+        return crunchbase;
     }
 
     /**
@@ -147,52 +69,12 @@ public class Concept extends GenericModel {
     }
 
     /**
-     * Sets the dbpedia.
-     *
-     * @param dbpedia The dbpedia
-     */
-    public void setDbpedia(String dbpedia) {
-        this.dbpedia = dbpedia;
-    }
-
-    /**
-     * With dbpedia.
-     *
-     * @param dbpedia the dbpedia
-     * @return the concept
-     */
-    public Concept withDbpedia(String dbpedia) {
-        this.dbpedia = dbpedia;
-        return this;
-    }
-
-    /**
      * Gets the freebase.
      *
      * @return The freebase
      */
     public String getFreebase() {
         return freebase;
-    }
-
-    /**
-     * Sets the freebase.
-     *
-     * @param freebase The freebase
-     */
-    public void setFreebase(String freebase) {
-        this.freebase = freebase;
-    }
-
-    /**
-     * With freebase.
-     *
-     * @param freebase the freebase
-     * @return the concept
-     */
-    public Concept withFreebase(String freebase) {
-        this.freebase = freebase;
-        return this;
     }
 
     /**
@@ -205,23 +87,30 @@ public class Concept extends GenericModel {
     }
 
     /**
-     * Sets the opencyc.
+     * Gets the relevance.
      *
-     * @param opencyc The opencyc
+     * @return The relevance
      */
-    public void setOpencyc(String opencyc) {
-        this.opencyc = opencyc;
+    public Double getRelevance() {
+        return relevance;
     }
 
     /**
-     * With opencyc.
+     * Gets the text.
      *
-     * @param opencyc the opencyc
-     * @return the concept
+     * @return The text
      */
-    public Concept withOpencyc(String opencyc) {
-        this.opencyc = opencyc;
-        return this;
+    public String getText() {
+        return text;
+    }
+
+    /**
+     * Gets the website.
+     *
+     * @return The website
+     */
+    public String getWebsite() {
+        return website;
     }
 
     /**
@@ -234,35 +123,6 @@ public class Concept extends GenericModel {
     }
 
     /**
-     * Sets the yago.
-     *
-     * @param yago The yago
-     */
-    public void setYago(String yago) {
-        this.yago = yago;
-    }
-
-    /**
-     * With yago.
-     *
-     * @param yago the yago
-     * @return the concept
-     */
-    public Concept withYago(String yago) {
-        this.yago = yago;
-        return this;
-    }
-
-    /**
-     * Gets the crunchbase.
-     *
-     * @return The crunchbase
-     */
-    public String getCrunchbase() {
-        return crunchbase;
-    }
-
-    /**
      * Sets the crunchbase.
      *
      * @param crunchbase The crunchbase
@@ -272,13 +132,65 @@ public class Concept extends GenericModel {
     }
 
     /**
-     * With crunchbase.
+     * Sets the dbpedia.
      *
-     * @param crunchbase the crunchbase
-     * @return the concept
+     * @param dbpedia The dbpedia
      */
-    public Concept withCrunchbase(String crunchbase) {
-        this.crunchbase = crunchbase;
-        return this;
+    public void setDbpedia(String dbpedia) {
+        this.dbpedia = dbpedia;
+    }
+
+    /**
+     * Sets the freebase.
+     *
+     * @param freebase The freebase
+     */
+    public void setFreebase(String freebase) {
+        this.freebase = freebase;
+    }
+
+    /**
+     * Sets the opencyc.
+     *
+     * @param opencyc The opencyc
+     */
+    public void setOpencyc(String opencyc) {
+        this.opencyc = opencyc;
+    }
+
+    /**
+     * Sets the relevance.
+     *
+     * @param relevance The relevance
+     */
+    public void setRelevance(Double relevance) {
+        this.relevance = relevance;
+    }
+
+    /**
+     * Sets the text.
+     *
+     * @param text The text
+     */
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /**
+     * Sets the website.
+     *
+     * @param website The website
+     */
+    public void setWebsite(String website) {
+        this.website = website;
+    }
+
+    /**
+     * Sets the yago.
+     *
+     * @param yago The yago
+     */
+    public void setYago(String yago) {
+        this.yago = yago;
     }
 }

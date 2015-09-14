@@ -30,22 +30,21 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class CombinedResults extends AlchemyLanguageGenericModel  {
-
-    /** The image. */
-    private String author,title,image;
 	
-	/** The concepts. */
+    /** The author. */
+    private String author;
+    
+    /** The concepts. */
     private List<Concept> concepts;
-	
-	/** The doc sentiment. */
-	@SerializedName("docSentiment")
-    private Sentiment sentiment;
-	
-	/** The entities. */
+    
+    /** The entities. */
     private List<Entity> entities;
 	
 	/** The feeds. */
     private List<Feed> feeds;
+	
+	/** The image. */
+    private String image;
 	
 	/** The image keywords. */
     private List<Keyword> imageKeywords;
@@ -59,8 +58,15 @@ public class CombinedResults extends AlchemyLanguageGenericModel  {
 	/** The relations. */
     private List<SAORelation> relations;
 	
+	/** The doc sentiment. */
+	@SerializedName("docSentiment")
+    private Sentiment sentiment;
+	
 	/** The taxonomy. */
     private List<Taxonomy> taxonomy;
+	
+	/** The title. */
+    private String title;
 	
 	/**
 	 * Gets the author.
@@ -78,15 +84,6 @@ public class CombinedResults extends AlchemyLanguageGenericModel  {
 	 */
 	public List<Concept> getConcepts() {
 		return concepts;
-	}
-	
-	/**
-	 * Gets the sentiment.
-	 *
-	 * @return the sentiment
-	 */
-	public Sentiment getSentiment() {
-		return sentiment;
 	}
 	
 	/**
@@ -153,6 +150,15 @@ public class CombinedResults extends AlchemyLanguageGenericModel  {
 	}
 	
 	/**
+	 * Gets the sentiment.
+	 *
+	 * @return the sentiment
+	 */
+	public Sentiment getSentiment() {
+		return sentiment;
+	}
+	
+	/**
 	 * Gets the taxonomy.
 	 *
 	 * @return the taxonomy
@@ -189,15 +195,6 @@ public class CombinedResults extends AlchemyLanguageGenericModel  {
 	}
 	
 	/**
-	 * Sets the sentiment.
-	 *
-	 * @param sentiment the sentiment to set
-	 */
-	public void setSentiment(Sentiment sentiment) {
-		this.sentiment = sentiment;
-	}
-    
-    /**
 	 * Sets the entities.
 	 *
 	 * @param entities the entities to set
@@ -250,7 +247,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel  {
 	public void setPublicationDate(PublicationDate publicationDate) {
 		this.publicationDate = publicationDate;
 	}
-
+    
     /**
 	 * Sets the relations.
 	 *
@@ -258,6 +255,15 @@ public class CombinedResults extends AlchemyLanguageGenericModel  {
 	 */
 	public void setRelations(List<SAORelation> relations) {
 		this.relations = relations;
+	}
+
+    /**
+	 * Sets the sentiment.
+	 *
+	 * @param sentiment the sentiment to set
+	 */
+	public void setSentiment(Sentiment sentiment) {
+		this.sentiment = sentiment;
 	}
     
     /**

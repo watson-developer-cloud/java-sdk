@@ -209,7 +209,7 @@ public class AlchemyLanguage extends AlchemyService {
 	 *            be specified.
 	 * @return {@link Microformats}
 	 */
-	public CombinedResults getCombined(Map<String, Object> params) {
+	public CombinedResults getCombinedResults(Map<String, Object> params) {
 		return executeRequest(params, AlchemyAPI.combined, CombinedResults.class, "text", "html", "url");
 	}
 

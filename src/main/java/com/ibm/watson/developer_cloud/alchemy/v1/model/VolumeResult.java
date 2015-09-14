@@ -26,7 +26,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class VolumeResult extends GenericModel {
+public class VolumeResult extends AlchemyGenericModel {
 
 	/**
 	 * The Class Volume.
@@ -97,21 +97,9 @@ public class VolumeResult extends GenericModel {
 	    }
 	}
 	
-    /** The total transactions. */
-    private Integer totalTransactions;
-
     /** The volume. */
     @SerializedName("result")
     private Volume volume;
-
-    /**
-     * Gets the total transactions.
-     *
-     * @return The totalTransactions
-     */
-    public Integer getTotalTransactions() {
-        return totalTransactions;
-    }
 
     /**
 	 * Gets the volume.
@@ -121,15 +109,6 @@ public class VolumeResult extends GenericModel {
 	public Volume getVolume() {
 		return volume;
 	}
-
-	/**
-     * Sets the total transactions.
-     *
-     * @param totalTransactions The totalTransactions
-     */
-    public void setTotalTransactions(Integer totalTransactions) {
-        this.totalTransactions = totalTransactions;
-    }
 
 	/**
 	 * Sets the volume.

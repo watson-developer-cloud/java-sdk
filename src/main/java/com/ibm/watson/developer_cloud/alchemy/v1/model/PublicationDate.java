@@ -41,26 +41,6 @@ public class PublicationDate extends GenericModel {
 	}
 
 	/**
-	 * Sets the confident.
-	 *
-	 * @param confident            The confident
-	 */
-	public void setConfident(String confident) {
-		this.confident = confident;
-	}
-
-	/**
-	 * With confident.
-	 *
-	 * @param confident the confident
-	 * @return the publication date
-	 */
-	public PublicationDate withConfident(String confident) {
-		this.confident = confident;
-		return this;
-	}
-
-	/**
 	 * Gets the date.
 	 *
 	 * @return The date
@@ -70,22 +50,20 @@ public class PublicationDate extends GenericModel {
 	}
 
 	/**
+	 * Sets the confident.
+	 *
+	 * @param confident            The confident
+	 */
+	public void setConfident(String confident) {
+		this.confident = confident;
+	}
+
+	/**
 	 * Sets the date.
 	 *
 	 * @param date            The date
 	 */
 	public void setDate(String date) {
 		this.date = date;
-	}
-
-	/**
-	 * With date.
-	 *
-	 * @param date the date
-	 * @return the publication date
-	 */
-	public PublicationDate withDate(String date) {
-		this.date = date;
-		return this;
 	}
 }

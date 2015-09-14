@@ -15,19 +15,15 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 
 /**
  * Abstract model class for Alchemy Language models.
  */
-public abstract class AlchemyLanguageGenericModel extends GenericModel {
+public abstract class AlchemyLanguageGenericModel extends AlchemyGenericModel {
 
     /** The language. */
 	private String language;
-
-	/** The total transactions. */
-	private Integer totalTransactions;
 
 	/** The url. */
     private String url;
@@ -39,15 +35,6 @@ public abstract class AlchemyLanguageGenericModel extends GenericModel {
 	 */
 	public String getLanguage() {
 		return language;
-	}
-
-	/**
-	 * Gets the total transactions.
-	 *
-	 * @return the totalTransactions
-	 */
-	public Integer getTotalTransactions() {
-		return totalTransactions;
 	}
 
 	/**
@@ -66,15 +53,6 @@ public abstract class AlchemyLanguageGenericModel extends GenericModel {
 	 */
 	public void setLanguage(String language) {
 		this.language = language;
-	}
-	
-	/**
-	 * Sets the total transactions.
-	 *
-	 * @param totalTransactions the totalTransactions to set
-	 */
-	public void setTotalTransactions(Integer totalTransactions) {
-		this.totalTransactions = totalTransactions;
 	}
 	
 	/**

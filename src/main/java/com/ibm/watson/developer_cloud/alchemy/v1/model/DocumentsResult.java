@@ -17,21 +17,17 @@ package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Result by the {@link AlchemyDataNews} service.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class DocumentsResult extends GenericModel {
+public class DocumentsResult extends AlchemyGenericModel {
 
     /** The document. */
     @SerializedName("result")
     private Documents documents;
-
-    /** The total transactions. */
-    private Integer totalTransactions;
 
     /**
 	 * Gets the document.
@@ -42,15 +38,6 @@ public class DocumentsResult extends GenericModel {
 		return documents;
 	}
 
-    /**
-     * Gets the total transactions.
-     *
-     * @return The totalTransactions
-     */
-    public Integer getTotalTransactions() {
-        return totalTransactions;
-    }
-
 	/**
 	 * Sets the document.
 	 *
@@ -59,14 +46,4 @@ public class DocumentsResult extends GenericModel {
 	public void setDocuments(Documents documents) {
 		this.documents = documents;
 	}
-
-	/**
-     * Sets the total transactions.
-     *
-     * @param totalTransactions The totalTransactions
-     */
-    public void setTotalTransactions(Integer totalTransactions) {
-        this.totalTransactions = totalTransactions;
-    }
-
 }

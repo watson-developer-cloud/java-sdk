@@ -15,55 +15,32 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
+
 /**
- * Microformat returned by the {@link AlchemyLanguage} service.
- *
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * Alchemy generic model with the number of transactions of each operation
  */
-public class Microformat extends GenericModel {
+public abstract class AlchemyGenericModel extends GenericModel {
 
-	/** The data. */
-	private String data;
-	
-	/** The field. */
-	private String field;
+	/** The total transactions. */
+	private Integer totalTransactions;
 
 	/**
-	 * Gets the data.
+	 * Gets the total transactions.
 	 *
-	 * @return the data
+	 * @return the totalTransactions
 	 */
-	public String getData() {
-		return data;
+	public Integer getTotalTransactions() {
+		return totalTransactions;
 	}
 
 	/**
-	 * Gets the field.
+	 * Sets the total transactions.
 	 *
-	 * @return the field
+	 * @param totalTransactions the totalTransactions to set
 	 */
-	public String getField() {
-		return field;
-	}
-
-	/**
-	 * Sets the data.
-	 *
-	 * @param data the data to set
-	 */
-	public void setData(String data) {
-		this.data = data;
-	}
-
-	/**
-	 * Sets the field.
-	 *
-	 * @param field the field to set
-	 */
-	public void setField(String field) {
-		this.field = field;
+	public void setTotalTransactions(Integer totalTransactions) {
+		this.totalTransactions = totalTransactions;
 	}
 }

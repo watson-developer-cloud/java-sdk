@@ -87,15 +87,4 @@ public class Document extends GenericModel {
     public void setTimestamp(int timestamp) {
         this.timestamp = timestamp;
     }
-
-    /**
-     * With id.
-     *
-     * @param id the id
-     * @return the doc
-     */
-    public Document withId(String id) {
-        this.id = id;
-        return this;
-    }
 }
