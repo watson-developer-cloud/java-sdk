@@ -23,7 +23,8 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.alchemy_language.v1.model.DocumentSentiment;
+import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 
 public class AlchemyLanguageExample {
 

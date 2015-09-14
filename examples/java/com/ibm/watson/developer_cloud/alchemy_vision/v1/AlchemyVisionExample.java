@@ -24,7 +24,8 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.alchemy_vision.v1.model.ImageKeywords;
+import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
 
 public class AlchemyVisionExample {
 
