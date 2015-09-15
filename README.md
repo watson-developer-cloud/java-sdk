@@ -16,6 +16,7 @@ Java code wrappers to quickly get started with the various [Watson Developer Clo
     * [IBM Watson Services](#ibm-watson-services)
       * [Concept Expansion](#concept-expansion)
       * [Dialog](#dialog)
+      * [Document Conversion] (#document-conversion)
       * [Language Identification](#language-identification)
       * [Language Translation](#language-translation)
       * [Machine Translation](#machine-translation)
@@ -125,6 +126,29 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 List<Dialog> dialogs = service.getDialogs();
 System.out.println(dialogs);
+```
+
+
+
+### Document Conversion
+The Document Conversion service allows to convert pdf, word, and html documents into formats useful to other Watson Cognitive services. Target formats include normalized html, plain text, and sets of potential answers for Watson question answering. You can convert documents synchronously one at a time, or asynchronously in batches
+
+Returns the document list using the [Document Conversion][#document-conversion] service.
+
+```java
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.DocumentCollection;
+import java.util.HashMap;
+import java.util.Map;
+
+DocumentConversion service = new DocumentConversion();
+service.setUsernameAndPassword("<username>", "<password>");
+
+Map<String, Object> docListParams = new HashMap<String, Object>();
+docListParams.put(DocumentConversion.LIMIT, 10);
+docListParams.put(DocumentConversion.NAME, "example.html");
+DocumentCollection documentCollection = service.getDocumentCollection(docListParams);
+System.out.println(documentCollection);
 ```
 
 ### Language Identification
