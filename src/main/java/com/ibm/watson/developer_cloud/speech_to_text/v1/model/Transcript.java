@@ -97,6 +97,9 @@ public class Transcript {
 		return this;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
@@ -109,6 +112,9 @@ public class Transcript {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
 	@Override
 	public int hashCode() {
 		int result = alternatives.hashCode();

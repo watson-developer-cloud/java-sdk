@@ -1,12 +1,12 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Speech session.
  */
-public class SpeechSession {
+public class SpeechSession extends GenericModel {
 
 	/** The cookie session. */
 	@SerializedName("cookie_session")
@@ -142,76 +142,5 @@ public class SpeechSession {
 	 */
 	public void setSessionId(final String sessionId) {
 		this.sessionId = sessionId;
-	}
-
-	/**
-	 * With new session uri.
-	 * 
-	 * @param newSessionUri
-	 *            the new session uri
-	 * @return the speech session
-	 */
-	public SpeechSession withNewSessionUri(final String newSessionUri) {
-		this.newSessionUri = newSessionUri;
-		return this;
-	}
-
-	/**
-	 * With observe result.
-	 * 
-	 * @param observeResult
-	 *            the observe result
-	 * @return the speech session
-	 */
-	public SpeechSession withObserveResult(final String observeResult) {
-		this.observeResult = observeResult;
-		return this;
-	}
-
-	/**
-	 * With recognize.
-	 * 
-	 * @param recognize
-	 *            the recognize
-	 * @return the speech session
-	 */
-	public SpeechSession withRecognize(final String recognize) {
-		this.recognize = recognize;
-		return this;
-	}
-
-	/**
-	 * With recognize ws.
-	 * 
-	 * @param recognizeWS
-	 *            the recognize ws
-	 * @return the speech session
-	 */
-	public SpeechSession withRecognizeWS(final String recognizeWS) {
-		this.recognizeWS = recognizeWS;
-		return this;
-	}
-
-	/**
-	 * With session id.
-	 * 
-	 * @param sessionId
-	 *            the session id
-	 * @return the speech session
-	 */
-	public SpeechSession withSessionId(final String sessionId) {
-		this.sessionId = sessionId;
-		return this;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

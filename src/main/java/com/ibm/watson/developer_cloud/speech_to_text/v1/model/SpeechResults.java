@@ -16,19 +16,18 @@
 
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class SpeechResults.
  */
-public class SpeechResults {
+public class SpeechResults extends GenericModel {
 
 	/** The results. */
-	private List<Transcript> results = new ArrayList<Transcript>();
+	private List<Transcript> results;
 	
 	/** The result index. */
 	@SerializedName("result_index")
@@ -54,18 +53,6 @@ public class SpeechResults {
 	}
 
 	/**
-	 * With results.
-	 * 
-	 * @param results
-	 *            the results
-	 * @return the speech results
-	 */
-	public SpeechResults withResults(final List<Transcript> results) {
-		this.results = results;
-		return this;
-	}
-
-	/**
 	 * Gets the result index.
 	 * 
 	 * @return The resultIndex
@@ -82,48 +69,6 @@ public class SpeechResults {
 	 */
 	public void setResultIndex(final int resultIndex) {
 		this.resultIndex = resultIndex;
-	}
-
-	/**
-	 * With result index.
-	 * 
-	 * @param resultIndex
-	 *            the result index
-	 * @return the speech results
-	 */
-	public SpeechResults withResultIndex(final int resultIndex) {
-		this.resultIndex = resultIndex;
-		return this;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		SpeechResults that = (SpeechResults) o;
-
-		if (resultIndex != that.resultIndex) return false;
-		return results.equals(that.results);
-
-	}
-
-	@Override
-	public int hashCode() {
-		int result = results.hashCode();
-		result = 31 * result + resultIndex;
-		return result;
-	}
-
-	/*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Object#toString()
-         */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }
