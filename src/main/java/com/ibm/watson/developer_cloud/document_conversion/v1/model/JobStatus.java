@@ -18,13 +18,21 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
 /**
- * Supported statuses for a Job in the Document Conversion service
+ * Supported statuses for a Job in the Document Conversion service.
  *
  * @see DocumentConversion
  */
 public enum JobStatus {
+    
+    /** The submitted. */
     SUBMITTED,
+    
+    /** The in progress. */
     IN_PROGRESS,
+    
+    /** The complete. */
     COMPLETE,
+    
+    /** The cancelled. */
     CANCELLED
 }

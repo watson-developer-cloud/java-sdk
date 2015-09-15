@@ -15,110 +15,103 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-import java.util.List;
-
 /**
- * Structure to store a Document that was uploaded to the service
+ * Structure to store a Document that was uploaded to the service.
  *
  * @see DocumentConversion
  */
 public class Document extends GenericModel {
-    /**
-     * The id of the document
-     */
+    
+    /** The id of the document. */
     @Expose
     private String id;
 
-    /**
-     * Name of the document
-     */
+    /** Name of the document. */
     @Expose
     private String name;
 
-    /**
-     * Mediatype of the document
-     */
+    /** Mediatype of the document. */
     @SerializedName("media_type")
     String mediaType;
 
-    /**
-     * Link to the documents
-     */
+    /** Link to the documents. */
     @Expose
     private List<Link> links;
 
     /**
-     * Returns the id of the document
+     * Returns the id of the document.
      *
-     * @return
+     * @return the id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * Sets the id of the document
+     * Sets the id of the document.
      *
-     * @param id
+     * @param id the new id
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * Returns the name of the document
+     * Returns the name of the document.
      *
-     * @return
+     * @return the name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Sets the name of the document
+     * Sets the name of the document.
      *
-     * @param name
+     * @param name the new name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Returns the links to the document
+     * Returns the links to the document.
      *
-     * @return
+     * @return the links
      */
     public List<Link> getLinks() {
         return links;
     }
 
     /**
-     * Sets the links to the document
+     * Sets the links to the document.
      *
-     *  @param links
+     * @param links the new links
      */
     public void setLinks(List<Link> links) {
         this.links = links;
     }
 
     /**
-     * Returns the media type of the document
+     * Returns the media type of the document.
      *
-     * @return
+     * @return the media type
      */
     public String getMediaType() {
         return mediaType;
     }
 
     /**
-     * Sets the media type of the document
+     * Sets the media type of the document.
      *
-     * @param mediaType
+     * @param mediaType the new media type
      */
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;

@@ -21,28 +21,25 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Structure that holds custom properties that are added for a Batch
+ * Structure that holds custom properties that are added for a Batch.
  *
  * @see DocumentConversion
  */
 public class Property extends GenericModel {
-    /**
-     * The name of the property
-     */
+    
+    /** The name of the property. */
     @Expose
     String name;
 
-    /**
-     * The value of the property
-     */
+    /** The value of the property. */
     @Expose
     String value;
 
     /**
-     * Constructor to create a property
+     * Constructor to create a property.
      *
-     * @param name
-     * @param value
+     * @param name the name
+     * @param value the value
      */
     public Property(String name, String value) {
         this.name = name;
@@ -50,36 +47,36 @@ public class Property extends GenericModel {
     }
 
     /**
-     * Returns the name of property
+     * Returns the name of property.
      *
-     * @return
+     * @return the name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Sets the name of the property
+     * Sets the name of the property.
      *
-     * @param name
+     * @param name the new name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Returns the value of the property
+     * Returns the value of the property.
      *
-     * @return
+     * @return the value
      */
     public String getValue() {
         return value;
     }
 
     /**
-     * Sets the value of the property
+     * Sets the value of the property.
      *
-     * @param value
+     * @param value the new value
      */
     public void setValue(String value) {
         this.value = value;

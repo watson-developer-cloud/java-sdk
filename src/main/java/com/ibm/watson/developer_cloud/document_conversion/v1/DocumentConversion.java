@@ -58,59 +58,9 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
 public class DocumentConversion extends WatsonService {
 
     /**
-     * The Constant TOKEN. (value is "token")
-     */
-    public static final String TOKEN = "token";
-
-    /**
-     * The Constant LIMIT. (value is "limit")
-     */
-    public static final String LIMIT = "limit";
-
-    /**
-     * The Constant NAME. (value is "name")
-     */
-    public static final String NAME = "name";
-
-    /**
-     * The Constant SINCE. (value is "since")
-     */
-    public static final String SINCE = "since";
-
-    /**
-     * The Constant MEDIA_TYPE. (value is "media_type")
-     */
-    public static final String MEDIA_TYPE = "media_type";
-
-    /**
-     * The Constant JOB_ID. (value is "job_id")
-     */
-    public static final String JOB_ID = "job_id";
-
-    /**
-     * The Constant STATUS. (value is "status")
-     */
-    public static final String STATUS = "status";
-
-    /**
-     * The DOCUMENTS_PATH.  (value is "/v1/documents")
-     **/
-    public final static String DOCUMENTS_PATH = "/v1/documents";
-
-    /**
      * The BATCHES_PATH.  (value is "/v1/batches")
      **/
     public final static String BATCHES_PATH = "/v1/batches";
-
-    /**
-     * The JOBS_PATH.  (value is "/v1/jobs")
-     **/
-    public final static String JOBS_PATH = "/v1/jobs";
-
-    /**
-     * The OUTPUT_PATH.  (value is "/v1/output")
-     **/
-    public final static String OUTPUT_PATH = "/v1/output";
 
     /**
      * The CONVERT_DOCUMENT_PATH.  (value is "/v1/convert_document")
@@ -120,27 +70,77 @@ public class DocumentConversion extends WatsonService {
     /** The default limit for get requests. */
     public static final int DEFAULT_LIMIT = 100;
 
+    /**
+     * The DOCUMENTS_PATH.  (value is "/v1/documents")
+     **/
+    public final static String DOCUMENTS_PATH = "/v1/documents";
+
+    /**
+     * The Constant JOB_ID. (value is "job_id")
+     */
+    public static final String JOB_ID = "job_id";
+
+    /**
+     * The JOBS_PATH.  (value is "/v1/jobs")
+     **/
+    public final static String JOBS_PATH = "/v1/jobs";
+
+    /**
+     * The Constant LIMIT. (value is "limit")
+     */
+    public static final String LIMIT = "limit";
+
+    /**
+     * The Constant MEDIA_TYPE. (value is "media_type")
+     */
+    public static final String MEDIA_TYPE = "media_type";
+
+    /**
+     * The Constant NAME. (value is "name")
+     */
+    public static final String NAME = "name";
+
+    /**
+     * The OUTPUT_PATH.  (value is "/v1/output")
+     **/
+    public final static String OUTPUT_PATH = "/v1/output";
+
+    /**
+     * The Constant SINCE. (value is "since")
+     */
+    public static final String SINCE = "since";
+
+    /**
+     * The Constant STATUS. (value is "status")
+     */
+    public static final String STATUS = "status";
+
+    /**
+     * The Constant TOKEN. (value is "token")
+     */
+    public static final String TOKEN = "token";
+
     /**  The default URL for the service. */
     private static final String URL = "https://gateway.watsonplatform.net/document-conversion-experimental/api";
 
+    /** The batch document helper. */
+    private final BatchDocumentHelper batchDocumentHelper;
+    
     /** The batch helper. */
     // Helper classes used by the service to delegate API calls to
     private final BatchHelper batchHelper;
     
+    /** The convert document helper. */
+    private final ConvertDocumentHelper convertDocumentHelper;
+    
     /** The document helper. */
     private final DocumentHelper documentHelper;
-    
-    /** The batch document helper. */
-    private final BatchDocumentHelper batchDocumentHelper;
     
     /** The job helper. */
     private final JobHelper jobHelper;
     
     /** The output helper. */
     private final OutputHelper outputHelper;
-    
-    /** The convert document helper. */
-    private final ConvertDocumentHelper convertDocumentHelper;
 
 
     /**
@@ -159,6 +159,140 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
+     * Adds a document to the batch whose ids are specified
+     * 
+     * PUT /v1/batches/{batch_id}/documents/{document_id}.
+     *
+     * @param batchId          id of the batch to be retrieved
+     * @param documentId          id of the document to be retrieved
+     * @return document from the batch
+     */
+    public BatchDocumentResponse addDocumentToBatch(final String batchId, final String documentId) {
+        return batchDocumentHelper.addDocumentToBatch(batchId, documentId);
+    }
+
+    /**
+     * Synchronously converts a new document without persistence
+     * POST /v1/convert_document.
+     *
+     * @param document The file to convert
+     * @param conversionTarget The conversion target to use
+     * @return Converted document in the specified format
+     */
+    public InputStream convertDocument(final File document, final ConversionTarget conversionTarget) {
+        return convertDocumentHelper.convertDocument(document, conversionTarget);
+    }
+
+    /**
+     * Synchronously converts a new document without persistence
+     * POST /v1/convert_document.
+     *
+     * @param document The file to convert
+     * @param mediaType Internet media type of the file
+     * @param conversionTarget The conversion target to use
+     * @return Converted document in the specified format
+     */
+    public InputStream convertDocument(final File document, final String mediaType, final ConversionTarget conversionTarget) {
+        return convertDocumentHelper.convertDocument(document, mediaType, conversionTarget);
+    }
+
+    /**
+     * Synchronously converts a single previously uploaded document
+     * POST /v1/convert_document.
+     *
+     * @param documentId The id of the document to convert
+     * @param conversionTarget The conversion target to use
+     * @return Converted document in the specified format
+     */
+    public InputStream convertDocument(final String documentId, final ConversionTarget conversionTarget) {
+        return convertDocumentHelper.convertDocument(documentId, conversionTarget);
+    }
+
+    /**
+     * Synchronously converts a new document without persistence into an Answers object
+     * POST /v1/convert_document.
+     *
+     * @param document The file to convert
+     * @return Converted document as an Answer
+     */
+    public Answers convertDocumentToAnswer(final File document) {
+        return convertDocumentHelper.convertDocumentToAnswer(document);
+    }
+
+    /**
+     * Synchronously converts a single previously uploaded document into an Answers object
+     * POST /v1/convert_document.
+     *
+     * @param documentId The id of the document to convert
+     * @return Converted document as an Answer
+     */
+    public Answers convertDocumentToAnswer(final String documentId) {
+        return convertDocumentHelper.convertDocumentToAnswer(documentId);
+    }
+
+    /**
+     * Creates a new batch with name and properties
+     * 
+     * POST /v1/batches.
+     *
+     * @param name the name of the created batch
+     * @param properties the properties for the created batch
+     * @return requested Batch
+     */
+    public Batch createBatch(final String name, final List<Property> properties) {
+        return batchHelper.createBatch(name, properties);
+    }
+
+    /**
+     * Creates a new job by submitting a batch for processing
+     * POST /v1/jobs.
+     *
+     * @param name The name of the job
+     * @param batchId The id of the batch to process
+     * @param conversionTarget The conversion target to use
+     * @return JobResponse
+     */
+    public JobResponse createJob(final String name, final String batchId, final ConversionTarget conversionTarget) {
+        return createJob(name, batchId, conversionTarget, null);
+    }
+
+    /**
+     * Creates a new job by submitting a batch for processing
+     * POST /v1/jobs.
+     *
+     * @param name The name of the job
+     * @param batchId The id of the batch to process
+     * @param conversionTarget The conversion target to use
+     * @param config The configuration to use for the job (optional), pass null to use default config
+     * @return JobResponse
+     */
+    public JobResponse createJob(final String name, final String batchId,
+                         final ConversionTarget conversionTarget, final JsonObject config) {
+        return jobHelper.createJob(name, batchId, conversionTarget, config);
+    }
+
+
+    /* (non-Javadoc)
+     * @see com.ibm.watson.developer_cloud.service.WatsonService#execute(org.apache.http.client.methods.HttpRequestBase)
+     */
+    @Override
+    public HttpResponse execute(final HttpRequestBase request) {
+        return super.execute(request);
+    }
+
+    /**
+     * Gets an existing batch
+     * 
+     * GET /v1/batches/{batch_id}.
+     *
+     * @param batchId id for the batch to be updated
+     * @return requested Batch
+     */
+    public Batch getBatch(final String batchId) {
+        return batchHelper.getBatch(batchId);
+    }
+
+    /**
      * Gets a collection of all existing batches in the service
      * GET /v1/batches.
      *
@@ -167,6 +301,7 @@ public class DocumentConversion extends WatsonService {
     public BatchCollection getBatchCollection() {
         return getBatchCollection(null);
     }
+
 
     /**
      * Gets a collection of all existing batches with optional query parameters for filtering results.
@@ -189,111 +324,16 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
-     * Creates a new batch with name and properties
+     * Retrieves the documents from the batch whose ids are specified
      * 
-     * POST /v1/batches.
+     * GET /v1/batches/{batch_id}/documents/{document_id}.
      *
-     * @param name the name of the created batch
-     * @param properties the properties for the created batch
-     * @return requested Batch
+     * @param batchId          id of the batch to be retrieved
+     * @param documentId          id of the document to be retrieved
+     * @return document from the batch
      */
-    public Batch createBatch(final String name, final List<Property> properties) {
-        return batchHelper.createBatch(name, properties);
-    }
-
-    /**
-     * Gets an existing batch
-     * 
-     * GET /v1/batches/{batch_id}.
-     *
-     * @param batchId id for the batch to be updated
-     * @return requested Batch
-     */
-    public Batch getBatch(final String batchId) {
-        return batchHelper.getBatch(batchId);
-    }
-
-    /**
-     * Updates an existing batch with the provided name and properties
-     * 
-     * PUT /v1/batches/{batch_id}.
-     *
-     * @param batchId id for the batch to be updated
-     * @param name name of the batch to be updated
-     * @param properties properties of the batch to be updated
-     * @return updated Batch
-     */
-    public Batch updateBatch(final String batchId, final String name,
-                             final List<Property> properties) {
-        return batchHelper.updateBatch(batchId, name, properties);
-    }
-
-    /**
-     * Gets a collection of uploaded documents
-     * GET /v1/documents.
-     *
-     * @return All documents
-     */
-    public DocumentCollection getDocumentCollection() {
-        return getDocumentCollection(null);
-    }
-
-    /**
-     * Gets a collection of all existing documents with optional query parameters for filtering results.
-     * GET /v1/documents
-     *
-     * @param docListParams The parameters to be used in the documents list service call.
-     *                      The parameters - token, limit, name, since and media_type are optional
-     * <ul>
-     * <li> String token - The reference to the starting element of the requested page which is provided
-     *                     by the server, pass null to get the first page </li>
-     * <li> int limit - The number of documents to get, pass 0 to use the default limit from server (100) </li>
-     * <li> String name - The name of the documents to get, pass null to exclude this filter </li>
-     * <li> Date since - The date to filter on, documents created on or after the provided date and time format
-     *                  will be returned, pass null to exclude this filter </li>
-     * <li> String media_type - The Internet media type to filter on, pass null to exclude this filter </li>
-     * @return Documents based on filtering parameters provided
-     **/
-    public DocumentCollection getDocumentCollection(Map<String, Object> docListParams) {
-        return documentHelper.getDocumentCollection(docListParams);
-    }
-
-    /**
-     * Uploads the document to the service with the given media type
-     * 
-     * POST /v1/documents.
-     *
-     * @param document the document to be uploaded
-     * @return Document
-     */
-    public Document uploadDocument(final File document) {
-        return documentHelper.uploadDocument(document);
-    }
-
-    /**
-     * Uploads the document to the service with the given media type
-     * 
-     * POST /v1/documents.
-     *
-     * @param document the document to be uploaded
-     * @param mediaType the media type
-     * @return Document
-     */
-    public Document uploadDocument(final File document, final String mediaType) {
-        return documentHelper.uploadDocument(document, mediaType);
-    }
-
-
-    /**
-     * Retrieves a document from the service with the given id
-     * 
-     * GET /v1/documents/{document_id}.
-     *
-     * @param documentId id of the document to be retrieved
-     * @return requested Document as InputStream
-     */
-    public InputStream getDocument(final String documentId) {
-        return documentHelper.getDocument(documentId);
+    public BatchDocumentResponse getBatchDocument(final String batchId, final String documentId) {
+        return batchDocumentHelper.getBatchDocument(batchId, documentId);
     }
 
     /**
@@ -329,91 +369,59 @@ public class DocumentConversion extends WatsonService {
         return batchDocumentHelper.getBatchDocumentCollection(batchId, batchDocListParams);
     }
 
-
     /**
-     * Retrieves the documents from the batch whose ids are specified
+     * Retrieves a document from the service with the given id
      * 
-     * GET /v1/batches/{batch_id}/documents/{document_id}.
+     * GET /v1/documents/{document_id}.
      *
-     * @param batchId          id of the batch to be retrieved
-     * @param documentId          id of the document to be retrieved
-     * @return document from the batch
+     * @param documentId id of the document to be retrieved
+     * @return requested Document as InputStream
      */
-    public BatchDocumentResponse getBatchDocument(final String batchId, final String documentId) {
-        return batchDocumentHelper.getBatchDocument(batchId, documentId);
+    public InputStream getDocument(final String documentId) {
+        return documentHelper.getDocument(documentId);
     }
 
     /**
-     * Adds a document to the batch whose ids are specified
-     * 
-     * PUT /v1/batches/{batch_id}/documents/{document_id}.
+     * Gets a collection of uploaded documents
+     * GET /v1/documents.
      *
-     * @param batchId          id of the batch to be retrieved
-     * @param documentId          id of the document to be retrieved
-     * @return document from the batch
+     * @return All documents
      */
-    public BatchDocumentResponse addDocumentToBatch(final String batchId, final String documentId) {
-        return batchDocumentHelper.addDocumentToBatch(batchId, documentId);
+    public DocumentCollection getDocumentCollection() {
+        return getDocumentCollection(null);
     }
 
     /**
-     * Synchronously converts a new document without persistence into an Answers object
-     * POST /v1/convert_document.
+     * Gets a collection of all existing documents with optional query parameters for filtering results.
+     * GET /v1/documents
      *
-     * @param document The file to convert
-     * @return Converted document as an Answer
-     */
-    public Answers convertDocumentToAnswer(final File document) {
-        return convertDocumentHelper.convertDocumentToAnswer(document);
+     * @param docListParams The parameters to be used in the documents list service call.
+     *                      The parameters - token, limit, name, since and media_type are optional
+     * <ul>
+     * <li> String token - The reference to the starting element of the requested page which is provided
+     *                     by the server, pass null to get the first page </li>
+     * <li> int limit - The number of documents to get, pass 0 to use the default limit from server (100) </li>
+     * <li> String name - The name of the documents to get, pass null to exclude this filter </li>
+     * <li> Date since - The date to filter on, documents created on or after the provided date and time format
+     *                  will be returned, pass null to exclude this filter </li>
+     * <li> String media_type - The Internet media type to filter on, pass null to exclude this filter </li>
+     * @return Documents based on filtering parameters provided
+     **/
+    public DocumentCollection getDocumentCollection(Map<String, Object> docListParams) {
+        return documentHelper.getDocumentCollection(docListParams);
     }
 
     /**
-     * Synchronously converts a new document without persistence
-     * POST /v1/convert_document.
+     * Gets information about a job
+     * GET /v1/jobs/{job_id}.
      *
-     * @param document The file to convert
-     * @param conversionTarget The conversion target to use
-     * @return Converted document in the specified format
+     * @param jobId The id of the job
+     * @return Job
      */
-    public InputStream convertDocument(final File document, final ConversionTarget conversionTarget) {
-        return convertDocumentHelper.convertDocument(document, conversionTarget);
+    public Job getJob(final String jobId) {
+        return jobHelper.getJob(jobId);
     }
 
-    /**
-     * Synchronously converts a new document without persistence
-     * POST /v1/convert_document.
-     *
-     * @param document The file to convert
-     * @param mediaType Internet media type of the file
-     * @param conversionTarget The conversion target to use
-     * @return Converted document in the specified format
-     */
-    public InputStream convertDocument(final File document, final String mediaType, final ConversionTarget conversionTarget) {
-        return convertDocumentHelper.convertDocument(document, mediaType, conversionTarget);
-    }
-
-    /**
-     * Synchronously converts a single previously uploaded document into an Answers object
-     * POST /v1/convert_document.
-     *
-     * @param documentId The id of the document to convert
-     * @return Converted document as an Answer
-     */
-    public Answers convertDocumentToAnswer(final String documentId) {
-        return convertDocumentHelper.convertDocumentToAnswer(documentId);
-    }
-
-    /**
-     * Synchronously converts a single previously uploaded document
-     * POST /v1/convert_document.
-     *
-     * @param documentId The id of the document to convert
-     * @param conversionTarget The conversion target to use
-     * @return Converted document in the specified format
-     */
-    public InputStream convertDocument(final String documentId, final ConversionTarget conversionTarget) {
-        return convertDocumentHelper.convertDocument(documentId, conversionTarget);
-    }
 
     /**
      * Gets a collection of all jobs in the service
@@ -424,7 +432,6 @@ public class DocumentConversion extends WatsonService {
     public JobCollection getJobCollection() {
         return getJobCollection(null);
     }
-
 
     /**
      * Gets a list of all jobs with optional query parameters for filtering results.
@@ -449,45 +456,6 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
-     * Creates a new job by submitting a batch for processing
-     * POST /v1/jobs.
-     *
-     * @param name The name of the job
-     * @param batchId The id of the batch to process
-     * @param conversionTarget The conversion target to use
-     * @return JobResponse
-     */
-    public JobResponse createJob(final String name, final String batchId, final ConversionTarget conversionTarget) {
-        return createJob(name, batchId, conversionTarget, null);
-    }
-
-    /**
-     * Creates a new job by submitting a batch for processing
-     * POST /v1/jobs.
-     *
-     * @param name The name of the job
-     * @param batchId The id of the batch to process
-     * @param conversionTarget The conversion target to use
-     * @param config The configuration to use for the job (optional), pass null to use default config
-     * @return JobResponse
-     */
-    public JobResponse createJob(final String name, final String batchId,
-                         final ConversionTarget conversionTarget, final JsonObject config) {
-        return jobHelper.createJob(name, batchId, conversionTarget, config);
-    }
-
-    /**
-     * Gets information about a job
-     * GET /v1/jobs/{job_id}.
-     *
-     * @param jobId The id of the job
-     * @return Job
-     */
-    public Job getJob(final String jobId) {
-        return jobHelper.getJob(jobId);
-    }
-
-    /**
      * Gets the job processing log
      * GET /v1/jobs/{job_id}/log.
      *
@@ -496,6 +464,16 @@ public class DocumentConversion extends WatsonService {
      */
     public InputStream getJobLog(final String jobId) {
         return jobHelper.getJobLog(jobId);
+    }
+
+    /**
+     * Gets the content of the output of the document conversion process. This can represent a single converted document
+     * or the combined output of multiple input documents.
+     * @param outputId The id of the output to get
+     * @return The requested Output
+     */
+    public InputStream getOutput(final String outputId) {
+        return outputHelper.getOutput(outputId);
     }
 
     /**
@@ -530,21 +508,43 @@ public class DocumentConversion extends WatsonService {
     }
 
     /**
-     * Gets the content of the output of the document conversion process. This can represent a single converted document
-     * or the combined output of multiple input documents.
-     * @param outputId The id of the output to get
-     * @return The requested Output
+     * Updates an existing batch with the provided name and properties
+     * 
+     * PUT /v1/batches/{batch_id}.
+     *
+     * @param batchId id for the batch to be updated
+     * @param name name of the batch to be updated
+     * @param properties properties of the batch to be updated
+     * @return updated Batch
      */
-    public InputStream getOutput(final String outputId) {
-        return outputHelper.getOutput(outputId);
+    public Batch updateBatch(final String batchId, final String name,
+                             final List<Property> properties) {
+        return batchHelper.updateBatch(batchId, name, properties);
     }
 
-    /* (non-Javadoc)
-     * @see com.ibm.watson.developer_cloud.service.WatsonService#execute(org.apache.http.client.methods.HttpRequestBase)
+    /**
+     * Uploads the document to the service with the given media type
+     * 
+     * POST /v1/documents.
+     *
+     * @param document the document to be uploaded
+     * @return Document
      */
-    @Override
-    public HttpResponse execute(final HttpRequestBase request) {
-        return super.execute(request);
+    public Document uploadDocument(final File document) {
+        return documentHelper.uploadDocument(document);
+    }
+
+    /**
+     * Uploads the document to the service with the given media type
+     * 
+     * POST /v1/documents.
+     *
+     * @param document the document to be uploaded
+     * @param mediaType the media type
+     * @return Document
+     */
+    public Document uploadDocument(final File document, final String mediaType) {
+        return documentHelper.uploadDocument(document, mediaType);
     }
 
 }

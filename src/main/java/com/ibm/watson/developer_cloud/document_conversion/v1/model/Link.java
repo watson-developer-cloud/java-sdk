@@ -27,48 +27,45 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Link extends GenericModel {
 
-    /**
-     * The name of the link
-     */
+    /** The name of the link. */
     @Expose
     private String name;
 
-    /**
-     * The link to the document
-     */
+    /** The link to the document. */
     @Expose
     private String link;
 
     /**
-     * Returns the name of the link
+     * Returns the name of the link.
      *
-     * @return
+     * @return the name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Sets the name of the link
+     * Sets the name of the link.
      *
-     * @param name
+     * @param name the new name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Returns the link to the document
+     * Returns the link to the document.
      *
-     * @return
+     * @return the link
      */
     public String getLink() {
         return link;
     }
 
     /**
-     * Sets the link to the document
-     * @param link
+     * Sets the link to the document.
+     *
+     * @param link the new link
      */
     public void setLink(String link) {
         this.link = link;

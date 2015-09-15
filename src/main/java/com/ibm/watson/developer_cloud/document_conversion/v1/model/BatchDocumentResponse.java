@@ -21,30 +21,29 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Structure that provides the response when a Document is added to a Batch
+ * Structure that provides the response when a Document is added to a Batch.
  *
  * @see DocumentConversion
  */
 public class BatchDocumentResponse extends GenericModel {
-    /**
-     * The document of the batch
-     */
+    
+    /** The document of the batch. */
     @Expose
     BatchDocument document;
 
     /**
-     * Retrieves the BatchDocument from the response
+     * Retrieves the BatchDocument from the response.
      *
-     * @return
+     * @return the document
      */
     public BatchDocument getDocument() {
         return document;
     }
 
     /**
-     * Sets the document for Batch document response
+     * Sets the document for Batch document response.
      *
-     * @param document
+     * @param document the new document
      */
     public void setDocument(BatchDocument document) {
         this.document = document;

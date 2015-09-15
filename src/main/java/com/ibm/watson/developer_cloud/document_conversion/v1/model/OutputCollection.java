@@ -15,23 +15,21 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-import java.util.List;
-
 /**
- * Structure to store the collection list of outputs that were generated in the service
+ * Structure to store the collection list of outputs that were generated in the service.
  *
  * @see DocumentConversion
  */
 public class OutputCollection extends GenericModel {
 
-    /**
-     * List of all outputs in the collection
-     */
+    /** List of all outputs in the collection. */
     @SerializedName("output")
     private List<Output> outputs;
     /**
@@ -42,36 +40,36 @@ public class OutputCollection extends GenericModel {
     private List<Link> links;
 
     /**
-     * Returns the list of outputs in the collection
+     * Returns the list of outputs in the collection.
      *
-     * @return
+     * @return the outputs
      */
     public List<Output> getOutputs() {
         return outputs;
     }
 
     /**
-     * Sets the output list in the collection
+     * Sets the output list in the collection.
      *
-     * @param outputs
+     * @param outputs the new outputs
      */
     public void setOutputs(List<Output> outputs) {
         this.outputs = outputs;
     }
 
     /**
-     * Returns the links to the output in the collection
+     * Returns the links to the output in the collection.
      *
-     * @return
+     * @return the links
      */
     public List<Link> getLinks() {
         return links;
     }
 
     /**
-     * Sets the links to the output in the collection
+     * Sets the links to the output in the collection.
      *
-     * @param links
+     * @param links the new links
      */
     public void setLinks(List<Link> links) {
         this.links = links;

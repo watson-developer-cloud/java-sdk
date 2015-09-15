@@ -15,38 +15,34 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-import java.util.List;
-
 /**
- * Structure that provides the response when a Job is created in the service
+ * Structure that provides the response when a Job is created in the service.
  *
  * @see DocumentConversion
  */
 public class JobResponse extends GenericModel {
-    /**
-     * The id of the job
-     */
+    
+    /** The id of the job. */
     @Expose
     private String id;
 
-    /**
-     * The name of the job
-     */
+    /** The name of the job. */
     @Expose
     private String name;
 
-    /**
-     * Link to the job
-     */
+    /** Link to the job. */
     @Expose
     private List<Link> links;
 
     /**
-     * Returns the id of the job
+     * Returns the id of the job.
+     *
      * @return id of the job
      */
     public String getId() {
@@ -54,7 +50,8 @@ public class JobResponse extends GenericModel {
     }
 
     /**
-     * Sets the id for the job
+     * Sets the id for the job.
+     *
      * @param id for the job
      */
     public void setId(String id) {
@@ -62,7 +59,8 @@ public class JobResponse extends GenericModel {
     }
 
     /**
-     * Returns the name of the job
+     * Returns the name of the job.
+     *
      * @return name of the job
      */
     public String getName() {
@@ -70,7 +68,8 @@ public class JobResponse extends GenericModel {
     }
 
     /**
-     * Sets the name of the job
+     * Sets the name of the job.
+     *
      * @param name of the job
      */
     public void setName(String name) {
@@ -78,7 +77,8 @@ public class JobResponse extends GenericModel {
     }
 
     /**
-     * Returns the links to the job
+     * Returns the links to the job.
+     *
      * @return list of links
      */
     public List<Link> getLinks() {
@@ -86,8 +86,9 @@ public class JobResponse extends GenericModel {
     }
 
     /**
-     * Sets the links for the jobs
-     * @param links
+     * Sets the links for the jobs.
+     *
+     * @param links the new links
      */
     public void setLinks(List<Link> links) {
         this.links = links;

@@ -15,39 +15,34 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
+import java.util.Date;
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-import java.util.Date;
-import java.util.List;
-
 /**
- * Structure that stores the output of document that is converted into an Answer unit
+ * Structure that stores the output of document that is converted into an Answer unit.
  *
  * @see DocumentConversion
  */
 public class Answers extends GenericModel {
 
-    /**
-     * The id of the source document used to derive the answer
-     */
+    /** The id of the source document used to derive the answer. */
     @SerializedName("source_document_id")
     private String sourceDocumentId;
 
-    /**
-     * The date time when the answer was created
-     */
+    /** The date time when the answer was created. */
     private Date timestamp;
 
-    /**
-     * The list of answer units generated for the source document
-     */
+    /** The list of answer units generated for the source document. */
     @SerializedName("answer_units")
     private List<AnswerUnits> answerUnits;
 
     /**
-     * Gets the source document id
+     * Gets the source document id.
+     *
      * @return String
      */
     public String getSourceDocumentId() {
@@ -55,7 +50,8 @@ public class Answers extends GenericModel {
     }
 
     /**
-     * Sets the source document id
+     * Sets the source document id.
+     *
      * @param sourceDocumentId The id of the source document
      */
     public void setSourceDocumentId(String sourceDocumentId) {
@@ -63,7 +59,8 @@ public class Answers extends GenericModel {
     }
 
     /**
-     * Gets the time stamp of the answer
+     * Gets the time stamp of the answer.
+     *
      * @return Date
      */
     public Date getTimestamp() {
@@ -71,15 +68,17 @@ public class Answers extends GenericModel {
     }
 
     /**
-     * Sets the timestamp of the answwer
-     * @param timestamp
+     * Sets the timestamp of the answwer.
+     *
+     * @param timestamp the new timestamp
      */
     public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
     /**
-     * Gets the list of answer units
+     * Gets the list of answer units.
+     *
      * @return List
      */
     public List<AnswerUnits> getAnswerUnits() {
@@ -87,7 +86,8 @@ public class Answers extends GenericModel {
     }
 
     /**
-     * Sets the list of answer units
+     * Sets the list of answer units.
+     *
      * @param answerUnits The list of answer units
      */
     public void setAnswerUnits(List<AnswerUnits> answerUnits) {
@@ -95,32 +95,25 @@ public class Answers extends GenericModel {
     }
 
     /**
-     * The object that holds the answer units of a source document
+     * The object that holds the answer units of a source document.
      */
     public class AnswerUnits extends GenericModel {
 
-        /**
-         * The id of the answer unit
-         */
+        /** The id of the answer unit. */
         private String id;
 
-        /**
-         * The type of the answer unit
-         */
+        /** The type of the answer unit. */
         private String type;
 
-        /**
-         * The title of the answer unit
-         */
+        /** The title of the answer unit. */
         private String title;
 
-        /**
-         * The list of content of the answer unit
-         */
+        /** The list of content of the answer unit. */
         private List<Content> content;
 
         /**
-         * Gets the id of the answer unit
+         * Gets the id of the answer unit.
+         *
          * @return The id of the answer unit
          */
         public String getId() {
@@ -128,7 +121,8 @@ public class Answers extends GenericModel {
         }
 
         /**
-         * Sets the id of the answer unit
+         * Sets the id of the answer unit.
+         *
          * @param id The id of the answer unit
          */
         public void setId(String id) {
@@ -136,7 +130,8 @@ public class Answers extends GenericModel {
         }
 
         /**
-         * Gets the type of the answer unit
+         * Gets the type of the answer unit.
+         *
          * @return String
          */
         public String getType() {
@@ -144,7 +139,8 @@ public class Answers extends GenericModel {
         }
 
         /**
-         * Sets the type of the answer unit
+         * Sets the type of the answer unit.
+         *
          * @param type The type of the answer unit
          */
         public void setType(String type) {
@@ -152,7 +148,8 @@ public class Answers extends GenericModel {
         }
 
         /**
-         * Gets the title of the answer unit
+         * Gets the title of the answer unit.
+         *
          * @return String
          */
         public String getTitle() {
@@ -160,7 +157,8 @@ public class Answers extends GenericModel {
         }
 
         /**
-         * Sets the title of the answer unit
+         * Sets the title of the answer unit.
+         *
          * @param title The title of the answer unit
          */
         public void setTitle(String title) {
@@ -168,7 +166,8 @@ public class Answers extends GenericModel {
         }
 
         /**
-         * Gets the list of content for the answer unit
+         * Gets the list of content for the answer unit.
+         *
          * @return List
          */
         public List<Content> getContent() {
@@ -176,7 +175,8 @@ public class Answers extends GenericModel {
         }
 
         /**
-         * Sets the list of content for the answer unit
+         * Sets the list of content for the answer unit.
+         *
          * @param content The list of content for the answer unit
          */
         public void setContent(List<Content> content) {
@@ -184,23 +184,20 @@ public class Answers extends GenericModel {
         }
 
         /**
-         * The content of an answer unit
+         * The content of an answer unit.
          */
         public class Content extends GenericModel {
 
-            /**
-             * The Internet media type of the answer unit
-             */
+            /** The Internet media type of the answer unit. */
             @SerializedName("media_type")
             private String mediaType;
 
-            /**
-             * The text of the answer unit
-             */
+            /** The text of the answer unit. */
             private String text;
 
             /**
-             * Gets the Internet media type of the answer unit
+             * Gets the Internet media type of the answer unit.
+             *
              * @return String
              */
             public String getMediaType() {
@@ -208,7 +205,8 @@ public class Answers extends GenericModel {
             }
 
             /**
-             * Sets the Internet media type of the answer unit
+             * Sets the Internet media type of the answer unit.
+             *
              * @param mediaType The Internet media type
              */
             public void setMediaType(String mediaType) {
@@ -216,7 +214,8 @@ public class Answers extends GenericModel {
             }
 
             /**
-             * Gets the text of the answer unit
+             * Gets the text of the answer unit.
+             *
              * @return String
              */
             public String getText() {
@@ -224,7 +223,8 @@ public class Answers extends GenericModel {
             }
 
             /**
-             * Sets the text of the answer unit
+             * Sets the text of the answer unit.
+             *
              * @param text The text of the answer unit
              */
             public void setText(String text) {
