@@ -18,14 +18,14 @@ package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Classifier used by the {@link NaturalLanguageClassifier} service.
  *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
-public class Classifiers {
+public class Classifiers extends GenericModel {
 
 
 	/**
@@ -49,14 +49,4 @@ public class Classifiers {
 	/** The classifiers. */
 	private List<Classifier> classifiers;
 
-	/*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
-	}
 }

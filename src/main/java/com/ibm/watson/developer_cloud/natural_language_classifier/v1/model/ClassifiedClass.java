@@ -17,14 +17,14 @@ package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Classified class used by the {@link NaturalLanguageClassifier} service.
  *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
-public class ClassifiedClass {
+public class ClassifiedClass extends GenericModel {
 
 	/** The name. */
 	@SerializedName("class_name")
@@ -70,38 +70,5 @@ public class ClassifiedClass {
 	 */
 	public void setConfidence(double confidence) {
 		this.confidence = confidence;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		ClassifiedClass that = (ClassifiedClass) o;
-
-		if (Double.compare(that.confidence, confidence) != 0) return false;
-		return name.equals(that.name);
-
-	}
-
-	@Override
-	public int hashCode() {
-		int result;
-		long temp;
-		result = name.hashCode();
-		temp = Double.doubleToLongBits(confidence);
-		result = 31 * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
-
-	/*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Object#toString()
-         */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

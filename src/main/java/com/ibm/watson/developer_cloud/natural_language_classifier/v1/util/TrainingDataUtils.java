@@ -1,4 +1,4 @@
-package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
+package com.ibm.watson.developer_cloud.natural_language_classifier.v1.util;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +14,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
+
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.TrainingData;
 
 
 /**
