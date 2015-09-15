@@ -20,12 +20,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class VisualRecognitionImages.
  */
-public class VisualRecognitionImages {
+public class VisualRecognitionImages extends GenericModel {
 
 	/** The images. */
 	@Expose
@@ -49,14 +49,4 @@ public class VisualRecognitionImages {
 	public void setImages(List<RecognizedImage> images) {
 		this.images = images;
 	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
-	}
-
 }

@@ -16,24 +16,23 @@
 
 package com.ibm.watson.developer_cloud.visual_recognition.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class LabelSet.
  */
-public class LabelSet {
+public class LabelSet extends GenericModel {
 
 	/** The label groups. */
 	@SerializedName("label_groups")
-	private List<String> labelGroups = new ArrayList<String>();
-	
+	private List<String> labelGroups;
+
 	/** The labels. */
 	@SerializedName("labels")
-	private List<String> labels = new ArrayList<String>();
+	private List<String> labels;
 
 	/**
 	 * Gets the label groups.
@@ -55,18 +54,6 @@ public class LabelSet {
 	}
 
 	/**
-	 * With label groups.
-	 * 
-	 * @param labelGroups
-	 *            the label groups
-	 * @return the label set
-	 */
-	public LabelSet withLabelGroups(List<String> labelGroups) {
-		this.labelGroups = labelGroups;
-		return this;
-	}
-
-	/**
 	 * Gets the labels.
 	 * 
 	 * @return The labels
@@ -83,58 +70,5 @@ public class LabelSet {
 	 */
 	public void setLabels(List<String> labels) {
 		this.labels = labels;
-	}
-
-	/**
-	 * With labels.
-	 * 
-	 * @param labels
-	 *            the labels
-	 * @return the label set
-	 */
-	public LabelSet withLabels(List<String> labels) {
-		this.labels = labels;
-		return this;
-	}
-
-	/**
-	 * With label group.
-	 * 
-	 * @param labelGroup
-	 *            the label group
-	 * @return the label set
-	 */
-	public LabelSet withLabelGroup(String labelGroup) {
-		if (labelGroups == null) {
-			labelGroups = new ArrayList<String>();
-		}
-
-		labelGroups.add(labelGroup);
-		return this;
-	}
-
-	/**
-	 * With label.
-	 * 
-	 * @param label
-	 *            the label
-	 * @return the label set
-	 */
-	public LabelSet withLabel(String label) {
-		if (labels == null) {
-			labels = new ArrayList<String>();
-		}
-
-		labels.add(label);
-		return this;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }
