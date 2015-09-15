@@ -310,7 +310,7 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
 
 		Assert.assertNotNull(synonyms);
 		Assert.assertFalse(synonyms.isEmpty());
-		Assert.assertFalse(synonyms.containsAll(response));
+		Assert.assertEquals(synonyms,response);
 
 	}
 
