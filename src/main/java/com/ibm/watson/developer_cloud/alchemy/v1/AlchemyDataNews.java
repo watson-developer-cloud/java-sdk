@@ -46,18 +46,18 @@ public class AlchemyDataNews extends AlchemyService {
 		
 		/** The d. */
 		d, 
- /** The h. */
- h, 
- /** The m. */
- m, 
- /** The m. */
- M, 
- /** The now. */
- NOW, 
- /** The s. */
- s, 
- /** The y. */
- y
+		 /** The h. */
+		 h, 
+		 /** The m. */
+		 m, 
+		 /** The m. */
+		 M, 
+		 /** The now. */
+		 NOW, 
+		 /** The s. */
+		 s, 
+		 /** The y. */
+		 y
 	}
 
 	/**

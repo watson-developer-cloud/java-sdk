@@ -22,9 +22,9 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Class User.
+ * The Class AccountPermission.
  */
-public class ConceptInsightsUser extends GenericModel {
+public class AccountPermission extends GenericModel {
 
     /**
      * The account id.

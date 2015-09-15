@@ -29,7 +29,7 @@ public class Result {
 
 	/** The explanation tags. */
 	@SerializedName("explanation_tags")
-	private List<ExplanationTag> explanationTags;
+	private List<Annotation> explanationTags;
 
 	/** The id. */
 	private String id;
@@ -45,7 +45,7 @@ public class Result {
 	 * 
 	 * @return The explanationTags
 	 */
-	public List<ExplanationTag> getExplanationTags() {
+	public List<Annotation> getAnnotations() {
 		return explanationTags;
 	}
 
@@ -82,7 +82,7 @@ public class Result {
 	 * @param explanationTags
 	 *            The explanation_tags
 	 */
-	public void setExplanationTags(List<ExplanationTag> explanationTags) {
+	public void setAnnotations(List<Annotation> explanationTags) {
 		this.explanationTags = explanationTags;
 	}
 

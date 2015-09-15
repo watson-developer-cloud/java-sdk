@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * BuildStatus returned by the {@link ConceptInsights} service.
  * 
  */
-public class BuildStatus  extends GenericModel{
+public class BuildStatus  extends GenericModel {
 
 	/** The error. */
 	private Integer error;

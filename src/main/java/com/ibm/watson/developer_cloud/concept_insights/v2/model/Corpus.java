@@ -36,7 +36,7 @@ public class Corpus extends GenericModel {
 	private String id;
 
 	/** The users. */
-	private List<ConceptInsightsUser> users;
+	private List<AccountPermission> users;
 
 	/**
 	 * Gets the access.
@@ -61,7 +61,7 @@ public class Corpus extends GenericModel {
 	 * 
 	 * @return The users
 	 */
-	public List<ConceptInsightsUser> getUsers() {
+	public List<AccountPermission> getUsers() {
 		return users;
 	}
 
@@ -91,7 +91,7 @@ public class Corpus extends GenericModel {
 	 * @param users
 	 *            The users
 	 */
-	public void setUsers(List<ConceptInsightsUser> users) {
+	public void setUsers(List<AccountPermission> users) {
 		this.users = users;
 	}
 
