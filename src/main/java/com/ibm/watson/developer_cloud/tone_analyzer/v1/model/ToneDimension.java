@@ -16,141 +16,78 @@
 
 package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class ToneDimension.
  */
-public class ToneDimension {
+public class ToneDimension extends GenericModel {
 
-    /** The name. */
-    private String name;
-    
-    /** The id. */
-    private String id;
-    
-    /** The children. */
-    private List<ToneTrait> children = new ArrayList<ToneTrait>();
+	/** The children. */
+	private List<ToneTrait> children;
 
-    /**
-     * Gets the name.
-     *
-     * @return     The name
-     */
-    public String getName() {
-        return name;
-    }
+	/** The id. */
+	private String id;
 
-    /**
-     * Sets the name.
-     *
-     * @param name     The name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
+	/** The name. */
+	private String name;
 
-    /**
-     * With name.
-     *
-     * @param name the name
-     * @return the tone dimension
-     */
-    public ToneDimension withName(String name) {
-        this.name = name;
-        return this;
-    }
+	/**
+	 * Gets the children.
+	 * 
+	 * @return The children
+	 */
+	public List<ToneTrait> getChildren() {
+		return children;
+	}
 
-    /**
-     * Gets the id.
-     *
-     * @return     The id
-     */
-    public String getId() {
-        return id;
-    }
+	/**
+	 * Gets the id.
+	 * 
+	 * @return The id
+	 */
+	public String getId() {
+		return id;
+	}
 
-    /**
-     * Sets the id.
-     *
-     * @param id     The id
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+	/**
+	 * Gets the name.
+	 * 
+	 * @return The name
+	 */
+	public String getName() {
+		return name;
+	}
 
-    /**
-     * With id.
-     *
-     * @param id the id
-     * @return the tone dimension
-     */
-    public ToneDimension withId(String id) {
-        this.id = id;
-        return this;
-    }
+	/**
+	 * Sets the children.
+	 * 
+	 * @param children
+	 *            The children
+	 */
+	public void setChildren(List<ToneTrait> children) {
+		this.children = children;
+	}
 
-    /**
-     * Gets the children.
-     *
-     * @return     The children
-     */
-    public List<ToneTrait> getChildren() {
-        return children;
-    }
+	/**
+	 * Sets the id.
+	 * 
+	 * @param id
+	 *            The id
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    /**
-     * Sets the children.
-     *
-     * @param children     The children
-     */
-    public void setChildren(List<ToneTrait> children) {
-        this.children = children;
-    }
-
-    /**
-     * With children.
-     *
-     * @param children the children
-     * @return the tone dimension
-     */
-    public ToneDimension withChildren(List<ToneTrait> children) {
-        this.children = children;
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ToneDimension that = (ToneDimension) o;
-
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (!id.equals(that.id)) return false;
-        return !(children != null ? !children.equals(that.children) : that.children != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
-        result = 31 * result + id.hashCode();
-        result = 31 * result + (children != null ? children.hashCode() : 0);
-        return result;
-    }
-
-    /*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Object#toString()
-         */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
+	/**
+	 * Sets the name.
+	 * 
+	 * @param name
+	 *            The name
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }
