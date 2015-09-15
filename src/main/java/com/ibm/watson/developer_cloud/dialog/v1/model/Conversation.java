@@ -15,12 +15,11 @@
  */
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Conversation used by the {@link DialogService}.
@@ -28,7 +27,7 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * 
  */
-public class Conversation {
+public class Conversation extends GenericModel {
 
 	/** The client id. */
 	@SerializedName("client_id")
@@ -45,7 +44,7 @@ public class Conversation {
 	private String input;
 
 	/** The response. */
-	private List<String> response = new ArrayList<String>();
+	private List<String> response;
 
 	/**
 	 * Gets the client id.
@@ -188,28 +187,5 @@ public class Conversation {
 	public Conversation withInput(final String input) {
 		this.input = input;
 		return this;
-	}
-
-	/**
-	 * With response.
-	 * 
-	 * @param response
-	 *            the response
-	 * @return the conversation
-	 */
-	public Conversation withResponse(final List<String> response) {
-		this.response = response;
-		return this;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

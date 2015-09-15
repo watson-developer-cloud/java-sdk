@@ -151,8 +151,7 @@ public class DialogService extends WatsonService {
 
 		try {
 			HttpResponse response = execute(request);
-			String conversationAsJson = ResponseUtil.getString(response);
-			Conversation conversation = GsonSingleton.getGson().fromJson(conversationAsJson, Conversation.class);
+			Conversation conversation = ResponseUtil.getObject(response, Conversation.class);
 			return conversation;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -197,9 +196,7 @@ public class DialogService extends WatsonService {
 					.withEntity(reqEntity).build();
 
 			HttpResponse response = execute(request);
-			String DialogAsJson = ResponseUtil.getString(response);
-			Dialog dialog = GsonSingleton.getGson().fromJson(DialogAsJson, Dialog.class);
-			return dialog;
+			return ResponseUtil.getObject(response, Dialog.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

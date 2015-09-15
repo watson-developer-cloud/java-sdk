@@ -16,14 +16,14 @@
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
 import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Name value class used by the {@link DialogService}.
  *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
-public class NameValue {
+public class NameValue  extends GenericModel {
 
 	/** The name. */
 	private String name;
@@ -31,13 +31,6 @@ public class NameValue {
 	/** The value. */
 	private String value;
 
-
-	/**
-	 * Instantiates a new name value.
-	 */
-	public NameValue() {
-		super();
-	}
 
 	/**
 	 * Instantiates a new name value.
@@ -111,16 +104,5 @@ public class NameValue {
 	public NameValue withValue(final String value) {
 		this.value = value;
 		return this;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }
