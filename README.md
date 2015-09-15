@@ -16,7 +16,7 @@ Java code wrappers to quickly get started with the various [Watson Developer Clo
     * [IBM Watson Services](#ibm-watson-services)
       * [Concept Expansion](#concept-expansion)
       * [Dialog](#dialog)
-      * [Document Conversion] (#document-conversion)
+      * [Document Conversion](#document-conversion)
       * [Language Identification](#language-identification)
       * [Language Translation](#language-translation)
       * [Machine Translation](#machine-translation)
@@ -131,9 +131,9 @@ System.out.println(dialogs);
 
 
 ### Document Conversion
-The Document Conversion service allows to convert pdf, word, and html documents into formats useful to other Watson Cognitive services. Target formats include normalized html, plain text, and sets of potential answers for Watson question answering. You can convert documents synchronously one at a time, or asynchronously in batches
+The [Document Conversion][document_conversion] service allows to convert pdf, word, and html documents into formats useful to other Watson Cognitive services. Target formats include normalized html, plain text, and sets of potential answers for Watson question answering. You can convert documents synchronously one at a time, or asynchronously in batches
 
-Returns the document list using the [Document Conversion][#document-conversion] service.
+Returns the document list using the [Document Conversion][document_conversion] service.
 
 ```java
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
@@ -146,7 +146,6 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 Map<String, Object> docListParams = new HashMap<String, Object>();
 docListParams.put(DocumentConversion.LIMIT, 10);
-docListParams.put(DocumentConversion.NAME, "example.html");
 DocumentCollection documentCollection = service.getDocumentCollection(docListParams);
 System.out.println(documentCollection);
 ```
@@ -502,6 +501,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [language_identification]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/lidapi/
 [machine_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/mtapi/
 [concept_expansion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/glimpseapi/
+[document_conversion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/document-conversion/
 [relationship_extraction]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/sireapi/
 [language_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/
 [visual_recognition]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-recognition/
