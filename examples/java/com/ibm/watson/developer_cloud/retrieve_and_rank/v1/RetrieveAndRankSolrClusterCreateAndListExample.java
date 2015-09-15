@@ -26,7 +26,7 @@ public class RetrieveAndRankSolrClusterCreateAndListExample {
     /**
      * The URL of the Watson Solr search service.
      */
-    private static final String SERVICE_URL = "{your-base-url}/search/api/v1";
+    private static final String SERVICE_URL = "{your-base-url}/retrieve-and-rank/api/v1";
 
     /**
      * The username for your Watson Solr search service.

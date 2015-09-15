@@ -37,7 +37,8 @@ public class RetrieveAndRankSolrHttpClientExample {
      * You must first create a Solr cluster and specify its ID here. A Solr cluster can be created with the
      * {@link RetrieveAndRankSolrClusterCreateAndListExample}.
      */
-    private static final String SERVICE_URL = "{your-base-url}/search/api/v1/solr_clusters/{your-cluster-id}";
+    private static final String SERVICE_URL =
+            "{your-base-url}/retrieve-and-rank/api/v1/solr_clusters/{your-cluster-id}";
 
     /**
      * The username for your Watson Solr search service.
