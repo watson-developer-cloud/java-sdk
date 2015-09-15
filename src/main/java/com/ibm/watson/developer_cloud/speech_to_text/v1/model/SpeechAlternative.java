@@ -16,12 +16,12 @@
 
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class SpeechAlternative.
  */
-public class SpeechAlternative {
+public class SpeechAlternative extends GenericModel {
 
 	/** The transcript. */
 	private String transcript;
@@ -43,45 +43,6 @@ public class SpeechAlternative {
 	 */
 	public void setTranscript(final String transcript) {
 		this.transcript = transcript;
-	}
-
-	/**
-	 * With transcript.
-	 * 
-	 * @param transcript
-	 *            the transcript
-	 * @return the alternative
-	 */
-	public SpeechAlternative withTranscript(final String transcript) {
-		this.transcript = transcript;
-		return this;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		SpeechAlternative that = (SpeechAlternative) o;
-
-		return transcript.equals(that.transcript);
-
-	}
-
-	@Override
-	public int hashCode() {
-		return transcript.hashCode();
-	}
-
-	/*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Object#toString()
-         */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }
