@@ -22,7 +22,9 @@ import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.*;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
+
 import io.netty.handler.codec.http.HttpHeaders;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -44,6 +46,7 @@ import static org.mockserver.model.HttpResponse.response;
 /**
  * The Class ToneAnalyzerTest.
  */
+@SuppressWarnings("serial")
 public class ToneAnalyzerTest extends WatsonServiceTest {
 
 	/** The Constant log. */
@@ -307,7 +310,7 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
 
 		Assert.assertNotNull(synonyms);
 		Assert.assertFalse(synonyms.isEmpty());
-		Assert.assertFalse(synonyms.containsAll(response));
+		Assert.assertEquals(synonyms,response);
 
 	}
 

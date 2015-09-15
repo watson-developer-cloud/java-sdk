@@ -13,22 +13,38 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.model;
+package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import java.util.List;
+
+import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 
 /**
- * Abstract model class to provide a default toString() method in model classes.
+ * Feeds returned by the {@link AlchemyLanguage} service.
+ *
+ * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public abstract class GenericModel {
+public class Feeds extends AlchemyLanguageGenericModel {
 
-    /*
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-    }
+    /** The feeds. */
+    private List<Feed> feeds;
+
+	/**
+	 * Gets the feeds.
+	 *
+	 * @return the feeds
+	 */
+	public List<Feed> getFeeds() {
+		return feeds;
+	}
+
+	/**
+	 * Sets the feeds.
+	 *
+	 * @param feeds the feeds to set
+	 */
+	public void setFeeds(List<Feed> feeds) {
+		this.feeds = feeds;
+	}
 
 }

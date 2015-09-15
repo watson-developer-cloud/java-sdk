@@ -20,30 +20,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Option.
  */
-public class Option {
+public class Option extends GenericModel {
 
 	/** The app_data. */
 	@SerializedName("app_data")
-	private Map<String,String> appData;
+	private Map<String, String> appData;
 
 	/** The description html. */
 	@SerializedName("description_html")
 	private String descriptionHtml;
-	
+
 	/** The key. */
 	private String key;
-	
+
 	/** The name. */
 	private String name;
-	
+
 	/** The values. */
-	private HashMap<String,Object> values;
+	private HashMap<String, Object> values;
 
 	/**
 	 * Instantiates a new option.
@@ -78,8 +77,7 @@ public class Option {
 	 * @param descriptionHtml
 	 *            the description html
 	 */
-	public Option(String key, String name, HashMap<String, Object> values,
-			String descriptionHtml) {
+	public Option(String key, String name, HashMap<String, Object> values, String descriptionHtml) {
 		super();
 		this.key = key;
 		this.name = name;
@@ -159,30 +157,22 @@ public class Option {
 	 * @param values
 	 *            The values
 	 */
-	public void setValues(HashMap<String, Object>  values) {
+	public void setValues(HashMap<String, Object> values) {
 		this.values = values;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 	/**
 	 * With application data.
-	 *
-	 * @param appData the app data
+	 * 
+	 * @param appData
+	 *            the app data
 	 * @return the option
 	 */
-	public Option withAppData(HashMap<String, String>  appData) {
+	public Option withAppData(HashMap<String, String> appData) {
 		this.appData = appData;
 		return this;
 	}
-	
+
 	/**
 	 * With description html.
 	 * 
@@ -244,7 +234,7 @@ public class Option {
 	 *            the values
 	 * @return the option
 	 */
-	public Option withValues(HashMap<String, Object>  values) {
+	public Option withValues(HashMap<String, Object> values) {
 		this.values = values;
 		return this;
 	}

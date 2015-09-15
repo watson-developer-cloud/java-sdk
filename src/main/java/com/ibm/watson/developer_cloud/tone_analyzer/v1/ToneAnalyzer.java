@@ -36,10 +36,9 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
- * The IBM Watson The Tone Analyzer service uses linguistic analysis to detect
- * emotional tones, social propensities, and writing styles in written
- * communication. Then it offers suggestions to help the writer improve their
- * intended language tones.
+ * The IBM Watson The Tone Analyzer service uses linguistic analysis to detect emotional
+ * tones, social propensities, and writing styles in written communication. Then it offers
+ * suggestions to help the writer improve their intended language tones.
  * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
@@ -52,22 +51,22 @@ public class ToneAnalyzer extends WatsonService {
 	/** The Constant HOPS. */
 	// parameters
 	public static final String HOPS = "hops";
-	
+
 	/** The Constant LIMIT. */
 	public static final String LIMIT = "limit";
-	
+
 	/** The Constant CONTEXT. */
 	public static final String CONTEXT = "context";
-	
+
 	/** The Constant TRAITS. */
 	public static final String TRAITS = "traits";
-	
+
 	/** The Constant WORDS. */
 	public static final String WORDS = "words";
-	
+
 	/** The Constant TEXT. */
 	public static final String TEXT = "text";
-	
+
 	/** The Constant SCORECARD. */
 	public static final String SCORECARD = "scorecard";
 
@@ -77,7 +76,6 @@ public class ToneAnalyzer extends WatsonService {
 	/** The synonym list. */
 	private static final Type synonymListType = new TypeToken<List<SynonymResult>>() {}.getType();
 
-	
 	/**
 	 * Instantiates a new Tone Analyzer service with the default url.
 	 */
@@ -86,10 +84,10 @@ public class ToneAnalyzer extends WatsonService {
 	}
 
 	/**
-	 * Analyzes the "tone" of a piece of text using the default scorecard.
-	 * The message is analyzed from several tones (social tone, emotional tone,
-	 * writing tone), and for each of them various traits are derived
-	 * (such as conscientiousness, agreeableness, openness).
+	 * Analyzes the "tone" of a piece of text using the default scorecard. The message is
+	 * analyzed from several tones (social tone, emotional tone, writing tone), and for
+	 * each of them various traits are derived (such as conscientiousness, agreeableness,
+	 * openness).
 	 * 
 	 * 
 	 * @param text
@@ -98,20 +96,19 @@ public class ToneAnalyzer extends WatsonService {
 	 * 
 	 */
 	public Tone getTone(final String text) {
-		return getTone(text,null);
+		return getTone(text, null);
 	}
 
 	/**
-	 * Analyzes the "tone" of a piece of text. The message is analyzed from
-	 * several tones (social tone, emotional tone, writing tone), and for each
-	 * of them various traits are derived (such as conscientiousness,
-	 * agreeableness, openness).
+	 * Analyzes the "tone" of a piece of text. The message is analyzed from several tones
+	 * (social tone, emotional tone, writing tone), and for each of them various traits
+	 * are derived (such as conscientiousness, agreeableness, openness).
 	 * 
 	 * @param text
 	 *            The text to analyze
 	 * @param scorecard
-	 *            Name of the scorecard used to compute the tone. (business
-	 *            messages by default)
+	 *            Name of the scorecard used to compute the tone. (business messages by
+	 *            default)
 	 * @return the {@link Tone} with the response
 	 * 
 	 */
@@ -126,8 +123,7 @@ public class ToneAnalyzer extends WatsonService {
 		if (scorecard != null)
 			contentJson.addProperty(SCORECARD, scorecard.getId());
 
-		HttpRequestBase request = Request.Post("/v1/tone")
-				.withContent(contentJson).build();
+		HttpRequestBase request = Request.Post("/v1/tone").withContent(contentJson).build();
 
 		try {
 			HttpResponse response = execute(request);
@@ -141,8 +137,9 @@ public class ToneAnalyzer extends WatsonService {
 
 	/**
 	 * Starts or continue conversations.
-	 *
-	 * @param params            The map with the parameters described above
+	 * 
+	 * @param params
+	 *            The map with the parameters described above
 	 * @return {@link SynonymResult}
 	 */
 	public List<SynonymResult> getSynonyms(Map<String, Object> params) {
@@ -154,14 +151,14 @@ public class ToneAnalyzer extends WatsonService {
 			throw new IllegalArgumentException("words can not be null or empty");
 
 		JsonObject contentJson = new JsonObject();
-		
+
 		// words
 		JsonArray wordsJson = new JsonArray();
 		for (String word : words) {
 			wordsJson.add(new JsonPrimitive(word));
 		}
-		contentJson.add(WORDS,wordsJson);
-		
+		contentJson.add(WORDS, wordsJson);
+
 		// traits
 		if (traits != null && traits.length > 0) {
 			JsonArray traisJson = new JsonArray();
@@ -170,7 +167,7 @@ public class ToneAnalyzer extends WatsonService {
 			}
 			contentJson.add(TRAITS, traisJson);
 		}
-		
+
 		// context
 		if (contexts != null && contexts.length > 0) {
 			JsonArray contextsJson = new JsonArray();
@@ -181,13 +178,12 @@ public class ToneAnalyzer extends WatsonService {
 		}
 
 		if (params.containsKey(LIMIT))
-			contentJson.addProperty(LIMIT,(Integer)params.get(LIMIT));
+			contentJson.addProperty(LIMIT, (Integer) params.get(LIMIT));
 
 		if (params.containsKey(HOPS))
-			contentJson.addProperty(HOPS,(Integer)params.get(HOPS));
-				
-		HttpRequestBase request = Request.Post("/v1/synonym")
-				.withContent(contentJson).build();
+			contentJson.addProperty(HOPS, (Integer) params.get(HOPS));
+
+		HttpRequestBase request = Request.Post("/v1/synonym").withContent(contentJson).build();
 
 		HttpResponse response = execute(request);
 		try {

@@ -17,12 +17,12 @@
 package com.ibm.watson.developer_cloud.visual_recognition.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Label.
  */
-public class Label {
+public class Label extends GenericModel {
 
 	/** The name. */
 	@SerializedName("label_name")
@@ -68,39 +68,6 @@ public class Label {
 	 */
 	public void setScore(double score) {
 		this.score = score;
-	}
-
-	/**
-	 * With label name.
-	 * 
-	 * @param name
-	 *            the name
-	 * @return the image label
-	 */
-	public Label withName(String name) {
-		this.name = name;
-		return this;
-	}
-
-	/**
-	 * With score.
-	 * 
-	 * @param score
-	 *            the score
-	 * @return the image
-	 */
-	public Label withScore(double score) {
-		this.score = score;
-		return this;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

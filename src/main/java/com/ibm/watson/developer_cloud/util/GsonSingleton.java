@@ -8,6 +8,8 @@ import com.google.gson.GsonBuilder;
  */
 public class GsonSingleton {
 
+	/** The Constant DATE_FORMAT_UTC. */
+	private static final String DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
 	/** The gson. */
 	private static Gson gson;
 	
@@ -32,6 +34,7 @@ public class GsonSingleton {
 	private static Gson createGson() {
 		return new GsonBuilder()
 			.setPrettyPrinting()
+			.setDateFormat(DATE_FORMAT_UTC)
 			.create();
 	};
 }

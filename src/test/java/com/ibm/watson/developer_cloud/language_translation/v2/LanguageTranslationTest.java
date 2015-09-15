@@ -94,7 +94,6 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 		} catch (NumberFormatException e) {
 			log.log(Level.SEVERE, "Error mocking the service", e);
 		}
-
 	}
 
 	/**
@@ -193,8 +192,6 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 		langs.add(new IdentifiableLanguage("zh", "Chinese"));
 		response.put("languages", langs);
 
-		System.out.println(GsonSingleton.getGson().toJson(response));
-
 		mockServer.when(request().withPath(IDENTIFIABLE_LANGUAGES_PATH)).respond(
 				response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, MediaType.APPLICATION_JSON))
 						.withBody(GsonSingleton.getGson().toJson(response)));
@@ -203,7 +200,7 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 
 		mockServer.verify(request().withPath(IDENTIFIABLE_LANGUAGES_PATH), VerificationTimes.exactly(1));
 		Assert.assertNotNull(languages);
-		Assert.assertFalse(languages.containsAll(langs));
+		Assert.assertEquals(languages,langs);
 	}
 
 	/**

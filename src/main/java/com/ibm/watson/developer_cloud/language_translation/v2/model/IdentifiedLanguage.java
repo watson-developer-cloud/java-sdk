@@ -16,11 +16,10 @@
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Language detected by the {@link LanguageTranslation} service.
- *
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class IdentifiedLanguage extends IdentifiableLanguage {
@@ -30,7 +29,7 @@ public class IdentifiedLanguage extends IdentifiableLanguage {
 
 	/**
 	 * Instantiates a new language.
-	 *
+	 * 
 	 * @param language
 	 *            the language
 	 * @param confidence
@@ -43,21 +42,10 @@ public class IdentifiedLanguage extends IdentifiableLanguage {
 
 	/**
 	 * Gets the confidence.
-	 *
+	 * 
 	 * @return the confidence
 	 */
 	public Double getConfidence() {
 		return confidence;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

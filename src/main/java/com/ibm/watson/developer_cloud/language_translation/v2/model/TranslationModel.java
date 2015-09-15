@@ -1,21 +1,21 @@
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Language Model used by the {@link TranslationModel}.
- *
+ * 
  * @author German Attanasio Ruiz germanatt@us.ibm.com
  */
-public class TranslationModel {
+public class TranslationModel extends GenericModel {
 
 	/** The Constant STATUS_TRAINING. */
 	public static final String STATUS_TRAINING = "training";
-	
+
 	/** The Constant STATUS_ERROR. */
 	public static final String STATUS_ERROR = "training";
-	
+
 	/** The Constant STATUS_AVAILABLE. */
 	public static final String STATUS_AVAILABLE = "training";
 
@@ -54,7 +54,7 @@ public class TranslationModel {
 
 	/**
 	 * Gets the model id.
-	 *
+	 * 
 	 * @return The modelId
 	 */
 	public String getModelId() {
@@ -63,7 +63,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the model id.
-	 *
+	 * 
 	 * @param modelId
 	 *            The model_id
 	 */
@@ -72,20 +72,8 @@ public class TranslationModel {
 	}
 
 	/**
-	 * With model id.
-	 *
-	 * @param modelId
-	 *            the model id
-	 * @return the language model set
-	 */
-	public TranslationModel withModelId(final String modelId) {
-		this.modelId = modelId;
-		return this;
-	}
-
-	/**
 	 * Gets the source.
-	 *
+	 * 
 	 * @return The source
 	 */
 	public String getSource() {
@@ -94,7 +82,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the source.
-	 *
+	 * 
 	 * @param source
 	 *            The source
 	 */
@@ -103,20 +91,8 @@ public class TranslationModel {
 	}
 
 	/**
-	 * With source.
-	 *
-	 * @param source
-	 *            the source
-	 * @return the language model set
-	 */
-	public TranslationModel withSource(final String source) {
-		this.source = source;
-		return this;
-	}
-
-	/**
 	 * Gets the target.
-	 *
+	 * 
 	 * @return The target
 	 */
 	public String getTarget() {
@@ -125,7 +101,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the target.
-	 *
+	 * 
 	 * @param target
 	 *            The target
 	 */
@@ -134,20 +110,8 @@ public class TranslationModel {
 	}
 
 	/**
-	 * With target.
-	 *
-	 * @param target
-	 *            the target
-	 * @return the language model set
-	 */
-	public TranslationModel withTarget(final String target) {
-		this.target = target;
-		return this;
-	}
-
-	/**
 	 * Gets the base model id.
-	 *
+	 * 
 	 * @return The baseModelId
 	 */
 	public String getBaseModelId() {
@@ -156,7 +120,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the base model id.
-	 *
+	 * 
 	 * @param baseModelId
 	 *            The base_model_id
 	 */
@@ -165,20 +129,8 @@ public class TranslationModel {
 	}
 
 	/**
-	 * With base model id.
-	 *
-	 * @param baseModelId
-	 *            the base model id
-	 * @return the language model set
-	 */
-	public TranslationModel withBaseModelId(final String baseModelId) {
-		this.baseModelId = baseModelId;
-		return this;
-	}
-
-	/**
 	 * Gets the domain.
-	 *
+	 * 
 	 * @return The domain
 	 */
 	public String getDomain() {
@@ -187,7 +139,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the domain.
-	 *
+	 * 
 	 * @param domain
 	 *            The domain
 	 */
@@ -196,20 +148,8 @@ public class TranslationModel {
 	}
 
 	/**
-	 * With domain.
-	 *
-	 * @param domain
-	 *            the domain
-	 * @return the language model set
-	 */
-	public TranslationModel withDomain(final String domain) {
-		this.domain = domain;
-		return this;
-	}
-
-	/**
 	 * Checks if is customizable.
-	 *
+	 * 
 	 * @return The customizable
 	 */
 	public boolean isCustomizable() {
@@ -218,7 +158,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the customizable.
-	 *
+	 * 
 	 * @param customizable
 	 *            The customizable
 	 */
@@ -227,20 +167,8 @@ public class TranslationModel {
 	}
 
 	/**
-	 * With customizable.
-	 *
-	 * @param customizable
-	 *            the customizable
-	 * @return the language model set
-	 */
-	public TranslationModel withCustomizable(final boolean customizable) {
-		this.customizable = customizable;
-		return this;
-	}
-
-	/**
 	 * Checks if is default model.
-	 *
+	 * 
 	 * @return The defaultModel
 	 */
 	public boolean isDefaultModel() {
@@ -249,7 +177,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the default model.
-	 *
+	 * 
 	 * @param defaultModel
 	 *            The default_model
 	 */
@@ -258,20 +186,8 @@ public class TranslationModel {
 	}
 
 	/**
-	 * With default model.
-	 *
-	 * @param defaultModel
-	 *            the default model
-	 * @return the language model set
-	 */
-	public TranslationModel withDefaultModel(final boolean defaultModel) {
-		this.defaultModel = defaultModel;
-		return this;
-	}
-
-	/**
 	 * Gets the owner.
-	 *
+	 * 
 	 * @return The owner
 	 */
 	public String getOwner() {
@@ -280,7 +196,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the owner.
-	 *
+	 * 
 	 * @param owner
 	 *            The owner
 	 */
@@ -289,20 +205,8 @@ public class TranslationModel {
 	}
 
 	/**
-	 * With owner.
-	 *
-	 * @param owner
-	 *            the owner
-	 * @return the language model set
-	 */
-	public TranslationModel withOwner(final String owner) {
-		this.owner = owner;
-		return this;
-	}
-
-	/**
 	 * Gets the status.
-	 *
+	 * 
 	 * @return The status
 	 */
 	public String getStatus() {
@@ -311,7 +215,7 @@ public class TranslationModel {
 
 	/**
 	 * Sets the status.
-	 *
+	 * 
 	 * @param status
 	 *            The status
 	 */
@@ -320,20 +224,8 @@ public class TranslationModel {
 	}
 
 	/**
-	 * With status.
-	 *
-	 * @param status
-	 *            the status
-	 * @return the language model set
-	 */
-	public TranslationModel withStatus(final String status) {
-		this.status = status;
-		return this;
-	}
-
-	/**
 	 * Gets the name.
-	 *
+	 * 
 	 * @return The name
 	 */
 	public String getName() {
@@ -342,34 +234,11 @@ public class TranslationModel {
 
 	/**
 	 * Sets the name.
-	 *
+	 * 
 	 * @param name
 	 *            The name
 	 */
 	public void setName(final String name) {
 		this.name = name;
-	}
-
-	/**
-	 * With name.
-	 *
-	 * @param name
-	 *            the name
-	 * @return the language model set
-	 */
-	public TranslationModel withName(final String name) {
-		this.name = name;
-		return this;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

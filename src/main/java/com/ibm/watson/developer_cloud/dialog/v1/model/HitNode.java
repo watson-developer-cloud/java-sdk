@@ -17,12 +17,12 @@
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class HitNode.
  */
-public class HitNode {
+public class HitNode  extends GenericModel {
 
 	/** The details. */
 	private String details;
@@ -37,7 +37,7 @@ public class HitNode {
 	 * The node id.
 	 */
 	@SerializedName("node_id")
-	private int nodeId;
+	private Integer nodeId;
 
 	/**
 	 * Gets the details.
@@ -56,18 +56,6 @@ public class HitNode {
 	 */
 	public void setDetails(final String details) {
 		this.details = details;
-	}
-
-	/**
-	 * With details.
-	 * 
-	 * @param details
-	 *            the details
-	 * @return the hit node
-	 */
-	public HitNode withDetails(final String details) {
-		this.details = details;
-		return this;
 	}
 
 	/**
@@ -90,18 +78,6 @@ public class HitNode {
 	}
 
 	/**
-	 * With label.
-	 * 
-	 * @param label
-	 *            the label
-	 * @return the hit node
-	 */
-	public HitNode withLabel(final String label) {
-		this.label = label;
-		return this;
-	}
-
-	/**
 	 * Gets the type.
 	 * 
 	 * @return The type
@@ -121,23 +97,11 @@ public class HitNode {
 	}
 
 	/**
-	 * With type.
-	 * 
-	 * @param type
-	 *            the type
-	 * @return the hit node
-	 */
-	public HitNode withType(final String type) {
-		this.type = type;
-		return this;
-	}
-
-	/**
 	 * Gets the node id.
 	 * 
 	 * @return The nodeId
 	 */
-	public int getNodeId() {
+	public Integer getNodeId() {
 		return nodeId;
 	}
 
@@ -147,30 +111,7 @@ public class HitNode {
 	 * @param nodeId
 	 *            The node_id
 	 */
-	public void setNodeId(final int nodeId) {
+	public void setNodeId(final Integer nodeId) {
 		this.nodeId = nodeId;
-	}
-
-	/**
-	 * With node id.
-	 * 
-	 * @param nodeId
-	 *            the node id
-	 * @return the hit node
-	 */
-	public HitNode withNodeId(final int nodeId) {
-		this.nodeId = nodeId;
-		return this;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

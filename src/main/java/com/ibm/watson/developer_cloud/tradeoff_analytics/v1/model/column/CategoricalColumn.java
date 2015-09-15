@@ -18,9 +18,6 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
-
 /**
  * The Class Column.
  * 
@@ -30,7 +27,7 @@ public class CategoricalColumn extends Column {
 
 	/** The preference. */
 	private List<String> preference;
-	
+
 	/** The range. */
 	List<String> range;
 
@@ -43,16 +40,16 @@ public class CategoricalColumn extends Column {
 
 	/**
 	 * Gets the preference.
-	 *
+	 * 
 	 * @return the preference
 	 */
 	public List<String> getPreference() {
 		return preference;
 	}
-	
+
 	/**
 	 * Gets the range.
-	 *
+	 * 
 	 * @return the range
 	 */
 	public List<String> getRange() {
@@ -61,35 +58,29 @@ public class CategoricalColumn extends Column {
 
 	/**
 	 * Sets the preference.
-	 *
-	 * @param preference the preference to set
+	 * 
+	 * @param preference
+	 *            the preference to set
 	 */
 	public void setPreference(List<String> preference) {
 		this.preference = preference;
 	}
-	
+
 	/**
 	 * Sets the range.
-	 *
-	 * @param range the new range
+	 * 
+	 * @param range
+	 *            the new range
 	 */
 	public void setRange(List<String> range) {
 		this.range = range;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
-	}
-	
 	/**
 	 * With range.
-	 *
-	 * @param range the range
+	 * 
+	 * @param range
+	 *            the range
 	 * @return the categorical column
 	 */
 	public CategoricalColumn withRange(List<String> range) {

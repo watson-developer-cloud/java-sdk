@@ -16,23 +16,22 @@
 
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Transcript.
  */
-public class Transcript {
+public class Transcript extends GenericModel {
 
-	/** The alternatives. */
-	private List<SpeechAlternative> alternatives = new ArrayList<SpeechAlternative>();
-	
 	/** The _final. */
 	@SerializedName("final")
 	private boolean _final;
+	
+	/** The alternatives. */
+	private List<SpeechAlternative> alternatives;
 
 	/**
 	 * Gets the alternatives.
@@ -41,6 +40,15 @@ public class Transcript {
 	 */
 	public List<SpeechAlternative> getAlternatives() {
 		return alternatives;
+	}
+
+	/**
+	 * Checks if is final.
+	 * 
+	 * @return The _final
+	 */
+	public boolean isFinal() {
+		return _final;
 	}
 
 	/**
@@ -54,28 +62,6 @@ public class Transcript {
 	}
 
 	/**
-	 * With alternatives.
-	 * 
-	 * @param alternatives
-	 *            the alternatives
-	 * @return the speech
-	 */
-	public Transcript withAlternatives(
-			final List<SpeechAlternative> alternatives) {
-		this.alternatives = alternatives;
-		return this;
-	}
-
-	/**
-	 * Checks if is final.
-	 * 
-	 * @return The _final
-	 */
-	public boolean isFinal() {
-		return _final;
-	}
-
-	/**
 	 * Sets the final.
 	 * 
 	 * @param _final
@@ -86,44 +72,15 @@ public class Transcript {
 	}
 
 	/**
-	 * With final.
+	 * With alternatives.
 	 * 
-	 * @param _final
-	 *            the _final
+	 * @param alternatives
+	 *            the alternatives
 	 * @return the speech
 	 */
-	public Transcript withFinal(final boolean _final) {
-		this._final = _final;
+	public Transcript withAlternatives(
+			final List<SpeechAlternative> alternatives) {
+		this.alternatives = alternatives;
 		return this;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		Transcript that = (Transcript) o;
-
-		if (_final != that._final) return false;
-		return alternatives.equals(that.alternatives);
-
-	}
-
-	@Override
-	public int hashCode() {
-		int result = alternatives.hashCode();
-		result = 31 * result + (_final ? 1 : 0);
-		return result;
-	}
-
-	/*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Object#toString()
-         */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

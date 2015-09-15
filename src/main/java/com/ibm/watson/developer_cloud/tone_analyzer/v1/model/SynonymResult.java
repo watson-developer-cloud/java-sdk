@@ -16,120 +16,78 @@
 
 package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The SynonymResult.
  */
-public class SynonymResult {
+public class SynonymResult extends GenericModel {
 
-    /** The trait. */
-    private String trait;
-    
-    /** The headword. */
-    private String headword;
-    
-    /** The synonyms. */
-    private List<Synonym> synonyms = new ArrayList<Synonym>();
+	/** The headword. */
+	private String headword;
 
-    /**
-     * Gets the trait.
-     *
-     * @return     The trait
-     */
-    public String getTrait() {
-        return trait;
-    }
+	/** The synonyms. */
+	private List<Synonym> synonyms;
 
-    /**
-     * Sets the trait.
-     *
-     * @param trait     The trait
-     */
-    public void setTrait(String trait) {
-        this.trait = trait;
-    }
+	/** The trait. */
+	private String trait;
 
-    /**
-     * With trait.
-     *
-     * @param trait the trait
-     * @return the synonym result
-     */
-    public SynonymResult withTrait(String trait) {
-        this.trait = trait;
-        return this;
-    }
-
-    /**
-     * Gets the headword.
-     *
-     * @return     The headword
-     */
-    public String getHeadword() {
-        return headword;
-    }
-
-    /**
-     * Sets the headword.
-     *
-     * @param headword     The headword
-     */
-    public void setHeadword(String headword) {
-        this.headword = headword;
-    }
-
-    /**
-     * With headword.
-     *
-     * @param headword the headword
-     * @return the synonym result
-     */
-    public SynonymResult withHeadword(String headword) {
-        this.headword = headword;
-        return this;
-    }
-
-    /**
-     * Gets the synonyms.
-     *
-     * @return     The synonyms
-     */
-    public List<Synonym> getSynonyms() {
-        return synonyms;
-    }
-
-    /**
-     * Sets the synonyms.
-     *
-     * @param synonyms     The synonyms
-     */
-    public void setSynonyms(List<Synonym> synonyms) {
-        this.synonyms = synonyms;
-    }
-
-    /**
-     * With synonyms.
-     *
-     * @param synonyms the synonyms
-     * @return the synonym result
-     */
-    public SynonymResult withSynonyms(List<Synonym> synonyms) {
-        this.synonyms = synonyms;
-        return this;
-    }
-
-	/*
-	 * (non-Javadoc)
+	/**
+	 * Gets the headword.
 	 * 
-	 * @see java.lang.Object#toString()
+	 * @return The headword
 	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
+	public String getHeadword() {
+		return headword;
+	}
+
+	/**
+	 * Gets the synonyms.
+	 * 
+	 * @return The synonyms
+	 */
+	public List<Synonym> getSynonyms() {
+		return synonyms;
+	}
+
+	/**
+	 * Gets the trait.
+	 * 
+	 * @return The trait
+	 */
+	public String getTrait() {
+		return trait;
+	}
+
+	/**
+	 * Sets the headword.
+	 * 
+	 * @param headword
+	 *            The headword
+	 */
+	public void setHeadword(String headword) {
+		this.headword = headword;
+	}
+
+	/**
+	 * Sets the synonyms.
+	 * 
+	 * @param synonyms
+	 *            The synonyms
+	 */
+	public void setSynonyms(List<Synonym> synonyms) {
+		this.synonyms = synonyms;
+	}
+
+	/**
+	 * Sets the trait.
+	 * 
+	 * @param trait
+	 *            The trait
+	 */
+	public void setTrait(String trait) {
+		this.trait = trait;
 	}
 }

@@ -18,137 +18,146 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.util.ColumnTypeAdapter;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
 
 /**
  * The Class Column.
  */
 @JsonAdapter(ColumnTypeAdapter.class)
-public abstract class Column {
-	
+public abstract class Column extends GenericModel {
+
 	/**
 	 * The Enum ColumnType.
 	 */
 	public enum ColumnType {
-	    
-    	/** The categorical. */
-    	CATEGORICAL("categorical"),
-	    
-    	/** The datetime. */
-    	DATETIME("datetime"),
-	    
-    	/** The numeric. */
-    	NUMERIC("numeric"),
-	    
-    	/** The text. */
-    	TEXT("text");
 
-	    /**
-	     * From string.
-	     *
-	     * @param text the text
-	     * @return the column type
-	     */
-	    public static ColumnType fromString(String text) {
-    	    if (text != null) {
-    	      for (ColumnType col : ColumnType.values()) {
-    	        if (text.equalsIgnoreCase(col.type)) {
-    	          return col;
-    	        }
-    	      }
-    	    }
-    	    return null;
-    	}       
+		/** The categorical. */
+		CATEGORICAL("categorical"),
 
-	    /** The type. */
-    	private final String type;
+		/** The datetime. */
+		DATETIME("datetime"),
 
-	    /**
-    	 * Instantiates a new column type.
-    	 *
-    	 * @param columnType the column type
-    	 */
-    	private ColumnType(String columnType) {
-	    	this.type = columnType;
-	    }
+		/** The numeric. */
+		NUMERIC("numeric"),
 
-	    /**
-    	 * Equals.
-    	 *
-    	 * @param otherColumnType the other column type
-    	 * @return true, if successful
-    	 */
-    	public boolean equals(String otherColumnType) {
-	        return (otherColumnType == null) ? false : type.equals(otherColumnType);
-	    }
-    	
-    	/* (non-Javadoc)
-    	 * @see java.lang.Enum#toString()
-    	 */
-    	public String toString() {
-	       return this.type;
-	    }
+		/** The text. */
+		TEXT("text");
+
+		/**
+		 * From string.
+		 * 
+		 * @param text
+		 *            the text
+		 * @return the column type
+		 */
+		public static ColumnType fromString(String text) {
+			if (text != null) {
+				for (ColumnType col : ColumnType.values()) {
+					if (text.equalsIgnoreCase(col.type)) {
+						return col;
+					}
+				}
+			}
+			return null;
+		}
+
+		/** The type. */
+		private final String type;
+
+		/**
+		 * Instantiates a new column type.
+		 * 
+		 * @param columnType
+		 *            the column type
+		 */
+		private ColumnType(String columnType) {
+			this.type = columnType;
+		}
+
+		/**
+		 * Equals.
+		 * 
+		 * @param otherColumnType
+		 *            the other column type
+		 * @return true, if successful
+		 */
+		public boolean equals(String otherColumnType) {
+			return (otherColumnType == null) ? false : type.equals(otherColumnType);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Enum#toString()
+		 */
+		public String toString() {
+			return this.type;
+		}
 	}
 
 	/**
 	 * The Enum Goal.
 	 */
 	public enum Goal {
-	    
-    	/** The max. */
-    	MAX("max"),
-	    
-    	/** The min. */
-    	MIN("min");
 
-	    /**
-	     * From string.
-	     *
-	     * @param text the text
-	     * @return the goal
-	     */
-	    public static Goal fromString(String text) {
-    	    if (text != null) {
-    	      for (Goal goal : Goal.values()) {
-    	        if (text.equalsIgnoreCase(goal.goal)) {
-    	          return goal;
-    	        }
-    	      }
-    	    }
-    	    return null;
-    	}       
+		/** The max. */
+		MAX("max"),
 
-	    /** The goal. */
-    	private final String goal;
+		/** The min. */
+		MIN("min");
 
-	    /**
-    	 * Instantiates a new goal.
-    	 *
-    	 * @param goal the goal
-    	 */
-    	private Goal(String goal) {
-	    	this.goal = goal;
-	    }
+		/**
+		 * From string.
+		 * 
+		 * @param text
+		 *            the text
+		 * @return the goal
+		 */
+		public static Goal fromString(String text) {
+			if (text != null) {
+				for (Goal goal : Goal.values()) {
+					if (text.equalsIgnoreCase(goal.goal)) {
+						return goal;
+					}
+				}
+			}
+			return null;
+		}
 
-	    /**
-    	 * Equals.
-    	 *
-    	 * @param otherGoal the other goal
-    	 * @return true, if successful
-    	 */
-    	public boolean equals(String otherGoal) {
-	        return (otherGoal == null) ? false : goal.equals(otherGoal);
-	    }
-    	
-    	/* (non-Javadoc)
-    	 * @see java.lang.Enum#toString()
-    	 */
-    	public String toString() {
-	       return this.goal;
-	    }
-    	
+		/** The goal. */
+		private final String goal;
+
+		/**
+		 * Instantiates a new goal.
+		 * 
+		 * @param goal
+		 *            the goal
+		 */
+		private Goal(String goal) {
+			this.goal = goal;
+		}
+
+		/**
+		 * Equals.
+		 * 
+		 * @param otherGoal
+		 *            the other goal
+		 * @return true, if successful
+		 */
+		public boolean equals(String otherGoal) {
+			return (otherGoal == null) ? false : goal.equals(otherGoal);
+		}
+
+		/*
+		 * (non-Javadoc)
+		 * 
+		 * @see java.lang.Enum#toString()
+		 */
+		public String toString() {
+			return this.goal;
+		}
+
 	}
 
 	/** The description. */
@@ -156,18 +165,18 @@ public abstract class Column {
 
 	/** The format. */
 	private String format;
-	
+
 	/** The full name. */
 	@SerializedName("full_name")
 	private String fullName;
-	
+
 	/** The goal. */
 	private Goal goal;
-	
+
 	/** The insignificant loss. */
 	@SerializedName("insignificant_loss")
 	private Double insignificantLoss;
-	
+
 	/** The key. */
 	private String key;
 
@@ -178,26 +187,27 @@ public abstract class Column {
 	/** The significant gain. */
 	@SerializedName("significant_gain")
 	private Double significantGain;
-	
+
 	/** The significant loss. */
 	@SerializedName("significant_loss")
 	private Double significantLoss;
-	
+
 	/** The type. */
 	private ColumnType type;
-	
+
 	/**
 	 * Instantiates a new column.
-	 *
-	 * @param type the type
+	 * 
+	 * @param type
+	 *            the type
 	 */
 	public Column(ColumnType type) {
 		this.type = type;
 	}
-	
+
 	/**
 	 * Gets the description.
-	 *
+	 * 
 	 * @return the description
 	 */
 	public String getDescription() {
@@ -206,7 +216,7 @@ public abstract class Column {
 
 	/**
 	 * Gets the format.
-	 *
+	 * 
 	 * @return the format
 	 */
 	public String getFormat() {
@@ -233,7 +243,7 @@ public abstract class Column {
 
 	/**
 	 * Gets the insignificant loss.
-	 *
+	 * 
 	 * @return the insignificant loss
 	 */
 	public Double getInsignificantLoss() {
@@ -251,7 +261,7 @@ public abstract class Column {
 
 	/**
 	 * Gets the significant gain.
-	 *
+	 * 
 	 * @return the significant gain
 	 */
 	public Double getSignificantGain() {
@@ -260,7 +270,7 @@ public abstract class Column {
 
 	/**
 	 * Gets the significant loss.
-	 *
+	 * 
 	 * @return the significant loss
 	 */
 	public Double getSignificantLoss() {
@@ -275,10 +285,10 @@ public abstract class Column {
 	public ColumnType getType() {
 		return type;
 	}
-	
+
 	/**
 	 * Checks if is objective.
-	 *
+	 * 
 	 * @return true, if is objective
 	 */
 	public Boolean isObjective() {
@@ -287,8 +297,9 @@ public abstract class Column {
 
 	/**
 	 * Sets the description.
-	 *
-	 * @param description the new description
+	 * 
+	 * @param description
+	 *            the new description
 	 */
 	public void setDescription(String description) {
 		this.description = description;
@@ -296,8 +307,9 @@ public abstract class Column {
 
 	/**
 	 * Sets the format.
-	 *
-	 * @param format the new format
+	 * 
+	 * @param format
+	 *            the new format
 	 */
 	public void setFormat(String format) {
 		this.format = format;
@@ -325,8 +337,9 @@ public abstract class Column {
 
 	/**
 	 * Sets the insignificant loss.
-	 *
-	 * @param insignificantLoss the new insignificant loss
+	 * 
+	 * @param insignificantLoss
+	 *            the new insignificant loss
 	 */
 	public void setInsignificantLoss(Double insignificantLoss) {
 		this.insignificantLoss = insignificantLoss;
@@ -354,8 +367,9 @@ public abstract class Column {
 
 	/**
 	 * Sets the significant gain.
-	 *
-	 * @param significantGain the new significant gain
+	 * 
+	 * @param significantGain
+	 *            the new significant gain
 	 */
 	public void setSignificantGain(Double significantGain) {
 		this.significantGain = significantGain;
@@ -363,8 +377,9 @@ public abstract class Column {
 
 	/**
 	 * Sets the significant loss.
-	 *
-	 * @param significantLoss the new significant loss
+	 * 
+	 * @param significantLoss
+	 *            the new significant loss
 	 */
 	public void setSignificantLoss(Double significantLoss) {
 		this.significantLoss = significantLoss;
@@ -380,15 +395,6 @@ public abstract class Column {
 		this.type = type;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
-	}
-	
 	/**
 	 * With full name.
 	 * 

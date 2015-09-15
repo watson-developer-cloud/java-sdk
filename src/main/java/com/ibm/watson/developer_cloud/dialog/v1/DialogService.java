@@ -18,6 +18,7 @@ package com.ibm.watson.developer_cloud.dialog.v1;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -106,7 +107,7 @@ public class DialogService extends WatsonService {
 	private static final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 	/** The Constant URL. */
-	private static final String URL = "https://gateway.watsonplatform.net/dialog-experimental/api";
+	private static final String URL = "https://gateway.watsonplatform.net/dialog-beta/api";
 	
 
 	/**
@@ -150,8 +151,7 @@ public class DialogService extends WatsonService {
 
 		try {
 			HttpResponse response = execute(request);
-			String conversationAsJson = ResponseUtil.getString(response);
-			Conversation conversation = GsonSingleton.getGson().fromJson(conversationAsJson, Conversation.class);
+			Conversation conversation = ResponseUtil.getObject(response, Conversation.class);
 			return conversation;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -190,15 +190,13 @@ public class DialogService extends WatsonService {
 		try {
 			MultipartEntity reqEntity = new MultipartEntity();
 			reqEntity.addPart("file", new FileBody(dialogFile));
-			reqEntity.addPart("name", new StringBody(name));
+			reqEntity.addPart("name", new StringBody(name,Charset.forName("UTF-8")));
 
 			HttpRequestBase request = Request.Post("/v1/dialogs")
 					.withEntity(reqEntity).build();
 
 			HttpResponse response = execute(request);
-			String DialogAsJson = ResponseUtil.getString(response);
-			Dialog dialog = GsonSingleton.getGson().fromJson(DialogAsJson, Dialog.class);
-			return dialog;
+			return ResponseUtil.getObject(response, Dialog.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

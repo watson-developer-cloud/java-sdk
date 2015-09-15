@@ -17,10 +17,13 @@ package com.ibm.watson.developer_cloud.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.protocol.HTTP;
 
@@ -86,5 +89,48 @@ public class RequestUtil {
 			}
 		}
 		return result.toString();
+	}
+
+	
+	/**
+	 * Return a copy of a {@link Map} excluding the given key, or array of keys.
+	 *
+	 * @param params the parameters
+	 * @param toOmit the keys to omit
+	 * @return the map with the omitted key-value pars
+	 */
+	public static Map<String,Object> omit(Map<String,Object> params, String... toOmit) {
+		if (params == null) return null;
+		if (toOmit == null || toOmit.length == 0) return params;
+
+		Map<String,Object> ret = new HashMap<String,Object>();
+
+		for (String key : params.keySet()) {
+			if (!ArrayUtils.contains(toOmit, key))
+				ret.put(key, params.get(key));
+		}
+		return ret;
+	}
+	
+	/**
+	 * Return a copy of a {@link Map} with only the specified given key, or array of keys.
+	 *
+	 * @param params the parameters
+	 * @param toPick the keys to pick
+	 * @return the map with the picked key-value pars
+	 */
+
+	public static Map<String,Object> pick(Map<String,Object> params, String... toPick) {
+		if (params == null) return null;
+		if (toPick == null || toPick.length == 0) return params;
+		
+		Map<String,Object> ret = new HashMap<String,Object>();
+
+		for (String key : params.keySet()) {
+			if (ArrayUtils.contains(toPick, key))
+				ret.put(key, params.get(key));
+		}
+		
+		return ret;
 	}
 }

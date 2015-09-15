@@ -17,242 +17,147 @@
 package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Synonym.
  */
-public class Synonym {
+public class Synonym extends GenericModel {
 
-    /** The returned given as a synonym or related word. */
-    private String word;
-    
-    /** The sense of the original word used to obtain related words. */
-    private String sense;
-    
-    /** The meaning of the original term. */
-    private String meaning;
-    
-    /**  Number of "hops" to get to this suggested word: 1 for direct synonyms, 2 for synonyms of synonyms, etc. */
-    private Integer hops;
-    
-    /** The type of the original word (noun, verb, etc.). */
-    @SerializedName("semantic-type")
-    private String semanticType;
+	/**
+	 * Number of "hops" to get to this suggested word: 1 for direct synonyms, 2 for
+	 * synonyms of synonyms, etc.
+	 */
+	private Integer hops;
 
-//    /** The weight. */
-    private Double weight;
+	/** The meaning of the original term. */
+	private String meaning;
 
-    /**
-     * Gets the word.
-     *
-     * @return     The word
-     */
-    public String getWord() {
-        return word;
-    }
+	/** The type of the original word (noun, verb, etc.). */
+	@SerializedName("semantic-type")
+	private String semanticType;
 
-    /**
-     * Sets the word.
-     *
-     * @param word     The word
-     */
-    public void setWord(final String word) {
-        this.word = word;
-    }
+	/** The sense of the original word used to obtain related words. */
+	private String sense;
 
-    /**
-     * With word.
-     *
-     * @param word the word
-     * @return the synonym
-     */
-    public Synonym withWord(final String word) {
-        this.word = word;
-        return this;
-    }
+	/** The weight. */
+	// /** The weight. */
+	private Double weight;
 
-    /**
-     * Gets the sense.
-     *
-     * @return     The sense
-     */
-    public String getSense() {
-        return sense;
-    }
+	/** The returned given as a synonym or related word. */
+	private String word;
 
-    /**
-     * Sets the sense.
-     *
-     * @param sense     The sense
-     */
-    public void setSense(final String sense) {
-        this.sense = sense;
-    }
+	/**
+	 * Gets the hops.
+	 * 
+	 * @return The hops
+	 */
+	public Integer getHops() {
+		return hops;
+	}
 
-    /**
-     * With sense.
-     *
-     * @param sense the sense
-     * @return the synonym
-     */
-    public Synonym withSense(final String sense) {
-        this.sense = sense;
-        return this;
-    }
+	/**
+	 * Gets the meaning.
+	 * 
+	 * @return The meaning
+	 */
+	public String getMeaning() {
+		return meaning;
+	}
 
-    /**
-     * Gets the meaning.
-     *
-     * @return     The meaning
-     */
-    public String getMeaning() {
-        return meaning;
-    }
+	/**
+	 * Gets the semantic type.
+	 * 
+	 * @return The semanticType
+	 */
+	public String getSemanticType() {
+		return semanticType;
+	}
 
-    /**
-     * Sets the meaning.
-     *
-     * @param meaning     The meaning
-     */
-    public void setMeaning(final String meaning) {
-        this.meaning = meaning;
-    }
+	/**
+	 * Gets the sense.
+	 * 
+	 * @return The sense
+	 */
+	public String getSense() {
+		return sense;
+	}
 
-    /**
-     * With meaning.
-     *
-     * @param meaning the meaning
-     * @return the synonym
-     */
-    public Synonym withMeaning(final String meaning) {
-        this.meaning = meaning;
-        return this;
-    }
+	/**
+	 * Gets the weight.
+	 * 
+	 * @return The weight
+	 */
+	public Double getWeight() {
+		return weight;
+	}
 
-    /**
-     * Gets the hops.
-     *
-     * @return     The hops
-     */
-    public Integer getHops() {
-        return hops;
-    }
+	/**
+	 * Gets the word.
+	 * 
+	 * @return The word
+	 */
+	public String getWord() {
+		return word;
+	}
 
-    /**
-     * Sets the hops.
-     *
-     * @param hops     The hops
-     */
-    public void setHops(final Integer hops) {
-        this.hops = hops;
-    }
+	/**
+	 * Sets the hops.
+	 * 
+	 * @param hops
+	 *            The hops
+	 */
+	public void setHops(final Integer hops) {
+		this.hops = hops;
+	}
 
-    /**
-     * With hops.
-     *
-     * @param hops the hops
-     * @return the synonym
-     */
-    public Synonym withHops(final Integer hops) {
-        this.hops = hops;
-        return this;
-    }
+	/**
+	 * Sets the meaning.
+	 * 
+	 * @param meaning
+	 *            The meaning
+	 */
+	public void setMeaning(final String meaning) {
+		this.meaning = meaning;
+	}
 
-    /**
-     * Gets the semantic type.
-     *
-     * @return     The semanticType
-     */
-    public String getSemanticType() {
-        return semanticType;
-    }
+	/**
+	 * Sets the semantic type.
+	 * 
+	 * @param semanticType
+	 *            The semantic-type
+	 */
+	public void setSemanticType(final String semanticType) {
+		this.semanticType = semanticType;
+	}
 
-    /**
-     * Sets the semantic type.
-     *
-     * @param semanticType     The semantic-type
-     */
-    public void setSemanticType(final String semanticType) {
-        this.semanticType = semanticType;
-    }
+	/**
+	 * Sets the sense.
+	 * 
+	 * @param sense
+	 *            The sense
+	 */
+	public void setSense(final String sense) {
+		this.sense = sense;
+	}
 
-    /**
-     * With semantic type.
-     *
-     * @param semanticType the semantic type
-     * @return the synonym
-     */
-    public Synonym withSemanticType(final String semanticType) {
-        this.semanticType = semanticType;
-        return this;
-    }
+	/**
+	 * Sets the weight.
+	 * 
+	 * @param weight
+	 *            the new weight
+	 */
+	public void setWeight(final Double weight) {
+		this.weight = weight;
+	}
 
-    /**
-     * Gets the weight.
-     *
-     * @return     The weight
-     */
-    public Double getWeight() {
-        return weight;
-    }
-
-    /**
-     * Sets the weight.
-     *
-     * @param weight
-     */
-    public void setWeight(final Double weight) {
-        this.weight = weight;
-    }
-
-    /**
-     * With weight.
-     *
-     * @param weight
-     * @return the synonym
-     */
-    public Synonym withWeight(final Double weight) {
-        this.weight = weight;
-        return this;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Synonym synonym = (Synonym) o;
-
-        if (word != null ? !word.equals(synonym.word) : synonym.word != null) return false;
-        if (sense != null ? !sense.equals(synonym.sense) : synonym.sense != null) return false;
-        if (meaning != null ? !meaning.equals(synonym.meaning) : synonym.meaning != null) return false;
-        if (hops != null ? !hops.equals(synonym.hops) : synonym.hops != null) return false;
-        if (semanticType != null ? !semanticType.equals(synonym.semanticType) : synonym.semanticType != null)
-            return false;
-        return !(weight != null ? !weight.equals(synonym.weight) : synonym.weight != null);
-
-    }
-
-    @Override
-    public int hashCode() {
-        int result = word != null ? word.hashCode() : 0;
-        result = 31 * result + (sense != null ? sense.hashCode() : 0);
-        result = 31 * result + (meaning != null ? meaning.hashCode() : 0);
-        result = 31 * result + (hops != null ? hops.hashCode() : 0);
-        result = 31 * result + (semanticType != null ? semanticType.hashCode() : 0);
-        result = 31 * result + (weight != null ? weight.hashCode() : 0);
-        return result;
-    }
-
-    /*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Object#toString()
-         */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
+	/**
+	 * Sets the word.
+	 * 
+	 * @param word
+	 *            The word
+	 */
+	public void setWord(final String word) {
+		this.word = word;
 	}
 }

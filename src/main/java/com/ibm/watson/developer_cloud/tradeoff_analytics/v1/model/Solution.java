@@ -17,22 +17,20 @@
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
-
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Solution.
  */
-public class Solution {
+public class Solution extends GenericModel {
 
 	/** The solution ref. */
 	@SerializedName("solution_ref")
 	private String solutionRef;
-	
+
 	/** The status. */
 	private String status;
-	
+
 	/** The status cause. */
 	@SerializedName("status_cause")
 	private StatusCause statusCause;
@@ -73,39 +71,6 @@ public class Solution {
 	 */
 	public void setStatus(String status) {
 		this.status = status;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With solution ref.
-	 * 
-	 * @param solutionRef
-	 *            the solution ref
-	 * @return the solution
-	 */
-	public Solution withSolutionRef(String solutionRef) {
-		this.solutionRef = solutionRef;
-		return this;
-	}
-
-	/**
-	 * With status.
-	 * 
-	 * @param status
-	 *            the status
-	 * @return the solution
-	 */
-	public Solution withStatus(String status) {
-		this.status = status;
-		return this;
 	}
 
 }

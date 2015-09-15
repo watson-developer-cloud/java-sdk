@@ -15,22 +15,20 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
-import com.google.gson.annotations.Expose;
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.model.GenericModel;
-
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
- * Structure to store a collection list of Jobs in the service
+ * Structure to store a collection list of Jobs in the service.
  *
  * @see DocumentConversion
  */
 public class JobCollection extends GenericModel {
 
-    /**
-     * List of all jobs
-     */
+    /** List of all jobs. */
     @Expose
     private List<Job> jobs;
     /**
@@ -41,34 +39,36 @@ public class JobCollection extends GenericModel {
     private List<Link> links;
 
     /**
-     * Returns the jobs in the collection
-     * @return
+     * Returns the jobs in the collection.
+     *
+     * @return the jobs
      */
     public List<Job> getJobs() {
         return jobs;
     }
 
     /**
-     * Sets the jobs in the collection
-     * @param jobs
+     * Sets the jobs in the collection.
+     *
+     * @param jobs the new jobs
      */
     public void setJobs(List<Job> jobs) {
         this.jobs = jobs;
     }
 
     /**
-     * Returns the links to the jobs in the collection
+     * Returns the links to the jobs in the collection.
      *
-     * @return
+     * @return the links
      */
     public List<Link> getLinks() {
         return links;
     }
 
     /**
-     * Sets the links to the jobs in the collection
+     * Sets the links to the jobs in the collection.
      *
-     * @param links
+     * @param links the new links
      */
     public void setLinks(List<Link> links) {
         this.links = links;
