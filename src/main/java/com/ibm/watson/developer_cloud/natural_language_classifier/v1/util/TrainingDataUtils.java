@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +44,8 @@ public class TrainingDataUtils {
 						|| trainingData.getClasses().isEmpty())
 					log.log(Level.WARNING, trainingData + " couldn't be converted to a csv record");
 				else {
-					List<String> record = Arrays.asList(trainingData.getText());
+					List<String> record = new ArrayList<String>();
+					record.add(trainingData.getText());
 					record.addAll(trainingData.getClasses());
 					printer.printRecord(record.toArray());
 				}
