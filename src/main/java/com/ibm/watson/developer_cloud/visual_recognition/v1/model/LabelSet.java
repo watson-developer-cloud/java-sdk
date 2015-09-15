@@ -16,6 +16,7 @@
 
 package com.ibm.watson.developer_cloud.visual_recognition.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -70,5 +71,37 @@ public class LabelSet extends GenericModel {
 	 */
 	public void setLabels(List<String> labels) {
 		this.labels = labels;
+	}
+
+	/**
+	 * With label group.
+	 * 
+	 * @param labelGroup
+	 *            the label group
+	 * @return the label set
+	 */
+	public LabelSet withLabelGroup(String labelGroup) {
+		if (labelGroups == null) {
+			labelGroups = new ArrayList<String>();
+		}
+
+		labelGroups.add(labelGroup);
+		return this;
+	}
+
+	/**
+	 * With label.
+	 * 
+	 * @param label
+	 *            the label
+	 * @return the label set
+	 */
+	public LabelSet withLabel(String label) {
+		if (labels == null) {
+			labels = new ArrayList<String>();
+		}
+
+		labels.add(label);
+		return this;
 	}
 }
