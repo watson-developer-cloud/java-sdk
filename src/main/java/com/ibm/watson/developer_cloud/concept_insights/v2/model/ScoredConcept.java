@@ -19,39 +19,19 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Concept returned by the {@link ConceptInsights} service.
  * 
  */
-public class ScoredConcept {
+public class ScoredConcept extends GenericModel {
 
 	/** The concept. */
 	private Concept concept;
 
 	/** The score. */
-	private Float score;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-
-		ScoredConcept concept1 = (ScoredConcept) o;
-
-		if (score != null ? !score.equals(concept1.score) : concept1.score != null)
-			return false;
-		return !(concept != null ? !concept.equals(concept1.concept) : concept1.concept != null);
-
-	}
+	private Double score;
 
 	/**
 	 * Gets the concept.
@@ -67,20 +47,8 @@ public class ScoredConcept {
 	 * 
 	 * @return The score
 	 */
-	public Float getScore() {
+	public Double getScore() {
 		return score;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		int result = score != null ? score.hashCode() : 0;
-		result = 31 * result + (concept != null ? concept.hashCode() : 0);
-		return result;
 	}
 
 	/**
@@ -99,41 +67,7 @@ public class ScoredConcept {
 	 * @param score
 	 *            The score
 	 */
-	public void setScore(Float score) {
+	public void setScore(Double score) {
 		this.score = score;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With concept.
-	 * 
-	 * @param concept
-	 *            the concept
-	 * @return the scored concept
-	 */
-	public ScoredConcept withConcept(Concept concept) {
-		this.concept = concept;
-		return this;
-	}
-
-	/**
-	 * With score.
-	 * 
-	 * @param score
-	 *            the score
-	 * @return the scored concept
-	 */
-	public ScoredConcept withScore(Float score) {
-		this.score = score;
-		return this;
 	}
 }

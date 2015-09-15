@@ -21,14 +21,14 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Concepts returned by the {@link ConceptInsights} service.
  * 
  */
 
-public class Concepts {
+public class Concepts extends GenericModel {
 
 	/** The concepts. */
 	private List<ScoredConcept> concepts;
@@ -50,27 +50,5 @@ public class Concepts {
 	 */
 	public void setConcepts(List<ScoredConcept> concepts) {
 		this.concepts = concepts;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With concepts.
-	 * 
-	 * @param concepts
-	 *            the concepts
-	 * @return the concepts
-	 */
-	public Concepts withConcepts(List<ScoredConcept> concepts) {
-		this.concepts = concepts;
-		return this;
 	}
 }

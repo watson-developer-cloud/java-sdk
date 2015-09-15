@@ -21,13 +21,13 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Graphs returned by the {@link ConceptInsights} service.
  * 
  */
-public class Corpora {
+public class Corpora extends GenericModel {
 
 	/** The corpora. */
 	private List<Corpus> corpora;
@@ -49,27 +49,5 @@ public class Corpora {
 	 */
 	public void setCorpora(List<Corpus> corpora) {
 		this.corpora = corpora;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With corpora.
-	 * 
-	 * @param corpora
-	 *            the corpora
-	 * @return the corpora
-	 */
-	public Corpora withCorpora(List<Corpus> corpora) {
-		this.corpora = corpora;
-		return this;
 	}
 }

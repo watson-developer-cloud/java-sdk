@@ -18,12 +18,10 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class TopTags.
@@ -46,7 +44,7 @@ public class TopTags {
 	private Map<String, Integer> documentTagsHistogram;
 
 	/** The tags. */
-	private List<Tag> tags = new ArrayList<Tag>();
+	private List<Tag> tags;
 
 	/** The total tags. */
 	@SerializedName("total_tags")
@@ -187,99 +185,5 @@ public class TopTags {
 	 */
 	public void setUniqueTags(Integer uniqueTags) {
 		this.uniqueTags = uniqueTags;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With corpus tags histogram.
-	 * 
-	 * @param corpusTagsHistogram
-	 *            the corpus tags histogram
-	 * @return the top tags
-	 */
-	public TopTags withCorpusTagsHistogram(Map<String, Integer> corpusTagsHistogram) {
-		this.corpusTagsHistogram = corpusTagsHistogram;
-		return this;
-	}
-
-	/**
-	 * With document length histogram.
-	 * 
-	 * @param documentLengthHistogram
-	 *            the document length histogram
-	 * @return the top tags
-	 */
-	public TopTags withDocumentLengthHistogram(Map<String, Integer> documentLengthHistogram) {
-		this.documentLengthHistogram = documentLengthHistogram;
-		return this;
-	}
-
-	/**
-	 * With documents.
-	 * 
-	 * @param documents
-	 *            the documents
-	 * @return the top tags
-	 */
-	public TopTags withDocuments(Integer documents) {
-		this.documents = documents;
-		return this;
-	}
-
-	/**
-	 * With document tags histogram.
-	 * 
-	 * @param documentTagsHistogram
-	 *            the document tags histogram
-	 * @return the top tags
-	 */
-	public TopTags withDocumentTagsHistogram(Map<String, Integer> documentTagsHistogram) {
-		this.documentTagsHistogram = documentTagsHistogram;
-		return this;
-	}
-
-	/**
-	 * With tags.
-	 * 
-	 * @param tags
-	 *            the tags
-	 * @return the top tags
-	 */
-	public TopTags withTags(List<Tag> tags) {
-		this.tags = tags;
-		return this;
-	}
-
-	/**
-	 * With total tags.
-	 * 
-	 * @param totalTags
-	 *            the total tags
-	 * @return the top tags
-	 */
-	public TopTags withTotalTags(Integer totalTags) {
-		this.totalTags = totalTags;
-		return this;
-	}
-
-	/**
-	 * With unique tags.
-	 * 
-	 * @param uniqueTags
-	 *            the unique tags
-	 * @return the top tags
-	 */
-	public TopTags withUniqueTags(Integer uniqueTags) {
-		this.uniqueTags = uniqueTags;
-		return this;
 	}
 }

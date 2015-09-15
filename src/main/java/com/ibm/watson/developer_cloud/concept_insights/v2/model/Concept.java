@@ -19,40 +19,19 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Concept_ returned by the {@link ConceptInsights} service.
+ * Concept returned by the {@link ConceptInsights} service.
  * 
  */
-
-public class Concept {
+public class Concept extends GenericModel {
 
 	/** The id. */
 	private String id;
 
 	/** The label. */
 	private String label;
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-
-		Concept concept_ = (Concept) o;
-
-		if (id != null ? !id.equals(concept_.id) : concept_.id != null)
-			return false;
-		return !(label != null ? !label.equals(concept_.label) : concept_.label != null);
-
-	}
 
 	/**
 	 * Gets the id.
@@ -70,18 +49,6 @@ public class Concept {
 	 */
 	public String getLabel() {
 		return label;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		int result = id != null ? id.hashCode() : 0;
-		result = 31 * result + (label != null ? label.hashCode() : 0);
-		return result;
 	}
 
 	/**
@@ -102,39 +69,5 @@ public class Concept {
 	 */
 	public void setLabel(String label) {
 		this.label = label;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With id.
-	 * 
-	 * @param id
-	 *            the id
-	 * @return the concept
-	 */
-	public Concept withId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * With label.
-	 * 
-	 * @param label
-	 *            the label
-	 * @return the concept
-	 */
-	public Concept withLabel(String label) {
-		this.label = label;
-		return this;
 	}
 }

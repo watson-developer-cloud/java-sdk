@@ -18,19 +18,19 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Accounts returned by the {@link ConceptInsights} service.
  * 
  */
-public class Accounts {
+public class Accounts extends GenericModel{
+	
 	/** The accounts. */
-	private List<Account> accounts = new ArrayList<Account>();
+	private List<Account> accounts;
 
 	/**
 	 * Gets the accounts.
@@ -49,27 +49,5 @@ public class Accounts {
 	 */
 	public void setAccounts(List<Account> accounts) {
 		this.accounts = accounts;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With accounts.
-	 * 
-	 * @param accounts
-	 *            the accounts
-	 * @return the accounts
-	 */
-	public Accounts withAccounts(List<Account> accounts) {
-		this.accounts = accounts;
-		return this;
 	}
 }

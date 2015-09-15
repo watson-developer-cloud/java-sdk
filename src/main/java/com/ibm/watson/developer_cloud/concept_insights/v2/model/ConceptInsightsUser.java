@@ -19,12 +19,12 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class User.
  */
-public class User {
+public class ConceptInsightsUser extends GenericModel {
 
     /**
      * The account id.
@@ -42,26 +42,6 @@ public class User {
      */
     private String permission;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        User user = (User) o;
-
-        if (accountId != null ? !accountId.equals(user.accountId) : user.accountId != null)
-            return false;
-        return !(permission != null ? !permission.equals(user.permission) : user.permission != null);
-
-    }
-
     /**
      * Gets the account id.
      *
@@ -78,18 +58,6 @@ public class User {
      */
     public String getPermission() {
         return permission;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
-    @Override
-    public int hashCode() {
-        int result = accountId != null ? accountId.hashCode() : 0;
-        result = 31 * result + (permission != null ? permission.hashCode() : 0);
-        return result;
     }
 
     /**
@@ -110,38 +78,6 @@ public class User {
         this.permission = permission;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
-    @Override
-    public String toString() {
-        return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-    }
-
-    /**
-     * With account id.
-     *
-     * @param accountId the account id
-     * @return the user
-     */
-    public User withAccountId(String accountId) {
-        this.accountId = accountId;
-        return this;
-    }
-
-    /**
-     * With permission.
-     *
-     * @param permission the permission
-     * @return the user
-     */
-    public User withPermission(String permission) {
-        this.permission = permission;
-        return this;
-    }
-
     /**
      * Gets the uid.
      *
@@ -158,16 +94,5 @@ public class User {
      */
     public void setUid(String uid) {
         this.uid = uid;
-    }
-
-    /**
-     * With uid.
-     *
-     * @param uid the uid
-     * @return the user
-     */
-    public User withUid(String uid) {
-        this.uid = uid;
-        return this;
     }
 }

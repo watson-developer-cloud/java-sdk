@@ -21,13 +21,13 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Annotations returned by the {@link ConceptInsights} service.
  * 
  */
-public class Annotations {
+public class Annotations extends GenericModel {
 
 	/** The annotations. */
 	private List<ScoredConcept> annotations;
@@ -49,27 +49,5 @@ public class Annotations {
 	 */
 	public void setAnnotations(List<ScoredConcept> annotations) {
 		this.annotations = annotations;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With annotations.
-	 * 
-	 * @param annotations
-	 *            the annotations
-	 * @return the annotations
-	 */
-	public Annotations withAnnotations(List<ScoredConcept> annotations) {
-		this.annotations = annotations;
-		return this;
 	}
 }

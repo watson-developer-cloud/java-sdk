@@ -18,12 +18,12 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Tag.
  */
-public class Tag {
+public class Tag extends GenericModel {
 
 	/** The concept. */
 	private String concept;
@@ -67,39 +67,5 @@ public class Tag {
 	 */
 	public void setCount(Integer count) {
 		this.count = count;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With concept.
-	 * 
-	 * @param concept
-	 *            the concept
-	 * @return the tag
-	 */
-	public Tag withConcept(String concept) {
-		this.concept = concept;
-		return this;
-	}
-
-	/**
-	 * With count.
-	 * 
-	 * @param count
-	 *            the count
-	 * @return the tag
-	 */
-	public Tag withCount(Integer count) {
-		this.count = count;
-		return this;
 	}
 }

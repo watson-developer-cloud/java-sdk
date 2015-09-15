@@ -18,17 +18,19 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Document returned by the {@link ConceptInsights} service.
  * 
  */
-public class Document {
+public class Document extends GenericModel {
 
 	/** The id. */
 	private String id;
@@ -38,7 +40,7 @@ public class Document {
 
 	/** The last modified. */
 	@SerializedName("last_modified")
-	private String lastModified;
+	private Date lastModified;
 
 	/** The parts. */
 	private List<Part> parts;
@@ -70,7 +72,7 @@ public class Document {
 	 * 
 	 * @return The lastModified
 	 */
-	public String getLastModified() {
+	public Date getLastModified() {
 		return lastModified;
 	}
 
@@ -118,7 +120,7 @@ public class Document {
 	 * @param lastModified
 	 *            The last_modified
 	 */
-	public void setLastModified(String lastModified) {
+	public void setLastModified(Date lastModified) {
 		this.lastModified = lastModified;
 	}
 
@@ -140,53 +142,5 @@ public class Document {
 	 */
 	public void setUserFields(Map<String, String> userFields) {
 		this.userFields = userFields;
-	}
-
-	/**
-	 * With id.
-	 * 
-	 * @param id
-	 *            the id
-	 * @return the document
-	 */
-	public Document withId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * With label.
-	 * 
-	 * @param label
-	 *            the label
-	 * @return the document
-	 */
-	public Document withLabel(String label) {
-		this.label = label;
-		return this;
-	}
-
-	/**
-	 * With last modified.
-	 * 
-	 * @param lastModified
-	 *            the last modified
-	 * @return the document
-	 */
-	public Document withLastModified(String lastModified) {
-		this.lastModified = lastModified;
-		return this;
-	}
-
-	/**
-	 * With parts.
-	 * 
-	 * @param parts
-	 *            the parts
-	 * @return the document
-	 */
-	public Document withParts(List<Part> parts) {
-		this.parts = parts;
-		return this;
 	}
 }

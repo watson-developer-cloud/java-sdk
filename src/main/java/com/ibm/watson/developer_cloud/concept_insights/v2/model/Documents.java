@@ -21,13 +21,13 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Documents returned by the {@link ConceptInsights} service.
  * 
  */
-public class Documents {
+public class Documents extends GenericModel {
 
 	/** The documents. */
 	private List<String> documents;
@@ -49,27 +49,5 @@ public class Documents {
 	 */
 	public void setDocuments(List<String> documents) {
 		this.documents = documents;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With documents.
-	 * 
-	 * @param documents
-	 *            the documents
-	 * @return the documents
-	 */
-	public Documents withDocuments(List<String> documents) {
-		this.documents = documents;
-		return this;
 	}
 }

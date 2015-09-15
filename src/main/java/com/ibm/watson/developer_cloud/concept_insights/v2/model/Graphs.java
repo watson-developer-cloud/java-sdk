@@ -21,13 +21,13 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Graphs returned by the {@link ConceptInsights} service.
  * 
  */
-public class Graphs {
+public class Graphs extends GenericModel {
 
 	/** The graphs. */
 	private List<String> graphs;
@@ -49,27 +49,5 @@ public class Graphs {
 	 */
 	public void setGraphs(List<String> graphs) {
 		this.graphs = graphs;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With graphs.
-	 * 
-	 * @param graphs
-	 *            the graphs
-	 * @return the graphs
-	 */
-	public Graphs withGraphs(List<String> graphs) {
-		this.graphs = graphs;
-		return this;
 	}
 }

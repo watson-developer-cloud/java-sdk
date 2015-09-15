@@ -21,13 +21,13 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Matches graph returned by the {@link ConceptInsights} service.
  * 
  */
-public class Matches {
+public class Matches extends GenericModel {
 
 	/** The matches. */
 	private List<Match> matches;
@@ -49,27 +49,5 @@ public class Matches {
 	 */
 	public void setMatches(List<Match> matches) {
 		this.matches = matches;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With matches.
-	 * 
-	 * @param matches
-	 *            the matches
-	 * @return the matches
-	 */
-	public Matches withMatches(List<Match> matches) {
-		this.matches = matches;
-		return this;
 	}
 }

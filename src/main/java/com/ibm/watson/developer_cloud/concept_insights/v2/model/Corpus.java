@@ -21,12 +21,13 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Graphs returned by the {@link ConceptInsights} service.
  * 
  */
-public class Corpus {
+public class Corpus extends GenericModel {
 
 	/** The access. */
 	private String access;
@@ -35,7 +36,7 @@ public class Corpus {
 	private String id;
 
 	/** The users. */
-	private List<User> users;
+	private List<ConceptInsightsUser> users;
 
 	/**
 	 * Gets the access.
@@ -60,7 +61,7 @@ public class Corpus {
 	 * 
 	 * @return The users
 	 */
-	public List<User> getUsers() {
+	public List<ConceptInsightsUser> getUsers() {
 		return users;
 	}
 
@@ -90,44 +91,8 @@ public class Corpus {
 	 * @param users
 	 *            The users
 	 */
-	public void setUsers(List<User> users) {
+	public void setUsers(List<ConceptInsightsUser> users) {
 		this.users = users;
-	}
-
-	/**
-	 * With access.
-	 * 
-	 * @param access
-	 *            the access
-	 * @return the corpus
-	 */
-	public Corpus withAccess(String access) {
-		this.access = access;
-		return this;
-	}
-
-	/**
-	 * With id.
-	 * 
-	 * @param id
-	 *            the id
-	 * @return the corpus
-	 */
-	public Corpus withId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * With users.
-	 * 
-	 * @param users
-	 *            the users
-	 * @return the corpus
-	 */
-	public Corpus withUsers(List<User> users) {
-		this.users = users;
-		return this;
 	}
 
 }

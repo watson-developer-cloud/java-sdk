@@ -21,12 +21,12 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class QueryConcepts.
  */
-public class QueryConcepts {
+public class QueryConcepts extends GenericModel {
 
 	/** The query concepts. */
 	@SerializedName("query_concepts")
@@ -73,37 +73,4 @@ public class QueryConcepts {
 		this.results = results;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With query concepts.
-	 * 
-	 * @param queryConcepts
-	 *            the query concepts
-	 * @return the query concepts
-	 */
-	public QueryConcepts withQueryConcepts(List<Concept> queryConcepts) {
-		this.queryConcepts = queryConcepts;
-		return this;
-	}
-
-	/**
-	 * With results.
-	 * 
-	 * @param results
-	 *            the results
-	 * @return the query concepts
-	 */
-	public QueryConcepts withResults(List<Result> results) {
-		this.results = results;
-		return this;
-	}
 }

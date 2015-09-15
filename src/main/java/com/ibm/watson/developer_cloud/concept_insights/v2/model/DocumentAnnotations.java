@@ -20,12 +20,12 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class DocumentAnnotations.
  */
-public class DocumentAnnotations {
+public class DocumentAnnotations extends GenericModel {
 
 	/** The annotations. */
 	private List<List<Annotation>> annotations;
@@ -91,51 +91,5 @@ public class DocumentAnnotations {
 	 */
 	public void setLabel(String label) {
 		this.label = label;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With annotations.
-	 * 
-	 * @param annotations
-	 *            the annotations
-	 * @return the document annotations
-	 */
-	public DocumentAnnotations withAnnotations(List<List<Annotation>> annotations) {
-		this.annotations = annotations;
-		return this;
-	}
-
-	/**
-	 * With id.
-	 * 
-	 * @param id
-	 *            the id
-	 * @return the document annotations
-	 */
-	public DocumentAnnotations withId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * With label.
-	 * 
-	 * @param label
-	 *            the label
-	 * @return the document annotations
-	 */
-	public DocumentAnnotations withLabel(String label) {
-		this.label = label;
-		return this;
 	}
 }

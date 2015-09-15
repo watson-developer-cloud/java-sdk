@@ -19,12 +19,12 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Part.
  */
-public class Part {
+public class Part extends GenericModel {
 
 	/** The content type. */
 	@SerializedName("content-type")
@@ -91,51 +91,5 @@ public class Part {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With content type.
-	 * 
-	 * @param contentType
-	 *            the content type
-	 * @return the part
-	 */
-	public Part withContentType(String contentType) {
-		this.contentType = contentType;
-		return this;
-	}
-
-	/**
-	 * With data.
-	 * 
-	 * @param data
-	 *            the data
-	 * @return the part
-	 */
-	public Part withData(String data) {
-		this.data = data;
-		return this;
-	}
-
-	/**
-	 * With name.
-	 * 
-	 * @param name
-	 *            the name
-	 * @return the part
-	 */
-	public Part withName(String name) {
-		this.name = name;
-		return this;
 	}
 }

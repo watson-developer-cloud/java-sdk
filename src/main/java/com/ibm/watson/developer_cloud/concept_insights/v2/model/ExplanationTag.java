@@ -21,12 +21,12 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class ExplanationTag.
  */
-public class ExplanationTag {
+public class ExplanationTag extends GenericModel {
 
 	/** The concept. */
 	private Concept concept;
@@ -36,7 +36,7 @@ public class ExplanationTag {
 	private Integer partsIndex;
 
 	/** The score. */
-	private Float score;
+	private Double score;
 
 	/** The text index. */
 	@SerializedName("text_index")
@@ -65,7 +65,7 @@ public class ExplanationTag {
 	 * 
 	 * @return The score
 	 */
-	public Float getScore() {
+	public Double getScore() {
 		return score;
 	}
 
@@ -104,7 +104,7 @@ public class ExplanationTag {
 	 * @param score
 	 *            The score
 	 */
-	public void setScore(Float score) {
+	public void setScore(Double score) {
 		this.score = score;
 	}
 
@@ -116,63 +116,5 @@ public class ExplanationTag {
 	 */
 	public void setTextIndex(List<Integer> textIndex) {
 		this.textIndex = textIndex;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With concept.
-	 * 
-	 * @param concept
-	 *            the concept
-	 * @return the explanation tag
-	 */
-	public ExplanationTag withConcept(Concept concept) {
-		this.concept = concept;
-		return this;
-	}
-
-	/**
-	 * With parts index.
-	 * 
-	 * @param partsIndex
-	 *            the parts index
-	 * @return the explanation tag
-	 */
-	public ExplanationTag withPartsIndex(Integer partsIndex) {
-		this.partsIndex = partsIndex;
-		return this;
-	}
-
-	/**
-	 * With score.
-	 * 
-	 * @param score
-	 *            the score
-	 * @return the explanation tag
-	 */
-	public ExplanationTag withScore(Float score) {
-		this.score = score;
-		return this;
-	}
-
-	/**
-	 * With text index.
-	 * 
-	 * @param textIndex
-	 *            the text index
-	 * @return the explanation tag
-	 */
-	public ExplanationTag withTextIndex(List<Integer> textIndex) {
-		this.textIndex = textIndex;
-		return this;
 	}
 }

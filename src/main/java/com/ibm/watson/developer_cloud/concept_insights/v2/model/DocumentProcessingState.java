@@ -18,47 +18,30 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class DocumentProcessingState.
  */
-public class DocumentProcessingState {
+public class DocumentProcessingState extends GenericModel {
 
 	/** The last modified. */
 	@SerializedName("last_modified")
-	private String lastModified;
+	private Date lastModified;
 
 	/** The status. */
 	private String status;
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (o == null || getClass() != o.getClass())
-			return false;
-
-		DocumentProcessingState that = (DocumentProcessingState) o;
-
-		if (status != null ? !status.equals(that.status) : that.status != null)
-			return false;
-		return !(lastModified != null ? !lastModified.equals(that.lastModified) : that.lastModified != null);
-
-	}
 
 	/**
 	 * Gets the last modified.
 	 * 
 	 * @return The lastModified
 	 */
-	public String getLastModified() {
+	public Date getLastModified() {
 		return lastModified;
 	}
 
@@ -71,25 +54,13 @@ public class DocumentProcessingState {
 		return status;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		int result = status != null ? status.hashCode() : 0;
-		result = 31 * result + (lastModified != null ? lastModified.hashCode() : 0);
-		return result;
-	}
-
 	/**
 	 * Sets the last modified.
 	 * 
 	 * @param lastModified
 	 *            The last_modified
 	 */
-	public void setLastModified(String lastModified) {
+	public void setLastModified(Date lastModified) {
 		this.lastModified = lastModified;
 	}
 
@@ -103,37 +74,4 @@ public class DocumentProcessingState {
 		this.status = status;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With last modified.
-	 * 
-	 * @param lastModified
-	 *            the last modified
-	 * @return the document processing state
-	 */
-	public DocumentProcessingState withLastModified(String lastModified) {
-		this.lastModified = lastModified;
-		return this;
-	}
-
-	/**
-	 * With status.
-	 * 
-	 * @param status
-	 *            the status
-	 * @return the document processing state
-	 */
-	public DocumentProcessingState withStatus(String status) {
-		this.status = status;
-		return this;
-	}
 }

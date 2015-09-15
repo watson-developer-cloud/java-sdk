@@ -21,7 +21,6 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class Result.
@@ -39,7 +38,7 @@ public class Result {
 	private String label;
 
 	/** The score. */
-	private Float score;
+	private Double score;
 
 	/**
 	 * Gets the explanation tags.
@@ -73,7 +72,7 @@ public class Result {
 	 * 
 	 * @return The score
 	 */
-	public Float getScore() {
+	public Double getScore() {
 		return score;
 	}
 
@@ -113,65 +112,7 @@ public class Result {
 	 * @param score
 	 *            The score
 	 */
-	public void setScore(Float score) {
+	public void setScore(Double score) {
 		this.score = score;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With explanation tags.
-	 * 
-	 * @param explanationTags
-	 *            the explanation tags
-	 * @return the result
-	 */
-	public Result withExplanationTags(List<ExplanationTag> explanationTags) {
-		this.explanationTags = explanationTags;
-		return this;
-	}
-
-	/**
-	 * With id.
-	 * 
-	 * @param id
-	 *            the id
-	 * @return the result
-	 */
-	public Result withId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * With label.
-	 * 
-	 * @param label
-	 *            the label
-	 * @return the result
-	 */
-	public Result withLabel(String label) {
-		this.label = label;
-		return this;
-	}
-
-	/**
-	 * With score.
-	 * 
-	 * @param score
-	 *            the score
-	 * @return the result
-	 */
-	public Result withScore(Float score) {
-		this.score = score;
-		return this;
 	}
 }

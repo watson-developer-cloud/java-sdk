@@ -18,42 +18,55 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
-import com.google.gson.Gson;
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * RequestedFields returned by the {@link ConceptInsights} service.
  */
-public class RequestedFields {
+public class RequestedFields extends GenericModel {
 
+    /** The fields. */
     private Map<String, Object> fields;
 
+    /**
+     * Include.
+     *
+     * @param field the field
+     */
     public void include(String field) {
         init();
         fields.put(field, 1);
     }
 
+    /**
+     * Exclude.
+     *
+     * @param field the field
+     */
     public void exclude(String field) {
         init();
         fields.put(field, 0);
     }
 
+    /**
+     * Initialize the fields map
+     */
     private void init() {
         if (fields == null)
             fields = new HashMap<String, Object>();
     }
 
+    /**
+     * Gets the fields.
+     *
+     * @return the fields
+     */
     public Map<String, Object> getFields() {
         return fields;
     }
 
-    @Override
-    public String toString() {
-        Gson gson = new Gson();
-        String json = gson.toJson(fields);
-        return json;
-    }
 }

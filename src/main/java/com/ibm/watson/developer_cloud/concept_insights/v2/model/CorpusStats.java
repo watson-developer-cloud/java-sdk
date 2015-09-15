@@ -18,20 +18,22 @@
 
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class CorpusStats.
  */
-public class CorpusStats {
+public class CorpusStats extends GenericModel {
 
 	/** The id. */
 	private String id;
 
 	/** The last updated. */
 	@SerializedName("last_updated")
-	private String lastUpdated;
+	private Date lastUpdated;
 
 	/** The top tags. */
 	@SerializedName("top_tags")
@@ -51,7 +53,7 @@ public class CorpusStats {
 	 * 
 	 * @return The lastUpdated
 	 */
-	public String getLastUpdated() {
+	public Date getLastUpdated() {
 		return lastUpdated;
 	}
 
@@ -80,7 +82,7 @@ public class CorpusStats {
 	 * @param lastUpdated
 	 *            The last_updated
 	 */
-	public void setLastUpdated(String lastUpdated) {
+	public void setLastUpdated(Date lastUpdated) {
 		this.lastUpdated = lastUpdated;
 	}
 
@@ -92,51 +94,5 @@ public class CorpusStats {
 	 */
 	public void setTopTags(TopTags topTags) {
 		this.topTags = topTags;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With id.
-	 * 
-	 * @param id
-	 *            the id
-	 * @return the corpus stats
-	 */
-	public CorpusStats withId(String id) {
-		this.id = id;
-		return this;
-	}
-
-	/**
-	 * With last updated.
-	 * 
-	 * @param lastUpdated
-	 *            the last updated
-	 * @return the corpus stats
-	 */
-	public CorpusStats withLastUpdated(String lastUpdated) {
-		this.lastUpdated = lastUpdated;
-		return this;
-	}
-
-	/**
-	 * With top tags.
-	 * 
-	 * @param topTags
-	 *            the top tags
-	 * @return the corpus stats
-	 */
-	public CorpusStats withTopTags(TopTags topTags) {
-		this.topTags = topTags;
-		return this;
 	}
 }
