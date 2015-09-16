@@ -27,7 +27,7 @@ import java.util.List;
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class DocumentAuthor extends AlchemyLanguageGenericModel {
+public class DocumentAuthors extends AlchemyLanguageGenericModel {
 
     /**
      * The authors.
