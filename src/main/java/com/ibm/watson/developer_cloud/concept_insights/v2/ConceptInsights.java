@@ -418,14 +418,14 @@ public class ConceptInsights extends WatsonService {
      * <li> String graph - The graph name.<br>
      * <li> String concept - The concept name.<br>
      * </ul>
-     * @return {@link ConceptMetaData}
+     * @return {@link ConceptMetadata}
      */
-    public ConceptMetaData getConcept(Map<String, Object> parameters) {
+    public ConceptMetadata getConcept(Map<String, Object> parameters) {
         Validate.notNull(parameters.get(ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(parameters.get(GRAPH), "graph can't be null");
         Validate.notNull(parameters.get(CONCEPT), "concept can't be null");
         String conceptId = createConceptIdPath((String) parameters.get(ACCOUNT_ID), (String) parameters.get(GRAPH), (String) parameters.get(CONCEPT));
-        return executeRequest(conceptId,null,ConceptMetaData.class);
+        return executeRequest(conceptId,null,ConceptMetadata.class);
     }
 
     /**
@@ -574,15 +574,15 @@ public class ConceptInsights extends WatsonService {
      * @param accountId    String the account identifier,
      * @param corpusName   String the corpus name,
      * @param documentName String the document name.
-     * @return {@link DocumentProcessingState}
+     * @return {@link DocumentProcessingStatus}
      */
-    public DocumentProcessingState getDocumentProcessingState(final String accountId, final String corpusName, final String documentName) {
+    public DocumentProcessingStatus getDocumentProcessingState(final String accountId, final String corpusName, final String documentName) {
         Validate.notNull(accountId, "accountId can't be null");
         Validate.notNull(corpusName, "corpusName can't be null");
         Validate.notNull(documentName, "documentName can't be null");
 
         String documentId = createDocumentIdPath(accountId, corpusName, documentName);
-        return executeRequest(documentId + PROCESSING_STATE_PATH,null,DocumentProcessingState.class);
+        return executeRequest(documentId + PROCESSING_STATE_PATH,null,DocumentProcessingStatus.class);
     }
 
     /**

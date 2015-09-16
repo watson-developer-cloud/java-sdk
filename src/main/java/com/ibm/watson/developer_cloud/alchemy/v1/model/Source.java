@@ -26,14 +26,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Source extends GenericModel {
 
     /** The enriched. */
-    private Enriched enriched;
+    private Url enriched;
 
     /**
      * Gets the enriched.
      *
      * @return The enriched
      */
-    public Enriched getEnriched() {
+    public Url getEnriched() {
         return enriched;
     }
 
@@ -42,7 +42,7 @@ public class Source extends GenericModel {
      *
      * @param enriched The enriched
      */
-    public void setEnriched(Enriched enriched) {
+    public void setEnriched(Url enriched) {
         this.enriched = enriched;
     }
 }

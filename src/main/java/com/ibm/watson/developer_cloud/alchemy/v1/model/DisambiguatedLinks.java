@@ -26,7 +26,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Disambiguated extends GenericModel {
+public class DisambiguatedLinks extends GenericModel {
 
     /** The dbpedia. */
     private String dbpedia;

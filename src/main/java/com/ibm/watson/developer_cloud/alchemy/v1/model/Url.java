@@ -24,7 +24,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Enriched extends GenericModel {
+public class Url extends GenericModel {
 
     /** The article. */
     @SerializedName("url")
