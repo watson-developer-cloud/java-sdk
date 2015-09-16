@@ -121,7 +121,7 @@ public class ConversionUtils {
                 return null;
             }
             String date = json.getAsString();
-            SimpleDateFormat iso8601DateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+            SimpleDateFormat iso8601DateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
             try {
                 return iso8601DateTimeFormat.parse(date);
             } catch (Exception e) {
