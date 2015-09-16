@@ -13,29 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.alchemy_vision.v1;
+package com.ibm.watson.developer_cloud.alchemy_data_news.v1;
 
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
 
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
+import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
 
-public class AlchemyVisionExample {
+public class AlchemyDataNewsExample {
 
 	public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
-		AlchemyVision service = new AlchemyVision();
+		AlchemyDataNews service = new AlchemyDataNews();
 		service.setApiKey("<api_key>");
 
-		Map<String,Object> params = new HashMap<String, Object>();
-		params.put(AlchemyVision.IMAGE, new File("src/test/resources/obama.jpg"));
-		ImageKeywords keywords =  service.getImageKeywords(params);
+        VolumeResult result = service.getVolume("now-7d", "now", "12h");
 
-		System.out.println(keywords);
+        System.out.println(result);
 	}
 
 }

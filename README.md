@@ -85,6 +85,54 @@ to first create and bind the service to your application.
 
 You will need the `username` and `password` credentials for each service these are *not* your Bluemix credentials, and are found in the VCAP_SERVICES variable on Bluemix, and they are different for each service.
 
+## Alchemy APIs
+
+### Alchemy Language
+[Alchemy Language][alchemy_language] offers 12 API functions as part of its text analysis service, each of which uses sophisticated natural language processing techniques to analyze your content and add high-level semantic information.
+
+Use the [Sentiment Analysis][sentiment_analysis] endpoint to identify positive/negative sentiment within a sample text document.
+
+```java
+AlchemyLanguage service = new AlchemyLanguage();
+service.setApiKey("<api_key>");
+
+Map<String,Object> params = new HashMap<String, Object>();
+params.put(AlchemyLanguage.TEXT, "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
+DocumentSentiment sentiment =  service.getSentiment(params);
+
+System.out.println(sentiment);
+```
+
+### Alchemy Vision
+[Alchemy Vision][alchemy_vision] uses deep learning innovations to understand a picture's content and context. It sees complex visual scenes in their entirety —without needing any textual clues— leveraging a holistic approach to understanding the multiple objects and surroundings.
+
+Example: Extract keywords from an image.
+
+```java
+AlchemyVision service = new AlchemyVision();
+service.setApiKey("<api_key>");
+
+Map<String,Object> params = new HashMap<String, Object>();
+params.put(AlchemyVision.IMAGE, new File("src/test/resources/obama.jpg"));
+ImageKeywords keywords =  service.getImageKeywords(params);
+
+System.out.println(keywords);
+
+```
+
+### Alchemy Data News
+[Alchemy Data News][alchemy_data_news] indexes 250k to 300k English language news and blog articles every day with historical search available for the past 60 days.
+Example: Get the volume data from the last 7 days using 12hs of time slice.
+
+```java
+AlchemyDataNews service = new AlchemyDataNews();
+service.setApiKey("<api_key>");
+
+VolumeResult result = service.getVolume("now-7d", "now", "12h");
+
+System.out.println(result);
+```
+
 ## IBM Watson Services
 The Watson Developer Cloud offers a variety of services for building cognitive
 applications.
@@ -122,7 +170,7 @@ System.out.println(service.getJobResult(job));
 ### Concept Insights
 Use the Concept Insights service to identify words in the text that
 correspond to concepts in a Wikipedia graph.
-```
+```java
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Annotations;
 
@@ -514,6 +562,12 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [tone-analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
 [dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
 [concept-insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
+
+[alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage
+[sentiment_analysis]: http://www.alchemyapi.com/products/alchemylanguage/sentiment-analysis
+
+[alchemy_vision]: http://www.alchemyapi.com/products/alchemyvision
+[alchemy_data_news]: http://www.alchemyapi.com/products/alchemydata-news
 
 [wdc]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/
 [vcap_environment]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/getting_started/index.html#EnvVars
