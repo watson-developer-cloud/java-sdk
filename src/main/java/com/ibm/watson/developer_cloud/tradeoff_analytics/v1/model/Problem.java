@@ -16,26 +16,24 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class Problem.
  */
-public class Problem {
+public class Problem extends GenericModel {
 
 	/** The columns. */
-	private List<Column> columns = new ArrayList<Column>();
-	
+	private List<Column> columns;
+
 	/** The options. */
-	private List<Option> options = new ArrayList<Option>();
-	
+	private List<Option> options;
+
 	/** The subject. */
 	private String subject;
-
 
 	/**
 	 * Instantiates a new problem.
@@ -110,15 +108,6 @@ public class Problem {
 	 */
 	public void setSubject(String subject) {
 		this.subject = subject;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 	/**

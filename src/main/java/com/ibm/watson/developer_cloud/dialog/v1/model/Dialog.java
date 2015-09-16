@@ -17,13 +17,13 @@ package com.ibm.watson.developer_cloud.dialog.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Dialog used by the {@link DialogService}.
  *
  */
-public class Dialog {
+public class Dialog  extends GenericModel  {
 
 	/** The id. */
 	@SerializedName("dialog_id")
@@ -92,16 +92,5 @@ public class Dialog {
 	public Dialog withName(final String name) {
 		this.name = name;
 		return this;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

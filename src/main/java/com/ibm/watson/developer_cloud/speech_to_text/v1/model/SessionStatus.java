@@ -1,13 +1,13 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * SessionStatus Status used by {@link SpeechToText}.
  */
-public class SessionStatus {
+public class SessionStatus extends GenericModel {
 
 	/** The state. */
 	private String state;
@@ -42,18 +42,6 @@ public class SessionStatus {
 	}
 
 	/**
-	 * With state.
-	 * 
-	 * @param state
-	 *            the state
-	 * @return the session
-	 */
-	public SessionStatus withState(final String state) {
-		this.state = state;
-		return this;
-	}
-
-	/**
 	 * Gets the model.
 	 * 
 	 * @return The model
@@ -70,18 +58,6 @@ public class SessionStatus {
 	 */
 	public void setModel(final String model) {
 		this.model = model;
-	}
-
-	/**
-	 * With model.
-	 * 
-	 * @param model
-	 *            the model
-	 * @return the session
-	 */
-	public SessionStatus withModel(final String model) {
-		this.model = model;
-		return this;
 	}
 
 	/**
@@ -104,18 +80,6 @@ public class SessionStatus {
 	}
 
 	/**
-	 * With recognize.
-	 * 
-	 * @param recognize
-	 *            the recognize
-	 * @return the session
-	 */
-	public SessionStatus withRecognize(final String recognize) {
-		this.recognize = recognize;
-		return this;
-	}
-
-	/**
 	 * Gets the observe result.
 	 * 
 	 * @return The observeResult
@@ -134,26 +98,4 @@ public class SessionStatus {
 		this.observeResult = observeResult;
 	}
 
-	/**
-	 * With observe result.
-	 * 
-	 * @param observeResult
-	 *            the observe result
-	 * @return the session status
-	 */
-	public SessionStatus withObserveResult(final String observeResult) {
-		this.observeResult = observeResult;
-		return this;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
-	}
 }

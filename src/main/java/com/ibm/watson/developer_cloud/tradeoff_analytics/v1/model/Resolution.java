@@ -16,23 +16,22 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Resolution.
  */
-public class Resolution {
+public class Resolution extends GenericModel {
 
 	/** The solutions. */
-	private List<Solution> solutions = new ArrayList<Solution>();
+	private List<Solution> solutions;
 
 	/**
 	 * Gets the solutions.
-	 *
-	 * @return     The solutions
+	 * 
+	 * @return The solutions
 	 */
 	public List<Solution> getSolutions() {
 		return solutions;
@@ -40,32 +39,12 @@ public class Resolution {
 
 	/**
 	 * Sets the solutions.
-	 *
-	 * @param solutions     The solutions
+	 * 
+	 * @param solutions
+	 *            The solutions
 	 */
 	public void setSolutions(List<Solution> solutions) {
 		this.solutions = solutions;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
-	}
-
-	/**
-	 * With solutions.
-	 * 
-	 * @param solutions
-	 *            the solutions
-	 * @return the resolution
-	 */
-	public Resolution withSolutions(List<Solution> solutions) {
-		this.solutions = solutions;
-		return this;
 	}
 
 }

@@ -16,20 +16,19 @@
 
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class SpeechModelSet.
  */
-public class SpeechModelSet {
+public class SpeechModelSet extends GenericModel {
 
 	/** The models. */
 	@Expose
-	private List<SpeechModel> models = new ArrayList<SpeechModel>();
+	private List<SpeechModel> models;
 
 	/**
 	 * Gets the models.
@@ -48,44 +47,5 @@ public class SpeechModelSet {
 	 */
 	public void setModels(final List<SpeechModel> models) {
 		this.models = models;
-	}
-
-	/**
-	 * With models.
-	 * 
-	 * @param models
-	 *            the models
-	 * @return the speech models
-	 */
-	public SpeechModelSet withModels(final List<SpeechModel> models) {
-		this.models = models;
-		return this;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		SpeechModelSet that = (SpeechModelSet) o;
-
-		return !(models != null ? !models.equals(that.models) : that.models != null);
-
-	}
-
-	@Override
-	public int hashCode() {
-		return models != null ? models.hashCode() : 0;
-	}
-
-	/*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Object#toString()
-         */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

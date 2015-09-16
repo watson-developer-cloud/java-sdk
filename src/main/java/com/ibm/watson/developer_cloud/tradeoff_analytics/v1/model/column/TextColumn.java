@@ -16,29 +16,18 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
 /**
  * Text column.
- *
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com>)
  */
 public class TextColumn extends Column {
-		
+
 	/**
 	 * Instantiates a new date column.
 	 */
 	public TextColumn() {
 		super(ColumnType.TEXT);
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

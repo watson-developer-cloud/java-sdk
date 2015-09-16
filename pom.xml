@@ -35,6 +35,18 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+		    <groupId>org.apache.commons</groupId>
+    		<artifactId>commons-csv</artifactId>
+    		<version>1.2</version>
+   			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit-dep</artifactId>
 			<version>4.11</version>
@@ -132,7 +144,11 @@
 				<version>2.6</version>
 				<configuration>
 					<format>xml</format>
-					<maxmem>256m</maxmem>
+                    <instrumentation>
+                        <excludes>
+                            <exclude>com/ibm/watson/developer_cloud/*/v*/model/**/*.class</exclude>
+                        </excludes>
+                    </instrumentation>
 				</configuration>
 			</plugin>
 			<plugin>

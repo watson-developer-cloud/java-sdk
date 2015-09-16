@@ -50,7 +50,7 @@ public class VisualRecognition extends WatsonService {
 	
 	/** The Constant IMG_FILE. */
 	public static final String IMG_FILE = "imgFile";
-	/** The url. */
+	/** The service endpoint. */
 	private static final String URL = "https://gateway.watsonplatform.net/visual-recognition-beta/api";
 
 	/**

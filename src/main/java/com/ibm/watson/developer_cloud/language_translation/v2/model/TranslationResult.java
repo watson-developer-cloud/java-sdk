@@ -1,21 +1,20 @@
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Translation results from calling the translate method.
- * Contains the word count, character count and the {@link Translation} list
- *
+ * Translation results from calling the translate method. Contains the word count,
+ * character count and the {@link Translation} list
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
-public class TranslationResult {
+public class TranslationResult extends GenericModel {
 
 	/** The translations. */
-	private List<Translation> translations = new ArrayList<Translation>();
+	private List<Translation> translations;
 
 	/** The word count. */
 	@SerializedName("word_count")
@@ -27,7 +26,7 @@ public class TranslationResult {
 
 	/**
 	 * Gets the translations.
-	 *
+	 * 
 	 * @return The translations
 	 */
 	public List<Translation> getTranslations() {
@@ -36,7 +35,7 @@ public class TranslationResult {
 
 	/**
 	 * Sets the translations.
-	 *
+	 * 
 	 * @param translations
 	 *            The translations
 	 */
@@ -45,21 +44,8 @@ public class TranslationResult {
 	}
 
 	/**
-	 * With translations.
-	 *
-	 * @param translations
-	 *            the translations
-	 * @return the translation result
-	 */
-	public TranslationResult withTranslations(
-			final List<Translation> translations) {
-		this.translations = translations;
-		return this;
-	}
-
-	/**
 	 * Gets the word count.
-	 *
+	 * 
 	 * @return The word count
 	 */
 	public int getWordCount() {
@@ -68,7 +54,7 @@ public class TranslationResult {
 
 	/**
 	 * Sets the word count.
-	 *
+	 * 
 	 * @param wordCount
 	 *            The word count
 	 */
@@ -77,20 +63,8 @@ public class TranslationResult {
 	}
 
 	/**
-	 * With word count.
-	 *
-	 * @param wordCount
-	 *            the word count
-	 * @return the translation result
-	 */
-	public TranslationResult withWordCount(final int wordCount) {
-		this.wordCount = wordCount;
-		return this;
-	}
-
-	/**
 	 * Gets the character count.
-	 *
+	 * 
 	 * @return The characterCount
 	 */
 	public int getCharacterCount() {
@@ -99,34 +73,11 @@ public class TranslationResult {
 
 	/**
 	 * Sets the character count.
-	 *
+	 * 
 	 * @param characterCount
 	 *            The character count
 	 */
 	public void setCharacterCount(final int characterCount) {
 		this.characterCount = characterCount;
-	}
-
-	/**
-	 * With character count.
-	 *
-	 * @param characterCount
-	 *            the character count
-	 * @return the translation result
-	 */
-	public TranslationResult withCharacterCount(final int characterCount) {
-		this.characterCount = characterCount;
-		return this;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

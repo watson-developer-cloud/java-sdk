@@ -16,20 +16,22 @@
 
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Message.
  */
-public class Message {
+public class Message  extends GenericModel {
 
 	/** The text. */
 	private String text;
 	
 	/** The date time. */
 	@SerializedName("date_time")
-	private String dateTime;
+	private Date dateTime;
 	
 	/** The from client. */
 	@SerializedName("from_client")
@@ -55,23 +57,11 @@ public class Message {
 	}
 
 	/**
-	 * With text.
-	 * 
-	 * @param text
-	 *            the text
-	 * @return the message
-	 */
-	public Message withText(final String text) {
-		this.text = text;
-		return this;
-	}
-
-	/**
 	 * Gets the date time.
 	 * 
 	 * @return The dateTime
 	 */
-	public String getDateTime() {
+	public Date getDateTime() {
 		return dateTime;
 	}
 
@@ -81,20 +71,8 @@ public class Message {
 	 * @param dateTime
 	 *            The date_time
 	 */
-	public void setDateTime(final String dateTime) {
+	public void setDateTime(final Date dateTime) {
 		this.dateTime = dateTime;
-	}
-
-	/**
-	 * With date time.
-	 * 
-	 * @param dateTime
-	 *            the date time
-	 * @return the message
-	 */
-	public Message withDateTime(final String dateTime) {
-		this.dateTime = dateTime;
-		return this;
 	}
 
 	/**
@@ -114,28 +92,5 @@ public class Message {
 	 */
 	public void setFromClient(final String fromClient) {
 		this.fromClient = fromClient;
-	}
-
-	/**
-	 * With from client.
-	 * 
-	 * @param fromClient
-	 *            the from client
-	 * @return the message
-	 */
-	public Message withFromClient(final String fromClient) {
-		this.fromClient = fromClient;
-		return this;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

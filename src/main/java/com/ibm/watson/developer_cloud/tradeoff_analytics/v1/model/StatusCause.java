@@ -18,13 +18,13 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class StatusCause.
  */
-public class StatusCause {
-	
+public class StatusCause extends GenericModel {
+
 	/** The error code. */
 	@SerializedName("error_code")
 	private String errorCode;
@@ -37,7 +37,7 @@ public class StatusCause {
 
 	/**
 	 * Gets the error code.
-	 *
+	 * 
 	 * @return the error code
 	 */
 	public String getErrorCode() {
@@ -46,7 +46,7 @@ public class StatusCause {
 
 	/**
 	 * Gets the message.
-	 *
+	 * 
 	 * @return the message
 	 */
 	public String getMessage() {
@@ -55,7 +55,7 @@ public class StatusCause {
 
 	/**
 	 * Gets the tokens.
-	 *
+	 * 
 	 * @return the tokens
 	 */
 	public List<String> getTokens() {
@@ -64,8 +64,9 @@ public class StatusCause {
 
 	/**
 	 * Sets the error code.
-	 *
-	 * @param errorCode the new error code
+	 * 
+	 * @param errorCode
+	 *            the new error code
 	 */
 	public void setErrorCode(String errorCode) {
 		this.errorCode = errorCode;
@@ -73,8 +74,9 @@ public class StatusCause {
 
 	/**
 	 * Sets the message.
-	 *
-	 * @param message the new message
+	 * 
+	 * @param message
+	 *            the new message
 	 */
 	public void setMessage(String message) {
 		this.message = message;
@@ -82,19 +84,11 @@ public class StatusCause {
 
 	/**
 	 * Sets the tokens.
-	 *
-	 * @param tokens the new tokens
+	 * 
+	 * @param tokens
+	 *            the new tokens
 	 */
 	public void setTokens(List<String> tokens) {
 		this.tokens = tokens;
-	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

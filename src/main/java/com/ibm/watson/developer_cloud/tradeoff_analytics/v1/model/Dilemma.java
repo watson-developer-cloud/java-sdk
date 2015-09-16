@@ -16,24 +16,23 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Dilemma.
  */
-public class Dilemma {
+public class Dilemma extends GenericModel {
 
 	/** The problem. */
 	private Problem problem;
-	
+
 	/** The resolution. */
 	private Resolution resolution;
 
 	/**
 	 * Gets the problem.
-	 *
-	 * @return     The problem
+	 * 
+	 * @return The problem
 	 */
 	public Problem getProblem() {
 		return problem;
@@ -41,8 +40,8 @@ public class Dilemma {
 
 	/**
 	 * Gets the resolution.
-	 *
-	 * @return     The resolution
+	 * 
+	 * @return The resolution
 	 */
 	public Resolution getResolution() {
 		return resolution;
@@ -50,8 +49,9 @@ public class Dilemma {
 
 	/**
 	 * Sets the problem.
-	 *
-	 * @param problem     The problem
+	 * 
+	 * @param problem
+	 *            The problem
 	 */
 	public void setProblem(Problem problem) {
 		this.problem = problem;
@@ -59,26 +59,19 @@ public class Dilemma {
 
 	/**
 	 * Sets the resolution.
-	 *
-	 * @param resolution     The resolution
+	 * 
+	 * @param resolution
+	 *            The resolution
 	 */
 	public void setResolution(Resolution resolution) {
 		this.resolution = resolution;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
-	}
-
 	/**
 	 * With problem.
-	 *
-	 * @param problem the problem
+	 * 
+	 * @param problem
+	 *            the problem
 	 * @return the dilemma
 	 */
 	public Dilemma withProblem(Problem problem) {

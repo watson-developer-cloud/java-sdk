@@ -16,17 +16,16 @@
 
 package com.ibm.watson.developer_cloud.visual_recognition.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class RecognizedImage.
  */
-public class RecognizedImage {
+public class RecognizedImage extends GenericModel {
 
 	/** The id. */
 	@SerializedName("image_id")
@@ -38,7 +37,7 @@ public class RecognizedImage {
 
 	/** The labels. */
 	@Expose
-	private List<Label> labels = new ArrayList<Label>();
+	private List<Label> labels;
 
 	/**
 	 * Gets the identifier.
@@ -95,15 +94,6 @@ public class RecognizedImage {
 	 */
 	public void setLabels(List<Label> labels) {
 		this.labels = labels;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }
