@@ -71,6 +71,12 @@ public class AlchemyVision extends AlchemyService {
     /** The Constant IMAGE. (value is "image") */
     public static final String IMAGE = "image";
 
+    /** The Constant URL. (value is "url") */
+	public static final String URL = "url";
+	
+	/** The Constant HTML. (value is "html") */
+	public static final String HTML = "html";
+
     /**
      * Extract main image link from html or a URL.
      *

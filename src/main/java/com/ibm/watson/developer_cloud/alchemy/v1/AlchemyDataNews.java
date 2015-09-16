@@ -82,6 +82,9 @@ public class AlchemyDataNews extends AlchemyService {
 	 */
 	public static final String TIME_SLICE = "timeSlice";
 
+	/** The Constant COUNT. (value is "count") */
+	public static final String COUNT = "count";
+
 	/**
 	 * Gets the news documents.
 	 *
