@@ -49,7 +49,7 @@ public class DocumentAuthors extends AlchemyLanguageGenericModel {
     }
 
     /**
-     * EnrichedTitle returned by the {@link AlchemyLanguage} service.
+     * Authors returned by the {@link AlchemyLanguage} service.
      *
      * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
      */
