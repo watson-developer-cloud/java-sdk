@@ -15,87 +15,82 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.model.GenericModel;
-
 import java.util.Date;
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
- * Structure that stores the metadata of a document that has been added to a Batch
+ * Structure that stores the metadata of a document that has been added to a Batch.
  *
  * @see DocumentConversion
  */
 public class BatchDocument extends GenericModel {
 
-    /**
-     * The id of the batch document
-     */
+    /** The id of the batch document. */
     @Expose
     private String id;
 
-    /**
-     * The date at which document is added to the batch
-     */
+    /** The date at which document is added to the batch. */
     @SerializedName("added_to_batch")
     private Date addedToBatch;
 
-    /**
-     * Link to the batch documents
-     */
+    /** Link to the batch documents. */
     @Expose
     private List<Link> links;
 
     /**
-     * Returns the id to the batch document
+     * Returns the id to the batch document.
      *
-     * @return
+     * @return the id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * Sets the id to the batch document
-     * @param id
+     * Sets the id to the batch document.
+     *
+     * @param id the new id
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * Returns the date at which the document was added to the batch
+     * Returns the date at which the document was added to the batch.
      *
-     * @return
+     * @return the added to batch
      */
     public Date getAddedToBatch() {
         return addedToBatch;
     }
 
     /**
-     * Sets the date at which the document was added to the batch
+     * Sets the date at which the document was added to the batch.
      *
-     * @param addedToBatch
+     * @param addedToBatch the new added to batch
      */
     public void setAddedToBatch(Date addedToBatch) {
         this.addedToBatch = addedToBatch;
     }
 
     /**
-     * Returns the link to the batch document
+     * Returns the link to the batch document.
      *
-     * @return
+     * @return the links
      */
     public List<Link> getLinks() {
         return links;
     }
 
     /**
-     * Sets the links to the batch document
+     * Sets the links to the batch document.
      *
-     * @param links
+     * @param links the new links
      */
     public void setLinks(List<Link> links) {
         this.links = links;

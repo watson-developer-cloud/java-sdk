@@ -15,6 +15,14 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.Expose;
@@ -26,13 +34,6 @@ import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
-
-import java.io.IOException;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Helper for the batch API calls
@@ -106,31 +107,32 @@ public class BatchHelper {
     public BatchCollection getBatchCollection(Map<String, Object> batchListParams) {
         Request request = Request.Get(DocumentConversion.BATCHES_PATH);
 
-        if(batchListParams.get(DocumentConversion.TOKEN) != null){
-            String token = (String) batchListParams.get(DocumentConversion.TOKEN);
-            if(!token.isEmpty())
-                request.withQuery(DocumentConversion.TOKEN, token);
+        if (batchListParams != null) {
+	        if(batchListParams.get(DocumentConversion.TOKEN) != null){
+	            String token = (String) batchListParams.get(DocumentConversion.TOKEN);
+	            if(!token.isEmpty())
+	                request.withQuery(DocumentConversion.TOKEN, token);
+	        }
+	
+	        if(batchListParams.get(DocumentConversion.LIMIT) != null){
+	            int limit = ((Integer) batchListParams.get(DocumentConversion.LIMIT)).intValue();
+	            if (limit > 0)
+	                request.withQuery(DocumentConversion.LIMIT, limit);
+	            else
+	                request.withQuery(DocumentConversion.LIMIT, DocumentConversion.DEFAULT_LIMIT);
+	        }
+	
+	        if(batchListParams.get(DocumentConversion.NAME) != null){
+	            String name = (String) batchListParams.get(DocumentConversion.NAME);
+	            if(!name.isEmpty())
+	                request.withQuery(DocumentConversion.NAME, name);
+	        }
+	
+	        if(batchListParams.get(DocumentConversion.SINCE) != null){
+	            Date since = (Date) batchListParams.get(DocumentConversion.SINCE);
+	            request.withQuery(DocumentConversion.SINCE, ConversionUtils.convertToISO(since));
+	        }
         }
-
-        if(batchListParams.get(DocumentConversion.LIMIT) != null){
-            int limit = ((Integer) batchListParams.get(DocumentConversion.LIMIT)).intValue();
-            if (limit > 0)
-                request.withQuery(DocumentConversion.LIMIT, limit);
-            else
-                request.withQuery(DocumentConversion.LIMIT, DocumentConversion.DEFAULT_LIMIT);
-        }
-
-        if(batchListParams.get(DocumentConversion.NAME) != null){
-            String name = (String) batchListParams.get(DocumentConversion.NAME);
-            if(!name.isEmpty())
-                request.withQuery(DocumentConversion.NAME, name);
-        }
-
-        if(batchListParams.get(DocumentConversion.SINCE) != null){
-            Date since = (Date) batchListParams.get(DocumentConversion.SINCE);
-            request.withQuery(DocumentConversion.SINCE, ConversionUtils.convertToISO(since));
-        }
-
         HttpRequestBase requestBase = request.build();
         try {
             HttpResponse response = docConversionService.execute(requestBase);

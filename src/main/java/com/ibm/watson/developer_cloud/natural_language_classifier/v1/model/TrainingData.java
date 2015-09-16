@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The set of questions and their "keys" used to
@@ -29,7 +29,7 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see NaturalLanguageClassifier
  */
-public class TrainingData {
+public class TrainingData  extends GenericModel {
 
 	/** The text. */
 	private String text;
@@ -110,17 +110,6 @@ public class TrainingData {
 		
 		if (!this.classes.contains(className))
 			this.classes.add(className);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 	
 }

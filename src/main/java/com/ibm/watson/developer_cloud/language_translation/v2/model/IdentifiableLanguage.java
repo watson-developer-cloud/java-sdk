@@ -16,14 +16,14 @@
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Identifiable language used by the {@link LanguageTranslation} service.
- *
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
-public class IdentifiableLanguage {
+public class IdentifiableLanguage extends GenericModel {
 
 	/** The language. */
 	private final String language;
@@ -33,7 +33,7 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Gets the name.
-	 *
+	 * 
 	 * @return the name
 	 */
 	public String getName() {
@@ -42,7 +42,7 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Instantiates a new identifiable language.
-	 *
+	 * 
 	 * @param language
 	 *            the language
 	 * @param name
@@ -56,7 +56,7 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Instantiates a new language.
-	 *
+	 * 
 	 * @param language
 	 *            the language
 	 */
@@ -67,21 +67,10 @@ public class IdentifiableLanguage {
 
 	/**
 	 * Gets the language.
-	 *
+	 * 
 	 * @return the language
 	 */
 	public String getLanguage() {
 		return language;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

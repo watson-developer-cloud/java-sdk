@@ -19,14 +19,14 @@ import java.util.Date;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Classifier used by the {@link NaturalLanguageClassifier} service.
  *
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
-public class Classifier {
+public class Classifier extends GenericModel {
 
 		  
 	/**
@@ -78,25 +78,6 @@ public class Classifier {
 	/** The url. */
 	private String url;
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		Classifier that = (Classifier) o;
-
-		if (!id.equals(that.id)) return false;
-		if (url != null ? !url.equals(that.url) : that.url != null) return false;
-		if (name != null ? !name.equals(that.name) : that.name != null) return false;
-
-		if (status != that.status) return false;
-		return !(statusDescription != null ? !statusDescription.equals(that.statusDescription) : that.statusDescription != null);
-
-	}
-		  
 	/**
 	 * Gets the created.
 	 *
@@ -158,19 +139,6 @@ public class Classifier {
 	 */
 	public String getUrl() {
 		return url;
-	}
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		int result = id.hashCode();
-		result = 31 * result + (url != null ? url.hashCode() : 0);
-		result = 31 * result + (name != null ? name.hashCode() : 0);
-		result = 31 * result + (status != null ? status.hashCode() : 0);
-		result = 31 * result + (statusDescription != null ? statusDescription.hashCode() : 0);
-		return result;
 	}
 
 	/**
@@ -238,16 +206,5 @@ public class Classifier {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
-	}
-
-	/*
-         * (non-Javadoc)
-         *
-         * @see java.lang.Object#toString()
-         */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

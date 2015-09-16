@@ -1,21 +1,18 @@
-/*
- * *
- *  * Copyright 2015 IBM Corp. All Rights Reserved.
- *  *
- *  * Licensed under the Apache License, Version 2.0 (the "License");
- *  * you may not use this file except in compliance with the License.
- *  * You may obtain a copy of the License at
- *  *
- *  *      http://www.apache.org/licenses/LICENSE-2.0
- *  *
- *  * Unless required by applicable law or agreed to in writing, software
- *  * distributed under the License is distributed on an "AS IS" BASIS,
- *  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  * See the License for the specific language governing permissions and
- *  * limitations under the License.
+/**
+ * Copyright 2015 IBM Corp. All Rights Reserved.
  *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-
 package com.ibm.watson.developer_cloud.concept_insights.v2;
 
 import com.google.gson.JsonArray;
@@ -418,14 +415,14 @@ public class ConceptInsights extends WatsonService {
      * <li> String graph - The graph name.<br>
      * <li> String concept - The concept name.<br>
      * </ul>
-     * @return {@link ConceptMetaData}
+     * @return {@link ConceptMetadata}
      */
-    public ConceptMetaData getConcept(Map<String, Object> parameters) {
+    public ConceptMetadata getConcept(Map<String, Object> parameters) {
         Validate.notNull(parameters.get(ACCOUNT_ID), "account_id can't be null");
         Validate.notNull(parameters.get(GRAPH), "graph can't be null");
         Validate.notNull(parameters.get(CONCEPT), "concept can't be null");
         String conceptId = createConceptIdPath((String) parameters.get(ACCOUNT_ID), (String) parameters.get(GRAPH), (String) parameters.get(CONCEPT));
-        return executeRequest(conceptId,null,ConceptMetaData.class);
+        return executeRequest(conceptId,null,ConceptMetadata.class);
     }
 
     /**
@@ -574,15 +571,15 @@ public class ConceptInsights extends WatsonService {
      * @param accountId    String the account identifier,
      * @param corpusName   String the corpus name,
      * @param documentName String the document name.
-     * @return {@link DocumentProcessingState}
+     * @return {@link DocumentProcessingStatus}
      */
-    public DocumentProcessingState getDocumentProcessingState(final String accountId, final String corpusName, final String documentName) {
+    public DocumentProcessingStatus getDocumentProcessingState(final String accountId, final String corpusName, final String documentName) {
         Validate.notNull(accountId, "accountId can't be null");
         Validate.notNull(corpusName, "corpusName can't be null");
         Validate.notNull(documentName, "documentName can't be null");
 
         String documentId = createDocumentIdPath(accountId, corpusName, documentName);
-        return executeRequest(documentId + PROCESSING_STATE_PATH,null,DocumentProcessingState.class);
+        return executeRequest(documentId + PROCESSING_STATE_PATH,null,DocumentProcessingStatus.class);
     }
 
     /**

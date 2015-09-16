@@ -17,12 +17,12 @@ package com.ibm.watson.developer_cloud.personality_insights.v2.model;
 
 import java.util.Date;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Content to be analyzed.
  */
-public class ContentItem {
+public class ContentItem extends GenericModel {
 
 	/** The id. */
 	private String id;
@@ -297,17 +297,6 @@ public class ContentItem {
 	 */
 	public void setUpdated(Date updated) {
 		this.updated = updated;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

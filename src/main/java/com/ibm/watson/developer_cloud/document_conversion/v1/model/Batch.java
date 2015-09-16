@@ -16,159 +16,148 @@
 
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.model.GenericModel;
-
 import java.util.Date;
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
- * Structure that is used to store a collection of documents which can then be passed to a Job for processing
+ * Structure that is used to store a collection of documents which can then be passed to a Job for processing.
  *
  * @see DocumentConversion
  */
 public class Batch extends GenericModel {
 
-    /**
-     * The id of the batch
-     */
+    /** The id of the batch. */
     @Expose
     private String id;
 
-    /**
-     * Name of the batch
-     */
+    /** Name of the batch. */
     @Expose
     private String name;
 
-    /**
-     * The date on which batch was created on
-     */
+    /** The date on which batch was created on. */
     @SerializedName("created_on")
     private Date createdOn;
 
-    /**
-     * The date on which batch was updated on
-     */
+    /** The date on which batch was updated on. */
     @SerializedName("updated_on")
     private Date updatedOn;
 
 
-    /**
-     * Properties of the batch
-     */
+    /** Properties of the batch. */
     @Expose
     private List<Property> properties;
 
-    /**
-     * Link to the batch
-     */
+    /** Link to the batch. */
     @Expose
     private List<Link> links;
 
 
     /**
-     * Returns the id of the batch
+     * Returns the id of the batch.
      *
-     * @return
+     * @return the id
      */
     public String getId() { return id; }
 
     /**
-     * Sets the id for the batch
+     * Sets the id for the batch.
      *
-     * @param id
+     * @param id the new id
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * Returns the name of the batch
+     * Returns the name of the batch.
      *
-     * @return
+     * @return the name
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Sets the name of the batch
+     * Sets the name of the batch.
      *
-     * @param name
+     * @param name the new name
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Returns the date on which the batch was created on
-
-     * @return
+     * Returns the date on which the batch was created on.
+     *
+     * @return the created on
      */
     public Date getCreatedOn() {
         return createdOn;
     }
 
     /**
-     * Sets the date on which the batch was created on
-     * @param createdOn
+     * Sets the date on which the batch was created on.
+     *
+     * @param createdOn the new created on
      */
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
 
     /**
-     * Returns the date on which the batch was updated on
+     * Returns the date on which the batch was updated on.
      *
-     * @return
+     * @return the updated on
      */
     public Date getUpdatedOn() {
         return updatedOn;
     }
 
     /**
-     * Sets the date on which batch was updated on
+     * Sets the date on which batch was updated on.
      *
-     * @param updatedOn
+     * @param updatedOn the new updated on
      */
     public void setUpdatedOn(Date updatedOn) {
         this.updatedOn = updatedOn;
     }
 
     /**
-     * Returns the properties of the batch
+     * Returns the properties of the batch.
      *
-     * @return
+     * @return the properties
      */
     public List<Property> getProperties() {
         return properties;
     }
 
     /**
-     * Sets the properties for the batch
+     * Sets the properties for the batch.
      *
-     * @param properties
+     * @param properties the new properties
      */
     public void setProperties(List<Property> properties) {
         this.properties = properties;
     }
 
     /**
-     * Returns the links to the batch
+     * Returns the links to the batch.
      *
-     * @return
+     * @return the links
      */
     public List<Link> getLinks() {
         return links;
     }
 
     /**
-     * Sets the links to the batch
+     * Sets the links to the batch.
      *
-     * @param links
+     * @param links the new links
      */
     public void setLinks(List<Link> links) {
         this.links = links;

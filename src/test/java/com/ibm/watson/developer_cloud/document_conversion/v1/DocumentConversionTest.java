@@ -15,12 +15,24 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
-import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.ConversionUtils;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.*;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.MediaType;
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Assert;
@@ -29,20 +41,31 @@ import org.junit.Test;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Parameter;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
+import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.document_conversion.v1.helpers.ConversionUtils;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Batch;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchDocument;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchDocumentCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.BatchDocumentResponse;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.ConversionTarget;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Document;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.DocumentCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Job;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.JobCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.JobResponse;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.JobStatus;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Link;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Output;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.OutputCollection;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Property;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.MediaType;
 
 /**
- * The Class DocumentConversionTest
+ * The Class DocumentConversionTest.
  */
 public class DocumentConversionTest extends WatsonServiceTest {
 
@@ -93,7 +116,10 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Test convert document with no persistence
+     * Test convert document with no persistence.
+     *
+     * @throws URISyntaxException the URI syntax exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
     public void testConvertDocumentNoPersistence() throws URISyntaxException, IOException {
@@ -108,10 +134,24 @@ public class DocumentConversionTest extends WatsonServiceTest {
         String convertedDoc = ConversionUtils.writeInputStreamToString(service.convertDocument(html, ConversionTarget.ANSWER_UNITS));
         Assert.assertNotNull(convertedDoc);
         Assert.assertEquals(convertedDoc, new String(expAnswer));
+
+        // Convert document with a specified media type
+        String convertWithMediaType = ConversionUtils.writeInputStreamToString(
+                service.convertDocument(html, MediaType.TEXT_HTML, ConversionTarget.ANSWER_UNITS)
+        );
+        Assert.assertNotNull(convertWithMediaType);
+        Assert.assertEquals(convertWithMediaType, new String(expAnswer));
+
+        // Convert to Answers
+        Answers answers = service.convertDocumentToAnswer(html);
+        Assert.assertNotNull(answers);
     }
 
     /**
-     * Test convert document with persistence
+     * Test convert document with persistence.
+     *
+     * @throws URISyntaxException the URI syntax exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
     public void testConvertDocumentWithPersistence() throws URISyntaxException, IOException {
@@ -133,16 +173,26 @@ public class DocumentConversionTest extends WatsonServiceTest {
         String convertedDoc = ConversionUtils.writeInputStreamToString(service.convertDocument(docId, ConversionTarget.ANSWER_UNITS));
         Assert.assertNotNull(convertedDoc);
         Assert.assertEquals(convertedDoc, new String(expAnswer));
+
+        // Convert to Answers
+        Answers answers = service.convertDocumentToAnswer(docId);
+        Assert.assertNotNull(answers);
     }
 
     /**
-     * Test upload document
+     * Test upload document.
+     *
+     * @throws URISyntaxException the URI syntax exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
     public void testUploadDocument() throws URISyntaxException, IOException {
         String docId = UUID.randomUUID().toString();
+        String pdfDocId = UUID.randomUUID().toString();
         Document response = createMockDocument(docId, "html-with-extra-content-input.htm", MediaType.TEXT_HTML);
+        Document pdfResponse = createMockDocument(pdfDocId, "pdf-with-sections-input.pdf", MediaType.APPLICATION_PDF);
         File html = new File("src/test/resources/document_conversion/html-with-extra-content-input.htm");
+        File pdf = new File("src/test/resources/document_conversion/pdf-with-sections-input.pdf");
 
         mockServer.when(
                 request().withMethod("POST").withPath(DocumentConversion.DOCUMENTS_PATH)
@@ -153,10 +203,19 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
         Assert.assertNotNull(document);
         Assert.assertEquals(document.toString(), response.toString());
+
+        mockServer.reset().when(
+                request().withMethod("POST").withPath(DocumentConversion.DOCUMENTS_PATH)
+        ).respond((response().withBody(GsonSingleton.getGson().toJson(pdfResponse))));
+
+        // Call upload document with media type
+        Document pdfDocument = service.uploadDocument(pdf, MediaType.APPLICATION_PDF);
+        Assert.assertNotNull(pdfDocument);
+        Assert.assertEquals(pdfDocument.toString(), pdfResponse.toString());
     }
 
     /**
-     * Test create batch
+     * Test create batch.
      */
     @Test
     public void testCreateBatch() {
@@ -180,7 +239,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Test create job
+     * Test create job.
      */
     @Test
     public void testCreateJob() {
@@ -198,14 +257,23 @@ public class DocumentConversionTest extends WatsonServiceTest {
                 request().withMethod("POST").withPath(DocumentConversion.JOBS_PATH)
         ).respond((response().withBody(GsonSingleton.getGson().toJson(response))));
 
-        // Call create batch
+        // Call create job
         JobResponse job = service.createJob(jobName, batchId, ConversionTarget.ANSWER_UNITS);
         Assert.assertNotNull(job);
         Assert.assertEquals(job.toString(), response.toString());
+
+        // Call create job with a custom config
+        JsonObject customJobConfig = new JsonObject();
+        JsonObject configOptions = new JsonObject();
+        configOptions.addProperty("selector", "h3");
+        customJobConfig.add("html-to-pau", configOptions);
+        JobResponse jobWithConfig = service.createJob(jobName, batchId, ConversionTarget.ANSWER_UNITS, customJobConfig);
+        Assert.assertNotNull(jobWithConfig);
+        Assert.assertEquals(jobWithConfig.toString(), response.toString());
     }
 
     /**
-     * Test get document collection and get document
+     * Test get document collection and get document.
      */
     @Test
     public void testGetDocumentCollection() {
@@ -219,6 +287,15 @@ public class DocumentConversionTest extends WatsonServiceTest {
         documentsWithQuery.add(doc);
         List<Link> links = new ArrayList<Link>();
         docCollWithQueryResponse.setLinks(links);
+
+        // Call get documents without query parameters
+        mockServer.reset().when(request()
+                .withPath(DocumentConversion.DOCUMENTS_PATH))
+                .respond(response().withBody(GsonSingleton.getGson().toJson(docCollWithQueryResponse))
+                );
+        DocumentCollection docColl = service.getDocumentCollection();
+        Assert.assertNotNull(docColl);
+        Assert.assertEquals(docColl.toString(), docCollWithQueryResponse.toString());
 
         // Call get documents with query parameters
         List<Parameter> queryParams = new ArrayList<Parameter>();
@@ -245,7 +322,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Test batches
+     * Test batches.
      */
     @Test
     public void testBatches() {
@@ -263,6 +340,15 @@ public class DocumentConversionTest extends WatsonServiceTest {
         batchCollWithQueryResponse.setBatches(batchList);
         List<Link> links = new ArrayList<Link>();
         batchCollWithQueryResponse.setLinks(links);
+
+        // Call get batches without query parameters
+        mockServer.reset().when(request()
+                .withPath(DocumentConversion.BATCHES_PATH))
+                .respond(response().withBody(GsonSingleton.getGson().toJson(batchCollWithQueryResponse))
+                );
+        BatchCollection batchColl = service.getBatchCollection();
+        Assert.assertNotNull(batchColl);
+        Assert.assertEquals(batchColl.toString(), batchCollWithQueryResponse.toString());
 
         // Call get batches with query parameters
         List<Parameter> queryParams = new ArrayList<Parameter>();
@@ -306,7 +392,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Test get batch documents
+     * Test get batch documents.
      */
     @Test
     public void testGetBatchDocuments() {
@@ -344,6 +430,15 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Assert.assertNotNull(addBatchDocResponse);
         Assert.assertEquals(addBatchDocResponse.toString(), batchDocumentResponse.toString());
 
+        // Call get batch documents without query parameters
+        mockServer.reset().when(request()
+                .withPath(DocumentConversion.BATCHES_PATH + "/" + batchId + "/documents"))
+                .respond(response().withBody(GsonSingleton.getGson().toJson(batchDocCollWithQueryResponse))
+                );
+        BatchDocumentCollection batchDocColl = service.getBatchDocumentCollection(batchId);
+        Assert.assertNotNull(batchDocColl);
+        Assert.assertEquals(batchDocColl.toString(), batchDocCollWithQueryResponse.toString());
+
         // Call get batch documents with query parameters
         List<Parameter> queryParams = new ArrayList<Parameter>();
         queryParams.add(new Parameter("limit", "15"));
@@ -367,7 +462,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Test jobs
+     * Test jobs.
      */
     @Test
     public void testJobs() {
@@ -386,6 +481,15 @@ public class DocumentConversionTest extends WatsonServiceTest {
         jobCollWithQueryResponse.setJobs(jobList);
         List<Link> links = new ArrayList<Link>();
         jobCollWithQueryResponse.setLinks(links);
+
+        // Call get jobs without query parameters
+        mockServer.reset().when(request()
+                .withPath(DocumentConversion.JOBS_PATH))
+                .respond(response().withBody(GsonSingleton.getGson().toJson(jobCollWithQueryResponse))
+                );
+        JobCollection jobColl = service.getJobCollection();
+        Assert.assertNotNull(jobColl);
+        Assert.assertEquals(jobColl.toString(), jobCollWithQueryResponse.toString());
 
         // Call get jobs with query parameters
         List<Parameter> queryParams = new ArrayList<Parameter>();
@@ -424,7 +528,10 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Test outputs
+     * Test outputs.
+     *
+     * @throws URISyntaxException the URI syntax exception
+     * @throws IOException Signals that an I/O exception has occurred.
      */
     @Test
     public void testOutputs() throws URISyntaxException, IOException {
@@ -441,6 +548,15 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
         File expAnswerFile = new File("src/test/resources/document_conversion/html-with-extra-content-input-to-answer.json");
         byte[] expAnswer = IOUtils.toByteArray(new FileInputStream(expAnswerFile));
+
+        // Call get outputs without query parameters
+        mockServer.reset().when(request()
+                .withPath(DocumentConversion.OUTPUT_PATH))
+                .respond(response().withBody(GsonSingleton.getGson().toJson(outputCollWithQueryResponse))
+                );
+        OutputCollection outputColl = service.getOutputCollection();
+        Assert.assertNotNull(outputColl);
+        Assert.assertEquals(outputColl.toString(), outputCollWithQueryResponse.toString());
 
         // Call get outputs with query parameters
         List<Parameter> queryParams = new ArrayList<Parameter>();
@@ -471,7 +587,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
     // ####################################
 
     /**
-     * Create a Document object
+     * Create a Document object.
+     *
      * @param id The id of the document
      * @param name The name of the document
      * @param mediaType The Internet media type of the document
@@ -487,7 +604,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Create a Batch object
+     * Create a Batch object.
+     *
      * @param id The id of the batch
      * @param name The name of the batch
      * @param createdOn The time the batch was created
@@ -507,7 +625,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Create a Job object
+     * Create a Job object.
+     *
      * @param id The id of the job
      * @param name The name of the job
      * @param batchId The id of the batch that the job will execute
@@ -539,7 +658,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Create an Output object
+     * Create an Output object.
+     *
      * @param id The id of the output
      * @param jobId The id of job that generated the output
      * @param srcDocId The id of the source document used to generate this output
@@ -559,7 +679,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
     }
 
     /**
-     * Create a Link object
+     * Create a Link object.
+     *
      * @param linkName The name of the link
      * @param linkPath The path of the link
      * @return Link

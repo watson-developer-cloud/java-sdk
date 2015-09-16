@@ -30,7 +30,7 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 public class ProblemTest {
 
 	/**
-	 * Test convert problem to json and vise versa
+	 * Test convert problem to json and vise versa.
 	 */
 	@Test
 	public void testJsonProblem() {

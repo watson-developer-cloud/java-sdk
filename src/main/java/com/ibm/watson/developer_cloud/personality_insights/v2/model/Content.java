@@ -18,12 +18,12 @@ package com.ibm.watson.developer_cloud.personality_insights.v2.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * {@link ContentItem} container.
  */
-public class Content {
+public class Content extends GenericModel {
 
 	/**
 	 * Field contentItems.
@@ -62,17 +62,6 @@ public class Content {
 	 */
 	public void setContentItems(List<ContentItem> contentItems) {
 		this.contentItems = contentItems;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

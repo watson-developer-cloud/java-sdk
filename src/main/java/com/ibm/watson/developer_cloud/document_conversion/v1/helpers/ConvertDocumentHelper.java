@@ -15,25 +15,25 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
-import com.google.gson.JsonObject;
-import com.google.gson.annotations.Expose;
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.ConversionTarget;
-import com.ibm.watson.developer_cloud.service.Request;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.MediaType;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
+import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.ConversionTarget;
+import com.ibm.watson.developer_cloud.service.Request;
+import com.ibm.watson.developer_cloud.util.MediaType;
+import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
  * Helper class for all convert document API calls
@@ -114,7 +114,7 @@ public class ConvertDocumentHelper {
             JsonObject configRequestJson = new JsonObject();
             configRequestJson.addProperty("conversion_target", conversionTarget.toString());
             String json = configRequestJson.toString();
-            reqEntity.addPart("config", new StringBody(json, MediaType.APPLICATION_JSON, StandardCharsets.UTF_8));
+            reqEntity.addPart("config", new StringBody(json, MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
 
             HttpRequestBase request = Request.Post(DocumentConversion.CONVERT_DOCUMENT_PATH)
                     .withEntity(reqEntity).build();

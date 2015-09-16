@@ -15,157 +15,149 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.model.GenericModel;
-
 import java.util.Date;
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
  * Structure that stores information about the output generated
- * from a source document that was converted in the service
+ * from a source document that was converted in the service.
  *
  * @see DocumentConversion
  */
 public class Output extends GenericModel {
 
-    /**
-     * The id of the output
-     */
+    /** The id of the output. */
     @Expose
     private String id;
-    /**
-     * The id of the job which generated the output
-     */
+    
+    /** The id of the job which generated the output. */
     @SerializedName("job_id")
     private String jobId;
 
-    /**
-     * The id of the source document that was used to generated this output
-     */
+    /** The id of the source document that was used to generated this output. */
     @SerializedName("source_document_id")
     private String sourceDocumentId;
-    /**
-     * The date and time the job was created in ISO 8601 date and time format (YYYY-MM-DDTHH:MM:SSZ)
-     */
+    
+    /** The date and time the job was created in ISO 8601 date and time format (YYYY-MM-DDTHH:MM:SSZ). */
     @SerializedName("created_on")
     private Date createdOn;
-    /**
-     * The Internet media type of the output
-     */
+    
+    /** The Internet media type of the output. */
     @SerializedName("media_type")
     private String mediaType;
-    /**
-     * A self link to the output itself
-     */
+    
+    /** A self link to the output itself. */
     @Expose
     private List<Link> links;
 
     /**
-     * Returns the id of the output
+     * Returns the id of the output.
      *
-     * @return
+     * @return the id
      */
     public String getId() {
         return id;
     }
 
     /**
-     * Sets the id of the output
+     * Sets the id of the output.
      *
-     * @param id
+     * @param id the new id
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * Returns the id of the job which generated the output
+     * Returns the id of the job which generated the output.
      *
-     * @return
+     * @return the job id
      */
     public String getJobId() {
         return jobId;
     }
 
     /**
-     * Sets the id of the job which generated the output
+     * Sets the id of the job which generated the output.
      *
-     * @param jobId
+     * @param jobId the new job id
      */
     public void setJobId(String jobId) {
         this.jobId = jobId;
     }
 
     /**
-     * Returns the source document for the output
+     * Returns the source document for the output.
      *
-     * @return
+     * @return the source document id
      */
     public String getSourceDocumentId() {
         return sourceDocumentId;
     }
 
     /**
-     * Sets the source document for the output
+     * Sets the source document for the output.
      *
-     * @param sourceDocumentId
+     * @param sourceDocumentId the new source document id
      */
     public void setSourceDocumentId(String sourceDocumentId) {
         this.sourceDocumentId = sourceDocumentId;
     }
 
     /**
-     * Returns the date on which the output was created on
+     * Returns the date on which the output was created on.
      *
-     * @return
+     * @return the created on
      */
     public Date getCreatedOn() {
         return createdOn;
     }
 
     /**
-     * Sets the date on which the output was created on
+     * Sets the date on which the output was created on.
      *
-     * @param createdOn
+     * @param createdOn the new created on
      */
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
     }
 
     /**
-     * Returns the media type for the output jobs
+     * Returns the media type for the output jobs.
      *
-     * @return
+     * @return the media type
      */
     public String getMediaType() {
         return mediaType;
     }
 
     /**
-     * Sets the media type for the output jobs
+     * Sets the media type for the output jobs.
      *
-     * @param mediaType
+     * @param mediaType the new media type
      */
     public void setMediaType(String mediaType) {
         this.mediaType = mediaType;
     }
 
     /**
-     * Returns the links to the outputs in the collection
+     * Returns the links to the outputs in the collection.
      *
-     * @return
+     * @return the links
      */
     public List<Link> getLinks() {
         return links;
     }
 
     /**
-     * Sets the links to the outputs in the collection
+     * Sets the links to the outputs in the collection.
      *
-     * @param links
+     * @param links the new links
      */
     public void setLinks(List<Link> links) {
         this.links = links;

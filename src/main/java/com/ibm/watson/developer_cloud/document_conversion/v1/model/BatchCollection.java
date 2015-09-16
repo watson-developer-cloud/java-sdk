@@ -15,60 +15,58 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
-import com.google.gson.annotations.Expose;
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.model.GenericModel;
-
 import java.util.List;
 
+import com.google.gson.annotations.Expose;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
- * Structure to store a collection list of batches
+ * Structure to store a collection list of batches.
  *
  * @see DocumentConversion
  */
 public class BatchCollection extends GenericModel {
-    /**
-     * List of batches
-     */
+    
+    /** List of batches. */
     @Expose
     List<Batch> batches;
-    /**1
-     * List of links
-     */
+    
+    /** 1 List of links. */
     @Expose
     List<Link> links;
 
     /**
-     * Returns the batches in the store
+     * Returns the batches in the store.
      *
-     * @return
+     * @return the batches
      */
     public List<Batch> getBatches() {
         return batches;
     }
 
     /**
-     * Sets the batches in the store
+     * Sets the batches in the store.
      *
-     * @param batches
+     * @param batches the new batches
      */
     public void setBatches(List<Batch> batches) {
         this.batches = batches;
     }
 
     /**
-     * Returns the links to the batches
+     * Returns the links to the batches.
      *
-     * @return
+     * @return the links
      */
     public List<Link> getLinks() {
         return links;
     }
 
     /**
-     * Sets the links to the batches
+     * Sets the links to the batches.
      *
-     * @param links
+     * @param links the new links
      */
     public void setLinks(List<Link> links) {
         this.links = links;
