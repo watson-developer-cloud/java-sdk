@@ -41,6 +41,15 @@ public class Taxonomy extends GenericModel {
 	private Double score;
 
 	/**
+	 * Gets the confident.
+	 *
+	 * @return the confident
+	 */
+	public Boolean getConfident() {
+		return confident;
+	}
+
+	/**
 	 * Gets the label.
 	 * 
 	 * @return The label
@@ -56,15 +65,6 @@ public class Taxonomy extends GenericModel {
 	 */
 	public Double getScore() {
 		return score;
-	}
-
-	/**
-	 * Gets the confident.
-	 *
-	 * @return the confident
-	 */
-	public Boolean getConfident() {
-		return confident;
 	}
 
 	/**

@@ -46,21 +46,21 @@ public class PublicationDate extends GenericModel {
 	}
 
 	/**
-	 * Sets the confident.
-	 *
-	 * @param confident the confident to set
-	 */
-	public void setConfident(Boolean confident) {
-		this.confident = confident;
-	}
-
-	/**
 	 * Gets the date.
 	 *
 	 * @return the date
 	 */
 	public Date getDate() {
 		return date;
+	}
+
+	/**
+	 * Sets the confident.
+	 *
+	 * @param confident the confident to set
+	 */
+	public void setConfident(Boolean confident) {
+		this.confident = confident;
 	}
 
 	/**

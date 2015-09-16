@@ -30,29 +30,6 @@ import java.util.List;
 public class DocumentAuthors extends AlchemyLanguageGenericModel {
 
     /**
-     * The authors.
-     */
-    private Authors authors;
-
-    /**
-     * Gets the authors.
-     *
-     * @return The authors
-     */
-    public Authors getAuthors() {
-        return authors;
-    }
-
-    /**
-     * Sets the authors.
-     *
-     * @param authors The authors
-     */
-    public void setAuthors(Authors authors) {
-        this.authors = authors;
-    }
-
-    /**
      * Authors returned by the {@link AlchemyLanguage} service.
      *
      * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
@@ -81,5 +58,28 @@ public class DocumentAuthors extends AlchemyLanguageGenericModel {
         public void setNames(List<String> names) {
             this.names = names;
         }
+    }
+
+    /**
+     * The authors.
+     */
+    private Authors authors;
+
+    /**
+     * Gets the authors.
+     *
+     * @return The authors
+     */
+    public Authors getAuthors() {
+        return authors;
+    }
+
+    /**
+     * Sets the authors.
+     *
+     * @param authors The authors
+     */
+    public void setAuthors(Authors authors) {
+        this.authors = authors;
     }
 }
