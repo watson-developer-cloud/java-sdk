@@ -20,6 +20,10 @@
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author returned by the {@link AlchemyLanguage} service.
@@ -28,24 +32,49 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
  */
 public class DocumentAuthor extends AlchemyLanguageGenericModel {
 
-    /** The author. */
-    private String author;
+    /**
+     * The authors.
+     */
+    private Authors authors;
 
     /**
-     * Gets the author.
-     *
-     * @return The author
+     * @return The authors
      */
-    public String getAuthor() {
-        return author;
+    public Authors getAuthors() {
+        return authors;
     }
 
     /**
-     * Sets the author.
-     *
-     * @param author The author
+     * @param authors The authors
      */
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setAuthors(Authors authors) {
+        this.authors = authors;
+    }
+
+    /**
+     * EnrichedTitle returned by the {@link AlchemyLanguage} service.
+     *
+     * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+     */
+    public static class Authors extends GenericModel {
+
+        /**
+         * The names.
+         */
+        private List<String> names = new ArrayList<String>();
+
+        /**
+         * @return The names
+         */
+        public List<String> getNames() {
+            return names;
+        }
+
+        /**
+         * @param names The names
+         */
+        public void setNames(List<String> names) {
+            this.names = names;
+        }
     }
 }
