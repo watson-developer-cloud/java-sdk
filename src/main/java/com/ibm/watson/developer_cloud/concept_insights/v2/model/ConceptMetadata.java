@@ -28,7 +28,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * ConceptMetaData returned by the {@link ConceptInsights} service.
  * 
  */
-public class ConceptMetaData extends GenericModel {
+public class ConceptMetadata extends GenericModel {
 
 	/** The _abstract. */
 	@SerializedName("abstract")

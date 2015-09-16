@@ -23,7 +23,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentAuthor;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentAuthors;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentText;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentTitle;
@@ -182,10 +182,10 @@ public class AlchemyLanguage extends AlchemyService {
 	 * @param params
 	 *            The parameters to be used in the service call, html or url should be
 	 *            specified.
-	 * @return {@link DocumentAuthor}
+	 * @return {@link DocumentAuthors}
 	 */
-	public DocumentAuthor getAuthors(Map<String, Object> params) {
-		return executeRequest(params, AlchemyAPI.authors, DocumentAuthor.class, "html", "url");
+	public DocumentAuthors getAuthors(Map<String, Object> params) {
+		return executeRequest(params, AlchemyAPI.authors, DocumentAuthors.class, "html", "url");
 	}
 
 	/**

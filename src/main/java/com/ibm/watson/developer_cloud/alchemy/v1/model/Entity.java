@@ -30,7 +30,7 @@ public class Entity {
     private Integer count;
 
     /** The disambiguated. */
-    private Disambiguated disambiguated;
+    private DisambiguatedLinks disambiguated;
 
     /** The knowledge graph. */
     private KnowledgeGraph knowledgeGraph;
@@ -66,7 +66,7 @@ public class Entity {
      *
      * @return The disambiguated
      */
-    public Disambiguated getDisambiguated() {
+    public DisambiguatedLinks getDisambiguated() {
         return disambiguated;
     }
 
@@ -138,7 +138,7 @@ public class Entity {
      *
      * @param disambiguated The disambiguated
      */
-    public void setDisambiguated(Disambiguated disambiguated) {
+    public void setDisambiguated(DisambiguatedLinks disambiguated) {
         this.disambiguated = disambiguated;
     }
 

@@ -26,7 +26,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * The Class DocumentProcessingState.
  */
-public class DocumentProcessingState extends GenericModel {
+public class DocumentProcessingStatus extends GenericModel {
 
 	/** The last modified. */
 	@SerializedName("last_modified")

@@ -31,7 +31,7 @@ public class ImageFace extends GenericModel {
 	/**
 	 * Face Age range.
 	 */
-	public static class Age extends GenericModel {
+	public static class AgeRange extends GenericModel {
 
 		/** The age range. */
 		private String ageRange;
@@ -126,7 +126,7 @@ public class ImageFace extends GenericModel {
 	}
 
 	/** The age. */
-	private Age age;
+	private AgeRange age;
 
 	/** The gender. */
 	private Gender gender;
@@ -151,7 +151,7 @@ public class ImageFace extends GenericModel {
 	 *
 	 * @return The age
 	 */
-	public Age getAge() {
+	public AgeRange getAge() {
 		return age;
 	}
 
@@ -214,7 +214,7 @@ public class ImageFace extends GenericModel {
 	 *
 	 * @param age            The age
 	 */
-	public void setAge(Age age) {
+	public void setAge(AgeRange age) {
 		this.age = age;
 	}
 

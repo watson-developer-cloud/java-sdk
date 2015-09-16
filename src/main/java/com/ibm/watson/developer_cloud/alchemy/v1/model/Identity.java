@@ -30,7 +30,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Identity extends GenericModel {
 
     /** The disambiguated. */
-    private Disambiguated disambiguated;
+    private DisambiguatedLinks disambiguated;
 
     /** The knowledge graph. */
     private KnowledgeGraph knowledgeGraph;
@@ -46,7 +46,7 @@ public class Identity extends GenericModel {
      *
      * @return The disambiguated
      */
-    public Disambiguated getDisambiguated() {
+    public DisambiguatedLinks getDisambiguated() {
         return disambiguated;
     }
 
@@ -82,7 +82,7 @@ public class Identity extends GenericModel {
      *
      * @param disambiguated The disambiguated
      */
-    public void setDisambiguated(Disambiguated disambiguated) {
+    public void setDisambiguated(DisambiguatedLinks disambiguated) {
         this.disambiguated = disambiguated;
     }
 
