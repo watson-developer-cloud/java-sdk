@@ -105,10 +105,9 @@ public class DocumentConversionExample{
 
         System.out.println("-------------------- Batch Collection ------------------------------");
         Map<String, Object> batchListParams = new HashMap<String, Object>();
-        batchListParams.put(DocumentConversion.TOKEN, batch.getId());
         batchListParams.put(DocumentConversion.LIMIT, 2);
         BatchCollection batchCollection = service.getBatchCollection(batchListParams);
-        System.out.println("Batch Collection with a token to the next page :\n" + batchCollection);
+        System.out.println("Batch Collection with 2 items in a page :\n" + batchCollection);
 
         // Step 3. Add the document to the batch
         String batchId2 = batch.getId();
