@@ -15,19 +15,18 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.MediaType;
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
-import org.apache.commons.io.IOUtils;
-import org.apache.http.entity.InputStreamEntity;
-import org.junit.*;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.Header;
-import org.mockserver.model.Parameter;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,15 +34,27 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
+import org.apache.commons.io.IOUtils;
+import org.apache.http.entity.InputStreamEntity;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockserver.integration.ClientAndServer;
+import org.mockserver.model.Header;
+import org.mockserver.model.Parameter;
+
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.MediaType;
 
 /**
  * The Class TextToSpeechTest.
  */
 public class TextToSpeechTest extends WatsonServiceTest {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(TextToSpeechTest.class.getName());
 
 	/** Mock Server *. */
