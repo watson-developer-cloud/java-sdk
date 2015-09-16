@@ -39,8 +39,6 @@ public class VolumeResult extends AlchemyGenericModel {
 	    /** The slices. */
 	    private List<Integer> slices;
 
-	    /** The status. */
-	    private String status;
 
 	    /**
 	     * Gets the count.
@@ -61,15 +59,6 @@ public class VolumeResult extends AlchemyGenericModel {
 	    }
 
 	    /**
-	     * Gets the status.
-	     *
-	     * @return The status
-	     */
-	    public String getStatus() {
-	        return status;
-	    }
-
-	    /**
 	     * Sets the count.
 	     *
 	     * @param count The count
@@ -87,14 +76,6 @@ public class VolumeResult extends AlchemyGenericModel {
 	        this.slices = slices;
 	    }
 
-	    /**
-	     * Sets the status.
-	     *
-	     * @param status The status
-	     */
-	    public void setStatus(String status) {
-	        this.status = status;
-	    }
 	}
 	
     /** The volume. */

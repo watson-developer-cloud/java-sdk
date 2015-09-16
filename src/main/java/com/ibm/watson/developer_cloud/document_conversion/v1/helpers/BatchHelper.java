@@ -44,16 +44,15 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * @see DocumentConversion
  */
 public class BatchHelper {
-    /**
-     * The document service object
-     */
+    
+    /** The document service object. */
     @Expose
     private DocumentConversion docConversionService;
 
     /**
-     * Sets the service object
+     * Sets the service object.
      *
-     * @param docConversionService
+     * @param docConversionService the doc conversion service
      */
     public BatchHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
@@ -61,8 +60,9 @@ public class BatchHelper {
 
     /**
      * Creates a new batch with name and properties
+     * 
+     * POST /v1/batches.
      *
-     * POST /v1/batches
      * @param name the name of the created batch
      * @param properties the properties for the created batch
      * @return requested Batch
@@ -147,11 +147,11 @@ public class BatchHelper {
 
     /**
      * Gets an existing batch
+     * 
+     * GET /v1/batches/{batch_id}.
      *
-     * GET /v1/batches/{batch_id}
      * @param batchId id for the batch to be updated
      * @return requested Batch
-     *
      * @see DocumentConversion#getBatch(String)
      */
     public Batch getBatch(final String batchId) {
@@ -171,14 +171,14 @@ public class BatchHelper {
 
     /**
      * Updates an existing batch with the provided name and properties
+     * 
+     * PUT /v1/batches/{batch_id}.
      *
-     * PUT /v1/batches/{batch_id}
      * @param batchId id for the batch to be updated
      * @param name name of the batch to be updated
      * @param properties properties of the batch to be updated
      * @return updated Batch
-     *
-     *@see DocumentConversion#updateBatch(String, String, List)
+     * @see DocumentConversion#updateBatch(String, String, List)
      */
     public Batch updateBatch(final String batchId, final String name,
                              final List<Property> properties) {
@@ -203,7 +203,7 @@ public class BatchHelper {
     }
 
     /**
-     * Escapes the Json object string to filter and send in the request
+     * Escapes the Json object string to filter and send in the request.
      *
      * @param jsonObject Json Object to be filtered
      * @return filtered Json String

@@ -35,9 +35,6 @@ public class Documents extends GenericModel{
     /** The next. */
     private String next;
 
-    /** The status. */
-    private String status;
-
     /**
      * Gets the next.
      *
@@ -45,15 +42,6 @@ public class Documents extends GenericModel{
      */
     public String getNext() {
         return next;
-    }
-
-    /**
-     * Gets the status.
-     *
-     * @return The status
-     */
-    public String getStatus() {
-        return status;
     }
 
     /**
@@ -74,12 +62,4 @@ public class Documents extends GenericModel{
         this.next = next;
     }
 
-    /**
-     * Sets the status.
-     *
-     * @param status The status
-     */
-    public void setStatus(String status) {
-        this.status = status;
-    }
 }

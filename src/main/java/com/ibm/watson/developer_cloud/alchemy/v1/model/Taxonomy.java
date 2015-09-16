@@ -15,7 +15,8 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.google.gson.annotations.JsonAdapter;
+import com.ibm.watson.developer_cloud.alchemy.v1.util.TaxonomyTypeAdapter;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -23,25 +24,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
+/**
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
+ *
+ */
+@JsonAdapter(TaxonomyTypeAdapter.class)
 public class Taxonomy extends GenericModel {
 
 	/** The confident. */
-	private String confident;
+	private Boolean confident;
 
 	/** The label. */
 	private String label;
 
 	/** The score. */
 	private Double score;
-
-	/**
-	 * Gets the confident.
-	 * 
-	 * @return The confident
-	 */
-	public String getConfident() {
-		return confident;
-	}
 
 	/**
 	 * Gets the label.
@@ -62,12 +59,20 @@ public class Taxonomy extends GenericModel {
 	}
 
 	/**
-	 * Sets the confident.
-	 * 
-	 * @param confident
-	 *            The confident
+	 * Gets the confident.
+	 *
+	 * @return the confident
 	 */
-	public void setConfident(String confident) {
+	public Boolean getConfident() {
+		return confident;
+	}
+
+	/**
+	 * Sets the confident.
+	 *
+	 * @param confident the confident to set
+	 */
+	public void setConfident(Boolean confident) {
 		this.confident = confident;
 	}
 

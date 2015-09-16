@@ -37,7 +37,7 @@ public class Entity {
 
     /** The quotations. */
     //TODO: list of Object??
-    private List<Object> quotations;
+    private List<Quotation> quotations;
 
     /** The relevance. */
     private Double relevance;
@@ -84,7 +84,7 @@ public class Entity {
      *
      * @return The quotations
      */
-    public List<Object> getQuotations() {
+    public List<Quotation> getQuotations() {
         return quotations;
     }
 
@@ -156,7 +156,7 @@ public class Entity {
      *
      * @param quotations The quotations
      */
-    public void setQuotations(List<Object> quotations) {
+    public void setQuotations(List<Quotation> quotations) {
         this.quotations = quotations;
     }
 

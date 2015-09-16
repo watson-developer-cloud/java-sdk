@@ -44,26 +44,25 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * @see DocumentConversion
  */
 public class ConvertDocumentHelper {
-    /**
-     * The document service object
-     */
+    
+    /** The document service object. */
     @Expose
     private DocumentConversion docConversionService;
 
     /**
-     * Sets the service object
+     * Sets the service object.
      *
-     * @param docConversionService
+     * @param docConversionService the doc conversion service
      */
     public ConvertDocumentHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
     }
 
     /**
-     * Converts the provided document to an Answers object
-     * @param document
-     * @return Answers
+     * Converts the provided document to an Answers object.
      *
+     * @param document the document
+     * @return Answers
      * @see DocumentConversion#convertDocumentToAnswer(File)
      */
     public Answers convertDocumentToAnswer(final File document) {
@@ -76,11 +75,11 @@ public class ConvertDocumentHelper {
 
     /**
      * Synchronously converts a new document without persistence
-     * POST /v1/convert_document
+     * POST /v1/convert_document.
+     *
      * @param document The file to convert
      * @param conversionTarget The conversion target to use
      * @return Converted document in the specified format
-     *
      * @see DocumentConversion#convertDocument(File, ConversionTarget)
      */
     public InputStream convertDocument(final File document, final ConversionTarget conversionTarget) {
@@ -90,12 +89,12 @@ public class ConvertDocumentHelper {
 
     /**
      * Synchronously converts a new document without persistence
-     * POST /v1/convert_document
-     * @param document The file to convert
-     * @param conversionTarget The conversion target to use
-     * @param mediaType Internet media type for the file
-     * @return Converted document in the specified format
+     * POST /v1/convert_document.
      *
+     * @param document The file to convert
+     * @param mediaType Internet media type for the file
+     * @param conversionTarget The conversion target to use
+     * @return Converted document in the specified format
      * @see DocumentConversion#convertDocument(File, String, ConversionTarget)
      */
     public InputStream convertDocument(final File document, String mediaType, final ConversionTarget conversionTarget) {
@@ -128,10 +127,10 @@ public class ConvertDocumentHelper {
     }
 
     /**
-     * Converts the specified document to an Answers object
-     * @param documentId
-     * @return Answers
+     * Converts the specified document to an Answers object.
      *
+     * @param documentId the document id
+     * @return Answers
      * @see DocumentConversion#convertDocumentToAnswer(String)
      */
     public Answers convertDocumentToAnswer(final String documentId) {
@@ -144,11 +143,11 @@ public class ConvertDocumentHelper {
 
     /**
      * Synchronously converts a single previously uploaded document
-     * POST /v1/convert_document
+     * POST /v1/convert_document.
+     *
      * @param documentId The id of the document to convert
      * @param conversionTarget The conversion target to use
      * @return Converted document in the specified format
-     *
      * @see DocumentConversion#convertDocument(String, ConversionTarget)
      */
     public InputStream convertDocument(final String documentId, final ConversionTarget conversionTarget) {

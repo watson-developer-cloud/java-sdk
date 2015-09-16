@@ -100,7 +100,7 @@ public class TrainingData  extends GenericModel {
 	}
 	
 	/**
-	 * Adds a class to the training data
+	 * Adds a class to the training data.
 	 *
 	 * @param className the class name to add
 	 */

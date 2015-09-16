@@ -50,7 +50,7 @@ public class RequestedFields extends GenericModel {
     }
 
     /**
-     * Initialize the fields map
+     * Initialize the fields map.
      */
     private void init() {
         if (fields == null)

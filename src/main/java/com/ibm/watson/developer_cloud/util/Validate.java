@@ -24,12 +24,12 @@ import java.util.Map;
  * <p>
  * This class assists in validating arguments.
  * </p>
- *
+ * 
  * <p>
  * The class is based along the lines of JUnit. If an argument value is deemed invalid, an IllegalArgumentException is
  * thrown. For example:
  * </p>
- *
+ * 
  * <pre>
  * Validate.isTrue(i &gt; 0, &quot;The value must be greater than zero: &quot;, i);
  * Validate.notNull(surname, &quot;The surname must not be null&quot;);
@@ -39,8 +39,8 @@ import java.util.Map;
  * @author <a href="mailto:ola.berg@arkitema.se">Ola Berg</a>
  * @author Gary Gregory
  * @author Norm Deane
- * @since 2.0
  * @version $Id: Validate.java 1057051 2011-01-09 23:15:51Z sebb $
+ * @since 2.0
  */
 @SuppressWarnings("rawtypes")
 public class Validate {

@@ -43,15 +43,15 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * @see DocumentConversion
  */
 public class DocumentHelper {
-    /**
-     * The document service object
-     */
+    
+    /** The document service object. */
     @Expose
     private DocumentConversion docConversionService;
 
     /**
-     * Sets the service object
-     * @param docConversionService
+     * Sets the service object.
+     *
+     * @param docConversionService the doc conversion service
      */
     public DocumentHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
@@ -59,8 +59,9 @@ public class DocumentHelper {
 
     /**
      * Retrieves a document from the store with the given id
+     * 
+     * GET /v1/documents/{document_id}.
      *
-     * GET /v1/documents/{document_id}
      * @param documentId id of the document to be retrieved
      * @return requested Document
      * @see DocumentConversion#getDocument(String)
@@ -80,11 +81,11 @@ public class DocumentHelper {
 
     /**
      * Uploads the document to the store with the given media type
+     * 
+     * POST /v1/documents.
      *
-     * POST /v1/documents
      * @param document the document to be uploaded
      * @return Document
-     *
      * @see DocumentConversion#uploadDocument(File)
      */
     public Document uploadDocument(final File document) {
@@ -94,12 +95,12 @@ public class DocumentHelper {
 
     /**
      * Uploads the document to the store with the given media type
+     * 
+     * POST /v1/documents.
      *
-     * POST /v1/documents
      * @param document the document to be uploaded
      * @param mediaType the Internet media type for the file
      * @return Document
-     *
      * @see DocumentConversion#uploadDocument(File, String)
      */
     public Document uploadDocument(final File document, final String mediaType) {

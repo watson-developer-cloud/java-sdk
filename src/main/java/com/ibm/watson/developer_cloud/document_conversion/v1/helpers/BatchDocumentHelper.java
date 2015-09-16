@@ -38,16 +38,15 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * @see DocumentConversion
  */
 public class BatchDocumentHelper {
-    /**
-     * The document service object
-     */
+    
+    /** The document service object. */
     @Expose
     private DocumentConversion docConversionService;
 
     /**
-     * Sets the service object
+     * Sets the service object.
      *
-     * @param docConversionService
+     * @param docConversionService the doc conversion service
      */
     public BatchDocumentHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
@@ -55,14 +54,12 @@ public class BatchDocumentHelper {
 
     /**
      * Adds a document to the batch whose ids are specified
+     * 
+     * PUT /v1/batches/{batch_id}/documents/{document_id}.
      *
-     * PUT /v1/batches/{batch_id}/documents/{document_id}
-     * @param batchId
-     *          id of the batch to be retrieved
-     * @param documentId
-     *          id of the document to be retrieved
+     * @param batchId          id of the batch to be retrieved
+     * @param documentId          id of the document to be retrieved
      * @return BatchDocumentResponse
-     *
      * @see DocumentConversion#addDocumentToBatch(String, String)
      */
     public BatchDocumentResponse addDocumentToBatch(final String batchId, final String documentId) {
@@ -141,15 +138,13 @@ public class BatchDocumentHelper {
 
     /**
      * Retrieves the document from the batch whose ids are specified
+     * 
+     * GET /v1/batches/{batch_id}/documents/{document_id}.
      *
-     * GET /v1/batches/{batch_id}/documents/{document_id}
-     * @param batchId
-     *          id of the batch to be retrieved
-     * @param documentId
-     *          id of the document to be retrieved
+     * @param batchId          id of the batch to be retrieved
+     * @param documentId          id of the document to be retrieved
      * @return BatchDocumentResponse
-     *
-     *  @see DocumentConversion#getBatchDocument(String, String)
+     * @see DocumentConversion#getBatchDocument(String, String)
      */
     public BatchDocumentResponse getBatchDocument(final String batchId, final String documentId) {
         if (batchId == null || batchId.isEmpty())

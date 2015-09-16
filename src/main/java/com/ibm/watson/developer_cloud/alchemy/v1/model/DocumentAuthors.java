@@ -35,6 +35,8 @@ public class DocumentAuthors extends AlchemyLanguageGenericModel {
     private Authors authors;
 
     /**
+     * Gets the authors.
+     *
      * @return The authors
      */
     public Authors getAuthors() {
@@ -42,6 +44,8 @@ public class DocumentAuthors extends AlchemyLanguageGenericModel {
     }
 
     /**
+     * Sets the authors.
+     *
      * @param authors The authors
      */
     public void setAuthors(Authors authors) {
@@ -61,6 +65,8 @@ public class DocumentAuthors extends AlchemyLanguageGenericModel {
         private List<String> names = new ArrayList<String>();
 
         /**
+         * Gets the names.
+         *
          * @return The names
          */
         public List<String> getNames() {
@@ -68,6 +74,8 @@ public class DocumentAuthors extends AlchemyLanguageGenericModel {
         }
 
         /**
+         * Sets the names.
+         *
          * @param names The names
          */
         public void setNames(List<String> names) {

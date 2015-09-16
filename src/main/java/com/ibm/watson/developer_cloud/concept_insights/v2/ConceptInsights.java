@@ -932,8 +932,8 @@ public class ConceptInsights extends WatsonService {
      * Execute the request and return the POJO that represent the response.
      *
      * @param <T>             The POJO that represents the response object
-     * @param params          the request parameters
      * @param resourcePath    the resource path
+     * @param params          the request parameters
      * @param returnType      the POJO class to be parsed from the response
      * @return the POJO object that represent the response
      */

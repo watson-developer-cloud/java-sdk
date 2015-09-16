@@ -380,6 +380,11 @@ public abstract class WatsonService {
 		apiKey = new String(Base64.encodeBase64(auth.getBytes()));
 	}
 
+	/**
+	 * Sets the authentication.
+	 *
+	 * @param request the new authentication
+	 */
 	protected void setAuthentication(HttpRequestBase request){
 		if (getApiKey() == null)
 			throw new IllegalArgumentException(

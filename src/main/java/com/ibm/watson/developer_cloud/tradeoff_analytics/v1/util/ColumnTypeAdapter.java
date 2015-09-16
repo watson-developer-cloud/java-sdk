@@ -54,6 +54,11 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
 	 */
 	@Override
 	public Column read(JsonReader reader) throws IOException {
+		if (reader.peek() == JsonToken.NULL) {
+	         reader.nextNull();
+	         return null;
+	       }
+		
 		ColumnType type = ColumnType.TEXT;
 		Goal goal = null;
 		Boolean objective = null;

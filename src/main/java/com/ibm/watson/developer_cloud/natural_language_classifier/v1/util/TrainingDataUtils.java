@@ -33,7 +33,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Train
 
 
 /**
- * Utility class to transform training data to CSV
+ * Utility class to transform training data to CSV.
  */
 public class TrainingDataUtils {
 

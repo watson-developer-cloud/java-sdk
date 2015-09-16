@@ -38,8 +38,9 @@ import com.ibm.watson.developer_cloud.util.MediaType;
  * @see DocumentConversion
  */
 public class ConversionUtils {
+    
     /**
-     * Returns the media type for a given file
+     * Returns the media type for a given file.
      *
      * @param file the file object for which media type needs to be provided
      * @return Internet media type for the file
@@ -63,7 +64,7 @@ public class ConversionUtils {
     }
 
     /**
-     * Checks if the media type is supported by the service
+     * Checks if the media type is supported by the service.
      *
      * @param mediaType  Internet media type for the file
      * @return true if it is supported, false if not.
@@ -84,7 +85,7 @@ public class ConversionUtils {
     }
 
     /**
-     * Converts the date to ISO 8601 format
+     * Converts the date to ISO 8601 format.
      *
      * @param date the date to be converted to DateTime
      * @return the date time string for a given date
@@ -109,7 +110,8 @@ public class ConversionUtils {
     }
 
     /**
-     * Gson singleton with an ISO 8601 Date Deserializer
+     * Gson singleton with an ISO 8601 Date Deserializer.
+     *
      * @return Gson
      */
     public static Gson getGsonWithIso8601DateDeserializer() {
@@ -120,14 +122,10 @@ public class ConversionUtils {
         return gsonWithIso8601DateDeserializer;
     }
 
-    /**
-     * Gson singleton with an ISO 8601 Date Deserializer
-     */
+    /** Gson singleton with an ISO 8601 Date Deserializer. */
     private static Gson gsonWithIso8601DateDeserializer;
 
-    /**
-     * JSON deserializer for ISO 8601 dates into Java Date objects
-     */
+    /** JSON deserializer for ISO 8601 dates into Java Date objects. */
     private static JsonDeserializer<Date> iso8601DateDeserializer = new JsonDeserializer<Date>() {
         @Override
         public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)

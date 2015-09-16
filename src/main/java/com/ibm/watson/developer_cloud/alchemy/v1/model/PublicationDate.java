@@ -15,7 +15,11 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
+import java.util.Date;
+
+import com.google.gson.annotations.JsonAdapter;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.alchemy.v1.util.PublicationDateTypeAdapter;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -23,47 +27,49 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
+@JsonAdapter(PublicationDateTypeAdapter.class)
 public class PublicationDate extends GenericModel {
 
 	/** The confident. */
-	private String confident;
+	private Boolean confident;
 
 	/** The date. */
-	private String date;
+	private Date date;
 
 	/**
 	 * Gets the confident.
 	 *
-	 * @return The confident
+	 * @return the confident
 	 */
-	public String getConfident() {
+	public Boolean getConfident() {
 		return confident;
-	}
-
-	/**
-	 * Gets the date.
-	 *
-	 * @return The date
-	 */
-	public String getDate() {
-		return date;
 	}
 
 	/**
 	 * Sets the confident.
 	 *
-	 * @param confident            The confident
+	 * @param confident the confident to set
 	 */
-	public void setConfident(String confident) {
+	public void setConfident(Boolean confident) {
 		this.confident = confident;
+	}
+
+	/**
+	 * Gets the date.
+	 *
+	 * @return the date
+	 */
+	public Date getDate() {
+		return date;
 	}
 
 	/**
 	 * Sets the date.
 	 *
-	 * @param date            The date
+	 * @param date the date to set
 	 */
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
+
 }

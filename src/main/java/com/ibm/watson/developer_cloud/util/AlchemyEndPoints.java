@@ -28,13 +28,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * The Class AlchemyEndPoints.
+ *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class AlchemyEndPoints {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(AlchemyEndPoints.class.getName());
 
-	/** The file where alchemy endpoints are described */
+	/**  The file where alchemy endpoints are described. */
 	private static final String filePath = "src/main/resources/alchemy_endpoints.json";
 
 	/** The alchemy operations. */
@@ -48,24 +51,62 @@ public class AlchemyEndPoints {
 	 * The AlchemyOperations.
 	 */
 	public enum AlchemyAPI {
+		
+		/** The entities. */
 		entities,
+		
+		/** The keywords. */
 		keywords,
+		
+		/** The concepts. */
 		concepts,
+		
+		/** The sentiment. */
 		sentiment,
+		
+		/** The sentiment_targeted. */
 		sentiment_targeted,
+		
+		/** The category. */
 		category,
+		
+		/** The relations. */
 		relations,
+		
+		/** The language. */
 		language,
+		
+		/** The text. */
 		text,
+		
+		/** The text_raw. */
 		text_raw,
+		
+		/** The authors. */
 		authors,
+		
+		/** The feeds. */
 		feeds,
+		
+		/** The microformats. */
 		microformats,
+		
+		/** The title. */
 		title,
+		
+		/** The taxonomy. */
 		taxonomy,
+		
+		/** The combined. */
 		combined,
+		
+		/** The image_link. */
 		image_link,
+		
+		/** The image_keywords. */
 		image_keywords,
+		
+		/** The image_recognition. */
 		image_recognition
 	}
 
@@ -99,12 +140,10 @@ public class AlchemyEndPoints {
 	}
 
 	/**
-	 * Gets the path based on the operation and input type
-	 * 
-	 * @param operation
-	 *            the operation
-	 * @param inputType
-	 *            the input type
+	 * Gets the path based on the operation and input type.
+	 *
+	 * @param operation            the operation
+	 * @param inputType            the input type
 	 * @return the string that represent the path based on the operation
 	 * and input type
 	 */

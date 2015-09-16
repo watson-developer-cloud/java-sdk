@@ -22,6 +22,9 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  */
 public abstract class GenericModel {
 
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
     /*
      *
      * @see java.lang.Object#toString()

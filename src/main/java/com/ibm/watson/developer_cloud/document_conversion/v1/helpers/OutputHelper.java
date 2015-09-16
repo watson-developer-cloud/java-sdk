@@ -38,16 +38,15 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * @see DocumentConversion
  */
 public class OutputHelper {
-    /**
-     * The document service object
-     */
+    
+    /** The document service object. */
     @Expose
     private DocumentConversion docConversionService;
 
     /**
-     * Sets the service object
+     * Sets the service object.
      *
-     * @param docConversionService
+     * @param docConversionService the doc conversion service
      */
     public OutputHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
@@ -121,10 +120,10 @@ public class OutputHelper {
     }
 
     /**
-     * Gets the content of the output requested
+     * Gets the content of the output requested.
+     *
      * @param outputId The id of the output to get
      * @return The requested Output
-     *
      * @see DocumentConversion#getOutput(String)
      */
     public InputStream getOutput(final String outputId) {

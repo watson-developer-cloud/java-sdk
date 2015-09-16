@@ -46,16 +46,15 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * @see DocumentConversion
  */
 public class JobHelper {
-    /**
-     * The document service object
-     */
+    
+    /** The document service object. */
     @Expose
     private DocumentConversion docConversionService;
 
     /**
-     * Sets the service object
+     * Sets the service object.
      *
-     * @param docConversionService
+     * @param docConversionService the doc conversion service
      */
     public JobHelper(DocumentConversion docConversionService) {
         this.docConversionService = docConversionService;
@@ -130,13 +129,13 @@ public class JobHelper {
 
     /**
      * Creates a new job by submitting a batch for processing
-     * POST /v1/jobs
+     * POST /v1/jobs.
+     *
      * @param name The name of the job
      * @param batchId The id of the batch to process
      * @param conversionTarget The conversion target to use
      * @param config The configuration to use for the job (optional), pass null to use default config
      * @return JobResponse
-     *
      * @see DocumentConversion#createJob(String, String, ConversionTarget, JsonObject)
      */
     public JobResponse createJob(final String name, final String batchId,
@@ -170,10 +169,10 @@ public class JobHelper {
 
     /**
      * Gets information about a job
-     * GET /v1/jobs/{job_id}
+     * GET /v1/jobs/{job_id}.
+     *
      * @param jobId The id of the job
      * @return Job
-     *
      * @see DocumentConversion#getJob(String)
      */
     public Job getJob(final String jobId) {
@@ -193,10 +192,10 @@ public class JobHelper {
 
     /**
      * Gets the job processing log
-     * GET /v1/jobs/{job_id}/log
+     * GET /v1/jobs/{job_id}/log.
+     *
      * @param jobId The id of the job
      * @return Job's processing log
-     *
      * @see DocumentConversion#getJobLog(String)
      */
     public InputStream getJobLog(final String jobId) {
