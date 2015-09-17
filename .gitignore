@@ -10,5 +10,4 @@ gradle
 gradlew
 gradlew.bat
 target
-src/test/java
 src/test/resources/config.properties
