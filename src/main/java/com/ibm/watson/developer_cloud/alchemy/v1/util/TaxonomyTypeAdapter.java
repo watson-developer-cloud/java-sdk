@@ -39,7 +39,8 @@ public class TaxonomyTypeAdapter extends TypeAdapter<Taxonomy> {
 		}
 
 		Taxonomy taxonomy = new Taxonomy();
-
+		taxonomy.setConfident(true);
+		
 		reader.beginObject();
 		while (reader.hasNext()) {
 			String name = reader.nextName();

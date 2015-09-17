@@ -51,7 +51,7 @@ public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
 		}
 
 		PublicationDate publicationDate = new PublicationDate();
-
+		publicationDate.setConfident(true);
 		reader.beginObject();
 		while (reader.hasNext()) {
 			String name = reader.nextName();
