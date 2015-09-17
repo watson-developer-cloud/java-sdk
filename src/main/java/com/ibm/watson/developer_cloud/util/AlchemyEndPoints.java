@@ -67,9 +67,6 @@ public class AlchemyEndPoints {
 		/** The sentiment_targeted. */
 		sentiment_targeted,
 		
-		/** The category. */
-		category,
-		
 		/** The relations. */
 		relations,
 		
