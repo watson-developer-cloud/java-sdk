@@ -18,12 +18,12 @@ package com.ibm.watson.developer_cloud.personality_insights.v2.model;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The personality trait/model POJO class.
  */
-public class Trait {
+public class Trait extends GenericModel {
 
 	/** The category. */
 	private String category;
@@ -209,51 +209,6 @@ public class Trait {
 	 */
 	public void setSamplingError(double samplingError) {
 		this.samplingError = samplingError;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		Trait trait = (Trait) o;
-
-		if (Double.compare(trait.percentage, percentage) != 0) return false;
-		if (Double.compare(trait.samplingError, samplingError) != 0) return false;
-		if (category != null ? !category.equals(trait.category) : trait.category != null) return false;
-		if (children != null ? !children.equals(trait.children) : trait.children != null) return false;
-		if (!id.equals(trait.id)) return false;
-		if (name != null ? !name.equals(trait.name) : trait.name != null) return false;
-		if (rawSamplingError != null ? !rawSamplingError.equals(trait.rawSamplingError) : trait.rawSamplingError != null)
-			return false;
-		return !(rawScore != null ? !rawScore.equals(trait.rawScore) : trait.rawScore != null);
-
-	}
-
-	@Override
-	public int hashCode() {
-		int result;
-		long temp;
-		result = category != null ? category.hashCode() : 0;
-		result = 31 * result + (children != null ? children.hashCode() : 0);
-		result = 31 * result + id.hashCode();
-		result = 31 * result + (name != null ? name.hashCode() : 0);
-		temp = Double.doubleToLongBits(percentage);
-		result = 31 * result + (int) (temp ^ (temp >>> 32));
-		result = 31 * result + (rawSamplingError != null ? rawSamplingError.hashCode() : 0);
-		result = 31 * result + (rawScore != null ? rawScore.hashCode() : 0);
-		temp = Double.doubleToLongBits(samplingError);
-		result = 31 * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
-
-	/* (non-Javadoc)
-         * @see java.lang.Object#toString()
-         */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 

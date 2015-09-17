@@ -15,10 +15,12 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The set of questions and their "keys" used to
@@ -27,7 +29,7 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see NaturalLanguageClassifier
  */
-public class TrainingData {
+public class TrainingData  extends GenericModel {
 
 	/** The text. */
 	private String text;
@@ -75,14 +77,39 @@ public class TrainingData {
 		this.classes = classes;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
+	/**
+	 * With text.
+	 *
+	 * @param text the text
+	 * @return the training data
 	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
+	public TrainingData withText(String text) {
+		this.text = text;
+		return this;
 	}
+
+	/**
+	 * With classes.
+	 *
+	 * @param classes the classes
+	 * @return the training data
+	 */
+	public TrainingData withClasses(String... classes) {
+		setClasses(Arrays.asList(classes));
+		return this;
+	}
+	
+	/**
+	 * Adds a class to the training data.
+	 *
+	 * @param className the class name to add
+	 */
+	public void addClass(String className) {
+		if (this.classes == null)
+			this.classes = new ArrayList<String>();
+		
+		if (!this.classes.contains(className))
+			this.classes.add(className);
+	}
+	
 }

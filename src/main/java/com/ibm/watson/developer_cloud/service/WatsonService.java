@@ -15,12 +15,9 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.util.MediaType;
+import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -38,9 +35,11 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
-import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.util.MediaType;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It
@@ -80,6 +79,9 @@ public abstract class WatsonService {
 	 * Field MAX_TOTAL_CONNECTIONS. (value is 1000)
 	 */
 	private static final int MAX_TOTAL_CONNECTIONS = 1000;
+
+	/** The FORWARD_SLASH. */
+	protected static final String FORWARD_SLASH = "/";
 
 	/**
 	 * Field apiKey.
@@ -151,13 +153,8 @@ public abstract class WatsonService {
 	 * @return the http response
 	 */
 	protected HttpResponse execute(HttpRequestBase request) {
-		if (getApiKey() == null)
-			throw new IllegalArgumentException(
-					"apiKey or username and password were not specified");
-		else {
-			request.addHeader(AUTHORIZATION,
-					apiKey.startsWith("Basic ") ? apiKey : "Basic " + apiKey);
-		}
+
+		setAuthentication(request);
 
 		if (getEndPoint() == null)
 			throw new IllegalArgumentException(
@@ -237,7 +234,7 @@ public abstract class WatsonService {
 	 *
 	 * @return the API key
 	 */
-	public String getApiKey() {
+	protected String getApiKey() {
 		return apiKey;
 	}
 
@@ -381,6 +378,22 @@ public abstract class WatsonService {
 	public void setUsernameAndPassword(String username, String password) {
 		String auth = username + ":" + password;
 		apiKey = new String(Base64.encodeBase64(auth.getBytes()));
+	}
+
+	/**
+	 * Sets the authentication.
+	 *
+	 * @param request the new authentication
+	 */
+	protected void setAuthentication(HttpRequestBase request){
+		if (getApiKey() == null)
+			throw new IllegalArgumentException(
+					"apiKey or username and password were not specified");
+		else {
+			request.addHeader(AUTHORIZATION,
+					apiKey.startsWith("Basic ") ? apiKey : "Basic " + apiKey);
+		}
+
 	}
 
 	/*

@@ -15,19 +15,10 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.*;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.MediaType;
-import com.ibm.watson.developer_cloud.util.TestUtils;
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.Header;
-import org.mockserver.model.Parameter;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -38,15 +29,31 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockserver.integration.ClientAndServer;
+import org.mockserver.model.Header;
+import org.mockserver.model.Parameter;
+
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechAlternative;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModelSet;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.MediaType;
+import com.ibm.watson.developer_cloud.util.TestUtils;
 
 /**
  * The Class SpeechToTextTest.
  */
 public class SpeechToTextTest extends WatsonServiceTest {
 
+	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(SpeechToTextTest.class.getName());
 
 	/** Mock Server *. */
@@ -203,10 +210,9 @@ public class SpeechToTextTest extends WatsonServiceTest {
 		transcript.setFinal(true);
 		final SpeechAlternative speechAlternative = new SpeechAlternative();
 		speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
-		List<SpeechAlternative> speechAlternatives = new ArrayList<SpeechAlternative>(){{
-			add(speechAlternative);
-
-		}};
+		List<SpeechAlternative> speechAlternatives = new ArrayList<SpeechAlternative>();
+		speechAlternatives.add(speechAlternative);
+		
 		transcript.setAlternatives(speechAlternatives);
 		List<Transcript> transcripts = new ArrayList<Transcript>();
 		transcripts.add(transcript);
@@ -257,10 +263,9 @@ public class SpeechToTextTest extends WatsonServiceTest {
 		transcript.setFinal(true);
 		final SpeechAlternative speechAlternative = new SpeechAlternative();
 		speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
-		List<SpeechAlternative> speechAlternatives = new ArrayList<SpeechAlternative>(){{
-			add(speechAlternative);
+		List<SpeechAlternative> speechAlternatives = new ArrayList<SpeechAlternative>();
+		speechAlternatives.add(speechAlternative);
 
-		}};
 		transcript.setAlternatives(speechAlternatives);
 		List<Transcript> transcripts = new ArrayList<Transcript>();
 		transcripts.add(transcript);

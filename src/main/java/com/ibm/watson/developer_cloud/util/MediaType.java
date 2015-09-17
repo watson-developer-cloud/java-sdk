@@ -42,6 +42,12 @@ public interface MediaType {
 	 * Field APPLICATION_OCTET_STREAM. (value is "application/octet-stream")
 	 */
 	public final static String APPLICATION_OCTET_STREAM = "application/octet-stream";
+
+	/**
+	 * Field BINARY_OCTET_STREAM. (value is "binary/octet-stream")
+	 */
+	public final static String BINARY_OCTET_STREAM = "binary/octet-stream";
+	
 	/**
 	 * Field APPLICATION_SVG_XML. (value is "application/svg+xml")
 	 */
@@ -86,5 +92,17 @@ public interface MediaType {
 	 * Field WILDCARD. (value is "*\/*")
 	 */
 	public final static String WILDCARD = "*/*";
+    /**
+     * Field APPLICATION_PDF. (value is "application/pdf")
+     */
+    public final static String APPLICATION_PDF = "application/pdf";
+    /**
+     * Field APPLICATION_MS_WORD. (value is "application/msword")
+     */
+    public final static String APPLICATION_MS_WORD = "application/msword";
+	/**
+	 * Field APPLICATION_MS_WORD_DOCX. (value is "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+	 */
+	public final static String APPLICATION_MS_WORD_DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 
 }

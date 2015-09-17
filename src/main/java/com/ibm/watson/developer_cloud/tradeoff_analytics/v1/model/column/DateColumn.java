@@ -18,62 +18,51 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
 import java.util.Date;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
-
-
 /**
  * Date column.
- *
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class DateColumn extends Column {
-	
+
 	/** The high. */
 	private Date high;
-	
+
 	/** The range. */
 	private Date low;
-	
+
 	/**
 	 * Instantiates a new date column.
 	 */
 	public DateColumn() {
 		super(ColumnType.DATETIME);
 	}
-	
+
 	/**
 	 * Gets the high.
-	 *
+	 * 
 	 * @return the high
 	 */
 	public Date getHigh() {
 		return high;
 	}
-	
+
 	/**
 	 * Gets the low.
-	 *
+	 * 
 	 * @return the low
 	 */
 	public Date getLow() {
 		return low;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
-	}
-
 	/**
 	 * With range.
-	 *
-	 * @param low the low
-	 * @param high the high
+	 * 
+	 * @param low
+	 *            the low
+	 * @param high
+	 *            the high
 	 * @return the date column
 	 */
 	public DateColumn withRange(Date low, Date high) {

@@ -1,4 +1,10 @@
 language: java
 script: mvn test
 after_success:
-  - mvn clean cobertura:cobertura coveralls:report
+- mvn clean cobertura:cobertura coveralls:report
+jdk:
+- oraclejdk8
+- oraclejdk7
+before_install:
+- openssl aes-256-cbc -K $encrypted_7b1be93f093f_key -iv $encrypted_7b1be93f093f_iv
+  -in config.properties.enc -out src/test/resources/config.properties -d

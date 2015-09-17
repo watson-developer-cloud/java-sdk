@@ -16,14 +16,14 @@
 
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class SpeechModel.
  */
-public class SpeechModel {
+public class SpeechModel extends GenericModel {
 
-	/** The Constant ES_BROADBAND16K. */
+	/**  US English broadband model (16KHz). */
 	public static final SpeechModel ES_BROADBAND16K = new SpeechModel("es-ES_BroadbandModel");
 
 	/** The name. */
@@ -66,30 +66,6 @@ public class SpeechModel {
 	}
 
 	/**
-	 * With rate.
-	 * 
-	 * @param rate
-	 *            the rate
-	 * @return the model
-	 */
-	public SpeechModel withRate(final int rate) {
-		this.rate = rate;
-		return this;
-	}
-
-	/**
-	 * With sessions.
-	 * 
-	 * @param sessions
-	 *            the sessions
-	 * @return the model
-	 */
-	public SpeechModel withSessions(final String sessions) {
-		this.sessions = sessions;
-		return this;
-	}
-
-	/**
 	 * Gets the name.
 	 * 
 	 * @return The name
@@ -109,18 +85,6 @@ public class SpeechModel {
 	}
 
 	/**
-	 * With name.
-	 * 
-	 * @param name
-	 *            the name
-	 * @return the model
-	 */
-	public SpeechModel withName(final String name) {
-		this.name = name;
-		return this;
-	}
-
-	/**
 	 * Gets the sessions.
 	 * 
 	 * @return the sessions
@@ -137,38 +101,6 @@ public class SpeechModel {
 	 */
 	public void setSessions(final String sessions) {
 		this.sessions = sessions;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		SpeechModel that = (SpeechModel) o;
-
-		if (rate != that.rate) return false;
-		if (name != null ? !name.equals(that.name) : that.name != null) return false;
-		return !(sessions != null ? !sessions.equals(that.sessions) : that.sessions != null);
-
-	}
-
-	@Override
-	public int hashCode() {
-		int result = name != null ? name.hashCode() : 0;
-		result = 31 * result + rate;
-		result = 31 * result + (sessions != null ? sessions.hashCode() : 0);
-		return result;
-	}
-
-	/*
-             * (non-Javadoc)
-             *
-             * @see java.lang.Object#toString()
-             */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 
 }

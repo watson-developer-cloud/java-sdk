@@ -16,33 +16,29 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
-
-
 /**
  * Numeric column.
- *
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class NumericColumn extends Column {
-	
+
 	/** The high. */
 	private Double high;
-	
+
 	/** The low. */
 	private Double low;
-	
+
 	/**
 	 * Instantiates a new date column.
 	 */
 	public NumericColumn() {
 		super(ColumnType.NUMERIC);
 	}
-	
+
 	/**
 	 * Gets the high.
-	 *
+	 * 
 	 * @return the high
 	 */
 	public Double getHigh() {
@@ -51,46 +47,41 @@ public class NumericColumn extends Column {
 
 	/**
 	 * Gets the low.
-	 *
+	 * 
 	 * @return the low
 	 */
 	public Double getLow() {
 		return low;
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
-	}
 
 	/**
 	 * With numeric range.
-	 *
-	 * @param low the low
-	 * @param high the high
+	 * 
+	 * @param low
+	 *            the low
+	 * @param high
+	 *            the high
 	 * @return the numeric column
 	 */
 	public NumericColumn withRange(Double low, Double high) {
-	    this.low = low;
-	    this.high = high;
-	    return this;
+		this.low = low;
+		this.high = high;
+		return this;
 	}
 
 	/**
 	 * With numeric range.
-	 *
-	 * @param low the low
-	 * @param high the high
+	 * 
+	 * @param low
+	 *            the low
+	 * @param high
+	 *            the high
 	 * @return the numeric column
 	 */
 	public NumericColumn withRange(Integer low, Integer high) {
-	    this.low = (double)low;
-	    this.high = (double)high;
-	    return this;
+		this.low = (double) low;
+		this.high = (double) high;
+		return this;
 	}
 
 }

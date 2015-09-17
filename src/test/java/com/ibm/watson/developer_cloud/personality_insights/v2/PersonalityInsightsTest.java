@@ -15,20 +15,10 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v2;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.ContentItem;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.Trait;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.MediaType;
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.Header;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -38,9 +28,20 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockserver.integration.ClientAndServer;
+import org.mockserver.model.Header;
+
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
+import com.ibm.watson.developer_cloud.personality_insights.v2.model.ContentItem;
+import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
+import com.ibm.watson.developer_cloud.personality_insights.v2.model.Trait;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.MediaType;
 
 /**
  * The Class PersonalityInsightsTest.

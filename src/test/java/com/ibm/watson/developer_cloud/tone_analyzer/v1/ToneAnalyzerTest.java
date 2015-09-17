@@ -15,20 +15,10 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v1;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.*;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.MediaType;
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.Header;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,13 +27,31 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockserver.integration.ClientAndServer;
+import org.mockserver.model.Header;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.LinguisticEvidence;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Scorecard;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Synonym;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymResult;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.ToneDimension;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.ToneTrait;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.MediaType;
 
 /**
  * The Class ToneAnalyzerTest.
  */
+@SuppressWarnings("serial")
 public class ToneAnalyzerTest extends WatsonServiceTest {
 
 	/** The Constant log. */
@@ -307,7 +315,7 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
 
 		Assert.assertNotNull(synonyms);
 		Assert.assertFalse(synonyms.isEmpty());
-		Assert.assertFalse(synonyms.containsAll(response));
+		Assert.assertEquals(synonyms,response);
 
 	}
 

@@ -121,11 +121,8 @@ public class SpeechToText extends WatsonService {
 		HttpRequestBase request = Request.Post(path).build();
 		try {
 			HttpResponse response = execute(request);
-			String sessionString = ResponseUtil.getString(response);
-			SpeechSession speechSession = GsonSingleton.getGson().fromJson(sessionString,
-					SpeechSession.class);
-			speechSession.setCookieSession(response
-					.getFirstHeader("set-cookie").getValue());
+			SpeechSession speechSession = ResponseUtil.getObject(response, SpeechSession.class);
+			speechSession.setCookieSession(response.getFirstHeader("set-cookie").getValue());
 			return speechSession;
 		} catch (Exception e) {
 			throw new RuntimeException(e);
@@ -182,10 +179,7 @@ public class SpeechToText extends WatsonService {
 		HttpRequestBase request = Request.Get("/v1/models/" + name).build();
 		try {
 			HttpResponse response = execute(request);
-			String resultJson = ResponseUtil.getString(response);
-			SpeechModel model = GsonSingleton.getGson().fromJson(resultJson,
-					SpeechModel.class);
-			return model;
+			return ResponseUtil.getObject(response,SpeechModel.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -200,26 +194,10 @@ public class SpeechToText extends WatsonService {
 		HttpRequestBase request = Request.Get("/v1/models").build();
 		try {
 			HttpResponse response = execute(request);
-			String speechModelsJson = ResponseUtil.getString(response);
-			SpeechModelSet speechModels = GsonSingleton.getGson().fromJson(speechModelsJson,
-					SpeechModelSet.class);
-			return speechModels.getModels();
+			return ResponseUtil.getObject(response,SpeechModelSet.class).getModels();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-	}
-
-	/**
-	 * Get the recognize status.
-	 *
-	 * @param session the session
-	 * @return the recognize status
-	 * @see #getRecognizeStatus(String)
-	 */
-	public SessionStatus getRecognizeStatus(final SpeechSession session) {
-		if (session == null)
-			throw new IllegalArgumentException("session was not specified");
-		return getRecognizeStatus(session.getSessionId());
 	}
 
 	/**
@@ -228,16 +206,18 @@ public class SpeechToText extends WatsonService {
 	 * session can accept another recognition task. The returned state must be
 	 * "initialized" to call {@link #recognize(File, String)}.
 	 * 
-	 * @param sessionId
-	 *            the session id
+	 * @param session
+	 *            the speech session
 	 * @return the model
 	 */
-	public SessionStatus getRecognizeStatus(final String sessionId) {
-		if (sessionId == null)
-			throw new IllegalArgumentException("sessionId was not specified");
+	public SessionStatus getRecognizeStatus(final SpeechSession session) {
+		if (session == null)
+			throw new IllegalArgumentException("session was not specified");
 
-		HttpRequestBase request = Request.Get(
-				"/v1/sessions/" + sessionId + "/recognize").build();
+		HttpRequestBase request = Request
+				.Get("/v1/sessions/" + session.getSessionId() + "/recognize")
+				.withHeader("Cookie", session.getCookieSession())
+				.build();
 		try {
 			HttpResponse response = execute(request);
 			String resultJson = ResponseUtil.getString(response);
@@ -314,12 +294,7 @@ public class SpeechToText extends WatsonService {
 			request.withEntity(reqEntity);
 
 			HttpResponse response = execute(request.build());
-			String speechResultJson;
-
-			speechResultJson = ResponseUtil.getString(response);
-			SpeechResults speechResults = GsonSingleton.getGson().fromJson(speechResultJson,
-					SpeechResults.class);
-			return speechResults;
+			return ResponseUtil.getObject(response,SpeechResults.class);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}

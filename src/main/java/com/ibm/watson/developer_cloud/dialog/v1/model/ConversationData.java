@@ -15,20 +15,19 @@
  */
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Conversation data stores information about a conversation.
  */
-public class ConversationData {
+public class ConversationData extends GenericModel {
 
 	/** The hit nodes. */
 	@SerializedName("hit_nodes")
-	private List<HitNode> hitNodes = new ArrayList<HitNode>();
+	private List<HitNode> hitNodes;
 	
 	/** The conversation id. */
 	@SerializedName("conversation_id")
@@ -39,10 +38,10 @@ public class ConversationData {
 	private Integer clientId;
 	
 	/** The messages. */
-	private List<Message> messages = new ArrayList<Message>();
+	private List<Message> messages;
 	
 	/** The profile. */
-	private List<NameValue> profile = new ArrayList<NameValue>();
+	private List<NameValue> profile;
 
 	/**
 	 * Gets the hit nodes.
@@ -92,18 +91,6 @@ public class ConversationData {
 	}
 
 	/**
-	 * With hit nodes.
-	 * 
-	 * @param hitNodes
-	 *            the hit nodes
-	 * @return The {@link ConversationData}
-	 */
-	public ConversationData withHitNodes(final List<HitNode> hitNodes) {
-		this.hitNodes = hitNodes;
-		return this;
-	}
-
-	/**
 	 * Gets the client id.
 	 * 
 	 * @return The clientId
@@ -120,18 +107,6 @@ public class ConversationData {
 	 */
 	public void setClientId(final int clientId) {
 		this.clientId = clientId;
-	}
-
-	/**
-	 * With client id.
-	 * 
-	 * @param clientId
-	 *            the client id
-	 * @return the {@link ConversationData}
-	 */
-	public ConversationData withClientId(Integer clientId) {
-		this.clientId = clientId;
-		return this;
 	}
 
 	/**
@@ -154,18 +129,6 @@ public class ConversationData {
 	}
 
 	/**
-	 * With messages.
-	 * 
-	 * @param messages
-	 *            the messages
-	 * @return the {@link ConversationData }
-	 */
-	public ConversationData withMessages(final List<Message> messages) {
-		this.messages = messages;
-		return this;
-	}
-
-	/**
 	 * Gets the profile.
 	 * 
 	 * @return A list of  {@link NameValue } pars
@@ -182,40 +145,5 @@ public class ConversationData {
 	 */
 	public void setProfile(final List<NameValue> profile) {
 		this.profile = profile;
-	}
-
-	/**
-	 * With profile.
-	 * 
-	 * @param profile
-	 *            the profile
-	 * @return the {@link ConversationData }
-	 */
-	public ConversationData withProfile(final List<NameValue> profile) {
-		this.profile = profile;
-		return this;
-	}
-
-	/**
-	 * With conversationId.
-	 * 
-	 * @param conversationId
-	 *            the conversation identifier
-	 * @return the {@link ConversationData }
-	 */
-	public ConversationData withConversationId(final Integer conversationId) {
-		this.conversationId = conversationId;
-		return this;
-	}
-	
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return getClass().getName() + " "
-				+ GsonSingleton.getGson().toJson(this);
 	}
 }

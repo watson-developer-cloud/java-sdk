@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<version>1.0.5-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>Watson Developer Cloud Java Wrapper</name>
 	<description>Watson Developer Cloud Java Wrapper</description>
@@ -32,6 +32,18 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.0.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.commons</groupId>
+    		<artifactId>commons-csv</artifactId>
+    		<version>1.2</version>
+   			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.3.2</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -132,7 +144,11 @@
 				<version>2.6</version>
 				<configuration>
 					<format>xml</format>
-					<maxmem>256m</maxmem>
+                    <instrumentation>
+                        <excludes>
+                            <exclude>com/ibm/watson/developer_cloud/*/v*/model/**/*.class</exclude>
+                        </excludes>
+                    </instrumentation>
 				</configuration>
 			</plugin>
 			<plugin>
