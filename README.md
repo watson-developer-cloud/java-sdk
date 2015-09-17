@@ -105,7 +105,7 @@ System.out.println(sentiment);
 ```
 
 ### Alchemy Vision
-[Alchemy Vision][alchemy_vision] uses deep learning innovations to understand a picture's content and context. It sees complex visual scenes in their entirety —without needing any textual clues— leveraging a holistic approach to understanding the multiple objects and surroundings.
+[Alchemy Vision][alchemy_vision] uses deep learning innovations to understand a picture's content and context. It sees complex visual scenes in their entirety —without needing any textual clues— leveraging a holistic approach to understand the objects, faces, and words in an image.
 
 Example: Extract keywords from an image.
 
