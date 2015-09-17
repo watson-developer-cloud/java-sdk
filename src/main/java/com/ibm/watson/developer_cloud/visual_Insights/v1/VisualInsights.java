@@ -68,10 +68,15 @@ public class VisualInsights extends WatsonService {
      * @return the Summary
      */
     public Classifiers getClassifiers(final String filterName) {
-        Map<String, Object> queryParameters = new HashMap<String, Object>();
-        queryParameters.put(FILTER_NAME,filterName);
+
         Request request = Request.Get(CLASSIFIERS_PATH);
-        request.withQuery(queryParameters);
+
+        if(filterName!=null && !filterName.isEmpty()) {
+            Map<String, Object> queryParameters = new HashMap<String, Object>();
+            queryParameters.put(FILTER_NAME,filterName);
+            request.withQuery(queryParameters);
+        }
+
         return executeRequest(request, Classifiers.class);
     }
     /**
