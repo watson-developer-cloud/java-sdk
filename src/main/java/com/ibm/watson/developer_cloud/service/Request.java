@@ -430,16 +430,14 @@ public class Request {
 	/**
 	 * Adds query parameters.
 	 *
-	 * @param queryParameters
+	 * @param parameters
 	 *            a list of name-value query parameters
 	 *
 	 * @return this
 	 */
-	public Request withQuery(Map<String,Object> queryParameters) {
-		for (Map.Entry<String, Object> entry : queryParameters.entrySet()) {
-			String key = entry.getKey();
-			Object value = entry.getValue();
-			withQuery(key,value);
+	public Request withQuery(Map<String,Object> parameters) {
+		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+			withQuery(entry.getKey(),entry.getValue());
 		}
 		return this;
 	}
@@ -454,9 +452,7 @@ public class Request {
 	 */
 	public Request withForm(Map<String,Object> parameters) {
 		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
-			String key = entry.getKey();
-			Object value = entry.getValue();
-			withForm(key, value);
+			withForm(entry.getKey(),entry.getValue());
 		}
 		return this;
 	}
