@@ -69,6 +69,31 @@ import com.ibm.watson.developer_cloud.util.MediaType;
  */
 public class DocumentConversionTest extends WatsonServiceTest {
 
+    /**
+     * The BATCHES_PATH.  (value is "/v1/batches")
+     **/
+    private static final String BATCHES_PATH = "/v1/batches";
+
+    /**
+     * The CONVERT_DOCUMENT_PATH.  (value is "/v1/convert_document")
+     **/
+    private static final String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
+
+    /**
+     * The DOCUMENTS_PATH.  (value is "/v1/documents")
+     **/
+    private static final String DOCUMENTS_PATH = "/v1/documents";
+
+    /**
+     * The JOBS_PATH.  (value is "/v1/jobs")
+     **/
+    private static final String JOBS_PATH = "/v1/jobs";
+
+    /**
+     * The OUTPUT_PATH.  (value is "/v1/output")
+     **/
+    private static final String OUTPUT_PATH = "/v1/output";
+
     /** The Constant log. */
     private static final Logger log = Logger.getLogger(DocumentConversionTest.class.getName());
 
@@ -128,7 +153,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         byte[] expAnswer = IOUtils.toByteArray(new FileInputStream(expAnswerFile));
 
         mockServer.when(
-                request().withMethod("POST").withPath(DocumentConversion.CONVERT_DOCUMENT_PATH)
+                request().withMethod("POST").withPath(CONVERT_DOCUMENT_PATH)
         ).respond(response().withBody(expAnswer));
 
         String convertedDoc = ConversionUtils.writeInputStreamToString(service.convertDocument(html, ConversionTarget.ANSWER_UNITS));
@@ -162,12 +187,12 @@ public class DocumentConversionTest extends WatsonServiceTest {
         String docId = UUID.randomUUID().toString();
         Document createDocResponse = createMockDocument(docId, "html-with-extra-content-input.htm", MediaType.TEXT_HTML);
         mockServer.when(
-                request().withMethod("POST").withPath(DocumentConversion.DOCUMENTS_PATH)
+                request().withMethod("POST").withPath(DOCUMENTS_PATH)
         ).respond((response().withBody(GsonSingleton.getGson().toJson(createDocResponse))));
         service.uploadDocument(html);
 
         mockServer.when(
-                request().withMethod("POST").withPath(DocumentConversion.CONVERT_DOCUMENT_PATH)
+                request().withMethod("POST").withPath(CONVERT_DOCUMENT_PATH)
         ).respond(response().withBody(expAnswer));
 
         String convertedDoc = ConversionUtils.writeInputStreamToString(service.convertDocument(docId, ConversionTarget.ANSWER_UNITS));
@@ -195,7 +220,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         File pdf = new File("src/test/resources/document_conversion/pdf-with-sections-input.pdf");
 
         mockServer.when(
-                request().withMethod("POST").withPath(DocumentConversion.DOCUMENTS_PATH)
+                request().withMethod("POST").withPath(DOCUMENTS_PATH)
         ).respond((response().withBody(GsonSingleton.getGson().toJson(response))));
 
         // Call upload document
@@ -205,7 +230,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Assert.assertEquals(document.toString(), response.toString());
 
         mockServer.reset().when(
-                request().withMethod("POST").withPath(DocumentConversion.DOCUMENTS_PATH)
+                request().withMethod("POST").withPath(DOCUMENTS_PATH)
         ).respond((response().withBody(GsonSingleton.getGson().toJson(pdfResponse))));
 
         // Call upload document with media type
@@ -229,7 +254,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Batch response = createMockBatch(batchId, name, currentTime, currentTime, propertyList);
 
         mockServer.when(
-                request().withMethod("POST").withPath(DocumentConversion.BATCHES_PATH)
+                request().withMethod("POST").withPath(BATCHES_PATH)
         ).respond((response().withBody(GsonSingleton.getGson().toJson(response))));
 
         // Call create batch
@@ -251,10 +276,10 @@ public class DocumentConversionTest extends WatsonServiceTest {
         JobResponse response = new JobResponse();
         response.setId(jobId);
         response.setName(jobName);
-        response.setLinks(Arrays.asList(createLink("self", DocumentConversion.JOBS_PATH + "/" + jobId)));
+        response.setLinks(Arrays.asList(createLink("self", JOBS_PATH + "/" + jobId)));
 
         mockServer.when(
-                request().withMethod("POST").withPath(DocumentConversion.JOBS_PATH)
+                request().withMethod("POST").withPath(JOBS_PATH)
         ).respond((response().withBody(GsonSingleton.getGson().toJson(response))));
 
         // Call create job
@@ -290,7 +315,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
         // Call get documents without query parameters
         mockServer.reset().when(request()
-                .withPath(DocumentConversion.DOCUMENTS_PATH))
+                .withPath(DOCUMENTS_PATH))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(docCollWithQueryResponse))
                 );
         DocumentCollection docColl = service.getDocumentCollection();
@@ -302,7 +327,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         queryParams.add(new Parameter("name", docName));
         queryParams.add(new Parameter("limit", "5"));
         mockServer.reset().when(request()
-                .withPath(DocumentConversion.DOCUMENTS_PATH).withQueryStringParameters(queryParams))
+                .withPath(DOCUMENTS_PATH).withQueryStringParameters(queryParams))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(docCollWithQueryResponse))
                 );
         Map<String, Object> docListParams = new HashMap<String, Object>();
@@ -313,7 +338,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Assert.assertEquals(docCollWithQuery.toString(), docCollWithQueryResponse.toString());
 
         // Call get document
-        mockServer.when(request().withPath(DocumentConversion.DOCUMENTS_PATH + "/" + docId)).respond(
+        mockServer.when(request().withPath(DOCUMENTS_PATH + "/" + docId)).respond(
                 response().withBody(docContent)
         );
         String document1 = ConversionUtils.writeInputStreamToString(service.getDocument(docId));
@@ -343,7 +368,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
         // Call get batches without query parameters
         mockServer.reset().when(request()
-                .withPath(DocumentConversion.BATCHES_PATH))
+                .withPath(BATCHES_PATH))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(batchCollWithQueryResponse))
                 );
         BatchCollection batchColl = service.getBatchCollection();
@@ -355,7 +380,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         queryParams.add(new Parameter("name", batchName));
         queryParams.add(new Parameter("limit", "10"));
         mockServer.reset().when(request()
-                .withPath(DocumentConversion.BATCHES_PATH).withQueryStringParameters(queryParams))
+                .withPath(BATCHES_PATH).withQueryStringParameters(queryParams))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(batchCollWithQueryResponse))
                 );
         Map<String, Object> batchListParams = new HashMap<String, Object>();
@@ -366,7 +391,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Assert.assertEquals(batchCollWithQuery.toString(), batchCollWithQueryResponse.toString());
 
         // Call get batch
-        mockServer.when(request().withPath(DocumentConversion.BATCHES_PATH + "/" + batchId)).respond(
+        mockServer.when(request().withPath(BATCHES_PATH + "/" + batchId)).respond(
                 response().withBody(GsonSingleton.getGson().toJson(batch))
         );
         Batch getBatch = service.getBatch(batchId);
@@ -382,7 +407,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Batch updatedBatch = createMockBatch(batchId, newBatchName, currentTime, newTime, newPropertyList);
 
         // Call update batch
-        mockServer.reset().when(request().withMethod("PUT").withPath(DocumentConversion.BATCHES_PATH + "/" + batchId)).respond(
+        mockServer.reset().when(request().withMethod("PUT").withPath(BATCHES_PATH + "/" + batchId)).respond(
                 response().withBody(GsonSingleton.getGson().toJson(updatedBatch))
         );
 
@@ -400,7 +425,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         String batchId = UUID.randomUUID().toString();
         BatchDocumentCollection batchDocCollWithQueryResponse = new BatchDocumentCollection();
         batchDocCollWithQueryResponse.setLinks(
-                Arrays.asList(createLink("first", DocumentConversion.BATCHES_PATH + "/" + batchId + "/documents"))
+                Arrays.asList(createLink("first", BATCHES_PATH + "/" + batchId + "/documents"))
         );
 
         // Create a mock batch document
@@ -410,8 +435,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
         // NOTE: Setting null time, no current way to simulate JodaTime to service getters
         batchDocument.setAddedToBatch(null);
         batchDocument.setLinks(Arrays.asList(
-                        createLink("self", DocumentConversion.BATCHES_PATH + "/" + batchId + "/documents/" + batchDocId),
-                        createLink("document", DocumentConversion.DOCUMENTS_PATH + "/documents/" + batchDocId)
+                        createLink("self", BATCHES_PATH + "/" + batchId + "/documents/" + batchDocId),
+                        createLink("document", DOCUMENTS_PATH + "/documents/" + batchDocId)
                 )
         );
 
@@ -423,7 +448,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         batchDocCollWithQueryResponse.setDocuments(Arrays.asList(batchDocument));
 
         mockServer.when(request().withMethod("PUT")
-                .withPath(DocumentConversion.BATCHES_PATH + "/" + batchId + "/documents/" + batchDocId)).respond(
+                .withPath(BATCHES_PATH + "/" + batchId + "/documents/" + batchDocId)).respond(
                 response().withBody(GsonSingleton.getGson().toJson(batchDocumentResponse))
         );
         BatchDocumentResponse addBatchDocResponse = service.addDocumentToBatch(batchId, batchDocId);
@@ -432,7 +457,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
         // Call get batch documents without query parameters
         mockServer.reset().when(request()
-                .withPath(DocumentConversion.BATCHES_PATH + "/" + batchId + "/documents"))
+                .withPath(BATCHES_PATH + "/" + batchId + "/documents"))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(batchDocCollWithQueryResponse))
                 );
         BatchDocumentCollection batchDocColl = service.getBatchDocumentCollection(batchId);
@@ -443,7 +468,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         List<Parameter> queryParams = new ArrayList<Parameter>();
         queryParams.add(new Parameter("limit", "15"));
         mockServer.reset().when(request()
-                .withPath(DocumentConversion.BATCHES_PATH + "/" + batchId + "/documents").withQueryStringParameters(queryParams))
+                .withPath(BATCHES_PATH + "/" + batchId + "/documents").withQueryStringParameters(queryParams))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(batchDocCollWithQueryResponse))
                 );
         Map<String, Object> batchDocListParams = new HashMap<String, Object>();
@@ -453,7 +478,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Assert.assertEquals(batchDocCollWithQuery.toString(), batchDocCollWithQueryResponse.toString());
 
         // Call get batch document
-        mockServer.when(request().withPath(DocumentConversion.BATCHES_PATH + "/" + batchId + "/documents/" + batchDocId)).respond(
+        mockServer.when(request().withPath(BATCHES_PATH + "/" + batchId + "/documents/" + batchDocId)).respond(
                 response().withBody(GsonSingleton.getGson().toJson(batchDocumentResponse))
         );
         BatchDocumentResponse response = service.getBatchDocument(batchId, batchDocId);
@@ -484,7 +509,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
         // Call get jobs without query parameters
         mockServer.reset().when(request()
-                .withPath(DocumentConversion.JOBS_PATH))
+                .withPath(JOBS_PATH))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(jobCollWithQueryResponse))
                 );
         JobCollection jobColl = service.getJobCollection();
@@ -497,7 +522,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         queryParams.add(new Parameter("limit", "7"));
         queryParams.add(new Parameter("status", JobStatus.COMPLETE.toString()));
         mockServer.reset().when(request()
-                .withPath(DocumentConversion.JOBS_PATH).withQueryStringParameters(queryParams))
+                .withPath(JOBS_PATH).withQueryStringParameters(queryParams))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(jobCollWithQueryResponse))
                 );
         Map<String, Object> jobListParams = new HashMap<String, Object>();
@@ -509,7 +534,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Assert.assertEquals(jobCollWithQuery.toString(), jobCollWithQueryResponse.toString());
 
         // Call get job
-        mockServer.when(request().withPath(DocumentConversion.JOBS_PATH + "/" + jobId)).respond(
+        mockServer.when(request().withPath(JOBS_PATH + "/" + jobId)).respond(
                 response().withBody(GsonSingleton.getGson().toJson(job))
         );
         Job getJob = service.getJob(jobId);
@@ -518,7 +543,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
         // Call get job log
         String expectedJobLog = "Document " + documentId + " - SUCCESS";
-        mockServer.when(request().withPath(DocumentConversion.JOBS_PATH + "/" + jobId + "/log")).respond(
+        mockServer.when(request().withPath(JOBS_PATH + "/" + jobId + "/log")).respond(
                 response().withBody(expectedJobLog)
         );
 
@@ -551,7 +576,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
         // Call get outputs without query parameters
         mockServer.reset().when(request()
-                .withPath(DocumentConversion.OUTPUT_PATH))
+                .withPath(OUTPUT_PATH))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(outputCollWithQueryResponse))
                 );
         OutputCollection outputColl = service.getOutputCollection();
@@ -563,7 +588,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         queryParams.add(new Parameter("job_id", jobId));
         queryParams.add(new Parameter("limit", "8"));
         mockServer.reset().when(request()
-                .withPath(DocumentConversion.OUTPUT_PATH).withQueryStringParameters(queryParams))
+                .withPath(OUTPUT_PATH).withQueryStringParameters(queryParams))
                 .respond(response().withBody(GsonSingleton.getGson().toJson(outputCollWithQueryResponse))
                 );
         Map<String, Object> outputListParams = new HashMap<String, Object>();
@@ -574,7 +599,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         Assert.assertEquals(outputCollWithQuery.toString(), outputCollWithQueryResponse.toString());
 
         // Call get output
-        mockServer.when(request().withPath(DocumentConversion.OUTPUT_PATH + "/" + outputId)).respond(
+        mockServer.when(request().withPath(OUTPUT_PATH + "/" + outputId)).respond(
                 response().withBody(expAnswer.toString())
         );
         String getOutput = ConversionUtils.writeInputStreamToString(service.getOutput(outputId));
@@ -599,7 +624,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         doc.setId(id);
         doc.setName(name);
         doc.setMediaType(mediaType);
-        doc.setLinks(Arrays.asList(createLink("self", DocumentConversion.DOCUMENTS_PATH + "/" + id)));
+        doc.setLinks(Arrays.asList(createLink("self", DOCUMENTS_PATH + "/" + id)));
         return doc;
     }
 
@@ -620,7 +645,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         batch.setCreatedOn(createdOn);
         batch.setUpdatedOn(updatedOn);
         batch.setProperties(props);
-        batch.setLinks(Arrays.asList(createLink("self", DocumentConversion.BATCHES_PATH + "/" + id)));
+        batch.setLinks(Arrays.asList(createLink("self", BATCHES_PATH + "/" + id)));
         return batch;
     }
 
@@ -653,7 +678,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         job.setDuration(duration);
         job.setResult(result);
         job.setStatus(status);
-        job.setLinks(Arrays.asList(createLink("self", DocumentConversion.JOBS_PATH + "/" + id)));
+        job.setLinks(Arrays.asList(createLink("self", JOBS_PATH + "/" + id)));
         return job;
     }
 
@@ -674,7 +699,7 @@ public class DocumentConversionTest extends WatsonServiceTest {
         output.setSourceDocumentId(srcDocId);
         output.setCreatedOn(createdOn);
         output.setMediaType(mediaType);
-        output.setLinks(Arrays.asList(createLink("self", DocumentConversion.OUTPUT_PATH + "/" + id)));
+        output.setLinks(Arrays.asList(createLink("self", OUTPUT_PATH + "/" + id)));
         return output;
     }
 

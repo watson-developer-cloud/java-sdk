@@ -38,6 +38,9 @@ import com.ibm.watson.developer_cloud.util.MediaType;
  * @see DocumentConversion
  */
 public class ConversionUtils {
+
+    /** The Constant DATE_FORMAT_UTC. */
+    private static final String DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     
     /**
      * Returns the media type for a given file.
@@ -92,7 +95,7 @@ public class ConversionUtils {
      */
     public static String convertToISO(Date date) {
         TimeZone tz = TimeZone.getTimeZone("UTC");
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+        DateFormat df = new SimpleDateFormat(DATE_FORMAT_UTC);
         df.setTimeZone(tz);
         String dtAsISO = df.format(date);
         return dtAsISO;
@@ -108,39 +111,4 @@ public class ConversionUtils {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
     }
-
-    /**
-     * Gson singleton with an ISO 8601 Date Deserializer.
-     *
-     * @return Gson
-     */
-    public static Gson getGsonWithIso8601DateDeserializer() {
-        if (gsonWithIso8601DateDeserializer == null) {
-            gsonWithIso8601DateDeserializer = new GsonBuilder()
-                    .registerTypeAdapter(Date.class, iso8601DateDeserializer).create();
-        }
-        return gsonWithIso8601DateDeserializer;
-    }
-
-    /** Gson singleton with an ISO 8601 Date Deserializer. */
-    private static Gson gsonWithIso8601DateDeserializer;
-
-    /** JSON deserializer for ISO 8601 dates into Java Date objects. */
-    private static JsonDeserializer<Date> iso8601DateDeserializer = new JsonDeserializer<Date>() {
-        @Override
-        public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
-                throws JsonParseException {
-            if (json == null) {
-                return null;
-            }
-            String date = json.getAsString();
-            SimpleDateFormat iso8601DateTimeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-            try {
-                return iso8601DateTimeFormat.parse(date);
-            } catch (Exception e) {
-                throw new JsonParseException("Unable to parse date " + date, e);
-            }
-        }
-    };
-
 }

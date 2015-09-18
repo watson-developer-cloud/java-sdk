@@ -39,48 +39,41 @@ public class DocumentConversionExample{
 
         System.out.println("-------------------- Convert html document to Answers ----------------------");
         Answers htmlToAnswers = service.convertDocumentToAnswer(html);
-        System.out.println("HTML converted to Answers:\n" + htmlToAnswers);
+        System.out.println(htmlToAnswers);
 
         System.out.println("-------------------- Convert html document to Normalized HTML ----------------------");
         String htmlToNormHtml = ConversionUtils.writeInputStreamToString(service.convertDocument(html, ConversionTarget.NORMALIZED_HTML));
-        System.out.println("HTML converted to Normalized HTML:\n" + htmlToNormHtml);
+        System.out.println(htmlToNormHtml);
 
         System.out.println("-------------------- Convert html document to Normalized Text ----------------------");
         String htmlToNormText = ConversionUtils.writeInputStreamToString(service.convertDocument(html, ConversionTarget.NORMALIZED_TEXT));
-
-        System.out.println("HTML converted to Normalized Text:\n" + htmlToNormText);
+        System.out.println(htmlToNormText);
 
         System.out.println("-------------------- Convert pdf document to Answers ----------------------");
         Answers pdfToAnswers = service.convertDocumentToAnswer(pdf);
-        System.out.println("PDF converted to Answers:\n" + pdfToAnswers);
+        System.out.println(pdfToAnswers);
 
         System.out.println("-------------------- Convert MS Word document to Answers ----------------------");
         Answers docToAnswers = service.convertDocumentToAnswer(doc);
-        System.out.println("MS Word converted to Answers:\n" + docToAnswers);
+        System.out.println(docToAnswers);
 
         // ## Scenario 2: Convert a document using a batch operation ##
         // Step 1. Upload a document
         System.out.println("-------------------- Upload a document ------------------------------");
         File tempFile1 = new File("src/test/resources/document_conversion/pdf-with-sections-input.pdf");
         Document doc1 = service.uploadDocument(tempFile1);
-        System.out.println("1st document uploaded : \n"+ doc1);
-
-        Thread.sleep(1000);
-        Date since = new Date();
-        Thread.sleep(1000);
+        System.out.println(doc1);
 
         File tempFile2 = new File("src/test/resources/document_conversion/html-with-extra-content-input.htm");
         Document doc2 = service.uploadDocument(tempFile2);
-        System.out.println("2nd document uploaded : \n" + doc2);
+        System.out.println(doc2);
 
         System.out.println("-------------------- Document Collection ------------------------------");
         Map<String, Object> docListParams = new HashMap<String, Object>();
-        docListParams.put(DocumentConversion.LIMIT, 10);
-        docListParams.put(DocumentConversion.NAME, "html-with-extra-content-input.htm");
-        docListParams.put(DocumentConversion.SINCE, since);
+        docListParams.put(DocumentConversion.LIMIT, 2);
         docListParams.put(DocumentConversion.MEDIA_TYPE, "text/html");
         DocumentCollection documentCollection = service.getDocumentCollection(docListParams);
-        System.out.println("List of documents with the filtered parameters :\n" + documentCollection);
+        System.out.println("Document Collection with 2 items in a page :\n" + documentCollection);
 
         // Step 1.1 Get a document
         System.out.println("-------------------- Get a document ------------------------------");
@@ -92,16 +85,15 @@ public class DocumentConversionExample{
         List<Property> propertyList = Arrays.asList(
                 new Property("media_type", "html"), new Property("num_docs", "2"));
         Batch batch = service.createBatch("batch_new_name", propertyList);
-        System.out.println("Create Batch :\n" + batch);
-        System.out.println("Batch was created successfully with id = " + batch.getId());
+        System.out.println(batch);
 
         // Step 2. Get a batch
         System.out.println("-------------------- Get a batch ------------------------------");
-        System.out.println("Get Batch :\n" + service.getBatch(batch.getId()));
+        System.out.println(service.getBatch(batch.getId()));
 
         // Step 2.1 Update a batch
         System.out.println("-------------------- Update a batch  ------------------------------");
-        System.out.println("Update Batch :\n" + service.updateBatch(batch.getId(), "batch_NEW_name", null));
+        System.out.println(service.updateBatch(batch.getId(), "batch_NEW_name", null));
 
         System.out.println("-------------------- Batch Collection ------------------------------");
         Map<String, Object> batchListParams = new HashMap<String, Object>();
@@ -112,7 +104,7 @@ public class DocumentConversionExample{
         // Step 3. Add the document to the batch
         String batchId2 = batch.getId();
         System.out.println("----------------------- Add document to the batch -----------------------");
-        System.out.println("\n"+ service.addDocumentToBatch(batchId2, doc1.getId()));
+        System.out.println("Adding documents to the batch :\n"+ service.addDocumentToBatch(batchId2, doc1.getId()));
         System.out.println("\n"+ service.addDocumentToBatch(batchId2, doc2.getId()));
 
         System.out.println("-------------------- Batch Document Collection ------------------------------");
@@ -122,12 +114,12 @@ public class DocumentConversionExample{
         // Step 3.1 Get a document from the batch
         System.out.println("-------------------- Get a document from batch ------------------------------");
         BatchDocumentResponse batchDocumentResponse = service.getBatchDocument(batchId2, doc2.getId());
-        System.out.println("Get documents from the batch :\n" + batchDocumentResponse);
+        System.out.println(batchDocumentResponse);
 
         // Step 4. Create a job
         System.out.println("-------------------- Create a job ------------------------------");
         JobResponse jobResponse = service.createJob("Job 1", batch.getId(), ConversionTarget.ANSWER_UNITS);
-        System.out.println("Create a job for the batch :\n" + jobResponse);
+        System.out.println(jobResponse);
 
         // Step 4.1 Create a job with a custom config
         JsonObject customJobConfig = new JsonObject();
