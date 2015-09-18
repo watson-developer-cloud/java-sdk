@@ -30,8 +30,7 @@ public class VisualInsightsExample {
 		VisualInsights service = new VisualInsights();
 		service.setUsernameAndPassword("<username>", "<password>");
 
-		// filter_name is an optional parameter
-		Classifiers classifiers = service.getClassifiers(null);
+		Classifiers classifiers = service.getClassifiers();
 
 		System.out.println(classifiers);
 	}

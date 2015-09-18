@@ -64,6 +64,16 @@ public class VisualInsights extends WatsonService {
     /**
      * Returns a summary of the collection's visual classifiers
      *
+     * @return the Summary
+     */
+    public Classifiers getClassifiers() {
+        Request request = Request.Get(CLASSIFIERS_PATH);
+        return executeRequest(request, Classifiers.class);
+    }
+    /**
+     * Returns a summary of the collection's visual classifiers, filtered by name
+     *
+     *
      * @param filterName the images File
      * @return the Summary
      */
