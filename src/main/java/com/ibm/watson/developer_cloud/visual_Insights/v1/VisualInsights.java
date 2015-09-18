@@ -70,9 +70,9 @@ public class VisualInsights extends WatsonService {
         Request request = Request.Get(CLASSIFIERS_PATH);
         return executeRequest(request, Classifiers.class);
     }
+
     /**
      * Returns a summary of the collection's visual classifiers, filtered by name
-     *
      *
      * @param filterName the images File
      * @return the Summary
@@ -89,6 +89,7 @@ public class VisualInsights extends WatsonService {
 
         return executeRequest(request, Classifiers.class);
     }
+    
     /**
      * Upload a set of images as a zip file for visual insight extraction.
      *
