@@ -69,7 +69,7 @@ public class DocumentHelper {
     public InputStream getDocument(final String documentId) {
         if (documentId == null || documentId.isEmpty())
             throw new IllegalArgumentException("documentId can not be null or empty");
-        HttpRequestBase request = Request.Get(DocumentConversion.DOCUMENTS_PATH + "/"+ documentId).build();
+        HttpRequestBase request = Request.Get(ConfigConstants.DOCUMENTS_PATH + "/"+ documentId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             InputStream is = ResponseUtil.getInputStream(response);
@@ -113,7 +113,7 @@ public class DocumentHelper {
         try {
             MultipartEntity reqEntity = new MultipartEntity();
             reqEntity.addPart("file", new FileBody(document, mediaType));
-            HttpRequestBase request = Request.Post(DocumentConversion.DOCUMENTS_PATH)
+            HttpRequestBase request = Request.Post(ConfigConstants.DOCUMENTS_PATH)
                                              .withEntity(reqEntity).build();
 
             HttpResponse response = docConversionService.execute(request);
@@ -144,7 +144,7 @@ public class DocumentHelper {
      * @see DocumentConversion#getDocumentCollection(Map)
      **/
     public DocumentCollection getDocumentCollection(Map<String, Object> docListParams) {
-        Request request = Request.Get(DocumentConversion.DOCUMENTS_PATH);
+        Request request = Request.Get(ConfigConstants.DOCUMENTS_PATH);
 
         if(docListParams != null) {
             if (docListParams.get(DocumentConversion.TOKEN) != null) {

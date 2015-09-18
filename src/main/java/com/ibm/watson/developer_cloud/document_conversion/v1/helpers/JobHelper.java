@@ -81,7 +81,7 @@ public class JobHelper {
      * @see DocumentConversion#getJobCollection(Map)
      */
     public JobCollection getJobCollection(Map<String, Object> jobListParams) {
-        Request request = Request.Get(DocumentConversion.JOBS_PATH);
+        Request request = Request.Get(ConfigConstants.JOBS_PATH);
 
         if(jobListParams != null) {
             if (jobListParams.get(DocumentConversion.TOKEN) != null) {
@@ -154,7 +154,7 @@ public class JobHelper {
         if (config != null )
             contentJson.add("config", config);
 
-        HttpRequestBase request = Request.Post(DocumentConversion.JOBS_PATH)
+        HttpRequestBase request = Request.Post(ConfigConstants.JOBS_PATH)
                                          .withContent(contentJson).build();
 
         try {
@@ -179,11 +179,11 @@ public class JobHelper {
         if (jobId == null || jobId.isEmpty())
             throw new IllegalArgumentException("job id can not be null or empty");
 
-        HttpRequestBase request = Request.Get(DocumentConversion.JOBS_PATH + "/" + jobId).build();
+        HttpRequestBase request = Request.Get(ConfigConstants.JOBS_PATH + "/" + jobId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             String JobAsJson = ResponseUtil.getString(response);
-            Job job = ConversionUtils.getGsonWithIso8601DateDeserializer().fromJson(JobAsJson, Job.class);
+            Job job = GsonSingleton.getGson().fromJson(JobAsJson, Job.class);
             return job;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -202,7 +202,7 @@ public class JobHelper {
         if (jobId == null || jobId.isEmpty())
             throw new IllegalArgumentException("job id can not be null or empty");
 
-        HttpRequestBase request = Request.Get(DocumentConversion.JOBS_PATH + "/" + jobId + "/log")
+        HttpRequestBase request = Request.Get(ConfigConstants.JOBS_PATH + "/" + jobId + "/log")
                                          .withHeader(HttpHeaders.ACCEPT, MediaType.TEXT_PLAIN).build();
         try {
             HttpResponse response = docConversionService.execute(request);
