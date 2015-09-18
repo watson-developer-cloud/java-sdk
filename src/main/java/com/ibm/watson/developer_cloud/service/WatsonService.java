@@ -122,8 +122,7 @@ public abstract class WatsonService {
 			requestURL = getEndPoint() + request.getURI();
 			return new URI(requestURL);
 		} catch (URISyntaxException e) {
-			log.log(Level.SEVERE, requestURL
-					+ " could not be parsed as a URI reference");
+			log.log(Level.SEVERE, requestURL + " could not be parsed as a URI reference");
 			throw new RuntimeException(e);
 		}
 	}

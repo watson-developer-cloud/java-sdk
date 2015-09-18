@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.ibm.watson.developer_cloud.visual_Insights.v1;
-
-import com.ibm.watson.developer_cloud.service.Request;
-import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.visual_Insights.v1.model.Classifiers;
-import com.ibm.watson.developer_cloud.visual_Insights.v1.model.Summary;
-import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.FileBody;
+package com.ibm.watson.developer_cloud.visual_insights.v1;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
+
+import com.ibm.watson.developer_cloud.service.Request;
+import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.visual_insights.v1.model.Classifiers;
+import com.ibm.watson.developer_cloud.visual_insights.v1.model.Summary;
+
 
 /**
- * The IBM Watson™ Visual Insights gives insight into the themes present in a collection of images based on their visual appearance / content.
+ * The IBM Watson Visual Insights gives insight into the themes present in a collection of images based on their visual appearance / content.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  * @version v1
@@ -39,7 +39,9 @@ import java.util.Map;
  */
 public class VisualInsights extends WatsonService {
 
-    /**
+    private static final String FILE = "file";
+
+	/**
      * The CLASSIFIERS_PATH. (value is "/classifiers")
      */
     private static final String CLASSIFIERS_PATH = "/v1/classifiers";
@@ -61,6 +63,13 @@ public class VisualInsights extends WatsonService {
      */
     private static final String URL = "https://gateway.watsonplatform.net/visual-insights-experimental/api";
 
+    /**
+     * Instantiates a new visual insights service.
+     */
+    public VisualInsights() {
+		setEndPoint(URL);
+	}
+    
     /**
      * Returns a summary of the collection's visual classifiers
      *
@@ -102,7 +111,7 @@ public class VisualInsights extends WatsonService {
                     "imagesFile can not be null or empty");
 
         MultipartEntity reqEntity = new MultipartEntity();
-        reqEntity.addPart("file", new FileBody(imagesFile));
+        reqEntity.addPart(FILE, new FileBody(imagesFile));
         Request request = Request.Post(SUMMARY_PATH)
                 .withEntity(reqEntity);
 

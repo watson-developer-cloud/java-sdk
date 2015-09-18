@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.ibm.watson.developer_cloud.visual_Insights.v1.model;
-
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+package com.ibm.watson.developer_cloud.visual_insights.v1.model;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Classifiers.

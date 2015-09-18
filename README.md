@@ -33,8 +33,8 @@ Java code wrappers to quickly get started with the various [Watson Developer Clo
       * [Text to Speech](#text-to-speech)
       * [Tone Analyzer](#tone-analyzer)
       * [Tradeoff Analytics](#tradeoff-analytics)
+      * [Visual Insights](#visual-insights)
       * [Visual Recognition](#visual-recognition)
-      * [Concept Insights](#concept-insights)
     * [Android](#android)
     * [Build + Test](#build--test)
     * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
@@ -466,6 +466,22 @@ Dilemma dilemma = service.dilemmas(problem);
 System.out.println(dilemma);
 ```
 
+### Visual Insights
+Use the [Visual Insights][visual_insights] to get insight into the themes present in a collection of images based on their visual appearance/content.
+
+
+```java
+import com.ibm.watson.developer_cloud.visual_insights.v1.VisualInsights;
+import com.ibm.watson.developer_cloud.visual_insights.v1.model.Classifiers;
+
+VisualInsights service = new VisualInsights();
+service.setUsernameAndPassword("<username>", "<password>");
+
+Classifiers classifiers = service.getClassifiers();
+
+System.out.println(classifiers);
+```
+
 ### Visual Recognition
 Use the [Visual Recognition][visual_recognition] service to recognize the
 following picture.
@@ -562,6 +578,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [tone-analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
 [dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
 [concept-insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
+[visual_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-insights/
 
 [alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage
 [sentiment_analysis]: http://www.alchemyapi.com/products/alchemylanguage/sentiment-analysis
