@@ -52,7 +52,12 @@ public class ConceptInsights extends WatsonService {
      * The Constant ACCOUNT_ID. (value is "account_id")
      */
     public static final String ACCOUNT_ID = "account_id";
-
+    
+    /**
+     * The Constant CONCEPT_ID. (value is "concept_id")
+     */
+    public static final String CONCEPT_ID = "concept_id";
+    
     /**
      * The ACCOUNTS_PATH. (value is "/v2/accounts")
      */
