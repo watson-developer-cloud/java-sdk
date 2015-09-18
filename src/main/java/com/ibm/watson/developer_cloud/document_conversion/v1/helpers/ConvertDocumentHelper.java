@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.mime.MultipartEntity;
@@ -68,8 +69,8 @@ public class ConvertDocumentHelper {
     public Answers convertDocumentToAnswer(final File document) {
         InputStream is = convertDocument(document, ConversionTarget.ANSWER_UNITS);
         String convertedDocument = ConversionUtils.writeInputStreamToString(is);
-        Answers answers = ConversionUtils.getGsonWithIso8601DateDeserializer()
-                .fromJson(convertedDocument, Answers.class);
+        Answers answers = GsonSingleton.getGson().fromJson(
+                            convertedDocument, Answers.class);
         return answers;
     }
 
@@ -115,7 +116,7 @@ public class ConvertDocumentHelper {
             String json = configRequestJson.toString();
             reqEntity.addPart("config", new StringBody(json, MediaType.APPLICATION_JSON, Charset.forName("UTF-8")));
 
-            HttpRequestBase request = Request.Post(DocumentConversion.CONVERT_DOCUMENT_PATH)
+            HttpRequestBase request = Request.Post(ConfigConstants.CONVERT_DOCUMENT_PATH)
                     .withEntity(reqEntity).build();
 
             HttpResponse response = docConversionService.execute(request);
@@ -136,8 +137,8 @@ public class ConvertDocumentHelper {
     public Answers convertDocumentToAnswer(final String documentId) {
         InputStream is = convertDocument(documentId, ConversionTarget.ANSWER_UNITS);
         String convertedDocument = ConversionUtils.writeInputStreamToString(is);
-        Answers answers = ConversionUtils.getGsonWithIso8601DateDeserializer()
-                .fromJson(convertedDocument, Answers.class);
+        Answers answers = GsonSingleton.getGson().fromJson(
+                         convertedDocument, Answers.class);
         return answers;
     }
 
@@ -160,7 +161,7 @@ public class ConvertDocumentHelper {
         contentJson.addProperty("document_id", documentId);
         contentJson.addProperty("conversion_target", conversionTarget.toString());
 
-        HttpRequestBase request = Request.Post(DocumentConversion.CONVERT_DOCUMENT_PATH)
+        HttpRequestBase request = Request.Post(ConfigConstants.CONVERT_DOCUMENT_PATH)
                 .withContent(contentJson).build();
 
         try {
