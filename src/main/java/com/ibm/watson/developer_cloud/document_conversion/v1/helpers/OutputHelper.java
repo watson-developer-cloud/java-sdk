@@ -20,6 +20,7 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Map;
 
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
@@ -73,7 +74,7 @@ public class OutputHelper {
      */
 
     public OutputCollection getOutputCollection(Map<String, Object> outputListParams) {
-        Request request = Request.Get(DocumentConversion.OUTPUT_PATH);
+        Request request = Request.Get(ConfigConstants.OUTPUT_PATH);
 
         if(outputListParams != null) {
             if (outputListParams.get(DocumentConversion.TOKEN) != null) {
@@ -111,8 +112,8 @@ public class OutputHelper {
         try {
             HttpResponse response = docConversionService.execute(requestBase);
             String OutputsAsJson = ResponseUtil.getString(response);
-            OutputCollection outputs = ConversionUtils.getGsonWithIso8601DateDeserializer()
-                    .fromJson(OutputsAsJson, OutputCollection.class);
+            OutputCollection outputs = GsonSingleton.getGson().fromJson(
+                                OutputsAsJson, OutputCollection.class);
             return outputs;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -130,7 +131,7 @@ public class OutputHelper {
         if (outputId == null || outputId.isEmpty())
             throw new IllegalArgumentException("output id can not be null or empty");
 
-        HttpRequestBase request = Request.Get(DocumentConversion.OUTPUT_PATH +"/" + outputId).build();
+        HttpRequestBase request = Request.Get(ConfigConstants.OUTPUT_PATH +"/" + outputId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             InputStream is = ResponseUtil.getInputStream(response);

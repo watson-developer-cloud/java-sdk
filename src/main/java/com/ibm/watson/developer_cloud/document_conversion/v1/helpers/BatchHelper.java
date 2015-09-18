@@ -75,7 +75,7 @@ public class BatchHelper {
         if(properties != null && !properties.isEmpty())
             contentJson.addProperty("properties", new Gson().toJson(properties));
 
-        HttpRequestBase request = Request.Post(DocumentConversion.BATCHES_PATH)
+        HttpRequestBase request = Request.Post(ConfigConstants.BATCHES_PATH)
                                          .withContent(filterJson(contentJson), MediaType.APPLICATION_JSON).build();
         try {
             HttpResponse response = docConversionService.execute(request);
@@ -105,7 +105,7 @@ public class BatchHelper {
      * @see DocumentConversion#getBatchCollection(Map)
      */
     public BatchCollection getBatchCollection(Map<String, Object> batchListParams) {
-        Request request = Request.Get(DocumentConversion.BATCHES_PATH);
+        Request request = Request.Get(ConfigConstants.BATCHES_PATH);
 
         if (batchListParams != null) {
 	        if(batchListParams.get(DocumentConversion.TOKEN) != null){
@@ -157,11 +157,11 @@ public class BatchHelper {
     public Batch getBatch(final String batchId) {
         if (batchId == null || batchId.isEmpty())
             throw new IllegalArgumentException("batchId can not be null or empty");
-        HttpRequestBase request = Request.Get(DocumentConversion.BATCHES_PATH + "/" + batchId).build();
+        HttpRequestBase request = Request.Get(ConfigConstants.BATCHES_PATH + "/" + batchId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchAsJson = ResponseUtil.getString(response);
-            Batch batch = ConversionUtils.getGsonWithIso8601DateDeserializer().fromJson(batchAsJson, Batch.class);
+            Batch batch = GsonSingleton.getGson().fromJson(batchAsJson, Batch.class);
             return batch;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -189,7 +189,7 @@ public class BatchHelper {
             contentJson.addProperty("name", name);
         if(properties != null && properties.isEmpty())
             contentJson.addProperty("properties", new Gson().toJson(properties));
-        HttpRequestBase request = Request.Put(DocumentConversion.BATCHES_PATH + "/" + batchId)
+        HttpRequestBase request = Request.Put(ConfigConstants.BATCHES_PATH + "/" + batchId)
                                          .withContent(filterJson(contentJson),
                                                       MediaType.APPLICATION_JSON).build();
         try {

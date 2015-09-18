@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.Map;
 
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
@@ -68,11 +69,11 @@ public class BatchDocumentHelper {
         if (documentId == null || documentId.isEmpty())
             throw new IllegalArgumentException("documentId cannot be null or empty");
 
-        HttpRequestBase request = Request.Put(DocumentConversion.BATCHES_PATH + "/"+ batchId + "/documents/"+ documentId).build();
+        HttpRequestBase request = Request.Put(ConfigConstants.BATCHES_PATH + "/"+ batchId + "/documents/"+ documentId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchDocumentAsJson = ResponseUtil.getString(response);
-            BatchDocumentResponse batchDocumentResponse = ConversionUtils.getGsonWithIso8601DateDeserializer()
+            BatchDocumentResponse batchDocumentResponse = GsonSingleton.getGson()
                     .fromJson(batchDocumentAsJson, BatchDocumentResponse.class);
             return batchDocumentResponse;
         } catch (IOException e) {
@@ -103,7 +104,7 @@ public class BatchDocumentHelper {
         if (batchId == null || batchId.isEmpty())
             throw new IllegalArgumentException("batchId cannot be null or empty");
 
-        Request request = Request.Get(DocumentConversion.BATCHES_PATH + "/" + batchId +"/documents");
+        Request request = Request.Get(ConfigConstants.BATCHES_PATH + "/" + batchId +"/documents");
         if(batchDocListParams != null) {
             if (batchDocListParams.get(DocumentConversion.TOKEN) != null) {
                 String token = (String) batchDocListParams.get(DocumentConversion.TOKEN);
@@ -128,8 +129,8 @@ public class BatchDocumentHelper {
         try {
             HttpResponse response = docConversionService.execute(requestBase);
             String batchDocumentCollectionAsJson = ResponseUtil.getString(response);
-            BatchDocumentCollection batchDocumentCollection = ConversionUtils.getGsonWithIso8601DateDeserializer()
-                    .fromJson(batchDocumentCollectionAsJson, BatchDocumentCollection.class);
+            BatchDocumentCollection batchDocumentCollection = GsonSingleton.getGson()
+                        .fromJson(batchDocumentCollectionAsJson, BatchDocumentCollection.class);
             return batchDocumentCollection;
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -152,11 +153,11 @@ public class BatchDocumentHelper {
         if (documentId == null || documentId.isEmpty())
             throw new IllegalArgumentException("documentId cannot be null or empty");
 
-        HttpRequestBase request = Request.Get(DocumentConversion.BATCHES_PATH + "/" + batchId + "/documents/"+ documentId).build();
+        HttpRequestBase request = Request.Get(ConfigConstants.BATCHES_PATH + "/" + batchId + "/documents/"+ documentId).build();
         try {
             HttpResponse response = docConversionService.execute(request);
             String batchDocumentAsJson = ResponseUtil.getString(response);
-            BatchDocumentResponse batchDocumentResponse = ConversionUtils.getGsonWithIso8601DateDeserializer()
+            BatchDocumentResponse batchDocumentResponse = GsonSingleton.getGson()
                     .fromJson(batchDocumentAsJson, BatchDocumentResponse.class);
             return batchDocumentResponse;
         } catch (IOException e) {
