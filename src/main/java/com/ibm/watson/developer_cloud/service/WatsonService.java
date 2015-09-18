@@ -122,8 +122,7 @@ public abstract class WatsonService {
 			requestURL = getEndPoint() + request.getURI();
 			return new URI(requestURL);
 		} catch (URISyntaxException e) {
-			log.log(Level.SEVERE, requestURL
-					+ " could not be parsed as a URI reference");
+			log.log(Level.SEVERE, requestURL + " could not be parsed as a URI reference");
 			throw new RuntimeException(e);
 		}
 	}
@@ -396,6 +395,23 @@ public abstract class WatsonService {
 
 	}
 
+	/**
+	 * Execute the request and return the POJO that represent the response.
+	 *
+	 * @param <T>             The POJO that represents the response object
+	 * @param request         the request
+	 * @param returnType      the POJO class to be parsed from the response
+	 * @return the POJO object that represent the response
+	 */
+	protected  <T> T executeRequest(Request request,  Class<T> returnType) {
+		HttpRequestBase requestBase = request.build();
+		try {
+			HttpResponse response = execute(requestBase);
+			return ResponseUtil.getObject(response, returnType);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
 	/*
 	 * (non-Javadoc)
 	 *
