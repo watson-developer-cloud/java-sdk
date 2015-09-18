@@ -30,7 +30,7 @@ public class DocumentConversionExample{
 
     public static void main(String[] args) throws URISyntaxException, IOException, InterruptedException {
         DocumentConversion service = new DocumentConversion();
-        service.setUsernameAndPassword("<username>", "<password>");
+        service.setUsernameAndPassword("88892b0b-58be-4e5c-9ab8-7f26dc8f89aa", "nJdXja9K4Mhu");
 
         // ## Scenario 1: Convert a document without persistence ##
         File html = new File("src/test/resources/document_conversion/html-with-extra-content-input.htm");

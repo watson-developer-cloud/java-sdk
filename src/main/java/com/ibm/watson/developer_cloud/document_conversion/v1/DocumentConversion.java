@@ -95,7 +95,7 @@ public class DocumentConversion extends WatsonService {
     public static final String TOKEN = "token";
 
     /**  The default URL for the service. */
-    private static final String URL = "https://gateway.watsonplatform.net/document-conversion-experimental/api";
+    private static final String URL = "https://gateway-s.watsonplatform.net/document-conversion-experimental/api";
 
     /** The batch document helper. */
     private final BatchDocumentHelper batchDocumentHelper;
