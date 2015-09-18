@@ -32,7 +32,7 @@ import java.util.Map;
  * The IBM Watson™ Visual Insights gives insight into the themes present in a collection of images based on their visual appearance / content.
  *
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
- * @version v2
+ * @version v1
  * @see <a
  * href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-insights.html">
  * Visual Insights</a>
@@ -89,7 +89,7 @@ public class VisualInsights extends WatsonService {
 
         return executeRequest(request, Classifiers.class);
     }
-    
+
     /**
      * Upload a set of images as a zip file for visual insight extraction.
      *
