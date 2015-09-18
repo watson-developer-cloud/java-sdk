@@ -19,7 +19,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,9 +33,6 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
  * The Class AlchemyVisionTest.
  */
 public class AlchemyVisionTest extends WatsonServiceTest {
-
-	/** The Constant log. */
-	private static final Logger log = Logger.getLogger(AlchemyVisionTest.class.getName());
 
 	/** The service. */
 	private AlchemyVision service;
@@ -67,7 +63,6 @@ public class AlchemyVisionTest extends WatsonServiceTest {
 		params.put(AlchemyVision.URL, "http://www.techcrunch.com/");
 		ImageLink image = service.getImageLink(params);
 		Assert.assertNotNull(image);
-		log.info(image.toString());
 	}
 
 	/**
@@ -79,7 +74,6 @@ public class AlchemyVisionTest extends WatsonServiceTest {
 		params.put(AlchemyVision.HTML, htmlExample);
 		ImageLink image = service.getImageLink(params);
 		Assert.assertNotNull(image);
-		log.info(image.toString());
 	}
 
 	/**
@@ -92,7 +86,6 @@ public class AlchemyVisionTest extends WatsonServiceTest {
 		ImageKeywords image = service.getImageKeywords(params);
 
 		Assert.assertNotNull(image);
-		log.info(image.toString());
 	}
 
 	/**
@@ -106,7 +99,6 @@ public class AlchemyVisionTest extends WatsonServiceTest {
 		ImageKeywords image = service.getImageKeywords(params);
 
 		Assert.assertNotNull(image);
-		log.info(image.toString());
 
 	}
 
@@ -120,10 +112,8 @@ public class AlchemyVisionTest extends WatsonServiceTest {
 		ImageFaces image = service.recognizeFaces(params);
 
 		Assert.assertNotNull(image);
-		log.info(image.toString());
 	}
 
-	
 	/**
 	 * Test recognize faces from image.
 	 */
@@ -135,7 +125,5 @@ public class AlchemyVisionTest extends WatsonServiceTest {
 		ImageFaces image = service.recognizeFaces(params);
 
 		Assert.assertNotNull(image);
-		log.info(image.toString());
-
 	}
 }

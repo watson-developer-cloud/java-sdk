@@ -19,7 +19,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,9 +49,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 	/** The html example. */
 	private String htmlExample;
 
-	/** The Constant log. */
-	private static final Logger log = Logger.getLogger(AlchemyLanguageTest.class.getName());
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -78,7 +74,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		Entities entities = service.getEntities(params);
 		Assert.assertNotNull(entities);
 		Assert.assertFalse(entities.getEntities().isEmpty());
-		log.info(entities.toString());
 	}
 
 	/**
@@ -92,8 +87,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		Entities entities = service.getEntities(params);
 		Assert.assertNotNull(entities);
 		Assert.assertFalse(entities.getEntities().isEmpty());
-		log.info(entities.toString());
-
 	}
 
 	/**
@@ -106,7 +99,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		Keywords keywords = service.getKeywords(params);
 		Assert.assertNotNull(keywords);
 		Assert.assertFalse(keywords.getKeywords().isEmpty());
-		log.info(keywords.toString());
 	}
 
 	/**
@@ -123,7 +115,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		Keywords keywords = service.getKeywords(params);
 		Assert.assertNotNull(keywords);
 		Assert.assertFalse(keywords.getKeywords().isEmpty());
-		log.info(keywords.toString());
 	}
 
 	/**
@@ -136,7 +127,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		Taxonomies taxonomy = service.geTaxonomy(params);
 		Assert.assertNotNull(taxonomy);
 		Assert.assertFalse(taxonomy.getTaxonomy().isEmpty());
-		log.info(taxonomy.toString());
 	}
 
 	/**
@@ -152,7 +142,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		Taxonomies taxonomy = service.geTaxonomy(params);
 		Assert.assertNotNull(taxonomy);
 		Assert.assertFalse(taxonomy.getTaxonomy().isEmpty());
-		log.info(taxonomy.toString());
 	}
 
 	/**
@@ -164,7 +153,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
 		DocumentSentiment documentSentiment = service.getSentiment(params);
 		Assert.assertNotNull(documentSentiment);
-		log.info(documentSentiment.toString());
 	}
 
 	/**
@@ -232,7 +220,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		params.put(AlchemyLanguage.HTML, htmlExample);
 		SAORelations relations = service.getRelations(params);
 		Assert.assertNotNull(relations);
-		log.info(relations.toString());
 	}
 
 	/**
@@ -244,7 +231,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		params.put(AlchemyLanguage.URL, "http://news.google.fr/");
 		Language language = service.getLanguage(params);
 		Assert.assertNotNull(language);
-		log.info(language.toString());
 	}
 
 	/**
@@ -256,7 +242,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
 		DocumentTitle title = service.getTitle(params);
 		Assert.assertNotNull(title);
-		log.info(title.toString());
 	}
 
 	/**
@@ -269,7 +254,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 				"http://www.politico.com/blogs/media/2012/02/detroit-news-ed-upset-over-romney-edit-115247.html");
 		DocumentAuthors authors = service.getAuthors(params);
 		Assert.assertNotNull(authors);
-		log.info(authors.toString());
 	}
 
 	/**
@@ -281,7 +265,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
 		DocumentText text = service.getText(params);
 		Assert.assertNotNull(text);
-		log.info(text.toString());
 	}
 
 	/**
@@ -294,7 +277,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		params.put(AlchemyLanguage.RAW, true);
 		DocumentText text = service.getText(params);
 		Assert.assertNotNull(text);
-		log.info(text.toString());
 	}
 
 	/**
@@ -306,7 +288,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
 		Feeds feeds = service.getFeeds(params);
 		Assert.assertNotNull(feeds);
-		log.info(feeds.toString());
 	}
 
 	/**
@@ -318,7 +299,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		params.put(AlchemyLanguage.URL, "http://microformats.org/wiki/hcard");
 		Microformats microformats = service.getMicroformats(params);
 		Assert.assertNotNull(microformats);
-		log.info(microformats.toString());
 	}
 
 	/**
@@ -330,7 +310,6 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
 		CombinedResults combined = service.getCombinedResults(params);
 		Assert.assertNotNull(combined);
-		log.info(combined.toString());
 	}
 
 }

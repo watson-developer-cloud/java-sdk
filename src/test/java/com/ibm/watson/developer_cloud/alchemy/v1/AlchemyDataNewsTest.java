@@ -17,7 +17,6 @@ package com.ibm.watson.developer_cloud.alchemy.v1;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -32,11 +31,6 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
  */
 public class AlchemyDataNewsTest extends WatsonServiceTest {
 
-
-    /**
-     * The Constant log.
-     */
-    private static final Logger log = Logger.getLogger(AlchemyDataNewsTest.class.getName());
 
     /**
      * The service.
@@ -63,7 +57,6 @@ public class AlchemyDataNewsTest extends WatsonServiceTest {
     public void testGetCount() {
         VolumeResult result = service.getVolume("now-30", "now", null);
         Assert.assertNotNull(result);
-        log.info(result.toString());
     }
 
     /**
@@ -73,7 +66,6 @@ public class AlchemyDataNewsTest extends WatsonServiceTest {
     public void testGetCountTimeSlice() {
         VolumeResult result = service.getVolume("now-7d", "now", "12h");
         Assert.assertNotNull(result);
-        log.info(result.toString());
     }
 
     /**
@@ -92,6 +84,5 @@ public class AlchemyDataNewsTest extends WatsonServiceTest {
 
         DocumentsResult result = service.getNewsDocuments(params);
         Assert.assertNotNull(result);
-        log.info(result.toString());
     }
 }
