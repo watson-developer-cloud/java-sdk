@@ -57,34 +57,13 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
  */
 public class DocumentConversion extends WatsonService {
 
-    /**
-     * The BATCHES_PATH.  (value is "/v1/batches")
-     **/
-    public final static String BATCHES_PATH = "/v1/batches";
-
-    /**
-     * The CONVERT_DOCUMENT_PATH.  (value is "/v1/convert_document")
-     **/
-    public final static String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
-
     /** The default limit for get requests. */
     public static final int DEFAULT_LIMIT = 100;
-
-    /**
-     * The DOCUMENTS_PATH.  (value is "/v1/documents")
-     **/
-    public final static String DOCUMENTS_PATH = "/v1/documents";
 
     /**
      * The Constant JOB_ID. (value is "job_id")
      */
     public static final String JOB_ID = "job_id";
-
-    /**
-     * The JOBS_PATH.  (value is "/v1/jobs")
-     **/
-    public final static String JOBS_PATH = "/v1/jobs";
-
     /**
      * The Constant LIMIT. (value is "limit")
      */
@@ -99,11 +78,6 @@ public class DocumentConversion extends WatsonService {
      * The Constant NAME. (value is "name")
      */
     public static final String NAME = "name";
-
-    /**
-     * The OUTPUT_PATH.  (value is "/v1/output")
-     **/
-    public final static String OUTPUT_PATH = "/v1/output";
 
     /**
      * The Constant SINCE. (value is "since")
