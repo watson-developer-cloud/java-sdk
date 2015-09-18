@@ -21,6 +21,7 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
@@ -425,4 +426,35 @@ public class Request {
 	public Request withQuery(Object... args) {
 		return with(queryParams, args);
 	}
+
+	/**
+	 * Adds query parameters.
+	 *
+	 * @param parameters
+	 *            a list of name-value query parameters
+	 *
+	 * @return this
+	 */
+	public Request withQuery(Map<String,Object> parameters) {
+		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+			withQuery(entry.getKey(),entry.getValue());
+		}
+		return this;
+	}
+
+	/**
+	 * Adds form parameters.
+	 *
+	 * @param parameters
+	 *            a list of name-value form parameters
+	 *
+	 * @return this
+	 */
+	public Request withForm(Map<String,Object> parameters) {
+		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
+			withForm(entry.getKey(),entry.getValue());
+		}
+		return this;
+	}
+
 }
