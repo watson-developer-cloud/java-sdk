@@ -496,13 +496,15 @@ Use the [Visual Insights][visual_insights] to get insight into the themes presen
 ```java
 import com.ibm.watson.developer_cloud.visual_insights.v1.VisualInsights;
 import com.ibm.watson.developer_cloud.visual_insights.v1.model.Classifiers;
+import java.io.File;
 
 VisualInsights service = new VisualInsights();
 service.setUsernameAndPassword("<username>", "<password>");
 
-Classifiers classifiers = service.getClassifiers();
+File images = new File("src/test/resources/images.zip");
+Summary summary = service.getSummary(images);
 
-System.out.println(classifiers);
+System.out.println(summary);
 ```
 
 ### Visual Recognition
