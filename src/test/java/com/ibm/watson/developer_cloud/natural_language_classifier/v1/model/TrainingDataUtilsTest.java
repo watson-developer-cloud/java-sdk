@@ -49,7 +49,6 @@ public class TrainingDataUtilsTest {
 	public void testToTrainingData() {
 		File file = new File("src/test/resources/weather_data_train.csv");
 		List<TrainingData> trainingData = TrainingDataUtils.fromCSV(file, CSVFormat.DEFAULT);
-		System.out.println(trainingData);
 		Assert.assertNotNull(trainingData);
 		Assert.assertNotEquals(0,trainingData.size());
 	}
