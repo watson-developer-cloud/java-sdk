@@ -28,8 +28,8 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
 import com.ibm.watson.developer_cloud.service.Request;
-import com.ibm.watson.developer_cloud.util.AlchemyEndPoints;
-import com.ibm.watson.developer_cloud.util.AlchemyEndPoints.AlchemyAPI;
+import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints;
+import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints.AlchemyAPI;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 

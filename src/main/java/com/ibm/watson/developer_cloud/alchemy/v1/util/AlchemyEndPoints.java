@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.util;
+
+package com.ibm.watson.developer_cloud.alchemy.v1.util;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -38,7 +40,8 @@ public class AlchemyEndPoints {
 	private static final Logger log = Logger.getLogger(AlchemyEndPoints.class.getName());
 
 	/**  The file where alchemy endpoints are described. */
-	private static final String filePath = "src/main/resources/alchemy_endpoints.json";
+	private static final String filePath = "/alchemy_endpoints.json";
+
 
 	/** The alchemy operations. */
 	private static Map<String, Map<String, String>> operations;
@@ -51,58 +54,58 @@ public class AlchemyEndPoints {
 	 * The AlchemyOperations.
 	 */
 	public enum AlchemyAPI {
-		
+
 		/** The entities. */
 		entities,
-		
+
 		/** The keywords. */
 		keywords,
-		
+
 		/** The concepts. */
 		concepts,
-		
+
 		/** The sentiment. */
 		sentiment,
-		
+
 		/** The sentiment_targeted. */
 		sentiment_targeted,
-		
+
 		/** The relations. */
 		relations,
-		
+
 		/** The language. */
 		language,
-		
+
 		/** The text. */
 		text,
-		
+
 		/** The text_raw. */
 		text_raw,
-		
+
 		/** The authors. */
 		authors,
-		
+
 		/** The feeds. */
 		feeds,
-		
+
 		/** The microformats. */
 		microformats,
-		
+
 		/** The title. */
 		title,
-		
+
 		/** The taxonomy. */
 		taxonomy,
-		
+
 		/** The combined. */
 		combined,
-		
+
 		/** The image_link. */
 		image_link,
-		
+
 		/** The image_keywords. */
 		image_keywords,
-		
+
 		/** The image_recognition. */
 		image_recognition
 	}
@@ -115,7 +118,13 @@ public class AlchemyEndPoints {
 		operations = new HashMap<String, Map<String, String>>();
 		JsonParser parser = new JsonParser();
 		try {
-			Object obj = parser.parse(new FileReader(filePath));
+			Reader fileReader = null;
+
+			InputStream is = AlchemyEndPoints.class.getResourceAsStream(filePath);
+			if (null != is) {
+				fileReader = new InputStreamReader(is);
+			}
+			Object obj = parser.parse(fileReader);
 			JsonObject jsonObject = (JsonObject) obj;
 			for (AlchemyAPI object : AlchemyAPI.values()) {
 				if (jsonObject.get(object.name()) == null)
@@ -131,8 +140,8 @@ public class AlchemyEndPoints {
 			}
 		} catch (JsonParseException e) {
 			log.log(Level.SEVERE, "Could not parse json file: " + filePath, e);
-		} catch (FileNotFoundException e) {
-			log.log(Level.SEVERE, "File not found: " + filePath, e);
+		} catch (NullPointerException e){
+			log.log(Level.SEVERE, "Not able to locate the end points json file: " + filePath, e);
 		}
 	}
 
@@ -150,7 +159,7 @@ public class AlchemyEndPoints {
 		else {
 			String error = "Operation: "+ operation + ", inputType: "+inputType+" not found";
 			log.log(Level.SEVERE,error);
-            throw new IllegalArgumentException(error);
+			throw new IllegalArgumentException(error);
 		}
 	}
 

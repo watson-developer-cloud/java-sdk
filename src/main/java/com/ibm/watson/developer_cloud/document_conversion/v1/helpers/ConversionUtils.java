@@ -17,18 +17,11 @@ package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
 
 import java.io.File;
 import java.io.InputStream;
-import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonDeserializer;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonParseException;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.util.MediaType;
 
