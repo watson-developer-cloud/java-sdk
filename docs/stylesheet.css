@@ -472,20 +472,3 @@ h1.hidden {
 .strong {
     font-weight:bold;
 }
-
-/*
- Fixes for a number of issues with the default stylesheet.
- */
-
-/* Fixes huge font size in <pre>{@code} blocks. */
-pre code {
-    font-size:inherit;
-}
-
-/*
- Fixes issue with no blank line before <pre> in class-level Javadoc
- when the <pre> is preceded by a block of text with no <p>.
- */
-.description .block pre {
-    margin-top:1em;
-}
