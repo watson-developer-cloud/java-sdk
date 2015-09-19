@@ -1,8 +1,16 @@
 com.ibm.watson.developer_cloud
+com.ibm.watson.developer_cloud.alchemy.v1
+com.ibm.watson.developer_cloud.alchemy.v1.model
+com.ibm.watson.developer_cloud.alchemy.v1.util
 com.ibm.watson.developer_cloud.concept_expansion.v1
 com.ibm.watson.developer_cloud.concept_expansion.v1.model
+com.ibm.watson.developer_cloud.concept_insights.v2
+com.ibm.watson.developer_cloud.concept_insights.v2.model
 com.ibm.watson.developer_cloud.dialog.v1
 com.ibm.watson.developer_cloud.dialog.v1.model
+com.ibm.watson.developer_cloud.document_conversion.v1
+com.ibm.watson.developer_cloud.document_conversion.v1.helpers
+com.ibm.watson.developer_cloud.document_conversion.v1.model
 com.ibm.watson.developer_cloud.language_identification.v1
 com.ibm.watson.developer_cloud.language_identification.v1.model
 com.ibm.watson.developer_cloud.language_translation.v2
@@ -13,6 +21,7 @@ com.ibm.watson.developer_cloud.message_resonance.v1
 com.ibm.watson.developer_cloud.message_resonance.v1.model
 com.ibm.watson.developer_cloud.natural_language_classifier.v1
 com.ibm.watson.developer_cloud.natural_language_classifier.v1.model
+com.ibm.watson.developer_cloud.natural_language_classifier.v1.util
 com.ibm.watson.developer_cloud.personality_insights.v2
 com.ibm.watson.developer_cloud.personality_insights.v2.model
 com.ibm.watson.developer_cloud.question_and_answer.v1
@@ -20,6 +29,7 @@ com.ibm.watson.developer_cloud.question_and_answer.v1.model
 com.ibm.watson.developer_cloud.relationship_extraction.v1
 com.ibm.watson.developer_cloud.relationship_extraction.v1.model
 com.ibm.watson.developer_cloud.service
+com.ibm.watson.developer_cloud.service.model
 com.ibm.watson.developer_cloud.speech_to_text.v1
 com.ibm.watson.developer_cloud.speech_to_text.v1.model
 com.ibm.watson.developer_cloud.text_to_speech.v1
@@ -28,6 +38,10 @@ com.ibm.watson.developer_cloud.tone_analyzer.v1
 com.ibm.watson.developer_cloud.tone_analyzer.v1.model
 com.ibm.watson.developer_cloud.tradeoff_analytics.v1
 com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model
+com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column
+com.ibm.watson.developer_cloud.tradeoff_analytics.v1.util
 com.ibm.watson.developer_cloud.util
+com.ibm.watson.developer_cloud.visual_insights.v1
+com.ibm.watson.developer_cloud.visual_insights.v1.model
 com.ibm.watson.developer_cloud.visual_recognition.v1
 com.ibm.watson.developer_cloud.visual_recognition.v1.model
