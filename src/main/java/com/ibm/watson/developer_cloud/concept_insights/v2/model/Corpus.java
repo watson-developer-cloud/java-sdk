@@ -32,6 +32,9 @@ public class Corpus extends GenericModel {
 	/** The id. */
 	private String id;
 
+	/** The corpus name (/corpora/{account_id}/{corpus_name}). */
+	private String name;
+
 	/** The users. */
 	private List<AccountPermission> users;
 
@@ -51,6 +54,15 @@ public class Corpus extends GenericModel {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * Gets the name.
+	 *
+	 * @return The name
+	 */
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -80,6 +92,16 @@ public class Corpus extends GenericModel {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * Sets the name.
+	 *
+	 * @param name
+	 *            The name
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**
