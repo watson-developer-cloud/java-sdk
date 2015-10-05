@@ -343,9 +343,9 @@ public class ConceptInsights extends WatsonService {
     public void createCorpus(final String accountId, final Corpus corpus) {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
-        Validate.notNull(corpus.getId(), "corpus.id can't be null");
+        Validate.notNull(corpus.getName(), "corpus.name can't be null");
 
-        HttpRequestBase request = Request.Put(createCorpusIdPath(accountId, corpus.getId()))
+        HttpRequestBase request = Request.Put(createCorpusIdPath(accountId, corpus.getName()))
                 .withContent(GsonSingleton.getGson().toJson(corpus), MediaType.APPLICATION_JSON).build();
         executeWithoutResponse(request);
     }
@@ -907,9 +907,9 @@ public class ConceptInsights extends WatsonService {
     public void updateCorpus(final String accountId, final Corpus corpus) {
         Validate.notNull(accountId, "account_id can't be null");
         Validate.notNull(corpus, "corpus can't be null");
-        Validate.notNull(corpus.getId(), "corpus.id can't be null");
+        Validate.notNull(corpus.getName(), "corpus.name can't be null");
 
-        HttpRequestBase request = Request.Post(createCorpusIdPath(accountId, corpus.getId()))
+        HttpRequestBase request = Request.Post(createCorpusIdPath(accountId, corpus.getName()))
                 .withContent(GsonSingleton.getGson().toJson(corpus), MediaType.APPLICATION_JSON).build();
         executeWithoutResponse(request);
     }
