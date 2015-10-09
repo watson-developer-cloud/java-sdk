@@ -19,6 +19,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.*;
+import com.ibm.watson.developer_cloud.concept_insights.v2.util.ConceptInsightsId;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.*;
@@ -195,14 +196,6 @@ public class ConceptInsights extends WatsonService {
      */
     public static final String TEXT = "text";
 
-    private final String CORPUS_ID_REGEX = "^/corpora/[_\\-\\w\\s]*/[_\\-\\w\\s]*$";
-
-    private final String GRAPH_ID_REGEX = "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*$";
-
-    private final String DOCUMENT_ID_REGEX = "^/corpora/[_\\-\\w\\s]*/[_\\-\\w\\s]*/documents/[_\\-\\w\\s]*$";
-
-    private final String CONCEPT_ID_REGEX = "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*/concepts/[_\\-\\w\\s]*$";
-
     private String accountId = null;
 
     /**
@@ -235,15 +228,7 @@ public class ConceptInsights extends WatsonService {
      * @return {@link Annotations}
      */
     public Annotations annotateText(final Graph graph,final String text) {
-        Validate.notNull(graph, "graph object can't be null");
-
-        if(graph.getId()!=null) {
-            validate(GRAPH_ID_REGEX,graph.getId(),"Please provide a valid graph.id in the format of (/graphs/{account_id}/{graph})");
-        } else {
-            Validate.notNull(graph.getName(), "graph.name can't be null");
-            graph.setId("/graphs/"+getAccountId()+"/"+graph.getName());
-        }
-
+        ConceptInsightsId.validateGenarate(graph, getAccountId());
         Validate.notNull(text, "text can't be null");
 
         HttpRequestBase request = Request.Post(version + graph.getId() + ANNOTATE_TEXT_PATH)
@@ -262,57 +247,38 @@ public class ConceptInsights extends WatsonService {
 
     /**
      * Performs a conceptual search within a corpus.
-     * @param  corpus - The corpus object.
-     * @param  ids - JSON array of concept and/or document ids.
-	 * @param parameters The optional parameters to be used in the service call
-	 * <ul>
-	 * <li> String account_id - The account identifier.<br>
-	 * <li> String corpus - The corpus name.<br>
-     * <li> RequestedFields concept_fields - Additional fields to be included in the concept objects.<br>
-     * <li> RequestedFields document_fields - Additional fields to be included in the document objects.<br>
-     * <li> Integer cursor - A number of items to skip.<br>
-     * <li> Integer limit - The maximum number of concepts to be returned.<br>
-   	 * </ul>
-	 *
+     *
+     * @param   corpus         Corpus the corpus object - Required field.
+     * @param   ids            String JSON array of concept and/or document ids - Required field.
+	 * @param   conceptFields  RequestedFields concept_fields - Additional fields to be included in the concept objects.
+	 * @param   documentFields RequestedFields document_fields - Additional fields to be included in the document objects.
+	 * @param   cursor         Integer cursor - A number of items to skip.
+     * @param   limit          Integer limit - The maximum number of concepts to be returned.
      * @return {@link QueryConcepts}
      */
-    public QueryConcepts conceptualSearch(final Corpus corpus,final List<String> ids,Map<String, Object> parameters) {
-        Validate.notNull(corpus, "corpus can't be null");
-        //Validate.notNull(parameters.get(IDS), "ids can't be null");
+    public QueryConcepts conceptualSearch(Corpus corpus,List<String> ids,RequestedFields conceptFields,RequestedFields documentFields,int cursor,int limit) {
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
         Validate.notNull(ids, "ids can't be null");
-
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
-
         Map<String,Object> queryParams = new HashMap<String, Object>();
-        String[] queryParameters = new String[]{CURSOR, LIMIT};
-
-        for (String param : queryParameters) {
-            if (parameters.containsKey(param))
-              queryParams.put(param, parameters.get(param));
+        if(cursor>=0) {
+            queryParams.put(CURSOR,cursor);
         }
-
+        if(limit>=0) {
+            queryParams.put(LIMIT,limit);
+        }
         JsonArray IdsJsonArray = new JsonArray();
         for (String value : ids) {
             IdsJsonArray.add(new JsonPrimitive(value));
         }
         queryParams.put(IDS, IdsJsonArray.toString());
-
-
-        if (parameters.get(CONCEPT_FIELDS) != null) {
-            RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
-            if (fields != null && fields.getFields() != null && !fields.getFields().isEmpty())
-                queryParams.put(CONCEPT_FIELDS, fields.toString());
+        if (conceptFields != null) {
+            if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
+                queryParams.put(CONCEPT_FIELDS, conceptFields.toString());
         }
 
-        if (parameters.get(DOCUMENT_FIELDS) != null) {
-            RequestedFields fields = (RequestedFields) parameters.get(DOCUMENT_FIELDS);
-            if (fields != null && fields.getFields() != null && !fields.getFields().isEmpty())
-                queryParams.put(DOCUMENT_FIELDS, fields.toString());
+        if (documentFields != null) {
+            if (documentFields != null && documentFields.getFields() != null && !documentFields.getFields().isEmpty())
+                queryParams.put(DOCUMENT_FIELDS, documentFields.toString());
         }
 
         return executeRequest(version+ corpus.getId() + CONCEPTUAL_SEARCH_PATH,queryParams,QueryConcepts.class);
@@ -324,13 +290,7 @@ public class ConceptInsights extends WatsonService {
      * @param corpus    Corpus the corpus object.
      */
     public void createCorpus(final Corpus corpus) {
-        Validate.notNull(corpus, "corpus can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
+        ConceptInsightsId.validateGenarate(corpus,getAccountId());
         HttpRequestBase request = Request.Put(version + corpus.getId())
                 .withContent(GsonSingleton.getGson().toJson(corpus), MediaType.APPLICATION_JSON).build();
         executeWithoutResponse(request);
@@ -343,15 +303,7 @@ public class ConceptInsights extends WatsonService {
      * @param document   {@link Document} The document to create.
      */
     public void createDocument(final Document document,final String corpusName) {
-        Validate.notNull(document, "document can't be null");
-        if(document.getId()!=null) {
-            validate(DOCUMENT_ID_REGEX,document.getId(),"Please provide a valid document.id in the format of (/corpora/{account_id}/{corpus}/documents/{document})");
-        } else {
-            Validate.notNull(document.getName(), "document.name can't be null");
-            Validate.notNull(corpusName, "corpusName can't be null");
-            document.setId("/corpora/"+getAccountId()+"/"+corpusName+"/documents/"+document.getName());
-        }
-
+        ConceptInsightsId.validateGenarate(document,getAccountId(),corpusName);
         HttpRequestBase request = Request
                 .Put(version + document.getId())
                 .withContent(GsonSingleton.getGson().toJson(document), MediaType.APPLICATION_JSON)
@@ -366,13 +318,7 @@ public class ConceptInsights extends WatsonService {
      * @param corpus    Corpus the corpus object.
      */
     public void deleteCorpus(final Corpus corpus) {
-        Validate.notNull(corpus, "corpus can't be null");
-        Validate.notNull(corpus.getName(), "corpus.name can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
         HttpRequestBase request = Request.Delete(version+corpus.getId()).build();
         executeWithoutResponse(request);
     }
@@ -385,14 +331,7 @@ public class ConceptInsights extends WatsonService {
      */
 
     public void deleteDocument(final String corpusName, final Document document) {
-        Validate.notNull(document, "document can't be null");
-        if(document.getId()!=null) {
-            validate(DOCUMENT_ID_REGEX,document.getId(),"Please provide a valid document.id in the format of (/corpora/{account_id}/{corpus}/documents/{document})");
-        } else {
-            Validate.notNull(document.getName(), "document.name can't be null");
-            Validate.notNull(corpusName, "corpusName can't be null");
-            document.setId("/corpora/"+getAccountId()+"/"+corpusName+"/documents/"+document.getName());
-        }
+        ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
         HttpRequestBase request = Request.Delete(version+document.getId())
                 .build();
         executeWithoutResponse(request);
@@ -415,15 +354,7 @@ public class ConceptInsights extends WatsonService {
      * @return {@link ConceptMetadata}
      */
     public ConceptMetadata getConcept(final Concept concept,final String graphName) {
-        Validate.notNull(concept, "concept can't be null");
-        if(concept.getId()!=null) {
-            validate(CONCEPT_ID_REGEX,concept.getId(),"Please provide a valid concept.id in the format of (/graphs/{account_id}/{graph}/concepts/{concept})");
-        } else {
-            Validate.notNull(concept.getName(), "concept.name can't be null");
-            Validate.notNull(graphName, "graphName can't be null");
-            concept.setId("/graphs/"+getAccountId()+"/"+graphName+"/concepts/"+concept.getName());
-        }
-
+        ConceptInsightsId.validateGenarate(concept, getAccountId(), graphName);
         return executeRequest(version+concept.getId(),null,ConceptMetadata.class);
     }
 
@@ -434,13 +365,7 @@ public class ConceptInsights extends WatsonService {
      * @return the Corpus
      */
     public Corpus getCorpus(final Corpus corpus) {
-        Validate.notNull(corpus, "corpus can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
         return executeRequest(version+corpus.getId(),null,Corpus.class);
     }
 
@@ -451,48 +376,31 @@ public class ConceptInsights extends WatsonService {
      * @return {@link CorpusProcessingState} The processing state of a given corpus.
      */
     public CorpusProcessingState getCorpusProcessingState(final Corpus corpus) {
-        Validate.notNull(corpus, "corpus can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
         return executeRequest(version + corpus.getId() + PROCESSING_STATE_PATH,null,CorpusProcessingState.class);
     }
 
     /**
      * Retrieves concepts that are related to an entire corpus.
-     * @param corpus The corpus object
-	 * @param parameters The parameters to be used in the service call, account_id,
-	 * corpus and concepts are required.
-	 * <ul>
-	 * <li> RequestedFields concept_fields - Additional fields to be included in the concept objects.<br>
-     * <li> Integer level - A number in the range 0 - 3 that represents the level of popularity of related concepts.<br>
-     * <li> Integer limit - The maximum number of concepts to be returned.<br>
-  	 * </ul>
-	 *
+     *
+     * @param   corpus         The corpus object - Required field.
+     * @param   conceptFields  RequestedFields concept_fields - Additional fields to be included in the concept objects.
+     * @param   level          Integer level - A number in the range 0 - 3 that represents the level of popularity of related concepts.
+     * @param   limit          Integer limit - The maximum number of concepts to be returned.
      * @return {@link Concepts}
      */
-    public Concepts getCorpusRelatedConcepts(Corpus corpus,Map<String, Object> parameters) {
-        Validate.notNull(corpus, "corpus can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
-
+    public Concepts getCorpusRelatedConcepts(Corpus corpus,RequestedFields conceptFields,int level,int limit) {
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
         Map<String, Object> queryParameters = new HashMap<String, Object>();
-        String[] params = new String[]{LEVEL, LIMIT};
-        for (String param : params) {
-            if (parameters.containsKey(param))
-                queryParameters.put(param, parameters.get(param));
+        if(level>=0) {
+            queryParameters.put(LEVEL,level);
         }
-        if (parameters.get(CONCEPT_FIELDS) != null) {
-            RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
-            if (fields != null && fields.getFields() != null && !fields.getFields().isEmpty())
-                queryParameters.put(CONCEPT_FIELDS, fields.toString());
+        if(limit>=0) {
+            queryParameters.put(LIMIT,limit);
+        }
+        if (conceptFields != null) {
+           if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
+                queryParameters.put(CONCEPT_FIELDS, conceptFields.toString());
         }
         return executeRequest(version + corpus.getId() + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
     }
@@ -505,13 +413,7 @@ public class ConceptInsights extends WatsonService {
 	 * @return {@link Scores}
      */
     public Scores getCorpusRelationScores(final Corpus corpus,final List<String> concepts) {
-        Validate.notNull(corpus, "corpus can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
         Validate.notNull(concepts, "concepts can't be null");
 
         Map<String, Object> queryParameters = new HashMap<String, Object>();
@@ -532,13 +434,7 @@ public class ConceptInsights extends WatsonService {
      * @return the {@link CorpusStats}
      */
     public CorpusStats getCorpusStats(final Corpus corpus) {
-        Validate.notNull(corpus, "corpus can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
         return executeRequest(version + corpus.getId()+ STATS_PATH,null,CorpusStats.class);
     }
 
@@ -550,15 +446,7 @@ public class ConceptInsights extends WatsonService {
      * @return {@link Document}
      */
     public Document getDocument(final Document document,final String corpusName) {
-        Validate.notNull(document, "document can't be null");
-        if(document.getId()!=null) {
-            validate(DOCUMENT_ID_REGEX,document.getId(),"Please provide a valid document.id in the format of (/corpora/{account_id}/{corpus}/documents/{document})");
-        } else {
-            Validate.notNull(document.getName(), "document.name can't be null");
-            Validate.notNull(corpusName, "corpusName can't be null");
-            document.setId("/corpora/"+getAccountId()+"/"+corpusName+"/documents/"+document.getName());
-        }
-
+        ConceptInsightsId.validateGenarate(document, getAccountId(),corpusName);
         return executeRequest(version+document.getId(),null,Document.class);
     }
 
@@ -570,15 +458,7 @@ public class ConceptInsights extends WatsonService {
      * @return {@link DocumentAnnotations}
      */
     public DocumentAnnotations getDocumentAnnotations(final Document document,final String corpusName) {
-        Validate.notNull(document, "document can't be null");
-        if(document.getId()!=null) {
-            validate(DOCUMENT_ID_REGEX,document.getId(),"Please provide a valid document.id in the format of (/corpora/{account_id}/{corpus}/documents/{document})");
-        } else {
-            Validate.notNull(document.getName(), "document.name can't be null");
-            Validate.notNull(corpusName, "corpusName can't be null");
-            document.setId("/corpora/"+getAccountId()+"/"+corpusName+"/documents/"+document.getName());
-        }
-
+        ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
         return executeRequest(version + document.getId() + ANNOTATIONS_PATH,null,DocumentAnnotations.class);
     }
 
@@ -590,52 +470,32 @@ public class ConceptInsights extends WatsonService {
      * @return {@link DocumentProcessingStatus}
      */
     public DocumentProcessingStatus getDocumentProcessingState(final Document document,final String corpusName) {
-        Validate.notNull(document, "document can't be null");
-        if(document.getId()!=null) {
-            validate(DOCUMENT_ID_REGEX,document.getId(),"Please provide a valid document.id in the format of (/corpora/{account_id}/{corpus}/documents/{document})");
-        } else {
-            Validate.notNull(document.getName(), "document.name can't be null");
-            Validate.notNull(corpusName, "corpusName can't be null");
-            document.setId("/corpora/"+getAccountId()+"/"+corpusName+"/documents/"+document.getName());
-        }
-
+       ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
        return executeRequest(version + document.getId() + PROCESSING_STATE_PATH,null,DocumentProcessingStatus.class);
     }
 
     /**
      * Retrieves concepts that are related (in conceptual sense) to a given document.
      *
-     * @param document    Document the document object,
-     * @param corpusName   String the corpus name.
-	 * @param parameters The parameters to be used in the service call
-	 * <ul>
-	 * <li> Integer level - A number in the range 0 - 3 that represents the level of popularity of related concepts.<br>
-     * <li> Integer limit - The maximum number of concepts to be returned.<br>
-     * <li> RequestedFields concept_fields - Additional fields to be included in the concept objects.<br>
-   	 * </ul>
-	 *
-     * @return {@link Concepts}
+     * @param   document       Document the document object,
+     * @param   corpusName     String the corpus name.
+     * @param   conceptFields  RequestedFields concept_fields - Additional fields to be included in the concept objects.
+     * @param   level          Integer level - A number in the range 0 - 3 that represents the level of popularity of related concepts.
+     * @param   limit          Integer limit - The maximum number of concepts to be returned.
+	 * @return {@link Concepts}
      */
-    public Concepts getDocumentRelatedConcepts(final Document document,final String corpusName,Map<String, Object> parameters) {
-        Validate.notNull(document, "document can't be null");
-        if(document.getId()!=null) {
-            validate(DOCUMENT_ID_REGEX,document.getId(),"Please provide a valid document.id in the format of (/corpora/{account_id}/{corpus}/documents/{document})");
-        } else {
-            Validate.notNull(document.getName(), "document.name can't be null");
-            Validate.notNull(corpusName, "corpusName can't be null");
-            document.setId("/corpora/"+getAccountId()+"/"+corpusName+"/documents/"+document.getName());
-        }
-
-        String[] queryParameters = new String[]{LEVEL, LIMIT};
+    public Concepts getDocumentRelatedConcepts(final Document document,final String corpusName,RequestedFields conceptFields,int level,int limit) {
+        ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
         Map<String, Object> queryParams = new HashMap<String, Object>();
-        for (String param : queryParameters) {
-            if (parameters.containsKey(param))
-                queryParams.put(param, parameters.get(param));
+        if(level>=0) {
+            queryParams.put(LEVEL,level);
         }
-        if (parameters.get(CONCEPT_FIELDS) != null) {
-            RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
-            if (fields != null && fields.getFields() != null && !fields.getFields().isEmpty())
-                queryParams.put(CONCEPT_FIELDS, fields.toString());
+        if(limit>=0) {
+            queryParams.put(LIMIT,limit);
+        }
+        if (conceptFields!= null) {
+          if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
+                queryParams.put(CONCEPT_FIELDS, conceptFields.toString());
         }
         return executeRequest(version + document.getId() + RELATED_CONCEPTS_PATH, queryParams, Concepts.class);
     }
@@ -649,14 +509,7 @@ public class ConceptInsights extends WatsonService {
      * @return {@link Scores}
      */
     public Scores getDocumentRelationScores(final Document document,final String corpusName,final List<String> concepts) {
-        Validate.notNull(document, "document can't be null");
-        if(document.getId()!=null) {
-            validate(DOCUMENT_ID_REGEX,document.getId(),"Please provide a valid document.id in the format of (/corpora/{account_id}/{corpus}/documents/{document})");
-        } else {
-            Validate.notNull(document.getName(), "document.name can't be null");
-            Validate.notNull(corpusName, "corpusName can't be null");
-            document.setId("/corpora/"+getAccountId()+"/"+corpusName+"/documents/"+document.getName());
-        }
+        ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
         Validate.notNull(concepts, "concepts can't be null");
 
         Map<String, Object> queryParams = new HashMap<String, Object>();
@@ -673,42 +526,36 @@ public class ConceptInsights extends WatsonService {
 
     /**
      * Searches for graph concepts by using partial matches.
-     *
-     * @param parameters The parameters to be used in the service call, graph is required
-     * <ul>
-     * <li> String graph - The graph name.<br>
-     * <li> List&lt;String&gt; concepts - Array of concept IDs, each identifying a concept.<br>
-     * <li> String concept - the concept name.<br>
-     * <li> Integer level - A number in the range 0 - 3 that represents the level of popularity of related concepts.<br>
-     * <li> Integer limit - The maximum number of concepts to be returned.<br>
-     * </ul>
+     * @param   graphName      String the graph name.
+     * @param   concepts       List&lt;String&gt; concepts - Array of concept IDs, each identifying a concept.
+     * @param   conceptName        String the concept name.
+     * @param   conceptFields  RequestedFields concept_fields - Additional fields to be included in the concept objects.
+     * @param   level          Integer level - A number in the range 0 - 3 that represents the level of popularity of related concepts.
+     * @param   limit          Integer limit - The maximum number of concepts to be returned.
      * @return {@link Concepts}
      */
-    public Concepts getGraphsRelatedConcepts(Map<String, Object> parameters) {
+    public Concepts getGraphsRelatedConcepts(String graphName,List<String> concepts,String conceptName,RequestedFields conceptFields,int level,int limit) {
         //TODO: we may need to divide this into 2 methods
-        Validate.notNull(parameters.get(ACCOUNT_ID), "account_id can't be null");
-        Validate.notNull(parameters.get(GRAPH), "graph can't be null");
-        if (parameters.get(CONCEPTS) == null && parameters.get(CONCEPT) == null)
-            throw new MissingFormatArgumentException("concept or concepts should be identified");
+        Validate.notNull(graphName, "graphName can't be null");
+        if (concepts == null && conceptName == null)
+            throw new MissingFormatArgumentException("conceptName or concepts should be identified");
 
-        Graph graph = new Graph(getAccountId(),(String)parameters.get(GRAPH));
+        Graph graph = new Graph(getAccountId(),graphName);
         Map<String, Object> queryParameters = new HashMap<String, Object>();
-        String[] queryParms = new String[]{LEVEL, LIMIT};
-        for (String param : queryParms) {
-            if (parameters.containsKey(param))
-                queryParameters.put(param, parameters.get(param));
+        if(level>=0) {
+           queryParameters.put(LEVEL,level);
         }
-        if (parameters.get(CONCEPT_FIELDS) != null) {
-            RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
-            if (fields != null && fields.getFields() != null && !fields.getFields().isEmpty())
-                queryParameters.put(CONCEPT_FIELDS, fields.toString());
+        if(limit>=0) {
+            queryParameters.put(LIMIT,limit);
         }
-        if (parameters.get(CONCEPTS) != null) {
+        if (conceptFields != null) {
+            if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
+                queryParameters.put(CONCEPT_FIELDS, conceptFields);
+        }
+        if (concepts != null) {
             JsonObject contentJson = new JsonObject();
             JsonArray conceptsJson = new JsonArray();
-            @SuppressWarnings("unchecked")
-			List<String> concepts = (List<String>) parameters.get(CONCEPTS);
-			for (String value : concepts) {
+            for (String value : concepts) {
                 conceptsJson.add(new JsonPrimitive(value));
             }
             contentJson.add(CONCEPTS, conceptsJson);
@@ -716,7 +563,7 @@ public class ConceptInsights extends WatsonService {
 
             return executeRequest(version+ graph.getId() + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
         } else {
-            Concept concept = new Concept(graph,(String)parameters.get(CONCEPT));
+            Concept concept = new Concept(graph,conceptName);
             return executeRequest(version + concept.getId() + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
         }
     }
@@ -732,14 +579,7 @@ public class ConceptInsights extends WatsonService {
      * @return {@link Scores}
      */
     public Scores getGraphsRelationScores(final Concept concept,final String graphName,List<String> concepts) {
-        Validate.notNull(concept, "concept can't be null");
-        if(concept.getId()!=null) {
-            validate(CONCEPT_ID_REGEX,concept.getId(),"Please provide a valid concept.id in the format of (/graphs/{account_id}/{graph}/concepts/{concept})");
-        } else {
-            Validate.notNull(concept.getName(), "concept.name can't be null");
-            Validate.notNull(graphName, "graphName can't be null");
-            concept.setId("/graphs/"+getAccountId()+"/"+graphName+"/concepts/"+concept.getName());
-        }
+        ConceptInsightsId.validateGenarate(concept, getAccountId(), graphName);
         Validate.notNull(concepts, "concepts can't be null");
 
         Map<String, Object> queryParameters = new HashMap<String, Object>();
@@ -778,39 +618,27 @@ public class ConceptInsights extends WatsonService {
     /**
      * Retrieves the document ids of a corpus.
 	 *
-     * @param corpus Corpus the corpus object
-	 * @param parameters The parameters to be used in the service call
-	 * <ul>
-	 * <li> String concept - The concept name.<br>
-	 * <li> String query - For query syntax see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html">API Explorer</a>.<br> JSON object that allows to filter the list of documents.
-	 * Valid values are {"status":"error"}, {"status":"processing"},
-	 * and {"status":"ready"} which allow to filter documents by status.<br>
-	 * <li> Integer cursor - The number of possible items to return.
-	 * Specify '0' to return the maximum value of 100,000...<br>
-	 * <li> Integer limit - The number of possible concepts to return..<br>
-	 * </ul>
-	 * 
+     * @param corpus Corpus the corpus object.
+	 * @param query  String query - For query syntax see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html">API Explorer</a>.<br> JSON object that allows to filter the list of documents.
+     * Valid values are {"status":"error"}, {"status":"processing"},
+     * and {"status":"ready"} which allow to filter documents by status.
+     * @param limit  int limit - - The number of possible concepts to return.
+     * @param cursor int cursor -  The number of possible items to return. Specify '0' to return the maximum value of 100,000...
      * @return {@link Documents}
      */
-    public Documents listDocuments(final Corpus corpus,Map<String, Object> parameters) {
-        Validate.notNull(corpus, "corpus can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
+    public Documents listDocuments(final Corpus corpus,String query,int limit,int cursor) {
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
         Map<String, Object> queryParameters = new HashMap<String, Object>();
-        String[] queryParams = new String[]{CURSOR, LIMIT};
-        for (String param : queryParams) {
-            if (parameters.containsKey(param)) {
-                queryParameters.put(param, parameters.get(param));
-            }
+        if(cursor>=0) {
+            queryParameters.put(CURSOR,cursor);
         }
-        if (parameters.get(QUERY) != null) {
+        if(limit>=0) {
+            queryParameters.put(LIMIT,limit);
+        }
+        if (query != null) {
             // TODO we may need to work in the query format,for now we do expect 
         	// the query parameter String formatted as documented in Concept Insights.
-            queryParameters.put(QUERY, parameters.get(QUERY));
+            queryParameters.put(QUERY, query);
         }
 
         return executeRequest( version + corpus.getId() + DOCUMENTS,queryParameters,Documents.class);
@@ -827,85 +655,68 @@ public class ConceptInsights extends WatsonService {
 
     /**
      * Searches for documents and concepts by using partial matches on the label(s) fields.
-     *
-	 * @param parameters The parameters to be used in the service call, query is required
-	 * <ul>
-	 * <li> RequestedFields concept_fields - Additional fields to be included in the concept objects.<br>
-     * <li> RequestedFields document_fields - Additional fields to be included in the document objects.<br>
- 	 * <li> Boolean concepts - Whether to return concepts that have a label match.<br>
- 	 * <li> String query - The query string.<br>
-	 * <li> Boolean prefix - Whether the query string should be treated as a prefix.<br>
-     * <li> Integer limit - The maximum number of concepts to be returned.<br>
-  	 * </ul>
-	 *
+     * @param corpus         Graph - the graph object is a required field.
+     * @param query          String query - The query string is a required field.
+     * @param conceptFields  RequestedFields concept_fields - Additional fields to be included in the concept objects.
+     * @param documentFields RequestedFields document_fields - Additional fields to be included in the document objects.
+     * @param concepts       boolean concepts - Whether to return concepts that have a label match..
+     * @param prefix         boolean prefix - Whether the query string should be treated as a prefix.
+     * @param limit          int limit - The maximum number of items to be returned.
      * @return {@link Matches}
      */
-    public Matches searchCorpusByLabel(final Corpus corpus,Map<String, Object> parameters) {
-        Validate.notNull(corpus, "corpus can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
-        Validate.notNull(parameters.get(QUERY), "query can't be null");
+    public Matches searchCorpusByLabel(final Corpus corpus,String query,RequestedFields conceptFields,RequestedFields documentFields,boolean concepts,boolean prefix,int limit) {
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
+        Validate.notNull(query, "query can't be null");
 
         Map<String, Object> queryParameters = new HashMap<String, Object>();
+        queryParameters.put(QUERY,query);
         String[] queryParams = new String[]{QUERY, PREFIX, LIMIT, CONCEPTS};
-        for (String param : queryParams) {
-            if (parameters.containsKey(param))
-                queryParameters.put(param, parameters.get(param));
+        if(prefix) {
+            queryParameters.put(PREFIX,prefix);
         }
-
-        if (parameters.get(CONCEPT_FIELDS) != null) {
-            RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
-            if (fields != null && fields.getFields() != null && !fields.getFields().isEmpty())
-                queryParameters.put(CONCEPT_FIELDS, fields.toString());
+        if(limit>=0) {
+            queryParameters.put(LIMIT,limit);
         }
-
-        if (parameters.get(DOCUMENT_FIELDS) != null) {
-            RequestedFields fields = (RequestedFields) parameters.get(DOCUMENT_FIELDS);
-            if (fields != null && fields.getFields() != null && !fields.getFields().isEmpty())
-                queryParameters.put(DOCUMENT_FIELDS, fields.toString());
+        if(concepts) {
+            queryParameters.put(CONCEPTS,concepts);
+        }
+        if (conceptFields != null) {
+            if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
+                queryParameters.put(CONCEPT_FIELDS, conceptFields.toString());
+        }
+        if (documentFields != null) {
+           if (documentFields != null && documentFields.getFields() != null && !documentFields.getFields().isEmpty())
+                queryParameters.put(DOCUMENT_FIELDS, documentFields.toString());
         }
         return executeRequest(version + corpus.getId() + LABEL_SEARCH_PATH, queryParameters, Matches.class);
     }
 
     /**
 	 * Searches for graph concepts by using partial matches.<br>
-     * @param graph
-	 * @param parameters The parameters to be used in the service call, query is required.
-	 * <ul>
-	 * <li> String account_id - The account identifier.<br>
-	 * <li> String query - The query string.<br>
-	 * <li> Boolean prefix - Whether the query string should be treated as a prefix.<br>
-	 * <li> Integer limit - The maximum number of items to be returned.<br>
-	 * <li> RequestedFields concept_fields - An additional fields to include in the concept objects.<br>
-	 * </ul>
+     *
+     * @param graph         Graph - the graph object is a required field.
+	 * @param query         String query - The query string is a required field.
+	 * @param prefix        boolean prefix - Whether the query string should be treated as a prefix.
+	 * @param limit         int limit - The maximum number of items to be returned.
+	 * @param conceptFields RequestedFields concept_fields - An additional fields to include in the concept objects.
 	 * @return {@link Matches}
 	 */
-    public Matches searchGraphsConceptByLabel(final Graph graph,Map<String, Object> parameters) {
-       Validate.notNull(graph, "graph object can't be null");
+    public Matches searchGraphsConceptByLabel(final Graph graph,String query,boolean prefix,int limit, RequestedFields conceptFields) {
+       ConceptInsightsId.validateGenarate(graph, getAccountId());
+       Validate.notNull(query, "query can't be null");
 
-       if(graph.getId()!=null) {
-           validate(GRAPH_ID_REGEX,graph.getId(),"Please provide a valid graph.id in the format of (/graphs/{account_id}/{graph})");
-       } else {
-           Validate.notNull(graph.getName(), "graph.name can't be null");
-                graph.setId("/graphs/"+getAccountId()+"/"+graph.getName());
-       }
-
-       Validate.notNull(parameters.get(QUERY), "query can't be null");
        Map<String, Object> queryParameters = new HashMap<String, Object>();
-       String[] params = new String[]{QUERY, PREFIX, LIMIT};
-       for (String param : params) {
-            if (parameters.containsKey(param)) {
-                queryParameters.put(param, parameters.get(param));
-            }
+       queryParameters.put(QUERY,query);
+       if(prefix) {
+          queryParameters.put(PREFIX,prefix);
        }
-        if (parameters.get(CONCEPT_FIELDS) != null) {
-            RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
-            if (fields != null && fields.getFields() != null && !fields.getFields().isEmpty())
-                queryParameters.put(CONCEPT_FIELDS, fields.toString());
+       if(limit>=0) {
+          queryParameters.put(LIMIT,limit);
+       }
+
+        if (conceptFields != null) {
+           if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
+                queryParameters.put(CONCEPT_FIELDS, conceptFields.toString());
         }
         return executeRequest(version + graph.getId() + LABEL_SEARCH_PATH, queryParameters, Matches.class);
     }
@@ -916,13 +727,7 @@ public class ConceptInsights extends WatsonService {
      * @param corpus    {@link Corpus} the corpus to update.
      */
     public void updateCorpus(final Corpus corpus) {
-        Validate.notNull(corpus, "corpus can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Please provide a valid corpus.id in the format of (/corpora/{account_id}/{corpus})");
-        } else {
-            Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+getAccountId()+"/"+corpus.getName());
-        }
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
         HttpRequestBase request = Request.Post(version+corpus.getId())
                 .withContent(GsonSingleton.getGson().toJson(corpus), MediaType.APPLICATION_JSON).build();
         executeWithoutResponse(request);
@@ -936,16 +741,7 @@ public class ConceptInsights extends WatsonService {
      * @param document   {@link Document} The document to update.
      */
     public void updateDocument(final Document document, final String corpusName) {
-        Validate.notNull(document, "document can't be null");
-        if(document.getId()!=null) {
-            validate(DOCUMENT_ID_REGEX,document.getId(),"Please provide a valid document.id in the format of (/corpora/{account_id}/{corpus}/documents/{document})");
-        } else {
-            Validate.notNull(document.getName(), "document.name can't be null");
-            Validate.notNull(corpusName, "corpusName can't be null");
-            document.setId("/corpora/"+getAccountId()+"/"+corpusName+"/documents/"+document.getName());
-        }
-
-
+        ConceptInsightsId.validateGenarate(document, getAccountId(),corpusName);
         HttpRequestBase request = Request.Post(version + document.getId())
                 .withContent(GsonSingleton.getGson().toJson(document), MediaType.APPLICATION_JSON)
                 .build();
@@ -975,14 +771,5 @@ public class ConceptInsights extends WatsonService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    private void validate(String regex,String input,String message) {
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(input);
-        if(!matcher.matches()) {
-            throw new IllegalArgumentException(message);
-        }
-
     }
 }
