@@ -17,6 +17,7 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
@@ -32,24 +33,23 @@ public class Corpus extends GenericModel {
 	/** The id. */
 	private String id;
 
-	/** The id. */
+	/** The corpus name. */
 	private String name;
 
-	/** The users. */
-	private List<AccountPermission> users;
-
-	/**
-	 * Gets the access.
-	 * 
-	 * @return The access
-	 */
-	public String getAccess() {
-		return access;
+	public Corpus(){
 	}
+
+	public Corpus(String accountId,String corpusName) {
+		setId("/corpora/"+accountId+"/"+corpusName);
+	}
+
+	/** The accountPermissions. */
+	@SerializedName("users")
+	private List<AccountPermission> accountPermissions;
 
 	/**
 	 * Gets the id.
-	 * 
+	 *
 	 * @return The id
 	 */
 	public String getId() {
@@ -66,12 +66,21 @@ public class Corpus extends GenericModel {
 	}
 
 	/**
-	 * Gets the users.
-	 * 
-	 * @return The users
+	 * Gets the access.
+	 *
+	 * @return The access
 	 */
-	public List<AccountPermission> getUsers() {
-		return users;
+	public String getAccess() {
+		return access;
+	}
+
+	/**
+	 * Gets the accountPermissions.
+	 * 
+	 * @return The accountPermissions
+	 */
+	public List<AccountPermission> getAccountPermissions() {
+		return accountPermissions;
 	}
 
 	/**
@@ -92,6 +101,7 @@ public class Corpus extends GenericModel {
 	 */
 	public void setId(String id) {
 		this.id = id;
+		//this.name = id.split("/")[3];
 	}
 
 	/**
@@ -104,13 +114,13 @@ public class Corpus extends GenericModel {
 		this.name = name;
 	}
 	/**
-	 * Sets the users.
+	 * Sets the accountPermissions.
 	 * 
-	 * @param users
-	 *            The users
+	 * @param accountPermissions
+	 *            The accountPermissions
 	 */
-	public void setUsers(List<AccountPermission> users) {
-		this.users = users;
+	public void setAccountPermissions(List<AccountPermission> accountPermissions) {
+		this.accountPermissions = accountPermissions;
 	}
 
 }

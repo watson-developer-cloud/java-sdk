@@ -30,6 +30,17 @@ public class Concept extends GenericModel {
 	/** The label. */
 	private String label;
 
+	/** The concept name. */
+	private String name;
+
+	public Concept() {
+		this(null,null);
+	}
+
+	public Concept(Graph graph,String concept) {
+		setId(graph.getId() + "/concepts/" + concept);
+	}
+
 	/**
 	 * Gets the id.
 	 * 
@@ -37,6 +48,15 @@ public class Concept extends GenericModel {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * Gets the name.
+	 *
+	 * @return The name
+	 */
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -66,5 +86,15 @@ public class Concept extends GenericModel {
 	 */
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	/**
+	 * Sets the name.
+	 *
+	 * @param name
+	 *            The name
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }

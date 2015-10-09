@@ -35,6 +35,16 @@ public class Document extends GenericModel {
 	/** The label. */
 	private String label;
 
+	/** The document name. */
+	private String name;
+
+	public Document() {
+	}
+
+	public Document(Corpus corpus,String document) {
+		setId(corpus.getId()+"/documents/"+document);
+	}
+
 	/** The last modified. */
 	@SerializedName("last_modified")
 	private Date lastModified;
@@ -53,6 +63,15 @@ public class Document extends GenericModel {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * Gets the name.
+	 *
+	 * @return The name
+	 */
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -139,5 +158,15 @@ public class Document extends GenericModel {
 	 */
 	public void setUserFields(Map<String, String> userFields) {
 		this.userFields = userFields;
+	}
+
+	/**
+	 * Sets the name.
+	 *
+	 * @param name
+	 *            The name
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }
