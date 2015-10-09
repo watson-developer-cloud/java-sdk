@@ -212,52 +212,6 @@ public class ConceptInsights extends WatsonService {
     private static final String URL = "https://gateway.watsonplatform.net/concept-insights/api";
 
     /**
-     * Creates the concept id path.
-     *
-     * @param accountId the account id
-     * @param graph     the graph
-     * @param concept   the concept
-     * @return the string
-     */
-    private static String createConceptIdPath(final String accountId, final String graph, final String concept) {
-        return String.format("%s/%s/%s/%s/%s/", GRAPHS_PATH, accountId, graph, CONCEPTS, concept);
-    }
-
-    /**
-     * Creates the corpus id path.
-     *
-     * @param accountId the account id
-     * @param corpus    the corpus
-     * @return the string
-     */
-    private static String createCorpusIdPath(final String accountId, final String corpus) {
-        return String.format("%s/%s/%s/", CORPORA_PATH, accountId, corpus);
-    }
-
-    /**
-     * Creates the document id path.
-     *
-     * @param accountId the account id
-     * @param corpus    the corpus
-     * @param document  the document
-     * @return the string
-     */
-    private static String createDocumentIdPath(final String accountId, final String corpus, final String document) {
-        return String.format("%s/%s/%s/%s/%s/", CORPORA_PATH, accountId, corpus, DOCUMENTS, document);
-    }
-
-    /**
-     * Creates the graph id path.
-     *
-     * @param accountId the account id
-     * @param graph     the graph
-     * @return the string
-     */
-    private static String createGraphIdPath(final String accountId, final String graph) {
-        return String.format("%s/%s/%s/", GRAPHS_PATH, accountId, graph);
-    }
-
-    /**
      * Instantiates a new Concept Insights service.
      */
     public ConceptInsights() {
