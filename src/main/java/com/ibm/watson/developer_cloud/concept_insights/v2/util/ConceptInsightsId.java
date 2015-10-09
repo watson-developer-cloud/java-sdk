@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 /**
  * Created by nizar alseddeg.
  */
-public class ConceptInsightsId{
+public class ConceptInsightsId {
 
     /**
      * The CORPUS_ID_REGEX. (format is "/corpora/{account_id}/{corpus}")
@@ -55,16 +55,16 @@ public class ConceptInsightsId{
     /**
      * This method validate the id if it has been populated in the corpus object, otherwise it will generated it.
      *
-     * @param corpus     Corpus the corpus object,
-     * @param accoundId  String the account id.
+     * @param corpus    Corpus the corpus object,
+     * @param accoundId String the account id.
      */
-    public static void validateGenarate(Corpus corpus,String accoundId) {
+    public static void validateGenarate(Corpus corpus, String accoundId) {
         Validate.notNull(corpus, "corpus can't be null");
-        if(corpus.getId()!=null) {
-            validate(CORPUS_ID_REGEX,corpus.getId(),"Provide a valid corpus.id (format is " + '"' + "/corpora/{account_id}/{corpus} +"+ '"' + ")");
+        if (corpus.getId() != null) {
+            validate(CORPUS_ID_REGEX, corpus.getId(), "Provide a valid corpus.id (format is " + '"' + "/corpora/{account_id}/{corpus} +" + '"' + ")");
         } else {
             Validate.notNull(corpus.getName(), "corpus.name can't be null");
-            corpus.setId("/corpora/"+accoundId+"/"+corpus.getName());
+            corpus.setId("/corpora/" + accoundId + "/" + corpus.getName());
         }
     }
 
@@ -72,15 +72,15 @@ public class ConceptInsightsId{
      * This method validate the id if it has been populated in the graph object, otherwise it will generated it.
      *
      * @param graph     Graph the graph object,
-     * @param accoundId  String the account id.
+     * @param accoundId String the account id.
      */
-    public static void validateGenarate(Graph graph,String accoundId) {
+    public static void validateGenarate(Graph graph, String accoundId) {
         Validate.notNull(graph, "graph object can't be null");
-        if(graph.getId()!=null) {
-            validate(GRAPH_ID_REGEX,graph.getId(),"Provide a valid graph.id (format is " + '"' + " (/graphs/{account_id}/{graph}) +"+ '"' + ")");
+        if (graph.getId() != null) {
+            validate(GRAPH_ID_REGEX, graph.getId(), "Provide a valid graph.id (format is " + '"' + " (/graphs/{account_id}/{graph}) +" + '"' + ")");
         } else {
             Validate.notNull(graph.getName(), "graph.name can't be null");
-            graph.setId("/graphs/"+accoundId+"/"+graph.getName());
+            graph.setId("/graphs/" + accoundId + "/" + graph.getName());
         }
     }
 
@@ -91,32 +91,32 @@ public class ConceptInsightsId{
      * @param accoundId  String the account id.
      * @param corpusName String the corpus name.
      */
-    public static void validateGenarate(Document document,String accoundId,String corpusName) {
+    public static void validateGenarate(Document document, String accoundId, String corpusName) {
         Validate.notNull(document, "document can't be null");
-        if(document.getId()!=null) {
-            validate(DOCUMENT_ID_REGEX,document.getId(),"Provide a valid document.id (format is " + '"' + " (/corpora/{account_id}/{corpus}/documents/{document}) +"+ '"' + ")");
+        if (document.getId() != null) {
+            validate(DOCUMENT_ID_REGEX, document.getId(), "Provide a valid document.id (format is " + '"' + " (/corpora/{account_id}/{corpus}/documents/{document}) +" + '"' + ")");
         } else {
             Validate.notNull(document.getName(), "document.name can't be null");
             Validate.notNull(corpusName, "corpusName can't be null");
-            document.setId("/corpora/"+accoundId+"/"+corpusName+"/documents/"+document.getName());
+            document.setId("/corpora/" + accoundId + "/" + corpusName + "/documents/" + document.getName());
         }
     }
 
     /**
      * The purpose of this method to validate / generate the concept.id.
      *
-     * @param concept    Document the document object,
-     * @param accoundId  String the account id.
-     * @param graphName  String the graph name.
+     * @param concept   Document the document object,
+     * @param accoundId String the account id.
+     * @param graphName String the graph name.
      */
-    public static void validateGenarate(Concept concept,String accoundId,String graphName) {
+    public static void validateGenarate(Concept concept, String accoundId, String graphName) {
         Validate.notNull(concept, "concept can't be null");
-        if(concept.getId()!=null) {
-            validate(CONCEPT_ID_REGEX,concept.getId(),"Provide a valid concept.id (format is " + '"' + " (/graphs/{account_id}/{graph}/concepts/{concept})+"+ '"' + ")");
+        if (concept.getId() != null) {
+            validate(CONCEPT_ID_REGEX, concept.getId(), "Provide a valid concept.id (format is " + '"' + " (/graphs/{account_id}/{graph}/concepts/{concept})+" + '"' + ")");
         } else {
             Validate.notNull(concept.getName(), "concept.name can't be null");
             Validate.notNull(graphName, "graphName can't be null");
-            concept.setId("/graphs/"+accoundId+"/"+graphName+"/concepts/"+concept.getName());
+            concept.setId("/graphs/" + accoundId + "/" + graphName + "/concepts/" + concept.getName());
         }
     }
 
@@ -127,10 +127,10 @@ public class ConceptInsightsId{
      * @param id      the id to be check.
      * @param message the exception message if invalid.
      */
-    private static void validate(String regex,String id,String message) {
+    private static void validate(String regex, String id, String message) {
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(id);
-        if(!matcher.matches()) {
+        if (!matcher.matches()) {
             throw new IllegalArgumentException(message);
         }
     }

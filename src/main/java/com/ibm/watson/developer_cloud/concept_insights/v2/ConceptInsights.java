@@ -1,12 +1,12 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p/>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,7 +23,6 @@ import com.ibm.watson.developer_cloud.concept_insights.v2.util.ConceptInsightsId
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.*;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 
@@ -32,8 +31,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingFormatArgumentException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * The IBM Watson™ Concept Insights service provides APIs that enable you to work with
@@ -55,12 +52,12 @@ public class ConceptInsights extends WatsonService {
      * The Constant ACCOUNT_ID. (value is "account_id")
      */
     public static final String ACCOUNT_ID = "account_id";
-    
+
     /**
      * The Constant CONCEPT_ID. (value is "concept_id")
      */
     public static final String CONCEPT_ID = "concept_id";
-    
+
     /**
      * The ACCOUNTS_PATH. (value is "/v2/accounts")
      */
@@ -213,7 +210,7 @@ public class ConceptInsights extends WatsonService {
     }
 
     private String getAccountId() {
-        if(accountId==null) {
+        if (accountId == null) {
             Accounts accounts = getAccountsInfo();
             accountId = (accounts != null && accounts.getAccounts() != null && accounts.getAccounts().size() > 0) ? accounts.getAccounts().get(0).getId() : null;
         }
@@ -227,7 +224,7 @@ public class ConceptInsights extends WatsonService {
      * @param  text - The text to annotate.
      * @return {@link Annotations}
      */
-    public Annotations annotateText(final Graph graph,final String text) {
+    public Annotations annotateText(final Graph graph, final String text) {
         ConceptInsightsId.validateGenarate(graph, getAccountId());
         Validate.notNull(text, "text can't be null");
 
@@ -250,21 +247,21 @@ public class ConceptInsights extends WatsonService {
      *
      * @param   corpus         Corpus the corpus object - Required field.
      * @param   ids            String JSON array of concept and/or document ids - Required field.
-	 * @param   conceptFields  RequestedFields concept_fields - Additional fields to be included in the concept objects.
-	 * @param   documentFields RequestedFields document_fields - Additional fields to be included in the document objects.
-	 * @param   cursor         Integer cursor - A number of items to skip.
+     * @param   conceptFields  RequestedFields concept_fields - Additional fields to be included in the concept objects.
+     * @param   documentFields RequestedFields document_fields - Additional fields to be included in the document objects.
+     * @param   cursor         Integer cursor - A number of items to skip.
      * @param   limit          Integer limit - The maximum number of concepts to be returned.
      * @return {@link QueryConcepts}
      */
-    public QueryConcepts conceptualSearch(Corpus corpus,List<String> ids,RequestedFields conceptFields,RequestedFields documentFields,int cursor,int limit) {
+    public QueryConcepts conceptualSearch(Corpus corpus, List<String> ids, RequestedFields conceptFields, RequestedFields documentFields, int cursor, int limit) {
         ConceptInsightsId.validateGenarate(corpus, getAccountId());
         Validate.notNull(ids, "ids can't be null");
-        Map<String,Object> queryParams = new HashMap<String, Object>();
-        if(cursor>=0) {
-            queryParams.put(CURSOR,cursor);
+        Map<String, Object> queryParams = new HashMap<String, Object>();
+        if (cursor >= 0) {
+            queryParams.put(CURSOR, cursor);
         }
-        if(limit>=0) {
-            queryParams.put(LIMIT,limit);
+        if (limit >= 0) {
+            queryParams.put(LIMIT, limit);
         }
         JsonArray IdsJsonArray = new JsonArray();
         for (String value : ids) {
@@ -281,7 +278,7 @@ public class ConceptInsights extends WatsonService {
                 queryParams.put(DOCUMENT_FIELDS, documentFields.toString());
         }
 
-        return executeRequest(version+ corpus.getId() + CONCEPTUAL_SEARCH_PATH,queryParams,QueryConcepts.class);
+        return executeRequest(version + corpus.getId() + CONCEPTUAL_SEARCH_PATH, queryParams, QueryConcepts.class);
     }
 
     /**
@@ -290,7 +287,7 @@ public class ConceptInsights extends WatsonService {
      * @param corpus    Corpus the corpus object.
      */
     public void createCorpus(final Corpus corpus) {
-        ConceptInsightsId.validateGenarate(corpus,getAccountId());
+        ConceptInsightsId.validateGenarate(corpus, getAccountId());
         HttpRequestBase request = Request.Put(version + corpus.getId())
                 .withContent(GsonSingleton.getGson().toJson(corpus), MediaType.APPLICATION_JSON).build();
         executeWithoutResponse(request);
@@ -302,8 +299,8 @@ public class ConceptInsights extends WatsonService {
      * @param corpusName String the corpus name.
      * @param document   {@link Document} The document to create.
      */
-    public void createDocument(final Document document,final String corpusName) {
-        ConceptInsightsId.validateGenarate(document,getAccountId(),corpusName);
+    public void createDocument(final Document document, final String corpusName) {
+        ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
         HttpRequestBase request = Request
                 .Put(version + document.getId())
                 .withContent(GsonSingleton.getGson().toJson(document), MediaType.APPLICATION_JSON)
@@ -319,7 +316,7 @@ public class ConceptInsights extends WatsonService {
      */
     public void deleteCorpus(final Corpus corpus) {
         ConceptInsightsId.validateGenarate(corpus, getAccountId());
-        HttpRequestBase request = Request.Delete(version+corpus.getId()).build();
+        HttpRequestBase request = Request.Delete(version + corpus.getId()).build();
         executeWithoutResponse(request);
     }
 
@@ -332,7 +329,7 @@ public class ConceptInsights extends WatsonService {
 
     public void deleteDocument(final String corpusName, final Document document) {
         ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
-        HttpRequestBase request = Request.Delete(version+document.getId())
+        HttpRequestBase request = Request.Delete(version + document.getId())
                 .build();
         executeWithoutResponse(request);
     }
@@ -343,7 +340,7 @@ public class ConceptInsights extends WatsonService {
      * @return the {@link Accounts}
      */
     public Accounts getAccountsInfo() {
-       return executeRequest(ACCOUNTS_PATH,null,Accounts.class);
+        return executeRequest(ACCOUNTS_PATH, null, Accounts.class);
     }
 
     /**
@@ -353,9 +350,9 @@ public class ConceptInsights extends WatsonService {
      * @param graphName String the graph name.
      * @return {@link ConceptMetadata}
      */
-    public ConceptMetadata getConcept(final Concept concept,final String graphName) {
+    public ConceptMetadata getConcept(final Concept concept, final String graphName) {
         ConceptInsightsId.validateGenarate(concept, getAccountId(), graphName);
-        return executeRequest(version+concept.getId(),null,ConceptMetadata.class);
+        return executeRequest(version + concept.getId(), null, ConceptMetadata.class);
     }
 
     /**
@@ -366,7 +363,7 @@ public class ConceptInsights extends WatsonService {
      */
     public Corpus getCorpus(final Corpus corpus) {
         ConceptInsightsId.validateGenarate(corpus, getAccountId());
-        return executeRequest(version+corpus.getId(),null,Corpus.class);
+        return executeRequest(version + corpus.getId(), null, Corpus.class);
     }
 
     /**
@@ -377,7 +374,7 @@ public class ConceptInsights extends WatsonService {
      */
     public CorpusProcessingState getCorpusProcessingState(final Corpus corpus) {
         ConceptInsightsId.validateGenarate(corpus, getAccountId());
-        return executeRequest(version + corpus.getId() + PROCESSING_STATE_PATH,null,CorpusProcessingState.class);
+        return executeRequest(version + corpus.getId() + PROCESSING_STATE_PATH, null, CorpusProcessingState.class);
     }
 
     /**
@@ -389,17 +386,17 @@ public class ConceptInsights extends WatsonService {
      * @param   limit          Integer limit - The maximum number of concepts to be returned.
      * @return {@link Concepts}
      */
-    public Concepts getCorpusRelatedConcepts(Corpus corpus,RequestedFields conceptFields,int level,int limit) {
+    public Concepts getCorpusRelatedConcepts(Corpus corpus, RequestedFields conceptFields, int level, int limit) {
         ConceptInsightsId.validateGenarate(corpus, getAccountId());
         Map<String, Object> queryParameters = new HashMap<String, Object>();
-        if(level>=0) {
-            queryParameters.put(LEVEL,level);
+        if (level >= 0) {
+            queryParameters.put(LEVEL, level);
         }
-        if(limit>=0) {
-            queryParameters.put(LIMIT,limit);
+        if (limit >= 0) {
+            queryParameters.put(LIMIT, limit);
         }
         if (conceptFields != null) {
-           if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
+            if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
                 queryParameters.put(CONCEPT_FIELDS, conceptFields.toString());
         }
         return executeRequest(version + corpus.getId() + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
@@ -410,9 +407,9 @@ public class ConceptInsights extends WatsonService {
      *
      * @param corpus The corpus object
      * @param concepts Array of concept IDs, each identifying a concept
-	 * @return {@link Scores}
+     * @return {@link Scores}
      */
-    public Scores getCorpusRelationScores(final Corpus corpus,final List<String> concepts) {
+    public Scores getCorpusRelationScores(final Corpus corpus, final List<String> concepts) {
         ConceptInsightsId.validateGenarate(corpus, getAccountId());
         Validate.notNull(concepts, "concepts can't be null");
 
@@ -424,7 +421,7 @@ public class ConceptInsights extends WatsonService {
         }
         contentJson.add(CONCEPTS, conceptsJson);
         queryParameters.put(CONCEPTS, conceptsJson.toString());
-        return executeRequest(version+ corpus.getId() + RELATION_SCORES_PATH, queryParameters, Scores.class);
+        return executeRequest(version + corpus.getId() + RELATION_SCORES_PATH, queryParameters, Scores.class);
     }
 
     /**
@@ -435,7 +432,7 @@ public class ConceptInsights extends WatsonService {
      */
     public CorpusStats getCorpusStats(final Corpus corpus) {
         ConceptInsightsId.validateGenarate(corpus, getAccountId());
-        return executeRequest(version + corpus.getId()+ STATS_PATH,null,CorpusStats.class);
+        return executeRequest(version + corpus.getId() + STATS_PATH, null, CorpusStats.class);
     }
 
     /**
@@ -445,9 +442,9 @@ public class ConceptInsights extends WatsonService {
      * @param corpusName   String the corpus name.
      * @return {@link Document}
      */
-    public Document getDocument(final Document document,final String corpusName) {
-        ConceptInsightsId.validateGenarate(document, getAccountId(),corpusName);
-        return executeRequest(version+document.getId(),null,Document.class);
+    public Document getDocument(final Document document, final String corpusName) {
+        ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
+        return executeRequest(version + document.getId(), null, Document.class);
     }
 
     /**
@@ -457,9 +454,9 @@ public class ConceptInsights extends WatsonService {
      * @param corpusName   String the corpus name.
      * @return {@link DocumentAnnotations}
      */
-    public DocumentAnnotations getDocumentAnnotations(final Document document,final String corpusName) {
+    public DocumentAnnotations getDocumentAnnotations(final Document document, final String corpusName) {
         ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
-        return executeRequest(version + document.getId() + ANNOTATIONS_PATH,null,DocumentAnnotations.class);
+        return executeRequest(version + document.getId() + ANNOTATIONS_PATH, null, DocumentAnnotations.class);
     }
 
     /**
@@ -469,9 +466,9 @@ public class ConceptInsights extends WatsonService {
      * @param corpusName   String the corpus name.
      * @return {@link DocumentProcessingStatus}
      */
-    public DocumentProcessingStatus getDocumentProcessingState(final Document document,final String corpusName) {
-       ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
-       return executeRequest(version + document.getId() + PROCESSING_STATE_PATH,null,DocumentProcessingStatus.class);
+    public DocumentProcessingStatus getDocumentProcessingState(final Document document, final String corpusName) {
+        ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
+        return executeRequest(version + document.getId() + PROCESSING_STATE_PATH, null, DocumentProcessingStatus.class);
     }
 
     /**
@@ -482,19 +479,19 @@ public class ConceptInsights extends WatsonService {
      * @param   conceptFields  RequestedFields concept_fields - Additional fields to be included in the concept objects.
      * @param   level          Integer level - A number in the range 0 - 3 that represents the level of popularity of related concepts.
      * @param   limit          Integer limit - The maximum number of concepts to be returned.
-	 * @return {@link Concepts}
+     * @return {@link Concepts}
      */
-    public Concepts getDocumentRelatedConcepts(final Document document,final String corpusName,RequestedFields conceptFields,int level,int limit) {
+    public Concepts getDocumentRelatedConcepts(final Document document, final String corpusName, RequestedFields conceptFields, int level, int limit) {
         ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
         Map<String, Object> queryParams = new HashMap<String, Object>();
-        if(level>=0) {
-            queryParams.put(LEVEL,level);
+        if (level >= 0) {
+            queryParams.put(LEVEL, level);
         }
-        if(limit>=0) {
-            queryParams.put(LIMIT,limit);
+        if (limit >= 0) {
+            queryParams.put(LIMIT, limit);
         }
-        if (conceptFields!= null) {
-          if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
+        if (conceptFields != null) {
+            if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
                 queryParams.put(CONCEPT_FIELDS, conceptFields.toString());
         }
         return executeRequest(version + document.getId() + RELATED_CONCEPTS_PATH, queryParams, Concepts.class);
@@ -508,7 +505,7 @@ public class ConceptInsights extends WatsonService {
      * @param corpusName   Array of concept IDs, each identifying a concept.
      * @return {@link Scores}
      */
-    public Scores getDocumentRelationScores(final Document document,final String corpusName,final List<String> concepts) {
+    public Scores getDocumentRelationScores(final Document document, final String corpusName, final List<String> concepts) {
         ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
         Validate.notNull(concepts, "concepts can't be null");
 
@@ -534,19 +531,19 @@ public class ConceptInsights extends WatsonService {
      * @param   limit          Integer limit - The maximum number of concepts to be returned.
      * @return {@link Concepts}
      */
-    public Concepts getGraphsRelatedConcepts(String graphName,List<String> concepts,String conceptName,RequestedFields conceptFields,int level,int limit) {
+    public Concepts getGraphsRelatedConcepts(String graphName, List<String> concepts, String conceptName, RequestedFields conceptFields, int level, int limit) {
         //TODO: we may need to divide this into 2 methods
         Validate.notNull(graphName, "graphName can't be null");
         if (concepts == null && conceptName == null)
             throw new MissingFormatArgumentException("conceptName or concepts should be identified");
 
-        Graph graph = new Graph(getAccountId(),graphName);
+        Graph graph = new Graph(getAccountId(), graphName);
         Map<String, Object> queryParameters = new HashMap<String, Object>();
-        if(level>=0) {
-           queryParameters.put(LEVEL,level);
+        if (level >= 0) {
+            queryParameters.put(LEVEL, level);
         }
-        if(limit>=0) {
-            queryParameters.put(LIMIT,limit);
+        if (limit >= 0) {
+            queryParameters.put(LIMIT, limit);
         }
         if (conceptFields != null) {
             if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
@@ -561,9 +558,9 @@ public class ConceptInsights extends WatsonService {
             contentJson.add(CONCEPTS, conceptsJson);
             queryParameters.put(CONCEPTS, conceptsJson.toString());
 
-            return executeRequest(version+ graph.getId() + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
+            return executeRequest(version + graph.getId() + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
         } else {
-            Concept concept = new Concept(graph,conceptName);
+            Concept concept = new Concept(graph, conceptName);
             return executeRequest(version + concept.getId() + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
         }
     }
@@ -575,10 +572,10 @@ public class ConceptInsights extends WatsonService {
      * @param concept     Concept the concept object,
      * @param graphName   String the graph name.
      * @param concepts    Array of concept IDs, each identifying a concept.
-	 *
+     *
      * @return {@link Scores}
      */
-    public Scores getGraphsRelationScores(final Concept concept,final String graphName,List<String> concepts) {
+    public Scores getGraphsRelationScores(final Concept concept, final String graphName, List<String> concepts) {
         ConceptInsightsId.validateGenarate(concept, getAccountId(), graphName);
         Validate.notNull(concepts, "concepts can't be null");
 
@@ -586,7 +583,7 @@ public class ConceptInsights extends WatsonService {
         JsonObject contentJson = new JsonObject();
         JsonArray conceptsJson = new JsonArray();
 
-		for (String value : concepts) {
+        for (String value : concepts) {
             conceptsJson.add(new JsonPrimitive(value));
         }
         contentJson.add(CONCEPTS, conceptsJson);
@@ -601,7 +598,7 @@ public class ConceptInsights extends WatsonService {
      * @return {@link Corpora}
      */
     public Corpora listCorpora() {
-        return executeRequest(CORPORA_PATH,null,Corpora.class);
+        return executeRequest(CORPORA_PATH, null, Corpora.class);
     }
 
     /**
@@ -612,36 +609,36 @@ public class ConceptInsights extends WatsonService {
      */
     public Corpora listCorpora(String accountId) {
         Validate.notNull(accountId, "account_id can't be null");
-        return executeRequest(CORPORA_PATH + FORWARD_SLASH + accountId,null,Corpora.class);
+        return executeRequest(CORPORA_PATH + FORWARD_SLASH + accountId, null, Corpora.class);
     }
 
     /**
      * Retrieves the document ids of a corpus.
-	 *
+     *
      * @param corpus Corpus the corpus object.
-	 * @param query  String query - For query syntax see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html">API Explorer</a>.<br> JSON object that allows to filter the list of documents.
+     * @param query  String query - For query syntax see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html">API Explorer</a>.<br> JSON object that allows to filter the list of documents.
      * Valid values are {"status":"error"}, {"status":"processing"},
      * and {"status":"ready"} which allow to filter documents by status.
      * @param limit  int limit - - The number of possible concepts to return.
      * @param cursor int cursor -  The number of possible items to return. Specify '0' to return the maximum value of 100,000...
      * @return {@link Documents}
      */
-    public Documents listDocuments(final Corpus corpus,String query,int limit,int cursor) {
+    public Documents listDocuments(final Corpus corpus, String query, int limit, int cursor) {
         ConceptInsightsId.validateGenarate(corpus, getAccountId());
         Map<String, Object> queryParameters = new HashMap<String, Object>();
-        if(cursor>=0) {
-            queryParameters.put(CURSOR,cursor);
+        if (cursor >= 0) {
+            queryParameters.put(CURSOR, cursor);
         }
-        if(limit>=0) {
-            queryParameters.put(LIMIT,limit);
+        if (limit >= 0) {
+            queryParameters.put(LIMIT, limit);
         }
         if (query != null) {
             // TODO we may need to work in the query format,for now we do expect 
-        	// the query parameter String formatted as documented in Concept Insights.
+            // the query parameter String formatted as documented in Concept Insights.
             queryParameters.put(QUERY, query);
         }
 
-        return executeRequest( version + corpus.getId() + DOCUMENTS,queryParameters,Documents.class);
+        return executeRequest(version + corpus.getId() + DOCUMENTS, queryParameters, Documents.class);
     }
 
     /**
@@ -650,7 +647,7 @@ public class ConceptInsights extends WatsonService {
      * @return the {@link Graphs}
      */
     public Graphs listGraphs() {
-        return executeRequest(GRAPHS_PATH,null,Graphs.class);
+        return executeRequest(GRAPHS_PATH, null, Graphs.class);
     }
 
     /**
@@ -664,58 +661,58 @@ public class ConceptInsights extends WatsonService {
      * @param limit          int limit - The maximum number of items to be returned.
      * @return {@link Matches}
      */
-    public Matches searchCorpusByLabel(final Corpus corpus,String query,RequestedFields conceptFields,RequestedFields documentFields,boolean concepts,boolean prefix,int limit) {
+    public Matches searchCorpusByLabel(final Corpus corpus, String query, RequestedFields conceptFields, RequestedFields documentFields, boolean concepts, boolean prefix, int limit) {
         ConceptInsightsId.validateGenarate(corpus, getAccountId());
         Validate.notNull(query, "query can't be null");
 
         Map<String, Object> queryParameters = new HashMap<String, Object>();
-        queryParameters.put(QUERY,query);
+        queryParameters.put(QUERY, query);
         String[] queryParams = new String[]{QUERY, PREFIX, LIMIT, CONCEPTS};
-        if(prefix) {
-            queryParameters.put(PREFIX,prefix);
+        if (prefix) {
+            queryParameters.put(PREFIX, prefix);
         }
-        if(limit>=0) {
-            queryParameters.put(LIMIT,limit);
+        if (limit >= 0) {
+            queryParameters.put(LIMIT, limit);
         }
-        if(concepts) {
-            queryParameters.put(CONCEPTS,concepts);
+        if (concepts) {
+            queryParameters.put(CONCEPTS, concepts);
         }
         if (conceptFields != null) {
             if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
                 queryParameters.put(CONCEPT_FIELDS, conceptFields.toString());
         }
         if (documentFields != null) {
-           if (documentFields != null && documentFields.getFields() != null && !documentFields.getFields().isEmpty())
+            if (documentFields != null && documentFields.getFields() != null && !documentFields.getFields().isEmpty())
                 queryParameters.put(DOCUMENT_FIELDS, documentFields.toString());
         }
         return executeRequest(version + corpus.getId() + LABEL_SEARCH_PATH, queryParameters, Matches.class);
     }
 
     /**
-	 * Searches for graph concepts by using partial matches.<br>
+     * Searches for graph concepts by using partial matches.<br>
      *
      * @param graph         Graph - the graph object is a required field.
-	 * @param query         String query - The query string is a required field.
-	 * @param prefix        boolean prefix - Whether the query string should be treated as a prefix.
-	 * @param limit         int limit - The maximum number of items to be returned.
-	 * @param conceptFields RequestedFields concept_fields - An additional fields to include in the concept objects.
-	 * @return {@link Matches}
-	 */
-    public Matches searchGraphsConceptByLabel(final Graph graph,String query,boolean prefix,int limit, RequestedFields conceptFields) {
-       ConceptInsightsId.validateGenarate(graph, getAccountId());
-       Validate.notNull(query, "query can't be null");
+     * @param query         String query - The query string is a required field.
+     * @param prefix        boolean prefix - Whether the query string should be treated as a prefix.
+     * @param limit         int limit - The maximum number of items to be returned.
+     * @param conceptFields RequestedFields concept_fields - An additional fields to include in the concept objects.
+     * @return {@link Matches}
+     */
+    public Matches searchGraphsConceptByLabel(final Graph graph, String query, boolean prefix, int limit, RequestedFields conceptFields) {
+        ConceptInsightsId.validateGenarate(graph, getAccountId());
+        Validate.notNull(query, "query can't be null");
 
-       Map<String, Object> queryParameters = new HashMap<String, Object>();
-       queryParameters.put(QUERY,query);
-       if(prefix) {
-          queryParameters.put(PREFIX,prefix);
-       }
-       if(limit>=0) {
-          queryParameters.put(LIMIT,limit);
-       }
+        Map<String, Object> queryParameters = new HashMap<String, Object>();
+        queryParameters.put(QUERY, query);
+        if (prefix) {
+            queryParameters.put(PREFIX, prefix);
+        }
+        if (limit >= 0) {
+            queryParameters.put(LIMIT, limit);
+        }
 
         if (conceptFields != null) {
-           if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
+            if (conceptFields != null && conceptFields.getFields() != null && !conceptFields.getFields().isEmpty())
                 queryParameters.put(CONCEPT_FIELDS, conceptFields.toString());
         }
         return executeRequest(version + graph.getId() + LABEL_SEARCH_PATH, queryParameters, Matches.class);
@@ -728,7 +725,7 @@ public class ConceptInsights extends WatsonService {
      */
     public void updateCorpus(final Corpus corpus) {
         ConceptInsightsId.validateGenarate(corpus, getAccountId());
-        HttpRequestBase request = Request.Post(version+corpus.getId())
+        HttpRequestBase request = Request.Post(version + corpus.getId())
                 .withContent(GsonSingleton.getGson().toJson(corpus), MediaType.APPLICATION_JSON).build();
         executeWithoutResponse(request);
     }
@@ -741,7 +738,7 @@ public class ConceptInsights extends WatsonService {
      * @param document   {@link Document} The document to update.
      */
     public void updateDocument(final Document document, final String corpusName) {
-        ConceptInsightsId.validateGenarate(document, getAccountId(),corpusName);
+        ConceptInsightsId.validateGenarate(document, getAccountId(), corpusName);
         HttpRequestBase request = Request.Post(version + document.getId())
                 .withContent(GsonSingleton.getGson().toJson(document), MediaType.APPLICATION_JSON)
                 .build();
@@ -757,9 +754,9 @@ public class ConceptInsights extends WatsonService {
      * @param returnType      the POJO class to be parsed from the response
      * @return the POJO object that represent the response
      */
-    private <T> T executeRequest(String resourcePath, Map<String, Object> params,  Class<T> returnType) {
+    private <T> T executeRequest(String resourcePath, Map<String, Object> params, Class<T> returnType) {
         Request request = Request.Get(resourcePath);
-        if(params!=null && !params.isEmpty()) {
+        if (params != null && !params.isEmpty()) {
             for (Map.Entry<String, Object> entry : params.entrySet()) {
                 request.withQuery(entry.getKey(), entry.getValue());
             }
