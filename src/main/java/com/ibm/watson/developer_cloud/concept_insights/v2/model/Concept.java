@@ -33,12 +33,37 @@ public class Concept extends GenericModel {
 	/** The concept name. */
 	private String name;
 
+	/**
+	 * Instantiates a new concept.
+	 */
 	public Concept() {
-		this(null,null);
 	}
 
-	public Concept(Graph graph,String concept) {
+	/**
+	 * Instantiates a new concept.
+	 * 
+	 * @param graph
+	 *            the graph
+	 * @param concept
+	 *            the concept
+	 */
+	public Concept(Graph graph, String concept) {
+		setName(concept);
 		setId(graph.getId() + "/concepts/" + concept);
+	}
+
+	/**
+	 * Instantiates a new concept.
+	 * 
+	 * @param accountId
+	 *            the account id
+	 * @param graphName
+	 *            the graph name
+	 * @param conceptId
+	 *            the concept id
+	 */
+	public Concept(String accountId, String graphName, String conceptId) {
+		setId(new Graph(accountId, graphName).getId() + "/concepts/" + conceptId);
 	}
 
 	/**
@@ -52,7 +77,7 @@ public class Concept extends GenericModel {
 
 	/**
 	 * Gets the name.
-	 *
+	 * 
 	 * @return The name
 	 */
 	public String getName() {
@@ -90,7 +115,7 @@ public class Concept extends GenericModel {
 
 	/**
 	 * Sets the name.
-	 *
+	 * 
 	 * @param name
 	 *            The name
 	 */

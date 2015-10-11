@@ -27,6 +27,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Corpus extends GenericModel {
 
+	/** The Constant TED_TALKS. */
+	public final static Corpus TED_TALKS = new Corpus("public", "TEDTalks");
+	public final static Corpus IBM_RESEARCHERS = new Corpus("public", "ibmresearcher");
+    
 	/** The access. */
 	private String access;
 
@@ -36,11 +40,21 @@ public class Corpus extends GenericModel {
 	/** The corpus name. */
 	private String name;
 
-	public Corpus(){
-	}
+	/**
+	 * Instantiates a new corpus.
+	 */
+	public Corpus() {}
 
-	public Corpus(String accountId,String corpusName) {
-		setId("/corpora/"+accountId+"/"+corpusName);
+	/**
+	 * Instantiates a new corpus.
+	 * 
+	 * @param accountId
+	 *            the account id
+	 * @param corpusName
+	 *            the corpus name
+	 */
+	public Corpus(String accountId, String corpusName) {
+		setId("/corpora/" + accountId + "/" + corpusName);
 	}
 
 	/** The accountPermissions. */
@@ -49,7 +63,7 @@ public class Corpus extends GenericModel {
 
 	/**
 	 * Gets the id.
-	 *
+	 * 
 	 * @return The id
 	 */
 	public String getId() {
@@ -58,7 +72,7 @@ public class Corpus extends GenericModel {
 
 	/**
 	 * Gets the name.
-	 *
+	 * 
 	 * @return The name
 	 */
 	public String getName() {
@@ -67,7 +81,7 @@ public class Corpus extends GenericModel {
 
 	/**
 	 * Gets the access.
-	 *
+	 * 
 	 * @return The access
 	 */
 	public String getAccess() {
@@ -101,18 +115,18 @@ public class Corpus extends GenericModel {
 	 */
 	public void setId(String id) {
 		this.id = id;
-		//this.name = id.split("/")[3];
 	}
 
 	/**
 	 * Sets the name.
-	 *
+	 * 
 	 * @param name
 	 *            The name
 	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	/**
 	 * Sets the accountPermissions.
 	 * 
@@ -123,4 +137,14 @@ public class Corpus extends GenericModel {
 		this.accountPermissions = accountPermissions;
 	}
 
+	/**
+	 * With name.
+	 *
+	 * @param name the name
+	 * @return the corpus
+	 */
+	public Corpus withName(String name){
+		setName(name);
+		return this;
+	}
 }

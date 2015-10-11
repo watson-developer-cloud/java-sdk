@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Account returned by the {@link ConceptInsights} service.
- * 
+ *
  */
 public class Account extends GenericModel {
 
@@ -31,7 +31,7 @@ public class Account extends GenericModel {
 
 	/**
 	 * Gets the id.
-	 * 
+	 *
 	 * @return the id
 	 */
 	public String getId() {
@@ -40,7 +40,7 @@ public class Account extends GenericModel {
 
 	/**
 	 * Sets the id.
-	 * 
+	 *
 	 * @param id
 	 *            the id to set
 	 */

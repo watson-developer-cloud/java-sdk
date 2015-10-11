@@ -41,7 +41,7 @@ public class Document extends GenericModel {
 	public Document() {
 	}
 
-	public Document(Corpus corpus,String document) {
+	public Document(Corpus corpus, String document) {
 		setId(corpus.getId()+"/documents/"+document);
 	}
 

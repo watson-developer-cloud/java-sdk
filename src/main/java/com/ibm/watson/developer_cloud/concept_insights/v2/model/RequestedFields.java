@@ -66,4 +66,12 @@ public class RequestedFields extends GenericModel {
         return fields;
     }
 
+    /**
+     * Checks if is empty.
+     *
+     * @return true, if is empty
+     */
+    public boolean isEmpty () {
+    	return fields == null || fields.isEmpty();
+    }
 }
