@@ -11,4 +11,3 @@ gradlew
 gradlew.bat
 target
 src/test/resources/config.properties
-src/test/java/com/ibm/watson/developer_cloud/visual_insigths
