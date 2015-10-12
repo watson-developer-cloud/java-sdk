@@ -15,12 +15,14 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 
 import com.google.gson.JsonObject;
@@ -147,6 +149,44 @@ public class NaturalLanguageClassifier extends WatsonService {
 		}
 	}
 
+	/**
+	 * Sends data to create and train a classifier, and returns information about the new
+	 * classifier. The status has the value of `Training` when the operation is
+	 * successful, and might remain at this status for a while.
+	 *
+	 * @param name            the classifier name
+	 * @param language            IETF primary language for the classifier
+	 * @param csvTrainingData the CSV training data
+	 * @return the classifier
+	 * @see Classifier
+	 */
+	public Classifier createClassifier(final String name, final String language, final File csvTrainingData) {
+		if (csvTrainingData == null || !csvTrainingData.exists())
+			throw new IllegalArgumentException("csvTrainingData can not be null or not be found");
+
+		JsonObject contentJson = new JsonObject();
+
+		contentJson.addProperty("language", language == null ? LANGUAGE_EN : language);
+
+		if (name != null && !name.isEmpty()) {
+			contentJson.addProperty("name", name);
+		}
+
+		try {
+
+			MultipartEntity reqEntity = new MultipartEntity();
+			reqEntity.addPart("training_data", new FileBody(csvTrainingData));
+			reqEntity.addPart("training_metadata", new StringBody(contentJson.toString()));
+
+			HttpRequestBase request = Request.Post("/v1/classifiers").withEntity(reqEntity).build();
+
+			HttpResponse response = execute(request);
+			return ResponseUtil.getObject(response, Classifier.class);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
 	/**
 	 * Deletes a classifier.
 	 * 
