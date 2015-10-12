@@ -62,4 +62,18 @@ public class Documents extends GenericModel{
         this.next = next;
     }
 
+	/**
+	 * @return the documents
+	 */
+	public List<Document> getDocuments() {
+		return documents;
+	}
+
+	/**
+	 * @param documents the documents to set
+	 */
+	public void setDocuments(List<Document> documents) {
+		this.documents = documents;
+	}
+
 }
