@@ -26,12 +26,12 @@ import com.ibm.watson.developer_cloud.concept_insights.v2.model.Graph;
 import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
- * Validate resource ids such us corpus_id, graph_id, concept_id, and document_id for
- * {@link ConceptInsights},
- *
+ * Helper to validate and format resource ids such as corpus_id, graph_id, concept_id, and
+ * document_id for {@link ConceptInsights},
+ * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class IDValidator {
+public class IDHelper {
 
 	/**
 	 * The CORPUS_ID_REGEX. (format is "/corpora/{account_id}/{corpus}")
@@ -57,12 +57,14 @@ public class IDValidator {
 	/**
 	 * This method validate the id if it has been populated in the corpus object,
 	 * otherwise it will generated it.
-	 *
-	 * @param corpus            Corpus the corpus object,
-	 * @param accoundId            String the account id.
+	 * 
+	 * @param corpus
+	 *            Corpus the corpus object,
+	 * @param accoundId
+	 *            String the account id.
 	 * @return the corpus id
 	 */
-	public static String getCorpusId(final Corpus corpus,final String accoundId) {
+	public static String getCorpusId(final Corpus corpus, final String accoundId) {
 		Validate.notNull(corpus, "corpus can't be null");
 		if (corpus.getId() != null) {
 			validate(CORPUS_ID_REGEX, corpus.getId(), "Provide a valid corpus.id (format is " + '"'
@@ -77,12 +79,14 @@ public class IDValidator {
 	/**
 	 * This method validate the id if it has been populated in the graph object, otherwise
 	 * it will generated it.
-	 *
-	 * @param graph            Graph the graph object,
-	 * @param accoundId            String the account id.
+	 * 
+	 * @param graph
+	 *            Graph the graph object,
+	 * @param accoundId
+	 *            String the account id.
 	 * @return the graph id
 	 */
-	public static String getGraphId(final Graph graph,final String accoundId) {
+	public static String getGraphId(final Graph graph, final String accoundId) {
 		Validate.notNull(graph, "graph object can't be null");
 		if (graph.getId() != null) {
 			validate(GRAPH_ID_REGEX, graph.getId(), "Provide a valid graph.id (format is " + '"'
@@ -96,8 +100,9 @@ public class IDValidator {
 
 	/**
 	 * The purpose of this method to validate / generate the document.id.
-	 *
-	 * @param document            Document the document object,
+	 * 
+	 * @param document
+	 *            Document the document object,
 	 * @return the document id
 	 */
 	public static String getDocumentId(final Document document) {
@@ -111,8 +116,9 @@ public class IDValidator {
 
 	/**
 	 * The purpose of this method to validate / generate the concept.id.
-	 *
-	 * @param concept            the concept object,
+	 * 
+	 * @param concept
+	 *            the concept object,
 	 * @return the concept id
 	 */
 	public static String getConceptId(final Concept concept) {
@@ -120,13 +126,13 @@ public class IDValidator {
 		Validate.notNull(concept.getId(), "concept.id can't be null");
 
 		validate(CONCEPT_ID_REGEX, concept.getId(), "Provide a valid concept.id (format is " + '"'
-					+ " (/graphs/{account_id}/{graph}/concepts/{concept})+" + '"' + ")");
+				+ " (/graphs/{account_id}/{graph}/concepts/{concept})+" + '"' + ")");
 		return concept.getId();
 	}
 
 	/**
 	 * ID validation.
-	 *
+	 * 
 	 * @param regex
 	 *            the regex the regular expression used during the validation,
 	 * @param id
@@ -134,7 +140,7 @@ public class IDValidator {
 	 * @param message
 	 *            the exception message if invalid.
 	 */
-	private static void validate(final String regex,final String id,final String message) {
+	private static void validate(final String regex, final String id, final String message) {
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(id);
 		if (!matcher.matches()) {

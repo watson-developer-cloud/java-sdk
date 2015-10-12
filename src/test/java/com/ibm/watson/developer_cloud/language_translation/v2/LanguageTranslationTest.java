@@ -221,8 +221,6 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 		tm.setStatus("error");
 		tm.setName("custom-english-to-spanish");
 
-		System.out.println(GsonSingleton.getGson().toJson(tm));
-
 		mockServer.when(request().withPath(GET_MODELS_PATH + "/" + model_id)).respond(
 				response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, MediaType.APPLICATION_JSON))
 						.withBody(GsonSingleton.getGson().toJson(tm)));
@@ -231,7 +229,6 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 
 		mockServer.verify(request().withPath(GET_MODELS_PATH + "/" + model_id), VerificationTimes.exactly(1));
 		Assert.assertNotNull(model);
-		// Assert.assertEquals(model.getModelId(),tm.getModelId());
 	}
 
 	/**

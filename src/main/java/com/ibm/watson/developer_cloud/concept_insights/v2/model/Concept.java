@@ -17,6 +17,7 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * Concept returned by the {@link ConceptInsights} service.
@@ -36,7 +37,19 @@ public class Concept extends GenericModel {
 	/**
 	 * Instantiates a new concept.
 	 */
-	public Concept() {
+	public Concept() {}
+
+	/**
+	 * Instantiates a new concept.
+	 *
+	 * @param accountId the account id
+	 * @param graphName the graph name
+	 * @param concept   the concept
+	 */
+	public Concept(final String accountId, final String graphName, final String concept) {
+		Validate.notNull(concept, "concept can't be null");
+		setName(concept);
+		setId(new Graph(accountId, graphName).getId() + "/concepts/" + concept);
 	}
 
 	/**
@@ -47,25 +60,13 @@ public class Concept extends GenericModel {
 	 * @param concept
 	 *            the concept
 	 */
-	public Concept(Graph graph, String concept) {
+	public Concept(final Graph graph, final String concept) {
+		Validate.notNull(graph, "graph can't be null");
+		Validate.notNull(graph.getId(), "graph.id can't be null");
 		setName(concept);
 		setId(graph.getId() + "/concepts/" + concept);
 	}
-
-	/**
-	 * Instantiates a new concept.
-	 * 
-	 * @param accountId
-	 *            the account id
-	 * @param graphName
-	 *            the graph name
-	 * @param conceptId
-	 *            the concept id
-	 */
-	public Concept(String accountId, String graphName, String conceptId) {
-		setId(new Graph(accountId, graphName).getId() + "/concepts/" + conceptId);
-	}
-
+	
 	/**
 	 * Gets the id.
 	 * 

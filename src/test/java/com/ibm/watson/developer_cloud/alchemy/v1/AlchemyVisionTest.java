@@ -108,7 +108,7 @@ public class AlchemyVisionTest extends WatsonServiceTest {
 	@Test
 	public void testRecognizeFacesFromURL() {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put(AlchemyVision.URL, "http://farm4.staticflickr.com/3726/11043305726_fdcb7785ec_m.jpg");
+		params.put(AlchemyVision.URL, "http://visual-recognition-demo.mybluemix.net/images/4068.jpg");
 		ImageFaces image = service.recognizeFaces(params);
 
 		Assert.assertNotNull(image);

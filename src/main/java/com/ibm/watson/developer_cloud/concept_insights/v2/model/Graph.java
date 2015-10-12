@@ -16,6 +16,7 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * Graph returned by the {@link ConceptInsights} service.
@@ -35,8 +36,7 @@ public class Graph {
 	/**
 	 * Instantiates a new graph.
 	 */
-	public Graph() {
-	}
+	public Graph() {}
 
 	/**
 	 * Instantiates a new graph using the account id and graph name
@@ -47,6 +47,9 @@ public class Graph {
 	 *            the name
 	 */
 	public Graph(String accountId, String name) {
+		Validate.notNull(accountId, "accountId can't be null");
+		Validate.notNull(name, "name can't be null");
+		setName(name);
 		setId("/graphs/" + accountId + "/" + name);
 	}
 
@@ -87,14 +90,15 @@ public class Graph {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	/**
 	 * With name.
-	 *
-	 * @param name the name
+	 * 
+	 * @param name
+	 *            the name
 	 * @return the graph
 	 */
-	public Graph withName(String name){
+	public Graph withName(String name) {
 		setName(name);
 		return this;
 	}
