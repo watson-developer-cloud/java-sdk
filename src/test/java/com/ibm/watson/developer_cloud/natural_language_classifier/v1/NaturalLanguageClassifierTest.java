@@ -126,7 +126,6 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
         classes.add(c2);
 
         response.setClasses(classes);
-        System.out.println(GsonSingleton.getGson().toJson(response));
 
         StringBuilder text = new StringBuilder().append("is it sunny?");
 

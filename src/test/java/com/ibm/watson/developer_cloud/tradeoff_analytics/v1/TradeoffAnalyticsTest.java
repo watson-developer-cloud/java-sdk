@@ -119,7 +119,6 @@ public class TradeoffAnalyticsTest extends WatsonServiceTest {
 
 		// Call the service and get the resolution
 		Dilemma dilemma = service.dilemmas(problem, false);
-		System.out.println(dilemma);
 		Assert.assertNotNull(dilemma);
 		Assert.assertNotNull(dilemma.getProblem());
 		Assert.assertNotNull(dilemma.getResolution());

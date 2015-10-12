@@ -198,7 +198,6 @@ public class TextToSpeechTest extends WatsonServiceTest {
 		voices.add(voice1);
 
 		response.put("voices",voices);
-		System.out.print(GsonSingleton.getGson().toJson(response));
 
 		mockServer.when(request().withPath(GET_VOICES_PATH)).respond(
 				response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, MediaType.APPLICATION_JSON))

@@ -175,8 +175,6 @@ public class SpeechToTextTest extends WatsonServiceTest {
 		speechSession.setSessionId("f7332a2d7a138ea9f05ffaa8f697a788");
 		speechSession.setObserveResult("http://ibm.watson.com/speech-to-text/api/v1/sessions/f7332a2d7a138ea9f05ffaa8f697a788/observe_result");
 
-		System.out.print(GsonSingleton.getGson().toJson(speechSession));
-
 		mockServer.when(request().withMethod("POST").withPath(CREATE_DELETE_SESSIONS_PATH)).
 
 				respond(
