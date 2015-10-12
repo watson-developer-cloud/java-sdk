@@ -134,7 +134,7 @@ public abstract class WatsonService {
 	 *
 	 * @param request the request
 	 */
-	protected void executeWithoutResponse(HttpRequestBase request) { 
+	protected void executeWithoutResponse(HttpRequestBase request) {
 		HttpResponse response = execute(request);
 		try {
 			ResponseUtil.getString(response);

@@ -8,7 +8,7 @@ group = 'com.ibm.watson.developercloud'
 archivesBaseName = 'watson-developer-cloud'
 version = '1.1.0'
 
-description = 'Watson Developer Cloud Java Wrapper'
+description = 'Client library to use the IBM Watson Services and AlchemyAPI'
 
 repositories {
     mavenCentral()
