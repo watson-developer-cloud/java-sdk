@@ -247,39 +247,36 @@ public class ConceptInsightsTest extends WatsonServiceTest {
 	}
 
 	/**
-	 * Test get graphs related concepts.
+	 * Test get graph related concepts.
 	 */
 	@Test
-	public void testGetGraphsRelatedConcepts() {
+	public void testGetGraphRelatedConcepts() {
 		Map<String, Object> params = new HashMap<String, Object>();
-		List<String> concepts = new ArrayList<String>();
-		concepts.add(EXAMPLE_CONCEPT.getId());
-		params.put(ConceptInsights.CONCEPTS, concepts);
+		List<Concept> concepts = new ArrayList<Concept>();
+		concepts.add(EXAMPLE_CONCEPT);
 		params.put(ConceptInsights.LIMIT, 10);
 		params.put(ConceptInsights.LEVEL, 1);
 		RequestedFields fs = new RequestedFields();
 		fs.include("abstract");
 		params.put("concept_fields", fs);
-		Concepts concepts1 = service.getGraphsRelatedConcepts(Graph.WIKIPEDIA, params);
-		Assert.assertNotNull(concepts1);
+		Concepts conceptResults = service.getGraphRelatedConcepts(Graph.WIKIPEDIA, concepts, params);
+		Assert.assertNotNull(conceptResults);
 	}
 
 	/**
-	 * Test get graphs related concepts by concept id.
+	 * Test get concept related concepts.
 	 */
 	@Test
-	public void testGetGraphsRelatedConceptsByConceptId() {
+	public void testGetConceptRelatedConcepts() {
 		Map<String, Object> params = new HashMap<String, Object>();
-		List<String> concepts = new ArrayList<String>();
-		concepts.add(EXAMPLE_CONCEPT.getId());
-		params.put(ConceptInsights.CONCEPT, "IBM");
 		params.put(ConceptInsights.LIMIT, 10);
 		params.put(ConceptInsights.LEVEL, 1);
 		RequestedFields fs = new RequestedFields();
 		fs.include("abstract");
 		params.put("concept_fields", fs);
-		Concepts concepts1 = service.getGraphsRelatedConcepts(Graph.WIKIPEDIA, params);
-		Assert.assertNotNull(concepts1);
+		Concepts concepts = service.getConceptRelatedConcepts(EXAMPLE_CONCEPT, params);
+		Assert.assertNotNull(concepts);
+		
 	}
 
 	/**
@@ -289,7 +286,7 @@ public class ConceptInsightsTest extends WatsonServiceTest {
 	public void testGetGraphsRelatedScores() {
 		List<String> concepts = new ArrayList<String>();
 		concepts.add(EXAMPLE_CONCEPT.getId());
-		Scores scores = service.getGraphsRelationScores(EXAMPLE_CONCEPT, concepts);
+		Scores scores = service.getGraphRelationScores(EXAMPLE_CONCEPT, concepts);
 		Assert.assertNotNull(scores);
 	}
 

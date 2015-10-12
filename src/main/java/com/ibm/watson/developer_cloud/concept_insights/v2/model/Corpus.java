@@ -20,6 +20,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * Graphs returned by the {@link ConceptInsights} service.
@@ -50,11 +51,14 @@ public class Corpus extends GenericModel {
 	 * 
 	 * @param accountId
 	 *            the account id
-	 * @param corpusName
+	 * @param name
 	 *            the corpus name
 	 */
-	public Corpus(String accountId, String corpusName) {
-		setId("/corpora/" + accountId + "/" + corpusName);
+	public Corpus(String accountId, String name) {
+		Validate.notNull(accountId,"accountId can't be null");
+		Validate.notNull(name,"name can't be null");
+		setName(name);
+		setId("/corpora/" + accountId + "/" + name);
 	}
 
 	/** The accountPermissions. */
