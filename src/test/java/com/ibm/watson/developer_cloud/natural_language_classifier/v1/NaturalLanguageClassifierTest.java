@@ -112,7 +112,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
         response.setId("testId");
         response.setText("is it sunny?");
         response.setUrl("http://www.ibm.com");
-        response.setTopClass("conditions");
+        response.setTopClass("class2");
 
         List<ClassifiedClass> classes = new ArrayList<ClassifiedClass>();
         ClassifiedClass c1 = new ClassifiedClass();

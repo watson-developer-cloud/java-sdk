@@ -25,6 +25,7 @@ import org.apache.http.entity.mime.content.StringBody;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifiedClass;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.TrainingData;
@@ -89,7 +90,15 @@ public class NaturalLanguageClassifier extends WatsonService {
 
 		try {
 			HttpResponse response = execute(request);
-			return ResponseUtil.getObject(response, Classification.class);
+			Classification classification =  ResponseUtil.getObject(response, Classification.class);
+			
+			for (ClassifiedClass klass : classification.getClasses()) {
+				if (klass.getName().equals(classification.getTopClass())){
+					classification.setTopConfidence(klass.getConfidence());
+					break;
+				}
+			}
+			return classification;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
