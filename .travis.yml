@@ -1,5 +1,6 @@
 language: java
 script: mvn test
+sudo: false
 after_success:
 - mvn clean cobertura:cobertura coveralls:report
 jdk:
