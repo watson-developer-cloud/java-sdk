@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ibm.watson.developer_cloud.visual_insigths.v1;
+package com.ibm.watson.developer_cloud.visual_insights.v1;
 
 import java.io.File;
 
