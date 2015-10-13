@@ -134,4 +134,5 @@ public class GenericServiceTest extends WatsonServiceTest {
 		mockAPICallWithError(503, "Service Unavailable");
 		service.getProfile(sampleText);
 	}
+	
 }

@@ -15,6 +15,9 @@
  */
 package com.ibm.watson.developer_cloud.dialog.v1;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
 import java.net.URISyntaxException;
 import java.text.ParseException;
@@ -23,7 +26,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -89,9 +91,9 @@ public class DialogServiceTest extends WatsonServiceTest {
 		c = service.converse(params);
 				
 		List<DialogContent> dialogContent = service.getContent(dialogId);
-		Assert.assertNotNull(dialogContent);
-		Assert.assertFalse(dialogContent.isEmpty());
-		Assert.assertNotNull(dialogContent.get(0));
+		assertNotNull(dialogContent);
+		assertFalse(dialogContent.isEmpty());
+		assertNotNull(dialogContent.get(0));
 
 		List<NameValue> profile = service.getProfile(dialogId, c.getClientId());
 		profile.get(0).setValue("foo");
@@ -104,11 +106,11 @@ public class DialogServiceTest extends WatsonServiceTest {
 	 * @param c the c
 	 */
 	private void testConversation(Conversation c) {
-		Assert.assertNotNull(c);
-		Assert.assertNotNull(c.getClientId());
-		Assert.assertNotNull(c.getId());
-		Assert.assertNotNull(c.getResponse());
-		Assert.assertFalse(c.getResponse().isEmpty());
+		assertNotNull(c);
+		assertNotNull(c.getClientId());
+		assertNotNull(c.getId());
+		assertNotNull(c.getResponse());
+		assertFalse(c.getResponse().isEmpty());
 	}
 	
 	/**
@@ -117,8 +119,8 @@ public class DialogServiceTest extends WatsonServiceTest {
 	@Test
 	public void testGetDialogs(){
 		List<Dialog> dialogs = service.getDialogs();
-		Assert.assertNotNull(dialogs);
-		Assert.assertFalse(dialogs.isEmpty());
+		assertNotNull(dialogs);
+		assertFalse(dialogs.isEmpty());
 	}
 
 	/**
@@ -132,9 +134,62 @@ public class DialogServiceTest extends WatsonServiceTest {
 		String dialogName = ""+UUID.randomUUID().toString().substring(0, 15);
 		Dialog newDialog = service.createDialog(dialogName, dialogFile);
 		System.out.println(newDialog);
-		Assert.assertNotNull(newDialog.getId());
+		assertNotNull(newDialog.getId());
 		newDialog = service.updateDialog(newDialog.getId(), dialogFile);
-		Assert.assertNotNull(newDialog.getId());
+		assertNotNull(newDialog.getId());
 		service.deleteDialog(newDialog.getId());
+	}
+	
+
+	@Test
+	public void testToString() {
+		assertNotNull(service.toString());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testConverseWithNulls() {
+		Map<String, Object> params = new HashMap<String,Object>();
+		service.converse(params);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateConversationWithNull() {
+		service.createConversation(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testCreateDialogWithNull() {
+		service.createDialog(null,null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteDialogWithNull() {
+		service.deleteDialog(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetContentWithNull() {
+		service.getContent(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetProfile() {
+		service.getProfile(null, null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetConversationData() {
+		Map<String, Object> params = new HashMap<String,Object>();
+		service.getConversationData(params);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateDialog() {
+		service.updateDialog(null, null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testUpdateProfile() {
+		service.updateProfile(null, null, null);
 	}
 }

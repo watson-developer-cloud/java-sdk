@@ -435,7 +435,7 @@ public class Request {
 	 *
 	 * @return this
 	 */
-	public Request withQuery(Map<String,Object> parameters) {
+	public Request withQueryMap(Map<String,Object> parameters) {
 		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
 			withQuery(entry.getKey(),entry.getValue());
 		}
@@ -450,7 +450,7 @@ public class Request {
 	 *
 	 * @return this
 	 */
-	public Request withForm(Map<String,Object> parameters) {
+	public Request withFormMap(Map<String,Object> parameters) {
 		for (Map.Entry<String, Object> entry : parameters.entrySet()) {
 			withForm(entry.getKey(),entry.getValue());
 		}

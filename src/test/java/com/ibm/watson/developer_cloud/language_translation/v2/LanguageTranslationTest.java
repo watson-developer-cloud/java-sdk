@@ -15,11 +15,15 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +32,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockserver.integration.ClientAndServer;
@@ -117,6 +120,31 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 		text = "The IBM Watson team is awesome";
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteWithNull(){
+		service.deleteModel(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testcreateModelWithNull(){
+		Map<String,Object> params = new HashMap<String, Object>();
+		service.createModel(params);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testcreateModelWithGlossaryNull(){
+		Map<String,Object> params = new HashMap<String, Object>();
+		
+		service.createModel(params);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testcreateModelWithBaseModelNull(){
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put(LanguageTranslation.FORCED_GLOSSARY, new File("src/test/resources/car.png"));
+		service.createModel(params);
+	}
+	
 	/**
 	 * Test translate.
 	 */
@@ -161,6 +189,7 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 
 		translationResult = service.translate(params);
 		testTranslationResult(text, translationResult);
+		assertNotNull(service.toString());
 	}
 
 	/**
@@ -172,10 +201,10 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 	 *            the translation result
 	 */
 	private void testTranslationResult(String text, TranslationResult translationResult) {
-		Assert.assertNotNull(translationResult);
-		Assert.assertEquals(translationResult.getWordCount(), text.split(" ").length);
-		Assert.assertNotNull(translationResult.getTranslations());
-		Assert.assertNotNull(translationResult.getTranslations().get(0).getTranslation());
+		assertNotNull(translationResult);
+		assertEquals(translationResult.getWordCount(), text.split(" ").length);
+		assertNotNull(translationResult.getTranslations());
+		assertNotNull(translationResult.getTranslations().get(0).getTranslation());
 	}
 
 	/**
@@ -199,8 +228,8 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 		List<IdentifiableLanguage> languages = service.getIdentifiableLanguages();
 
 		mockServer.verify(request().withPath(IDENTIFIABLE_LANGUAGES_PATH), VerificationTimes.exactly(1));
-		Assert.assertNotNull(languages);
-		Assert.assertEquals(languages,langs);
+		assertNotNull(languages);
+		assertEquals(languages,langs);
 	}
 
 	/**
@@ -228,7 +257,7 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 		TranslationModel model = service.getModel("not-a-real-model");
 
 		mockServer.verify(request().withPath(GET_MODELS_PATH + "/" + model_id), VerificationTimes.exactly(1));
-		Assert.assertNotNull(model);
+		assertNotNull(model);
 	}
 
 	/**
@@ -285,11 +314,11 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 		List<TranslationModel> models = service.getModels();
 
 		mockServer.verify(request().withPath(GET_MODELS_PATH), VerificationTimes.exactly(1));
-		Assert.assertNotNull(models);
+		assertNotNull(models);
 
-		Assert.assertNotNull(models);
-		Assert.assertFalse(models.isEmpty());
-		Assert.assertNotNull(models.containsAll(tsModels));
+		assertNotNull(models);
+		assertFalse(models.isEmpty());
+		assertNotNull(models.containsAll(tsModels));
 
 	}
 
@@ -312,11 +341,11 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 						.withBody(GsonSingleton.getGson().toJson(response)));
 
 		List<IdentifiedLanguage> identifiedLanguages = service.identify(text);
-		Assert.assertNotNull(identifiedLanguages);
-		Assert.assertFalse(identifiedLanguages.isEmpty());
-		Assert.assertNotNull(identifiedLanguages.containsAll(langs));
+		assertNotNull(identifiedLanguages);
+		assertFalse(identifiedLanguages.isEmpty());
+		assertNotNull(identifiedLanguages.containsAll(langs));
 	}
-
+	
 	/**
 	 * Test Translate with an invalid model.
 	 */
@@ -329,6 +358,7 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 		} catch (Exception e) {
 			fail = false;
 		}
-		Assert.assertFalse(fail);
+		assertFalse(fail);
 	}
+	
 }
