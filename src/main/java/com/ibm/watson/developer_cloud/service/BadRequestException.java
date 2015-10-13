@@ -26,19 +26,6 @@ public class BadRequestException extends ServiceResponseException {
 	/**
 	 * Instantiates a new BadRequest Exception.
 	 * HTTP 400
-	 * @param message
-	 *            the error message
-	 * @param cause
-	 *            the cause
-	 */
-	public BadRequestException(String message, Throwable cause) {
-		super(HttpStatus.SC_BAD_REQUEST, message, cause);
-
-	}
-
-	/**
-	 * Instantiates a new BadRequest Exception.
-	 * HTTP 400
 	 * 
 	 * @param message
 	 *            the error message

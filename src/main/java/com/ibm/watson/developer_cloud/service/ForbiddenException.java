@@ -27,18 +27,6 @@ public class ForbiddenException extends ServiceResponseException {
 	 * 
 	 * @param message
 	 *            the error message
-	 * @param cause
-	 *            the cause
-	 */
-	public ForbiddenException(String message, Throwable cause) {
-		super(HttpStatus.SC_FORBIDDEN, message, cause);
-	}
-
-	/**
-	 * Instantiates a new Forbidden Exception.
-	 * 
-	 * @param message
-	 *            the error message
 	 */
 	public ForbiddenException(String message) {
 		super(HttpStatus.SC_FORBIDDEN, message);

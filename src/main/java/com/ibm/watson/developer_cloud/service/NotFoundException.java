@@ -33,18 +33,6 @@ public class NotFoundException extends ServiceResponseException {
 	}
 
 	/**
-	 * Instantiates a new not found exception.
-	 * 
-	 * @param message
-	 *            the message
-	 * @param cause
-	 *            the cause
-	 */
-	public NotFoundException(String message, Throwable cause) {
-		super(HttpStatus.SC_NOT_FOUND, message, cause);
-	}
-
-	/**
 	 * The Constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;

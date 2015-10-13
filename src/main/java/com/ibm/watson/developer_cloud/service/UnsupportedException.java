@@ -38,16 +38,4 @@ public class UnsupportedException extends ServiceResponseException {
 		super(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE, message);
 	}
 
-	/**
-	 * Instantiates a new Unsupported Exception.
-	 * 
-	 * @param message
-	 *            the error message
-	 * @param cause
-	 *            the cause
-	 */
-	public UnsupportedException(String message, Throwable cause) {
-		super(HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE, message, cause);
-	}
-
 }

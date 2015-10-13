@@ -33,18 +33,6 @@ public class ServiceUnavailableException extends ServiceResponseException {
 	}
 
 	/**
-	 * Instantiates a new Service Unavailable Exception.
-	 * 
-	 * @param message
-	 *            the error message
-	 * @param cause
-	 *            the cause
-	 */
-	public ServiceUnavailableException(String message, Throwable cause) {
-		super(HttpStatus.SC_SERVICE_UNAVAILABLE, message, cause);
-	}
-
-	/**
 	 * The Constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;

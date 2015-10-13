@@ -15,9 +15,12 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.util.MediaType;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -35,11 +38,9 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.util.MediaType;
+import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It

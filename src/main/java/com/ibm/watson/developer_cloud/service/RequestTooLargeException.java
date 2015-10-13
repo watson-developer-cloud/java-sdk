@@ -33,18 +33,6 @@ public class RequestTooLargeException extends ServiceResponseException {
 	}
 
 	/**
-	 * Instantiates a new Request Too Large Exception.
-	 * 
-	 * @param message
-	 *            the error message
-	 * @param cause
-	 *            the cause
-	 */
-	public RequestTooLargeException(String message, Throwable cause) {
-		super(HttpStatus.SC_REQUEST_TOO_LONG, message, cause);
-	}
-
-	/**
 	 * The Constant serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
