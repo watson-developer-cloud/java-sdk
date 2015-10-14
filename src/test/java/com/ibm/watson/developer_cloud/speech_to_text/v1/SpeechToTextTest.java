@@ -47,7 +47,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.TestUtils;
-import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * The Class SpeechToTextTest.

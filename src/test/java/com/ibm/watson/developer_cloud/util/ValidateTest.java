@@ -159,6 +159,7 @@ public class ValidateTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testNoNullElementsCollectionString() {
+		@SuppressWarnings("rawtypes")
 		List objects = Lists.newArrayList("", null);
 		Validate.noNullElements(objects, error);
 	}
@@ -168,6 +169,7 @@ public class ValidateTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testNoNullElementsCollection() {
+		@SuppressWarnings("rawtypes")
 		List objects = Lists.newArrayList("", null);
 		Validate.noNullElements(objects);
 	}
@@ -177,6 +179,7 @@ public class ValidateTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAllElementsOfTypeCollectionString() {
+		@SuppressWarnings({ "rawtypes", "unchecked" })
 		List objects = Lists.newArrayList(1,true);
 		Validate.allElementsOfType(objects, Integer.class, error);
 	}
@@ -186,6 +189,7 @@ public class ValidateTest {
 	 */
 	@Test(expected = IllegalArgumentException.class)
 	public void testAllElementsOfTypeCollection() {
+		@SuppressWarnings({ "unchecked", "rawtypes" })
 		List objects = Lists.newArrayList(1, true);
 		Validate.allElementsOfType(objects, Integer.class);
 	}
