@@ -140,7 +140,7 @@ public class SpeechToText extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			SpeechSession speechSession = ResponseUtil.getObject(response, SpeechSession.class);
-			speechSession.setCookieSession(response.getFirstHeader("set-cookie").getValue());
+			speechSession.setCookieSession(response.getFirstHeader("Set-Cookie").getValue());
 			return speechSession;
 		} catch (Exception e) {
 			throw new RuntimeException(e);

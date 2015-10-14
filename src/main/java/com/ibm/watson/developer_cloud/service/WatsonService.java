@@ -172,7 +172,7 @@ public abstract class WatsonService {
 		log.log(Level.FINEST, "Request to: " + request.getURI());
 		try {
 			//response = getHttpClient().execute(request);
-			response = getThreadSafeClient().execute(request);
+			response = getHttpClient().execute(request);
 		} catch (ClientProtocolException e) {
 			log.log(Level.SEVERE, "ClientProtocolException", e);
 			throw new RuntimeException(e);
@@ -315,7 +315,7 @@ public abstract class WatsonService {
 	 */
 	public HttpClient getHttpClient() {
 		if (httpClient == null) {
-			httpClient = new DefaultHttpClient(getDefaultRequestParams());
+			httpClient = getThreadSafeClient();
 		}
 		return httpClient;
 	}
@@ -325,7 +325,7 @@ public abstract class WatsonService {
 	 *
 	 * @return the thread safe client
 	 */
-	public HttpClient getThreadSafeClient() {
+	private HttpClient getThreadSafeClient() {
 
 	    DefaultHttpClient client = new DefaultHttpClient(getDefaultRequestParams());
 	    ClientConnectionManager mgr = client.getConnectionManager();
