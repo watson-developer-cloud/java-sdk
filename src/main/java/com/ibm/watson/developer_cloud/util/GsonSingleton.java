@@ -24,7 +24,7 @@ import com.google.gson.GsonBuilder;
 public class GsonSingleton {
 
 	/** The Constant DATE_FORMAT_UTC. */
-	private static final String DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+	private static final String DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS";
 	/** The gson. */
 	private static Gson gson;
 	
