@@ -4,7 +4,7 @@ language: java
 install: /bin/true
 
 script:
-  - mvn clean install && mvn clean cobertura:cobertura coveralls:report
+  - mvn clean install  -Dmaven.test.skip=true && mvn clean cobertura:cobertura coveralls:report
 
 jdk:
 - oraclejdk8

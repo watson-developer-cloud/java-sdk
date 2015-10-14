@@ -133,7 +133,7 @@ public class DialogServiceTest extends WatsonServiceTest {
 		File dialogFile = new File("src/test/resources/pizza_sample.xml");
 		String dialogName = ""+UUID.randomUUID().toString().substring(0, 15);
 		Dialog newDialog = service.createDialog(dialogName, dialogFile);
-		System.out.println(newDialog);
+		
 		assertNotNull(newDialog.getId());
 		newDialog = service.updateDialog(newDialog.getId(), dialogFile);
 		assertNotNull(newDialog.getId());

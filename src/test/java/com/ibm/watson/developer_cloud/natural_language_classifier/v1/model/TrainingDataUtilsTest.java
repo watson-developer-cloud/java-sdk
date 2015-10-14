@@ -49,11 +49,6 @@ public class TrainingDataUtilsTest {
 	}
 
 
-	@Test(expected = RuntimeException.class)
-	public void testIllegalArgumentExceptionInvalidFile() {
-		TrainingDataUtils.fromCSV(new File("src/test/resources/car.png"), CSVFormat.DEFAULT);
-	}
-	
 	/**
 	 * Test conversion from CSV to training data.
 	 */
