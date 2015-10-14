@@ -35,6 +35,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * The Speech to Text service uses IBM's speech recognition capabilities to
@@ -98,9 +99,26 @@ public class SpeechToText extends WatsonService {
 	 * @return the {@link SpeechSession}
 	 */
 	public SpeechSession createSession() {
-		return createSession(null);
+		String model = null;
+		return createSession(model);
 	}
-
+	
+	/**
+	 * Create a session to lock an engine to the session. You can use the
+	 * session for multiple recognition requests, so that each request is
+	 * processed with the same speech-to-text engine. Use the cookie that is
+	 * returned from this operation in the Set-Cookie header for each request
+	 * that uses this session. The session expires after 15 minutes of
+	 * inactivity.
+	 *
+	 * @param model the {@link SpeechModel}
+	 * @return the {@link SpeechSession}
+	 */
+	public SpeechSession createSession(final SpeechModel model) {
+		Validate.notNull(model, "model can't be null");
+		return createSession(model.getName());
+	}
+		
 	/**
 	 * Create a session to lock an engine to the session. You can use the
 	 * session for multiple recognition requests, so that each request is
