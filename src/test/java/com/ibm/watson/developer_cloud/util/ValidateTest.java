@@ -91,17 +91,19 @@ public class ValidateTest {
 	/**
 	 * Test not empty collection string.
 	 */
+	@SuppressWarnings("rawtypes")
 	@Test(expected = IllegalArgumentException.class)
 	public void testNotEmptyCollectionString() {
-		Validate.notEmpty(new ArrayList<>(), error);
+		Validate.notEmpty(new ArrayList(), error);
 	}
 
 	/**
 	 * Test not empty collection.
 	 */
+	@SuppressWarnings("rawtypes")
 	@Test(expected = IllegalArgumentException.class)
 	public void testNotEmptyCollection() {
-		Validate.notEmpty(new ArrayList<>());
+		Validate.notEmpty(new ArrayList());
 	}
 
 	/**

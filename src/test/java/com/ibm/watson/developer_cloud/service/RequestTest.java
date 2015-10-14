@@ -101,7 +101,10 @@ public class RequestTest {
 			StringWriter writer = new StringWriter();
 			try {
 				IOUtils.copy(request.getEntity().getContent(), writer);
-			} catch (IllegalStateException | IOException e) {}
+			} catch (IllegalStateException e) {
+				
+			} catch (IOException e) {
+			}
 			ret = writer.toString();
 		}
 		return ret;
