@@ -205,7 +205,7 @@ DocumentConversion service = new DocumentConversion();
 service.setUsernameAndPassword("<username>", "<password>");
 
 File doc = new File("src/test/resources/document_conversion/word-document-heading-input.doc");
-Answers htmlToAnswers = service.convertDocumentToAnswer(doc);
+Answers htmlToAnswers = service.convertDocumentToAnswer(doc, null);
 System.out.println(htmlToAnswers);
 ```
 

@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.document_conversion.v1.model;
+package com.ibm.watson.developer_cloud.document_conversion.v1.util;
 
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
