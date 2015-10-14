@@ -47,6 +47,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.TestUtils;
+import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * The Class SpeechToTextTest.
@@ -156,6 +157,11 @@ public class SpeechToTextTest extends WatsonServiceTest {
 		SpeechModel model = service.getModel("not-a-real-Model");
 		Assert.assertNotNull(model);
 		Assert.assertEquals(model, speechModel);
+		
+		model = service.getModel(speechModel);
+		Assert.assertNotNull(model);
+		Assert.assertEquals(model, speechModel);
+		
 		try {
 			TestUtils.assertNoExceptionsOnGetters(model);
 		} catch (Exception e) {
@@ -282,4 +288,21 @@ public class SpeechToTextTest extends WatsonServiceTest {
 		Assert.assertEquals(result, speechResults);
 	}
 	
+
+	/**
+	 * Test delete session with null.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteSessionWithNull() {
+		service.deleteSession(null);
+	}
+	
+	/**
+	 * Test get model with null.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetModelWithNull() {
+		String model = null;
+		service.getModel(model);
+	}
 }

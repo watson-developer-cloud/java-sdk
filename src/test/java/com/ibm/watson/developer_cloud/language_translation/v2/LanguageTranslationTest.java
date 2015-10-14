@@ -360,5 +360,23 @@ public class LanguageTranslationTest extends WatsonServiceTest {
 		}
 		assertFalse(fail);
 	}
+
 	
+	/**
+	 * Test get model with null.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetModelWithNull() {
+		String model = null;
+		service.getModel(model);
+	}
+	
+	/**
+	 * Test translate with null.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testTranslateWithNull() {
+		service.translate(null, "", "");
+		
+	}
 }

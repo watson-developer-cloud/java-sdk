@@ -150,8 +150,6 @@ public class Request {
 			Object... args) {
 		if (url == null)
 			throw new IllegalArgumentException("url is null");
-		if (method == null)
-			throw new IllegalArgumentException("method is null");
 
 		try {
 			this.method = method.newInstance();
