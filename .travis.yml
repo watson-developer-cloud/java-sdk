@@ -3,8 +3,8 @@ language: java
 
 install: /bin/true
 
-after_success:
-- mvn clean cobertura:cobertura coveralls:report
+script:
+  - mvn clean install && mvn clean cobertura:cobertura coveralls:report
 
 jdk:
 - oraclejdk8
