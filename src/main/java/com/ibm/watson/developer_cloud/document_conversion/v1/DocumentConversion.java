@@ -86,13 +86,12 @@ public class DocumentConversion extends WatsonService {
 			final ConversionTarget conversionTarget) {
 
 		if (document == null || !document.exists())
-			throw new IllegalArgumentException("document can not be null and must exist");
+			throw new IllegalArgumentException("document cannot be null and must exist");
 
 		String type = mediaType != null ? mediaType : ConversionUtils.getMediaTypeFromFile(document);
 		if (type == null)
 			throw new RuntimeException("mediaType cannot be null or empty");
-
-		if (!ConversionUtils.isValidMediaType(type))
+		else if (!ConversionUtils.isValidMediaType(type))
 			throw new IllegalArgumentException("file with the given media type is not supported");
 
 		try {
@@ -112,7 +111,8 @@ public class DocumentConversion extends WatsonService {
 			throw new RuntimeException(e);
 		}
 	}
-
+	
+	
 	/**
 	 * Converts a document to Answer Units.
 	 * 
