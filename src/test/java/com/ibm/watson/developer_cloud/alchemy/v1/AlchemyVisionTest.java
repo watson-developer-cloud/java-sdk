@@ -34,6 +34,8 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
  */
 public class AlchemyVisionTest extends WatsonServiceTest {
 
+	private static final String BABY_IMAGE = "http://visual-recognition-demo.mybluemix.net/images/4068.jpg";
+
 	/** The service. */
 	private AlchemyVision service;
 
@@ -82,7 +84,7 @@ public class AlchemyVisionTest extends WatsonServiceTest {
 	@Test
 	public void testGetRankedImageKeywordsFromURL() {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put(AlchemyVision.URL, "http://farm4.staticflickr.com/3726/11043305726_fdcb7785ec_m.jpg");
+		params.put(AlchemyVision.URL, BABY_IMAGE);
 		ImageKeywords image = service.getImageKeywords(params);
 
 		Assert.assertNotNull(image);
@@ -108,7 +110,7 @@ public class AlchemyVisionTest extends WatsonServiceTest {
 	@Test
 	public void testRecognizeFacesFromURL() {
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put(AlchemyVision.URL, "http://farm4.staticflickr.com/3726/11043305726_fdcb7785ec_m.jpg");
+		params.put(AlchemyVision.URL, BABY_IMAGE);
 		ImageFaces image = service.recognizeFaces(params);
 
 		Assert.assertNotNull(image);

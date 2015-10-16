@@ -15,11 +15,13 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
+import static org.junit.Assert.*;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +30,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockserver.integration.ClientAndServer;
@@ -40,6 +41,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifiedClass;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.TrainingData;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.MediaType;
 
@@ -61,10 +63,10 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
     private ClientAndServer mockServer;
 
     /** The Constant CLASSIFY_PATH.  (value is "/v1/classifiers/%s/classify") */
-    private final static String LANGUAGE_CLASSIFY_PATH = "/v1/classifiers/%s/classify";
+    private final static String CLASSIFY_PATH = "/v1/classifiers/%s/classify";
 
-    /** The Constant LANGUAGE_CLASSIFIERS_PATH. (value is "/v1/classifiers/") */
-    private final static String LANGUAGE_CLASSIFIERS_PATH = "/v1/classifiers";
+    /** The Constant CLASSIFIERS_PATH. (value is "/v1/classifiers/") */
+    private final static String CLASSIFIERS_PATH = "/v1/classifiers";
 
     /**
      * Start mock server.
@@ -112,7 +114,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
         response.setId("testId");
         response.setText("is it sunny?");
         response.setUrl("http://www.ibm.com");
-        response.setTopClass("conditions");
+        response.setTopClass("class2");
 
         List<ClassifiedClass> classes = new ArrayList<ClassifiedClass>();
         ClassifiedClass c1 = new ClassifiedClass();
@@ -126,14 +128,13 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
         classes.add(c2);
 
         response.setClasses(classes);
-        System.out.println(GsonSingleton.getGson().toJson(response));
 
         StringBuilder text = new StringBuilder().append("is it sunny?");
 
         JsonObject contentJson = new JsonObject();
         contentJson.addProperty("text", text.toString());
         String path = String
-                .format(LANGUAGE_CLASSIFY_PATH, classifierId);
+                .format(CLASSIFY_PATH, classifierId);
 
         mockServer.when(
                 request().withMethod("POST").withPath(path)
@@ -146,8 +147,9 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
 
         Classification c = service.classify(classifierId, text.toString());
 
-        Assert.assertNotNull(c);
-        Assert.assertEquals(c, response);
+        assertNotNull(service.toString());
+        assertNotNull(c);
+        assertEquals(c, response);
 
     }
 
@@ -164,13 +166,13 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
         response.setUrl("http://gateway.watson.net/");
         response.setStatusDescription("The classifier instance is now available and is ready to take classifier requests.");
 
-        mockServer.when(request().withPath(LANGUAGE_CLASSIFIERS_PATH + "/" + classifierId)).respond(
+        mockServer.when(request().withPath(CLASSIFIERS_PATH + "/" + classifierId)).respond(
                 response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                         .withBody(GsonSingleton.getGson().toJson(response)));
 
         Classifier c = service.getClassifier(classifierId);
-        Assert.assertNotNull(c);
-        Assert.assertEquals(c, response);
+        assertNotNull(c);
+        assertEquals(c, response);
 
     }
 
@@ -197,25 +199,64 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
         c1.setStatusDescription("The classifier instance is now available and is ready to take classifier requests.");
         classifiersResponse.add(c1);
 
-        Classifier c2 = new Classifier();
-        c2.setId("testId2");
-        c2.setStatus(Classifier.Status.AVAILABLE);
-        c2.setUrl("http://gateway.watson.net/");
-        c2.setStatusDescription("The classifier instance is now available and is ready to take classifier requests.");
-        classifiersResponse.add(c2);
+
 
         response.put("classifiers", classifiersResponse);
 
-        mockServer.when(request().withPath(LANGUAGE_CLASSIFIERS_PATH)).respond(
+        mockServer.when(request().withPath(CLASSIFIERS_PATH)).respond(
                 response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                         .withBody(GsonSingleton.getGson().toJson(response)));
 
 
         Classifiers classifiers = service.getClassifiers();
-        Assert.assertNotNull(classifiers.getClassifiers());
-        Assert.assertFalse(classifiers.getClassifiers().isEmpty());
-        Assert.assertFalse(classifiers.getClassifiers().contains(classifiersResponse));
+        assertNotNull(classifiers.getClassifiers());
+        assertFalse(classifiers.getClassifiers().isEmpty());
+        assertFalse(classifiers.getClassifiers().contains(classifiersResponse));
 
     }
 
+    @Test
+	public void createClassifier() throws Exception {
+        Classifier createdClassifier = new Classifier();
+        createdClassifier.setId("testId2");
+        createdClassifier.setStatus(Classifier.Status.AVAILABLE);
+        createdClassifier.setUrl("http://gateway.watson.net/");
+        
+    	 mockServer.when(request().withMethod("POST").withPath(CLASSIFIERS_PATH))
+                 .respond(
+                         response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                                 .withBody(createdClassifier.toString()));
+
+    	 List<TrainingData> training = new ArrayList<TrainingData>();
+    	 training.add(new TrainingData().withText("text1").withClasses("k1"));
+         Classifier classifier = service.createClassifier(null, null, training);
+
+         assertEquals(createdClassifier.toString(), classifier.toString());
+	}
+
+    @Test(expected = IllegalArgumentException.class)
+	public void testNullClassifier() {
+		service.classify(null, null);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testNullText() {
+		service.classify(classifierId, null);
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testNullTrainingDataFile() {
+		service.createClassifier(null, null, new File("src/test/resources/notfound.txt"));
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testNullTrainingData() {
+		service.createClassifier(null, null, new ArrayList<TrainingData>());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testNullDeleteClassifier() {
+		service.deleteClassifier(null);
+	}
+	
 }

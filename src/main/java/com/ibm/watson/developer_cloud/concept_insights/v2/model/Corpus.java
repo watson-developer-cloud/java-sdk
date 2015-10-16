@@ -17,8 +17,10 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * Graphs returned by the {@link ConceptInsights} service.
@@ -26,23 +28,42 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Corpus extends GenericModel {
 
+	/** The Constant TED_TALKS. */
+	public final static Corpus TED_TALKS = new Corpus("public", "TEDTalks");
+	public final static Corpus IBM_RESEARCHERS = new Corpus("public", "ibmresearcher");
+    
 	/** The access. */
 	private String access;
 
 	/** The id. */
 	private String id;
 
-	/** The users. */
-	private List<AccountPermission> users;
+	/** The corpus name. */
+	private String name;
 
 	/**
-	 * Gets the access.
-	 * 
-	 * @return The access
+	 * Instantiates a new corpus.
 	 */
-	public String getAccess() {
-		return access;
+	public Corpus() {}
+
+	/**
+	 * Instantiates a new corpus.
+	 * 
+	 * @param accountId
+	 *            the account id
+	 * @param name
+	 *            the corpus name
+	 */
+	public Corpus(String accountId, String name) {
+		Validate.notNull(accountId,"accountId can't be null");
+		Validate.notNull(name,"name can't be null");
+		setName(name);
+		setId("/corpora/" + accountId + "/" + name);
 	}
+
+	/** The accountPermissions. */
+	@SerializedName("users")
+	private List<AccountPermission> accountPermissions;
 
 	/**
 	 * Gets the id.
@@ -54,12 +75,30 @@ public class Corpus extends GenericModel {
 	}
 
 	/**
-	 * Gets the users.
+	 * Gets the name.
 	 * 
-	 * @return The users
+	 * @return The name
 	 */
-	public List<AccountPermission> getUsers() {
-		return users;
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Gets the access.
+	 * 
+	 * @return The access
+	 */
+	public String getAccess() {
+		return access;
+	}
+
+	/**
+	 * Gets the accountPermissions.
+	 * 
+	 * @return The accountPermissions
+	 */
+	public List<AccountPermission> getAccountPermissions() {
+		return accountPermissions;
 	}
 
 	/**
@@ -83,13 +122,33 @@ public class Corpus extends GenericModel {
 	}
 
 	/**
-	 * Sets the users.
+	 * Sets the name.
 	 * 
-	 * @param users
-	 *            The users
+	 * @param name
+	 *            The name
 	 */
-	public void setUsers(List<AccountPermission> users) {
-		this.users = users;
+	public void setName(String name) {
+		this.name = name;
 	}
 
+	/**
+	 * Sets the accountPermissions.
+	 * 
+	 * @param accountPermissions
+	 *            The accountPermissions
+	 */
+	public void setAccountPermissions(List<AccountPermission> accountPermissions) {
+		this.accountPermissions = accountPermissions;
+	}
+
+	/**
+	 * With name.
+	 *
+	 * @param name the name
+	 * @return the corpus
+	 */
+	public Corpus withName(String name){
+		setName(name);
+		return this;
+	}
 }

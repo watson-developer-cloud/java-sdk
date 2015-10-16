@@ -31,7 +31,7 @@ public class ClassifiedClass extends GenericModel {
 	private String name;
 	
 	/** The confidence. */
-	private double confidence;
+	private Double confidence;
 
 	/**
 	 * Gets the name.
@@ -58,7 +58,7 @@ public class ClassifiedClass extends GenericModel {
 	 * 
 	 * @return the confidence
 	 */
-	public double getConfidence() {
+	public Double getConfidence() {
 		return confidence;
 	}
 
@@ -68,7 +68,7 @@ public class ClassifiedClass extends GenericModel {
 	 * @param confidence
 	 *            the new confidence
 	 */
-	public void setConfidence(double confidence) {
+	public void setConfidence(Double confidence) {
 		this.confidence = confidence;
 	}
 }

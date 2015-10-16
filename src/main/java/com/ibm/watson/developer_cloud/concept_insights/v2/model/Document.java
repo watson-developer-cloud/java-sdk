@@ -22,6 +22,7 @@ import java.util.Map;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * Document returned by the {@link ConceptInsights} service.
@@ -34,6 +35,32 @@ public class Document extends GenericModel {
 
 	/** The label. */
 	private String label;
+
+	/** The document name. */
+	private String name;
+
+	public Document() {}
+
+	public Document(final String accountId, final String corpusName, final String document) {
+		Validate.notNull(document, "document can't be null");
+		setName(document);
+		setId(new Corpus(accountId, corpusName).getId() + "/documents/" + document);
+	}
+
+	/**
+	 * Instantiates a new document.
+	 * 
+	 * @param corpus
+	 *            the corpus
+	 * @param concept
+	 *            the concept
+	 */
+	public Document(final Corpus corpus, final String concept) {
+		Validate.notNull(corpus, "corpus can't be null");
+		Validate.notNull(corpus.getId(), "corpus.id can't be null");
+		setName(concept);
+		setId(corpus.getId() + "/documents/" + concept);
+	}
 
 	/** The last modified. */
 	@SerializedName("last_modified")
@@ -53,6 +80,15 @@ public class Document extends GenericModel {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * Gets the name.
+	 * 
+	 * @return The name
+	 */
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -139,5 +175,15 @@ public class Document extends GenericModel {
 	 */
 	public void setUserFields(Map<String, String> userFields) {
 		this.userFields = userFields;
+	}
+
+	/**
+	 * Sets the name.
+	 * 
+	 * @param name
+	 *            The name
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }

@@ -41,9 +41,9 @@ import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
- * The IBM Watson Language Translation service translate text from one language
- * to another and identifies the language in which text is written.
- *
+ * The IBM Watson Language Translation service translate text from one language to another
+ * and identifies the language in which text is written.
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v2
  * @see <a
@@ -54,25 +54,25 @@ public class LanguageTranslation extends WatsonService {
 
 	/** The Constant BASE_MODEL_ID. */
 	public static final String BASE_MODEL_ID = "base_model_id";
-	
+
 	/** The Constant FORCED_GLOSSARY. */
 	public static final String FORCED_GLOSSARY = "forced_glossary";
-	
+
 	/** The Constant DEFAULT. */
 	public static final String DEFAULT = "default";
-	
+
 	/** The Constant MODEL_ID. */
 	public static final String MODEL_ID = "model_id";
-	
+
 	/** The Constant SOURCE. */
 	public static final String SOURCE = "source";
-	
+
 	/** The Constant TARGET. */
 	public static final String TARGET = "target";
-	
+
 	/** The Constant TEXT. */
 	public static final String TEXT = "text";
-	
+
 	/** The Constant NAME. */
 	public static final String NAME = "name";
 
@@ -83,16 +83,13 @@ public class LanguageTranslation extends WatsonService {
 	private static final String URL = "https://gateway.watsonplatform.net/language-translation/api";
 
 	/** The identifiable languages list type. */
-	private final Type identifiableLanguagesListType = new TypeToken<List<IdentifiableLanguage>>() {
-	}.getType();
+	private final Type identifiableLanguagesListType = new TypeToken<List<IdentifiableLanguage>>() {}.getType();
 
 	/** The language model list type. */
-	private final Type translationModelListType = new TypeToken<List<IdentifiedLanguage>>() {
-	}.getType();
+	private final Type translationModelListType = new TypeToken<List<IdentifiedLanguage>>() {}.getType();
 
 	/** The model list type. */
-	private final Type modelListType = new TypeToken<List<TranslationModel>>() {
-	}.getType();
+	private final Type modelListType = new TypeToken<List<TranslationModel>>() {}.getType();
 
 	/**
 	 * Instantiates a new Language Translation service.
@@ -101,11 +98,9 @@ public class LanguageTranslation extends WatsonService {
 		setEndPoint(URL);
 	}
 
-
-
 	/**
 	 * Retrieves the list of identifiable languages.
-	 *
+	 * 
 	 * @return the identifiable languages
 	 * @see TranslationModel
 	 */
@@ -116,8 +111,8 @@ public class LanguageTranslation extends WatsonService {
 		try {
 			HttpResponse response = execute(requestBase);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<IdentifiableLanguage> langs = GsonSingleton.getGson().fromJson(
-					jsonObject.get(LANGUAGES), identifiableLanguagesListType);
+			List<IdentifiableLanguage> langs = GsonSingleton.getGson().fromJson(jsonObject.get(LANGUAGES),
+					identifiableLanguagesListType);
 			return langs;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -126,7 +121,7 @@ public class LanguageTranslation extends WatsonService {
 
 	/**
 	 * Retrieves the list of translation models.
-	 *
+	 * 
 	 * @return the translation models
 	 * @see TranslationModel
 	 */
@@ -136,8 +131,9 @@ public class LanguageTranslation extends WatsonService {
 
 	/**
 	 * Retrieves a translation models.
-	 *
- 	 * @param modelId the model identifier
+	 * 
+	 * @param modelId
+	 *            the model identifier
 	 * @return the translation models
 	 * @see TranslationModel
 	 */
@@ -145,12 +141,11 @@ public class LanguageTranslation extends WatsonService {
 		if (modelId == null || modelId.isEmpty())
 			throw new IllegalArgumentException("model_id can not be null or empty");
 
-
 		HttpRequestBase request = Request.Get("/v2/models/" + modelId).build();
 		try {
 			HttpResponse response = execute(request);
 			String modelAsString = ResponseUtil.getString(response);
-			TranslationModel model = GsonSingleton.getGson().fromJson(modelAsString,TranslationModel.class);
+			TranslationModel model = GsonSingleton.getGson().fromJson(modelAsString, TranslationModel.class);
 			return model;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -159,8 +154,9 @@ public class LanguageTranslation extends WatsonService {
 
 	/**
 	 * Deletes a translation models.
-	 *
- 	 * @param modelId the model identifier
+	 * 
+	 * @param modelId
+	 *            the model identifier
 	 */
 	public void deleteModel(String modelId) {
 		if (modelId == null || modelId.isEmpty())
@@ -172,20 +168,20 @@ public class LanguageTranslation extends WatsonService {
 
 	/**
 	 * Creates a translation models.
-	 *
-	 * @param params String name the model name,
-	 * 				 String base_model_id the model id to use as base model,
-	 * 				 File forced_glossary the tmx file use in the model
+	 * 
+	 * @param params
+	 *            String name the model name, String base_model_id the model id to use as
+	 *            base model, File forced_glossary the tmx file use in the model
 	 * @return the translation model
 	 */
-	public TranslationModel createModel(Map<String,Object> params) {
+	public TranslationModel createModel(Map<String, Object> params) {
 		// forced_glossary
-		File forcedGlossary  = (File) params.get(FORCED_GLOSSARY);
+		File forcedGlossary = (File) params.get(FORCED_GLOSSARY);
 		if (forcedGlossary == null || !forcedGlossary.exists() || !forcedGlossary.isFile())
 			throw new IllegalArgumentException("forced_glossary is not a valid file");
 
 		// base_model_id
-		String baseModelId  = (String) params.get(BASE_MODEL_ID);
+		String baseModelId = (String) params.get(BASE_MODEL_ID);
 		if (baseModelId == null || baseModelId.isEmpty())
 			throw new IllegalArgumentException("base_model_id can not be null or empty");
 
@@ -195,7 +191,7 @@ public class LanguageTranslation extends WatsonService {
 		request.withForm(BASE_MODEL_ID, baseModelId);
 
 		if (params.containsKey(NAME))
-			request.withForm(NAME, (String)params.get(NAME));
+			request.withForm(NAME, (String) params.get(NAME));
 
 		HttpRequestBase requestBase = request.build();
 		try {
@@ -205,11 +201,12 @@ public class LanguageTranslation extends WatsonService {
 			return model;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
-		}	}
+		}
+	}
 
 	/**
 	 * Retrieves the list of models.
-	 *
+	 * 
 	 * @param showDefault
 	 *            show default models
 	 * @param source
@@ -219,8 +216,7 @@ public class LanguageTranslation extends WatsonService {
 	 * @return the translation models
 	 * @see TranslationModel
 	 */
-	public List<TranslationModel> getModels(final Boolean showDefault,
-			final String source, final String target) {
+	public List<TranslationModel> getModels(final Boolean showDefault, final String source, final String target) {
 		Request request = Request.Get("/v2/models");
 
 		if (source != null && !source.isEmpty())
@@ -236,8 +232,7 @@ public class LanguageTranslation extends WatsonService {
 		try {
 			HttpResponse response = execute(requestBase);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<TranslationModel> models = GsonSingleton.getGson().fromJson(
-					jsonObject.get("models"), modelListType);
+			List<TranslationModel> models = GsonSingleton.getGson().fromJson(jsonObject.get("models"), modelListType);
 			return models;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -246,21 +241,20 @@ public class LanguageTranslation extends WatsonService {
 
 	/**
 	 * Identify language in which text is written.
-	 *
+	 * 
 	 * @param text
 	 *            the text to identify
 	 * @return the identified language
 	 */
 	public List<IdentifiedLanguage> identify(final String text) {
-		HttpRequestBase request = Request.Post("/v2/identify")
-				.withContent(text, MediaType.TEXT_PLAIN)
+		HttpRequestBase request = Request.Post("/v2/identify").withContent(text, MediaType.TEXT_PLAIN)
 				.withHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON).build();
 
 		try {
 			HttpResponse response = execute(request);
 			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			List<IdentifiedLanguage> identifiedLanguages = GsonSingleton.getGson().fromJson(
-					jsonObject.get(LANGUAGES), translationModelListType);
+			List<IdentifiedLanguage> identifiedLanguages = GsonSingleton.getGson().fromJson(jsonObject.get(LANGUAGES),
+					translationModelListType);
 			return identifiedLanguages;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -269,7 +263,7 @@ public class LanguageTranslation extends WatsonService {
 
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
@@ -282,11 +276,12 @@ public class LanguageTranslation extends WatsonService {
 	}
 
 	/**
-	 * Translate paragraphs of text using a model and or source and target.
-	 * model_id or source and target needs to be specified.
-	 * If both are specified, then only model_id will be used
-	 *
-	 * @param params the params
+	 * Translate paragraphs of text using a model and or source and target. model_id or
+	 * source and target needs to be specified. If both are specified, then only model_id
+	 * will be used
+	 * 
+	 * @param params
+	 *            the params
 	 * @return The {@link TranslationResult}
 	 */
 	public TranslationResult translate(final Map<String, Object> params) {
@@ -294,10 +289,10 @@ public class LanguageTranslation extends WatsonService {
 		final String source = (String) params.get(SOURCE);
 		final String target = (String) params.get(TARGET);
 		final String modelId = (String) params.get(MODEL_ID);
-		final String [] text;
+		final String[] text;
 		if (params.get(TEXT) != null) {
 			if (params.get(TEXT) instanceof String)
-				text = new String[]{(String) params.get(TEXT)};
+				text = new String[] { (String) params.get(TEXT) };
 			else
 				text = (String[]) params.get(TEXT);
 		} else {
@@ -305,10 +300,8 @@ public class LanguageTranslation extends WatsonService {
 		}
 
 		if ((modelId == null || modelId.isEmpty())
-				&& (source == null || source.isEmpty() || target == null || target
-						.isEmpty()))
-			throw new IllegalArgumentException(
-					"model_id or source and target should be specified");
+				&& (source == null || source.isEmpty() || target == null || target.isEmpty()))
+			throw new IllegalArgumentException("model_id or source and target should be specified");
 
 		if (text == null)
 			throw new IllegalArgumentException("text can not be null");
@@ -322,8 +315,7 @@ public class LanguageTranslation extends WatsonService {
 		}
 		contentJson.add(TEXT, paragraphs);
 
-		Request requestBuilder = Request.Post("/v2/translate")
-				.withContent(contentJson);
+		Request requestBuilder = Request.Post("/v2/translate").withContent(contentJson);
 
 		if (source != null && !source.isEmpty())
 			requestBuilder.withQuery(SOURCE, source);
@@ -339,25 +331,25 @@ public class LanguageTranslation extends WatsonService {
 		try {
 			HttpResponse response = execute(request);
 			String translationResult = ResponseUtil.getString(response);
-			TranslationResult translation = GsonSingleton.getGson().fromJson(
-					translationResult, TranslationResult.class);
+			TranslationResult translation = GsonSingleton.getGson()
+					.fromJson(translationResult, TranslationResult.class);
 			return translation;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-
-
 	/**
 	 * Translate text using a model.
-	 *
-	 * @param text            The submitted paragraphs to translate
-	 * @param modelId the model id
+	 * 
+	 * @param text
+	 *            The submitted paragraphs to translate
+	 * @param modelId
+	 *            the model id
 	 * @return The {@link TranslationResult}
 	 */
-	public TranslationResult translate(final String text,final  String modelId) {
-		Map<String, Object> params = new HashMap<String,Object>();
+	public TranslationResult translate(final String text, final String modelId) {
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(TEXT, text);
 		params.put(MODEL_ID, modelId);
 		return translate(params);
@@ -365,14 +357,17 @@ public class LanguageTranslation extends WatsonService {
 
 	/**
 	 * Translate text using source and target languages.
-	 *
-	 * @param text            The submitted paragraphs to translate
-	 * @param source          The source language
-	 * @param target          The target language
+	 * 
+	 * @param text
+	 *            The submitted paragraphs to translate
+	 * @param source
+	 *            The source language
+	 * @param target
+	 *            The target language
 	 * @return The {@link TranslationResult}
 	 */
-	public TranslationResult translate(final String text,final String source,final String target) {
-		Map<String, Object> params = new HashMap<String,Object>();
+	public TranslationResult translate(final String text, final String source, final String target) {
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(TEXT, text);
 		params.put(SOURCE, source);
 		params.put(TARGET, target);

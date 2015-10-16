@@ -106,6 +106,14 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
 	}
 
 	/**
+	 * Test tone with null
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetToneWithNull() {
+		service.getTone(null);
+	}
+
+	/**
 	 * Test dilemmas.
 	 */
 	@Test

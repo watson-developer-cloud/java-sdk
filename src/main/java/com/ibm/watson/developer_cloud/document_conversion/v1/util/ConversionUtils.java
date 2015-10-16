@@ -13,14 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.document_conversion.v1.helpers;
+package com.ibm.watson.developer_cloud.document_conversion.v1.util;
 
 import java.io.File;
 import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
 
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.util.MediaType;
@@ -31,9 +27,6 @@ import com.ibm.watson.developer_cloud.util.MediaType;
  * @see DocumentConversion
  */
 public class ConversionUtils {
-
-    /** The Constant DATE_FORMAT_UTC. */
-    private static final String DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'";
     
     /**
      * Returns the media type for a given file.
@@ -81,27 +74,13 @@ public class ConversionUtils {
     }
 
     /**
-     * Converts the date to ISO 8601 format.
-     *
-     * @param date the date to be converted to DateTime
-     * @return the date time string for a given date
-     */
-    public static String convertToISO(Date date) {
-        TimeZone tz = TimeZone.getTimeZone("UTC");
-        DateFormat df = new SimpleDateFormat(DATE_FORMAT_UTC);
-        df.setTimeZone(tz);
-        String dtAsISO = df.format(date);
-        return dtAsISO;
-    }
-
-    /**
      * Write input stream to output stream.
      *
      * @param is the input stream
      * @return String
      */
     public static String writeInputStreamToString(InputStream is) {
-        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+		java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
     }
 }

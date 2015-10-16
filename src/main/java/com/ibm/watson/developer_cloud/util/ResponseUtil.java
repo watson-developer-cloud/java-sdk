@@ -25,8 +25,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.ParseException;
 import org.apache.http.util.EntityUtils;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -47,24 +45,6 @@ public class ResponseUtil {
 	public static final int BUFFER_SIZE = 8192; // 8 kb
 
 	/**
-	 * Returns a Json {@link String} in human-readable form.
-	 * 
-	 * @param json
-	 *            the Json string
-	 * @return the human-readable string
-	 */
-	public static String formatJSON(String json) {
-		try {
-			JsonParser parser = new JsonParser();
-			Gson gson = GsonSingleton.getGson();
-			return gson.toJson(parser.parse(json));
-		} catch (Exception e) {
-			log.log(Level.SEVERE,json + " is not valid", e);
-			return json;
-		}
-	}
-
-	/**
 	 * Return a {@link JsonElement} representation of the response.
 	 * 
 	 * @param response
@@ -81,21 +61,6 @@ public class ResponseUtil {
 		JsonElement element = new JsonParser().parse(json);
 		return element;
 	}
-
-	/**
-	 * Returns a {@link JsonArray} representation of the response.
-	 *
-	 * @param response            an HTTP response
-	 * @return the content body as JsonArray
-	 * @throws IOException  If an input or output
-	 * 						exception occurred
-	 */
-	public static JsonArray getJsonArray(HttpResponse response)
-			throws IOException {
-		final JsonElement json = getJsonElement(response);
-		return json.getAsJsonArray();
-	}
-
 
 	/**
 	 * Returns a {@link JsonObject} representation of the response.

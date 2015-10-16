@@ -23,8 +23,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SpeechModel extends GenericModel {
 
-	/**  US English broadband model (16KHz). */
+	/** Spanish broadband model (16KHz). */
 	public static final SpeechModel ES_BROADBAND16K = new SpeechModel("es-ES_BroadbandModel");
+
+	/** US English broadband model (16KHz). */
+	public static final SpeechModel EN_BROADBAND16K = new SpeechModel("en-US_BroadbandModel");
+
+	/** Brazilian Portuguese broadband model (16KHz). */
+	public static final SpeechModel PT_BROADBAND16K = new SpeechModel("pt-BR_BroadbandModel");
 
 	/** The name. */
 	private String name;

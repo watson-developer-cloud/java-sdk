@@ -156,6 +156,11 @@ public class SpeechToTextTest extends WatsonServiceTest {
 		SpeechModel model = service.getModel("not-a-real-Model");
 		Assert.assertNotNull(model);
 		Assert.assertEquals(model, speechModel);
+		
+		model = service.getModel(speechModel);
+		Assert.assertNotNull(model);
+		Assert.assertEquals(model, speechModel);
+		
 		try {
 			TestUtils.assertNoExceptionsOnGetters(model);
 		} catch (Exception e) {
@@ -174,8 +179,6 @@ public class SpeechToTextTest extends WatsonServiceTest {
 		speechSession.setNewSessionUri("http://ibm.watson.com/speech-to-text/api/v1/sessions/f7332a2d7a138ea9f05ffaa8f697a788");
 		speechSession.setSessionId("f7332a2d7a138ea9f05ffaa8f697a788");
 		speechSession.setObserveResult("http://ibm.watson.com/speech-to-text/api/v1/sessions/f7332a2d7a138ea9f05ffaa8f697a788/observe_result");
-
-		System.out.print(GsonSingleton.getGson().toJson(speechSession));
 
 		mockServer.when(request().withMethod("POST").withPath(CREATE_DELETE_SESSIONS_PATH)).
 
@@ -284,4 +287,21 @@ public class SpeechToTextTest extends WatsonServiceTest {
 		Assert.assertEquals(result, speechResults);
 	}
 	
+
+	/**
+	 * Test delete session with null.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testDeleteSessionWithNull() {
+		service.deleteSession(null);
+	}
+	
+	/**
+	 * Test get model with null.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetModelWithNull() {
+		String model = null;
+		service.getModel(model);
+	}
 }

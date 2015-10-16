@@ -13,18 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.ibm.watson.developer_cloud.machine_translation.v1;
+package com.ibm.watson.developer_cloud.document_conversion.v1.util;
 
-import com.ibm.watson.developer_cloud.machine_translation.v1.model.Language;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 
-public class MachineTranslationExample {
-
-	public static void main(String[] args) {
-		MachineTranslation service = new MachineTranslation();
-		service.setUsernameAndPassword("<username>", "<password>");
-
-		String translation = service.translate("The IBM Watson team is awesome",
-				Language.ENGLISH, Language.SPANISH);
-		System.out.println(translation);
-	}
+/**
+ * Conversion Targets that are supported by the Document Conversion service.
+ *
+ * @see DocumentConversion
+ */
+public enum ConversionTarget {
+    
+    /** The normalized html. */
+    NORMALIZED_HTML,
+    
+    /** The normalized text. */
+    NORMALIZED_TEXT,
+    
+    /** The answer units. */
+    ANSWER_UNITS
 }

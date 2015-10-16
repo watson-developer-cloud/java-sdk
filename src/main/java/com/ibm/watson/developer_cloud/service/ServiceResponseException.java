@@ -40,21 +40,6 @@ public class ServiceResponseException extends RuntimeException {
 	}
 
 	/**
-	 * Instantiates a new Service Response Exception.
-	 * 
-	 * @param statusCode
-	 *            the status code
-	 * @param message
-	 *            the error message
-	 * @param cause
-	 *            the cause
-	 */
-	public ServiceResponseException(int statusCode, String message, Throwable cause) {
-		super(message, cause);
-		this.statusCode = statusCode;
-	}
-
-	/**
 	 * Gets the HTTP status code.
 	 * 
 	 * @return the http status code

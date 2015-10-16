@@ -15,9 +15,12 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.util.MediaType;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -35,11 +38,9 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.util.MediaType;
+import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It
@@ -134,7 +135,7 @@ public abstract class WatsonService {
 	 *
 	 * @param request the request
 	 */
-	protected void executeWithoutResponse(HttpRequestBase request) { 
+	protected void executeWithoutResponse(HttpRequestBase request) {
 		HttpResponse response = execute(request);
 		try {
 			ResponseUtil.getString(response);
@@ -170,8 +171,7 @@ public abstract class WatsonService {
 		HttpResponse response;
 		log.log(Level.FINEST, "Request to: " + request.getURI());
 		try {
-			//response = getHttpClient().execute(request);
-			response = getThreadSafeClient().execute(request);
+			response = getHttpClient().execute(request);
 		} catch (ClientProtocolException e) {
 			log.log(Level.SEVERE, "ClientProtocolException", e);
 			throw new RuntimeException(e);
@@ -314,7 +314,7 @@ public abstract class WatsonService {
 	 */
 	public HttpClient getHttpClient() {
 		if (httpClient == null) {
-			httpClient = new DefaultHttpClient(getDefaultRequestParams());
+			httpClient = getThreadSafeClient();
 		}
 		return httpClient;
 	}
@@ -324,7 +324,7 @@ public abstract class WatsonService {
 	 *
 	 * @return the thread safe client
 	 */
-	public HttpClient getThreadSafeClient() {
+	private HttpClient getThreadSafeClient() {
 
 	    DefaultHttpClient client = new DefaultHttpClient(getDefaultRequestParams());
 	    ClientConnectionManager mgr = client.getConnectionManager();

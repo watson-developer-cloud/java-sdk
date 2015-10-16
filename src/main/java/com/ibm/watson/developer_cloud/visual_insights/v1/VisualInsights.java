@@ -93,7 +93,7 @@ public class VisualInsights extends WatsonService {
         if(filterName!=null && !filterName.isEmpty()) {
             Map<String, Object> queryParameters = new HashMap<String, Object>();
             queryParameters.put(FILTER_NAME,filterName);
-            request.withQuery(queryParameters);
+            request.withQueryMap(queryParameters);
         }
 
         return executeRequest(request, Classifiers.class);

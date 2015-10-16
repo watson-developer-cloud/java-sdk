@@ -32,17 +32,6 @@ public class UnauthorizedException extends ServiceResponseException {
 		super(HttpStatus.SC_UNAUTHORIZED, message);
 	}
 
-	/**
-	 * Instantiates a new Unauthorized Exception.
-	 * 
-	 * @param message
-	 *            the error message
-	 * @param cause
-	 *            the cause
-	 */
-	public UnauthorizedException(String message, Throwable cause) {
-		super(HttpStatus.SC_UNAUTHORIZED, message,cause);
-	}
 
 	/**
 	 * The Constant serialVersionUID.

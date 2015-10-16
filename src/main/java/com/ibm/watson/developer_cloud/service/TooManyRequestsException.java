@@ -37,16 +37,4 @@ public class TooManyRequestsException extends ServiceResponseException {
 		super(TOO_MANY_REQUESTS, message);
 	}
 
-	/**
-	 * Instantiates a new Too Many Requests Exception.
-	 * 
-	 * @param message
-	 *            the error message
-	 * @param cause
-	 *            the cause
-	 */
-	public TooManyRequestsException(String message, Throwable cause) {
-		super(TOO_MANY_REQUESTS, message, cause);
-	}
-
 }

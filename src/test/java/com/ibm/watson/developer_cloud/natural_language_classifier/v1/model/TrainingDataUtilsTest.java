@@ -42,6 +42,13 @@ public class TrainingDataUtilsTest {
     			new TrainingData().withClasses("class4")));
 	}
 
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testIllegalArgumentExceptionFileNull() {
+		TrainingDataUtils.fromCSV(null, CSVFormat.DEFAULT);
+	}
+
+
 	/**
 	 * Test conversion from CSV to training data.
 	 */

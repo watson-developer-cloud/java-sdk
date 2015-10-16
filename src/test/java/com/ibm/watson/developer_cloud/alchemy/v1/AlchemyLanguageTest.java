@@ -312,4 +312,17 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		Assert.assertNotNull(combined);
 	}
 
+	/**
+	 * Test api key is null.
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public void testApiKeyIsNull() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
+		
+		AlchemyLanguage language = new AlchemyLanguage();
+		language.getKeywords(params);
+		language.setApiKey(null);
+	}
+	
 }

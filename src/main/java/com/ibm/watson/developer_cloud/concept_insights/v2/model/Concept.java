@@ -17,6 +17,7 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * Concept returned by the {@link ConceptInsights} service.
@@ -30,6 +31,42 @@ public class Concept extends GenericModel {
 	/** The label. */
 	private String label;
 
+	/** The concept name. */
+	private String name;
+
+	/**
+	 * Instantiates a new concept.
+	 */
+	public Concept() {}
+
+	/**
+	 * Instantiates a new concept.
+	 *
+	 * @param accountId the account id
+	 * @param graphName the graph name
+	 * @param concept   the concept
+	 */
+	public Concept(final String accountId, final String graphName, final String concept) {
+		Validate.notNull(concept, "concept can't be null");
+		setName(concept);
+		setId(new Graph(accountId, graphName).getId() + "/concepts/" + concept);
+	}
+
+	/**
+	 * Instantiates a new concept.
+	 * 
+	 * @param graph
+	 *            the graph
+	 * @param concept
+	 *            the concept
+	 */
+	public Concept(final Graph graph, final String concept) {
+		Validate.notNull(graph, "graph can't be null");
+		Validate.notNull(graph.getId(), "graph.id can't be null");
+		setName(concept);
+		setId(graph.getId() + "/concepts/" + concept);
+	}
+	
 	/**
 	 * Gets the id.
 	 * 
@@ -37,6 +74,15 @@ public class Concept extends GenericModel {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * Gets the name.
+	 * 
+	 * @return The name
+	 */
+	public String getName() {
+		return name;
 	}
 
 	/**
@@ -66,5 +112,15 @@ public class Concept extends GenericModel {
 	 */
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	/**
+	 * Sets the name.
+	 * 
+	 * @param name
+	 *            The name
+	 */
+	public void setName(String name) {
+		this.name = name;
 	}
 }

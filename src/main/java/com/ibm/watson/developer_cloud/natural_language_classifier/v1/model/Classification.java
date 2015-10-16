@@ -42,6 +42,27 @@ public class Classification extends GenericModel {
 	@SerializedName("top_class")
 	private String topClass;
 	
+	/** The top confidence. */
+	private transient Double topConfidence;
+	
+	/**
+	 * Gets the top confidence.
+	 *
+	 * @return the topConfidence
+	 */
+	public Double getTopConfidence() {
+		return topConfidence;
+	}
+
+	/**
+	 * Sets the top confidence.
+	 *
+	 * @param topConfidence the topConfidence to set
+	 */
+	public void setTopConfidence(Double topConfidence) {
+		this.topConfidence = topConfidence;
+	}
+
 	/** The classes. */
 	private List<ClassifiedClass> classes;
 

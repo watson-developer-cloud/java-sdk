@@ -15,9 +15,10 @@
  */
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 
+import static org.junit.Assert.*;
+
 import java.io.InputStream;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -37,11 +38,11 @@ public class ProblemTest {
 		InputStream in = this.getClass().getClassLoader().getResourceAsStream("problem.json");
 		String problemJson = WatsonServiceTest.getStringFromInputStream(in);
 		Problem problem = GsonSingleton.getGson().fromJson(problemJson, Problem.class);
-		Assert.assertNotNull(problem.getSubject());
-		Assert.assertNotNull(problem.getColumns());
-		Assert.assertNotNull(problem.getOptions());
-		Assert.assertNotNull(problem.getColumns().get(0));
-		Assert.assertNotNull(problem.getOptions().get(0));
+		assertNotNull(problem.getSubject());
+		assertNotNull(problem.getColumns());
+		assertNotNull(problem.getOptions());
+		assertNotNull(problem.getColumns().get(0));
+		assertNotNull(problem.getOptions().get(0));
 	}
 
 }

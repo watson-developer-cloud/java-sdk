@@ -35,6 +35,13 @@ public class Document extends GenericModel {
     private Integer timestamp;
 
     /**
+	 * @param timestamp the timestamp to set
+	 */
+	public void setTimestamp(Integer timestamp) {
+		this.timestamp = timestamp;
+	}
+
+	/**
      * Gets the id.
      *
      * @return The id

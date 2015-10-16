@@ -32,18 +32,6 @@ public class InternalServerErrorException extends ServiceResponseException {
 	 * 
 	 * @param message
 	 *            the error message
-	 * @param cause
-	 *            the cause
-	 */
-	public InternalServerErrorException(String message, Throwable cause) {
-		super(HttpStatus.SC_INTERNAL_SERVER_ERROR, message, cause);
-	}
-
-	/**
-	 * Instantiates a new Internal Server Error Exception.
-	 * 
-	 * @param message
-	 *            the error message
 	 */
 	public InternalServerErrorException(String message) {
 		super(HttpStatus.SC_INTERNAL_SERVER_ERROR, message);

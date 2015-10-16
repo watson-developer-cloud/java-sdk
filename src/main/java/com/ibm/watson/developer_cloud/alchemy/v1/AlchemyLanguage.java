@@ -16,17 +16,29 @@
 
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
-import com.ibm.watson.developer_cloud.alchemy.v1.model.*;
+import java.io.IOException;
+import java.util.Map;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpRequestBase;
+
+import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentAuthors;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentText;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentTitle;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Entities;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Feeds;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Keywords;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Language;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Microformats;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.SAORelations;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomies;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints.AlchemyAPI;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
 import com.ibm.watson.developer_cloud.service.Request;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
-
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * The Alchemy Language service uses offers 12 text analysis services, each of which uses
