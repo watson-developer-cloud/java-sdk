@@ -90,6 +90,22 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 	}
 
 	/**
+	 * Test Get entities HTML.
+	 */
+	@Test
+	public void testGetEntitiesWithDifferentCharacters() {
+		Map<String, Object> params = new HashMap<String, Object>();
+		String text = "Mr. Vice President, my old colleague from Massachusetts"+
+		"and your new Speaker & John McCormack, Members of the 87th Congress, "+
+		"ladies and gentlemen: -.*&^%$#@!@#$%^&*()";
+		params.put(AlchemyLanguage.TEXT, text);
+
+		Entities entities = service.getEntities(params);
+		Assert.assertNotNull(entities);
+		Assert.assertFalse(entities.getEntities().isEmpty());
+	}
+
+	/**
 	 * Test Get keywords URL.
 	 */
 	@Test
@@ -319,10 +335,10 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 	public void testApiKeyIsNull() {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-		
+
 		AlchemyLanguage language = new AlchemyLanguage();
 		language.getKeywords(params);
 		language.setApiKey(null);
 	}
-	
+
 }
