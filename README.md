@@ -450,7 +450,7 @@ them when using the library there.
 
 ## Running in Bluemix
 When running in Bluemix, the library will automatically get the credentials from `VCAP_SERVICES`.
-If you have more than one plan you can use `BluemixUtils` to get the service credentials for an specific plan.
+If you have more than one plan, you can use `BluemixUtils` to get the service credentials for an specific plan.
 
 ```java
 PersonalityInsights service = new PersonalityInsights();

@@ -17,10 +17,9 @@ package com.ibm.watson.developer_cloud.util;
 
 /**
  * An abstraction for a media type. Instances are immutable.
- *
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
- * @see <a
- *      href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.7">HTTP/1.1
+ * @see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.7">HTTP/1.1
  *      section 3.7</a>
  */
 public interface MediaType {
@@ -30,8 +29,7 @@ public interface MediaType {
 	 */
 	public final static String APPLICATION_ATOM_XML = "application/atom+xml";
 	/**
-	 * Field APPLICATION_FORM_URLENCODED. (value is
-	 * "application/x-www-form-urlencoded")
+	 * Field APPLICATION_FORM_URLENCODED. (value is "application/x-www-form-urlencoded")
 	 */
 	public final static String APPLICATION_FORM_URLENCODED = "application/x-www-form-urlencoded";
 	/**
@@ -47,7 +45,7 @@ public interface MediaType {
 	 * Field BINARY_OCTET_STREAM. (value is "binary/octet-stream")
 	 */
 	public final static String BINARY_OCTET_STREAM = "binary/octet-stream";
-	
+
 	/**
 	 * Field APPLICATION_SVG_XML. (value is "application/svg+xml")
 	 */
@@ -92,17 +90,23 @@ public interface MediaType {
 	 * Field WILDCARD. (value is "*\/*")
 	 */
 	public final static String WILDCARD = "*/*";
-    /**
-     * Field APPLICATION_PDF. (value is "application/pdf")
-     */
-    public final static String APPLICATION_PDF = "application/pdf";
-    /**
-     * Field APPLICATION_MS_WORD. (value is "application/msword")
-     */
-    public final static String APPLICATION_MS_WORD = "application/msword";
 	/**
-	 * Field APPLICATION_MS_WORD_DOCX. (value is "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
+	 * Field APPLICATION_PDF. (value is "application/pdf")
+	 */
+	public final static String APPLICATION_PDF = "application/pdf";
+	/**
+	 * Field APPLICATION_MS_WORD. (value is "application/msword")
+	 */
+	public final static String APPLICATION_MS_WORD = "application/msword";
+	/**
+	 * Field APPLICATION_MS_WORD_DOCX. (value is
+	 * "application/vnd.openxmlformats-officedocument.wordprocessingml.document")
 	 */
 	public final static String APPLICATION_MS_WORD_DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+	/**
+	 * Field TEXT_CSV. (value is "text/csv")
+	 */
+	public static final String TEXT_CSV = "text/csv";
 
 }
