@@ -171,7 +171,6 @@ public abstract class WatsonService {
 		HttpResponse response;
 		log.log(Level.FINEST, "Request to: " + request.getURI());
 		try {
-			//response = getHttpClient().execute(request);
 			response = getHttpClient().execute(request);
 		} catch (ClientProtocolException e) {
 			log.log(Level.SEVERE, "ClientProtocolException", e);

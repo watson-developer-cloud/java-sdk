@@ -45,7 +45,7 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
 	private static final Logger log = Logger.getLogger(ColumnTypeAdapter.class.getName());
 
 	/** The df. */
-	private final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm'Z'");
+	private final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
 	/*
 	 * (non-Javadoc)
