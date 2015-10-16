@@ -122,14 +122,14 @@ public class TextToSpeechTest extends WatsonServiceTest {
 		reqEntity = new InputStreamEntity(new FileInputStream(audio), -1);
 			List<Parameter> parameters = new ArrayList<Parameter>();
 			parameters.add(new Parameter("text",text));
-			parameters.add(new Parameter("voice",Voice.EN_MICHAEL.getName()));
+			parameters.add(new Parameter("voice", Voice.EN_LISA.getName()));
 			parameters.add(new Parameter("accept",MediaType.AUDIO_WAV));
 
 			mockServer.when(request().withQueryStringParameters(parameters).withPath(SYNTHESIZE_PATH)).respond(
 					response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, MediaType.AUDIO_WAV))
 							.withBody(IOUtils.toString(reqEntity.getContent())));
 
-		InputStream in = service.synthesize(text, Voice.EN_MICHAEL, MediaType.AUDIO_WAV);
+		InputStream in = service.synthesize(text, Voice.EN_LISA, MediaType.AUDIO_WAV);
 		Assert.assertNotNull(in);
 
 			writeInputStreamToOutputStream(in, new FileOutputStream("target/output.wav"));
@@ -161,7 +161,7 @@ public class TextToSpeechTest extends WatsonServiceTest {
 	 */
 	//@Test
 	public void testWithVoiceAsWav() {
-		InputStream is = service.synthesize(text, Voice.EN_MICHAEL, MediaType.AUDIO_WAV);
+		InputStream is = service.synthesize(text, Voice.EN_LISA, MediaType.AUDIO_WAV);
 		Assert.assertNotNull(is);
 
 		try {

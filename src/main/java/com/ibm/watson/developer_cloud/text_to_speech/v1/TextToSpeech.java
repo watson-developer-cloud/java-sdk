@@ -112,7 +112,7 @@ public class TextToSpeech extends WatsonService {
 	 * @return the input stream with the synthesized audio
 	 */
 	public InputStream synthesize(final String text, final String format) {
-		return synthesize(text, Voice.EN_MICHAEL, format);
+		return synthesize(text, Voice.EN_LISA, format);
 	}
 
 	/**

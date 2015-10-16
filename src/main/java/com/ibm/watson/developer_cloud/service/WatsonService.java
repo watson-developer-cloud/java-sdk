@@ -43,13 +43,12 @@ import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
 /**
- * Watson service abstract common functionality of various Watson Services. It
- * handle authentication and default url
- *
+ * Watson service abstract common functionality of various Watson Services. It handle
+ * authentication and default url
+ * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/">
- *      IBM Watson Developer Cloud</a>
+ * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/"> IBM
+ *      Watson Developer Cloud</a>
  */
 public abstract class WatsonService {
 
@@ -68,11 +67,10 @@ public abstract class WatsonService {
 	private static final int CONNECTION_TIMEOUT = 120000;
 
 	/** The Constant log. */
-	private static final Logger log = Logger.getLogger(WatsonService.class
-			.getName());
+	private static final Logger log = Logger.getLogger(WatsonService.class.getName());
 
 	/**
-	 * Field MAX_TOTAL_CONNECTIONS. (value is 1000)
+	 * Field MAX_CONNECTIONS_PER_ROUTE. (value is 1000)
 	 */
 	private static final int MAX_CONNECTIONS_PER_ROUTE = 1000;
 
@@ -101,19 +99,18 @@ public abstract class WatsonService {
 
 	/**
 	 * Instantiates a new Watson service.
-	 *
+	 * 
 	 */
-	public WatsonService() {
-	}
+	public WatsonService() {}
 
 	/**
 	 * Builds the request URI appending the service end point to the path.<br>
 	 * <b>From:</b> /v1/foo/bar <br>
 	 * <b>to:</b>https://host:port/api/v1/foo/bar
-	 *
+	 * 
 	 * @param request
 	 *            the http request
-	 *
+	 * 
 	 * @return the URI including the service end point
 	 */
 	private URI buildRequestURI(HttpRequestBase request) {
@@ -129,11 +126,12 @@ public abstract class WatsonService {
 	}
 
 	/**
-	 * Execute the Http request and discard the response.
-	 * Use this when you don't want to get the response but you want to make sure
-	 * we read it so that the underline connection is released
-	 *
-	 * @param request the request
+	 * Execute the Http request and discard the response. Use this when you don't want to
+	 * get the response but you want to make sure we read it so that the underline
+	 * connection is released
+	 * 
+	 * @param request
+	 *            the request
 	 */
 	protected void executeWithoutResponse(HttpRequestBase request) {
 		HttpResponse response = execute(request);
@@ -146,10 +144,10 @@ public abstract class WatsonService {
 
 	/**
 	 * Execute the Http request.
-	 *
+	 * 
 	 * @param request
 	 *            the http request
-	 *
+	 * 
 	 * @return the http response
 	 */
 	protected HttpResponse execute(HttpRequestBase request) {
@@ -157,8 +155,7 @@ public abstract class WatsonService {
 		setAuthentication(request);
 
 		if (getEndPoint() == null)
-			throw new IllegalArgumentException(
-					"service endpoint was not specified");
+			throw new IllegalArgumentException("service endpoint was not specified");
 
 		if (!request.containsHeader(ACCEPT)) {
 			request.addHeader(ACCEPT, getDefaultContentType());
@@ -189,39 +186,32 @@ public abstract class WatsonService {
 		// There was a Client Error 4xx or a Server Error 5xx
 		// Get the error message and create the exception
 		String error = getErrorMessage(response);
-		log.log(Level.SEVERE, "HTTP Status: " + status + ", message: "+ error);
+		log.log(Level.SEVERE, "HTTP Status: " + status + ", message: " + error);
 
 		switch (status) {
 		case HttpStatus.SC_BAD_REQUEST: // HTTP 400
 			throw new BadRequestException(error != null ? error : "Bad Request");
 		case HttpStatus.SC_UNAUTHORIZED: // HTTP 401
-			throw new UnauthorizedException(
-					"Unauthorized: Access is denied due to invalid credentials");
+			throw new UnauthorizedException("Unauthorized: Access is denied due to invalid credentials");
 		case HttpStatus.SC_FORBIDDEN: // HTTP 403
-			throw new ForbiddenException(error != null ? error
-					: "Forbidden: Service refuse the request");
+			throw new ForbiddenException(error != null ? error : "Forbidden: Service refuse the request");
 		case HttpStatus.SC_NOT_FOUND: // HTTP 404
 			throw new NotFoundException(error != null ? error : "Not found");
 		case HttpStatus.SC_NOT_ACCEPTABLE: // HTTP 406
-			throw new ForbiddenException(error != null ? error
-					: "Forbidden: Service refuse the request");
+			throw new ForbiddenException(error != null ? error : "Forbidden: Service refuse the request");
 		case HttpStatus.SC_REQUEST_TOO_LONG: // HTTP 413
-			throw new RequestTooLargeException(
-					error != null ? error
-							: "Request too large: The request entity is larger than the server is able to process");
+			throw new RequestTooLargeException(error != null ? error
+					: "Request too large: The request entity is larger than the server is able to process");
 		case HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE: // HTTP 415
 			throw new UnsupportedException(
 					error != null ? error
 							: "Unsupported MIME type: The request entity has a media type which the server or resource does not support");
 		case 429: // HTTP 429
-			throw new TooManyRequestsException(error != null ? error
-					: "Too many requests");
+			throw new TooManyRequestsException(error != null ? error : "Too many requests");
 		case HttpStatus.SC_INTERNAL_SERVER_ERROR: // HTTP 500
-			throw new InternalServerErrorException(error != null ? error
-					: "Internal Server Error");
+			throw new InternalServerErrorException(error != null ? error : "Internal Server Error");
 		case HttpStatus.SC_SERVICE_UNAVAILABLE: // HTTP 503
-			throw new ServiceUnavailableException(error != null ? error
-					: "Service Unavailable");
+			throw new ServiceUnavailableException(error != null ? error : "Service Unavailable");
 		default: // other errors
 			throw new ServiceResponseException(status, error);
 		}
@@ -229,8 +219,8 @@ public abstract class WatsonService {
 
 	/**
 	 * Gets the API key.
-	 *
-	 *
+	 * 
+	 * 
 	 * @return the API key
 	 */
 	protected String getApiKey() {
@@ -239,8 +229,8 @@ public abstract class WatsonService {
 
 	/**
 	 * Gets the default content type.
-	 *
-	 *
+	 * 
+	 * 
 	 * @return the default content type
 	 */
 	protected String getDefaultContentType() {
@@ -249,8 +239,8 @@ public abstract class WatsonService {
 
 	/**
 	 * Gets the default request.
-	 *
-	 *
+	 * 
+	 * 
 	 * @return the default request
 	 */
 	protected HttpParams getDefaultRequestParams() {
@@ -266,8 +256,8 @@ public abstract class WatsonService {
 
 	/**
 	 * Gets the API end point.
-	 *
-	 *
+	 * 
+	 * 
 	 * @return the API end point
 	 */
 	public String getEndPoint() {
@@ -276,16 +266,16 @@ public abstract class WatsonService {
 
 	/**
 	 * Gets the error message from a JSON response
-	 *
+	 * 
 	 * <pre>
 	 * {
 	 *   code: 400
 	 *   error: 'bad request'
 	 * }
 	 * </pre>
-	 *
+	 * 
 	 * .
-	 *
+	 * 
 	 * @param response
 	 *            the HTTP response
 	 * @return the error message from the json object
@@ -308,8 +298,8 @@ public abstract class WatsonService {
 
 	/**
 	 * Gets the http client.
-	 *
-	 *
+	 * 
+	 * 
 	 * @return the http client
 	 */
 	public HttpClient getHttpClient() {
@@ -321,25 +311,24 @@ public abstract class WatsonService {
 
 	/**
 	 * Gets the thread safe client.
-	 *
+	 * 
 	 * @return the thread safe client
 	 */
 	private HttpClient getThreadSafeClient() {
 
-	    DefaultHttpClient client = new DefaultHttpClient(getDefaultRequestParams());
-	    ClientConnectionManager mgr = client.getConnectionManager();
-	    HttpParams params = client.getParams();
+		DefaultHttpClient client = new DefaultHttpClient(getDefaultRequestParams());
+		ClientConnectionManager mgr = client.getConnectionManager();
+		HttpParams params = client.getParams();
 
-	    client = new DefaultHttpClient(new ThreadSafeClientConnManager(params,
-	    		mgr.getSchemeRegistry()), params);
+		client = new DefaultHttpClient(new ThreadSafeClientConnManager(params, mgr.getSchemeRegistry()), params);
 
-	    return client;
+		return client;
 	}
 
 	/**
 	 * Gets the user agent.
-	 *
-	 *
+	 * 
+	 * 
 	 * @return the user agent
 	 */
 	private final String getUserAgent() {
@@ -348,7 +337,7 @@ public abstract class WatsonService {
 
 	/**
 	 * Sets the API key.
-	 *
+	 * 
 	 * @param apiKey
 	 *            the new API key
 	 */
@@ -358,7 +347,7 @@ public abstract class WatsonService {
 
 	/**
 	 * Sets the end point.
-	 *
+	 * 
 	 * @param endPoint
 	 *            the new end point
 	 */
@@ -368,7 +357,7 @@ public abstract class WatsonService {
 
 	/**
 	 * Sets the username and password.
-	 *
+	 * 
 	 * @param username
 	 *            the username
 	 * @param password
@@ -381,29 +370,31 @@ public abstract class WatsonService {
 
 	/**
 	 * Sets the authentication.
-	 *
-	 * @param request the new authentication
+	 * 
+	 * @param request
+	 *            the new authentication
 	 */
-	protected void setAuthentication(HttpRequestBase request){
-		if (getApiKey() == null)
-			throw new IllegalArgumentException(
-					"apiKey or username and password were not specified");
-		else {
-			request.addHeader(AUTHORIZATION,
-					apiKey.startsWith("Basic ") ? apiKey : "Basic " + apiKey);
+	protected void setAuthentication(HttpRequestBase request) {
+		if (getApiKey() == null) {
+			throw new IllegalArgumentException("apiKey or username and password were not specified");
+		} else {
+			request.addHeader(AUTHORIZATION, apiKey.startsWith("Basic ") ? apiKey : "Basic " + apiKey);
 		}
 
 	}
 
 	/**
 	 * Execute the request and return the POJO that represent the response.
-	 *
-	 * @param <T>             The POJO that represents the response object
-	 * @param request         the request
-	 * @param returnType      the POJO class to be parsed from the response
+	 * 
+	 * @param <T>
+	 *            The POJO that represents the response object
+	 * @param request
+	 *            the request
+	 * @param returnType
+	 *            the POJO class to be parsed from the response
 	 * @return the POJO object that represent the response
 	 */
-	protected  <T> T executeRequest(Request request,  Class<T> returnType) {
+	protected <T> T executeRequest(Request request, Class<T> returnType) {
 		HttpRequestBase requestBase = request.build();
 		try {
 			HttpResponse response = execute(requestBase);
@@ -412,9 +403,10 @@ public abstract class WatsonService {
 			throw new RuntimeException(e);
 		}
 	}
+
 	/*
 	 * (non-Javadoc)
-	 *
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
