@@ -47,8 +47,8 @@ public class Graph {
 	 *            the name
 	 */
 	public Graph(String accountId, String name) {
-		Validate.notNull(accountId, "accountId can't be null");
-		Validate.notNull(name, "name can't be null");
+		Validate.notEmpty(accountId,"accountId cannot be empty");
+		Validate.notEmpty(name, "name cannot be empty");
 		setName(name);
 		setId("/graphs/" + accountId + "/" + name);
 	}

@@ -65,13 +65,13 @@ public class IDHelper {
 	 * @return the corpus id
 	 */
 	public static String getCorpusId(final Corpus corpus, final String accoundId) {
-		Validate.notNull(corpus, "corpus can't be null");
+		Validate.notNull(corpus, "corpus cannot be null");
 		if (corpus.getId() != null) {
 			validate(CORPUS_ID_REGEX, corpus.getId(), "Provide a valid corpus.id (format is " + '"'
 					+ "/corpora/{account_id}/{corpus} +" + '"' + ")");
 			return corpus.getId();
 		} else {
-			Validate.notNull(corpus.getName(), "corpus.name can't be null");
+			Validate.notNull(corpus.getName(), "corpus.name cannot be null");
 			return "/corpora/" + accoundId + "/" + corpus.getName();
 		}
 	}
@@ -87,13 +87,13 @@ public class IDHelper {
 	 * @return the graph id
 	 */
 	public static String getGraphId(final Graph graph, final String accoundId) {
-		Validate.notNull(graph, "graph object can't be null");
+		Validate.notNull(graph, "graph object cannot be null");
 		if (graph.getId() != null) {
 			validate(GRAPH_ID_REGEX, graph.getId(), "Provide a valid graph.id (format is " + '"'
 					+ " (/graphs/{account_id}/{graph}) +" + '"' + ")");
 			return graph.getId();
 		} else {
-			Validate.notNull(graph.getName(), "graph.name can't be null");
+			Validate.notNull(graph.getName(), "graph.name cannot be null");
 			return "/graphs/" + accoundId + "/" + graph.getName();
 		}
 	}
@@ -106,8 +106,8 @@ public class IDHelper {
 	 * @return the document id
 	 */
 	public static String getDocumentId(final Document document) {
-		Validate.notNull(document, "document can't be null");
-		Validate.notNull(document.getId(), "document.id can't be null");
+		Validate.notNull(document, "document cannot be null");
+		Validate.notNull(document.getId(), "document.id cannot be null");
 
 		validate(DOCUMENT_ID_REGEX, document.getId(), "Provide a valid document.id (format is " + '"'
 				+ " (/corpora/{account_id}/{corpus}/documents/{document}) +" + '"' + ")");
@@ -122,8 +122,8 @@ public class IDHelper {
 	 * @return the concept id
 	 */
 	public static String getConceptId(final Concept concept) {
-		Validate.notNull(concept, "concept can't be null");
-		Validate.notNull(concept.getId(), "concept.id can't be null");
+		Validate.notNull(concept, "concept cannot be null");
+		Validate.notNull(concept.getId(), "concept.id cannot be null");
 
 		validate(CONCEPT_ID_REGEX, concept.getId(), "Provide a valid concept.id (format is " + '"'
 				+ " (/graphs/{account_id}/{graph}/concepts/{concept})+" + '"' + ")");

@@ -42,7 +42,7 @@ public class Document extends GenericModel {
 	public Document() {}
 
 	public Document(final String accountId, final String corpusName, final String document) {
-		Validate.notNull(document, "document can't be null");
+		Validate.notEmpty(document, "document cannot be empty");
 		setName(document);
 		setId(new Corpus(accountId, corpusName).getId() + "/documents/" + document);
 	}
@@ -56,8 +56,8 @@ public class Document extends GenericModel {
 	 *            the concept
 	 */
 	public Document(final Corpus corpus, final String concept) {
-		Validate.notNull(corpus, "corpus can't be null");
-		Validate.notNull(corpus.getId(), "corpus.id can't be null");
+		Validate.notNull(corpus, "corpus cannot be null");
+		Validate.notEmpty(corpus.getId(), "corpus.id cannot be empty");
 		setName(concept);
 		setId(corpus.getId() + "/documents/" + concept);
 	}

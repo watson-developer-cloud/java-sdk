@@ -47,7 +47,7 @@ public class Concept extends GenericModel {
 	 * @param concept   the concept
 	 */
 	public Concept(final String accountId, final String graphName, final String concept) {
-		Validate.notNull(concept, "concept can't be null");
+		Validate.notNull(concept, "concept cannot be null");
 		setName(concept);
 		setId(new Graph(accountId, graphName).getId() + "/concepts/" + concept);
 	}
@@ -61,8 +61,8 @@ public class Concept extends GenericModel {
 	 *            the concept
 	 */
 	public Concept(final Graph graph, final String concept) {
-		Validate.notNull(graph, "graph can't be null");
-		Validate.notNull(graph.getId(), "graph.id can't be null");
+		Validate.notNull(graph, "graph cannot be null");
+		Validate.notNull(graph.getId(), "graph.id cannot be null");
 		setName(concept);
 		setId(graph.getId() + "/concepts/" + concept);
 	}

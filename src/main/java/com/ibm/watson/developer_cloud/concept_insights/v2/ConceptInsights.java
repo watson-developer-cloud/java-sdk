@@ -219,7 +219,7 @@ public class ConceptInsights extends WatsonService {
 	 */
 	public Annotations annotateText(final Graph graph, final String text) {
 		String graphId = IDHelper.getGraphId(graph, getAccountId());
-		Validate.notNull(text, "text can't be null");
+		Validate.notEmpty(text, "text cannot be empty");
 
 		HttpRequestBase request = Request.Post(API_VERSION + graphId + ANNOTATE_TEXT_PATH)
 				.withContent(text, MediaType.TEXT_PLAIN).withHeader(HttpHeaders.ACCEPT, MediaType.APPLICATION_JSON)
@@ -252,7 +252,7 @@ public class ConceptInsights extends WatsonService {
 	 * @return {@link QueryConcepts}
 	 */
 	public QueryConcepts conceptualSearch(Corpus corpus, Map<String, Object> parameters) {
-		Validate.notNull(parameters.get(IDS), "ids can't be null");
+		Validate.notNull(parameters.get(IDS), "ids cannot be null");
 		String corpusId = IDHelper.getCorpusId(corpus, getAccountId());
 
 		Map<String, Object> queryParams = new HashMap<String, Object>();
@@ -473,7 +473,7 @@ public class ConceptInsights extends WatsonService {
 	 */
 	public Scores getCorpusRelationScores(final Corpus corpus, final List<Concept> concepts) {
 		String corpusId = IDHelper.getCorpusId(corpus, getAccountId());
-		Validate.notNull(concepts, "concepts can't be null");
+		Validate.notEmpty(concepts, "concepts cannot be empty");
 
 		Map<String, Object> queryParameters = new HashMap<String, Object>();
 		JsonObject contentJson = new JsonObject();
@@ -577,7 +577,7 @@ public class ConceptInsights extends WatsonService {
 	 */
 	public Scores getDocumentRelationScores(final Document document, final List<Concept> concepts) {
 		String documentId = IDHelper.getDocumentId(document);
-		Validate.notNull(concepts, "concepts can't be null");
+		Validate.notEmpty(concepts, "concepts cannot be empty");
 
 		Map<String, Object> queryParams = new HashMap<String, Object>();
 		JsonObject contentJson = new JsonObject();
@@ -613,7 +613,7 @@ public class ConceptInsights extends WatsonService {
 	public Concepts getGraphRelatedConcepts(final Graph graph, final List<Concept> concepts,
 			final Map<String, Object> parameters) {
 		String graphId = IDHelper.getGraphId(graph, getAccountId());
-		Validate.notNull(concepts, "concepts should be specified");
+		Validate.notEmpty(concepts, "concepts cannot be empty");
 
 		Map<String, Object> queryParameters = new HashMap<String, Object>();
 		String[] queryParms = new String[] { LEVEL, LIMIT };
@@ -682,7 +682,7 @@ public class ConceptInsights extends WatsonService {
 	 */
 	public Scores getGraphRelationScores(final Concept concept, final List<String> concepts) {
 		String conceptId = IDHelper.getConceptId(concept);
-		Validate.notNull(concepts, "concepts can't be null");
+		Validate.notEmpty(concepts, "concepts cannot be empty");
 
 		Map<String, Object> queryParameters = new HashMap<String, Object>();
 		JsonObject contentJson = new JsonObject();
@@ -714,7 +714,7 @@ public class ConceptInsights extends WatsonService {
 	 * @return {@link Corpora}
 	 */
 	public Corpora listCorpora(final String accountId) {
-		Validate.notNull(accountId, "account_id can't be null");
+		Validate.notEmpty(accountId, "account_id cannot be empty");
 		return executeRequest(CORPORA_PATH + FORWARD_SLASH + accountId, null, Corpora.class);
 	}
 
@@ -791,7 +791,7 @@ public class ConceptInsights extends WatsonService {
 	 */
 	public Matches searchCorpusByLabel(final Corpus corpus, final Map<String, Object> parameters) {
 		String corpusId = IDHelper.getCorpusId(corpus, getAccountId());
-		Validate.notNull(parameters.get(QUERY), "query can't be null");
+		Validate.notEmpty((String)parameters.get(QUERY), "query cannot be empty");
 
 		Map<String, Object> queryParameters = new HashMap<String, Object>();
 		String[] queryParams = new String[] { QUERY, PREFIX, LIMIT, CONCEPTS };
@@ -836,7 +836,7 @@ public class ConceptInsights extends WatsonService {
 	 */
 	public Matches searchGraphsConceptByLabel(final Graph graph, final Map<String, Object> parameters) {
 		String graphId = IDHelper.getGraphId(graph, getAccountId());
-		Validate.notNull(parameters.get(QUERY), "query can't be null");
+		Validate.notEmpty((String)parameters.get(QUERY), "query cannot be empty");
 
 		Map<String, Object> queryParameters = new HashMap<String, Object>();
 		String[] params = new String[] { QUERY, PREFIX, LIMIT };

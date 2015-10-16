@@ -22,39 +22,39 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * BuildStatus returned by the {@link ConceptInsights} service.
  * 
  */
-public class BuildStatus  extends GenericModel {
+public class BuildStatus extends GenericModel {
 
-	/** The error. */
+	/** The number of documents that were processed with an error. */
 	private Integer error;
 
-	/** The processing. */
+	/** The number of documents that are being processed. */
 	private Integer processing;
 
-	/** The ready. */
+	/** The number of documents that were processed. */
 	private Integer ready;
 
 	/**
-	 * Gets the error.
+	 * Gets the number of documents that were processed with an error.
 	 * 
-	 * @return The error
+	 * @return The error count
 	 */
 	public Integer getError() {
 		return error;
 	}
 
 	/**
-	 * Gets the processing.
+	 * Gets the number of documents that are being processed. 
 	 * 
-	 * @return The processing
+	 * @return The processing count
 	 */
 	public Integer getProcessing() {
 		return processing;
 	}
 
 	/**
-	 * Gets the ready.
+	 * Gets the number of documents that were processed. 
 	 * 
-	 * @return The ready
+	 * @return The processed document count
 	 */
 	public Integer getReady() {
 		return ready;

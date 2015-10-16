@@ -55,8 +55,8 @@ public class Corpus extends GenericModel {
 	 *            the corpus name
 	 */
 	public Corpus(String accountId, String name) {
-		Validate.notNull(accountId,"accountId can't be null");
-		Validate.notNull(name,"name can't be null");
+		Validate.notEmpty(accountId,"accountId cannot be empty");
+		Validate.notEmpty(name,"name cannot be empty");
 		setName(name);
 		setId("/corpora/" + accountId + "/" + name);
 	}
