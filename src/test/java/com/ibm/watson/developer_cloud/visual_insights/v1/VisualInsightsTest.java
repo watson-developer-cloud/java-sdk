@@ -18,15 +18,14 @@ package com.ibm.watson.developer_cloud.visual_insights.v1;
 
 import java.io.File;
 
-import org.junit.FixMethodOrder;
-import org.junit.runners.MethodSorters;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.service.BadRequestException;
-import com.ibm.watson.developer_cloud.visual_insights.v1.VisualInsights;
 import com.ibm.watson.developer_cloud.visual_insights.v1.model.Classifiers;
 import com.ibm.watson.developer_cloud.visual_insights.v1.model.Summary;
 

@@ -46,7 +46,7 @@ public class TrascribeWithHttpAndWebSockets {
    * 
    * @return the SSL context
    * @throws RuntimeException
-   *             if the context can't be initialized
+   *             if the context cannot be initialized
    */
   private static SSLContext createSSLContext() {
     SSLContext sslContext = null;
@@ -76,7 +76,7 @@ public class TrascribeWithHttpAndWebSockets {
    * 
    * @return the token
    * @throws RuntimeException
-   *             if the token can't be created HTTP response status != 200
+   *             if the token cannot be created HTTP response status != 200
    */
   private String getToken() {
     String url = AUTHORIZATION_ENDPOINT + "/v1/token?url=" + HTTP_ENDPOINT;

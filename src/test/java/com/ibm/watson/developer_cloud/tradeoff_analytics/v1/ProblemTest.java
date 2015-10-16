@@ -15,7 +15,7 @@
  */
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.InputStream;
 
