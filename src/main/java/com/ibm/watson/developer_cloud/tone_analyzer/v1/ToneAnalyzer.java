@@ -80,6 +80,7 @@ public class ToneAnalyzer extends WatsonService {
 	 * Instantiates a new Tone Analyzer service with the default url.
 	 */
 	public ToneAnalyzer() {
+		super("tone_analyzer");
 		setEndPoint(URL);
 	}
 

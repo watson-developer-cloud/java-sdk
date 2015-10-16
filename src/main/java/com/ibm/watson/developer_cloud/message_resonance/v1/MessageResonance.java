@@ -53,6 +53,7 @@ public class MessageResonance extends WatsonService {
 	 * 
 	 */
 	public MessageResonance() {
+		super("message_resonance");
 		setEndPoint(URL);
 	}
 

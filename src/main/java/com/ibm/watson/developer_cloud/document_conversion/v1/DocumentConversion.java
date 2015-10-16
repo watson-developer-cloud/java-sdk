@@ -68,6 +68,7 @@ public class DocumentConversion extends WatsonService {
 	 * Sets the endpoint url for the service.
 	 */
 	public DocumentConversion() {
+		super("document_conversion");
 		setEndPoint(URL);
 	}
 

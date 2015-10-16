@@ -203,6 +203,7 @@ public class ConceptInsights extends WatsonService {
 	 * Instantiates a new Concept Insights service.
 	 */
 	public ConceptInsights() {
+		super("concept_insights");
 		setEndPoint(URL);
 
 	}

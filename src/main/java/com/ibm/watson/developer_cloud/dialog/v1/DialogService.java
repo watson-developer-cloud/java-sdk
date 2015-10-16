@@ -114,6 +114,7 @@ public class DialogService extends WatsonService {
 	 * Instantiates a new Dialog service with the default url.
 	 */
 	public DialogService() {
+		super("dialog");
 		setEndPoint(URL);
 	}
 

@@ -47,6 +47,7 @@ public class RelationshipExtraction extends WatsonService {
 	 * Instantiates a new relationship extraction service.
 	 */
 	public RelationshipExtraction() {
+		super("relatonship_extraction");
 		setEndPoint(URL);
 	}
 

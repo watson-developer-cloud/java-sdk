@@ -39,6 +39,7 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.params.HttpProtocolParams;
 
 import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.util.BluemixUtils;
 import com.ibm.watson.developer_cloud.util.MediaType;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 
@@ -61,10 +62,16 @@ public abstract class WatsonService {
 	 * Field AUTHORIZATION. (value is ""Authorization"")
 	 */
 	private static final String AUTHORIZATION = "Authorization";
+
 	/**
 	 * Field CONNECTION_TIMEOUT. (value is 120000)
 	 */
 	private static final int CONNECTION_TIMEOUT = 120000;
+
+	/**
+	 * The FORWARD_SLASH.
+	 */
+	protected static final String FORWARD_SLASH = "/";
 
 	/** The Constant log. */
 	private static final Logger log = Logger.getLogger(WatsonService.class.getName());
@@ -78,9 +85,6 @@ public abstract class WatsonService {
 	 * Field MAX_TOTAL_CONNECTIONS. (value is 1000)
 	 */
 	private static final int MAX_TOTAL_CONNECTIONS = 1000;
-
-	/** The FORWARD_SLASH. */
-	protected static final String FORWARD_SLASH = "/";
 
 	/**
 	 * Field apiKey.
@@ -97,11 +101,18 @@ public abstract class WatsonService {
 	 */
 	private HttpClient httpClient;
 
+	/** The name. */
+	private String name;
+
 	/**
 	 * Instantiates a new Watson service.
-	 * 
+	 *
+	 * @param name the service name
 	 */
-	public WatsonService() {}
+	public WatsonService(String name) {
+		this.name = name;
+		this.apiKey = BluemixUtils.getAPIKey(name);
+	}
 
 	/**
 	 * Builds the request URI appending the service end point to the path.<br>
@@ -121,23 +132,6 @@ public abstract class WatsonService {
 			return new URI(requestURL);
 		} catch (URISyntaxException e) {
 			log.log(Level.SEVERE, requestURL + " could not be parsed as a URI reference");
-			throw new RuntimeException(e);
-		}
-	}
-
-	/**
-	 * Execute the Http request and discard the response. Use this when you don't want to
-	 * get the response but you want to make sure we read it so that the underline
-	 * connection is released
-	 * 
-	 * @param request
-	 *            the request
-	 */
-	protected void executeWithoutResponse(HttpRequestBase request) {
-		HttpResponse response = execute(request);
-		try {
-			ResponseUtil.getString(response);
-		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -214,6 +208,44 @@ public abstract class WatsonService {
 			throw new ServiceUnavailableException(error != null ? error : "Service Unavailable");
 		default: // other errors
 			throw new ServiceResponseException(status, error);
+		}
+	}
+
+	/**
+	 * Execute the request and return the POJO that represent the response.
+	 * 
+	 * @param <T>
+	 *            The POJO that represents the response object
+	 * @param request
+	 *            the request
+	 * @param returnType
+	 *            the POJO class to be parsed from the response
+	 * @return the POJO object that represent the response
+	 */
+	protected <T> T executeRequest(Request request, Class<T> returnType) {
+		HttpRequestBase requestBase = request.build();
+		try {
+			HttpResponse response = execute(requestBase);
+			return ResponseUtil.getObject(response, returnType);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * Execute the Http request and discard the response. Use this when you don't want to
+	 * get the response but you want to make sure we read it so that the underline
+	 * connection is released
+	 * 
+	 * @param request
+	 *            the request
+	 */
+	protected void executeWithoutResponse(HttpRequestBase request) {
+		HttpResponse response = execute(request);
+		try {
+			ResponseUtil.getString(response);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -310,6 +342,15 @@ public abstract class WatsonService {
 	}
 
 	/**
+	 * Gets the name.
+	 * 
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
 	 * Gets the thread safe client.
 	 * 
 	 * @return the thread safe client
@@ -346,6 +387,21 @@ public abstract class WatsonService {
 	}
 
 	/**
+	 * Sets the authentication.
+	 * 
+	 * @param request
+	 *            the new authentication
+	 */
+	protected void setAuthentication(HttpRequestBase request) {
+		if (getApiKey() == null) {
+			throw new IllegalArgumentException("apiKey or username and password were not specified");
+		} else {
+			request.addHeader(AUTHORIZATION, apiKey.startsWith("Basic ") ? apiKey : "Basic " + apiKey);
+		}
+
+	}
+
+	/**
 	 * Sets the end point.
 	 * 
 	 * @param endPoint
@@ -366,42 +422,6 @@ public abstract class WatsonService {
 	public void setUsernameAndPassword(String username, String password) {
 		String auth = username + ":" + password;
 		apiKey = new String(Base64.encodeBase64(auth.getBytes()));
-	}
-
-	/**
-	 * Sets the authentication.
-	 * 
-	 * @param request
-	 *            the new authentication
-	 */
-	protected void setAuthentication(HttpRequestBase request) {
-		if (getApiKey() == null) {
-			throw new IllegalArgumentException("apiKey or username and password were not specified");
-		} else {
-			request.addHeader(AUTHORIZATION, apiKey.startsWith("Basic ") ? apiKey : "Basic " + apiKey);
-		}
-
-	}
-
-	/**
-	 * Execute the request and return the POJO that represent the response.
-	 * 
-	 * @param <T>
-	 *            The POJO that represents the response object
-	 * @param request
-	 *            the request
-	 * @param returnType
-	 *            the POJO class to be parsed from the response
-	 * @return the POJO object that represent the response
-	 */
-	protected <T> T executeRequest(Request request, Class<T> returnType) {
-		HttpRequestBase requestBase = request.build();
-		try {
-			HttpResponse response = execute(requestBase);
-			return ResponseUtil.getObject(response, returnType);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	/*

@@ -107,6 +107,7 @@ public class ConceptExpansion extends WatsonService {
 	 * 
 	 */
 	public ConceptExpansion() {
+		super("concept_expansion");
 		setEndPoint(URL);
 	}
 

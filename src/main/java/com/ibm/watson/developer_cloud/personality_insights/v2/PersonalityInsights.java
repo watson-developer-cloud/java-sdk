@@ -70,6 +70,7 @@ public class PersonalityInsights extends WatsonService {
 	 * Instantiates a new Personality Insights service.
 	 */
 	public PersonalityInsights() {
+		super("personality_insights");
 		setEndPoint(URL);
 	}
 

@@ -64,6 +64,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 	 * Instantiates a new Natural Language Classifier service.
 	 */
 	public NaturalLanguageClassifier() {
+		super("natural_language_classifier");
 		setEndPoint(URL);
 	}
 

@@ -129,6 +129,7 @@ public abstract class AlchemyService extends WatsonService {
 	 * Instantiates a new alchemy service.
 	 */
 	public AlchemyService() {
+		super("alchemy_api");
 		setEndPoint(ENDPOINT);
 	}
 

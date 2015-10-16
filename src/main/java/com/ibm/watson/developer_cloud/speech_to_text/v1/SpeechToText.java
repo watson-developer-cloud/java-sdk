@@ -85,6 +85,7 @@ public class SpeechToText extends WatsonService {
 	 * Instantiates a new speech to text.
 	 */
 	public SpeechToText() {
+		super("speech_to_text");
 		setEndPoint(URL);
 	}
 

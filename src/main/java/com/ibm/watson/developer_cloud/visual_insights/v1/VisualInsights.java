@@ -67,6 +67,7 @@ public class VisualInsights extends WatsonService {
      * Instantiates a new visual insights service.
      */
     public VisualInsights() {
+    	super("visual_insights");
 		setEndPoint(URL);
 	}
     

@@ -54,6 +54,7 @@ public class QuestionAndAnswer extends WatsonService {
 	 * Instantiates a new question and answer.
 	 */
 	public QuestionAndAnswer() {
+		super("question_and_answer");
 		setEndPoint(URL);
 	}
 

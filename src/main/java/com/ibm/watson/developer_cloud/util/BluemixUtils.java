@@ -14,23 +14,48 @@ import com.google.gson.JsonSyntaxException;
 
 public class BluemixUtils {
 
-	private static final Logger log = Logger.getLogger(BluemixUtils.class.getName());
 	private static final String ALCHEMY_API = "alchemy_api";
-	private static final String PLAN = "plan";
-	private static final String CREDENTIALS = "credentials";
-	private static final String PASSWORD = "password";
-	private static final String USERNAME = "username";
 	private static final String APIKEY = "apikey";
-	
-	public static final String PLAN_FREE = "free";
-	public static final String PLAN_STANDARD = "standard";
+	private static final String CREDENTIALS = "credentials";
+	private static final Logger log = Logger.getLogger(BluemixUtils.class.getName());
+	private static final String PASSWORD = "password";
+	private static final String PLAN = "plan";
 	public static final String PLAN_EXPERIMENTAL = "experimental";
 
+	public static final String PLAN_FREE = "free";
+	public static final String PLAN_STANDARD = "standard";
 	private static String services;
+
+	private static final String USERNAME = "username";
+
 	/**
-	 * If exists, process the VCAP_SERVICES environment variable in order to get the
-	 * <code>apiKey</code>. If plan is specified then only credentials for the given plan
-	 * will be returned.
+	 * Encode base64.
+	 * 
+	 * @param username
+	 *            the username
+	 * @param password
+	 *            the password
+	 * @return the string
+	 */
+	private static String encodeBase64(String username, String password) {
+		String auth = username + ":" + password;
+		return new String(Base64.encodeBase64(auth.getBytes()));
+	}
+
+	/**
+	 * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists.
+	 * 
+	 * @param serviceName
+	 *            the service name
+	 * @return the API key or null if the service cannot be found.
+	 */
+	public static String getAPIKey(String serviceName) {
+		return getAPIKey(serviceName, null);
+	}
+
+	/**
+	 * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists.
+	 * If plan is specified, then only credentials for the given plan will be returned.
 	 * 
 	 * @param serviceName
 	 *            the service name
@@ -70,20 +95,6 @@ public class BluemixUtils {
 	}
 
 	/**
-	 * Encode base64.
-	 * 
-	 * @param username
-	 *            the username
-	 * @param password
-	 *            the password
-	 * @return the string
-	 */
-	private static String encodeBase64(String username, String password) {
-		String auth = username + ":" + password;
-		return new String(Base64.encodeBase64(auth.getBytes()));
-	}
-
-	/**
 	 * Gets the <b>VCAP_SERVICES</b> environment variable and return it as a
 	 * {@link JsonObject}.
 	 * 
@@ -106,10 +117,10 @@ public class BluemixUtils {
 	}
 
 	/**
-	 * Sets the VCAP_SERVICES variable.
-	 * This is utility variable for testing
-	 *
-	 * @param services the VCAP_SERVICES 
+	 * Sets the VCAP_SERVICES variable. This is utility variable for testing
+	 * 
+	 * @param services
+	 *            the VCAP_SERVICES
 	 */
 	public static void setServices(String services) {
 		BluemixUtils.services = services;

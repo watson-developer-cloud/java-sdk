@@ -95,6 +95,7 @@ public class LanguageTranslation extends WatsonService {
 	 * Instantiates a new Language Translation service.
 	 */
 	public LanguageTranslation() {
+		super("language_translation");
 		setEndPoint(URL);
 	}
 

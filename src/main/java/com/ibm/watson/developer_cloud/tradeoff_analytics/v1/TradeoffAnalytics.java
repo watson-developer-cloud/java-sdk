@@ -42,6 +42,7 @@ public class TradeoffAnalytics extends WatsonService {
 	 * Instantiates a new tradeoff analytics.
 	 */
 	public TradeoffAnalytics() {
+		super("tradeoff_analytics");
 		setEndPoint(URL);
 	}
 

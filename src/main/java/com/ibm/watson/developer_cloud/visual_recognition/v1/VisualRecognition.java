@@ -57,6 +57,7 @@ public class VisualRecognition extends WatsonService {
 	 * Instantiates a new visual recognition.
 	 */
 	public VisualRecognition() {
+		super("visual_recognition");
 		setEndPoint(URL);
 	}
 
