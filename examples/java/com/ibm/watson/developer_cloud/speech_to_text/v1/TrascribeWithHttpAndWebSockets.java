@@ -17,8 +17,6 @@ import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
@@ -30,7 +28,7 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
  * Example of how to trascribe a wav file using the REST API or WebSockets
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
-public class TrascribeWithHttpAndWebSockets extends WatsonService {
+public class TrascribeWithHttpAndWebSockets {
 
   private static final String AUDIO_FILE_PATH = "src/test/resources/sample1.wav";
   private static final String AUDIO_FORMAT = MediaType.AUDIO_WAV;
