@@ -92,9 +92,9 @@ public class AlchemyDataNews extends AlchemyService {
 	 * @return the news documents
 	 */
 	public DocumentsResult getNewsDocuments(Map<String, Object> parameters) {
-		Validate.notNull(parameters.get(START), "start time can't be null");
-		Validate.notNull(parameters.get(END), "end time can't be null");
-		Validate.notNull(parameters.get(RETURN), "return can't be null");
+		Validate.notNull(parameters.get(START), "start time cannot be null");
+		Validate.notNull(parameters.get(END), "end time cannot be null");
+		Validate.notNull(parameters.get(RETURN), "return cannot be null");
 
 		// Return json
 		parameters.put(OUTPUT_MODE, "json");
@@ -125,8 +125,8 @@ public class AlchemyDataNews extends AlchemyService {
 	 * @return {@link VolumeResult}
 	 */
 	public VolumeResult getVolume(final String start, final String end, final String timeSlice) {
-		Validate.notNull(start, "start time can't be null");
-		Validate.notNull(end, "end time can't be null");
+		Validate.notNull(start, "start time cannot be null");
+		Validate.notNull(end, "end time cannot be null");
 
 		Request request = Request.Get(NEWS_END_POINT);
 

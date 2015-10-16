@@ -34,6 +34,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModelSet;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.HttpHeaders;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
 
@@ -116,7 +117,7 @@ public class SpeechToText extends WatsonService {
 	 * @return the {@link SpeechSession}
 	 */
 	public SpeechSession createSession(final SpeechModel model) {
-		Validate.notNull(model, "model can't be null");
+		Validate.notNull(model, "model cannot be null");
 		return createSession(model.getName());
 	}
 		
@@ -275,7 +276,6 @@ public class SpeechToText extends WatsonService {
 	 * @return the speech results
 	 */
 	public SpeechResults recognize(Map<String, Object> params) {
-
 		File audio = (File) params.get(AUDIO);
 		if (audio == null || !audio.exists() || !audio.isFile())
 			throw new IllegalArgumentException(
@@ -293,7 +293,7 @@ public class SpeechToText extends WatsonService {
 		urlBuider.append("/recognize");
 
 		Request request = Request.Post(urlBuider.toString());
-		request.withHeader("Content-Type", contentType);
+		request.withHeader(HttpHeaders.CONTENT_TYPE, contentType);
 
 		String[] queryParameters = new String[] { WORD_CONFIDENCE,
 				CONTINUOUS, MAX_ALTERNATIVES, TIMESTAMPS,

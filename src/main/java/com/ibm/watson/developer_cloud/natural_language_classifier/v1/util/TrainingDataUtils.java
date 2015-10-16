@@ -30,6 +30,7 @@ import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.csv.CSVRecord;
 
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.TrainingData;
+import com.ibm.watson.developer_cloud.util.Validate;
 
 
 /**
@@ -45,11 +46,10 @@ public class TrainingDataUtils {
 	 * 
 	 * @param data
 	 *            the training data data
-	 * @return the string with the CSV representation fo the training data
+	 * @return the string with the CSV representation for the training data
 	 */
 	public static String toCSV(final TrainingData... data) {
-		if (data == null || data.length == 0)
-			throw new IllegalArgumentException("data can't be null or empty");
+		Validate.notEmpty(data, "data cannot be null or empty");
 
 		StringWriter stringWriter = new StringWriter();
 		try {
