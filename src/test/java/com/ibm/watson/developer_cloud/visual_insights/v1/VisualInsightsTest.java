@@ -18,11 +18,14 @@ package com.ibm.watson.developer_cloud.visual_insights.v1;
 
 import java.io.File;
 
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.service.BadRequestException;
 import com.ibm.watson.developer_cloud.visual_insights.v1.VisualInsights;
 import com.ibm.watson.developer_cloud.visual_insights.v1.model.Classifiers;
 import com.ibm.watson.developer_cloud.visual_insights.v1.model.Summary;
@@ -30,6 +33,7 @@ import com.ibm.watson.developer_cloud.visual_insights.v1.model.Summary;
 /**
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
+@FixMethodOrder(MethodSorters.JVM)
 public class VisualInsightsTest extends WatsonServiceTest {
 
     /** The service. */
@@ -68,7 +72,7 @@ public class VisualInsightsTest extends WatsonServiceTest {
         Assert.assertNotNull(classifiers);
     }
     /**
-     * Test get testGetAccounts.
+     * Test get uploading images.
      */
     @Test
     public void testGetSummary() {
@@ -76,6 +80,42 @@ public class VisualInsightsTest extends WatsonServiceTest {
         Summary summary = service.getSummary(images);
         Assert.assertNotNull(summary);
     }
+
+	/**
+	 * Test to try to upload text files - not supported.
+	 */
+	@Test
+	public void testGetSummaryTextFiles() {
+	    
+		File images = new File("src/test/resources/text_files.zip");
+	    
+	    try {
+	    	Summary summary = service.getSummary(images);
+	    	}
+	    catch(BadRequestException e) {
+	    	Assert.assertTrue(e.getMessage()
+	    			+"- Text files not supported. Status code: "
+	    			+ e.getStatusCode(), e.getStatusCode() == 400);
+	    }
+	}
+
+	/**
+	 * Test for unsupported compression format - 7zip, not supported.
+	 */
+	@Test
+	public void testGetSummaryUnsupported7zFormat() {
+	    
+		File images = new File("src/test/resources/tiger_woods.7z");
+	    
+	    try {
+	    	Summary summary = service.getSummary(images);
+	    }
+	    catch (BadRequestException e) {
+	    	Assert.assertTrue(e.getMessage()
+	    			+ "- 7zip compression format not supported. Status code: "
+	    			+ e.getStatusCode(), e.getStatusCode() == 400);
+	    }
+	}
 
 
 }
