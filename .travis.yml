@@ -1,19 +1,14 @@
 sudo: false
 language: java
-
 install: /bin/true
-
 script:
-  - mvn clean install  -Dmaven.test.skip=true && mvn clean cobertura:cobertura coveralls:report
-
+- mvn clean install  -Dmaven.test.skip=true && mvn clean cobertura:cobertura coveralls:report
 jdk:
 - oraclejdk8
 - oraclejdk7
-
 cache:
   directories:
-    - '$HOME/.m2/repository'
-
+  - $HOME/.m2/repository
 before_install:
 - openssl aes-256-cbc -K $encrypted_a973fe4f8e79_key -iv $encrypted_a973fe4f8e79_iv
   -in config.properties.enc -out src/test/resources/config.properties -d

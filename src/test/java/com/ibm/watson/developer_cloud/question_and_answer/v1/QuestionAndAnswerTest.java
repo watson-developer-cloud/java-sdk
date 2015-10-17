@@ -18,6 +18,7 @@ package com.ibm.watson.developer_cloud.question_and_answer.v1;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -28,7 +29,8 @@ import com.ibm.watson.developer_cloud.question_and_answer.v1.model.WatsonAnswer;
 /**
  * The Class QuestionAndAnswerTest.
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
- */
+*/
+@Ignore
 public class QuestionAndAnswerTest extends WatsonServiceTest {
 
 	/**

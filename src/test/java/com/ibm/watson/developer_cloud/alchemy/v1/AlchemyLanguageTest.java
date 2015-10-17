@@ -337,8 +337,8 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 		params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
 
 		AlchemyLanguage language = new AlchemyLanguage();
-		language.getKeywords(params);
 		language.setApiKey(null);
+		language.getKeywords(params);
 	}
 
 }

@@ -17,6 +17,7 @@ package com.ibm.watson.developer_cloud.relationship_extraction.v1;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -52,6 +53,7 @@ public class RelationshipExtractionTest extends WatsonServiceTest {
 	 * Test extract.
 	 */
 	@Test
+	@Ignore
 	public void testExtract() {
 		service.setDataset(RelationshipExtractionDataset.ENGLISH_NEWS);
 		String response = service.extract("IBM Watson Developer Cloud");
