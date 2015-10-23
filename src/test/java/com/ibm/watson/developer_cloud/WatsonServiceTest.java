@@ -73,13 +73,25 @@ public abstract class WatsonServiceTest {
 
 	public String getExistingProperty(String property) {
 		String value = prop.getProperty(property);
-		if(value == null) throw new IllegalStateException("A property expected to exist does not exist: " + property);
+		if(value == null) throw new MissingPropertyException(property);
 		return value;
 	}
 	public String getValidProperty(String property) {
 		String value = getExistingProperty(property);
-		if("".equals(value)) throw new IllegalStateException("Property " + property + " is empty. It's probably unset.");
+		if("".equals(value)) throw new EmptyPropertyException(property);
 		return value;
+	}
+
+	private class MissingPropertyException extends IllegalStateException {
+		MissingPropertyException(String property) {
+			super("A property expected to exist does not exist: " + property);
+		}
+	}
+
+	private class EmptyPropertyException extends IllegalStateException {
+		EmptyPropertyException(String property) {
+			super("Property " + property + " is empty. It's probably unset.");
+		}
 	}
 
 	/**
