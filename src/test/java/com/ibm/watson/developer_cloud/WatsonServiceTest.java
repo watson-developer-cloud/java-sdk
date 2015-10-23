@@ -71,6 +71,17 @@ public abstract class WatsonServiceTest {
 	/** The prop. */
 	protected Properties prop = new Properties();
 
+	public String getExistingProperty(String property) {
+		String value = prop.getProperty(property);
+		if(value == null) throw new IllegalStateException("A property expected to exist does not exist: " + property);
+		return value;
+	}
+	public String getValidProperty(String property) {
+		String value = getExistingProperty(property);
+		if("".equals(value)) throw new IllegalStateException("Property " + property + " is empty. It's probably unset.");
+		return value;
+	}
+
 	/**
 	 * Sets the up.
 	 *
