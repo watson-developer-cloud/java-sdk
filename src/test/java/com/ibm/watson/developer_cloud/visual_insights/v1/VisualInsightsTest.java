@@ -48,10 +48,10 @@ public class VisualInsightsTest extends WatsonServiceTest {
         super.setUp();
         service = new VisualInsights();
         service.setUsernameAndPassword(
-                prop.getProperty("visual_insights.username"),
-                prop.getProperty("visual_insights.password")
+                getValidProperty("visual_insights.username"),
+                getValidProperty("visual_insights.password")
         );
-        service.setEndPoint(prop.getProperty("visual_insights.url"));
+        service.setEndPoint(getValidProperty("visual_insights.url"));
     }
 
     /**

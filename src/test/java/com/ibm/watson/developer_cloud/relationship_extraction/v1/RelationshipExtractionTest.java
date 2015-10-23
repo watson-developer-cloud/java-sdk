@@ -43,10 +43,10 @@ public class RelationshipExtractionTest extends WatsonServiceTest {
 		super.setUp();
 		service = new RelationshipExtraction();
 		service.setUsernameAndPassword(
-				prop.getProperty("relationship_extraction.username"),
-				prop.getProperty("relationship_extraction.password")
+				getValidProperty("relationship_extraction.username"),
+				getValidProperty("relationship_extraction.password")
 				);
-		service.setEndPoint(prop.getProperty("relationship_extraction.url"));
+		service.setEndPoint(getValidProperty("relationship_extraction.url"));
 	}
 
 	/**
