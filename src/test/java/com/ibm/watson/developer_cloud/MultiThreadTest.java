@@ -86,10 +86,10 @@ public class MultiThreadTest extends WatsonServiceTest{
 		super.setUp();
 		service = new LanguageTranslation();
 		service.setUsernameAndPassword(
-				prop.getProperty("language_translation.username"),
-				prop.getProperty("language_translation.password")
+				getValidProperty("language_translation.username"),
+				getValidProperty("language_translation.password")
 				);
-		service.setEndPoint(prop.getProperty("language_translation.url"));
+		service.setEndPoint(getValidProperty("language_translation.url"));
 	}
 
 	/**

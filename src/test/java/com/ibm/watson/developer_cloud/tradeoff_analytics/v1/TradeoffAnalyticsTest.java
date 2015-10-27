@@ -56,9 +56,9 @@ public class TradeoffAnalyticsTest extends WatsonServiceTest {
 		super.setUp();
 		service = new TradeoffAnalytics();
 		service.setUsernameAndPassword(
-				prop.getProperty("tradeoff_analytics.username"),
-				prop.getProperty("tradeoff_analytics.password"));
-		service.setEndPoint(prop.getProperty("tradeoff_analytics.url"));
+				getValidProperty("tradeoff_analytics.username"),
+				getValidProperty("tradeoff_analytics.password"));
+		service.setEndPoint(getValidProperty("tradeoff_analytics.url"));
 
 		InputStream in = this.getClass().getClassLoader()
 				.getResourceAsStream("problem.json");

@@ -46,10 +46,10 @@ public class VisualRecognitionTest extends WatsonServiceTest {
 		super.setUp();
 		service = new VisualRecognition();
 		service.setUsernameAndPassword(
-				prop.getProperty("visual_recognition.username"),
-				prop.getProperty("visual_recognition.password")
+				getValidProperty("visual_recognition.username"),
+				getValidProperty("visual_recognition.password")
 				);
-		service.setEndPoint(prop.getProperty("visual_recognition.url"));
+		service.setEndPoint(getValidProperty("visual_recognition.url"));
 		image = new File(getClass().getClassLoader().getResource("car.png").toURI());
 
 	}
