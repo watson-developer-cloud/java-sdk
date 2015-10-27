@@ -313,9 +313,9 @@ public class ConceptInsightsTest extends WatsonServiceTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		service = new ConceptInsights();
-		service.setUsernameAndPassword(prop.getProperty("concept_insights.username"),
-				prop.getProperty("concept_insights.password"));
-		service.setEndPoint(prop.getProperty("concept_insights.url"));
+		service.setUsernameAndPassword(getValidProperty("concept_insights.username"),
+				getValidProperty("concept_insights.password"));
+		service.setEndPoint(getValidProperty("concept_insights.url"));
 	}
 
 	/**

@@ -59,7 +59,7 @@ public class AlchemyLanguageTest extends WatsonServiceTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		service = new AlchemyLanguage();
-		service.setApiKey(prop.getProperty("alchemy.alchemy"));
+		service.setApiKey(getValidProperty("alchemy.alchemy"));
 		htmlExample = getStringFromInputStream(new FileInputStream("src/test/resources/example.html"));
 
 	}

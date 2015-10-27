@@ -52,7 +52,7 @@ public class AlchemyVisionTest extends WatsonServiceTest {
 	public void setUp() throws Exception {
 		super.setUp();
 		service = new AlchemyVision();
-		service.setApiKey(prop.getProperty("alchemy.alchemy"));
+		service.setApiKey(getValidProperty("alchemy.alchemy"));
 		htmlExample = getStringFromInputStream(new FileInputStream("src/test/resources/example.html"));
 	}
 

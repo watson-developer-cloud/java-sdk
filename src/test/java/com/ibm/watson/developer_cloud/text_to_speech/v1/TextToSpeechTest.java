@@ -82,11 +82,11 @@ public class TextToSpeechTest extends WatsonServiceTest {
 	@Before
 	public void startMockServer() {
 		try {
-			mockServer = startClientAndServer(Integer.parseInt(prop.getProperty("mock.server.port")));
+			mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
 			service = new TextToSpeech();
 			service.setApiKey("");
-			service.setEndPoint("http://" + prop.getProperty("mock.server.host") + ":"
-					+ prop.getProperty("mock.server.port"));
+			service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
+					+ getValidProperty("mock.server.port"));
 		} catch (NumberFormatException e) {
 			log.log(Level.SEVERE, "Error mocking the service", e);
 		}

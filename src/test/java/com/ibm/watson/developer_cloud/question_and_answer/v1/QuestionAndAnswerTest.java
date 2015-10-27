@@ -53,10 +53,10 @@ public class QuestionAndAnswerTest extends WatsonServiceTest {
 		super.setUp();
 		service = new QuestionAndAnswer();
 		service.setUsernameAndPassword(
-				prop.getProperty("question_and_answer.username"),
-				prop.getProperty("question_and_answer.password")
+				getValidProperty("question_and_answer.username"),
+				getValidProperty("question_and_answer.password")
 				);
-		service.setEndPoint(prop.getProperty("question_and_answer.url"));
+		service.setEndPoint(getValidProperty("question_and_answer.url"));
 	}
 
 	/**

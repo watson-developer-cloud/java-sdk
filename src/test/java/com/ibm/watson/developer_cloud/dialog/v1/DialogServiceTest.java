@@ -56,11 +56,11 @@ public class DialogServiceTest extends WatsonServiceTest {
 		super.setUp();
 		service = new DialogService();
 		service.setUsernameAndPassword(
-				prop.getProperty("dialog.username"),
-				prop.getProperty("dialog.password"));
-		service.setEndPoint(prop.getProperty("dialog.url"));
+				getValidProperty("dialog.username"),
+				getValidProperty("dialog.password"));
+		service.setEndPoint(getValidProperty("dialog.url"));
 
-		dialogId = prop.getProperty("dialog.dialog_id");
+		dialogId = getValidProperty("dialog.dialog_id");
 	}
 
 	/**
