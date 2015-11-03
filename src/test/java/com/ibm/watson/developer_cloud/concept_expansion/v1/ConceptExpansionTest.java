@@ -44,10 +44,10 @@ public class ConceptExpansionTest extends WatsonServiceTest {
 		super.setUp();
 		service = new ConceptExpansion();
 		service.setUsernameAndPassword(
-				prop.getProperty("concept_expansion.username"),
-				prop.getProperty("concept_expansion.password")
+				getValidProperty("concept_expansion.username"),
+				getValidProperty("concept_expansion.password")
 				);
-		service.setEndPoint(prop.getProperty("concept_expansion.url"));
+		service.setEndPoint(getValidProperty("concept_expansion.url"));
 	}
 
 	/**

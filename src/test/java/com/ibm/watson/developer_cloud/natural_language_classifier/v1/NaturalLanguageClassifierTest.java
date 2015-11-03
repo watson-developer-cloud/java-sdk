@@ -76,11 +76,11 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
     @Before
     public void startMockServer() {
         try {
-            mockServer = startClientAndServer(Integer.parseInt(prop.getProperty("mock.server.port")));
+            mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
             service = new NaturalLanguageClassifier();
             service.setApiKey("");
-            service.setEndPoint("http://" + prop.getProperty("mock.server.host") + ":"
-                    + prop.getProperty("mock.server.port"));
+            service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
+                    + getValidProperty("mock.server.port"));
 
         } catch (NumberFormatException e) {
             log.log(Level.SEVERE, "Error mocking the service", e);
@@ -103,7 +103,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
     @Before
     public void setUp() throws Exception {
         super.setUp();
-        classifierId = prop.getProperty("natural_language_classifier.classifier_id");
+        classifierId = getValidProperty("natural_language_classifier.classifier_id");
     }
 
     /**

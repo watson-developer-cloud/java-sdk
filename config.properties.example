@@ -1,0 +1,36 @@
+# This file must be completed and copied to src/test/resources/config.properties.
+
+# AlchemyAPI key
+alchemy.alchemy=
+concept_expansion.password=
+concept_expansion.url=
+concept_expansion.username=
+dialog.dialog_id=
+dialog.password=
+dialog.url=
+dialog.username=
+language_translation.model_id=
+language_translation.password=
+language_translation.url=
+language_translation.username=
+message_resonance.password=
+message_resonance.url=
+message_resonance.username=
+mock.server.host=localhost
+mock.server.port=12345
+natural_language_classifier.classifier_id=
+question_and_answer.password=
+question_and_answer.url=
+question_and_answer.username=
+relationship_extraction.password=
+relationship_extraction.url=
+relationship_extraction.username=
+retrieve_and_rank.password=
+retrieve_and_rank.url=
+retrieve_and_rank.username=
+tradeoff_analytics.password=
+tradeoff_analytics.url=
+tradeoff_analytics.username=
+visual_recognition.password=
+visual_recognition.url=
+visual_recognition.username=
