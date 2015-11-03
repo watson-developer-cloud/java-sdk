@@ -39,7 +39,10 @@ import org.apache.http.entity.InputStreamEntity;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 import org.mockserver.model.Parameter;
@@ -52,6 +55,7 @@ import com.ibm.watson.developer_cloud.util.MediaType;
 /**
  * The Class TextToSpeechTest.
  */
+@FixMethodOrder(MethodSorters.JVM)
 public class TextToSpeechTest extends WatsonServiceTest {
 
 	/** The Constant log. */
@@ -78,11 +82,11 @@ public class TextToSpeechTest extends WatsonServiceTest {
 	@Before
 	public void startMockServer() {
 		try {
-			mockServer = startClientAndServer(Integer.parseInt(prop.getProperty("mock.server.port")));
+			mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
 			service = new TextToSpeech();
 			service.setApiKey("");
-			service.setEndPoint("http://" + prop.getProperty("mock.server.host") + ":"
-					+ prop.getProperty("mock.server.port"));
+			service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
+					+ getValidProperty("mock.server.port"));
 		} catch (NumberFormatException e) {
 			log.log(Level.SEVERE, "Error mocking the service", e);
 		}
@@ -207,6 +211,21 @@ public class TextToSpeechTest extends WatsonServiceTest {
 		Assert.assertNotNull(result);
 		Assert.assertFalse(result.isEmpty());
 		Assert.assertEquals(result, voices);
+	}
+
+	/**
+	 * Test synthesize with empty '' input text string.
+	 */
+	@Test
+	public void testSynthesizeEmptyTextParamValue() {
+		boolean throwException = false;
+		try {
+			service.synthesize(null, Voice.EN_ALLISON, "empty input string");
+		} catch (IllegalArgumentException e) {
+			throwException = true;
+			e.printStackTrace();
+		}
+		Assert.assertTrue(throwException);
 	}
 
 	/**

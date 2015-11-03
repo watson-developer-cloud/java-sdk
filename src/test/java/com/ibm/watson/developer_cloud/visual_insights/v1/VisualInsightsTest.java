@@ -48,10 +48,10 @@ public class VisualInsightsTest extends WatsonServiceTest {
         super.setUp();
         service = new VisualInsights();
         service.setUsernameAndPassword(
-                prop.getProperty("visual_insights.username"),
-                prop.getProperty("visual_insights.password")
+                getValidProperty("visual_insights.username"),
+                getValidProperty("visual_insights.password")
         );
-        service.setEndPoint(prop.getProperty("visual_insights.url"));
+        service.setEndPoint(getValidProperty("visual_insights.url"));
     }
 
     /**
@@ -88,14 +88,14 @@ public class VisualInsightsTest extends WatsonServiceTest {
 	    
 		File images = new File("src/test/resources/text_files.zip");
 	    
+		boolean didItHappen = false;
 	    try {
-	    	Summary summary = service.getSummary(images);
-	    	}
-	    catch(BadRequestException e) {
-	    	Assert.assertTrue(e.getMessage()
-	    			+"- Text files not supported. Status code: "
-	    			+ e.getStatusCode(), e.getStatusCode() == 400);
+	    	service.getSummary(images);
 	    }
+	    catch (BadRequestException e) {
+	    	didItHappen = true;
+	    }
+	    Assert.assertTrue("Text files are not allowed.", didItHappen);
 	}
 
 	/**
@@ -106,14 +106,14 @@ public class VisualInsightsTest extends WatsonServiceTest {
 	    
 		File images = new File("src/test/resources/tiger_woods.7z");
 	    
+		boolean didItHappen = false;
 	    try {
-	    	Summary summary = service.getSummary(images);
+	    	service.getSummary(images);
 	    }
 	    catch (BadRequestException e) {
-	    	Assert.assertTrue(e.getMessage()
-	    			+ "- 7zip compression format not supported. Status code: "
-	    			+ e.getStatusCode(), e.getStatusCode() == 400);
+	    	didItHappen = true;
 	    }
+	    Assert.assertTrue("7zip compression format not supported.", didItHappen);
 	}
 
 

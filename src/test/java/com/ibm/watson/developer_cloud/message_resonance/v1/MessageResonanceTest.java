@@ -49,10 +49,10 @@ public class MessageResonanceTest extends WatsonServiceTest {
 		super.setUp();
 		service = new MessageResonance();
 		service.setUsernameAndPassword(
-				prop.getProperty("message_resonance.username"),
-				prop.getProperty("message_resonance.password")
+				getValidProperty("message_resonance.username"),
+				getValidProperty("message_resonance.password")
 				);
-		service.setEndPoint(prop.getProperty("message_resonance.url"));
+		service.setEndPoint(getValidProperty("message_resonance.url"));
 	}
 
 

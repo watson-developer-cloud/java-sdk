@@ -32,7 +32,9 @@ import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 import org.mockserver.model.Parameter;
@@ -51,6 +53,7 @@ import com.ibm.watson.developer_cloud.util.TestUtils;
 /**
  * The Class SpeechToTextTest.
  */
+@FixMethodOrder(MethodSorters.JVM)
 public class SpeechToTextTest extends WatsonServiceTest {
 
 	/** The Constant log. */
@@ -77,11 +80,11 @@ public class SpeechToTextTest extends WatsonServiceTest {
 	@Before
 	public void startMockServer() {
 		try {
-			mockServer = startClientAndServer(Integer.parseInt(prop.getProperty("mock.server.port")));
+			mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
 			service = new SpeechToText();
 			service.setApiKey("");
-			service.setEndPoint("http://" + prop.getProperty("mock.server.host") + ":"
-					+ prop.getProperty("mock.server.port"));
+			service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
+					+ getValidProperty("mock.server.port"));
 		} catch (NumberFormatException e) {
 			log.log(Level.SEVERE, "Error mocking the service", e);
 		}
@@ -303,5 +306,49 @@ public class SpeechToTextTest extends WatsonServiceTest {
 	public void testGetModelWithNull() {
 		String model = null;
 		service.getModel(model);
+	}
+
+	/**
+	 * Test recognize -missing audio file, generate IllegalArgumentException
+	 * 
+	 * @throws URISyntaxException
+	 *             the URI syntax exception
+	 */
+	@Test
+	public void testRecognizeMissingAudioFile() throws URISyntaxException {
+	
+		SpeechResults speechResults = new SpeechResults();
+		speechResults.setResultIndex(0);
+		
+		Transcript transcript = new Transcript();
+		transcript.setFinal(true);
+		
+		final SpeechAlternative speechAlternative = new SpeechAlternative();
+		speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
+		
+		List<SpeechAlternative> speechAlternatives = new ArrayList<SpeechAlternative>();
+		speechAlternatives.add(speechAlternative);
+		
+		transcript.setAlternatives(speechAlternatives);
+		List<Transcript> transcripts = new ArrayList<Transcript>();
+		transcripts.add(transcript);
+		speechResults.setResults(transcripts);
+	
+		//File audio = new File("src/test/resources/sample1.wav");
+		
+		mockServer.when(request()
+				.withMethod("POST")
+				.withPath(RECOGNIZE_PATH)
+				.withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, "audio/l16; rate=44100")))
+				.respond(response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+								.withBody(GsonSingleton.getGson().toJson(speechResults)));
+		
+		boolean didItHappen = false;
+		try {
+			service.recognize(null, "audio/l16; rate=44100");
+		} catch(IllegalArgumentException e) {
+			didItHappen = true;
+		}
+		Assert.assertTrue("Check that 'IllegalArgumentException' is thrown.", didItHappen);
 	}
 }

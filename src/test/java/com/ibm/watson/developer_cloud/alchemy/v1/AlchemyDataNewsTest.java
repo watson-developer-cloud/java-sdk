@@ -46,7 +46,7 @@ public class AlchemyDataNewsTest extends WatsonServiceTest {
     public void setUp() throws Exception {
         super.setUp();
         service = new AlchemyDataNews();
-        service.setApiKey(prop.getProperty("alchemy.alchemy"));
+        service.setApiKey(getValidProperty("alchemy.alchemy"));
 
     }
 
