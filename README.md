@@ -53,13 +53,13 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-wrapper</artifactId>
-	<version>1.1.1</version>
+	<version>2.0.0</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-wrapper:1.1.1'
+'com.ibm.watson.developer_cloud:java-wrapper:2.0.0'
 ```
 
 ## Usage
@@ -439,7 +439,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-1.1.1.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-2.0.0.jar)
   $ gradle test # run tests
   ```
 
