@@ -21,6 +21,7 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.util.RequestUtil;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.HttpUrl;
+import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Request.Builder;
 import com.squareup.okhttp.RequestBody;
@@ -202,15 +203,13 @@ public class RequestBuilder {
       requestBody = formBody.build();
     }
 
+    // accept application/json by default
+    builder.addHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
+
     if (!headers.isEmpty()) {
-      boolean hasAccept = false;
       for (final NameValue header : headers) {
-        if (header.getName().equalsIgnoreCase(HttpHeaders.ACCEPT))
-          hasAccept = true;
         builder.addHeader(header.getName(), header.getValue());
       }
-      if (!hasAccept)
-        builder.addHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
     }
 
     switch (method) {
@@ -299,7 +298,7 @@ public class RequestBuilder {
    * @return this
    */
   public RequestBuilder withBodyContent(String content, String contentType) {
-    body = RequestBody.create(com.squareup.okhttp.MediaType.parse(contentType), content);
+    body = RequestBody.create(MediaType.parse(contentType), content);
     return this;
   }
 

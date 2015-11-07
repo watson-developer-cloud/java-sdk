@@ -34,7 +34,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
-import org.mockserver.model.Parameter;
 import org.mockserver.verify.VerificationTimes;
 
 import com.google.gson.JsonArray;
@@ -334,10 +333,10 @@ public class LanguageTranslationTest extends WatsonServiceTest {
       paragraphs.add(new JsonPrimitive(paragraph));
     }
     contentJson.add(LanguageTranslation.TEXT, paragraphs);
-    mockServer.when(
-        request().withMethod("POST").withPath(LANGUAGE_TRANSLATION_PATH)
-            .withQueryStringParameter(new Parameter(LanguageTranslation.MODEL_ID, modelId))
-            .withBody(contentJson.toString())
+    contentJson.addProperty(LanguageTranslation.MODEL_ID, modelId);
+    mockServer.when(request().withMethod("POST").withPath(LANGUAGE_TRANSLATION_PATH)
+
+    .withBody(contentJson.toString())
 
     ).respond(
         response().withHeaders(
@@ -393,4 +392,5 @@ public class LanguageTranslationTest extends WatsonServiceTest {
     assertNotNull(translationResult.getTranslations());
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
   }
+
 }

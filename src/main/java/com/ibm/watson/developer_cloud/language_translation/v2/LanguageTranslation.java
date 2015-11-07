@@ -278,18 +278,18 @@ public class LanguageTranslation extends WatsonService {
     }
     contentJson.add(TEXT, paragraphs);
 
-    final RequestBuilder requestBuilder =
-        RequestBuilder.post("/v2/translate").withBodyJson(contentJson);
+    final RequestBuilder requestBuilder = RequestBuilder.post("/v2/translate");
 
     if (source != null && !source.isEmpty())
-      requestBuilder.withQuery(SOURCE, source);
+      contentJson.addProperty(SOURCE, source);
 
     if (target != null && !target.isEmpty())
-      requestBuilder.withQuery(TARGET, target);
+      contentJson.addProperty(TARGET, target);
 
     if (modelId != null && !modelId.isEmpty())
-      requestBuilder.withQuery(MODEL_ID, modelId);
+      contentJson.addProperty(MODEL_ID, modelId);
 
+    requestBuilder.withBodyJson(contentJson);
     return executeRequest(requestBuilder.build(), TranslationResult.class);
   }
 
