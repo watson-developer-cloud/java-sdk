@@ -1,443 +1,330 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.ibm.watson.developer_cloud.service;
 
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.codec.binary.Base64;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.client.params.HttpClientParams;
-import org.apache.http.conn.ClientConnectionManager;
-import org.apache.http.conn.params.ConnManagerParams;
-import org.apache.http.conn.params.ConnPerRouteBean;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.params.HttpProtocolParams;
-
 import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.http.HttpStatus;
 import com.ibm.watson.developer_cloud.util.BluemixUtils;
-import com.ibm.watson.developer_cloud.util.MediaType;
+import com.ibm.watson.developer_cloud.util.RequestUtil;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.squareup.okhttp.Credentials;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Request.Builder;
+import com.squareup.okhttp.Response;
 
 /**
- * Watson service abstract common functionality of various Watson Services. It handle
- * authentication and default url
+ * Watson service abstract common functionality of various Watson Services. It handle authentication
+ * and default url
  * 
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/"> IBM
- *      Watson Developer Cloud</a>
+ * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/"> IBM Watson
+ *      Developer Cloud</a>
  */
 public abstract class WatsonService {
 
-	/**
-	 * Field ACCEPT. (value is ""Accept"")
-	 */
-	private static final String ACCEPT = "Accept";
+  /** The Constant BASIC. */
+  private static final String BASIC = "Basic ";
 
-	/**
-	 * Field AUTHORIZATION. (value is ""Authorization"")
-	 */
-	private static final String AUTHORIZATION = "Authorization";
+  /**
+   * The FORWARD_SLASH.
+   */
+  protected static final String FORWARD_SLASH = "/";
 
-	/**
-	 * Field CONNECTION_TIMEOUT. (value is 120000)
-	 */
-	private static final int CONNECTION_TIMEOUT = 120000;
+  /** The Constant log. */
+  private static final Logger log = Logger.getLogger(WatsonService.class.getName());
 
-	/**
-	 * The FORWARD_SLASH.
-	 */
-	protected static final String FORWARD_SLASH = "/";
+  /**
+   * Field apiKey.
+   */
+  private String apiKey;
 
-	/** The Constant log. */
-	private static final Logger log = Logger.getLogger(WatsonService.class.getName());
+  /**
+   * Field OkHttpClient.
+   */
+  private final OkHttpClient client;
 
-	/**
-	 * Field MAX_CONNECTIONS_PER_ROUTE. (value is 1000)
-	 */
-	private static final int MAX_CONNECTIONS_PER_ROUTE = 1000;
+  /**
+   * Field endPoint.
+   */
+  private String endPoint;
 
-	/**
-	 * Field MAX_TOTAL_CONNECTIONS. (value is 1000)
-	 */
-	private static final int MAX_TOTAL_CONNECTIONS = 1000;
+  /** The name. */
+  private final String name;
 
-	/**
-	 * Field apiKey.
-	 */
-	private String apiKey;
+  /**
+   * Instantiates a new Watson service.
+   * 
+   * @param name the service name
+   */
+  public WatsonService(String name) {
+    this.name = name;
+    this.apiKey = BluemixUtils.getAPIKey(name);
+    this.client = configureHttpClient();
+  }
 
-	/**
-	 * Field endPoint.
-	 */
-	private String endPoint;
 
-	/**
-	 * Field httpClient.
-	 */
-	private HttpClient httpClient;
+  /**
+   * Configure http client.
+   * 
+   * @return the ok http client
+   */
+  private OkHttpClient configureHttpClient() {
+    final OkHttpClient client = new OkHttpClient();
+    client.setConnectTimeout(60, TimeUnit.SECONDS);
+    client.setWriteTimeout(60, TimeUnit.SECONDS);
+    client.setReadTimeout(90, TimeUnit.SECONDS);
+    return client;
+  }
 
-	/** The name. */
-	private String name;
 
-	/**
-	 * Instantiates a new Watson service.
-	 *
-	 * @param name the service name
-	 */
-	public WatsonService(String name) {
-		this.name = name;
-		this.apiKey = BluemixUtils.getAPIKey(name);
-	}
+  /**
+   * Execute the HTTP request.
+   * 
+   * @param request the HTTP request
+   * 
+   * @return the HTTP response
+   */
+  protected Response execute(Request request) {
+    final Builder builder = request.newBuilder();
 
-	/**
-	 * Builds the request URI appending the service end point to the path.<br>
-	 * <b>From:</b> /v1/foo/bar <br>
-	 * <b>to:</b>https://host:port/api/v1/foo/bar
-	 * 
-	 * @param request
-	 *            the http request
-	 * 
-	 * @return the URI including the service end point
-	 */
-	private URI buildRequestURI(HttpRequestBase request) {
-		String requestURL = getEndPoint() + request.getURI();
+    // Set service endpoint for relative paths
+    if (RequestUtil.isRelative(request)) {
+      builder.url(RequestUtil.replaceEndPoint(request.urlString(), getEndPoint()));
+    }
 
-		try {
-			requestURL = getEndPoint() + request.getURI();
-			return new URI(requestURL);
-		} catch (URISyntaxException e) {
-			log.log(Level.SEVERE, requestURL + " could not be parsed as a URI reference");
-			throw new RuntimeException(e);
-		}
-	}
+    // Set User-Agent
+    builder.header(HttpHeaders.USER_AGENT, getUserAgent());
 
-	/**
-	 * Execute the Http request.
-	 * 
-	 * @param request
-	 *            the http request
-	 * 
-	 * @return the http response
-	 */
-	protected HttpResponse execute(HttpRequestBase request) {
+    // Set Authentication
+    setAuthentication(builder);
 
-		setAuthentication(request);
+    final Request newRequest = builder.build();
+    Response response;
+    log.log(Level.FINEST, "Request to: " + newRequest.urlString());
+    try {
+      response = client.newCall(newRequest).execute();
+    } catch (final IOException e) {
+      log.log(Level.SEVERE, "IOException", e);
+      throw new RuntimeException(e);
+    }
 
-		if (getEndPoint() == null)
-			throw new IllegalArgumentException("service endpoint was not specified");
+    if (response.isSuccessful())
+      return response;
 
-		if (!request.containsHeader(ACCEPT)) {
-			request.addHeader(ACCEPT, getDefaultContentType());
-		}
+    final int status = response.code();
 
-		// from /v1/foo/bar to https://host:port/api/v1/foo/bar
-		if (!request.getURI().isAbsolute()) {
-			request.setURI(buildRequestURI(request));
-		}
-		HttpResponse response;
-		log.log(Level.FINEST, "Request to: " + request.getURI());
-		try {
-			response = getHttpClient().execute(request);
-		} catch (ClientProtocolException e) {
-			log.log(Level.SEVERE, "ClientProtocolException", e);
-			throw new RuntimeException(e);
-		} catch (IOException e) {
-			log.log(Level.SEVERE, "IOException", e);
-			throw new RuntimeException(e);
-		}
+    // There was a Client Error 4xx or a Server Error 5xx
+    // Get the error message and create the exception
+    final String error = getErrorMessage(response);
+    log.log(Level.SEVERE, request.urlString() + ", status: " + status + ", error: " + error);
 
-		final int status = response.getStatusLine().getStatusCode();
-		log.log(Level.FINEST, "Response HTTP Status: " + status);
+    switch (status) {
+      case HttpStatus.BAD_REQUEST: // HTTP 400
+        throw new BadRequestException(error != null ? error : "Bad Request");
+      case HttpStatus.UNAUTHORIZED: // HTTP 401
+        throw new UnauthorizedException("Unauthorized: Access is denied due to invalid credentials");
+      case HttpStatus.FORBIDDEN: // HTTP 403
+        throw new ForbiddenException(error != null ? error
+            : "Forbidden: Service refuse the request");
+      case HttpStatus.NOT_FOUND: // HTTP 404
+        throw new NotFoundException(error != null ? error : "Not found");
+      case HttpStatus.NOT_ACCEPTABLE: // HTTP 406
+        throw new ForbiddenException(error != null ? error
+            : "Forbidden: Service refuse the request");
+      case HttpStatus.REQUEST_TOO_LONG: // HTTP 413
+        throw new RequestTooLargeException(error != null ? error
+            : "Request too large: The request entity is larger than the server is able to process");
+      case HttpStatus.UNSUPPORTED_MEDIA_TYPE: // HTTP 415
+        throw new UnsupportedException(error != null ? error : "Unsupported Media Type");
+      case HttpStatus.TOO_MANY_REQUESTS: // HTTP 429
+        throw new TooManyRequestsException(error != null ? error : "Too many requests");
+      case HttpStatus.INTERNAL_SERVER_ERROR: // HTTP 500
+        throw new InternalServerErrorException(error != null ? error : "Internal Server Error");
+      case HttpStatus.SERVICE_UNAVAILABLE: // HTTP 503
+        throw new ServiceUnavailableException(error != null ? error : "Service Unavailable");
+      default: // other errors
+        throw new ServiceResponseException(status, error);
+    }
+  }
 
-		if (status >= 200 && status < 300)
-			return response;
+  /**
+   * Executes the HTTP Request, reads and parses the HTTP Response.
+   * 
+   * @param <T> the POJO class that represents the response
+   * @param request the request
+   * @param returnType the return type
+   * @return the POJO object
+   */
+  protected <T> T executeRequest(Request request, Class<T> returnType) {
+    final Response response = execute(request);
+    return ResponseUtil.getObject(response, returnType);
+  }
 
-		// There was a Client Error 4xx or a Server Error 5xx
-		// Get the error message and create the exception
-		String error = getErrorMessage(response);
-		log.log(Level.SEVERE, "HTTP Status: " + status + ", message: " + error);
+  /**
+   * Execute the HTTP request and discard the response. Use this when you don't want to get the
+   * response but you want to make sure we read it so that the underline connection is released
+   * 
+   * @param request the request
+   */
+  protected void executeWithoutResponse(Request request) {
+    final Response response = execute(request);
 
-		switch (status) {
-		case HttpStatus.SC_BAD_REQUEST: // HTTP 400
-			throw new BadRequestException(error != null ? error : "Bad Request");
-		case HttpStatus.SC_UNAUTHORIZED: // HTTP 401
-			throw new UnauthorizedException("Unauthorized: Access is denied due to invalid credentials");
-		case HttpStatus.SC_FORBIDDEN: // HTTP 403
-			throw new ForbiddenException(error != null ? error : "Forbidden: Service refuse the request");
-		case HttpStatus.SC_NOT_FOUND: // HTTP 404
-			throw new NotFoundException(error != null ? error : "Not found");
-		case HttpStatus.SC_NOT_ACCEPTABLE: // HTTP 406
-			throw new ForbiddenException(error != null ? error : "Forbidden: Service refuse the request");
-		case HttpStatus.SC_REQUEST_TOO_LONG: // HTTP 413
-			throw new RequestTooLargeException(error != null ? error
-					: "Request too large: The request entity is larger than the server is able to process");
-		case HttpStatus.SC_UNSUPPORTED_MEDIA_TYPE: // HTTP 415
-			throw new UnsupportedException(
-					error != null ? error
-							: "Unsupported MIME type: The request entity has a media type which the server or resource does not support");
-		case 429: // HTTP 429
-			throw new TooManyRequestsException(error != null ? error : "Too many requests");
-		case HttpStatus.SC_INTERNAL_SERVER_ERROR: // HTTP 500
-			throw new InternalServerErrorException(error != null ? error : "Internal Server Error");
-		case HttpStatus.SC_SERVICE_UNAVAILABLE: // HTTP 503
-			throw new ServiceUnavailableException(error != null ? error : "Service Unavailable");
-		default: // other errors
-			throw new ServiceResponseException(status, error);
-		}
-	}
+    // close the response
+    try {
+      response.body().close();
+    } catch (final IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
-	/**
-	 * Execute the request and return the POJO that represent the response.
-	 * 
-	 * @param <T>
-	 *            The POJO that represents the response object
-	 * @param request
-	 *            the request
-	 * @param returnType
-	 *            the POJO class to be parsed from the response
-	 * @return the POJO object that represent the response
-	 */
-	protected <T> T executeRequest(Request request, Class<T> returnType) {
-		HttpRequestBase requestBase = request.build();
-		try {
-			HttpResponse response = execute(requestBase);
-			return ResponseUtil.getObject(response, returnType);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+  /**
+   * Gets the API key.
+   * 
+   * 
+   * @return the API key
+   */
+  protected String getApiKey() {
+    return apiKey;
+  }
 
-	/**
-	 * Execute the Http request and discard the response. Use this when you don't want to
-	 * get the response but you want to make sure we read it so that the underline
-	 * connection is released
-	 * 
-	 * @param request
-	 *            the request
-	 */
-	protected void executeWithoutResponse(HttpRequestBase request) {
-		HttpResponse response = execute(request);
-		try {
-			ResponseUtil.getString(response);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+  /**
+   * Gets the API end point.
+   * 
+   * 
+   * @return the API end point
+   */
+  public String getEndPoint() {
+    return endPoint;
+  }
 
-	/**
-	 * Gets the API key.
-	 * 
-	 * 
-	 * @return the API key
-	 */
-	protected String getApiKey() {
-		return apiKey;
-	}
+  /**
+   * Gets the error message from a JSON response
+   * 
+   * <pre>
+   * {
+   *   code: 400
+   *   error: 'bad request'
+   * }
+   * </pre>
+   * 
+   * .
+   * 
+   * @param response the HTTP response
+   * @return the error message from the JSON object
+   */
+  private String getErrorMessage(Response response) {
+    String error = null;
+    try {
 
-	/**
-	 * Gets the default content type.
-	 * 
-	 * 
-	 * @return the default content type
-	 */
-	protected String getDefaultContentType() {
-		return MediaType.APPLICATION_JSON;
-	}
+      final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+      if (jsonObject.has("error")) {
+        error = jsonObject.get("error").getAsString();
+      } else if (jsonObject.has("error_message")) {
+        error = jsonObject.get("error_message").getAsString();
+      } else {
+        error = jsonObject.getAsString();
+      }
+    } catch (final Exception e) {
+    }
 
-	/**
-	 * Gets the default request.
-	 * 
-	 * 
-	 * @return the default request
-	 */
-	protected HttpParams getDefaultRequestParams() {
-		final HttpParams params = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(params, CONNECTION_TIMEOUT);
-		HttpConnectionParams.setSoTimeout(params, CONNECTION_TIMEOUT);
-		HttpClientParams.setRedirecting(params, false);
-		HttpProtocolParams.setUserAgent(params, getUserAgent());
-		ConnManagerParams.setMaxTotalConnections(params, MAX_TOTAL_CONNECTIONS);
-		ConnManagerParams.setMaxConnectionsPerRoute(params, new ConnPerRouteBean(MAX_CONNECTIONS_PER_ROUTE));
-		return params;
-	}
+    return error;
+  }
 
-	/**
-	 * Gets the API end point.
-	 * 
-	 * 
-	 * @return the API end point
-	 */
-	public String getEndPoint() {
-		return endPoint;
-	}
+  /**
+   * Gets the name.
+   * 
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
 
-	/**
-	 * Gets the error message from a JSON response
-	 * 
-	 * <pre>
-	 * {
-	 *   code: 400
-	 *   error: 'bad request'
-	 * }
-	 * </pre>
-	 * 
-	 * .
-	 * 
-	 * @param response
-	 *            the HTTP response
-	 * @return the error message from the json object
-	 */
-	private String getErrorMessage(HttpResponse response) {
-		String error = null;
-		try {
-			JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-			if (jsonObject.has("error")) {
-				error = jsonObject.get("error").getAsString();
-			} else if (jsonObject.has("error_message")) {
-				error = jsonObject.get("error_message").getAsString();
-			} else {
-				error = jsonObject.getAsString();
-			}
-		} catch (Exception e) {}
 
-		return error;
-	}
+  /**
+   * Gets the user agent.
+   * 
+   * 
+   * @return the user agent
+   */
+  private final String getUserAgent() {
+    return "watson-developer-cloud-java-wrapper-2.0.0";
+  }
 
-	/**
-	 * Gets the http client.
-	 * 
-	 * 
-	 * @return the http client
-	 */
-	public HttpClient getHttpClient() {
-		if (httpClient == null) {
-			httpClient = getThreadSafeClient();
-		}
-		return httpClient;
-	}
+  /**
+   * Sets the API key.
+   * 
+   * @param apiKey the new API key
+   */
+  public void setApiKey(String apiKey) {
+    this.apiKey = apiKey;
+  }
 
-	/**
-	 * Gets the name.
-	 * 
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
+  /**
+   * Sets the authentication.
+   * 
+   * @param builder the new authentication
+   */
+  protected void setAuthentication(Builder builder) {
+    if (getApiKey() == null) {
+      throw new IllegalArgumentException("apiKey or username and password were not specified");
+    } else {
+      builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC
+          + apiKey);
+    }
 
-	/**
-	 * Gets the thread safe client.
-	 * 
-	 * @return the thread safe client
-	 */
-	private HttpClient getThreadSafeClient() {
+  }
 
-		DefaultHttpClient client = new DefaultHttpClient(getDefaultRequestParams());
-		ClientConnectionManager mgr = client.getConnectionManager();
-		HttpParams params = client.getParams();
+  /**
+   * Sets the end point.
+   * 
+   * @param endPoint the new end point
+   */
+  public void setEndPoint(String endPoint) {
+    this.endPoint = endPoint;
+  }
 
-		client = new DefaultHttpClient(new ThreadSafeClientConnManager(params, mgr.getSchemeRegistry()), params);
+  /**
+   * Sets the username and password.
+   * 
+   * @param username the username
+   * @param password the password
+   */
+  public void setUsernameAndPassword(String username, String password) {
+    apiKey = Credentials.basic(username, password);
+  }
 
-		return client;
-	}
-
-	/**
-	 * Gets the user agent.
-	 * 
-	 * 
-	 * @return the user agent
-	 */
-	private final String getUserAgent() {
-		return "watson-developer-cloud-java-wrapper-1.1.0";
-	}
-
-	/**
-	 * Sets the API key.
-	 * 
-	 * @param apiKey
-	 *            the new API key
-	 */
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
-	}
-
-	/**
-	 * Sets the authentication.
-	 * 
-	 * @param request
-	 *            the new authentication
-	 */
-	protected void setAuthentication(HttpRequestBase request) {
-		if (getApiKey() == null) {
-			throw new IllegalArgumentException("apiKey or username and password were not specified");
-		} else {
-			request.addHeader(AUTHORIZATION, apiKey.startsWith("Basic ") ? apiKey : "Basic " + apiKey);
-		}
-
-	}
-
-	/**
-	 * Sets the end point.
-	 * 
-	 * @param endPoint
-	 *            the new end point
-	 */
-	public void setEndPoint(String endPoint) {
-		this.endPoint = endPoint;
-	}
-
-	/**
-	 * Sets the username and password.
-	 * 
-	 * @param username
-	 *            the username
-	 * @param password
-	 *            the password
-	 */
-	public void setUsernameAndPassword(String username, String password) {
-		String auth = username + ":" + password;
-		apiKey = new String(Base64.encodeBase64(auth.getBytes()));
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("WatsonService [");
-		if (endPoint != null) {
-			builder.append("endPoint=");
-			builder.append(endPoint);
-		}
-		builder.append("]");
-		return builder.toString();
-	}
+  /*
+   * (non-Javadoc)
+   * 
+   * @see java.lang.Object#toString()
+   */
+  @Override
+  public String toString() {
+    final StringBuilder builder = new StringBuilder();
+    builder.append("WatsonService [");
+    if (endPoint != null) {
+      builder.append("endPoint=");
+      builder.append(endPoint);
+    }
+    builder.append("]");
+    return builder.toString();
+  }
 }

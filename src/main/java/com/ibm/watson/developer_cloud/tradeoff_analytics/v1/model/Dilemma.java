@@ -1,17 +1,15 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
@@ -23,72 +21,68 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Dilemma extends GenericModel {
 
-	/** The problem. */
-	private Problem problem;
+  /** The problem. */
+  private Problem problem;
 
-	/** The resolution. */
-	private Resolution resolution;
+  /** The resolution. */
+  private Resolution resolution;
 
-	/**
-	 * Gets the problem.
-	 * 
-	 * @return The problem
-	 */
-	public Problem getProblem() {
-		return problem;
-	}
+  /**
+   * Gets the problem.
+   * 
+   * @return The problem
+   */
+  public Problem getProblem() {
+    return problem;
+  }
 
-	/**
-	 * Gets the resolution.
-	 * 
-	 * @return The resolution
-	 */
-	public Resolution getResolution() {
-		return resolution;
-	}
+  /**
+   * Gets the resolution.
+   * 
+   * @return The resolution
+   */
+  public Resolution getResolution() {
+    return resolution;
+  }
 
-	/**
-	 * Sets the problem.
-	 * 
-	 * @param problem
-	 *            The problem
-	 */
-	public void setProblem(Problem problem) {
-		this.problem = problem;
-	}
+  /**
+   * Sets the problem.
+   * 
+   * @param problem The problem
+   */
+  public void setProblem(Problem problem) {
+    this.problem = problem;
+  }
 
-	/**
-	 * Sets the resolution.
-	 * 
-	 * @param resolution
-	 *            The resolution
-	 */
-	public void setResolution(Resolution resolution) {
-		this.resolution = resolution;
-	}
+  /**
+   * Sets the resolution.
+   * 
+   * @param resolution The resolution
+   */
+  public void setResolution(Resolution resolution) {
+    this.resolution = resolution;
+  }
 
-	/**
-	 * With problem.
-	 * 
-	 * @param problem
-	 *            the problem
-	 * @return the dilemma
-	 */
-	public Dilemma withProblem(Problem problem) {
-		this.problem = problem;
-		return this;
-	}
+  /**
+   * With problem.
+   * 
+   * @param problem the problem
+   * @return the dilemma
+   */
+  public Dilemma withProblem(Problem problem) {
+    this.problem = problem;
+    return this;
+  }
 
-	/**
-	 * With resolution.
-	 * 
-	 * @param resolution
-	 *            the resolution
-	 * @return the dilemma
-	 */
-	public Dilemma withResolution(Resolution resolution) {
-		this.resolution = resolution;
-		return this;
-	}
+  /**
+   * With resolution.
+   * 
+   * @param resolution the resolution
+   * @return the dilemma
+   */
+  public Dilemma withResolution(Resolution resolution) {
+    this.resolution = resolution;
+    return this;
+  }
 
 }

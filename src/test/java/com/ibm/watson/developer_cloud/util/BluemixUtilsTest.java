@@ -1,3 +1,16 @@
+/**
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.ibm.watson.developer_cloud.util;
 
 import static org.junit.Assert.assertEquals;
@@ -10,30 +23,45 @@ import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 
+/**
+ * The Class BluemixUtilsTest.
+ */
 public class BluemixUtilsTest extends WatsonServiceTest {
-	private static final String API_KEY_FREE = "bm90LWEtZnJlZS11c2VybmFtZTpub3QtYS1mcmVlLXBhc3N3b3Jk";
-	private static final String API_KEY_STANDARD = "bm90LWEtdXNlcm5hbWU6bm90LWEtcGFzc3dvcmQ=";
-	private static final String VCAP_SERVICES = "vcap_services.json";
-	private static final String SERVICE_NAME = "personality_insights";
 
-	@Before
-	public void setup() {
-		InputStream in = this.getClass().getClassLoader().getResourceAsStream(VCAP_SERVICES);
-		String vcapServices = getStringFromInputStream(in);
-		BluemixUtils.setServices(vcapServices);
-	}
+  /** The Constant API_KEY_FREE. */
+  private static final String API_KEY_FREE =
+      "Basic bm90LWEtZnJlZS11c2VybmFtZTpub3QtYS1mcmVlLXBhc3N3b3Jk";
 
-	/**
-	 * Test get api key with null or empty service.
-	 * There are two instances of Personality Insights: ['free', 'standard']
-	 */
-	@Test
-	public void testGetAPIKeyWithNullOrEmptyService() {
-		assertNull(BluemixUtils.getAPIKey(null, null));
-		assertNull(BluemixUtils.getAPIKey("", ""));
+  /** The Constant API_KEY_STANDARD. */
+  private static final String API_KEY_STANDARD = "Basic bm90LWEtdXNlcm5hbWU6bm90LWEtcGFzc3dvcmQ=";
 
-		assertEquals(API_KEY_FREE, BluemixUtils.getAPIKey(SERVICE_NAME, null));
-		assertEquals(API_KEY_FREE, BluemixUtils.getAPIKey(SERVICE_NAME, BluemixUtils.PLAN_FREE));
-		assertEquals(API_KEY_STANDARD, BluemixUtils.getAPIKey(SERVICE_NAME, BluemixUtils.PLAN_STANDARD));
-	}
+  /** The Constant SERVICE_NAME. */
+  private static final String SERVICE_NAME = "personality_insights";
+
+  /** The Constant VCAP_SERVICES. */
+  private static final String VCAP_SERVICES = "vcap_services.json";
+
+  /**
+   * Setup.
+   */
+  @Before
+  public void setup() {
+    final InputStream in = this.getClass().getClassLoader().getResourceAsStream(VCAP_SERVICES);
+    final String vcapServices = getStringFromInputStream(in);
+    BluemixUtils.setServices(vcapServices);
+  }
+
+  /**
+   * Test get api key with null or empty service. There are two instances of Personality Insights:
+   * ['free', 'standard']
+   */
+  @Test
+  public void testGetAPIKeyWithNullOrEmptyService() {
+    assertNull(BluemixUtils.getAPIKey(null, null));
+    assertNull(BluemixUtils.getAPIKey("", ""));
+
+    assertEquals(API_KEY_FREE, BluemixUtils.getAPIKey(SERVICE_NAME, null));
+    assertEquals(API_KEY_FREE, BluemixUtils.getAPIKey(SERVICE_NAME, BluemixUtils.PLAN_FREE));
+    assertEquals(API_KEY_STANDARD, BluemixUtils.getAPIKey(SERVICE_NAME, BluemixUtils.PLAN_STANDARD));
+  }
 }

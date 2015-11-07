@@ -26,10 +26,8 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Language Identification](#language-identification)
     * [Language Translation](#language-translation)
     * [Machine Translation](#machine-translation)
-    * [Message Resonance](#message-resonance)
     * [Natural Language Classifier](#natural-language-classifier)
     * [Personality Insights](#personality-insights)
-    * [Question and Answer](#question-and-answer)
     * [Relationship Extraction](#relationship-extraction)
     * [Speech to Text](#speech-to-text)
     * [Text to Speech](#text-to-speech)
@@ -222,19 +220,6 @@ TranslationResult translationResult = service.translate("hello", "en", "es");
 System.out.println(translationResult);
 ```
 
-### Message Resonance
-Send a word and Watson responds with the resonance scoring for the word, allowing you to enhance the effectiveness of your language for the intended audience.  
-Example: Get resonance information for individual words in a sentence from the [Message Resonance][message_resonance] service.
-
-```java
-MessageResonance service = new MessageResonance();
-service.setUsernameAndPassword("<username>", "<password>");
-
-service.setDataset(MessageResonanceDataset.BIG_DATA);
-Message message = service.getResonance("IBM Watson Developer Cloud");
-System.out.println(message);
-```
-
 ### Natural Language Classifier
 Use [Natural Language Classifier](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/nl-classifier/) service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.
 
@@ -283,18 +268,6 @@ System.out.println(profile);
 authentication errors, remember that the Personality Insights service is not
 a free service.
 
-### Question and Answer
-Ask a healthcare-related question of the [Question and Answer][question_and_answer] service.
-
-```java
-QuestionAndAnswer service = new QuestionAndAnswer();
-service.setUsernameAndPassword("<username>", "<password>");
-
-service.setDataset(QuestionAndAnswerDataset.HEALTHCARE);
-WatsonAnswer watsonAnswers = service.ask("What is HIV?");
-
-System.out.println(watsonAnswers);
-```
 
 ### Relationship Extraction
 Analyze an English news article and get the relationships between sentence
@@ -444,7 +417,7 @@ System.out.println(recognizedImage);
 ## Android
 
 The library works well on Android. It depends on
-[Apache HttpClient][] (including the [HttpMime][] module) and [json-java][].
+[OkHttp][] and [gson][].
 Android SDK already comes with these two libraries so you don't need to include
 them when using the library there.
 
@@ -506,9 +479,6 @@ available in [LICENSE](LICENSE).
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-
-[question_and_answer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/qaapi/
-[message_resonance]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/mrapi/
 [personality_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/personality-insights/
 [language_identification]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/lidapi/
 [machine_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/mtapi/
@@ -531,11 +501,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [alchemy_data_news]: http://www.alchemyapi.com/products/alchemydata-news
 
 [wdc]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/
-[vcap_environment]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/getting_started/index.html#EnvVars
 [bluemix]: https://console.ng.bluemix.net
 [Gradle]: http://www.gradle.org/
-[Apache HttpClient]: http://hc.apache.org/httpcomponents-client-ga/
-[HttpMime]: http://hc.apache.org/httpcomponents-client-ga/httpmime
-[json-java]: http://json.org/java/
+[OkHttp]: http://square.github.io/okhttp/
+[gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
 [releases]: https://github.com/watson-developer-cloud/java-sdk/releases

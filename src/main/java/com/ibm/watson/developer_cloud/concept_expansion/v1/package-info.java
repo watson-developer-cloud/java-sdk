@@ -1,13 +1,17 @@
 /**
- * The Concept Expansion service analyzes text and interprets its
- * meaning based on usage in other similar contexts. For example, it could
- * interpret 'The Big Apple' as meaning 'New York City'. It can be used to
- * create a dictionary of related words and concepts so that euphemisms,
- * colloquialisms, or otherwise unclear phrases can be better understood
- * and analyzed.
+ * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept-expansion.html">
- * Concept Expansion</a>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibm.watson.developer_cloud.concept_expansion.v1;
 
