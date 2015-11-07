@@ -292,7 +292,7 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 File audio = new File("src/test/resources/sample1.wav");
 
-SpeechResults transcript = service.recognize(audio, "audio/l16; rate=44100");
+SpeechResults transcript = service.recognize(audio, "audio/wav");
 System.out.println(transcript);
 ```
 
@@ -415,11 +415,9 @@ System.out.println(recognizedImage);
 ```
 
 ## Android
+he library supports Android 2.3 and above. For Java, the minimum requirement is 1.7.  
+It depends on [OkHttp][] and [gson][].
 
-The library works well on Android. It depends on
-[OkHttp][] and [gson][].
-Android SDK already comes with these two libraries so you don't need to include
-them when using the library there.
 
 ## Running in Bluemix
 When running in Bluemix, the library will automatically get the credentials from `VCAP_SERVICES`.
