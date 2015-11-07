@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 import java.io.File;
 import java.net.URISyntaxException;
 
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
 
@@ -26,7 +27,7 @@ public class SpeechToTextExample {
     service.setUsernameAndPassword("<username>", "<password>");
 
     final File audio = new File("src/test/resources/sample1.wav");
-    final SpeechResults transcript = service.recognize(audio, "audio/wav");
+    final SpeechResults transcript = service.recognize(audio, HttpMediaType.AUDIO_WAV);
 
     System.out.println(transcript);
   }

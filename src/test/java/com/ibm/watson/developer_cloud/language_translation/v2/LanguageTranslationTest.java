@@ -393,4 +393,13 @@ public class LanguageTranslationTest extends WatsonServiceTest {
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
   }
 
+  @Test
+  public void testTranslateWithEncoding() {
+    LanguageTranslation serv = new LanguageTranslation();
+    serv.setUsernameAndPassword("51f857a6-00cf-40e8-a215-59ebef05b33b", "iJmrhOzfMhks");
+    System.out.println(serv.translate("obrigação", "pt", "en"));
+  }
+
+
+
 }

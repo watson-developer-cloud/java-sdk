@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -74,7 +74,7 @@ public class SpeechToTextTest extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   *
+   * 
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -231,7 +231,7 @@ public class SpeechToTextTest extends WatsonServiceTest {
 
   /**
    * Test recognize.
-   *
+   * 
    * @throws URISyntaxException the URI syntax exception
    */
   @Test
@@ -256,20 +256,20 @@ public class SpeechToTextTest extends WatsonServiceTest {
 
     mockServer.when(
         request().withMethod("POST").withPath(RECOGNIZE_PATH)
-            .withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, "audio/wav")))
+            .withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.AUDIO_WAV)))
 
     .respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
             GsonSingleton.getGson().toJson(speechResults)));
-    final SpeechResults result = service.recognize(audio, "audio/wav");
+    final SpeechResults result = service.recognize(audio, HttpMediaType.AUDIO_WAV);
     Assert.assertNotNull(result);
     Assert.assertEquals(result, speechResults);
   }
 
   /**
    * Test recognize -missing audio file, generate IllegalArgumentException.
-   *
+   * 
    * @throws URISyntaxException the URI syntax exception
    */
   @Test
@@ -297,7 +297,7 @@ public class SpeechToTextTest extends WatsonServiceTest {
 
     mockServer.when(
         request().withMethod("POST").withPath(RECOGNIZE_PATH)
-            .withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, "audio/wav")))
+            .withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.AUDIO_WAV)))
         .respond(
             response().withHeaders(
                 new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON))
@@ -305,7 +305,7 @@ public class SpeechToTextTest extends WatsonServiceTest {
 
     boolean didItHappen = false;
     try {
-      service.recognize(null, "audio/wav");
+      service.recognize(null, HttpMediaType.AUDIO_WAV);
     } catch (final IllegalArgumentException e) {
       didItHappen = true;
     }
@@ -314,7 +314,7 @@ public class SpeechToTextTest extends WatsonServiceTest {
 
   /**
    * Test recognize.
-   *
+   * 
    * @throws URISyntaxException the URI syntax exception
    */
   @Test
@@ -323,7 +323,7 @@ public class SpeechToTextTest extends WatsonServiceTest {
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put("audio", audio);
-    params.put("content_type", "audio/wav");
+    params.put("content_type", HttpMediaType.AUDIO_WAV);
     params.put("word_confidence", "false");
     params.put("continuous", "false");
     params.put("timestamps", "false");
@@ -356,7 +356,7 @@ public class SpeechToTextTest extends WatsonServiceTest {
 
     mockServer.when(
         request().withMethod("POST").withPath(RECOGNIZE_PATH).withQueryStringParameters(parameters)
-            .withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, "audio/wav")))
+            .withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.AUDIO_WAV)))
 
     .respond(
         response().withHeaders(

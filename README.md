@@ -292,7 +292,7 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 File audio = new File("src/test/resources/sample1.wav");
 
-SpeechResults transcript = service.recognize(audio, "audio/wav");
+SpeechResults transcript = service.recognize(audio, HttpMediaType.AUDIO_WAV);
 System.out.println(transcript);
 ```
 
