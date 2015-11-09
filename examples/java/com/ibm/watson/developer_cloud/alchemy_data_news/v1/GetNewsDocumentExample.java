@@ -16,17 +16,38 @@ package com.ibm.watson.developer_cloud.alchemy_data_news.v1;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.apache.commons.lang3.StringUtils;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 
-public class AlchemyDataNewsExample {
+
+/**
+ * Getting 7 documents between Friday 28th August 2015 and Friday 4th September 2015 using the
+ * {@link AlchemyDataNews} API.
+ * 
+ */
+public class GetNewsDocumentExample {
 
   public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
     final AlchemyDataNews service = new AlchemyDataNews();
     service.setApiKey("<api_key>");
 
-    final VolumeResult result = service.getVolume("now-7d", "now", "12h");
+    final Map<String, Object> params = new HashMap<String, Object>();
+
+    String[] fields =
+        new String[] {"enriched.url.title", "enriched.url.url", "enriched.url.author",
+            "enriched.url.publicationDate", "enriched.url.enrichedTitle.entities",
+            "enriched.url.enrichedTitle.docSentiment"};
+    params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
+    params.put(AlchemyDataNews.START, "1440720000");
+    params.put(AlchemyDataNews.END, "1441407600");
+    params.put(AlchemyDataNews.COUNT, 7);
+
+    final DocumentsResult result = service.getNewsDocuments(params);
 
     System.out.println(result);
   }
