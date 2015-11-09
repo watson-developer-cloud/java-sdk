@@ -48,7 +48,7 @@ import com.squareup.okhttp.Response;
  */
 public class NaturalLanguageClassifier extends WatsonService {
 
-  /** The Constant LANGUAGE. */
+  /** The Constant LANGUAGE (value is "language"). */
   private static final String LANGUAGE = "language";
 
   /**
@@ -56,16 +56,9 @@ public class NaturalLanguageClassifier extends WatsonService {
    */
   public static final String LANGUAGE_EN = "en";
 
-  /** The Constant NAME. */
   private static final String NAME = "name";
-
-  /** The Constant TRAINING_DATA. */
   private static final String TRAINING_DATA = "training_data";
-
-  /** The Constant TRAINING_METADATA. */
   private static final String TRAINING_METADATA = "training_metadata";
-
-  /** The url. */
   private static String URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 
   /**
@@ -74,6 +67,20 @@ public class NaturalLanguageClassifier extends WatsonService {
   public NaturalLanguageClassifier() {
     super("natural_language_classifier");
     setEndPoint(URL);
+  }
+
+  /**
+   * Returns classification information for a classifier on a phrase.
+   * 
+   * @param classifier The classifier
+   * @param text The submitted phrase to classify
+   * @return the classification of a phrase with a given classifier
+   */
+  public Classification classify(final Classifier classifier, final String text) {
+    if (classifier == null)
+      throw new IllegalArgumentException("classifier cannot be null");
+
+    return classify(classifier.getId(), text);
   }
 
   /**
@@ -179,6 +186,19 @@ public class NaturalLanguageClassifier extends WatsonService {
 
     final Request request = RequestBuilder.delete("/v1/classifiers/" + classifierId).build();
     executeWithoutResponse(request);
+  }
+
+  /**
+   * Deletes a classifier.
+   * 
+   * @param classifier the classifier
+   * @see Classifier
+   */
+  public void deleteClassifier(Classifier classifier) {
+    if (classifier == null)
+      throw new IllegalArgumentException("classifier cannot be null");
+
+    deleteClassifier(classifier.getId());
   }
 
   /**

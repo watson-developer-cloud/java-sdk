@@ -22,50 +22,41 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Voice extends GenericModel {
 
-  /** The Constant DE_DIETER. */
+  /** The Constant DE_DIETER (value is "de-DE_DieterVoice"). */
   public static final Voice DE_DIETER = new Voice("de-DE_DieterVoice", "male", "de-DE");
 
-  /** The Constant DE_GIRGIT. */
+  /** The Constant DE_GIRGIT (value is "de-DE_BirgitVoice"). */
   public static final Voice DE_GIRGIT = new Voice("de-DE_BirgitVoice", "female", "de-DE");
 
-  /** The Constant EN_ALLISON. */
+  /** The Constant EN_ALLISON (value is "en-US_AllisonVoice"). */
   public static final Voice EN_ALLISON = new Voice("en-US_AllisonVoice", "female", "en-US");
 
-  /** The Constant EN_LISA. */
+  /** The Constant EN_LISA (value is "en-US_LisaVoice"). */
   public static final Voice EN_LISA = new Voice("en-US_LisaVoice", "female", "en-US");
 
-  /** The Constant ES_ENRIQUE. */
+  /** The Constant ES_ENRIQUE (value is "es-ES_EnriqueVoice"). */
   public static final Voice ES_ENRIQUE = new Voice("es-ES_EnriqueVoice", "male", "es-ES");
 
-  /** The Constant ES_LAURA. */
+  /** The Constant ES_LAURA (value is "es-ES_LauraVoice"). */
   public static final Voice ES_LAURA = new Voice("es-ES_LauraVoice", "female", "es-US");
 
-  /** The Constant ES_SOFIA. */
+  /** The Constant ES_SOFIA (value is "es-US_SofiaVoice"). */
   public static final Voice ES_SOFIA = new Voice("es-US_SofiaVoice", "female", "es-US");
 
-  /** The Constant FR_RENEE. */
+  /** The Constant FR_RENEE (value is "fr-FR_ReneeVoice"). */
   public static final Voice FR_RENEE = new Voice("fr-FR_ReneeVoice", "female", "fr-FR");
 
-  /** The Constant GB_KATE. */
+  /** The Constant GB_KATE (value is "en-GB_KateVoice"). */
   public static final Voice GB_KATE = new Voice("en-GB_KateVoice", "female", "en-GB");
 
-  /** The Constant IT_FRANCESCA. */
+  /** The Constant IT_FRANCESCA (value is "it-IT_FrancescaVoice"). */
   public static final Voice IT_FRANCESCA = new Voice("it-IT_FrancescaVoice", "female", "it-IT");
 
 
-  /** The description. */
   private String description;
-
-  /** The gender. */
   private String gender;
-
-  /** The language. */
   private String language;
-
-  /** The name. */
   private String name;
-
-  /** The url. */
   private String url;
 
   /**

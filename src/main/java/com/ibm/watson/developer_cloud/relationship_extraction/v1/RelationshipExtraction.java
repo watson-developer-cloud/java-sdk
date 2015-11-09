@@ -14,7 +14,7 @@
 package com.ibm.watson.developer_cloud.relationship_extraction.v1;
 
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.relationship_extraction.v1.model.RelationshipExtractionDataset;
+import com.ibm.watson.developer_cloud.relationship_extraction.v1.model.Dataset;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.squareup.okhttp.Request;
@@ -37,7 +37,7 @@ public class RelationshipExtraction extends WatsonService {
       "https://gateway.watsonplatform.net/relationship-extraction-beta/api";
 
   /** The dataset. */
-  private RelationshipExtractionDataset dataset;
+  private Dataset dataset;
 
   /**
    * Instantiates a new relationship extraction service.
@@ -74,7 +74,7 @@ public class RelationshipExtraction extends WatsonService {
    * 
    * @return the dataset
    */
-  public RelationshipExtractionDataset getDataset() {
+  public Dataset getDataset() {
     return dataset;
   }
 
@@ -83,7 +83,7 @@ public class RelationshipExtraction extends WatsonService {
    * 
    * @param dataset the new dataset
    */
-  public void setDataset(final RelationshipExtractionDataset dataset) {
+  public void setDataset(final Dataset dataset) {
     this.dataset = dataset;
   }
 

@@ -36,11 +36,10 @@ import com.ibm.watson.developer_cloud.util.Validate;
  */
 public class TrainingDataUtils {
 
-  /** The Constant log. */
   private static final Logger log = Logger.getLogger(TrainingDataUtils.class.getName());
 
   /**
-   * Creates the training data list based on a csv file. File format needs to be UTF-8
+   * Creates the training data list based on a CSV file. File format needs to be UTF-8
    * 
    * @param file the CSV file
    * @param format the CSV format. See <a href=

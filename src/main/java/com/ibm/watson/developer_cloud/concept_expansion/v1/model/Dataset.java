@@ -14,25 +14,20 @@
 package com.ibm.watson.developer_cloud.concept_expansion.v1.model;
 
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Dataset used by the {@link ConceptExpansion} service.
  */
-public class ConceptExpansionDataset {
+public class Dataset extends GenericModel {
 
-  /** The Constant MT_SAMPLES. */
-  public static final ConceptExpansionDataset MT_SAMPLES = new ConceptExpansionDataset(
-      "Medical Transcriptions", "mtsamples");
+  /** The Constant MT_SAMPLES (value is "mtsamples"). */
+  public static final Dataset MT_SAMPLES = new Dataset("Medical Transcriptions", "mtsamples");
 
-  /** The Constant TWITTER. */
-  public static final ConceptExpansionDataset TWITTER = new ConceptExpansionDataset("Twitter",
-      "twitter");
+  /** The Constant TWITTER (value is "twitter"). */
+  public static final Dataset TWITTER = new Dataset("Twitter", "twitter");
 
-  /** The id. */
   private final String id;
-
-  /** The name. */
   private final String name;
 
   /**
@@ -41,7 +36,7 @@ public class ConceptExpansionDataset {
    * @param name the name
    * @param id the id
    */
-  public ConceptExpansionDataset(String name, String id) {
+  public Dataset(String name, String id) {
     this.name = name;
     this.id = id;
   }
@@ -66,13 +61,4 @@ public class ConceptExpansionDataset {
     return name;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
-  }
 }

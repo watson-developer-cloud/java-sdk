@@ -44,43 +44,38 @@ import com.squareup.okhttp.Response;
  */
 public class ToneAnalyzer extends WatsonService {
 
-  /** The Constant CONTEXT. */
+  /** The Constant CONTEXT (value is "context"). */
   public static final String CONTEXT = "context";
 
-  /** The Constant HOPS. */
+  /** The Constant HOPS (value is "hops"). */
   // parameters
   public static final String HOPS = "hops";
 
-  /** The Constant LIMIT. */
+  /** The Constant LIMIT (value is "limit"). */
   public static final String LIMIT = "limit";
 
-  /** The Constant PATH_SYNONYM. */
   private static final String PATH_SYNONYM = "/v1/synonym";
-
-  /** The Constant PATH_TONE. */
   private static final String PATH_TONE = "/v1/tone";
 
-  /** The Constant SCORECARD. */
+  /** The Constant SCORECARD (value is "scorecard"). */
   public static final String SCORECARD = "scorecard";
 
-  /** The synonym list. */
   private static final Type synonymListType = new TypeToken<List<SynonymResult>>() {}.getType();
 
-  /** The Constant TEXT. */
+  /** The Constant TEXT (value is "text"). */
   public static final String TEXT = "text";
 
-  /** The Constant TRAITS. */
+  /** The Constant TRAITS (value is "traits"). */
   public static final String TRAITS = "traits";
 
-  /** The Constant URL. */
   private static final String URL =
       "https://gateway.watsonplatform.net/tone-analyzer-experimental/api";
 
-  /** The Constant WORDS. */
+  /** The Constant WORDS (value is "words"). */
   public static final String WORDS = "words";
 
   /**
-   * Instantiates a new Tone Analyzer service with the default url.
+   * Instantiates a new Tone Analyzer service.
    */
   public ToneAnalyzer() {
     super("tone_analyzer");

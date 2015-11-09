@@ -17,7 +17,7 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Class Dilemma.
+ * The decision problem with the objectives and options
  */
 public class Dilemma extends GenericModel {
 

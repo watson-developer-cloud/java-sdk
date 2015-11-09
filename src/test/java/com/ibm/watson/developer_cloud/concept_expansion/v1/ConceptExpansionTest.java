@@ -21,7 +21,7 @@ import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Concept;
-import com.ibm.watson.developer_cloud.concept_expansion.v1.model.ConceptExpansionDataset;
+import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Dataset;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job.Status;
 
@@ -55,7 +55,7 @@ public class ConceptExpansionTest extends WatsonServiceTest {
   public void shouldGeneratAValidPayload() {
     final String[] seeds = new String[] {"motrin", "tylenol", "aspirin"};
     final String label = "medicine";
-    service.setDataset(ConceptExpansionDataset.MT_SAMPLES);
+    service.setDataset(Dataset.MT_SAMPLES);
     final Job job = service.createJob(label, seeds);
     Assert.assertNotNull(job);
   }
@@ -67,7 +67,7 @@ public class ConceptExpansionTest extends WatsonServiceTest {
   public void testCreateJob() {
     final String[] seeds = new String[] {"motrin", "tylenol", "aspirin"};
     final String label = "medicine";
-    service.setDataset(ConceptExpansionDataset.MT_SAMPLES);
+    service.setDataset(Dataset.MT_SAMPLES);
     final Job job = service.createJob(label, seeds);
     Assert.assertNotNull(job);
   }
@@ -79,7 +79,7 @@ public class ConceptExpansionTest extends WatsonServiceTest {
   public void testExpandConcepts() {
     final String[] seeds = new String[] {"motrin", "tylenol", "aspirin"};
     final String label = "medicine";
-    service.setDataset(ConceptExpansionDataset.MT_SAMPLES);
+    service.setDataset(Dataset.MT_SAMPLES);
 
     final Job job = service.createJob(label, seeds);
     Status status = service.getJobStatus(job);

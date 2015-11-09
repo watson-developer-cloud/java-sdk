@@ -28,10 +28,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class TrainingData extends GenericModel {
 
-  /** The classes. */
   private List<String> classes;
-
-  /** The text. */
   private String text;
 
   /**

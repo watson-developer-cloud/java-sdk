@@ -35,14 +35,11 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Numeric
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.TextColumn;
 
 /**
- * The Class ColumnTypeAdapter.
+ * ColumnTypeAdapter
  */
 public class ColumnTypeAdapter extends TypeAdapter<Column> {
 
-  /** The Constant log. */
   private static final Logger log = Logger.getLogger(ColumnTypeAdapter.class.getName());
-
-  /** The df. */
   private final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 
   /*

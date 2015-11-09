@@ -48,34 +48,33 @@ import com.squareup.okhttp.Response;
  */
 public class LanguageTranslation extends WatsonService {
 
-  /** The Constant BASE_MODEL_ID. */
+  /** The Constant BASE_MODEL_ID (value is "base_model_id"). */
   public static final String BASE_MODEL_ID = "base_model_id";
 
-  /** The Constant DEFAULT. */
+  /** The Constant DEFAULT (value is "default"). */
   public static final String DEFAULT = "default";
 
-  /** The Constant FORCED_GLOSSARY. */
+  /** The Constant FORCED_GLOSSARY (value is "forced_glossary"). */
   public static final String FORCED_GLOSSARY = "forced_glossary";
 
-  /** The Constant LANGUAGES. */
+  /** The Constant LANGUAGES (value is "languages"). */
   private static final String LANGUAGES = "languages";
 
-  /** The Constant MODEL_ID. */
+  /** The Constant MODEL_ID (value is "model_id"). */
   public static final String MODEL_ID = "model_id";
 
-  /** The Constant NAME. */
+  /** The Constant NAME (value is "name"). */
   public static final String NAME = "name";
 
-  /** The Constant SOURCE. */
+  /** The Constant SOURCE (value is "source"). */
   public static final String SOURCE = "source";
 
-  /** The Constant TARGET. */
+  /** The Constant TARGET (value is "target"). */
   public static final String TARGET = "target";
 
-  /** The Constant TEXT. */
+  /** The Constant TEXT (value is "text"). */
   public static final String TEXT = "text";
 
-  /** The url. */
   private static final String URL = "https://gateway.watsonplatform.net/language-translation/api";
 
   /** The identifiable languages list type. */

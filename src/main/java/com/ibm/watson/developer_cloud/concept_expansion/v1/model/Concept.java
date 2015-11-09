@@ -15,7 +15,6 @@
 package com.ibm.watson.developer_cloud.concept_expansion.v1.model;
 
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * This class map a Concept returned by {@link ConceptExpansion}.
@@ -60,16 +59,6 @@ public class Concept {
    */
   public Double getPrevalence() {
     return prevalence;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
   }
 
 }

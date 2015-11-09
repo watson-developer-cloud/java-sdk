@@ -36,10 +36,10 @@ import com.squareup.okhttp.RequestBody;
  */
 public class VisualRecognition extends WatsonService {
 
-  /** The Constant IMG_FILE. */
+  /** The Constant IMG_FILE (value is "imgFile") */
   public static final String IMG_FILE = "imgFile";
 
-  /** The Constant LABELS_TO_CHECK. */
+  /** The Constant LABELS_TO_CHECK (value is "labels_to_check"). */
   public static final String LABELS_TO_CHECK = "labels_to_check";
   /** The service endpoint. */
   private static final String URL =

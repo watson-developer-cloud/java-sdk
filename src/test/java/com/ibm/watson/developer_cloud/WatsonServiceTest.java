@@ -103,7 +103,7 @@ public abstract class WatsonServiceTest {
   }
 
   /** The prop. */
-  protected Properties prop = new Properties();
+  protected static Properties prop = null;
 
   /**
    * Gets the existing property.
@@ -131,13 +131,8 @@ public abstract class WatsonServiceTest {
     return value;
   }
 
-  /**
-   * Sets the up.
-   * 
-   * @throws Exception the exception
-   */
-  @Before
-  public void setUp() throws Exception {
+  public static void loadProperties() throws IOException {
+    prop = new Properties();
     final String filename = "config.properties";
     final InputStream input =
         WatsonServiceTest.class.getClassLoader().getResourceAsStream(filename);
@@ -147,6 +142,17 @@ public abstract class WatsonServiceTest {
     // load a properties file from class path, inside static method
     prop.load(input);
 
+  }
+
+  /**
+   * Sets the up.
+   * 
+   * @throws Exception the exception
+   */
+  @Before
+  public void setUp() throws Exception {
+    if (prop == null)
+      loadProperties();
     setupLogging();
   }
 

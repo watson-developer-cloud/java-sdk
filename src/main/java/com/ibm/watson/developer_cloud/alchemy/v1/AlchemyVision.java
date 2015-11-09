@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.alchemy.v1;
 import java.io.File;
 import java.util.Map;
 
+import com.ibm.watson.developer_cloud.alchemy.v1.model.AlchemyGenericModel;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
@@ -76,7 +77,8 @@ public class AlchemyVision extends AlchemyService {
    * @param returnType the POJO class to be parsed from the response
    * @return the POJO object that represent the response
    */
-  private <T> T executeRequest(Map<String, Object> params, AlchemyAPI operation, Class<T> returnType) {
+  private <T extends AlchemyGenericModel> T executeRequest(Map<String, Object> params,
+      AlchemyAPI operation, Class<T> returnType) {
     final String inputType = getInputFormat(params, IMAGE, "url");
     final String path = AlchemyEndPoints.getPath(operation, inputType);
 
@@ -145,12 +147,12 @@ public class AlchemyVision extends AlchemyService {
   }
 
   /**
-   * Recognize faces from an image or url. For each face detected returns:
+   * Recognize faces from an image or URL. For each face detected returns:
    * <ul>
-   * <li>bounding box
-   * <li>gender
-   * <li>approximate age
-   * <li>name (if celebrity is detected)
+   * <li>Bounding box
+   * <li>Gender
+   * <li>Approximate age
+   * <li>Name (if celebrity is detected)
    * </ul>
    * 
    * @param params The parameters to be used in the service call, image or url should be specified.

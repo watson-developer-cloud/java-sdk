@@ -42,31 +42,32 @@ import com.squareup.okhttp.Response;
  */
 public class PersonalityInsights extends WatsonService {
 
-  /** The Constant ACCEPT_LANGUAGE. */
+  private static final String PATH_PROFILE = "/v2/profile";
+
+  /** The Constant ACCEPT_LANGUAGE (value is "accept_language"). */
   public static final String ACCEPT_LANGUAGE = "accept_language";
 
-  /** The Constant CONTENT. */
+  /** The Constant CONTENT (value is "content"). */
   public static final String CONTENT = "content";
 
-  /** The Constant CSV. */
+  /** The Constant CSV (value is "csv"). */
   public static final String CSV = "csv";
 
-  /** The Constant HEADERS. */
+  /** The Constant HEADERS (value is "headers"). */
   public static final String HEADERS = "headers";
 
-  /** The Constant HTML. */
+  /** The Constant HTML (value is "html"). */
   public static final String HTML = "html";
 
-  /** The Constant INCLUDE_RAW. */
+  /** The Constant INCLUDE_RAW (value is "include_raw"). */
   public static final String INCLUDE_RAW = "include_raw";
 
-  /** The Constant LANGUAGE. */
+  /** The Constant LANGUAGE (value is "language"). */
   public static final String LANGUAGE = "language";
 
-  /** The Constant TEXT. */
+  /** The Constant TEXT (value is "text"). */
   public static final String TEXT = "text";
 
-  /** The url. */
   private static final String URL = "https://gateway.watsonplatform.net/personality-insights/api";
 
   /**
@@ -81,7 +82,7 @@ public class PersonalityInsights extends WatsonService {
    * Accepts text, html or {@link Content} and responds with a {@link Profile} with a tree of
    * characteristics that include personality, needs, and values.
    * 
-   * @param parameters The parameters to be used in the service call text,html or content is
+   * @param parameters The parameters to be used in the service call text, html or content is
    *        required.
    *        <ul>
    *        <li>Content content - Content to analyze. See {@link ContentItem}.<br>
@@ -169,7 +170,7 @@ public class PersonalityInsights extends WatsonService {
         && !parameters.containsKey(CONTENT))
       throw new IllegalArgumentException("text, html or content need to be specified");
 
-    final RequestBuilder request = RequestBuilder.post("/v2/profile");
+    final RequestBuilder request = RequestBuilder.post(PATH_PROFILE);
 
     if (parameters.containsKey(TEXT)) {
       request.withBodyContent(parameters.get(TEXT).toString(), HttpMediaType.TEXT_PLAIN);

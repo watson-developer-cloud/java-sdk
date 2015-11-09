@@ -24,10 +24,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ClassifiedClass extends GenericModel {
 
-  /** The confidence. */
   private Double confidence;
 
-  /** The name. */
   @SerializedName("class_name")
   private String name;
 

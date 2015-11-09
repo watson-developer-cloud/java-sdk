@@ -15,12 +15,12 @@ package com.ibm.watson.developer_cloud.concept_expansion.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.ConceptExpansion;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Job created by the {@link ConceptExpansion} service. It contains and id and a {@link Job.Status}
  */
-public class Job {
+public class Job extends GenericModel {
 
   /**
    * The Enum Status.
@@ -150,16 +150,6 @@ public class Job {
    */
   public void setStatus(Status status) {
     this.status = status;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
   }
 
 }

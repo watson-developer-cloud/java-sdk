@@ -13,7 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.relationship_extraction.v1;
 
-import com.ibm.watson.developer_cloud.relationship_extraction.v1.model.RelationshipExtractionDataset;
+import com.ibm.watson.developer_cloud.relationship_extraction.v1.model.Dataset;
 
 
 public class RelationshipExtractionExample {
@@ -22,7 +22,7 @@ public class RelationshipExtractionExample {
     final RelationshipExtraction service = new RelationshipExtraction();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    service.setDataset(RelationshipExtractionDataset.ENGLISH_NEWS);
+    service.setDataset(Dataset.ENGLISH_NEWS);
     final String response = service.extract("IBM Watson developer cloud");
 
     System.out.println(response);

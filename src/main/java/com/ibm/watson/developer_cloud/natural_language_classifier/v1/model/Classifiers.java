@@ -25,8 +25,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Classifiers extends GenericModel {
 
-
-  /** The classifiers. */
   private List<Classifier> classifiers;
 
   /**

@@ -13,27 +13,25 @@
  */
 package com.ibm.watson.developer_cloud.relationship_extraction.v1.model;
 
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import javax.management.relation.RelationException;
+
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Class RelationshipExtractionDataset.
+ * The Dataset to be use in the {@link RelationException} service.
  */
-public class RelationshipExtractionDataset {
+public class Dataset extends GenericModel {
+
   /**
    * Field ENGLISH_NEWS.
    */
-  public static final RelationshipExtractionDataset ENGLISH_NEWS =
-      new RelationshipExtractionDataset("ie-en-news");
+  public static final Dataset ENGLISH_NEWS = new Dataset("ie-en-news");
   /**
    * Field SPANISH_NEWS.
    */
-  public static final RelationshipExtractionDataset SPANISH_NEWS =
-      new RelationshipExtractionDataset("ie-es-news");
+  public static final Dataset SPANISH_NEWS = new Dataset("ie-es-news");
 
 
-  /**
-   * Field id.
-   */
   private final String id;
 
   /**
@@ -41,7 +39,7 @@ public class RelationshipExtractionDataset {
    * 
    * @param id the id
    */
-  public RelationshipExtractionDataset(String id) {
+  public Dataset(String id) {
     this.id = id;
   }
 
@@ -53,20 +51,5 @@ public class RelationshipExtractionDataset {
    */
   public String getId() {
     return id;
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  /**
-   * Method toString.
-   * 
-   * @return String
-   */
-  @Override
-  public String toString() {
-    return getClass().getName() + " " + GsonSingleton.getGson().toJson(this);
   }
 }

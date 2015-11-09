@@ -24,7 +24,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Concept;
-import com.ibm.watson.developer_cloud.concept_expansion.v1.model.ConceptExpansionDataset;
+import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Dataset;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job;
 import com.ibm.watson.developer_cloud.concept_expansion.v1.model.Job.Status;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -95,7 +95,7 @@ public class ConceptExpansion extends WatsonService {
   }
 
   /** The dataset. */
-  private ConceptExpansionDataset dataset;
+  private Dataset dataset;
 
   /**
    * Instantiates a new Concept Expansion service.
@@ -187,7 +187,7 @@ public class ConceptExpansion extends WatsonService {
    * 
    * @return the dataset
    */
-  public ConceptExpansionDataset getDataset() {
+  public Dataset getDataset() {
     return dataset;
   }
 
@@ -243,7 +243,7 @@ public class ConceptExpansion extends WatsonService {
    * 
    * @param dataset the new dataset
    */
-  public void setDataset(final ConceptExpansionDataset dataset) {
+  public void setDataset(final Dataset dataset) {
     this.dataset = dataset;
   }
 

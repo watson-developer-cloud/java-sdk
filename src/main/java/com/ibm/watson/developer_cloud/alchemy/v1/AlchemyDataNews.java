@@ -32,48 +32,45 @@ import com.ibm.watson.developer_cloud.util.Validate;
  */
 public class AlchemyDataNews extends AlchemyService {
 
+  private static final String JSON = "json";
+
   /**
-   * TIME FORMAT.
+   * The TimeFormat Enumeration.
    */
   public static enum TimeFormat {
 
-    /** The d. */
-    d,
-    /** The h. */
-    h,
-    /** The m. */
-    m,
-    /** The m. */
-    M,
-    /** The now. */
-    NOW,
-    /** The s. */
-    s,
-    /** The y. */
+    /** The Time format d. */
+    d, /** The Time format h. */
+    h, /** The Time format m. */
+    m, /** The Time format m. */
+    M, /** The Time format now. */
+    NOW, /** The Time format s. */
+    s, /** The Time format y. */
     y
   }
 
-  /** The Constant COUNT. (value is "count") */
+  /** The Constant COUNT (value is "count"). */
   public static final String COUNT = "count";
 
   /**
-   * The Constant END. the time (in UTC seconds) of the end of the query duration
+   * The Constant END. the time (in UTC seconds) of the end of the query duration (value is "end")
    */
   public static final String END = "end";
 
-  /** The Constant NEWS_END_POINT. */
+  /** The Constant String NEWS_END_POINT. */
   private static final String NEWS_END_POINT = "/data/GetNews";
 
-  /** The Constant RETURN. */
+  /** The Constant String RETURN (value is "return") */
   public static final String RETURN = "return";
 
   /**
-   * The Constant START. the time (in UTC seconds) of the beginning of the query duration
+   * The Constant START. the time (in UTC seconds) of the beginning of the query duration. (value is
+   * "start")
    */
   public static final String START = "start";
 
   /**
-   * The Constant TIME_SLICE. the duration (in seconds) of each time slice
+   * The Constant TIME_SLICE. the duration (in seconds) of each time slice (value is "timeSlice")
    */
   public static final String TIME_SLICE = "timeSlice";
 
@@ -89,7 +86,7 @@ public class AlchemyDataNews extends AlchemyService {
     Validate.notNull(parameters.get(RETURN), "return cannot be null");
 
     // Return json
-    parameters.put(OUTPUT_MODE, "json");
+    parameters.put(OUTPUT_MODE, JSON);
 
     // Prevent jsonp to be returned
     parameters.remove(JSONP);
@@ -118,7 +115,7 @@ public class AlchemyDataNews extends AlchemyService {
 
     requestBuilder.withQuery(START, start);
     requestBuilder.withQuery(END, end);
-    requestBuilder.withQuery(OUTPUT_MODE, "json");
+    requestBuilder.withQuery(OUTPUT_MODE, JSON);
     if (timeSlice != null)
       requestBuilder.withQuery(TIME_SLICE, timeSlice);
 

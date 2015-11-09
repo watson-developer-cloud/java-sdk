@@ -33,19 +33,8 @@ import com.squareup.okhttp.RequestBody;
  */
 public class RequestBuilder {
 
-  /**
-   * The Enum HTTPMethod.
-   */
   private enum HTTPMethod {
-
-    /** The delete. */
-    DELETE,
-    /** The get. */
-    GET,
-    /** The post. */
-    POST,
-    /** The put. */
-    PUT
+    DELETE, GET, POST, PUT
   }
 
 

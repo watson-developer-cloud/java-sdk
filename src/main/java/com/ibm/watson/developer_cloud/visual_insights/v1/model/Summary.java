@@ -23,14 +23,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Summary extends GenericModel {
 
   /**
-   * The object that holds the name and score.
+   * Summary with name and score of the classifier on the input
    */
   public static class SummaryItem extends GenericModel {
 
     /** The name. */
     private String name;
 
-    /** The score. */
+    /** The score of the classifier on the input images */
     private Double score;
 
     /**
@@ -43,7 +43,7 @@ public class Summary extends GenericModel {
     }
 
     /**
-     * Gets the score.
+     * Gets the score of the classifier on the input images
      * 
      * @return the score
      */
