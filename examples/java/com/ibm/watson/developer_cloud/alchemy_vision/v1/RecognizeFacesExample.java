@@ -21,19 +21,24 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
 
-public class AlchemyVisionExample {
+public class RecognizeFacesExample {
 
   public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
     final AlchemyVision service = new AlchemyVision();
     service.setApiKey("<api_key>");
 
     final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(AlchemyVision.IMAGE, new File("src/test/resources/obama.jpg"));
-    final ImageKeywords keywords = service.getImageKeywords(params);
 
-    System.out.println(keywords);
+    params.put(AlchemyVision.IMAGE, new File("src/test/resources/obama.jpg"));
+
+    // Include knowledge graph information in the the results.
+    params.put(AlchemyVision.KNOWLEDGE_GRAPH, 1);
+
+    final ImageFaces faces = service.recognizeFaces(params);
+
+    System.out.println(faces);
   }
 
 }
