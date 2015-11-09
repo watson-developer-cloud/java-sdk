@@ -57,7 +57,7 @@ public class AlchemyLanguage extends AlchemyService {
 	public static final String BASE_URL = "baseUrl";
 	public static final String COREFERENCE = "coreference";
 	public static final String CQUERY = "cquery";
-	public static final String DISAMBIGUTE = "disambiguate";
+	public static final String DISAMBIGUATE = "disambiguate";
 	public static final String ENTITIES = "entities";
 	public static final String EXTRACT = "extract";
 	public static final String EXTRACT_LINK = "extractLinks";
