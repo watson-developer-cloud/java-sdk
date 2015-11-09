@@ -52,87 +52,36 @@ import com.ibm.watson.developer_cloud.util.ResponseUtil;
 public class AlchemyLanguage extends AlchemyService {
 
 	// Request parameters to help when creating a requests
-	/** The Constant BASE_URL. */
+
 	// TODO: verify that all the possible parameters are in the list below
 	public static final String BASE_URL = "baseUrl";
-
-	/** The Constant COREFERENCE. */
 	public static final String COREFERENCE = "coreference";
-
-	/** The Constant CQUERY. */
 	public static final String CQUERY = "cquery";
-
-	/** The Constant DISAMBIGUTE. */
 	public static final String DISAMBIGUTE = "disambiguate";
-
-	/** The Constant ENTITIES. */
 	public static final String ENTITIES = "entities";
-
-	/** The Constant EXTRACT. */
 	public static final String EXTRACT = "extract";
-
-	/** The Constant EXTRACT_LINK. */
 	public static final String EXTRACT_LINK = "extractLinks";
-
-	/** The Constant FORCED_GLOSSARY. */
 	public static final String FORCED_GLOSSARY = "forced_glossary";
-
-	/** The Constant HTML. */
 	public static final String HTML = "html";
-
-	/** The Constant KEYWORD_EXTRACT_MODE. */
 	public static final String KEYWORD_EXTRACT_MODE = "keywordExtractMode";
-
-	/** The Constant KEYWORDS. */
 	public static final String KEYWORDS = "keywords";
-
-	/** The Constant KNOWLEDGE_GRAPH. */
 	public static final String KNOWLEDGE_GRAPH = "knowledgeGraph";
-
-	/** The Constant LINKED_DATA. */
 	public static final String LINKED_DATA = "linkedData";
-
-	/** The Constant MAX_RETRIEVE. */
 	public static final String MAX_RETRIEVE = "maxRetrieve";
-
-	/** The Constant QUOTATIONS. */
 	public static final String QUOTATIONS = "quotations";
-
-	/** The Constant RAW. */
 	public static final String RAW = "raw";
-
-	/** The Constant REQUIRED_ENTITIES. */
 	public static final String REQUIRED_ENTITIES = "requireEntities";
-
-	/** The Constant SENTIMENT. */
 	public static final String SENTIMENT = "sentiment";
-
-	/** The Constant SENTIMENT_EXCLUDE_ENTITIES. */
 	public static final String SENTIMENT_EXCLUDE_ENTITIES = "sentimentExcludeEntities";
-
-	/** The Constant SHOW_SOURCE_TEXT. */
 	public static final String SHOW_SOURCE_TEXT = "showSourceText";
-
-	/** The Constant SOURCE_TEXT. */
 	public static final String SOURCE_TEXT = "sourceText";
-
-	/** The Constant STRUCTURED_ENTITIES. */
 	public static final String STRUCTURED_ENTITIES = "structuredEntities";
-
-	/** The Constant TARGET. */
 	public static final String TARGET = "target";
-
-	/** The Constant TEXT. */
 	public static final String TEXT = "text";
 
-	/** The Constant URL. */
 	// Input formats
 	public static final String URL = "url";
-
-	/** The Constant USE_METADATA. */
 	public static final String USE_METADATA = "useMetadata";
-
-	/** The Constant XPATH. */
 	public static final String XPATH = "xpath";
 
 	/**
