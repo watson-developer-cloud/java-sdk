@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
  * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Concept extends AlchemyGenericModel {
+public class Concept {
 
   /**
    * The link to the US Census for the disambiguated entity. Note: Provided only for entities that

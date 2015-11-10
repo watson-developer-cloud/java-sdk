@@ -84,6 +84,7 @@ To get your service credentials, follow these steps:
      1. On the left side of the page, click **Service Credentials** to view your service credentials.
      1. Copy `username` and `password`(`api_key` for AlchemyAPI).
 
+Once you have credentials, copy config.properties.example to src/test/resources/config.properties, and fill them in as necessary.
 
 ## Questions
 
