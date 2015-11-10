@@ -247,20 +247,4 @@ public class ConceptExpansion extends WatsonService {
     this.dataset = dataset;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("ConceptExpansion [dataset=");
-    builder.append(dataset);
-    builder.append(", getEndPoint()=");
-    builder.append(getEndPoint());
-    builder.append("]");
-    return builder.toString();
-  }
-
 }

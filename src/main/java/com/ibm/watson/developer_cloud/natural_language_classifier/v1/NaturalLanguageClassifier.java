@@ -227,18 +227,4 @@ public class NaturalLanguageClassifier extends WatsonService {
     return executeRequest(request, Classifiers.class);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("NaturalLanguageClassifier [getEndPoint()=");
-    builder.append(getEndPoint());
-    builder.append("]");
-    return builder.toString();
-  }
-
 }

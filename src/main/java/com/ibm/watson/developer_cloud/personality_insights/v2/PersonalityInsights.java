@@ -201,18 +201,4 @@ public class PersonalityInsights extends WatsonService {
     return ResponseUtil.getString(response);
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append("PersonalityInsights [getEndPoint()=");
-    builder.append(getEndPoint());
-    builder.append("]");
-    return builder.toString();
-  }
-
 }

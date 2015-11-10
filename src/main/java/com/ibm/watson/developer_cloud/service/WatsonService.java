@@ -298,7 +298,8 @@ public abstract class WatsonService {
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
-    builder.append("WatsonService [");
+    builder.append(name);
+    builder.append(" [");
     if (endPoint != null) {
       builder.append("endPoint=");
       builder.append(endPoint);
