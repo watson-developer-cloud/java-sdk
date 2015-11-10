@@ -51,7 +51,7 @@ public class SynonymOptions extends GenericModel {
    */
   public SynonymOptions words(String... words) {
     this.words = new ArrayList<String>();
-    for (String word : words) {
+    for (final String word : words) {
       this.words.add(word);
     }
     return this;

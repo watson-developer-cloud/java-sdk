@@ -207,7 +207,7 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
     response.add(synonymResult1);
 
 
-    SynonymOptions options = new SynonymOptions().words("difficult", "inferior").limit(3);
+    final SynonymOptions options = new SynonymOptions().words("difficult", "inferior").limit(3);
 
     final JsonObject contentJson = new JsonObject();
 

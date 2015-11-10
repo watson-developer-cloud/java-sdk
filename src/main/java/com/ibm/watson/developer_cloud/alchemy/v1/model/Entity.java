@@ -16,9 +16,10 @@ package com.ibm.watson.developer_cloud.alchemy.v1.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 
 /**
- * Entity returned by the {@link AlchemyDataNews} and {@link AlchemyLanguage} service. 
+ * Entity returned by the {@link AlchemyDataNews} and {@link AlchemyLanguage} service.
  */
 public class Entity extends AlchemyGenericModel {
 

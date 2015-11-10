@@ -61,7 +61,7 @@ public class PersonalityInsights extends WatsonService {
     Validate.isTrue(options.getText() != null || options.getContentItems() != null,
         "text, html or content items need to be specified");
 
-    String contentType = options.getContentType();
+    final String contentType = options.getContentType();
 
     final RequestBuilder request = RequestBuilder.post(PATH_PROFILE);
 
@@ -96,8 +96,8 @@ public class PersonalityInsights extends WatsonService {
   public Profile getProfile(final String text) {
     Validate.notEmpty(text, "text cannot be null or empty");
 
-    ProfileOptions options = new ProfileOptions().text(text);
-    RequestBuilder requestBuilder = buildProfileRequest(options);
+    final ProfileOptions options = new ProfileOptions().text(text);
+    final RequestBuilder requestBuilder = buildProfileRequest(options);
     return executeRequest(requestBuilder.build(), Profile.class);
   }
 
@@ -109,7 +109,7 @@ public class PersonalityInsights extends WatsonService {
    * @return The personality {@link Profile}
    */
   public Profile getProfile(final ProfileOptions options) {
-    RequestBuilder requestBuilder = buildProfileRequest(options);
+    final RequestBuilder requestBuilder = buildProfileRequest(options);
     return executeRequest(requestBuilder.build(), Profile.class);
   }
 
@@ -121,11 +121,11 @@ public class PersonalityInsights extends WatsonService {
    * @return the CSV profile
    */
   public String getProfileAsCSV(final ProfileOptions options, final boolean includeHeaders) {
-    RequestBuilder requestBuilder = buildProfileRequest(options);
+    final RequestBuilder requestBuilder = buildProfileRequest(options);
 
     requestBuilder.withHeader(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
     requestBuilder.withQuery(HEADERS, includeHeaders);
-    Response response = execute(requestBuilder.build());
+    final Response response = execute(requestBuilder.build());
     return ResponseUtil.getString(response);
   }
 

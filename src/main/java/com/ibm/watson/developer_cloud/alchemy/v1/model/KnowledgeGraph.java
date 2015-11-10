@@ -14,7 +14,6 @@
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Entity returned by the {@link AlchemyDataNews} service.

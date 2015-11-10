@@ -123,7 +123,7 @@ public class LanguageTranslationTest extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithBaseModelNull() {
-    CreateModelOptions options =
+    final CreateModelOptions options =
         new CreateModelOptions().forcedGlossary(new File("src/test/resources/car.png"));
     service.createModel(options);
   }

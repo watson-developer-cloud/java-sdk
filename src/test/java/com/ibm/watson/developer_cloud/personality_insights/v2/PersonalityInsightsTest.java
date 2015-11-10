@@ -130,7 +130,7 @@ public class PersonalityInsightsTest extends WatsonServiceTest {
     final Content content = new Content();
     content.addContentItem(cItem);
 
-    ProfileOptions options = new ProfileOptions();
+    final ProfileOptions options = new ProfileOptions();
     options.addContentItem(cItem);
 
     final Profile p = new Profile();
@@ -405,7 +405,7 @@ public class PersonalityInsightsTest extends WatsonServiceTest {
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
             GsonSingleton.getGson().toJson(spanishTextProfile)));
 
-    ProfileOptions options = new ProfileOptions();
+    final ProfileOptions options = new ProfileOptions();
     options.text(spanishText).language(Language.SPANISH);
     final Profile profile = service.getProfile(options);
 

@@ -41,23 +41,23 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
   private String image;
 
   /** The image keywords. */
-  private Keywords imageKeywords;
+  private List<Keyword> imageKeywords;
 
   /** The keywords. */
-  private Keywords keywords;
+  private List<Keyword> keywords;
 
   /** The publication date. */
   private PublicationDate publicationDate;
 
   /** The relations. */
-  private SAORelations relations;
+  private List<SAORelation> relations;
 
   /** The doc sentiment. */
   @SerializedName("docSentiment")
   private Sentiment sentiment;
 
   /** The taxonomy. */
-  private Taxonomies taxonomy;
+  private List<Taxonomy> taxonomy;
 
   /** The title. */
   private String title;

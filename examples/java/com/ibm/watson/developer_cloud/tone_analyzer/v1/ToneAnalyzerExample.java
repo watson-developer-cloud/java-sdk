@@ -46,7 +46,8 @@ public class ToneAnalyzerExample {
     System.out.println(tone);
 
     // Call the service and get the synonym for 'difficult'
-    SynonymOptions options = new SynonymOptions().words("difficult", "inferior").limit(3).hops(3);
+    final SynonymOptions options =
+        new SynonymOptions().words("difficult", "inferior").limit(3).hops(3);
 
     final List<SynonymResult> synonyms = service.getSynonyms(options);
     System.out.println(synonyms);
