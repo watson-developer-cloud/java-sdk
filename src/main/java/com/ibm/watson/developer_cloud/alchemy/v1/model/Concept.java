@@ -24,7 +24,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Concept extends GenericModel {
+public class Concept extends AlchemyLanguageGenericModel {
 
 	/**
 	 * The link to the US Census for the disambiguated entity. Note: Provided only for
