@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class KnowledgeGraph extends GenericModel {
+public class KnowledgeGraph extends AlchemyGenericModel {
 
   /** The type hierarchy. */
   private String typeHierarchy;
