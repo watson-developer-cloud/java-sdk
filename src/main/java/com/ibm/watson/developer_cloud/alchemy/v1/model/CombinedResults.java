@@ -41,10 +41,10 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
   private String image;
 
   /** The image keywords. */
-  private List<Keyword> imageKeywords;
+  private Keywords imageKeywords;
 
   /** The keywords. */
-  private List<Keyword> keywords;
+  private Keywords keywords;
 
   /** The publication date. */
   private PublicationDate publicationDate;
