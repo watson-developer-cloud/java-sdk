@@ -75,7 +75,7 @@ public class TextToSpeech extends WatsonService {
    * @param text the text to synthesize
    * @param format the format, it needs to be an audio mime type, for example: audio/wav or
    *        audio/ogg; codecs=opus
-   * @return the input stream with the synthesized audio
+   * @return the input stream with the synthesized audio doesn't have the content-length set.
    */
   public InputStream synthesize(final String text, final String format) {
     return synthesize(text, Voice.EN_LISA, format);

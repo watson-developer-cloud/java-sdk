@@ -41,6 +41,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.Translation;
@@ -122,9 +123,9 @@ public class LanguageTranslationTest extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithBaseModelNull() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(LanguageTranslation.FORCED_GLOSSARY, new File("src/test/resources/car.png"));
-    service.createModel(params);
+    CreateModelOptions options =
+        new CreateModelOptions().forcedGlossary(new File("src/test/resources/car.png"));
+    service.createModel(options);
   }
 
   /**
@@ -132,18 +133,7 @@ public class LanguageTranslationTest extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithGlossaryNull() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-
-    service.createModel(params);
-  }
-
-  /**
-   * Testcreate model with null.
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testcreateModelWithNull() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    service.createModel(params);
+    service.createModel(new CreateModelOptions());
   }
 
   /**
@@ -332,8 +322,8 @@ public class LanguageTranslationTest extends WatsonServiceTest {
     for (final String paragraph : text1) {
       paragraphs.add(new JsonPrimitive(paragraph));
     }
-    contentJson.add(LanguageTranslation.TEXT, paragraphs);
-    contentJson.addProperty(LanguageTranslation.MODEL_ID, modelId);
+    contentJson.add("text", paragraphs);
+    contentJson.addProperty("model_id", modelId);
     mockServer.when(request().withMethod("POST").withPath(LANGUAGE_TRANSLATION_PATH)
 
     .withBody(contentJson.toString())
@@ -346,11 +336,7 @@ public class LanguageTranslationTest extends WatsonServiceTest {
     TranslationResult translationResult = service.translate(text, modelId);
     testTranslationResult(text, translationResult);
 
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(LanguageTranslation.TEXT, new String[] {text});
-    params.put(LanguageTranslation.MODEL_ID, modelId);
-
-    translationResult = service.translate(params);
+    translationResult = service.translate(text, modelId);
     testTranslationResult(text, translationResult);
     assertNotNull(service.toString());
   }

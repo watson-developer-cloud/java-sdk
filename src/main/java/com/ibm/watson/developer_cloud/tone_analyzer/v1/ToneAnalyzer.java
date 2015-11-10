@@ -15,15 +15,14 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v1;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.Map;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Scorecard;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymResult;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
@@ -44,35 +43,18 @@ import com.squareup.okhttp.Response;
  */
 public class ToneAnalyzer extends WatsonService {
 
-  /** The Constant CONTEXT (value is "context"). */
-  public static final String CONTEXT = "context";
-
-  /** The Constant HOPS (value is "hops"). */
-  // parameters
-  public static final String HOPS = "hops";
-
-  /** The Constant LIMIT (value is "limit"). */
-  public static final String LIMIT = "limit";
-
-  private static final String PATH_SYNONYM = "/v1/synonym";
-  private static final String PATH_TONE = "/v1/tone";
-
-  /** The Constant SCORECARD (value is "scorecard"). */
-  public static final String SCORECARD = "scorecard";
-
+  private static final String PATH_SYNONYM = "/v2/synonym";
+  private static final String PATH_TONE = "/v2/tone";
+  private static final String SCORECARD = "scorecard";
   private static final Type synonymListType = new TypeToken<List<SynonymResult>>() {}.getType();
-
-  /** The Constant TEXT (value is "text"). */
-  public static final String TEXT = "text";
-
-  /** The Constant TRAITS (value is "traits"). */
-  public static final String TRAITS = "traits";
-
+  private static final String TEXT = "text";
   private static final String URL =
       "https://gateway.watsonplatform.net/tone-analyzer-experimental/api";
+  private static final String PATH_SCORECARD = "/v2/scorecards";
+  private static final String SCORECARDS = "scorecards";
 
-  /** The Constant WORDS (value is "words"). */
-  public static final String WORDS = "words";
+  /** The scorecard list type. */
+  private final Type scorecardListType = new TypeToken<List<Scorecard>>() {}.getType();
 
   /**
    * Instantiates a new Tone Analyzer service.
@@ -85,51 +67,21 @@ public class ToneAnalyzer extends WatsonService {
   /**
    * Starts or continue conversations.
    * 
-   * @param params The map with the parameters described above
+   * @param options the request options
    * @return {@link SynonymResult}
    */
-  public List<SynonymResult> getSynonyms(Map<String, Object> params) {
-    final String[] words = (String[]) params.get(WORDS);
-    final String[] traits = (String[]) params.get(TRAITS);
-    final String[] contexts = (String[]) params.get(CONTEXT);
+  public List<SynonymResult> getSynonyms(SynonymOptions options) {
+    if (options == null)
+      throw new IllegalArgumentException("options cannot be null");
 
-    if (words == null || words.length == 0)
-      throw new IllegalArgumentException("words cannot be null or empty");
+    if (options.getWords() == null || options.getWords().isEmpty())
+      throw new IllegalArgumentException("options.words cannot be null or empty");
 
-    final JsonObject contentJson = new JsonObject();
-
-    // words
-    final JsonArray wordsJson = new JsonArray();
-    for (final String word : words) {
-      wordsJson.add(new JsonPrimitive(word));
-    }
-    contentJson.add(WORDS, wordsJson);
-
-    // traits
-    if (traits != null && traits.length > 0) {
-      final JsonArray traisJson = new JsonArray();
-      for (final String trait : traits) {
-        traisJson.add(new JsonPrimitive(trait));
-      }
-      contentJson.add(TRAITS, traisJson);
-    }
-
-    // context
-    if (contexts != null && contexts.length > 0) {
-      final JsonArray contextsJson = new JsonArray();
-      for (final String context : contexts) {
-        contextsJson.add(new JsonPrimitive(context));
-      }
-      contentJson.add(CONTEXT, contextsJson);
-    }
-
-    if (params.containsKey(LIMIT))
-      contentJson.addProperty(LIMIT, (Integer) params.get(LIMIT));
-
-    if (params.containsKey(HOPS))
-      contentJson.addProperty(HOPS, (Integer) params.get(HOPS));
-
-    final Request request = RequestBuilder.post(PATH_SYNONYM).withBodyJson(contentJson).build();
+    final Request request =
+        RequestBuilder
+            .post(PATH_SYNONYM)
+            .withBodyContent(GsonSingleton.getGson().toJson(options),
+                HttpMediaType.APPLICATION_JSON).build();
 
     final Response response = execute(request);
     final String synonymResultJson = ResponseUtil.getString(response);
@@ -175,5 +127,19 @@ public class ToneAnalyzer extends WatsonService {
 
     final Request request = RequestBuilder.post(PATH_TONE).withBodyJson(contentJson).build();
     return executeRequest(request, Tone.class);
+  }
+
+  /**
+   * Returns the {@link Scorecard}s.
+   * 
+   * @return the list of scorecard
+   */
+  public List<Scorecard> getScorecards() {
+    Response response = execute(RequestBuilder.get(PATH_SCORECARD).build());
+    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+    final List<Scorecard> scorecards =
+        GsonSingleton.getGson().fromJson(jsonObject.get(SCORECARDS), scorecardListType);
+
+    return scorecards;
   }
 }

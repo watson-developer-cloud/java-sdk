@@ -16,12 +16,10 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v1.model;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
 /**
  * The Class ToneDimension.
  */
-public class ToneDimension extends GenericModel {
+public class ToneDimension {
 
   /** The children. */
   private List<ToneTrait> children;

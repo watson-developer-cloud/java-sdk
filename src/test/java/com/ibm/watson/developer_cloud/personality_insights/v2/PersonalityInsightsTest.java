@@ -20,9 +20,7 @@ import io.netty.handler.codec.http.HttpHeaders;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,6 +36,8 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ContentItem;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
+import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions;
+import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions.Language;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Trait;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
@@ -127,15 +127,11 @@ public class PersonalityInsightsTest extends WatsonServiceTest {
 
     final ContentItem cItem = new ContentItem();
     cItem.setContent(englishText);
-
     final Content content = new Content();
     content.addContentItem(cItem);
 
-
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(PersonalityInsights.CONTENT, content);
-    final String contentJson =
-        GsonSingleton.getGson().toJson(params.get(PersonalityInsights.CONTENT));
+    ProfileOptions options = new ProfileOptions();
+    options.addContentItem(cItem);
 
     final Profile p = new Profile();
     p.setId("*UNKNOWN*");
@@ -211,15 +207,16 @@ public class PersonalityInsightsTest extends WatsonServiceTest {
 
     p.setTree(root);
 
+
     mockServer.when(
-        request().withMethod("POST").withPath(GET_PROFILE_PATH).withBody(contentJson.toString())
+        request().withMethod("POST").withPath(GET_PROFILE_PATH).withBody(content.toString())
 
     ).respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
             GsonSingleton.getGson().toJson(p)));
 
-    final Profile profile = service.getProfile(params);
+    final Profile profile = service.getProfile(options);
     Assert.assertNotNull(profile);
     Assert.assertEquals(profile, p);
 
@@ -231,9 +228,6 @@ public class PersonalityInsightsTest extends WatsonServiceTest {
    */
   @Test
   public void testGetProfileWithEnglishText() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-
-    params.put(PersonalityInsights.TEXT, englishText);
 
     final Profile englishTextProfile = new Profile();
     englishTextProfile.setId("*UNKNOWN*");
@@ -310,16 +304,14 @@ public class PersonalityInsightsTest extends WatsonServiceTest {
 
     englishTextProfile.setTree(root);
 
-    mockServer.when(
-        request().withMethod("POST").withPath(GET_PROFILE_PATH)
-            .withBody(params.get(PersonalityInsights.TEXT).toString())
+    mockServer.when(request().withMethod("POST").withPath(GET_PROFILE_PATH).withBody(englishText)
 
     ).respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
             GsonSingleton.getGson().toJson(englishTextProfile)));
 
-    final Profile profile = service.getProfile(params);
+    final Profile profile = service.getProfile(englishText);
 
     Assert.assertNotNull(profile);
     Assert.assertEquals(profile, englishTextProfile);
@@ -330,11 +322,6 @@ public class PersonalityInsightsTest extends WatsonServiceTest {
    */
   @Test
   public void testGetProfileWithSpanishText() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-
-    params.put(PersonalityInsights.TEXT, spanishText);
-    params.put(PersonalityInsights.LANGUAGE, "es");
-
     final Profile spanishTextProfile = new Profile();
     spanishTextProfile.setId("*UNKNOWN*");
     spanishTextProfile.setSource("*UNKNOWN*");
@@ -410,8 +397,7 @@ public class PersonalityInsightsTest extends WatsonServiceTest {
     spanishTextProfile.setTree(root);
 
     mockServer.when(
-        request().withMethod("POST").withPath(GET_PROFILE_PATH)
-            .withBody(params.get(PersonalityInsights.TEXT).toString())
+        request().withMethod("POST").withPath(GET_PROFILE_PATH).withBody(spanishText)
             .withHeaders(new Header(HttpHeaders.Names.CONTENT_LANGUAGE, "es"))
 
     ).respond(
@@ -419,7 +405,9 @@ public class PersonalityInsightsTest extends WatsonServiceTest {
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
             GsonSingleton.getGson().toJson(spanishTextProfile)));
 
-    final Profile profile = service.getProfile(params);
+    ProfileOptions options = new ProfileOptions();
+    options.text(spanishText).language(Language.SPANISH);
+    final Profile profile = service.getProfile(options);
 
     Assert.assertNotNull(profile);
     Assert.assertEquals(profile, spanishTextProfile);

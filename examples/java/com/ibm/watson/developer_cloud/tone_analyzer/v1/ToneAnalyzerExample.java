@@ -15,11 +15,10 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v1;
 
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Scorecard;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymResult;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
 
@@ -47,12 +46,9 @@ public class ToneAnalyzerExample {
     System.out.println(tone);
 
     // Call the service and get the synonym for 'difficult'
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(ToneAnalyzer.WORDS, new String[] {"difficult", "inferior"});
-    params.put(ToneAnalyzer.LIMIT, 3);
-    params.put(ToneAnalyzer.HOPS, 3);
+    SynonymOptions options = new SynonymOptions().words("difficult", "inferior").limit(3).hops(3);
 
-    final List<SynonymResult> synonyms = service.getSynonyms(params);
+    final List<SynonymResult> synonyms = service.getSynonyms(options);
     System.out.println(synonyms);
   }
 }
