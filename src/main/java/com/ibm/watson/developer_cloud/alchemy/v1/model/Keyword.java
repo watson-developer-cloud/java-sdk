@@ -24,7 +24,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Keyword extends GenericModel {
+public class Keyword extends AlchemyLanguageGenericModel {
 
   /** The knowledge graph. */
   private KnowledgeGraph knowledgeGraph;
