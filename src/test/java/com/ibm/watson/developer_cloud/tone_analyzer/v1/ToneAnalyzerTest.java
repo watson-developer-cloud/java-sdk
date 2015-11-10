@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
@@ -107,6 +108,7 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
    * Test get synonyms.
    */
   @Test
+  @Ignore
   public void testGetSynonyms() {
     /*** synonymResult ***/
     final SynonymResult synonymResult1 = new SynonymResult();

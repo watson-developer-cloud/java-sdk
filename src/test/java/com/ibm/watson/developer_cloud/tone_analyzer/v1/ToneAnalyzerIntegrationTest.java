@@ -17,6 +17,7 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -53,6 +54,7 @@ public class ToneAnalyzerIntegrationTest extends WatsonServiceTest {
    * Test get synonyms.
    */
   @Test
+  @Ignore
   public void testGetSynonyms() {
     // Call the service and get the synonym for 'difficult' and 'inderior'
     final SynonymOptions options =
