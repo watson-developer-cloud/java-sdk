@@ -52,13 +52,15 @@ public class HttpClusterLifecycleClient extends WatsonService implements Cluster
 
     @Override
     public SolrClusterResponse createSolrCluster() {
-        final Request request = RequestBuilder.post(watsonSearchUrl).build();
+        final Request request =
+                RequestBuilder.post(watsonSearchUrl).withHeader("Content-Type", "application/json").build();
         return sendAndParseCreationRequest(request);
     }
 
     @Override
     public SolrClusterResponse createSolrCluster(SolrClusterCreationRequest config) {
-        final RequestBuilder creationRequest = RequestBuilder.post(watsonSearchUrl);
+        final RequestBuilder creationRequest =
+                RequestBuilder.post(watsonSearchUrl).withHeader("Content-Type", "application/json");
         addCreationConfigToRequest(creationRequest, config);
         return sendAndParseCreationRequest(creationRequest.build());
     }
@@ -68,11 +70,7 @@ public class HttpClusterLifecycleClient extends WatsonService implements Cluster
         checkArgumentNotNull(solrCluster, "solrCluster");
         final Request request = RequestBuilder.delete(watsonSearchUrl + '/' + solrCluster.asString()).build();
         final Response response = execute(request);
-        final int status = response.code();
-        switch (status) {
-        case 200:
-            return;
-        default:
+        if (response.code() != 200) {
             throw new RuntimeException(generateErrorMessage(response, ERROR_DELETING_CLUSTER_2, solrCluster));
         }
     }
@@ -141,6 +139,6 @@ public class HttpClusterLifecycleClient extends WatsonService implements Cluster
 
     private void addCreationConfigToRequest(RequestBuilder creationRequest, SolrClusterCreationRequest creationConfig) {
         final String configJson = JsonSerializationUtils.toJsonString(creationConfig);
-        creationRequest.withBodyContent("application/json", configJson);
+        creationRequest.withBodyContent(configJson, "application/json");
     }
 }

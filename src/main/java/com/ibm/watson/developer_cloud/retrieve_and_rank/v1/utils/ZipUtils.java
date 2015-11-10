@@ -29,7 +29,6 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import com.google.common.base.Throwables;
@@ -65,7 +64,7 @@ public class ZipUtils {
                 @Override
                 public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
                     writeZipEntry(out, parentDir.relativize(path).toString(),
-                            FileUtils.readFileToByteArray(path.toFile()));
+                            Files.readAllBytes(path));
                     return FileVisitResult.CONTINUE;
                 }
 

@@ -17,12 +17,10 @@ package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils;
 
 import static org.apache.commons.lang3.StringUtils.*;
 
-import static com.google.common.base.Preconditions.*;
 import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.*;
 
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -229,70 +227,18 @@ public final class Preconditions {
     }
 
     /**
-     * For two arguments in a 1:N (N > 0) relationship, ensure that either both arguments are set or neither is set.
-     *
-     * @param singleArgument
-     *            A single string that must not be blank or null if arrayArgument is set.
-     * @param arrayArgument
-     *            An array of strings that must have at least one value if singleArgument is set.
-     */
-    public static void check1ToNArgumentPair(CharSequence singleArgument, CharSequence[] arrayArgument) {
-        if (arrayArgument == null) {
-            checkArgument(isBlank(singleArgument));
-            return;
-        }
-
-        checkArgument((isNotBlank(singleArgument) && (arrayArgument.length > 0))
-                || (isBlank(singleArgument) && (arrayArgument.length == 0)));
-    }
-
-    /**
-     * For two array arguments in an N:N relationship, ensure that either both are null or that both are of equal size.
-     *
-     * @param arrayA
-     *            An array of values that (if not null) must be of equal length to arrayB.
-     * @param arrayB
-     *            An array of values that (if not null) must be of equal length to arrayA.
-     * @param pairName
-     *            A descriptive name of the two array arguments.
-     */
-    public static void checkNtoNArgumentPair(Object[] arrayA, Object[] arrayB, String pairName) {
-        if ((arrayA == null) || (arrayB == null)) {
-            checkArgument(arrayA == arrayB, MSGS.format(CHECK_COLLECTIONS_NULL_1, pairName));
-            return;
-        }
-
-        checkArgument(arrayA.length == arrayB.length,
-                MSGS.format(CHECK_PAIR_3, pairName, arrayA.length, arrayB.length));
-    }
-
-    /**
-     * For two list arguments in an N:N relationship, ensure that either both are null or that both are of equal size.
-     *
-     * @param listA
-     *            A list of values that (if not null) must be of equal length to listB.
-     * @param listB
-     *            A list of values that (if not null) must be of equal length to listA.
-     * @param pairName
-     *            A descriptive name of the two list arguments.
-     */
-    public static void checkNtoNArgumentPair(List<?> listA, List<?> listB, String pairName) {
-        if ((listA == null) || (listB == null)) {
-            checkArgument(listA == listB, MSGS.format(CHECK_COLLECTIONS_NULL_1, pairName));
-            return;
-        }
-
-        checkArgument(listA.size() == listB.size(),
-                MSGS.format(CHECK_PAIR_3, pairName, listA.size(), listB.size()));
-    }
-
-    /**
      * Ensures the truth of an expression involving one or more parameters to the calling method.
      *
      * @see com.google.common.base.Preconditions#checkArgument(boolean, Object)
      */
     public static void checkArgumentExpression(boolean expression, String errorMessage) {
         checkArgument(expression, errorMessage);
+    }
+
+    public static void checkArgument(boolean expression, String errorMessage) {
+        if (!expression) {
+            throw new IllegalArgumentException(errorMessage);
+        }
     }
 
 }

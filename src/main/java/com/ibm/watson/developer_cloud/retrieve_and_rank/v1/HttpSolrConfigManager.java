@@ -22,10 +22,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.logging.Logger;
-
-import org.apache.commons.io.IOUtils;
 
 import com.google.common.base.Throwables;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.PublicationDateTypeAdapter;
@@ -103,7 +102,8 @@ public class HttpSolrConfigManager extends WatsonService implements SolrConfigMa
     @Override
     public File getConfiguration(String configName) {
         checkArgumentNotBlank(configName, "configurationName");
-        final Request get = RequestBuilder.get(serviceUrl + '/' + configName).build();
+        final Request get =
+                RequestBuilder.get(serviceUrl + '/' + configName).withHeader("Accept", "application/zip").build();
         final Response response = execute(get);
         final int status = response.code();
         switch (status) {
@@ -153,7 +153,7 @@ public class HttpSolrConfigManager extends WatsonService implements SolrConfigMa
                 final File zipFile = File.createTempFile(configurationName, ".zip");
                 final FileOutputStream output = new FileOutputStream(zipFile);
                 try {
-                    IOUtils.copy(response.body().byteStream(), output);
+                    Files.copy(response.body().byteStream(), zipFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
                 } finally {
                     output.close();
                 }
