@@ -1,10 +1,16 @@
 /**
- * The IBM Watson™ Concept Insights service provides APIs that enable you to work with concepts and identify conceptual associations in the content that you provide as input to the service.
- * Input content is auto-tagged against a concept graph, which is a formal representation of the relationship(s) between concepts.
- * The concept graph used by the Concept Insights service is based on content that has been ingested from the English language Wikipedia.
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept-insights.html">
- * Concept Insights</a>
- * @version v2
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2;

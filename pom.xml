@@ -2,36 +2,30 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<version>1.1.0-SNAPSHOT</version>
+	<version>2.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>Watson Developer Cloud Java Wrapper</name>
-	<description>Watson Developer Cloud Java Wrapper</description>
-	<url>https://github.com/watson-developer-cloud/java-wrapper</url>
+	<artifactId>java-wrapper</artifactId>
+	<name>Watson Developer Cloud Java SDK</name>
+	<description>Client library to use the IBM Watson Services and AlchemyAPI</description>
+	<url>https://github.com/watson-developer-cloud/java-sdk</url>
 	<inceptionYear>2015</inceptionYear>
 	<licenses>
 		<license>
 			<name>Apache 2.0</name>
-			<url>https://github.com/watson-developer-cloud/java-wrapper/raw/master/LICENSE</url>
+			<url>https://github.com/watson-developer-cloud/java-sdk/raw/master/LICENSE</url>
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
 	<dependencies>
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpmime</artifactId>
-			<version>4.0.3</version>
-			<scope>compile</scope>
+		  <groupId>com.squareup.okhttp</groupId>
+		  <artifactId>okhttp</artifactId>
+		  <version>2.5.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
 			<version>2.3.1</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.0.3</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -48,7 +42,7 @@
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
-			<artifactId>junit-dep</artifactId>
+			<artifactId>junit</artifactId>
 			<version>4.11</version>
 			<scope>test</scope>
 		</dependency>
@@ -82,8 +76,8 @@
 	</distributionManagement>
 	<scm>
 		<connection>SSH</connection>
-		<developerConnection>scm:git:git@github.com:watson-developer-cloud/java-wrapper.git</developerConnection>
-		<url>https://github.com/watson-developer-cloud/java-wrapper</url>
+		<developerConnection>scm:git:git@github.com:watson-developer-cloud/java-sdk.git</developerConnection>
+		<url>https://github.com/watson-developer-cloud/java-sdk</url>
 		<tag>HEAD</tag>
 	</scm>
 	<build>
@@ -168,6 +162,14 @@
 		<profile>
 			<id>release</id>
 			<build>
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<includes>
+							<include>**/*.json</include>
+						</includes>
+					</resource>
+				</resources>
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
@@ -230,13 +232,12 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssa</maven.build.timestamp.format>
 	</properties>
-	<artifactId>java-wrapper</artifactId>
 	<issueManagement>
 		<system>Github</system>
-		<url>https://github.com/watson-developer-cloud/java-wrapper/issues</url>
+		<url>https://github.com/watson-developer-cloud/java-sdk/issues</url>
 	</issueManagement>
 	<ciManagement>
 		<system>Travis</system>
-		<url>https://travis-ci.org/watson-developer-cloud/java-wrapper</url>
+		<url>https://travis-ci.org/watson-developer-cloud/java-sdk</url>
 	</ciManagement>
 </project>

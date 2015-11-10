@@ -1,14 +1,17 @@
 /**
- * The IBM Watson Natural Language Classifier service applies deep learning
- * techniques to make predictions about the best predefined classes for short
- * sentences or phrases. The classes can trigger a corresponding action in an
- * application, such as directing a request to a location or person, or
- * answering a question. After training, the service returns information for
- * texts that it hasn't seen before. The response includes the name of the top
- * classes and confidence values.
+ * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html">
- * Natural Language Classifier</a>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
