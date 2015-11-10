@@ -181,8 +181,6 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
    */
   @Test
   public void testGetClassifier() {
-
-    System.out.println(GsonSingleton.getGson().toJson(""));
     final Classifier response = new Classifier();
     response.setId("testId");
     response.setStatus(Classifier.Status.AVAILABLE);

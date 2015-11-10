@@ -222,7 +222,7 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
   public void testGetTargetedSentimentHtml() throws IOException {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
-    params.put(AlchemyLanguage.TARGET, "WujWuj");
+    params.put(AlchemyLanguage.TARGET, "Watson");
     final DocumentSentiment documentSentiment = service.getSentiment(params);
     Assert.assertNotNull(documentSentiment);
   }
