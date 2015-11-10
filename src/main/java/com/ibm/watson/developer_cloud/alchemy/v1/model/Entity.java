@@ -18,11 +18,9 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 
 /**
- * Entity returned by the {@link AlchemyDataNews} service.
- * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
+ * Entity returned by the {@link AlchemyDataNews} and {@link AlchemyLanguage} service. 
  */
-public class Entity {
+public class Entity extends AlchemyGenericModel {
 
   /** The count. */
   private Integer count;
