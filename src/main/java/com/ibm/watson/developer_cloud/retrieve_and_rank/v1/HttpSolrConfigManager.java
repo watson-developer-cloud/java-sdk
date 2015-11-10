@@ -26,7 +26,6 @@ import java.nio.file.StandardCopyOption;
 import java.util.Collection;
 import java.util.logging.Logger;
 
-import com.google.common.base.Throwables;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.PublicationDateTypeAdapter;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.RemoteError;
@@ -95,7 +94,7 @@ public class HttpSolrConfigManager extends WatsonService implements SolrConfigMa
         try {
             parseResponse(execute(delete), configPath);
         } catch (final Exception e) {
-            Throwables.propagate(e);
+            throw new RuntimeException(e);
         }
     }
 
@@ -141,7 +140,7 @@ public class HttpSolrConfigManager extends WatsonService implements SolrConfigMa
         try {
             parseResponse(execute(post.build()), configPath);
         } catch (final Exception e) {
-            Throwables.propagate(e);
+            throw new RuntimeException(e);
         }
     }
 

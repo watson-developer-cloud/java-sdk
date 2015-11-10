@@ -31,8 +31,6 @@ import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.google.common.base.Throwables;
-
 public class ZipUtils {
     private static final MessageFormatter MSGS = new MessageFormatter(bundleName());
 
@@ -84,7 +82,7 @@ public class ZipUtils {
                     out.close();
                 }
             } catch (final IOException e) {
-                Throwables.propagate(e);
+                throw new RuntimeException(e);
             }
         }
     }
