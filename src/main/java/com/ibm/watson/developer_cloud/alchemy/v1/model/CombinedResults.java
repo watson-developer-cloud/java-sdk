@@ -50,14 +50,14 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
   private PublicationDate publicationDate;
 
   /** The relations. */
-  private List<SAORelation> relations;
+  private SAORelations relations;
 
   /** The doc sentiment. */
   @SerializedName("docSentiment")
   private Sentiment sentiment;
 
   /** The taxonomy. */
-  private List<Taxonomy> taxonomy;
+  private Taxonomies taxonomy;
 
   /** The title. */
   private String title;
