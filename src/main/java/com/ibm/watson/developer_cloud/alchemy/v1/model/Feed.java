@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
-public class Feed extends GenericModel {
+public class Feed extends AlchemyGenericModel {
 
   /** The feed. */
   private String feed;
