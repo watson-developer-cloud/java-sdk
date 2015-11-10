@@ -19,15 +19,14 @@ import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
@@ -40,6 +39,7 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.LinguisticEvidence;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Scorecard;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Synonym;
+import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymResult;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.ToneDimension;
@@ -55,11 +55,11 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
   /** The Constant log. */
   private static final Logger log = Logger.getLogger(ToneAnalyzerTest.class.getName());
 
-  /** The SYNONYM_PATH. (value is "/v1/synonym") */
-  private final static String SYNONYM_PATH = "/v1/synonym";
+  /** The SYNONYM_PATH. (value is "/v2/synonym") */
+  private final static String SYNONYM_PATH = "/v2/synonym";
 
-  /** The TONE_PATH. (value is "/v1/tone") */
-  private final static String TONE_PATH = "/v1/tone";
+  /** The TONE_PATH. (value is "/v2/tone") */
+  private final static String TONE_PATH = "/v2/tone";
 
   /** Mock Server *. */
   private ClientAndServer mockServer;
@@ -108,12 +108,8 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
    * Test get synonyms.
    */
   @Test
+  @Ignore
   public void testGetSynonyms() {
-    // Call the service and get the synonym for 'difficult'
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(ToneAnalyzer.WORDS, new String[] {"difficult", "inferior"});
-    params.put(ToneAnalyzer.LIMIT, 3);
-
     /*** synonymResult ***/
     final SynonymResult synonymResult1 = new SynonymResult();
     synonymResult1.setTrait("openness");
@@ -212,18 +208,20 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
     response.add(synonymResult1);
     response.add(synonymResult1);
 
-    final JsonObject contentJson = new JsonObject();
 
+    final SynonymOptions options = new SynonymOptions().words("difficult", "inferior").limit(3);
+
+    final JsonObject contentJson = new JsonObject();
 
     // words
     final JsonArray wordsJson = new JsonArray();
-    for (final String word : (String[]) params.get(ToneAnalyzer.WORDS)) {
+    for (final String word : options.getWords()) {
       wordsJson.add(new JsonPrimitive(word));
     }
-    contentJson.add(ToneAnalyzer.WORDS, wordsJson);
+    contentJson.add("words", wordsJson);
 
-    if (params.containsKey(ToneAnalyzer.LIMIT))
-      contentJson.addProperty(ToneAnalyzer.LIMIT, (Integer) params.get(ToneAnalyzer.LIMIT));
+    if (options.getLimit() != null)
+      contentJson.addProperty("limit", options.getLimit());
 
     mockServer.when(
         request().withMethod("POST").withPath(SYNONYM_PATH).withBody(contentJson.toString()))
@@ -232,7 +230,7 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
                 new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON))
                 .withBody(GsonSingleton.getGson().toJson(response)));
 
-    final List<SynonymResult> synonyms = service.getSynonyms(params);
+    final List<SynonymResult> synonyms = service.getSynonyms(options);
 
     Assert.assertNotNull(synonyms);
     Assert.assertFalse(synonyms.isEmpty());
@@ -241,7 +239,7 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
   }
 
   /**
-   * Test dilemmas.
+   * Test get tone.
    */
   @Test
   public void testGetTone() {
@@ -318,9 +316,9 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
     });
 
     final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty(ToneAnalyzer.TEXT, text);
+    contentJson.addProperty("text", text);
 
-    contentJson.addProperty(ToneAnalyzer.SCORECARD, Scorecard.EMAIL.getId());
+    contentJson.addProperty("scorecard", Scorecard.EMAIL.getId());
 
     mockServer.when(
         request().withMethod("POST").withPath(TONE_PATH).withBody(contentJson.toString())).respond(

@@ -97,7 +97,7 @@ public class VisualInsights extends WatsonService {
    * Upload a set of images as a ZIP file for visual insight extraction.
    * 
    * @param imagesFile the images File
-   * @return the Summary of the collection's visual attributes
+   * @return the {@link Summary} of the collection's visual attributes
    */
   public Summary getSummary(final File imagesFile) {
     if (imagesFile == null || !imagesFile.exists())

@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.squareup.okhttp.Response;
 
 /**
@@ -83,13 +84,14 @@ public class ResponseUtil {
    * @param <T> the generic type to use when parsing the response
    * @param response the HTTP response
    * @param type the type of the response
-   * @return the object
+   * @return the POJO
    */
-  public static <T> T getObject(Response response, Class<T> type) {
+  public static <T extends GenericModel> T getObject(Response response, Class<T> type) {
     final String jsonString = getString(response);
-    return GsonSingleton.getGson().fromJson(jsonString, type);
+    final T model = GsonSingleton.getGson().fromJson(jsonString, type);
+    model.setHttpResponse(response);
+    return model;
   }
-
 
   /**
    * Returns a String representation of the response.

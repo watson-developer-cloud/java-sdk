@@ -13,18 +13,17 @@
  */
 package com.ibm.watson.developer_cloud.visual_insights.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Class Classifiers.
+ * The Visual Classifiers
  */
 public class Classifiers extends GenericModel {
 
   /**
-   * The Class Classifier.
+   * Visual Classifier
    */
   public static class Classifier extends GenericModel {
 
@@ -51,7 +50,7 @@ public class Classifiers extends GenericModel {
   }
 
   /** The classifiers. */
-  private List<Classifier> classifiers = new ArrayList<Classifier>();
+  private List<Classifier> classifiers;
 
   /**
    * Gets the classifiers.

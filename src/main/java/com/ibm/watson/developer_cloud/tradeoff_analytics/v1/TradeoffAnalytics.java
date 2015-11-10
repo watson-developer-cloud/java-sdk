@@ -25,13 +25,8 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  */
 public class TradeoffAnalytics extends WatsonService {
 
-  /** The Constant GENERATE_VISUALIZATION. */
   private static final String GENERATE_VISUALIZATION = "GENERATE_VISUALIZATION";
-
-  /** The Constant PATH_DILEMMAS. */
   private static final String PATH_DILEMMAS = "/v1/dilemmas";
-
-  /** The url. */
   private final static String URL = "https://gateway.watsonplatform.net/tradeoff-analytics/api";
 
   /**
@@ -57,7 +52,7 @@ public class TradeoffAnalytics extends WatsonService {
    * 
    * @param problem the problem
    * @param generateVisualization the generate visualization
-   * @return the dilemma
+   * @return the decision problem
    */
   public Dilemma dilemmas(final Problem problem, final Boolean generateVisualization) {
     if (problem == null)

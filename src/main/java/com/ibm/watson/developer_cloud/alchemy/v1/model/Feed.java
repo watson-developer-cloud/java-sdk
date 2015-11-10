@@ -14,7 +14,6 @@
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Feed returned by the {@link AlchemyLanguage} service.

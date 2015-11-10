@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.BluemixUtils;
 import com.ibm.watson.developer_cloud.util.RequestUtil;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
@@ -40,33 +41,11 @@ import com.squareup.okhttp.Response;
  */
 public abstract class WatsonService {
 
-  /** The Constant BASIC. */
   private static final String BASIC = "Basic ";
-
-  /**
-   * The FORWARD_SLASH.
-   */
-  protected static final String FORWARD_SLASH = "/";
-
-  /** The Constant log. */
   private static final Logger log = Logger.getLogger(WatsonService.class.getName());
-
-  /**
-   * Field apiKey.
-   */
   private String apiKey;
-
-  /**
-   * Field OkHttpClient.
-   */
   private final OkHttpClient client;
-
-  /**
-   * Field endPoint.
-   */
   private String endPoint;
-
-  /** The name. */
   private final String name;
 
   /**
@@ -173,7 +152,7 @@ public abstract class WatsonService {
    * @param returnType the return type
    * @return the POJO object
    */
-  protected <T> T executeRequest(Request request, Class<T> returnType) {
+  protected <T extends GenericModel> T executeRequest(Request request, Class<T> returnType) {
     final Response response = execute(request);
     return ResponseUtil.getObject(response, returnType);
   }
@@ -319,7 +298,8 @@ public abstract class WatsonService {
   @Override
   public String toString() {
     final StringBuilder builder = new StringBuilder();
-    builder.append("WatsonService [");
+    builder.append(name);
+    builder.append(" [");
     if (endPoint != null) {
       builder.append("endPoint=");
       builder.append(endPoint);

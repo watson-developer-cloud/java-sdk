@@ -26,24 +26,20 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Classification extends GenericModel {
 
-  /** The classes. */
   private List<ClassifiedClass> classes;
 
-  /** The id. */
   @SerializedName("classifier_id")
   private String id;
 
-  /** The text. */
   private String text;
 
   /** The top class. */
   @SerializedName("top_class")
   private String topClass;
 
-  /** The top confidence. */
+  /** The top class confidence. */
   private transient Double topConfidence;
 
-  /** The url. */
   private String url;
 
   /**

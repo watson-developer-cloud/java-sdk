@@ -19,6 +19,7 @@ import java.util.List;
 
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -40,10 +41,10 @@ import com.squareup.okhttp.Response;
  */
 public class TextToSpeech extends WatsonService {
 
-  /** The list voice type. */
+  private static final String VOICE = "voice";
+  private static final String TEXT = "text";
+  private static final String PATH_SYNTHESIZE = "/v1/synthesize";
   private final static Type listVoiceType = new TypeToken<List<Voice>>() {}.getType();
-
-  /** The url. */
   private final static String URL = "https://stream.watsonplatform.net/text-to-speech/api";
 
   /**
@@ -74,7 +75,7 @@ public class TextToSpeech extends WatsonService {
    * @param text the text to synthesize
    * @param format the format, it needs to be an audio mime type, for example: audio/wav or
    *        audio/ogg; codecs=opus
-   * @return the input stream with the synthesized audio
+   * @return the input stream with the synthesized audio doesn't have the content-length set.
    */
   public InputStream synthesize(final String text, final String format) {
     return synthesize(text, Voice.EN_LISA, format);
@@ -105,15 +106,15 @@ public class TextToSpeech extends WatsonService {
     if (voice == null)
       throw new IllegalArgumentException("voice cannot be null");
 
-    final RequestBuilder request = RequestBuilder.get("/v1/synthesize");
-    request.withQuery("text", text);
-    request.withQuery("voice", voice.getName());
+    final RequestBuilder request = RequestBuilder.get(PATH_SYNTHESIZE);
+    request.withQuery(TEXT, text);
+    request.withQuery(VOICE, voice.getName());
 
     if (format != null && !format.startsWith("audio/"))
       throw new IllegalArgumentException(
           "format needs to be an audio mime type, for example: audio/wav or audio/ogg; codecs=opus");
 
-    request.withQuery("accept", format != null ? format : HttpMediaType.AUDIO_WAV);
+    request.withQuery(HttpHeaders.ACCEPT, format != null ? format : HttpMediaType.AUDIO_WAV);
 
     final Response response = execute(request.build());
     return ResponseUtil.getInputStream(response);

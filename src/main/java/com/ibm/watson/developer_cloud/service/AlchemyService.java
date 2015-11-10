@@ -21,6 +21,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Request;
@@ -33,44 +34,24 @@ import com.squareup.okhttp.Response;
  * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public abstract class AlchemyService extends WatsonService {
-
-  /** The Constant DAILY_TRANSACTION_LIMIT_EXCEEDED. */
-  private static final String DAILY_TRANSACTION_LIMIT_EXCEEDED = "daily-transaction-limit-exceeded";
-
   /**
    * The Alchemy endpoint. (value is "https://gateway-a.watsonplatform.net/calls")
    */
   protected final static String ENDPOINT = "https://gateway-a.watsonplatform.net/calls";
-
-  /** The Constant INVALID_API_KEY. */
-  private static final String INVALID_API_KEY = "invalid-api-key";
-
-  /** The Constant JSONP. */
   protected static final String JSONP = "jsonp";
 
-  /** The Constant log. */
+  private static final String DAILY_TRANSACTION_LIMIT_EXCEEDED = "daily-transaction-limit-exceeded";
+  private static final String INVALID_API_KEY = "invalid-api-key";
   private static final Logger log = Logger.getLogger(AlchemyService.class.getName());
-
-  /** The Constant MESSAGE_CODE. */
   private static final String MESSAGE_CODE = "code";
-
-  /** The Constant MESSAGE_ERROR. */
   private static final String MESSAGE_ERROR = "error";
 
-  /** The Constant OUTPUT_MODE. */
   // Output mode will be always json and jsonp should not be used
   protected static final String OUTPUT_MODE = "outputMode";
 
-  /** The Constant PARAM_APIKEY. */
   private static final String PARAM_APIKEY = "apikey";
-
-  /** The Constant STATUS_ERROR. */
   private static final String STATUS_ERROR = "ERROR";
-
-  /** The Constant X_ALCHEMY_API_ERROR_MSG. */
   private static final String X_ALCHEMY_API_ERROR_MSG = "X-AlchemyAPI-Error-Msg";
-
-  /** The Constant X_ALCHEMY_API_STATUS. */
   private static final String X_ALCHEMY_API_STATUS = "X-AlchemyAPI-Status";
 
   /**
@@ -150,7 +131,7 @@ public abstract class AlchemyService extends WatsonService {
    * , java.lang.Class)
    */
   @Override
-  protected <T> T executeRequest(Request request, Class<T> returnType) {
+  protected <T extends GenericModel> T executeRequest(Request request, Class<T> returnType) {
     final Response response = this.execute(request);
     return ResponseUtil.getObject(response, returnType);
   }

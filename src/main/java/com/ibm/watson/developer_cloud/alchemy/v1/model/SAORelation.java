@@ -207,7 +207,7 @@ public class SAORelation extends GenericModel {
     private Entity entity;
 
     /** The keywords. */
-    private Keywords keywords;
+    private List<Keyword> keywords;
 
     /** The sentiment. */
     private Sentiment sentiment;
@@ -319,7 +319,7 @@ public class SAORelation extends GenericModel {
     private Entity entity;
 
     /** The keywords. */
-    private Keywords keywords;
+    private List<Keyword> keywords;
 
     /** The sentiment. */
     private Sentiment sentiment;

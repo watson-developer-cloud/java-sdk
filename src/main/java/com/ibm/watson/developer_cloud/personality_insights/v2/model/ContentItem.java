@@ -280,4 +280,14 @@ public class ContentItem extends GenericModel {
     this.userid = userid;
   }
 
+  /**
+   * with content
+   * 
+   * @param content the content
+   * @return the content item
+   */
+  public ContentItem content(String content) {
+    this.content = content;
+    return this;
+  }
 }

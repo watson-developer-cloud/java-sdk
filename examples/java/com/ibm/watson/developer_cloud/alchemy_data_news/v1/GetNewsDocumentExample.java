@@ -38,7 +38,7 @@ public class GetNewsDocumentExample {
 
     final Map<String, Object> params = new HashMap<String, Object>();
 
-    String[] fields =
+    final String[] fields =
         new String[] {"enriched.url.title", "enriched.url.url", "enriched.url.author",
             "enriched.url.publicationDate", "enriched.url.enrichedTitle.entities",
             "enriched.url.enrichedTitle.docSentiment"};
