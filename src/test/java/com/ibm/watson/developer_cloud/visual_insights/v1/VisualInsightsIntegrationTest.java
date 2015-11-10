@@ -33,7 +33,7 @@ import com.ibm.watson.developer_cloud.visual_insights.v1.model.Summary;
  * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 @FixMethodOrder(MethodSorters.JVM)
-public class VisualInsightsTest extends WatsonServiceTest {
+public class VisualInsightsIntegrationTest extends WatsonServiceTest {
 
   /** The service. */
   private VisualInsights service;

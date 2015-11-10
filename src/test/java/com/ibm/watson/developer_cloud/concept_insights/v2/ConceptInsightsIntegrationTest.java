@@ -46,7 +46,7 @@ import com.ibm.watson.developer_cloud.concept_insights.v2.model.Scores;
 /**
  * The Class ConceptInsightsTest.
  */
-public class ConceptInsightsTest extends WatsonServiceTest {
+public class ConceptInsightsIntegrationTest extends WatsonServiceTest {
 
   /** The Constant PUBLIC. */
   private static final String PUBLIC = "public";

@@ -30,7 +30,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
 /**
  * The Class AlchemyVisionTest.
  */
-public class AlchemyVisionTest extends WatsonServiceTest {
+public class AlchemyVisionIntegrationTest extends WatsonServiceTest {
 
   /** The Constant BABY_IMAGE. */
   private static final String BABY_IMAGE =
@@ -57,7 +57,7 @@ public class AlchemyVisionTest extends WatsonServiceTest {
   }
 
   /**
-   * Test get image from url.
+   * Test get image from URL.
    */
   @Test
   public void testGetImageFromURL() {
@@ -68,7 +68,7 @@ public class AlchemyVisionTest extends WatsonServiceTest {
   }
 
   /**
-   * Test get image with html.
+   * Test get image with HTML.
    */
   @Test
   public void testGetImageWithHTML() {
@@ -93,12 +93,14 @@ public class AlchemyVisionTest extends WatsonServiceTest {
   }
 
   /**
-   * Test get ranked image keywords from url.
+   * Test get ranked image keywords from URL.
    */
   @Test
   public void testGetRankedImageKeywordsFromURL() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyVision.URL, BABY_IMAGE);
+    params.put(AlchemyVision.FORCE_SHOW_ALL, 1);
+    params.put(AlchemyVision.KNOWLEDGE_GRAPH, 1);
     final ImageKeywords image = service.getImageKeywords(params);
 
     Assert.assertNotNull(image);
@@ -118,7 +120,7 @@ public class AlchemyVisionTest extends WatsonServiceTest {
   }
 
   /**
-   * Test recognize faces from url.
+   * Test recognize faces from URL.
    */
   @Test
   public void testRecognizeFacesFromURL() {

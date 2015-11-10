@@ -39,7 +39,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomies;
 /**
  * Created by nizar on 8/25/15.
  */
-public class AlchemyLanguageTest extends WatsonServiceTest {
+public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
 
   /** The html example. */
   private String htmlExample;

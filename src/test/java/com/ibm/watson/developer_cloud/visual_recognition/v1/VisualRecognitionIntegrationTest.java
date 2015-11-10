@@ -28,7 +28,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v1.model.VisualRecognit
 /**
  * The Class VisualRecognitionTest.
  */
-public class VisualRecognitionTest extends WatsonServiceTest {
+public class VisualRecognitionIntegrationTest extends WatsonServiceTest {
 
   /** The image. */
   private File image;

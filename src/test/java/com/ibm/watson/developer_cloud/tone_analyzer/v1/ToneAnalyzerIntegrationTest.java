@@ -50,10 +50,10 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  * The Class ToneAnalyzerTest.
  */
 @SuppressWarnings("serial")
-public class ToneAnalyzerTest extends WatsonServiceTest {
+public class ToneAnalyzerIntegrationTest extends WatsonServiceTest {
 
   /** The Constant log. */
-  private static final Logger log = Logger.getLogger(ToneAnalyzerTest.class.getName());
+  private static final Logger log = Logger.getLogger(ToneAnalyzerIntegrationTest.class.getName());
 
   /** The SYNONYM_PATH. (value is "/v1/synonym") */
   private final static String SYNONYM_PATH = "/v1/synonym";

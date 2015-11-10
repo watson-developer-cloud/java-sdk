@@ -35,7 +35,7 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 /**
  * The Class TradeoffAnalyticsTest.
  */
-public class TradeoffAnalyticsTest extends WatsonServiceTest {
+public class TradeoffAnalyticsIntegrationTest extends WatsonServiceTest {
 
   /** The problem. */
   private Problem problem;

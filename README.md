@@ -19,7 +19,6 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Alchemy Language](#alchemy-language)
     * [Alchemy Vision](#alchemy-vision)
     * [Alchemy Data News](#alchemy-data-news)
-    * [Concept Expansion](#concept-expansion)
     * [Concept Insights](#concept-insights)
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
@@ -141,32 +140,6 @@ service.setApiKey("<api_key>");
 VolumeResult result = service.getVolume("now-7d", "now", "12h");
 
 System.out.println(result);
-```
-
-### Concept Expansion
-Map euphemisms or colloquial terms to more commonly understood phrases using
-the [Concept Expansion][concept_expansion] service.
-Example: Create a job, wait for it to finish, and then retrieve results.
-
-```java
-ConceptExpansion service = new ConceptExpansion();
-service.setUsernameAndPassword("<username>", "<password>");
-
-String[] seeds = new String[]{"motrin", "tylenol", "aspirin"};
-String label = "medicine";
-service.setDataset(ConceptExpansionDataset.MT_SAMPLES);
-Job job = service.createJob(label, seeds);
-
-while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
-		|| service.getJobStatus(job) == Job.Status.IN_FLIGHT) {
-	try {
-		Thread.sleep(4000);
-	} catch (InterruptedException e) {
-		e.printStackTrace();
-	}
-}
-
-System.out.println(service.getJobResult(job));
 ```
 
 ### Concept Insights
@@ -480,7 +453,6 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [personality_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/personality-insights/
 [language_identification]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/lidapi/
 [machine_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/mtapi/
-[concept_expansion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/glimpseapi/
 [document_conversion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/document-conversion/
 [relationship_extraction]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/sireapi/
 [language_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/

@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.alchemy.v1;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -25,16 +26,11 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
 
 /**
- * Created by nizar on 8/25/15.
+ * The Class AlchemyDataNewsTest.
  */
-public class AlchemyDataNewsTest extends WatsonServiceTest {
+public class AlchemyDataNewsIntegrationTest extends WatsonServiceTest {
 
-
-  /**
-   * The service.
-   */
   private AlchemyDataNews service;
-
 
   /*
    * (non-Javadoc)
@@ -74,10 +70,13 @@ public class AlchemyDataNewsTest extends WatsonServiceTest {
   @Test
   public void testNews() {
     final Map<String, Object> params = new HashMap<String, Object>();
-    params
-        .put(
-            AlchemyDataNews.RETURN,
-            "enriched.url.title,enriched.url.url,enriched.url.author,enriched.url.publicationDate,enriched.url.enrichedTitle.entities,enriched.url.enrichedTitle.docSentiment,enriched.url.enrichedTitle.concepts,enriched.url.enrichedTitle.taxonomy");
+
+    final String[] fields =
+        new String[] {"enriched.url.title", "enriched.url.url", "enriched.url.author",
+            "enriched.url.publicationDate", "enriched.url.enrichedTitle.entities",
+            "enriched.url.enrichedTitle.docSentiment", "enriched.url.enrichedTitle.concepts",
+            "enriched.url.enrichedTitle.taxonomy"};
+    params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
     params.put(AlchemyDataNews.START, "1440720000");
     params.put(AlchemyDataNews.END, "1441407600");
     params.put(AlchemyDataNews.COUNT, "7");

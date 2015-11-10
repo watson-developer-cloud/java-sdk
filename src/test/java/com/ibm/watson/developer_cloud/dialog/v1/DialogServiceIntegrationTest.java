@@ -36,7 +36,7 @@ import com.ibm.watson.developer_cloud.dialog.v1.model.NameValue;
 /**
  * The Class DialogServiceTest.
  */
-public class DialogServiceTest extends WatsonServiceTest {
+public class DialogServiceIntegrationTest extends WatsonServiceTest {
 
   /** The dialog id. */
   private String dialogId;
