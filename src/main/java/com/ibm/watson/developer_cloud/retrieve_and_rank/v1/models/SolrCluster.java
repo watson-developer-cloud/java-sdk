@@ -15,56 +15,94 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models;
 
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.Preconditions.*;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.ApiConstants.*;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
-public final class SolrCluster {
-    private final String id;
+import com.google.gson.annotations.SerializedName;
 
-    SolrCluster(String id) {
-        checkArgumentNotEmpty(id, "id");
-        this.id = id;
+/**
+ * Response from a provisioned Solr Cluster.
+ */
+public class SolrCluster {
+    public enum Status {
+        READY,
+        NOT_AVAILABLE
     }
 
-    public String asString() {
-        return id;
+    @SerializedName(SOLR_CLUSTER_ID)
+    private final String solrClusterId;
+    @SerializedName(CLUSTER_NAME)
+    private final String solrClusterName;
+    @SerializedName(CLUSTER_SIZE)
+    private final String solrClusterSize;
+    @SerializedName(SOLR_CLUSTER_STATUS)
+    private final Status solrClusterStatus;
+
+    public SolrCluster(final String solrClusterId, final String solrClusterName, final String solrClusterSize,
+            final Status solrClusterStatus) {
+        this.solrClusterId = solrClusterId;
+        this.solrClusterName = solrClusterName;
+        this.solrClusterSize = solrClusterSize;
+        this.solrClusterStatus = solrClusterStatus;
     }
 
-    public static SolrCluster fromString(String s) throws IllegalArgumentException {
-        return new SolrCluster(s);
+    public String getId() {
+        return solrClusterId;
+    }
+
+    public String getName() {
+        return solrClusterName;
+    }
+
+    public String getSize() {
+        return solrClusterSize;
+    }
+
+    public Status getStatus() {
+        return solrClusterStatus;
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other == null) {
-            return false;
-        }
-        if (other == this) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (other.getClass() != getClass()) {
+        if (obj == null) {
             return false;
         }
-        final SolrCluster rhs = (SolrCluster) other;
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SolrCluster other = (SolrCluster) obj;
         return new EqualsBuilder()
-                .append(id, rhs.id)
+                .append(solrClusterId, other.solrClusterId)
+                .append(solrClusterName, other.solrClusterName)
+                .append(solrClusterSize, other.solrClusterSize)
+                .append(solrClusterStatus, other.solrClusterStatus)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-                .append(id)
+                .append(solrClusterId)
+                .append(solrClusterName)
+                .append(solrClusterSize)
+                .append(solrClusterStatus)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("id", id)
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("solrClusterId", solrClusterId)
+                .append("solrClusterName", solrClusterName)
+                .append("solrClusterSize", solrClusterSize)
+                .append("solrClusterStatus", solrClusterStatus)
                 .toString();
     }
 }

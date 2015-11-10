@@ -22,10 +22,9 @@ import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.Retrieve
 import java.io.IOException;
 
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterList;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterOptions;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrCluster;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterCreationRequest;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterListResponse;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterResponse;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.JsonSerializationUtils;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.MessageFormatter;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages;
@@ -51,14 +50,14 @@ public class HttpClusterLifecycleClient extends WatsonService implements Cluster
     }
 
     @Override
-    public SolrClusterResponse createSolrCluster() {
+    public SolrCluster createSolrCluster() {
         final Request request =
                 RequestBuilder.post(watsonSearchUrl).withHeader("Content-Type", "application/json").build();
         return sendAndParseCreationRequest(request);
     }
 
     @Override
-    public SolrClusterResponse createSolrCluster(SolrClusterCreationRequest config) {
+    public SolrCluster createSolrCluster(SolrClusterOptions config) {
         final RequestBuilder creationRequest =
                 RequestBuilder.post(watsonSearchUrl).withHeader("Content-Type", "application/json");
         addCreationConfigToRequest(creationRequest, config);
@@ -66,38 +65,38 @@ public class HttpClusterLifecycleClient extends WatsonService implements Cluster
     }
 
     @Override
-    public void deleteSolrCluster(SolrCluster solrCluster) {
-        checkArgumentNotNull(solrCluster, "solrCluster");
-        final Request request = RequestBuilder.delete(watsonSearchUrl + '/' + solrCluster.asString()).build();
+    public void deleteSolrCluster(String solrClusterId) {
+        checkArgumentNotNull(solrClusterId, "solrClusterId");
+        final Request request = RequestBuilder.delete(watsonSearchUrl + '/' + solrClusterId).build();
         final Response response = execute(request);
         if (response.code() != 200) {
-            throw new RuntimeException(generateErrorMessage(response, ERROR_DELETING_CLUSTER_2, solrCluster));
+            throw new RuntimeException(generateErrorMessage(response, ERROR_DELETING_CLUSTER_2, solrClusterId));
         }
     }
 
     @Override
-    public SolrClusterListResponse listSolrClusters() {
+    public SolrClusterList listSolrClusters() {
         final Request request = RequestBuilder.get(watsonSearchUrl).build();
         final Response response = execute(request);
 
         if (!(response.code() == 200)) {
             throw new RuntimeException(generateErrorMessage(response, ERROR_LISTING_CLUSTERS_1));
         }
-        return JsonSerializationUtils.fromJson(entityToString(response), SolrClusterListResponse.class);
+        return JsonSerializationUtils.fromJson(entityToString(response), SolrClusterList.class);
     }
 
     @Override
-    public SolrClusterResponse pollSolrCluster(SolrCluster solrCluster) {
-        checkArgumentNotNull(solrCluster, "solrCluster");
+    public SolrCluster pollSolrCluster(String solrClusterId) {
+        checkArgumentNotNull(solrClusterId, "solrClusterId");
 
-        final Request request = RequestBuilder.get(watsonSearchUrl + '/' + solrCluster.asString()).build();
+        final Request request = RequestBuilder.get(watsonSearchUrl + '/' + solrClusterId).build();
         final Response response = execute(request);
 
         if (!(response.code() == 200)) {
-            throw new RuntimeException(generateErrorMessage(response, ERROR_POLLING_CLUSTER_2, solrCluster));
+            throw new RuntimeException(generateErrorMessage(response, ERROR_POLLING_CLUSTER_2, solrClusterId));
         }
 
-        return JsonSerializationUtils.fromJson(entityToString(response), SolrClusterResponse.class);
+        return JsonSerializationUtils.fromJson(entityToString(response), SolrCluster.class);
     }
 
     private String entityToString(final Response response) {
@@ -120,24 +119,24 @@ public class HttpClusterLifecycleClient extends WatsonService implements Cluster
     }
 
     private String generateErrorMessage(Response response, RetrieveAndRankMessages messageKey,
-            SolrCluster cluster) {
-        final StringBuilder msg = new StringBuilder(MSGS.format(messageKey, cluster.asString(), response.code()));
+            String solrClusterId) {
+        final StringBuilder msg = new StringBuilder(MSGS.format(messageKey, solrClusterId, response.code()));
         if (response.body() != null) {
             return msg.append(MSGS.format(ERROR_CAUSE_1, entityToString(response))).toString();
         }
         return msg.toString();
     }
 
-    private SolrClusterResponse sendAndParseCreationRequest(Request request) {
+    private SolrCluster sendAndParseCreationRequest(Request request) {
         final Response response = execute(request);
 
         if (!(response.code() == 200)) {
             throw new RuntimeException(generateErrorMessage(response, ERROR_CREATING_CLUSTER_1));
         }
-        return JsonSerializationUtils.fromJson(entityToString(response), SolrClusterResponse.class);
+        return JsonSerializationUtils.fromJson(entityToString(response), SolrCluster.class);
     }
 
-    private void addCreationConfigToRequest(RequestBuilder creationRequest, SolrClusterCreationRequest creationConfig) {
+    private void addCreationConfigToRequest(RequestBuilder creationRequest, SolrClusterOptions creationConfig) {
         final String configJson = JsonSerializationUtils.toJsonString(creationConfig);
         creationRequest.withBodyContent(configJson, "application/json");
     }

@@ -15,9 +15,6 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.HttpClusterLifecycleClient;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrCluster;
-
 public class RetrieveAndRankSolrClusterDeleteExample {
     /**
      * The URL of the Watson Solr search service.
@@ -57,7 +54,7 @@ public class RetrieveAndRankSolrClusterDeleteExample {
      */
     private static void deleteSolrCluster() {
         System.out.println("Deleting Solr cluster ID " + SOLR_CLUSTER_ID + "...");
-        clusterLifecycleClient.deleteSolrCluster(SolrCluster.fromString(SOLR_CLUSTER_ID));
+        clusterLifecycleClient.deleteSolrCluster(SOLR_CLUSTER_ID);
 
         System.out.println("Deleted Solr cluster.");
     }

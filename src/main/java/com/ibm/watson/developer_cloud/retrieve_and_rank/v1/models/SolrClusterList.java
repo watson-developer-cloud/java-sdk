@@ -17,67 +17,58 @@ package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models;
 
 import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.ApiConstants.*;
 
+import java.util.List;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
- * A value type for the JSON body provided when creating a Solr cluster.
+ * Response from requesting a list of provisioned Solr Clusters.
  */
-public class SolrClusterCreationRequest {
+public class SolrClusterList {
+    @SerializedName(SOLR_CLUSTER_RESPONSES)
+    private final List<SolrCluster> solrClusterResponses;
 
-    @SerializedName(CLUSTER_NAME)
-    private final String clusterName;
-    @SerializedName(CLUSTER_SIZE)
-    private final String clusterSize;
-
-    public SolrClusterCreationRequest(String clusterName, String clusterSize) {
-        this.clusterName = clusterName;
-        this.clusterSize = clusterSize;
+    public SolrClusterList(final List<SolrCluster> solrClusterResponses) {
+        this.solrClusterResponses = solrClusterResponses;
     }
 
-    public String getClusterName() {
-        return clusterName;
-    }
-
-    public String getClusterSize() {
-        return clusterSize;
+    public List<SolrCluster> getSolrClusterResponses() {
+        return solrClusterResponses;
     }
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if (object == null) {
+        if (obj == null) {
             return false;
         }
-        if (getClass() != object.getClass()) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-
-        final SolrClusterCreationRequest rhs = (SolrClusterCreationRequest) object;
+        final SolrClusterList other = (SolrClusterList) obj;
         return new EqualsBuilder()
-                .append(clusterName, rhs.clusterName)
-                .append(clusterSize, rhs.clusterSize)
+                .append(solrClusterResponses, other.solrClusterResponses)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder()
-                .append(clusterName)
-                .append(clusterSize)
+                .append(solrClusterResponses)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this)
-                .append("optionalClusterName", clusterName)
-                .append("clusterSize", clusterSize)
+        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+                .append("solrClusterResponses", solrClusterResponses)
                 .toString();
     }
 }

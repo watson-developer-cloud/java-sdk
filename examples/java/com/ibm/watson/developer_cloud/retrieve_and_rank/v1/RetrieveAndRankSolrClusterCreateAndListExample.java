@@ -15,11 +15,9 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.HttpClusterLifecycleClient;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterList;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterOptions;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrCluster;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterCreationRequest;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterListResponse;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterResponse;
 
 public class RetrieveAndRankSolrClusterCreateAndListExample {
     /**
@@ -70,10 +68,10 @@ public class RetrieveAndRankSolrClusterCreateAndListExample {
      */
     private static void createSolrCluster() {
         System.out.println("Creating Solr cluster...");
-        final SolrClusterCreationRequest clusterOptions = new SolrClusterCreationRequest(CLUSTER_NAME, CLUSTER_SIZE);
-        final SolrClusterResponse response = clusterLifecycleClient.createSolrCluster(clusterOptions);
+        final SolrClusterOptions clusterOptions = new SolrClusterOptions(CLUSTER_NAME, CLUSTER_SIZE);
+        final SolrCluster response = clusterLifecycleClient.createSolrCluster(clusterOptions);
 
-        solrClusterId = response.getSolrClusterId();
+        solrClusterId = response.getId();
         System.out.println("Solr cluster creation request submitted. ID: " + solrClusterId + "");
     }
 
@@ -87,9 +85,9 @@ public class RetrieveAndRankSolrClusterCreateAndListExample {
         boolean isReady = false;
 
         while (!isReady) {
-            final SolrClusterResponse solrClusterResponse =
-                    clusterLifecycleClient.pollSolrCluster(SolrCluster.fromString(solrClusterId));
-            if (solrClusterResponse.getSolrClusterStatus().equals(SolrClusterResponse.Status.READY)) {
+            final SolrCluster solrClusterResponse =
+                    clusterLifecycleClient.pollSolrCluster(solrClusterId);
+            if (solrClusterResponse.getStatus().equals(SolrCluster.Status.READY)) {
                 System.out.println("Solr cluster is ready.");
                 isReady = true;
             } else {
@@ -104,8 +102,8 @@ public class RetrieveAndRankSolrClusterCreateAndListExample {
      */
     private static void listAllSolrClusters() {
         System.out.println("Listing all Solr clusters...");
-        final SolrClusterListResponse solrClustersListResponse = clusterLifecycleClient.listSolrClusters();
-        for (final SolrClusterResponse solrCluster : solrClustersListResponse.getSolrClusterResponses()) {
+        final SolrClusterList solrClustersListResponse = clusterLifecycleClient.listSolrClusters();
+        for (final SolrCluster solrCluster : solrClustersListResponse.getSolrClusterResponses()) {
             System.out.println(solrCluster.toString());
         }
     }
