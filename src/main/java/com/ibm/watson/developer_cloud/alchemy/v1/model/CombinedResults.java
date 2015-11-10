@@ -37,7 +37,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel  {
     private List<Entity> entities;
 	
 	/** The feeds. */
-    private List<Feed> feeds;
+    private Feeds feeds;
 	
 	/** The image. */
     private String image;
