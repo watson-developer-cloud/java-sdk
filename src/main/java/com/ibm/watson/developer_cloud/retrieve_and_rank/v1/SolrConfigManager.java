@@ -78,5 +78,5 @@ public interface SolrConfigManager {
    * @param solrClusterId the solr cluster id
    * @return a list of the names of the configuration sets
    */
-  Collection<String> listSolrClusterConfigurations(final String solrClusterId);
+  Collection<String> getSolrClusterConfigurations(final String solrClusterId);
 }

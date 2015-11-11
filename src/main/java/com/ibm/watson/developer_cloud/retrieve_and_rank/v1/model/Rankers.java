@@ -32,7 +32,7 @@ public class Rankers extends GenericModel {
    * 
    * @return the list of Ranker objects
    */
-  public List<Ranker> getRanker() {
+  public List<Ranker> getRankers() {
     return rankers;
   }
 

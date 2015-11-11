@@ -27,7 +27,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 public class Ranker extends GenericModel {
   /**
-   * The Enum Status.
+   * The Ranker Status.
    */
   public enum Status {
 

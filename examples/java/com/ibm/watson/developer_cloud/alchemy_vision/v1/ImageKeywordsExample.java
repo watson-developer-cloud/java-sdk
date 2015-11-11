@@ -17,8 +17,6 @@ package com.ibm.watson.developer_cloud.alchemy_vision.v1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
@@ -29,14 +27,8 @@ public class ImageKeywordsExample {
     final AlchemyVision service = new AlchemyVision();
     service.setApiKey("<api_key>");
 
-    final Map<String, Object> params = new HashMap<String, Object>();
-
-    params.put(AlchemyVision.IMAGE, new File("src/test/resources/obama.jpg"));
-
-    // Includes lower confidence tags
-    params.put(AlchemyVision.FORCE_SHOW_ALL, 1);
-
-    final ImageKeywords keywords = service.getImageKeywords(params);
+    File image = new File("src/test/resources/obama.jpg");
+    final ImageKeywords keywords = service.getImageKeywords(image, true, true);
 
     System.out.println(keywords);
   }

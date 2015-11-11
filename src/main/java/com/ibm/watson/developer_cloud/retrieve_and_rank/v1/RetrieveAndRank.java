@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -229,7 +230,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   public Ranker getRankerStatus(final String rankerID) {
     Validate.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerId cannot be null or empty");
 
-    final Request request = RequestBuilder.get(PATH_RANKER + rankerID).build();
+    final Request request = RequestBuilder.get(String.format(PATH_RANKER, rankerID)).build();
     return executeRequest(request, Ranker.class);
   }
 
@@ -267,7 +268,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
       InputStream is = ResponseUtil.getInputStream(response);
       File targetFile = File.createTempFile(configName, ".zip");
 
-      Files.copy(is, targetFile.toPath());
+      Files.copy(is, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
       return targetFile;
     } catch (FileNotFoundException e) {
       log.log(Level.SEVERE, "Temporary file cannot be created", e);
@@ -285,7 +286,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * (java.lang.String)
    */
   @Override
-  public List<String> listSolrClusterConfigurations(String solrClusterId) {
+  public List<String> getSolrClusterConfigurations(String solrClusterId) {
     Validate.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
         "solrClusterId cannot be null or empty");
     final Request request =
@@ -302,7 +303,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleClient#listSolrClusters()
    */
   @Override
-  public SolrClusterList listSolrClusters() {
+  public SolrClusterList getSolrClusters() {
     final Request request = RequestBuilder.get(PATH_SOLR_CLUSTERS).build();
     return executeRequest(request, SolrClusterList.class);
   }
@@ -315,13 +316,13 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * @param topAnswers The number of top answers needed, default is 10
    * @return the ranking of the answers
    */
-  public Ranking rank(final String rankerID, final File answers, int topAnswers) {
+  public Ranking rank(final String rankerID, final File answers, Integer topAnswers) {
     Validate.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerID cannot be null or empty");
     Validate.notNull(answers, "answers file cannot be null");
     Validate.isTrue(answers.exists(), "answers file: " + answers.getAbsolutePath() + " not found");
 
     final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty(ANSWERS, (topAnswers > 0) ? topAnswers : 10);
+    contentJson.addProperty(ANSWERS, (topAnswers != null && topAnswers > 0) ? topAnswers : 10);
 
     final RequestBody body =
         new MultipartBuilder()

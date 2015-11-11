@@ -59,5 +59,5 @@ public interface ClusterLifecycleManager {
    * 
    * @return the Solr cluster list
    */
-  SolrClusterList listSolrClusters();
+  SolrClusterList getSolrClusters();
 }

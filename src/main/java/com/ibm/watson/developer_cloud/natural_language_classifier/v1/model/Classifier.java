@@ -27,7 +27,7 @@ public class Classifier extends GenericModel {
 
 
   /**
-   * The Enum Status.
+   * The Classifier Status.
    */
   public enum Status {
 

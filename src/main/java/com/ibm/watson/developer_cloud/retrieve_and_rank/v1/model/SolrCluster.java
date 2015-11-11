@@ -27,7 +27,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class SolrCluster extends GenericModel {
 
   /**
-   * The Enum Status.
+   * The Solr Cluster Status.
    */
   public enum Status {
     READY, NOT_AVAILABLE

@@ -17,8 +17,6 @@ package com.ibm.watson.developer_cloud.alchemy_vision.v1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
@@ -29,14 +27,8 @@ public class RecognizeFacesExample {
     final AlchemyVision service = new AlchemyVision();
     service.setApiKey("<api_key>");
 
-    final Map<String, Object> params = new HashMap<String, Object>();
-
-    params.put(AlchemyVision.IMAGE, new File("src/test/resources/obama.jpg"));
-
-    // Include knowledge graph information in the the results.
-    params.put(AlchemyVision.KNOWLEDGE_GRAPH, 1);
-
-    final ImageFaces faces = service.recognizeFaces(params);
+    File image = new File("src/test/resources/obama.jpg");
+    final ImageFaces faces = service.recognizeFaces(image, true);
 
     System.out.println(faces);
   }
