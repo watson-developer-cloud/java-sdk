@@ -14,6 +14,7 @@ import org.junit.rules.ExpectedException;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranker;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Rankers;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster.Status;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterList;
@@ -26,6 +27,8 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
     private static final String CREATED_CLUSTER_DEFAULT_NAME = "";
     private static final String CREATED_CLUSTER_NAME = "itest-cluster";
     private static final String CONFIG_NAME = "itest-config";
+    private static final String RANKER_NAME = "itest-ranker";
+    private static final String RESOURCE_PATH = "src/test/resources/retrieve_and_rank/";
 
     private RetrieveAndRank service;
     private String rankerId;
@@ -47,8 +50,26 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
     }
 
     @Test
-    public void testCreateRanker() {
-        fail("Not yet implemented");
+    public void testCreateRankerAndRankResults() throws InterruptedException {
+        final File trainingFile = new File(RESOURCE_PATH + "ranker_train.csv");
+        final File testFile = new File(RESOURCE_PATH + "ranker_test.csv");
+        final int numToRank = 5;
+
+        final Ranker ranker = service.createRanker(RANKER_NAME, trainingFile);
+        try {
+            assertEquals(RANKER_NAME, ranker.getName());
+            for (int x = 0; x < 20
+                    && service.getRankerStatus(ranker.getId()).getStatus() != Ranker.Status.AVAILABLE; x++) {
+                Thread.sleep(10000);
+            }
+            assertEquals(Ranker.Status.AVAILABLE, service.getRankerStatus(ranker.getId()).getStatus());
+
+            final Ranking ranking = service.rank(ranker.getId(), testFile, numToRank);
+            assertTrue(!ranking.getAnswers().isEmpty());
+        } finally {
+            service.deleteRanker(ranker.getId());
+        }
+
     }
 
     @Test
@@ -76,11 +97,6 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
             service.deleteSolrCluster(solrCluster.getId());
             assertFalse(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
         }
-    }
-
-    @Test
-    public void testDeleteRanker() {
-        fail("Not yet implemented");
     }
 
     @Test
@@ -116,7 +132,7 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
     @Test
     public void testGetSolrClusterConfiguration() throws IOException {
         try {
-            final File configDir = new File("src/test/resources/retrieve_and_rank/config_dir");
+            final File configDir = new File(RESOURCE_PATH + "config_dir");
             service.uploadSolrClusterConfigurationDirectory(clusterId, CONFIG_NAME, configDir);
 
             InputStream configStream = null;
@@ -142,14 +158,9 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
     }
 
     @Test
-    public void testRank() {
-        fail("Not yet implemented");
-    }
-
-    @Test
     public void testUploadAndDeleteSolrClusterConfigurationDirectory() {
         try {
-            final File configDir = new File("src/test/resources/retrieve_and_rank/config_dir");
+            final File configDir = new File(RESOURCE_PATH + "config_dir");
             service.uploadSolrClusterConfigurationDirectory(clusterId, CONFIG_NAME, configDir);
 
             assertTrue(service.getSolrClusterConfigurations(clusterId).contains(CONFIG_NAME));
@@ -162,7 +173,7 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
     @Test
     public void testUploadAndDeleteSolrClusterConfigurationZip() {
         try {
-            final File configZip = new File("src/test/resources/retrieve_and_rank/config.zip");
+            final File configZip = new File(RESOURCE_PATH + "config.zip");
             service.uploadSolrClusterConfigurationZip(clusterId, CONFIG_NAME, configZip);
 
             assertTrue(service.getSolrClusterConfigurations(clusterId).contains(CONFIG_NAME));
