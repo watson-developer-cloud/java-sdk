@@ -15,8 +15,6 @@ package com.ibm.watson.developer_cloud.alchemy.v1;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -26,6 +24,7 @@ import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
+import com.squareup.okhttp.HttpUrl;
 
 /**
  * The Class AlchemyVisionTest.
@@ -61,9 +60,7 @@ public class AlchemyVisionIntegrationTest extends WatsonServiceTest {
    */
   @Test
   public void testGetImageFromURL() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(AlchemyVision.URL, "http://www.techcrunch.com/");
-    final ImageLink image = service.getImageLink(params);
+    final ImageLink image = service.getImageLink(HttpUrl.parse("http://www.techcrunch.com/").url());
     Assert.assertNotNull(image);
   }
 
@@ -72,9 +69,7 @@ public class AlchemyVisionIntegrationTest extends WatsonServiceTest {
    */
   @Test
   public void testGetImageWithHTML() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(AlchemyVision.HTML, htmlExample);
-    final ImageLink image = service.getImageLink(params);
+    final ImageLink image = service.getImageLink(htmlExample);
     Assert.assertNotNull(image);
   }
 
@@ -84,9 +79,7 @@ public class AlchemyVisionIntegrationTest extends WatsonServiceTest {
   @Test
   public void testGetRankedImageKeywordsFromImage() {
     final File imageFile = new File("src/test/resources/car.png");
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(AlchemyVision.IMAGE, imageFile);
-    final ImageKeywords image = service.getImageKeywords(params);
+    final ImageKeywords image = service.getImageKeywords(imageFile, null, null);
 
     Assert.assertNotNull(image);
 
@@ -97,11 +90,8 @@ public class AlchemyVisionIntegrationTest extends WatsonServiceTest {
    */
   @Test
   public void testGetRankedImageKeywordsFromURL() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(AlchemyVision.URL, BABY_IMAGE);
-    params.put(AlchemyVision.FORCE_SHOW_ALL, 1);
-    params.put(AlchemyVision.KNOWLEDGE_GRAPH, 1);
-    final ImageKeywords image = service.getImageKeywords(params);
+    final ImageKeywords image =
+        service.getImageKeywords(HttpUrl.parse(BABY_IMAGE).url(), true, true);
 
     Assert.assertNotNull(image);
   }
@@ -112,9 +102,7 @@ public class AlchemyVisionIntegrationTest extends WatsonServiceTest {
   @Test
   public void testRecognizeFacesFromImage() {
     final File imageFile = new File("src/test/resources/obama.jpg");
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(AlchemyVision.IMAGE, imageFile);
-    final ImageFaces image = service.recognizeFaces(params);
+    final ImageFaces image = service.recognizeFaces(imageFile, true);
 
     Assert.assertNotNull(image);
   }
@@ -124,9 +112,7 @@ public class AlchemyVisionIntegrationTest extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeFacesFromURL() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(AlchemyVision.URL, BABY_IMAGE);
-    final ImageFaces image = service.recognizeFaces(params);
+    final ImageFaces image = service.recognizeFaces(HttpUrl.parse(BABY_IMAGE).url(), false);
 
     Assert.assertNotNull(image);
   }

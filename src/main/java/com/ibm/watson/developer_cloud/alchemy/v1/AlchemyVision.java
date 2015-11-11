@@ -14,6 +14,8 @@
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
 import java.io.File;
+import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.model.AlchemyGenericModel;
@@ -25,6 +27,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints.AlchemyAP
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
+import com.ibm.watson.developer_cloud.util.Validate;
 import com.squareup.okhttp.RequestBody;
 
 /**
@@ -78,7 +81,7 @@ public class AlchemyVision extends AlchemyService {
    */
   private <T extends AlchemyGenericModel> T executeRequest(Map<String, Object> params,
       AlchemyAPI operation, Class<T> returnType) {
-    final String inputType = getInputFormat(params, IMAGE, "url");
+    final String inputType = getInputFormat(params, IMAGE, URL);
     final String path = AlchemyEndPoints.getPath(operation, inputType);
 
     final RequestBuilder requestBuilder = RequestBuilder.post(path);
@@ -115,38 +118,86 @@ public class AlchemyVision extends AlchemyService {
   }
 
   /**
-   * Extract keywords from an image or url.
+   * Extract keywords from an image
    * 
-   * @param params The parameters to be used in the service call, image or url should be specified.
+   * @param image the image file
+   * @param forceShowAll Includes lower confidence tags
+   * @param knowledgeGraph Include knowledge graph information in the the results.
    * @return {@link ImageKeywords}
    */
-  public ImageKeywords getImageKeywords(Map<String, Object> params) {
+  public ImageKeywords getImageKeywords(File image, Boolean forceShowAll, Boolean knowledgeGraph) {
+    Validate.notNull(image, "image cannot be null");
+    Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
+
+    Map<String, Object> params = new HashMap<String, Object>();
+    params.put(IMAGE, image);
+
+    if (forceShowAll != null)
+      params.put(FORCE_SHOW_ALL, forceShowAll ? 1 : 0);
+
+    if (knowledgeGraph != null)
+      params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
+
+    return executeRequest(params, AlchemyAPI.image_keywords, ImageKeywords.class);
+  }
+
+
+  /**
+   * Extract keywords from a URL.
+   * 
+   * @param url the image URL
+   * @param forceShowAll Includes lower confidence tags
+   * @param knowledgeGraph Include knowledge graph information in the the results.
+   * @return {@link ImageKeywords}
+   */
+  public ImageKeywords getImageKeywords(URL url, Boolean forceShowAll, Boolean knowledgeGraph) {
+    Validate.notNull(url, "url cannot be null");
+
+    Map<String, Object> params = new HashMap<String, Object>();
+    params.put(URL, url);
+
+    if (forceShowAll != null)
+      params.put(FORCE_SHOW_ALL, forceShowAll ? 1 : 0);
+
+    if (knowledgeGraph != null)
+      params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
+
     return executeRequest(params, AlchemyAPI.image_keywords, ImageKeywords.class);
   }
 
   /**
-   * Extract main image link from html or a URL.
+   * Extract main image link from a URL.
    * 
-   * @param params The parameters to be used in the service call, html or url should be specified.
+   * @param url the image URL
    * @return {@link ImageLink}
    */
-  public ImageLink getImageLink(Map<String, Object> params) {
-    final String inputType = getInputFormat(params, HTML, URL);
-    final String path = AlchemyEndPoints.getPath(AlchemyAPI.image_link, inputType);
+  public ImageLink getImageLink(URL url) {
+    Validate.notNull(url, "url cannot be null");
 
-    // Return json
-    params.put(OUTPUT_MODE, "json");
+    Map<String, Object> params = new HashMap<String, Object>();
+    params.put(URL, url);
 
-    final RequestBuilder requestBuilder = RequestBuilder.post(path);
-    for (final String param : params.keySet()) {
-      requestBuilder.withForm(param, params.get(param));
-    }
-
-    return executeRequest(requestBuilder.build(), ImageLink.class);
+    return executeRequest(params, AlchemyAPI.image_link, ImageLink.class);
   }
 
   /**
-   * Recognize faces from an image or URL. For each face detected returns:
+   * Extract main image link from a HTML page.
+   * 
+   * @param html the HTML
+   * @return {@link ImageLink}
+   */
+  public ImageLink getImageLink(String html) {
+    Validate.notNull(html, "html cannot be null");
+
+    Map<String, Object> params = new HashMap<String, Object>();
+    params.put(HTML, html);
+
+    return executeRequest(params, AlchemyAPI.image_link, ImageLink.class);
+  }
+
+  /**
+   * Recognize faces from an image.<br>
+   * For each face detected returns:
    * <ul>
    * <li>Bounding box
    * <li>Gender
@@ -154,10 +205,48 @@ public class AlchemyVision extends AlchemyService {
    * <li>Name (if celebrity is detected)
    * </ul>
    * 
-   * @param params The parameters to be used in the service call, image or url should be specified.
+   * @param image the image
+   * @param knowledgeGraph provide extra metadata for detected celebrities
    * @return {@link ImageFaces}
    */
-  public ImageFaces recognizeFaces(Map<String, Object> params) {
+  public ImageFaces recognizeFaces(File image, Boolean knowledgeGraph) {
+    Validate.notNull(image, "image cannot be null");
+    Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
+
+    Map<String, Object> params = new HashMap<String, Object>();
+    params.put(IMAGE, image);
+
+    if (knowledgeGraph != null)
+      params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
+
+
+    return executeRequest(params, AlchemyAPI.image_recognition, ImageFaces.class);
+  }
+
+  /**
+   * Recognize faces from a URL.<br>
+   * For each face detected returns:
+   * <ul>
+   * <li>Bounding box
+   * <li>Gender
+   * <li>Approximate age
+   * <li>Name (if celebrity is detected)
+   * </ul>
+   * 
+   * @param url the url
+   * @param knowledgeGraph provide extra metadata for detected celebrities
+   * @return {@link ImageFaces}
+   */
+  public ImageFaces recognizeFaces(URL url, Boolean knowledgeGraph) {
+    Validate.notNull(url, "url cannot be null");
+
+    Map<String, Object> params = new HashMap<String, Object>();
+    params.put(URL, url);
+
+    if (knowledgeGraph != null)
+      params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
+
+
     return executeRequest(params, AlchemyAPI.image_recognition, ImageFaces.class);
   }
 }

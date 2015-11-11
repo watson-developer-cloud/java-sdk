@@ -64,6 +64,11 @@ public interface HttpMediaType {
    */
   public final static String APPLICATION_XHTML_XML = "application/xhtml+xml";
   /**
+   * Field APPLICATION_ZIP. (value is "application/zip")
+   */
+  public final static String APPLICATION_ZIP = "application/zip";
+
+  /**
    * Field APPLICATION_XML. (value is "application/xml")
    */
   public final static String APPLICATION_XML = "application/xml";
