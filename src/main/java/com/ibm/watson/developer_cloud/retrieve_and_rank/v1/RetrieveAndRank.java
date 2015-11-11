@@ -339,8 +339,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     public void uploadSolrClusterConfigurationDirectory(String solrClusterId, String configName,
             File directory) {
         Validate.notNull(directory, "directory cannot be null");
-        Validate
-                .isTrue(directory.exists(), "directory : " + directory.getAbsolutePath() + " not found");
+        Validate.isTrue(directory.exists(), "directory : " + directory.getAbsolutePath() + " not found");
         Validate.isTrue(directory.isDirectory(), "directory is not a directory");
 
         final File zipFile = ZipUtils.buildConfigZip(configName, directory.toPath());

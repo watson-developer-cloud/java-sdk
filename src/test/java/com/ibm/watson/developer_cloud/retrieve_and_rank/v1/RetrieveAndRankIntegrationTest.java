@@ -7,20 +7,32 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranker;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Rankers;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster.Status;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterList;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
 
 public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
+
+    private static final String CREATED_CLUSTER_SIZE_FREE = "";
+    private static final String CREATED_CLUSTER_SIZE_ONE = "1";
+    private static final String CREATED_CLUSTER_DEFAULT_NAME = "";
+    private static final String CREATED_CLUSTER_NAME = "itest-cluster";
+    private static final String CONFIG_NAME = "itest-config";
 
     private RetrieveAndRank service;
     private String rankerId;
     private String clusterId;
-    private static final String CONFIG_NAME = "itest-config";
+
+    @Rule
+    public final ExpectedException expectedException = ExpectedException.none();
 
     @Override
     @Before
@@ -40,27 +52,34 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
     }
 
     @Test
-    public void testCreateSolrCluster() {
-        fail("Not yet implemented");
+    public void testCreateAndDeleteSolrCluster() {
+        final SolrCluster solrCluster = service.createSolrCluster();
+        final SolrCluster expectedSolrCluster = new SolrCluster(solrCluster.getId(), CREATED_CLUSTER_DEFAULT_NAME,
+                CREATED_CLUSTER_SIZE_FREE, Status.NOT_AVAILABLE);
+        try {
+            assertTrue(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
+        } finally {
+            service.deleteSolrCluster(solrCluster.getId());
+            assertFalse(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
+        }
     }
 
     @Test
-    public void testCreateSolrClusterSolrClusterOptions() {
-        fail("Not yet implemented");
+    public void testCreateAndDeleteSolrClusterWithOptions() {
+        final SolrClusterOptions options = new SolrClusterOptions(CREATED_CLUSTER_NAME, CREATED_CLUSTER_SIZE_ONE);
+        final SolrCluster solrCluster = service.createSolrCluster(options);
+        final SolrCluster expectedSolrCluster = new SolrCluster(solrCluster.getId(), CREATED_CLUSTER_NAME,
+                CREATED_CLUSTER_SIZE_ONE, Status.NOT_AVAILABLE);
+        try {
+            assertTrue(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
+        } finally {
+            service.deleteSolrCluster(solrCluster.getId());
+            assertFalse(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
+        }
     }
 
     @Test
     public void testDeleteRanker() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testDeleteSolrCluster() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testDeleteSolrClusterConfiguration() {
         fail("Not yet implemented");
     }
 
