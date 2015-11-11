@@ -1,12 +1,10 @@
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.List;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,118 +17,140 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterList
 
 public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
 
-  private RetrieveAndRank service;
-  private String rankerId;
-  private String clusterId;
-  private String configName;
+    private RetrieveAndRank service;
+    private String rankerId;
+    private String clusterId;
+    private static final String CONFIG_NAME = "itest-config";
 
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
-    service = new RetrieveAndRank();
-    service.setUsernameAndPassword(prop.getProperty("retrieve_and_rank.username"),
-        prop.getProperty("retrieve_and_rank.password"));
-    service.setEndPoint(prop.getProperty("retrieve_and_rank.url"));
-    rankerId = prop.getProperty("retrieve_and_rank.ranker_id");
-    clusterId = prop.getProperty("retrieve_and_rank.cluster_id");
-    configName = prop.getProperty("retrieve_and_rank.config_name");
-  }
+    @Override
+    @Before
+    public void setUp() throws Exception {
+        super.setUp();
+        service = new RetrieveAndRank();
+        service.setUsernameAndPassword(prop.getProperty("retrieve_and_rank.username"),
+                prop.getProperty("retrieve_and_rank.password"));
+        service.setEndPoint(prop.getProperty("retrieve_and_rank.url"));
+        rankerId = prop.getProperty("retrieve_and_rank.ranker_id");
+        clusterId = prop.getProperty("retrieve_and_rank.cluster_id");
+    }
 
-  @Test
-  public void testCreateRanker() {
-    fail("Not yet implemented");
-  }
+    @Test
+    public void testCreateRanker() {
+        fail("Not yet implemented");
+    }
 
-  @Test
-  public void testCreateSolrCluster() {
-    fail("Not yet implemented");
-  }
+    @Test
+    public void testCreateSolrCluster() {
+        fail("Not yet implemented");
+    }
 
-  @Test
-  public void testCreateSolrClusterSolrClusterOptions() {
-    fail("Not yet implemented");
-  }
+    @Test
+    public void testCreateSolrClusterSolrClusterOptions() {
+        fail("Not yet implemented");
+    }
 
-  @Test
-  public void testDeleteRanker() {
-    fail("Not yet implemented");
-  }
+    @Test
+    public void testDeleteRanker() {
+        fail("Not yet implemented");
+    }
 
-  @Test
-  public void testDeleteSolrCluster() {
-    fail("Not yet implemented");
-  }
+    @Test
+    public void testDeleteSolrCluster() {
+        fail("Not yet implemented");
+    }
 
-  @Test
-  public void testDeleteSolrClusterConfiguration() {
-    fail("Not yet implemented");
-  }
+    @Test
+    public void testDeleteSolrClusterConfiguration() {
+        fail("Not yet implemented");
+    }
 
-  @Test
-  public void testGetRankers() {
-    Rankers rankers = service.getRankers();
-    assertNotNull(rankers);
-    assertNotNull(rankers.getRankers());
-    assertTrue(!rankers.getRankers().isEmpty());
-  }
+    @Test
+    public void testGetRankers() {
+        final Rankers rankers = service.getRankers();
+        assertNotNull(rankers);
+        assertNotNull(rankers.getRankers());
+        assertTrue(!rankers.getRankers().isEmpty());
+    }
 
-  @Test
-  public void testGetRankerStatus() {
-    Ranker ranker = service.getRankerStatus(rankerId);
-    assertNotNull(ranker);
-    assertNotNull(ranker.getCreated());
-    assertNotNull(ranker.getName());
-    assertNotNull(ranker.getStatus());
-    assertNotNull(ranker.getStatusDescription());
-    assertNotNull(ranker.getUrl());
-    assertEquals(rankerId, ranker.getId());
-  }
+    @Test
+    public void testGetRankerStatus() {
+        final Ranker ranker = service.getRankerStatus(rankerId);
+        assertNotNull(ranker);
+        assertNotNull(ranker.getCreated());
+        assertNotNull(ranker.getName());
+        assertNotNull(ranker.getStatus());
+        assertNotNull(ranker.getStatusDescription());
+        assertNotNull(ranker.getUrl());
+        assertEquals(rankerId, ranker.getId());
+    }
 
-  @Test
-  public void testGetSolrCluster() {
-    SolrCluster cluster = service.getSolrCluster(clusterId);
-    assertNotNull(cluster);
-    assertNotNull(cluster.getSize());
-    assertNotNull(cluster.getName());
-    assertNotNull(cluster.getStatus());
-    assertEquals(clusterId, cluster.getId());
-  }
+    @Test
+    public void testGetSolrCluster() {
+        final SolrCluster cluster = service.getSolrCluster(clusterId);
+        assertNotNull(cluster);
+        assertNotNull(cluster.getSize());
+        assertNotNull(cluster.getName());
+        assertNotNull(cluster.getStatus());
+        assertEquals(clusterId, cluster.getId());
+    }
 
-  @Test
-  public void testGetSolrClusterConfiguration() {
-    File config = service.getSolrClusterConfiguration(clusterId, configName);
-    assertNotNull(config);
-    assertTrue(config.exists());
-  }
+    @Test
+    public void testGetSolrClusterConfiguration() throws IOException {
+        try {
+            final File configDir = new File("src/test/resources/retrieve_and_rank/config_dir");
+            service.uploadSolrClusterConfigurationDirectory(clusterId, CONFIG_NAME, configDir);
 
-  @Test
-  public void testGetSolrClusterConfigurations() {
-    List<String> configs = service.getSolrClusterConfigurations(clusterId);
-    assertNotNull(configs);
-    assertTrue(!configs.isEmpty());
-  }
+            InputStream configStream = null;
+            try {
+                configStream = service.getSolrClusterConfiguration(clusterId, CONFIG_NAME);
+                assertNotNull(configStream);
+            } finally {
+                if (configStream != null) {
+                    configStream.close();
+                }
+            }
+        } finally {
+            service.deleteSolrClusterConfiguration(clusterId, CONFIG_NAME);
+        }
+    }
 
-  @Test
-  public void testGetSolrClusters() {
-    SolrClusterList clusters = service.getSolrClusters();
-    assertNotNull(clusters);
-    assertNotNull(clusters.getSolrClusters());
-    assertTrue(!clusters.getSolrClusters().isEmpty());
-  }
+    @Test
+    public void testGetSolrClusters() {
+        final SolrClusterList clusters = service.getSolrClusters();
+        assertNotNull(clusters);
+        assertNotNull(clusters.getSolrClusters());
+        assertTrue(!clusters.getSolrClusters().isEmpty());
+    }
 
-  @Test
-  public void testRank() {
-    fail("Not yet implemented");
-  }
+    @Test
+    public void testRank() {
+        fail("Not yet implemented");
+    }
 
-  @Test
-  public void testUploadSolrClusterConfigurationDirectory() {
-    fail("Not yet implemented");
-  }
+    @Test
+    public void testUploadAndDeleteSolrClusterConfigurationDirectory() {
+        try {
+            final File configDir = new File("src/test/resources/retrieve_and_rank/config_dir");
+            service.uploadSolrClusterConfigurationDirectory(clusterId, CONFIG_NAME, configDir);
 
-  @Test
-  public void testUploadSolrClusterConfigurationZip() {
-    fail("Not yet implemented");
-  }
+            assertTrue(service.getSolrClusterConfigurations(clusterId).contains(CONFIG_NAME));
+        } finally {
+            service.deleteSolrClusterConfiguration(clusterId, CONFIG_NAME);
+            assertFalse(service.getSolrClusterConfigurations(clusterId).contains(CONFIG_NAME));
+        }
+    }
+
+    @Test
+    public void testUploadAndDeleteSolrClusterConfigurationZip() {
+        try {
+            final File configZip = new File("src/test/resources/retrieve_and_rank/config.zip");
+            service.uploadSolrClusterConfigurationZip(clusterId, CONFIG_NAME, configZip);
+
+            assertTrue(service.getSolrClusterConfigurations(clusterId).contains(CONFIG_NAME));
+        } finally {
+            service.deleteSolrClusterConfiguration(clusterId, CONFIG_NAME);
+            assertFalse(service.getSolrClusterConfigurations(clusterId).contains(CONFIG_NAME));
+        }
+    }
 
 }

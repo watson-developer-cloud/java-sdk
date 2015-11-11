@@ -14,6 +14,7 @@
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.Collection;
 
 /**
@@ -21,62 +22,72 @@ import java.util.Collection;
  */
 public interface SolrConfigManager {
 
-  /**
-   * Uploads a configuration ZIP {@link File} to ZooKeeper's namespace, including schema.xml,
-   * solrconfig.xml, and all other necessary config files to configure a SolrCloud collection.
-   * <p>
-   * For uploading a directory, use
-   * {@link #uploadSolrClusterConfigurationDirectory(String , String, File)} instead. Config files
-   * on the XSLT path will not be uploaded.
-   * 
-   * @param solrClusterId the solr cluster id
-   * @param configName the name of the config in ZooKeeper. This name is used when referencing the
-   *        config when creating a collection.
-   * @param zippedConfig the ZIP file to upload.
-   */
-  void uploadSolrClusterConfigurationZip(final String solrClusterId, final String configName,
-      final File zippedConfig);
+    /**
+     * Uploads a configuration ZIP {@link File} to ZooKeeper's namespace, including schema.xml, solrconfig.xml, and all
+     * other necessary config files to configure a SolrCloud collection.
+     * <p>
+     * For uploading a directory, use {@link #uploadSolrClusterConfigurationDirectory(String , String, File)} instead.
+     * Config files on the XSLT path will not be uploaded.
+     *
+     * @param solrClusterId
+     *            the solr cluster id
+     * @param configName
+     *            the name of the config in ZooKeeper. This name is used when referencing the config when creating a
+     *            collection.
+     * @param zippedConfig
+     *            the ZIP file to upload.
+     */
+    void uploadSolrClusterConfigurationZip(final String solrClusterId, final String configName,
+            final File zippedConfig);
 
-  /**
-   * Deletes a configuration namespace in ZooKeeper.
-   * 
-   * @param solrClusterId the solr cluster id
-   * @param configurationName the name of the configuration in ZooKeeper.
-   */
-  void deleteSolrClusterConfiguration(final String solrClusterId, final String configurationName);
+    /**
+     * Deletes a configuration namespace in ZooKeeper.
+     *
+     * @param solrClusterId
+     *            the solr cluster id
+     * @param configurationName
+     *            the name of the configuration in ZooKeeper.
+     */
+    void deleteSolrClusterConfiguration(final String solrClusterId, final String configurationName);
 
-  /**
-   * Gets the configuration from ZooKeeper.
-   * 
-   * @param solrClusterId the solr cluster id
-   * @param configurationName the name of the configuration in ZooKeeper
-   * @return a ZIP file containing the configuration if it exists in ZooKeeper or null if it is not
-   *         found
-   */
-  File getSolrClusterConfiguration(final String solrClusterId, final String configurationName);
+    /**
+     * Gets the configuration from ZooKeeper.
+     *
+     * @param solrClusterId
+     *            the solr cluster id
+     * @param configurationName
+     *            the name of the configuration in ZooKeeper
+     * @return an InputStream containing the zipped configuration if it exists in ZooKeeper or null if it is not found
+     */
+    InputStream getSolrClusterConfiguration(final String solrClusterId, final String configurationName);
 
-  /**
-   * Uploads a configuration {@link File} to ZooKeeper's namespace, including schema.xml,
-   * solrconfig.xml, and all other necessary config files to configure a SolrCloud collection.
-   * <p>
-   * The configuration directory is sent to Solr as a ZIP file. For uploading a ZIP file directly,
-   * use {@link #uploadSolrClusterConfigurationZip(String, String, File)} instead. Config files on
-   * the XSLT path will not be uploaded.
-   * 
-   * @param solrClusterId the solr cluster id
-   * @param configName the name of the config in ZooKeeper. This name is used when referencing the
-   *        config when creating a collection.
-   * @param configDirectory the directory to upload.
-   * @throws IllegalArgumentException if configDirectory is not a directory
-   */
-  void uploadSolrClusterConfigurationDirectory(final String solrClusterId, final String configName,
-      final File configDirectory);
+    /**
+     * Uploads a configuration {@link File} to ZooKeeper's namespace, including schema.xml, solrconfig.xml, and all
+     * other necessary config files to configure a SolrCloud collection.
+     * <p>
+     * The configuration directory is sent to Solr as a ZIP file. For uploading a ZIP file directly, use
+     * {@link #uploadSolrClusterConfigurationZip(String, String, File)} instead. Config files on the XSLT path will not
+     * be uploaded.
+     *
+     * @param solrClusterId
+     *            the solr cluster id
+     * @param configName
+     *            the name of the config in ZooKeeper. This name is used when referencing the config when creating a
+     *            collection.
+     * @param configDirectory
+     *            the directory to upload.
+     * @throws IllegalArgumentException
+     *             if configDirectory is not a directory
+     */
+    void uploadSolrClusterConfigurationDirectory(final String solrClusterId, final String configName,
+            final File configDirectory);
 
-  /**
-   * Lists the configuration sets in ZooKeeper.
-   * 
-   * @param solrClusterId the solr cluster id
-   * @return a list of the names of the configuration sets
-   */
-  Collection<String> getSolrClusterConfigurations(final String solrClusterId);
+    /**
+     * Lists the configuration sets in ZooKeeper.
+     *
+     * @param solrClusterId
+     *            the solr cluster id
+     * @return a list of the names of the configuration sets
+     */
+    Collection<String> getSolrClusterConfigurations(final String solrClusterId);
 }
