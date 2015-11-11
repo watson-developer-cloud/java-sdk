@@ -33,7 +33,6 @@ import com.squareup.okhttp.Response;
  * The Text to Speech service uses IBM's speech synthesis capabilities to convert English or Spanish
  * text to an audio signal. The audio is streamed back to the client with minimal delay.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html">

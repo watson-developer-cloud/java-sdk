@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Name value class used by the {@link DialogService}.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class NameValue extends GenericModel {
 

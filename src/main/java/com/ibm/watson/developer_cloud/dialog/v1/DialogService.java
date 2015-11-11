@@ -45,7 +45,6 @@ import com.squareup.okhttp.Response;
  * agent (VA) applications. Users can have natural, free-flowing, and human-like conversations with
  * VAs that answer questions, show personality, decide, provide guidance, and even perform tasks.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
  * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/dialog.html">
  *      Dialog</a>

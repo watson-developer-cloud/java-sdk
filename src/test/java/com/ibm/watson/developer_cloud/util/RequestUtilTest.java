@@ -24,7 +24,6 @@ import com.google.common.collect.Lists;
 /**
  * The Class RequestUtilTest.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class RequestUtilTest {
 

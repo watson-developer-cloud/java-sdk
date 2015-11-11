@@ -27,7 +27,6 @@ import com.ibm.watson.developer_cloud.util.Validate;
  * Helper to validate and format resource ids such as corpus_id, graph_id, concept_id, and
  * document_id for {@link ConceptInsights},.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class IDHelper {
 

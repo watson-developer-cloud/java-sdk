@@ -22,7 +22,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * Translation results from calling the translate method. Contains the word count, character count
  * and the {@link Translation} list
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class TranslationResult extends GenericModel {
 

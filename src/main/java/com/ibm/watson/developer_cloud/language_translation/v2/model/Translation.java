@@ -20,7 +20,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * The Translation result used as POJO by the {@link LanguageTranslation}.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Translation extends GenericModel {
 

@@ -29,7 +29,6 @@ import com.squareup.okhttp.RequestBody;
 /**
  * Convenience class for constructing HTTP/HTTPS requests.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class RequestBuilder {
 

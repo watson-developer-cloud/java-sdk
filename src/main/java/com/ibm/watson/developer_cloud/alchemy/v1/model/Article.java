@@ -22,14 +22,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Url by the {@link AlchemyDataNews} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class Article extends GenericModel {
 
   /**
    * EnrichedTitle returned by the {@link AlchemyDataNews} service.
    * 
-   * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
    */
   public static class EnrichedTitle extends GenericModel {
 

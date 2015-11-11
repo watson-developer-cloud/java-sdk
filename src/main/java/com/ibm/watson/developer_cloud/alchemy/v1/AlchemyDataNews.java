@@ -25,7 +25,6 @@ import com.ibm.watson.developer_cloud.util.Validate;
  * AlchemyData News indexes 250k to 300k English language news and blog articles every day with
  * historical search available for the past 60 days.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  * @version v1
  * @see <a href="https://alchemyapi.readme.io/v1.0/docs/rest-api-documentation"> Alchemy Data
  *      News</a>

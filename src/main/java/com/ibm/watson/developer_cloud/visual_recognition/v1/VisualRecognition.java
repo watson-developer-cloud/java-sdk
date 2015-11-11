@@ -28,7 +28,6 @@ import com.squareup.okhttp.RequestBody;
  * The Visual Recognition service analyzes images, enabling you to understand their content without
  * any accompanying descriptive text.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">

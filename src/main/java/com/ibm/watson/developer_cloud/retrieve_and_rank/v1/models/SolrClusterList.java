@@ -15,7 +15,7 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models;
 
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.ApiConstants.*;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.ApiConstants.SOLR_CLUSTER_RESPONSES;
 
 import java.util.List;
 

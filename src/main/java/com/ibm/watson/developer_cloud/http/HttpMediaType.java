@@ -18,7 +18,6 @@ import com.squareup.okhttp.MediaType;
 /**
  * An abstraction for a media type. Instances are immutable.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.7">HTTP/1.1 section
  *      3.7</a>
  */

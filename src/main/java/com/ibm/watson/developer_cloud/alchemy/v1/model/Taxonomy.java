@@ -20,10 +20,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Taxonomy returned by the {@link AlchemyLanguage} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 /**
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * 
  */
 @JsonAdapter(TaxonomyTypeAdapter.class)

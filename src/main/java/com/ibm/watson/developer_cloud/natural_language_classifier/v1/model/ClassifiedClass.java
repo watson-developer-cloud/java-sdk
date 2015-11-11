@@ -20,7 +20,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Classified class used by the {@link NaturalLanguageClassifier} service.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class ClassifiedClass extends GenericModel {
 

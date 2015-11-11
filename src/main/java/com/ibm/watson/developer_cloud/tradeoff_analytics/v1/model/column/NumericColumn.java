@@ -17,7 +17,6 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 /**
  * Numeric column.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class NumericColumn extends Column {
 

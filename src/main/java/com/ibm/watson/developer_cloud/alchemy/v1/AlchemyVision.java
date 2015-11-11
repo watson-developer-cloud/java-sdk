@@ -32,7 +32,6 @@ import com.squareup.okhttp.RequestBody;
  * context. It sees complex visual scenes in their entirety —without needing any textual clues—
  * leveraging a holistic approach to understanding the multiple objects and surroundings.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  * @version v1
  * @see <a href="http://www.alchemyapi.com/products/alchemyvision"> Alchemy Vision</a>
  */

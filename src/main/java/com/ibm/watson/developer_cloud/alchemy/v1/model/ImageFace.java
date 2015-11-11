@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * ImageFace returned by {@link AlchemyVision#recognizeFaces(java.util.Map)}.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class ImageFace extends GenericModel {
 

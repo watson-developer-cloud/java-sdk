@@ -22,7 +22,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Subject-Action-Object(SAO) relation returned by the {@link AlchemyLanguage} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class SAORelation extends GenericModel {
 

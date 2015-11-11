@@ -35,7 +35,6 @@ import com.squareup.okhttp.Response;
  * Watson service abstract common functionality of various Watson Services. It handle authentication
  * and default url
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/"> IBM Watson
  *      Developer Cloud</a>
  */

@@ -29,7 +29,6 @@ import com.squareup.okhttp.Response;
  * cognitive and social characteristics from the text data that a person generates through blogs,
  * tweets, forum posts, and more.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v2
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/personality-insights.html">

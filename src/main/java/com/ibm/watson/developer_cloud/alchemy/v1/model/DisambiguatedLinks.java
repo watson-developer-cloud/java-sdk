@@ -21,10 +21,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Disambiguated returned by the {@link AlchemyLanguage} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 /**
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * 
  */
 public class DisambiguatedLinks extends GenericModel {

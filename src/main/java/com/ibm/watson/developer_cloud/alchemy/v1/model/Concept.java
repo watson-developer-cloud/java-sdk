@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 /**
  * Concept returned by the {@link AlchemyLanguage} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class Concept {
 

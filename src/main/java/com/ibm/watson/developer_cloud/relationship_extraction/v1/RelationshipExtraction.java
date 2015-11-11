@@ -24,7 +24,6 @@ import com.squareup.okhttp.Response;
  * Relationship Extraction intelligently finds relationships between sentence components (nouns,
  * verbs, subjects, objects, etc.)
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/relationship-extraction.html">

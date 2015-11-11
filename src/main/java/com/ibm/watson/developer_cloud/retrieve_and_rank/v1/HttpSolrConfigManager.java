@@ -15,8 +15,16 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.Preconditions.*;
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.*;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.Preconditions.checkArgumentNotBlank;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.Preconditions.checkArgumentNotNull;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.CONFIG_NOT_DIR_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.FAILED_GETTING_CONFIG_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.FAILED_GETTING_CONFIG_WITH_CODE_2;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.FAILED_LISTING_CONFIGS;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.FAILED_LISTING_CONFIGS_WITH_CODE_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.FAILED_TO_DELETE_TEMP_2;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.FAILURE_RESPONSE_3;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.bundleName;
 
 import java.io.File;
 import java.io.FileOutputStream;

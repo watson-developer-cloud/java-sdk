@@ -30,7 +30,6 @@ import com.google.gson.JsonParser;
 /**
  * The Class AlchemyEndPoints.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class AlchemyEndPoints {
 

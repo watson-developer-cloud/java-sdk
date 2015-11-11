@@ -23,14 +23,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Author returned by the {@link AlchemyLanguage} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class DocumentAuthors extends AlchemyLanguageGenericModel {
 
   /**
    * Authors returned by the {@link AlchemyLanguage} service.
    * 
-   * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
    */
   public static class Authors extends GenericModel {
 

@@ -22,7 +22,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * VolumeResult by the {@link AlchemyDataNews#getVolume(String, String, String)} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class VolumeResult extends AlchemyGenericModel {
 
