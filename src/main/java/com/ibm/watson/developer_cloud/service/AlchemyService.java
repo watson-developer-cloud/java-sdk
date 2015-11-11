@@ -31,7 +31,6 @@ import com.squareup.okhttp.Response;
 /**
  * Abstract class which has functionality for the different Alchemy services.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public abstract class AlchemyService extends WatsonService {
   /**

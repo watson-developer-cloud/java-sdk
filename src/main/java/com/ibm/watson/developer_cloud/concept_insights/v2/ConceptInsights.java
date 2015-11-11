@@ -58,7 +58,6 @@ import com.squareup.okhttp.Response;
  * relationship(s) between concepts. The concept graph used by the Concept Insights service is based
  * on content that has been ingested from the English language Wikipedia.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  * @version v2
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html">

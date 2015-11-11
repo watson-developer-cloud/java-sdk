@@ -44,7 +44,6 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 /**
  * The Class PersonalityInsightsTest.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class PersonalityInsightsTest extends WatsonServiceTest {
 

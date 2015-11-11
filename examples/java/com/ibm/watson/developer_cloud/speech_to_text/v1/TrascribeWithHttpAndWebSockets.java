@@ -40,7 +40,6 @@ import com.squareup.okhttp.Response;
 /**
  * Example of how to trascribe a wav file using the REST API or WebSockets
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class TrascribeWithHttpAndWebSockets {
 

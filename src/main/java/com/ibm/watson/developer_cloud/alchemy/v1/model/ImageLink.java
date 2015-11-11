@@ -18,7 +18,6 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
 /**
  * ImageLink by the {@link AlchemyVision} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class ImageLink extends AlchemyGenericModel {
 

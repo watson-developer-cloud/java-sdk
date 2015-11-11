@@ -22,7 +22,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Conversation used by the {@link DialogService}.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * 
  */
 public class Conversation extends GenericModel {

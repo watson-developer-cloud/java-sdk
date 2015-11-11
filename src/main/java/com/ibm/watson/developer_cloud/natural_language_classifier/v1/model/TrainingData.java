@@ -23,7 +23,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * The set of questions and their "keys" used to adapt a system to a domain (the ground truth).
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see NaturalLanguageClassifier
  */
 public class TrainingData extends GenericModel {

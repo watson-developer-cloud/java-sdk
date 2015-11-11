@@ -23,7 +23,6 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v1.ToneAnalyzer;
 /**
  * Synonym Options when using the {@link ToneAnalyzer#getSynonyms(SynonymOptions)} method
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class SynonymOptions extends GenericModel {
 

@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Language Model used by the {@link TranslationModel}.
  * 
- * @author German Attanasio Ruiz germanatt@us.ibm.com
  */
 public class TranslationModel extends GenericModel {
 

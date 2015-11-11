@@ -39,7 +39,6 @@ import com.ibm.watson.developer_cloud.service.AlchemyService;
  * sophisticated natural language processing techniques to analyze your content and add high-level
  * semantic information.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  * @version v1
  * @see <a href="http://www.alchemyapi.com/products/alchemylanguage"> Alchemy Language</a>
  */

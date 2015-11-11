@@ -20,7 +20,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Enriched returned by the {@link AlchemyDataNews} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class Url extends GenericModel {
 

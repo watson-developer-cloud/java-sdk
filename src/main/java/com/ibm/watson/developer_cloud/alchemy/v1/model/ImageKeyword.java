@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * ImageKeyword by the {@link AlchemyVision} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class ImageKeyword extends GenericModel {
 

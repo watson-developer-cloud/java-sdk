@@ -28,7 +28,6 @@ import ch.qos.logback.classic.Logger;
 /**
  * Utility class to test the Watson Services.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public abstract class WatsonServiceTest {
 

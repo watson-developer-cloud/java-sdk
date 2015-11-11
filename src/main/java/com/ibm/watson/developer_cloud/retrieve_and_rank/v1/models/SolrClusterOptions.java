@@ -15,7 +15,8 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models;
 
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.ApiConstants.*;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.ApiConstants.CLUSTER_NAME;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.ApiConstants.CLUSTER_SIZE;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

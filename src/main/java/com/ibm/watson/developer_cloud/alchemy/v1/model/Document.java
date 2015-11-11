@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Doc returned by the {@link AlchemyDataNews} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class Document extends GenericModel {
 

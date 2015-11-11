@@ -22,7 +22,6 @@ package com.ibm.watson.developer_cloud.http;
  * value     = token | quoted-string
  * </pre>
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class NameValue {
 

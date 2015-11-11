@@ -30,7 +30,6 @@ import com.ibm.watson.developer_cloud.visual_insights.v1.model.Summary;
 /**
  * The Class VisualInsightsTest.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 @FixMethodOrder(MethodSorters.JVM)
 public class VisualInsightsIntegrationTest extends WatsonServiceTest {

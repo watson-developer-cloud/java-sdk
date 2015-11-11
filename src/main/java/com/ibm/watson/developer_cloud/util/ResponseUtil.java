@@ -27,7 +27,6 @@ import com.squareup.okhttp.Response;
 /**
  * Utility class to manage service responses.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @see Response
  */
 public class ResponseUtil {

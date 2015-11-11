@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Identifiable language used by the {@link LanguageTranslation} service.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class IdentifiableLanguage extends GenericModel {
 

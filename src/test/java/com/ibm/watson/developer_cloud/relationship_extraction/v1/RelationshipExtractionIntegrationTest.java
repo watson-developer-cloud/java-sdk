@@ -24,7 +24,6 @@ import com.ibm.watson.developer_cloud.relationship_extraction.v1.model.Dataset;
 /**
  * The Class RelationshipExtractionTest.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class RelationshipExtractionIntegrationTest extends WatsonServiceTest {
 

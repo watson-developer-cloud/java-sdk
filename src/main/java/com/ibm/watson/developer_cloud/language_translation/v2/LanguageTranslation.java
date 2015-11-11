@@ -39,7 +39,6 @@ import com.squareup.okhttp.Response;
  * The IBM Watson Language Translation service translate text from one language to another and
  * identifies the language in which text is written.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v2
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-translation.html">

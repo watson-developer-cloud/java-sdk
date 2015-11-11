@@ -19,7 +19,6 @@ import java.util.Date;
 /**
  * Date column.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class DateColumn extends Column {
 

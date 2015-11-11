@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Microformat returned by the {@link AlchemyLanguage} service.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  */
 public class Microformat extends GenericModel {
 

@@ -27,7 +27,6 @@ import com.squareup.okhttp.Request;
  * Utility functions to use when creating a
  * {@link com.ibm.watson.developer_cloud.http.RequestBuilder }
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class RequestUtil {
 

@@ -1,17 +1,15 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models;
 
@@ -23,169 +21,162 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * {@link Ranker} class used by {@link RetrieveAndRank}
- *
- * @author Kazi S. Hasan (kshasan@us.ibm.com)
+ * 
  * @version v1
  */
 
 public class Ranker extends GenericModel {
-	/**
-	 * The Enum Status.
-	 */
-	public enum Status {
-		
-		/** The available. */
-		@SerializedName("Available")
-		AVAILABLE,
-		
-		/** The failed. */
-		@SerializedName("Failed")
-		FAILED,
-		
-		/** The non existent. */
-		@SerializedName("Non Existent")
-		NON_EXISTENT,
-		
-		/** The training. */
-		@SerializedName("Training")
-		TRAINING,
-		
-		/** The unavailable. */
-		@SerializedName("Unavailable")
-		UNAVAILABLE
-	}
-	
-	/** The created. */
-	private Date created;
+  /**
+   * The Enum Status.
+   */
+  public enum Status {
 
-	/** The id. */
-	@SerializedName("ranker_id")
-	private String id;
+    /** The available. */
+    @SerializedName("Available")
+    AVAILABLE,
 
-	/** The name. */
-	private String name;
+    /** The failed. */
+    @SerializedName("Failed")
+    FAILED,
 
-	/** The status. */
-	private Status status;
+    /** The non existent. */
+    @SerializedName("Non Existent")
+    NON_EXISTENT,
 
-	/** The status description. */
-	@SerializedName("status_description")
-	private String statusDescription;
+    /** The training. */
+    @SerializedName("Training")
+    TRAINING,
 
-	/** The url. */
-	private String url;
+    /** The unavailable. */
+    @SerializedName("Unavailable")
+    UNAVAILABLE
+  }
 
-	/**
-	 * Gets the created.
-	 *
-	 * @return the created
-	 */
-	public Date getCreated() {
-		return created;
-	}
-	
-	/**
-	 * Gets the ranker id.
-	 * 
-	 * @return the ranker id
-	 */
-	public String getId() {
-		return id;
-	}
-	
-	/**
-	 * Gets the name.
-	 *
-	 * @return the name
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Gets the status.
-	 * 
-	 * @return the status
-	 */
-	public Status getStatus() {
-		return status;
-	}
+  /** The created. */
+  private Date created;
 
-	/**
-	 * Gets the status description.
-	 * 
-	 * @return the status description
-	 */
-	public String getStatusDescription() {
-		return statusDescription;
-	}
+  /** The id. */
+  @SerializedName("ranker_id")
+  private String id;
 
-	/**
-	 * Gets the url.
-	 * 
-	 * @return the url
-	 */
-	public String getUrl() {
-		return url;
-	}
+  /** The name. */
+  private String name;
 
-	/**
-	 * Sets the date when the ranker was created
-	 *
-	 * @param created 
-	 * 				the date to set
-	 */
-	public void setCreated(Date created) {
-		this.created = created;
-	}
+  /** The status. */
+  private Status status;
 
-	/**
-	 * Sets the ranker id.
-	 * 
-	 * @param id
-	 *            the new ranker id
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+  /** The status description. */
+  @SerializedName("status_description")
+  private String statusDescription;
 
-	/**
-	 * Sets the name.
-	 *
-	 * @param name 
-	 * 			  the name to set
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
+  /** The url. */
+  private String url;
 
-	/**
-	 * Sets the status.
-	 * 
-	 * @param status
-	 *            the new status
-	 */
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+  /**
+   * Gets the created.
+   * 
+   * @return the created
+   */
+  public Date getCreated() {
+    return created;
+  }
 
-	/**
-	 * Sets the status description.
-	 * 
-	 * @param statusDescription
-	 *            the new status description
-	 */
-	public void setStatusDescription(String statusDescription) {
-		this.statusDescription = statusDescription;
-	}
+  /**
+   * Gets the ranker id.
+   * 
+   * @return the ranker id
+   */
+  public String getId() {
+    return id;
+  }
 
-	/**
-	 * Sets the url.
-	 * 
-	 * @param url
-	 *            the new url
-	 */
-	public void setUrl(String url) {
-		this.url = url;
-	}
+  /**
+   * Gets the name.
+   * 
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Gets the status.
+   * 
+   * @return the status
+   */
+  public Status getStatus() {
+    return status;
+  }
+
+  /**
+   * Gets the status description.
+   * 
+   * @return the status description
+   */
+  public String getStatusDescription() {
+    return statusDescription;
+  }
+
+  /**
+   * Gets the url.
+   * 
+   * @return the url
+   */
+  public String getUrl() {
+    return url;
+  }
+
+  /**
+   * Sets the date when the ranker was created
+   * 
+   * @param created the date to set
+   */
+  public void setCreated(Date created) {
+    this.created = created;
+  }
+
+  /**
+   * Sets the ranker id.
+   * 
+   * @param id the new ranker id
+   */
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  /**
+   * Sets the name.
+   * 
+   * @param name the name to set
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * Sets the status.
+   * 
+   * @param status the new status
+   */
+  public void setStatus(Status status) {
+    this.status = status;
+  }
+
+  /**
+   * Sets the status description.
+   * 
+   * @param statusDescription the new status description
+   */
+  public void setStatusDescription(String statusDescription) {
+    this.statusDescription = statusDescription;
+  }
+
+  /**
+   * Sets the url.
+   * 
+   * @param url the new url
+   */
+  public void setUrl(String url) {
+    this.url = url;
+  }
 }

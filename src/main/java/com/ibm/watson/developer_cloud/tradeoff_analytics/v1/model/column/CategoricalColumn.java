@@ -19,7 +19,6 @@ import java.util.List;
 /**
  * The Class Column.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class CategoricalColumn extends Column {
 

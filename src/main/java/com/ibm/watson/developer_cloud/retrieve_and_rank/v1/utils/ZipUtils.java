@@ -15,7 +15,10 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils;
 
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.*;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.ERROR_CREATING_ZIP_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.ERROR_ZIPPING_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.FAILED_TO_VISIT_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.bundleName;
 
 import java.io.File;
 import java.io.FileNotFoundException;

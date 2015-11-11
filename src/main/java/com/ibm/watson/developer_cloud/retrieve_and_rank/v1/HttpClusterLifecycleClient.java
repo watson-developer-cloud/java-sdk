@@ -15,16 +15,21 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.ApiConstants.*;
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.Preconditions.*;
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.*;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.ApiConstants.SOLR_CLUSTERS_PATH_SEGMENT;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.Preconditions.checkArgumentNotNull;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.ERROR_CAUSE_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.ERROR_CREATING_CLUSTER_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.ERROR_DELETING_CLUSTER_2;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.ERROR_LISTING_CLUSTERS_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.ERROR_POLLING_CLUSTER_2;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages.bundleName;
 
 import java.io.IOException;
 
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterList;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterOptions;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.JsonSerializationUtils;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.MessageFormatter;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.utils.RetrieveAndRankMessages;

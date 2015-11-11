@@ -18,7 +18,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * The Class Voice.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  */
 public class Voice extends GenericModel {
 

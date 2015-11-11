@@ -35,7 +35,6 @@ import com.squareup.okhttp.Response;
  * social propensities, and writing styles in written communication. Then it offers suggestions to
  * help the writer improve their intended language tones.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html">

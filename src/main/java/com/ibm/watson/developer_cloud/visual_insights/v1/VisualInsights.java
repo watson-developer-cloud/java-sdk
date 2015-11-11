@@ -28,7 +28,6 @@ import com.squareup.okhttp.RequestBody;
  * The IBM Watson Visual Insights gives insight into the themes present in a collection of images
  * based on their visual appearance / content.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-insights.html">

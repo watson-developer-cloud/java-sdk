@@ -39,7 +39,6 @@ import com.squareup.okhttp.Response;
  * into text. The transcription of incoming audio is continuously sent back to the client with
  * minimal delay, and it is corrected as more speech is heard.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/speech-to-text.html">

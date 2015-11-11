@@ -15,9 +15,9 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterList;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterOptions;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrCluster;
 
 /**
  * A client for communicating with Watson Search lifecycle APIs.

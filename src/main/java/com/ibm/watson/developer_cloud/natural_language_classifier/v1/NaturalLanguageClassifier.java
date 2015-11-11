@@ -40,7 +40,6 @@ import com.squareup.okhttp.Response;
  * person, or answering a question. After training, the service returns information for texts that
  * it hasn't seen before. The response includes the name of the top classes and confidence values.
  * 
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
  * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html">
