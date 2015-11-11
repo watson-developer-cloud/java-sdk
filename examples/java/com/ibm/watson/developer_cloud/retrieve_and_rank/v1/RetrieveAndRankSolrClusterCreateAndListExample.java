@@ -15,9 +15,9 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterList;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterOptions;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrCluster;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterList;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
 
 public class RetrieveAndRankSolrClusterCreateAndListExample {
     /**
@@ -86,7 +86,7 @@ public class RetrieveAndRankSolrClusterCreateAndListExample {
 
         while (!isReady) {
             final SolrCluster solrClusterResponse =
-                    clusterLifecycleClient.pollSolrCluster(solrClusterId);
+                    clusterLifecycleClient.getSolrCluster(solrClusterId);
             if (solrClusterResponse.getStatus().equals(SolrCluster.Status.READY)) {
                 System.out.println("Solr cluster is ready.");
                 isReady = true;

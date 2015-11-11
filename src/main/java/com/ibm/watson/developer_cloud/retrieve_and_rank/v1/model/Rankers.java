@@ -11,14 +11,14 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models;
+package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model;
 
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Contains a list of {@link Ranker} objects
+ * Contains a list of {@link Ranker} objects.
  * 
  * @version v1
  */

@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models;
+package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model;
 
 import java.util.Date;
 
@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * {@link Ranker} class used by {@link RetrieveAndRank}
+ * {@link Ranker} class used by {@link RetrieveAndRank}.
  * 
  * @version v1
  */
@@ -127,7 +127,7 @@ public class Ranker extends GenericModel {
   }
 
   /**
-   * Sets the date when the ranker was created
+   * Sets the date when the ranker was created.
    * 
    * @param created the date to set
    */

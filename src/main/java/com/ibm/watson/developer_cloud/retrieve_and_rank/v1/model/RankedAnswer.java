@@ -12,13 +12,13 @@
  * the License.
  */
 
-package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models;
+package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * {@link RankedAnswer} class used by {@link Ranking}
+ * {@link RankedAnswer} class used by {@link Ranking}.
  * 
  * @version v1
  */
@@ -37,7 +37,7 @@ public class RankedAnswer extends GenericModel {
   private double confidence;
 
   /**
-   * Returns the answer ID
+   * Returns the answer ID.
    * 
    * @return answerID
    */
@@ -46,7 +46,7 @@ public class RankedAnswer extends GenericModel {
   }
 
   /**
-   * Sets the answer ID
+   * Sets the answer ID.
    * 
    * @param answerID the new answerID
    */

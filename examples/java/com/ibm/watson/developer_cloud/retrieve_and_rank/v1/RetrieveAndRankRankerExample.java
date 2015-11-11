@@ -15,9 +15,9 @@ package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
 import java.io.File;
 
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.Ranker;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.Rankers;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.Ranking;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranker;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Rankers;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
 
 /**
  * This class shows how to invoke the wrapper methods in {@link RetrieveAndRank} class.
