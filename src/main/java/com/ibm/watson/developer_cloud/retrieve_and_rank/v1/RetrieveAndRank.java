@@ -166,7 +166,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   public void deleteRanker(final String rankerID) {
     Validate.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerId cannot be null or empty");
 
-    final Request request = RequestBuilder.get(String.format(PATH_RANKER, rankerID)).build();
+    final Request request = RequestBuilder.delete(String.format(PATH_RANKER, rankerID)).build();
     executeWithoutResponse(request);
   }
 
