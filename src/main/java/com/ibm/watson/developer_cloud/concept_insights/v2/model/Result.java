@@ -16,11 +16,12 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class Result.
  */
-public class Result {
+public class Result extends GenericModel {
 
   /** The explanation tags. */
   @SerializedName("explanation_tags")

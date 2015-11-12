@@ -28,7 +28,7 @@ public class NotFoundException extends ServiceResponseException {
 
   /**
    * Instantiates a new not found exception.
-   *
+   * 
    * @param message the message
    * @param response the HTTP response
    */

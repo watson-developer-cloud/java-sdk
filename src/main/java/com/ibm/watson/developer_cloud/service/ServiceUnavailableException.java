@@ -28,7 +28,7 @@ public class ServiceUnavailableException extends ServiceResponseException {
 
   /**
    * Instantiates a new Service Unavailable Exception.
-   *
+   * 
    * @param message the error message
    * @param response the HTTP response
    */

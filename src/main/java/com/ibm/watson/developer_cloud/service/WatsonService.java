@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -70,7 +70,7 @@ public abstract class WatsonService {
    */
   private OkHttpClient configureHttpClient() {
     final OkHttpClient client = new OkHttpClient();
-    CookieManager cookieManager = new CookieManager();
+    final CookieManager cookieManager = new CookieManager();
     cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
     client.setCookieHandler(cookieManager);
 
@@ -127,7 +127,8 @@ public abstract class WatsonService {
       case HttpStatus.BAD_REQUEST: // HTTP 400
         throw new BadRequestException(error != null ? error : "Bad Request", response);
       case HttpStatus.UNAUTHORIZED: // HTTP 401
-        throw new UnauthorizedException("Unauthorized: Access is denied due to invalid credentials", response);
+        throw new UnauthorizedException(
+            "Unauthorized: Access is denied due to invalid credentials", response);
       case HttpStatus.FORBIDDEN: // HTTP 403
         throw new ForbiddenException(error != null ? error
             : "Forbidden: Service refuse the request", response);
@@ -138,15 +139,18 @@ public abstract class WatsonService {
             : "Forbidden: Service refuse the request", response);
       case HttpStatus.REQUEST_TOO_LONG: // HTTP 413
         throw new RequestTooLargeException(error != null ? error
-            : "Request too large: The request entity is larger than the server is able to process", response);
+            : "Request too large: The request entity is larger than the server is able to process",
+            response);
       case HttpStatus.UNSUPPORTED_MEDIA_TYPE: // HTTP 415
         throw new UnsupportedException(error != null ? error : "Unsupported Media Type", response);
       case HttpStatus.TOO_MANY_REQUESTS: // HTTP 429
         throw new TooManyRequestsException(error != null ? error : "Too many requests", response);
       case HttpStatus.INTERNAL_SERVER_ERROR: // HTTP 500
-        throw new InternalServerErrorException(error != null ? error : "Internal Server Error", response);
+        throw new InternalServerErrorException(error != null ? error : "Internal Server Error",
+            response);
       case HttpStatus.SERVICE_UNAVAILABLE: // HTTP 503
-        throw new ServiceUnavailableException(error != null ? error : "Service Unavailable", response);
+        throw new ServiceUnavailableException(error != null ? error : "Service Unavailable",
+            response);
       default: // other errors
         throw new ServiceResponseException(status, error, response);
     }
@@ -154,7 +158,7 @@ public abstract class WatsonService {
 
   /**
    * Executes the HTTP Request, reads and parses the HTTP Response.
-   *
+   * 
    * @param <T> the POJO class that represents the response
    * @param request the request
    * @param returnType the return type
@@ -166,9 +170,9 @@ public abstract class WatsonService {
   }
 
   /**
-   * Execute the HTTP request and discard the response. Use this when you don't want to get the response but you want to
-   * make sure we read it so that the underline connection is released
-   *
+   * Execute the HTTP request and discard the response. Use this when you don't want to get the
+   * response but you want to make sure we read it so that the underline connection is released
+   * 
    * @param request the request
    */
   protected void executeWithoutResponse(Request request) {
@@ -204,14 +208,14 @@ public abstract class WatsonService {
 
   /**
    * Gets the error message from a JSON response
-   *
+   * 
    * <pre>
    * {
    *   code: 400
    *   error: 'bad request'
    * }
    * </pre>
-   *
+   * 
    * @param response the HTTP response
    * @return the error message from the JSON object
    */
@@ -265,19 +269,20 @@ public abstract class WatsonService {
 
   /**
    * Sets the authentication.
-   *
+   * 
    * @param builder the new authentication
    */
   protected void setAuthentication(Builder builder) {
     if (getApiKey() == null) {
       throw new IllegalArgumentException("apiKey or username and password were not specified");
     }
-    builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
+    builder
+        .addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
   }
 
   /**
    * Sets the end point.
-   *
+   * 
    * @param endPoint the new end point
    */
   public void setEndPoint(String endPoint) {

@@ -28,7 +28,7 @@ public class ForbiddenException extends ServiceResponseException {
 
   /**
    * Instantiates a new Forbidden Exception.
-   *
+   * 
    * @param message the error message
    * @param response the HTTP response
    */

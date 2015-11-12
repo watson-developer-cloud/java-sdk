@@ -1,3 +1,18 @@
+/**
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import static org.junit.Assert.assertNotNull;
@@ -21,6 +36,7 @@ public class SpeechToTextIntegrationTest extends WatsonServiceTest {
   private static final String EN_BROADBAND16K = "en-US_BroadbandModel";
   private SpeechToText service;
 
+  @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();
@@ -32,7 +48,7 @@ public class SpeechToTextIntegrationTest extends WatsonServiceTest {
 
   @Test
   public void testCreateSession() {
-    SpeechSession session = service.createSession();
+    final SpeechSession session = service.createSession();
     try {
       assertNotNull(session);
       assertNotNull(session.getSessionId());
@@ -43,7 +59,7 @@ public class SpeechToTextIntegrationTest extends WatsonServiceTest {
 
   @Test
   public void testCreateSessionSpeechModel() {
-    SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K);
+    final SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K);
     try {
       assertNotNull(session);
       assertNotNull(session.getSessionId());
@@ -54,7 +70,7 @@ public class SpeechToTextIntegrationTest extends WatsonServiceTest {
 
   @Test
   public void testCreateSessionString() {
-    SpeechSession session = service.createSession(EN_BROADBAND16K);
+    final SpeechSession session = service.createSession(EN_BROADBAND16K);
     try {
       assertNotNull(session);
       assertNotNull(session.getSessionId());
@@ -65,7 +81,7 @@ public class SpeechToTextIntegrationTest extends WatsonServiceTest {
 
   @Test
   public void testGetModel() {
-    SpeechModel model = service.getModel(EN_BROADBAND16K);
+    final SpeechModel model = service.getModel(EN_BROADBAND16K);
     assertNotNull(model);
     assertNotNull(model.getName());
     assertNotNull(model.getRate());
@@ -73,15 +89,15 @@ public class SpeechToTextIntegrationTest extends WatsonServiceTest {
 
   @Test
   public void testGetModels() {
-    List<SpeechModel> models = service.getModels();
+    final List<SpeechModel> models = service.getModels();
     assertNotNull(models);
     assertTrue(!models.isEmpty());
   }
 
   @Test
   public void testGetRecognizeStatus() {
-    SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K);
-    SessionStatus status = service.getRecognizeStatus(session);
+    final SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K);
+    final SessionStatus status = service.getRecognizeStatus(session);
     try {
       assertNotNull(status);
       assertNotNull(status.getModel());
@@ -93,20 +109,20 @@ public class SpeechToTextIntegrationTest extends WatsonServiceTest {
 
   @Test
   public void testRecognizeFileString() {
-    File audio = new File("src/test/resources/sample1.wav");
-    String contentType = HttpMediaType.AUDIO_WAV;
-    SpeechResults results = service.recognize(audio, contentType);
+    final File audio = new File("src/test/resources/sample1.wav");
+    final String contentType = HttpMediaType.AUDIO_WAV;
+    final SpeechResults results = service.recognize(audio, contentType);
     System.out.println(results);
   }
 
   @Test
   public void testRecognizeFileStringRecognizeOptions() {
-    File audio = new File("src/test/resources/sample1.wav");
-    String contentType = HttpMediaType.AUDIO_WAV;
-    RecognizeOptions options = new RecognizeOptions();
+    final File audio = new File("src/test/resources/sample1.wav");
+    final String contentType = HttpMediaType.AUDIO_WAV;
+    final RecognizeOptions options = new RecognizeOptions();
     options.continuous(true).model(EN_BROADBAND16K);
 
-    SpeechResults results = service.recognize(audio, contentType);
+    final SpeechResults results = service.recognize(audio, contentType);
     System.out.println(results);
   }
 

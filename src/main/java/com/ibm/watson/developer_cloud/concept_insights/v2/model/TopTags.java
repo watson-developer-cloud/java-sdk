@@ -17,11 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The Class TopTags.
  */
-public class TopTags {
+public class TopTags extends GenericModel {
 
   /** The corpus tags histogram. */
   @SerializedName("corpus_tags_histogram")

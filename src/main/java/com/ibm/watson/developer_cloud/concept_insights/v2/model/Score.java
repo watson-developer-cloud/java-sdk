@@ -14,12 +14,13 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Score returned by the {@link ConceptInsights} service.
  * 
  */
-public class Score {
+public class Score extends GenericModel {
 
   /** The concept. */
   private String concept;

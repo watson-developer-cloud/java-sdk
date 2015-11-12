@@ -31,7 +31,7 @@ public class ServiceResponseException extends RuntimeException {
 
   /**
    * Instantiates a new Service Response Exception.
-   *
+   * 
    * @param statusCode the status code
    * @param message the error message
    * @param response the HTTP response
@@ -44,7 +44,7 @@ public class ServiceResponseException extends RuntimeException {
 
   /**
    * Gets the HTTP status code.
-   *
+   * 
    * @return the http status code
    */
   public int getStatusCode() {
@@ -53,7 +53,7 @@ public class ServiceResponseException extends RuntimeException {
 
   /**
    * Gets the HTTP response.
-   *
+   * 
    * @return the HTTP response
    */
   public Response getResponse() {

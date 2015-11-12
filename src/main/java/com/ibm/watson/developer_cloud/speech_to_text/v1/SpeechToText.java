@@ -240,7 +240,7 @@ public class SpeechToText extends WatsonService {
     if (options != null && (options.getSessionId() != null || !options.getSessionId().isEmpty()))
       path = String.format(PATH_SESSION_RECOGNIZE, options.getSessionId());
 
-    RequestBuilder requestBuilder = RequestBuilder.post(path);
+    final RequestBuilder requestBuilder = RequestBuilder.post(path);
 
     buildRecognizeRequest(requestBuilder, options);
 

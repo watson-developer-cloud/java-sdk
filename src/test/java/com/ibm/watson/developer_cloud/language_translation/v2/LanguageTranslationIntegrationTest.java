@@ -72,7 +72,7 @@ public class LanguageTranslationIntegrationTest extends WatsonServiceTest {
    */
   @Test
   public void testGetModel() {
-    TranslationModel model = service.getModel(ENGLISH_TO_SPANISH);
+    final TranslationModel model = service.getModel(ENGLISH_TO_SPANISH);
     assertNotNull(model);
   }
 

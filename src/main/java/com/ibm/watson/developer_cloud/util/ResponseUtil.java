@@ -39,7 +39,7 @@ public class ResponseUtil {
 
   /**
    * Returns the HTTP Response {@link InputStream}.
-   *
+   * 
    * @param response an HTTP response
    * @return the content body as an InputStream
    */
@@ -54,7 +54,7 @@ public class ResponseUtil {
 
   /**
    * Returns the HTTP Response as a {@link String}.
-   *
+   * 
    * @param response an HTTP response
    * @return the content body as String
    */
@@ -69,7 +69,7 @@ public class ResponseUtil {
 
   /**
    * Return a {@link JsonElement} representation of the response.
-   *
+   * 
    * @param response the Response
    * @return the content body as JSON
    */
@@ -94,7 +94,7 @@ public class ResponseUtil {
 
   /**
    * Returns a {@link JsonObject} representation of the provided JSON.
-   *
+   * 
    * @param jsonString the JSON String
    * @return the content body as a JsonObject
    */
@@ -104,7 +104,7 @@ public class ResponseUtil {
 
   /**
    * Returns <T> after parsing the string response.
-   *
+   * 
    * @param <T> the generic type to use when parsing the response
    * @param response the HTTP response
    * @param type the type of the response

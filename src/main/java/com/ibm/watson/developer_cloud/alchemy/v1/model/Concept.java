@@ -15,12 +15,13 @@
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Concept returned by the {@link AlchemyLanguage} service.
  * 
  */
-public class Concept {
+public class Concept extends GenericModel {
 
   /**
    * The link to the US Census for the disambiguated entity. Note: Provided only for entities that

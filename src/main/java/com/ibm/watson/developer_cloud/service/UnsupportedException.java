@@ -28,7 +28,7 @@ public class UnsupportedException extends ServiceResponseException {
 
   /**
    * Instantiates a new unsupported Exception.
-   *
+   * 
    * @param message the message
    * @param response the HTTP response
    */

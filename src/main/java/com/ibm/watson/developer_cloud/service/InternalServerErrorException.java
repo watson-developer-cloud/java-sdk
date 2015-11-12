@@ -28,7 +28,7 @@ public class InternalServerErrorException extends ServiceResponseException {
 
   /**
    * Instantiates a new Internal Server Error Exception.
-   *
+   * 
    * @param message the error message
    * @param response the HTTP response
    */

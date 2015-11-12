@@ -28,7 +28,7 @@ public class UnauthorizedException extends ServiceResponseException {
 
   /**
    * Instantiates a new Unauthorized Exception.
-   *
+   * 
    * @param message the error message
    * @param response the HTTP response
    */

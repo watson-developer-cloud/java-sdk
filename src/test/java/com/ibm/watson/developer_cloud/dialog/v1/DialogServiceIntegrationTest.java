@@ -87,8 +87,8 @@ public class DialogServiceIntegrationTest extends WatsonServiceTest {
   public void testConverseAndGetConversationData() throws ParseException, InterruptedException {
     Conversation c = service.createConversation(dialogId);
     testConversation(c);
-    String[] messages = new String[] {"large", "onions, pepperoni, cheese", "pickup", "yes"};
-    for (String message : messages) {
+    final String[] messages = new String[] {"large", "onions, pepperoni, cheese", "pickup", "yes"};
+    for (final String message : messages) {
       c = service.converse(c, message);
       testConversation(c);
       Thread.sleep(500);

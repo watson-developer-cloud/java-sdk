@@ -28,7 +28,7 @@ public class RequestTooLargeException extends ServiceResponseException {
 
   /**
    * Instantiates a new Request Too Large Exception.
-   *
+   * 
    * @param message the error message
    * @param response the HTTP response
    */

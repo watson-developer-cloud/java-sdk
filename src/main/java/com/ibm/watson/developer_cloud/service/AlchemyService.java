@@ -169,7 +169,7 @@ public abstract class AlchemyService extends WatsonService {
 
   /**
    * Returns the first non-null accepted format from the parameter map.
-   *
+   * 
    * @param params the request parameters
    * @param acceptedFormats the accepted formats
    * @return the first accepted format found in the map
@@ -189,8 +189,9 @@ public abstract class AlchemyService extends WatsonService {
 
   /*
    * (non-Javadoc)
-   *
-   * @see com.ibm.watson.developer_cloud.service.WatsonService#setAuthentication(com.squareup .okhttp.Request.Builder)
+   * 
+   * @see com.ibm.watson.developer_cloud.service.WatsonService#setAuthentication(com.squareup
+   * .okhttp.Request.Builder)
    */
   @Override
   protected void setAuthentication(Builder builder) {

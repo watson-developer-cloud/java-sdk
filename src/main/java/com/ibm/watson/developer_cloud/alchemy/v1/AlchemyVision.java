@@ -129,7 +129,7 @@ public class AlchemyVision extends AlchemyService {
     Validate.notNull(image, "image cannot be null");
     Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
 
-    Map<String, Object> params = new HashMap<String, Object>();
+    final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
 
     if (forceShowAll != null)
@@ -153,7 +153,7 @@ public class AlchemyVision extends AlchemyService {
   public ImageKeywords getImageKeywords(URL url, Boolean forceShowAll, Boolean knowledgeGraph) {
     Validate.notNull(url, "url cannot be null");
 
-    Map<String, Object> params = new HashMap<String, Object>();
+    final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
 
     if (forceShowAll != null)
@@ -174,7 +174,7 @@ public class AlchemyVision extends AlchemyService {
   public ImageLink getImageLink(URL url) {
     Validate.notNull(url, "url cannot be null");
 
-    Map<String, Object> params = new HashMap<String, Object>();
+    final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
 
     return executeRequest(params, AlchemyAPI.image_link, ImageLink.class);
@@ -189,7 +189,7 @@ public class AlchemyVision extends AlchemyService {
   public ImageLink getImageLink(String html) {
     Validate.notNull(html, "html cannot be null");
 
-    Map<String, Object> params = new HashMap<String, Object>();
+    final Map<String, Object> params = new HashMap<String, Object>();
     params.put(HTML, html);
 
     return executeRequest(params, AlchemyAPI.image_link, ImageLink.class);
@@ -213,7 +213,7 @@ public class AlchemyVision extends AlchemyService {
     Validate.notNull(image, "image cannot be null");
     Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
 
-    Map<String, Object> params = new HashMap<String, Object>();
+    final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
 
     if (knowledgeGraph != null)
@@ -240,7 +240,7 @@ public class AlchemyVision extends AlchemyService {
   public ImageFaces recognizeFaces(URL url, Boolean knowledgeGraph) {
     Validate.notNull(url, "url cannot be null");
 
-    Map<String, Object> params = new HashMap<String, Object>();
+    final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
 
     if (knowledgeGraph != null)

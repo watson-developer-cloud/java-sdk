@@ -1,10 +1,17 @@
 /**
- * The IBM Watson Retrieve and Rank service helps users find the most relevant information for their query by using a
- * combination of search and machine learning algorithms to detect "signals" in the data. Built on top of Apache Solr,
- * developers load their data into the service, train a machine learning model based on known relevant results, then
- * leverage this model to provide improved results to their end users based on their question or query.
+ * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/retrieve-rank.html"> Relationship
- *      Extraction</a>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
+

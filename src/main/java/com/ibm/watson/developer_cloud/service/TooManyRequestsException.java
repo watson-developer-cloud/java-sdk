@@ -28,7 +28,7 @@ public class TooManyRequestsException extends ServiceResponseException {
 
   /**
    * Instantiates a new Too Many Requests Exception.
-   *
+   * 
    * @param message the error message
    * @param response the HTTP response
    */

@@ -14,13 +14,14 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
  * Graph returned by the {@link ConceptInsights} service.
  * 
  */
-public class Graph {
+public class Graph extends GenericModel {
 
   /** The WIKIPEDIA Graph. */
   public static final Graph WIKIPEDIA = new Graph("wikipedia", "en-20120601");

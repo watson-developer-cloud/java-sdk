@@ -26,7 +26,7 @@ public class BadRequestException extends ServiceResponseException {
 
   /**
    * Instantiates a new BadRequest Exception. HTTP 400
-   *
+   * 
    * @param message the error message
    * @param response the HTTP response
    */
