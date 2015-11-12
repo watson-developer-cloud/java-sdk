@@ -81,7 +81,7 @@ public class AlchemyVision extends AlchemyService {
    */
   private <T extends AlchemyGenericModel> T executeRequest(Map<String, Object> params,
       AlchemyAPI operation, Class<T> returnType) {
-    final String inputType = getInputFormat(params, IMAGE, URL);
+    final String inputType = getInputFormat(params, IMAGE, URL, HTML);
     final String path = AlchemyEndPoints.getPath(operation, inputType);
 
     final RequestBuilder requestBuilder = RequestBuilder.post(path);

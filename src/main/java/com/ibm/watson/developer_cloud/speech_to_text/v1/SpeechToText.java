@@ -14,11 +14,9 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -27,6 +25,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModelSet;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
 import com.squareup.okhttp.MediaType;
@@ -46,35 +45,20 @@ import com.squareup.okhttp.Response;
  */
 public class SpeechToText extends WatsonService {
 
-  /** The Constant AUDIO. */
-  public static final String AUDIO = "audio";
-
-  /** The Constant CONTENT_TYPE. */
-  public static final String CONTENT_TYPE = "content_type";
-
-  /** The Constant CONTINUOUS. */
-  public static final String CONTINUOUS = "continuous";
-
-  /** The Constant INACTIVITY_TIMEOUT. */
-  public static final String INACTIVITY_TIMEOUT = "inactivity_timeout";
-
-  /** The Constant MAX_ALTERNATIVES. */
-  public static final String MAX_ALTERNATIVES = "max_alternatives";
-
-  /** The Constant MODEL. */
-  public static final String MODEL = "model";
-
-  /** The Constant SESSION_ID. */
-  public static final String SESSION_ID = "session_id";
-
-  /** The Constant TIMESTAMPS. */
-  public static final String TIMESTAMPS = "timestamps";
-
-  /** The url. */
+  private static final String CONTINUOUS = "continuous";
+  private static final String INACTIVITY_TIMEOUT = "inactivity_timeout";
+  private static final String MAX_ALTERNATIVES = "max_alternatives";
+  private static final String MODEL = "model";
+  private static final String PATH_MODEL = "/v1/models/%s";
+  private static final String PATH_MODELS = "/v1/models";
+  private static final String PATH_RECOGNIZE = "/v1/recognize";
+  private static final String PATH_SESSION = "/v1/sessions/%s";
+  private static final String PATH_SESSION_RECOGNIZE = "/v1/sessions/%s/recognize";
+  private static final String PATH_SESSIONS = "/v1/sessions";
+  private static final String TIMESTAMPS = "timestamps";
   private final static String URL = "https://stream.watsonplatform.net/speech-to-text/api";
-
-  /** The Constant WORD_CONFIDENCE. */
-  public static final String WORD_CONFIDENCE = "word_confidence";
+  private static final String WORD_CONFIDENCE = "word_confidence";
+  private static final String SESSION = "session";
 
   /**
    * Instantiates a new speech to text.
@@ -82,6 +66,35 @@ public class SpeechToText extends WatsonService {
   public SpeechToText() {
     super("speech_to_text");
     setEndPoint(URL);
+  }
+
+  /**
+   * Builds the recognize request using the {@link RecognizeOptions}.
+   * 
+   * @param requestBuilder the request builder
+   * @param options the options
+   */
+  private void buildRecognizeRequest(RequestBuilder requestBuilder, RecognizeOptions options) {
+    if (options == null)
+      return;
+
+    if (options.getWordConfidence() != null)
+      requestBuilder.withQuery(WORD_CONFIDENCE, options.getWordConfidence());
+
+    if (options.getContinuous() != null)
+      requestBuilder.withQuery(CONTINUOUS, options.getContinuous());
+
+    if (options.getMaxAlternatives() != null)
+      requestBuilder.withQuery(MAX_ALTERNATIVES, options.getMaxAlternatives());
+
+    if (options.getTimestamps() != null)
+      requestBuilder.withQuery(TIMESTAMPS, options.getTimestamps());
+
+    if (options.getInactivityTimeout() != null)
+      requestBuilder.withQuery(INACTIVITY_TIMEOUT, options.getInactivityTimeout());
+
+    if (options.getModel() != null)
+      requestBuilder.withQuery(MODEL, options.getModel());
   }
 
   /**
@@ -103,10 +116,10 @@ public class SpeechToText extends WatsonService {
    * Use the cookie that is returned from this operation in the Set-Cookie header for each request
    * that uses this session. The session expires after 15 minutes of inactivity.
    * 
-   * @param model the {@link SpeechModel}
+   * @param model the model
    * @return the {@link SpeechSession}
    */
-  public SpeechSession createSession(final SpeechModel model) {
+  public SpeechSession createSession(SpeechModel model) {
     Validate.notNull(model, "model cannot be null");
     return createSession(model.getName());
   }
@@ -121,15 +134,13 @@ public class SpeechToText extends WatsonService {
    * @return the {@link SpeechSession}
    */
   public SpeechSession createSession(final String model) {
-    String path = "/v1/sessions";
+    final RequestBuilder request = RequestBuilder.post(PATH_SESSIONS);
 
-    if (model != null && !model.isEmpty())
-      path += "?model=" + model;
+    if (model != null)
+      request.withQuery(MODEL, model);
 
-    final Request request = RequestBuilder.post(path).build();
-    final Response response = execute(request);
+    final Response response = execute(request.build());
     final SpeechSession speechSession = ResponseUtil.getObject(response, SpeechSession.class);
-    speechSession.setCookieSession(response.header(HttpHeaders.SET_COOKIE));
     return speechSession;
   }
 
@@ -143,23 +154,12 @@ public class SpeechToText extends WatsonService {
       throw new IllegalArgumentException("session was not specified");
 
     final Request request =
-        RequestBuilder.delete("/v1/sessions/" + session.getSessionId())
-            .withHeader(HttpHeaders.COOKIE, session.getCookieSession()).build();
+        RequestBuilder.delete(String.format(PATH_SESSION, session.getSessionId())).build();
     final Response response = execute(request);
 
     ResponseUtil.getString(response);
     if (response.code() != HttpStatus.NO_CONTENT)
       throw new RuntimeException("Cound't delete session");
-  }
-
-  /**
-   * Gets the model.
-   * 
-   * @param watsonModel the watson model
-   * @return the model
-   */
-  public SpeechModel getModel(final SpeechModel watsonModel) {
-    return getModel(watsonModel.getName());
   }
 
   /**
@@ -172,7 +172,7 @@ public class SpeechToText extends WatsonService {
     if (name == null)
       throw new IllegalArgumentException("name was not specified");
 
-    final Request request = RequestBuilder.get("/v1/models/" + name).build();
+    final Request request = RequestBuilder.get(String.format(PATH_MODEL, name)).build();
     return executeRequest(request, SpeechModel.class);
   }
 
@@ -182,14 +182,15 @@ public class SpeechToText extends WatsonService {
    * @return the models
    */
   public List<SpeechModel> getModels() {
-    final Request request = RequestBuilder.get("/v1/models").build();
+    final Request request = RequestBuilder.get(PATH_MODELS).build();
     return executeRequest(request, SpeechModelSet.class).getModels();
   }
 
   /**
    * Gets the session status. Concurrent recognition tasks during the same session are not allowed.
    * This method offers a way to check whether the session can accept another recognition task. The
-   * returned state must be "initialized" to call {@link #recognize(File, String)}.
+   * returned state must be "initialized" to call {@link #recognize(File, String, RecognizeOptions)}
+   * .
    * 
    * @param session the speech session
    * @return the model
@@ -199,62 +200,51 @@ public class SpeechToText extends WatsonService {
       throw new IllegalArgumentException("session was not specified");
 
     final Request request =
-        RequestBuilder.get("/v1/sessions/" + session.getSessionId() + "/recognize")
-            .withHeader("Cookie", session.getCookieSession()).build();
-    return executeRequest(request, SessionStatus.class);
+        RequestBuilder.get(String.format(PATH_SESSION_RECOGNIZE, session.getSessionId())).build();
+    final Response response = execute(request);
+    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+    return GsonSingleton.getGson().fromJson(jsonObject.get(SESSION), SessionStatus.class);
   }
 
   /**
-   * Recognize.
+   * Recognizes an audio file and returns {@link SpeechResults}.
    * 
    * @param audio the audio file
-   * @param contentType the content type
-   * @return the speech results
+   * @param contentType the media type of the audio. If you use the audio/l16 MIME type, specify the
+   *        rate and channels.
+   * @return the {@link SpeechResults}
    */
-  public SpeechResults recognize(final File audio, final String contentType) {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(AUDIO, audio);
-    params.put(CONTENT_TYPE, contentType);
-    return recognize(params);
+  public SpeechResults recognize(File audio, String contentType) {
+    return recognize(audio, contentType, null);
   }
 
   /**
-   * Recognize.
+   * Recognizes an audio file and returns {@link SpeechResults}.
    * 
-   * @param params the parameters to use for the recognition. for example: "word_confidence",
-   *        "continuous", "max_alternatives", "timestamps", "inactivity_timeout", "model",
-   *        "session_id", content_type
-   * @return the speech results
+   * @param audio the audio file
+   * @param contentType the media type of the audio. If you use the audio/l16 MIME type, specify the
+   *        rate and channels.
+   * @param options the {@link RecognizeOptions}
+   * @return the {@link SpeechResults}
    */
-  public SpeechResults recognize(Map<String, Object> params) {
-    final File audio = (File) params.get(AUDIO);
-    if (audio == null || !audio.exists() || !audio.isFile())
-      throw new IllegalArgumentException("audio is not a valid audio file");
+  public SpeechResults recognize(File audio, String contentType, RecognizeOptions options) {
+    Validate.isTrue(audio != null && audio.exists(), "audio is not a valid audio file");
 
-    final String contentType = (String) params.get(CONTENT_TYPE);
-    if (contentType == null)
-      throw new IllegalArgumentException("contentType was not specified");
+    Validate.isTrue((audio.length() / (1024 * 1024)) < 100.0,
+        "The audio file is greater than 100MB.");
 
-    // Build the recognize url
-    final StringBuilder urlBuider = new StringBuilder();
-    urlBuider.append("/v1");
-    urlBuider.append(params.containsKey(SESSION_ID) ? "/sessions/" + params.get(SESSION_ID) : "");
-    urlBuider.append("/recognize");
+    Validate
+        .isTrue(MediaType.parse(contentType) != null, "contentType is not a valid audio format");
 
-    final RequestBuilder requestBuilder = RequestBuilder.post(urlBuider.toString());
-    requestBuilder.withHeader(HttpHeaders.CONTENT_TYPE, contentType);
+    String path = PATH_RECOGNIZE;
+    if (options != null && (options.getSessionId() != null || !options.getSessionId().isEmpty()))
+      path = String.format(PATH_SESSION_RECOGNIZE, options.getSessionId());
 
-    final String[] queryParameters =
-        new String[] {WORD_CONFIDENCE, CONTINUOUS, MAX_ALTERNATIVES, TIMESTAMPS,
-            INACTIVITY_TIMEOUT, MODEL};
+    RequestBuilder requestBuilder = RequestBuilder.post(path);
 
-    for (final String param : queryParameters) {
-      if (params.containsKey(param))
-        requestBuilder.withQuery(param, params.get(param));
-    }
+    buildRecognizeRequest(requestBuilder, options);
 
-    final RequestBody body = RequestBody.create(MediaType.parse(contentType), audio);
-    requestBuilder.withBody(body);
+    requestBuilder.withBody(RequestBody.create(MediaType.parse(contentType), audio));
     return executeRequest(requestBuilder.build(), SpeechResults.class);
   }
 }

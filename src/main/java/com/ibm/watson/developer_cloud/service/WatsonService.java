@@ -14,6 +14,8 @@
 package com.ibm.watson.developer_cloud.service;
 
 import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,12 +64,16 @@ public abstract class WatsonService {
 
 
   /**
-   * Configure http client.
+   * Configure HTTP client.
    * 
-   * @return the ok http client
+   * @return the okhttp client
    */
   private OkHttpClient configureHttpClient() {
     final OkHttpClient client = new OkHttpClient();
+    CookieManager cookieManager = new CookieManager();
+    cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+    client.setCookieHandler(cookieManager);
+
     client.setConnectTimeout(60, TimeUnit.SECONDS);
     client.setWriteTimeout(60, TimeUnit.SECONDS);
     client.setReadTimeout(90, TimeUnit.SECONDS);
@@ -115,7 +121,7 @@ public abstract class WatsonService {
     // There was a Client Error 4xx or a Server Error 5xx
     // Get the error message and create the exception
     final String error = getErrorMessage(response);
-    log.log(Level.SEVERE, request.urlString() + ", status: " + status + ", error: " + error);
+    log.log(Level.SEVERE, newRequest.urlString() + ", status: " + status + ", error: " + error);
 
     switch (status) {
       case HttpStatus.BAD_REQUEST: // HTTP 400

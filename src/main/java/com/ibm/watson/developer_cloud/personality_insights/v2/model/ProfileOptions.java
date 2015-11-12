@@ -24,7 +24,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Profile Options when using the {@link PersonalityInsights#getProfile(ProfileOptions)} method.
- * 
  */
 public class ProfileOptions extends GenericModel {
 

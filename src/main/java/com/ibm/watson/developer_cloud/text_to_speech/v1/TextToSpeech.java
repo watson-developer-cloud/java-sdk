@@ -96,10 +96,10 @@ public class TextToSpeech extends WatsonService {
    * 
    * @param text the text
    * @param voice the voice
-   * @param format the output format
+   * @param outputFormat the output format. e.g: audio/wav or audio/ogg; codecs=opus
    * @return the input stream
    */
-  public InputStream synthesize(final String text, final Voice voice, final String format) {
+  public InputStream synthesize(final String text, final Voice voice, final String outputFormat) {
     if (text == null)
       throw new IllegalArgumentException("text cannot be null");
     if (voice == null)
@@ -109,11 +109,12 @@ public class TextToSpeech extends WatsonService {
     request.withQuery(TEXT, text);
     request.withQuery(VOICE, voice.getName());
 
-    if (format != null && !format.startsWith("audio/"))
+    if (outputFormat != null && !outputFormat.startsWith("audio/"))
       throw new IllegalArgumentException(
           "format needs to be an audio mime type, for example: audio/wav or audio/ogg; codecs=opus");
 
-    request.withQuery(HttpHeaders.ACCEPT, format != null ? format : HttpMediaType.AUDIO_WAV);
+    request.withQuery(HttpHeaders.ACCEPT, outputFormat != null ? outputFormat
+        : HttpMediaType.AUDIO_WAV);
 
     final Response response = execute(request.build());
     return ResponseUtil.getInputStream(response);

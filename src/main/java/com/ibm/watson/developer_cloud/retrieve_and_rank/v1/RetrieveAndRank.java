@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -44,14 +44,28 @@ import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
 
 /**
- * The IBM Watson Retrieve and Rank service helps users find the most relevant information for their query by using a
- * combination of search and machine learning to find “signals” in the data. Built on top of Apache Solr, developers
- * load their data into the service, train a machine learning model based on known relevant results, then leverage this
- * model to provide improved results to their end users based on their question or query.
- *
+ * The IBM Watson Retrieve and Rank service helps users find the most relevant information for their
+ * query by using a combination of search and machine learning to find “signals” in the data. Built
+ * on top of Apache Solr, developers load their data into the service, train a machine learning
+ * model based on known relevant results, then leverage this model to provide improved results to
+ * their end users based on their question or query.
+ * 
  * @version v1
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/retrieve-rank.html"> Retrieve and
- *      Rank</a>
+ * @see <a
+ *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/retrieve-rank.html">
+ *      Retrieve and Rank</a>
+ */
+/**
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
+ * 
+ */
+/**
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
+ * 
+ */
+/**
+ * @author German Attanasio Ruiz (germanatt@us.ibm.com)
+ * 
  */
 public class RetrieveAndRank extends WatsonService implements ClusterLifecycleManager,
     SolrConfigManager {
@@ -82,7 +96,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * Creates the Solr configuration path.
-   *
+   * 
    * @param solrClusterId the solr cluster id
    * @param configName the configuration name
    * @return the string
@@ -96,11 +110,13 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   }
 
   /**
-   * Sends data to create and train a ranker, and returns information about the new ranker. The status has the value of
-   * `Training` when the operation is successful, and might remain at this status for a while.
-   *
+   * Sends data to create and train a ranker, and returns information about the new ranker. The
+   * status has the value of `Training` when the operation is successful, and might remain at this
+   * status for a while.
+   * 
    * @param name Name of the ranker
-   * @param training The file with the training data i.e., the set of (qid, feature values, and rank) tuples
+   * @param training The file with the training data i.e., the set of (qid, feature values, and
+   *        rank) tuples
    * @return the ranker object
    * @see Ranker
    */
@@ -121,8 +137,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
             .addPart(Headers.of("Content-Disposition", "form-data; name=\"training_data\""),
                 RequestBody.create(HttpMediaType.BINARY_FILE, training))
             .addPart(Headers.of("Content-Disposition", "form-data; name=\"training_metadata\""),
-                RequestBody.create(HttpMediaType.TEXT, contentJson.toString()))
-            .build();
+                RequestBody.create(HttpMediaType.TEXT, contentJson.toString())).build();
 
     final Request request = RequestBuilder.post(PATH_CREATE_RANKER).withBody(body).build();
 
@@ -131,19 +146,22 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   *
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleClient#createSolrCluster()
+   * 
+   * @see
+   * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#createSolrCluster()
    */
   @Override
   public SolrCluster createSolrCluster() {
     return createSolrCluster(null);
   }
 
+
   /*
    * (non-Javadoc)
-   *
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleClient#createSolrCluster
-   * (com.ibm.watson.developer_cloud.retrieve_and_rank.v1.models.SolrClusterOptions)
+   * 
+   * @see
+   * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#createSolrCluster
+   * (com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions)
    */
   @Override
   public SolrCluster createSolrCluster(SolrClusterOptions config) {
@@ -159,9 +177,8 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * Deletes a ranker.
-   *
-   * @param rankerID the ranker ID
-   * @see Ranker
+   * 
+   * @param rankerID the ranker id
    */
   public void deleteRanker(final String rankerID) {
     Validate.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerId cannot be null or empty");
@@ -172,8 +189,9 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   *
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleClient#deleteSolrCluster
+   * 
+   * @see
+   * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#deleteSolrCluster
    * (java.lang.String)
    */
   @Override
@@ -187,7 +205,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   *
+   * 
    * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * deleteSolrClusterConfiguration(java.lang.String, java.lang.String)
    */
@@ -199,10 +217,9 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   }
 
   /**
-   * Retrieves the list of rankers for the user.
-   *
-   * @return the ranker list
-   * @see Ranker
+   * retrieves the list of rankers for the user.
+   * 
+   * @return the rankers
    */
   public Rankers getRankers() {
     final Request request = RequestBuilder.get(PATH_RANKERS).build();
@@ -213,7 +230,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * Retrieves the status of a ranker.
-   *
+   * 
    * @param rankerID the ranker ID
    * @return Ranker object with the status field set
    * @see Ranker
@@ -227,8 +244,10 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   *
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleClient#getSolrCluster( java.lang.String)
+   * 
+   * @see
+   * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#getSolrCluster(
+   * java.lang.String)
    */
   @Override
   public SolrCluster getSolrCluster(String solrClusterId) {
@@ -242,8 +261,9 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   *
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#getSolrClusterConfiguration
+   * 
+   * @see
+   * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#getSolrClusterConfiguration
    * (java.lang.String, java.lang.String)
    */
   @Override
@@ -262,8 +282,9 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   *
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#listSolrClusterConfigurations
+   * 
+   * @see
+   * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#getSolrClusterConfigurations
    * (java.lang.String)
    */
   @Override
@@ -279,8 +300,9 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   *
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleClient#listSolrClusters()
+   * 
+   * @see
+   * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#getSolrClusters()
    */
   @Override
   public SolrClusterList getSolrClusters() {
@@ -290,7 +312,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * Gets and returns the ranked answers.
-   *
+   * 
    * @param rankerID The ranker ID
    * @param answers The CSV file that contains the search results that you want to rank.
    * @param topAnswers The number of top answers needed, default is 10
@@ -310,19 +332,16 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
             .addPart(Headers.of("Content-Disposition", "form-data; name=\"answer_data\""),
                 RequestBody.create(HttpMediaType.BINARY_FILE, answers))
             .addPart(Headers.of("Content-Disposition", "form-data; name=\"answer_metadata\""),
-                RequestBody.create(HttpMediaType.TEXT, contentJson.toString()))
-            .build();
+                RequestBody.create(HttpMediaType.TEXT, contentJson.toString())).build();
 
     final String path = String.format(PATH_RANK, rankerID);
-
     final Request request = RequestBuilder.post(path).withBody(body).build();
-
     return executeRequest(request, Ranking.class);
   }
 
   /*
    * (non-Javadoc)
-   *
+   * 
    * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * uploadSolrClusterConfigurationDirectory(java.lang.String, java.lang.String, java.io.File)
    */
@@ -330,7 +349,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   public void uploadSolrClusterConfigurationDirectory(String solrClusterId, String configName,
       File directory) {
     Validate.notNull(directory, "directory cannot be null");
-    Validate.isTrue(directory.exists(), "directory : " + directory.getAbsolutePath() + " not found");
+    Validate.isTrue(directory.exists(), "directory: " + directory.getAbsolutePath() + " not found");
     Validate.isTrue(directory.isDirectory(), "directory is not a directory");
 
     final File zipFile = ZipUtils.buildConfigZip(configName, directory.toPath());
@@ -350,7 +369,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   *
+   * 
    * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * uploadSolrClusterConfigurationZip(java.lang.String, java.lang.String, java.io.File)
    */

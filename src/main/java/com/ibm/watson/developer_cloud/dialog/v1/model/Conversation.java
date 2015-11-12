@@ -33,6 +33,9 @@ public class Conversation extends GenericModel {
   /** The confidence. */
   private Double confidence;
 
+  /** The dialog id. */
+  private String dialogId;
+
   /** The id. */
   @SerializedName("conversation_id")
   private Integer id;
@@ -59,6 +62,15 @@ public class Conversation extends GenericModel {
    */
   public double getConfidence() {
     return confidence;
+  }
+
+  /**
+   * Gets the dialog id.
+   * 
+   * @return the dialogId
+   */
+  public String getDialogId() {
+    return dialogId;
   }
 
   /**
@@ -104,6 +116,15 @@ public class Conversation extends GenericModel {
    */
   public void setConfidence(final double confidence) {
     this.confidence = confidence;
+  }
+
+  /**
+   * Sets the dialog id.
+   * 
+   * @param dialogId the dialogId to set
+   */
+  public void setDialogId(String dialogId) {
+    this.dialogId = dialogId;
   }
 
   /**

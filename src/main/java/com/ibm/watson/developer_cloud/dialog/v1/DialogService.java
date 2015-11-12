@@ -118,6 +118,23 @@ public class DialogService extends WatsonService {
     setEndPoint(URL);
   }
 
+
+  /**
+   * Starts or continue conversations.
+   * 
+   * @param conversation the current conversation
+   * @param newMessage the new message
+   * @return the {@link Conversation} with the response
+   */
+  public Conversation converse(final Conversation conversation, String newMessage) {
+    Map<String, Object> params = new HashMap<String, Object>();
+    params.put(DIALOG_ID, conversation.getDialogId());
+    params.put(INPUT, newMessage);
+    params.put(CLIENT_ID, conversation.getClientId());
+    params.put(CONVERSATION_ID, conversation.getId());
+    return converse(params);
+  }
+
   /**
    * Starts or continue conversations.
    * 
@@ -147,7 +164,9 @@ public class DialogService extends WatsonService {
         RequestBuilder.post(path)
             .withForm(CONVERSATION_ID, conversationId, CLIENT_ID, clientId, INPUT, input).build();
 
-    return executeRequest(request, Conversation.class);
+    Conversation conversation = executeRequest(request, Conversation.class);
+    conversation.setDialogId(dialogId);
+    return conversation;
   }
 
   /**

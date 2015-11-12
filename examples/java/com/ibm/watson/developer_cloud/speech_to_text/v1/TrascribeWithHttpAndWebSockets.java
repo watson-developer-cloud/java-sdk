@@ -16,8 +16,6 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.URI;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.net.ssl.SSLContext;
 
@@ -38,7 +36,7 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
 /**
- * Example of how to trascribe a wav file using the REST API or WebSockets
+ * Example of how to transcribe a WAV file using the REST API or WebSockets
  * 
  */
 public class TrascribeWithHttpAndWebSockets {
@@ -131,13 +129,9 @@ public class TrascribeWithHttpAndWebSockets {
     System.out.println("session: " + session.toString());
 
     // 2 call recognize
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(SpeechToText.AUDIO, audioFile);
-    params.put(SpeechToText.CONTENT_TYPE, contentType);
-    params.put(SpeechToText.CONTINUOUS, true);
-    params.put(SpeechToText.SESSION_ID, session.getSessionId());
-
-    final SpeechResults transcript = service.recognize(params);
+    final SpeechResults transcript =
+        service.recognize(audioFile, contentType,
+            new RecognizeOptions().continuous(true).session(session));
 
     // 4 print the transcript
     System.out.println("transcript: " + transcript.toString());

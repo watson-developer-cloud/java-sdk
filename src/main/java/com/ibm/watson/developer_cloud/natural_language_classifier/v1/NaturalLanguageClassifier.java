@@ -71,20 +71,6 @@ public class NaturalLanguageClassifier extends WatsonService {
   /**
    * Returns classification information for a classifier on a phrase.
    * 
-   * @param classifier The classifier
-   * @param text The submitted phrase to classify
-   * @return the classification of a phrase with a given classifier
-   */
-  public Classification classify(final Classifier classifier, final String text) {
-    if (classifier == null)
-      throw new IllegalArgumentException("classifier cannot be null");
-
-    return classify(classifier.getId(), text);
-  }
-
-  /**
-   * Returns classification information for a classifier on a phrase.
-   * 
    * @param classifierId The classifier id
    * @param text The submitted phrase to classify
    * @return the classification of a phrase with a given classifier
@@ -185,19 +171,6 @@ public class NaturalLanguageClassifier extends WatsonService {
 
     final Request request = RequestBuilder.delete("/v1/classifiers/" + classifierId).build();
     executeWithoutResponse(request);
-  }
-
-  /**
-   * Deletes a classifier.
-   * 
-   * @param classifier the classifier
-   * @see Classifier
-   */
-  public void deleteClassifier(Classifier classifier) {
-    if (classifier == null)
-      throw new IllegalArgumentException("classifier cannot be null");
-
-    deleteClassifier(classifier.getId());
   }
 
   /**

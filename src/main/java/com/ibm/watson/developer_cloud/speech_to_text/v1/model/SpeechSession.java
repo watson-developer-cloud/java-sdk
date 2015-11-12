@@ -21,10 +21,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SpeechSession extends GenericModel {
 
-  /** The cookie session. */
-  @SerializedName("cookie_session")
-  private String cookieSession;
-
   /** The new session uri. */
   @SerializedName("new_session_uri")
   private String newSessionUri;
@@ -42,15 +38,6 @@ public class SpeechSession extends GenericModel {
   /** The session id. */
   @SerializedName("session_id")
   private String sessionId;
-
-  /**
-   * Gets the cookie session.
-   * 
-   * @return the cookie session
-   */
-  public String getCookieSession() {
-    return cookieSession;
-  }
 
   /**
    * Gets the new session uri.
@@ -95,15 +82,6 @@ public class SpeechSession extends GenericModel {
    */
   public String getSessionId() {
     return sessionId;
-  }
-
-  /**
-   * Sets the cookie session.
-   * 
-   * @param cookieSession the new cookie session
-   */
-  public void setCookieSession(final String cookieSession) {
-    this.cookieSession = cookieSession;
   }
 
   /**

@@ -38,6 +38,8 @@ import com.ibm.watson.developer_cloud.dialog.v1.model.NameValue;
  */
 public class DialogServiceIntegrationTest extends WatsonServiceTest {
 
+  private static final String DIALOG_FILE_SAMPLE = "src/test/resources/pizza_sample.xml";
+
   /** The dialog id. */
   private String dialogId;
 
@@ -85,23 +87,12 @@ public class DialogServiceIntegrationTest extends WatsonServiceTest {
   public void testConverseAndGetConversationData() throws ParseException, InterruptedException {
     Conversation c = service.createConversation(dialogId);
     testConversation(c);
-
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(DialogService.DIALOG_ID, dialogId);
-    params.put(DialogService.CLIENT_ID, c.getClientId());
-    params.put(DialogService.CONVERSATION_ID, c.getId());
-    params.put(DialogService.INPUT, "large");
-    c = service.converse(params);
-    testConversation(c);
-
-    params.put(DialogService.INPUT, "onions, pepperoni, cheese");
-    c = service.converse(params);
-    Thread.sleep(500);
-    params.put(DialogService.INPUT, "pickup");
-    c = service.converse(params);
-    Thread.sleep(500);
-    params.put(DialogService.INPUT, "yes");
-    c = service.converse(params);
+    String[] messages = new String[] {"large", "onions, pepperoni, cheese", "pickup", "yes"};
+    for (String message : messages) {
+      c = service.converse(c, message);
+      testConversation(c);
+      Thread.sleep(500);
+    }
 
     final List<DialogContent> dialogContent = service.getContent(dialogId);
     assertNotNull(dialogContent);
@@ -138,14 +129,17 @@ public class DialogServiceIntegrationTest extends WatsonServiceTest {
    */
   @Test
   public void testCreateDialog() throws URISyntaxException {
-    final File dialogFile = new File("src/test/resources/pizza_sample.xml");
+    final File dialogFile = new File(DIALOG_FILE_SAMPLE);
     final String dialogName = "" + UUID.randomUUID().toString().substring(0, 15);
     Dialog newDialog = service.createDialog(dialogName, dialogFile);
 
-    assertNotNull(newDialog.getId());
-    newDialog = service.updateDialog(newDialog.getId(), dialogFile);
-    assertNotNull(newDialog.getId());
-    service.deleteDialog(newDialog.getId());
+    try {
+      assertNotNull(newDialog.getId());
+      newDialog = service.updateDialog(newDialog.getId(), dialogFile);
+      assertNotNull(newDialog.getId());
+    } finally {
+      service.deleteDialog(newDialog.getId());
+    }
   }
 
   /**

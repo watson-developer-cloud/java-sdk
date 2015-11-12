@@ -54,7 +54,7 @@ public class VisualInsights extends WatsonService {
   private static final String SUMMARY_PATH = "/v1/summary";
 
   /**
-   * The service url. (value is "https://gateway.watsonplatform.net/visual-insights/api")
+   * The service URL. (value is "https://gateway.watsonplatform.net/visual-insights/api")
    */
   private static final String URL =
       "https://gateway.watsonplatform.net/visual-insights-experimental/api";

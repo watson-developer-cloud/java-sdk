@@ -21,9 +21,7 @@ import io.netty.handler.codec.http.HttpHeaders;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,7 +33,6 @@ import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
-import org.mockserver.model.Parameter;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
@@ -137,13 +134,10 @@ public class SpeechToTextTest extends WatsonServiceTest {
     Assert.assertNotNull(session);
 
     mockServer.when(
-        request().withMethod("DELETE")
-            .withPath(CREATE_DELETE_SESSIONS_PATH + "/" + session.getSessionId())
-            .withHeader("Cookie", session.getCookieSession())
+        request().withMethod("DELETE").withPath(
+            CREATE_DELETE_SESSIONS_PATH + "/" + session.getSessionId())
 
-    ).respond(
-        response().withHeaders(new Header(HttpHeaders.Names.COOKIE, session.getCookieSession()))
-            .withStatusCode(204));
+    ).respond(response().withStatusCode(204));
     service.deleteSession(session);
   }
 
@@ -174,7 +168,7 @@ public class SpeechToTextTest extends WatsonServiceTest {
     Assert.assertNotNull(model);
     Assert.assertEquals(model, speechModel);
 
-    model = service.getModel(speechModel);
+    model = service.getModel(speechModel.getName());
     Assert.assertNotNull(model);
     Assert.assertEquals(model, speechModel);
 
@@ -310,62 +304,5 @@ public class SpeechToTextTest extends WatsonServiceTest {
       didItHappen = true;
     }
     Assert.assertTrue("Check that 'IllegalArgumentException' is thrown.", didItHappen);
-  }
-
-  /**
-   * Test recognize.
-   * 
-   * @throws URISyntaxException the URI syntax exception
-   */
-  @Test
-  public void testRecognizeWithParams() throws URISyntaxException {
-    final File audio = new File("src/test/resources/sample1.wav");
-
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put("audio", audio);
-    params.put("content_type", HttpMediaType.AUDIO_WAV);
-    params.put("word_confidence", "false");
-    params.put("continuous", "false");
-    params.put("timestamps", "false");
-    params.put("inactivity_timeout", "30");
-    params.put("max_alternatives", "1");
-    final String[] queryParameters =
-        new String[] {SpeechToText.WORD_CONFIDENCE, SpeechToText.CONTINUOUS,
-            SpeechToText.MAX_ALTERNATIVES, SpeechToText.TIMESTAMPS,
-            SpeechToText.INACTIVITY_TIMEOUT, SpeechToText.MODEL};
-    final List<Parameter> parameters = new ArrayList<Parameter>();
-    for (final String param : queryParameters) {
-      if (params.containsKey(param))
-        parameters.add(new Parameter(param, (String) params.get(param)));
-    }
-
-    final SpeechResults speechResults = new SpeechResults();
-    speechResults.setResultIndex(0);
-    final Transcript transcript = new Transcript();
-    transcript.setFinal(true);
-    final SpeechAlternative speechAlternative = new SpeechAlternative();
-    speechAlternative
-        .setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
-    final List<SpeechAlternative> speechAlternatives = new ArrayList<SpeechAlternative>();
-    speechAlternatives.add(speechAlternative);
-
-    transcript.setAlternatives(speechAlternatives);
-    final List<Transcript> transcripts = new ArrayList<Transcript>();
-    transcripts.add(transcript);
-    speechResults.setResults(transcripts);
-
-    mockServer.when(
-        request().withMethod("POST").withPath(RECOGNIZE_PATH).withQueryStringParameters(parameters)
-            .withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.AUDIO_WAV)))
-
-    .respond(
-        response().withHeaders(
-            new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(speechResults)));
-
-    final SpeechResults result = service.recognize(params);
-
-    Assert.assertNotNull(result);
-    Assert.assertEquals(result, speechResults);
   }
 }
