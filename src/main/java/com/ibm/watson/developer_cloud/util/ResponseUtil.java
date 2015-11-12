@@ -39,10 +39,10 @@ public class ResponseUtil {
 
   /**
    * Returns the HTTP Response {@link InputStream}.
-   * 
+   *
    * @param response an HTTP response
-   * @return the content body as String
-   * */
+   * @return the content body as an InputStream
+   */
   public static InputStream getInputStream(Response response) {
     try {
       return response.body().byteStream();
@@ -53,8 +53,23 @@ public class ResponseUtil {
   }
 
   /**
+   * Returns the HTTP Response as a {@link String}.
+   *
+   * @param response an HTTP response
+   * @return the content body as String
+   */
+  public static String getResponseString(Response response) {
+    try {
+      return response.body().string();
+    } catch (final IOException e) {
+      log.log(Level.SEVERE, ERROR_MESSAGE, e);
+      throw new RuntimeException(ERROR_MESSAGE, e);
+    }
+  }
+
+  /**
    * Return a {@link JsonElement} representation of the response.
-   * 
+   *
    * @param response the Response
    * @return the content body as JSON
    */
@@ -78,8 +93,18 @@ public class ResponseUtil {
   }
 
   /**
+   * Returns a {@link JsonObject} representation of the provided JSON.
+   *
+   * @param jsonString the JSON String
+   * @return the content body as a JsonObject
+   */
+  public static JsonObject getJsonObject(String jsonString) {
+    return new JsonParser().parse(jsonString).getAsJsonObject();
+  }
+
+  /**
    * Returns <T> after parsing the string response.
-   * 
+   *
    * @param <T> the generic type to use when parsing the response
    * @param response the HTTP response
    * @param type the type of the response

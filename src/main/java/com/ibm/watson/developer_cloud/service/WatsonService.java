@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -18,7 +18,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -104,8 +106,9 @@ public abstract class WatsonService {
       throw new RuntimeException(e);
     }
 
-    if (response.isSuccessful())
+    if (response.isSuccessful()) {
       return response;
+    }
 
     final int status = response.code();
 
@@ -157,9 +160,9 @@ public abstract class WatsonService {
   }
 
   /**
-   * Execute the HTTP request and discard the response. Use this when you don't want to get the
-   * response but you want to make sure we read it so that the underline connection is released
-   * 
+   * Execute the HTTP request and discard the response. Use this when you don't want to get the response but you want to
+   * make sure we read it so that the underline connection is released
+   *
    * @param request the request
    */
   protected void executeWithoutResponse(Request request) {
@@ -195,32 +198,31 @@ public abstract class WatsonService {
 
   /**
    * Gets the error message from a JSON response
-   * 
+   *
    * <pre>
    * {
    *   code: 400
    *   error: 'bad request'
    * }
    * </pre>
-   * 
-   * .
-   * 
+   *
    * @param response the HTTP response
    * @return the error message from the JSON object
    */
   private String getErrorMessage(Response response) {
-    String error = null;
+    String error = ResponseUtil.getResponseString(response);
     try {
 
-      final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+      final JsonObject jsonObject = ResponseUtil.getJsonObject(error);
       if (jsonObject.has("error")) {
         error = jsonObject.get("error").getAsString();
       } else if (jsonObject.has("error_message")) {
         error = jsonObject.get("error_message").getAsString();
-      } else {
-        error = jsonObject.getAsString();
       }
-    } catch (final Exception e) {
+    } catch (final JsonIOException e) {
+      // Ignore JsonIOException and use fallback String version of response
+    } catch (final JsonSyntaxException e) {
+      // Ignore JsonSyntaxException and use fallback String version of response
     }
 
     return error;
@@ -257,22 +259,19 @@ public abstract class WatsonService {
 
   /**
    * Sets the authentication.
-   * 
+   *
    * @param builder the new authentication
    */
   protected void setAuthentication(Builder builder) {
     if (getApiKey() == null) {
       throw new IllegalArgumentException("apiKey or username and password were not specified");
-    } else {
-      builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC
-          + apiKey);
     }
-
+    builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
   }
 
   /**
    * Sets the end point.
-   * 
+   *
    * @param endPoint the new end point
    */
   public void setEndPoint(String endPoint) {
