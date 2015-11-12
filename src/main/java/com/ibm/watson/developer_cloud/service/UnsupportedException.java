@@ -14,7 +14,7 @@
 package com.ibm.watson.developer_cloud.service;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
-
+import com.squareup.okhttp.Response;
 
 /**
  * 415 Unsupported Media Type (HTTP/1.1 - RFC 2616)
@@ -28,11 +28,12 @@ public class UnsupportedException extends ServiceResponseException {
 
   /**
    * Instantiates a new unsupported Exception.
-   * 
+   *
    * @param message the message
+   * @param response the HTTP response
    */
-  public UnsupportedException(String message) {
-    super(HttpStatus.UNSUPPORTED_MEDIA_TYPE, message);
+  public UnsupportedException(String message, Response response) {
+    super(HttpStatus.UNSUPPORTED_MEDIA_TYPE, message, response);
   }
 
 }

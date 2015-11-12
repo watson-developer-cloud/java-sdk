@@ -14,7 +14,7 @@
 package com.ibm.watson.developer_cloud.service;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
-
+import com.squareup.okhttp.Response;
 
 /**
  * 503 Service Unavailable (HTTP/1.0 - RFC 1945)
@@ -28,11 +28,12 @@ public class ServiceUnavailableException extends ServiceResponseException {
 
   /**
    * Instantiates a new Service Unavailable Exception.
-   * 
+   *
    * @param message the error message
+   * @param response the HTTP response
    */
-  public ServiceUnavailableException(String message) {
-    super(HttpStatus.SERVICE_UNAVAILABLE, message);
+  public ServiceUnavailableException(String message, Response response) {
+    super(HttpStatus.SERVICE_UNAVAILABLE, message, response);
   }
 
 }

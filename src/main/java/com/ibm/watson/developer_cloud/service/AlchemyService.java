@@ -84,14 +84,16 @@ public abstract class AlchemyService extends WatsonService {
    */
   private int detectErrorCode(String errorMessage) {
     final String error = errorMessage != null ? errorMessage : null;
-    if (error == null)
+    if (error == null) {
       return 400;
+    }
     if (error.equals(DAILY_TRANSACTION_LIMIT_EXCEEDED)) {
       return 429;
     } else if (error.equals(INVALID_API_KEY)) {
       return 401;
-    } else
+    } else {
       return 400;
+    }
   }
 
   /*
@@ -103,22 +105,21 @@ public abstract class AlchemyService extends WatsonService {
   protected Response execute(Request request) {
     final Response response = super.execute(request);
     final JsonObject error = getErrorMessage(response);
-    if (error == null)
+    if (error == null) {
       return response;
-    else {
-      log.log(Level.SEVERE, error.toString());
-      final int code = error.get(MESSAGE_CODE).getAsInt();
-      switch (code) {
-        case HttpStatus.BAD_REQUEST: // HTTP 400
-          throw new BadRequestException(error.toString());
-        case HttpStatus.UNAUTHORIZED: // HTTP 401
-          throw new UnauthorizedException(
-              "Unauthorized: Access is denied due to invalid credentials");
-        case HttpStatus.TOO_MANY_REQUESTS: // HTTP 429
-          throw new TooManyRequestsException(error.toString());
-        default: // other errors
-          throw new ServiceResponseException(code, error.toString());
-      }
+    }
+    log.log(Level.SEVERE, error.toString());
+    final int code = error.get(MESSAGE_CODE).getAsInt();
+    switch (code) {
+      case HttpStatus.BAD_REQUEST: // HTTP 400
+        throw new BadRequestException(error.toString(), response);
+      case HttpStatus.UNAUTHORIZED: // HTTP 401
+        throw new UnauthorizedException(
+            "Unauthorized: Access is denied due to invalid credentials", response);
+      case HttpStatus.TOO_MANY_REQUESTS: // HTTP 429
+        throw new TooManyRequestsException(error.toString(), response);
+      default: // other errors
+        throw new ServiceResponseException(code, error.toString(), response);
     }
   }
 
@@ -162,39 +163,40 @@ public abstract class AlchemyService extends WatsonService {
       error.addProperty(MESSAGE_ERROR, errorMessage != null ? errorMessage : "Unknown error");
       error.addProperty(MESSAGE_CODE, code);
       return error;
-    } else
-      return null; // no error
+    }
+    return null; // no error
   }
 
   /**
    * Returns the first non-null accepted format from the parameter map.
-   * 
+   *
    * @param params the request parameters
    * @param acceptedFormats the accepted formats
    * @return the first accepted format found in the map
    */
   protected String getInputFormat(Map<String, Object> params, String... acceptedFormats) {
     int i = 0;
-    while (i < acceptedFormats.length && params != null && !params.containsKey(acceptedFormats[i]))
+    while (i < acceptedFormats.length && params != null && !params.containsKey(acceptedFormats[i])) {
       i++;
+    }
 
-    if (params == null || i == acceptedFormats.length)
+    if (params == null || i == acceptedFormats.length) {
       throw new IllegalArgumentException(StringUtils.join(acceptedFormats, ",")
           + " should be specified");
+    }
     return acceptedFormats[i];
   }
 
   /*
    * (non-Javadoc)
-   * 
-   * @see com.ibm.watson.developer_cloud.service.WatsonService#setAuthentication(com.squareup
-   * .okhttp.Request.Builder)
+   *
+   * @see com.ibm.watson.developer_cloud.service.WatsonService#setAuthentication(com.squareup .okhttp.Request.Builder)
    */
   @Override
   protected void setAuthentication(Builder builder) {
-    if (getApiKey() == null)
+    if (getApiKey() == null) {
       throw new IllegalArgumentException("apiKey not specified");
-    else
-      addApiKeyToRequest(builder, PARAM_APIKEY + "=" + getApiKey());
+    }
+    addApiKeyToRequest(builder, PARAM_APIKEY + "=" + getApiKey());
   }
 }

@@ -14,7 +14,7 @@
 package com.ibm.watson.developer_cloud.service;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
-
+import com.squareup.okhttp.Response;
 
 /**
  * 401 Unauthorized (HTTP/1.0 - RFC 1945)
@@ -26,14 +26,14 @@ public class UnauthorizedException extends ServiceResponseException {
    */
   private static final long serialVersionUID = 1L;
 
-
   /**
    * Instantiates a new Unauthorized Exception.
-   * 
+   *
    * @param message the error message
+   * @param response the HTTP response
    */
-  public UnauthorizedException(String message) {
-    super(HttpStatus.UNAUTHORIZED, message);
+  public UnauthorizedException(String message, Response response) {
+    super(HttpStatus.UNAUTHORIZED, message, response);
   }
 
 }

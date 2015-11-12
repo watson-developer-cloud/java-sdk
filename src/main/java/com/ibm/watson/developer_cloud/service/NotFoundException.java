@@ -14,7 +14,7 @@
 package com.ibm.watson.developer_cloud.service;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
-
+import com.squareup.okhttp.Response;
 
 /**
  * 404 Not Found (HTTP/1.0 - RFC 1945)
@@ -28,11 +28,12 @@ public class NotFoundException extends ServiceResponseException {
 
   /**
    * Instantiates a new not found exception.
-   * 
+   *
    * @param message the message
+   * @param response the HTTP response
    */
-  public NotFoundException(String message) {
-    super(HttpStatus.NOT_FOUND, message);
+  public NotFoundException(String message, Response response) {
+    super(HttpStatus.NOT_FOUND, message, response);
   }
 
 }

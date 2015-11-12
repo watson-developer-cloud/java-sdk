@@ -13,6 +13,8 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
+import com.squareup.okhttp.Response;
+
 /**
  * Generic Service Response Exception.
  */
@@ -24,23 +26,37 @@ public class ServiceResponseException extends RuntimeException {
   /** The status code. */
   private final int statusCode;
 
+  /** The HTTP response. */
+  private final Response response;
+
   /**
    * Instantiates a new Service Response Exception.
-   * 
+   *
    * @param statusCode the status code
    * @param message the error message
+   * @param response the HTTP response
    */
-  public ServiceResponseException(int statusCode, String message) {
+  public ServiceResponseException(int statusCode, String message, Response response) {
     super(message);
     this.statusCode = statusCode;
+    this.response = response;
   }
 
   /**
    * Gets the HTTP status code.
-   * 
+   *
    * @return the http status code
    */
   public int getStatusCode() {
     return statusCode;
+  }
+
+  /**
+   * Gets the HTTP response.
+   *
+   * @return the HTTP response
+   */
+  public Response getResponse() {
+    return response;
   }
 }

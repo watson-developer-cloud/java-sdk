@@ -119,36 +119,36 @@ public abstract class WatsonService {
 
     switch (status) {
       case HttpStatus.BAD_REQUEST: // HTTP 400
-        throw new BadRequestException(error != null ? error : "Bad Request");
+        throw new BadRequestException(error != null ? error : "Bad Request", response);
       case HttpStatus.UNAUTHORIZED: // HTTP 401
-        throw new UnauthorizedException("Unauthorized: Access is denied due to invalid credentials");
+        throw new UnauthorizedException("Unauthorized: Access is denied due to invalid credentials", response);
       case HttpStatus.FORBIDDEN: // HTTP 403
         throw new ForbiddenException(error != null ? error
-            : "Forbidden: Service refuse the request");
+            : "Forbidden: Service refuse the request", response);
       case HttpStatus.NOT_FOUND: // HTTP 404
-        throw new NotFoundException(error != null ? error : "Not found");
+        throw new NotFoundException(error != null ? error : "Not found", response);
       case HttpStatus.NOT_ACCEPTABLE: // HTTP 406
         throw new ForbiddenException(error != null ? error
-            : "Forbidden: Service refuse the request");
+            : "Forbidden: Service refuse the request", response);
       case HttpStatus.REQUEST_TOO_LONG: // HTTP 413
         throw new RequestTooLargeException(error != null ? error
-            : "Request too large: The request entity is larger than the server is able to process");
+            : "Request too large: The request entity is larger than the server is able to process", response);
       case HttpStatus.UNSUPPORTED_MEDIA_TYPE: // HTTP 415
-        throw new UnsupportedException(error != null ? error : "Unsupported Media Type");
+        throw new UnsupportedException(error != null ? error : "Unsupported Media Type", response);
       case HttpStatus.TOO_MANY_REQUESTS: // HTTP 429
-        throw new TooManyRequestsException(error != null ? error : "Too many requests");
+        throw new TooManyRequestsException(error != null ? error : "Too many requests", response);
       case HttpStatus.INTERNAL_SERVER_ERROR: // HTTP 500
-        throw new InternalServerErrorException(error != null ? error : "Internal Server Error");
+        throw new InternalServerErrorException(error != null ? error : "Internal Server Error", response);
       case HttpStatus.SERVICE_UNAVAILABLE: // HTTP 503
-        throw new ServiceUnavailableException(error != null ? error : "Service Unavailable");
+        throw new ServiceUnavailableException(error != null ? error : "Service Unavailable", response);
       default: // other errors
-        throw new ServiceResponseException(status, error);
+        throw new ServiceResponseException(status, error, response);
     }
   }
 
   /**
    * Executes the HTTP Request, reads and parses the HTTP Response.
-   * 
+   *
    * @param <T> the POJO class that represents the response
    * @param request the request
    * @param returnType the return type

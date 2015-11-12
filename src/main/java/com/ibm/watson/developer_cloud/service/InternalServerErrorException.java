@@ -14,7 +14,7 @@
 package com.ibm.watson.developer_cloud.service;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
-
+import com.squareup.okhttp.Response;
 
 /**
  * 500 Server Error (HTTP/1.0 - RFC 1945)
@@ -28,11 +28,12 @@ public class InternalServerErrorException extends ServiceResponseException {
 
   /**
    * Instantiates a new Internal Server Error Exception.
-   * 
+   *
    * @param message the error message
+   * @param response the HTTP response
    */
-  public InternalServerErrorException(String message) {
-    super(HttpStatus.INTERNAL_SERVER_ERROR, message);
+  public InternalServerErrorException(String message, Response response) {
+    super(HttpStatus.INTERNAL_SERVER_ERROR, message, response);
   }
 
 }

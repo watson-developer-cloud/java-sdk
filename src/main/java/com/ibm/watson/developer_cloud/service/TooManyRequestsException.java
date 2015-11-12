@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
+import com.squareup.okhttp.Response;
 
 /**
  * 429 Too Many Requests (HTTP/1.1 - RFC 6585)
@@ -27,11 +28,12 @@ public class TooManyRequestsException extends ServiceResponseException {
 
   /**
    * Instantiates a new Too Many Requests Exception.
-   * 
+   *
    * @param message the error message
+   * @param response the HTTP response
    */
-  public TooManyRequestsException(String message) {
-    super(TOO_MANY_REQUESTS, message);
+  public TooManyRequestsException(String message, Response response) {
+    super(TOO_MANY_REQUESTS, message, response);
   }
 
 }
