@@ -55,11 +55,11 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
   /** The Constant log. */
   private static final Logger log = Logger.getLogger(ToneAnalyzerTest.class.getName());
 
-  /** The SYNONYM_PATH. (value is "/v2/synonym") */
-  private final static String SYNONYM_PATH = "/v2/synonym";
+  /** The SYNONYM_PATH. (value is "/v1/synonym") */
+  private final static String SYNONYM_PATH = "/v1/synonym";
 
-  /** The TONE_PATH. (value is "/v2/tone") */
-  private final static String TONE_PATH = "/v2/tone";
+  /** The TONE_PATH. (value is "/v1/tone") */
+  private final static String TONE_PATH = "/v1/tone";
 
   /** Mock Server *. */
   private ClientAndServer mockServer;
