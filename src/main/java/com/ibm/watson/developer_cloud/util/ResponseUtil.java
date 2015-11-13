@@ -113,7 +113,6 @@ public class ResponseUtil {
   public static <T extends GenericModel> T getObject(Response response, Class<T> type) {
     final String jsonString = getString(response);
     final T model = GsonSingleton.getGson().fromJson(jsonString, type);
-    model.setHttpResponse(response);
     return model;
   }
 

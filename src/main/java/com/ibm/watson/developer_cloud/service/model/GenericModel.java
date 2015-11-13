@@ -14,36 +14,11 @@
 package com.ibm.watson.developer_cloud.service.model;
 
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.squareup.okhttp.Response;
 
 /**
  * Abstract model class to provide a default toString() method in model classes.
  */
 public abstract class GenericModel {
-
-  private transient Response httpResponse;
-
-  /**
-   * Returns the underling HTTP @link {@link Response}. Useful when trying to get access to headers.
-   * 
-   * 
-   * @return the HTTP response
-   * @see Response
-   */
-  public Response getHttpResponse() {
-    return httpResponse;
-  }
-
-
-  /**
-   * Sets the HTTP response.
-   * 
-   * @param httpResponse the httpResponse to set
-   */
-  public void setHttpResponse(Response httpResponse) {
-    this.httpResponse = httpResponse;
-  }
-
 
   /*
    * (non-Javadoc)
