@@ -58,11 +58,11 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new RetrieveAndRank();
-    service.setUsernameAndPassword(prop.getProperty("retrieve_and_rank.username"),
-        prop.getProperty("retrieve_and_rank.password"));
-    service.setEndPoint(prop.getProperty("retrieve_and_rank.url"));
-    rankerId = prop.getProperty("retrieve_and_rank.ranker_id");
-    clusterId = prop.getProperty("retrieve_and_rank.cluster_id");
+    service.setUsernameAndPassword(getValidProperty("retrieve_and_rank.username"),
+        getValidProperty("retrieve_and_rank.password"));
+    service.setEndPoint(getValidProperty("retrieve_and_rank.url"));
+    rankerId = getValidProperty("retrieve_and_rank.ranker_id");
+    clusterId = getValidProperty("retrieve_and_rank.cluster_id");
   }
 
   @Test

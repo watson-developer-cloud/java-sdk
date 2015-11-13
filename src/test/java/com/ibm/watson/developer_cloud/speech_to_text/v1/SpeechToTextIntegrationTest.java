@@ -39,9 +39,9 @@ public class SpeechToTextIntegrationTest extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new SpeechToText();
-    service.setUsernameAndPassword(prop.getProperty("speech_to_text.username"),
-        prop.getProperty("speech_to_text.password"));
-    service.setEndPoint(prop.getProperty("speech_to_text.url"));
+    service.setUsernameAndPassword(getValidProperty("speech_to_text.username"),
+        getValidProperty("speech_to_text.password"));
+    service.setEndPoint(getValidProperty("speech_to_text.url"));
   }
 
   @Test
