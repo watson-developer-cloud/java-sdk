@@ -39,7 +39,6 @@ import com.ibm.watson.developer_cloud.service.BadRequestException;
 
 public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
 
-  private static final String CREATED_CLUSTER_SIZE_FREE = "";
   private static final String CREATED_CLUSTER_SIZE_ONE = "1";
   private static final String CREATED_CLUSTER_DEFAULT_NAME = "";
   private static final String CREATED_CLUSTER_NAME = "itest-cluster";
@@ -94,7 +93,7 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
     final SolrCluster solrCluster = service.createSolrCluster();
     final SolrCluster expectedSolrCluster =
         new SolrCluster(solrCluster.getId(), CREATED_CLUSTER_DEFAULT_NAME,
-            CREATED_CLUSTER_SIZE_FREE, Status.NOT_AVAILABLE);
+            CREATED_CLUSTER_SIZE_ONE, Status.NOT_AVAILABLE);
     try {
       assertTrue(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
     } finally {

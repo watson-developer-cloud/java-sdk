@@ -110,7 +110,7 @@ public class SpeechToTextIntegrationTest extends WatsonServiceTest {
     final File audio = new File("src/test/resources/sample1.wav");
     final String contentType = HttpMediaType.AUDIO_WAV;
     final SpeechResults results = service.recognize(audio, contentType);
-    System.out.println(results);
+    assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
   }
 
   @Test
@@ -119,9 +119,8 @@ public class SpeechToTextIntegrationTest extends WatsonServiceTest {
     final String contentType = HttpMediaType.AUDIO_WAV;
     final RecognizeOptions options = new RecognizeOptions();
     options.continuous(true).model(EN_BROADBAND16K);
-
     final SpeechResults results = service.recognize(audio, contentType);
-    System.out.println(results);
+    assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
   }
 
 }
