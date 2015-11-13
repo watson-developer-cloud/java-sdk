@@ -4,7 +4,7 @@
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<version>2.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<artifactId>java-wrapper</artifactId>
+	<artifactId>java-sdk</artifactId>
 	<name>Watson Developer Cloud Java SDK</name>
 	<description>Client library to use the IBM Watson Services and AlchemyAPI</description>
 	<url>https://github.com/watson-developer-cloud/java-sdk</url>
