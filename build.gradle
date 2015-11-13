@@ -6,7 +6,7 @@ sourceCompatibility = 1.6
 targetCompatibility = 1.6
 group = 'com.ibm.watson.developercloud'
 archivesBaseName = 'watson-developer-cloud'
-version = '1.1.0'
+version = '2.0.0'
 
 description = 'Client library to use the IBM Watson Services and AlchemyAPI'
 
@@ -14,10 +14,8 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile group: 'org.apache.httpcomponents', name: 'httpmime', version:'4.0.3'
+    compile group: 'com.squareup.okhttp', name: 'okhttp', version:'2.5.0'
     compile group: 'com.google.code.gson', name: 'gson', version:'2.3.1'
-    compile group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.0.3'
-    compile group: 'org.apache.commons', name: 'commons-csv', version:'1.2'
     compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.3.2'
     testCompile group: 'org.mockito', name: 'mockito-core', version:'1.10.19'
     testCompile group: 'org.mock-server', name: 'mockserver-netty', version:'3.9.17'

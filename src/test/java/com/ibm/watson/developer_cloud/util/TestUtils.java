@@ -1,17 +1,15 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.ibm.watson.developer_cloud.util;
 
@@ -33,92 +31,82 @@ import org.junit.Ignore;
 @Ignore
 public final class TestUtils {
 
-	/**
-	 * Private constructor.
-	 */
-	private TestUtils() {
+  /**
+   * Test that a collection is not null or empty.
+   * 
+   * @param objs the collection of objects
+   * @throws Exception any exception
+   */
+  @SuppressWarnings("rawtypes")
+  public static void assertIsEmpty(final Collection objs) throws Exception {
+    if (objs != null && !objs.isEmpty())
+      throw new AssertionFailedError("Collection is empty");
+  }
 
-	}
+  /**
+   * Test that collection iteration does not generate exceptions.
+   * 
+   * @param objs the collection of objects
+   * @throws Exception any exception
+   */
+  @SuppressWarnings("rawtypes")
+  public static void assertNoExceptionsOnCollectionIteration(final Collection objs)
+      throws Exception {
+    for (final Iterator iter = objs.iterator(); iter.hasNext();) {
+      final Object obj = iter.next();
+      assertNoExceptionsOnGetters(obj);
+    }
+  }
 
-	/**
-	 * Test access to the properties of an object through its accessors.
-	 * 
-	 * @param obj
-	 *            the object to test
-	 * @throws Exception
-	 *             any exception
-	 */
-	public static void assertNoExceptionsOnGetters(final Object obj)
-			throws Exception {
+  /**
+   * Test access to the properties of an object through its accessors.
+   * 
+   * @param obj the object to test
+   * @throws Exception any exception
+   */
+  public static void assertNoExceptionsOnGetters(final Object obj) throws Exception {
 
-		Class<?> clazz = obj.getClass();
-		BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
-		PropertyDescriptor[] propertyDescriptors = beanInfo
-				.getPropertyDescriptors();
+    final Class<?> clazz = obj.getClass();
+    final BeanInfo beanInfo = Introspector.getBeanInfo(clazz);
+    final PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
 
-		for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
-			Method readMethod = propertyDescriptor.getReadMethod();
+    for (final PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+      final Method readMethod = propertyDescriptor.getReadMethod();
 
-			if (readMethod != null) {
-				try {
-					readMethod.invoke(obj, new Object[] {});
-				} catch (InvocationTargetException e) {
-					StringBuffer msg = new StringBuffer();
-					msg.append("Failure: " + propertyDescriptor.getName());
-					msg.append(" Exception: " + e.getCause().getClass());
-					msg.append(" Msg: " + e.getCause().getMessage());
-					throw new AssertionFailedError(msg.toString());
-				}
-			}
-		}
+      if (readMethod != null) {
+        try {
+          readMethod.invoke(obj, new Object[] {});
+        } catch (final InvocationTargetException e) {
+          final StringBuffer msg = new StringBuffer();
+          msg.append("Failure: " + propertyDescriptor.getName());
+          msg.append(" Exception: " + e.getCause().getClass());
+          msg.append(" Msg: " + e.getCause().getMessage());
+          throw new AssertionFailedError(msg.toString());
+        }
+      }
+    }
 
-	}
+  }
 
-	/**
-	 * Test that collection iteration does not generate exceptions.
-	 * 
-	 * @param objs
-	 *            the collection of objects
-	 * @throws Exception
-	 *             any exception
-	 */
-	@SuppressWarnings("rawtypes")
-	public static void assertNoExceptionsOnCollectionIteration(
-			final Collection objs) throws Exception {
-		for (Iterator iter = objs.iterator(); iter.hasNext();) {
-			Object obj = iter.next();
-			assertNoExceptionsOnGetters(obj);
-		}
-	}
+  /**
+   * Test that a collection is not null or empty.
+   * 
+   * @param objs the collection of objects
+   * @throws Exception any exception
+   */
+  @SuppressWarnings({"rawtypes"})
+  public static void assertNotEmpty(final Collection objs) throws Exception {
+    if (objs == null)
+      throw new AssertionFailedError("Collection is null");
+    if (objs.isEmpty())
+      throw new AssertionFailedError("Collection is empty");
+  }
 
-	/**
-	 * Test that a collection is not null or empty.
-	 * 
-	 * @param objs
-	 *            the collection of objects
-	 * @throws Exception
-	 *             any exception
-	 */
-	@SuppressWarnings({ "rawtypes" })
-	public static void assertNotEmpty(final Collection objs) throws Exception {
-		if (objs == null)
-			throw new AssertionFailedError("Collection is null");
-		if (objs.isEmpty())
-			throw new AssertionFailedError("Collection is empty");
-	}
+  /**
+   * Private constructor.
+   */
+  private TestUtils() {
 
-	/**
-	 * Test that a collection is not null or empty.
-	 * 
-	 * @param objs
-	 *            the collection of objects
-	 * @throws Exception
-	 *             any exception
-	 */
-	@SuppressWarnings("rawtypes")
-	public static void assertIsEmpty(final Collection objs) throws Exception {
-		if (objs != null && !objs.isEmpty())
-			throw new AssertionFailedError("Collection is empty");
-	}
+  }
 
 }

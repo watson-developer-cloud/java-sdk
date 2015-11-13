@@ -19,17 +19,14 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Alchemy Language](#alchemy-language)
     * [Alchemy Vision](#alchemy-vision)
     * [Alchemy Data News](#alchemy-data-news)
-    * [Concept Expansion](#concept-expansion)
     * [Concept Insights](#concept-insights)
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
     * [Language Identification](#language-identification)
     * [Language Translation](#language-translation)
     * [Machine Translation](#machine-translation)
-    * [Message Resonance](#message-resonance)
     * [Natural Language Classifier](#natural-language-classifier)
     * [Personality Insights](#personality-insights)
-    * [Question and Answer](#question-and-answer)
     * [Relationship Extraction](#relationship-extraction)
     * [Speech to Text](#speech-to-text)
     * [Text to Speech](#text-to-speech)
@@ -55,13 +52,13 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-wrapper</artifactId>
-	<version>1.1.1</version>
+	<version>2.0.0</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-wrapper:1.1.1'
+'com.ibm.watson.developer_cloud:java-wrapper:2.0.0'
 ```
 
 ## Usage
@@ -146,32 +143,6 @@ VolumeResult result = service.getVolume("now-7d", "now", "12h");
 System.out.println(result);
 ```
 
-### Concept Expansion
-Map euphemisms or colloquial terms to more commonly understood phrases using
-the [Concept Expansion][concept_expansion] service.
-Example: Create a job, wait for it to finish, and then retrieve results.
-
-```java
-ConceptExpansion service = new ConceptExpansion();
-service.setUsernameAndPassword("<username>", "<password>");
-
-String[] seeds = new String[]{"motrin", "tylenol", "aspirin"};
-String label = "medicine";
-service.setDataset(ConceptExpansionDataset.MT_SAMPLES);
-Job job = service.createJob(label, seeds);
-
-while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
-		|| service.getJobStatus(job) == Job.Status.IN_FLIGHT) {
-	try {
-		Thread.sleep(4000);
-	} catch (InterruptedException e) {
-		e.printStackTrace();
-	}
-}
-
-System.out.println(service.getJobResult(job));
-```
-
 ### Concept Insights
 Use the Concept Insights service to identify words in the text that
 correspond to concepts in a Wikipedia graph.
@@ -223,19 +194,6 @@ TranslationResult translationResult = service.translate("hello", "en", "es");
 System.out.println(translationResult);
 ```
 
-### Message Resonance
-Send a word and Watson responds with the resonance scoring for the word, allowing you to enhance the effectiveness of your language for the intended audience.  
-Example: Get resonance information for individual words in a sentence from the [Message Resonance][message_resonance] service.
-
-```java
-MessageResonance service = new MessageResonance();
-service.setUsernameAndPassword("<username>", "<password>");
-
-service.setDataset(MessageResonanceDataset.BIG_DATA);
-Message message = service.getResonance("IBM Watson Developer Cloud");
-System.out.println(message);
-```
-
 ### Natural Language Classifier
 Use [Natural Language Classifier](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/nl-classifier/) service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.
 
@@ -284,18 +242,6 @@ System.out.println(profile);
 authentication errors, remember that the Personality Insights service is not
 a free service.
 
-### Question and Answer
-Ask a healthcare-related question of the [Question and Answer][question_and_answer] service.
-
-```java
-QuestionAndAnswer service = new QuestionAndAnswer();
-service.setUsernameAndPassword("<username>", "<password>");
-
-service.setDataset(QuestionAndAnswerDataset.HEALTHCARE);
-WatsonAnswer watsonAnswers = service.ask("What is HIV?");
-
-System.out.println(watsonAnswers);
-```
 
 ### Relationship Extraction
 Analyze an English news article and get the relationships between sentence
@@ -320,7 +266,7 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 File audio = new File("src/test/resources/sample1.wav");
 
-SpeechResults transcript = service.recognize(audio, "audio/l16; rate=44100");
+SpeechResults transcript = service.recognize(audio, HttpMediaType.AUDIO_WAV);
 System.out.println(transcript);
 ```
 
@@ -443,11 +389,9 @@ System.out.println(recognizedImage);
 ```
 
 ## Android
+he library supports Android 2.3 and above. For Java, the minimum requirement is 1.7.  
+It depends on [OkHttp][] and [gson][].
 
-The library works well on Android. It depends on
-[Apache HttpClient][] (including the [HttpMime][] module) and [json-java][].
-Android SDK already comes with these two libraries so you don't need to include
-them when using the library there.
 
 ## Running in Bluemix
 When running in Bluemix, the library will automatically get the credentials from `VCAP_SERVICES`.
@@ -467,7 +411,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-1.1.1.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-2.0.0.jar)
   $ gradle test # run tests
   ```
 
@@ -507,13 +451,9 @@ available in [LICENSE](LICENSE).
 ## Contributing
 See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-
-[question_and_answer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/qaapi/
-[message_resonance]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/mrapi/
 [personality_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/personality-insights/
 [language_identification]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/lidapi/
 [machine_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/mtapi/
-[concept_expansion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/glimpseapi/
 [document_conversion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/document-conversion/
 [relationship_extraction]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/sireapi/
 [language_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/
@@ -532,11 +472,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [alchemy_data_news]: http://www.alchemyapi.com/products/alchemydata-news
 
 [wdc]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/
-[vcap_environment]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/getting_started/index.html#EnvVars
 [bluemix]: https://console.ng.bluemix.net
 [Gradle]: http://www.gradle.org/
-[Apache HttpClient]: http://hc.apache.org/httpcomponents-client-ga/
-[HttpMime]: http://hc.apache.org/httpcomponents-client-ga/httpmime
-[json-java]: http://json.org/java/
+[OkHttp]: http://square.github.io/okhttp/
+[gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
 [releases]: https://github.com/watson-developer-cloud/java-sdk/releases
