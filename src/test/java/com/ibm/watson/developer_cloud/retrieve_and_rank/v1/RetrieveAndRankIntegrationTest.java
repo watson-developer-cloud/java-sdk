@@ -190,8 +190,8 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
   @Test
   public void testGetSolrUrl() {
     final String solrUrl = service.getSolrUrl(clusterId);
-    final String expectedUrl = "/solr_clusters/" + clusterId + "/solr";
-    assertTrue(solrUrl.endsWith(expectedUrl));
+    final String expectedUrl = service.getEndPoint() + "/v1/solr_clusters/" + clusterId + "/solr";
+    assertEquals(expectedUrl, solrUrl);
   }
 
   @Test

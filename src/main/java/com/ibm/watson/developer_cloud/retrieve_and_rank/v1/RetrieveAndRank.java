@@ -321,7 +321,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * @return URL to access Solr
    */
   public String getSolrUrl(String solrClusterId) {
-    return String.format(PATH_SOLR, solrClusterId);
+    return getEndPoint() + String.format(PATH_SOLR, solrClusterId);
   }
 
   /**
