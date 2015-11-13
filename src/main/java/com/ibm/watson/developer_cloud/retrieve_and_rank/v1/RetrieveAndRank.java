@@ -134,9 +134,12 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     final RequestBody body =
         new MultipartBuilder()
             .type(MultipartBuilder.FORM)
-            .addPart(Headers.of("Content-Disposition", "form-data; name=\"training_data\""),
+            .addPart(
+                Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"training_data\""),
                 RequestBody.create(HttpMediaType.BINARY_FILE, training))
-            .addPart(Headers.of("Content-Disposition", "form-data; name=\"training_metadata\""),
+            .addPart(
+                Headers
+                    .of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"training_metadata\""),
                 RequestBody.create(HttpMediaType.TEXT, contentJson.toString())).build();
 
     final Request request = RequestBuilder.post(PATH_CREATE_RANKER).withBody(body).build();
@@ -329,9 +332,11 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     final RequestBody body =
         new MultipartBuilder()
             .type(MultipartBuilder.FORM)
-            .addPart(Headers.of("Content-Disposition", "form-data; name=\"answer_data\""),
+            .addPart(
+                Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_data\""),
                 RequestBody.create(HttpMediaType.BINARY_FILE, answers))
-            .addPart(Headers.of("Content-Disposition", "form-data; name=\"answer_metadata\""),
+            .addPart(
+                Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_metadata\""),
                 RequestBody.create(HttpMediaType.TEXT, contentJson.toString())).build();
 
     final String path = String.format(PATH_RANK, rankerID);

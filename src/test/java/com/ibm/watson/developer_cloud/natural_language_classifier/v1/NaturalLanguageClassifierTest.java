@@ -42,7 +42,6 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifiedClass;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.TrainingData;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
@@ -67,30 +66,6 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
 
   /** The service. */
   private NaturalLanguageClassifier service;
-
-  /**
-   * Creates the classifier.
-   * 
-   * @throws Exception the exception
-   */
-  @Test
-  public void createClassifier() throws Exception {
-    final Classifier createdClassifier = new Classifier();
-    createdClassifier.setId("testId2");
-    createdClassifier.setStatus(Classifier.Status.AVAILABLE);
-    createdClassifier.setUrl("http://gateway.watson.net/");
-
-    mockServer.when(request().withMethod("POST").withPath(CLASSIFIERS_PATH)).respond(
-        response().withHeaders(
-            new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            createdClassifier.toString()));
-
-    final List<TrainingData> training = new ArrayList<TrainingData>();
-    training.add(new TrainingData().withText("text1").withClasses("k1"));
-    final Classifier classifier = service.createClassifier(null, null, training);
-
-    assertEquals(createdClassifier.toString(), classifier.toString());
-  }
 
   /*
    * (non-Javadoc)
@@ -263,13 +238,6 @@ public class NaturalLanguageClassifierTest extends WatsonServiceTest {
     service.classify(classifierId, null);
   }
 
-  /**
-   * Test null training data.
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testNullTrainingData() {
-    service.createClassifier(null, null, new ArrayList<TrainingData>());
-  }
 
   /**
    * Test null training data file.

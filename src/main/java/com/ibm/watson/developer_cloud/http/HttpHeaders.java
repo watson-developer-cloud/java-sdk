@@ -67,6 +67,13 @@ public interface HttpHeaders {
   public static final String CONTENT_LANGUAGE = "Content-Language";
 
   /**
+   * See <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.12">HTTP/1.1
+   * documentation</a>.
+   */
+  public static final String CONTENT_DISPOSITION = "Content-Disposition";
+
+
+  /**
    * See <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html#sec14.13">HTTP/1.1
    * documentation</a>.
    */

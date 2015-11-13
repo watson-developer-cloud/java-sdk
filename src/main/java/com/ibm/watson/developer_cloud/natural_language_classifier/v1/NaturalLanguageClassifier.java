@@ -14,20 +14,18 @@
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
 import java.io.File;
-import java.util.List;
-
-import org.apache.commons.csv.CSVFormat;
 
 import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.ClassifiedClass;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.TrainingData;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.util.TrainingDataUtils;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
@@ -47,24 +45,14 @@ import com.squareup.okhttp.Response;
  */
 public class NaturalLanguageClassifier extends WatsonService {
 
+  private static final String FORM_DATA_TRAINING_DATA = "form-data; name=\"training_data\"";
   private static final String PATH_CLASSIFIERS = "/v1/classifiers";
-
   private static final String TEXT = "text";
-
   private static final String PATH_CLASSIFY = "/v1/classifiers/%s/classify";
-
-  /** The Constant LANGUAGE (value is "language"). */
   private static final String LANGUAGE = "language";
-
-  /**
-   * The Constant LANGUAGE_EN. (value is: "en" )
-   */
   public static final String LANGUAGE_EN = "en";
-
   private static final String NAME = "name";
-  private static final String TRAINING_DATA = "training_data";
   private static final String TRAINING_METADATA = "training_metadata";
-
   private static final String PATH_CLASSIFIER = "/v1/classifiers/%s";
   private static String URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 
@@ -116,36 +104,15 @@ public class NaturalLanguageClassifier extends WatsonService {
    * 
    * @param name the classifier name
    * @param language IETF primary language for the classifier
-   * @param csvTrainingData the CSV training data
-   * @return the classifier
-   * @see Classifier
-   */
-  public Classifier createClassifier(final String name, final String language,
-      final File csvTrainingData) {
-    if (csvTrainingData == null || !csvTrainingData.exists())
-      throw new IllegalArgumentException("csvTrainingData cannot be null or not be found");
-
-    final List<TrainingData> trainingData =
-        TrainingDataUtils.fromCSV(csvTrainingData, CSVFormat.DEFAULT);
-    return createClassifier(name, language, trainingData);
-  }
-
-  /**
-   * Sends data to create and train a classifier, and returns information about the new classifier.
-   * The status has the value of `Training` when the operation is successful, and might remain at
-   * this status for a while.
-   * 
-   * @param name the classifier name
-   * @param language IETF primary language for the classifier
    * @param trainingData The set of questions and their "keys" used to adapt a system to a domain
    *        (the ground truth)
    * @return the classifier
    * @see Classifier
    */
   public Classifier createClassifier(final String name, final String language,
-      final List<TrainingData> trainingData) {
-    if (trainingData == null || trainingData.isEmpty())
-      throw new IllegalArgumentException("trainingData cannot be null or empty");
+      final File trainingData) {
+    if (trainingData == null || !trainingData.exists())
+      throw new IllegalArgumentException("trainingData cannot be null or not be found");
 
     final JsonObject contentJson = new JsonObject();
 
@@ -157,8 +124,9 @@ public class NaturalLanguageClassifier extends WatsonService {
 
     final RequestBody body =
         new MultipartBuilder()
-            .addFormDataPart(TRAINING_DATA,
-                TrainingDataUtils.toCSV(trainingData.toArray(new TrainingData[0])))
+            .type(MultipartBuilder.FORM)
+            .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, FORM_DATA_TRAINING_DATA),
+                RequestBody.create(HttpMediaType.BINARY_FILE, trainingData))
             .addFormDataPart(TRAINING_METADATA, contentJson.toString()).build();
 
     final Request request = RequestBuilder.post(PATH_CLASSIFIERS).withBody(body).build();
