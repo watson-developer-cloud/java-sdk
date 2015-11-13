@@ -333,7 +333,7 @@ public class DialogService extends WatsonService {
         RequestBuilder.get(String.format(PATH_PROFILE, dialogId)).withQuery(CLIENT_ID, clientId);
 
     if (names != null) {
-      for (String name : names) {
+      for (final String name : names) {
         requestbuilder.withQuery("name", name);
       }
     }
@@ -354,8 +354,8 @@ public class DialogService extends WatsonService {
    * @return the map
    */
   private Map<String, String> fromNameValues(List<NameValue> nameValues) {
-    Map<String, String> profile = new HashMap<String, String>();
-    for (NameValue nameValue : nameValues) {
+    final Map<String, String> profile = new HashMap<String, String>();
+    for (final NameValue nameValue : nameValues) {
       profile.put(nameValue.getName(), nameValue.getValue());
     }
     return profile;
@@ -425,8 +425,8 @@ public class DialogService extends WatsonService {
    * @return the {@link NameValue} list.
    */
   private List<NameValue> toNameValue(Map<String, String> profile) {
-    List<NameValue> nameValues = new ArrayList<NameValue>();
-    for (String key : profile.keySet()) {
+    final List<NameValue> nameValues = new ArrayList<NameValue>();
+    for (final String key : profile.keySet()) {
       nameValues.add(new NameValue(key, profile.get(key)));
     }
     return nameValues;
