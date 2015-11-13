@@ -42,8 +42,8 @@ import com.squareup.okhttp.Response;
  */
 public class ToneAnalyzer extends WatsonService {
 
-  private static final String PATH_SYNONYM = "/v2/synonym";
-  private static final String PATH_TONE = "/v2/tone";
+  private static final String PATH_SYNONYM = "/v1/synonym";
+  private static final String PATH_TONE = "/v1/tone";
   private static final String SCORECARD = "scorecard";
   private static final Type synonymListType = new TypeToken<List<SynonymResult>>() {}.getType();
   private static final String TEXT = "text";
