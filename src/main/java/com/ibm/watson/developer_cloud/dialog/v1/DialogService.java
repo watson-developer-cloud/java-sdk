@@ -52,6 +52,10 @@ import com.squareup.okhttp.Response;
  */
 public class DialogService extends WatsonService {
 
+  private static final String CONVERSATIONS = "conversations";
+
+  private static final String PATH_DIALOG_CONVERSATION = "/v1/dialogs/%s/conversation";
+
   /** The Constant CLIENT_ID. */
   public static final String CLIENT_ID = "client_id";
 
@@ -110,11 +114,12 @@ public class DialogService extends WatsonService {
 
   /** The Constant URL. */
   private static final String URL = "https://gateway.watsonplatform.net/dialog-beta/api";
-
   private static final String PATH_PROFILE = "/v1/dialogs/%s/profile";
+  private static final String PATH_DIALOG_CONTENT = "/v1/dialogs/%s/content";
+  private static final String PATH_DIALOG = "/v1/dialogs/%s";
 
   /**
-   * Instantiates a new Dialog service with the default url.
+   * Instantiates a new Dialog service with the default URL.
    */
   public DialogService() {
     super("dialog");
@@ -152,7 +157,7 @@ public class DialogService extends WatsonService {
     final Integer conversationId = (Integer) params.get(CONVERSATION_ID);
 
     if (dialogId == null || dialogId.isEmpty())
-      throw new IllegalArgumentException("dialog_id cannot be null or empty");
+      throw new IllegalArgumentException("dialog id cannot be null or empty");
 
     if (conversationId == null)
       log.info("Creating a new conversation with for dialog: " + dialogId);
@@ -161,7 +166,7 @@ public class DialogService extends WatsonService {
       log.info("Creating a new client id with for dialog: " + dialogId);
     }
 
-    final String path = String.format("/v1/dialogs/%s/conversation", dialogId);
+    final String path = String.format(PATH_DIALOG_CONVERSATION, dialogId);
 
     final Request request =
         RequestBuilder.post(path)
@@ -221,7 +226,7 @@ public class DialogService extends WatsonService {
     if (dialogId == null || dialogId.isEmpty())
       throw new IllegalArgumentException("dialogId cannot be null or empty");
 
-    final Request request = RequestBuilder.delete("/v1/dialogs/" + dialogId).build();
+    final Request request = RequestBuilder.delete(String.format(PATH_DIALOG, dialogId)).build();
     executeWithoutResponse(request);
   }
 
@@ -235,7 +240,8 @@ public class DialogService extends WatsonService {
     if (dialogId == null || dialogId.isEmpty())
       throw new IllegalArgumentException("dialogId cannot be null or empty");
 
-    final Request request = RequestBuilder.get("/v1/dialogs/" + dialogId + "/content").build();
+    final Request request =
+        RequestBuilder.get(String.format(PATH_DIALOG_CONTENT, dialogId)).build();
 
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
@@ -274,7 +280,7 @@ public class DialogService extends WatsonService {
     final String fromString = sdfDate.format(from);
     final String toString = sdfDate.format(to);
 
-    final String path = String.format("/v1/dialogs/%s/conversation", dialogId);
+    final String path = String.format(PATH_DIALOG_CONVERSATION, dialogId);
 
     final RequestBuilder requestBuilder =
         RequestBuilder.get(path).withQuery(DATE_FROM, fromString, DATE_TO, toString);
@@ -289,7 +295,7 @@ public class DialogService extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     final List<ConversationData> conversationDataList =
-        GsonSingleton.getGson().fromJson(jsonObject.get("conversations"), listConversationDataType);
+        GsonSingleton.getGson().fromJson(jsonObject.get(CONVERSATIONS), listConversationDataType);
     return conversationDataList;
   }
 
@@ -377,7 +383,8 @@ public class DialogService extends WatsonService {
             .addFormDataPart(FILE, dialogFile.getName(),
                 RequestBody.create(HttpMediaType.BINARY_FILE, dialogFile)).build();
 
-    final Request request = RequestBuilder.put("/v1/dialogs/" + dialogId).withBody(body).build();
+    final Request request =
+        RequestBuilder.put(String.format(PATH_DIALOG, dialogId)).withBody(body).build();
 
     executeWithoutResponse(request);
     final Dialog dialog = new Dialog().withDialogId(dialogId);

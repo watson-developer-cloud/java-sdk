@@ -47,6 +47,12 @@ import com.squareup.okhttp.Response;
  */
 public class NaturalLanguageClassifier extends WatsonService {
 
+  private static final String PATH_CLASSIFIERS = "/v1/classifiers";
+
+  private static final String TEXT = "text";
+
+  private static final String PATH_CLASSIFY = "/v1/classifiers/%s/classify";
+
   /** The Constant LANGUAGE (value is "language"). */
   private static final String LANGUAGE = "language";
 
@@ -58,6 +64,8 @@ public class NaturalLanguageClassifier extends WatsonService {
   private static final String NAME = "name";
   private static final String TRAINING_DATA = "training_data";
   private static final String TRAINING_METADATA = "training_metadata";
+
+  private static final String PATH_CLASSIFIER = "/v1/classifiers/%s";
   private static String URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 
   /**
@@ -83,9 +91,9 @@ public class NaturalLanguageClassifier extends WatsonService {
       throw new IllegalArgumentException("text cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("text", text);
+    contentJson.addProperty(TEXT, text);
 
-    final String path = String.format("/v1/classifiers/%s/classify", classifierId);
+    final String path = String.format(PATH_CLASSIFY, classifierId);
 
     final Request request = RequestBuilder.post(path).withBodyJson(contentJson).build();
 
@@ -153,7 +161,7 @@ public class NaturalLanguageClassifier extends WatsonService {
                 TrainingDataUtils.toCSV(trainingData.toArray(new TrainingData[0])))
             .addFormDataPart(TRAINING_METADATA, contentJson.toString()).build();
 
-    final Request request = RequestBuilder.post("/v1/classifiers").withBody(body).build();
+    final Request request = RequestBuilder.post(PATH_CLASSIFIERS).withBody(body).build();
 
     final Response response = execute(request);
     return ResponseUtil.getObject(response, Classifier.class);
@@ -169,7 +177,8 @@ public class NaturalLanguageClassifier extends WatsonService {
     if (classifierId == null || classifierId.isEmpty())
       throw new IllegalArgumentException("classifierId cannot be null or empty");
 
-    final Request request = RequestBuilder.delete("/v1/classifiers/" + classifierId).build();
+    final Request request =
+        RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId)).build();
     executeWithoutResponse(request);
   }
 
@@ -184,7 +193,8 @@ public class NaturalLanguageClassifier extends WatsonService {
     if (classifierId == null || classifierId.isEmpty())
       throw new IllegalArgumentException("classifierId cannot be null or empty");
 
-    final Request request = RequestBuilder.get("/v1/classifiers/" + classifierId).build();
+    final Request request =
+        RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId)).build();
     return executeRequest(request, Classifier.class);
   }
 
@@ -195,7 +205,7 @@ public class NaturalLanguageClassifier extends WatsonService {
    * @see Classifier
    */
   public Classifiers getClassifiers() {
-    final Request request = RequestBuilder.get("/v1/classifiers").build();
+    final Request request = RequestBuilder.get(PATH_CLASSIFIERS).build();
     return executeRequest(request, Classifiers.class);
   }
 
