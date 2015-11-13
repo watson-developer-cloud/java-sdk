@@ -71,6 +71,7 @@ public class AlchemyLanguage extends AlchemyService {
   public static final String URL = "url";
   public static final String USE_METADATA = "useMetadata";
   public static final String XPATH = "xpath";
+  public static final String TARGETS = "targets";
 
   /**
    * Execute the request and return the POJO that represent the response.
@@ -211,7 +212,7 @@ public class AlchemyLanguage extends AlchemyService {
    */
   public DocumentSentiment getSentiment(Map<String, Object> params) {
     AlchemyAPI operation = AlchemyAPI.sentiment;
-    if (params.get(TARGET) != null)
+    if (params.get(TARGET) != null || params.get(TARGETS) != null)
       operation = AlchemyAPI.sentiment_targeted;
 
     return executeRequest(params, operation, DocumentSentiment.class, TEXT, HTML, URL);

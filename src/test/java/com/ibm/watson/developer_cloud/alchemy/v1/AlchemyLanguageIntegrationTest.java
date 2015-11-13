@@ -190,7 +190,7 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
   }
 
   /**
-   * Test Get testGetTargetedSentiment HTML.
+   * Test Get testGetRelationsHtml HTML.
    * 
    * @throws IOException Signals that an I/O exception has occurred.
    */
@@ -203,7 +203,7 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
   }
 
   /**
-   * Test Get testGetTargetedSentiment URL.
+   * Test Get testGetRelationsUrl URL.
    */
   @Test
   public void testGetRelationsUrl() {
@@ -214,7 +214,7 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
   }
 
   /**
-   * Test Get testGetTargetedSentiment Url.
+   * Test Get testGetTargetedSentiment HTML.
    * 
    * @throws IOException Signals that an I/O exception has occurred.
    */
@@ -237,7 +237,22 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
         .put(
             AlchemyLanguage.URL,
             "http://techcrunch.com/2012/03/01/keen-on-anand-rajaraman-how-walmart-wants-to-leapfrog-over-amazon-tctv/");
-    params.put("target", "Walmart");
+    params.put(AlchemyLanguage.TARGET, "Walmart");
+    final DocumentSentiment documentSentiment = service.getSentiment(params);
+    Assert.assertNotNull(documentSentiment);
+  }
+
+  /**
+   * Test Get testGetTargetedSentiment Url and multiple targets
+   */
+  @Test
+  public void testGetTargetedSentimentURLAndTargets() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params
+        .put(
+            AlchemyLanguage.URL,
+            "http://techcrunch.com/2012/03/01/keen-on-anand-rajaraman-how-walmart-wants-to-leapfrog-over-amazon-tctv/");
+    params.put(AlchemyLanguage.TARGETS, "Walmart|Walmart");
     final DocumentSentiment documentSentiment = service.getSentiment(params);
     Assert.assertNotNull(documentSentiment);
   }
