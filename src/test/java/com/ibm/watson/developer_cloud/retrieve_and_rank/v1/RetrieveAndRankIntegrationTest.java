@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -89,6 +90,7 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
   }
 
   @Test
+  @Ignore
   public void testCreateAndDeleteSolrCluster() {
     final SolrCluster solrCluster = service.createSolrCluster();
     final SolrCluster expectedSolrCluster =
