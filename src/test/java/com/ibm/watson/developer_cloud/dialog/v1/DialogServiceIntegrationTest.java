@@ -31,7 +31,6 @@ import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Conversation;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Dialog;
 import com.ibm.watson.developer_cloud.dialog.v1.model.DialogContent;
-import com.ibm.watson.developer_cloud.dialog.v1.model.NameValue;
 
 /**
  * The Class DialogServiceTest.
@@ -99,9 +98,11 @@ public class DialogServiceIntegrationTest extends WatsonServiceTest {
     assertFalse(dialogContent.isEmpty());
     assertNotNull(dialogContent.get(0));
 
-    final List<NameValue> profile = service.getProfile(dialogId, c.getClientId());
-    profile.get(0).setValue("foo");
-    service.updateProfile(dialogId, profile);
+    final Map<String, String> profile = service.getProfile(dialogId, c.getClientId());
+    // update profile
+    profile.put(profile.keySet().iterator().next(), "foo");
+
+    service.updateProfile(dialogId, c.getClientId(), profile);
   }
 
   /**
@@ -214,6 +215,6 @@ public class DialogServiceIntegrationTest extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testUpdateProfile() {
-    service.updateProfile(null, null);
+    service.updateProfile(null, null, null);
   }
 }

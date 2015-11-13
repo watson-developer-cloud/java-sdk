@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.dialog.v1;
 import java.io.File;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -109,6 +110,8 @@ public class DialogService extends WatsonService {
 
   /** The Constant URL. */
   private static final String URL = "https://gateway.watsonplatform.net/dialog-beta/api";
+
+  private static final String PATH_PROFILE = "/v1/dialogs/%s/profile";
 
   /**
    * Instantiates a new Dialog service with the default url.
@@ -312,9 +315,8 @@ public class DialogService extends WatsonService {
    * @param clientId the client id
    * @param names the profile variables to return
    * @return the created dialog
-   * @see NameValue
    */
-  public List<NameValue> getProfile(String dialogId, Integer clientId, String... names) {
+  public Map<String, String> getProfile(String dialogId, Integer clientId, String... names) {
     if (dialogId == null || dialogId.isEmpty())
       throw new IllegalArgumentException("dialogId cannot be null or empty");
 
@@ -322,7 +324,7 @@ public class DialogService extends WatsonService {
       throw new IllegalArgumentException("clientId cannot be null");
 
     final RequestBuilder requestbuilder =
-        RequestBuilder.get("/v1/dialogs/" + dialogId + "/profile").withQuery(CLIENT_ID, clientId);
+        RequestBuilder.get(String.format(PATH_PROFILE, dialogId)).withQuery(CLIENT_ID, clientId);
 
     if (names != null) {
       for (String name : names) {
@@ -333,10 +335,26 @@ public class DialogService extends WatsonService {
     final Request request = requestbuilder.build();
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-    final List<NameValue> content =
+    final List<NameValue> nameValues =
         GsonSingleton.getGson().fromJson(jsonObject.get(NAME_VALUES), listNameValueType);
-    return content;
+
+    return fromNameValues(nameValues);
   }
+
+  /**
+   * Returns a Map from a {@link NameValue} list.
+   * 
+   * @param nameValues the {@link NameValue} list
+   * @return the map
+   */
+  private Map<String, String> fromNameValues(List<NameValue> nameValues) {
+    Map<String, String> profile = new HashMap<String, String>();
+    for (NameValue nameValue : nameValues) {
+      profile.put(nameValue.getName(), nameValue.getValue());
+    }
+    return profile;
+  }
+
 
   /**
    * Updates a dialog.
@@ -367,27 +385,44 @@ public class DialogService extends WatsonService {
   }
 
   /**
-   * Updates a dialog profile with a list of {@link NameValue} properties. Profile variables are
-   * case sensitive.
+   * Updates a dialog profile with a profile. Profile variables are case sensitive.
    * 
    * @param dialogId The dialog identifier
-   * @param nameValues The {@link NameValue} list of variables to update
+   * @param clientId the client id
+   * @param profile the profile variables
    */
-  public void updateProfile(final String dialogId, final List<NameValue> nameValues) {
+  public void updateProfile(final String dialogId, final Integer clientId,
+      final Map<String, String> profile) {
     if (dialogId == null || dialogId.isEmpty())
       throw new IllegalArgumentException("dialogId cannot be null or empty");
 
-    if (nameValues == null || nameValues.isEmpty())
-      throw new IllegalArgumentException("nameValues cannot be null or empty");
+    if (profile == null || profile.isEmpty())
+      throw new IllegalArgumentException("profile cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
+    if (clientId != null)
+      contentJson.addProperty(CLIENT_ID, clientId);
 
-    contentJson.add(NAME_VALUES, GsonSingleton.getGson().toJsonTree(nameValues));
+    contentJson.add(NAME_VALUES, GsonSingleton.getGson().toJsonTree(toNameValue(profile)));
 
     final Request request =
-        RequestBuilder.put("/v1/dialogs/" + dialogId + "/profile").withBodyJson(contentJson)
-            .build();
+        RequestBuilder.put(String.format(PATH_PROFILE, dialogId)).withBodyJson(contentJson).build();
     executeWithoutResponse(request);
+  }
+
+
+  /**
+   * Converts the profile map into a {@link NameValue} list.
+   * 
+   * @param profile the profile
+   * @return the {@link NameValue} list.
+   */
+  private List<NameValue> toNameValue(Map<String, String> profile) {
+    List<NameValue> nameValues = new ArrayList<NameValue>();
+    for (String key : profile.keySet()) {
+      nameValues.add(new NameValue(key, profile.get(key)));
+    }
+    return nameValues;
   }
 
 }
