@@ -1,18 +1,15 @@
 /**
- * The IBM Watson Tone Analyzer is a service that helps people comprehend, 
- * consume, and revise the language tone of their writing for more efficient 
- * communications or online self-presentation management. Built upon linguistic 
- * analysis, it detects three types of tones from written text: emotions
- * (negative emotions, cheerfulness, anger, and so on), social propensities
- * (openness, agreeableness, and conscientiousness), and writing styles
- * (analytical, confident, and tentative). It helps people understand how tones
- * are derived from various linguistic signals. It also offers actionable
- * suggestions to revise the writing for desirable tone. Based on the analysis,
- * authors can revise their text to portray the tone that is appropriate for the
- * targeted audience before sending a message, potentially avoiding regrets and
- * miscommunications.
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html">
- * Tone Analyzer</a>
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v1;
 

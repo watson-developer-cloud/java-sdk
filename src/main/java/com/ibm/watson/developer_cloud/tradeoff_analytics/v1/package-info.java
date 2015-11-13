@@ -1,15 +1,15 @@
 /**
- * The Tradeoff Analytics service helps people optimize their decisions
- * while striking a balance between multiple, often conflicting, objectives.
- * The service can be used to help make complex decisions like what mortgage
- * to take or which laptop to purchase. Tradeoff Analytics uses
- * Pareto filtering techniques to identify the optimal alternatives
- * across multiple criteria. It then uses various analytical and visual
- * approaches to help the decision maker explore the pros and cons of
- * their alternatives.
- *
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tradeoff-analytics.html">
- * Tradeoff Analytics</a>
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 

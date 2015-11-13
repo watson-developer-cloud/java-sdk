@@ -1,148 +1,124 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
-import java.io.IOException;
 import java.util.Map;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpRequestBase;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
+import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
-import com.ibm.watson.developer_cloud.service.Request;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
 
 /**
- * AlchemyData News indexes 250k to 300k English language news and blog articles every day
- * with historical search available for the past 60 days.
+ * AlchemyData News indexes 250k to 300k English language news and blog articles every day with
+ * historical search available for the past 60 days.
  * 
- * @author Nizar Alseddeg (nmalsedd@us.ibm.com)
  * @version v1
- * @see <a href="https://alchemyapi.readme.io/v1.0/docs/rest-api-documentation"> Alchemy
- *      Data News</a>
+ * @see <a href="https://alchemyapi.readme.io/v1.0/docs/rest-api-documentation"> Alchemy Data
+ *      News</a>
  */
 public class AlchemyDataNews extends AlchemyService {
 
-	/**
-	 *  TIME FORMAT.
-	 */
-	public static enum TimeFormat {
-		
-		/** The d. */
-		d, 
-		 /** The h. */
-		 h, 
-		 /** The m. */
-		 m, 
-		 /** The m. */
-		 M, 
-		 /** The now. */
-		 NOW, 
-		 /** The s. */
-		 s, 
-		 /** The y. */
-		 y
-	}
+  private static final String JSON = "json";
 
-	/**
-	 * The Constant END. the time (in UTC seconds) of the end of the query duration
-	 */
-	public static final String END = "end";
+  /**
+   * The TimeFormat Enumeration.
+   */
+  public static enum TimeFormat {
 
-	/** The Constant NEWS_END_POINT. */
-	private static final String NEWS_END_POINT = "/data/GetNews";
+    /** The Time format d. */
+    d, /** The Time format h. */
+    h, /** The Time format m. */
+    m, /** The Time format m. */
+    M, /** The Time format now. */
+    NOW, /** The Time format s. */
+    s, /** The Time format y. */
+    y
+  }
 
-	/** The Constant RETURN. */
-	public static final String RETURN = "return";
+  /** The Constant COUNT (value is "count"). */
+  public static final String COUNT = "count";
 
-	/**
-	 * The Constant START. the time (in UTC seconds) of the beginning of the query
-	 * duration
-	 */
-	public static final String START = "start";
+  /**
+   * The Constant END. the time (in UTC seconds) of the end of the query duration (value is "end")
+   */
+  public static final String END = "end";
 
-	/**
-	 * The Constant TIME_SLICE. the duration (in seconds) of each time slice
-	 */
-	public static final String TIME_SLICE = "timeSlice";
+  /** The Constant String NEWS_END_POINT. */
+  private static final String NEWS_END_POINT = "/data/GetNews";
 
-	/** The Constant COUNT. (value is "count") */
-	public static final String COUNT = "count";
+  /** The Constant String RETURN (value is "return") */
+  public static final String RETURN = "return";
 
-	/**
-	 * Gets the news documents.
-	 *
-	 * @param parameters the parameters
-	 * @return the news documents
-	 */
-	public DocumentsResult getNewsDocuments(Map<String, Object> parameters) {
-		Validate.notNull(parameters.get(START), "start time cannot be null");
-		Validate.notNull(parameters.get(END), "end time cannot be null");
-		Validate.notNull(parameters.get(RETURN), "return cannot be null");
+  /**
+   * The Constant START. the time (in UTC seconds) of the beginning of the query duration. (value is
+   * "start")
+   */
+  public static final String START = "start";
 
-		// Return json
-		parameters.put(OUTPUT_MODE, "json");
+  /**
+   * The Constant TIME_SLICE. the duration (in seconds) of each time slice (value is "timeSlice")
+   */
+  public static final String TIME_SLICE = "timeSlice";
 
-		// Prevent jsonp to be returned
-		parameters.remove(JSONP);
+  /**
+   * Gets the news documents.
+   * 
+   * @param parameters the parameters
+   * @return the news documents
+   */
+  public DocumentsResult getNewsDocuments(Map<String, Object> parameters) {
+    Validate.notNull(parameters.get(START), "start time cannot be null");
+    Validate.notNull(parameters.get(END), "end time cannot be null");
+    Validate.notNull(parameters.get(RETURN), "return cannot be null");
 
-		Request request = Request.Get(NEWS_END_POINT);
-		for (String param : parameters.keySet()) {
-			request.withQuery(param, parameters.get(param));
-		}
+    // Return json
+    parameters.put(OUTPUT_MODE, JSON);
 
-		HttpRequestBase requestBase = request.build();
-		try {
-			HttpResponse response = execute(requestBase);
-			return ResponseUtil.getObject(response, DocumentsResult.class);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    // Prevent jsonp to be returned
+    parameters.remove(JSONP);
 
-	/**
-	 * Get a handle on how many documents are relevant for your query.
-	 *
-	 * @param start            String the time (in UTC seconds) of the beginning of the query duration,
-	 * @param end            String the time (in UTC seconds) of the end of the query duration.
-	 * @param timeSlice            String the duration (in seconds) of each time slice.
-	 * @return {@link VolumeResult}
-	 */
-	public VolumeResult getVolume(final String start, final String end, final String timeSlice) {
-		Validate.notNull(start, "start time cannot be null");
-		Validate.notNull(end, "end time cannot be null");
+    final RequestBuilder requestBuilder = RequestBuilder.get(NEWS_END_POINT);
+    for (final String param : parameters.keySet()) {
+      requestBuilder.withQuery(param, parameters.get(param));
+    }
 
-		Request request = Request.Get(NEWS_END_POINT);
+    return executeRequest(requestBuilder.build(), DocumentsResult.class);
+  }
 
-		request.withQuery(START, start);
-		request.withQuery(END, end);
-		request.withQuery(OUTPUT_MODE, "json");
-		if (timeSlice != null)
-			request.withQuery(TIME_SLICE, timeSlice);
+  /**
+   * Get a handle on how many documents are relevant for your query.
+   * 
+   * @param start String the time (in UTC seconds) of the beginning of the query duration,
+   * @param end String the time (in UTC seconds) of the end of the query duration.
+   * @param timeSlice String the duration (in seconds) of each time slice.
+   * @return {@link VolumeResult}
+   */
+  public VolumeResult getVolume(final String start, final String end, final String timeSlice) {
+    Validate.notNull(start, "start time cannot be null");
+    Validate.notNull(end, "end time cannot be null");
 
-		HttpRequestBase requestBase = request.build();
-		try {
-			HttpResponse response = execute(requestBase);
-			return ResponseUtil.getObject(response, VolumeResult.class);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-	}
+    final RequestBuilder requestBuilder = RequestBuilder.get(NEWS_END_POINT);
+
+    requestBuilder.withQuery(START, start);
+    requestBuilder.withQuery(END, end);
+    requestBuilder.withQuery(OUTPUT_MODE, JSON);
+    if (timeSlice != null)
+      requestBuilder.withQuery(TIME_SLICE, timeSlice);
+
+    return executeRequest(requestBuilder.build(), VolumeResult.class);
+  }
 
 }

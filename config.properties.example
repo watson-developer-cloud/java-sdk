@@ -2,9 +2,7 @@
 
 # AlchemyAPI key
 alchemy.alchemy=
-concept_expansion.password=
-concept_expansion.url=
-concept_expansion.username=
+
 dialog.dialog_id=
 dialog.password=
 dialog.url=
