@@ -310,19 +310,27 @@ public class DialogService extends WatsonService {
    * 
    * @param dialogId The dialog identifier
    * @param clientId the client id
+   * @param names the profile variables to return
    * @return the created dialog
    * @see NameValue
    */
-  public List<NameValue> getProfile(String dialogId, Integer clientId) {
+  public List<NameValue> getProfile(String dialogId, Integer clientId, String... names) {
     if (dialogId == null || dialogId.isEmpty())
       throw new IllegalArgumentException("dialogId cannot be null or empty");
 
     if (clientId == null)
       throw new IllegalArgumentException("clientId cannot be null");
 
-    final Request request =
-        RequestBuilder.get("/v1/dialogs/" + dialogId + "/profile").withQuery(CLIENT_ID, clientId)
-            .build();
+    final RequestBuilder requestbuilder =
+        RequestBuilder.get("/v1/dialogs/" + dialogId + "/profile").withQuery(CLIENT_ID, clientId);
+
+    if (names != null) {
+      for (String name : names) {
+        requestbuilder.withQuery("name", name);
+      }
+    }
+
+    final Request request = requestbuilder.build();
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     final List<NameValue> content =
@@ -359,28 +367,21 @@ public class DialogService extends WatsonService {
   }
 
   /**
-   * Updates a dialog profile with a list of {@link NameValue} properties. If clientId is not
-   * specified a new clientId is generated. Profile variables are case sensitive.
+   * Updates a dialog profile with a list of {@link NameValue} properties. Profile variables are
+   * case sensitive.
    * 
    * @param dialogId The dialog identifier
-   * @param clientId the client identifier
-   * @param nameValues The name value list to update
-   * @see Dialog
+   * @param nameValues The {@link NameValue} list of variables to update
    */
-  public void updateProfile(final String dialogId, final Integer clientId,
-      final List<NameValue> nameValues) {
+  public void updateProfile(final String dialogId, final List<NameValue> nameValues) {
     if (dialogId == null || dialogId.isEmpty())
       throw new IllegalArgumentException("dialogId cannot be null or empty");
-
-    if (clientId == null)
-      throw new IllegalArgumentException("clientId cannot be null");
 
     if (nameValues == null || nameValues.isEmpty())
       throw new IllegalArgumentException("nameValues cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
 
-    contentJson.addProperty(CLIENT_ID, clientId);
     contentJson.add(NAME_VALUES, GsonSingleton.getGson().toJsonTree(nameValues));
 
     final Request request =

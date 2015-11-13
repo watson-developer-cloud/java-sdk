@@ -101,7 +101,7 @@ public class DialogServiceIntegrationTest extends WatsonServiceTest {
 
     final List<NameValue> profile = service.getProfile(dialogId, c.getClientId());
     profile.get(0).setValue("foo");
-    service.updateProfile(dialogId, c.getClientId(), profile);
+    service.updateProfile(dialogId, profile);
   }
 
   /**
@@ -214,6 +214,6 @@ public class DialogServiceIntegrationTest extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testUpdateProfile() {
-    service.updateProfile(null, null, null);
+    service.updateProfile(null, null);
   }
 }
