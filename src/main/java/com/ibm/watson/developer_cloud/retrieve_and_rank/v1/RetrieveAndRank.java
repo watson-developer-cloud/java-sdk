@@ -77,6 +77,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   private static final String PATH_CREATE_RANKER = "/v1/rankers";
 
   private static final String PATH_GET_SOLR_CLUSTER = "/v1/solr_clusters/%s";
+  private static final String PATH_SOLR = "/v1/solr_clusters/%s/solr";
   private static final String PATH_RANK = "/v1/rankers/%s/rank";
   private static final String PATH_RANKER = "/v1/rankers/%s";
   private static final String PATH_RANKERS = "/v1/rankers";
@@ -314,8 +315,18 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   }
 
   /**
+   * This URL can be used with the SolrJ library to access Solr functionality.
+   *
+   * @param solrClusterId the ID of the Solr cluster to connect to
+   * @return URL to access Solr
+   */
+  public String getSolrUrl(String solrClusterId) {
+    return String.format(PATH_SOLR, solrClusterId);
+  }
+
+  /**
    * Gets and returns the ranked answers.
-   * 
+   *
    * @param rankerID The ranker ID
    * @param answers The CSV file that contains the search results that you want to rank.
    * @param topAnswers The number of top answers needed, default is 10

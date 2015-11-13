@@ -186,6 +186,13 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
   }
 
   @Test
+  public void testGetSolrUrl() {
+    final String solrUrl = service.getSolrUrl(clusterId);
+    final String expectedUrl = "/solr_clusters/" + clusterId + "/solr";
+    assertTrue(solrUrl.endsWith(expectedUrl));
+  }
+
+  @Test
   public void testUploadAndDeleteSolrClusterConfigurationDirectory() {
     try {
       final File configDir = new File(RESOURCE_PATH + "config_dir");
