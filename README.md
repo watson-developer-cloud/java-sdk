@@ -1,6 +1,6 @@
 # Watson Developer Cloud Java SDK
 [![Build Status](https://secure.travis-ci.org/watson-developer-cloud/java-sdk.svg)](http://travis-ci.org/watson-developer-cloud/java-sdk)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-wrapper/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-wrapper)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![Coverage Status](https://coveralls.io/repos/watson-developer-cloud/java-sdk/badge.svg)](https://coveralls.io/github/watson-developer-cloud/java-sdk)
 
 Java client library to use the [Watson Developer Cloud][wdc] services, a collection of REST
@@ -51,14 +51,14 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 ```xml
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>java-wrapper</artifactId>
+	<artifactId>java-sdk</artifactId>
 	<version>2.0.0</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-wrapper:2.0.0'
+'com.ibm.watson.developer_cloud:java-sdk:2.0.0'
 ```
 
 ## Usage

@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -38,7 +38,7 @@ import com.squareup.okhttp.Response;
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication
  * and default url
- * 
+ *
  * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/"> IBM Watson
  *      Developer Cloud</a>
  */
@@ -53,7 +53,7 @@ public abstract class WatsonService {
 
   /**
    * Instantiates a new Watson service.
-   * 
+   *
    * @param name the service name
    */
   public WatsonService(String name) {
@@ -65,7 +65,7 @@ public abstract class WatsonService {
 
   /**
    * Configure HTTP client.
-   * 
+   *
    * @return the okhttp client
    */
   private OkHttpClient configureHttpClient() {
@@ -83,9 +83,9 @@ public abstract class WatsonService {
 
   /**
    * Execute the HTTP request.
-   * 
+   *
    * @param request the HTTP request
-   * 
+   *
    * @return the HTTP response
    */
   protected Response execute(Request request) {
@@ -158,7 +158,7 @@ public abstract class WatsonService {
 
   /**
    * Executes the HTTP Request, reads and parses the HTTP Response.
-   * 
+   *
    * @param <T> the POJO class that represents the response
    * @param request the request
    * @param returnType the return type
@@ -172,7 +172,7 @@ public abstract class WatsonService {
   /**
    * Execute the HTTP request and discard the response. Use this when you don't want to get the
    * response but you want to make sure we read it so that the underline connection is released
-   * 
+   *
    * @param request the request
    */
   protected void executeWithoutResponse(Request request) {
@@ -188,8 +188,8 @@ public abstract class WatsonService {
 
   /**
    * Gets the API key.
-   * 
-   * 
+   *
+   *
    * @return the API key
    */
   protected String getApiKey() {
@@ -198,8 +198,8 @@ public abstract class WatsonService {
 
   /**
    * Gets the API end point.
-   * 
-   * 
+   *
+   *
    * @return the API end point
    */
   public String getEndPoint() {
@@ -208,14 +208,14 @@ public abstract class WatsonService {
 
   /**
    * Gets the error message from a JSON response
-   * 
+   *
    * <pre>
    * {
    *   code: 400
    *   error: 'bad request'
    * }
    * </pre>
-   * 
+   *
    * @param response the HTTP response
    * @return the error message from the JSON object
    */
@@ -240,7 +240,7 @@ public abstract class WatsonService {
 
   /**
    * Gets the name.
-   * 
+   *
    * @return the name
    */
   public String getName() {
@@ -250,17 +250,17 @@ public abstract class WatsonService {
 
   /**
    * Gets the user agent.
-   * 
-   * 
+   *
+   *
    * @return the user agent
    */
   private final String getUserAgent() {
-    return "watson-developer-cloud-java-wrapper-2.0.0";
+    return "watson-developer-cloud-java-sdk-2.0.0";
   }
 
   /**
    * Sets the API key.
-   * 
+   *
    * @param apiKey the new API key
    */
   public void setApiKey(String apiKey) {
@@ -269,7 +269,7 @@ public abstract class WatsonService {
 
   /**
    * Sets the authentication.
-   * 
+   *
    * @param builder the new authentication
    */
   protected void setAuthentication(Builder builder) {
@@ -282,7 +282,7 @@ public abstract class WatsonService {
 
   /**
    * Sets the end point.
-   * 
+   *
    * @param endPoint the new end point
    */
   public void setEndPoint(String endPoint) {
@@ -291,7 +291,7 @@ public abstract class WatsonService {
 
   /**
    * Sets the username and password.
-   * 
+   *
    * @param username the username
    * @param password the password
    */
@@ -301,7 +301,7 @@ public abstract class WatsonService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override

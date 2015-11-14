@@ -1,7 +1,7 @@
 # Release Process
 
  * code: https://github.com/watson-developer-cloud/java-sdk
- * maven: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22java-wrapper%22
+ * maven: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22java-sdk%22
 
 ## Guide to uploading artifacts to the Central Repository
 
