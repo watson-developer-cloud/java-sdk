@@ -20,10 +20,6 @@ import java.io.InputStreamReader;
 import java.util.Properties;
 
 import org.junit.Before;
-import org.slf4j.LoggerFactory;
-
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
 
 /**
  * Utility class to test the Watson Services.
@@ -159,27 +155,7 @@ public abstract class WatsonServiceTest {
    * Setup logging.
    */
   private void setupLogging() {
-    java.util.logging.Logger.getLogger("org.apache.http.wire").setLevel(
-        java.util.logging.Level.FINEST);
-    java.util.logging.Logger.getLogger("org.apache.http.headers").setLevel(
-        java.util.logging.Level.FINEST);
 
-    // set logging level
-    final Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
-    root.setLevel(Level.OFF);
-
-    // System.setProperty("org.apache.commons.logging.Log",
-    // "org.apache.commons.logging.impl.SimpleLog");
-    // System.setProperty("org.apache.commons.logging.simplelog.showdatetime",
-    // "true");
-    // System.setProperty("org.apache.commons.logging.simplelog.log.httpclient.wire",
-    // "debug");
-    // System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http",
-    // "debug");
-    // System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.impl.conn",
-    // "debug");
-    // System.setProperty("org.apache.commons.logging.simplelog.log.org.apache.http.impl.client",
-    // "debug");
   }
 
 }
