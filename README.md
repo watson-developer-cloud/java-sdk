@@ -52,13 +52,13 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>2.0.0</version>
+	<version>2.1.0</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:2.0.0'
+'com.ibm.watson.developer_cloud:java-sdk:2.1.0'
 ```
 
 ## Usage
@@ -411,7 +411,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-2.0.0.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-2.1.0.jar)
   $ gradle test # run tests
   ```
 
