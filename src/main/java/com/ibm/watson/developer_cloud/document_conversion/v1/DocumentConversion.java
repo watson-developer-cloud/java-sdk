@@ -20,10 +20,13 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionTarget;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
@@ -91,11 +94,15 @@ public class DocumentConversion extends WatsonService {
     final JsonObject configJson = new JsonObject();
     configJson.addProperty(CONVERSION_TARGET, conversionTarget.toString());
 
+    MediaType mType = MediaType.parse(type);
     final RequestBody body =
         new MultipartBuilder()
-            .addFormDataPart(CONFIG, configJson.toString())
-            .addFormDataPart(FILE, document.getName(),
-                RequestBody.create(MediaType.parse(type), document)).build();
+            .type(MultipartBuilder.FORM)
+            .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"config\""),
+                RequestBody.create(HttpMediaType.JSON, configJson.toString()))
+            .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"file\""),
+                RequestBody.create(mType, document)).build();
+
 
     final Request request = RequestBuilder.post(CONVERT_DOCUMENT_PATH).withBody(body).build();
 
