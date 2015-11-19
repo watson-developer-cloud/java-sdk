@@ -44,9 +44,6 @@ import com.squareup.okhttp.Response;
  */
 public class DocumentConversion extends WatsonService {
 
-  /** The Constant CONFIG. */
-  private static final String CONFIG = "config";
-
   /** The Constant CONVERSION_TARGET. */
   private static final String CONVERSION_TARGET = "conversion_target";
 
@@ -54,9 +51,6 @@ public class DocumentConversion extends WatsonService {
    * The CONVERT_DOCUMENT_PATH. (value is "/v1/convert_document")
    **/
   private static final String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
-
-  /** The Constant FILE. */
-  private static final String FILE = "file";
 
   /** The default URL for the service. */
   private static final String URL =
