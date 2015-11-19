@@ -122,7 +122,7 @@ public class AlchemyLanguage extends AlchemyService {
    *        specified.
    * @return {@link Taxonomies}
    */
-  public Taxonomies geTaxonomy(Map<String, Object> params) {
+  public Taxonomies getTaxonomy(Map<String, Object> params) {
     return executeRequest(params, AlchemyAPI.taxonomy, Taxonomies.class, TEXT, HTML, URL);
   }
 

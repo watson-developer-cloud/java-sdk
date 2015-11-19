@@ -111,27 +111,27 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
   }
 
   /**
-   * Test Get geTaxonomy HTML.
+   * Test Get getTaxonomy HTML.
    * 
    * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
-  public void testGeTaxonomyHtml() throws IOException {
+  public void testGetTaxonomyHtml() throws IOException {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
-    final Taxonomies taxonomy = service.geTaxonomy(params);
+    final Taxonomies taxonomy = service.getTaxonomy(params);
     Assert.assertNotNull(taxonomy);
     Assert.assertFalse(taxonomy.getTaxonomy().isEmpty());
   }
 
   /**
-   * Test Get geTaxonomy URL.
+   * Test Get getTaxonomy URL.
    */
   @Test
-  public void testGeTaxonomyUrl() {
+  public void testGetTaxonomyUrl() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final Taxonomies taxonomy = service.geTaxonomy(params);
+    final Taxonomies taxonomy = service.getTaxonomy(params);
     Assert.assertNotNull(taxonomy);
     Assert.assertFalse(taxonomy.getTaxonomy().isEmpty());
   }
