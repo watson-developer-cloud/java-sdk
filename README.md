@@ -28,6 +28,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Natural Language Classifier](#natural-language-classifier)
     * [Personality Insights](#personality-insights)
     * [Relationship Extraction](#relationship-extraction)
+    * [Retrieve and Rank](#retrieve-and-rank)
     * [Speech to Text](#speech-to-text)
     * [Text to Speech](#text-to-speech)
     * [Tone Analyzer](#tone-analyzer)
@@ -131,14 +132,26 @@ System.out.println(keywords);
 ```
 
 ### Alchemy Data News
-[Alchemy Data News][alchemy_data_news] indexes 250k to 300k English language news and blog articles every day with historical search available for the past 60 days.
-Example: Get the volume data from the last 7 days using 12hs of time slice.
-
+[Alchemy Data News][alchemy_data_news] indexes 250k to 300k English language news and 
+blog articles every day with historical search available for the past 60 days.
+Example: Get 7 documents between Friday 28th August 2015 and Friday 4th September 2015.
+ 
 ```java
 AlchemyDataNews service = new AlchemyDataNews();
 service.setApiKey("<api_key>");
 
-VolumeResult result = service.getVolume("now-7d", "now", "12h");
+Map<String, Object> params = new HashMap<String, Object>();
+
+String[] fields =
+    new String[] {"enriched.url.title", "enriched.url.url", "enriched.url.author",
+        "enriched.url.publicationDate", "enriched.url.enrichedTitle.entities",
+        "enriched.url.enrichedTitle.docSentiment"};
+params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
+params.put(AlchemyDataNews.START, "1440720000");
+params.put(AlchemyDataNews.END, "1441407600");
+params.put(AlchemyDataNews.COUNT, 7);
+
+DocumentsResult result = service.getNewsDocuments(params);
 
 System.out.println(result);
 ```
@@ -178,7 +191,7 @@ DocumentConversion service = new DocumentConversion();
 service.setUsernameAndPassword("<username>", "<password>");
 
 File doc = new File("src/test/resources/document_conversion/word-document-heading-input.doc");
-Answers htmlToAnswers = service.convertDocumentToAnswer(doc, null);
+Answers htmlToAnswers = service.convertDocumentToAnswer(doc);
 System.out.println(htmlToAnswers);
 ```
 
@@ -256,6 +269,36 @@ service.setDataset(RelationshipExtractionDataset.ENGLISH_NEWS);
 String response = service.extract("IBM Watson Developer Cloud");
 System.out.println(response);
 ```
+
+
+### Retrieve and Rank
+The [Retrieve and Rank][retrieve_and_rank] service helps users find the most 
+relevant information for their query by using a  combination of search and 
+machine learning to find “signals” in the data.
+
+
+```java
+RetrieveAndRank service = new RetrieveAndRank();
+service.setUsernameAndPassword("<username>", "<password>");
+
+// 1 create the Solr Cluster
+SolrClusterOptions options = new SolrClusterOptions("my-cluster-name", 1);
+SolrCluster cluster = service.createSolrCluster(options);
+System.out.println("Solr cluster: " + cluster);
+
+// 2 wait until the Solr Cluster is available
+while (cluster.getStatus() == Status.NOT_AVAILABLE) {
+  Thread.sleep(10000); // sleep 10 seconds
+  cluster = service.getSolrCluster(cluster.getId());
+  System.out.println("Solr cluster status: " + cluster.getStatus());
+}
+
+// 3 list Solr Clusters
+System.out.println("Solr clusters: " + service.getSolrClusters());
+```
+
+Retrieve and Rank is built on top of Apache Solr.
+Look at [this](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/retrieve-and-rank-solrj) example to learn how to use Solrj.
 
 ### Speech to Text
 Use the [Speech to Text][speech_to_text] service to recognize the text from a .wav file.
@@ -465,6 +508,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
 [concept-insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
 [visual_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-insights/
+[retrieve_and_rank]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/
 
 [alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage
 [sentiment_analysis]: http://www.alchemyapi.com/products/alchemylanguage/sentiment-analysis

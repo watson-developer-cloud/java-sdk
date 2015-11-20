@@ -40,7 +40,7 @@ import com.ibm.watson.developer_cloud.service.BadRequestException;
 
 public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
 
-  private static final String CREATED_CLUSTER_SIZE_ONE = "1";
+  private static final Integer CREATED_CLUSTER_SIZE_ONE = 1;
   private static final String CREATED_CLUSTER_DEFAULT_NAME = "";
   private static final String CREATED_CLUSTER_NAME = "itest-cluster";
   private static final String CONFIG_NAME = "itest-config";

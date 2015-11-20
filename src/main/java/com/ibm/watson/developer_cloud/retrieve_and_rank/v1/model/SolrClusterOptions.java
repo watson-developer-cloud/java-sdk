@@ -26,7 +26,7 @@ public class SolrClusterOptions {
   @SerializedName(CLUSTER_NAME)
   private final String clusterName;
   @SerializedName(CLUSTER_SIZE)
-  private final String clusterSize;
+  private final Integer clusterSize;
 
   /**
    * Instantiates a new solr cluster options.
@@ -34,7 +34,7 @@ public class SolrClusterOptions {
    * @param clusterName the cluster name
    * @param clusterSize the cluster size
    */
-  public SolrClusterOptions(String clusterName, String clusterSize) {
+  public SolrClusterOptions(String clusterName, Integer clusterSize) {
     this.clusterName = clusterName;
     this.clusterSize = clusterSize;
   }
@@ -53,7 +53,7 @@ public class SolrClusterOptions {
    * 
    * @return the cluster size
    */
-  public String getClusterSize() {
+  public Integer getClusterSize() {
     return clusterSize;
   }
 
