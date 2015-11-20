@@ -59,7 +59,7 @@ public class DocumentConversionIntegrationTest extends WatsonServiceTest {
   @Test
   public void testConvertToAnswers() {
     for (File file : files) {
-      Answers answers = service.convertDocumentToAnswer(file, null);
+      Answers answers = service.convertDocumentToAnswer(file);
       Assert.assertNotNull(answers);
       Assert.assertNotNull(answers.getAnswerUnits());
       Assert.assertTrue(!answers.getAnswerUnits().isEmpty());
@@ -72,7 +72,7 @@ public class DocumentConversionIntegrationTest extends WatsonServiceTest {
   @Test
   public void testConvertToHtml() {
     for (File file : files) {
-      String html = service.convertDocumentToHTML(file, null);
+      String html = service.convertDocumentToHTML(file);
       Assert.assertNotNull(html);
       Assert.assertNotEquals(html, "");
     }
@@ -84,7 +84,7 @@ public class DocumentConversionIntegrationTest extends WatsonServiceTest {
   @Test
   public void testConvertToText() {
     for (File file : files) {
-      String text = service.convertDocumentToText(file, null);
+      String text = service.convertDocumentToText(file);
       Assert.assertNotNull(text);
       Assert.assertNotEquals(text, "");
     }

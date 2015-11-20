@@ -71,6 +71,7 @@ public class DocumentConversion extends WatsonService {
    * @param mediaType Internet media type of the file
    * @param conversionTarget The conversion target to use
    * @return Converted document in the specified format
+   * @See {@link HttpMediaType} for available media types
    */
   private InputStream convertDocument(final File document, final String mediaType,
       final ConversionTarget conversionTarget) {
@@ -105,11 +106,25 @@ public class DocumentConversion extends WatsonService {
   }
 
   /**
+   * Converts a document to Answer Units. <br>
+   * Use {@link DocumentConversion#convertDocumentToAnswer(File, String)} if you want to specify the
+   * media type
+   * 
+   * @param document the document
+   * @return Converted document as {@link Answers}
+   * 
+   */
+  public Answers convertDocumentToAnswer(File document) {
+    return convertDocumentToAnswer(document, null);
+  }
+
+  /**
    * Converts a document to Answer Units.
    * 
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided
    * @return Converted document as {@link Answers}
+   * @See {@link HttpMediaType} for available media types
    */
   public Answers convertDocumentToAnswer(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.ANSWER_UNITS);
@@ -118,12 +133,25 @@ public class DocumentConversion extends WatsonService {
   }
 
   /**
-   * Converts a document to Answer Units.
+   * Converts a document to HTML. <br>
+   * Use {@link DocumentConversion#convertDocumentToHTML(File, String)} if you want to specify the
+   * media type.
+   * 
+   * @param document the document
+   * @return Converted document as {@link String}
+   */
+  public String convertDocumentToHTML(File document) {
+    return convertDocumentToHTML(document, null);
+  }
+
+  /**
+   * Converts a document to HTML.
    * 
    * @param document the document
    * @param mediaType document the document media type. It will use the file extension if not
    *        provided
-   * @return Converted document as {@link Answers}
+   * @return Converted document as {@link String}
+   * @See {@link HttpMediaType} for available media types
    */
   public String convertDocumentToHTML(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_HTML);
@@ -131,16 +159,28 @@ public class DocumentConversion extends WatsonService {
   }
 
   /**
-   * Converts a document to Answer Units.
+   * Converts a document to Text. <br>
+   * Use {@link DocumentConversion#convertDocumentToText(File, String)} if you want to specify the
+   * media type.
+   * 
+   * @param document the document
+   * @return Converted document as {@link String}
+   */
+  public String convertDocumentToText(File document) {
+    return convertDocumentToText(document, null);
+  }
+
+  /**
+   * Converts a document to Text.
    * 
    * @param document the document
    * @param mediaType document the document media type. It will use the file extension if not
    *        provided
-   * @return Converted document as {@link Answers}
+   * @return Converted document as {@link String}
+   * @See {@link HttpMediaType} for available media types
    */
   public String convertDocumentToText(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_TEXT);
     return ConversionUtils.writeInputStreamToString(is);
   }
-
 }
