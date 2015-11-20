@@ -64,6 +64,10 @@
     "text": "/text/TextGetCombinedData",
     "html": "/html/HTMLGetCombinedData"
   },
+  "publication_date": {
+    "url": "/url/URLGetPubDate",
+    "html": "/html/HTMLGetPubDate"
+  },
   "image_link": {
     "url": "/url/URLGetImage",
     "html": "/html/HTMLGetImage"

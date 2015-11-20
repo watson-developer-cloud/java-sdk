@@ -90,7 +90,10 @@ public class AlchemyEndPoints {
     text_raw,
 
     /** The title. */
-    title
+    title,
+
+    /** The publication date */
+    publication_date
   }
 
   /** The file where alchemy endpoints are described. */

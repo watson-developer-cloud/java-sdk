@@ -18,7 +18,9 @@ import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.model.AlchemyGenericModel;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentAuthors;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentPublicationDate;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentText;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentTitle;
@@ -115,8 +117,31 @@ public class AlchemyLanguage extends AlchemyService {
     return executeRequest(params, AlchemyAPI.authors, DocumentAuthors.class, HTML, URL);
   }
 
+
   /**
-   * Categorized through the taxonomy call for text, HTML, or a URLL.
+   * Extracts concepts tags for text, HTML, or a URLL.
+   * 
+   * @param params The parameters to be used in the service call, text, html or url should be
+   *        specified.
+   * @return {@link Concepts}
+   */
+  public Concepts getConcepts(Map<String, Object> params) {
+    return executeRequest(params, AlchemyAPI.concepts, Concepts.class, TEXT, HTML, URL);
+  }
+
+  /**
+   * Extracts publication date information when it is specified in web pages
+   * 
+   * @param params The parameters to be used in the service call, html or url should be specified.
+   * @return {@link DocumentAuthors}
+   */
+  public DocumentPublicationDate getPublicationDate(Map<String, Object> params) {
+    return executeRequest(params, AlchemyAPI.publication_date, DocumentPublicationDate.class, HTML,
+        URL);
+  }
+
+  /**
+   * Categorized through the taxonomy call for text, HTML, or a URL.
    * 
    * @param params The parameters to be used in the service call, text, html or url should be
    *        specified.
