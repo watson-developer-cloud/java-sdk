@@ -20,6 +20,10 @@ import java.io.InputStreamReader;
 import java.util.Properties;
 
 import org.junit.Before;
+import org.slf4j.LoggerFactory;
+
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 
 /**
  * Utility class to test the Watson Services.
@@ -155,7 +159,9 @@ public abstract class WatsonServiceTest {
    * Setup logging.
    */
   private void setupLogging() {
-
+    // set logging level
+    final Logger root = (Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+    root.setLevel(Level.OFF);
   }
 
 }
