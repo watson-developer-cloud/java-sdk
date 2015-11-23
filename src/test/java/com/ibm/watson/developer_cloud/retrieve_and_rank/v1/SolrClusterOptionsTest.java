@@ -21,19 +21,19 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOpti
 
 public class SolrClusterOptionsTest {
   public static final String CLUSTER_NAME = "cluster_name";
-  public static final int CLUSTER_SIZE = 5;
+  public static final Integer CLUSTER_SIZE = 5;
 
   @Test
   public void canCreateAFreeCluster() {
     final SolrClusterOptions options = new SolrClusterOptions(CLUSTER_NAME);
     assertEquals(CLUSTER_NAME, options.getClusterName());
-    assertEquals("", options.getClusterSize());
+    assertEquals(null, options.getClusterSize());
   }
 
   @Test
   public void canCreateASizedCluster() {
     final SolrClusterOptions options = new SolrClusterOptions(CLUSTER_NAME, CLUSTER_SIZE);
     assertEquals(CLUSTER_NAME, options.getClusterName());
-    assertEquals(Integer.toString(CLUSTER_SIZE), options.getClusterSize());
+    assertEquals(CLUSTER_SIZE, options.getClusterSize());
   }
 }
