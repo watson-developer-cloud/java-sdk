@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.service;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,10 +51,11 @@ public abstract class WatsonService {
   private final OkHttpClient client;
   private String endPoint;
   private final String name;
+  private Headers defaultHeaders = null;
 
   /**
    * Instantiates a new Watson service.
-   * 
+   *
    * @param name the service name
    */
   public WatsonService(String name) {
@@ -94,6 +96,11 @@ public abstract class WatsonService {
     // Set service endpoint for relative paths
     if (RequestUtil.isRelative(request)) {
       builder.url(RequestUtil.replaceEndPoint(request.urlString(), getEndPoint()));
+    }
+
+    // Set default headers
+    if (defaultHeaders != null) {
+      builder.headers(defaultHeaders);
     }
 
     // Set User-Agent
@@ -299,9 +306,17 @@ public abstract class WatsonService {
     apiKey = Credentials.basic(username, password);
   }
 
+  /**
+   * Set the default headers to be used on every HTTP request.
+   * @param headers name value pairs of headers
+   */
+  public void setDefaultHeaders(Map<String, String> headers) {
+    defaultHeaders = Headers.of(headers);
+  }
+
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override
