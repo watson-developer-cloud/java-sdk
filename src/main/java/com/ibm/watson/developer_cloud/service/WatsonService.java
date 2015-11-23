@@ -31,6 +31,7 @@ import com.ibm.watson.developer_cloud.util.BluemixUtils;
 import com.ibm.watson.developer_cloud.util.RequestUtil;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.squareup.okhttp.Credentials;
+import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Request.Builder;
