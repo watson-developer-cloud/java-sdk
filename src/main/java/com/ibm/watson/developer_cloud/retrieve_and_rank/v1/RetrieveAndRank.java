@@ -317,7 +317,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * This URL can be used with the SolrJ library to access Solr functionality.
-   *
+   * 
    * @param solrClusterId the ID of the Solr cluster to connect to
    * @return URL to access Solr
    */
@@ -327,7 +327,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * Gets and returns the ranked answers.
-   *
+   * 
    * @param rankerID The ranker ID
    * @param answers The CSV file that contains the search results that you want to rank.
    * @param topAnswers The number of top answers needed, default is 10

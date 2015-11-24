@@ -46,7 +46,7 @@ public class NaturalLanguageClassifierIntegrationTest extends WatsonServiceTest 
    */
   @Test
   public void createAndGetStatusForClassifier() throws Exception {
-    File trainingData =
+    final File trainingData =
         new File("src/test/resources/natural_language_classifier/weather_data_train.csv");
 
     final String name = "itest-example";
@@ -76,7 +76,7 @@ public class NaturalLanguageClassifierIntegrationTest extends WatsonServiceTest 
    */
   @Test
   public void testClassify() throws Exception {
-    Classification classification = service.classify(classifierId, "is it hot outside?");
+    final Classification classification = service.classify(classifierId, "is it hot outside?");
     assertNotNull(classification);
     assertEquals("temperature", classification.getTopClass());
   }
@@ -102,7 +102,7 @@ public class NaturalLanguageClassifierIntegrationTest extends WatsonServiceTest 
    */
   @Test
   public void testGetClassifier() {
-    Classifier classifier = service.getClassifier(classifierId);
+    final Classifier classifier = service.getClassifier(classifierId);
     assertNotNull(classifier);
     assertEquals(classifierId, classifier.getId());
   }
@@ -112,7 +112,7 @@ public class NaturalLanguageClassifierIntegrationTest extends WatsonServiceTest 
    */
   @Test
   public void testGetClassifiers() {
-    Classifiers classifiers = service.getClassifiers();
+    final Classifiers classifiers = service.getClassifiers();
     assertNotNull(classifiers);
     assertTrue(!classifiers.getClassifiers().isEmpty());
   }

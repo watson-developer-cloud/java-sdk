@@ -29,7 +29,7 @@ public class SolrClusterOptions {
 
   /**
    * Instantiates options to create a new Solr cluster of the specified size
-   *
+   * 
    * @param clusterName the cluster name
    * @param clusterSize the cluster size
    */
@@ -40,7 +40,7 @@ public class SolrClusterOptions {
 
   /**
    * Instantiates options to create a new free Solr cluster
-   *
+   * 
    * @param clusterName the cluster name
    */
   public SolrClusterOptions(String clusterName) {
@@ -50,7 +50,7 @@ public class SolrClusterOptions {
 
   /**
    * Gets the cluster name.
-   *
+   * 
    * @return the cluster name
    */
   public String getClusterName() {
@@ -59,7 +59,7 @@ public class SolrClusterOptions {
 
   /**
    * Gets String representation of the cluster size.
-   *
+   * 
    * @return the cluster size
    */
   public Integer getClusterSize() {

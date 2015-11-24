@@ -102,8 +102,7 @@ public class DocumentConversion extends WatsonService {
             .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"config\""),
                 RequestBody.create(HttpMediaType.JSON, configJson.toString()))
             .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"file\""),
-                RequestBody.create(mType, document))
-            .build();
+                RequestBody.create(mType, document)).build();
 
     final Request request = RequestBuilder.post(CONVERT_DOCUMENT_PATH).withBody(body).build();
 

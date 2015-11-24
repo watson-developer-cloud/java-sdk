@@ -13,9 +13,9 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import static org.mockserver.integration.ClientAndServer.*;
-import static org.mockserver.model.HttpRequest.*;
-import static org.mockserver.model.HttpResponse.*;
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -205,8 +205,8 @@ public class GenericServiceTest extends WatsonServiceTest {
   public void testUserAgentIsSet() {
     mockAPICall();
     service.getProfile(sampleText);
-    mockServer.verify(new HttpRequest().withMethod("POST")
-        .withHeader(new Header(HttpHeaders.USER_AGENT, "watson-developer-cloud-java-sdk-2.1.0")));
+    mockServer.verify(new HttpRequest().withMethod("POST").withHeader(
+        new Header(HttpHeaders.USER_AGENT, "watson-developer-cloud-java-sdk-2.1.0")));
   }
 
   @Test
@@ -221,7 +221,7 @@ public class GenericServiceTest extends WatsonServiceTest {
     service.setDefaultHeaders(headers);
     mockAPICall();
     service.getProfile(sampleText);
-    mockServer.verify(new HttpRequest().withMethod("POST")
-        .withHeader(expectedHeader1).withHeader(expectedHeader2));
+    mockServer.verify(new HttpRequest().withMethod("POST").withHeader(expectedHeader1)
+        .withHeader(expectedHeader2));
   }
 }

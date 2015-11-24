@@ -112,7 +112,7 @@ public class AlchemyEndPoints {
 
   /**
    * Gets the path based on the operation and input type.
-   *
+   * 
    * @param operation the operation
    * @param inputType the input type
    * @return the string that represent the path based on the operation and input type

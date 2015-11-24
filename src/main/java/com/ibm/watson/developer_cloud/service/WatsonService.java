@@ -56,7 +56,7 @@ public abstract class WatsonService {
 
   /**
    * Instantiates a new Watson service.
-   *
+   * 
    * @param name the service name
    */
   public WatsonService(String name) {
@@ -309,6 +309,7 @@ public abstract class WatsonService {
 
   /**
    * Set the default headers to be used on every HTTP request.
+   * 
    * @param headers name value pairs of headers
    */
   public void setDefaultHeaders(Map<String, String> headers) {
@@ -317,7 +318,7 @@ public abstract class WatsonService {
 
   /*
    * (non-Javadoc)
-   *
+   * 
    * @see java.lang.Object#toString()
    */
   @Override

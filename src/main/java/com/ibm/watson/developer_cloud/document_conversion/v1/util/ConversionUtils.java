@@ -76,7 +76,7 @@ public class ConversionUtils {
 
   /**
    * Write input stream to output stream.
-   *
+   * 
    * @param is the input stream
    * @return String
    */
