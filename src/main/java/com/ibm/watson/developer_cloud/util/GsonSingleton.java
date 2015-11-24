@@ -46,5 +46,5 @@ public class GsonSingleton {
       gson = createGson();
     }
     return gson;
-  };
+  }
 }

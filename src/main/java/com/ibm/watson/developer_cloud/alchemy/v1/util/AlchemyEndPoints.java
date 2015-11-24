@@ -14,6 +14,7 @@
 
 package com.ibm.watson.developer_cloud.alchemy.v1.util;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -99,7 +100,6 @@ public class AlchemyEndPoints {
   /** The file where alchemy endpoints are described. */
   private static final String filePath = "/alchemy_endpoints.json";
 
-
   /** The Constant log. */
   private static final Logger log = Logger.getLogger(AlchemyEndPoints.class.getName());
 
@@ -112,16 +112,16 @@ public class AlchemyEndPoints {
 
   /**
    * Gets the path based on the operation and input type.
-   * 
+   *
    * @param operation the operation
    * @param inputType the input type
    * @return the string that represent the path based on the operation and input type
    */
   public static String getPath(AlchemyAPI operation, String inputType) {
     if ((operations.get(operation.name()) != null)
-        && operations.get(operation.name()).get(inputType) != null)
+        && operations.get(operation.name()).get(inputType) != null) {
       return operations.get(operation.name()).get(inputType);
-    else {
+    } else {
       final String error = "Operation: " + operation + ", inputType: " + inputType + " not found";
       log.log(Level.SEVERE, error);
       throw new IllegalArgumentException(error);
@@ -135,9 +135,9 @@ public class AlchemyEndPoints {
     log.log(Level.FINE, "Parsing End Points JSON file ");
     operations = new HashMap<String, Map<String, String>>();
     final JsonParser parser = new JsonParser();
-    try {
-      Reader fileReader = null;
 
+    Reader fileReader = null;
+    try {
       final InputStream is = AlchemyEndPoints.class.getResourceAsStream(filePath);
       if (null != is) {
         fileReader = new InputStreamReader(is);
@@ -145,8 +145,9 @@ public class AlchemyEndPoints {
       final Object obj = parser.parse(fileReader);
       final JsonObject jsonObject = (JsonObject) obj;
       for (final AlchemyAPI object : AlchemyAPI.values()) {
-        if (jsonObject.get(object.name()) == null)
-          continue;;
+        if (jsonObject.get(object.name()) == null) {
+          continue;
+        }
         final JsonElement elt = jsonObject.get(object.name()).getAsJsonObject();
         if (elt.isJsonObject()) {
           final Map<String, String> records = new HashMap<String, String>();
@@ -160,6 +161,14 @@ public class AlchemyEndPoints {
       log.log(Level.SEVERE, "Could not parse json file: " + filePath, e);
     } catch (final NullPointerException e) {
       log.log(Level.SEVERE, "Not able to locate the end points json file: " + filePath, e);
+    } finally {
+      if (fileReader != null) {
+        try {
+          fileReader.close();
+        } catch (final IOException e) {
+          log.log(Level.SEVERE, "Could not close file reader: " + filePath, e);
+        }
+      }
     }
   }
 

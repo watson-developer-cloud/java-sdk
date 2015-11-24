@@ -14,7 +14,10 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
@@ -43,6 +46,7 @@ import com.squareup.okhttp.Response;
  *      Document Conversion</a>
  */
 public class DocumentConversion extends WatsonService {
+  private static final Logger LOG = Logger.getLogger(DocumentConversion.class.getName());
 
   /** The Constant CONVERSION_TARGET. */
   private static final String CONVERSION_TARGET = "conversion_target";
@@ -76,28 +80,30 @@ public class DocumentConversion extends WatsonService {
   private InputStream convertDocument(final File document, final String mediaType,
       final ConversionTarget conversionTarget) {
 
-    if (document == null || !document.exists())
+    if (document == null || !document.exists()) {
       throw new IllegalArgumentException("document cannot be null and must exist");
+    }
 
     final String type =
         mediaType != null ? mediaType : ConversionUtils.getMediaTypeFromFile(document);
-    if (type == null)
+    if (type == null) {
       throw new RuntimeException("mediaType cannot be null or empty");
-    else if (!ConversionUtils.isValidMediaType(type))
+    } else if (!ConversionUtils.isValidMediaType(type)) {
       throw new IllegalArgumentException("file with the given media type is not supported");
+    }
 
     final JsonObject configJson = new JsonObject();
     configJson.addProperty(CONVERSION_TARGET, conversionTarget.toString());
 
-    MediaType mType = MediaType.parse(type);
+    final MediaType mType = MediaType.parse(type);
     final RequestBody body =
         new MultipartBuilder()
             .type(MultipartBuilder.FORM)
             .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"config\""),
                 RequestBody.create(HttpMediaType.JSON, configJson.toString()))
             .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"file\""),
-                RequestBody.create(mType, document)).build();
-
+                RequestBody.create(mType, document))
+            .build();
 
     final Request request = RequestBuilder.post(CONVERT_DOCUMENT_PATH).withBody(body).build();
 
@@ -129,6 +135,11 @@ public class DocumentConversion extends WatsonService {
   public Answers convertDocumentToAnswer(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.ANSWER_UNITS);
     final String convertedDocument = ConversionUtils.writeInputStreamToString(is);
+    try {
+      is.close();
+    } catch (final IOException e) {
+      LOG.log(Level.WARNING, "Unable to close document input stream", e);
+    }
     return GsonSingleton.getGson().fromJson(convertedDocument, Answers.class);
   }
 
@@ -155,7 +166,15 @@ public class DocumentConversion extends WatsonService {
    */
   public String convertDocumentToHTML(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_HTML);
-    return ConversionUtils.writeInputStreamToString(is);
+    try {
+      return ConversionUtils.writeInputStreamToString(is);
+    } finally {
+      try {
+        is.close();
+      } catch (final IOException e) {
+        LOG.log(Level.WARNING, "Unable to close document input stream", e);
+      }
+    }
   }
 
   /**
@@ -181,6 +200,14 @@ public class DocumentConversion extends WatsonService {
    */
   public String convertDocumentToText(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_TEXT);
-    return ConversionUtils.writeInputStreamToString(is);
+    try {
+      return ConversionUtils.writeInputStreamToString(is);
+    } finally {
+      try {
+        is.close();
+      } catch (final IOException e) {
+        LOG.log(Level.WARNING, "Unable to close document input stream", e);
+      }
+    }
   }
 }

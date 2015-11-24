@@ -76,13 +76,17 @@ public class ConversionUtils {
 
   /**
    * Write input stream to output stream.
-   * 
+   *
    * @param is the input stream
    * @return String
    */
   public static String writeInputStreamToString(InputStream is) {
     @SuppressWarnings("resource")
     final java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-    return s.hasNext() ? s.next() : "";
+    try {
+      return s.hasNext() ? s.next() : "";
+    } finally {
+      s.close();
+    }
   }
 }

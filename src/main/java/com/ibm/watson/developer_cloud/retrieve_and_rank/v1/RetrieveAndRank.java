@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gson.JsonObject;
@@ -377,7 +378,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
         Files.delete(zipFile.toPath());
       } catch (final IOException e) {
         zipFile.deleteOnExit();
-        log.warning("Error deleting the solr cluster configuration file");
+        log.log(Level.WARNING, "Error deleting the solr cluster configuration file", e);
       }
     }
 
