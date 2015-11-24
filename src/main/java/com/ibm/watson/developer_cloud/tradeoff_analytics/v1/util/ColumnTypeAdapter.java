@@ -91,15 +91,17 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
       } else if (name.equals("preference")) {
         reader.beginArray();
         categoricalPreference = new ArrayList<String>();
-        while (reader.hasNext())
+        while (reader.hasNext()) {
           categoricalPreference.add(reader.nextString());
+        }
         reader.endArray();
       } else if (name.equals("range")) {
         if (reader.peek().equals(JsonToken.BEGIN_ARRAY)) {
           reader.beginArray();
           categoricalRange = new ArrayList<String>();
-          while (reader.hasNext())
+          while (reader.hasNext()) {
             categoricalRange.add(reader.nextString());
+          }
           reader.endArray();
         } else {
           reader.beginObject();
@@ -150,32 +152,41 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
 
     column.setKey(key);
 
-    if (description != null)
+    if (description != null) {
       column.setDescription(description);
+    }
 
-    if (format != null)
+    if (format != null) {
       column.setFormat(format);
+    }
 
-    if (objective != null)
+    if (objective != null) {
       column.setObjective(objective);
+    }
 
-    if (fullName != null)
+    if (fullName != null) {
       column.setFullName(fullName);
+    }
 
-    if (goal != null)
+    if (goal != null) {
       column.setGoal(goal);
+    }
 
-    if (key != null)
-      column.setObjective(objective);
+    if (key != null) {
+      column.setKey(key);
+    }
 
-    if (significantGain != null)
+    if (significantGain != null) {
       column.setSignificantGain(significantGain);
+    }
 
-    if (significantLoss != null)
+    if (significantLoss != null) {
       column.setSignificantLoss(insignificantLoss);
+    }
 
-    if (insignificantLoss != null)
+    if (insignificantLoss != null) {
       column.setInsignificantLoss(insignificantLoss);
+    }
 
     return column;
   }
@@ -192,29 +203,37 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
     writer.name("key").value(column.getKey());
     writer.name("type").value(column.getType().toString());
 
-    if (column.getGoal() != null)
+    if (column.getGoal() != null) {
       writer.name("goal").value(column.getGoal().toString());
+    }
 
-    if (column.isObjective() != null)
+    if (column.isObjective() != null) {
       writer.name("is_objective").value(column.isObjective());
+    }
 
-    if (column.getFormat() != null)
+    if (column.getFormat() != null) {
       writer.name("format").value(column.getFormat());
+    }
 
-    if (column.getDescription() != null)
+    if (column.getDescription() != null) {
       writer.name("description").value(column.getDescription());
+    }
 
-    if (column.getFullName() != null)
+    if (column.getFullName() != null) {
       writer.name("full_name").value(column.getFullName());
+    }
 
-    if (column.getSignificantGain() != null)
+    if (column.getSignificantGain() != null) {
       writer.name("significant_gain").value(column.getSignificantGain());
+    }
 
-    if (column.getSignificantLoss() != null)
+    if (column.getSignificantLoss() != null) {
       writer.name("significant_loss").value(column.getSignificantLoss());
+    }
 
-    if (column.getInsignificantLoss() != null)
+    if (column.getInsignificantLoss() != null) {
       writer.name("insignificant_loss").value(column.getInsignificantLoss());
+    }
 
     final ColumnType type = column.getType();
 
