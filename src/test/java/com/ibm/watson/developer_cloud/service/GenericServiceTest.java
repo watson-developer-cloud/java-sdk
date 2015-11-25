@@ -17,6 +17,8 @@ import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,8 +26,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockserver.integration.ClientAndServer;
+import org.mockserver.model.Header;
+import org.mockserver.model.HttpRequest;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsightsTest;
 
@@ -62,6 +67,14 @@ public class GenericServiceTest extends WatsonServiceTest {
     mockServer.when(request().withMethod(POST).withPath(GET_PROFILE_PATH)).respond(
         response().withStatusCode(code).withBody(
             "{\"code\":" + code + ", \"error\":\"" + errorMessage + "\"}"));
+  }
+
+  /**
+   * Mock a successful PersonalityInsights call.
+   */
+  private void mockAPICall() {
+    mockServer.when(request().withMethod(POST).withPath(GET_PROFILE_PATH)).respond(
+        response().withStatusCode(200).withBody("{}"));
   }
 
   /**
@@ -188,4 +201,27 @@ public class GenericServiceTest extends WatsonServiceTest {
     service.getProfile(sampleText);
   }
 
+  @Test
+  public void testUserAgentIsSet() {
+    mockAPICall();
+    service.getProfile(sampleText);
+    mockServer.verify(new HttpRequest().withMethod("POST").withHeader(
+        new Header(HttpHeaders.USER_AGENT, "watson-developer-cloud-java-sdk-2.1.0")));
+  }
+
+  @Test
+  public void testDefaultHeadersAreSet() {
+    final Map<String, String> headers = new HashMap<String, String>();
+    headers.put("name1", "value1");
+    headers.put("name2", "value2");
+
+    final Header expectedHeader1 = new Header("name1", "value1");
+    final Header expectedHeader2 = new Header("name2", "value2");
+
+    service.setDefaultHeaders(headers);
+    mockAPICall();
+    service.getProfile(sampleText);
+    mockServer.verify(new HttpRequest().withMethod("POST").withHeader(expectedHeader1)
+        .withHeader(expectedHeader2));
+  }
 }

@@ -22,21 +22,30 @@ import com.google.gson.annotations.SerializedName;
  * A value type for the JSON body provided when creating a Solr cluster.
  */
 public class SolrClusterOptions {
-
   @SerializedName(CLUSTER_NAME)
   private final String clusterName;
   @SerializedName(CLUSTER_SIZE)
-  private final String clusterSize;
+  private final Integer clusterSize;
 
   /**
-   * Instantiates a new solr cluster options.
+   * Instantiates options to create a new Solr cluster of the specified size
    * 
    * @param clusterName the cluster name
    * @param clusterSize the cluster size
    */
-  public SolrClusterOptions(String clusterName, String clusterSize) {
+  public SolrClusterOptions(String clusterName, Integer clusterSize) {
     this.clusterName = clusterName;
     this.clusterSize = clusterSize;
+  }
+
+  /**
+   * Instantiates options to create a new free Solr cluster
+   * 
+   * @param clusterName the cluster name
+   */
+  public SolrClusterOptions(String clusterName) {
+    this.clusterName = clusterName;
+    this.clusterSize = null;
   }
 
   /**
@@ -49,11 +58,11 @@ public class SolrClusterOptions {
   }
 
   /**
-   * Gets the cluster size.
+   * Gets String representation of the cluster size.
    * 
    * @return the cluster size
    */
-  public String getClusterSize() {
+  public Integer getClusterSize() {
     return clusterSize;
   }
 

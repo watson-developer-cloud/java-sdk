@@ -83,6 +83,10 @@ public class ConversionUtils {
   public static String writeInputStreamToString(InputStream is) {
     @SuppressWarnings("resource")
     final java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-    return s.hasNext() ? s.next() : "";
+    try {
+      return s.hasNext() ? s.next() : "";
+    } finally {
+      s.close();
+    }
   }
 }

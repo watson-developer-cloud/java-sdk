@@ -14,16 +14,22 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionTarget;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
@@ -40,9 +46,7 @@ import com.squareup.okhttp.Response;
  *      Document Conversion</a>
  */
 public class DocumentConversion extends WatsonService {
-
-  /** The Constant CONFIG. */
-  private static final String CONFIG = "config";
+  private static final Logger LOG = Logger.getLogger(DocumentConversion.class.getName());
 
   /** The Constant CONVERSION_TARGET. */
   private static final String CONVERSION_TARGET = "conversion_target";
@@ -51,9 +55,6 @@ public class DocumentConversion extends WatsonService {
    * The CONVERT_DOCUMENT_PATH. (value is "/v1/convert_document")
    **/
   private static final String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
-
-  /** The Constant FILE. */
-  private static final String FILE = "file";
 
   /** The default URL for the service. */
   private static final String URL =
@@ -74,28 +75,34 @@ public class DocumentConversion extends WatsonService {
    * @param mediaType Internet media type of the file
    * @param conversionTarget The conversion target to use
    * @return Converted document in the specified format
+   * @See {@link HttpMediaType} for available media types
    */
   private InputStream convertDocument(final File document, final String mediaType,
       final ConversionTarget conversionTarget) {
 
-    if (document == null || !document.exists())
+    if (document == null || !document.exists()) {
       throw new IllegalArgumentException("document cannot be null and must exist");
+    }
 
     final String type =
         mediaType != null ? mediaType : ConversionUtils.getMediaTypeFromFile(document);
-    if (type == null)
+    if (type == null) {
       throw new RuntimeException("mediaType cannot be null or empty");
-    else if (!ConversionUtils.isValidMediaType(type))
+    } else if (!ConversionUtils.isValidMediaType(type)) {
       throw new IllegalArgumentException("file with the given media type is not supported");
+    }
 
     final JsonObject configJson = new JsonObject();
     configJson.addProperty(CONVERSION_TARGET, conversionTarget.toString());
 
+    final MediaType mType = MediaType.parse(type);
     final RequestBody body =
         new MultipartBuilder()
-            .addFormDataPart(CONFIG, configJson.toString())
-            .addFormDataPart(FILE, document.getName(),
-                RequestBody.create(MediaType.parse(type), document)).build();
+            .type(MultipartBuilder.FORM)
+            .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"config\""),
+                RequestBody.create(HttpMediaType.JSON, configJson.toString()))
+            .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"file\""),
+                RequestBody.create(mType, document)).build();
 
     final Request request = RequestBuilder.post(CONVERT_DOCUMENT_PATH).withBody(body).build();
 
@@ -104,42 +111,102 @@ public class DocumentConversion extends WatsonService {
   }
 
   /**
+   * Converts a document to Answer Units. <br>
+   * Use {@link DocumentConversion#convertDocumentToAnswer(File, String)} if you want to specify the
+   * media type
+   * 
+   * @param document the document
+   * @return Converted document as {@link Answers}
+   * 
+   */
+  public Answers convertDocumentToAnswer(File document) {
+    return convertDocumentToAnswer(document, null);
+  }
+
+  /**
    * Converts a document to Answer Units.
    * 
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided
    * @return Converted document as {@link Answers}
+   * @See {@link HttpMediaType} for available media types
    */
   public Answers convertDocumentToAnswer(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.ANSWER_UNITS);
     final String convertedDocument = ConversionUtils.writeInputStreamToString(is);
+    try {
+      is.close();
+    } catch (final IOException e) {
+      LOG.log(Level.WARNING, "Unable to close document input stream", e);
+    }
     return GsonSingleton.getGson().fromJson(convertedDocument, Answers.class);
   }
 
   /**
-   * Converts a document to Answer Units.
+   * Converts a document to HTML. <br>
+   * Use {@link DocumentConversion#convertDocumentToHTML(File, String)} if you want to specify the
+   * media type.
    * 
    * @param document the document
-   * @param mediaType document the document media type. It will use the file extension if not
-   *        provided
-   * @return Converted document as {@link Answers}
+   * @return Converted document as {@link String}
    */
-  public String convertDocumentToHTML(File document, String mediaType) {
-    final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_HTML);
-    return ConversionUtils.writeInputStreamToString(is);
+  public String convertDocumentToHTML(File document) {
+    return convertDocumentToHTML(document, null);
   }
 
   /**
-   * Converts a document to Answer Units.
+   * Converts a document to HTML.
    * 
    * @param document the document
    * @param mediaType document the document media type. It will use the file extension if not
    *        provided
-   * @return Converted document as {@link Answers}
+   * @return Converted document as {@link String}
+   * @See {@link HttpMediaType} for available media types
+   */
+  public String convertDocumentToHTML(File document, String mediaType) {
+    final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_HTML);
+    try {
+      return ConversionUtils.writeInputStreamToString(is);
+    } finally {
+      try {
+        is.close();
+      } catch (final IOException e) {
+        LOG.log(Level.WARNING, "Unable to close document input stream", e);
+      }
+    }
+  }
+
+  /**
+   * Converts a document to Text. <br>
+   * Use {@link DocumentConversion#convertDocumentToText(File, String)} if you want to specify the
+   * media type.
+   * 
+   * @param document the document
+   * @return Converted document as {@link String}
+   */
+  public String convertDocumentToText(File document) {
+    return convertDocumentToText(document, null);
+  }
+
+  /**
+   * Converts a document to Text.
+   * 
+   * @param document the document
+   * @param mediaType document the document media type. It will use the file extension if not
+   *        provided
+   * @return Converted document as {@link String}
+   * @See {@link HttpMediaType} for available media types
    */
   public String convertDocumentToText(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_TEXT);
-    return ConversionUtils.writeInputStreamToString(is);
+    try {
+      return ConversionUtils.writeInputStreamToString(is);
+    } finally {
+      try {
+        is.close();
+      } catch (final IOException e) {
+        LOG.log(Level.WARNING, "Unable to close document input stream", e);
+      }
+    }
   }
-
 }

@@ -28,7 +28,7 @@ public class CreateASolrClusterExample {
     service.setUsernameAndPassword("<username>", "<password>");
 
     // 2 create the Solr Cluster
-    SolrClusterOptions options = new SolrClusterOptions("<cluster-name>", "1");
+    SolrClusterOptions options = new SolrClusterOptions("<cluster-name>", 1);
     SolrCluster cluster = service.createSolrCluster(options);
     System.out.println("SolrCluster: " + cluster);
 

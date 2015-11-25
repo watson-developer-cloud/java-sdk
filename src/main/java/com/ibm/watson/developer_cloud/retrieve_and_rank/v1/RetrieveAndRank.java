@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import com.google.gson.JsonObject;
@@ -316,7 +317,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * This URL can be used with the SolrJ library to access Solr functionality.
-   *
+   * 
    * @param solrClusterId the ID of the Solr cluster to connect to
    * @return URL to access Solr
    */
@@ -326,7 +327,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * Gets and returns the ranked answers.
-   *
+   * 
    * @param rankerID The ranker ID
    * @param answers The CSV file that contains the search results that you want to rank.
    * @param topAnswers The number of top answers needed, default is 10
@@ -377,7 +378,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
         Files.delete(zipFile.toPath());
       } catch (final IOException e) {
         zipFile.deleteOnExit();
-        log.warning("Error deleting the solr cluster configuration file");
+        log.log(Level.WARNING, "Error deleting the solr cluster configuration file", e);
       }
     }
 

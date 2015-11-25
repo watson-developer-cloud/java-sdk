@@ -24,7 +24,9 @@ import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentAuthors;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentPublicationDate;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentText;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentTitle;
@@ -111,29 +113,39 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
   }
 
   /**
-   * Test Get geTaxonomy HTML.
-   * 
-   * @throws IOException Signals that an I/O exception has occurred.
+   * Test get concepts HTML.
    */
   @Test
-  public void testGeTaxonomyHtml() throws IOException {
+  public void testGetConceptsHTML() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
-    final Taxonomies taxonomy = service.geTaxonomy(params);
-    Assert.assertNotNull(taxonomy);
-    Assert.assertFalse(taxonomy.getTaxonomy().isEmpty());
+    final Concepts concepts = service.getConcepts(params);
+    Assert.assertNotNull(concepts);
+    Assert.assertFalse(concepts.getConcepts().isEmpty());
   }
 
   /**
-   * Test Get geTaxonomy URL.
+   * Test get concepts HTML.
    */
   @Test
-  public void testGeTaxonomyUrl() {
+  public void testGetConceptsText() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.TEXT, htmlExample);
+    final Concepts concepts = service.getConcepts(params);
+    Assert.assertNotNull(concepts);
+    Assert.assertFalse(concepts.getConcepts().isEmpty());
+  }
+
+  /**
+   * Test Get getTaxonomy URL.
+   */
+  @Test
+  public void testGetConceptsUrl() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final Taxonomies taxonomy = service.geTaxonomy(params);
-    Assert.assertNotNull(taxonomy);
-    Assert.assertFalse(taxonomy.getTaxonomy().isEmpty());
+    final Concepts concepts = service.getConcepts(params);
+    Assert.assertNotNull(concepts);
+    Assert.assertFalse(concepts.getConcepts().isEmpty());
   }
 
   /**
@@ -190,12 +202,35 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
   }
 
   /**
-   * Test Get testGetRelationsHtml HTML.
-   * 
-   * @throws IOException Signals that an I/O exception has occurred.
+   * Test get publication date html.
    */
   @Test
-  public void testGetRelationsHtml() throws IOException {
+  public void testGetPublicationDateHTML() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.HTML, htmlExample);
+    final DocumentPublicationDate date = service.getPublicationDate(params);
+    Assert.assertNotNull(date);
+    Assert.assertNotNull(date.getPublicationDate());
+  }
+
+  /**
+   * Test get publication date url.
+   */
+  @Test
+  public void testGetPublicationDateURL() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
+    final DocumentPublicationDate date = service.getPublicationDate(params);
+    Assert.assertNotNull(date);
+    Assert.assertNotNull(date.getPublicationDate());
+  }
+
+  /**
+   * Test Get testGetRelationsHtml HTML.
+   * 
+   */
+  @Test
+  public void testGetRelationsHtml() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
     final SAORelations relations = service.getRelations(params);
@@ -215,11 +250,9 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
 
   /**
    * Test Get testGetTargetedSentiment HTML.
-   * 
-   * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
-  public void testGetTargetedSentimentHtml() throws IOException {
+  public void testGetTargetedSentimentHtml() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
     params.put(AlchemyLanguage.TARGET, "Watson");
@@ -243,7 +276,7 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
   }
 
   /**
-   * Test Get testGetTargetedSentiment Url and multiple targets
+   * Test Get testGetTargetedSentiment Url and multiple targets.
    */
   @Test
   public void testGetTargetedSentimentURLAndTargets() {
@@ -258,12 +291,36 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
   }
 
   /**
-   * Test Get testGetTextSentiment HTML.
+   * Test Get getTaxonomy HTML.
    * 
    * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
-  public void testGetTextSentimentHtml() throws IOException {
+  public void testGetTaxonomyHtml() throws IOException {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.HTML, htmlExample);
+    final Taxonomies taxonomy = service.getTaxonomy(params);
+    Assert.assertNotNull(taxonomy);
+    Assert.assertFalse(taxonomy.getTaxonomy().isEmpty());
+  }
+
+  /**
+   * Test Get getTaxonomy URL.
+   */
+  @Test
+  public void testGetTaxonomyUrl() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
+    final Taxonomies taxonomy = service.getTaxonomy(params);
+    Assert.assertNotNull(taxonomy);
+    Assert.assertFalse(taxonomy.getTaxonomy().isEmpty());
+  }
+
+  /**
+   * Test Get testGetTextSentiment HTML.
+   */
+  @Test
+  public void testGetTextSentimentHtml() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
     final DocumentSentiment documentSentiment = service.getSentiment(params);
@@ -295,10 +352,9 @@ public class AlchemyLanguageIntegrationTest extends WatsonServiceTest {
   /**
    * Test Get keywords HTML.
    * 
-   * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
-  public void testGetWordsHtml() throws IOException {
+  public void testGetWordsHtml() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
 

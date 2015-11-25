@@ -25,6 +25,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.ibm.watson.developer_cloud.util.Validate;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
@@ -103,7 +104,7 @@ public class NaturalLanguageClassifier extends WatsonService {
    * this status for a while.
    * 
    * @param name the classifier name
-   * @param language IETF primary language for the classifier
+   * @param language IETF primary language for the classifier. for example: 'en'
    * @param trainingData The set of questions and their "keys" used to adapt a system to a domain
    *        (the ground truth)
    * @return the classifier
@@ -111,12 +112,12 @@ public class NaturalLanguageClassifier extends WatsonService {
    */
   public Classifier createClassifier(final String name, final String language,
       final File trainingData) {
-    if (trainingData == null || !trainingData.exists())
-      throw new IllegalArgumentException("trainingData cannot be null or not be found");
-
+    Validate.isTrue(trainingData == null || !trainingData.exists(),"trainingData cannot be null or not be found");
+    Validate.isTrue(language == null || !language.isEmpty(),"language cannot be null or empty");
+    
     final JsonObject contentJson = new JsonObject();
 
-    contentJson.addProperty(LANGUAGE, language == null ? LANGUAGE_EN : language);
+    contentJson.addProperty(LANGUAGE, language);
 
     if (name != null && !name.isEmpty()) {
       contentJson.addProperty(NAME, name);

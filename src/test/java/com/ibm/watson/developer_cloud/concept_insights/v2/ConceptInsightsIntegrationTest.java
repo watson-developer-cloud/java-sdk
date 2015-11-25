@@ -50,10 +50,10 @@ public class ConceptInsightsIntegrationTest extends WatsonServiceTest {
 
   /** The Constant PUBLIC. */
   private static final String PUBLIC = "public";
-  /** The example concept. Value is "/graphs/wikipedia/en-20120601/IBM */
+  /** The example concept. Value is "/graphs/wikipedia/en-20120601/concepts/IBM */
   private final Concept EXAMPLE_CONCEPT = new Concept(Graph.WIKIPEDIA, "IBM");
 
-  /** The example document. Value is "/graphs/public/ibmresearcher/il-AHARONA */
+  /** The example document. Value is "/corpora/public/ibmresearcher/documents/il-AHARONA */
   private final Document EXAMPLE_DOCUMENT = new Document(Corpus.IBM_RESEARCHERS, "il-AHARONA");
 
   /** The service. */

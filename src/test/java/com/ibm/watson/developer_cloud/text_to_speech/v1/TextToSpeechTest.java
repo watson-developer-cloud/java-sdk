@@ -180,8 +180,9 @@ public class TextToSpeechTest extends WatsonServiceTest {
   @Test
   public void testSynthesize() {
     final File audio = new File("src/test/resources/sample1.wav");
-    if (audio == null || !audio.exists() || !audio.isFile())
+    if (!audio.exists() || !audio.isFile()) {
       throw new IllegalArgumentException("audio is not a valid audio file");
+    }
 
     try {
       final List<Parameter> parameters = new ArrayList<Parameter>();
