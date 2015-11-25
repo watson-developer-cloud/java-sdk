@@ -14,8 +14,6 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
 
@@ -24,8 +22,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
  */
 public class DocumentConversionExample {
 
-  public static void main(String[] args) throws URISyntaxException, IOException,
-      InterruptedException {
+  public static void main(String[] args) {
     final DocumentConversion service = new DocumentConversion();
     service.setUsernameAndPassword("<username>", "<password>");
 

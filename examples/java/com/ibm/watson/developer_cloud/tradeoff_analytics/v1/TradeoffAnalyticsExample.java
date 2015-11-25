@@ -13,8 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +26,7 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Numeric
 
 public class TradeoffAnalyticsExample {
 
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final TradeoffAnalytics service = new TradeoffAnalytics();
     service.setUsernameAndPassword("<username>", "<password>");
 

@@ -14,7 +14,6 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import java.io.File;
-import java.net.URISyntaxException;
 
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
@@ -26,7 +25,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
  */
 public class SpeechToTextExample {
 
-  public static void main(String[] args) throws URISyntaxException {
+  public static void main(String[] args) {
     final SpeechToText service = new SpeechToText();
     service.setUsernameAndPassword("<username>", "<password>");
 

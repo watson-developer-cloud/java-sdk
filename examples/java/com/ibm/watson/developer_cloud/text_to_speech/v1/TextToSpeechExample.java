@@ -13,7 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import java.io.FileNotFoundException;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -22,7 +21,7 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 public class TextToSpeechExample extends WatsonServiceTest {
 
 
-  public static void main(String[] args) throws FileNotFoundException {
+  public static void main(String[] args) {
     final TextToSpeech service = new TextToSpeech();
     service.setUsernameAndPassword("<username>", "<password>");
 

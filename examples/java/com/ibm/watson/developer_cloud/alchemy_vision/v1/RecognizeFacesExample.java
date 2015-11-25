@@ -15,19 +15,17 @@ package com.ibm.watson.developer_cloud.alchemy_vision.v1;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
 
 public class RecognizeFacesExample {
 
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final AlchemyVision service = new AlchemyVision();
     service.setApiKey("<api_key>");
 
-    File image = new File("src/test/resources/obama.jpg");
+    final File image = new File("src/test/resources/obama.jpg");
     final ImageFaces faces = service.recognizeFaces(image, true);
 
     System.out.println(faces);

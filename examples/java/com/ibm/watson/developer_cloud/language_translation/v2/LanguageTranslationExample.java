@@ -13,14 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 
 public class LanguageTranslationExample {
 
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final LanguageTranslation service = new LanguageTranslation();
     service.setUsernameAndPassword("<username>", "<password>");
 

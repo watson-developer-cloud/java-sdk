@@ -13,14 +13,12 @@
  */
 package com.ibm.watson.developer_cloud.dialog.v1;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.dialog.v1.model.Dialog;
 
 public class DialogServiceExample {
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final DialogService service = new DialogService();
     service.setUsernameAndPassword("<username>", "<password>");
 
