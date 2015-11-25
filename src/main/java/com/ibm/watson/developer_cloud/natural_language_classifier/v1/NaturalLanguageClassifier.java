@@ -112,9 +112,10 @@ public class NaturalLanguageClassifier extends WatsonService {
    */
   public Classifier createClassifier(final String name, final String language,
       final File trainingData) {
-    Validate.isTrue(trainingData == null || !trainingData.exists(),"trainingData cannot be null or not be found");
-    Validate.isTrue(language == null || !language.isEmpty(),"language cannot be null or empty");
-    
+    Validate.isTrue(trainingData != null && trainingData.exists(),
+        "trainingData cannot be null or not be found");
+    Validate.isTrue(language != null && !language.isEmpty(), "language cannot be null or empty");
+
     final JsonObject contentJson = new JsonObject();
 
     contentJson.addProperty(LANGUAGE, language);
