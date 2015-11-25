@@ -71,7 +71,7 @@ public abstract class WatsonService {
    * 
    * @return the okhttp client
    */
-  private OkHttpClient configureHttpClient() {
+  protected OkHttpClient configureHttpClient() {
     final OkHttpClient client = new OkHttpClient();
     final CookieManager cookieManager = new CookieManager();
     cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
