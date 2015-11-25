@@ -45,8 +45,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 
 ## Installation
 
-Download the [jar][releases], and add it to your project.  
-Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
+[![Download Jar](https://raw.githubusercontent.com/watson-developer-cloud/java-sdk/master/src/test/resources/download.png)][jar]
 
 ##### Maven
 ```xml
@@ -61,6 +60,8 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 ```gradle
 'com.ibm.watson.developer_cloud:java-sdk:2.1.0'
 ```
+
+Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
 
 ## Usage
 
@@ -132,10 +133,10 @@ System.out.println(keywords);
 ```
 
 ### Alchemy Data News
-[Alchemy Data News][alchemy_data_news] indexes 250k to 300k English language news and 
+[Alchemy Data News][alchemy_data_news] indexes 250k to 300k English language news and
 blog articles every day with historical search available for the past 60 days.
 Example: Get 7 documents between Friday 28th August 2015 and Friday 4th September 2015.
- 
+
 ```java
 AlchemyDataNews service = new AlchemyDataNews();
 service.setApiKey("<api_key>");
@@ -272,8 +273,8 @@ System.out.println(response);
 
 
 ### Retrieve and Rank
-The [Retrieve and Rank][retrieve_and_rank] service helps users find the most 
-relevant information for their query by using a  combination of search and 
+The [Retrieve and Rank][retrieve_and_rank] service helps users find the most
+relevant information for their query by using a  combination of search and
 machine learning to find “signals” in the data.
 
 
@@ -522,3 +523,5 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
 [releases]: https://github.com/watson-developer-cloud/java-sdk/releases
+
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-2.1.0/java-sdk-2.1.0-jar-with-dependencies.jar
