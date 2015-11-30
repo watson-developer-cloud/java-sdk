@@ -14,15 +14,19 @@
 package com.ibm.watson.developer_cloud.visual_recognition.v1;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.Validate;
 import com.ibm.watson.developer_cloud.visual_recognition.v1.model.LabelSet;
 import com.ibm.watson.developer_cloud.visual_recognition.v1.model.VisualRecognitionImages;
 import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.RequestBody;
 
 /**
  * The Visual Recognition service analyzes images, enabling you to understand their content without
@@ -83,14 +87,26 @@ public class VisualRecognition extends WatsonService {
    * @return the visual recognition images
    */
   public VisualRecognitionImages recognize(final File image, final LabelSet labelSet) {
+    Validate.isTrue(image != null && image.exists(), "image cannot be null or not be found");
+    InputStream stream = null;
+    try {
+      stream = new FileInputStream(image);
+    } catch (FileNotFoundException e) {
+    }
+    return recognize(image.getName(), stream, labelSet);
+  }
+
+  public VisualRecognitionImages recognize(final String imageName, final InputStream image,
+      final LabelSet labelSet) {
     if (image == null)
       throw new IllegalArgumentException("image cannot be null");
 
     final RequestBuilder requestBuilder = RequestBuilder.post("/v1/tag/recognize");
 
     final MultipartBuilder bodyBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
-    bodyBuilder.addFormDataPart(IMG_FILE, image.getName(),
-        RequestBody.create(HttpMediaType.BINARY_FILE, image));
+    bodyBuilder.addFormDataPart(IMG_FILE, imageName,
+        InputStreamRequestBody.create(HttpMediaType.BINARY_FILE, image));
+
     if (labelSet != null)
       bodyBuilder.addFormDataPart(LABELS_TO_CHECK, GsonSingleton.getGson().toJson(labelSet));
 
