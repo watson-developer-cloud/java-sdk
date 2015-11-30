@@ -33,6 +33,12 @@ public class DocumentAuthors extends AlchemyLanguageGenericModel {
   public static class Authors extends GenericModel {
 
     /**
+     * The confidence
+     * TODO: Getter & Setter
+     */
+    private Boolean confident;
+
+    /**
      * The names.
      */
     private List<String> names = new ArrayList<String>();
