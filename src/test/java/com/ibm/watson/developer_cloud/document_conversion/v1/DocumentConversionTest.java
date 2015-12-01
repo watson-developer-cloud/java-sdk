@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
+import static org.apache.commons.io.IOUtils.toByteArray;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
@@ -46,53 +47,25 @@ public class DocumentConversionTest extends WatsonServiceTest {
    **/
   private static final String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
 
-  /** The Constant log. */
   private static final Logger log = Logger.getLogger(DocumentConversionTest.class.getName());
 
-  /** Mock Server *. */
   private ClientAndServer mockServer;
-
-  /** The service. */
   private DocumentConversion service;
 
-  /** The UT f8_ charset. */
-  private final Charset UTF8_CHARSET = Charset.forName("UTF-8");
+  private final File html;
+  private final byte[] expAnswer;
 
-  /**
-   * Decode ut f8.
-   * 
-   * @param bytes the bytes
-   * @return the string
-   */
-  String decodeUTF8(byte[] bytes) {
-    return new String(bytes, UTF8_CHARSET);
+  public DocumentConversionTest() throws Exception {
+    html = new File(getClass().getResource("/document_conversion/html-with-extra-content-input.htm").toURI());
+    expAnswer = toByteArray(getClass().getResourceAsStream("/document_conversion/html-with-extra-content-input-to-answer.json"));
   }
 
-  /**
-   * Encode ut f8.
-   * 
-   * @param string the string
-   * @return the byte[]
-   */
-  byte[] encodeUTF8(String string) {
-    return string.getBytes(UTF8_CHARSET);
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
-   */
   @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();
-
   }
 
-  /**
-   * Start mock server.
-   */
   @Before
   public void startMockServer() {
     try {
@@ -107,29 +80,13 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
   }
 
-  /**
-   * Stop mock server.
-   */
   @After
   public void stopMockServer() {
     mockServer.stop();
   }
 
-  /**
-   * Test convert document with no persistence.
-   * 
-   * @throws URISyntaxException the URI syntax exception
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
   @Test
   public void testConvertDocument() throws URISyntaxException, IOException {
-    final File expAnswerFile =
-        new File(
-            "src/test/resources/document_conversion/html-with-extra-content-input-to-answer.json");
-    final File html =
-        new File("src/test/resources/document_conversion/html-with-extra-content-input.htm");
-    final byte[] expAnswer = IOUtils.toByteArray(new FileInputStream(expAnswerFile));
-
     mockServer.when(request().withMethod("POST").withPath(CONVERT_DOCUMENT_PATH)).respond(
         response().withBody(expAnswer));
 
