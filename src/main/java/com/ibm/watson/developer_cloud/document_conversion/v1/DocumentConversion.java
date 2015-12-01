@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -39,7 +39,7 @@ import com.squareup.okhttp.Response;
 /**
  * The IBM Watson Document Conversion service converts provided source documents (HTML, Word, PDF)
  * into JSON Answer Units, Normalized HTML, or Normalized Text.
- * 
+ *
  * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/document-conversion.html">
@@ -70,7 +70,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document and returns an {@link InputStream}.
-   * 
+   *
    * @param document The file to convert
    * @param mediaType Internet media type of the file
    * @param conversionTarget The conversion target to use
@@ -114,10 +114,10 @@ public class DocumentConversion extends WatsonService {
    * Converts a document to Answer Units. <br>
    * Use {@link DocumentConversion#convertDocumentToAnswer(File, String)} if you want to specify the
    * media type
-   * 
+   *
    * @param document the document
    * @return Converted document as {@link Answers}
-   * 
+   *
    */
   public Answers convertDocumentToAnswer(File document) {
     return convertDocumentToAnswer(document, null);
@@ -125,7 +125,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to Answer Units.
-   * 
+   *
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided
    * @return Converted document as {@link Answers}
@@ -133,12 +133,7 @@ public class DocumentConversion extends WatsonService {
    */
   public Answers convertDocumentToAnswer(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.ANSWER_UNITS);
-    final String convertedDocument = ConversionUtils.writeInputStreamToString(is);
-    try {
-      is.close();
-    } catch (final IOException e) {
-      LOG.log(Level.WARNING, "Unable to close document input stream", e);
-    }
+    final String convertedDocument = responseToString(is);
     return GsonSingleton.getGson().fromJson(convertedDocument, Answers.class);
   }
 
@@ -146,7 +141,7 @@ public class DocumentConversion extends WatsonService {
    * Converts a document to HTML. <br>
    * Use {@link DocumentConversion#convertDocumentToHTML(File, String)} if you want to specify the
    * media type.
-   * 
+   *
    * @param document the document
    * @return Converted document as {@link String}
    */
@@ -156,7 +151,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to HTML.
-   * 
+   *
    * @param document the document
    * @param mediaType document the document media type. It will use the file extension if not
    *        provided
@@ -165,22 +160,14 @@ public class DocumentConversion extends WatsonService {
    */
   public String convertDocumentToHTML(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_HTML);
-    try {
-      return ConversionUtils.writeInputStreamToString(is);
-    } finally {
-      try {
-        is.close();
-      } catch (final IOException e) {
-        LOG.log(Level.WARNING, "Unable to close document input stream", e);
-      }
-    }
+    return responseToString(is);
   }
 
   /**
    * Converts a document to Text. <br>
    * Use {@link DocumentConversion#convertDocumentToText(File, String)} if you want to specify the
    * media type.
-   * 
+   *
    * @param document the document
    * @return Converted document as {@link String}
    */
@@ -190,7 +177,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to Text.
-   * 
+   *
    * @param document the document
    * @param mediaType document the document media type. It will use the file extension if not
    *        provided
@@ -199,6 +186,11 @@ public class DocumentConversion extends WatsonService {
    */
   public String convertDocumentToText(File document, String mediaType) {
     final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_TEXT);
+    return responseToString(is);
+  }
+
+  /** Consumes the InputStream, converting it into a String. */
+  private String responseToString(InputStream is) {
     try {
       return ConversionUtils.writeInputStreamToString(is);
     } finally {
