@@ -13,19 +13,22 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
+import static com.ibm.watson.developer_cloud.http.HttpMediaType.TEXT_HTML;
 import static org.apache.commons.io.IOUtils.toByteArray;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.google.gson.*;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Assert;
@@ -42,9 +45,7 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
  */
 public class DocumentConversionTest extends WatsonServiceTest {
 
-  /**
-   * The CONVERT_DOCUMENT_PATH. (value is "/v1/convert_document")
-   **/
+  /** The CONVERT_DOCUMENT_PATH. (value is "/v1/convert_document") */
   private static final String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
 
   private static final Logger log = Logger.getLogger(DocumentConversionTest.class.getName());
@@ -78,6 +79,8 @@ public class DocumentConversionTest extends WatsonServiceTest {
       log.log(Level.SEVERE, "Error mocking the service", e);
     }
 
+    mockServer.when(request().withMethod("POST").withPath(CONVERT_DOCUMENT_PATH))
+            .respond(response().withBody(expAnswer));
   }
 
   @After
@@ -87,16 +90,32 @@ public class DocumentConversionTest extends WatsonServiceTest {
 
   @Test
   public void testConvertDocument() throws URISyntaxException, IOException {
-    mockServer.when(request().withMethod("POST").withPath(CONVERT_DOCUMENT_PATH)).respond(
-        response().withBody(expAnswer));
-
-    final Answers convertedDoc = service.convertDocumentToAnswer(html, null);
-    Assert.assertNotNull(convertedDoc);
+    Answers convertedDoc = service.convertDocumentToAnswer(html, null);
+    assertNotNull(convertedDoc);
 
     // Convert document with a specified media type
-    final Answers convertWithMediaType =
-        service.convertDocumentToAnswer(html, HttpMediaType.TEXT_HTML);
-    Assert.assertNotNull(convertWithMediaType);
+    convertedDoc = service.convertDocumentToAnswer(html, TEXT_HTML);
+    assertNotNull(convertedDoc);
   }
 
+  @Test
+  public void testConvertDocument_with_custom_config() throws Exception {
+    JsonObject customConfig = loadCustomConfig();
+    service.convertDocumentToAnswer(html, null, customConfig);
+
+    String entity = getRequestEntity();
+    assertTrue(entity.contains("\"word\":"));
+    assertTrue(entity.contains("\"conversion_target\":"));
+  }
+
+  private String getRequestEntity() {
+    String request = mockServer.retrieveAsJSON(request().withMethod("POST").withPath(CONVERT_DOCUMENT_PATH));
+    JsonObject requestAsJson = new JsonParser().parse(request).getAsJsonArray().get(0).getAsJsonObject();
+    return requestAsJson.getAsJsonObject("httpRequest").getAsJsonPrimitive("body").getAsString();
+  }
+
+  private JsonObject loadCustomConfig() {
+    Reader reader = new InputStreamReader(getClass().getResourceAsStream("/document_conversion/custom_config.json"));
+    return new JsonParser().parse(reader).getAsJsonObject();
+  }
 }
