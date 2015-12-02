@@ -69,15 +69,19 @@ public class DocumentConversionTest extends WatsonServiceTest {
     try {
       mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
       service = new DocumentConversion();
-      service.setApiKey("");
-      service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
-          + getValidProperty("mock.server.port"));
+      configureService();
     } catch (final NumberFormatException e) {
       log.log(Level.SEVERE, "Error mocking the service", e);
     }
 
     mockServer.when(request().withMethod("POST").withPath(CONVERT_DOCUMENT_PATH))
             .respond(response().withBody(expAnswer));
+  }
+
+  private void configureService() {
+    service.setApiKey("");
+    service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
+        + getValidProperty("mock.server.port"));
   }
 
   @After
@@ -103,6 +107,19 @@ public class DocumentConversionTest extends WatsonServiceTest {
     String entity = getRequestEntity();
     assertTrue(entity.contains("\"word\":"));
     assertTrue(entity.contains("\"conversion_target\":"));
+  }
+
+  @Test
+  public void testConvertDocument_with_version_date() throws Exception {
+    service = new DocumentConversion("2015-11-01");
+    configureService();
+
+    service.convertDocumentToAnswer(html);
+
+    mockServer.verify(request()
+            .withMethod("POST")
+            .withPath(CONVERT_DOCUMENT_PATH)
+            .withQueryStringParameter("version", "2015-11-01"));
   }
 
   private String getRequestEntity() {

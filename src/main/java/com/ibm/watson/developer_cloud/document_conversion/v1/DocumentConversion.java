@@ -30,7 +30,10 @@ import com.squareup.okhttp.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -62,12 +65,31 @@ public class DocumentConversion extends WatsonService {
 
   private static final JsonObject EMPTY_CONFIG = new JsonParser().parse("{}").getAsJsonObject();
 
-  /**
-   * Sets the endpoint url for the service.
-   */
+  private static String getYesterday() {
+    Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+    c.set(Calendar.DAY_OF_MONTH, -1);
+    return new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
+  }
+
+  private final String versionDate;
+
+  /** @deprecated See {@link DocumentConversion#DocumentConversion(String)} */
+  @Deprecated
   public DocumentConversion() {
+    this(getYesterday());
+  }
+
+  /**
+   * @see {@link DocumentConversion}
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use.
+   *                    Specifying this value will keep your API calls from failing
+   *                    when the service introduces breaking changes.
+   */
+  public DocumentConversion(String versionDate) {
     super("document_conversion");
     setEndPoint(URL);
+    this.versionDate = versionDate;
   }
 
   /**
@@ -116,7 +138,10 @@ public class DocumentConversion extends WatsonService {
             .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"file\""),
                 RequestBody.create(mType, document)).build();
 
-    final Request request = RequestBuilder.post(CONVERT_DOCUMENT_PATH).withBody(body).build();
+    final Request request = RequestBuilder
+            .post(CONVERT_DOCUMENT_PATH)
+            .withQuery("version", versionDate)
+            .withBody(body).build();
 
     final Response response = execute(request);
     return ResponseUtil.getInputStream(response);
