@@ -41,6 +41,7 @@ import com.ibm.watson.developer_cloud.service.BadRequestException;
 public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
 
   private static final Integer CREATED_CLUSTER_SIZE_ONE = 1;
+  private static final String CREATED_CLUSTER_SIZE_FREE = "";
   private static final String CREATED_CLUSTER_DEFAULT_NAME = "";
   private static final String CREATED_CLUSTER_NAME = "itest-cluster";
   private static final String CONFIG_NAME = "itest-config";
@@ -95,7 +96,7 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
     final SolrCluster solrCluster = service.createSolrCluster();
     final SolrCluster expectedSolrCluster =
         new SolrCluster(solrCluster.getId(), CREATED_CLUSTER_DEFAULT_NAME,
-            CREATED_CLUSTER_SIZE_ONE, Status.NOT_AVAILABLE);
+            CREATED_CLUSTER_SIZE_FREE, Status.NOT_AVAILABLE);
     try {
       assertTrue(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
     } finally {
@@ -109,9 +110,8 @@ public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
     final SolrClusterOptions options =
         new SolrClusterOptions(CREATED_CLUSTER_NAME, CREATED_CLUSTER_SIZE_ONE);
     final SolrCluster solrCluster = service.createSolrCluster(options);
-    final SolrCluster expectedSolrCluster =
-        new SolrCluster(solrCluster.getId(), CREATED_CLUSTER_NAME, CREATED_CLUSTER_SIZE_ONE,
-            Status.NOT_AVAILABLE);
+    final SolrCluster expectedSolrCluster = new SolrCluster(solrCluster.getId(),
+        CREATED_CLUSTER_NAME, CREATED_CLUSTER_SIZE_ONE.toString(), Status.NOT_AVAILABLE);
     try {
       assertTrue(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
     } finally {

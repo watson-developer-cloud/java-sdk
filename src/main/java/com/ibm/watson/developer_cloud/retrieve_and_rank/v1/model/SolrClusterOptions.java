@@ -22,10 +22,12 @@ import com.google.gson.annotations.SerializedName;
  * A value type for the JSON body provided when creating a Solr cluster.
  */
 public class SolrClusterOptions {
+  private static final String FREE_CLUSTER_SIZE = "";
+
   @SerializedName(CLUSTER_NAME)
   private final String clusterName;
   @SerializedName(CLUSTER_SIZE)
-  private final Integer clusterSize;
+  private final String clusterSize;
 
   /**
    * Instantiates options to create a new Solr cluster of the specified size
@@ -35,7 +37,11 @@ public class SolrClusterOptions {
    */
   public SolrClusterOptions(String clusterName, Integer clusterSize) {
     this.clusterName = clusterName;
-    this.clusterSize = clusterSize;
+    if (clusterSize == null) {
+      this.clusterSize = FREE_CLUSTER_SIZE;
+    } else {
+      this.clusterSize = clusterSize.toString();
+    }
   }
 
   /**
@@ -45,7 +51,7 @@ public class SolrClusterOptions {
    */
   public SolrClusterOptions(String clusterName) {
     this.clusterName = clusterName;
-    this.clusterSize = null;
+    this.clusterSize = FREE_CLUSTER_SIZE;
   }
 
   /**
@@ -58,12 +64,15 @@ public class SolrClusterOptions {
   }
 
   /**
-   * Gets String representation of the cluster size.
-   * 
+   * Gets the cluster size. Null implies a free cluster.
+   *
    * @return the cluster size
    */
   public Integer getClusterSize() {
-    return clusterSize;
+    if (FREE_CLUSTER_SIZE.equals(clusterSize)) {
+      return null;
+    }
+    return Integer.valueOf(clusterSize);
   }
 
 }

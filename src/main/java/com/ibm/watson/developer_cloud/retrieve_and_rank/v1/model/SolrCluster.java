@@ -38,7 +38,7 @@ public class SolrCluster extends GenericModel {
   @SerializedName(CLUSTER_NAME)
   private final String solrClusterName;
   @SerializedName(CLUSTER_SIZE)
-  private final Integer solrClusterSize;
+  private final String solrClusterSize;
   @SerializedName(SOLR_CLUSTER_STATUS)
   private final Status solrClusterStatus;
 
@@ -51,7 +51,7 @@ public class SolrCluster extends GenericModel {
    * @param solrClusterStatus the Solr cluster status
    */
   public SolrCluster(final String solrClusterId, final String solrClusterName,
-      final Integer solrClusterSize, final Status solrClusterStatus) {
+      final String solrClusterSize, final Status solrClusterStatus) {
     this.solrClusterId = solrClusterId;
     this.solrClusterName = solrClusterName;
     this.solrClusterSize = solrClusterSize;
@@ -77,11 +77,12 @@ public class SolrCluster extends GenericModel {
   }
 
   /**
-   * Gets the size.
-   * 
+   * Gets the size of the cluster. Size will either be an integer number of units or the empty
+   * string in the case of a free cluster.
+   *
    * @return the size
    */
-  public Integer getSize() {
+  public String getSize() {
     return solrClusterSize;
   }
 
