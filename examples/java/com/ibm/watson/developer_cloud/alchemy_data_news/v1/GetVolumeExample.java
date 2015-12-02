@@ -14,9 +14,6 @@
 package com.ibm.watson.developer_cloud.alchemy_data_news.v1;
 
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
 
@@ -27,7 +24,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
  */
 public class GetVolumeExample {
 
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final AlchemyDataNews service = new AlchemyDataNews();
     service.setApiKey("<api_key>");
 

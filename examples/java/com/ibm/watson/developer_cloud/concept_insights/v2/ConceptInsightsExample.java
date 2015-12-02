@@ -13,15 +13,12 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Annotations;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Graph;
 
 public class ConceptInsightsExample {
 
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final ConceptInsights service = new ConceptInsights();
     service.setUsernameAndPassword("<username>", "<password>");
 

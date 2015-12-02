@@ -14,8 +14,6 @@
 package com.ibm.watson.developer_cloud.alchemy_language.v1;
 
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +22,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 
 public class AlchemyLanguageExample {
 
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final AlchemyLanguage service = new AlchemyLanguage();
     service.setApiKey("<api_key>");
 

@@ -14,8 +14,6 @@
 package com.ibm.watson.developer_cloud.alchemy_data_news.v1;
 
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +30,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
  */
 public class GetNewsDocumentExample {
 
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final AlchemyDataNews service = new AlchemyDataNews();
     service.setApiKey("<api_key>");
 

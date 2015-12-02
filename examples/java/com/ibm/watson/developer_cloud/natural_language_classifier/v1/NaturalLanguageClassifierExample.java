@@ -13,14 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
-
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 
 public class NaturalLanguageClassifierExample {
 
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final NaturalLanguageClassifier service = new NaturalLanguageClassifier();
     service.setUsernameAndPassword("<username>", "<password>");
 

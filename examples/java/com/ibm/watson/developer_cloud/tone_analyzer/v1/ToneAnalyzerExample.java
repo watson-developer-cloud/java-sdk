@@ -13,8 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v1;
 
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Scorecard;
@@ -25,7 +23,7 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
 public class ToneAnalyzerExample {
 
 
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final ToneAnalyzer service = new ToneAnalyzer();
     service.setUsernameAndPassword("<username>", "<password>");
 

@@ -14,14 +14,12 @@
 package com.ibm.watson.developer_cloud.visual_recognition.v1;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v1.model.VisualRecognitionImages;
 
 public class VisualRecognitionExample {
 
-  public static void main(String[] args) throws URISyntaxException, FileNotFoundException {
+  public static void main(String[] args) {
     final VisualRecognition service = new VisualRecognition();
     service.setUsernameAndPassword("<username>", "<password>");
 
