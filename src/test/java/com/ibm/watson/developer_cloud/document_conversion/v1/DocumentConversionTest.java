@@ -13,32 +13,29 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
-import static com.ibm.watson.developer_cloud.http.HttpMediaType.TEXT_HTML;
-import static org.apache.commons.io.IOUtils.toByteArray;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
-
-import java.io.*;
-import java.net.URISyntaxException;
-import java.nio.charset.Charset;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import com.google.gson.*;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import org.apache.commons.io.IOUtils;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockserver.integration.ClientAndServer;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import static com.ibm.watson.developer_cloud.http.HttpMediaType.TEXT_HTML;
+import static org.apache.commons.io.IOUtils.toByteArray;
+import static org.junit.Assert.*;
+import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static org.mockserver.model.HttpRequest.request;
+import static org.mockserver.model.HttpResponse.response;
 
 /**
  * The Class DocumentConversionTest.
