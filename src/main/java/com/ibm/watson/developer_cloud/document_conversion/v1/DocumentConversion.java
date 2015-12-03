@@ -30,10 +30,7 @@ import com.squareup.okhttp.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,18 +62,14 @@ public class DocumentConversion extends WatsonService {
 
   private static final JsonObject EMPTY_CONFIG = new JsonParser().parse("{}").getAsJsonObject();
 
-  private static String getYesterday() {
-    Calendar c = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
-    c.set(Calendar.DAY_OF_MONTH, -1);
-    return new SimpleDateFormat("yyyy-MM-dd").format(c.getTime());
-  }
+  private static final String DEFAULT_VERSION_DATE = "2015-12-01";
 
   private final String versionDate;
 
   /** @deprecated See {@link DocumentConversion#DocumentConversion(String)} */
   @Deprecated
   public DocumentConversion() {
-    this(getYesterday());
+    this(DEFAULT_VERSION_DATE);
   }
 
   /**
