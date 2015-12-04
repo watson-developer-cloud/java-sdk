@@ -62,12 +62,27 @@ public class DocumentConversion extends WatsonService {
 
   private static final JsonObject EMPTY_CONFIG = new JsonParser().parse("{}").getAsJsonObject();
 
-  /**
-   * Sets the endpoint url for the service.
-   */
+  private static final String DEFAULT_VERSION_DATE = "2015-12-01";
+
+  private final String versionDate;
+
+  /** @deprecated See {@link DocumentConversion#DocumentConversion(String)} */
+  @Deprecated
   public DocumentConversion() {
+    this(DEFAULT_VERSION_DATE);
+  }
+
+  /**
+   * @see {@link DocumentConversion}
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use.
+   *                    Specifying this value will keep your API calls from failing
+   *                    when the service introduces breaking changes.
+   */
+  public DocumentConversion(String versionDate) {
     super("document_conversion");
     setEndPoint(URL);
+    this.versionDate = versionDate;
   }
 
   /**
@@ -116,7 +131,10 @@ public class DocumentConversion extends WatsonService {
             .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"file\""),
                 RequestBody.create(mType, document)).build();
 
-    final Request request = RequestBuilder.post(CONVERT_DOCUMENT_PATH).withBody(body).build();
+    final Request request = RequestBuilder
+            .post(CONVERT_DOCUMENT_PATH)
+            .withQuery("version", versionDate)
+            .withBody(body).build();
 
     final Response response = execute(request);
     return ResponseUtil.getInputStream(response);
