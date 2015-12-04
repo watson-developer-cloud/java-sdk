@@ -1,0 +1,10 @@
+{
+  "word": {
+    "heading": {
+      "fonts": [
+        { "level": 1, "min_size": 24 },
+        { "level": 2, "min_size": 16, "max_size": 24 }
+      ]
+    }
+  }
+}
