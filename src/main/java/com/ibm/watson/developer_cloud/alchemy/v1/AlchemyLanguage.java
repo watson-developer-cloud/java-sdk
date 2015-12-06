@@ -133,7 +133,7 @@ public class AlchemyLanguage extends AlchemyService {
    * Extracts publication date information when it is specified in web pages
    * 
    * @param params The parameters to be used in the service call, html or url should be specified.
-   * @return {@link DocumentAuthors}
+   * @return {@link DocumentPublicationDate}
    */
   public DocumentPublicationDate getPublicationDate(Map<String, Object> params) {
     return executeRequest(params, AlchemyAPI.publication_date, DocumentPublicationDate.class, HTML,
