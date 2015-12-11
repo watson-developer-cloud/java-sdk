@@ -13,48 +13,27 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpRequest;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
-import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsightsTest;
 
 /**
- * The Class GenericServiceTest.
+ * Generic Service Test.
  */
-public class GenericServiceTest extends WatsonServiceTest {
-
-  /** The Constant GET_PROFILE_PATH. */
+public class GenericServiceTest extends WatsonServiceUnitTest {
   private final static String GET_PROFILE_PATH = "/v2/profile";
-
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(PersonalityInsightsTest.class.getName());
-
-  /** The Constant POST. */
-  private static final String POST = "POST";
-
-  /** Mock Server *. */
-  private ClientAndServer mockServer;
-
-  /** The sample text. */
   private final String sampleText = "this is a test";
-
-  /** The service. */
   private PersonalityInsights service;
 
   /**
@@ -86,28 +65,13 @@ public class GenericServiceTest extends WatsonServiceTest {
     service.getProfile(sampleText);
   }
 
-  /**
-   * Start mock server.
-   */
+  @Override
   @Before
-  public void startMockServer() {
-    try {
-      mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
-      service = new PersonalityInsights();
-      service.setApiKey("");
-      service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
-          + getValidProperty("mock.server.port"));
-    } catch (final NumberFormatException e) {
-      log.log(Level.SEVERE, "Error mocking the service", e);
-    }
-  }
-
-  /**
-   * Stop mock server.
-   */
-  @After
-  public void stopMockServer() {
-    mockServer.stop();
+  public void setUp() throws Exception {
+    super.setUp();
+    service = new PersonalityInsights();
+    service.setApiKey("");
+    service.setEndPoint(MOCK_SERVER_URL);
   }
 
   /**
@@ -221,7 +185,7 @@ public class GenericServiceTest extends WatsonServiceTest {
     service.setDefaultHeaders(headers);
     mockAPICall();
     service.getProfile(sampleText);
-    mockServer.verify(new HttpRequest().withMethod("POST").withHeader(expectedHeader1)
+    mockServer.verify(new HttpRequest().withMethod(POST).withHeader(expectedHeader1)
         .withHeader(expectedHeader2));
   }
 }
