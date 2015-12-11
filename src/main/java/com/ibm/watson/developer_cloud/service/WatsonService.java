@@ -54,6 +54,8 @@ public abstract class WatsonService {
   private final String name;
   private Headers defaultHeaders = null;
 
+  protected static final String VERSION = "version";
+
   /**
    * Instantiates a new Watson service.
    * 

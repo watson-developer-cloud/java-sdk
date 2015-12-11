@@ -13,6 +13,10 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v2;
 
+import java.util.Date;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -21,6 +25,7 @@ import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.ibm.watson.developer_cloud.util.TimestampTypeAdapter;
 import com.ibm.watson.developer_cloud.util.Validate;
 import com.squareup.okhttp.Response;
 
@@ -43,6 +48,8 @@ public class PersonalityInsights extends WatsonService {
 
   private static final String URL = "https://gateway.watsonplatform.net/personality-insights/api";
 
+  private static final Gson gson = new GsonBuilder().registerTypeAdapter(Date.class,
+      new TimestampTypeAdapter()).create();
 
   /** The Constant HEADERS (value is "headers"). */
   private static final String HEADERS = "headers";
@@ -69,7 +76,8 @@ public class PersonalityInsights extends WatsonService {
     } else {
       final Content content = new Content();
       content.setContentItems(options.getContentItems());
-      request.withBodyContent(content.toString(), contentType);
+      String body = gson.toJson(content);
+      request.withBodyContent(body, contentType);
     }
 
     if (options.getIncludeRaw() != null)
