@@ -2,7 +2,8 @@ sudo: false
 language: java
 install: /bin/true
 script:
-- mvn clean install  -Dmaven.test.skip=true && mvn clean cobertura:cobertura coveralls:report
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && mvn clean install -Dmaven.test.skip=true && mvn clean verify cobertura:cobertura coveralls:report || false'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "true" ] && mvn clean install -Dmaven.test.skip=true && mvn clean test || false'
 jdk:
 - oraclejdk8
 - oraclejdk7
@@ -14,3 +15,7 @@ before_install:
   -in config.properties.enc -out src/test/resources/config.properties -d
 after_success:
 - codecov
+
+notifications:
+  email: false
+
