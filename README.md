@@ -125,9 +125,10 @@ Example: Extract keywords from an image.
 AlchemyVision service = new AlchemyVision();
 service.setApiKey("<api_key>");
 
-Map<String,Object> params = new HashMap<String, Object>();
-params.put(AlchemyVision.IMAGE, new File("src/test/resources/obama.jpg"));
-ImageKeywords keywords =  service.getImageKeywords(params);
+File image = new File("src/test/resources/alchemy/obama.jpg");
+Boolean forceShowAll = false;
+Boolean knowledgeGraph = false;
+ImageKeywords keywords =  service.getImageKeywords(, forceShowAll, knowledgeGraph);
 
 System.out.println(keywords);
 ```
@@ -188,7 +189,7 @@ The [Document Conversion][document_conversion] service allows to convert pdf, wo
 Returns the document list using the [Document Conversion][document_conversion] service.
 
 ```java
-DocumentConversion service = new DocumentConversion();
+DocumentConversion service = new DocumentConversion("2015-12-01");
 service.setUsernameAndPassword("<username>", "<password>");
 
 File doc = new File("src/test/resources/document_conversion/word-document-heading-input.doc");
@@ -266,7 +267,7 @@ components (nouns, verbs, subjects, objects, etc.) by using the
 RelationshipExtraction service = new RelationshipExtraction();
 service.setUsernameAndPassword("<username>", "<password>");
 
-service.setDataset(RelationshipExtractionDataset.ENGLISH_NEWS);
+service.setDataset(Dataset.ENGLISH_NEWS);
 String response = service.extract("IBM Watson Developer Cloud");
 System.out.println(response);
 ```
@@ -407,7 +408,7 @@ Use the [Visual Insights][visual_insights] to get insight into the themes presen
 VisualInsights service = new VisualInsights();
 service.setUsernameAndPassword("<username>", "<password>");
 
-File images = new File("src/test/resources/images.zip");
+File images = new File("src/test/resources/visual_insights/images.zip");
 Summary summary = service.getSummary(images);
 
 System.out.println(summary);
@@ -423,12 +424,9 @@ following picture.
 VisualRecognition service = new VisualRecognition();
 service.setUsernameAndPassword("<username>", "<password>");
 
-File image = new File("src/test/resources/car.png");
+File image = new File("src/test/resources/visual_recognition/car.png");
 
-LabelSet labelSet = new LabelSet();
-labelSet.withLabelGroup("Auto Racing").withLabelGroup("Sports");
-
-RecognizedImage recognizedImage = service.recognize(image, labelSet);
+VisualRecognitionImages recognizedImage = service.recognize(image);
 System.out.println(recognizedImage);
 ```
 
