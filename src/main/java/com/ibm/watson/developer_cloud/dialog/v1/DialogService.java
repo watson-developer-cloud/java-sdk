@@ -113,7 +113,7 @@ public class DialogService extends WatsonService {
   private static final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   /** The Constant URL. */
-  private static final String URL = "https://gateway.watsonplatform.net/dialog-beta/api";
+  private static final String URL = "https://gateway.watsonplatform.net/dialog/api";
   private static final String PATH_PROFILE = "/v1/dialogs/%s/profile";
   private static final String PATH_DIALOG_CONTENT = "/v1/dialogs/%s/content";
   private static final String PATH_DIALOG = "/v1/dialogs/%s";
