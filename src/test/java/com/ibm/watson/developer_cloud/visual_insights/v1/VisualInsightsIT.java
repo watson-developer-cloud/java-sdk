@@ -105,7 +105,7 @@ public class VisualInsightsIT extends WatsonServiceTest {
   @Test
   public void testGetSummaryUnsupported7zFormat() {
 
-    final File images = new File(RESOURCES + "tiger_woords.7z");
+    final File images = new File(RESOURCES + "tiger_woods.7z");
 
     boolean didItHappen = false;
     try {
