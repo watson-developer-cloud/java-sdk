@@ -1,17 +1,26 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1;
+
+import static com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionTarget.ANSWER_UNITS;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -25,27 +34,24 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import com.squareup.okhttp.*;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import static com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionTarget.ANSWER_UNITS;
+import com.squareup.okhttp.Headers;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.MultipartBuilder;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 /**
  * The IBM Watson Document Conversion service converts provided source documents (HTML, Word, PDF)
  * into JSON Answer Units, Normalized HTML, or Normalized Text.
- *
+ * 
  * @version v1
  * @see <a
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/document-conversion.html">
  *      Document Conversion</a>
  */
 public class DocumentConversion extends WatsonService {
+
   private static final Logger LOG = Logger.getLogger(DocumentConversion.class.getName());
 
   /** The Constant CONVERSION_TARGET. */
@@ -62,22 +68,21 @@ public class DocumentConversion extends WatsonService {
 
   private static final JsonObject EMPTY_CONFIG = new JsonParser().parse("{}").getAsJsonObject();
 
-  private static final String DEFAULT_VERSION_DATE = "2015-12-01";
+  public static final String VERSION_DATE_2015_12_01 = "2015-12-01";
 
   private final String versionDate;
 
   /** @deprecated See {@link DocumentConversion#DocumentConversion(String)} */
   @Deprecated
   public DocumentConversion() {
-    this(DEFAULT_VERSION_DATE);
+    this(VERSION_DATE_2015_12_01);
   }
 
   /**
-   * @see {@link DocumentConversion}
-   *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use.
-   *                    Specifying this value will keep your API calls from failing
-   *                    when the service introduces breaking changes.
+   * @See {@link DocumentConversion}
+   * 
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *        will keep your API calls from failing when the service introduces breaking changes.
    */
   public DocumentConversion(String versionDate) {
     super("document_conversion");
@@ -87,7 +92,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document and returns an {@link InputStream}.
-   *
+   * 
    * @param document The file to convert
    * @param mediaType Internet media type of the file
    * @param conversionTarget The conversion target to use
@@ -95,10 +100,8 @@ public class DocumentConversion extends WatsonService {
    * @return Converted document in the specified format
    * @see {@link HttpMediaType} for available media types
    */
-  private InputStream convertDocument(
-          final File document, final String mediaType,
-          final ConversionTarget conversionTarget,
-          final JsonObject customConfig) {
+  private InputStream convertDocument(final File document, final String mediaType,
+      final ConversionTarget conversionTarget, final JsonObject customConfig) {
 
     if (document == null || !document.exists())
       throw new IllegalArgumentException("document cannot be null and must exist");
@@ -131,10 +134,9 @@ public class DocumentConversion extends WatsonService {
             .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"file\""),
                 RequestBody.create(mType, document)).build();
 
-    final Request request = RequestBuilder
-            .post(CONVERT_DOCUMENT_PATH)
-            .withQuery("version", versionDate)
-            .withBody(body).build();
+    final Request request =
+        RequestBuilder.post(CONVERT_DOCUMENT_PATH).withQuery(VERSION, versionDate).withBody(body)
+            .build();
 
     final Response response = execute(request);
     return ResponseUtil.getInputStream(response);
@@ -144,10 +146,10 @@ public class DocumentConversion extends WatsonService {
    * Converts a document to Answer Units. <br>
    * Use {@link DocumentConversion#convertDocumentToAnswer(File, String)} if you want to specify the
    * media type
-   *
+   * 
    * @param document the document
    * @return Converted document as {@link Answers}
-   *
+   * 
    */
   public Answers convertDocumentToAnswer(File document) {
     return convertDocumentToAnswer(document, null);
@@ -155,11 +157,11 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to Answer Units.
-   *
+   * 
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided
    * @return Converted document as {@link Answers}
-   * @see {@link HttpMediaType} for available media types
+   * @See {@link HttpMediaType} for available media types
    */
   public Answers convertDocumentToAnswer(File document, String mediaType) {
     return convertDocumentToAnswer(document, mediaType, EMPTY_CONFIG);
@@ -167,7 +169,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to Answer Units using a custom configuration.
-   *
+   * 
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @param customConfig a config used to customize the conversion
@@ -183,7 +185,7 @@ public class DocumentConversion extends WatsonService {
    * Converts a document to HTML. <br>
    * Use {@link DocumentConversion#convertDocumentToHTML(File, String)} if you want to specify the
    * media type.
-   *
+   * 
    * @param document the document
    * @return Converted document as {@link String}
    */
@@ -193,11 +195,11 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to HTML.
-   *
+   * 
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @return Converted document as {@link String}
-   * @see {@link HttpMediaType} for available media types
+   * @See {@link HttpMediaType} for available media types
    */
   public String convertDocumentToHTML(File document, String mediaType) {
     return convertDocumentToHTML(document, mediaType, EMPTY_CONFIG);
@@ -205,14 +207,15 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to HTML using a custom configuration.
-   *
+   * 
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @param customConfig a config used to customize the conversion
    * @return converted document as {@link String}
    */
   public String convertDocumentToHTML(File document, String mediaType, JsonObject customConfig) {
-    final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_HTML, customConfig);
+    final InputStream is =
+        convertDocument(document, mediaType, ConversionTarget.NORMALIZED_HTML, customConfig);
     return responseToString(is);
   }
 
@@ -220,7 +223,7 @@ public class DocumentConversion extends WatsonService {
    * Converts a document to Text. <br>
    * Use {@link DocumentConversion#convertDocumentToText(File, String)} if you want to specify the
    * media type.
-   *
+   * 
    * @param document the document
    * @return Converted document as {@link String}
    */
@@ -230,11 +233,11 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to Text.
-   *
+   * 
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @return Converted document as {@link String}
-   * @see {@link HttpMediaType} for available media types
+   * @See {@link HttpMediaType} for available media types
    */
   public String convertDocumentToText(File document, String mediaType) {
     return convertDocumentToText(document, mediaType, EMPTY_CONFIG);
@@ -242,14 +245,15 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to Text using a custom configuration.
-   *
+   * 
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @param customConfig a config used to customize the conversion
    * @return converted document as {@link String}
    */
   public String convertDocumentToText(File document, String mediaType, JsonObject customConfig) {
-    final InputStream is = convertDocument(document, mediaType, ConversionTarget.NORMALIZED_TEXT, customConfig);
+    final InputStream is =
+        convertDocument(document, mediaType, ConversionTarget.NORMALIZED_TEXT, customConfig);
     return responseToString(is);
   }
 
