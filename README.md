@@ -159,7 +159,7 @@ System.out.println(result);
 ```
 
 ### Concept Insights
-Use the Concept Insights service to identify words in the text that
+Use the [Concept Insights][concept_insights] service to identify words in the text that
 correspond to concepts in a Wikipedia graph.
 
 ```java
@@ -418,7 +418,7 @@ System.out.println(summary);
 Use the [Visual Recognition][visual_recognition] service to recognize the
 following picture.
 
-![Car](http://visual-recognition-demo.mybluemix.net/images/73388.jpg)
+![Car](https://visual-recognition-demo.mybluemix.net/images/samples/5.jpg)
 
 ```java
 VisualRecognition service = new VisualRecognition();
@@ -503,9 +503,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [tradeoff_analytics]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tradeoff-analytics/
 [text_to_speech]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/
 [speech_to_text]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/speech-to-text/
-[tone-analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
+[tone_analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
 [dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
-[concept-insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
+[concept_insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
 [visual_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-insights/
 [retrieve_and_rank]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/
 
