@@ -206,7 +206,7 @@ public class GenericServiceTest extends WatsonServiceTest {
     mockAPICall();
     service.getProfile(sampleText);
     mockServer.verify(new HttpRequest().withMethod("POST").withHeader(
-        new Header(HttpHeaders.USER_AGENT, "watson-developer-cloud-java-sdk-2.1.0")));
+        new Header(HttpHeaders.USER_AGENT, "watson-developer-cloud-java-sdk-2.3.0")));
   }
 
   @Test
