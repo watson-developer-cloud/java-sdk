@@ -14,18 +14,21 @@
 package com.ibm.watson.developer_cloud.visual_insights.v1;
 
 
-import com.ibm.watson.developer_cloud.visual_insights.v1.model.Classifiers;
+import java.io.File;
+
+import com.ibm.watson.developer_cloud.visual_insights.v1.model.Summary;
 
 
 public class VisualInsightsExample {
 
   public static void main(String[] args) {
-    final VisualInsights service = new VisualInsights();
+    VisualInsights service = new VisualInsights();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    final Classifiers classifiers = service.getClassifiers();
+    File images = new File("src/test/resources/visual_insights/images.zip");
+    Summary summary = service.getSummary(images);
 
-    System.out.println(classifiers);
+    System.out.println(summary);
   }
 
 }
