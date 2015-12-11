@@ -13,27 +13,26 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.LanguageList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
+import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+import com.squareup.okhttp.RequestBody;
 
 /**
  * The IBM Watson Language Translation service translate text from one language to another and
@@ -46,7 +45,6 @@ import com.squareup.okhttp.Response;
  */
 public class LanguageTranslation extends WatsonService {
 
-  private static final String MODELS = "models";
   private static final String PATH_IDENTIFY = "/v2/identify";
   private static final String PATH_TRANSLATE = "/v2/translate";
   private static final String PATH_IDENTIFIABLE_LANGUAGES = "/v2/identifiable_languages";
@@ -60,9 +58,6 @@ public class LanguageTranslation extends WatsonService {
 
   /** The Constant FORCED_GLOSSARY (value is "forced_glossary"). */
   private static final String FORCED_GLOSSARY = "forced_glossary";
-
-  /** The Constant LANGUAGES (value is "languages"). */
-  private static final String LANGUAGES = "languages";
 
   /** The Constant MODEL_ID (value is "model_id"). */
   private static final String MODEL_ID = "model_id";
@@ -87,17 +82,6 @@ public class LanguageTranslation extends WatsonService {
   private static final String URL = "https://gateway.watsonplatform.net/language-translation/api";
   private static final String PATH_MODEL = "/v2/models/%s";
 
-  /** The identifiable languages list type. */
-  private final Type identifiableLanguagesListType = new TypeToken<List<IdentifiableLanguage>>() {}
-      .getType();
-
-  /** The model list type. */
-  private final Type modelListType = new TypeToken<List<TranslationModel>>() {}.getType();
-
-  /** The language model list type. */
-  private final Type translationModelListType = new TypeToken<List<IdentifiedLanguage>>() {}
-      .getType();
-
   /**
    * Instantiates a new Language Translation service.
    */
@@ -117,22 +101,26 @@ public class LanguageTranslation extends WatsonService {
     Validate.notEmpty(options.getBaseModelId(), "options.baseModelId cannot be null or empty");
 
     final RequestBuilder requestBuilder = RequestBuilder.post(PATH_MODELS);
-
-    requestBuilder.withForm(BASE_MODEL_ID, options.getBaseModelId());
-
-    if (options.getForcedGlossary() != null)
-      requestBuilder.withForm(FORCED_GLOSSARY, options.getForcedGlossary());
-
-    if (options.getMonolingualCorpus() != null)
-      requestBuilder.withForm(MONOLINGUAL_CORPUS, options.getMonolingualCorpus());
-
-    if (options.getParallelCorpus() != null)
-      requestBuilder.withForm(PARALLEL_CORPUS, options.getParallelCorpus());
+    requestBuilder.withQuery(BASE_MODEL_ID, options.getBaseModelId());
 
     if (options.getName() != null)
-      requestBuilder.withForm(NAME, options.getName());
+      requestBuilder.withQuery(NAME, options.getName());
 
-    return executeRequest(requestBuilder.build(), TranslationModel.class);
+    final MultipartBuilder bodyBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
+
+    // either forced glossary, monolingual corpus or parallel corpus should be specified
+    if (options.getForcedGlossary() != null)
+      bodyBuilder.addFormDataPart(FORCED_GLOSSARY, options.getForcedGlossary().getName(),
+          RequestBody.create(HttpMediaType.BINARY_FILE, options.getForcedGlossary()));
+    else if (options.getMonolingualCorpus() != null)
+      bodyBuilder.addFormDataPart(MONOLINGUAL_CORPUS, options.getMonolingualCorpus().getName(),
+          RequestBody.create(HttpMediaType.BINARY_FILE, options.getMonolingualCorpus()));
+    else if (options.getParallelCorpus() != null)
+      bodyBuilder.addFormDataPart(PARALLEL_CORPUS, options.getParallelCorpus().getName(),
+          RequestBody.create(HttpMediaType.BINARY_FILE, options.getParallelCorpus()));
+
+    return executeRequest(requestBuilder.withBody(bodyBuilder.build()).build(),
+        TranslationModel.class);
   }
 
   /**
@@ -144,7 +132,7 @@ public class LanguageTranslation extends WatsonService {
     if (modelId == null || modelId.isEmpty())
       throw new IllegalArgumentException("modelId cannot be null or empty");
 
-    final Request request = RequestBuilder.delete(String.format(MODEL_ID, modelId)).build();
+    final Request request = RequestBuilder.delete(String.format(PATH_MODEL, modelId)).build();
     executeWithoutResponse(request);
   }
 
@@ -156,11 +144,8 @@ public class LanguageTranslation extends WatsonService {
    */
   public List<IdentifiableLanguage> getIdentifiableLanguages() {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_IDENTIFIABLE_LANGUAGES);
-    final Response response = execute(requestBuilder.build());
-    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-    final List<IdentifiableLanguage> langs =
-        GsonSingleton.getGson().fromJson(jsonObject.get(LANGUAGES), identifiableLanguagesListType);
-    return langs;
+    final LanguageList languages = executeRequest(requestBuilder.build(), LanguageList.class);
+    return languages.getLanguages();
   }
 
   /**
@@ -210,11 +195,9 @@ public class LanguageTranslation extends WatsonService {
     if (showDefault != null)
       requestBuilder.withQuery(DEFAULT, showDefault.booleanValue());
 
-    final Response response = execute(requestBuilder.build());
-    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-    final List<TranslationModel> models =
-        GsonSingleton.getGson().fromJson(jsonObject.get(MODELS), modelListType);
-    return models;
+    final TranslationModelList models =
+        executeRequest(requestBuilder.build(), TranslationModelList.class);
+    return models.getModels();
   }
 
   /**
@@ -223,16 +206,15 @@ public class LanguageTranslation extends WatsonService {
    * @param text the text to identify
    * @return the identified language
    */
+  @SuppressWarnings("unchecked")
   public List<IdentifiedLanguage> identify(final String text) {
     final Request request =
         RequestBuilder.post(PATH_IDENTIFY).withBodyContent(text, HttpMediaType.TEXT_PLAIN)
             .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).build();
 
-    final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-    final List<IdentifiedLanguage> identifiedLanguages =
-        GsonSingleton.getGson().fromJson(jsonObject.get(LANGUAGES), translationModelListType);
-    return identifiedLanguages;
+    final LanguageList languages = executeRequest(request, LanguageList.class);
+
+    return (List<IdentifiedLanguage>) (List<?>) languages.getLanguages();
   }
 
   /**

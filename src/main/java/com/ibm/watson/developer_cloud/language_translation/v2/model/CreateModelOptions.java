@@ -36,6 +36,25 @@ public class CreateModelOptions extends GenericModel {
   private File parallelCorpus;
 
   /**
+   * Instantiates a new creates the model options.
+   */
+  public CreateModelOptions() {}
+
+
+  /**
+   * Instantiates a new creates the model options.
+   * 
+   * @param name the name
+   * @param baseModelId the base model id
+   */
+  public CreateModelOptions(String name, String baseModelId) {
+    super();
+    this.name = name;
+    this.baseModelId = baseModelId;
+  }
+
+
+  /**
    * Base model id.
    * 
    * @param baseModelId the base model id

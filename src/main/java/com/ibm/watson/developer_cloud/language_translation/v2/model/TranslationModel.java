@@ -47,7 +47,7 @@ public class TranslationModel extends GenericModel {
 
   /** The model id. */
   @SerializedName("model_id")
-  private String modelId;
+  private String id;
 
   /** The name. */
   private String name;
@@ -87,8 +87,18 @@ public class TranslationModel extends GenericModel {
    * 
    * @return The modelId
    */
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * Gets the model id.
+   * 
+   * @deprecated Use {@link TranslationModel#getId()}
+   * @return The modelId
+   */
   public String getModelId() {
-    return modelId;
+    return getId();
   }
 
   /**
@@ -193,10 +203,10 @@ public class TranslationModel extends GenericModel {
   /**
    * Sets the model id.
    * 
-   * @param modelId The model_id
+   * @param id The model id
    */
-  public void setModelId(final String modelId) {
-    this.modelId = modelId;
+  public void setId(final String id) {
+    this.id = id;
   }
 
   /**
