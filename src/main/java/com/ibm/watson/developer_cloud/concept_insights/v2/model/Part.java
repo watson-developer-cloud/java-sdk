@@ -77,11 +77,64 @@ public class Part extends GenericModel {
   }
 
   /**
+   * Instantiates a new part.
+   * 
+   * @param name the name
+   * @param data the data
+   * @param contentType the content type
+   */
+  public Part(String name, String data, String contentType) {
+    this();
+    this.name = name;
+    this.data = data;
+    this.contentType = contentType;
+  }
+
+  /**
+   * Instantiates a new part.
+   */
+  public Part() {}
+
+
+  /**
    * Sets the name.
    * 
    * @param name The name
    */
   public void setName(String name) {
     this.name = name;
+  }
+
+  /**
+   * Sets the content type.
+   * 
+   * @param contentType The content-type
+   * @return the part
+   */
+  public Part contentType(String contentType) {
+    this.contentType = contentType;
+    return this;
+  }
+
+  /**
+   * Sets the data.
+   * 
+   * @param data The data
+   * @return the part
+   */
+  public Part data(String data) {
+    this.data = data;
+    return this;
+  }
+
+  /**
+   * Sets the name.
+   * 
+   * @param name The name
+   * @return the part
+   */
+  public Part name(String name) {
+    this.name = name;
+    return this;
   }
 }
