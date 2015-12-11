@@ -13,404 +13,97 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v2;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
-import io.netty.handler.codec.http.HttpHeaders;
 
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.FileNotFoundException;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.Header;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.google.gson.Gson;
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ContentItem;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions.Language;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.Trait;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class PersonalityInsightsTest.
  * 
  */
-public class PersonalityInsightsTest extends WatsonServiceTest {
+public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
-  /** The GET_PROFILE_PATH. (value is "/v2/profile") */
-  private final static String GET_PROFILE_PATH = "/v2/profile";
-
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(PersonalityInsightsTest.class.getName());
-
-  /**
-   * Sets the up.
-   * 
-   */
-  private String englishText, spanishText;
-
-  /** Mock Server *. */
-  private ClientAndServer mockServer;
-
-  /** The service. */
+  private static final String RESOURCE = "src/test/resources/personality_insights/";
+  private final static String PROFILE_PATH = "/v2/profile";
+  private String text;
   private PersonalityInsights service;
+  private Profile profile;
+  private ContentItem contentItem;
+
+  public PersonalityInsightsTest() throws FileNotFoundException {
+    profile = loadFixture(RESOURCE + "profile.json", Profile.class);
+    text = "foo-bar-text";
+    contentItem = new ContentItem().content(text);
+  }
 
 
-
-  /*
-   * (non-Javadoc)
-   * 
-   * @see com.ibm.watson.developercloud.WatsonServiceTest#setUp()
-   */
   @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    InputStream in = this.getClass().getClassLoader().getResourceAsStream("en.txt");
-    englishText = getStringFromInputStream(in);
-
-    in = this.getClass().getClassLoader().getResourceAsStream("es.txt");
-    spanishText = getStringFromInputStream(in);
+    service = new PersonalityInsights();
+    service.setEndPoint(MOCK_SERVER_URL);
+    service.setApiKey("");
   }
 
-  /**
-   * Start mock server.
-   */
-  @Before
-  public void startMockServer() {
-    try {
-      mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
-      service = new PersonalityInsights();
-      service.setApiKey("");
-      service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
-          + getValidProperty("mock.server.port"));
-    } catch (final NumberFormatException e) {
-      log.log(Level.SEVERE, "Error mocking the service", e);
-    }
-
-  }
-
-  /**
-   * Stop mock server.
-   */
-  @After
-  public void stopMockServer() {
-    mockServer.stop();
-  }
-
-
-  /**
-   * Tear down.
-   * 
-   * 
-   * @throws Exception the exception
-   */
-  @After
-  public void tearDown() throws Exception {}
-
-  /**
-   * Test get profile.
-   */
   @Test
   public void testGetProfileWithContent() {
+    Content content = new Content();
+    content.addContentItem(contentItem);
 
-    final ContentItem cItem = new ContentItem();
-    cItem.setContent(englishText);
-    final Content content = new Content();
-    content.addContentItem(cItem);
-
-    final ProfileOptions options = new ProfileOptions();
-    options.addContentItem(cItem);
-
-    final Profile p = new Profile();
-    p.setId("*UNKNOWN*");
-    p.setSource("*UNKNOWN*");
-    p.setWordCount(1339);
-    p.setWordCountMessage("There were 1,339 words in the input. We need a minimum of 3,500, preferably 6,000 or more, to compute a reliable estimate");
-    p.setProcessedLanguage("en");
-
-    final Trait root = new Trait();
-    root.setId("r");
-    root.setName("root");
-
-    final Trait childA = new Trait();
-    childA.setId("personality");
-    childA.setName("Big 5");
-    final List<Trait> rootKids = new ArrayList<Trait>();
-    rootKids.add(childA);
-    root.setChildren(rootKids);
-
-    final Trait childA1 = new Trait();
-    childA1.setId("Openness_parent");
-    childA1.setName("Openness");
-    childA1.setCategory("personality");
-    childA1.setPercentage(0.8834414318445747);
-    final List<Trait> childAKids = new ArrayList<Trait>();
-    childAKids.add(childA1);
-    childA.setChildren(childAKids);
-
-    final Trait childA11 = new Trait();
-    childA11.setId("Openness");
-    childA11.setName("Openness");
-    childA11.setCategory("personality");
-    childA11.setPercentage(0.8834414318445747);
-    childA11.setSamplingError(0.0577082256);
-    final List<Trait> childA1Kids = new ArrayList<Trait>();
-    childA1Kids.add(childA11);
-    childA1.setChildren(childA1Kids);
-
-    final Trait childA110 = new Trait();
-    childA110.setId("Adventurousness");
-    childA110.setName("Adventurousness");
-    childA110.setCategory("personality");
-    childA110.setPercentage(0.7395861152833635);
-    childA110.setSamplingError(0.0494178204);
-
-    final Trait childA111 = new Trait();
-    childA111.setId("Imagination");
-    childA111.setName("Imagination");
-    childA111.setCategory("personality");
-    childA111.setPercentage(0.8226761749222228);
-    childA111.setSamplingError(0.0616986395);
-
-    final Trait childA112 = new Trait();
-    childA112.setId("Artistic interests");
-    childA112.setName("Artistic interests");
-    childA112.setCategory("personality");
-    childA112.setPercentage(0.5127471735266416);
-    childA112.setSamplingError(0.0464200574);
-
-    final Trait childA113 = new Trait();
-    childA113.setId("Emotionality");
-    childA113.setName("Emotionality");
-    childA113.setCategory("personality");
-    childA113.setPercentage(0.3995729122484725);
-    childA113.setSamplingError(0.0464200574);
-
-    final List<Trait> childA11Kids = new ArrayList<Trait>();
-    childA11Kids.add(childA110);
-    childA11Kids.add(childA111);
-    childA11Kids.add(childA112);
-    childA11Kids.add(childA113);
-    childA11.setChildren(childA11Kids);
-
-    p.setTree(root);
-
-
+    // mock
     mockServer.when(
-        request().withMethod("POST").withPath(GET_PROFILE_PATH).withBody(content.toString())
+        request().withMethod(POST).withPath(PROFILE_PATH).withBody(new Gson().toJson(content)))
+        .respond(response().withHeaders(APPLICATION_JSON).withBody(profile.toString()));
 
-    ).respond(
-        response().withHeaders(
-            new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(p)));
-
-    final Profile profile = service.getProfile(options);
+    // test
+    ProfileOptions options = new ProfileOptions().addContentItem(contentItem);
+    Profile profile = service.getProfile(options);
     Assert.assertNotNull(profile);
-    Assert.assertEquals(profile, p);
-
-
+    Assert.assertEquals(profile, this.profile);
   }
 
-  /**
-   * Test get profile with english text.
-   */
   @Test
   public void testGetProfileWithEnglishText() {
+    mockServer.when(
+        request().withMethod(POST).withPath(PROFILE_PATH).withHeader(TEXT_PLAIN)
+            .withHeader(HttpHeaders.CONTENT_LANGUAGE, "en").withBody(text)).respond(
+        response().withHeaders(APPLICATION_JSON).withBody(profile.toString()));
 
-    final Profile englishTextProfile = new Profile();
-    englishTextProfile.setId("*UNKNOWN*");
-    englishTextProfile.setSource("*UNKNOWN*");
-    englishTextProfile.setWordCount(1339);
-    englishTextProfile
-        .setWordCountMessage("There were 1,339 words in the input. We need a minimum of 3,500, preferably 6,000 or more, to compute a reliable estimate");
-    englishTextProfile.setProcessedLanguage("en");
-
-    final Trait root = new Trait();
-    root.setId("r");
-    root.setName("root");
-
-    final Trait childA = new Trait();
-    childA.setId("personality");
-    childA.setName("Big 5");
-    final List<Trait> rootKids = new ArrayList<Trait>();
-    rootKids.add(childA);
-    root.setChildren(rootKids);
-
-    final Trait childA1 = new Trait();
-    childA1.setId("Openness_parent");
-    childA1.setName("Openness");
-    childA1.setCategory("personality");
-    childA1.setPercentage(0.8834414318445747);
-    final List<Trait> childAKids = new ArrayList<Trait>();
-    childAKids.add(childA1);
-    childA.setChildren(childAKids);
-
-    final Trait childA11 = new Trait();
-    childA11.setId("Openness");
-    childA11.setName("Openness");
-    childA11.setCategory("personality");
-    childA11.setPercentage(0.8834414318445747);
-    childA11.setSamplingError(0.0577082256);
-    final List<Trait> childA1Kids = new ArrayList<Trait>();
-    childA1Kids.add(childA11);
-    childA1.setChildren(childA1Kids);
-
-    final Trait childA110 = new Trait();
-    childA110.setId("Adventurousness");
-    childA110.setName("Adventurousness");
-    childA110.setCategory("personality");
-    childA110.setPercentage(0.7395861152833635);
-    childA110.setSamplingError(0.0494178204);
-
-    final Trait childA111 = new Trait();
-    childA111.setId("Imagination");
-    childA111.setName("Imagination");
-    childA111.setCategory("personality");
-    childA111.setPercentage(0.8226761749222228);
-    childA111.setSamplingError(0.0616986395);
-
-    final Trait childA112 = new Trait();
-    childA112.setId("Artistic interests");
-    childA112.setName("Artistic interests");
-    childA112.setCategory("personality");
-    childA112.setPercentage(0.5127471735266416);
-    childA112.setSamplingError(0.0464200574);
-
-    final Trait childA113 = new Trait();
-    childA113.setId("Emotionality");
-    childA113.setName("Emotionality");
-    childA113.setCategory("personality");
-    childA113.setPercentage(0.3995729122484725);
-    childA113.setSamplingError(0.0464200574);
-
-    final List<Trait> childA11Kids = new ArrayList<Trait>();
-    childA11Kids.add(childA110);
-    childA11Kids.add(childA111);
-    childA11Kids.add(childA112);
-    childA11Kids.add(childA113);
-    childA11.setChildren(childA11Kids);
-
-    englishTextProfile.setTree(root);
-
-    mockServer.when(request().withMethod("POST").withPath(GET_PROFILE_PATH).withBody(englishText)
-
-    ).respond(
-        response().withHeaders(
-            new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(englishTextProfile)));
-
-    final Profile profile = service.getProfile(englishText);
+    ProfileOptions options = new ProfileOptions().text(text).language(Language.ENGLISH);
+    Profile profile = service.getProfile(options);
 
     Assert.assertNotNull(profile);
-    Assert.assertEquals(profile, englishTextProfile);
+    Assert.assertEquals(profile, this.profile);
   }
 
-  /**
-   * Test get profile with spanish text.
-   */
   @Test
   public void testGetProfileWithSpanishText() {
-    final Profile spanishTextProfile = new Profile();
-    spanishTextProfile.setId("*UNKNOWN*");
-    spanishTextProfile.setSource("*UNKNOWN*");
-    spanishTextProfile.setWordCount(1870);
-    spanishTextProfile
-        .setWordCountMessage("There were 1,870 words in the input. We need a minimum of 3,500, preferably 6,000 or more, to compute a reliable estimate");
-    spanishTextProfile.setProcessedLanguage("en");
-
-    final Trait root = new Trait();
-    root.setId("r");
-    root.setName("root");
-
-    final Trait childA = new Trait();
-    childA.setId("personality");
-    childA.setName("Big 5");
-    final List<Trait> rootKids = new ArrayList<Trait>();
-    rootKids.add(childA);
-    root.setChildren(rootKids);
-
-    final Trait childA1 = new Trait();
-    childA1.setId("Openness_parent");
-    childA1.setName("Openness");
-    childA1.setCategory("personality");
-    childA1.setPercentage(0.8834414318445747);
-    final List<Trait> childAKids = new ArrayList<Trait>();
-    childAKids.add(childA1);
-    childA.setChildren(childAKids);
-
-    final Trait childA11 = new Trait();
-    childA11.setId("Openness");
-    childA11.setName("Openness");
-    childA11.setCategory("personality");
-    childA11.setPercentage(0.8834414318445747);
-    childA11.setSamplingError(0.0577082256);
-    final List<Trait> childA1Kids = new ArrayList<Trait>();
-    childA1Kids.add(childA11);
-    childA1.setChildren(childA1Kids);
-
-    final Trait childA110 = new Trait();
-    childA110.setId("Adventurousness");
-    childA110.setName("Adventurousness");
-    childA110.setCategory("personality");
-    childA110.setPercentage(0.7395861152833635);
-    childA110.setSamplingError(0.0494178204);
-
-    final Trait childA111 = new Trait();
-    childA111.setId("Imagination");
-    childA111.setName("Imagination");
-    childA111.setCategory("personality");
-    childA111.setPercentage(0.8226761749222228);
-    childA111.setSamplingError(0.0616986395);
-
-    final Trait childA112 = new Trait();
-    childA112.setId("Artistic interests");
-    childA112.setName("Artistic interests");
-    childA112.setCategory("personality");
-    childA112.setPercentage(0.5127471735266416);
-    childA112.setSamplingError(0.0464200574);
-
-    final Trait childA113 = new Trait();
-    childA113.setId("Emotionality");
-    childA113.setName("Emotionality");
-    childA113.setCategory("personality");
-    childA113.setPercentage(0.3995729122484725);
-    childA113.setSamplingError(0.0464200574);
-
-    final List<Trait> childA11Kids = new ArrayList<Trait>();
-    childA11Kids.add(childA110);
-    childA11Kids.add(childA111);
-    childA11Kids.add(childA112);
-    childA11Kids.add(childA113);
-    childA11.setChildren(childA11Kids);
-    spanishTextProfile.setTree(root);
-
     mockServer.when(
-        request().withMethod("POST").withPath(GET_PROFILE_PATH).withBody(spanishText)
-            .withHeaders(new Header(HttpHeaders.Names.CONTENT_LANGUAGE, "es"))
+        request().withMethod(POST).withPath(PROFILE_PATH).withHeader(TEXT_PLAIN)
+            .withHeader(HttpHeaders.CONTENT_LANGUAGE, "es").withBody(text)).respond(
+        response().withHeaders(APPLICATION_JSON).withBody(profile.toString()));
 
-    ).respond(
-        response().withHeaders(
-            new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(spanishTextProfile)));
 
-    final ProfileOptions options = new ProfileOptions();
-    options.text(spanishText).language(Language.SPANISH);
-    final Profile profile = service.getProfile(options);
+    ProfileOptions options = new ProfileOptions().text(text).language(Language.SPANISH);
+    Profile profile = service.getProfile(options);
 
     Assert.assertNotNull(profile);
-    Assert.assertEquals(profile, spanishTextProfile);
+    Assert.assertEquals(profile, this.profile);
 
   }
-
 }

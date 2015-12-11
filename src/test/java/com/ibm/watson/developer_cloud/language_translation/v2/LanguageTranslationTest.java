@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.language_translation.v2;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
@@ -26,60 +25,41 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 import org.mockserver.verify.VerificationTimes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.LanguageList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.Translation;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
-/**
- * Created by nizar.
- */
-public class LanguageTranslationTest extends WatsonServiceTest {
+public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
-  /** The Constant GET_MODELS_PATH. (value is "/v2/models") */
   private final static String GET_MODELS_PATH = "/v2/models";
-
-  /** The Constant IDENTIFIABLE_LANGUAGES_PATH. (value is "/v2/identifiable_languages") */
   private final static String IDENTIFIABLE_LANGUAGES_PATH = "/v2/identifiable_languages";
-
-  /** The Constant IDENTITY_PATH. (value is "/v2/identify") */
   private final static String IDENTITY_PATH = "/v2/identify";
-
-  /** The Constant LANGUAGE_TRANSLATION_PATH. (value is "/v2/translate") */
   private final static String LANGUAGE_TRANSLATION_PATH = "/v2/translate";
+  private final static String RESOURCE = "src/test/resources/language_translation/";
 
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(LanguageTranslationTest.class.getName());
-
-  /** Mock Server *. */
-  private ClientAndServer mockServer;
-
-  /** The model id. */
   private String modelId;
-
-  /** The service. */
   private LanguageTranslation service;
-
-  /** The text. */
   private String text;
+  private LanguageList identifiableLanguages;
+  private TranslationModel model;
+  private TranslationModelList models;
 
   /*
    * (non-Javadoc)
@@ -90,36 +70,22 @@ public class LanguageTranslationTest extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    modelId = getValidProperty("language_translation.model_id");
+    modelId = "foo-bar";
     text = "The IBM Watson team is awesome";
+
+    service = new LanguageTranslation();
+    service.setApiKey("");
+    service.setEndPoint(MOCK_SERVER_URL);
+
+    // fixtures
+    identifiableLanguages =
+        loadFixture(RESOURCE + "identifiable_languages.json", LanguageList.class);
+    model = loadFixture(RESOURCE + "model.json", TranslationModel.class);
+    models = loadFixture(RESOURCE + "models.json", TranslationModelList.class);
   }
 
   /**
-   * Start mock server.
-   */
-  @Before
-  public void startMockServer() {
-    try {
-      mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
-      service = new LanguageTranslation();
-      service.setApiKey("");
-      service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
-          + getValidProperty("mock.server.port"));
-    } catch (final NumberFormatException e) {
-      log.log(Level.SEVERE, "Error mocking the service", e);
-    }
-  }
-
-  /**
-   * Stop mock server.
-   */
-  @After
-  public void stopMockServer() {
-    mockServer.stop();
-  }
-
-  /**
-   * Testcreate model with base model null.
+   * Test create model with base model null.
    */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithBaseModelNull() {
@@ -129,7 +95,7 @@ public class LanguageTranslationTest extends WatsonServiceTest {
   }
 
   /**
-   * Testcreate model with glossary null.
+   * Test create model with glossary null.
    */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithGlossaryNull() {
@@ -150,55 +116,28 @@ public class LanguageTranslationTest extends WatsonServiceTest {
   @Test
   public void testGetIdentifiableLanguages() {
 
-    final Map<String, Object> response = new HashMap<String, Object>();
-    final List<IdentifiableLanguage> langs = new ArrayList<IdentifiableLanguage>();
-    langs.add(new IdentifiableLanguage("af", "Afrikaans"));
-    langs.add(new IdentifiableLanguage("ar", "Arabic"));
-    langs.add(new IdentifiableLanguage("az", "Azerbaijani"));
-    langs.add(new IdentifiableLanguage("zh", "Chinese"));
-    response.put("languages", langs);
-
     mockServer.when(request().withPath(IDENTIFIABLE_LANGUAGES_PATH)).respond(
-        response().withHeaders(
-            new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(response)));
+        response().withHeader(APPLICATION_JSON).withBody(
+            GsonSingleton.getGson().toJson(identifiableLanguages)));
 
-    final List<IdentifiableLanguage> languages = service.getIdentifiableLanguages();
+    List<IdentifiableLanguage> languages = service.getIdentifiableLanguages();
 
-    mockServer
-        .verify(request().withPath(IDENTIFIABLE_LANGUAGES_PATH), VerificationTimes.exactly(1));
-    assertNotNull(languages);
-    assertEquals(languages, langs);
+    assertEquals(GsonSingleton.getGson().toJson(languages),
+        GsonSingleton.getGson().toJson(identifiableLanguages.getLanguages()));
   }
 
   /**
-   * Test Get Identifiable languages.
+   * Test Get Model.
    */
   @Test
   public void testGetModel() {
-    // Mock response
-    final TranslationModel tm = new TranslationModel();
-    final String model_id = "not-a-real-model";
-    tm.setModelId(model_id);
-    tm.setSource("en");
-    tm.setBaseModelId("en-es");
-    tm.setDomain("news");
-    tm.setCustomizable(false);
-    tm.setDefaultModel(false);
-    tm.setOwner("not-a-real-user");
-    tm.setStatus("error");
-    tm.setName("custom-english-to-spanish");
 
-    mockServer.when(request().withPath(GET_MODELS_PATH + "/" + model_id)).respond(
-        response().withHeaders(
-            new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(tm)));
+    mockServer.when(request().withPath(GET_MODELS_PATH + "/" + model.getId())).respond(
+        response().withHeader(APPLICATION_JSON).withBody(GsonSingleton.getGson().toJson(model)));
 
-    final TranslationModel model = service.getModel("not-a-real-model");
+    TranslationModel returnedModel = service.getModel(model.getId());
 
-    mockServer.verify(request().withPath(GET_MODELS_PATH + "/" + model_id),
-        VerificationTimes.exactly(1));
-    assertNotNull(model);
+    assertEquals(model, returnedModel);
   }
 
   /**
@@ -206,62 +145,17 @@ public class LanguageTranslationTest extends WatsonServiceTest {
    */
   @Test
   public void testGetModels() {
-
-    final Map<String, Object> response = new HashMap<String, Object>();
-    final List<TranslationModel> tsModels = new ArrayList<TranslationModel>();
-
-    final TranslationModel tm = new TranslationModel();
-    tm.setModelId("not-a-real-model");
-    tm.setSource("en");
-    tm.setBaseModelId("en-es");
-    tm.setDomain("news");
-    tm.setCustomizable(false);
-    tm.setDefaultModel(false);
-    tm.setOwner("not-a-real-user");
-    tm.setStatus("error");
-    tm.setName("custom-english-to-spanish");
-    tsModels.add(tm);
-
-    final TranslationModel tm1 = new TranslationModel();
-    tm1.setModelId("not-a-real-model-2");
-    tm1.setSource("en");
-    tm1.setBaseModelId("es");
-    tm1.setDomain("news");
-    tm1.setCustomizable(false);
-    tm1.setDefaultModel(false);
-    tm1.setOwner("not-a-real-user");
-    tm1.setStatus("error");
-    tm1.setName("custom-english-to-spanish");
-    tsModels.add(tm1);
-
-    final TranslationModel tm2 = new TranslationModel();
-    tm2.setModelId("ar-en");
-    tm2.setSource("en");
-    tm2.setBaseModelId("");
-    tm2.setDomain("news");
-    tm2.setCustomizable(true);
-    tm2.setDefaultModel(true);
-    tm2.setOwner("");
-    tm2.setStatus("available");
-    tm2.setName("custom-english-to-spanish");
-    tsModels.add(tm2);
-
-    response.put("models", tsModels);
-
     mockServer.when(request().withPath(GET_MODELS_PATH)).respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(response)));
+            GsonSingleton.getGson().toJson(models)));
 
-    final List<TranslationModel> models = service.getModels();
+    final List<TranslationModel> modelList = service.getModels();
 
     mockServer.verify(request().withPath(GET_MODELS_PATH), VerificationTimes.exactly(1));
-    assertNotNull(models);
 
-    assertNotNull(models);
-    assertFalse(models.isEmpty());
-    assertNotNull(models.containsAll(tsModels));
-
+    assertEquals(GsonSingleton.getGson().toJson(models.getModels()), GsonSingleton.getGson()
+        .toJson(modelList));
   }
 
   /**
@@ -283,7 +177,6 @@ public class LanguageTranslationTest extends WatsonServiceTest {
     final List<IdentifiedLanguage> langs = new ArrayList<IdentifiedLanguage>();
     langs.add(new IdentifiedLanguage("en", 0.877159));
     langs.add(new IdentifiedLanguage("af", 0.0752636));
-    langs.add(new IdentifiedLanguage("nl", 0.0301593));
 
     response.put("languages", langs);
 

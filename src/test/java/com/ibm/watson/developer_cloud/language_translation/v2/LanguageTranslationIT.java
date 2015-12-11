@@ -18,12 +18,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
@@ -32,11 +34,12 @@ import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationR
 /**
  * Language Translation integration test.
  */
-public class LanguageTranslationIntegrationTest extends WatsonServiceTest {
+public class LanguageTranslationIT extends WatsonServiceTest {
 
   private static final String SPANISH = "es";
   private static final String ENGLISH = "en";
   private static final String ENGLISH_TO_SPANISH = "en-es";
+  private static final String RESOURCE = "src/test/resources/language_translation/";
 
   private LanguageTranslation service;
   private String text;
@@ -55,6 +58,24 @@ public class LanguageTranslationIntegrationTest extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("language_translation.username"),
         getValidProperty("language_translation.password"));
     service.setEndPoint(getValidProperty("language_translation.url"));
+  }
+
+  /**
+   * Test create and delete model
+   */
+  @Test
+  public void testCreateAndDeleteModel() {
+    CreateModelOptions options = new CreateModelOptions("integration-test", "en-es");
+    options.forcedGlossary(new File(RESOURCE + "glossary.tmx"));
+
+    TranslationModel model = null;
+    try {
+      model = service.createModel(options);
+      assertNotNull(model);
+    } finally {
+      if (model != null)
+        service.deleteModel(model.getId());
+    }
   }
 
   /**

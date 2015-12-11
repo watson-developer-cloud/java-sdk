@@ -31,7 +31,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 /**
  * The Class NaturalLanguageClassifierTest.
  */
-public class NaturalLanguageClassifierIntegrationTest extends WatsonServiceTest {
+public class NaturalLanguageClassifierIT extends WatsonServiceTest {
 
   /** The classifier id. */
   private String classifierId;

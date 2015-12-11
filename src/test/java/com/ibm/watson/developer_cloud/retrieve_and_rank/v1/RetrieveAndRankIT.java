@@ -38,7 +38,7 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterList
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
 import com.ibm.watson.developer_cloud.service.BadRequestException;
 
-public class RetrieveAndRankIntegrationTest extends WatsonServiceTest {
+public class RetrieveAndRankIT extends WatsonServiceTest {
 
   private static final Integer CREATED_CLUSTER_SIZE_ONE = 1;
   private static final String CREATED_CLUSTER_SIZE_FREE = "";

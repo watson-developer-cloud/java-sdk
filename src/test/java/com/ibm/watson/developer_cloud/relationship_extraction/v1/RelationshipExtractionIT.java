@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.relationship_extraction.v1.model.Dataset;
  * The Class RelationshipExtractionTest.
  * 
  */
-public class RelationshipExtractionIntegrationTest extends WatsonServiceTest {
+public class RelationshipExtractionIT extends WatsonServiceTest {
 
   /**
    * The service.

@@ -28,7 +28,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
 /**
  * The Class AlchemyDataNewsTest.
  */
-public class AlchemyDataNewsIntegrationTest extends WatsonServiceTest {
+public class AlchemyDataNewsIT extends WatsonServiceTest {
 
   private AlchemyDataNews service;
 

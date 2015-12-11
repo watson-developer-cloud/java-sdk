@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
 /**
  * The Class DocumentConversionIntegrationTest.
  */
-public class DocumentConversionIntegrationTest extends WatsonServiceTest {
+public class DocumentConversionIT extends WatsonServiceTest {
 
   /** The service. */
   private DocumentConversion service;
@@ -40,7 +40,7 @@ public class DocumentConversionIntegrationTest extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new DocumentConversion();
+    service = new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01);
     service.setUsernameAndPassword(prop.getProperty("document_conversion.username"),
         prop.getProperty("document_conversion.password"));
     service.setEndPoint(prop.getProperty("document_conversion.url"));

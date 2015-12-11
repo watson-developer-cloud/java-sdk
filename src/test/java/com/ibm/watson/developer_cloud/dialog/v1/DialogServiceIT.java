@@ -35,7 +35,7 @@ import com.ibm.watson.developer_cloud.dialog.v1.model.DialogContent;
 /**
  * The Class DialogServiceTest.
  */
-public class DialogServiceIntegrationTest extends WatsonServiceTest {
+public class DialogServiceIT extends WatsonServiceTest {
 
   private static final String DIALOG_FILE_SAMPLE = "src/test/resources/pizza_sample.xml";
 

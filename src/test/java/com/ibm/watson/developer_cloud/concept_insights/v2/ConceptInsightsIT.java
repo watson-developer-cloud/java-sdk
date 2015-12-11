@@ -23,6 +23,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.Account;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Accounts;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Annotations;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concept;
@@ -39,14 +40,16 @@ import com.ibm.watson.developer_cloud.concept_insights.v2.model.Documents;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Graph;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Graphs;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Matches;
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.Part;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.QueryConcepts;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.RequestedFields;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Scores;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
 /**
  * The Class ConceptInsightsTest.
  */
-public class ConceptInsightsIntegrationTest extends WatsonServiceTest {
+public class ConceptInsightsIT extends WatsonServiceTest {
 
   /** The Constant PUBLIC. */
   private static final String PUBLIC = "public";
@@ -309,6 +312,23 @@ public class ConceptInsightsIntegrationTest extends WatsonServiceTest {
   }
 
   /**
+   * Test create and delete corpus
+   */
+  @Test
+  public void testCreateAndDeleteCorpus() {
+    final Account account = service.getAccountsInfo().getAccounts().get(0);
+    Corpus corpus = new Corpus(account.getId(), "integration-test-corpus");
+    try {
+      service.createCorpus(corpus);
+      corpus = service.getCorpus(corpus);
+      corpus.setAccess(Corpus.ACCESS_PUBLIC);
+      service.updateCorpus(corpus);
+    } finally {
+      service.deleteCorpus(corpus);
+    }
+  }
+
+  /**
    * Test get graphs label search.
    */
   @Test
@@ -339,13 +359,48 @@ public class ConceptInsightsIntegrationTest extends WatsonServiceTest {
   }
 
   /**
-   * Testlist corpora.
+   * Test list corpora.
    */
   @Test
   public void testlistCorpora() {
     final Corpora corpora = service.listCorpora();
     Assert.assertNotNull(corpora);
     Assert.assertFalse(corpora.getCorpora().isEmpty());
+  }
+
+  /**
+   * Test list corpora for account
+   */
+  @Test
+  public void testlistCorporaForAccount() {
+    final Account account = service.getAccountsInfo().getAccounts().get(0);
+    final Corpora corpora = service.listCorpora(account.getId());
+    Assert.assertNotNull(corpora);
+    Assert.assertFalse(corpora.getCorpora().isEmpty());
+  }
+
+  /**
+   * Test create and delete document.
+   */
+  @Test
+  public void testCreateAndDeleteDocument() {
+    final Account account = service.getAccountsInfo().getAccounts().get(0);
+    final Corpora corpora = service.listCorpora(account.getId());
+
+    Assert.assertTrue(!corpora.getCorpora().isEmpty());
+
+    final Corpus corpus = corpora.getCorpora().get(0);
+    Document newDocument = new Document(corpus, "integration_doc");
+    newDocument.setLabel("test document");
+    newDocument.addParts(new Part("part1", "this is the first part", HttpMediaType.TEXT_PLAIN));
+    try {
+      service.createDocument(newDocument);
+      newDocument = service.getDocument(newDocument);
+      newDocument.setTimeToLive(3600);
+      service.updateDocument(newDocument);
+    } finally {
+      service.deleteDocument(newDocument);
+    }
   }
 
   /**

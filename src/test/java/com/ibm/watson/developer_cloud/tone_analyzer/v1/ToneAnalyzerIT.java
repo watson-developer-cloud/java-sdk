@@ -28,7 +28,7 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
 /**
  * The Class ToneAnalyzerTest.
  */
-public class ToneAnalyzerIntegrationTest extends WatsonServiceTest {
+public class ToneAnalyzerIT extends WatsonServiceTest {
 
   /** The service. */
   private ToneAnalyzer service;

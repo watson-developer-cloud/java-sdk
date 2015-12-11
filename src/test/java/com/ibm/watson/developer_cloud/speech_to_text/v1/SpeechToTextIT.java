@@ -29,7 +29,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 
-public class SpeechToTextIntegrationTest extends WatsonServiceTest {
+public class SpeechToTextIT extends WatsonServiceTest {
 
   private static final String EN_BROADBAND16K = "en-US_BroadbandModel";
   private SpeechToText service;

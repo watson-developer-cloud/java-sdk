@@ -29,7 +29,7 @@ import com.squareup.okhttp.HttpUrl;
 /**
  * The Class AlchemyVisionTest.
  */
-public class AlchemyVisionIntegrationTest extends WatsonServiceTest {
+public class AlchemyVisionIT extends WatsonServiceTest {
 
   /** The Constant BABY_IMAGE. */
   private static final String BABY_IMAGE =
