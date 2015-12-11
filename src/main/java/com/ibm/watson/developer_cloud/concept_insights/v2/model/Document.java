@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +28,8 @@ import com.ibm.watson.developer_cloud.util.Validate;
  * 
  */
 public class Document extends GenericModel {
+  @SerializedName("expires_on")
+  private Date expiresOn;
 
   /** The id. */
   private String id;
@@ -44,6 +47,10 @@ public class Document extends GenericModel {
   /** The parts. */
   private List<Part> parts;
 
+  /** The time to live. */
+  @SerializedName("ttl_hours")
+  private Integer timeToLive;
+
   /** The user fields. */
   @SerializedName("user_fields")
   private Map<String, String> userFields;
@@ -57,13 +64,13 @@ public class Document extends GenericModel {
    * Instantiates a new document.
    * 
    * @param corpus the corpus
-   * @param concept the concept
+   * @param document the document
    */
-  public Document(final Corpus corpus, final String concept) {
+  public Document(final Corpus corpus, final String document) {
     Validate.notNull(corpus, "corpus cannot be null");
     Validate.notEmpty(corpus.getId(), "corpus.id cannot be empty");
-    setName(concept);
-    setId(corpus.getId() + "/documents/" + concept);
+    setName(document);
+    setId(corpus.getId() + "/documents/" + document);
   }
 
   /**
@@ -77,6 +84,27 @@ public class Document extends GenericModel {
     Validate.notEmpty(document, "document cannot be empty");
     setName(document);
     setId(new Corpus(accountId, corpusName).getId() + "/documents/" + document);
+  }
+
+  /**
+   * Adds a {@link Part}.
+   * 
+   * @param part the part
+   */
+  public void addParts(Part part) {
+    if (this.parts == null)
+      this.parts = new ArrayList<Part>();
+    this.parts.add(part);
+  }
+
+
+  /**
+   * Gets the expires on.
+   * 
+   * @return the expiresOn
+   */
+  public Date getExpiresOn() {
+    return expiresOn;
   }
 
   /**
@@ -125,12 +153,30 @@ public class Document extends GenericModel {
   }
 
   /**
+   * Gets the time to live.
+   * 
+   * @return the timeToLive
+   */
+  public Integer getTimeToLive() {
+    return timeToLive;
+  }
+
+  /**
    * Gets the user fields.
    * 
    * @return the userFields
    */
   public Map<String, String> getUserFields() {
     return userFields;
+  }
+
+  /**
+   * Sets the expires on.
+   * 
+   * @param expiresOn the expiresOn to set
+   */
+  public void setExpiresOn(Date expiresOn) {
+    this.expiresOn = expiresOn;
   }
 
   /**
@@ -176,6 +222,15 @@ public class Document extends GenericModel {
    */
   public void setParts(List<Part> parts) {
     this.parts = parts;
+  }
+
+  /**
+   * Sets the time to live in hours
+   * 
+   * @param hours the number of hours to keep the document alive.
+   */
+  public void setTimeToLive(Integer hours) {
+    this.timeToLive = hours;
   }
 
   /**
