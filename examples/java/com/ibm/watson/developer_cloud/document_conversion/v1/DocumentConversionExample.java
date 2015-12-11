@@ -23,7 +23,8 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
 public class DocumentConversionExample {
 
   public static void main(String[] args) {
-    final DocumentConversion service = new DocumentConversion();
+    final DocumentConversion service =
+        new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01);
     service.setUsernameAndPassword("<username>", "<password>");
 
     final File html =
