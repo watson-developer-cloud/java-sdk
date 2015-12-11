@@ -34,6 +34,7 @@ import com.ibm.watson.developer_cloud.visual_insights.v1.model.Summary;
 @FixMethodOrder(MethodSorters.JVM)
 public class VisualInsightsIT extends WatsonServiceTest {
 
+  private static final String RESOURCES = "src/test/resources/visual_insights/";
   /** The service. */
   private VisualInsights service;
 
@@ -76,7 +77,7 @@ public class VisualInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetSummary() {
-    final File images = new File("src/test/resources/images.zip");
+    final File images = new File(RESOURCES + "images.zip");
     final Summary summary = service.getSummary(images);
     Assert.assertNotNull(summary);
   }
@@ -87,7 +88,7 @@ public class VisualInsightsIT extends WatsonServiceTest {
   @Test
   public void testGetSummaryTextFiles() {
 
-    final File images = new File("src/test/resources/text_files.zip");
+    final File images = new File(RESOURCES + "text_files.zip");
 
     boolean didItHappen = false;
     try {
@@ -104,7 +105,7 @@ public class VisualInsightsIT extends WatsonServiceTest {
   @Test
   public void testGetSummaryUnsupported7zFormat() {
 
-    final File images = new File("src/test/resources/tiger_woods.7z");
+    final File images = new File(RESOURCES + "tiger_woords.7z");
 
     boolean didItHappen = false;
     try {

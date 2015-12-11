@@ -15,7 +15,6 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +29,6 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column.Goal;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.NumericColumn;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * The Class TradeoffAnalyticsTest.
@@ -57,9 +55,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
         getValidProperty("tradeoff_analytics.password"));
     service.setEndPoint(getValidProperty("tradeoff_analytics.url"));
 
-    final InputStream in = this.getClass().getClassLoader().getResourceAsStream("problem.json");
-    final String problemJson = getStringFromInputStream(in);
-    problem = GsonSingleton.getGson().fromJson(problemJson, Problem.class);
+    problem = loadFixture("src/test/resources/tradeoff_analytics/problem.json", Problem.class);
   }
 
   /**

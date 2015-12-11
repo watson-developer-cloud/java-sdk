@@ -24,16 +24,17 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
- * The Class TradeoffAnalyticsTest.
+ * Test that the {@link Problem} object can be converted to JSON
  */
 public class ProblemTest {
 
   /**
-   * Test convert problem to json and vise versa.
+   * Test convert problem to JSON and vise versa.
    */
   @Test
   public void testJsonProblem() {
-    final InputStream in = this.getClass().getClassLoader().getResourceAsStream("problem.json");
+    final InputStream in =
+        this.getClass().getClassLoader().getResourceAsStream("tradeoff_analytics/problem.json");
     final String problemJson = WatsonServiceTest.getStringFromInputStream(in);
     final Problem problem = GsonSingleton.getGson().fromJson(problemJson, Problem.class);
     assertNotNull(problem.getSubject());

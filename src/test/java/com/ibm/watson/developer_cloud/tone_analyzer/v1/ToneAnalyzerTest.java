@@ -13,28 +13,23 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v1;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.LinguisticEvidence;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Scorecard;
@@ -50,19 +45,10 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  * The Class ToneAnalyzerTest.
  */
 @SuppressWarnings("serial")
-public class ToneAnalyzerTest extends WatsonServiceTest {
+public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(ToneAnalyzerTest.class.getName());
-
-  /** The SYNONYM_PATH. (value is "/v1/synonym") */
   private final static String SYNONYM_PATH = "/v1/synonym";
-
-  /** The TONE_PATH. (value is "/v1/tone") */
   private final static String TONE_PATH = "/v1/tone";
-
-  /** Mock Server *. */
-  private ClientAndServer mockServer;
 
   /** The service. */
   private ToneAnalyzer service;
@@ -76,32 +62,10 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    service = new ToneAnalyzer();
+    service.setApiKey("");
+    service.setEndPoint(MOCK_SERVER_URL);
 
-  }
-
-  /**
-   * Start mock server.
-   */
-  @Before
-  public void startMockServer() {
-    try {
-      mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
-      service = new ToneAnalyzer();
-      service.setApiKey("");
-      service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
-          + getValidProperty("mock.server.port"));
-    } catch (final NumberFormatException e) {
-      log.log(Level.SEVERE, "Error mocking the service", e);
-    }
-
-  }
-
-  /**
-   * Stop mock server.
-   */
-  @After
-  public void stopMockServer() {
-    mockServer.stop();
   }
 
   /**
@@ -224,7 +188,7 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
       contentJson.addProperty("limit", options.getLimit());
 
     mockServer.when(
-        request().withMethod("POST").withPath(SYNONYM_PATH).withBody(contentJson.toString()))
+        request().withMethod(POST).withPath(SYNONYM_PATH).withBody(contentJson.toString()))
         .respond(
             response().withHeaders(
                 new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON))
@@ -320,11 +284,12 @@ public class ToneAnalyzerTest extends WatsonServiceTest {
 
     contentJson.addProperty("scorecard", Scorecard.EMAIL.getId());
 
-    mockServer.when(
-        request().withMethod("POST").withPath(TONE_PATH).withBody(contentJson.toString())).respond(
-        response().withHeaders(
-            new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(response)));
+    mockServer
+        .when(request().withMethod(POST).withPath(TONE_PATH).withBody(contentJson.toString()))
+        .respond(
+            response().withHeaders(
+                new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON))
+                .withBody(GsonSingleton.getGson().toJson(response)));
 
     // Call the service and get the tone
     final Tone tone = service.getTone(text, Scorecard.EMAIL);

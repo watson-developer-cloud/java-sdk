@@ -13,7 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
@@ -28,21 +27,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 import org.mockserver.model.Parameter;
 
 import com.google.common.io.Files;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
@@ -51,15 +46,8 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  * The Class TextToSpeechTest.
  */
 @FixMethodOrder(MethodSorters.JVM)
-public class TextToSpeechTest extends WatsonServiceTest {
-
-  /** The Constant GET_VOICES_PATH. (value is "/v1/voices") */
+public class TextToSpeechTest extends WatsonServiceUnitTest {
   private final static String GET_VOICES_PATH = "/v1/voices";
-
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(TextToSpeechTest.class.getName());
-
-  /** The Constant SYNTHESIZE_PATH. (value is "/v1/synthesize") */
   private final static String SYNTHESIZE_PATH = "/v1/synthesize";
 
   /**
@@ -91,9 +79,6 @@ public class TextToSpeechTest extends WatsonServiceTest {
     }
   }
 
-  /** Mock Server *. */
-  private ClientAndServer mockServer;
-
   /** The service. */
   private TextToSpeech service;
 
@@ -109,31 +94,11 @@ public class TextToSpeechTest extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-  }
 
-  /**
-   * Start mock server.
-   */
-  @Before
-  public void startMockServer() {
-    try {
-      mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
-      service = new TextToSpeech();
-      service.setApiKey("");
-      service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
-          + getValidProperty("mock.server.port"));
-    } catch (final NumberFormatException e) {
-      log.log(Level.SEVERE, "Error mocking the service", e);
-    }
+    service = new TextToSpeech();
+    service.setApiKey("");
+    service.setEndPoint(MOCK_SERVER_URL);
 
-  }
-
-  /**
-   * Stop mock server.
-   */
-  @After
-  public void stopMockServer() {
-    mockServer.stop();
   }
 
   /**
@@ -179,10 +144,7 @@ public class TextToSpeechTest extends WatsonServiceTest {
    */
   @Test
   public void testSynthesize() {
-    final File audio = new File("src/test/resources/sample1.wav");
-    if (!audio.exists() || !audio.isFile()) {
-      throw new IllegalArgumentException("audio is not a valid audio file");
-    }
+    final File audio = new File("src/test/resources/speech_to_text/sample1.wav");
 
     try {
       final List<Parameter> parameters = new ArrayList<Parameter>();

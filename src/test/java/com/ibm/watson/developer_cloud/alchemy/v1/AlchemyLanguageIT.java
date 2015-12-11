@@ -60,7 +60,8 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     super.setUp();
     service = new AlchemyLanguage();
     service.setApiKey(getValidProperty("alchemy.alchemy"));
-    htmlExample = getStringFromInputStream(new FileInputStream("src/test/resources/example.html"));
+    htmlExample =
+        getStringFromInputStream(new FileInputStream("src/test/resources/alchemy/example.html"));
 
   }
 

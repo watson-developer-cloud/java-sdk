@@ -31,9 +31,9 @@ import com.squareup.okhttp.HttpUrl;
  */
 public class AlchemyVisionIT extends WatsonServiceTest {
 
-  /** The Constant BABY_IMAGE. */
+  private static final String IMAGE_OBAMA = "src/test/resources/alchemy/obama.jpg";
   private static final String BABY_IMAGE =
-      "http://visual-recognition-demo.mybluemix.net/images/4068.jpg";
+      "https://visual-recognition-demo.mybluemix.net/images/samples/1.jpg";
 
   /** The html example. */
   private String htmlExample;
@@ -52,7 +52,8 @@ public class AlchemyVisionIT extends WatsonServiceTest {
     super.setUp();
     service = new AlchemyVision();
     service.setApiKey(getValidProperty("alchemy.alchemy"));
-    htmlExample = getStringFromInputStream(new FileInputStream("src/test/resources/example.html"));
+    htmlExample =
+        getStringFromInputStream(new FileInputStream("src/test/resources/alchemy/example.html"));
   }
 
   /**
@@ -78,7 +79,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
    */
   @Test
   public void testGetRankedImageKeywordsFromImage() {
-    final File imageFile = new File("src/test/resources/car.png");
+    final File imageFile = new File(IMAGE_OBAMA);
     final ImageKeywords image = service.getImageKeywords(imageFile, null, null);
 
     Assert.assertNotNull(image);
@@ -101,7 +102,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeFacesFromImage() {
-    final File imageFile = new File("src/test/resources/obama.jpg");
+    final File imageFile = new File(IMAGE_OBAMA);
     final ImageFaces image = service.recognizeFaces(imageFile, true);
 
     Assert.assertNotNull(image);

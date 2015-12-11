@@ -13,7 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
 import io.netty.handler.codec.http.HttpHeaders;
@@ -22,19 +21,15 @@ import java.io.File;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
-import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechAlternative;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
@@ -49,25 +44,13 @@ import com.ibm.watson.developer_cloud.util.TestUtils;
  * The Class SpeechToTextTest.
  */
 @FixMethodOrder(MethodSorters.JVM)
-public class SpeechToTextTest extends WatsonServiceTest {
+public class SpeechToTextTest extends WatsonServiceUnitTest {
 
-  /** The CREATE_DELETE_SESSIONS_PATH. (value is "/v1/sessions") */
   private final static String CREATE_DELETE_SESSIONS_PATH = "/v1/sessions";
-
-  /** The Constant GET_MODELS_PATH. (value is "/v1/models") */
   private final static String GET_MODELS_PATH = "/v1/models";
-
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(SpeechToTextTest.class.getName());
-
-  /** The RECOGNIZE_PATH. (value is "/v1/recognize") */
   private final static String RECOGNIZE_PATH = "/v1/recognize";
-
-  /** Mock Server *. */
-  private ClientAndServer mockServer;
-
-  /** The service. */
   private SpeechToText service;
+  private SpeechSession session;
 
   /*
    * (non-Javadoc)
@@ -78,32 +61,14 @@ public class SpeechToTextTest extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-  }
-
-  /**
-   * Start mock server.
-   */
-  @Before
-  public void startMockServer() {
-    try {
-      mockServer = startClientAndServer(Integer.parseInt(getValidProperty("mock.server.port")));
-      service = new SpeechToText();
-      service.setApiKey("");
-      service.setEndPoint("http://" + getValidProperty("mock.server.host") + ":"
-          + getValidProperty("mock.server.port"));
-    } catch (final NumberFormatException e) {
-      log.log(Level.SEVERE, "Error mocking the service", e);
-    }
-
-  }
 
 
-  /**
-   * Stop mock server.
-   */
-  @After
-  public void stopMockServer() {
-    mockServer.stop();
+    service = new SpeechToText();
+    service.setApiKey("");
+    service.setEndPoint(MOCK_SERVER_URL);
+
+
+    session = loadFixture("src/test/resources/speech_to_text/session.json", SpeechSession.class);
   }
 
   /**
@@ -111,34 +76,22 @@ public class SpeechToTextTest extends WatsonServiceTest {
    */
   @Test
   public void testCreateAndDeleteSession() {
-    final SpeechSession speechSession = new SpeechSession();
-    speechSession
-        .setRecognize("http://ibm.watson.com/speech-to-text/api/v1/sessions/f7332a2d7a138ea9f05ffaa8f697a788/recognize");
-    speechSession
-        .setRecognizeWS("wss://ibm.watson.com/speech-to-text/api/v1/sessions/f7332a2d7a138ea9f05ffaa8f697a788/recognize");
-    speechSession
-        .setNewSessionUri("http://ibm.watson.com/speech-to-text/api/v1/sessions/f7332a2d7a138ea9f05ffaa8f697a788");
-    speechSession.setSessionId("f7332a2d7a138ea9f05ffaa8f697a788");
-    speechSession
-        .setObserveResult("http://ibm.watson.com/speech-to-text/api/v1/sessions/f7332a2d7a138ea9f05ffaa8f697a788/observe_result");
-
-    mockServer.when(request().withMethod("POST").withPath(CREATE_DELETE_SESSIONS_PATH)).
+    mockServer.when(request().withMethod(POST).withPath(CREATE_DELETE_SESSIONS_PATH)).
 
     respond(
-        response().withHeaders(
-            new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON),
-            new Header("set-cookie", "test-cookie")).withBody(
-            GsonSingleton.getGson().toJson(speechSession)));
+        response().withHeaders(APPLICATION_JSON, new Header("set-cookie", "test-cookie")).withBody(
+            GsonSingleton.getGson().toJson(session)));
 
-    final SpeechSession session = service.createSession();
-    Assert.assertNotNull(session);
+    final SpeechSession response = service.createSession();
+    Assert.assertNotNull(response);
+    Assert.assertEquals(session, response);
 
     mockServer.when(
         request().withMethod("DELETE").withPath(
-            CREATE_DELETE_SESSIONS_PATH + "/" + session.getSessionId())
+            CREATE_DELETE_SESSIONS_PATH + "/" + response.getSessionId())
 
     ).respond(response().withStatusCode(204));
-    service.deleteSession(session);
+    service.deleteSession(response);
   }
 
   /**
@@ -246,10 +199,10 @@ public class SpeechToTextTest extends WatsonServiceTest {
     transcripts.add(transcript);
     speechResults.setResults(transcripts);
 
-    final File audio = new File("src/test/resources/sample1.wav");
+    final File audio = new File("src/test/resources/speech_to_text/sample1.wav");
 
     mockServer.when(
-        request().withMethod("POST").withPath(RECOGNIZE_PATH)
+        request().withMethod(POST).withPath(RECOGNIZE_PATH)
             .withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.AUDIO_WAV)))
 
     .respond(
@@ -293,9 +246,8 @@ public class SpeechToTextTest extends WatsonServiceTest {
         request().withMethod("POST").withPath(RECOGNIZE_PATH)
             .withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.AUDIO_WAV)))
         .respond(
-            response().withHeaders(
-                new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON))
-                .withBody(GsonSingleton.getGson().toJson(speechResults)));
+            response().withHeader(APPLICATION_JSON).withBody(
+                GsonSingleton.getGson().toJson(speechResults)));
 
     boolean didItHappen = false;
     try {

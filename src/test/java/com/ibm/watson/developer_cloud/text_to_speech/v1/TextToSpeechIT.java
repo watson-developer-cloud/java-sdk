@@ -36,19 +36,9 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineEvent.Type;
-import javax.sound.sampled.LineListener;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -60,55 +50,6 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
  */
 public class TextToSpeechIT extends WatsonServiceTest {
 
-  /**
-   * Play clip.
-   * 
-   * @param clipFile the clip file
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws UnsupportedAudioFileException the unsupported audio file exception
-   * @throws LineUnavailableException the line unavailable exception
-   * @throws InterruptedException the interrupted exception
-   */
-  private static void playClip(File clipFile) throws IOException, UnsupportedAudioFileException,
-      LineUnavailableException, InterruptedException {
-    class AudioListener implements LineListener {
-      private boolean done = false;
-
-      @Override
-      public synchronized void update(LineEvent event) {
-        final Type eventType = event.getType();
-        if (eventType == Type.STOP || eventType == Type.CLOSE) {
-          done = true;
-          notifyAll();
-        }
-      }
-
-      public synchronized void waitUntilDone() throws InterruptedException {
-        while (!done) {
-          wait();
-        }
-      }
-    }
-    final AudioListener listener = new AudioListener();
-    final AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(clipFile);
-    try {
-      final Clip clip = AudioSystem.getClip();
-      clip.addLineListener(listener);
-      clip.open(audioInputStream);
-      clip.loop(Clip.LOOP_CONTINUOUSLY); // repeat forever
-
-      try {
-        clip.start();
-        listener.waitUntilDone();
-      } finally {
-        clip.close();
-      }
-    } finally {
-      audioInputStream.close();
-    }
-  }
-
-  /** The service. */
   private TextToSpeech service;
 
   /*
@@ -168,18 +109,10 @@ public class TextToSpeechIT extends WatsonServiceTest {
    * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
-  @Ignore
   public void testSynthesize() throws IOException {
     final String text = "This is an integration test";
     final File audio = File.createTempFile("tts-audio", "wav");
 
     synthesize(text, audio);
-
-    try {
-      TextToSpeechIT.playClip(audio);
-      Thread.sleep(10000);
-    } catch (final Exception e) {
-      fail();
-    }
   }
 }

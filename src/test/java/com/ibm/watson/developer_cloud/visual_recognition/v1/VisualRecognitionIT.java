@@ -49,7 +49,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("visual_recognition.username"),
         getValidProperty("visual_recognition.password"));
     service.setEndPoint(getValidProperty("visual_recognition.url"));
-    image = new File(getClass().getClassLoader().getResource("car.png").toURI());
+    image = new File("src/test/resources/visual_recognition/car.png");
 
   }
 
@@ -88,7 +88,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeWithLabels() throws URISyntaxException {
-    final File image = new File(getClass().getClassLoader().getResource("car.png").toURI());
     final LabelSet labelSet = new LabelSet();
 
     labelSet.withLabelGroup("Animal").withLabelGroup("Food");
