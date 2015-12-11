@@ -32,10 +32,31 @@ public class DocumentAuthors extends AlchemyLanguageGenericModel {
    */
   public static class Authors extends GenericModel {
 
+    /** The confident. */
+    private String confident;
+
     /**
      * The names.
      */
     private List<String> names = new ArrayList<String>();
+
+    /**
+     * Gets the confident.
+     * 
+     * @return the confident
+     */
+    public String getConfident() {
+      return confident;
+    }
+
+    /**
+     * Sets the confident.
+     * 
+     * @param confident the confident to set
+     */
+    public void setConfident(String confident) {
+      this.confident = confident;
+    }
 
     /**
      * Gets the names.
