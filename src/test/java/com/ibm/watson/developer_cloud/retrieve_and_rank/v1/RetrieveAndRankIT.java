@@ -68,6 +68,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
   }
 
   @Test
+  @Ignore
   public void testCreateRankerAndRankResults() throws InterruptedException {
     final File trainingFile = new File(RESOURCE_PATH + "ranker_train.csv");
     final File testFile = new File(RESOURCE_PATH + "ranker_test.csv");
@@ -110,8 +111,9 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     final SolrClusterOptions options =
         new SolrClusterOptions(CREATED_CLUSTER_NAME, CREATED_CLUSTER_SIZE_ONE);
     final SolrCluster solrCluster = service.createSolrCluster(options);
-    final SolrCluster expectedSolrCluster = new SolrCluster(solrCluster.getId(),
-        CREATED_CLUSTER_NAME, CREATED_CLUSTER_SIZE_ONE.toString(), Status.NOT_AVAILABLE);
+    final SolrCluster expectedSolrCluster =
+        new SolrCluster(solrCluster.getId(), CREATED_CLUSTER_NAME,
+            CREATED_CLUSTER_SIZE_ONE.toString(), Status.NOT_AVAILABLE);
     try {
       assertTrue(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
     } finally {
