@@ -32,6 +32,9 @@ public class Corpus extends GenericModel {
   /** The Constant TED_TALKS. */
   public final static Corpus TED_TALKS = new Corpus("public", "TEDTalks");
 
+  /** The Constant ACCESS_PUBLIC. */
+  public final static String ACCESS_PUBLIC = "public";
+
   /** The access. */
   private String access;
 
