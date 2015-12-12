@@ -17,7 +17,9 @@ If you want to contribute to the repository, here's a quick guide:
     * Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
     * Check for unnecessary whitespace with git diff --check before committing.
   3. Make the test pass
-  4. Commit your changes
+  4. Commit your changes  
+      Commit messages should start with the service name and end with the issue number if exists  
+      `[concept-insights] Added functionality to list the graphs #135`
   5. Push to your fork and submit a pull request to the **dev** branch
 
 # Developer's Certificate of Origin 1.1
