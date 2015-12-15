@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * The Class SpeechWordConfidence.
  */
-public class SpeechWordConfidence extends GenericModel {
+public class SpeechTimestamp extends GenericModel {
 
   /** The word. */
   private String word;

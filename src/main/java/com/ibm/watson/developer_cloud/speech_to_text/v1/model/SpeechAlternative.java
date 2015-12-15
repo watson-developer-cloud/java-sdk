@@ -14,6 +14,8 @@
 
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
+import java.util.ArrayList;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
@@ -30,10 +32,10 @@ public class SpeechAlternative extends GenericModel {
 
   /** The word confidences. */
   @SerializedName("word_confidence")
-  private List<SpeechWordConfidence> wordConfidences;
+  private ArrayList<SpeechWordConfidence> wordConfidences;
 
   /** The timestampts. */
-  private List<SpeechTimestamp> timestamps;
+  private ArrayList<SpeechTimestamp> timestamps;
 
   /**
    * Gets the transcript.
@@ -76,7 +78,7 @@ public class SpeechAlternative extends GenericModel {
    *
    * @return The word confidences
    */
-  public List<SpeechWordConfidence> getWordConfidences() {
+  public ArrayList<SpeechWordConfidence> getWordConfidences() {
     return wordConfidences;
   }
 
@@ -85,7 +87,7 @@ public class SpeechAlternative extends GenericModel {
    *
    * @param wordConfidences The word confidences
    */
-  public void setWordConfidences(final List<SpeechWordConfidence> wordConfidences) {
+  public void setWordConfidences(final ArrayList<SpeechWordConfidence> wordConfidences) {
     this.wordConfidences = wordConfidences;
   }
 
@@ -95,7 +97,7 @@ public class SpeechAlternative extends GenericModel {
    * @param wordConfidences the word confidences
    * @return the speech
    */
-  public Transcript withWordConfidences(final List<SpeechWordConfidence> wordConfidences) {
+  public SpeechAlternative withWordConfidences(final ArrayList<SpeechWordConfidence> wordConfidences) {
     this.wordConfidences = wordConfidences;
     return this;
   }
@@ -105,7 +107,7 @@ public class SpeechAlternative extends GenericModel {
    *
    * @return The timestamps
    */
-  public List<SpeechTimestamp> getTimestamps() {
+  public ArrayList<SpeechTimestamp> getTimestamps() {
     return timestamps;
   }
 
@@ -114,7 +116,7 @@ public class SpeechAlternative extends GenericModel {
    *
    * @param timestamps The timestamps
    */
-  public void setTimestamps(final List<SpeechTimestamp> timestamps) {
+  public void setTimestamps(final ArrayList<SpeechTimestamp> timestamps) {
     this.timestamps = timestamps;
   }
 
@@ -124,7 +126,7 @@ public class SpeechAlternative extends GenericModel {
    * @param timestamps the timestamps
    * @return the speech
    */
-  public Transcript withTimestamps(final List<SpeechTimestamp> timestamps) {
+  public SpeechAlternative withTimestamps(final ArrayList<SpeechTimestamp> timestamps) {
     this.timestamps = timestamps;
     return this;
   }

@@ -17,6 +17,7 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.deserializer;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordConfidence;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -24,15 +25,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
 
-public class SpeechWordConfidenceDeserializer implements JsonDeserializer<List<SpeechWordConfidence>> {
+public class SpeechWordConfidenceDeserializer implements JsonDeserializer<ArrayList<SpeechWordConfidence>> {
   @Override
-  public List<SpeechWordConfidence> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-    List<SpeechWordConfidence> list = new List<SpeechWordConfidence>(){};
+  public ArrayList<SpeechWordConfidence> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    ArrayList<SpeechWordConfidence> list = new ArrayList<SpeechWordConfidence>(){};
 
     for(JsonElement element : json.getAsJsonArray()) {
       String word = element.getAsJsonArray().get(0).getAsString();
       float confidence = element.getAsJsonArray().get(1).getAsFloat();
-      list.add(new SpeechWordConfidence(word, confidence));
+
+      SpeechWordConfidence wordConfidence = new SpeechWordConfidence();
+      wordConfidence.setWord(word);
+      wordConfidence.setConfidence(confidence);
+      
+      list.add(wordConfidence);
     }
 
     return list;

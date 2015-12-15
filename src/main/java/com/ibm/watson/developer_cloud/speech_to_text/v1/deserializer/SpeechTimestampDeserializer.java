@@ -17,6 +17,7 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.deserializer;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechTimestamp;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -24,16 +25,22 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
 
-public class SpeechTimestampDeserializer implements JsonDeserializer<List<SpeechTimestamp>> {
+public class SpeechTimestampDeserializer implements JsonDeserializer<ArrayList<SpeechTimestamp>> {
   @Override
-  public List<SpeechTimestamp> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-    List<SpeechTimestamp> list = new List<SpeechTimestamp>(){};
+  public ArrayList<SpeechTimestamp> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    ArrayList<SpeechTimestamp> list = new ArrayList<SpeechTimestamp>(){};
 
     for(JsonElement element : json.getAsJsonArray()) {
       String word = element.getAsJsonArray().get(0).getAsString();
       float start = element.getAsJsonArray().get(1).getAsFloat();
       float end = element.getAsJsonArray().get(2).getAsFloat();
-      list.add(new SpeechTimestamp(word, start, end));
+
+      SpeechTimestamp timestamp = new SpeechTimestamp();
+      timestamp.setWord(word);
+      timestamp.setStart(start);
+      timestamp.setEnd(end);
+
+      list.add(timestamp);
     }
 
     return list;

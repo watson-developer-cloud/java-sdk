@@ -18,6 +18,8 @@ import com.google.gson.GsonBuilder;
 
 import com.google.gson.reflect.TypeToken;
 
+import java.util.ArrayList;
+
 import com.ibm.watson.developer_cloud.speech_to_text.v1.deserializer.SpeechTimestampDeserializer;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.deserializer.SpeechWordConfidenceDeserializer;
 
@@ -43,8 +45,8 @@ public class GsonSingleton {
   private static Gson createGson() {
     return new GsonBuilder().setPrettyPrinting()
                             .setDateFormat(DATE_FORMAT_UTC)
-                            .registerTypeAdapter(new TypeToken<List<SpeechTimestamp>>(){}.getType(), new SpeechTimestampDeserializer());
-                            .registerTypeAdapter(new TypeToken<List<SpeechWordConfidence>>(){}.getType(), new SpeechWordConfidenceDeserializer());
+                            .registerTypeAdapter(new TypeToken<ArrayList<SpeechTimestamp>>(){}.getType(), new SpeechTimestampDeserializer())
+                            .registerTypeAdapter(new TypeToken<ArrayList<SpeechWordConfidence>>(){}.getType(), new SpeechWordConfidenceDeserializer())
                             .create();
   }
 
