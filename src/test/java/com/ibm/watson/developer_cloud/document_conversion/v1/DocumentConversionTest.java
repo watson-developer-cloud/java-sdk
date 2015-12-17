@@ -22,10 +22,7 @@ import static org.mockserver.model.HttpResponse.response;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
 import java.net.URISyntaxException;
 
 import org.junit.Before;
@@ -104,7 +101,7 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testConvertDocument_with_custom_config() throws Exception {
-    JsonObject customConfig = loadCustomConfig();
+    JsonObject customConfig = service.loadCustomConfig(RESOURCE + "custom_config.json");
     service.convertDocumentToAnswer(html, null, customConfig);
 
     String entity = getRequestEntity();
@@ -130,10 +127,5 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
     JsonObject requestAsJson =
         new JsonParser().parse(request).getAsJsonArray().get(0).getAsJsonObject();
     return requestAsJson.getAsJsonObject("httpRequest").getAsJsonPrimitive("body").getAsString();
-  }
-
-  private JsonObject loadCustomConfig() throws FileNotFoundException {
-    Reader reader = new InputStreamReader(new FileInputStream(RESOURCE + "custom_config.json"));
-    return new JsonParser().parse(reader).getAsJsonObject();
   }
 }
