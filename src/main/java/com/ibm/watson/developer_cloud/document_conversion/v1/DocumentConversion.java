@@ -64,7 +64,7 @@ public class DocumentConversion extends WatsonService {
 
   /** The default URL for the service. */
   private static final String URL =
-      "https://gateway.watsonplatform.net/document-conversion-experimental/api";
+      "https://gateway.watsonplatform.net/document-conversion/api";
 
   private static final JsonObject EMPTY_CONFIG = new JsonParser().parse("{}").getAsJsonObject();
 
