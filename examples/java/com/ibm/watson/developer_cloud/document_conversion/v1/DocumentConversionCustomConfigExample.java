@@ -19,6 +19,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class DocumentConversionCustomConfigExample {
@@ -66,7 +67,7 @@ public class DocumentConversionCustomConfigExample {
         String customConfigFilePath = "src/test/resources/document_conversion/answer_unit_config_selector_h2.json";
         JsonObject customConfigFromFile = null;
         try {
-            customConfigFromFile = service.loadCustomConfig(customConfigFilePath);
+            customConfigFromFile = service.loadCustomConfig(new FileInputStream(customConfigFilePath));
         } catch(FileNotFoundException e ) {
             e.printStackTrace();
         }

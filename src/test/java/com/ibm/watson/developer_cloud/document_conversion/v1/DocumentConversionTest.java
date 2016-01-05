@@ -101,7 +101,7 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testConvertDocument_with_custom_config() throws Exception {
-    JsonObject customConfig = service.loadCustomConfig(RESOURCE + "custom_config.json");
+    JsonObject customConfig = service.loadCustomConfig(new FileInputStream(RESOURCE + "custom_config.json"));
     service.convertDocumentToAnswer(html, null, customConfig);
 
     String entity = getRequestEntity();

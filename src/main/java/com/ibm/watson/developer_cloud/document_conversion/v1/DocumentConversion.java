@@ -16,8 +16,6 @@ package com.ibm.watson.developer_cloud.document_conversion.v1;
 import static com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionTarget.ANSWER_UNITS;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -259,13 +257,12 @@ public class DocumentConversion extends WatsonService {
   }
 
   /**
-   * Loads a custom configuration from the specified file path
-   * @param customConfigFilePath the path to the custom configuration file
+   * Loads a custom configuration from the input stream specified
+   * @param customConfig input stream for the custom configuration
    * @return the custom configuration as a JsonObject
-   * @throws FileNotFoundException if the file is not valid
    */
-  public JsonObject loadCustomConfig(String customConfigFilePath) throws FileNotFoundException {
-    Reader reader = new InputStreamReader(new FileInputStream(customConfigFilePath));
+  public JsonObject loadCustomConfig(InputStream customConfig) {
+    final Reader reader = new InputStreamReader(customConfig);
     return new JsonParser().parse(reader).getAsJsonObject();
   }
 
