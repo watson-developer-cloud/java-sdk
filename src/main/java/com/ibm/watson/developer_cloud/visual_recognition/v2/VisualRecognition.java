@@ -32,20 +32,28 @@ import java.io.InputStream;
  * The Visual Recognition service analyzes images, enabling you to understand their content without
  * any accompanying descriptive text.
  *
- * @version v2
+ * @version v2 beta
  * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
- *      Visual Recognition</a>
+ * href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
+ * Visual Recognition</a>
  */
 public class VisualRecognition extends WatsonService {
 
-    /** The Constant IMG_FILE (value is "imgFile") */
+    /**
+     * The Constant IMG_FILE (value is "imgFile")
+     */
     public static final String IMG_FILE = "imgFile";
 
-    /** The Constant LABELS */
+    /**
+     * The Constant CLASSIFIER_IDS, VERSION, and VERSION_LATEST
+     */
     public static final String CLASSIFIER_IDS = "classifier_ids";
+    public static final String VERSION = "version";
+    public static final String VERSION_LATEST = "2015-12-02";
 
-    /** The service endpoint. */
+    /**
+     * The service endpoint.
+     */
     private static final String URL =
             "https://gateway.watsonplatform.net/visual-recognition-beta/api";
 
@@ -81,8 +89,8 @@ public class VisualRecognition extends WatsonService {
      * classifier if the score meets the minimum threshold of 0.5. If no score meets the threshold for an
      * image, no classifiers are returned.
      *
-     * @param image the file image
-     * @param classifierSet the classifers to classify against
+     * @param image         the file image
+     * @param classifierSet the classifiers to classify against
      * @return the visual recognition images
      */
     public VisualRecognitionImages recognize(final File image, final ClassifierSet classifierSet) {
@@ -110,6 +118,7 @@ public class VisualRecognition extends WatsonService {
             bodyBuilder.addFormDataPart(CLASSIFIER_IDS, GsonSingleton.getGson().toJson(classifierSet));
 
         requestBuilder.withBody(bodyBuilder.build());
+        requestBuilder.withQuery(VERSION, VERSION_LATEST);
 
         return executeRequest(requestBuilder.build(), VisualRecognitionImages.class);
     }

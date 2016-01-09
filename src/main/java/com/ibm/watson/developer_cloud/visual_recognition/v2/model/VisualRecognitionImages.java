@@ -27,14 +27,14 @@ public class VisualRecognitionImages extends GenericModel {
 
     /** The images. */
     @Expose
-    private List<com.ibm.watson.developer_cloud.visual_recognition.v2.model.RecognizedImage> images = new ArrayList<com.ibm.watson.developer_cloud.visual_recognition.v2.model.RecognizedImage>();
+    private List<RecognizedImage> images = new ArrayList<RecognizedImage>();
 
     /**
      * Gets the first recognized image.
      *
      * @return the first recognized image
      */
-    public com.ibm.watson.developer_cloud.visual_recognition.v2.model.RecognizedImage getFirstImage() {
+    public RecognizedImage getFirstImage() {
         if (images != null && !images.isEmpty())
             return images.get(0);
         else
@@ -46,7 +46,7 @@ public class VisualRecognitionImages extends GenericModel {
      *
      * @return The images
      */
-    public List<com.ibm.watson.developer_cloud.visual_recognition.v2.model.RecognizedImage> getImages() {
+    public List<RecognizedImage> getImages() {
         return images;
     }
 
@@ -55,7 +55,7 @@ public class VisualRecognitionImages extends GenericModel {
      *
      * @param images The images
      */
-    public void setImages(List<com.ibm.watson.developer_cloud.visual_recognition.v2.model.RecognizedImage> images) {
+    public void setImages(List<RecognizedImage> images) {
         this.images = images;
     }
 }

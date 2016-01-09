@@ -25,11 +25,15 @@ import java.util.List;
  */
 public class ClassifierSet extends GenericModel {
 
-    /** The classifier groups. */
+    /**
+     * The classifier groups.
+     */
     @SerializedName("classifier_groups")
     private List<String> classifierGroups;
 
-    /** The classifiers. */
+    /**
+     * The classifiers.
+     */
     @SerializedName("classifiers")
     private List<String> classifiers;
 
@@ -65,7 +69,7 @@ public class ClassifierSet extends GenericModel {
      *
      * @param classifiers The classifiers
      */
-    public void setLabels(List<String> classifiers) {
+    public void setClassifiers(List<String> classifiers) {
         this.classifiers = classifiers;
     }
 

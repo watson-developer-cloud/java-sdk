@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.visual_recognition.v2.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.Score;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.List;
@@ -25,34 +26,22 @@ import java.util.List;
  */
 public class RecognizedImage extends GenericModel {
 
-    /** The id. */
-    @SerializedName("image_id")
-    private String id;
-
-    /** The classifiers. */
     @Expose
-    private List<Classifier> classifiers;
+    private List<Score> scores;
 
-    /** The name. */
-    @SerializedName("image_name")
+    /**
+     * The name.
+     */
+    @SerializedName("image")
     private String name;
 
     /**
-     * Gets the identifier.
+     * Gets the scores.
      *
-     * @return the identifier
+     * @return The scores
      */
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Gets the classifiers.
-     *
-     * @return The Classifiers
-     */
-    public List<Classifier> getClassifiers() {
-        return classifiers;
+    public List<Score> getScores() {
+        return scores;
     }
 
     /**
@@ -65,21 +54,12 @@ public class RecognizedImage extends GenericModel {
     }
 
     /**
-     * Sets the identifier.
+     * Sets the scores.
      *
-     * @param id the new identifier
+     * @param scores The scores
      */
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Sets the classifiers.
-     *
-     * @param classifiers The classifiers
-     */
-    public void setClassifiers(List<Classifier> classifiers) {
-        this.classifiers = classifiers;
+    public void setScores(List<Score> scores) {
+        this.scores = scores;
     }
 
     /**
