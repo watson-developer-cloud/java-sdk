@@ -36,7 +36,7 @@ public class Trait extends GenericModel {
   private String name;
 
   /** The percentage. */
-  private double percentage;
+  private Double percentage;
 
   /** The raw sampling error. */
   @SerializedName("raw_sampling_error")
@@ -48,7 +48,7 @@ public class Trait extends GenericModel {
 
   /** The sampling error. */
   @SerializedName("sampling_error")
-  private double samplingError;
+  private Double samplingError;
 
   /**
    * Gets the personality model category. e.g: "values", "needs" or "personality"
@@ -93,7 +93,7 @@ public class Trait extends GenericModel {
    * 
    * @return the percentage
    */
-  public double getPercentage() {
+  public Double getPercentage() {
     return percentage;
   }
 
@@ -102,7 +102,7 @@ public class Trait extends GenericModel {
    * 
    * @return the raw sampling error
    */
-  public double getRawSamplingError() {
+  public Double getRawSamplingError() {
     return rawSamplingError;
   }
 
@@ -111,7 +111,7 @@ public class Trait extends GenericModel {
    * 
    * @return the raw score
    */
-  public double getRawScore() {
+  public Double getRawScore() {
     return rawScore;
   }
 
@@ -123,7 +123,7 @@ public class Trait extends GenericModel {
    * 
    * @return the sampling error
    */
-  public double getSamplingError() {
+  public Double getSamplingError() {
     return samplingError;
   }
 
@@ -168,7 +168,7 @@ public class Trait extends GenericModel {
    * 
    * @param percentage the new percentage value from 0-1
    */
-  public void setPercentage(double percentage) {
+  public void setPercentage(Double percentage) {
     this.percentage = percentage;
   }
 
@@ -177,7 +177,7 @@ public class Trait extends GenericModel {
    * 
    * @param rawSamplingError the new raw sampling error
    */
-  public void setRawSamplingError(double rawSamplingError) {
+  public void setRawSamplingError(Double rawSamplingError) {
     this.rawSamplingError = rawSamplingError;
   }
 
@@ -186,7 +186,7 @@ public class Trait extends GenericModel {
    * 
    * @param rawScore the new raw score
    */
-  public void setRawScore(double rawScore) {
+  public void setRawScore(Double rawScore) {
     this.rawScore = rawScore;
   }
 
@@ -195,7 +195,7 @@ public class Trait extends GenericModel {
    * 
    * @param samplingError error the new sampling error
    */
-  public void setSamplingError(double samplingError) {
+  public void setSamplingError(Double samplingError) {
     this.samplingError = samplingError;
   }
 
