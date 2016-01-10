@@ -30,7 +30,7 @@ public class IdentifiedLanguage extends IdentifiableLanguage {
    * @param language the language
    * @param confidence the confidence
    */
-  public IdentifiedLanguage(final String language, final double confidence) {
+  public IdentifiedLanguage(final String language, final Double confidence) {
     super(language);
     this.confidence = confidence;
   }
