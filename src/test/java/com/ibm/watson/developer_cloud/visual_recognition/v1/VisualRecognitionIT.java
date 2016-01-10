@@ -46,11 +46,10 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new VisualRecognition();
-    service.setUsernameAndPassword(getValidProperty("visual_recognition.username"),
-        getValidProperty("visual_recognition.password"));
-    service.setEndPoint(getValidProperty("visual_recognition.url"));
+    service.setUsernameAndPassword(getValidProperty("visual_recognition.v1.username"),
+        getValidProperty("visual_recognition.v1.password"));
+    service.setEndPoint(getValidProperty("visual_recognition.v1.url"));
     image = new File("src/test/resources/visual_recognition/car.png");
-
   }
 
   /**
