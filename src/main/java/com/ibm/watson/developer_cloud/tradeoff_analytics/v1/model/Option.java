@@ -19,6 +19,7 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 import java.util.HashMap;
 
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 
 
 public class Option {
@@ -26,6 +27,7 @@ public class Option {
 	private String key;
 	private String name;
 	private HashMap<String,String> values;
+	@SerializedName("description_html")
 	private String descriptionHtml;
 
 

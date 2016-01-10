@@ -16,7 +16,10 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
+import java.util.List;
+
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 
 
 
@@ -26,8 +29,109 @@ import com.google.gson.GsonBuilder;
 public class Solution {
 
 	private String status;
+	@SerializedName("solution_ref")
 	private String solutionRef;
+	@SerializedName("status_cause")
+	private String statusCause;
+	
+	private List<String> shadows;
 
+	@SerializedName("shadow_me")
+	private List<String> shadowMe;
+	
+	
+	/**
+	 * Gets the shadows of a solution.
+	 * 
+	 * @return The shadows
+	 */
+	public List<String> getShadows() {
+		return shadows;
+	}
+
+	/**
+	 * 
+	 * @param shadows
+	 *     The shadows
+	 */
+	public void setShadows(List<String> shadows) {
+		this.shadows = shadows;
+	}
+
+	/**
+	 * With shadows.
+	 * 
+	 * @param shadows
+	 *            the shadows
+	 * @return the solution
+	 */
+	public Solution withShadows(List<String> shadows) {
+		this.shadows = shadows;
+		return this;
+	}
+	
+	/**
+	 * 
+	 * @param shadowMe
+	 *     The highlights
+	 */
+	public void setShadowMe(List<String> shadowMe) {
+		this.shadowMe = shadowMe;
+	}
+
+	/**
+	 * Gets the solution ids of those that shadow this solution.
+	 * 
+	 * @return The highlights
+	 */
+	public List<String> getShadowMe() {
+		return shadowMe;
+	}
+	
+	/**
+	 * With shadowME.
+	 * 
+	 * @param shadowMe
+	 *            the highlights
+	 * @return the solution
+	 */
+	public Solution withShadowMe(List<String> shadowMe) {
+		this.shadowMe = shadowMe;
+		return this;
+	}
+	
+	
+	/**
+	 * Gets the status cause.
+	 * 
+	 * @return The status cause
+	 */
+	public String getStatusCause() {
+		return statusCause;
+	}
+
+	/**
+	 * Sets the status cause.
+	 * 
+	 * @param statusCause
+	 *            The status cause
+	 */
+	public void setStatusCause(String statusCause) {
+		this.statusCause = statusCause;
+	}
+
+	/**
+	 * With status cause.
+	 * 
+	 * @param statusCause
+	 *            the status cause
+	 * @return the solution
+	 */
+	public Solution withStatusCause(String statusCause) {
+		this.statusCause = statusCause;
+		return this;
+	}
+	
 	/**
 	 * Gets the status.
 	 * 
