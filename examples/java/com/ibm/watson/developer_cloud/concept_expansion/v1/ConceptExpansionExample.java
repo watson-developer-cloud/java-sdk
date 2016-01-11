@@ -19,19 +19,19 @@ public class ConceptExpansionExample {
 
 
   public static void main(String[] args) {
-    final ConceptExpansion service = new ConceptExpansion();
+    ConceptExpansion service = new ConceptExpansion();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    final String[] seeds = new String[] {"nyc", "dc", "london", "big cities"};
-    final String label = "demo";
+    String[] seeds = new String[] {"nyc", "dc", "london", "big cities"};
+    String label = "demo";
 
-    final Job job = service.createJob(label, seeds);
+    Job job = service.createJob(label, seeds);
 
     while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
         || service.getJobStatus(job) == Job.Status.IN_FLIGHT) {
       try {
         Thread.sleep(4000);
-      } catch (final InterruptedException e) {
+      } catch (InterruptedException e) {
         e.printStackTrace();
       }
     }

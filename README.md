@@ -168,17 +168,18 @@ Example: Create a job, wait for it to finish, and then retrieve results.
 ConceptExpansion service = new ConceptExpansion();
 service.setUsernameAndPassword("<username>", "<password>");
 
-String[] seeds = new String[]{ "motrin", "tylenol", "aspirin"};
-String label = "medicine";
+String[] seeds = new String[] {"nyc", "dc", "london", "big cities"};
+String label = "demo";
+
 Job job = service.createJob(label, seeds);
 
 while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
-		|| service.getJobStatus(job) == Job.Status.IN_FLIGHT) {
-	try {
-		Thread.sleep(4000);
-	} catch (InterruptedException e) {
-		e.printStackTrace();
-	}
+    || service.getJobStatus(job) == Job.Status.IN_FLIGHT) {
+  try {
+    Thread.sleep(4000);
+  } catch (final InterruptedException e) {
+    e.printStackTrace();
+  }
 }
 
 System.out.println(service.getJobResult(job));
