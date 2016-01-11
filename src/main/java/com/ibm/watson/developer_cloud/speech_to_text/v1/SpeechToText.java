@@ -25,6 +25,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModelSet;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
@@ -204,6 +205,19 @@ public class SpeechToText extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     return GsonSingleton.getGson().fromJson(jsonObject.get(SESSION), SessionStatus.class);
+  }
+
+  /**
+   * Recognizes an audio file and returns {@link SpeechResults}. It will try to recognize the audio
+   * format based on the file extension.
+   * 
+   * @param audio the audio file
+   * @return the {@link SpeechResults}
+   */
+  public SpeechResults recognize(File audio) {
+    String contentType = MediaTypeUtils.getMediaTypeFromFile(audio);
+    Validate.notNull(contentType, "Audio format cannot be recognized");
+    return recognize(audio, contentType, null);
   }
 
   /**
