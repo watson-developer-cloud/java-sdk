@@ -71,7 +71,7 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Synthesize text using format.
+   * Synthesize text using a provided format
    * 
    * @param text the text to synthesize
    * @param format the format, it needs to be an audio mime type, for example: audio/wav or
