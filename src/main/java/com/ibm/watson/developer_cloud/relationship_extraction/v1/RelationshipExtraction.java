@@ -17,6 +17,7 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.relationship_extraction.v1.model.Dataset;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.ibm.watson.developer_cloud.util.Validate;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -47,18 +48,28 @@ public class RelationshipExtraction extends WatsonService {
   }
 
   /**
-   * Extract.
+   * Extracts relationships between sentence components (nouns, verbs, subjects, objects, etc.)
    * 
-   * @param text the text
+   * <br>
+   * Here is an example of how to extract sentence components:
    * 
+   * <pre>
+   * RelationshipExtraction service = new RelationshipExtraction();
+   * service.setUsernameAndPassword(&quot;&lt;username&gt;&quot;, &quot;&lt;password&gt;&quot;);
    * 
-   * @return the string
+   * service.setDataset(Dataset.ENGLISH_NEWS);
+   * String response = service.extract(&quot;IBM Watson developer cloud&quot;);
+   * 
+   * System.out.println(response);
+   * </pre>
+   * 
+   * @param text the text to analyze
+   * 
+   * @return the result as XML string
    */
   public String extract(final String text) {
-    if (dataset == null)
-      throw new IllegalArgumentException("dataset cannot be null");
-    if (text == null)
-      throw new IllegalArgumentException("text cannot be null");
+    Validate.notNull(dataset, "dataset cannot be null");
+    Validate.notNull(text, "text cannot be null");
 
     final Request request =
         RequestBuilder.post("/v1/sire/0")

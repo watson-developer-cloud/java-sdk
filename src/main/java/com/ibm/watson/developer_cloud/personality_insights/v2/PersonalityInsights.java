@@ -94,7 +94,18 @@ public class PersonalityInsights extends WatsonService {
 
   /**
    * Accepts text and responds with a {@link Profile} with a tree of characteristics that include
-   * personality, needs, and values.
+   * personality, needs, and values. <br>
+   * <br>
+   * Here is an example of how to get the personality profile given some text:
+   * 
+   * <pre>
+   *     PersonalityInsights service = new PersonalityInsights();
+   *     service.setUsernameAndPassword("username", "password");
+   * 
+   *     String text = "write the text with at least 100 unique words here..."
+   *     Profile profile = service.getProfile(text);
+   *     System.out.println(profile);
+   * </pre>
    * 
    * @param text Text to analyze
    * 
@@ -110,7 +121,22 @@ public class PersonalityInsights extends WatsonService {
 
   /**
    * Returns a {@link Profile} with a tree of characteristics that include personality, needs, and
-   * values.
+   * values. <br>
+   * <br>
+   * Here is an example of how to get the personality profile given some {@link ProfileOptions}:
+   * 
+   * <pre>
+   *     PersonalityInsights service = new PersonalityInsights();
+   *     service.setUsernameAndPassword("username", "password");
+   * 
+   *     String text = "write the text with at least 100 unique words here..."
+   *     ContentItem cItem = new ContentItem().content(text).created(new Date());
+   *     ProfileOptions options = new ProfileOptions().contentItems(Arrays.asList(cItem));
+   * 
+   *     Profile profile = service.getProfile(options);
+   * 
+   *     System.out.println(profile);
+   * </pre>
    * 
    * @param options the {@link ProfileOptions}
    * @return The personality {@link Profile}

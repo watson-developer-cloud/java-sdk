@@ -89,7 +89,7 @@ public class Entity extends AlchemyGenericModel {
    * 
    * @return The relevance
    */
-  public double getRelevance() {
+  public Double getRelevance() {
     return relevance;
   }
 
@@ -161,7 +161,7 @@ public class Entity extends AlchemyGenericModel {
    * 
    * @param relevance The relevance
    */
-  public void setRelevance(double relevance) {
+  public void setRelevance(Double relevance) {
     this.relevance = relevance;
   }
 

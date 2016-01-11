@@ -28,7 +28,7 @@ public class Label extends GenericModel {
 
   /** The score. */
   @SerializedName("label_score")
-  private double score;
+  private Double score;
 
   /**
    * Gets the name.
@@ -44,7 +44,7 @@ public class Label extends GenericModel {
    * 
    * @return the score
    */
-  public double getScore() {
+  public Double getScore() {
     return score;
   }
 
@@ -62,7 +62,7 @@ public class Label extends GenericModel {
    * 
    * @param score the new score
    */
-  public void setScore(double score) {
+  public void setScore(Double score) {
     this.score = score;
   }
 

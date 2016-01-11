@@ -71,7 +71,7 @@ public class AlchemyVision extends AlchemyService {
   public static final String URL = "url";
 
   /**
-   * Execute the request and return the POJO that represent the response.
+   * Executes the request and return the POJO that represent the response.
    * 
    * @param <T> The POJO that represents the response object
    * @param params the request parameters
@@ -118,7 +118,7 @@ public class AlchemyVision extends AlchemyService {
   }
 
   /**
-   * Extract keywords from an image
+   * Extracts keywords from an image
    * 
    * @param image the image file
    * @param forceShowAll Includes lower confidence tags
@@ -143,7 +143,7 @@ public class AlchemyVision extends AlchemyService {
 
 
   /**
-   * Extract keywords from a URL.
+   * Extracts keywords from a URL.
    * 
    * @param url the image URL
    * @param forceShowAll Includes lower confidence tags
@@ -166,7 +166,7 @@ public class AlchemyVision extends AlchemyService {
   }
 
   /**
-   * Extract main image link from a URL.
+   * Extracts main image link from a URL.
    * 
    * @param url the image URL
    * @return {@link ImageLink}
@@ -181,7 +181,7 @@ public class AlchemyVision extends AlchemyService {
   }
 
   /**
-   * Extract main image link from a HTML page.
+   * Extracts the main image link from a HTML page.
    * 
    * @param html the HTML
    * @return {@link ImageLink}
@@ -196,7 +196,7 @@ public class AlchemyVision extends AlchemyService {
   }
 
   /**
-   * Recognize faces from an image.<br>
+   * Recognizes faces from an image.<br>
    * For each face detected returns:
    * <ul>
    * <li>Bounding box
@@ -204,6 +204,18 @@ public class AlchemyVision extends AlchemyService {
    * <li>Approximate age
    * <li>Name (if celebrity is detected)
    * </ul>
+   * <br>
+   * Here is an example of how to recognize faces in an image:
+   * 
+   * <pre>
+   * AlchemyVision service = new AlchemyVision();
+   * service.setApiKey(&quot;&lt;api_key&gt;&quot;);
+   * 
+   * File image = new File(&quot;obama.jpg&quot;);
+   * ImageFaces faces = service.recognizeFaces(image, true);
+   * 
+   * System.out.println(faces);
+   * </pre>
    * 
    * @param image the image
    * @param knowledgeGraph provide extra metadata for detected celebrities
@@ -224,7 +236,7 @@ public class AlchemyVision extends AlchemyService {
   }
 
   /**
-   * Recognize faces from a URL.<br>
+   * Recognizes faces from a URL.<br>
    * For each face detected returns:
    * <ul>
    * <li>Bounding box
@@ -232,8 +244,20 @@ public class AlchemyVision extends AlchemyService {
    * <li>Approximate age
    * <li>Name (if celebrity is detected)
    * </ul>
+   * <br>
+   * Here is an example of how to recognize faces in an image:
    * 
-   * @param url the url
+   * <pre>
+   * AlchemyVision service = new AlchemyVision();
+   * service.setApiKey(&quot;&lt;api_key&gt;&quot;);
+   * 
+   * URL image = new URL(&quot;http://foo.com/the-image.png&quot;);
+   * ImageFaces faces = service.recognizeFaces(image, true);
+   * 
+   * System.out.println(faces);
+   * </pre>
+   * 
+   * @param url the image URL
    * @param knowledgeGraph provide extra metadata for detected celebrities
    * @return {@link ImageFaces}
    */

@@ -95,6 +95,19 @@ public class VisualInsights extends WatsonService {
   /**
    * Upload a set of images as a ZIP file for visual insight extraction.
    * 
+   * <br>
+   * Here is the code to get the {@link Summary} of a collection of images:
+   * 
+   * <pre>
+   * VisualInsights service = new VisualInsights();
+   * service.setUsernameAndPassword(&quot;&lt;username&gt;&quot;, &quot;&lt;password&gt;&quot;);
+   * 
+   * File images = new File(&quot;images.zip&quot;);
+   * Summary summary = service.getSummary(images);
+   * 
+   * System.out.println(summary);
+   * </pre>
+   * 
    * @param imagesFile the images File
    * @return the {@link Summary} of the collection's visual attributes
    */

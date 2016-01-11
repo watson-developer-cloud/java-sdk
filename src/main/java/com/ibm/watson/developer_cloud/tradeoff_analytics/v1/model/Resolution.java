@@ -17,13 +17,12 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 
 /**
- * The Class Resolution.
+ * The Problem {@link Resolution} used by the {@link TradeoffAnalytics} V1 service
  */
 public class Resolution extends GenericModel {
-
-  /** The solutions. */
   private List<Solution> solutions;
 
   /**

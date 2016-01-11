@@ -63,7 +63,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
    */
   @Test
   public void testDilemmas() {
-    final Dilemma dilemma = service.dilemmas(problem, false);
+    Dilemma dilemma = service.dilemmas(problem, false);
     assertNotNull(dilemma);
     assertNotNull(dilemma.getProblem());
     assertNotNull(dilemma.getResolution());
@@ -74,14 +74,14 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
    */
   @Test
   public void testDilemmasWithProblem() {
-    final Problem problem = new Problem("phone");
+    Problem problem = new Problem("phone");
 
-    final String price = "price";
-    final String ram = "ram";
-    final String screen = "screen";
+    String price = "price";
+    String ram = "ram";
+    String screen = "screen";
 
     // Define the objectives
-    final List<Column> columns = new ArrayList<Column>();
+    List<Column> columns = new ArrayList<Column>();
     problem.setColumns(columns);
 
     columns.add(new NumericColumn().withRange(0, 100).withKey(price).withGoal(Goal.MIN)
@@ -90,29 +90,29 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     columns.add(new NumericColumn().withKey(ram).withGoal(Goal.MAX));
 
     // Define the options to choose
-    final List<Option> options = new ArrayList<Option>();
+    List<Option> options = new ArrayList<Option>();
     problem.setOptions(options);
 
-    final HashMap<String, Object> galaxySpecs = new HashMap<String, Object>();
+    HashMap<String, Object> galaxySpecs = new HashMap<String, Object>();
     galaxySpecs.put(price, 50);
     galaxySpecs.put(ram, 45);
     galaxySpecs.put(screen, 5);
     options.add(new Option("1", "Galaxy S4").withValues(galaxySpecs));
 
-    final HashMap<String, Object> iphoneSpecs = new HashMap<String, Object>();
+    HashMap<String, Object> iphoneSpecs = new HashMap<String, Object>();
     iphoneSpecs.put(price, 99);
     iphoneSpecs.put(ram, 40);
     iphoneSpecs.put(screen, 4);
     options.add(new Option("2", "iPhone 5").withValues(iphoneSpecs));
 
-    final HashMap<String, Object> optimusSpecs = new HashMap<String, Object>();
+    HashMap<String, Object> optimusSpecs = new HashMap<String, Object>();
     optimusSpecs.put(price, 10);
     optimusSpecs.put(ram, 300);
     optimusSpecs.put(screen, 5);
     options.add(new Option("3", "LG Optimus G").withValues(optimusSpecs));
 
     // Call the service and get the resolution
-    final Dilemma dilemma = service.dilemmas(problem, false);
+    Dilemma dilemma = service.dilemmas(problem, false);
     assertNotNull(dilemma);
     assertNotNull(dilemma.getProblem());
     assertNotNull(dilemma.getResolution());
@@ -126,14 +126,14 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
   @Test
   public void testExample() throws Exception {
 
-    final Problem problem = new Problem("phone");
+    Problem problem = new Problem("phone");
 
-    final String price = "price";
-    final String ram = "ram";
-    final String screen = "screen";
+    String price = "price";
+    String ram = "ram";
+    String screen = "screen";
 
     // Define the objectives
-    final List<Column> columns = new ArrayList<Column>();
+    List<Column> columns = new ArrayList<Column>();
     problem.setColumns(columns);
 
     columns.add(new NumericColumn().withRange(0, 100).withKey(price).withGoal(Goal.MIN)
@@ -142,29 +142,29 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     columns.add(new NumericColumn().withKey(ram).withGoal(Goal.MAX));
 
     // Define the options to choose
-    final List<Option> options = new ArrayList<Option>();
+    List<Option> options = new ArrayList<Option>();
     problem.setOptions(options);
 
-    final HashMap<String, Object> galaxySpecs = new HashMap<String, Object>();
+    HashMap<String, Object> galaxySpecs = new HashMap<String, Object>();
     galaxySpecs.put(price, 50);
     galaxySpecs.put(ram, 45);
     galaxySpecs.put(screen, 5);
     options.add(new Option("1", "Galaxy S4").withValues(galaxySpecs));
 
-    final HashMap<String, Object> iphoneSpecs = new HashMap<String, Object>();
+    HashMap<String, Object> iphoneSpecs = new HashMap<String, Object>();
     iphoneSpecs.put(price, 99);
     iphoneSpecs.put(ram, 40);
     iphoneSpecs.put(screen, 4);
     options.add(new Option("2", "iPhone 5").withValues(iphoneSpecs));
 
-    final HashMap<String, Object> optimusSpecs = new HashMap<String, Object>();
+    HashMap<String, Object> optimusSpecs = new HashMap<String, Object>();
     optimusSpecs.put(price, 10);
     optimusSpecs.put(ram, 300);
     optimusSpecs.put(screen, 5);
     options.add(new Option("3", "LG Optimus G").withValues(optimusSpecs));
 
     // Call the service and get the resolution
-    final Dilemma dilemma = service.dilemmas(problem);
+    Dilemma dilemma = service.dilemmas(problem);
     assertNotNull(dilemma);
   }
 }

@@ -25,21 +25,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Option extends GenericModel {
 
-  /** The app_data. */
   @SerializedName("app_data")
   private Map<String, String> appData;
-
-  /** The description html. */
   @SerializedName("description_html")
   private String descriptionHtml;
-
-  /** The key. */
   private String key;
-
-  /** The name. */
   private String name;
-
-  /** The values. */
   private HashMap<String, Object> values;
 
   /**
@@ -78,9 +69,9 @@ public class Option extends GenericModel {
   }
 
   /**
-   * Gets the description html.
+   * Gets the HTML description.
    * 
-   * @return The descriptionHtml
+   * @return The HTML description
    */
   public String getDescriptionHtml() {
     return descriptionHtml;

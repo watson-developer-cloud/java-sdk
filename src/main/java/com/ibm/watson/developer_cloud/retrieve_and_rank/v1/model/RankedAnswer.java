@@ -30,11 +30,11 @@ public class RankedAnswer extends GenericModel {
 
   /** The score */
   @SerializedName("score")
-  private double score;
+  private Double score;
 
   /** The confidence. */
   @SerializedName("confidence")
-  private double confidence;
+  private Double confidence;
 
   /**
    * Returns the answer ID.
@@ -59,7 +59,7 @@ public class RankedAnswer extends GenericModel {
    * 
    * @return score
    */
-  public double getScore() {
+  public Double getScore() {
     return score;
   }
 
@@ -68,7 +68,7 @@ public class RankedAnswer extends GenericModel {
    * 
    * @param score the score to set
    */
-  public void setScore(double score) {
+  public void setScore(Double score) {
     this.score = score;
   }
 
@@ -78,7 +78,7 @@ public class RankedAnswer extends GenericModel {
    * 
    * @return the confidence
    */
-  public double getConfidence() {
+  public Double getConfidence() {
     return confidence;
   }
 
@@ -88,7 +88,7 @@ public class RankedAnswer extends GenericModel {
    * 
    * @param confidence the new confidence
    */
-  public void setConfidence(double confidence) {
+  public void setConfidence(Double confidence) {
     this.confidence = confidence;
   }
 }

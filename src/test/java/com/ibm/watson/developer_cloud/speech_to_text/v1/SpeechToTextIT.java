@@ -108,8 +108,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Test
   public void testRecognizeFileString() {
     final File audio = new File("src/test/resources/speech_to_text/sample1.wav");
-    final String contentType = HttpMediaType.AUDIO_WAV;
-    final SpeechResults results = service.recognize(audio, contentType);
+    final SpeechResults results = service.recognize(audio);
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
   }
 
@@ -118,9 +117,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
     final File audio = new File("src/test/resources/speech_to_text/sample1.wav");
     final String contentType = HttpMediaType.AUDIO_WAV;
     final RecognizeOptions options = new RecognizeOptions();
-    options.continuous(true).model(EN_BROADBAND16K);
+    options.continuous(true).timestamps(true).wordConfidence(true).model(EN_BROADBAND16K);
     final SpeechResults results = service.recognize(audio, contentType, options);
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
+    assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTimestamps());
+    assertNotNull(results.getResults().get(0).getAlternatives().get(0).getWordConfidences());
   }
 
 }

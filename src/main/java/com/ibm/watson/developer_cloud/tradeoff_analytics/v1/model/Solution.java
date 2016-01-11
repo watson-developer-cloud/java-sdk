@@ -14,33 +14,113 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 
 /**
- * The Class Solution.
+ * The Solution used by the {@link TradeoffAnalytics} v1 service
  */
 public class Solution extends GenericModel {
 
-  /** The solution ref. */
+  /**
+   * Represent the error when the {@link Solution#status} is INCOMPLETE.
+   */
+  public class StatusCause {
+
+    @SerializedName("error_code")
+    private String errorCode;
+
+    private String message;
+    private List<String> tokens;
+
+    /**
+     * @return the errorCode
+     */
+    public String getErrorCode() {
+      return errorCode;
+    }
+
+    /**
+     * @return the message
+     */
+    public String getMessage() {
+      return message;
+    }
+
+    /**
+     * @return the tokens
+     */
+    public List<String> getTokens() {
+      return tokens;
+    }
+
+    /**
+     * @param errorCode the errorCode to set
+     */
+    public void setErrorCode(String errorCode) {
+      this.errorCode = errorCode;
+    }
+
+    /**
+     * @param message the message to set
+     */
+    public void setMessage(String message) {
+      this.message = message;
+    }
+
+    /**
+     * @param tokens the tokens to set
+     */
+    public void setTokens(List<String> tokens) {
+      this.tokens = tokens;
+    }
+
+  }
+
+  @SerializedName("shadow_me")
+  private List<String> shadowMe;
+
+  private List<String> shadows;
+
   @SerializedName("solution_ref")
   private String solutionRef;
 
-  /** The status. */
+
   private String status;
 
-  /** The status cause. */
   @SerializedName("status_cause")
   private StatusCause statusCause;
 
   /**
+   * Gets the solution ids of those that shadow this solution.
+   * 
+   * @return The highlights
+   */
+  public List<String> getShadowMe() {
+    return shadowMe;
+  }
+
+  /**
+   * Gets the shadows of a solution.
+   * 
+   * @return The shadows
+   */
+  public List<String> getShadows() {
+    return shadows;
+  }
+
+  /**
    * Gets the solution ref.
    * 
-   * @return The solutionRef
+   * @return the solutionRef
    */
   public String getSolutionRef() {
     return solutionRef;
   }
+
 
   /**
    * Gets the status.
@@ -52,9 +132,34 @@ public class Solution extends GenericModel {
   }
 
   /**
+   * @return the statusCause
+   */
+  public StatusCause getStatusCause() {
+    return statusCause;
+  }
+
+  /**
+   * Sets the shadow me.
+   * 
+   * @param shadowMe The highlights
+   */
+  public void setShadowMe(List<String> shadowMe) {
+    this.shadowMe = shadowMe;
+  }
+
+  /**
+   * Sets the shadows.
+   * 
+   * @param shadows The shadows
+   */
+  public void setShadows(List<String> shadows) {
+    this.shadows = shadows;
+  }
+
+  /**
    * Sets the solution ref.
    * 
-   * @param solutionRef The solution_ref
+   * @param solutionRef the solutionRef to set
    */
   public void setSolutionRef(String solutionRef) {
     this.solutionRef = solutionRef;
@@ -63,10 +168,16 @@ public class Solution extends GenericModel {
   /**
    * Sets the status.
    * 
-   * @param status The status
+   * @param status the status to set
    */
   public void setStatus(String status) {
     this.status = status;
   }
 
+  /**
+   * @param statusCause the statusCause to set
+   */
+  public void setStatusCause(StatusCause statusCause) {
+    this.statusCause = statusCause;
+  }
 }

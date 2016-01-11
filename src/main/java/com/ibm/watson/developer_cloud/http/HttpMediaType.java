@@ -80,6 +80,17 @@ public interface HttpMediaType {
    * Field AUDIO_WAV. (value is "audio/wav")
    */
   public final static String AUDIO_WAV = "audio/wav";
+
+  /**
+   * Field AUDIO_FLAC. (value is "audio/flac")
+   */
+  public static final String AUDIO_FLAC = "audio/flac";
+
+  /**
+   * Field AUDIO_RAW. (value is "audio/l16")
+   */
+  public static final String AUDIO_RAW = "audio/l16";
+
   /**
    * Field BINARY_FILE. (value is "application/octet-stream")
    */

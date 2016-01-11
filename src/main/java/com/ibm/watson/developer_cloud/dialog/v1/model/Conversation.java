@@ -60,7 +60,7 @@ public class Conversation extends GenericModel {
    * 
    * @return The confidence
    */
-  public double getConfidence() {
+  public Double getConfidence() {
     return confidence;
   }
 
@@ -114,7 +114,7 @@ public class Conversation extends GenericModel {
    * 
    * @param confidence The confidence
    */
-  public void setConfidence(final double confidence) {
+  public void setConfidence(final Double confidence) {
     this.confidence = confidence;
   }
 
@@ -171,7 +171,7 @@ public class Conversation extends GenericModel {
    * @param confidence the confidence
    * @return the conversation
    */
-  public Conversation withConfidence(final double confidence) {
+  public Conversation withConfidence(final Double confidence) {
     this.confidence = confidence;
     return this;
   }

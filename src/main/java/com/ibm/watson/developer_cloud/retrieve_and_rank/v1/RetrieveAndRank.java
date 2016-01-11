@@ -56,18 +56,6 @@ import com.squareup.okhttp.Response;
  *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/retrieve-rank.html">
  *      Retrieve and Rank</a>
  */
-/**
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
- * 
- */
-/**
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
- * 
- */
-/**
- * @author German Attanasio Ruiz (germanatt@us.ibm.com)
- * 
- */
 public class RetrieveAndRank extends WatsonService implements ClusterLifecycleManager,
     SolrConfigManager {
 
