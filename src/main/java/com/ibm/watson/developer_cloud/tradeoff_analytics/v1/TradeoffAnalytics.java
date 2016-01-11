@@ -13,11 +13,14 @@
  */
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 
+import org.apache.commons.lang3.Validate;
+
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Dilemma;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Resolution;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
@@ -25,7 +28,7 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  */
 public class TradeoffAnalytics extends WatsonService {
 
-  private static final String GENERATE_VISUALIZATION = "GENERATE_VISUALIZATION";
+  private static final String GENERATE_VISUALIZATION = "generate_visualization";
   private static final String PATH_DILEMMAS = "/v1/dilemmas";
   private final static String URL = "https://gateway.watsonplatform.net/tradeoff-analytics/api";
 
@@ -38,9 +41,21 @@ public class TradeoffAnalytics extends WatsonService {
   }
 
   /**
-   * Dilemmas.
+   * Returns a dilemma that contains the {@link Problem} and a {@link Resolution}. The
+   * {@link Problem} contains a set of options and objectives. The {@link Resolution} contains a set
+   * of optimal options, their analytical characteristics, and by default their representation on a
+   * 2D space. <br>
+   * <br>
+   * Here is an example of how to call the Tradeoff Analytics service with a Problem:
    * 
-   * @param problem the problem
+   * <pre>
+   * TradeoffAnalytics service = new TradeoffAnalytics();
+   * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
+   * Problem problem = new Problem(); // create the options and objectives here
+   * Dilemma dilemma = service.dilemmas(problem, false);
+   * </pre>
+   * 
+   * @param problem the decision problem
    * @return the dilemma
    */
   public Dilemma dilemmas(final Problem problem) {
@@ -48,15 +63,26 @@ public class TradeoffAnalytics extends WatsonService {
   }
 
   /**
-   * Dilemmas.
+   * Returns a dilemma that contains the {@link Problem} and a {@link Resolution}. The
+   * {@link Problem} contains a set of options and objectives. The {@link Resolution} contains a set
+   * of optimal options, their analytical characteristics, and by default their representation on a
+   * 2D space. <br>
+   * <br>
+   * Here is an example of how to call the Tradeoff Analytics service with a Problem:
    * 
-   * @param problem the problem
-   * @param generateVisualization the generate visualization
+   * <pre>
+   * TradeoffAnalytics service = new TradeoffAnalytics();
+   * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
+   * Problem problem = new Problem(); // create the options and objectives here
+   * Dilemma dilemma = service.dilemmas(problem, false);
+   * </pre>
+   * 
+   * @param problem the decision problem
+   * @param generateVisualization if true the Dilemma contains information to generate visualization
    * @return the decision problem
    */
   public Dilemma dilemmas(final Problem problem, final Boolean generateVisualization) {
-    if (problem == null)
-      throw new IllegalArgumentException("problem was not specified");
+    Validate.notNull(problem, "problem was not specified");
 
     final String contentJson = GsonSingleton.getGson().toJson(problem);
 
