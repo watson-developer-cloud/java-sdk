@@ -22,6 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.service.NotFoundException;
 import com.ibm.watson.developer_cloud.visual_recognition.v2.model.VisualClassification;
 import com.ibm.watson.developer_cloud.visual_recognition.v2.model.VisualClassifier;
 
@@ -97,8 +98,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       VisualClassification result = service.classify(image, newClass);
       Assert.assertNotNull(result);
     } finally {
-      // FIXME: deleteClassifier is returning 404 :S
-      // service.deleteClassifier(newClass.getId());
+      // FIXME: deleteClassifier is returning 404 but the classifier is deleted
+      try {
+        service.deleteClassifier(newClass.getId());
+      } catch (NotFoundException e) {
+      }
     }
 
   }
