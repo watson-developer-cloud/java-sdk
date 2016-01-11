@@ -63,8 +63,7 @@ public class DocumentConversion extends WatsonService {
   private static final String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
 
   /** The default URL for the service. */
-  private static final String URL =
-      "https://gateway.watsonplatform.net/document-conversion/api";
+  private static final String URL = "https://gateway.watsonplatform.net/document-conversion/api";
 
   private static final JsonObject EMPTY_CONFIG = new JsonParser().parse("{}").getAsJsonObject();
 
@@ -79,8 +78,6 @@ public class DocumentConversion extends WatsonService {
   }
 
   /**
-   * @See {@link DocumentConversion}
-   * 
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
    *        will keep your API calls from failing when the service introduces breaking changes.
    */
@@ -161,7 +158,7 @@ public class DocumentConversion extends WatsonService {
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided
    * @return Converted document as {@link Answers}
-   * @See {@link HttpMediaType} for available media types
+   * @see HttpMediaType for available media types
    */
   public Answers convertDocumentToAnswer(File document, String mediaType) {
     return convertDocumentToAnswer(document, mediaType, EMPTY_CONFIG);
@@ -199,7 +196,7 @@ public class DocumentConversion extends WatsonService {
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @return Converted document as {@link String}
-   * @See {@link HttpMediaType} for available media types
+   * @see HttpMediaType for available media types
    */
   public String convertDocumentToHTML(File document, String mediaType) {
     return convertDocumentToHTML(document, mediaType, EMPTY_CONFIG);
@@ -237,7 +234,7 @@ public class DocumentConversion extends WatsonService {
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @return Converted document as {@link String}
-   * @See {@link HttpMediaType} for available media types
+   * @see HttpMediaType for available media types
    */
   public String convertDocumentToText(File document, String mediaType) {
     return convertDocumentToText(document, mediaType, EMPTY_CONFIG);

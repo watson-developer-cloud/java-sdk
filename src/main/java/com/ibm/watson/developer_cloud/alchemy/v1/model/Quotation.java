@@ -37,9 +37,6 @@ public class Quotation extends GenericModel {
    * 
    * @param quotation the quotation to set
    */
-  /**
-   * @param quotation
-   */
   public void setQuotation(String quotation) {
     this.quotation = quotation;
   }
