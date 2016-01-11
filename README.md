@@ -19,6 +19,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Alchemy Language](#alchemy-language)
     * [Alchemy Vision](#alchemy-vision)
     * [Alchemy Data News](#alchemy-data-news)
+    * [Concept Expansion](#concept-expansion)
     * [Concept Insights](#concept-insights)
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
@@ -157,6 +158,32 @@ DocumentsResult result = service.getNewsDocuments(params);
 
 System.out.println(result);
 ```
+
+### Concept Expansion
+Map euphemisms or colloquial terms to more commonly understood phrases using
+the [Concept Expansion][concept_expansion] service.
+Example: Create a job, wait for it to finish, and then retrieve results.
+
+```java
+ConceptExpansion service = new ConceptExpansion();
+service.setUsernameAndPassword("<username>", "<password>");
+
+String[] seeds = new String[]{ "motrin", "tylenol", "aspirin"};
+String label = "medicine";
+Job job = service.createJob(label, seeds);
+
+while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
+		|| service.getJobStatus(job) == Job.Status.IN_FLIGHT) {
+	try {
+		Thread.sleep(4000);
+	} catch (InterruptedException e) {
+		e.printStackTrace();
+	}
+}
+
+System.out.println(service.getJobResult(job));
+```
+
 
 ### Concept Insights
 Use the [Concept Insights][concept_insights] service to identify words in the text that
@@ -508,6 +535,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [concept_insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
 [visual_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-insights/
 [retrieve_and_rank]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/
+[concept_expansion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-expansion/
 
 [alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage
 [sentiment_analysis]: http://www.alchemyapi.com/products/alchemylanguage/sentiment-analysis
