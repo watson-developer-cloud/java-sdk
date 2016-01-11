@@ -17,29 +17,28 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 /**
- * The Class GsonSingleton.
+ * Gson singleton to be use when transforming from JSON to Java Objects and vise versa. It handles
+ * date formatting and pretty print the result
  */
 public class GsonSingleton {
 
-  /** The Constant DATE_FORMAT_UTC. */
   private static final String DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS";
-  /** The gson. */
   private static Gson gson;
 
   /**
    * Creates a {@link com.google.gson.Gson} object that can be use to serialize and deserialize Java
    * objects}
    * 
-   * @return the gson
+   * @return the Gson
    */
   private static Gson createGson() {
     return new GsonBuilder().setPrettyPrinting().setDateFormat(DATE_FORMAT_UTC).create();
   }
 
   /**
-   * Gets the gson.
+   * Gets the Gson instance
    * 
-   * @return the gson
+   * @return the Gson
    */
   public static Gson getGson() {
     if (gson == null) {
