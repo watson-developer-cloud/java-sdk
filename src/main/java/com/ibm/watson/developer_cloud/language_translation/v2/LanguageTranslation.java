@@ -230,7 +230,19 @@ public class LanguageTranslation extends WatsonService {
   }
 
   /**
-   * Translate text using source and target languages.
+   * Translate text using source and target languages.<br>
+   * <br>
+   * Here is an example of how to translate "hello" from English to Spanish:
+   * 
+   * 
+   * <pre>
+   * LanguageTranslation service = new LanguageTranslation();
+   * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
+   * 
+   * TranslationResult translationResult = service.translate(&quot;hello&quot;, &quot;en&quot;, &quot;es&quot;);
+   * 
+   * System.out.println(translationResult);
+   * </pre>
    * 
    * @param text The submitted paragraphs to translate
    * @param source The source language
