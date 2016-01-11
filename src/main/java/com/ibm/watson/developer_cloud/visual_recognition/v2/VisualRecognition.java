@@ -167,16 +167,16 @@ public class VisualRecognition extends WatsonService {
     Validate.notNull(imagesInputStream, "image cannot be null");
     Validate.notNull(filename, "filename cannot be null");
 
-    final MultipartBuilder bodyBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
+    MultipartBuilder bodyBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
     bodyBuilder.addFormDataPart(IMAGES_FILE, filename,
         InputStreamRequestBody.create(HttpMediaType.BINARY_FILE, imagesInputStream));
 
-    if (classifiers != null && classifiers.length > 0) {
+    if (classifiers != null && classifiers.length > 0 && classifiers[0] != null) {
       JsonObject classifierIds = getClassifierIdsAsJson(classifiers);
       bodyBuilder.addFormDataPart(CLASSIFIER_IDS, classifierIds.toString());
     }
-    // TODO: Add the classifiers ids
-    final RequestBuilder requestBuilder =
+
+    RequestBuilder requestBuilder =
         RequestBuilder.post(PATH_CLASSIFY).withQuery(VERSION, versionDate)
             .withBody(bodyBuilder.build());
 
