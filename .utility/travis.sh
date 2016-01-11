@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then
 	echo '$TRAVIS_PULL_REQUEST is false, running all tests'
