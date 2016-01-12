@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # based on https://odoepner.wordpress.com/2012/02/17/shell-script-to-generate-simple-index-html/
 
@@ -8,5 +8,5 @@ echo '<p><a href="https://www.ibm.com/smarterplanet/us/en/ibmwatson/developerclo
 echo ' | <a href="https://github.com/watson-developer-cloud/java-sdk">GitHub</a>'
 echo '</p>'
 echo '<p>Javadoc by branch/tag:</p><ul>'
-ls | grep --invert-match index.html | sed 's/^.*/<li><a href="javadoc/&">&<\/a><\/li>/'
+ls docs | grep --invert-match index.html | sed 's/^.*/<li><a href="docs\/&">&<\/a><\/li>/'
 echo '</ul></body></html>'

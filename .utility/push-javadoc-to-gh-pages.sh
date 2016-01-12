@@ -10,10 +10,10 @@ if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && [ "$TRAVIS_PU
     echo "current dir"
     pwd
     # on tagged builds, $TRAVIS_BRANCH is the tag (e.g. v1.2.3), otherwise it's the branch name (e.g. master)
-    rm -rf ./javadoc/$TRAVIS_BRANCH
-    mkdir ./javadoc/$TRAVIS_BRANCH
+    rm -rf docs/$TRAVIS_BRANCH
+    mkdir -p docs/$TRAVIS_BRANCH
 
-    cp -Rf ../target/site/apidocs/*/* ./javadoc/$TRAVIS_BRANCH
+    cp -rf ../target/site/apidocs/* docs/$TRAVIS_BRANCH
 
     ../.utility/generate_index_html.sh > index.html
 
@@ -23,7 +23,7 @@ if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && [ "$TRAVIS_PU
 
   popd
 
-  echo -e "Published Javadoc for $TRAVIS_BRANCH to gh-pages.\n"
+  echo -e "Published Javadoc for build $TRAVIS_BUILD_NUMBER ($TRAVIS_JOB_NUMBER) on branch $TRAVIS_BRANCH.\n"
 
 else
 
