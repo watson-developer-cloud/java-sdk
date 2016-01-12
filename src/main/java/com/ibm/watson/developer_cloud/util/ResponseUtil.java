@@ -103,7 +103,7 @@ public class ResponseUtil {
   }
 
   /**
-   * Returns <T> after parsing the string response.
+   * Parses the response into the POJO representation
    * 
    * @param <T> the generic type to use when parsing the response
    * @param response the HTTP response

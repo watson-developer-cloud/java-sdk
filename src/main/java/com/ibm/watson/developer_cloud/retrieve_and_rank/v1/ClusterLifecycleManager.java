@@ -38,8 +38,7 @@ public interface ClusterLifecycleManager {
   SolrCluster createSolrCluster(SolrClusterOptions solrClusterConfig);
 
   /**
-   * Deletes an existing Solr Cluster {@code SolrCluster}.
-   * <p/>
+   * Deletes an existing Solr Cluster {@code SolrCluster}. <br>
    * Reports success even if no corresponding cluster actually exists.
    * 
    * @param SolrClusterId the Solr cluster id

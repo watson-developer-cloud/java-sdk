@@ -238,6 +238,8 @@ public abstract class WatsonService {
         error = jsonObject.get("error").getAsString();
       } else if (jsonObject.has("error_message")) {
         error = jsonObject.get("error_message").getAsString();
+      } else if (jsonObject.has("message")) {
+        error = jsonObject.get("message").getAsString();
       }
     } catch (final JsonIOException e) {
       // Ignore JsonIOException and use fallback String version of response
