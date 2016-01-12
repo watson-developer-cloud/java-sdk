@@ -18,6 +18,8 @@ import static com.ibm.watson.developer_cloud.document_conversion.v1.util.Convers
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -252,6 +254,16 @@ public class DocumentConversion extends WatsonService {
     final InputStream is =
         convertDocument(document, mediaType, ConversionTarget.NORMALIZED_TEXT, customConfig);
     return responseToString(is);
+  }
+
+  /**
+   * Loads a custom configuration from the input stream specified
+   * @param customConfig input stream for the custom configuration
+   * @return the custom configuration as a JsonObject
+   */
+  public JsonObject loadCustomConfig(InputStream customConfig) {
+    final Reader reader = new InputStreamReader(customConfig);
+    return new JsonParser().parse(reader).getAsJsonObject();
   }
 
   /** Consumes the InputStream, converting it into a String. */
