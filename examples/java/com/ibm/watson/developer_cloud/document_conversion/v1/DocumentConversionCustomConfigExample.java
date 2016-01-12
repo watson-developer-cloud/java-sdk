@@ -19,6 +19,8 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 public class DocumentConversionCustomConfigExample {
     public static void main(String[] args) {
@@ -55,5 +57,28 @@ public class DocumentConversionCustomConfigExample {
         final Answers htmlToAnswersWithCustomConfig =
                 service.convertDocumentToAnswer(html, HttpMediaType.TEXT_HTML, customConfig);
         System.out.println(htmlToAnswersWithCustomConfig);
+
+        System.out.println("==================================================");
+
+        // Run a conversion with a custom configuration that is loaded from a file. This example is similar
+        // to the previous one above. The custom configuration from the file will section a HTML document
+        // by only the h2 tag. This will result in Answers that are sectioned by h2 tags.
+        System.out.println("Convert html document to Answer Units using custom configuration loaded from a file");
+        String customConfigFilePath = "src/test/resources/document_conversion/answer_unit_config_selector_h2.json";
+        JsonObject customConfigFromFile = null;
+        try {
+            customConfigFromFile = service.loadCustomConfig(new FileInputStream(customConfigFilePath));
+        } catch(FileNotFoundException e ) {
+            e.printStackTrace();
+        }
+
+        if(customConfigFilePath == null) {
+            System.err.println("ERROR - Unable to load custom config from file " + customConfigFilePath);
+            return;
+        }
+
+        final Answers htmlToAnswersWithCustomConfigFromFile =
+                service.convertDocumentToAnswer(html, HttpMediaType.TEXT_HTML, customConfigFromFile);
+        System.out.println(htmlToAnswersWithCustomConfigFromFile);
     }
 }
