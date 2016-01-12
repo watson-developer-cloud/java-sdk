@@ -4,7 +4,7 @@
 
 echo '<!DOCTYPE html><html><body>'
 echo '<h1>IBM Watson Developer Cloud Java SDK</h1>'
-echo '<p><a href="https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/">Documentation</a>'
+echo '<p><a href="https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/">Documentation</a>'
 echo ' | <a href="https://github.com/watson-developer-cloud/java-sdk">GitHub</a>'
 echo '</p>'
 echo '<p>Javadoc by branch/tag:</p><ul>'

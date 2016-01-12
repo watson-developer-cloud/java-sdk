@@ -7,14 +7,11 @@ if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && [ "$TRAVIS_PU
   git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/watson-developer-cloud/java-sdk gh-pages > /dev/null
 
   pushd gh-pages
-    echo "current dir"
-    pwd
     # on tagged builds, $TRAVIS_BRANCH is the tag (e.g. v1.2.3), otherwise it's the branch name (e.g. master)
     rm -rf docs/$TRAVIS_BRANCH
     mkdir -p docs/$TRAVIS_BRANCH
 
     cp -rf ../target/site/apidocs/* docs/$TRAVIS_BRANCH
-
     ../.utility/generate_index_html.sh > index.html
 
     git add -f .
