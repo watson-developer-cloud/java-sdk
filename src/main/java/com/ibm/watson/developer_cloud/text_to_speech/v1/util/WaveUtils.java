@@ -13,34 +13,44 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
  * {@link TextToSpeech} service
  */
 public class WaveUtils {
+  /** The WAVE meta-data header size. (value is 8) */
+  private static final int WAVE_HEADER_SIZE = 8;
 
-  /** The WAVE header byte size. (value is 44) */
-  private static final int WAVE_HEADER_BYTE_SIZE = 44;
+  /** The WAVE meta-data size position. (value is 4) */
+  private static final int WAVE_SIZE_POS = 4;
+
+  /** The WAVE meta-data position in bytes. (value is 74) */
+  private static final int WAVE_METADATA_POS = 74;
 
   /**
-   * Adds the data size to the header(bytes 4-8) of the WAVE(.wav) input stream.<br>
+   * Re-writes the data size in the header(bytes 4-8) of the WAVE(.wav) input stream.<br>
    * It needs to be read in order to calculate the size.
    * 
    * @param is the input stream
    * @return A new input stream that includes the data header in the header
    * @throws IOException Signals that an I/O exception has occurred.
    */
-  public static InputStream addDataSizeToInputStream(InputStream is) throws IOException {
+  public static InputStream reWriteWaveHeader(InputStream is) throws IOException {
     byte[] audioBytes = toByteArray(is);
-    int filesize = audioBytes.length - 8;
-    audioBytes[4] = (byte) (filesize);
-    audioBytes[5] = (byte) (filesize >>> 8);
-    audioBytes[6] = (byte) (filesize >>> 16);
-    audioBytes[7] = (byte) (filesize >>> 24);
+    int filesize = audioBytes.length - WAVE_HEADER_SIZE;
 
-    int datasize = filesize + 8 - WAVE_HEADER_BYTE_SIZE;
-    audioBytes[40] = (byte) (datasize);
-    audioBytes[41] = (byte) (datasize >>> 8);
-    audioBytes[42] = (byte) (datasize >>> 16);
-    audioBytes[43] = (byte) (datasize >>> 24);
-
+    writeInt(filesize, audioBytes, WAVE_SIZE_POS);
+    writeInt(filesize - WAVE_HEADER_SIZE, audioBytes, WAVE_METADATA_POS);
 
     return new ByteArrayInputStream(audioBytes);
+  }
+
+  /**
+   * Writes an number into an array using 4 bytes
+   * 
+   * @param value the number to write
+   * @param array the byte array
+   * @param offset the offset
+   */
+  private static void writeInt(int value, byte[] array, int offset) {
+    for (int i = 0; i < 4; i++) {
+      array[offset + i] = (byte) (value >>> (8 * i));
+    }
   }
 
   /**
