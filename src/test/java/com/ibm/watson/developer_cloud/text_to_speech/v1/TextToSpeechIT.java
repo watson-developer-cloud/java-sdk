@@ -27,13 +27,9 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1;
  * the License.
  */
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.sound.sampled.AudioSystem;
@@ -70,27 +66,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     service.setEndPoint(prop.getProperty("text_to_speech.url"));
   }
 
-  private void writeInputStreamToFile(InputStream inputStream, File audio) {
-    OutputStream outStream = null;
-    try {
-      outStream = new FileOutputStream(audio);
 
-      byte[] buffer = new byte[8 * 1024];
-      int bytesRead;
-      while ((bytesRead = inputStream.read(buffer)) != -1) {
-        outStream.write(buffer, 0, bytesRead);
-      }
-    } catch (Exception e) {
-      fail();
-    } finally {
-      try {
-        inputStream.close();
-        outStream.close();
-      } catch (Exception e) {
-        fail();
-      }
-    }
-  }
 
   /**
    * Test get voices.

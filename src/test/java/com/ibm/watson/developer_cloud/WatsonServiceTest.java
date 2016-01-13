@@ -13,12 +13,17 @@
  */
 package com.ibm.watson.developer_cloud;
 
+import static org.junit.Assert.fail;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -180,6 +185,34 @@ public abstract class WatsonServiceTest {
     ch.qos.logback.classic.Logger root =
         (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
     root.setLevel(ch.qos.logback.classic.Level.OFF);
+  }
+
+  /**
+   * Write input stream to file.
+   * 
+   * @param inputStream the input stream
+   * @param audio the audio
+   */
+  public static void writeInputStreamToFile(InputStream inputStream, File audio) {
+    OutputStream outStream = null;
+    try {
+      outStream = new FileOutputStream(audio);
+
+      byte[] buffer = new byte[8 * 1024];
+      int bytesRead;
+      while ((bytesRead = inputStream.read(buffer)) != -1) {
+        outStream.write(buffer, 0, bytesRead);
+      }
+    } catch (Exception e) {
+      fail();
+    } finally {
+      try {
+        inputStream.close();
+        outStream.close();
+      } catch (Exception e) {
+        fail();
+      }
+    }
   }
 
   /**
