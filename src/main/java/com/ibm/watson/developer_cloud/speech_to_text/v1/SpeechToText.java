@@ -14,6 +14,7 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 import com.google.gson.JsonObject;
@@ -261,5 +262,17 @@ public class SpeechToText extends WatsonService {
 
     requestBuilder.withBody(RequestBody.create(MediaType.parse(contentType), audio));
     return executeRequest(requestBuilder.build(), SpeechResults.class);
+  }
+
+  /**
+   * Recognizes using WebSockets.
+   * 
+   * @param audio the audio
+   * @param options the options
+   * @param delegate the delegate
+   */
+  public void recognizeWS(InputStream audio, RecognizeOptions options, RecognizeDelegate delegate) {
+    WebSocketClient webSocket = new WebSocketClient();
+    webSocket.recognize(audio, options, delegate);
   }
 }

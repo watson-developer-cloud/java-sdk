@@ -17,8 +17,13 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -29,11 +34,19 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 
+/**
+ * The Class SpeechToTextIT.
+ */
 public class SpeechToTextIT extends WatsonServiceTest {
 
   private static final String EN_BROADBAND16K = "en-US_BroadbandModel";
   private SpeechToText service;
 
+  /*
+   * (non-Javadoc)
+   * 
+   * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
+   */
   @Override
   @Before
   public void setUp() throws Exception {
@@ -44,6 +57,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     service.setEndPoint(getValidProperty("speech_to_text.url"));
   }
 
+  /**
+   * Test create session.
+   */
   @Test
   public void testCreateSession() {
     final SpeechSession session = service.createSession();
@@ -55,6 +71,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test create session speech model.
+   */
   @Test
   public void testCreateSessionSpeechModel() {
     final SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K);
@@ -66,6 +85,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test create session string.
+   */
   @Test
   public void testCreateSessionString() {
     final SpeechSession session = service.createSession(EN_BROADBAND16K);
@@ -77,6 +99,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test get model.
+   */
   @Test
   public void testGetModel() {
     final SpeechModel model = service.getModel(EN_BROADBAND16K);
@@ -85,6 +110,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(model.getRate());
   }
 
+  /**
+   * Test get models.
+   */
   @Test
   public void testGetModels() {
     final List<SpeechModel> models = service.getModels();
@@ -92,6 +120,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertTrue(!models.isEmpty());
   }
 
+  /**
+   * Test get recognize status.
+   */
   @Test
   public void testGetRecognizeStatus() {
     final SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K);
@@ -105,6 +136,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test recognize file string.
+   */
   @Test
   public void testRecognizeFileString() {
     final File audio = new File("src/test/resources/speech_to_text/sample1.wav");
@@ -112,6 +146,58 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
   }
 
+  private SpeechResults asyncResults;
+  private CountDownLatch lock = new CountDownLatch(1);
+
+  /**
+   * Test recognize webSocket
+   * 
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException
+   */
+  @Test
+  public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
+    File audio = new File("src/test/resources/speech_to_text/sample1.wav");
+
+    RecognizeOptions options =
+        new RecognizeOptions().continuous(true).interimResults(true)
+            .contentType(HttpMediaType.AUDIO_WAV);
+
+    service.recognizeWS(new FileInputStream(audio), options, new RecognizeDelegate() {
+
+      @Override
+      public void onMessage(SpeechResults speechResults, boolean fin) {
+        System.out.println(speechResults);
+        if (fin) {
+          asyncResults = speechResults;
+          lock.countDown();
+        }
+      }
+
+      @Override
+      public void onError(Exception e) {
+        Assert.assertTrue(false);
+
+      }
+
+      @Override
+      public void onDisconnected() {
+        Assert.assertTrue(false);
+
+      }
+
+      @Override
+      public void onConnected() {}
+
+    });
+
+    lock.await(10000, TimeUnit.MILLISECONDS);
+    assertNotNull(asyncResults);
+  }
+
+  /**
+   * Test recognize file string recognize options.
+   */
   @Test
   public void testRecognizeFileStringRecognizeOptions() {
     final File audio = new File("src/test/resources/speech_to_text/sample1.wav");

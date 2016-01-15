@@ -179,4 +179,6 @@ public interface HttpHeaders {
    */
   public static final String WWW_AUTHENTICATE = "WWW-Authenticate";
 
+  /** The Authorization token header. */
+  public static final String X_WATSON_AUTHORIZATION_TOKEN = "X-Watson-Authorization-Token";
 }

@@ -40,6 +40,9 @@ public abstract class WatsonServiceTest {
 
   private static final Logger log = Logger.getLogger(WatsonServiceTest.class.getName());
 
+  /**
+   * Instantiates a new watson service test.
+   */
   public WatsonServiceTest() {
     if (prop == null)
       loadProperties();
@@ -133,8 +136,8 @@ public abstract class WatsonServiceTest {
   }
 
   /**
-   * Gets the existing property if exists, otherwise it returns the defaultValue
-   * 
+   * Gets the existing property if exists, otherwise it returns the defaultValue.
+   *
    * @param property the property
    * @param defaultValue the default value
    * @return the existing property
@@ -230,6 +233,11 @@ public abstract class WatsonServiceTest {
     return GsonSingleton.getGson().fromJson(jsonString, returnType);
   }
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   public void setUp() throws Exception {}
 
 }
