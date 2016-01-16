@@ -23,9 +23,8 @@ public class ConceptExpansionExample {
     service.setUsernameAndPassword("<username>", "<password>");
 
     String[] seeds = new String[] {"nyc", "dc", "london", "big cities"};
-    String label = "demo";
 
-    Job job = service.createJob(label, seeds);
+    Job job = service.createJob(seeds);
 
     while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
         || service.getJobStatus(job) == Job.Status.IN_FLIGHT) {
