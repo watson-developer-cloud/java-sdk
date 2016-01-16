@@ -18,7 +18,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 
 /**
- * SessionStatus Status used by {@link SpeechToText}.
+ * SessionStatus used by {@link SpeechToText}.
  */
 public class SessionStatus extends GenericModel {
 

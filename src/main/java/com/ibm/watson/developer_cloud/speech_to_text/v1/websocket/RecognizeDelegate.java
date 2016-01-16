@@ -11,39 +11,39 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.speech_to_text.v1;
+package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
+import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
 
-
 /**
- * The Interface RecognizeDelegate.
+ * The recognize delegate used in the
+ * {@link SpeechToText#recognizeUsingWebSockets(java.io.InputStream, com.ibm.watson.developer_cloud.speech_to_text.v1.RecognizeOptions, RecognizeDelegate)}
  */
 public interface RecognizeDelegate {
 
   /**
-   * On message.
+   * Called when a {@link SpeechResults} was received.
    * 
    * @param speechResults the speech results
-   * @param fin if results are final
    */
-  public void onMessage(SpeechResults speechResults, boolean fin);
+  public void onMessage(SpeechResults speechResults);
 
   /**
-   * On connected.
+   * Called when a WebSocket connection was made
    */
   public void onConnected();
 
   /**
-   * On error.
+   * Called when there is an error in the Web Socket connection
    * 
-   * @param e the e
+   * @param e the exception
    */
   public void onError(Exception e);
 
   /**
-   * On disconnected.
+   * Called when a WebSocket connection was closed
    */
   public void onDisconnected();
 }

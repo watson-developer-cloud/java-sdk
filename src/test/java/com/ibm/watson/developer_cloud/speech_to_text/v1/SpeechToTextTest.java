@@ -209,7 +209,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
             GsonSingleton.getGson().toJson(speechResults)));
-    final SpeechResults result = service.recognize(audio, HttpMediaType.AUDIO_WAV);
+    final SpeechResults result = service.recognize(audio);
     Assert.assertNotNull(result);
     Assert.assertEquals(result, speechResults);
   }
@@ -251,7 +251,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     boolean didItHappen = false;
     try {
-      service.recognize(null, HttpMediaType.AUDIO_WAV);
+      service.recognize(null);
     } catch (final IllegalArgumentException e) {
       didItHappen = true;
     }

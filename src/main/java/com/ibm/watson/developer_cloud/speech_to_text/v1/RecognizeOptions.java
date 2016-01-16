@@ -13,17 +13,18 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import java.util.List;
+import org.apache.commons.lang3.Validate;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
+import com.squareup.okhttp.MediaType;
 
 
 /**
- * Recognize Options when using the
- * {@link SpeechToText#recognize(java.io.File, String, RecognizeOptions)} method.
+ * Parameters to be use during a recognize call in the {@link SpeechToText} service.
  */
 public class RecognizeOptions {
+
 
   @SerializedName("content-type")
   private String contentType;
@@ -32,7 +33,7 @@ public class RecognizeOptions {
 
   @SerializedName("interim_results")
   private Boolean interimResults;
-  private List<String> keywords;
+  private String[] keywords;
 
   @SerializedName("keywords_threshold")
   private Double keywordsThreshold;
@@ -100,7 +101,7 @@ public class RecognizeOptions {
    * 
    * @return the keywords
    */
-  public List<String> getKeywords() {
+  public String[] getKeywords() {
     return keywords;
   }
 
@@ -180,7 +181,7 @@ public class RecognizeOptions {
 
   /**
    * If true, the service sends interim results for the transcription. Otherwise, the recognition
-   * ends after first "end of speech" is detected. The default is false..
+   * ends after first "end of speech" is detected. The default is false.
    * 
    * @param interimResults the interim results
    * @return the recognize options
@@ -198,7 +199,7 @@ public class RecognizeOptions {
    * @param keywords the keywords
    * @return the recognize options
    */
-  public RecognizeOptions keywords(List<String> keywords) {
+  public RecognizeOptions keywords(String[] keywords) {
     this.keywords = keywords;
     return this;
   }
@@ -293,12 +294,20 @@ public class RecognizeOptions {
   }
 
   /**
-   * Content type.
+   * The format of the audio data specified as one of the following values: <br>
+   * <ul>
+   * <li><code>audio/flac</code> for Free Lossless Audio Codec (FLAC)</li>
+   * <li><code>audio/l16</code> for Linear 16-bit Pulse-Code Modulation (PCM)</li>
+   * <li><code>audio/wav</code> for Waveform Audio File Format (WAV)</li>
+   * <li><code>audio/ogg;codecs=opus</code> for Ogg format files that use the opus codec</li>
+   * </ul>
    * 
    * @param contentType the content type
    * @return the recognize options
    */
   public RecognizeOptions contentType(String contentType) {
+    Validate.isTrue(MediaType.parse(contentType) != null,
+        "contentType is not a valid mime audio format. Valid formats start with 'audio/'");
     this.contentType = contentType;
     return this;
   }

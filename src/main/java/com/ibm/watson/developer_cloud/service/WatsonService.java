@@ -26,12 +26,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
+import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.BluemixUtils;
 import com.ibm.watson.developer_cloud.util.RequestUtil;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.Headers;
+import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Request.Builder;
@@ -69,9 +71,9 @@ public abstract class WatsonService {
 
 
   /**
-   * Configure HTTP client.
+   * Configures the HTTP client.
    * 
-   * @return the okhttp client
+   * @return the HTTP client
    */
   protected OkHttpClient configureHttpClient() {
     final OkHttpClient client = new OkHttpClient();
@@ -147,6 +149,8 @@ public abstract class WatsonService {
       case HttpStatus.NOT_ACCEPTABLE: // HTTP 406
         throw new ForbiddenException(error != null ? error
             : "Forbidden: Service refuse the request", response);
+      case HttpStatus.CONFLICT: // HTTP 409
+        throw new ConflictException(error != null ? error : "", response);
       case HttpStatus.REQUEST_TOO_LONG: // HTTP 413
         throw new RequestTooLargeException(error != null ? error
             : "Request too large: The request entity is larger than the server is able to process",
@@ -214,6 +218,20 @@ public abstract class WatsonService {
    */
   public String getEndPoint() {
     return endPoint;
+  }
+
+  /**
+   * Gets an authorization token that can be use to authorize API calls.
+   * 
+   * 
+   * @return the token
+   */
+  public String getToken() {
+    HttpUrl url =
+        HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, "authorization").build();
+    Request request = RequestBuilder.get(url + "/v1/token").withQuery("url", getEndPoint()).build();
+    Response response = execute(request);
+    return ResponseUtil.getJsonObject(response).get("token").getAsString();
   }
 
   /**
