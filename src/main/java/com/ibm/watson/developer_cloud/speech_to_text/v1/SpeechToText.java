@@ -291,7 +291,7 @@ public class SpeechToText extends WatsonService {
    * @param audio the audio file
    * @param contentType the media type of the audio.
    * @return the {@link SpeechResults}
-   * @deprecated Deprecated in 2.5.0<br>
+   * @deprecated Deprecated in 2.6.0<br>
    *             Use {@link SpeechToText#recognize(File, RecognizeOptions)}
    * 
    */
@@ -308,7 +308,7 @@ public class SpeechToText extends WatsonService {
    * 
    * @param options the {@link RecognizeOptions}
    * @return the {@link SpeechResults}
-   * @deprecated Deprecated in 2.5.0<br>
+   * @deprecated Deprecated in 2.6.0<br>
    *             Use {@link SpeechToText#recognize(File, RecognizeOptions)}
    */
   public SpeechResults recognize(File audio, String contentType, RecognizeOptions options) {
@@ -353,7 +353,8 @@ public class SpeechToText extends WatsonService {
     Validate.notNull(delegate, "delegate cannot be null");
 
     String url = getEndPoint().replaceFirst("(https|http)", "wss");
-    WebSocketSpeechToTextClient webSocket = new WebSocketSpeechToTextClient(url + PATH_RECOGNIZE, getToken());
+    WebSocketSpeechToTextClient webSocket =
+        new WebSocketSpeechToTextClient(url + PATH_RECOGNIZE, getToken());
     webSocket.recognize(audio, options, delegate);
   }
 }

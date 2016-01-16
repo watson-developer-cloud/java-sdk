@@ -221,7 +221,7 @@ public class WebSocketSpeechToTextClient {
       else
         ws.sendBinary(Arrays.copyOfRange(buffer, 0, read));
 
-      Thread.sleep(5);
+      Thread.sleep(10);
     }
 
     stream.close();
