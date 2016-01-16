@@ -13,12 +13,17 @@
  */
 package com.ibm.watson.developer_cloud;
 
+import static org.junit.Assert.fail;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,6 +40,9 @@ public abstract class WatsonServiceTest {
 
   private static final Logger log = Logger.getLogger(WatsonServiceTest.class.getName());
 
+  /**
+   * Instantiates a new watson service test.
+   */
   public WatsonServiceTest() {
     if (prop == null)
       loadProperties();
@@ -128,8 +136,8 @@ public abstract class WatsonServiceTest {
   }
 
   /**
-   * Gets the existing property if exists, otherwise it returns the defaultValue
-   * 
+   * Gets the existing property if exists, otherwise it returns the defaultValue.
+   *
    * @param property the property
    * @param defaultValue the default value
    * @return the existing property
@@ -183,6 +191,34 @@ public abstract class WatsonServiceTest {
   }
 
   /**
+   * Write input stream to file.
+   * 
+   * @param inputStream the input stream
+   * @param audio the audio
+   */
+  public static void writeInputStreamToFile(InputStream inputStream, File audio) {
+    OutputStream outStream = null;
+    try {
+      outStream = new FileOutputStream(audio);
+
+      byte[] buffer = new byte[8 * 1024];
+      int bytesRead;
+      while ((bytesRead = inputStream.read(buffer)) != -1) {
+        outStream.write(buffer, 0, bytesRead);
+      }
+    } catch (Exception e) {
+      fail();
+    } finally {
+      try {
+        inputStream.close();
+        outStream.close();
+      } catch (Exception e) {
+        fail();
+      }
+    }
+  }
+
+  /**
    * Loads fixture.
    * 
    * @param <T> the return type
@@ -197,6 +233,11 @@ public abstract class WatsonServiceTest {
     return GsonSingleton.getGson().fromJson(jsonString, returnType);
   }
 
+  /**
+   * Sets the up.
+   *
+   * @throws Exception the exception
+   */
   public void setUp() throws Exception {}
 
 }

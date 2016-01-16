@@ -70,13 +70,23 @@ public class ConceptExpansion extends WatsonService {
   /**
    * Creates a {@link Job}.
    * 
+   * @param seeds List of terms to be used as seeds
+   * 
+   * @return the {@link Job}
+   */
+  public Job createJob(final String[] seeds) {
+    return createJob(null, seeds);
+  }
+
+  /**
+   * Creates a {@link Job}.
+   * 
    * @param label A conceptual classification of the seed terms.
    * @param seeds List of terms to be used as seeds
    * 
    * @return the {@link Job}
    */
   public Job createJob(final String label, final String[] seeds) {
-    Validate.notEmpty(label, "label cannot be null or empty");
     Validate.notEmpty(seeds, "seeds cannot be null or empty");
     Validate.notNull(dataset, "dataset cannot be null");
 

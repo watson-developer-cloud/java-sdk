@@ -67,4 +67,13 @@ public class SpeechResults extends GenericModel {
     this.results = results;
   }
 
+  /**
+   * Returns <code>true</code> if the results are final
+   * 
+   * @return true, if the results are final
+   */
+  public boolean isFinal() {
+    return (results != null && results.get(resultIndex) != null && results.get(resultIndex)
+        .isFinal());
+  }
 }

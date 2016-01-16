@@ -27,16 +27,14 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1;
  * the License.
  */
 
-import static org.junit.Assert.fail;
-
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -44,6 +42,7 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 
 /**
  * The Class TextToSpeechIntegrationTest.
@@ -67,52 +66,44 @@ public class TextToSpeechIT extends WatsonServiceTest {
     service.setEndPoint(prop.getProperty("text_to_speech.url"));
   }
 
-  /**
-   * Synthesize.
-   * 
-   * @param text the text
-   * @param audio the audio
-   */
-  private void synthesize(String text, File audio) {
-    final InputStream is = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV);
-    Assert.assertNotNull(is);
-    OutputStream outStream = null;
-    try {
-      outStream = new FileOutputStream(audio);
 
-      final byte[] buffer = new byte[8 * 1024];
-      int bytesRead;
-      while ((bytesRead = is.read(buffer)) != -1) {
-        outStream.write(buffer, 0, bytesRead);
-      }
-    } catch (final Exception e) {
-      fail();
-    } finally {
-      IOUtils.closeQuietly(is);
-      IOUtils.closeQuietly(outStream);
-    }
-  }
 
   /**
    * Test get voices.
    */
   @Test
   public void testGetVoices() {
-    final List<Voice> voices = service.getVoices();
+    List<Voice> voices = service.getVoices();
     Assert.assertNotNull(voices);
     Assert.assertTrue(!voices.isEmpty());
   }
 
   /**
-   * Test synthesize.
+   * Synthesize text and write it to a temporary file
    * 
    * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
   public void testSynthesize() throws IOException {
-    final String text = "This is an integration test";
-    final File audio = File.createTempFile("tts-audio", "wav");
+    String text = "This is an integration test";
+    InputStream result = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV);
+    writeInputStreamToFile(result, File.createTempFile("tts-audio", "wav"));
+  }
 
-    synthesize(text, audio);
+  /**
+   * Test the fix wave header not having the size due to be streamed.
+   * 
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws UnsupportedAudioFileException the unsupported audio file exception
+   */
+  @Test
+  public void testSynthesizeAndFixHeader() throws IOException, UnsupportedAudioFileException {
+    String text = "one two three four five";
+    InputStream result = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV);
+    Assert.assertNotNull(result);
+    result = WaveUtils.reWriteWaveHeader(result);
+    File tempFile = File.createTempFile("output", ".wav");
+    writeInputStreamToFile(result, tempFile);
+    Assert.assertNotNull(AudioSystem.getAudioFileFormat(tempFile));
   }
 }

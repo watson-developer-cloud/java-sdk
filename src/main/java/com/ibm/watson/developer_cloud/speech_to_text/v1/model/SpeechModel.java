@@ -17,12 +17,15 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Class SpeechModel.
+ * Speech model
  */
 public class SpeechModel extends GenericModel {
 
   /** US English broadband model (16KHz). */
   public static final SpeechModel EN_BROADBAND16K = new SpeechModel("en-US_BroadbandModel");
+
+  /** US English narrowband model (8KHz). */
+  public static final SpeechModel EN_NARROWBAND8K = new SpeechModel("en-US_NarrowbandModel");
 
   /** Spanish broadband model (16KHz). */
   public static final SpeechModel ES_BROADBAND16K = new SpeechModel("es-ES_BroadbandModel");

@@ -14,6 +14,7 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 import com.google.gson.JsonObject;
@@ -26,6 +27,8 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModelSet;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeDelegate;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.WebSocketSpeechToTextClient;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
@@ -60,6 +63,9 @@ public class SpeechToText extends WatsonService {
   private final static String URL = "https://stream.watsonplatform.net/speech-to-text/api";
   private static final String WORD_CONFIDENCE = "word_confidence";
   private static final String SESSION = "session";
+  private static final String KEYWORDS_THRESHOLD = "keywords_threshold";
+  private static final String WORD_ALTERNATIVES_THRESHOLD = "word_alternatives_threshold";
+  private static final String KEYWORDS = "keywords";
 
   /**
    * Instantiates a new speech to text.
@@ -96,6 +102,15 @@ public class SpeechToText extends WatsonService {
 
     if (options.getModel() != null)
       requestBuilder.withQuery(MODEL, options.getModel());
+
+    if (options.getKeywordsThreshold() != null)
+      requestBuilder.withQuery(KEYWORDS_THRESHOLD, options.getKeywordsThreshold());
+
+    if (options.getKeywords() != null && options.getKeywords().length > 0)
+      requestBuilder.withQuery(KEYWORDS, GsonSingleton.getGson().toJson(options.getKeywords()));
+
+    if (options.getWordAlternativesThreshold() != null)
+      requestBuilder.withQuery(WORD_ALTERNATIVES_THRESHOLD, options.getWordAlternativesThreshold());
   }
 
   /**
@@ -209,24 +224,76 @@ public class SpeechToText extends WatsonService {
 
   /**
    * Recognizes an audio file and returns {@link SpeechResults}. It will try to recognize the audio
-   * format based on the file extension.
+   * format based on the file extension.<br>
+   * Here is an example of how to recognize an audio file:
+   * 
+   * <pre>
+   * SpeechToText service = new SpeechToText();
+   * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
+   * service.setEndPoint(&quot;SERVICE_URL&quot;);
+   * 
+   * SpeechResults results = service.recognize(new File(&quot;sample1.wav&quot;));
+   * System.out.println(results);
+   * </pre>
    * 
    * @param audio the audio file
    * @return the {@link SpeechResults}
+   * @throws IllegalArgumentException if the file extension doesn't match a valid audio type
    */
   public SpeechResults recognize(File audio) {
+    return recognize(audio, (RecognizeOptions) null);
+  }
+
+  /**
+   * Recognizes an audio file and returns {@link SpeechResults}.<br>
+   * <br>
+   * Here is an example of how to recognize an audio file:
+   * 
+   * <pre>
+   * SpeechToText service = new SpeechToText();
+   * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
+   * service.setEndPoint(&quot;SERVICE_URL&quot;);
+   * 
+   * RecognizeOptions options = new RecognizeOptions().maxAlternatives(3).continuous(true);
+   * 
+   * SpeechResults results = service.recognize(new File(&quot;sample1.wav&quot;), options);
+   * System.out.println(results);
+   * </pre>
+   * 
+   * @param audio the audio
+   * @param options the options
+   * @return the speech results
+   */
+  public SpeechResults recognize(File audio, RecognizeOptions options) {
+    Validate.isTrue(audio != null && audio.exists(), "audio file is null or does not exist");
+
+    final double fileSize = audio.length() / Math.pow(1024, 2);
+    Validate.isTrue(fileSize < 100.0, "The audio file is greater than 100MB.");
+
     String contentType = MediaTypeUtils.getMediaTypeFromFile(audio);
-    Validate.notNull(contentType, "Audio format cannot be recognized");
-    return recognize(audio, contentType, null);
+    if (options != null && options.getContentType() != null)
+      contentType = options.getContentType();
+    Validate.notNull(contentType, "The audio format cannot be recognized");
+
+    String path = PATH_RECOGNIZE;
+    if (options != null && (options.getSessionId() != null && !options.getSessionId().isEmpty()))
+      path = String.format(PATH_SESSION_RECOGNIZE, options.getSessionId());
+
+    final RequestBuilder requestBuilder = RequestBuilder.post(path);
+    buildRecognizeRequest(requestBuilder, options);
+    requestBuilder.withBody(RequestBody.create(MediaType.parse(contentType), audio));
+    return executeRequest(requestBuilder.build(), SpeechResults.class);
   }
 
   /**
    * Recognizes an audio file and returns {@link SpeechResults}.
    * 
    * @param audio the audio file
-   * @param contentType the media type of the audio. If you use the audio/l16 MIME type, specify the
-   *        rate and channels.
+   * @param contentType the media type of the audio.
    * @return the {@link SpeechResults}
+   * @deprecated Deprecated in 2.6.0<br>
+   *             Use {@link SpeechToText#recognize(File, RecognizeOptions)}
+   * 
    */
   public SpeechResults recognize(File audio, String contentType) {
     return recognize(audio, contentType, null);
@@ -238,28 +305,56 @@ public class SpeechToText extends WatsonService {
    * @param audio the audio file
    * @param contentType the media type of the audio. If you use the audio/l16 MIME type, specify the
    *        rate and channels.
+   * 
    * @param options the {@link RecognizeOptions}
    * @return the {@link SpeechResults}
+   * @deprecated Deprecated in 2.6.0<br>
+   *             Use {@link SpeechToText#recognize(File, RecognizeOptions)}
    */
   public SpeechResults recognize(File audio, String contentType, RecognizeOptions options) {
-    Validate.isTrue(audio != null && audio.exists(), "audio file is null or does not exist");
-    Validate.isTrue(audio != null && audio.exists(), "audio file is null or does not exist");
+    RecognizeOptions opt = options;
+    if (opt == null)
+      opt = new RecognizeOptions().contentType(contentType);
 
-    Validate.isTrue((audio.length() / (1024 * 1024)) < 100.0,
-        "The audio file is greater than 100MB.");
+    return recognize(audio, opt);
+  }
 
-    Validate.isTrue(MediaType.parse(contentType) != null,
-        "contentType is not a valid mime audio format. Valid formats start with 'audio/'");
+  /**
+   * Recognizes an audio {@link InputStream} using WebSockets. The {@link RecognizeDelegate}
+   * instance will be called every time the service sends {@link SpeechResults}.<br>
+   * <br>
+   * 
+   * Here is an example of how to recognize an audio file using WebSockets and get interim results:
+   * 
+   * <pre>
+   * SpeechToText service = new SpeechToText();
+   * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
+   * service.setEndPoint(&quot;SERVICE_URL&quot;);
+   * 
+   * RecognizeOptions options = new RecognizeOptions().continuous(true).interimResults(true);
+   * 
+   * service.recognizeWS(new FileInputStream(&quot;sample1.wav&quot;), options, new BaseRecognizeDelegate() {
+   *   &#064;Override
+   *   public void onMessage(SpeechResults speechResults) {
+   *     System.out.println(speechResults);
+   *   }
+   * });
+   * </pre>
+   * 
+   * @param audio the audio input stream
+   * @param options the recognize options
+   * @param delegate the delegate
+   */
+  public void recognizeUsingWebSockets(InputStream audio, RecognizeOptions options,
+      RecognizeDelegate delegate) {
+    Validate.notNull(audio, "audio cannot be null");
+    Validate.notNull(options, "options cannot be null");
+    Validate.notNull(options.getContentType(), "options.contentType cannot be null");
+    Validate.notNull(delegate, "delegate cannot be null");
 
-    String path = PATH_RECOGNIZE;
-    if (options != null && (options.getSessionId() != null && !options.getSessionId().isEmpty()))
-      path = String.format(PATH_SESSION_RECOGNIZE, options.getSessionId());
-
-    final RequestBuilder requestBuilder = RequestBuilder.post(path);
-
-    buildRecognizeRequest(requestBuilder, options);
-
-    requestBuilder.withBody(RequestBody.create(MediaType.parse(contentType), audio));
-    return executeRequest(requestBuilder.build(), SpeechResults.class);
+    String url = getEndPoint().replaceFirst("(https|http)", "wss");
+    WebSocketSpeechToTextClient webSocket =
+        new WebSocketSpeechToTextClient(url + PATH_RECOGNIZE, getToken());
+    webSocket.recognize(audio, options, delegate);
   }
 }
