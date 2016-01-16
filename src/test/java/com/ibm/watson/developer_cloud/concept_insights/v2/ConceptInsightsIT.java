@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -316,8 +317,9 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateAndDeleteCorpus() {
+    final String name = UUID.randomUUID().toString();
     final Account account = service.getAccountsInfo().getAccounts().get(0);
-    Corpus corpus = new Corpus(account.getId(), "integration-test-corpus");
+    Corpus corpus = new Corpus(account.getId(), name);
     try {
       service.createCorpus(corpus);
       corpus = service.getCorpus(corpus);
