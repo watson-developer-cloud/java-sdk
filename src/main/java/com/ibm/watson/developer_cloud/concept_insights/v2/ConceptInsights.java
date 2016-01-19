@@ -576,7 +576,7 @@ public class ConceptInsights extends WatsonService {
   }
 
   /**
-   * Retrieves concepts that are related (in conceptual sense) to a given document.
+   * Returns a list of scores that denotes how related a document is to a list of concepts.
    * 
    * @param document Document the document object,
    * @param concepts the concepts
