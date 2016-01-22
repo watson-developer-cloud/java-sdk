@@ -139,6 +139,15 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   }
 
   /**
+   * Test service conflict exception.
+   */
+  @Test(expected = ConflictException.class)
+  public void testConflictException() {
+    mockAPICallWithError(409, "Conflict Exception");
+    service.getProfile(sampleText);
+  }
+
+  /**
    * Test too many requests exception.
    */
   @Test(expected = TooManyRequestsException.class)
