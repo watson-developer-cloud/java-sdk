@@ -1,5 +1,5 @@
 # Watson Developer Cloud Java SDK
-[![Build Status](https://secure.travis-ci.org/watson-developer-cloud/java-sdk.svg)](http://travis-ci.org/watson-developer-cloud/java-sdk)
+[![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![Coverage Status](https://coveralls.io/repos/watson-developer-cloud/java-sdk/badge.svg)](https://coveralls.io/github/watson-developer-cloud/java-sdk)
 
