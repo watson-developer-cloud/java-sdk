@@ -13,6 +13,8 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
+import java.util.Date;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -22,17 +24,22 @@ import com.google.gson.GsonBuilder;
  */
 public class GsonSingleton {
 
-  private static final String DATE_FORMAT_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS";
   private static Gson gson;
 
   /**
    * Creates a {@link com.google.gson.Gson} object that can be use to serialize and deserialize Java
-   * objects}
+   * objects
    * 
-   * @return the Gson
+   * @return the {@link Gson}
    */
   private static Gson createGson() {
-    return new GsonBuilder().setPrettyPrinting().setDateFormat(DATE_FORMAT_UTC).create();
+    GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
+
+    // Date serializer and deserializer
+    builder.registerTypeAdapter(Date.class, new DateDeserializer());
+    builder.registerTypeAdapter(Date.class, new DateSerializer());
+
+    return builder.create();
   }
 
   /**
