@@ -12,7 +12,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeD
 /**
  * Recognize using WebSockets a sample wav file and print the transcript into the console output.
  */
-public class RecognizeUsingWebSockets {
+public class RecognizeUsingWebSocketsExample {
   private static CountDownLatch lock = new CountDownLatch(1);
 
   public static void main(String[] args) throws FileNotFoundException, InterruptedException {

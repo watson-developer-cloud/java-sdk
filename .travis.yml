@@ -9,6 +9,7 @@ cache:
   directories:
   - $HOME/.m2/repository
 before_install:
+- pip install --user codecov
 - openssl aes-256-cbc -K $encrypted_a973fe4f8e79_key -iv $encrypted_a973fe4f8e79_iv
   -in config.properties.enc -out src/test/resources/config.properties -d
 notifications:
@@ -17,5 +18,6 @@ env:
   global:
   - secure: VvKBWj1OCu7SH+utwqe7kdli0N7jTYQ7D/citdFIV0cDjpcX3MwxfPcIeMvOuWLgJKaOSD4xnG9pOgMoLMMCGcsCHa2bqx78clA8t4sV7I0sx8pSN2Iuj/wQJvNV3/uEETC84+P9hKIt+o8JZqhgC1GEpz5fbyKyUIlRkspW1WQ=
 after_success:
+- codecov
 - mvn javadoc:javadoc
 - .utility/push-javadoc-to-gh-pages.sh
