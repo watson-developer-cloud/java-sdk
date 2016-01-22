@@ -28,7 +28,7 @@ import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.BluemixUtils;
+import com.ibm.watson.developer_cloud.util.CredentialUtils;
 import com.ibm.watson.developer_cloud.util.RequestUtil;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.squareup.okhttp.Credentials;
@@ -65,7 +65,7 @@ public abstract class WatsonService {
    */
   public WatsonService(String name) {
     this.name = name;
-    this.apiKey = BluemixUtils.getAPIKey(name);
+    this.apiKey = CredentialUtils.getAPIKey(name);
     this.client = configureHttpClient();
   }
 
@@ -285,7 +285,7 @@ public abstract class WatsonService {
    * @return the user agent
    */
   private final String getUserAgent() {
-    return "watson-developer-cloud-java-sdk-2.6.0";
+    return "watson-developer-cloud-java-sdk-2.7.0";
   }
 
   /**

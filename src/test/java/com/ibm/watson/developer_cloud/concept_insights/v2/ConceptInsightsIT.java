@@ -144,9 +144,9 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     final RequestedFields fs = new RequestedFields();
     fs.include("abstract");
     params.put("concept_fields", fs);
-    final Concepts concepts = service.getConceptRelatedConcepts(EXAMPLE_CONCEPT, params);
+    Concepts concepts = service.getConceptRelatedConcepts(EXAMPLE_CONCEPT, params);
     Assert.assertNotNull(concepts);
-
+    Assert.assertNotNull(concepts.getConcepts().get(0).getConcept().getAbstract());
   }
 
   /**
@@ -295,10 +295,15 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     params.put(ConceptInsights.LEVEL, 1);
     final RequestedFields fs = new RequestedFields();
     fs.include("abstract");
-    params.put("concept_fields", fs);
-    final Concepts conceptResults =
-        service.getGraphRelatedConcepts(Graph.WIKIPEDIA, concepts, params);
+    fs.include("link");
+    fs.include("name");
+    params.put(ConceptInsights.CONCEPT_FIELDS, fs);
+    Concepts conceptResults = service.getGraphRelatedConcepts(Graph.WIKIPEDIA, concepts, params);
     Assert.assertNotNull(conceptResults);
+    Assert.assertTrue(!conceptResults.getConcepts().isEmpty());
+    Assert.assertNotNull(conceptResults.getConcepts().get(0).getConcept().getAbstract());
+
+
   }
 
   /**
@@ -347,6 +352,8 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     final Matches matches = service.searchGraphsConceptByLabel(Graph.WIKIPEDIA, params);
     Assert.assertNotNull(matches);
     Assert.assertFalse(matches.getMatches().isEmpty());
+    Assert.assertNotNull(matches.getMatches().get(0).getAbstract());
+
   }
 
   /**

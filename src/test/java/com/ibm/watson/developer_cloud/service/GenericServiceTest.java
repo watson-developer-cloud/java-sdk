@@ -139,6 +139,15 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   }
 
   /**
+   * Test service conflict exception.
+   */
+  @Test(expected = ConflictException.class)
+  public void testConflictException() {
+    mockAPICallWithError(409, "Conflict Exception");
+    service.getProfile(sampleText);
+  }
+
+  /**
    * Test too many requests exception.
    */
   @Test(expected = TooManyRequestsException.class)
@@ -170,7 +179,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     mockAPICall();
     service.getProfile(sampleText);
     mockServer.verify(new HttpRequest().withMethod("POST").withHeader(
-        new Header(HttpHeaders.USER_AGENT, "watson-developer-cloud-java-sdk-2.6.0")));
+        new Header(HttpHeaders.USER_AGENT, "watson-developer-cloud-java-sdk-2.7.0")));
   }
 
   @Test

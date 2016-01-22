@@ -24,9 +24,9 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 
 /**
- * The Class BluemixUtilsTest.
+ * The Class CredentialUtilsTest.
  */
-public class BluemixUtilsTest extends WatsonServiceTest {
+public class CredentialUtilsTest extends WatsonServiceTest {
 
   /** The Constant API_KEY_FREE. */
   private static final String API_KEY_FREE =
@@ -48,7 +48,7 @@ public class BluemixUtilsTest extends WatsonServiceTest {
   public void setup() {
     final InputStream in = this.getClass().getClassLoader().getResourceAsStream(VCAP_SERVICES);
     final String vcapServices = getStringFromInputStream(in);
-    BluemixUtils.setServices(vcapServices);
+    CredentialUtils.setServices(vcapServices);
   }
 
   /**
@@ -57,11 +57,11 @@ public class BluemixUtilsTest extends WatsonServiceTest {
    */
   @Test
   public void testGetAPIKeyWithNullOrEmptyService() {
-    assertNull(BluemixUtils.getAPIKey(null, null));
-    assertNull(BluemixUtils.getAPIKey("", ""));
+    assertNull(CredentialUtils.getAPIKey(null, null));
+    assertNull(CredentialUtils.getAPIKey("", ""));
 
-    assertEquals(API_KEY_FREE, BluemixUtils.getAPIKey(SERVICE_NAME, null));
-    assertEquals(API_KEY_FREE, BluemixUtils.getAPIKey(SERVICE_NAME, BluemixUtils.PLAN_FREE));
-    assertEquals(API_KEY_STANDARD, BluemixUtils.getAPIKey(SERVICE_NAME, BluemixUtils.PLAN_STANDARD));
+    assertEquals(API_KEY_FREE, CredentialUtils.getAPIKey(SERVICE_NAME, null));
+    assertEquals(API_KEY_FREE, CredentialUtils.getAPIKey(SERVICE_NAME, CredentialUtils.PLAN_FREE));
+    assertEquals(API_KEY_STANDARD, CredentialUtils.getAPIKey(SERVICE_NAME, CredentialUtils.PLAN_STANDARD));
   }
 }

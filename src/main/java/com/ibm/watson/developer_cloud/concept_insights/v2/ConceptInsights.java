@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -263,13 +264,13 @@ public class ConceptInsights extends WatsonService {
     if (parameters.get(CONCEPT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
       if (fields != null && !fields.isEmpty())
-        queryParams.put(CONCEPT_FIELDS, fields.toString());
+        queryParams.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
 
     if (parameters.get(DOCUMENT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(DOCUMENT_FIELDS);
       if (fields != null && !fields.isEmpty())
-        queryParams.put(DOCUMENT_FIELDS, fields.toString());
+        queryParams.put(DOCUMENT_FIELDS, toJson(fields.getFields()));
     }
 
     return executeRequest(API_VERSION + corpusId + CONCEPTUAL_SEARCH_PATH, queryParams,
@@ -412,7 +413,7 @@ public class ConceptInsights extends WatsonService {
     if (parameters.get(CONCEPT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
       if (fields != null && !fields.isEmpty())
-        queryParameters.put(CONCEPT_FIELDS, fields.toString());
+        queryParameters.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
     return executeRequest(API_VERSION + conceptId + RELATED_CONCEPTS_PATH, queryParameters,
         Concepts.class);
@@ -467,7 +468,7 @@ public class ConceptInsights extends WatsonService {
     if (parameters.get(CONCEPT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
       if (fields != null && !fields.isEmpty())
-        queryParameters.put(CONCEPT_FIELDS, fields.toString());
+        queryParameters.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
     return executeRequest(API_VERSION + corpusId + RELATED_CONCEPTS_PATH, queryParameters,
         Concepts.class);
@@ -569,14 +570,14 @@ public class ConceptInsights extends WatsonService {
     if (parameters.get(CONCEPT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
       if (fields != null && !fields.isEmpty())
-        queryParams.put(CONCEPT_FIELDS, fields.toString());
+        queryParams.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
     return executeRequest(API_VERSION + documentId + RELATED_CONCEPTS_PATH, queryParams,
         Concepts.class);
   }
 
   /**
-   * Retrieves concepts that are related (in conceptual sense) to a given document.
+   * Returns a list of scores that denotes how related a document is to a list of concepts.
    * 
    * @param document Document the document object,
    * @param concepts the concepts
@@ -629,7 +630,7 @@ public class ConceptInsights extends WatsonService {
     if (parameters.get(CONCEPT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
       if (fields != null && !fields.isEmpty())
-        queryParameters.put(CONCEPT_FIELDS, fields.toString());
+        queryParameters.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
     final JsonObject contentJson = new JsonObject();
     final JsonArray conceptsJson = new JsonArray();
@@ -640,6 +641,17 @@ public class ConceptInsights extends WatsonService {
     queryParameters.put(CONCEPTS, conceptsJson.toString());
     return executeRequest(API_VERSION + graphId + RELATED_CONCEPTS_PATH, queryParameters,
         Concepts.class);
+  }
+
+  /**
+   * Returns the JSON representation of @param object This method is being use to transform into
+   * JSON query parameters for some of the {@link ConceptInsights} calls
+   * 
+   * @param object the object to transform
+   * @return the JSON representation of the object
+   */
+  private String toJson(Object object) {
+    return new Gson().toJson(object);
   }
 
   /**
@@ -767,13 +779,13 @@ public class ConceptInsights extends WatsonService {
     if (parameters.get(CONCEPT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
       if (fields != null && !fields.isEmpty())
-        queryParameters.put(CONCEPT_FIELDS, fields.toString());
+        queryParameters.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
 
     if (parameters.get(DOCUMENT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(DOCUMENT_FIELDS);
       if (fields != null && !fields.isEmpty())
-        queryParameters.put(DOCUMENT_FIELDS, fields.toString());
+        queryParameters.put(DOCUMENT_FIELDS, toJson(fields.getFields()));
     }
     return executeRequest(API_VERSION + corpusId + LABEL_SEARCH_PATH, queryParameters,
         Matches.class);
@@ -810,7 +822,7 @@ public class ConceptInsights extends WatsonService {
     if (parameters.get(CONCEPT_FIELDS) != null) {
       final RequestedFields fields = (RequestedFields) parameters.get(CONCEPT_FIELDS);
       if (fields != null && !fields.isEmpty())
-        queryParameters.put(CONCEPT_FIELDS, fields.toString());
+        queryParameters.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
     return executeRequest(API_VERSION + graphId + LABEL_SEARCH_PATH, queryParameters, Matches.class);
   }

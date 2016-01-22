@@ -17,6 +17,10 @@ import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -25,9 +29,9 @@ import com.google.gson.JsonSyntaxException;
 import com.squareup.okhttp.Credentials;
 
 /**
- * The Class BluemixUtils.
+ * The Class CredentialUtils.
  */
-public class BluemixUtils {
+public class CredentialUtils {
 
   /** The Constant ALCHEMY_API. */
   private static final String ALCHEMY_API = "alchemy_api";
@@ -39,7 +43,7 @@ public class BluemixUtils {
   private static final String CREDENTIALS = "credentials";
 
   /** The Constant log. */
-  private static final Logger log = Logger.getLogger(BluemixUtils.class.getName());
+  private static final Logger log = Logger.getLogger(CredentialUtils.class.getName());
 
   /** The Constant PASSWORD. */
   private static final String PASSWORD = "password";
@@ -86,7 +90,7 @@ public class BluemixUtils {
 
     final JsonObject services = getVCAPServices();
     if (services == null)
-      return null;
+      return getKeyUsingJNDI(serviceName);
 
     for (final Entry<String, JsonElement> entry : services.entrySet()) {
       final String key = entry.getKey();
@@ -111,6 +115,22 @@ public class BluemixUtils {
     return null;
   }
 
+  /**
+   * Attempt to get the Base64-encoded API key through JNDI
+   * @param serviceName Name of the bluemix service
+   * @return The encoded API Key
+   */
+  private static String getKeyUsingJNDI(String serviceName){
+    try{
+      Context context = new InitialContext();
+      String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
+      String apiKey = (String) context.lookup(lookupName);
+      return apiKey;
+    }catch(NamingException e){
+      //ignore
+      return null;
+    }
+  }
   /**
    * Gets the <b>VCAP_SERVICES</b> environment variable and return it as a {@link JsonObject}.
    * 
@@ -138,6 +158,6 @@ public class BluemixUtils {
    * @param services the VCAP_SERVICES
    */
   public static void setServices(String services) {
-    BluemixUtils.services = services;
+    CredentialUtils.services = services;
   }
 }
