@@ -25,14 +25,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Matches extends GenericModel {
 
   /** The matches. */
-  private List<Match> matches;
+  private List<Concept> matches;
 
   /**
    * Gets the matches.
    * 
    * @return The matches
    */
-  public List<Match> getMatches() {
+  public List<Concept> getMatches() {
     return matches;
   }
 
@@ -41,7 +41,7 @@ public class Matches extends GenericModel {
    * 
    * @param matches The matches
    */
-  public void setMatches(List<Match> matches) {
+  public void setMatches(List<Concept> matches) {
     this.matches = matches;
   }
 }
