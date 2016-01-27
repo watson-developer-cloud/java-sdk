@@ -72,10 +72,10 @@ public class IDHelper {
    * generated it.
    * 
    * @param corpus Corpus the corpus object,
-   * @param accoundId String the account id.
+   * @param accountId String the account id.
    * @return the corpus id
    */
-  public static String getCorpusId(final Corpus corpus, final String accoundId) {
+  public static String getCorpusId(final Corpus corpus, final String accountId) {
     Validate.notNull(corpus, "corpus cannot be null");
     if (corpus.getId() != null) {
       validate(CORPUS_ID_REGEX, corpus.getId(), "Provide a valid corpus.id (format is " + '"'
@@ -83,7 +83,7 @@ public class IDHelper {
       return corpus.getId();
     } else {
       Validate.notNull(corpus.getName(), "corpus.name cannot be null");
-      return "/corpora/" + accoundId + "/" + corpus.getName();
+      return "/corpora/" + accountId + "/" + corpus.getName();
     }
   }
 
@@ -107,10 +107,10 @@ public class IDHelper {
    * generated it.
    * 
    * @param graph Graph the graph object,
-   * @param accoundId String the account id.
+   * @param accountId String the account id.
    * @return the graph id
    */
-  public static String getGraphId(final Graph graph, final String accoundId) {
+  public static String getGraphId(final Graph graph, final String accountId) {
     Validate.notNull(graph, "graph object cannot be null");
     if (graph.getId() != null) {
       validate(GRAPH_ID_REGEX, graph.getId(), "Provide a valid graph.id (format is " + '"'
@@ -118,7 +118,7 @@ public class IDHelper {
       return graph.getId();
     } else {
       Validate.notNull(graph.getName(), "graph.name cannot be null");
-      return "/graphs/" + accoundId + "/" + graph.getName();
+      return "/graphs/" + accountId + "/" + graph.getName();
     }
   }
 
