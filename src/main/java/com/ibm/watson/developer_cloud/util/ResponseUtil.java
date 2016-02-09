@@ -105,6 +105,12 @@ public class ResponseUtil {
     } catch (IOException e) {
       log.log(Level.SEVERE, ERROR_MESSAGE, e);
       throw new RuntimeException(ERROR_MESSAGE, e);
+    } finally {
+      try {
+        response.body().close();
+      } catch (IOException e) {
+        log.log(Level.SEVERE,"Error closing the HTTP Response", e);
+      }
     }
   }
 
