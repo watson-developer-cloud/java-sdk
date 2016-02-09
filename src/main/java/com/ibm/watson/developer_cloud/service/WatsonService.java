@@ -248,7 +248,7 @@ public abstract class WatsonService {
    * @return the error message from the JSON object
    */
   private String getErrorMessage(Response response) {
-    String error = ResponseUtil.getResponseString(response);
+    String error = ResponseUtil.getString(response);
     try {
 
       final JsonObject jsonObject = ResponseUtil.getJsonObject(error);
