@@ -204,8 +204,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       public void onMessage(SpeechResults speechResults) {
         if (speechResults != null && speechResults.isFinal()) {
           asyncResults = speechResults;
-          // System.out.println(speechResults);
-          lock.countDown();
+          //System.out.println(speechResults);
         }
       }
 
