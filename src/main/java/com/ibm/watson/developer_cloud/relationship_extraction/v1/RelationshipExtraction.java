@@ -38,6 +38,9 @@ public class RelationshipExtraction extends WatsonService {
 
   /** The dataset. */
   private Dataset dataset;
+  
+  /** The return type. */
+  private String rt = "xml";
 
   /**
    * Instantiates a new relationship extraction service.
@@ -73,7 +76,7 @@ public class RelationshipExtraction extends WatsonService {
 
     final Request request =
         RequestBuilder.post("/v1/sire/0")
-            .withForm("sid", dataset.getId(), "rt", "xml", "txt", text).build();
+            .withForm("sid", dataset.getId(), "rt", rt, "txt", text).build();
     final Response response = execute(request);
     return ResponseUtil.getString(response);
   }
@@ -95,6 +98,16 @@ public class RelationshipExtraction extends WatsonService {
    */
   public void setDataset(final Dataset dataset) {
     this.dataset = dataset;
+  }
+  
+  /**
+   * Sets the return type.
+   * 
+   * @param rt the new rt
+   */
+  
+  public void setReturntype(final String rt) {
+    this.rt = rt;
   }
 
 }
