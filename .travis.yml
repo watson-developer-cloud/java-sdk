@@ -9,9 +9,8 @@ cache:
   directories:
   - $HOME/.m2/repository
 before_install:
+- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_a973fe4f8e79_key -iv $encrypted_a973fe4f8e79_iv -in config.properties.enc -out src/test/resources/config.properties -d || true'
 - pip install --user codecov
-- openssl aes-256-cbc -K $encrypted_a973fe4f8e79_key -iv $encrypted_a973fe4f8e79_iv
-  -in config.properties.enc -out src/test/resources/config.properties -d
 notifications:
   email: false
 env:
