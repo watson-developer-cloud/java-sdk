@@ -117,20 +117,27 @@ public class CredentialUtils {
 
   /**
    * Attempt to get the Base64-encoded API key through JNDI
+   * 
    * @param serviceName Name of the bluemix service
    * @return The encoded API Key
    */
-  private static String getKeyUsingJNDI(String serviceName){
-    try{
-      Context context = new InitialContext();
-      String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
-      String apiKey = (String) context.lookup(lookupName);
-      return apiKey;
-    }catch(NamingException e){
-      //ignore
-      return null;
+  private static String getKeyUsingJNDI(String serviceName) {
+    try {
+      Class.forName("javax.naming.Context");
+      try {
+        Context context = new InitialContext();
+        String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
+        String apiKey = (String) context.lookup(lookupName);
+        return apiKey;
+      } catch (NamingException e) {
+        return null;
+      }
+    } catch (ClassNotFoundException exception) {
+      log.info("JNDI string lookups is not available.");
     }
+    return null;
   }
+
   /**
    * Gets the <b>VCAP_SERVICES</b> environment variable and return it as a {@link JsonObject}.
    * 
