@@ -1,4 +1,4 @@
-package com.ibm.watson.developer_cloud.relationship_extraction.rereturntype;
+package com.ibm.watson.developer_cloud.relationship_extraction.v1;
 
 public enum REReturnType {
   XML,
