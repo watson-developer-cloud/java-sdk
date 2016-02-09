@@ -91,6 +91,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new NaturalLanguageClassifier();
+    service.setDefaultHeaders(getDefaultHeaders());
     service.setUsernameAndPassword(getValidProperty("natural_language_classifier.username"),
         getValidProperty("natural_language_classifier.password"));
     service.setEndPoint(getValidProperty("natural_language_classifier.url"));

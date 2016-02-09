@@ -459,7 +459,7 @@ System.out.println(recognizedImage);
 ```
 
 ## Android
-he library supports Android 2.3 and above. For Java, the minimum requirement is 1.7.  
+The library supports Android 2.3 and above. For Java, the minimum requirement is 1.7.  
 It depends on [OkHttp][] and [gson][].
 
 

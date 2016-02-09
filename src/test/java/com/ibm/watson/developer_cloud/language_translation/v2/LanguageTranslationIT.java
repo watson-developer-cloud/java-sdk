@@ -58,6 +58,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("language_translation.username"),
         getValidProperty("language_translation.password"));
     service.setEndPoint(getValidProperty("language_translation.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
   /**
@@ -71,7 +72,10 @@ public class LanguageTranslationIT extends WatsonServiceTest {
     TranslationModel model = null;
     try {
       model = service.createModel(options);
+      Thread.sleep(3000);
       assertNotNull(model);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     } finally {
       if (model != null)
         service.deleteModel(model.getId());

@@ -52,6 +52,7 @@ public class VisualInsightsIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("visual_insights.username"),
         getValidProperty("visual_insights.password"));
     service.setEndPoint(getValidProperty("visual_insights.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
   /**

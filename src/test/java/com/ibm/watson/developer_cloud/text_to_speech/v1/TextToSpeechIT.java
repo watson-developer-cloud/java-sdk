@@ -64,6 +64,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
     service.setUsernameAndPassword(prop.getProperty("text_to_speech.username"),
         prop.getProperty("text_to_speech.password"));
     service.setEndPoint(prop.getProperty("text_to_speech.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
 

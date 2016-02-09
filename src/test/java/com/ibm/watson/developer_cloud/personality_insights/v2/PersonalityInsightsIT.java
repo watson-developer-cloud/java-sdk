@@ -48,6 +48,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("personality_insights.username"),
         getValidProperty("personality_insights.password"));
     service.setEndPoint(getValidProperty("personality_insights.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
   @Test

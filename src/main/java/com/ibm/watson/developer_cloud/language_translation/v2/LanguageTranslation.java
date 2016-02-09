@@ -39,8 +39,8 @@ import com.squareup.okhttp.RequestBody;
  * identifies the language in which text is written.
  * 
  * @version v2
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-translation.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-translation.html">
  *      Language Translation</a>
  */
 public class LanguageTranslation extends WatsonService {
@@ -68,8 +68,8 @@ public class LanguageTranslation extends WatsonService {
   /** The Constant NAME (value is "name"). */
   private static final String NAME = "name";
 
-  /** The Constant PARALLEL_CORPUS (value is "prallel_corpus"). */
-  private static final String PARALLEL_CORPUS = "prallel_corpus";
+  /** The Constant PARALLEL_CORPUS (value is "parallel_corpus"). */
+  private static final String PARALLEL_CORPUS = "parallel_corpus";
 
   /** The Constant SOURCE (value is "source"). */
   private static final String SOURCE = "source";
@@ -112,10 +112,10 @@ public class LanguageTranslation extends WatsonService {
     if (options.getForcedGlossary() != null)
       bodyBuilder.addFormDataPart(FORCED_GLOSSARY, options.getForcedGlossary().getName(),
           RequestBody.create(HttpMediaType.BINARY_FILE, options.getForcedGlossary()));
-    else if (options.getMonolingualCorpus() != null)
+    if (options.getMonolingualCorpus() != null)
       bodyBuilder.addFormDataPart(MONOLINGUAL_CORPUS, options.getMonolingualCorpus().getName(),
           RequestBody.create(HttpMediaType.BINARY_FILE, options.getMonolingualCorpus()));
-    else if (options.getParallelCorpus() != null)
+    if (options.getParallelCorpus() != null)
       bodyBuilder.addFormDataPart(PARALLEL_CORPUS, options.getParallelCorpus().getName(),
           RequestBody.create(HttpMediaType.BINARY_FILE, options.getParallelCorpus()));
 
@@ -208,9 +208,9 @@ public class LanguageTranslation extends WatsonService {
    */
   @SuppressWarnings("unchecked")
   public List<IdentifiedLanguage> identify(final String text) {
-    final Request request =
-        RequestBuilder.post(PATH_IDENTIFY).withBodyContent(text, HttpMediaType.TEXT_PLAIN)
-            .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).build();
+    final Request request = RequestBuilder.post(PATH_IDENTIFY)
+        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON)
+        .withBodyContent(text, HttpMediaType.TEXT_PLAIN).build();
 
     final LanguageList languages = executeRequest(request, LanguageList.class);
 
@@ -276,8 +276,9 @@ public class LanguageTranslation extends WatsonService {
     paragraphs.add(new JsonPrimitive(text));
     contentJson.add(TEXT, paragraphs);
 
-    final RequestBuilder requestBuilder = RequestBuilder.post(PATH_TRANSLATE);
-
+    final RequestBuilder requestBuilder = RequestBuilder.post(PATH_TRANSLATE)
+        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
+    
     if (source != null && !source.isEmpty())
       contentJson.addProperty(SOURCE, source);
 

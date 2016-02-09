@@ -148,6 +148,7 @@ public class DialogService extends WatsonService {
    * 
    * @param params the params
    * @return the {@link Conversation} with the response
+   * @deprecated Use {@link DialogService#converse(Conversation, String)}
    */
   public Conversation converse(final Map<String, Object> params) {
 

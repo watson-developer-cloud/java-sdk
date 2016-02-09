@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.squareup.okhttp.Response;
 
@@ -46,21 +47,6 @@ public class ResponseUtil {
   public static InputStream getInputStream(Response response) {
     try {
       return response.body().byteStream();
-    } catch (final IOException e) {
-      log.log(Level.SEVERE, ERROR_MESSAGE, e);
-      throw new RuntimeException(ERROR_MESSAGE, e);
-    }
-  }
-
-  /**
-   * Returns the HTTP Response as a {@link String}.
-   * 
-   * @param response an HTTP response
-   * @return the content body as String
-   */
-  public static String getResponseString(Response response) {
-    try {
-      return response.body().string();
     } catch (final IOException e) {
       log.log(Level.SEVERE, ERROR_MESSAGE, e);
       throw new RuntimeException(ERROR_MESSAGE, e);
@@ -111,10 +97,23 @@ public class ResponseUtil {
    * @return the POJO
    */
   public static <T extends GenericModel> T getObject(Response response, Class<T> type) {
-    final String jsonString = getString(response);
-    final T model = GsonSingleton.getGson().fromJson(jsonString, type);
-    return model;
+    JsonReader reader;
+    try {
+      reader = new JsonReader(response.body().charStream());
+      final T model = GsonSingleton.getGson().fromJson(reader, type);
+      return model;
+    } catch (IOException e) {
+      log.log(Level.SEVERE, ERROR_MESSAGE, e);
+      throw new RuntimeException(ERROR_MESSAGE, e);
+    } finally {
+      try {
+        response.body().close();
+      } catch (IOException e) {
+        log.log(Level.SEVERE,"Error closing the HTTP Response", e);
+      }
+    }
   }
+
 
   /**
    * Returns a String representation of the response.

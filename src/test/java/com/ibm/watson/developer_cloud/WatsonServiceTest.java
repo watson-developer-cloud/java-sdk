@@ -24,12 +24,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.slf4j.LoggerFactory;
 
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
@@ -49,6 +52,11 @@ public abstract class WatsonServiceTest {
     setupLogging();
   }
 
+  protected Map<String,String> getDefaultHeaders() {
+    Map<String,String> headers = new HashMap<String,String>();
+    headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, String.valueOf(true));
+    return headers;
+  }
   /**
    * The Class EmptyPropertyException.
    */

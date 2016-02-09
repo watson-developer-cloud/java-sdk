@@ -59,6 +59,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("speech_to_text.username"),
         getValidProperty("speech_to_text.password"));
     service.setEndPoint(getValidProperty("speech_to_text.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
   /**
@@ -203,8 +204,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       public void onMessage(SpeechResults speechResults) {
         if (speechResults != null && speechResults.isFinal()) {
           asyncResults = speechResults;
-          // System.out.println(speechResults);
-          lock.countDown();
+          //System.out.println(speechResults);
         }
       }
 

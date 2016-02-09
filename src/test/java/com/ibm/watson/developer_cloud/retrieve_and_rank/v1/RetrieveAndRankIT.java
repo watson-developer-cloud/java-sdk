@@ -63,6 +63,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("retrieve_and_rank.username"),
         getValidProperty("retrieve_and_rank.password"));
     service.setEndPoint(getValidProperty("retrieve_and_rank.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
     rankerId = getValidProperty("retrieve_and_rank.ranker_id");
     clusterId = getValidProperty("retrieve_and_rank.cluster_id");
   }

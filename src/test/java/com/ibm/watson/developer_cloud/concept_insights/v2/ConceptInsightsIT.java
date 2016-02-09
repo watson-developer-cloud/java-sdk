@@ -76,6 +76,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("concept_insights.username"),
         getValidProperty("concept_insights.password"));
     service.setEndPoint(getValidProperty("concept_insights.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
   /**

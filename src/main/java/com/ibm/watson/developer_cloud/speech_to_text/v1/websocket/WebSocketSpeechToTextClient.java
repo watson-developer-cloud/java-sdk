@@ -42,7 +42,7 @@ public class WebSocketSpeechToTextClient {
    */
   public class WebSocketListener extends WebSocketAdapter {
     private RecognizeDelegate delegate;
-
+    private boolean audioSent = false;
     /**
      * Instantiates a new WebSocket listener.
      * 
@@ -51,6 +51,7 @@ public class WebSocketSpeechToTextClient {
     public WebSocketListener(RecognizeDelegate delegate) {
       super();
       this.delegate = delegate;
+      audioSent = false;
     }
 
     /*
@@ -69,10 +70,8 @@ public class WebSocketSpeechToTextClient {
         } else if (json.has(RESULTS)) {
           SpeechResults transcript = GsonSingleton.getGson().fromJson(message, SpeechResults.class);
           delegate.onMessage(transcript);
-
-          // if final is true
-          if (transcript.isFinal())
-            websocket.disconnect();
+        } else if (audioSent) {
+          websocket.sendClose();
         }
       } catch (JsonParseException e) {
         new RuntimeException("Error parsing the incoming message: " + message);
@@ -174,7 +173,10 @@ public class WebSocketSpeechToTextClient {
 
       // 4. Send the input stream as binary data
       sendInputStream(ws, stream);
-
+      
+      // 5. Tell the listener that we sent the audio
+      listener.audioSent = true;
+      
       // 5. Send stop message
       ws.sendText(buildStopMessage());
 
@@ -221,9 +223,8 @@ public class WebSocketSpeechToTextClient {
       else
         ws.sendBinary(Arrays.copyOfRange(buffer, 0, read));
 
-      Thread.sleep(10);
+      Thread.sleep(20);
     }
-
     stream.close();
   }
 

@@ -44,7 +44,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
     service.setUsernameAndPassword(prop.getProperty("document_conversion.username"),
         prop.getProperty("document_conversion.password"));
     service.setEndPoint(prop.getProperty("document_conversion.url"));
-
+    service.setDefaultHeaders(getDefaultHeaders());
     files =
         new File[] {
             new File("src/test/resources/document_conversion/word-docx-heading-input.docx"),

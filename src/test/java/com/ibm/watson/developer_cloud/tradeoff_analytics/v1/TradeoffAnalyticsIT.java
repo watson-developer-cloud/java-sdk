@@ -54,7 +54,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("tradeoff_analytics.username"),
         getValidProperty("tradeoff_analytics.password"));
     service.setEndPoint(getValidProperty("tradeoff_analytics.url"));
-
+    service.setDefaultHeaders(getDefaultHeaders());
     problem = loadFixture("src/test/resources/tradeoff_analytics/problem.json", Problem.class);
   }
 

@@ -43,7 +43,7 @@ public class AlchemyDataNewsIT extends WatsonServiceTest {
     super.setUp();
     service = new AlchemyDataNews();
     service.setApiKey(getValidProperty("alchemy.alchemy"));
-
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
   /**

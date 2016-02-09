@@ -45,6 +45,7 @@ public class RelationshipExtractionIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("relationship_extraction.username"),
         getValidProperty("relationship_extraction.password"));
     service.setEndPoint(getValidProperty("relationship_extraction.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
   /**

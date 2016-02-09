@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<version>2.7.1-SNAPSHOT</version>
+	<version>2.7.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<artifactId>java-sdk</artifactId>
 	<name>Watson Developer Cloud Java SDK</name>
@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>com.neovisionaries</groupId>
 			<artifactId>nv-websocket-client</artifactId>
-			<version>1.19</version>
+			<version>1.21</version>
 		</dependency>
 		<!-- mockserver -->
 		<dependency>
@@ -179,10 +179,10 @@
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.7.5.201505241946</version>
 				<configuration>
-				    <excludes>
-				        <exclude>com/ibm/watson/developer_cloud/*/v*/model/**/*.class</exclude>
-				        <exclude>com/ibm/watson/developer_cloud/**/*Example.*</exclude>
-				    </excludes>
+					<excludes>
+						<exclude>com/ibm/watson/developer_cloud/*/v*/model/**/*.class</exclude>
+						<exclude>com/ibm/watson/developer_cloud/**/*Example.*</exclude>
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>
@@ -199,6 +199,26 @@
 					</execution>
 				</executions>
 			</plugin>
+<!-- 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>animal-sniffer-maven-plugin</artifactId>
+				<version>1.11</version>
+				<executions>
+					<execution>
+						<phase>test</phase>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<signature>
+						<groupId>org.codehaus.mojo.signature</groupId>
+						<artifactId>java16</artifactId>
+						<version>1.1</version>
+					</signature>
+				</configuration>
+			</plugin> -->
 		</plugins>
 		<resources>
 			<resource>
