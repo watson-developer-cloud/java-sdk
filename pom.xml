@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>com.neovisionaries</groupId>
 			<artifactId>nv-websocket-client</artifactId>
-			<version>1.19</version>
+			<version>1.21</version>
 		</dependency>
 		<!-- mockserver -->
 		<dependency>
