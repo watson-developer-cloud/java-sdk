@@ -42,6 +42,7 @@ public class ConceptExpansionIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("concept_expansion.username"),
         getValidProperty("concept_expansion.password"));
     service.setEndPoint(getValidProperty("concept_expansion.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
   /**

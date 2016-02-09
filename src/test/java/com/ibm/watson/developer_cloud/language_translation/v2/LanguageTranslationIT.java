@@ -58,6 +58,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("language_translation.username"),
         getValidProperty("language_translation.password"));
     service.setEndPoint(getValidProperty("language_translation.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
   /**

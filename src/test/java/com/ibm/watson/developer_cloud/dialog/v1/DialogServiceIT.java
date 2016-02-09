@@ -59,7 +59,7 @@ public class DialogServiceIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("dialog.username"),
         getValidProperty("dialog.password"));
     service.setEndPoint(getValidProperty("dialog.url"));
-
+    service.setDefaultHeaders(getDefaultHeaders());
     dialogId = getValidProperty("dialog.dialog_id");
   }
 

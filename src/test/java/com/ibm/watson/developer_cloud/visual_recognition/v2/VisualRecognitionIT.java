@@ -49,6 +49,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("visual_recognition.v2.username"),
         getValidProperty("visual_recognition.v2.password"));
     service.setEndPoint(getValidProperty("visual_recognition.v2.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
   }
 
   /**

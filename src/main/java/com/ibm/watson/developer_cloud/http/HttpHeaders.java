@@ -181,4 +181,8 @@ public interface HttpHeaders {
 
   /** The Authorization token header. */
   public static final String X_WATSON_AUTHORIZATION_TOKEN = "X-Watson-Authorization-Token";
+
+  /** Allow Watson to collect the payload. */
+  public static final String X_WATSON_LEARNING_OPT_OUT = "X-Watson-Learning-Opt-Out";
+  
 }

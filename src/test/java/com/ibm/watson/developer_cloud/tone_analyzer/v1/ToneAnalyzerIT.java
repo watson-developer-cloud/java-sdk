@@ -46,6 +46,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
     service.setUsernameAndPassword(getValidProperty("tone_analyzer.username"),
         getValidProperty("tone_analyzer.password"));
     service.setEndPoint(getValidProperty("tone_analyzer.url"));
+    service.setDefaultHeaders(getDefaultHeaders());
 
   }
 

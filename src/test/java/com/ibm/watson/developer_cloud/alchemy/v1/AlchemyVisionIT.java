@@ -52,6 +52,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
     super.setUp();
     service = new AlchemyVision();
     service.setApiKey(getValidProperty("alchemy.alchemy"));
+    service.setDefaultHeaders(getDefaultHeaders());
     htmlExample =
         getStringFromInputStream(new FileInputStream("src/test/resources/alchemy/example.html"));
   }
