@@ -38,6 +38,9 @@ public class RelationshipExtraction extends WatsonService {
 
   /** The dataset. */
   private Dataset dataset;
+  
+  /** The return type. */
+  private String returnType = "xml";
 
   /**
    * Instantiates a new relationship extraction service.
@@ -65,7 +68,7 @@ public class RelationshipExtraction extends WatsonService {
    * 
    * @param text the text to analyze
    * 
-   * @return the result as XML string
+   * @return the result as an XML/JSON string
    */
   public String extract(final String text) {
     Validate.notNull(dataset, "dataset cannot be null");
@@ -73,7 +76,7 @@ public class RelationshipExtraction extends WatsonService {
 
     final Request request =
         RequestBuilder.post("/v1/sire/0")
-            .withForm("sid", dataset.getId(), "rt", "xml", "txt", text).build();
+            .withForm("sid", dataset.getId(), "rt", returnType, "txt", text).build();
     final Response response = execute(request);
     return ResponseUtil.getString(response);
   }
@@ -96,5 +99,18 @@ public class RelationshipExtraction extends WatsonService {
   public void setDataset(final Dataset dataset) {
     this.dataset = dataset;
   }
+  
+  /**
+   * Sets the returnType.
+   * 
+   * @param returnType the new returnType
+   */
+  public void setReturnType(final ReturnType returnType) {
+    if (returnType == ReturnType.XML) {
+      this.returnType = "xml";
+    } else if (returnType == ReturnType.JSON) {
+      this.returnType = "json";
+    }
+  } 
 
 }
