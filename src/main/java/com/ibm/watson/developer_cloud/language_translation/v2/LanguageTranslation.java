@@ -68,8 +68,8 @@ public class LanguageTranslation extends WatsonService {
   /** The Constant NAME (value is "name"). */
   private static final String NAME = "name";
 
-  /** The Constant PARALLEL_CORPUS (value is "prallel_corpus"). */
-  private static final String PARALLEL_CORPUS = "prallel_corpus";
+  /** The Constant PARALLEL_CORPUS (value is "parallel_corpus"). */
+  private static final String PARALLEL_CORPUS = "parallel_corpus";
 
   /** The Constant SOURCE (value is "source"). */
   private static final String SOURCE = "source";
