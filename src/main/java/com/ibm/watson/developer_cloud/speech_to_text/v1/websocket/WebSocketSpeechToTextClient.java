@@ -69,10 +69,6 @@ public class WebSocketSpeechToTextClient {
         } else if (json.has(RESULTS)) {
           SpeechResults transcript = GsonSingleton.getGson().fromJson(message, SpeechResults.class);
           delegate.onMessage(transcript);
-
-          // if final is true
-          if (transcript.isFinal())
-            websocket.disconnect();
         }
       } catch (JsonParseException e) {
         new RuntimeException("Error parsing the incoming message: " + message);
