@@ -105,7 +105,7 @@ public class RelationshipExtraction extends WatsonService {
    * 
    * @param returnType the new returnType
    */
-  public void setReturnType(final REReturnType returnType) {
+  public void setReturnType(final ReturnType returnType) {
     if (returnType == REReturnType.XML) {
       this.returnType = "xml";
     } else if (returnType == REReturnType.JSON) {
