@@ -208,9 +208,11 @@ public class LanguageTranslation extends WatsonService {
    */
   @SuppressWarnings("unchecked")
   public List<IdentifiedLanguage> identify(final String text) {
-    final Request request =
-        RequestBuilder.post(PATH_IDENTIFY).withBodyContent(text, HttpMediaType.TEXT_PLAIN)
-            .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).build();
+    final Request request = RequestBuilder
+        .post(PATH_IDENTIFY)
+        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON)
+        .withBodyContent(text, HttpMediaType.TEXT_PLAIN)
+        .build();
 
     final LanguageList languages = executeRequest(request, LanguageList.class);
 

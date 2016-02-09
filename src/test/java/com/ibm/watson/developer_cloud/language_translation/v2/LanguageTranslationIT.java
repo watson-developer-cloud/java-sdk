@@ -72,7 +72,10 @@ public class LanguageTranslationIT extends WatsonServiceTest {
     TranslationModel model = null;
     try {
       model = service.createModel(options);
+      Thread.sleep(3000);
       assertNotNull(model);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
     } finally {
       if (model != null)
         service.deleteModel(model.getId());
