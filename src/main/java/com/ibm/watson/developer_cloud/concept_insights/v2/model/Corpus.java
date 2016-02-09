@@ -48,6 +48,56 @@ public class Corpus extends GenericModel {
   /** The corpus name. */
   private String name;
 
+  @SerializedName("ttl_hours")
+  private Integer ttlInHours;
+  // ttl_hours (integer, optional): Specify the TTL for the corpus in hours. This will internally
+  // set the expiration time after which the corpus will be automatically deleted. ,
+  // expires_on (string, optional): Date and time in standard ISO format at which the corpus will
+  // expire and be marked for deletion.
+
+  @SerializedName("expires_on")
+  private String expiresOn;
+
+  /**
+   * Gets the time to live in hours.
+   *
+   * @return the time to live in hours
+   */
+  public Integer getTtlInHours() {
+    return ttlInHours;
+  }
+
+  /**
+   * Sets the time to live in hours. This will internally set the expiration time after which the
+   * corpus will be automatically deleted.
+   * 
+   * @param ttlInHours the new time to live in hours
+   */
+  public void setTtlInHours(Integer ttlInHours) {
+    this.ttlInHours = ttlInHours;
+  }
+
+  /**
+   * Gets the expires on.
+   *
+   * @return the expires on
+   */
+  public String getExpiresOn() {
+    return expiresOn;
+  }
+
+  /**
+   * Sets the expires on. The value needs to be in standard ISO format at which the corpus will
+   * expire and be marked for deletion.
+   *
+   * For example: YYYY-MM-DD (e.g. 2016-07-16)
+   * 
+   * @param expiresOn the new expires on
+   */
+  public void setExpiresOn(String expiresOn) {
+    this.expiresOn = expiresOn;
+  }
+
   /**
    * Instantiates a new corpus.
    */
