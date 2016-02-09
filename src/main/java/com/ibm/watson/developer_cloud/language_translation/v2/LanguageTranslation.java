@@ -112,10 +112,10 @@ public class LanguageTranslation extends WatsonService {
     if (options.getForcedGlossary() != null)
       bodyBuilder.addFormDataPart(FORCED_GLOSSARY, options.getForcedGlossary().getName(),
           RequestBody.create(HttpMediaType.BINARY_FILE, options.getForcedGlossary()));
-    else if (options.getMonolingualCorpus() != null)
+    if (options.getMonolingualCorpus() != null)
       bodyBuilder.addFormDataPart(MONOLINGUAL_CORPUS, options.getMonolingualCorpus().getName(),
           RequestBody.create(HttpMediaType.BINARY_FILE, options.getMonolingualCorpus()));
-    else if (options.getParallelCorpus() != null)
+    if (options.getParallelCorpus() != null)
       bodyBuilder.addFormDataPart(PARALLEL_CORPUS, options.getParallelCorpus().getName(),
           RequestBody.create(HttpMediaType.BINARY_FILE, options.getParallelCorpus()));
 
