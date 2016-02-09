@@ -105,7 +105,8 @@ public abstract class WatsonService {
 
     // Set default headers
     if (defaultHeaders != null) {
-      builder.headers(defaultHeaders);
+      for(String key: defaultHeaders.names())
+        builder.header(key, defaultHeaders.get(key));
     }
 
     // Set User-Agent

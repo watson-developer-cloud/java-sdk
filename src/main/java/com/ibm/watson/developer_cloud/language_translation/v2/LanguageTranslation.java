@@ -39,8 +39,8 @@ import com.squareup.okhttp.RequestBody;
  * identifies the language in which text is written.
  * 
  * @version v2
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-translation.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-translation.html">
  *      Language Translation</a>
  */
 public class LanguageTranslation extends WatsonService {
@@ -208,11 +208,9 @@ public class LanguageTranslation extends WatsonService {
    */
   @SuppressWarnings("unchecked")
   public List<IdentifiedLanguage> identify(final String text) {
-    final Request request = RequestBuilder
-        .post(PATH_IDENTIFY)
+    final Request request = RequestBuilder.post(PATH_IDENTIFY)
         .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON)
-        .withBodyContent(text, HttpMediaType.TEXT_PLAIN)
-        .build();
+        .withBodyContent(text, HttpMediaType.TEXT_PLAIN).build();
 
     final LanguageList languages = executeRequest(request, LanguageList.class);
 
@@ -278,8 +276,9 @@ public class LanguageTranslation extends WatsonService {
     paragraphs.add(new JsonPrimitive(text));
     contentJson.add(TEXT, paragraphs);
 
-    final RequestBuilder requestBuilder = RequestBuilder.post(PATH_TRANSLATE);
-
+    final RequestBuilder requestBuilder = RequestBuilder.post(PATH_TRANSLATE)
+        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
+    
     if (source != null && !source.isEmpty())
       contentJson.addProperty(SOURCE, source);
 
