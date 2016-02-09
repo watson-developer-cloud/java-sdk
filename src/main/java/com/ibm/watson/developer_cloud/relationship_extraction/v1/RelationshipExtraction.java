@@ -40,7 +40,7 @@ public class RelationshipExtraction extends WatsonService {
   private Dataset dataset;
   
   /** The return type. */
-  private String returnType;
+  private String returnType = "xml";
 
   /**
    * Instantiates a new relationship extraction service.
