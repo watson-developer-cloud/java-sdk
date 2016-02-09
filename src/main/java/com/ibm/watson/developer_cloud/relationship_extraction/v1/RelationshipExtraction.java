@@ -111,6 +111,6 @@ public class RelationshipExtraction extends WatsonService {
     } else if (returnType == REReturnType.JSON) {
       this.returnType = "json";
     }
-  }
+  } 
 
 }
