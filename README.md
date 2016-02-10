@@ -129,7 +129,7 @@ service.setApiKey("<api_key>");
 File image = new File("src/test/resources/alchemy/obama.jpg");
 Boolean forceShowAll = false;
 Boolean knowledgeGraph = false;
-ImageKeywords keywords =  service.getImageKeywords(, forceShowAll, knowledgeGraph);
+ImageKeywords keywords =  service.getImageKeywords(image, forceShowAll, knowledgeGraph);
 
 System.out.println(keywords);
 ```
