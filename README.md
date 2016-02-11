@@ -1,7 +1,7 @@
 # Watson Developer Cloud Java SDK
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
-[![Coverage Status](https://coveralls.io/repos/watson-developer-cloud/java-sdk/badge.svg)](https://coveralls.io/github/watson-developer-cloud/java-sdk)
+[![codecov.io](https://codecov.io/github/watson-developer-cloud/java-sdk/coverage.svg?branch=master)](https://codecov.io/github/watson-developer-cloud/java-sdk?branch=master)
 
 Java client library to use the [Watson Developer Cloud][wdc] services, a collection of REST
 APIs and SDKs that use cognitive computing to solve complex problems.
@@ -14,7 +14,6 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Usage](#usage)
   * [Getting the Service Credentials](#getting-the-service-credentials)
   * [Questions](#questions)
-  * [Examples](#examples)
   * [IBM Watson Services](#ibm-watson-services)
     * [Alchemy Language](#alchemy-language)
     * [Alchemy Vision](#alchemy-vision)
@@ -23,9 +22,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Concept Insights](#concept-insights)
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
-    * [Language Identification](#language-identification)
     * [Language Translation](#language-translation)
-    * [Machine Translation](#machine-translation)
     * [Natural Language Classifier](#natural-language-classifier)
     * [Personality Insights](#personality-insights)
     * [Relationship Extraction](#relationship-extraction)
@@ -38,9 +35,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Visual Recognition](#visual-recognition)
   * [Android](#android)
   * [Running in Bluemix](#running-in-bluemix)
-  * [Build + Test](#build--test)
   * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
-  * [Open Source @ IBM](#open-source--ibm)
   * [License](#license)
   * [Contributing](#contributing)
 
@@ -53,13 +48,13 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>2.7.1</version>
+	<version>2.8.0</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:2.7.1'
+'com.ibm.watson.developer_cloud:java-sdk:2.8.0'
 ```
 
 Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
@@ -129,7 +124,7 @@ service.setApiKey("<api_key>");
 File image = new File("src/test/resources/alchemy/obama.jpg");
 Boolean forceShowAll = false;
 Boolean knowledgeGraph = false;
-ImageKeywords keywords =  service.getImageKeywords(, forceShowAll, knowledgeGraph);
+ImageKeywords keywords =  service.getImageKeywords(image, forceShowAll, knowledgeGraph);
 
 System.out.println(keywords);
 ```
@@ -365,8 +360,9 @@ System.out.println(voices);
 Use the [Tone Analyzer][tone_analyzer] service to get the tone of your email.
 
 ```java
-ToneAnalyzer service = new ToneAnalyzer();
+ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_02_11);
 service.setUsernameAndPassword("<username>", "<password>");
+
 
 String text = "I know the times are difficult! Our sales have been "
 	+ "disappointing for the past three quarters for our data analytics "
@@ -377,6 +373,10 @@ String text = "I know the times are difficult! Our sales have been "
 // Call the service and get the tone
 Tone tone = service.getTone(text, Scorecard.EMAIL);
 System.out.println(tone);
+
+
+ToneAnalysis tone = service.getTone(text);
+System.out.println(tone);    
 ```
 
 
@@ -481,7 +481,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-2.7.1.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-2.8.0.jar)
   $ gradle test # run tests
   ```
 
@@ -551,4 +551,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [apache_maven]: http://maven.apache.org/
 [releases]: https://github.com/watson-developer-cloud/java-sdk/releases
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-2.7.1/java-sdk-2.7.1-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-2.8.0/java-sdk-2.8.0-jar-with-dependencies.jar
