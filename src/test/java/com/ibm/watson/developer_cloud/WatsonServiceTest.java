@@ -52,11 +52,12 @@ public abstract class WatsonServiceTest {
     setupLogging();
   }
 
-  protected Map<String,String> getDefaultHeaders() {
-    Map<String,String> headers = new HashMap<String,String>();
+  protected Map<String, String> getDefaultHeaders() {
+    Map<String, String> headers = new HashMap<String, String>();
     headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, String.valueOf(true));
     return headers;
   }
+
   /**
    * The Class EmptyPropertyException.
    */

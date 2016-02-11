@@ -109,7 +109,7 @@ public class ResponseUtil {
       try {
         response.body().close();
       } catch (IOException e) {
-        log.log(Level.SEVERE,"Error closing the HTTP Response", e);
+        log.log(Level.SEVERE, "Error closing the HTTP Response", e);
       }
     }
   }
@@ -120,7 +120,7 @@ public class ResponseUtil {
    * 
    * @param response an HTTP response
    * @return the content body as String
-   * */
+   */
   public static String getString(Response response) {
     try {
       return response.body().string();
