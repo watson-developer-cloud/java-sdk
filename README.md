@@ -14,7 +14,6 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Usage](#usage)
   * [Getting the Service Credentials](#getting-the-service-credentials)
   * [Questions](#questions)
-  * [Examples](#examples)
   * [IBM Watson Services](#ibm-watson-services)
     * [Alchemy Language](#alchemy-language)
     * [Alchemy Vision](#alchemy-vision)
@@ -23,9 +22,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Concept Insights](#concept-insights)
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
-    * [Language Identification](#language-identification)
     * [Language Translation](#language-translation)
-    * [Machine Translation](#machine-translation)
     * [Natural Language Classifier](#natural-language-classifier)
     * [Personality Insights](#personality-insights)
     * [Relationship Extraction](#relationship-extraction)
@@ -38,9 +35,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Visual Recognition](#visual-recognition)
   * [Android](#android)
   * [Running in Bluemix](#running-in-bluemix)
-  * [Build + Test](#build--test)
   * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
-  * [Open Source @ IBM](#open-source--ibm)
   * [License](#license)
   * [Contributing](#contributing)
 
@@ -365,8 +360,9 @@ System.out.println(voices);
 Use the [Tone Analyzer][tone_analyzer] service to get the tone of your email.
 
 ```java
-ToneAnalyzer service = new ToneAnalyzer();
+ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_02_11);
 service.setUsernameAndPassword("<username>", "<password>");
+
 
 String text = "I know the times are difficult! Our sales have been "
 	+ "disappointing for the past three quarters for our data analytics "
@@ -377,6 +373,10 @@ String text = "I know the times are difficult! Our sales have been "
 // Call the service and get the tone
 Tone tone = service.getTone(text, Scorecard.EMAIL);
 System.out.println(tone);
+
+
+ToneAnalysis tone = service.getTone(text);
+System.out.println(tone);    
 ```
 
 
