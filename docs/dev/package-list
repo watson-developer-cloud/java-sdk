@@ -35,6 +35,8 @@ com.ibm.watson.developer_cloud.text_to_speech.v1.model
 com.ibm.watson.developer_cloud.text_to_speech.v1.util
 com.ibm.watson.developer_cloud.tone_analyzer.v1
 com.ibm.watson.developer_cloud.tone_analyzer.v1.model
+com.ibm.watson.developer_cloud.tone_analyzer.v3
+com.ibm.watson.developer_cloud.tone_analyzer.v3.model
 com.ibm.watson.developer_cloud.tradeoff_analytics.v1
 com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model
 com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column
