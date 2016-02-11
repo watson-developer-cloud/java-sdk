@@ -48,13 +48,13 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>2.7.1</version>
+	<version>2.8.0</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:2.7.1'
+'com.ibm.watson.developer_cloud:java-sdk:2.8.0'
 ```
 
 Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
@@ -481,7 +481,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-2.7.1.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-2.8.0.jar)
   $ gradle test # run tests
   ```
 
@@ -551,4 +551,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 [apache_maven]: http://maven.apache.org/
 [releases]: https://github.com/watson-developer-cloud/java-sdk/releases
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-2.7.1/java-sdk-2.7.1-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-2.8.0/java-sdk-2.8.0-jar-with-dependencies.jar
