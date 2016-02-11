@@ -13,23 +13,12 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Scorecard;
-import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymOptions;
-import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.SynonymResult;
 import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
 
 /**
  * The IBM Watson The Tone Analyzer service uses linguistic analysis to detect emotional tones,
@@ -37,24 +26,34 @@ import com.squareup.okhttp.Response;
  * help the writer improve their intended language tones.
  * 
  * @version v1
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html">
- *      Tone Analyzer</a>
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html"> Tone
+ *      Analyzer</a>
  */
 public class ToneAnalyzer extends WatsonService {
 
+  private static final String VERSION_DATE = "version";
   private static final String PATH_TONE = "/v3/tone";
   private static final String TEXT = "text";
-  private static final String URL =
-      "https://gateway.watsonplatform.net/tone-analyzer-beta/api";
+  private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer-beta/api";
+  private String versionDate;
+
+  /** The version date */
+  public static final String VERSION_DATE_2016_02_11 = "2016-02-11";
+
 
   /**
-   * Instantiates a new Tone Analyzer service.
+   * Instantiates a new tone analyzer.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *        will keep your API calls from failing when the service introduces breaking changes.
    */
-  public ToneAnalyzer() {
+  public ToneAnalyzer(String versionDate) {
     super("tone_analyzer");
     setEndPoint(URL);
+    this.versionDate = versionDate;
   }
+
 
 
   /**
@@ -74,7 +73,10 @@ public class ToneAnalyzer extends WatsonService {
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty(TEXT, text);
 
-    final Request request = RequestBuilder.post(PATH_TONE).withBodyJson(contentJson).build();
+    final Request request = RequestBuilder.post(PATH_TONE)
+        .withQuery(VERSION_DATE, versionDate)
+        .withBodyJson(contentJson)
+        .build();
     return executeRequest(request, ToneAnalysis.class);
   }
 
