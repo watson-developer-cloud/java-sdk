@@ -165,11 +165,11 @@
 					<format>xml</format>
           <aggregate>true</aggregate>
 					<instrumentation>
+            <ignores>
+              <ignore>*.model*</ignore>
+            </ignores>
 						<excludes>
-							<exclude>com/ibm/watson/developer_cloud/*/v*/model/**/*.class</exclude>
-						</excludes>
-						<excludes>
-							<exclude>com/ibm/watson/developer_cloud/*/**/*Example.class</exclude>
+							<exclude>**/*/model/*</exclude>
 						</excludes>
 					</instrumentation>
 				</configuration>
