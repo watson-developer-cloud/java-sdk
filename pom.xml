@@ -157,56 +157,23 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.5.201505241946</version>
-        <configuration>
-          <fileSets>
-            <fileSet implementation="org.apache.maven.shared.model.fileset.FileSet">
-              <directory>${project.build.directory}</directory>
-              <includes>
-                <include>*.exec</include>
-              </includes>
-            </fileSet>
-          </fileSets>
-          <excludes>
-            <exclude>com/ibm/watson/developer_cloud/*/v*/model/**/*.class</exclude>
-            <exclude>com/ibm/watson/developer_cloud/**/*Example.*</exclude>
-          </excludes>
-        </configuration>
-        <executions>
-            <execution>
-              <id>prepare-unit-test-agent</id>
-                <goals>
-                  <goal>prepare-agent</goal>
-                </goals>
-            </execution>
-            <execution>
-              <id>generate-unit-test-report</id>
-                <goals>
-                  <goal>report</goal>
-                </goals>
-            </execution>
-            <execution>
-              <id>prepare-integration-test-agent</id>
-              <goals>
-                <goal>prepare-agent-integration</goal>
-              </goals>
-            </execution>
-            <execution>
-              <id>generate-integration-test-report</id>
-              <goals>
-                <goal>report-integration</goal>
-              </goals>
-            </execution>
-            <execution>
-              <id>merge</id>
-              <goals>
-                <goal>merge</goal>
-              </goals>
-            </execution>
-          </executions>
+      <plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<format>xml</format>
+          <format>html</format>
+          <aggregate>true</aggregate>
+					<instrumentation>
+						<excludes>
+							<exclude>com/ibm/watson/developer_cloud/*/v*/model/**/*.class</exclude>
+						</excludes>
+						<excludes>
+							<exclude>com/ibm/watson/developer_cloud/*/**/*Example.class</exclude>
+						</excludes>
+					</instrumentation>
+				</configuration>
 			</plugin>
 		</plugins>
 		<resources>
