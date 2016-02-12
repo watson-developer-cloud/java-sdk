@@ -14,9 +14,7 @@
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -357,16 +355,14 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     Validate.isTrue(directory.exists(), "directory: " + directory.getAbsolutePath() + " not found");
     Validate.isTrue(directory.isDirectory(), "directory is not a directory");
 
-    final File zipFile = ZipUtils.buildConfigZip(configName, directory.toPath());
+    final File zipFile = ZipUtils.buildConfigZip(configName, directory);
 
     try {
       uploadSolrClusterConfigurationZip(solrClusterId, configName, zipFile);
     } finally {
-      try {
-        Files.delete(zipFile.toPath());
-      } catch (final IOException e) {
+      if (!zipFile.delete()) {
         zipFile.deleteOnExit();
-        log.log(Level.WARNING, "Error deleting the solr cluster configuration file", e);
+        log.log(Level.WARNING, "Unable to delete the Solr cluster configuration file.");
       }
     }
 

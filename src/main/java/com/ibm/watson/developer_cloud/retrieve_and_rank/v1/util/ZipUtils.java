@@ -13,20 +13,13 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util;
 
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.ERROR_CREATING_ZIP_1;
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.ERROR_ZIPPING_1;
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.FAILED_TO_VISIT_1;
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.bundleName;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.*;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -47,9 +40,12 @@ public class ZipUtils {
    * @param parentDir the parent directory
    * @return the file
    */
-  public static File buildConfigZip(final String configName, final Path parentDir) {
-    final File zipFile = createEmptyZipFile(configName);
+  public static File buildConfigZip(final String configName, final File parentDir) {
+    if (!parentDir.isDirectory()) {
+      throw new RuntimeException(MSGS.format(CONFIG_NOT_DIR_1, parentDir.toString()));
+    }
 
+    final File zipFile = createEmptyZipFile(configName);
     final ZipOutputStream out;
     try {
       out = new ZipOutputStream(new FileOutputStream(zipFile));
@@ -57,31 +53,9 @@ public class ZipUtils {
       throw new RuntimeException(MSGS.format(ERROR_ZIPPING_1, parentDir.toString()), e);
     }
 
+
     try {
-      Files.walkFileTree(parentDir, new FileVisitor<Path>() {
-        @Override
-        public FileVisitResult postVisitDirectory(Path dir, IOException exc) {
-          return FileVisitResult.CONTINUE;
-        }
-
-        @Override
-        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
-          return FileVisitResult.CONTINUE;
-        }
-
-        @Override
-        public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-          writeZipEntry(out, parentDir.relativize(path).toString(), Files.readAllBytes(path));
-          return FileVisitResult.CONTINUE;
-        }
-
-        @Override
-        public FileVisitResult visitFileFailed(Path file, IOException exc) {
-          throw new IllegalStateException(MSGS.format(FAILED_TO_VISIT_1, file.toAbsolutePath()
-              .getFileName()));
-        }
-      });
-
+      addFilesToZip(parentDir, out, parentDir);
       return zipFile;
     } catch (final IOException e) {
       throw new RuntimeException(MSGS.format(ERROR_ZIPPING_1, parentDir.toString()), e);
@@ -118,4 +92,35 @@ public class ZipUtils {
     out.closeEntry();
   }
 
+  private static void addFilesToZip(final File currentParentDir, final ZipOutputStream out,
+      final File globalParentDir)
+      throws IOException {
+    for (final File child : currentParentDir.listFiles()) {
+      if(child.isDirectory()){
+        addFilesToZip(child, out, globalParentDir);
+      } else if (child.isFile()){
+        writeZipEntry(out, globalParentDir.toURI().relativize(child.toURI()).toString(),
+            readBytes(child));
+      }
+    }
+  }
+
+  private static byte[] readBytes(File file) {
+    FileInputStream in = null;
+    final byte buffer[] = new byte[(int) file.length()];
+    try {
+      in = new FileInputStream(file);
+      in.read(buffer);
+    } catch (final IOException e) {
+      MSGS.format(ERROR_READING_FILE_1, file.toString(), e);
+    }
+    if (in != null) {
+      try {
+        in.close();
+      } catch (final IOException e) {
+        // fail quietly
+      }
+    }
+    return buffer;
+  }
 }

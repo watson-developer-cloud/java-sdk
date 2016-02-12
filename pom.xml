@@ -157,17 +157,17 @@
 					</execution>
 				</executions>
 			</plugin>
-      <plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>cobertura-maven-plugin</artifactId>
 				<version>2.7</version>
 				<configuration>
 					<format>xml</format>
-          <aggregate>true</aggregate>
+					<aggregate>true</aggregate>
 					<instrumentation>
-            <ignores>
-              <ignore>*.model*</ignore>
-            </ignores>
+						<ignores>
+							<ignore>*.model*</ignore>
+						</ignores>
 						<excludes>
 							<exclude>**/*/model/*</exclude>
 						</excludes>
@@ -183,6 +183,36 @@
 		</resources>
 	</build>
 	<profiles>
+		<profile>
+			<id>java8-disable-animal-sniffer</id>
+			<activation>
+				<jdk>[1.5,1.8)</jdk>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>animal-sniffer-maven-plugin</artifactId>
+						<version>1.11</version>
+						<executions>
+							<execution>
+								<phase>test</phase>
+								<goals>
+									<goal>check</goal>
+								</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<signature>
+							<groupId>org.codehaus.mojo.signature</groupId>
+								<artifactId>java16</artifactId>
+								<version>1.1</version>
+							</signature>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 		<profile>
 			<id>release</id>
 			<build>
