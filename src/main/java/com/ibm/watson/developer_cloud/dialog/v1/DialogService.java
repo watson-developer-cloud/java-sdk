@@ -23,6 +23,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Conversation;
@@ -51,6 +53,8 @@ import com.squareup.okhttp.Response;
  *      Dialog</a>
  */
 public class DialogService extends WatsonService {
+
+  private static final String CONVERSATION_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
   private static final String CONVERSATIONS = "conversations";
 
@@ -110,7 +114,7 @@ public class DialogService extends WatsonService {
   private static final String PATH_DIALOGS = "/v1/dialogs";
 
   /** The Constant sdfDate. */
-  private static final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+  private static final SimpleDateFormat sdfDate = new SimpleDateFormat(CONVERSATION_DATE_FORMAT);
 
   /** The Constant URL. */
   private static final String URL = "https://gateway.watsonplatform.net/dialog/api";
@@ -296,9 +300,14 @@ public class DialogService extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     final List<ConversationData> conversationDataList =
-        GsonSingleton.getGson().fromJson(jsonObject.get(CONVERSATIONS), listConversationDataType);
+        getGson().fromJson(jsonObject.get(CONVERSATIONS), listConversationDataType);
     return conversationDataList;
   }
+
+  private Gson getGson() {
+    return new GsonBuilder().setDateFormat(CONVERSATION_DATE_FORMAT).create();
+  }
+
 
   /**
    * Retrieves the list of Dialogs for the user.

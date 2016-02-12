@@ -19,16 +19,19 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.net.URISyntaxException;
 import java.text.ParseException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Conversation;
+import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationData;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Dialog;
 import com.ibm.watson.developer_cloud.dialog.v1.model.DialogContent;
 
@@ -103,11 +106,33 @@ public class DialogServiceIT extends WatsonServiceTest {
     profile.put(profile.keySet().iterator().next(), "foo");
 
     service.updateProfile(dialogId, c.getClientId(), profile);
+    
+    final Map<String, Object> params = new HashMap<String,Object>();
+    params.put(DialogService.DATE_FROM, DateUtils.addDays(new Date(), -10));
+    params.put(DialogService.DATE_TO, new Date());
+    params.put(DialogService.DIALOG_ID, dialogId);
+    params.put(DialogService.OFFSET, 0);
+    params.put(DialogService.LIMIT, 10);
+    
+    List<ConversationData> data = service.getConversationData(params);
+    assertNotNull(data);
+    assertFalse(data.isEmpty());
   }
 
+  
+  /**
+   * Test get content.
+   */
+  @Test
+  public void testGetContent() {
+    List<DialogContent> content =  service.getContent(dialogId);
+    assertNotNull(content);
+  }
+  
   /**
    * Test converse with nulls.
    */
+  @SuppressWarnings("deprecation")
   @Test(expected = IllegalArgumentException.class)
   public void testConverseWithNulls() {
     final Map<String, Object> params = new HashMap<String, Object>();

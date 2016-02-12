@@ -68,6 +68,7 @@ public class ZipUtilsTest {
         final InputStream input = zip.getInputStream(entry);
         fileMap.put(entry.getName(), streamToString(input));
       }
+      zip.close();
     } catch (final IOException e) {
       throw new RuntimeException(String.format(Locale.ROOT,
           "Error expanding config [%s]: ", zipFile.getName()), e);
@@ -77,6 +78,7 @@ public class ZipUtilsTest {
   }
 
   static String streamToString(java.io.InputStream inputStream) {
+    @SuppressWarnings("resource")
     final java.util.Scanner s = new java.util.Scanner(inputStream).useDelimiter("\\A");
     try {
       return s.hasNext() ? s.next() : "";

@@ -1,6 +1,7 @@
 package com.ibm.watson.developer_cloud.http;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +21,10 @@ public class NameValueTest {
     NameValue name2 = new NameValue("foo", "bar");
 
     assertEquals(name1, name2);
+    assertEquals(name1.toString(), name2.toString());
     assertEquals(name1.hashCode(), name2.hashCode());
+    assertTrue(name1.equals(name2));
+    
   }
 
   public void testValueNull() {

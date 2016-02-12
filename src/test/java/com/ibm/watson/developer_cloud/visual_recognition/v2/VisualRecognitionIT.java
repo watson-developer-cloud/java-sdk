@@ -14,6 +14,7 @@
 package com.ibm.watson.developer_cloud.visual_recognition.v2;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
     Assert.assertNotNull(result);
     Assert.assertNotNull(result.getImages());
-    Assert.assertEquals(3, result.getImages().size());
+    Assert.assertEquals(2, result.getImages().size());
     Assert.assertNotNull(result.getImages().get(0).getImage());
     Assert.assertNotNull(result.getImages().get(0).getScores());
     Assert.assertNotNull(result.getImages().get(0).getScores().get(0));
@@ -71,6 +72,27 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     Assert.assertNotNull(result.getImages().get(0).getScores().get(0).getScore());
   }
 
+  /**
+   * Test classify image using stream.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testClassifyInputStreamImages() throws FileNotFoundException {
+    FileInputStream images = new FileInputStream("src/test/resources/visual_recognition/test.zip");
+    final VisualClassification result = service.classify("images.zip", images);
+
+    Assert.assertNotNull(result);
+    Assert.assertNotNull(result.getImages());
+    Assert.assertEquals(2, result.getImages().size());
+    Assert.assertNotNull(result.getImages().get(0).getImage());
+    Assert.assertNotNull(result.getImages().get(0).getScores());
+    Assert.assertNotNull(result.getImages().get(0).getScores().get(0));
+    Assert.assertNotNull(result.getImages().get(0).getScores().get(0).getClassifierId());
+    Assert.assertNotNull(result.getImages().get(0).getScores().get(0).getScore());
+    System.out.println(result);
+  }
+  
   /**
    * Test recognize with labels.
    * 

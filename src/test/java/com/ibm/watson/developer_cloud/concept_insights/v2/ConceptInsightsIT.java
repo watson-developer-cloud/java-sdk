@@ -101,6 +101,10 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     params.put(ConceptInsights.IDS, ids);
     params.put(ConceptInsights.LIMIT, 10);
     params.put(ConceptInsights.CURSOR, 0);
+    final RequestedFields fs = new RequestedFields();
+    fs.include("abstract");
+    params.put(ConceptInsights.CONCEPT_FIELDS, fs);
+    params.put(ConceptInsights.DOCUMENT_FIELDS, fs);
     final QueryConcepts cp = service.conceptualSearch(Corpus.TED_TALKS, params);
     Assert.assertNotNull(cp);
   }
@@ -144,7 +148,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     params.put(ConceptInsights.LEVEL, 1);
     final RequestedFields fs = new RequestedFields();
     fs.include("abstract");
-    params.put("concept_fields", fs);
+    params.put(ConceptInsights.CONCEPT_FIELDS, fs);
     Concepts concepts = service.getConceptRelatedConcepts(EXAMPLE_CONCEPT, params);
     Assert.assertNotNull(concepts);
     Assert.assertNotNull(concepts.getConcepts().get(0).getConcept().getAbstract());
@@ -184,6 +188,10 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     query.put(ConceptInsights.QUERY, "IBM");
     query.put(ConceptInsights.LIMIT, 10);
     query.put(ConceptInsights.PREFIX, false);
+    final RequestedFields fs = new RequestedFields();
+    fs.include("abstract");
+    query.put(ConceptInsights.CONCEPT_FIELDS, fs);
+    query.put(ConceptInsights.DOCUMENT_FIELDS, fs);
     final Matches matches = service.searchCorpusByLabel(Corpus.IBM_RESEARCHERS, query);
     Assert.assertNotNull(matches);
   }
@@ -206,6 +214,10 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(ConceptInsights.LIMIT, 10);
     params.put(ConceptInsights.PREFIX, false);
+    final RequestedFields fs = new RequestedFields();
+    fs.include("abstract");
+    params.put(ConceptInsights.CONCEPT_FIELDS, fs);
+    
     final Concepts concepts = service.getCorpusRelatedConcepts(Corpus.IBM_RESEARCHERS, params);
     Assert.assertNotNull(concepts);
   }
@@ -280,6 +292,9 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(ConceptInsights.LEVEL, "1");
     params.put(ConceptInsights.LIMIT, 10);
+    final RequestedFields fs = new RequestedFields();
+    fs.include("abstract");
+    params.put(ConceptInsights.CONCEPT_FIELDS, fs);
     final Concepts concepts = service.getDocumentRelatedConcepts(EXAMPLE_DOCUMENT, params);
     Assert.assertNotNull(concepts);
   }
