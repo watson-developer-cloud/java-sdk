@@ -33,7 +33,7 @@ public class GsonSingleton {
    * @return the {@link Gson}
    */
   private static Gson createGson() {
-    GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
+    GsonBuilder builder = new GsonBuilder();
 
     // Date serializer and deserializer
     builder.registerTypeAdapter(Date.class, new DateDeserializer());
