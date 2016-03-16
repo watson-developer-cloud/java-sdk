@@ -24,6 +24,7 @@ import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneText;
 import com.squareup.okhttp.HttpUrl;
 
 /**
@@ -32,6 +33,8 @@ import com.squareup.okhttp.HttpUrl;
 public class AlchemyVisionIT extends WatsonServiceTest {
 
   private static final String IMAGE_OBAMA = "src/test/resources/alchemy/obama.jpg";
+  private static final String IMAGE_COLORADO = "src/test/resources/alchemy/colorado.jpg";
+  private static final String IMAGE_COLORADO_URL = "http://vision.alchemy.ai/img/demo/1754836.jpg";
   private static final String BABY_IMAGE =
       "https://visual-recognition-demo.mybluemix.net/images/samples/1.jpg";
 
@@ -75,6 +78,32 @@ public class AlchemyVisionIT extends WatsonServiceTest {
     Assert.assertNotNull(image);
   }
 
+  /**
+   * Test get ranked image scene text from image.
+   */
+  @Test
+  public void testGetRankedImageSceneTextFromImage() {
+    final File imageFile = new File(IMAGE_COLORADO);
+    final ImageSceneText image = service.getImageSceneText(imageFile);
+
+    Assert.assertEquals("colorado\n1\nl", image.getSceneText());
+    Assert.assertEquals(3, image.getSceneTextLines().size());
+    Assert.assertNotNull(image);
+  }
+  
+  /**
+   * Test get ranked image scene text from URL.
+   */
+  @Test
+  public void testGetRankedImageSceneTextFromURL() {
+    final ImageSceneText image =
+        service.getImageSceneText(HttpUrl.parse(IMAGE_COLORADO_URL).url());
+
+    Assert.assertEquals("colorado\n1\nl", image.getSceneText());
+    Assert.assertEquals(3, image.getSceneTextLines().size());
+    Assert.assertNotNull(image);
+  }
+  
   /**
    * Test get ranked image keywords from image.
    */
