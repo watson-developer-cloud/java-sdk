@@ -25,6 +25,8 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneText;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneTextLine;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneTextLine.Word;
 import com.squareup.okhttp.HttpUrl;
 
 /**
@@ -88,7 +90,24 @@ public class AlchemyVisionIT extends WatsonServiceTest {
 
     Assert.assertEquals("colorado\n1\nl", image.getSceneText());
     Assert.assertEquals(3, image.getSceneTextLines().size());
+    
+    ImageSceneTextLine first = image.getSceneTextLines().get(0);
+    Assert.assertEquals("colorado", first.getText());
+    Assert.assertEquals(24, (int)first.getRegion().getHeight());
+    Assert.assertEquals(104, (int)first.getRegion().getWidth());
+    Assert.assertEquals(484, (int)first.getRegion().getX());
+    Assert.assertEquals(216, (int)first.getRegion().getY());
+    Assert.assertEquals(new Double(0.984956), first.getConfidence());
     Assert.assertNotNull(image);
+    
+    Assert.assertEquals(1, first.getWords().size());
+    Word word = first.getWords().get(0);
+    Assert.assertEquals("colorado", word.getText());
+    Assert.assertEquals(24, (int)word.getRegion().getHeight());
+    Assert.assertEquals(104, (int)word.getRegion().getWidth());
+    Assert.assertEquals(484, (int)word.getRegion().getX());
+    Assert.assertEquals(216, (int)word.getRegion().getY());
+    Assert.assertEquals(new Double(0.984956), word.getConfidence());
   }
   
   /**
