@@ -65,20 +65,6 @@ public class InputStreamRequestBody extends RequestBody {
   /*
    * (non-Javadoc)
    * 
-   * @see com.squareup.okhttp.RequestBody#contentLength()
-   */
-  @Override
-  public long contentLength() {
-    try {
-      return inputStream.available();
-    } catch (IOException e) {
-      return 0;
-    }
-  }
-
-  /*
-   * (non-Javadoc)
-   * 
    * @see com.squareup.okhttp.RequestBody#writeTo(okio.BufferedSink)
    */
   @Override
