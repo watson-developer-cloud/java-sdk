@@ -519,7 +519,7 @@ This library is licensed under Apache 2.0. Full license text is
 available in [LICENSE](LICENSE).
 
 ## Contributing
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 [personality_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/personality-insights/
 [language_identification]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/lidapi/

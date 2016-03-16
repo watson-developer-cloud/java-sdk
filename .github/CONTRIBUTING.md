@@ -20,7 +20,7 @@ If you want to contribute to the repository, here's a quick guide:
   4. Commit your changes  
       Commit messages should start with the service name and end with the issue number if exists  
       `[concept-insights] Added functionality to list the graphs #135`
-  5. Push to your fork and submit a pull request to the **dev** branch
+  5. Push to your fork and submit a pull request to the **master** branch
 
 # Developer's Certificate of Origin 1.1
 
