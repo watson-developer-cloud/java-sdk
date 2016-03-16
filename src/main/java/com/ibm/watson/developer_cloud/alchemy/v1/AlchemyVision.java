@@ -22,6 +22,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.AlchemyGenericModel;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneText;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints.AlchemyAPI;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
@@ -117,6 +118,37 @@ public class AlchemyVision extends AlchemyService {
     return executeRequest(requestBuilder.build(), returnType);
   }
 
+  /**
+   * Identifies text in an image
+   * 
+   * @param image the image file
+   * @return {@link ImageSceneText}
+   */
+  public ImageSceneText getImageSceneText(File image) {
+    Validate.notNull(image, "image cannot be null");
+    Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
+
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(IMAGE, image);
+
+    return executeRequest(params, AlchemyAPI.image_scenetext, ImageSceneText.class);
+  }
+  
+  /**
+   * Identifies text in an image specified by URL or in the primary image in a web page specified by URL
+   * 
+   * @param url the image URL
+   * @return {@link ImageSceneText}
+   */
+  public ImageSceneText getImageSceneText(URL url) {
+    Validate.notNull(url, "url cannot be null");
+    
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(URL, url);
+    
+    return executeRequest(params, AlchemyAPI.image_scenetext, ImageSceneText.class);
+  }
+  
   /**
    * Extracts keywords from an image
    * 

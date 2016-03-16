@@ -63,6 +63,9 @@ public class AlchemyEndPoints {
     /** The image_recognition. */
     image_recognition,
 
+    /** The image_scenetext. */
+    image_scenetext,
+
     /** The keywords. */
     keywords,
 
