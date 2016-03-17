@@ -702,7 +702,18 @@ public class ConceptInsights extends WatsonService {
   }
 
   /**
-   * Retrieves the document ids of a corpus.
+   * Retrieves the documents of a given corpus.
+   * 
+   * @param corpus the corpus
+   * @return {@link Documents}
+   */
+
+  public Documents listDocuments(final Corpus corpus) {
+    return listDocuments(corpus, null);
+  }
+  
+  /**
+   * Retrieves the documents of a given corpus.
    * 
    * @param corpus the corpus
    * @param parameters The parameters to be used in the service call.
@@ -725,17 +736,18 @@ public class ConceptInsights extends WatsonService {
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
     final String[] queryParams = new String[] {CURSOR, LIMIT};
-    for (final String param : queryParams) {
-      if (parameters.containsKey(param)) {
-        queryParameters.put(param, parameters.get(param));
+    if (parameters != null && !parameters.isEmpty()) {
+      for (final String param : queryParams) {
+        if (parameters.containsKey(param)) {
+          queryParameters.put(param, parameters.get(param));
+        }
+      }
+      if (parameters.get(QUERY) != null) {
+        // TODO we may need to work in the query format,for now we do expect
+        // the query parameter String formatted as documented in Concept Insights.
+        queryParameters.put(QUERY, parameters.get(QUERY));
       }
     }
-    if (parameters.get(QUERY) != null) {
-      // TODO we may need to work in the query format,for now we do expect
-      // the query parameter String formatted as documented in Concept Insights.
-      queryParameters.put(QUERY, parameters.get(QUERY));
-    }
-
     return executeRequest(API_VERSION + corpusId + DOCUMENTS_PATH, queryParameters, Documents.class);
   }
 
