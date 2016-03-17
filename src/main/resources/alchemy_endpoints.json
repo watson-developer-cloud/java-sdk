@@ -80,6 +80,10 @@
     "url": "/url/URLGetRankedImageFaceTags",
     "image": "/image/ImageGetRankedImageFaceTags"
   },
+  "image_scenetext": {
+    "url": "/url/URLGetRankedImageSceneText",
+    "image": "/image/ImageGetRankedImageSceneText"
+  },
   "title": {
     "url": "/url/URLGetTitle",
     "text": "/text/TextGetTitle",
