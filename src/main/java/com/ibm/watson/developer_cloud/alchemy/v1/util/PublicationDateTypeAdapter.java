@@ -58,7 +58,7 @@ public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
 
       if (name.equals("confident")) {
         final String confidentAsString = reader.nextString();
-        publicationDate.setConfident(confidentAsString == null || !confidentAsString.equals("no"));
+        publicationDate.setConfident(confidentAsString != null && !confidentAsString.equals("no") && !confidentAsString.equals("false"));
       } else if (name.equals("date")) {
         final String dateAsString = reader.nextString();
         if (dateAsString != null && !dateAsString.isEmpty())
@@ -92,7 +92,7 @@ public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
     if (value.getDate() != null)
       writer.name("date").value(df.format(value.getDate()));
     if (value.getConfident() != null)
-      writer.name("confident").value(value.getConfident());
+      writer.name("confident").value(String.valueOf(value.getConfident() ? "yes" : "no"));
 
     writer.endObject();
     writer.flush();

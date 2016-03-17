@@ -203,12 +203,12 @@ public abstract class WatsonServiceTest {
    * Write input stream to file.
    * 
    * @param inputStream the input stream
-   * @param audio the audio
+   * @param file the file
    */
-  public static void writeInputStreamToFile(InputStream inputStream, File audio) {
+  public static void writeInputStreamToFile(InputStream inputStream, File file) {
     OutputStream outStream = null;
     try {
-      outStream = new FileOutputStream(audio);
+      outStream = new FileOutputStream(file);
 
       byte[] buffer = new byte[8 * 1024];
       int bytesRead;

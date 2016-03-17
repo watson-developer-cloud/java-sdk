@@ -13,6 +13,12 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.StringBufferInputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -71,11 +77,10 @@ public class AlchemyDataNewsIT extends WatsonServiceTest {
   public void testNews() {
     final Map<String, Object> params = new HashMap<String, Object>();
 
-    final String[] fields =
-        new String[] {"enriched.url.title", "enriched.url.url", "enriched.url.author",
-            "enriched.url.publicationDate", "enriched.url.enrichedTitle.entities",
-            "enriched.url.enrichedTitle.docSentiment", "enriched.url.enrichedTitle.concepts",
-            "enriched.url.enrichedTitle.taxonomy"};
+    final String[] fields = new String[] {"enriched.url.title", "enriched.url.url",
+        "enriched.url.author", "enriched.url.publicationDate",
+        "enriched.url.enrichedTitle.entities", "enriched.url.enrichedTitle.docSentiment",
+        "enriched.url.enrichedTitle.concepts", "enriched.url.enrichedTitle.taxonomy"};
     params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
     params.put(AlchemyDataNews.START, "1440720000");
     params.put(AlchemyDataNews.END, "1441407600");
@@ -87,4 +92,17 @@ public class AlchemyDataNewsIT extends WatsonServiceTest {
     final DocumentsResult result = service.getNewsDocuments(params);
     Assert.assertNotNull(result);
   }
+
+
+  @Test
+  public void testJsonDeserializer() throws IOException {
+    DocumentsResult result = loadFixture("src/test/resources/alchemy/get_news.json", DocumentsResult.class);
+    Assert.assertNotNull(result);
+    
+    File temp = File.createTempFile("it-test", ".tmp");
+    writeInputStreamToFile(new ByteArrayInputStream(result.toString().getBytes("UTF-8")), temp);
+    DocumentsResult loadedResult = loadFixture(temp.getAbsolutePath(), DocumentsResult.class);
+    Assert.assertNotNull(loadedResult);
+  }
+
 }
