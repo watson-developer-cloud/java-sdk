@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.dialog.v1;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
@@ -101,11 +102,15 @@ public class DialogServiceIT extends WatsonServiceTest {
     assertFalse(dialogContent.isEmpty());
     assertNotNull(dialogContent.get(0));
 
-    final Map<String, String> profile = service.getProfile(dialogId, c.getClientId());
+    Map<String, String> profile = service.getProfile(dialogId, c.getClientId());
+    
     // update profile
-    profile.put(profile.keySet().iterator().next(), "foo");
-
+    String variable = profile.keySet().iterator().next();
+    profile.put(variable, "foo");
     service.updateProfile(dialogId, c.getClientId(), profile);
+    
+    assertEquals(service.getProfile(dialogId, c.getClientId()).get(variable), "foo");
+    assertEquals(service.getProfile(dialogId, c.getClientId(), variable).get(variable), "foo");
     
     final Map<String, Object> params = new HashMap<String,Object>();
     params.put(DialogService.DATE_FROM, DateUtils.addDays(new Date(), -10));

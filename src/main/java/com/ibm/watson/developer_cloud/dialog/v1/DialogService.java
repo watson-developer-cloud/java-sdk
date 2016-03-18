@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Conversation;
@@ -300,14 +298,9 @@ public class DialogService extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     final List<ConversationData> conversationDataList =
-        getGson().fromJson(jsonObject.get(CONVERSATIONS), listConversationDataType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(CONVERSATIONS), listConversationDataType);
     return conversationDataList;
   }
-
-  private Gson getGson() {
-    return new GsonBuilder().setDateFormat(CONVERSATION_DATE_FORMAT).create();
-  }
-
 
   /**
    * Retrieves the list of Dialogs for the user.
