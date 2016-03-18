@@ -68,7 +68,7 @@ public class WebSocketSpeechToTextClient {
         if (json.has(ERROR)) {
           delegate.onError(new RuntimeException(json.get(ERROR).getAsString()));
         } else if (json.has(RESULTS)) {
-          SpeechResults transcript = GsonSingleton.getGson().fromJson(message, SpeechResults.class);
+          SpeechResults transcript = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(message, SpeechResults.class);
           delegate.onMessage(transcript);
         } else if (audioSent) {
           websocket.sendClose();

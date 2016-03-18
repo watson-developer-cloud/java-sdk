@@ -25,31 +25,52 @@ import com.google.gson.GsonBuilder;
 public class GsonSingleton {
 
   private static Gson gson;
+  private static Gson gsonWithoutPrinting;
 
   /**
    * Creates a {@link com.google.gson.Gson} object that can be use to serialize and deserialize Java
    * objects
-   * 
+   *
+   * @param prettyPrint if true the JSON will be pretty printed
    * @return the {@link Gson}
    */
-  private static Gson createGson() {
-    GsonBuilder builder = new GsonBuilder().setPrettyPrinting();
-
-    // Date serializer and deserializer
-    builder.registerTypeAdapter(Date.class, new DateDeserializer());
-    builder.registerTypeAdapter(Date.class, new DateSerializer());
-
+  private static Gson createGson(Boolean prettyPrint) {
+    GsonBuilder builder = new GsonBuilder();
+    
+    registerTypeAdapters(builder);
+    
+    if (prettyPrint)
+      builder.setPrettyPrinting();
+    
     return builder.create();
   }
 
+  private static void registerTypeAdapters(GsonBuilder builder) {
+    // Date serializer and deserializer
+    builder.registerTypeAdapter(Date.class, new DateDeserializer());
+    builder.registerTypeAdapter(Date.class, new DateSerializer());
+  }
+
   /**
-   * Gets the Gson instance
-   * 
+   * Gets the Gson instance.
+   *
+   * @return the Gson
+   */
+  public static Gson getGsonWithoutPrettyPrinting() {
+    if (gsonWithoutPrinting == null) {
+      gsonWithoutPrinting = createGson(false);
+    }
+    return gsonWithoutPrinting;
+  }
+  
+  /**
+   * Gets the Gson instance.
+   *
    * @return the Gson
    */
   public static Gson getGson() {
     if (gson == null) {
-      gson = createGson();
+      gson = createGson(true);
     }
     return gson;
   }

@@ -177,7 +177,7 @@ public class DocumentConversion extends WatsonService {
   public Answers convertDocumentToAnswer(File document, String mediaType, JsonObject customConfig) {
     final InputStream is = convertDocument(document, mediaType, ANSWER_UNITS, customConfig);
     final String convertedDocument = responseToString(is);
-    return GsonSingleton.getGson().fromJson(convertedDocument, Answers.class);
+    return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(convertedDocument, Answers.class);
   }
 
   /**

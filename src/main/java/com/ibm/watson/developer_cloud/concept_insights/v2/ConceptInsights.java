@@ -287,7 +287,7 @@ public class ConceptInsights extends WatsonService {
     final Request request =
         RequestBuilder
             .put(API_VERSION + corpusId)
-            .withBodyContent(GsonSingleton.getGson().toJson(corpus), HttpMediaType.APPLICATION_JSON)
+            .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(corpus), HttpMediaType.APPLICATION_JSON)
             .build();
     executeWithoutResponse(request);
   }
@@ -302,7 +302,7 @@ public class ConceptInsights extends WatsonService {
     final Request request =
         RequestBuilder
             .put(API_VERSION + document.getId())
-            .withBodyContent(GsonSingleton.getGson().toJson(document),
+            .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(document),
                 HttpMediaType.APPLICATION_JSON).build();
 
     executeWithoutResponse(request);
@@ -849,7 +849,7 @@ public class ConceptInsights extends WatsonService {
     final Request request =
         RequestBuilder
             .post(API_VERSION + corpusId)
-            .withBodyContent(GsonSingleton.getGson().toJson(corpus), HttpMediaType.APPLICATION_JSON)
+            .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(corpus), HttpMediaType.APPLICATION_JSON)
             .build();
     executeWithoutResponse(request);
   }
@@ -864,7 +864,7 @@ public class ConceptInsights extends WatsonService {
     final Request request =
         RequestBuilder
             .post(API_VERSION + documentId)
-            .withBodyContent(GsonSingleton.getGson().toJson(document),
+            .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(document),
                 HttpMediaType.APPLICATION_JSON).build();
     executeWithoutResponse(request);
   }

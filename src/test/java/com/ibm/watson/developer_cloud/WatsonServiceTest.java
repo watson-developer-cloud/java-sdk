@@ -239,7 +239,7 @@ public abstract class WatsonServiceTest {
   public static <T> T loadFixture(String filename, Class<T> returnType)
       throws FileNotFoundException {
     String jsonString = getStringFromInputStream(new FileInputStream(filename));
-    return GsonSingleton.getGson().fromJson(jsonString, returnType);
+    return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonString, returnType);
   }
 
   /**

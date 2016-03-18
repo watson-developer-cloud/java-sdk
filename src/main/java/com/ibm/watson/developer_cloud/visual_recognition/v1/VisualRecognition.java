@@ -108,7 +108,7 @@ public class VisualRecognition extends WatsonService {
         InputStreamRequestBody.create(HttpMediaType.BINARY_FILE, image));
 
     if (labelSet != null)
-      bodyBuilder.addFormDataPart(LABELS_TO_CHECK, GsonSingleton.getGson().toJson(labelSet));
+      bodyBuilder.addFormDataPart(LABELS_TO_CHECK, GsonSingleton.getGsonWithoutPrettyPrinting().toJson(labelSet));
 
     requestBuilder.withBody(bodyBuilder.build());
 

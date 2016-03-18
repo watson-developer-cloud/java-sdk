@@ -100,7 +100,7 @@ public class ResponseUtil {
     JsonReader reader;
     try {
       reader = new JsonReader(response.body().charStream());
-      final T model = GsonSingleton.getGson().fromJson(reader, type);
+      final T model = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(reader, type);
       return model;
     } catch (IOException e) {
       log.log(Level.SEVERE, ERROR_MESSAGE, e);

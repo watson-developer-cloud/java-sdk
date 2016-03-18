@@ -79,13 +79,13 @@ public class ToneAnalyzer extends WatsonService {
     final Request request =
         RequestBuilder
             .post(PATH_SYNONYM)
-            .withBodyContent(GsonSingleton.getGson().toJson(options),
+            .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(options),
                 HttpMediaType.APPLICATION_JSON).build();
 
     final Response response = execute(request);
     final String synonymResultJson = ResponseUtil.getString(response);
     final List<SynonymResult> synonyms =
-        GsonSingleton.getGson().fromJson(synonymResultJson, synonymListType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(synonymResultJson, synonymListType);
     return synonyms;
   }
 
@@ -137,7 +137,7 @@ public class ToneAnalyzer extends WatsonService {
     final Response response = execute(RequestBuilder.get(PATH_SCORECARD).build());
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     final List<Scorecard> scorecards =
-        GsonSingleton.getGson().fromJson(jsonObject.get(SCORECARDS), scorecardListType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(SCORECARDS), scorecardListType);
 
     return scorecards;
   }

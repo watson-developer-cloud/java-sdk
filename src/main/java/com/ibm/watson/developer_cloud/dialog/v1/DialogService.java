@@ -251,7 +251,7 @@ public class DialogService extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     final List<DialogContent> content =
-        GsonSingleton.getGson().fromJson(jsonObject.get("items"), listDialogContentType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("items"), listDialogContentType);
     return content;
   }
 
@@ -320,7 +320,7 @@ public class DialogService extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     final List<Dialog> dialogs =
-        GsonSingleton.getGson().fromJson(jsonObject.get("dialogs"), listDialogType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("dialogs"), listDialogType);
     return dialogs;
   }
 
@@ -352,7 +352,7 @@ public class DialogService extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     final List<NameValue> nameValues =
-        GsonSingleton.getGson().fromJson(jsonObject.get(NAME_VALUES), listNameValueType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(NAME_VALUES), listNameValueType);
 
     return fromNameValues(nameValues);
   }
@@ -420,7 +420,7 @@ public class DialogService extends WatsonService {
     if (clientId != null)
       contentJson.addProperty(CLIENT_ID, clientId);
 
-    contentJson.add(NAME_VALUES, GsonSingleton.getGson().toJsonTree(toNameValue(profile)));
+    contentJson.add(NAME_VALUES, GsonSingleton.getGsonWithoutPrettyPrinting().toJsonTree(toNameValue(profile)));
 
     final Request request =
         RequestBuilder.put(String.format(PATH_PROFILE, dialogId)).withBodyJson(contentJson).build();

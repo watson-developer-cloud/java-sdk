@@ -136,7 +136,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     mockServer.when(request().withPath(GET_VOICES_PATH)).respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(response)));
+            GsonSingleton.getGsonWithoutPrettyPrinting().toJson(response)));
 
     final List<Voice> result = service.getVoices();
     Assert.assertNotNull(result);

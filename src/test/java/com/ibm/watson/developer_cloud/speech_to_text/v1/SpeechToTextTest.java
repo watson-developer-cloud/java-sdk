@@ -80,7 +80,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     respond(
         response().withHeaders(APPLICATION_JSON, new Header("set-cookie", "test-cookie")).withBody(
-            GsonSingleton.getGson().toJson(session)));
+            GsonSingleton.getGsonWithoutPrettyPrinting().toJson(session)));
 
     final SpeechSession response = service.createSession();
     Assert.assertNotNull(response);
@@ -114,7 +114,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     mockServer.when(request().withPath(GET_MODELS_PATH + "/" + speechModel.getName())).respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(speechModel)));
+            GsonSingleton.getGsonWithoutPrettyPrinting().toJson(speechModel)));
 
 
     SpeechModel model = service.getModel("not-a-real-Model");
@@ -159,7 +159,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     mockServer.when(request().withPath(GET_MODELS_PATH)).respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(speechModelSet)));
+            GsonSingleton.getGsonWithoutPrettyPrinting().toJson(speechModelSet)));
     final List<SpeechModel> models = service.getModels();
     Assert.assertNotNull(models);
     Assert.assertFalse(models.isEmpty());
@@ -208,7 +208,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     .respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(speechResults)));
+            GsonSingleton.getGsonWithoutPrettyPrinting().toJson(speechResults)));
     final SpeechResults result = service.recognize(audio);
     Assert.assertNotNull(result);
     Assert.assertEquals(result, speechResults);
@@ -247,7 +247,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
             .withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.AUDIO_WAV)))
         .respond(
             response().withHeader(APPLICATION_JSON).withBody(
-                GsonSingleton.getGson().toJson(speechResults)));
+                GsonSingleton.getGsonWithoutPrettyPrinting().toJson(speechResults)));
 
     boolean didItHappen = false;
     try {

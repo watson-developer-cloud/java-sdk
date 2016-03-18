@@ -107,7 +107,7 @@ public class SpeechToText extends WatsonService {
       requestBuilder.withQuery(KEYWORDS_THRESHOLD, options.getKeywordsThreshold());
 
     if (options.getKeywords() != null && options.getKeywords().length > 0)
-      requestBuilder.withQuery(KEYWORDS, GsonSingleton.getGson().toJson(options.getKeywords()));
+      requestBuilder.withQuery(KEYWORDS, GsonSingleton.getGsonWithoutPrettyPrinting().toJson(options.getKeywords()));
 
     if (options.getWordAlternativesThreshold() != null)
       requestBuilder.withQuery(WORD_ALTERNATIVES_THRESHOLD, options.getWordAlternativesThreshold());
@@ -219,7 +219,7 @@ public class SpeechToText extends WatsonService {
         RequestBuilder.get(String.format(PATH_SESSION_RECOGNIZE, session.getSessionId())).build();
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-    return GsonSingleton.getGson().fromJson(jsonObject.get(SESSION), SessionStatus.class);
+    return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(SESSION), SessionStatus.class);
   }
 
   /**

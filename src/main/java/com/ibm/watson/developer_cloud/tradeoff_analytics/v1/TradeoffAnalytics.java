@@ -84,7 +84,7 @@ public class TradeoffAnalytics extends WatsonService {
   public Dilemma dilemmas(final Problem problem, final Boolean generateVisualization) {
     Validate.notNull(problem, "problem was not specified");
 
-    final String contentJson = GsonSingleton.getGson().toJson(problem);
+    final String contentJson = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(problem);
 
     final RequestBuilder requestBuilder =
         RequestBuilder.post(PATH_DILEMMAS).withBodyContent(contentJson,

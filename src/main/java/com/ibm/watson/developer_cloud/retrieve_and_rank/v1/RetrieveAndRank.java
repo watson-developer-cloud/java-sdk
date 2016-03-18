@@ -159,7 +159,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     final RequestBuilder requestBuilder = RequestBuilder.post(PATH_SOLR_CLUSTERS);
 
     if (config != null) {
-      requestBuilder.withBodyContent(GsonSingleton.getGson().toJson(config),
+      requestBuilder.withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(config),
           HttpMediaType.APPLICATION_JSON);
     }
 

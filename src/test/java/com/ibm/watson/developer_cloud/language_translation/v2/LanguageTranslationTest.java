@@ -118,12 +118,12 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
     mockServer.when(request().withPath(IDENTIFIABLE_LANGUAGES_PATH)).respond(
         response().withHeader(APPLICATION_JSON).withBody(
-            GsonSingleton.getGson().toJson(identifiableLanguages)));
+            GsonSingleton.getGsonWithoutPrettyPrinting().toJson(identifiableLanguages)));
 
     List<IdentifiableLanguage> languages = service.getIdentifiableLanguages();
 
-    assertEquals(GsonSingleton.getGson().toJson(languages),
-        GsonSingleton.getGson().toJson(identifiableLanguages.getLanguages()));
+    assertEquals(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(languages),
+        GsonSingleton.getGsonWithoutPrettyPrinting().toJson(identifiableLanguages.getLanguages()));
   }
 
   /**
@@ -133,7 +133,7 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
   public void testGetModel() {
 
     mockServer.when(request().withPath(GET_MODELS_PATH + "/" + model.getId())).respond(
-        response().withHeader(APPLICATION_JSON).withBody(GsonSingleton.getGson().toJson(model)));
+        response().withHeader(APPLICATION_JSON).withBody(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(model)));
 
     TranslationModel returnedModel = service.getModel(model.getId());
 
@@ -148,13 +148,13 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
     mockServer.when(request().withPath(GET_MODELS_PATH)).respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(models)));
+            GsonSingleton.getGsonWithoutPrettyPrinting().toJson(models)));
 
     final List<TranslationModel> modelList = service.getModels();
 
     mockServer.verify(request().withPath(GET_MODELS_PATH), VerificationTimes.exactly(1));
 
-    assertEquals(GsonSingleton.getGson().toJson(models.getModels()), GsonSingleton.getGson()
+    assertEquals(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(models.getModels()), GsonSingleton.getGsonWithoutPrettyPrinting()
         .toJson(modelList));
   }
 
@@ -183,7 +183,7 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
     mockServer.when(request().withMethod("POST").withPath(IDENTITY_PATH).withBody(text)).respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(response)));
+            GsonSingleton.getGsonWithoutPrettyPrinting().toJson(response)));
 
     final List<IdentifiedLanguage> identifiedLanguages = service.identify(text);
     assertNotNull(identifiedLanguages);
@@ -224,7 +224,7 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
     ).respond(
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
-            GsonSingleton.getGson().toJson(response)));
+            GsonSingleton.getGsonWithoutPrettyPrinting().toJson(response)));
 
     TranslationResult translationResult = service.translate(text, modelId);
     testTranslationResult(text, translationResult);

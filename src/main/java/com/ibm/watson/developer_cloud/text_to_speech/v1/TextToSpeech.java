@@ -66,7 +66,7 @@ public class TextToSpeech extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     final List<Voice> voices =
-        GsonSingleton.getGson().fromJson(jsonObject.get("voices"), listVoiceType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("voices"), listVoiceType);
     return voices;
   }
 

@@ -21,17 +21,20 @@ public class GsonSingletonTest {
    */
   @Test
   public void testDateSerializer() {
-    String dateAsJson =
-        "[\"2014-06-04T15:38:07Z\"," + "\"2015-08-24T18:42:25.324Z\","
-            + "\"2015-08-24T18:42:25.324Z\"," + "\"2015-08-31T00:49:27.77Z\","
-            + "\"2015-09-01T16:05:30.058-0400\"," + "\"2015-09-01T16:05:30.058-0400\","
-            + "\"2015-09-01T16:05:30.058-0400\"," + "\"2015-09-01T16:05:30.058-0400\","
-            + "\"2015-10-08T17:59:39.609Z\"," + "\"2016-03-12 20:31:58\"]";
+    String dateAsJson = "[\"2014-06-04T15:38:07Z\"," + "\"2015-08-24T18:42:25.324Z\","
+        + "\"2015-08-24T18:42:25.324Z\"," + "\"2015-08-31T00:49:27.77Z\","
+        + "\"2015-09-01T16:05:30.058-0400\"," + "\"2015-09-01T16:05:30.058-0400\","
+        + "\"2015-09-01T16:05:30.058-0400\"," + "\"2015-09-01T16:05:30.058-0400\","
+        + "\"2015-10-08T17:59:39.609Z\"," + "\"2016-03-12 20:31:58\"]";
 
-    List<Date> dates = GsonSingleton.getGson().fromJson(dateAsJson, listType);
+    List<Date> dates = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(dateAsJson, listType);
     Assert.assertNotNull(dates);
 
-    String datesAsString = GsonSingleton.getGson().toJson(dates);
+    String datesAsString = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(dates);
     Assert.assertNotNull(datesAsString);
+
+    Assert.assertNotEquals(GsonSingleton.getGson().toJson(dates),
+        GsonSingleton.getGsonWithoutPrettyPrinting().toJson(dates));
   }
+
 }

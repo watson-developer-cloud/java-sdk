@@ -77,7 +77,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     mockServer.when(request().withMethod(POST).withPath(path).withBody(contentJson.toString()))
         .respond(
             response().withHeader(APPLICATION_JSON).withBody(
-                GsonSingleton.getGson().toJson(classification)));
+                GsonSingleton.getGsonWithoutPrettyPrinting().toJson(classification)));
 
     Classification result = service.classify(classifierId, classification.getText());
 
@@ -91,7 +91,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   public void testGetClassifier() {
     mockServer.when(request().withPath(CLASSIFIERS_PATH + "/" + classifierId)).respond(
         response().withHeader(APPLICATION_JSON)
-            .withBody(GsonSingleton.getGson().toJson(classifier)));
+            .withBody(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(classifier)));
 
     Classifier response = service.getClassifier(classifierId);
     assertEquals(classifier, response);
@@ -105,7 +105,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   public void testGetClassifiers() {
     mockServer.when(request().withPath(CLASSIFIERS_PATH)).respond(
         response().withHeader(APPLICATION_JSON).withBody(
-            GsonSingleton.getGson().toJson(classifiers)));
+            GsonSingleton.getGsonWithoutPrettyPrinting().toJson(classifiers)));
 
 
     Classifiers response = service.getClassifiers();

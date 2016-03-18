@@ -192,7 +192,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
         .respond(
             response().withHeaders(
                 new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON))
-                .withBody(GsonSingleton.getGson().toJson(response)));
+                .withBody(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(response)));
 
     final List<SynonymResult> synonyms = service.getSynonyms(options);
 
@@ -289,7 +289,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
         .respond(
             response().withHeaders(
                 new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON))
-                .withBody(GsonSingleton.getGson().toJson(response)));
+                .withBody(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(response)));
 
     // Call the service and get the tone
     final Tone tone = service.getTone(text, Scorecard.EMAIL);
