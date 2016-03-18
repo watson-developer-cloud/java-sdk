@@ -23,7 +23,7 @@ echo '<!DOCTYPE html>
         | <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.ibm.watson.developer_cloud%22%20a%3A%22java-sdk%22">Maven</a>
     </p>
 
-    <p>JSDoc by branch/tag:</p>
+    <p>Javadoc by branch/tag:</p>
     <ul>'
 ls docs | grep --invert-match index.html | sed 's/^.*/<li><a href="docs\/&">&<\/a><\/li>/'
 echo '    </ul>
