@@ -28,6 +28,7 @@ import java.util.UUID;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -132,6 +133,27 @@ public class DialogServiceIT extends WatsonServiceTest {
   public void testGetContent() {
     List<DialogContent> content =  service.getContent(dialogId);
     assertNotNull(content);
+  }
+  
+  /**
+   * Test profile variable encoding. 
+   */
+  @Test
+  @Ignore
+  public void testProfileVariableEncoding() {
+    String variable = "size", value = "Germán";
+
+    // start a conversation
+    Conversation c = service.createConversation(dialogId);
+    
+    // update profile with a non-ascii value
+    Map<String, String> profile = new HashMap<String,String >();
+    profile.put(variable, value);
+    service.updateProfile(dialogId, c.getClientId(), profile);
+    
+    // verify that value is equal to the one in the profile
+    profile = service.getProfile(dialogId, c.getClientId(), variable);
+    assertEquals(profile.get(variable), value);
   }
   
   /**
