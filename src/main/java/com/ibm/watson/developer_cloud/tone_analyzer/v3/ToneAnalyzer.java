@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.tone_analyzer.v1.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.squareup.okhttp.Request;
 
@@ -62,7 +61,7 @@ public class ToneAnalyzer extends WatsonService {
    * conscientiousness, agreeableness, openness).
    * 
    * @param text The text to analyze
-   * @return the {@link Tone} with the response
+   * @return the {@link ToneAnalysis} with the response
    * 
    */
   public ToneAnalysis getTone(final String text) {
