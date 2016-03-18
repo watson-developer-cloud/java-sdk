@@ -1,5 +1,5 @@
 -classpath
-'/home/travis/.m2/repository/com/google/code/gson/gson/2.5/gson-2.5.jar:/home/travis/.m2/repository/com/squareup/okio/okio/1.6.0/okio-1.6.0.jar:/home/travis/.m2/repository/com/neovisionaries/nv-websocket-client/1.21/nv-websocket-client-1.21.jar:/home/travis/.m2/repository/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar:/home/travis/.m2/repository/com/squareup/okhttp/okhttp/2.7.2/okhttp-2.7.2.jar'
+'/home/travis/.m2/repository/com/google/code/gson/gson/2.6.2/gson-2.6.2.jar:/home/travis/.m2/repository/com/squareup/okio/okio/1.6.0/okio-1.6.0.jar:/home/travis/.m2/repository/com/neovisionaries/nv-websocket-client/1.22/nv-websocket-client-1.22.jar:/home/travis/.m2/repository/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar:/home/travis/.m2/repository/com/squareup/okhttp/okhttp/2.7.2/okhttp-2.7.2.jar'
 -encoding
 'UTF-8'
 -protected
