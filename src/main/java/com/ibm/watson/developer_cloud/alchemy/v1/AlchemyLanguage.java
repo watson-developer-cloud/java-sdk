@@ -23,6 +23,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Dates;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentAuthors;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentEmotion;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentPublicationDate;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentText;
@@ -276,11 +277,22 @@ public class AlchemyLanguage extends AlchemyService {
   }
 
   /**
+   * Detects emotions in a text, URL or HTML.
+   * 
+   * @param params The parameters to be used in the service call, text, html or url should be
+   *        specified
+   * @return {@link DocumentEmotion}
+   */
+  public DocumentEmotion getEmotion(Map<String, Object> params) {
+    return executeRequest(params, AlchemyAPI.emotion, DocumentEmotion.class, TEXT, HTML, URL);
+  }
+
+  /**
    * Extracts dates for text, a URL or HTML.
    * 
    * @param params The parameters to be used in the service call, text, html or url should be
    *        specified.
-   * @return {@link DocumentTitle}
+   * @return {@link Dates}
    */
   public Dates getDates(Map<String, Object> params) {
 

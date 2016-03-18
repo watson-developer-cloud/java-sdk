@@ -24,6 +24,11 @@
     "text": "/text/TextGetTextSentiment",
     "html": "/html/HTMLGetTextSentiment"
   },
+  "emotion": {
+    "url": "/url/URLGetEmotion",
+    "text": "/text/TextGetEmotion",
+    "html": "/html/HTMLGetEmotion"
+  },
   "sentiment_targeted": {
     "url": "/url/URLGetTargetedSentiment",
     "text": "/text/TextGetTargetedSentiment",

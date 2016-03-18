@@ -98,9 +98,12 @@ public class AlchemyEndPoints {
 
     /** The publication date */
     publication_date,
-    
+
     /** dates */
-    dates
+    dates,
+
+    /** emotion */
+    emotion
   }
 
   /** The file where alchemy endpoints are described. */

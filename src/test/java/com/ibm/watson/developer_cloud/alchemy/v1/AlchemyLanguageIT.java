@@ -27,6 +27,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Dates;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentAuthors;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentEmotion;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentPublicationDate;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentText;
@@ -128,7 +129,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   }
 
   /**
-   * Test get concepts HTML.
+   * Test get concepts Tet.
    */
   @Test
   public void testGetConceptsText() {
@@ -427,4 +428,42 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     Assert.assertFalse(dates.getDates().isEmpty());
   }
   
+  /**
+   * Test get emotion from HTML.
+   */
+  @Test
+  public void testGetEmotionHTML() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.HTML, htmlExample);
+    final DocumentEmotion emotion = service.getEmotion(params);
+    Assert.assertNotNull(emotion);
+    Assert.assertNotNull(emotion.getEmotion());
+    System.out.println(emotion);
+  }
+
+  /**
+   * Test get emotion from text.
+   */
+  @Test
+  public void testGetEmotionText() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.TEXT, htmlExample);
+    final DocumentEmotion emotion = service.getEmotion(params);
+    Assert.assertNotNull(emotion);
+    Assert.assertNotNull(emotion.getEmotion());
+    System.out.println(emotion);
+  }
+
+  /**
+   * Test Get emotion from URL.
+   */
+  @Test
+  public void testGetEmotionUrl() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
+    final DocumentEmotion emotion = service.getEmotion(params);
+    Assert.assertNotNull(emotion);
+    Assert.assertNotNull(emotion.getEmotion());
+    System.out.println(emotion);
+  }
 }
