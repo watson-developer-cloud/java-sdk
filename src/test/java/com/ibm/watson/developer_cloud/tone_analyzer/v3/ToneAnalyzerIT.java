@@ -38,9 +38,9 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_02_11);
-    service.setUsernameAndPassword(getValidProperty("tone_analyzer.username"),
-        getValidProperty("tone_analyzer.password"));
-    service.setEndPoint(getValidProperty("tone_analyzer.url"));
+    service.setUsernameAndPassword(getValidProperty("tone_analyzer.v3.username"),
+        getValidProperty("tone_analyzer.v3.password"));
+    service.setEndPoint(getValidProperty("tone_analyzer.v3.url"));
     service.setDefaultHeaders(getDefaultHeaders());
 
   }
