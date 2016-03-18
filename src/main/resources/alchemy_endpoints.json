@@ -9,6 +9,11 @@
     "text": "/text/TextGetRankedKeywords",
     "html": "/html/HTMLGetRankedKeywords"
   },
+  "dates": {
+    "url": "/url/URLExtractDates",
+    "text": "/text/TextExtractDates",
+    "html": "/html/HTMLExtractDates"
+  },
   "concepts": {
     "url": "/url/URLGetRankedConcepts",
     "text": "/text/TextGetRankedConcepts",
@@ -80,7 +85,7 @@
     "url": "/url/URLGetRankedImageFaceTags",
     "image": "/image/ImageGetRankedImageFaceTags"
   },
-  "image_scenetext": {
+  "image_scene_text": {
     "url": "/url/URLGetRankedImageSceneText",
     "image": "/image/ImageGetRankedImageSceneText"
   },

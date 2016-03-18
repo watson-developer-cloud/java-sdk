@@ -14,11 +14,14 @@
 
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.model.AlchemyGenericModel;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Dates;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentAuthors;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentPublicationDate;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
@@ -74,6 +77,10 @@ public class AlchemyLanguage extends AlchemyService {
   public static final String USE_METADATA = "useMetadata";
   public static final String XPATH = "xpath";
   public static final String TARGETS = "targets";
+  public static final String ANCHOR_DATE = "anchorDate";
+
+  private static final SimpleDateFormat anchorDateFormat =
+      new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   /**
    * Execute the request and return the POJO that represent the response.
@@ -266,5 +273,24 @@ public class AlchemyLanguage extends AlchemyService {
    */
   public DocumentTitle getTitle(Map<String, Object> params) {
     return executeRequest(params, AlchemyAPI.title, DocumentTitle.class, HTML, URL);
+  }
+
+  /**
+   * Extracts dates for text, a URL or HTML.
+   * 
+   * @param params The parameters to be used in the service call, text, html or url should be
+   *        specified.
+   * @return {@link DocumentTitle}
+   */
+  public Dates getDates(Map<String, Object> params) {
+
+    if (params != null && params.containsKey(ANCHOR_DATE)) {
+      if (params.get(ANCHOR_DATE) != null && params.get(ANCHOR_DATE) instanceof Date) {
+        String anchorDate = anchorDateFormat.format(params.get(ANCHOR_DATE));
+        params.put(ANCHOR_DATE, anchorDate);
+      }
+    }
+
+    return executeRequest(params, AlchemyAPI.dates, Dates.class, TEXT, HTML, URL);
   }
 }

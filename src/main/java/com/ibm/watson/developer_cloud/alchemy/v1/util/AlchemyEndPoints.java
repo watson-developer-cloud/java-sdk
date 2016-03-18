@@ -63,8 +63,8 @@ public class AlchemyEndPoints {
     /** The image_recognition. */
     image_recognition,
 
-    /** The image_scenetext. */
-    image_scenetext,
+    /** The image_scene_text. */
+    image_scene_text,
 
     /** The keywords. */
     keywords,
@@ -97,7 +97,10 @@ public class AlchemyEndPoints {
     title,
 
     /** The publication date */
-    publication_date
+    publication_date,
+    
+    /** dates */
+    dates
   }
 
   /** The file where alchemy endpoints are described. */

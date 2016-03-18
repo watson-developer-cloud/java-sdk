@@ -131,7 +131,7 @@ public class AlchemyVision extends AlchemyService {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
 
-    return executeRequest(params, AlchemyAPI.image_scenetext, ImageSceneText.class);
+    return executeRequest(params, AlchemyAPI.image_scene_text, ImageSceneText.class);
   }
   
   /**
@@ -146,7 +146,7 @@ public class AlchemyVision extends AlchemyService {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
     
-    return executeRequest(params, AlchemyAPI.image_scenetext, ImageSceneText.class);
+    return executeRequest(params, AlchemyAPI.image_scene_text, ImageSceneText.class);
   }
   
   /**

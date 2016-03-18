@@ -25,6 +25,7 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Dates;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentAuthors;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentPublicationDate;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
@@ -411,4 +412,19 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     Assert.assertNotNull(text);
   }
 
+  /**
+   * Test get dates from a url 
+   */
+  @Test
+  public void testGetDates() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.TEXT, "Let's meet on January 4th, 2004");
+    params.put(AlchemyLanguage.ANCHOR_DATE, "2013-12-16 20:06:18");
+    
+    final Dates dates = service.getDates(params);
+    Assert.assertNotNull(dates);
+    Assert.assertNotNull(dates.getDates());
+    Assert.assertFalse(dates.getDates().isEmpty());
+  }
+  
 }
