@@ -90,7 +90,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     Assert.assertNotNull(result.getImages().get(0).getScores().get(0));
     Assert.assertNotNull(result.getImages().get(0).getScores().get(0).getClassifierId());
     Assert.assertNotNull(result.getImages().get(0).getScores().get(0).getScore());
-    System.out.println(result);
   }
   
   /**

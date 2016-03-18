@@ -78,7 +78,6 @@ public class ZipUtilsTest {
   }
 
   static String streamToString(java.io.InputStream inputStream) {
-    @SuppressWarnings("resource")
     final java.util.Scanner s = new java.util.Scanner(inputStream).useDelimiter("\\A");
     try {
       return s.hasNext() ? s.next() : "";

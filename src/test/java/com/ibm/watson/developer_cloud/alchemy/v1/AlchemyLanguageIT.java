@@ -438,7 +438,6 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     final DocumentEmotion emotion = service.getEmotion(params);
     Assert.assertNotNull(emotion);
     Assert.assertNotNull(emotion.getEmotion());
-    System.out.println(emotion);
   }
 
   /**
@@ -451,7 +450,6 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     final DocumentEmotion emotion = service.getEmotion(params);
     Assert.assertNotNull(emotion);
     Assert.assertNotNull(emotion.getEmotion());
-    System.out.println(emotion);
   }
 
   /**
@@ -464,6 +462,5 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     final DocumentEmotion emotion = service.getEmotion(params);
     Assert.assertNotNull(emotion);
     Assert.assertNotNull(emotion.getEmotion());
-    System.out.println(emotion);
   }
 }
