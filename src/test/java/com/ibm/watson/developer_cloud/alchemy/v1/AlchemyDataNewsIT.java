@@ -15,10 +15,7 @@ package com.ibm.watson.developer_cloud.alchemy.v1;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.StringBufferInputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
