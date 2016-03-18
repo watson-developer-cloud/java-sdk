@@ -15,10 +15,10 @@
 -docencoding
 'UTF-8'
 -doctitle
-'Watson Developer Cloud Java SDK 2.8.1-SNAPSHOT API'
+'Watson Developer Cloud Java SDK 2.9.1-SNAPSHOT API'
 -linkoffline
 'http://docs.oracle.com/javase/6/docs/api' '/home/travis/build/watson-developer-cloud/java-sdk/target/javadoc-bundle-options'
 -use
 -version
 -windowtitle
-'Watson Developer Cloud Java SDK 2.8.1-SNAPSHOT API'
+'Watson Developer Cloud Java SDK 2.9.1-SNAPSHOT API'
