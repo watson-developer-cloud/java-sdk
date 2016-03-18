@@ -13,13 +13,16 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.alchemy.v1.util.ImageKeywordTypeAdapter;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * ImageKeyword by the {@link AlchemyVision} service.
  * 
  */
+@JsonAdapter(ImageKeywordTypeAdapter.class)
 public class ImageKeyword extends GenericModel {
 
 

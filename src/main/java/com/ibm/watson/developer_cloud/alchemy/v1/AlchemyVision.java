@@ -16,10 +16,12 @@ package com.ibm.watson.developer_cloud.alchemy.v1;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.ListIterator;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.model.AlchemyGenericModel;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeyword;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneText;
@@ -71,6 +73,9 @@ public class AlchemyVision extends AlchemyService {
   /** The Constant URL. (value is "url") */
   public static final String URL = "url";
 
+  /** The Constant NO_TAGS. (value is "NO_TAGS") */
+  private static final String NO_TAGS = "NO_TAGS";
+
   /**
    * Executes the request and return the POJO that represent the response.
    * 
@@ -93,11 +98,11 @@ public class AlchemyVision extends AlchemyService {
         params.put(IMAGE_POST_MODE, RAW);
         final File image = (File) params.get(IMAGE);
         if (!image.exists()) {
-          throw new IllegalArgumentException("The file: " + image.getAbsolutePath()
-              + " does not exist.");
+          throw new IllegalArgumentException(
+              "The file: " + image.getAbsolutePath() + " does not exist.");
         } else {
-          requestBuilder.withBody(RequestBody.create(HttpMediaType.BINARY_FILE,
-              (File) params.get(IMAGE)));
+          requestBuilder
+              .withBody(RequestBody.create(HttpMediaType.BINARY_FILE, (File) params.get(IMAGE)));
           params.remove(IMAGE);
         }
       }
@@ -133,22 +138,23 @@ public class AlchemyVision extends AlchemyService {
 
     return executeRequest(params, AlchemyAPI.image_scene_text, ImageSceneText.class);
   }
-  
+
   /**
-   * Identifies text in an image specified by URL or in the primary image in a web page specified by URL
+   * Identifies text in an image specified by URL or in the primary image in a web page specified by
+   * URL
    * 
    * @param url the image URL
    * @return {@link ImageSceneText}
    */
   public ImageSceneText getImageSceneText(URL url) {
     Validate.notNull(url, "url cannot be null");
-    
+
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
-    
+
     return executeRequest(params, AlchemyAPI.image_scene_text, ImageSceneText.class);
   }
-  
+
   /**
    * Extracts keywords from an image
    * 
@@ -170,7 +176,16 @@ public class AlchemyVision extends AlchemyService {
     if (knowledgeGraph != null)
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
 
-    return executeRequest(params, AlchemyAPI.image_keywords, ImageKeywords.class);
+    ImageKeywords imageKeywords = executeRequest(params, AlchemyAPI.image_keywords, ImageKeywords.class);
+    
+    // Remove the NO_TAGS keywords
+    ListIterator<ImageKeyword> iter = imageKeywords.getImageKeywords().listIterator();
+    while (iter.hasNext()){
+        if (iter.next().getText().equals(NO_TAGS)){
+            iter.remove();
+        }
+    }
+    return imageKeywords;
   }
 
 
