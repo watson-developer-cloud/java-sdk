@@ -13,6 +13,13 @@ if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && [ "$TRAVIS_PU
 
     cp -rf ../target/site/apidocs/* docs/$TRAVIS_BRANCH
     ../.utility/generate_index_html.sh > index.html
+    
+	# update the latest/ symlink
+    # on tagged builds, $TRAVIS_TAG is set to the tag, but it's blank on regular builds, unlike $TRAVIS_BRANCH
+    if [ $TRAVIS_TAG ]; then
+      rm latest
+      ln -s ./$TRAVIS_TAG latest
+    fi
 
     git add -f .
     git commit -m "Latest javadoc for $TRAVIS_BRANCH ($TRAVIS_COMMIT)"
