@@ -50,23 +50,36 @@ public abstract class WatsonService {
 
   private static final String BASIC = "Basic ";
   private static final Logger log = Logger.getLogger(WatsonService.class.getName());
-  private String apiKey;
   private final OkHttpClient client;
   private String endPoint;
   private final String name;
   private Headers defaultHeaders = null;
+  private AuthenticationStrategy auth;
 
   protected static final String VERSION = "version";
 
   /**
-   * Instantiates a new Watson service.
+   * Instantiates a new Watson service with Basic Authentication
    * 
    * @param name the service name
    */
   public WatsonService(String name) {
     this.name = name;
-    this.apiKey = CredentialUtils.getAPIKey(name);
     this.client = configureHttpClient();
+    this.auth = new BasicAuthentication();
+    auth.setApiKey(CredentialUtils.getAPIKey(name));
+  }
+  
+  /**
+   * Instantiates a new Watson service with Custom Authentication
+   * 
+   * @param name the service name
+   */
+  public WatsonService(String name, AuthenticationStrategy auth) {
+  	this.name = name;
+    this.client = configureHttpClient();
+    auth.setApiKey(CredentialUtils.getAPIKey(name));
+    this.auth = auth;
   }
 
 
@@ -208,7 +221,7 @@ public abstract class WatsonService {
    * @return the API key
    */
   protected String getApiKey() {
-    return apiKey;
+    return auth.getApiKey();
   }
 
   /**
@@ -228,11 +241,7 @@ public abstract class WatsonService {
    * @return the token
    */
   public String getToken() {
-    HttpUrl url =
-        HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, "authorization").build();
-    Request request = RequestBuilder.get(url + "/v1/token").withQuery("url", getEndPoint()).build();
-    Response response = execute(request);
-    return ResponseUtil.getJsonObject(response).get("token").getAsString();
+    return auth.refreshToken();
   }
 
   /**
@@ -295,7 +304,7 @@ public abstract class WatsonService {
    * @param apiKey the new API key
    */
   public void setApiKey(String apiKey) {
-    this.apiKey = apiKey;
+    auth.setApiKey(apiKey);
   }
 
   /**
@@ -304,7 +313,8 @@ public abstract class WatsonService {
    * @param builder the new authentication
    */
   protected void setAuthentication(Builder builder) {
-    if (getApiKey() == null) {
+  	String apiKey = auth.getApiKey();
+    if (apiKey == null) {
       throw new IllegalArgumentException("apiKey or username and password were not specified");
     }
     builder
@@ -319,7 +329,7 @@ public abstract class WatsonService {
   public void setEndPoint(String endPoint) {
     this.endPoint = endPoint;
   }
-
+  
   /**
    * Sets the username and password.
    * 
@@ -327,9 +337,23 @@ public abstract class WatsonService {
    * @param password the password
    */
   public void setUsernameAndPassword(String username, String password) {
-    apiKey = Credentials.basic(username, password);
+    if (auth instanceof BasicAuthentication) {
+    	((BasicAuthentication) auth).setUsernameAndPassword(username, password);
+    } else {
+    	throw new UnsupportedOperationException(
+    			"the default setUsernameAndPasswrd(username, password) is not supported with custom authentication");
+    }
   }
-
+  
+  /**
+   * Sets the authentication strategy for this service
+   * 
+   * @param auth the new AuthenticationStrategy
+   */
+  public void setAuthenticationStrategy(AuthenticationStrategy auth) {
+  	this.auth = auth;
+  }
+  
   /**
    * Set the default headers to be used on every HTTP request.
    * 
@@ -355,5 +379,25 @@ public abstract class WatsonService {
     }
     builder.append("]");
     return builder.toString();
+  }
+  
+  private class BasicAuthentication extends AuthenticationStrategy {
+		private String username;
+		private String password;
+		
+		public void setUsernameAndPassword(String username, String password) {
+			this.username = username;
+			this.password = password;
+			setApiKey(Credentials.basic(username, password));
+		}
+	
+		public String refreshToken() {
+			HttpUrl url =
+		        HttpUrl.parse(endPoint).newBuilder().setPathSegment(0, "authorization").build();
+	    Request request = RequestBuilder.get(url + "/v1/token").withQuery("url", endPoint).build();
+	    Response response = execute(request);
+	    setToken(ResponseUtil.getJsonObject(response).get("token").getAsString());
+	    return this.getToken();
+		}
   }
 }
