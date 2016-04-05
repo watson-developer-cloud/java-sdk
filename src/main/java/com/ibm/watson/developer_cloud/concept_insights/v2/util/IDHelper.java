@@ -34,7 +34,7 @@ public class IDHelper {
    * The CONCEPT_ID_REGEX. (format is "/graphs/{account_id}/{graph}/concepts/{concept}")
    */
   private final static String CONCEPT_ID_REGEX =
-      "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*/concepts/[_\\-\\w\\s]*$";
+      "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*/concepts/[_\\-\\w\\s\\(\\)]*$";
 
   /**
    * The CORPUS_ID_REGEX. (format is "/corpora/{account_id}/{corpus}")
