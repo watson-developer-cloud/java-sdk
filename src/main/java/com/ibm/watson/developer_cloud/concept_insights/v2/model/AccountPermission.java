@@ -21,6 +21,22 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class AccountPermission extends GenericModel {
 
+  public enum Permission {
+    
+    @SerializedName("Read")
+    READ,
+    
+    @SerializedName("Write")
+    WRITE,
+    
+    @SerializedName("Admin")
+    ADMIN,
+    
+    @SerializedName("ReadWriteAdmin")
+    READ_WRITE_ADMIN;
+
+  }
+
   /**
    * The account id.
    */
@@ -30,12 +46,31 @@ public class AccountPermission extends GenericModel {
   /**
    * The permission.
    */
-  private String permission;
+  private Permission permission;
 
   /**
    * The uid.
    */
   private String uid;
+
+  /**
+   * Instantiates a new account permission.
+   */
+  public AccountPermission() {
+
+  }
+
+  /**
+   * Instantiates a new account permission.
+   *
+   * @param accountId the account id
+   * @param permission the permission
+   */
+  public AccountPermission(String accountId, Permission permission) {
+    super();
+    this.accountId = accountId;
+    this.permission = permission;
+  }
 
   /**
    * Gets the account id.
@@ -51,7 +86,7 @@ public class AccountPermission extends GenericModel {
    * 
    * @return The permission
    */
-  public String getPermission() {
+  public Permission getPermission() {
     return permission;
   }
 
@@ -78,7 +113,7 @@ public class AccountPermission extends GenericModel {
    * 
    * @param permission The permission
    */
-  public void setPermission(String permission) {
+  public void setPermission(Permission permission) {
     this.permission = permission;
   }
 
