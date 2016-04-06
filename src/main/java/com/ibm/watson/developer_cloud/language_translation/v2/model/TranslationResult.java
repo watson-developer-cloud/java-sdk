@@ -46,6 +46,17 @@ public class TranslationResult extends GenericModel {
   }
 
   /**
+   * Gets the first translation.
+   *
+   * @return the first translation
+   */
+  public String getFirstTranslation() {
+    if (translations != null && !translations.isEmpty())
+      return translations.get(0).getTranslation();
+    else
+      return null;
+  }
+  /**
    * Gets the translations.
    * 
    * @return The translations
