@@ -26,7 +26,8 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 /**
  * Getting 7 documents between Friday 28th August 2015 and Friday 4th September 2015 using the
  * {@link AlchemyDataNews} API.
- *
+ * 
+ * Example from java-sdk: https://github.com/watson-developer-cloud/java-sdk
  */
 public class GetNewsDocumentExample {
 
