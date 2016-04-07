@@ -32,6 +32,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.Entities;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Feeds;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Keywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Language;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.LanguageSelection;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Microformats;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.SAORelations;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomies;
@@ -79,6 +80,9 @@ public class AlchemyLanguage extends AlchemyService {
   public static final String XPATH = "xpath";
   public static final String TARGETS = "targets";
   public static final String ANCHOR_DATE = "anchorDate";
+  
+  // language to be used with request
+  private LanguageSelection language = LanguageSelection.DETECT;
 
   private static final SimpleDateFormat anchorDateFormat =
       new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -105,6 +109,10 @@ public class AlchemyLanguage extends AlchemyService {
     // Return json
     params.put(OUTPUT_MODE, "json");
 
+    if (language != LanguageSelection.DETECT) {
+      params.put("language", language.toString().toLowerCase());
+    }
+
     // Prevent jsonp to be returned
     params.remove(JSONP);
 
@@ -114,6 +122,17 @@ public class AlchemyLanguage extends AlchemyService {
     }
     return executeRequest(requestBuilder.build(), returnType);
   }
+
+
+  /**
+   * Allows users to set language of input text.
+   *
+   * @param language The language to use
+   */
+  public void setLanguage(LanguageSelection language) {
+    this.language = language;
+  }
+
 
   /**
    * Extracts the authors from a URL or HTML.
