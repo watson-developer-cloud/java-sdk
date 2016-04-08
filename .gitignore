@@ -12,4 +12,6 @@ gradlew.bat
 target
 bin/
 *.iml
+*.ipr
+*.iws
 src/test/resources/config.properties
