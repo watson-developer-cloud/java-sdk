@@ -26,7 +26,8 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 /**
  * Getting 7 documents between Friday 28th August 2015 and Friday 4th September 2015 using the
  * {@link AlchemyDataNews} API.
- *
+ * 
+ * Example from java-sdk: https://github.com/watson-developer-cloud/java-sdk
  */
 public class GetNewsDocumentExample {
 
@@ -44,6 +45,10 @@ public class GetNewsDocumentExample {
     params.put(AlchemyDataNews.START, "1440720000");
     params.put(AlchemyDataNews.END, "1441407600");
     params.put(AlchemyDataNews.COUNT, 7);
+    //Query on adjacent nested fields: 
+    params.put("q.enriched.url.enrichedTitle.entities.entity", "|text=IBM,type=company|");
+    params.put("q.enriched.url.enrichedTitle.docSentiment.type", "positive");
+    params.put("q.enriched.url.enrichedTitle.taxonomy.taxonomy_.label", "technology and computing");
 
     DocumentsResult result = service.getNewsDocuments(params);
 
