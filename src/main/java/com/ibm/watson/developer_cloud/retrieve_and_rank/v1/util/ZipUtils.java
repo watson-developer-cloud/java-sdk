@@ -93,12 +93,11 @@ public class ZipUtils {
   }
 
   private static void addFilesToZip(final File currentParentDir, final ZipOutputStream out,
-      final File globalParentDir)
-      throws IOException {
+      final File globalParentDir) throws IOException {
     for (final File child : currentParentDir.listFiles()) {
-      if(child.isDirectory()){
+      if (child.isDirectory()) {
         addFilesToZip(child, out, globalParentDir);
-      } else if (child.isFile()){
+      } else if (child.isFile()) {
         writeZipEntry(out, globalParentDir.toURI().relativize(child.toURI()).toString(),
             readBytes(child));
       }

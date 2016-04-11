@@ -60,8 +60,8 @@ import com.squareup.okhttp.Response;
  * on content that has been ingested from the English language Wikipedia.
  * 
  * @version v2
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html">
  *      Concept Insights</a>
  */
 public class ConceptInsights extends WatsonService {
@@ -216,10 +216,9 @@ public class ConceptInsights extends WatsonService {
     final String graphId = IDHelper.getGraphId(graph, getFirstAccountId());
     Validate.notEmpty(text, "text cannot be empty");
 
-    final Request request =
-        RequestBuilder.post(API_VERSION + graphId + ANNOTATE_TEXT_PATH)
-            .withBodyContent(text, HttpMediaType.TEXT_PLAIN)
-            .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).build();
+    final Request request = RequestBuilder.post(API_VERSION + graphId + ANNOTATE_TEXT_PATH)
+        .withBodyContent(text, HttpMediaType.TEXT_PLAIN)
+        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).build();
 
     final Response response = execute(request);
     return ResponseUtil.getObject(response, Annotations.class);
@@ -284,11 +283,10 @@ public class ConceptInsights extends WatsonService {
    */
   public void createCorpus(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
-    final Request request =
-        RequestBuilder
-            .put(API_VERSION + corpusId)
-            .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(corpus), HttpMediaType.APPLICATION_JSON)
-            .build();
+    final Request request = RequestBuilder.put(API_VERSION + corpusId)
+        .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(corpus),
+            HttpMediaType.APPLICATION_JSON)
+        .build();
     executeWithoutResponse(request);
   }
 
@@ -299,11 +297,10 @@ public class ConceptInsights extends WatsonService {
    */
   public void createDocument(final Document document) {
     IDHelper.getDocumentId(document);
-    final Request request =
-        RequestBuilder
-            .put(API_VERSION + document.getId())
-            .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(document),
-                HttpMediaType.APPLICATION_JSON).build();
+    final Request request = RequestBuilder.put(API_VERSION + document.getId())
+        .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(document),
+            HttpMediaType.APPLICATION_JSON)
+        .build();
 
     executeWithoutResponse(request);
   }
@@ -456,7 +453,8 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Concepts}
    */
-  public Concepts getCorpusRelatedConcepts(final Corpus corpus, final Map<String, Object> parameters) {
+  public Concepts getCorpusRelatedConcepts(final Corpus corpus,
+      final Map<String, Object> parameters) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
@@ -711,7 +709,7 @@ public class ConceptInsights extends WatsonService {
   public Documents listDocuments(final Corpus corpus) {
     return listDocuments(corpus, null);
   }
-  
+
   /**
    * Retrieves the documents of a given corpus.
    * 
@@ -748,7 +746,8 @@ public class ConceptInsights extends WatsonService {
         queryParameters.put(QUERY, parameters.get(QUERY));
       }
     }
-    return executeRequest(API_VERSION + corpusId + DOCUMENTS_PATH, queryParameters, Documents.class);
+    return executeRequest(API_VERSION + corpusId + DOCUMENTS_PATH, queryParameters,
+        Documents.class);
   }
 
   /**
@@ -820,7 +819,8 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Matches}
    */
-  public Matches searchGraphsConceptByLabel(final Graph graph, final Map<String, Object> parameters) {
+  public Matches searchGraphsConceptByLabel(final Graph graph,
+      final Map<String, Object> parameters) {
     final String graphId = IDHelper.getGraphId(graph, getFirstAccountId());
     Validate.notEmpty((String) parameters.get(QUERY), "query cannot be empty");
 
@@ -836,7 +836,8 @@ public class ConceptInsights extends WatsonService {
       if (fields != null && !fields.isEmpty())
         queryParameters.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
-    return executeRequest(API_VERSION + graphId + LABEL_SEARCH_PATH, queryParameters, Matches.class);
+    return executeRequest(API_VERSION + graphId + LABEL_SEARCH_PATH, queryParameters,
+        Matches.class);
   }
 
   /**
@@ -846,11 +847,10 @@ public class ConceptInsights extends WatsonService {
    */
   public void updateCorpus(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
-    final Request request =
-        RequestBuilder
-            .post(API_VERSION + corpusId)
-            .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(corpus), HttpMediaType.APPLICATION_JSON)
-            .build();
+    final Request request = RequestBuilder.post(API_VERSION + corpusId)
+        .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(corpus),
+            HttpMediaType.APPLICATION_JSON)
+        .build();
     executeWithoutResponse(request);
   }
 
@@ -861,11 +861,10 @@ public class ConceptInsights extends WatsonService {
    */
   public void updateDocument(final Document document) {
     final String documentId = IDHelper.getDocumentId(document);
-    final Request request =
-        RequestBuilder
-            .post(API_VERSION + documentId)
-            .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(document),
-                HttpMediaType.APPLICATION_JSON).build();
+    final Request request = RequestBuilder.post(API_VERSION + documentId)
+        .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(document),
+            HttpMediaType.APPLICATION_JSON)
+        .build();
     executeWithoutResponse(request);
   }
 }

@@ -36,12 +36,12 @@ public class GsonSingleton {
    */
   private static Gson createGson(Boolean prettyPrint) {
     GsonBuilder builder = new GsonBuilder();
-    
+
     registerTypeAdapters(builder);
-    
+
     if (prettyPrint)
       builder.setPrettyPrinting();
-    
+
     return builder.create();
   }
 
@@ -62,7 +62,7 @@ public class GsonSingleton {
     }
     return gsonWithoutPrinting;
   }
-  
+
   /**
    * Gets the Gson instance.
    *

@@ -80,7 +80,7 @@ public class AlchemyLanguage extends AlchemyService {
   public static final String XPATH = "xpath";
   public static final String TARGETS = "targets";
   public static final String ANCHOR_DATE = "anchorDate";
-  
+
   // language to be used with request
   private LanguageSelection language = LanguageSelection.DETECT;
 

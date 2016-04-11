@@ -126,19 +126,19 @@ public class ImageFace extends GenericModel {
   private Gender gender;
 
   /** The height. */
-  private String height;
+  private Integer height;
 
   /** The identity. */
   private Identity identity;
 
   /** The position x. */
-  private String positionX;
+  private Integer positionX;
 
   /** The position y. */
-  private String positionY;
+  private Integer positionY;
 
   /** The width. */
-  private String width;
+  private Integer width;
 
   /**
    * Gets the age.
@@ -163,7 +163,7 @@ public class ImageFace extends GenericModel {
    * 
    * @return The height
    */
-  public String getHeight() {
+  public Integer getHeight() {
     return height;
   }
 
@@ -181,7 +181,7 @@ public class ImageFace extends GenericModel {
    * 
    * @return The positionX
    */
-  public String getPositionX() {
+  public Integer getPositionX() {
     return positionX;
   }
 
@@ -190,7 +190,7 @@ public class ImageFace extends GenericModel {
    * 
    * @return The positionY
    */
-  public String getPositionY() {
+  public Integer getPositionY() {
     return positionY;
   }
 
@@ -199,7 +199,7 @@ public class ImageFace extends GenericModel {
    * 
    * @return The width
    */
-  public String getWidth() {
+  public Integer getWidth() {
     return width;
   }
 
@@ -226,7 +226,7 @@ public class ImageFace extends GenericModel {
    * 
    * @param height The height
    */
-  public void setHeight(String height) {
+  public void setHeight(Integer height) {
     this.height = height;
   }
 
@@ -244,7 +244,7 @@ public class ImageFace extends GenericModel {
    * 
    * @param positionX The positionX
    */
-  public void setPositionX(String positionX) {
+  public void setPositionX(Integer positionX) {
     this.positionX = positionX;
   }
 
@@ -253,7 +253,7 @@ public class ImageFace extends GenericModel {
    * 
    * @param positionY The positionY
    */
-  public void setPositionY(String positionY) {
+  public void setPositionY(Integer positionY) {
     this.positionY = positionY;
   }
 
@@ -262,7 +262,7 @@ public class ImageFace extends GenericModel {
    * 
    * @param width The width
    */
-  public void setWidth(String width) {
+  public void setWidth(Integer width) {
     this.width = width;
   }
 }

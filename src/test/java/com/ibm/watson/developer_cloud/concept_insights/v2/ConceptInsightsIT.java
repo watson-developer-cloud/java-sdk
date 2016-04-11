@@ -25,6 +25,8 @@ import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Account;
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.AccountPermission;
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.AccountPermission.Permission;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Accounts;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Annotations;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concept;
@@ -32,6 +34,7 @@ import com.ibm.watson.developer_cloud.concept_insights.v2.model.ConceptMetadata;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concepts;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Corpora;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Corpus;
+import com.ibm.watson.developer_cloud.concept_insights.v2.model.Corpus.Access;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.CorpusProcessingState;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.CorpusStats;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Document;
@@ -339,12 +342,13 @@ public class ConceptInsightsIT extends WatsonServiceTest {
   @Test
   public void testCreateAndDeleteCorpus() {
     final String name = UUID.randomUUID().toString();
-    final Account account = service.getAccountsInfo().getAccounts().get(0);
-    Corpus corpus = new Corpus(account.getId(), name);
+    final String account = service.getFirstAccountId();
+    Corpus corpus = new Corpus(account, name);
+    corpus.addAccountPermissions(new AccountPermission(account, Permission.READ_WRITE_ADMIN));
     try {
       service.createCorpus(corpus);
       corpus = service.getCorpus(corpus);
-      corpus.setAccess(Corpus.ACCESS_PUBLIC);
+      corpus.setAccess(Access.PUBLIC);
       service.updateCorpus(corpus);
     } finally {
       service.deleteCorpus(corpus);
@@ -363,7 +367,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
 
     final RequestedFields fs = new RequestedFields();
     fs.include("abstract");
-    params.put("concept_fields", fs);
+    params.put(ConceptInsights.CONCEPT_FIELDS, fs);
 
     final Matches matches = service.searchGraphsConceptByLabel(Graph.WIKIPEDIA, params);
     Assert.assertNotNull(matches);
