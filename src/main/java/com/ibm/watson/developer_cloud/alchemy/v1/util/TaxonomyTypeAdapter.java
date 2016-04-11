@@ -78,7 +78,7 @@ public class TaxonomyTypeAdapter extends TypeAdapter<Taxonomy> {
 
     if (value.getScore() != null)
       writer.name("score").value(value.getScore());
-    if (value.getConfident() == false)
+    if (!value.getConfident())
       writer.name("confident").value("no");
     if (value.getLabel() != null)
       writer.name("label").value(value.getLabel());

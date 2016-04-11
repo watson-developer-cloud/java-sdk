@@ -78,7 +78,7 @@ public abstract class Column extends GenericModel {
      * @return true, if successful
      */
     public boolean equals(String otherColumnType) {
-      return (otherColumnType == null) ? false : type.equals(otherColumnType);
+      return otherColumnType != null && type.equals(otherColumnType);
     }
 
     /*
@@ -139,7 +139,7 @@ public abstract class Column extends GenericModel {
      * @return true, if successful
      */
     public boolean equals(String otherGoal) {
-      return (otherGoal == null) ? false : goal.equals(otherGoal);
+      return otherGoal != null && goal.equals(otherGoal);
     }
 
     /*

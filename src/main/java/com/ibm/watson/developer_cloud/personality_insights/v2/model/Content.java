@@ -26,7 +26,7 @@ public class Content extends GenericModel {
   /**
    * Field contentItems.
    */
-  List<ContentItem> contentItems;
+  private List<ContentItem> contentItems;
 
   /**
    * Adds a content item.

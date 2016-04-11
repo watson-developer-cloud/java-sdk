@@ -46,12 +46,13 @@ import com.squareup.okhttp.Response;
  */
 public class NaturalLanguageClassifier extends WatsonService {
 
+  public static final String LANGUAGE_EN = "en";
+
   private static final String FORM_DATA_TRAINING_DATA = "form-data; name=\"training_data\"";
   private static final String PATH_CLASSIFIERS = "/v1/classifiers";
   private static final String TEXT = "text";
   private static final String PATH_CLASSIFY = "/v1/classifiers/%s/classify";
   private static final String LANGUAGE = "language";
-  public static final String LANGUAGE_EN = "en";
   private static final String NAME = "name";
   private static final String TRAINING_METADATA = "training_metadata";
   private static final String PATH_CLASSIFIER = "/v1/classifiers/%s";
