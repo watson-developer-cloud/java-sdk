@@ -13,21 +13,21 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
-import java.io.File;
-import java.io.FileInputStream;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeyword;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneText;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneTextLine;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneTextLine.Word;
 import com.squareup.okhttp.HttpUrl;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.File;
+import java.io.FileInputStream;
 
 /**
  * The Class AlchemyVisionTest.
@@ -132,7 +132,22 @@ public class AlchemyVisionIT extends WatsonServiceTest {
     final ImageKeywords image = service.getImageKeywords(imageFile, null, null);
 
     Assert.assertNotNull(image);
+  }
 
+  /**
+   * Test get ranked image keywords from image with knowledge graph data included.
+   */
+  @Test
+  public void testGetRankedImageKeywordsFromImageWithKnowledgeGraph() {
+    final File imageFile = new File(IMAGE_OBAMA);
+    final ImageKeywords image = service.getImageKeywords(imageFile, null, true);
+
+    Assert.assertNotNull(image);
+    if (image.getImageKeywords() != null && !image.getImageKeywords().isEmpty()) {
+      for (ImageKeyword keyword : image.getImageKeywords()) {
+        Assert.assertNotNull(keyword.getHierarchy());
+      }
+    }
   }
 
   /**
