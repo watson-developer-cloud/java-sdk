@@ -285,7 +285,7 @@ public abstract class WatsonService {
    * 
    * @return the user agent
    */
-  private final String getUserAgent() {
+  private String getUserAgent() {
     return "watson-developer-cloud-java-sdk-2.9.0";
   }
 

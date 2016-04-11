@@ -52,8 +52,7 @@ public final class TestUtils {
   @SuppressWarnings("rawtypes")
   public static void assertNoExceptionsOnCollectionIteration(final Collection objs)
       throws Exception {
-    for (final Iterator iter = objs.iterator(); iter.hasNext();) {
-      final Object obj = iter.next();
+    for (final Object obj : objs) {
       assertNoExceptionsOnGetters(obj);
     }
   }
