@@ -28,16 +28,16 @@ public class ImageSceneTextLine extends GenericModel {
    * Region.
    */
   public static class Region extends GenericModel {
-    
+
     /** The height. */
     private Integer height;
-    
+
     /** The width. */
     private Integer width;
-    
+
     /** The x. */
     private Integer x;
-    
+
     /** The y. */
     private Integer y;
 
@@ -118,13 +118,13 @@ public class ImageSceneTextLine extends GenericModel {
    * A word within a line of text.
    */
   public static class Word extends GenericModel {
-    
+
     /** The confidence. */
     private Double confidence;
-    
+
     /** The region. */
     private Region region;
-    
+
     /** The text. */
     private String text;
 
@@ -186,13 +186,13 @@ public class ImageSceneTextLine extends GenericModel {
 
   /** The confidence. */
   private Double confidence;
-  
+
   /** The region. */
   private Region region;
-  
+
   /** The text. */
   private String text;
-  
+
   /** The words. */
   private List<Word> words;
 

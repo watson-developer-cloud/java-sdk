@@ -19,41 +19,41 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * This object represents the results of Tone analysis on an element; which may be a document or a sentence.
- * Its structure is a 2-level tree, with tone categories in the top level and the individual tones (and their
- * scores) in leaves.
+ * This object represents the results of Tone analysis on an element; which may be a document or a
+ * sentence. Its structure is a 2-level tree, with tone categories in the top level and the
+ * individual tones (and their scores) in leaves.
  *
  */
 public class ElementTone extends GenericModel {
 
-    @SerializedName("tone_categories")
-	private List<ToneCategory> tones;
+  @SerializedName("tone_categories")
+  private List<ToneCategory> tones;
 
-	/**
-	 * Gets the tones.
-	 *
-	 * @return the tones
-	 */
-	public List<ToneCategory> getTones() {
-		return tones;
-	}
+  /**
+   * Gets the tones.
+   *
+   * @return the tones
+   */
+  public List<ToneCategory> getTones() {
+    return tones;
+  }
 
-	/**
-	 * Sets the tones.
-	 *
-	 * @param tones the new tones
-	 */
-	public void setTones(List<ToneCategory> tones) {
-		this.tones = tones;
-	}
-	
-	/**
-	 * Adds the tone.
-	 *
-	 * @param tone the tone
-	 */
-	public void addTone(ToneCategory tone) {
-		this.tones.add(tone);
-	}
-	
+  /**
+   * Sets the tones.
+   *
+   * @param tones the new tones
+   */
+  public void setTones(List<ToneCategory> tones) {
+    this.tones = tones;
+  }
+
+  /**
+   * Adds the tone.
+   *
+   * @param tone the tone
+   */
+  public void addTone(ToneCategory tone) {
+    this.tones.add(tone);
+  }
+
 }

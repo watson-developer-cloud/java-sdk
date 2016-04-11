@@ -136,14 +136,12 @@ public class Corpus extends GenericModel {
    * Corpus access.
    */
   public enum Access {
-    
-    @SerializedName("public")
-    PUBLIC,
-    
-    @SerializedName("private")
-    PRIVATE;
+
+    @SerializedName("public") PUBLIC,
+
+    @SerializedName("private") PRIVATE;
   }
-  
+
   /**
    * Gets the id.
    * 
@@ -188,10 +186,10 @@ public class Corpus extends GenericModel {
   public void addAccountPermissions(AccountPermission accountPermission) {
     if (this.accountPermissions == null)
       this.accountPermissions = new ArrayList<AccountPermission>();
-    
+
     this.accountPermissions.add(accountPermission);
   }
-  
+
   /**
    * Sets the id.
    * 

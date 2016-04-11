@@ -35,8 +35,8 @@ import com.squareup.okhttp.Response;
  * tweets, forum posts, and more.
  * 
  * @version v2
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/personality-insights.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/personality-insights.html">
  *      Personality Insights</a>
  */
 public class PersonalityInsights extends WatsonService {
@@ -48,8 +48,8 @@ public class PersonalityInsights extends WatsonService {
 
   private static final String URL = "https://gateway.watsonplatform.net/personality-insights/api";
 
-  private static final Gson gson = new GsonBuilder().registerTypeAdapter(Date.class,
-      new TimestampTypeAdapter()).create();
+  private static final Gson gson =
+      new GsonBuilder().registerTypeAdapter(Date.class, new TimestampTypeAdapter()).create();
 
   /** The Constant HEADERS (value is "headers"). */
   private static final String HEADERS = "headers";

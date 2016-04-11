@@ -32,24 +32,19 @@ public class Ranker extends GenericModel {
   public enum Status {
 
     /** The available. */
-    @SerializedName("Available")
-    AVAILABLE,
+    @SerializedName("Available") AVAILABLE,
 
     /** The failed. */
-    @SerializedName("Failed")
-    FAILED,
+    @SerializedName("Failed") FAILED,
 
     /** The non existent. */
-    @SerializedName("Non Existent")
-    NON_EXISTENT,
+    @SerializedName("Non Existent") NON_EXISTENT,
 
     /** The training. */
-    @SerializedName("Training")
-    TRAINING,
+    @SerializedName("Training") TRAINING,
 
     /** The unavailable. */
-    @SerializedName("Unavailable")
-    UNAVAILABLE
+    @SerializedName("Unavailable") UNAVAILABLE
   }
 
   /** The created. */

@@ -43,6 +43,7 @@ public class WebSocketSpeechToTextClient {
   public class WebSocketListener extends WebSocketAdapter {
     private RecognizeDelegate delegate;
     private boolean audioSent = false;
+
     /**
      * Instantiates a new WebSocket listener.
      * 
@@ -68,7 +69,8 @@ public class WebSocketSpeechToTextClient {
         if (json.has(ERROR)) {
           delegate.onError(new RuntimeException(json.get(ERROR).getAsString()));
         } else if (json.has(RESULTS)) {
-          SpeechResults transcript = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(message, SpeechResults.class);
+          SpeechResults transcript =
+              GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(message, SpeechResults.class);
           delegate.onMessage(transcript);
         } else if (audioSent) {
           websocket.sendClose();
@@ -81,9 +83,8 @@ public class WebSocketSpeechToTextClient {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * com.neovisionaries.ws.client.WebSocketAdapter#onConnected(com.neovisionaries.ws.client.WebSocket
-     * , java.util.Map)
+     * @see com.neovisionaries.ws.client.WebSocketAdapter#onConnected(com.neovisionaries.ws.client.
+     * WebSocket , java.util.Map)
      */
     @Override
     public void onConnected(WebSocket websocket, Map<String, List<String>> headers)
@@ -120,9 +121,8 @@ public class WebSocketSpeechToTextClient {
     /*
      * (non-Javadoc)
      * 
-     * @see
-     * com.neovisionaries.ws.client.WebSocketAdapter#handleCallbackError(com.neovisionaries.ws.client
-     * .WebSocket, java.lang.Throwable)
+     * @see com.neovisionaries.ws.client.WebSocketAdapter#handleCallbackError(com.neovisionaries.ws.
+     * client .WebSocket, java.lang.Throwable)
      */
     @Override
     public void handleCallbackError(WebSocket websocket, Throwable cause) throws Exception {
@@ -142,7 +142,8 @@ public class WebSocketSpeechToTextClient {
    * 
    *        <pre>
    * wss://stream.watsonplatform.net/speech-to-text/api/v1/api/recognize
-   * </pre>
+   *        </pre>
+   * 
    * @param token the authorization token
    */
   public WebSocketSpeechToTextClient(String webSocketUrl, String token) {
@@ -173,10 +174,10 @@ public class WebSocketSpeechToTextClient {
 
       // 4. Send the input stream as binary data
       sendInputStream(ws, stream);
-      
+
       // 5. Tell the listener that we sent the audio
       listener.audioSent = true;
-      
+
       // 5. Send stop message
       ws.sendText(buildStopMessage());
 
@@ -213,8 +214,8 @@ public class WebSocketSpeechToTextClient {
    * @throws InterruptedException if any thread has interrupted the current thread. The interrupted
    *         status of the current thread is cleared when this exception is thrown.
    */
-  private void sendInputStream(WebSocket ws, InputStream stream) throws IOException,
-      InterruptedException {
+  private void sendInputStream(WebSocket ws, InputStream stream)
+      throws IOException, InterruptedException {
     byte[] buffer = new byte[FOUR_KB];
     int read;
     while ((read = stream.read(buffer)) > 0) {

@@ -177,13 +177,13 @@ public class AlchemyVision extends AlchemyService {
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
 
     ImageKeywords imageKeywords = executeRequest(params, AlchemyAPI.image_keywords, ImageKeywords.class);
-    
+
     // Remove the NO_TAGS keywords
     ListIterator<ImageKeyword> iter = imageKeywords.getImageKeywords().listIterator();
-    while (iter.hasNext()){
-        if (iter.next().getText().equals(NO_TAGS)){
-            iter.remove();
-        }
+    while (iter.hasNext()) {
+      if (iter.next().getText().equals(NO_TAGS)) {
+        iter.remove();
+      }
     }
     return imageKeywords;
   }

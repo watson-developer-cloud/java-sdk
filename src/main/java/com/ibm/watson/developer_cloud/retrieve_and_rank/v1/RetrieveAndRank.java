@@ -50,12 +50,12 @@ import com.squareup.okhttp.Response;
  * their end users based on their question or query.
  * 
  * @version v1
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/retrieve-rank.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/retrieve-rank.html">
  *      Retrieve and Rank</a>
  */
-public class RetrieveAndRank extends WatsonService implements ClusterLifecycleManager,
-    SolrConfigManager {
+public class RetrieveAndRank extends WatsonService
+    implements ClusterLifecycleManager, SolrConfigManager {
 
   private static final String ANSWERS = "answers";
   private static final Logger log = Logger.getLogger(RetrieveAndRank.class.getName());
@@ -110,8 +110,8 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    */
   public Ranker createRanker(final String name, final File training) {
     Validate.notNull(training, "training file cannot be null");
-    Validate.isTrue(training.exists(), "training file: " + training.getAbsolutePath()
-        + " not found");
+    Validate.isTrue(training.exists(),
+        "training file: " + training.getAbsolutePath() + " not found");
 
     final JsonObject contentJson = new JsonObject();
 
@@ -119,16 +119,13 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
       contentJson.addProperty(NAME, name);
     }
 
-    final RequestBody body =
-        new MultipartBuilder()
-            .type(MultipartBuilder.FORM)
-            .addPart(
-                Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"training_data\""),
-                RequestBody.create(HttpMediaType.BINARY_FILE, training))
-            .addPart(
-                Headers
-                    .of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"training_metadata\""),
-                RequestBody.create(HttpMediaType.TEXT, contentJson.toString())).build();
+    final RequestBody body = new MultipartBuilder().type(MultipartBuilder.FORM)
+        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"training_data\""),
+            RequestBody.create(HttpMediaType.BINARY_FILE, training))
+        .addPart(
+            Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"training_metadata\""),
+            RequestBody.create(HttpMediaType.TEXT, contentJson.toString()))
+        .build();
 
     final Request request = RequestBuilder.post(PATH_CREATE_RANKER).withBody(body).build();
 
@@ -253,9 +250,8 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#getSolrClusterConfiguration
-   * (java.lang.String, java.lang.String)
+   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
+   * getSolrClusterConfiguration (java.lang.String, java.lang.String)
    */
   @Override
   public InputStream getSolrClusterConfiguration(String solrClusterId, String configName) {
@@ -274,9 +270,8 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   /*
    * (non-Javadoc)
    * 
-   * @see
-   * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#getSolrClusterConfigurations
-   * (java.lang.String)
+   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
+   * getSolrClusterConfigurations (java.lang.String)
    */
   @Override
   public List<String> getSolrClusterConfigurations(String solrClusterId) {
@@ -327,15 +322,12 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty(ANSWERS, (topAnswers != null && topAnswers > 0) ? topAnswers : 10);
 
-    final RequestBody body =
-        new MultipartBuilder()
-            .type(MultipartBuilder.FORM)
-            .addPart(
-                Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_data\""),
-                RequestBody.create(HttpMediaType.BINARY_FILE, answers))
-            .addPart(
-                Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_metadata\""),
-                RequestBody.create(HttpMediaType.TEXT, contentJson.toString())).build();
+    final RequestBody body = new MultipartBuilder().type(MultipartBuilder.FORM)
+        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_data\""),
+            RequestBody.create(HttpMediaType.BINARY_FILE, answers))
+        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_metadata\""),
+            RequestBody.create(HttpMediaType.TEXT, contentJson.toString()))
+        .build();
 
     final String path = String.format(PATH_RANK, rankerID);
     final Request request = RequestBuilder.post(path).withBody(body).build();
@@ -379,8 +371,8 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
       File zippedConfig) {
     final String configPath = createConfigPath(solrClusterId, configName);
     final RequestBuilder requestBuilder = RequestBuilder.post(configPath);
-    requestBuilder.withBody(RequestBody.create(MediaType.parse(HttpMediaType.APPLICATION_ZIP),
-        zippedConfig));
+    requestBuilder
+        .withBody(RequestBody.create(MediaType.parse(HttpMediaType.APPLICATION_ZIP), zippedConfig));
     executeWithoutResponse(requestBuilder.build());
   }
 }

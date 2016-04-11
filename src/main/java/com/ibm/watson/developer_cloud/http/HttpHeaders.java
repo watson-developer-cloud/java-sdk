@@ -184,5 +184,5 @@ public interface HttpHeaders {
 
   /** Allow Watson to collect the payload. */
   public static final String X_WATSON_LEARNING_OPT_OUT = "X-Watson-Learning-Opt-Out";
-  
+
 }

@@ -22,18 +22,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class AccountPermission extends GenericModel {
 
   public enum Permission {
-    
-    @SerializedName("Read")
-    READ,
-    
-    @SerializedName("Write")
-    WRITE,
-    
-    @SerializedName("Admin")
-    ADMIN,
-    
-    @SerializedName("ReadWriteAdmin")
-    READ_WRITE_ADMIN;
+
+    @SerializedName("Read") READ,
+
+    @SerializedName("Write") WRITE,
+
+    @SerializedName("Admin") ADMIN,
+
+    @SerializedName("ReadWriteAdmin") READ_WRITE_ADMIN;
 
   }
 

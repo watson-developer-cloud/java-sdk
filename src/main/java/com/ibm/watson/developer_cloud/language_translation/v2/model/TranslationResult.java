@@ -56,6 +56,7 @@ public class TranslationResult extends GenericModel {
     else
       return null;
   }
+
   /**
    * Gets the translations.
    * 
