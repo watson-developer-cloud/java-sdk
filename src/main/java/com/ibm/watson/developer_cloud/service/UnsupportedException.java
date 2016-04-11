@@ -36,4 +36,8 @@ public class UnsupportedException extends ServiceResponseException {
     super(HttpStatus.UNSUPPORTED_MEDIA_TYPE, message, response);
   }
 
+  public UnsupportedException(String message, okhttp3.Response response) {
+    super(HttpStatus.UNSUPPORTED_MEDIA_TYPE, message, response);
+  }
+
 }

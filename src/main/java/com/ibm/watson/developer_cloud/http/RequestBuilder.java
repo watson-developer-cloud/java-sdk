@@ -25,6 +25,7 @@ import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Request.Builder;
 import com.squareup.okhttp.RequestBody;
+import okhttp3.FormBody;
 
 /**
  * Convenience class for constructing HTTP/HTTPS requests.
@@ -87,6 +88,7 @@ public class RequestBuilder {
 
   /** The body. */
   private RequestBody body;
+  private okhttp3.RequestBody body3;
 
   /** The form params. */
   private final List<NameValue> formParams = new ArrayList<NameValue>();
@@ -164,6 +166,52 @@ public class RequestBuilder {
    */
   private void addParam(List<NameValue> params, String name, Object value) {
     params.add(new NameValue(name, value == null ? null : String.valueOf(value)));
+  }
+
+  public okhttp3.Request build3() {
+    final okhttp3.Request.Builder builder = new okhttp3.Request.Builder();
+    // URL
+    builder.url(toUrl());
+
+    // POST/PUT require a body so send an empty body if the actual is null
+    okhttp3.RequestBody requestBody = body3;
+    if (body == null)
+      requestBody = okhttp3.RequestBody.create(null, new byte[0]);
+
+    if (!formParams.isEmpty()) {
+      final FormBody.Builder formBody = new FormBody.Builder();
+      for (final NameValue param : formParams) {
+        final String value = param.getValue() != null ? param.getValue() : "";
+        formBody.add(param.getName(), value);
+      }
+      requestBody = formBody.build();
+    }
+
+    //accept application/json by default
+    builder.addHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
+
+    if (!headers.isEmpty()) {
+      for (final NameValue header : headers) {
+        builder.addHeader(header.getName(), header.getValue());
+      }
+    }
+
+    switch (method) {
+      case GET:
+        builder.get();
+        break;
+      case POST:
+        builder.post(requestBody);
+        break;
+      case PUT:
+        builder.put(requestBody);
+        break;
+      case DELETE:
+        builder.delete(requestBody);
+        break;
+    }
+
+    return builder.build();
   }
 
   /**
