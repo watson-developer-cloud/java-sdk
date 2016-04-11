@@ -91,7 +91,7 @@ public class AlchemyVision extends AlchemyService {
     final String path = AlchemyEndPoints.getPath(operation, inputType);
 
     final RequestBuilder requestBuilder = RequestBuilder.post(path);
-    if (inputType == IMAGE) {
+    if (IMAGE.equals(inputType)) {
       if (params.get(IMAGE) instanceof String) {
         params.put(IMAGE_POST_MODE, NOT_RAW);
       } else {

@@ -64,7 +64,7 @@ public class Job extends GenericModel {
      * @param name the name
      * @param id the id
      */
-    private Status(String name, String id) {
+    Status(String name, String id) {
       this.name = name;
       this.id = id;
     }

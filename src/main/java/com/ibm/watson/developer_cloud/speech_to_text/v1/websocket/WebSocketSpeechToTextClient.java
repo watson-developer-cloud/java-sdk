@@ -74,7 +74,7 @@ public class WebSocketSpeechToTextClient {
           websocket.sendClose();
         }
       } catch (JsonParseException e) {
-        new RuntimeException("Error parsing the incoming message: " + message);
+        throw new RuntimeException("Error parsing the incoming message: " + message);
       }
     }
 

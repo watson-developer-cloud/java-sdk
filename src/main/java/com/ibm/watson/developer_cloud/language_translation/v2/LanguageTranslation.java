@@ -193,7 +193,7 @@ public class LanguageTranslation extends WatsonService {
       requestBuilder.withQuery(TARGET, source);
 
     if (showDefault != null)
-      requestBuilder.withQuery(DEFAULT, showDefault.booleanValue());
+      requestBuilder.withQuery(DEFAULT, showDefault);
 
     final TranslationModelList models =
         executeRequest(requestBuilder.build(), TranslationModelList.class);
