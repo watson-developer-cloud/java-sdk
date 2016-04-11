@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -32,11 +33,8 @@ public class Corpus extends GenericModel {
   /** The Constant TED_TALKS. */
   public final static Corpus TED_TALKS = new Corpus("public", "TEDTalks");
 
-  /** The Constant ACCESS_PUBLIC. */
-  public final static String ACCESS_PUBLIC = "public";
-
   /** The access. */
-  private String access;
+  private Access access;
 
   /** The accountPermissions. */
   @SerializedName("users")
@@ -121,7 +119,7 @@ public class Corpus extends GenericModel {
    * 
    * @return The access
    */
-  public String getAccess() {
+  public Access getAccess() {
     return access;
   }
 
@@ -132,6 +130,16 @@ public class Corpus extends GenericModel {
    */
   public List<AccountPermission> getAccountPermissions() {
     return accountPermissions;
+  }
+
+  /**
+   * Corpus access.
+   */
+  public enum Access {
+
+    @SerializedName("public") PUBLIC,
+
+    @SerializedName("private") PRIVATE;
   }
 
   /**
@@ -157,7 +165,7 @@ public class Corpus extends GenericModel {
    * 
    * @param access The access
    */
-  public void setAccess(String access) {
+  public void setAccess(Access access) {
     this.access = access;
   }
 
@@ -168,6 +176,18 @@ public class Corpus extends GenericModel {
    */
   public void setAccountPermissions(List<AccountPermission> accountPermissions) {
     this.accountPermissions = accountPermissions;
+  }
+
+  /**
+   * Adds an {@link AccountPermission}.
+   *
+   * @param accountPermission the account permission
+   */
+  public void addAccountPermissions(AccountPermission accountPermission) {
+    if (this.accountPermissions == null)
+      this.accountPermissions = new ArrayList<AccountPermission>();
+
+    this.accountPermissions.add(accountPermission);
   }
 
   /**

@@ -58,7 +58,8 @@ public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
 
       if (name.equals("confident")) {
         final String confidentAsString = reader.nextString();
-        publicationDate.setConfident(confidentAsString != null && !confidentAsString.equals("no") && !confidentAsString.equals("false"));
+        publicationDate.setConfident(confidentAsString != null && !confidentAsString.equals("no")
+            && !confidentAsString.equals("false"));
       } else if (name.equals("date")) {
         final String dateAsString = reader.nextString();
         if (dateAsString != null && !dateAsString.isEmpty())

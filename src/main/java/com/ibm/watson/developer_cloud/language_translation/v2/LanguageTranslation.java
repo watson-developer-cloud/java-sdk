@@ -278,7 +278,7 @@ public class LanguageTranslation extends WatsonService {
 
     final RequestBuilder requestBuilder = RequestBuilder.post(PATH_TRANSLATE)
         .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
-    
+
     if (source != null && !source.isEmpty())
       contentJson.addProperty(SOURCE, source);
 

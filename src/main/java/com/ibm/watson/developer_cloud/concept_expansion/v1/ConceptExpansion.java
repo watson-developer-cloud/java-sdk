@@ -37,8 +37,8 @@ import com.squareup.okhttp.Response;
  * similar contexts.
  * 
  * @version v1
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept-expansion.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept-expansion.html">
  *      Concept Expansion</a>
  */
 public class ConceptExpansion extends WatsonService {
@@ -111,12 +111,13 @@ public class ConceptExpansion extends WatsonService {
    * 
    *        <pre>
    * <code> { result:"apple", prevalence:"20" }</code>
-   * </pre>
+   *        </pre>
+   * 
    * @return the concept as POJO Object
    */
   private Concept formatConcept(JsonObject conceptJson) {
-    return new Concept(conceptJson.get(RESULT).getAsString(), conceptJson.get(PREVALENCE)
-        .getAsDouble());
+    return new Concept(conceptJson.get(RESULT).getAsString(),
+        conceptJson.get(PREVALENCE).getAsDouble());
   }
 
   /**

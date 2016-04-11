@@ -26,8 +26,8 @@ import com.squareup.okhttp.Response;
  * verbs, subjects, objects, etc.)
  * 
  * @version v1
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/relationship-extraction.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/relationship-extraction.html">
  *      Relationship Extraction</a>
  */
 public class RelationshipExtraction extends WatsonService {
@@ -38,7 +38,7 @@ public class RelationshipExtraction extends WatsonService {
 
   /** The dataset. */
   private Dataset dataset;
-  
+
   /** The return type. */
   private String returnType = "xml";
 
@@ -74,9 +74,8 @@ public class RelationshipExtraction extends WatsonService {
     Validate.notNull(dataset, "dataset cannot be null");
     Validate.notNull(text, "text cannot be null");
 
-    final Request request =
-        RequestBuilder.post("/v1/sire/0")
-            .withForm("sid", dataset.getId(), "rt", returnType, "txt", text).build();
+    final Request request = RequestBuilder.post("/v1/sire/0")
+        .withForm("sid", dataset.getId(), "rt", returnType, "txt", text).build();
     final Response response = execute(request);
     return ResponseUtil.getString(response);
   }
@@ -99,7 +98,7 @@ public class RelationshipExtraction extends WatsonService {
   public void setDataset(final Dataset dataset) {
     this.dataset = dataset;
   }
-  
+
   /**
    * Sets the returnType.
    * 
@@ -111,6 +110,6 @@ public class RelationshipExtraction extends WatsonService {
     } else if (returnType == ReturnType.JSON) {
       this.returnType = "json";
     }
-  } 
+  }
 
 }

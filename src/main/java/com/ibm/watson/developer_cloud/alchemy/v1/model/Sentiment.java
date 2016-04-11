@@ -30,16 +30,13 @@ public class Sentiment extends GenericModel {
   public enum SentimentType {
 
     /** negative sentiment. */
-    @SerializedName("negative")
-    NEGATIVE,
+    @SerializedName("negative") NEGATIVE,
 
     /** neutral sentiment. */
-    @SerializedName("neutral")
-    NEUTRAL,
+    @SerializedName("neutral") NEUTRAL,
 
     /** positive sentiment. */
-    @SerializedName("positive")
-    POSITIVE
+    @SerializedName("positive") POSITIVE
   }
 
   /** The mixed. */

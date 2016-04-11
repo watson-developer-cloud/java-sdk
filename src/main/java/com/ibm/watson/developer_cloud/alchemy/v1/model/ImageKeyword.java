@@ -81,8 +81,8 @@ public class ImageKeyword extends GenericModel {
   }
 
   /**
-   * Gets the hierarchy. A value is only present if the request that produced this instance
-   * was made with {@code knowledgeGraph = true}.
+   * Gets the hierarchy. A value is only present if the request that produced this instance was made
+   * with {@code knowledgeGraph = true}.
    *
    * @return The hierarchy, if it exists.
    */

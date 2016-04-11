@@ -104,11 +104,9 @@ public class ProfileOptions extends GenericModel {
    */
   public enum Language {
 
-    @SerializedName("en")
-    ENGLISH("en"),
+    @SerializedName("en") ENGLISH("en"),
 
-    @SerializedName("es")
-    SPANISH("es");
+    @SerializedName("es") SPANISH("es");
 
     private final String text;
 
@@ -136,11 +134,9 @@ public class ProfileOptions extends GenericModel {
    */
   public enum AcceptLanguage {
 
-    @SerializedName("en")
-    ENGLISH("en"),
+    @SerializedName("en") ENGLISH("en"),
 
-    @SerializedName("es")
-    SPANISH("es");
+    @SerializedName("es") SPANISH("es");
 
     private final String text;
 
