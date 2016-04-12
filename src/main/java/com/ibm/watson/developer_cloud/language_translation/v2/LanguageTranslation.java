@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.google.gson.JsonArray;
@@ -28,11 +29,17 @@ import com.ibm.watson.developer_cloud.language_translation.v2.model.LanguageList
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
+import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.service.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * The IBM Watson Language Translation service translate text from one language to another and
@@ -255,6 +262,41 @@ public class LanguageTranslation extends WatsonService {
     return translateRequest(text, null, source, target);
   }
 
+  public ServiceCall<TranslationResult> translate3(final String text, final String source, final String target) {
+
+    return new ServiceCall<TranslationResult>() {
+      Call call = createCall(translateRequest3(text, null, source, target));
+
+      private TranslationResult createMappedResponse(Response response) {
+        return ResponseUtil.getObject(response, TranslationResult.class);
+      }
+
+      @Override
+      public TranslationResult execute() {
+        try {
+          return createMappedResponse(call.execute());
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      @Override
+      public void enqueue(final ServiceCallback<TranslationResult> callback) {
+        call.enqueue(new Callback() {
+          @Override
+          public void onFailure(Call call, IOException e) {
+            callback.onFailure(e);
+          }
+
+          @Override
+          public void onResponse(Call call, Response response) throws IOException {
+            callback.onResponse(createMappedResponse(response));
+          }
+        });
+      }
+    };
+  }
+
   /**
    * Translate paragraphs of text using a model and or source and target. model_id or source and
    * target needs to be specified. If both are specified, then only model_id will be used
@@ -290,6 +332,34 @@ public class LanguageTranslation extends WatsonService {
 
     requestBuilder.withBodyJson(contentJson);
     return executeRequest(requestBuilder.build(), TranslationResult.class);
+  }
+
+  private okhttp3.Request translateRequest3(String text, String modelId, String source,  String target) {
+    Validate.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
+    Validate.isTrue(source != null && !source.isEmpty(), "source cannot be null or empty");
+    Validate.isTrue(target != null && !target.isEmpty(), "target cannot be null or empty");
+
+    final JsonObject contentJson = new JsonObject();
+
+    // convert the text into a json array
+    final JsonArray paragraphs = new JsonArray();
+    paragraphs.add(new JsonPrimitive(text));
+    contentJson.add(TEXT, paragraphs);
+
+    final RequestBuilder requestBuilder = RequestBuilder.post(PATH_TRANSLATE)
+            .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
+
+    if (source != null && !source.isEmpty())
+      contentJson.addProperty(SOURCE, source);
+
+    if (target != null && !target.isEmpty())
+      contentJson.addProperty(TARGET, target);
+
+    if (modelId != null && !modelId.isEmpty())
+      contentJson.addProperty(MODEL_ID, modelId);
+
+    requestBuilder.withBodyJson(contentJson);
+    return requestBuilder.build3();
   }
 
 }

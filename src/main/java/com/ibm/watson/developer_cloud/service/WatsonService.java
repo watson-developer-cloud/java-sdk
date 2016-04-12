@@ -39,6 +39,7 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Request.Builder;
 import com.squareup.okhttp.Response;
+import okhttp3.Call;
 import okhttp3.JavaNetCookieJar;
 
 /**
@@ -114,7 +115,7 @@ public abstract class WatsonService {
    *
    * @return the HTTP response
    */
-  protected okhttp3.Response execute(okhttp3.Request request) {
+  protected Call createCall(okhttp3.Request request) {
     final okhttp3.Request.Builder builder = request.newBuilder();
 
     if (RequestUtil.isRelative(request)) {
@@ -133,57 +134,8 @@ public abstract class WatsonService {
     final okhttp3.Request newRequest = builder.build();
     okhttp3.Response response;
     log.log(Level.FINEST, "Request to: " + newRequest.url().toString());
-    try {
-      response = client3.newCall(newRequest).execute();
-    } catch (final IOException e) {
-      log.log(Level.SEVERE, "IOException", e);
-      throw new RuntimeException(e);
-    }
 
-    if (response.isSuccessful()) {
-      return response;
-    }
-
-    final int status = response.code();
-
-    // There was a Client Error 4xx or a Server Error 5xx
-    // Get the error message and create the exception
-    final String error = getErrorMessage(response);
-    log.log(Level.SEVERE, newRequest.url().toString() + ", status: " + status + ", error: " + error);
-
-    switch (status) {
-      case HttpStatus.BAD_REQUEST: // HTTP 400
-        throw new BadRequestException(error != null ? error : "Bad Request", response);
-      case HttpStatus.UNAUTHORIZED: // HTTP 401
-        throw new UnauthorizedException(
-                "Unauthorized: Access is denied due to invalid credentials", response);
-      case HttpStatus.FORBIDDEN: // HTTP 403
-        throw new ForbiddenException(error != null ? error
-                : "Forbidden: Service refuse the request", response);
-      case HttpStatus.NOT_FOUND: // HTTP 404
-        throw new NotFoundException(error != null ? error : "Not found", response);
-      case HttpStatus.NOT_ACCEPTABLE: // HTTP 406
-        throw new ForbiddenException(error != null ? error
-                : "Forbidden: Service refuse the request", response);
-      case HttpStatus.CONFLICT: // HTTP 409
-        throw new ConflictException(error != null ? error : "", response);
-      case HttpStatus.REQUEST_TOO_LONG: // HTTP 413
-        throw new RequestTooLargeException(error != null ? error
-                : "Request too large: The request entity is larger than the server is able to process",
-                response);
-      case HttpStatus.UNSUPPORTED_MEDIA_TYPE: // HTTP 415
-        throw new UnsupportedException(error != null ? error : "Unsupported Media Type", response);
-      case HttpStatus.TOO_MANY_REQUESTS: // HTTP 429
-        throw new TooManyRequestsException(error != null ? error : "Too many requests", response);
-      case HttpStatus.INTERNAL_SERVER_ERROR: // HTTP 500
-        throw new InternalServerErrorException(error != null ? error : "Internal Server Error",
-                response);
-      case HttpStatus.SERVICE_UNAVAILABLE: // HTTP 503
-        throw new ServiceUnavailableException(error != null ? error : "Service Unavailable",
-                response);
-      default: // other errors
-        throw new ServiceResponseException(status, error, response);
-    }
+    return client3.newCall(request);
 
   }
 
@@ -284,10 +236,10 @@ public abstract class WatsonService {
     return ResponseUtil.getObject(response, returnType);
   }
 
-  protected  <T extends GenericModel> T executeRequest(okhttp3.Request request, Class<T> returnType) {
+  /*protected  <T extends GenericModel> T executeRequest(okhttp3.Request request, Class<T> returnType) {
     final okhttp3.Response response = execute(request);
     return ResponseUtil.getObject(response, returnType);
-  }
+  }*/
 
   /**
    * Execute the HTTP request and discard the response. Use this when you don't want to get the
@@ -306,11 +258,11 @@ public abstract class WatsonService {
     }
   }
 
-  protected void executeWithoutResponse(okhttp3.Request request) {
+  /*protected void executeWithoutResponse(okhttp3.Request request) {
     final okhttp3.Response response = execute(request);
 
     response.body().close();
-  }
+  }*/
 
   /**
    * Gets the API key.
@@ -346,13 +298,13 @@ public abstract class WatsonService {
     return ResponseUtil.getJsonObject(response).get("token").getAsString();
   }
 
-  public String getToken3() {
+  /*public String getToken3() {
     okhttp3.HttpUrl url =
         okhttp3.HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, "authorization").build();
     okhttp3.Request request = RequestBuilder.get(url + "/v1/token").withQuery("url", getEndPoint()).build3();
     okhttp3.Response response = execute(request);
     return ResponseUtil.getJsonObject(response).get("token").getAsString();
-  }
+  }*/
 
   /**
    * Gets the error message from a JSON response
