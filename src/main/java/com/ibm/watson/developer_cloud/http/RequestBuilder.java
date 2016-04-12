@@ -99,6 +99,8 @@ public class RequestBuilder {
   /** The url. */
   private HttpUrl httpUrl;
 
+  private okhttp3.HttpUrl httpUrl3;
+
   /** The method. */
   private final HTTPMethod method;
 
@@ -118,9 +120,11 @@ public class RequestBuilder {
 
     // Since HttpUrl requires requires a http/s full url, add a default endpoint
     httpUrl = HttpUrl.parse(url);
+    httpUrl3 = okhttp3.HttpUrl.parse(url);
     if (httpUrl == null)
       this.httpUrl = HttpUrl.parse(RequestUtil.DEFAULT_ENDPOINT + url);
-
+    if (httpUrl3 == null)
+      this.httpUrl3 = okhttp3.HttpUrl.parse(RequestUtil.DEFAULT_ENDPOINT + url);
   }
 
   /**
@@ -171,11 +175,11 @@ public class RequestBuilder {
   public okhttp3.Request build3() {
     final okhttp3.Request.Builder builder = new okhttp3.Request.Builder();
     // URL
-    builder.url(toUrl());
+    builder.url(toUrl3());
 
     // POST/PUT require a body so send an empty body if the actual is null
     okhttp3.RequestBody requestBody = body3;
-    if (body == null)
+    if (body3 == null)
       requestBody = okhttp3.RequestBody.create(null, new byte[0]);
 
     if (!formParams.isEmpty()) {
@@ -289,6 +293,14 @@ public class RequestBuilder {
       // TODO: we should not be manually encoding the query parameters.
       builder.addEncodedQueryParameter(RequestUtil.encode(param.getName()),
           RequestUtil.encode(param.getValue()));
+    }
+    return builder.build().url().toString();
+  }
+
+  public String toUrl3() {
+    final okhttp3.HttpUrl.Builder builder = httpUrl3.newBuilder();
+    for (final NameValue param : queryParams) {
+      builder.addEncodedQueryParameter(RequestUtil.encode(param.getName()), RequestUtil.encode(param.getValue()));
     }
     return builder.build().url().toString();
   }

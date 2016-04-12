@@ -132,7 +132,7 @@ public abstract class WatsonService {
     setAuthentication(builder);
 
     final okhttp3.Request newRequest = builder.build();
-    okhttp3.Response response;
+
     log.log(Level.FINEST, "Request to: " + newRequest.url().toString());
 
     return client3.newCall(request);

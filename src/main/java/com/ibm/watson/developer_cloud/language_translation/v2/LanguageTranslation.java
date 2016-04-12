@@ -263,9 +263,9 @@ public class LanguageTranslation extends WatsonService {
   }
 
   public ServiceCall<TranslationResult> translate3(final String text, final String source, final String target) {
+    final Call call = createCall(translateRequest3(text, null, source, target));
 
     return new ServiceCall<TranslationResult>() {
-      Call call = createCall(translateRequest3(text, null, source, target));
 
       private TranslationResult createMappedResponse(Response response) {
         return ResponseUtil.getObject(response, TranslationResult.class);
