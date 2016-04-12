@@ -135,7 +135,7 @@ public abstract class WatsonService {
 
     log.log(Level.FINEST, "Request to: " + newRequest.url().toString());
 
-    return client3.newCall(request);
+    return client3.newCall(newRequest);
 
   }
 
