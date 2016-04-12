@@ -34,8 +34,4 @@ public class BadRequestException extends ServiceResponseException {
     super(HttpStatus.BAD_REQUEST, message, response);
   }
 
-  public BadRequestException(String message, okhttp3.Response response) {
-    super(HttpStatus.BAD_REQUEST, message, response);
-  }
-
 }

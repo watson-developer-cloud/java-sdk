@@ -36,8 +36,4 @@ public class ConflictException extends ServiceResponseException {
     super(HttpStatus.CONFLICT, message, response);
   }
 
-  public ConflictException(String message, okhttp3.Response response) {
-    super(HttpStatus.CONFLICT, message, response);
-  }
-
 }

@@ -62,16 +62,6 @@ public class RequestUtil {
   }
 
   /**
-   * Checks if is relative.
-   *
-   * @param request the okhttp3 request
-   * @return true, if is relative
-   */
-  public static boolean isRelative(okhttp3.Request request) {
-    return request.url().toString().startsWith(DEFAULT_ENDPOINT);
-  }
-
-  /**
    * Return a copy of a {@link Map} excluding the given key, or array of keys.
    * 
    * @param params the parameters

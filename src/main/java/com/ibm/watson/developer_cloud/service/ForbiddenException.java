@@ -36,8 +36,4 @@ public class ForbiddenException extends ServiceResponseException {
     super(HttpStatus.FORBIDDEN, message, response);
   }
 
-  public ForbiddenException(String message, okhttp3.Response response) {
-    super(HttpStatus.FORBIDDEN, message, response);
-  }
-
 }

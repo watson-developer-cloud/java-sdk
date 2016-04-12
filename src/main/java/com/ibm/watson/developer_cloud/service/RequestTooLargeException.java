@@ -36,8 +36,4 @@ public class RequestTooLargeException extends ServiceResponseException {
     super(HttpStatus.REQUEST_TOO_LONG, message, response);
   }
 
-  public RequestTooLargeException(String message, okhttp3.Response response) {
-    super(HttpStatus.REQUEST_TOO_LONG, message, response);
-  }
-
 }

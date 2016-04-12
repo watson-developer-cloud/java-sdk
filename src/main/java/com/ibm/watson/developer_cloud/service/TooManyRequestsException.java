@@ -36,8 +36,4 @@ public class TooManyRequestsException extends ServiceResponseException {
     super(TOO_MANY_REQUESTS, message, response);
   }
 
-  public TooManyRequestsException(String message, okhttp3.Response response) {
-    super(TOO_MANY_REQUESTS, message, response);
-  }
-
 }

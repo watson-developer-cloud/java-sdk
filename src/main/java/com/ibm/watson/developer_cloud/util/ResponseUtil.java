@@ -68,10 +68,6 @@ public class ResponseUtil {
     }
   }
 
-  public static JsonElement getJsonElement(okhttp3.Response response) {
-    return new JsonParser().parse(response.body().charStream());
-  }
-
   /**
    * Returns a {@link JsonObject} representation of the response.
    * 
@@ -80,10 +76,6 @@ public class ResponseUtil {
    */
   public static JsonObject getJsonObject(Response response) {
     return getJsonElement(response).getAsJsonObject();
-  }
-
-  public static JsonObject getJsonObject(okhttp3.Response response) {
-    return  getJsonElement(response).getAsJsonObject();
   }
 
   /**
@@ -122,25 +114,6 @@ public class ResponseUtil {
     }
   }
 
-  /**
-   * Parses the okhttp3 compliant response into the POJO representation
-   *
-   * @param <T> the generic type to use when parsing the response
-   * @param response the HTTP response
-   * @param type the type of the response
-   * @return the POJO
-   */
-  public static <T extends GenericModel> T getObject(okhttp3.Response response, Class<T> type) {
-    JsonReader reader;
-    try {
-      reader = new JsonReader(response.body().charStream());
-      final T model = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(reader, type);
-      return model;
-    } finally {
-        response.body().close();
-    }
-  }
-
 
   /**
    * Returns a String representation of the response.
@@ -149,21 +122,6 @@ public class ResponseUtil {
    * @return the content body as String
    */
   public static String getString(Response response) {
-    try {
-      return response.body().string();
-    } catch (final IOException e) {
-      log.log(Level.SEVERE, ERROR_MESSAGE, e);
-      throw new RuntimeException(ERROR_MESSAGE, e);
-    }
-  }
-
-  /**
-   * Returns a String representation of the okhttp3 compliant response.
-   *
-   * @param response an HTTP response
-   * @return the content body as String
-   */
-  public static String getString(okhttp3.Response response) {
     try {
       return response.body().string();
     } catch (final IOException e) {

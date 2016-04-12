@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.service;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -39,7 +38,6 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Request.Builder;
 import com.squareup.okhttp.Response;
-import okhttp3.JavaNetCookieJar;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication
@@ -54,11 +52,9 @@ public abstract class WatsonService {
   private static final Logger log = Logger.getLogger(WatsonService.class.getName());
   private String apiKey;
   private final OkHttpClient client;
-  private final okhttp3.OkHttpClient client3;
   private String endPoint;
   private final String name;
   private Headers defaultHeaders = null;
-  private okhttp3.Headers defaultHeaders3 = null;
 
   protected static final String VERSION = "version";
 
@@ -71,7 +67,6 @@ public abstract class WatsonService {
     this.name = name;
     this.apiKey = CredentialUtils.getAPIKey(name);
     this.client = configureHttpClient();
-    this.client3 = configureHttp3Client();
   }
 
 
@@ -90,101 +85,6 @@ public abstract class WatsonService {
     client.setWriteTimeout(60, TimeUnit.SECONDS);
     client.setReadTimeout(90, TimeUnit.SECONDS);
     return client;
-  }
-
-  protected okhttp3.OkHttpClient configureHttp3Client() {
-    final okhttp3.OkHttpClient.Builder builder = new okhttp3.OkHttpClient.Builder();
-
-    final CookieManager cookieManager = new CookieManager();
-    cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-
-    builder.cookieJar(new JavaNetCookieJar(cookieManager));
-
-    builder.connectTimeout(60, TimeUnit.SECONDS);
-    builder.writeTimeout(60, TimeUnit.SECONDS);
-    builder.readTimeout(90, TimeUnit.SECONDS);
-
-    return builder.build();
-  }
-
-  /**
-   * Execute the HTTP request. Okhttp3 compliant.
-   *
-   * @param request the HTTP request
-   *
-   * @return the HTTP response
-   */
-  protected okhttp3.Response execute(okhttp3.Request request) {
-    final okhttp3.Request.Builder builder = request.newBuilder();
-
-    if (RequestUtil.isRelative(request)) {
-      builder.url(RequestUtil.replaceEndPoint(request.url().toString(), getEndPoint()));
-    }
-
-    if (defaultHeaders3 != null) {
-      for(String key: defaultHeaders3.names())
-        builder.header(key, defaultHeaders3.get(key));
-    }
-
-    builder.header(HttpHeaders.USER_AGENT, getUserAgent());
-
-    setAuthentication(builder);
-
-    final okhttp3.Request newRequest = builder.build();
-    okhttp3.Response response;
-    log.log(Level.FINEST, "Request to: " + newRequest.url().toString());
-    try {
-      response = client3.newCall(newRequest).execute();
-    } catch (final IOException e) {
-      log.log(Level.SEVERE, "IOException", e);
-      throw new RuntimeException(e);
-    }
-
-    if (response.isSuccessful()) {
-      return response;
-    }
-
-    final int status = response.code();
-
-    // There was a Client Error 4xx or a Server Error 5xx
-    // Get the error message and create the exception
-    final String error = getErrorMessage(response);
-    log.log(Level.SEVERE, newRequest.url().toString() + ", status: " + status + ", error: " + error);
-
-    switch (status) {
-      case HttpStatus.BAD_REQUEST: // HTTP 400
-        throw new BadRequestException(error != null ? error : "Bad Request", response);
-      case HttpStatus.UNAUTHORIZED: // HTTP 401
-        throw new UnauthorizedException(
-                "Unauthorized: Access is denied due to invalid credentials", response);
-      case HttpStatus.FORBIDDEN: // HTTP 403
-        throw new ForbiddenException(error != null ? error
-                : "Forbidden: Service refuse the request", response);
-      case HttpStatus.NOT_FOUND: // HTTP 404
-        throw new NotFoundException(error != null ? error : "Not found", response);
-      case HttpStatus.NOT_ACCEPTABLE: // HTTP 406
-        throw new ForbiddenException(error != null ? error
-                : "Forbidden: Service refuse the request", response);
-      case HttpStatus.CONFLICT: // HTTP 409
-        throw new ConflictException(error != null ? error : "", response);
-      case HttpStatus.REQUEST_TOO_LONG: // HTTP 413
-        throw new RequestTooLargeException(error != null ? error
-                : "Request too large: The request entity is larger than the server is able to process",
-                response);
-      case HttpStatus.UNSUPPORTED_MEDIA_TYPE: // HTTP 415
-        throw new UnsupportedException(error != null ? error : "Unsupported Media Type", response);
-      case HttpStatus.TOO_MANY_REQUESTS: // HTTP 429
-        throw new TooManyRequestsException(error != null ? error : "Too many requests", response);
-      case HttpStatus.INTERNAL_SERVER_ERROR: // HTTP 500
-        throw new InternalServerErrorException(error != null ? error : "Internal Server Error",
-                response);
-      case HttpStatus.SERVICE_UNAVAILABLE: // HTTP 503
-        throw new ServiceUnavailableException(error != null ? error : "Service Unavailable",
-                response);
-      default: // other errors
-        throw new ServiceResponseException(status, error, response);
-    }
-
   }
 
 
@@ -284,11 +184,6 @@ public abstract class WatsonService {
     return ResponseUtil.getObject(response, returnType);
   }
 
-  protected  <T extends GenericModel> T executeRequest(okhttp3.Request request, Class<T> returnType) {
-    final okhttp3.Response response = execute(request);
-    return ResponseUtil.getObject(response, returnType);
-  }
-
   /**
    * Execute the HTTP request and discard the response. Use this when you don't want to get the
    * response but you want to make sure we read it so that the underline connection is released
@@ -304,12 +199,6 @@ public abstract class WatsonService {
     } catch (final IOException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  protected void executeWithoutResponse(okhttp3.Request request) {
-    final okhttp3.Response response = execute(request);
-
-    response.body().close();
   }
 
   /**
@@ -346,14 +235,6 @@ public abstract class WatsonService {
     return ResponseUtil.getJsonObject(response).get("token").getAsString();
   }
 
-  public String getToken3() {
-    okhttp3.HttpUrl url =
-        okhttp3.HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, "authorization").build();
-    okhttp3.Request request = RequestBuilder.get(url + "/v1/token").withQuery("url", getEndPoint()).build3();
-    okhttp3.Response response = execute(request);
-    return ResponseUtil.getJsonObject(response).get("token").getAsString();
-  }
-
   /**
    * Gets the error message from a JSON response
    * 
@@ -368,27 +249,6 @@ public abstract class WatsonService {
    * @return the error message from the JSON object
    */
   private String getErrorMessage(Response response) {
-    String error = ResponseUtil.getString(response);
-    try {
-
-      final JsonObject jsonObject = ResponseUtil.getJsonObject(error);
-      if (jsonObject.has("error")) {
-        error = jsonObject.get("error").getAsString();
-      } else if (jsonObject.has("error_message")) {
-        error = jsonObject.get("error_message").getAsString();
-      } else if (jsonObject.has("message")) {
-        error = jsonObject.get("message").getAsString();
-      }
-    } catch (final JsonIOException e) {
-      // Ignore JsonIOException and use fallback String version of response
-    } catch (final JsonSyntaxException e) {
-      // Ignore JsonSyntaxException and use fallback String version of response
-    }
-
-    return error;
-  }
-
-  private String getErrorMessage(okhttp3.Response response) {
     String error = ResponseUtil.getString(response);
     try {
 
@@ -452,19 +312,6 @@ public abstract class WatsonService {
   }
 
   /**
-   * Sets the authentication. Okhttp3 compliant.
-   *
-   * @param builder the new authentication
-   */
-  protected void setAuthentication(okhttp3.Request.Builder builder) {
-    if (getApiKey() == null) {
-      throw  new IllegalArgumentException("apiKey or username and password were not specified");
-    }
-    builder
-            .addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
-  }
-
-  /**
    * Sets the end point.
    * 
    * @param endPoint the new end point
@@ -491,8 +338,6 @@ public abstract class WatsonService {
   public void setDefaultHeaders(Map<String, String> headers) {
     defaultHeaders = Headers.of(headers);
   }
-
-  public void setDefaultHeaders3(Map<String, String> headers) { defaultHeaders3 = okhttp3.Headers.of(headers); }
 
   /*
    * (non-Javadoc)
