@@ -347,6 +347,7 @@ public class RequestBuilder {
    */
   public RequestBuilder withBodyContent(String content, String contentType) {
     body = RequestBody.create(MediaType.parse(contentType), content);
+    body3 = okhttp3.RequestBody.create(okhttp3.MediaType.parse(contentType), content);
     return this;
   }
 
