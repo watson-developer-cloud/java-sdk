@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -21,13 +22,18 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.service.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
+import com.javafx.tools.doclets.internal.toolkit.util.DocFinder;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+import okhttp3.Call;
+import okhttp3.Callback;
 
 /**
  * The Text to Speech service uses IBM's speech synthesis capabilities to convert English or Spanish
@@ -68,6 +74,18 @@ public class TextToSpeech extends WatsonService {
     final List<Voice> voices = GsonSingleton.getGsonWithoutPrettyPrinting()
         .fromJson(jsonObject.get("voices"), listVoiceType);
     return voices;
+  }
+
+  public List<Voice> getVoices3() {
+    final okhttp3.Request request = RequestBuilder.get("/v1/voices").build3();
+    try {
+      final okhttp3.Response response = createCall(request).execute();
+      final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+      final List<Voice> voices = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("voices"), listVoiceType);
+      return voices;
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   /**
@@ -117,5 +135,52 @@ public class TextToSpeech extends WatsonService {
 
     final Response response = execute(request.build());
     return ResponseUtil.getInputStream(response);
+  }
+
+  private okhttp3.Request synthesizeRequest(final String text, final Voice voice, final String outputFormat) {
+    Validate.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
+    Validate.isTrue(voice != null, "voice cannot be null or empty");
+
+    final RequestBuilder request = RequestBuilder.get(PATH_SYNTHESIZE);
+    request.withQuery(TEXT, text);
+    request.withQuery(VOICE, voice.getName());
+
+    if (outputFormat != null && !outputFormat.startsWith("audio/"))
+      throw new IllegalArgumentException(
+              "format needs to be an audio mime type, for example: audio/wav or audio/ogg; codecs=opus");
+
+    request.withQuery(ACCEPT, outputFormat != null ? outputFormat : HttpMediaType.AUDIO_WAV);
+
+    return request.build3();
+  }
+
+  public ServiceCall<InputStream> synthesize3(final String text, final Voice voice, final String outputFormat) {
+    final Call call = createCall(synthesizeRequest(text, voice, outputFormat));
+
+    return new ServiceCall<InputStream>() {
+      @Override
+      public InputStream execute() {
+        try {
+          return ResponseUtil.getInputStream(call.execute());
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      @Override
+      public void enqueue(final ServiceCallback<InputStream> callback) {
+        call.enqueue(new Callback() {
+          @Override
+          public void onFailure(Call call, IOException e) {
+            callback.onFailure(e);
+          }
+
+          @Override
+          public void onResponse(Call call, okhttp3.Response response) throws IOException {
+            callback.onResponse(ResponseUtil.getInputStream(response));
+          }
+        });
+      }
+    };
   }
 }

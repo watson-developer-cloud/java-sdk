@@ -53,6 +53,10 @@ public class ResponseUtil {
     }
   }
 
+  public static InputStream getInputStream(okhttp3.Response response) {
+    return response.body().byteStream();
+  }
+
   /**
    * Return a {@link JsonElement} representation of the response.
    * 
