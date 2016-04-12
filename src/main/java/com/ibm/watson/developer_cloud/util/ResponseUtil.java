@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
+import com.ibm.watson.developer_cloud.service.ResponseConverter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
@@ -143,6 +144,14 @@ public class ResponseUtil {
     } finally {
         response.body().close();
     }
+  }
+
+  public static <T extends GenericModel> ResponseConverter<T> getObjectConverter(final Class<T> type) {
+    return new ResponseConverter<T>() {
+      @Override public T convert(okhttp3.Response response) {
+        return getObject(response, type);
+      }
+    };
   }
 
 

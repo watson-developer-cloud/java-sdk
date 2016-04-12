@@ -13,9 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
-import java.io.IOException;
-import java.util.List;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -30,16 +27,13 @@ import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationM
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.ServiceCall;
-import com.ibm.watson.developer_cloud.service.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
+import java.util.List;
 
 /**
  * The IBM Watson Language Translation service translate text from one language to another and
@@ -263,38 +257,7 @@ public class LanguageTranslation extends WatsonService {
   }
 
   public ServiceCall<TranslationResult> translate3(final String text, final String source, final String target) {
-    final Call call = createCall(translateRequest3(text, null, source, target));
-
-    return new ServiceCall<TranslationResult>() {
-
-      private TranslationResult createMappedResponse(Response response) {
-        return ResponseUtil.getObject(response, TranslationResult.class);
-      }
-
-      @Override
-      public TranslationResult execute() {
-        try {
-          return createMappedResponse(call.execute());
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
-      }
-
-      @Override
-      public void enqueue(final ServiceCallback<TranslationResult> callback) {
-        call.enqueue(new Callback() {
-          @Override
-          public void onFailure(Call call, IOException e) {
-            callback.onFailure(e);
-          }
-
-          @Override
-          public void onResponse(Call call, Response response) throws IOException {
-            callback.onResponse(createMappedResponse(response));
-          }
-        });
-      }
-    };
+    return createServiceCall(createCall(translateRequest3(text, null, source, target)), ResponseUtil.getObjectConverter(TranslationResult.class));
   }
 
   /**

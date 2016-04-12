@@ -13,15 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import java.io.IOException;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
@@ -39,7 +30,15 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Request.Builder;
 import com.squareup.okhttp.Response;
+import java.io.IOException;
+import java.net.CookieManager;
+import java.net.CookiePolicy;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.JavaNetCookieJar;
 
 /**
@@ -137,6 +136,31 @@ public abstract class WatsonService {
 
     return client3.newCall(newRequest);
 
+  }
+
+  protected <T> ServiceCall<T> createServiceCall(final Call call, final ResponseConverter<T> converter) {
+    return new ServiceCall<T>() {
+      @Override public T execute() {
+        try {
+          return converter.convert(call.execute());
+        } catch (IOException e) {
+          throw new RuntimeException(e);
+        }
+      }
+
+      @Override public void enqueue(final ServiceCallback<T> callback) {
+        call.enqueue(new Callback() {
+          @Override public void onFailure(Call call, IOException e) {
+            callback.onFailure(e);
+          }
+
+          @Override public void onResponse(Call call, okhttp3.Response response)
+              throws IOException {
+            callback.onResponse(converter.convert(response));
+          }
+        });
+      }
+    };
   }
 
 
