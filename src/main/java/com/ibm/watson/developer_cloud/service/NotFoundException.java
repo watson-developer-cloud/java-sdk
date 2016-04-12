@@ -36,4 +36,8 @@ public class NotFoundException extends ServiceResponseException {
     super(HttpStatus.NOT_FOUND, message, response);
   }
 
+  public NotFoundException(String message, okhttp3.Response response) {
+    super(HttpStatus.NOT_FOUND, message, response);
+  }
+
 }

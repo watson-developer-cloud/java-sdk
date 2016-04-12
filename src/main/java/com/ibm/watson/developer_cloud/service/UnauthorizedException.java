@@ -36,4 +36,8 @@ public class UnauthorizedException extends ServiceResponseException {
     super(HttpStatus.UNAUTHORIZED, message, response);
   }
 
+  public UnauthorizedException(String message, okhttp3.Response response) {
+    super(HttpStatus.UNAUTHORIZED, message, response);
+  }
+
 }

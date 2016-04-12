@@ -36,4 +36,8 @@ public class ServiceUnavailableException extends ServiceResponseException {
     super(HttpStatus.SERVICE_UNAVAILABLE, message, response);
   }
 
+  public ServiceUnavailableException(String message, okhttp3.Response response) {
+    super(HttpStatus.SERVICE_UNAVAILABLE, message, response);
+  }
+
 }

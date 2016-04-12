@@ -36,4 +36,8 @@ public class InternalServerErrorException extends ServiceResponseException {
     super(HttpStatus.INTERNAL_SERVER_ERROR, message, response);
   }
 
+  public InternalServerErrorException(String message, okhttp3.Response response) {
+    super(HttpStatus.INTERNAL_SERVER_ERROR, message, response);
+  }
+
 }
