@@ -34,9 +34,9 @@ import com.squareup.okhttp.Response;
  * text to an audio signal. The audio is streamed back to the client with minimal delay.
  * 
  * @version v1
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html">
- *      Text to Speech</a>
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html"> Text
+ *      to Speech</a>
  */
 public class TextToSpeech extends WatsonService {
 
@@ -65,8 +65,8 @@ public class TextToSpeech extends WatsonService {
     final Request request = RequestBuilder.get("/v1/voices").build();
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-    final List<Voice> voices =
-        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("voices"), listVoiceType);
+    final List<Voice> voices = GsonSingleton.getGsonWithoutPrettyPrinting()
+        .fromJson(jsonObject.get("voices"), listVoiceType);
     return voices;
   }
 

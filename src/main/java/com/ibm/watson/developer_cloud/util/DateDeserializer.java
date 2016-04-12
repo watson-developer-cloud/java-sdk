@@ -17,7 +17,7 @@ public class DateDeserializer implements JsonDeserializer<Date> {
   private static final String DATE_WITHOUT_SECONDS = "yyyy-MM-dd'T'HH:mm:ssZ";
   private static final String DATE_FROM_DIALOG = "yyyy-MM-dd HH:mm:ss";
   private static final String DATE_FROM_ALCHEMY = "yyyyMMdd'T'HHmmss";
-  
+
   private static final SimpleDateFormat utc = new SimpleDateFormat(DATE_UTC);
   private static final SimpleDateFormat utcWithoutSec = new SimpleDateFormat(DATE_WITHOUT_SECONDS);
   private static final SimpleDateFormat dialogDate = new SimpleDateFormat(DATE_FROM_DIALOG);

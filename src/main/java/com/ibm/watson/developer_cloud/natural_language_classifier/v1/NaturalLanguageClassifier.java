@@ -40,8 +40,8 @@ import com.squareup.okhttp.Response;
  * it hasn't seen before. The response includes the name of the top classes and confidence values.
  * 
  * @version v1
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html">
  *      Natural Language Classifier</a>
  */
 public class NaturalLanguageClassifier extends WatsonService {
@@ -125,12 +125,10 @@ public class NaturalLanguageClassifier extends WatsonService {
       contentJson.addProperty(NAME, name);
     }
 
-    final RequestBody body =
-        new MultipartBuilder()
-            .type(MultipartBuilder.FORM)
-            .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, FORM_DATA_TRAINING_DATA),
-                RequestBody.create(HttpMediaType.BINARY_FILE, trainingData))
-            .addFormDataPart(TRAINING_METADATA, contentJson.toString()).build();
+    final RequestBody body = new MultipartBuilder().type(MultipartBuilder.FORM)
+        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, FORM_DATA_TRAINING_DATA),
+            RequestBody.create(HttpMediaType.BINARY_FILE, trainingData))
+        .addFormDataPart(TRAINING_METADATA, contentJson.toString()).build();
 
     final Request request = RequestBuilder.post(PATH_CLASSIFIERS).withBody(body).build();
 

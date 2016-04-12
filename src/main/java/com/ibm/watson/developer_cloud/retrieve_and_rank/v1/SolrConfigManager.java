@@ -54,7 +54,8 @@ public interface SolrConfigManager {
    * @return an InputStream containing the zipped configuration if it exists in ZooKeeper or null if
    *         it is not found
    */
-  InputStream getSolrClusterConfiguration(final String solrClusterId, final String configurationName);
+  InputStream getSolrClusterConfiguration(final String solrClusterId,
+      final String configurationName);
 
   /**
    * Uploads a configuration {@link File} to ZooKeeper's namespace, including schema.xml,

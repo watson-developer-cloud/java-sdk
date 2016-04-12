@@ -41,8 +41,8 @@ import com.squareup.okhttp.RequestBody;
  * specific results that are tailored to your needs.
  * 
  * @version v2
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
  *      Visual Recognition</a>
  */
 public class VisualRecognition extends WatsonService {
@@ -125,7 +125,8 @@ public class VisualRecognition extends WatsonService {
    * @param classifiers the classifiers
    * @return the visual recognition images
    */
-  public VisualClassification classify(final File imagesFile, final VisualClassifier... classifiers) {
+  public VisualClassification classify(final File imagesFile,
+      final VisualClassifier... classifiers) {
     Validate.isTrue(imagesFile != null && imagesFile.exists(),
         "image cannot be null or not be found");
 
@@ -176,9 +177,8 @@ public class VisualRecognition extends WatsonService {
       bodyBuilder.addFormDataPart(CLASSIFIER_IDS, classifierIds.toString());
     }
 
-    RequestBuilder requestBuilder =
-        RequestBuilder.post(PATH_CLASSIFY).withQuery(VERSION, versionDate)
-            .withBody(bodyBuilder.build());
+    RequestBuilder requestBuilder = RequestBuilder.post(PATH_CLASSIFY)
+        .withQuery(VERSION, versionDate).withBody(bodyBuilder.build());
 
     return executeRequest(requestBuilder.build(), VisualClassification.class);
   }
@@ -237,18 +237,15 @@ public class VisualRecognition extends WatsonService {
     Validate.isTrue(name != null && !name.isEmpty(), "name cannot be null or empty");
 
     // POST body
-    RequestBody body =
-        new MultipartBuilder()
-            .type(MultipartBuilder.FORM)
-            .addFormDataPart(POSITIVE_EXAMPLES, positiveImages.getName(),
-                RequestBody.create(HttpMediaType.BINARY_FILE, positiveImages))
-            .addFormDataPart(NEGATIVE_EXAMPLES, negativeImages.getName(),
-                RequestBody.create(HttpMediaType.BINARY_FILE, negativeImages))
-            .addFormDataPart(NAME, name).build();
+    RequestBody body = new MultipartBuilder().type(MultipartBuilder.FORM)
+        .addFormDataPart(POSITIVE_EXAMPLES, positiveImages.getName(),
+            RequestBody.create(HttpMediaType.BINARY_FILE, positiveImages))
+        .addFormDataPart(NEGATIVE_EXAMPLES, negativeImages.getName(),
+            RequestBody.create(HttpMediaType.BINARY_FILE, negativeImages))
+        .addFormDataPart(NAME, name).build();
 
-    Request request =
-        RequestBuilder.post(PATH_CLASSIFIERS).withQuery(VERSION, versionDate).withBody(body)
-            .build();
+    Request request = RequestBuilder.post(PATH_CLASSIFIERS).withQuery(VERSION, versionDate)
+        .withBody(body).build();
 
     return executeRequest(request, VisualClassifier.class);
   }
@@ -264,9 +261,8 @@ public class VisualRecognition extends WatsonService {
     Validate.isTrue(classifierId != null && !classifierId.isEmpty(),
         "classifierId cannot be null or empty");
 
-    Request request =
-        RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId))
-            .withQuery(VERSION, versionDate).build();
+    Request request = RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId))
+        .withQuery(VERSION, versionDate).build();
     executeWithoutResponse(request);
   }
 
@@ -281,9 +277,8 @@ public class VisualRecognition extends WatsonService {
     Validate.isTrue(classifierId != null && !classifierId.isEmpty(),
         "classifierId cannot be null or empty");
 
-    Request request =
-        RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId))
-            .withQuery(VERSION, versionDate).build();
+    Request request = RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId))
+        .withQuery(VERSION, versionDate).build();
     return executeRequest(request, VisualClassifier.class);
   }
 
@@ -294,9 +289,8 @@ public class VisualRecognition extends WatsonService {
    * @see VisualClassifier
    */
   public List<VisualClassifier> getClassifiers() {
-    Request request =
-        RequestBuilder.get(PATH_CLASSIFIERS).withQuery(VERSION, versionDate)
-            .withQuery(VERBOSE, true).build();
+    Request request = RequestBuilder.get(PATH_CLASSIFIERS).withQuery(VERSION, versionDate)
+        .withQuery(VERBOSE, true).build();
     VisualClassifiers classifiers = executeRequest(request, VisualClassifiers.class);
     return classifiers.getClassifiers();
   }

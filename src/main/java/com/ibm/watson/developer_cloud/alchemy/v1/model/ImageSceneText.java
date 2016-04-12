@@ -32,7 +32,7 @@ public class ImageSceneText extends AlchemyGenericModel {
 
   /** The scene text. */
   private String sceneText;
-  
+
   /**
    * Gets the image faces.
    * 
@@ -59,7 +59,7 @@ public class ImageSceneText extends AlchemyGenericModel {
   public String getSceneText() {
     return sceneText;
   }
-  
+
   /**
    * Sets the image faces.
    * 

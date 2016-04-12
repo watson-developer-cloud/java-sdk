@@ -29,8 +29,8 @@ import com.squareup.okhttp.RequestBody;
  * based on their visual appearance / content.
  * 
  * @version v1
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-insights.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-insights.html">
  *      Visual Insights</a>
  */
 public class VisualInsights extends WatsonService {
@@ -117,10 +117,8 @@ public class VisualInsights extends WatsonService {
 
     final MediaType mediaType = HttpMediaType.BINARY_FILE;
     final RequestBody body =
-        new MultipartBuilder()
-            .type(MultipartBuilder.FORM)
-            .addFormDataPart(IMAGES_FILE, imagesFile.getName(),
-                RequestBody.create(mediaType, imagesFile)).build();
+        new MultipartBuilder().type(MultipartBuilder.FORM).addFormDataPart(IMAGES_FILE,
+            imagesFile.getName(), RequestBody.create(mediaType, imagesFile)).build();
 
     final RequestBuilder requestBuilder = RequestBuilder.post(SUMMARY_PATH).withBody(body);
 
