@@ -253,29 +253,7 @@ public class LanguageTranslation extends WatsonService {
   public TranslationResult translate(final String text, final Language source, final Language target) {
     Validate.isTrue(source != null, "source cannot be null");
     Validate.isTrue(target != null, "target cannot be null");
-    return translateRequest(text, null, langToStr(source), langToStr(target));
-  }
-
-  /**
-   * Convert "Language" enum to a String.
-   *
-   * @param lang The language enum to convert to String.
-   */
-  private String langToStr(Language lang) {
-    if (lang == Language.ARABIC) {
-      return "ar";
-    } else if (lang == Language.ENGLISH) {
-      return "en";
-    } else if (lang == Language.SPANISH) {
-      return "es";
-    } else if (lang == Language.FRENCH) {
-      return "fr";
-    } else if (lang == Language.ITALIAN) {
-      return "it";
-    } else if (lang == Language.PORTUGESE) {
-      return "pt";
-    }
-    return "";
+    return translateRequest(text, null, source.toString(), target.toString());
   }
 
   /**
