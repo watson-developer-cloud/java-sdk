@@ -5,7 +5,6 @@ public enum Language {
   ARABIC, ENGLISH, SPANISH, FRENCH, ITALIAN, PORTUGESE,
   AR, EN, ES, FR, IT, PT
   
-  @Override
   public String toString() {
     if (super.toString().length() > 2) {
       switch (this) {
