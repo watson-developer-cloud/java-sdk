@@ -29,6 +29,7 @@ import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelO
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 
 /**
@@ -129,7 +130,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
   public void testTranslate() {
     final String result = "El equipo es increíble IBM Watson";
     testTranslationResult(text, result, service.translate(text, ENGLISH_TO_SPANISH));
-    testTranslationResult(text, result, service.translate(text, ENGLISH, SPANISH));
+    testTranslationResult(text, result, service.translate(text, Language.ENGLISH, Language.SPANISH));
   }
 
   private void testTranslationResult(String text, String result, TranslationResult translationResult) {
