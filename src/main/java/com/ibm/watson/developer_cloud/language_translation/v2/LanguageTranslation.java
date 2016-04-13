@@ -27,7 +27,6 @@ import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationM
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.ServiceCall;
-import com.ibm.watson.developer_cloud.service.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
@@ -36,10 +35,8 @@ import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import okhttp3.Call;
 import okhttp3.MultipartBody;
-import okhttp3.Response;
 
 import java.util.List;
-import okhttp3.Call;
 
 /**
  * The IBM Watson Language Translation service translate text from one language to another and
@@ -189,27 +186,9 @@ public class LanguageTranslation extends WatsonService {
     return languages.getLanguages();
   }
 
-  //something about this seems wrong as hell
-  public List<IdentifiableLanguage> getIdentifiableLanguages3() {
+  public ServiceCall<List<IdentifiableLanguage>> getIdentifiableLanguages3() {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_IDENTIFIABLE_LANGUAGES);
-    LanguageList langList = createServiceCall(createCall(requestBuilder.build3()), ResponseUtil.getObjectConverter(LanguageList.class))
-            /*.enqueue(new ServiceCallback<LanguageList>() {
-              @Override
-              public void onResponse(LanguageList response) {
-                getLanguages(response);
-              }
-
-              @Override
-              public void onFailure(Exception e) {
-                throw new RuntimeException(e);
-              }
-            });*/
-    .execute();
-    return langList.getLanguages();
-  }
-
-  private List<IdentifiableLanguage> getLanguages(LanguageList list) {
-    return list.getLanguages();
+    return createServiceCall(createCall(requestBuilder.build3()), ResponseUtil.getLanguageListConverter());
   }
 
   /**
@@ -272,6 +251,21 @@ public class LanguageTranslation extends WatsonService {
     return models.getModels();
   }
 
+  public ServiceCall<List<TranslationModel>> getModels3(final Boolean showDefault, final String source, final String target) {
+    final RequestBuilder requestBuilder = RequestBuilder.get(PATH_MODELS);
+
+    if (source != null && !source.isEmpty())
+      requestBuilder.withQuery(SOURCE, source);
+
+    if (target != null && !target.isEmpty())
+      requestBuilder.withQuery(TARGET, source);
+
+    if (showDefault != null)
+      requestBuilder.withQuery(DEFAULT, showDefault);
+
+    return createServiceCall(createCall(requestBuilder.build3()), ResponseUtil.getTranslationModelListConverter());
+  }
+
   /**
    * Identify language in which text is written.
    * 
@@ -287,6 +281,14 @@ public class LanguageTranslation extends WatsonService {
     final LanguageList languages = executeRequest(request, LanguageList.class);
 
     return (List<IdentifiedLanguage>) (List<?>) languages.getLanguages();
+  }
+
+  public ServiceCall<List<IdentifiedLanguage>> identify3(final String text) {
+    final okhttp3.Request request = RequestBuilder.post(PATH_IDENTIFY)
+            .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON)
+            .withBodyContent(text, HttpMediaType.TEXT_PLAIN).build3();
+
+    return  createServiceCall(createCall(request), ResponseUtil.getLanguageListIdentifier());
   }
 
   /**

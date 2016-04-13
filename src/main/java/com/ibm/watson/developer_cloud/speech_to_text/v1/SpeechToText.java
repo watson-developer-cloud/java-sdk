@@ -186,9 +186,17 @@ public class SpeechToText extends WatsonService {
 
     ResponseUtil.getString(response);
     if (response.code() != HttpStatus.NO_CONTENT)
-      throw new RuntimeException("Cound't delete session");
+      throw new RuntimeException("Couldn't delete session");
   }
 
+  public ServiceCall<Void> deleteSession3(final SpeechSession session) {
+    if (session == null)
+      throw new IllegalArgumentException("Session was not specified");
+
+    final okhttp3.Request request = RequestBuilder.delete(String.format(PATH_SESSION, session.getSessionId())).build3();
+
+    return createServiceCall(createCall(request), ResponseUtil.getVoidConverter());
+  }
 
   /**
    * Gets the speech model.
@@ -222,6 +230,11 @@ public class SpeechToText extends WatsonService {
     return executeRequest(request, SpeechModelSet.class).getModels();
   }
 
+  public ServiceCall<List<SpeechModel>> getModels3() {
+    final okhttp3.Request request = RequestBuilder.get(PATH_MODELS).build3();
+    return createServiceCall(createCall(request), ResponseUtil.getSpeechModelSetConverter());
+  }
+
   /**
    * Gets the session status. Concurrent recognition tasks during the same session are not allowed.
    * This method offers a way to check whether the session can accept another recognition task. The
@@ -240,6 +253,14 @@ public class SpeechToText extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
     return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(SESSION), SessionStatus.class);
+  }
+
+  public ServiceCall<SessionStatus> getRecognizeStatus3(final SpeechSession session) {
+    if (session == null)
+      throw new IllegalArgumentException("Session was not specified");
+
+    final okhttp3.Request request = RequestBuilder.get(String.format(PATH_SESSION_RECOGNIZE, session.getSessionId())).build3();
+    return createServiceCall(createCall(request), ResponseUtil.getObjectConverter(SessionStatus.class));
   }
 
   /**
@@ -303,6 +324,27 @@ public class SpeechToText extends WatsonService {
     buildRecognizeRequest(requestBuilder, options);
     requestBuilder.withBody(RequestBody.create(MediaType.parse(contentType), audio));
     return executeRequest(requestBuilder.build(), SpeechResults.class);
+  }
+
+  public ServiceCall<SpeechResults> recognize3(File audio, RecognizeOptions options) {
+    Validate.isTrue(audio != null && audio.exists(), "audio file is null or does not exist");
+
+    final double fileSize = audio.length() / Math.pow(1024, 2);
+    Validate.isTrue(fileSize < 100.0, "The audio file is greater than 100MB.");
+
+    String contentType = MediaTypeUtils.getMediaTypeFromFile(audio);
+    if (options != null && options.getContentType() != null)
+      contentType = options.getContentType();
+    Validate.notNull(contentType, "The audio format cannot be recognized");
+
+    String path = PATH_RECOGNIZE;
+    if (options != null && (options.getSessionId() != null && !options.getSessionId().isEmpty()))
+      path = String.format(PATH_SESSION_RECOGNIZE, options.getSessionId());
+
+    final RequestBuilder requestBuilder = RequestBuilder.post(path);
+    buildRecognizeRequest(requestBuilder, options);
+    requestBuilder.withBody(RequestBody.create(MediaType.parse(contentType), audio));
+    return createServiceCall(createCall(requestBuilder.build3()), ResponseUtil.getObjectConverter(SpeechResults.class));
   }
 
   /**

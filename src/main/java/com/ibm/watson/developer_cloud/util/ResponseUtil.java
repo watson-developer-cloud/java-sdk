@@ -13,9 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
+import com.ibm.watson.developer_cloud.language_translation.v2.model.*;
 import com.ibm.watson.developer_cloud.service.ResponseConverter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +26,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModelSet;
 import com.squareup.okhttp.Response;
 
 /**
@@ -158,6 +162,43 @@ public class ResponseUtil {
     return new ResponseConverter<Void>() {
       @Override public Void convert(okhttp3.Response response) {
         return null;
+      }
+    };
+  }
+
+  public static ResponseConverter<List<IdentifiableLanguage>> getLanguageListConverter() {
+    return new ResponseConverter<List<IdentifiableLanguage>>() {
+      @Override
+      public List<IdentifiableLanguage> convert(okhttp3.Response response) {
+        return getObject(response, LanguageList.class).getLanguages();
+      }
+    };
+  }
+
+  @SuppressWarnings("unchecked")
+  public static ResponseConverter<List<IdentifiedLanguage>> getLanguageListIdentifier() {
+    return new ResponseConverter<List<IdentifiedLanguage>>() {
+      @Override
+      public List<IdentifiedLanguage> convert(okhttp3.Response response) {
+        return (List<IdentifiedLanguage>) (List<?>) getObject(response, LanguageList.class).getLanguages();
+      }
+    };
+  }
+
+  public static ResponseConverter<List<TranslationModel>> getTranslationModelListConverter() {
+    return  new ResponseConverter<List<TranslationModel>>() {
+      @Override
+      public List<TranslationModel> convert(okhttp3.Response response) {
+        return getObject(response, TranslationModelList.class).getModels();
+      }
+    };
+  }
+
+  public static ResponseConverter<List<SpeechModel>> getSpeechModelSetConverter() {
+    return new ResponseConverter<List<SpeechModel>>() {
+      @Override
+      public List<SpeechModel> convert(okhttp3.Response response) {
+        return getObject(response, SpeechModelSet.class).getModels();
       }
     };
   }
