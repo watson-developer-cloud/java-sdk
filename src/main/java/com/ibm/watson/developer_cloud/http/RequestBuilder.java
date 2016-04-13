@@ -336,6 +336,11 @@ public class RequestBuilder {
     return this;
   }
 
+  public RequestBuilder withBody(okhttp3.RequestBody body) {
+    this.body3 = body;
+    return this;
+  }
+
   /**
    * Adds string content to the request (used with POST/PUT). This will encapsulate the string into
    * a {@link RequestBody} encoded with UTF-8

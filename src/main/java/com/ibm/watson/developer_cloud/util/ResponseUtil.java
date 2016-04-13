@@ -154,7 +154,6 @@ public class ResponseUtil {
     };
   }
 
-
   /**
    * Returns a String representation of the response.
    * 

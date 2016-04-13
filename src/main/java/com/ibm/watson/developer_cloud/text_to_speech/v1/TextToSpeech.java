@@ -107,6 +107,10 @@ public class TextToSpeech extends WatsonService {
     return synthesize(text, voice, HttpMediaType.AUDIO_WAV);
   }
 
+  public ServiceCall<InputStream> synthesize3(final String text, final Voice voice) {
+    return synthesize3(text, voice, HttpMediaType.AUDIO_WAV);
+  }
+
   /**
    * Synthesize text using a voice and format.
    * 

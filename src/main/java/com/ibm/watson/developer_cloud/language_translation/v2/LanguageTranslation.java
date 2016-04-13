@@ -27,12 +27,17 @@ import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationM
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.service.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
+import okhttp3.Call;
+import okhttp3.MultipartBody;
+import okhttp3.Response;
+
 import java.util.List;
 
 /**
@@ -124,6 +129,32 @@ public class LanguageTranslation extends WatsonService {
         TranslationModel.class);
   }
 
+  public ServiceCall<TranslationModel> createModel3(CreateModelOptions options) {
+    Validate.notNull(options, "options cannot be null");
+    Validate.notEmpty(options.getBaseModelId(), "options.baseModelId cannot be null or empty");
+
+    final RequestBuilder requestBuilder = RequestBuilder.post(PATH_MODELS);
+    requestBuilder.withQuery(BASE_MODEL_ID, options.getBaseModelId());
+
+    if (options.getName() != null)
+      requestBuilder.withQuery(NAME, options.getName());
+
+    final MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+    // either forced glossary, monolingual corpus or parallel corpus should be specified
+    if (options.getForcedGlossary() != null)
+      bodyBuilder.addFormDataPart(FORCED_GLOSSARY, options.getForcedGlossary().getName(),
+              okhttp3.RequestBody.create(HttpMediaType.BINARY_FILE3, options.getForcedGlossary()));
+    if (options.getMonolingualCorpus() != null)
+      bodyBuilder.addFormDataPart(MONOLINGUAL_CORPUS, options.getMonolingualCorpus().getName(),
+              okhttp3.RequestBody.create(HttpMediaType.BINARY_FILE3, options.getMonolingualCorpus()));
+    if (options.getParallelCorpus() != null)
+      bodyBuilder.addFormDataPart(PARALLEL_CORPUS, options.getParallelCorpus().getName(),
+              okhttp3.RequestBody.create(HttpMediaType.BINARY_FILE3, options.getParallelCorpus()));
+
+    return createServiceCall(createCall(requestBuilder.withBody(bodyBuilder.build()).build3()), ResponseUtil.getObjectConverter(TranslationModel.class));
+  }
+
   /**
    * Deletes a translation models.
    * 
@@ -137,6 +168,7 @@ public class LanguageTranslation extends WatsonService {
     executeWithoutResponse(request);
   }
 
+
   /**
    * Retrieves the list of identifiable languages.
    * 
@@ -147,6 +179,29 @@ public class LanguageTranslation extends WatsonService {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_IDENTIFIABLE_LANGUAGES);
     final LanguageList languages = executeRequest(requestBuilder.build(), LanguageList.class);
     return languages.getLanguages();
+  }
+
+  //something about this seems wrong as hell
+  public List<IdentifiableLanguage> getIdentifiableLanguages3() {
+    final RequestBuilder requestBuilder = RequestBuilder.get(PATH_IDENTIFIABLE_LANGUAGES);
+    LanguageList langList = createServiceCall(createCall(requestBuilder.build3()), ResponseUtil.getObjectConverter(LanguageList.class))
+            /*.enqueue(new ServiceCallback<LanguageList>() {
+              @Override
+              public void onResponse(LanguageList response) {
+                getLanguages(response);
+              }
+
+              @Override
+              public void onFailure(Exception e) {
+                throw new RuntimeException(e);
+              }
+            });*/
+    .execute();
+    return langList.getLanguages();
+  }
+
+  private List<IdentifiableLanguage> getLanguages(LanguageList list) {
+    return list.getLanguages();
   }
 
   /**
@@ -162,6 +217,14 @@ public class LanguageTranslation extends WatsonService {
 
     final Request request = RequestBuilder.get(String.format(PATH_MODEL, modelId)).build();
     return executeRequest(request, TranslationModel.class);
+  }
+
+  public ServiceCall<TranslationModel> getModel3(String modelId) {
+    if (modelId == null || modelId.isEmpty())
+      throw new IllegalArgumentException("modelId cannot be null or empty");
+
+    return createServiceCall(createCall(RequestBuilder.get(String.format(PATH_MODEL, modelId)).build3()),
+            ResponseUtil.getObjectConverter(TranslationModel.class));
   }
 
   /**
@@ -230,6 +293,11 @@ public class LanguageTranslation extends WatsonService {
     return translateRequest(text, modelId, null, null);
   }
 
+  public ServiceCall<TranslationResult> translate3(final String text, final String modelId) {
+    Validate.isTrue(modelId != null && !modelId.isEmpty(), "modelId cannot be null or empty");
+    return createServiceCall(createCall(translateRequest3(text, modelId, null, null)), ResponseUtil.getObjectConverter(TranslationResult.class));
+  }
+
   /**
    * Translate text using source and target languages.<br>
    * <br>
@@ -257,6 +325,8 @@ public class LanguageTranslation extends WatsonService {
   }
 
   public ServiceCall<TranslationResult> translate3(final String text, final String source, final String target) {
+    Validate.isTrue(source != null && !source.isEmpty(), "source cannot be null or empty");
+    Validate.isTrue(target != null && !target.isEmpty(), "target cannot be null or empty");
     return createServiceCall(createCall(translateRequest3(text, null, source, target)), ResponseUtil.getObjectConverter(TranslationResult.class));
   }
 
@@ -299,8 +369,6 @@ public class LanguageTranslation extends WatsonService {
 
   private okhttp3.Request translateRequest3(String text, String modelId, String source,  String target) {
     Validate.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
-    Validate.isTrue(source != null && !source.isEmpty(), "source cannot be null or empty");
-    Validate.isTrue(target != null && !target.isEmpty(), "target cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
 

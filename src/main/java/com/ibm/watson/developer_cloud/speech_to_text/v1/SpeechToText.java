@@ -20,6 +20,8 @@ import java.util.List;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.service.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SessionStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
@@ -160,6 +162,15 @@ public class SpeechToText extends WatsonService {
     return speechSession;
   }
 
+  public ServiceCall<SpeechSession> createSession3(final String model) {
+    final RequestBuilder request = RequestBuilder.post(PATH_SESSIONS);
+
+    if (model != null)
+      request.withQuery(MODEL, model);
+
+    return createServiceCall(createCall(request.build3()), ResponseUtil.getObjectConverter(SpeechSession.class));
+  }
+
   /**
    * Delete a session.
    * 
@@ -178,6 +189,7 @@ public class SpeechToText extends WatsonService {
       throw new RuntimeException("Cound't delete session");
   }
 
+
   /**
    * Gets the speech model.
    * 
@@ -190,6 +202,14 @@ public class SpeechToText extends WatsonService {
 
     final Request request = RequestBuilder.get(String.format(PATH_MODEL, name)).build();
     return executeRequest(request, SpeechModel.class);
+  }
+
+  public ServiceCall<SpeechModel> getModel3(final String name) {
+    if (name == null)
+      throw new IllegalArgumentException("Name was not specified");
+
+    final okhttp3.Request request = RequestBuilder.get(String.format(PATH_MODEL, name)).build3();
+    return createServiceCall(createCall(request), ResponseUtil.getObjectConverter(SpeechModel.class));
   }
 
   /**
