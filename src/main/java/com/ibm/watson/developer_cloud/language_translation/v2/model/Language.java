@@ -18,6 +18,7 @@ public enum Language {
     } else {
       return super.toString();
     }
+    return "";
   }
 
 }
