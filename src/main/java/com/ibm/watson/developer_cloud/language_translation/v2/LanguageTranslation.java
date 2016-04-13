@@ -34,6 +34,7 @@ import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import java.util.List;
+import okhttp3.Call;
 
 /**
  * The IBM Watson Language Translation service translate text from one language to another and
@@ -135,6 +136,14 @@ public class LanguageTranslation extends WatsonService {
 
     final Request request = RequestBuilder.delete(String.format(PATH_MODEL, modelId)).build();
     executeWithoutResponse(request);
+  }
+
+  public ServiceCall<Void> deleteModel3(String modelId) {
+    if (modelId == null || modelId.isEmpty())
+      throw new IllegalArgumentException("modelId cannot be null or empty");
+
+    Call call = createCall(RequestBuilder.delete(String.format(PATH_MODEL, modelId)).build3());
+    return createServiceCall(call, ResponseUtil.getVoidConverter());
   }
 
   /**
