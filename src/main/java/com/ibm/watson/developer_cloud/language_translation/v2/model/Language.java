@@ -16,7 +16,7 @@ public enum Language {
         case PORTUGESE: return "pt";
       }
     } else {
-      return super.toString();
+      return super.toString().toLowerCase();
     }
     return "";
   }
