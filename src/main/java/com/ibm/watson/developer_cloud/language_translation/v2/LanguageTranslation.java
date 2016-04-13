@@ -224,6 +224,10 @@ public class LanguageTranslation extends WatsonService {
     return getModels(null, null, null);
   }
 
+  public ServiceCall<List<TranslationModel>> getModels3() {
+    return getModels3(null, null, null);
+  }
+
   /**
    * Retrieves the list of models.
    * 
