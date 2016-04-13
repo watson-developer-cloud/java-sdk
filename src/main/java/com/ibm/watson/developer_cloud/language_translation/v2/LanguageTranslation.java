@@ -39,6 +39,7 @@ import okhttp3.MultipartBody;
 import okhttp3.Response;
 
 import java.util.List;
+import okhttp3.Call;
 
 /**
  * The IBM Watson Language Translation service translate text from one language to another and
@@ -168,6 +169,13 @@ public class LanguageTranslation extends WatsonService {
     executeWithoutResponse(request);
   }
 
+  public ServiceCall<Void> deleteModel3(String modelId) {
+    if (modelId == null || modelId.isEmpty())
+      throw new IllegalArgumentException("modelId cannot be null or empty");
+
+    Call call = createCall(RequestBuilder.delete(String.format(PATH_MODEL, modelId)).build3());
+    return createServiceCall(call, ResponseUtil.getVoidConverter());
+  }
 
   /**
    * Retrieves the list of identifiable languages.

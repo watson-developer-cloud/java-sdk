@@ -154,6 +154,15 @@ public class ResponseUtil {
     };
   }
 
+  public static ResponseConverter<Void> getVoidConverter() {
+    return new ResponseConverter<Void>() {
+      @Override public Void convert(okhttp3.Response response) {
+        return null;
+      }
+    };
+  }
+
+
   /**
    * Returns a String representation of the response.
    * 
