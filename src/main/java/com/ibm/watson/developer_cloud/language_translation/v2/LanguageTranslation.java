@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -24,6 +24,7 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.LanguageList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
@@ -37,7 +38,7 @@ import com.squareup.okhttp.RequestBody;
 /**
  * The IBM Watson Language Translation service translate text from one language to another and
  * identifies the language in which text is written.
- * 
+ *
  * @version v2
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-translation.html">
@@ -92,7 +93,7 @@ public class LanguageTranslation extends WatsonService {
 
   /**
    * Creates a translation models.
-   * 
+   *
    * @param options the create model options
    * @return the translation model
    */
@@ -125,7 +126,7 @@ public class LanguageTranslation extends WatsonService {
 
   /**
    * Deletes a translation models.
-   * 
+   *
    * @param modelId the model identifier
    */
   public void deleteModel(String modelId) {
@@ -138,7 +139,7 @@ public class LanguageTranslation extends WatsonService {
 
   /**
    * Retrieves the list of identifiable languages.
-   * 
+   *
    * @return the identifiable languages
    * @see TranslationModel
    */
@@ -150,7 +151,7 @@ public class LanguageTranslation extends WatsonService {
 
   /**
    * Retrieves a translation models.
-   * 
+   *
    * @param modelId the model identifier
    * @return the translation models
    * @see TranslationModel
@@ -165,7 +166,7 @@ public class LanguageTranslation extends WatsonService {
 
   /**
    * Retrieves the list of translation models.
-   * 
+   *
    * @return the translation models
    * @see TranslationModel
    */
@@ -175,7 +176,7 @@ public class LanguageTranslation extends WatsonService {
 
   /**
    * Retrieves the list of models.
-   * 
+   *
    * @param showDefault show default models
    * @param source the source
    * @param target the target
@@ -202,7 +203,7 @@ public class LanguageTranslation extends WatsonService {
 
   /**
    * Identify language in which text is written.
-   * 
+   *
    * @param text the text to identify
    * @return the identified language
    */
@@ -219,7 +220,7 @@ public class LanguageTranslation extends WatsonService {
 
   /**
    * Translate text using a model.
-   * 
+   *
    * @param text The submitted paragraphs to translate
    * @param modelId the model id
    * @return The {@link TranslationResult}
@@ -233,32 +234,54 @@ public class LanguageTranslation extends WatsonService {
    * Translate text using source and target languages.<br>
    * <br>
    * Here is an example of how to translate "hello" from English to Spanish:
-   * 
-   * 
+   *
+   *
    * <pre>
    * LanguageTranslation service = new LanguageTranslation();
    * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
-   * 
+   *
    * TranslationResult translationResult = service.translate(&quot;hello&quot;, &quot;en&quot;, &quot;es&quot;);
-   * 
+   *
    * System.out.println(translationResult);
    * </pre>
-   * 
+   *
    * @param text The submitted paragraphs to translate
    * @param source The source language
    * @param target The target language
    * @return The {@link TranslationResult}
    */
-  public TranslationResult translate(final String text, final String source, final String target) {
-    Validate.isTrue(source != null && !source.isEmpty(), "source cannot be null or empty");
-    Validate.isTrue(target != null && !target.isEmpty(), "target cannot be null or empty");
-    return translateRequest(text, null, source, target);
+  public TranslationResult translate(final String text, final Language source, final Language target) {
+    Validate.isTrue(source != null, "source cannot be null");
+    Validate.isTrue(target != null, "target cannot be null");
+    return translateRequest(text, null, langToStr(source), langToStr(target));
+  }
+
+  /**
+   * Convert "Language" enum to a String.
+   *
+   * @param lang The language enum to convert to String.
+   */
+  private String langToStr(Language lang) {
+    if (lang == Language.ARABIC) {
+      return "ar";
+    } else if (lang == Language.ENGLISH) {
+      return "en";
+    } else if (lang == Language.SPANISH) {
+      return "es";
+    } else if (lang == Language.FRENCH) {
+      return "fr";
+    } else if (lang == Language.ITALIAN) {
+      return "it";
+    } else if (lang == Language.PORTUGESE) {
+      return "pt";
+    }
+    return "";
   }
 
   /**
    * Translate paragraphs of text using a model and or source and target. model_id or source and
    * target needs to be specified. If both are specified, then only model_id will be used
-   * 
+   *
    * @param text the text
    * @param modelId the model id
    * @param source the source
