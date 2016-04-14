@@ -21,13 +21,7 @@ import com.google.gson.JsonPrimitive;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguageList;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.*;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.Validate;
 import com.squareup.okhttp.MultipartBuilder;
@@ -206,15 +200,14 @@ public class LanguageTranslation extends WatsonService {
    * @param text the text to identify
    * @return the identified language
    */
-  @SuppressWarnings("unchecked")
   public List<IdentifiedLanguage> identify(final String text) {
     final Request request = RequestBuilder.post(PATH_IDENTIFY)
         .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON)
         .withBodyContent(text, HttpMediaType.TEXT_PLAIN).build();
 
-    final IdentifiableLanguageList languages = executeRequest(request, IdentifiableLanguageList.class);
+    final IdentifiedLanguageList languages = executeRequest(request, IdentifiedLanguageList.class);
 
-    return (List<IdentifiedLanguage>) (List<?>) languages.getLanguages();
+    return languages.getLanguages();
   }
 
   /**
