@@ -138,7 +138,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
             GsonSingleton.getGsonWithoutPrettyPrinting().toJson(response)));
 
-    final List<Voice> result = service.getVoices();
+    final List<Voice> result = service.getVoices().execute();
     Assert.assertNotNull(result);
     Assert.assertFalse(result.isEmpty());
     Assert.assertEquals(result, voices);
@@ -163,7 +163,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
                   new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.AUDIO_WAV)).withBody(
                   Files.toByteArray(audio)));
 
-      final InputStream in = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV);
+      final InputStream in = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV).execute();
       Assert.assertNotNull(in);
 
       writeInputStreamToOutputStream(in, new FileOutputStream("target/output.wav"));
@@ -208,7 +208,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
    */
   // @Test
   public void testWithVoiceAsWav() {
-    final InputStream is = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV);
+    final InputStream is = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV).execute();
     Assert.assertNotNull(is);
 
     try {

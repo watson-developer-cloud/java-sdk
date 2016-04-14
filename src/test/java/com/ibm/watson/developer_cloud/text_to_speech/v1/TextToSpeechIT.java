@@ -74,7 +74,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
    */
   @Test
   public void testGetVoices() {
-    List<Voice> voices = service.getVoices();
+    List<Voice> voices = service.getVoices().execute();
     Assert.assertNotNull(voices);
     Assert.assertTrue(!voices.isEmpty());
   }
@@ -87,7 +87,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testSynthesize() throws IOException {
     String text = "This is an integration test";
-    InputStream result = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV);
+    InputStream result = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV).execute();
     writeInputStreamToFile(result, File.createTempFile("tts-audio", "wav"));
   }
 
@@ -100,7 +100,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testSynthesizeAndFixHeader() throws IOException, UnsupportedAudioFileException {
     String text = "one two three four five";
-    InputStream result = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV);
+    InputStream result = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV).execute();
     Assert.assertNotNull(result);
     result = WaveUtils.reWriteWaveHeader(result);
     File tempFile = File.createTempFile("output", ".wav");

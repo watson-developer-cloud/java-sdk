@@ -82,7 +82,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         response().withHeaders(APPLICATION_JSON, new Header("set-cookie", "test-cookie")).withBody(
             GsonSingleton.getGsonWithoutPrettyPrinting().toJson(session)));
 
-    final SpeechSession response = service.createSession();
+    final SpeechSession response = service.createSession().execute();
     Assert.assertNotNull(response);
     Assert.assertEquals(session, response);
 
@@ -91,7 +91,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
             CREATE_DELETE_SESSIONS_PATH + "/" + response.getSessionId())
 
     ).respond(response().withStatusCode(204));
-    service.deleteSession(response);
+    service.deleteSession(response).execute();
   }
 
   /**
@@ -99,7 +99,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testDeleteSessionWithNull() {
-    service.deleteSession(null);
+    service.deleteSession(null).execute();
   }
 
   /**
@@ -117,11 +117,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
             GsonSingleton.getGsonWithoutPrettyPrinting().toJson(speechModel)));
 
 
-    SpeechModel model = service.getModel("not-a-real-Model");
+    SpeechModel model = service.getModel("not-a-real-Model").execute();
     Assert.assertNotNull(model);
     Assert.assertEquals(model, speechModel);
 
-    model = service.getModel(speechModel.getName());
+    model = service.getModel(speechModel.getName()).execute();
     Assert.assertNotNull(model);
     Assert.assertEquals(model, speechModel);
 
@@ -160,7 +160,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
             GsonSingleton.getGsonWithoutPrettyPrinting().toJson(speechModelSet)));
-    final List<SpeechModel> models = service.getModels();
+    final List<SpeechModel> models = service.getModels().execute();
     Assert.assertNotNull(models);
     Assert.assertFalse(models.isEmpty());
     Assert.assertEquals(models, speechModelSet.getModels());
@@ -172,7 +172,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   @Test(expected = IllegalArgumentException.class)
   public void testGetModelWithNull() {
     final String model = null;
-    service.getModel(model);
+    service.getModel(model).execute();
   }
 
 
@@ -209,7 +209,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         response().withHeaders(
             new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)).withBody(
             GsonSingleton.getGsonWithoutPrettyPrinting().toJson(speechResults)));
-    final SpeechResults result = service.recognize(audio);
+    final SpeechResults result = service.recognize(audio).execute();
     Assert.assertNotNull(result);
     Assert.assertEquals(result, speechResults);
   }
@@ -251,7 +251,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     boolean didItHappen = false;
     try {
-      service.recognize(null);
+      service.recognize(null).execute();
     } catch (final IllegalArgumentException e) {
       didItHappen = true;
     }

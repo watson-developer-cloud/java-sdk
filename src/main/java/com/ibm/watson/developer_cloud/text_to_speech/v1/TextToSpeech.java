@@ -13,7 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -21,12 +20,8 @@ import com.ibm.watson.developer_cloud.service.ResponseConverter;
 import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseUtil;
 import com.ibm.watson.developer_cloud.util.Validate;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
-import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
@@ -63,25 +58,9 @@ public class TextToSpeech extends WatsonService {
    * 
    * @return the list of {@link Voice}
    */
-  public List<Voice> getVoices() {
-    final Request request = RequestBuilder.get("/v1/voices").build();
-    final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-    final List<Voice> voices = GsonSingleton.getGsonWithoutPrettyPrinting()
-        .fromJson(jsonObject.get("voices"), listVoiceType);
-    return voices;
-  }
-
-  public List<Voice> getVoices3() {
+  public ServiceCall<List<Voice>> getVoices() {
     final okhttp3.Request request = RequestBuilder.get("/v1/voices").build3();
-    try {
-      final okhttp3.Response response = createCall(request).execute();
-      final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
-      final List<Voice> voices = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("voices"), listVoiceType);
-      return voices;
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
+    return createServiceCall(createCall(request), ResponseUtil.getVoiceListConverter(listVoiceType));
   }
 
   /**
@@ -92,7 +71,7 @@ public class TextToSpeech extends WatsonService {
    *        audio/ogg; codecs=opus
    * @return the input stream with the synthesized audio doesn't have the content-length set.
    */
-  public InputStream synthesize(final String text, final String format) {
+  public ServiceCall<InputStream> synthesize(final String text, final String format) {
     return synthesize(text, Voice.EN_LISA, format);
   }
 
@@ -103,12 +82,8 @@ public class TextToSpeech extends WatsonService {
    * @param voice the voice
    * @return the input stream
    */
-  public InputStream synthesize(final String text, final Voice voice) {
+  public ServiceCall<InputStream> synthesize(final String text, final Voice voice) {
     return synthesize(text, voice, HttpMediaType.AUDIO_WAV);
-  }
-
-  public ServiceCall<InputStream> synthesize3(final String text, final Voice voice) {
-    return synthesize3(text, voice, HttpMediaType.AUDIO_WAV);
   }
 
   /**
@@ -119,24 +94,6 @@ public class TextToSpeech extends WatsonService {
    * @param outputFormat the output format. e.g: audio/wav or audio/ogg; codecs=opus
    * @return the input stream
    */
-  public InputStream synthesize(final String text, final Voice voice, final String outputFormat) {
-    Validate.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
-    Validate.isTrue(voice != null, "voice cannot be null or empty");
-
-    final RequestBuilder request = RequestBuilder.get(PATH_SYNTHESIZE);
-    request.withQuery(TEXT, text);
-    request.withQuery(VOICE, voice.getName());
-
-    if (outputFormat != null && !outputFormat.startsWith("audio/"))
-      throw new IllegalArgumentException(
-          "format needs to be an audio mime type, for example: audio/wav or audio/ogg; codecs=opus");
-
-    request.withQuery(ACCEPT, outputFormat != null ? outputFormat : HttpMediaType.AUDIO_WAV);
-
-    final Response response = execute(request.build());
-    return ResponseUtil.getInputStream(response);
-  }
-
   private okhttp3.Request synthesizeRequest(final String text, final Voice voice, final String outputFormat) {
     Validate.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
     Validate.isTrue(voice != null, "voice cannot be null or empty");
@@ -154,7 +111,7 @@ public class TextToSpeech extends WatsonService {
     return request.build3();
   }
 
-  public ServiceCall<InputStream> synthesize3(final String text, final Voice voice, final String outputFormat) {
+  public ServiceCall<InputStream> synthesize(final String text, final Voice voice, final String outputFormat) {
     return createServiceCall(createCall(synthesizeRequest(text, voice, outputFormat)),
         new ResponseConverter<InputStream>() {
           @Override public InputStream convert(okhttp3.Response response) {

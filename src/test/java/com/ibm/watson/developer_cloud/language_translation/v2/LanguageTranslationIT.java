@@ -71,14 +71,14 @@ public class LanguageTranslationIT extends WatsonServiceTest {
 
     TranslationModel model = null;
     try {
-      model = service.createModel(options);
+      model = service.createModel(options).execute();
       Thread.sleep(3000);
       assertNotNull(model);
     } catch (InterruptedException e) {
       e.printStackTrace();
     } finally {
       if (model != null)
-        service.deleteModel(model.getId());
+        service.deleteModel(model.getId()).execute();
     }
   }
 
@@ -87,7 +87,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testGetIdentifiableLanguages() {
-    final List<IdentifiableLanguage> languages = service.getIdentifiableLanguages();
+    final List<IdentifiableLanguage> languages = service.getIdentifiableLanguages().execute();
     assertNotNull(languages);
     assertTrue(!languages.isEmpty());
   }
@@ -97,7 +97,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testGetModel() {
-    final TranslationModel model = service.getModel(ENGLISH_TO_SPANISH);
+    final TranslationModel model = service.getModel(ENGLISH_TO_SPANISH).execute();
     assertNotNull(model);
   }
 
@@ -106,7 +106,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testGetModels() {
-    final List<TranslationModel> models = service.getModels();
+    final List<TranslationModel> models = service.getModels().execute();
 
     assertNotNull(models);
     assertFalse(models.isEmpty());
@@ -117,7 +117,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testIdentify() {
-    final List<IdentifiedLanguage> identifiedLanguages = service.identify(text);
+    final List<IdentifiedLanguage> identifiedLanguages = service.identify(text).execute();
     assertNotNull(identifiedLanguages);
     assertFalse(identifiedLanguages.isEmpty());
   }
@@ -128,8 +128,8 @@ public class LanguageTranslationIT extends WatsonServiceTest {
   @Test
   public void testTranslate() {
     final String result = "El equipo es increíble IBM Watson";
-    testTranslationResult(text, result, service.translate(text, ENGLISH_TO_SPANISH));
-    testTranslationResult(text, result, service.translate(text, ENGLISH, SPANISH));
+    testTranslationResult(text, result, service.translate(text, ENGLISH_TO_SPANISH).execute());
+    testTranslationResult(text, result, service.translate(text, ENGLISH, SPANISH).execute());
   }
 
   private void testTranslationResult(String text, String result, TranslationResult translationResult) {

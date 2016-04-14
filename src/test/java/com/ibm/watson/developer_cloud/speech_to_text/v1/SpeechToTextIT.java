@@ -67,12 +67,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateSession() {
-    SpeechSession session = service.createSession();
+    SpeechSession session = service.createSession().execute();
     try {
       assertNotNull(session);
       assertNotNull(session.getSessionId());
     } finally {
-      service.deleteSession(session);
+      service.deleteSession(session).execute();
     }
   }
 
@@ -81,12 +81,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateSessionSpeechModel() {
-    SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K);
+    SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K).execute();
     try {
       assertNotNull(session);
       assertNotNull(session.getSessionId());
     } finally {
-      service.deleteSession(session);
+      service.deleteSession(session).execute();
     }
   }
 
@@ -95,12 +95,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateSessionString() {
-    SpeechSession session = service.createSession(EN_BROADBAND16K);
+    SpeechSession session = service.createSession(EN_BROADBAND16K).execute();
     try {
       assertNotNull(session);
       assertNotNull(session.getSessionId());
     } finally {
-      service.deleteSession(session);
+      service.deleteSession(session).execute();
     }
   }
 
@@ -109,7 +109,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testGetModel() {
-    SpeechModel model = service.getModel(EN_BROADBAND16K);
+    SpeechModel model = service.getModel(EN_BROADBAND16K).execute();
     assertNotNull(model);
     assertNotNull(model.getName());
     assertNotNull(model.getRate());
@@ -120,7 +120,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testGetModels() {
-    List<SpeechModel> models = service.getModels();
+    List<SpeechModel> models = service.getModels().execute();
     assertNotNull(models);
     assertTrue(!models.isEmpty());
   }
@@ -130,14 +130,14 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testGetRecognizeStatus() {
-    SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K);
-    SessionStatus status = service.getRecognizeStatus(session);
+    SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K).execute();
+    SessionStatus status = service.getRecognizeStatus(session).execute();
     try {
       assertNotNull(status);
       assertNotNull(status.getModel());
       assertNotNull(status.getState());
     } finally {
-      service.deleteSession(session);
+      service.deleteSession(session).execute();
     }
   }
 
@@ -147,7 +147,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Test
   public void testRecognizeFileString() {
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
-    SpeechResults results = service.recognize(audio);
+    SpeechResults results = service.recognize(audio).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
   }
 
@@ -161,7 +161,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     RecognizeOptions options = new RecognizeOptions();
     options.continuous(true).timestamps(true).wordConfidence(true).model(EN_BROADBAND16K)
         .contentType(contentType);
-    SpeechResults results = service.recognize(audio, options);
+    SpeechResults results = service.recognize(audio, options).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTimestamps());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getWordConfidences());

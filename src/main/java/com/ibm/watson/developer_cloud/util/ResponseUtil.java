@@ -13,10 +13,12 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
+import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.*;
 import com.ibm.watson.developer_cloud.service.ResponseConverter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,6 +30,7 @@ import com.google.gson.stream.JsonReader;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModelSet;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.squareup.okhttp.Response;
 
 /**
@@ -199,6 +202,17 @@ public class ResponseUtil {
       @Override
       public List<SpeechModel> convert(okhttp3.Response response) {
         return getObject(response, SpeechModelSet.class).getModels();
+      }
+    };
+  }
+
+  public static ResponseConverter<List<Voice>> getVoiceListConverter(final Type listVoiceType) {
+    return new ResponseConverter<List<Voice>>() {
+      @Override
+      public List<Voice> convert(okhttp3.Response response) {
+        JsonObject jsonObject = getJsonObject(response);
+        return GsonSingleton.getGsonWithoutPrettyPrinting()
+                .fromJson(jsonObject.get("voices"), listVoiceType);
       }
     };
   }
