@@ -24,7 +24,7 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.LanguageList;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguageList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
@@ -144,7 +144,7 @@ public class LanguageTranslation extends WatsonService {
    */
   public List<IdentifiableLanguage> getIdentifiableLanguages() {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_IDENTIFIABLE_LANGUAGES);
-    final LanguageList languages = executeRequest(requestBuilder.build(), LanguageList.class);
+    final IdentifiableLanguageList languages = executeRequest(requestBuilder.build(), IdentifiableLanguageList.class);
     return languages.getLanguages();
   }
 
@@ -212,7 +212,7 @@ public class LanguageTranslation extends WatsonService {
         .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON)
         .withBodyContent(text, HttpMediaType.TEXT_PLAIN).build();
 
-    final LanguageList languages = executeRequest(request, LanguageList.class);
+    final IdentifiableLanguageList languages = executeRequest(request, IdentifiableLanguageList.class);
 
     return (List<IdentifiedLanguage>) (List<?>) languages.getLanguages();
   }
