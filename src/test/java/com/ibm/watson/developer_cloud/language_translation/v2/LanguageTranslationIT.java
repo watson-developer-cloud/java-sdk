@@ -37,8 +37,6 @@ import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationR
  */
 public class LanguageTranslationIT extends WatsonServiceTest {
 
-  private static final String SPANISH = "es";
-  private static final String ENGLISH = "en";
   private static final String ENGLISH_TO_SPANISH = "en-es";
   private static final String RESOURCE = "src/test/resources/language_translation/";
 

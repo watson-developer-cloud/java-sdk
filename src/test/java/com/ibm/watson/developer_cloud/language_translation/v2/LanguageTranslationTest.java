@@ -18,7 +18,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
-import io.netty.handler.codec.http.HttpHeaders;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,13 +38,14 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.LanguageList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.Translation;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
+import io.netty.handler.codec.http.HttpHeaders;
 
 public class LanguageTranslationTest extends WatsonServiceUnitTest {
 

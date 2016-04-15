@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
+import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 
 public class LanguageTranslationExample {
@@ -21,7 +22,7 @@ public class LanguageTranslationExample {
     LanguageTranslation service = new LanguageTranslation();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    TranslationResult translationResult = service.translate("hello", "en", "es");
+    TranslationResult translationResult = service.translate("hello", Language.ENGLISH, Language.SPANISH);
 
     System.out.println(translationResult);
   }

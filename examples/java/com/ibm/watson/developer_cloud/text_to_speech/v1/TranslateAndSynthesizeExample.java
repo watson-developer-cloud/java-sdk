@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
@@ -24,7 +25,7 @@ public class TranslateAndSynthesizeExample {
     String text = "Greetings from Watson Developer Cloudl";
     
     // translate 
-    TranslationResult translationResult = translator.translate(text, "en", "es");
+    TranslationResult translationResult = translator.translate(text, Language.ENGLISH, Language.SPANISH);
     String translation = translationResult.getTranslations().get(0).getTranslation();
 
     // synthesize
