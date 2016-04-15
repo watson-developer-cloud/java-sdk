@@ -38,7 +38,7 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.LanguageList;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguageList;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.Translation;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
@@ -58,7 +58,7 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
   private String modelId;
   private LanguageTranslation service;
   private String text;
-  private LanguageList identifiableLanguages;
+  private IdentifiableLanguageList identifiableLanguages;
   private TranslationModel model;
   private TranslationModelList models;
 
@@ -80,7 +80,7 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
     // fixtures
     identifiableLanguages =
-        loadFixture(RESOURCE + "identifiable_languages.json", LanguageList.class);
+        loadFixture(RESOURCE + "identifiable_languages.json", IdentifiableLanguageList.class);
     model = loadFixture(RESOURCE + "model.json", TranslationModel.class);
     models = loadFixture(RESOURCE + "models.json", TranslationModelList.class);
   }
