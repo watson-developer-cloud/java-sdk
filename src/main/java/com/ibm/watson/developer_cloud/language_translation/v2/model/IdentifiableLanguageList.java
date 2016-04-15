@@ -19,10 +19,10 @@ import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslatio
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Language list used by the {@link LanguageTranslation} service.
+ * Identifiable language list used by the {@link LanguageTranslation} service.
  * 
  */
-public class LanguageList extends GenericModel {
+public class IdentifiableLanguageList extends GenericModel {
 
   private List<IdentifiableLanguage> languages;
 
