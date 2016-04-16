@@ -1,8 +1,6 @@
 com.ibm.watson.developer_cloud.alchemy.v1
 com.ibm.watson.developer_cloud.alchemy.v1.model
 com.ibm.watson.developer_cloud.alchemy.v1.util
-com.ibm.watson.developer_cloud.concept_expansion.v1
-com.ibm.watson.developer_cloud.concept_expansion.v1.model
 com.ibm.watson.developer_cloud.concept_insights.v2
 com.ibm.watson.developer_cloud.concept_insights.v2.model
 com.ibm.watson.developer_cloud.concept_insights.v2.util
