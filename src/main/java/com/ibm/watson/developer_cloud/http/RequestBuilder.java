@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.util.RequestUtil;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.MediaType;
@@ -117,7 +117,7 @@ public class RequestBuilder {
     // Since HttpUrl requires requires a http/s full url, add a default endpoint
     httpUrl = HttpUrl.parse(url);
     if (httpUrl == null)
-      this.httpUrl = HttpUrl.parse(RequestUtil.DEFAULT_ENDPOINT + url);
+      this.httpUrl = HttpUrl.parse(RequestUtils.DEFAULT_ENDPOINT + url);
 
   }
 
@@ -239,8 +239,8 @@ public class RequestBuilder {
     final HttpUrl.Builder builder = httpUrl.newBuilder();
     for (final NameValue param : queryParams) {
       // TODO: we should not be manually encoding the query parameters.
-      builder.addEncodedQueryParameter(RequestUtil.encode(param.getName()),
-          RequestUtil.encode(param.getValue()));
+      builder.addEncodedQueryParameter(RequestUtils.encode(param.getName()),
+          RequestUtils.encode(param.getValue()));
     }
     return builder.build().url().toString();
   }

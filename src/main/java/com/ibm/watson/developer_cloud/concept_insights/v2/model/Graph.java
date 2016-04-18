@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Graph returned by the {@link ConceptInsights} service.
@@ -44,8 +44,8 @@ public class Graph extends GenericModel {
    * @param name the name
    */
   public Graph(String accountId, String name) {
-    Validate.notEmpty(accountId, "accountId cannot be empty");
-    Validate.notEmpty(name, "name cannot be empty");
+    Validator.notEmpty(accountId, "accountId cannot be empty");
+    Validator.notEmpty(name, "name cannot be empty");
     setName(name);
     setId("/graphs/" + accountId + "/" + name);
   }

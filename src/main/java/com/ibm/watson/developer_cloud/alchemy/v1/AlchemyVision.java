@@ -30,7 +30,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints.AlchemyAP
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.squareup.okhttp.RequestBody;
 
 /**
@@ -130,8 +130,8 @@ public class AlchemyVision extends AlchemyService {
    * @return {@link ImageSceneText}
    */
   public ImageSceneText getImageSceneText(File image) {
-    Validate.notNull(image, "image cannot be null");
-    Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
+    Validator.notNull(image, "image cannot be null");
+    Validator.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
@@ -147,7 +147,7 @@ public class AlchemyVision extends AlchemyService {
    * @return {@link ImageSceneText}
    */
   public ImageSceneText getImageSceneText(URL url) {
-    Validate.notNull(url, "url cannot be null");
+    Validator.notNull(url, "url cannot be null");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
@@ -164,8 +164,8 @@ public class AlchemyVision extends AlchemyService {
    * @return {@link ImageKeywords}
    */
   public ImageKeywords getImageKeywords(File image, Boolean forceShowAll, Boolean knowledgeGraph) {
-    Validate.notNull(image, "image cannot be null");
-    Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
+    Validator.notNull(image, "image cannot be null");
+    Validator.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
@@ -198,7 +198,7 @@ public class AlchemyVision extends AlchemyService {
    * @return {@link ImageKeywords}
    */
   public ImageKeywords getImageKeywords(URL url, Boolean forceShowAll, Boolean knowledgeGraph) {
-    Validate.notNull(url, "url cannot be null");
+    Validator.notNull(url, "url cannot be null");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
@@ -219,7 +219,7 @@ public class AlchemyVision extends AlchemyService {
    * @return {@link ImageLink}
    */
   public ImageLink getImageLink(URL url) {
-    Validate.notNull(url, "url cannot be null");
+    Validator.notNull(url, "url cannot be null");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
@@ -234,7 +234,7 @@ public class AlchemyVision extends AlchemyService {
    * @return {@link ImageLink}
    */
   public ImageLink getImageLink(String html) {
-    Validate.notNull(html, "html cannot be null");
+    Validator.notNull(html, "html cannot be null");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(HTML, html);
@@ -269,8 +269,8 @@ public class AlchemyVision extends AlchemyService {
    * @return {@link ImageFaces}
    */
   public ImageFaces recognizeFaces(File image, Boolean knowledgeGraph) {
-    Validate.notNull(image, "image cannot be null");
-    Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
+    Validator.notNull(image, "image cannot be null");
+    Validator.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
@@ -309,7 +309,7 @@ public class AlchemyVision extends AlchemyService {
    * @return {@link ImageFaces}
    */
   public ImageFaces recognizeFaces(URL url, Boolean knowledgeGraph) {
-    Validate.notNull(url, "url cannot be null");
+    Validator.notNull(url, "url cannot be null");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);

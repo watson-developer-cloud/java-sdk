@@ -22,10 +22,10 @@ import java.util.Collection;
  * 
  */
 @SuppressWarnings("rawtypes")
-public class Validate {
+public class Validator {
 
   /**
-   * Validate that the argument condition is <code>true</code>; otherwise throwing an exception with
+   * Validator that the argument condition is <code>true</code>; otherwise throwing an exception with
    * the specified message. This method is useful when validating according to an arbitrary boolean
    * expression, such as validating a primitive number or using your own custom validation
    * expression.
@@ -42,7 +42,7 @@ public class Validate {
   }
 
   /**
-   * Validate that the specified argument collection is neither <code>null</code> nor a size of zero
+   * Validator that the specified argument collection is neither <code>null</code> nor a size of zero
    * (no elements); otherwise throwing an exception with the specified message.
    * 
    * @param collection the collection to check
@@ -57,7 +57,7 @@ public class Validate {
 
 
   /**
-   * Validate that the specified argument array is neither <code>null</code> nor a length of zero
+   * Validator that the specified argument array is neither <code>null</code> nor a length of zero
    * (no elements); otherwise throwing an exception with the specified message.
    * 
    * @param array the array to check
@@ -71,7 +71,7 @@ public class Validate {
   }
 
   /**
-   * Validate that the specified argument string is neither <code>null</code> nor a length of zero
+   * Validator that the specified argument string is neither <code>null</code> nor a length of zero
    * (no characters); otherwise throwing an exception with the specified message.
    * 
    * @param string the string to check
@@ -85,7 +85,7 @@ public class Validate {
   }
 
   /**
-   * Validate that the specified argument is not <code>null</code>; otherwise throwing an exception
+   * Validator that the specified argument is not <code>null</code>; otherwise throwing an exception
    * with the specified message.
    * 
    * @param object the object to check

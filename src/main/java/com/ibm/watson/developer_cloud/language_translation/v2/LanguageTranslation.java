@@ -23,15 +23,15 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguageList;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguages;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguageList;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguages;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModels;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
@@ -99,8 +99,8 @@ public class LanguageTranslation extends WatsonService {
    * @return the translation model
    */
   public TranslationModel createModel(CreateModelOptions options) {
-    Validate.notNull(options, "options cannot be null");
-    Validate.notEmpty(options.getBaseModelId(), "options.baseModelId cannot be null or empty");
+    Validator.notNull(options, "options cannot be null");
+    Validator.notEmpty(options.getBaseModelId(), "options.baseModelId cannot be null or empty");
 
     final RequestBuilder requestBuilder = RequestBuilder.post(PATH_MODELS);
     requestBuilder.withQuery(BASE_MODEL_ID, options.getBaseModelId());
@@ -146,7 +146,7 @@ public class LanguageTranslation extends WatsonService {
    */
   public List<IdentifiableLanguage> getIdentifiableLanguages() {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_IDENTIFIABLE_LANGUAGES);
-    final IdentifiableLanguageList languages = executeRequest(requestBuilder.build(), IdentifiableLanguageList.class);
+    final IdentifiableLanguages languages = executeRequest(requestBuilder.build(), IdentifiableLanguages.class);
     return languages.getLanguages();
   }
 
@@ -197,8 +197,8 @@ public class LanguageTranslation extends WatsonService {
     if (showDefault != null)
       requestBuilder.withQuery(DEFAULT, showDefault);
 
-    final TranslationModelList models =
-        executeRequest(requestBuilder.build(), TranslationModelList.class);
+    final TranslationModels models =
+        executeRequest(requestBuilder.build(), TranslationModels.class);
     return models.getModels();
   }
 
@@ -213,7 +213,7 @@ public class LanguageTranslation extends WatsonService {
         .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON)
         .withBodyContent(text, HttpMediaType.TEXT_PLAIN).build();
 
-    final IdentifiedLanguageList languages = executeRequest(request, IdentifiedLanguageList.class);
+    final IdentifiedLanguages languages = executeRequest(request, IdentifiedLanguages.class);
 
     return languages.getLanguages();
   }
@@ -226,7 +226,7 @@ public class LanguageTranslation extends WatsonService {
    * @return The {@link TranslationResult}
    */
   public TranslationResult translate(final String text, final String modelId) {
-    Validate.isTrue(modelId != null && !modelId.isEmpty(), "modelId cannot be null or empty");
+    Validator.isTrue(modelId != null && !modelId.isEmpty(), "modelId cannot be null or empty");
     return translateRequest(text, modelId, null, null);
   }
 
@@ -251,8 +251,8 @@ public class LanguageTranslation extends WatsonService {
    * @return The {@link TranslationResult}
    */
   public TranslationResult translate(final String text, final Language source, final Language target) {
-    Validate.isTrue(source != null, "source cannot be null");
-    Validate.isTrue(target != null, "target cannot be null");
+    Validator.isTrue(source != null, "source cannot be null");
+    Validator.isTrue(target != null, "target cannot be null");
     return translateRequest(text, null, source.toString(), target.toString());
   }
 
@@ -268,7 +268,7 @@ public class LanguageTranslation extends WatsonService {
    */
   private TranslationResult translateRequest(String text, String modelId, String source,
       String target) {
-    Validate.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
+    Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
 

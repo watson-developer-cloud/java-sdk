@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 /**
- * The Class ValidateTest.
+ * The Class ValidatorTest.
  */
-public class ValidateTest {
+public class ValidatorTest {
 
   /** The error. */
   private final String error = "error message";
@@ -30,7 +30,7 @@ public class ValidateTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testIsTrueBooleanString() {
-    Validate.isTrue(false, error);
+    Validator.isTrue(false, error);
   }
 
   /**
@@ -39,7 +39,7 @@ public class ValidateTest {
   @SuppressWarnings("rawtypes")
   @Test(expected = IllegalArgumentException.class)
   public void testNotEmptyCollectionString() {
-    Validate.notEmpty(new ArrayList(), error);
+    Validator.notEmpty(new ArrayList(), error);
   }
 
   /**
@@ -47,7 +47,7 @@ public class ValidateTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testNotEmptyObjectArrayString() {
-    Validate.notEmpty(new String[] {}, error);
+    Validator.notEmpty(new String[] {}, error);
   }
 
   /**
@@ -55,7 +55,7 @@ public class ValidateTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testNotEmptyStringString() {
-    Validate.notEmpty("", error);
+    Validator.notEmpty("", error);
   }
 
   /**
@@ -63,6 +63,6 @@ public class ValidateTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testNotNullObjectString() {
-    Validate.notNull(null, error);
+    Validator.notNull(null, error);
   }
 }

@@ -27,14 +27,14 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranker;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Rankers;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterList;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrConfigList;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrConfigs;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.ZipUtils;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
@@ -90,9 +90,9 @@ public class RetrieveAndRank extends WatsonService
    * @return the string
    */
   private String createConfigPath(String solrClusterId, String configName) {
-    Validate.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
         "solrClusterId cannot be null or empty");
-    Validate.isTrue(configName != null && !configName.isEmpty(),
+    Validator.isTrue(configName != null && !configName.isEmpty(),
         "configName cannot be null or empty");
     return String.format(PATH_SOLR_CLUSTERS_CONFIGS, solrClusterId, configName);
   }
@@ -109,8 +109,8 @@ public class RetrieveAndRank extends WatsonService
    * @see Ranker
    */
   public Ranker createRanker(final String name, final File training) {
-    Validate.notNull(training, "training file cannot be null");
-    Validate.isTrue(training.exists(),
+    Validator.notNull(training, "training file cannot be null");
+    Validator.isTrue(training.exists(),
         "training file: " + training.getAbsolutePath() + " not found");
 
     final JsonObject contentJson = new JsonObject();
@@ -169,7 +169,7 @@ public class RetrieveAndRank extends WatsonService
    * @param rankerID the ranker id
    */
   public void deleteRanker(final String rankerID) {
-    Validate.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerId cannot be null or empty");
+    Validator.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerId cannot be null or empty");
 
     final Request request = RequestBuilder.delete(String.format(PATH_RANKER, rankerID)).build();
     executeWithoutResponse(request);
@@ -184,7 +184,7 @@ public class RetrieveAndRank extends WatsonService
    */
   @Override
   public void deleteSolrCluster(String solrClusterId) {
-    Validate.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
         "solrClusterId cannot be null or empty");
     final Request request =
         RequestBuilder.delete(String.format(PATH_GET_SOLR_CLUSTER, solrClusterId)).build();
@@ -213,7 +213,7 @@ public class RetrieveAndRank extends WatsonService
     final Request request = RequestBuilder.get(PATH_RANKERS).build();
 
     final Response response = execute(request);
-    return ResponseUtil.getObject(response, Rankers.class);
+    return ResponseUtils.getObject(response, Rankers.class);
   }
 
   /**
@@ -224,7 +224,7 @@ public class RetrieveAndRank extends WatsonService
    * @see Ranker
    */
   public Ranker getRankerStatus(final String rankerID) {
-    Validate.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerId cannot be null or empty");
+    Validator.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerId cannot be null or empty");
 
     final Request request = RequestBuilder.get(String.format(PATH_RANKER, rankerID)).build();
     return executeRequest(request, Ranker.class);
@@ -239,7 +239,7 @@ public class RetrieveAndRank extends WatsonService
    */
   @Override
   public SolrCluster getSolrCluster(String solrClusterId) {
-    Validate.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
         "solrClusterId cannot be null or empty");
     final Request request =
         RequestBuilder.get(String.format(PATH_GET_SOLR_CLUSTER, solrClusterId)).build();
@@ -255,16 +255,16 @@ public class RetrieveAndRank extends WatsonService
    */
   @Override
   public InputStream getSolrClusterConfiguration(String solrClusterId, String configName) {
-    Validate.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
         "solrClusterId cannot be null or empty");
-    Validate.isTrue(configName != null && !configName.isEmpty(),
+    Validator.isTrue(configName != null && !configName.isEmpty(),
         "configName cannot be null or empty");
 
     final String configPath = createConfigPath(solrClusterId, configName);
     final RequestBuilder requestBuider = RequestBuilder.get(configPath);
     requestBuider.withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_ZIP).build();
     final Response response = execute(requestBuider.build());
-    return ResponseUtil.getInputStream(response);
+    return ResponseUtils.getInputStream(response);
   }
 
   /*
@@ -275,12 +275,12 @@ public class RetrieveAndRank extends WatsonService
    */
   @Override
   public List<String> getSolrClusterConfigurations(String solrClusterId) {
-    Validate.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
         "solrClusterId cannot be null or empty");
     final Request request =
         RequestBuilder.get(String.format(PATH_SOLR_CLUSTERS_CONFIG, solrClusterId)).build();
 
-    final SolrConfigList configList = executeRequest(request, SolrConfigList.class);
+    final SolrConfigs configList = executeRequest(request, SolrConfigs.class);
     return configList.getSolrConfigs();
   }
 
@@ -291,9 +291,9 @@ public class RetrieveAndRank extends WatsonService
    * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#getSolrClusters()
    */
   @Override
-  public SolrClusterList getSolrClusters() {
+  public SolrClusters getSolrClusters() {
     final Request request = RequestBuilder.get(PATH_SOLR_CLUSTERS).build();
-    return executeRequest(request, SolrClusterList.class);
+    return executeRequest(request, SolrClusters.class);
   }
 
   /**
@@ -315,9 +315,9 @@ public class RetrieveAndRank extends WatsonService
    * @return the ranking of the answers
    */
   public Ranking rank(final String rankerID, final File answers, Integer topAnswers) {
-    Validate.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerID cannot be null or empty");
-    Validate.notNull(answers, "answers file cannot be null");
-    Validate.isTrue(answers.exists(), "answers file: " + answers.getAbsolutePath() + " not found");
+    Validator.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerID cannot be null or empty");
+    Validator.notNull(answers, "answers file cannot be null");
+    Validator.isTrue(answers.exists(), "answers file: " + answers.getAbsolutePath() + " not found");
 
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty(ANSWERS, (topAnswers != null && topAnswers > 0) ? topAnswers : 10);
@@ -343,9 +343,9 @@ public class RetrieveAndRank extends WatsonService
   @Override
   public void uploadSolrClusterConfigurationDirectory(String solrClusterId, String configName,
       File directory) {
-    Validate.notNull(directory, "directory cannot be null");
-    Validate.isTrue(directory.exists(), "directory: " + directory.getAbsolutePath() + " not found");
-    Validate.isTrue(directory.isDirectory(), "directory is not a directory");
+    Validator.notNull(directory, "directory cannot be null");
+    Validator.isTrue(directory.exists(), "directory: " + directory.getAbsolutePath() + " not found");
+    Validator.isTrue(directory.isDirectory(), "directory is not a directory");
 
     final File zipFile = ZipUtils.buildConfigZip(configName, directory);
 

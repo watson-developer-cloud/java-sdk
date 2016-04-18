@@ -29,7 +29,7 @@ public class AccountPermission extends GenericModel {
 
     @SerializedName("Admin") ADMIN,
 
-    @SerializedName("ReadWriteAdmin") READ_WRITE_ADMIN;
+    @SerializedName("ReadWriteAdmin") READ_WRITE_ADMIN
 
   }
 
