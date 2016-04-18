@@ -67,7 +67,7 @@ public abstract class Column extends GenericModel {
      * 
      * @param columnType the column type
      */
-    private ColumnType(String columnType) {
+    ColumnType(String columnType) {
       this.type = columnType;
     }
 
@@ -128,7 +128,7 @@ public abstract class Column extends GenericModel {
      * 
      * @param goal the goal
      */
-    private Goal(String goal) {
+    Goal(String goal) {
       this.goal = goal;
     }
 

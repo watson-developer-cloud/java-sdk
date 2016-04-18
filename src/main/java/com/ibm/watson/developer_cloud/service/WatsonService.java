@@ -29,8 +29,8 @@ import com.ibm.watson.developer_cloud.http.HttpStatus;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.CredentialUtils;
-import com.ibm.watson.developer_cloud.util.RequestUtil;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import com.squareup.okhttp.Credentials;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.HttpUrl;
@@ -99,8 +99,8 @@ public abstract class WatsonService {
     final Builder builder = request.newBuilder();
 
     // Set service endpoint for relative paths
-    if (RequestUtil.isRelative(request)) {
-      builder.url(RequestUtil.replaceEndPoint(request.urlString(), getEndPoint()));
+    if (RequestUtils.isRelative(request)) {
+      builder.url(RequestUtils.replaceEndPoint(request.urlString(), getEndPoint()));
     }
 
     // Set default headers
@@ -181,7 +181,7 @@ public abstract class WatsonService {
    */
   protected <T extends GenericModel> T executeRequest(Request request, Class<T> returnType) {
     final Response response = execute(request);
-    return ResponseUtil.getObject(response, returnType);
+    return ResponseUtils.getObject(response, returnType);
   }
 
   /**
@@ -232,7 +232,7 @@ public abstract class WatsonService {
         HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, "authorization").build();
     Request request = RequestBuilder.get(url + "/v1/token").withQuery("url", getEndPoint()).build();
     Response response = execute(request);
-    return ResponseUtil.getJsonObject(response).get("token").getAsString();
+    return ResponseUtils.getJsonObject(response).get("token").getAsString();
   }
 
   /**
@@ -249,10 +249,10 @@ public abstract class WatsonService {
    * @return the error message from the JSON object
    */
   private String getErrorMessage(Response response) {
-    String error = ResponseUtil.getString(response);
+    String error = ResponseUtils.getString(response);
     try {
 
-      final JsonObject jsonObject = ResponseUtil.getJsonObject(error);
+      final JsonObject jsonObject = ResponseUtils.getJsonObject(error);
       if (jsonObject.has("error")) {
         error = jsonObject.get("error").getAsString();
       } else if (jsonObject.has("error_message")) {

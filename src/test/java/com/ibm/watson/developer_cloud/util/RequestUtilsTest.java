@@ -22,10 +22,10 @@ import org.junit.Test;
 import com.google.common.collect.Lists;
 
 /**
- * The Class RequestUtilTest.
+ * The Class RequestUtilsTest.
  * 
  */
-public class RequestUtilTest {
+public class RequestUtilsTest {
 
   /**
    * Creates the map.
@@ -49,12 +49,12 @@ public class RequestUtilTest {
     final Map<String, Object> params = createMap();
 
 
-    Map<String, Object> omitted = RequestUtil.omit(params, "A");
+    Map<String, Object> omitted = RequestUtils.omit(params, "A");
 
     Assert.assertTrue(omitted.keySet().containsAll(Lists.newArrayList("B", "C", "D")));
     Assert.assertTrue(omitted.values().containsAll(Lists.newArrayList(2, 3, 4)));
 
-    omitted = RequestUtil.omit(params, "F");
+    omitted = RequestUtils.omit(params, "F");
     Assert.assertTrue(omitted.keySet().containsAll(Lists.newArrayList("A", "B", "C", "D")));
     Assert.assertTrue(omitted.values().containsAll(Lists.newArrayList(1, 2, 3, 4)));
   }
@@ -67,11 +67,11 @@ public class RequestUtilTest {
     final Map<String, Object> params = createMap();
 
     Assert
-        .assertArrayEquals(params.keySet().toArray(), RequestUtil.omit(params).keySet().toArray());
+        .assertArrayEquals(params.keySet().toArray(), RequestUtils.omit(params).keySet().toArray());
     Assert
-        .assertArrayEquals(params.values().toArray(), RequestUtil.omit(params).values().toArray());
+        .assertArrayEquals(params.values().toArray(), RequestUtils.omit(params).values().toArray());
 
-    Assert.assertNull(RequestUtil.omit(null));
+    Assert.assertNull(RequestUtils.omit(null));
   }
 
   /**
@@ -81,11 +81,11 @@ public class RequestUtilTest {
   public void testPick() {
     final Map<String, Object> params = createMap();
 
-    Map<String, Object> picked = RequestUtil.pick(params, "A");
+    Map<String, Object> picked = RequestUtils.pick(params, "A");
     Assert.assertArrayEquals(picked.keySet().toArray(), new String[] {"A"});
     Assert.assertArrayEquals(picked.values().toArray(), new Integer[] {1});
 
-    picked = RequestUtil.pick(params, "F");
+    picked = RequestUtils.pick(params, "F");
     Assert.assertArrayEquals(picked.keySet().toArray(), new String[] {});
     Assert.assertArrayEquals(picked.values().toArray(), new Integer[] {});
   }
@@ -98,11 +98,11 @@ public class RequestUtilTest {
     final Map<String, Object> params = createMap();
 
     Assert
-        .assertArrayEquals(params.keySet().toArray(), RequestUtil.pick(params).keySet().toArray());
+        .assertArrayEquals(params.keySet().toArray(), RequestUtils.pick(params).keySet().toArray());
     Assert
-        .assertArrayEquals(params.values().toArray(), RequestUtil.pick(params).values().toArray());
+        .assertArrayEquals(params.values().toArray(), RequestUtils.pick(params).values().toArray());
 
-    Assert.assertNull(RequestUtil.pick(null));
+    Assert.assertNull(RequestUtils.pick(null));
   }
 
 }

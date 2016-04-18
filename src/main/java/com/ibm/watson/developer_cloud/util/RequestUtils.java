@@ -28,7 +28,7 @@ import com.squareup.okhttp.Request;
  * {@link com.ibm.watson.developer_cloud.http.RequestBuilder }
  * 
  */
-public class RequestUtil {
+public class RequestUtils {
 
   /**
    * default endpoints for relative request. It will be updated by {@link WatsonService} with the

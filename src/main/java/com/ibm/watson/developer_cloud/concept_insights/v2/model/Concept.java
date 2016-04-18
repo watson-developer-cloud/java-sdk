@@ -18,7 +18,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Concept returned by the {@link ConceptInsights} service.
@@ -56,8 +56,8 @@ public class Concept extends GenericModel {
    * @param concept the concept
    */
   public Concept(final Graph graph, final String concept) {
-    Validate.notNull(graph, "graph cannot be null");
-    Validate.notNull(graph.getId(), "graph.id cannot be null");
+    Validator.notNull(graph, "graph cannot be null");
+    Validator.notNull(graph.getId(), "graph.id cannot be null");
     setName(concept);
     setId(graph.getId() + "/concepts/" + concept);
   }
@@ -70,7 +70,7 @@ public class Concept extends GenericModel {
    * @param concept the concept
    */
   public Concept(final String accountId, final String graphName, final String concept) {
-    Validate.notNull(concept, "concept cannot be null");
+    Validator.notNull(concept, "concept cannot be null");
     setName(concept);
     setId(new Graph(accountId, graphName).getId() + "/concepts/" + concept);
   }

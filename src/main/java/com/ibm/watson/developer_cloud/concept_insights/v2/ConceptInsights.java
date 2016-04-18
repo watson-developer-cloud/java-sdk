@@ -47,8 +47,8 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -214,14 +214,14 @@ public class ConceptInsights extends WatsonService {
    */
   public Annotations annotateText(final Graph graph, final String text) {
     final String graphId = IDHelper.getGraphId(graph, getFirstAccountId());
-    Validate.notEmpty(text, "text cannot be empty");
+    Validator.notEmpty(text, "text cannot be empty");
 
     final Request request = RequestBuilder.post(API_VERSION + graphId + ANNOTATE_TEXT_PATH)
         .withBodyContent(text, HttpMediaType.TEXT_PLAIN)
         .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).build();
 
     final Response response = execute(request);
-    return ResponseUtil.getObject(response, Annotations.class);
+    return ResponseUtils.getObject(response, Annotations.class);
   }
 
   /**
@@ -241,7 +241,7 @@ public class ConceptInsights extends WatsonService {
    * @return {@link QueryConcepts}
    */
   public QueryConcepts conceptualSearch(Corpus corpus, Map<String, Object> parameters) {
-    Validate.notNull(parameters.get(IDS), "ids cannot be null");
+    Validator.notNull(parameters.get(IDS), "ids cannot be null");
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
 
     final Map<String, Object> queryParams = new HashMap<String, Object>();
@@ -482,7 +482,7 @@ public class ConceptInsights extends WatsonService {
    */
   public Scores getCorpusRelationScores(final Corpus corpus, final List<Concept> concepts) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
-    Validate.notEmpty(concepts, "concepts cannot be empty");
+    Validator.notEmpty(concepts, "concepts cannot be empty");
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
     final JsonObject contentJson = new JsonObject();
@@ -583,7 +583,7 @@ public class ConceptInsights extends WatsonService {
    */
   public Scores getDocumentRelationScores(final Document document, final List<Concept> concepts) {
     final String documentId = IDHelper.getDocumentId(document);
-    Validate.notEmpty(concepts, "concepts cannot be empty");
+    Validator.notEmpty(concepts, "concepts cannot be empty");
 
     final Map<String, Object> queryParams = new HashMap<String, Object>();
     final JsonObject contentJson = new JsonObject();
@@ -617,7 +617,7 @@ public class ConceptInsights extends WatsonService {
   public Concepts getGraphRelatedConcepts(final Graph graph, final List<Concept> concepts,
       final Map<String, Object> parameters) {
     final String graphId = IDHelper.getGraphId(graph, getFirstAccountId());
-    Validate.notEmpty(concepts, "concepts cannot be empty");
+    Validator.notEmpty(concepts, "concepts cannot be empty");
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
     final String[] queryParms = new String[] {LEVEL, LIMIT};
@@ -663,7 +663,7 @@ public class ConceptInsights extends WatsonService {
    */
   public Scores getGraphRelationScores(final Concept concept, final List<String> concepts) {
     final String conceptId = IDHelper.getConceptId(concept);
-    Validate.notEmpty(concepts, "concepts cannot be empty");
+    Validator.notEmpty(concepts, "concepts cannot be empty");
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
     final JsonObject contentJson = new JsonObject();
@@ -695,7 +695,7 @@ public class ConceptInsights extends WatsonService {
    * @return {@link Corpora}
    */
   public Corpora listCorpora(final String accountId) {
-    Validate.notEmpty(accountId, "account_id cannot be empty");
+    Validator.notEmpty(accountId, "account_id cannot be empty");
     return executeRequest(CORPORA_PATH + FORWARD_SLASH + accountId, null, Corpora.class);
   }
 
@@ -778,7 +778,7 @@ public class ConceptInsights extends WatsonService {
    */
   public Matches searchCorpusByLabel(final Corpus corpus, final Map<String, Object> parameters) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
-    Validate.notEmpty((String) parameters.get(QUERY), "query cannot be empty");
+    Validator.notEmpty((String) parameters.get(QUERY), "query cannot be empty");
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
     final String[] queryParams = new String[] {QUERY, PREFIX, LIMIT, CONCEPTS};
@@ -822,7 +822,7 @@ public class ConceptInsights extends WatsonService {
   public Matches searchGraphsConceptByLabel(final Graph graph,
       final Map<String, Object> parameters) {
     final String graphId = IDHelper.getGraphId(graph, getFirstAccountId());
-    Validate.notEmpty((String) parameters.get(QUERY), "query cannot be empty");
+    Validator.notEmpty((String) parameters.get(QUERY), "query cannot be empty");
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
     final String[] params = new String[] {QUERY, PREFIX, LIMIT};

@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.concept_insights.v2.model.Concept;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Corpus;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Document;
 import com.ibm.watson.developer_cloud.concept_insights.v2.model.Graph;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Helper to validate and format resource ids such as corpus_id, graph_id, concept_id, and
@@ -59,8 +59,8 @@ public class IDHelper {
    * @return the concept id
    */
   public static String getConceptId(final Concept concept) {
-    Validate.notNull(concept, "concept cannot be null");
-    Validate.notNull(concept.getId(), "concept.id cannot be null");
+    Validator.notNull(concept, "concept cannot be null");
+    Validator.notNull(concept.getId(), "concept.id cannot be null");
 
     validate(CONCEPT_ID_REGEX, concept.getId(), "Provide a valid concept.id (format is " + '"'
         + " (/graphs/{account_id}/{graph}/concepts/{concept})+" + '"' + ")");
@@ -76,13 +76,13 @@ public class IDHelper {
    * @return the corpus id
    */
   public static String getCorpusId(final Corpus corpus, final String accountId) {
-    Validate.notNull(corpus, "corpus cannot be null");
+    Validator.notNull(corpus, "corpus cannot be null");
     if (corpus.getId() != null) {
       validate(CORPUS_ID_REGEX, corpus.getId(), "Provide a valid corpus.id (format is " + '"'
           + "/corpora/{account_id}/{corpus} +" + '"' + ")");
       return corpus.getId();
     } else {
-      Validate.notNull(corpus.getName(), "corpus.name cannot be null");
+      Validator.notNull(corpus.getName(), "corpus.name cannot be null");
       return "/corpora/" + accountId + "/" + corpus.getName();
     }
   }
@@ -94,8 +94,8 @@ public class IDHelper {
    * @return the document id
    */
   public static String getDocumentId(final Document document) {
-    Validate.notNull(document, "document cannot be null");
-    Validate.notNull(document.getId(), "document.id cannot be null");
+    Validator.notNull(document, "document cannot be null");
+    Validator.notNull(document.getId(), "document.id cannot be null");
 
     validate(DOCUMENT_ID_REGEX, document.getId(), "Provide a valid document.id (format is " + '"'
         + " (/corpora/{account_id}/{corpus}/documents/{document}) +" + '"' + ")");
@@ -111,13 +111,13 @@ public class IDHelper {
    * @return the graph id
    */
   public static String getGraphId(final Graph graph, final String accountId) {
-    Validate.notNull(graph, "graph object cannot be null");
+    Validator.notNull(graph, "graph object cannot be null");
     if (graph.getId() != null) {
       validate(GRAPH_ID_REGEX, graph.getId(), "Provide a valid graph.id (format is " + '"'
           + " (/graphs/{account_id}/{graph}) +" + '"' + ")");
       return graph.getId();
     } else {
-      Validate.notNull(graph.getName(), "graph.name cannot be null");
+      Validator.notNull(graph.getName(), "graph.name cannot be null");
       return "/graphs/" + accountId + "/" + graph.getName();
     }
   }

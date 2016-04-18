@@ -30,13 +30,13 @@ import com.squareup.okhttp.Response;
  * 
  * @see Response
  */
-public class ResponseUtil {
+public class ResponseUtils {
 
   /** The Constant ERROR_MESSAGE. */
   private static final String ERROR_MESSAGE = "Error reading the http response";
 
   /** The Constant log. */
-  private static final Logger log = Logger.getLogger(ResponseUtil.class.getName());
+  private static final Logger log = Logger.getLogger(ResponseUtils.class.getName());
 
   /**
    * Returns the HTTP Response {@link InputStream}.

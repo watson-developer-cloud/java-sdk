@@ -16,8 +16,8 @@ package com.ibm.watson.developer_cloud.relationship_extraction.v1;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.relationship_extraction.v1.model.Dataset;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -71,13 +71,13 @@ public class RelationshipExtraction extends WatsonService {
    * @return the result as an XML/JSON string
    */
   public String extract(final String text) {
-    Validate.notNull(dataset, "dataset cannot be null");
-    Validate.notNull(text, "text cannot be null");
+    Validator.notNull(dataset, "dataset cannot be null");
+    Validator.notNull(text, "text cannot be null");
 
     final Request request = RequestBuilder.post("/v1/sire/0")
         .withForm("sid", dataset.getId(), "rt", returnType, "txt", text).build();
     final Response response = execute(request);
-    return ResponseUtil.getString(response);
+    return ResponseUtils.getString(response);
   }
 
   /**

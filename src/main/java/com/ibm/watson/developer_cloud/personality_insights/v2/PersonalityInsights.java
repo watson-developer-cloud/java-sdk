@@ -24,9 +24,9 @@ import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import com.ibm.watson.developer_cloud.util.TimestampTypeAdapter;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.squareup.okhttp.Response;
 
 /**
@@ -63,8 +63,8 @@ public class PersonalityInsights extends WatsonService {
   }
 
   private RequestBuilder buildProfileRequest(ProfileOptions options) {
-    Validate.notNull(options, "options cannot be null");
-    Validate.isTrue(options.getText() != null || options.getContentItems() != null,
+    Validator.notNull(options, "options cannot be null");
+    Validator.isTrue(options.getText() != null || options.getContentItems() != null,
         "text, html or content items need to be specified");
 
     final String contentType = options.getContentType();
@@ -112,7 +112,7 @@ public class PersonalityInsights extends WatsonService {
    * @return The personality {@link Profile}
    */
   public Profile getProfile(final String text) {
-    Validate.notEmpty(text, "text cannot be null or empty");
+    Validator.notEmpty(text, "text cannot be null or empty");
 
     final ProfileOptions options = new ProfileOptions().text(text);
     final RequestBuilder requestBuilder = buildProfileRequest(options);
@@ -159,7 +159,7 @@ public class PersonalityInsights extends WatsonService {
     requestBuilder.withHeader(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
     requestBuilder.withQuery(HEADERS, includeHeaders);
     final Response response = execute(requestBuilder.build());
-    return ResponseUtil.getString(response);
+    return ResponseUtils.getString(response);
   }
 
 }

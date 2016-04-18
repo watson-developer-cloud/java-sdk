@@ -34,7 +34,7 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
@@ -247,7 +247,7 @@ public class DialogService extends WatsonService {
         RequestBuilder.get(String.format(PATH_DIALOG_CONTENT, dialogId)).build();
 
     final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
     final List<DialogContent> content =
         GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("items"), listDialogContentType);
     return content;
@@ -296,7 +296,7 @@ public class DialogService extends WatsonService {
     final Request request = requestBuilder.build();
 
     final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
     final List<ConversationData> conversationDataList =
         GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(CONVERSATIONS), listConversationDataType);
     return conversationDataList;
@@ -311,7 +311,7 @@ public class DialogService extends WatsonService {
     final Request request = RequestBuilder.get(PATH_DIALOGS).build();
 
     final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
     final List<Dialog> dialogs =
         GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("dialogs"), listDialogType);
     return dialogs;
@@ -343,7 +343,7 @@ public class DialogService extends WatsonService {
 
     final Request request = requestbuilder.build();
     final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
     final List<NameValue> nameValues =
         GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(NAME_VALUES), listNameValueType);
 
