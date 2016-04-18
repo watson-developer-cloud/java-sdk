@@ -24,8 +24,8 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MultipartBuilder;
 import com.squareup.okhttp.Request;
@@ -88,7 +88,7 @@ public class NaturalLanguageClassifier extends WatsonService {
     final Request request = RequestBuilder.post(path).withBodyJson(contentJson).build();
 
     final Response response = execute(request);
-    final Classification classification = ResponseUtil.getObject(response, Classification.class);
+    final Classification classification = ResponseUtils.getObject(response, Classification.class);
 
     for (final ClassifiedClass klass : classification.getClasses()) {
       if (klass.getName().equals(classification.getTopClass())) {
@@ -113,9 +113,9 @@ public class NaturalLanguageClassifier extends WatsonService {
    */
   public Classifier createClassifier(final String name, final String language,
       final File trainingData) {
-    Validate.isTrue(trainingData != null && trainingData.exists(),
+    Validator.isTrue(trainingData != null && trainingData.exists(),
         "trainingData cannot be null or not be found");
-    Validate.isTrue(language != null && !language.isEmpty(), "language cannot be null or empty");
+    Validator.isTrue(language != null && !language.isEmpty(), "language cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
 
@@ -133,7 +133,7 @@ public class NaturalLanguageClassifier extends WatsonService {
     final Request request = RequestBuilder.post(PATH_CLASSIFIERS).withBody(body).build();
 
     final Response response = execute(request);
-    return ResponseUtil.getObject(response, Classifier.class);
+    return ResponseUtils.getObject(response, Classifier.class);
   }
 
   /**

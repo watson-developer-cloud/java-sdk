@@ -27,7 +27,7 @@ import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.ibm.watson.developer_cloud.visual_recognition.v2.model.VisualClassification;
 import com.ibm.watson.developer_cloud.visual_recognition.v2.model.VisualClassifier;
 import com.ibm.watson.developer_cloud.visual_recognition.v2.model.VisualClassifiers;
@@ -127,7 +127,7 @@ public class VisualRecognition extends WatsonService {
    */
   public VisualClassification classify(final File imagesFile,
       final VisualClassifier... classifiers) {
-    Validate.isTrue(imagesFile != null && imagesFile.exists(),
+    Validator.isTrue(imagesFile != null && imagesFile.exists(),
         "image cannot be null or not be found");
 
     InputStream stream = null;
@@ -165,8 +165,8 @@ public class VisualRecognition extends WatsonService {
    */
   public VisualClassification classify(final String filename, final InputStream imagesInputStream,
       final VisualClassifier... classifiers) {
-    Validate.notNull(imagesInputStream, "image cannot be null");
-    Validate.notNull(filename, "filename cannot be null");
+    Validator.notNull(imagesInputStream, "image cannot be null");
+    Validator.notNull(filename, "filename cannot be null");
 
     MultipartBuilder bodyBuilder = new MultipartBuilder().type(MultipartBuilder.FORM);
     bodyBuilder.addFormDataPart(IMAGES_FILE, filename,
@@ -229,12 +229,12 @@ public class VisualRecognition extends WatsonService {
    */
   public VisualClassifier createClassifier(final String name, final File positiveImages,
       final File negativeImages) {
-    Validate.isTrue(positiveImages != null && positiveImages.exists(),
+    Validator.isTrue(positiveImages != null && positiveImages.exists(),
         "positiveImages cannot be null or not be found");
-    Validate.isTrue(negativeImages != null && negativeImages.exists(),
+    Validator.isTrue(negativeImages != null && negativeImages.exists(),
         "negativeImages cannot be null or not be found");
 
-    Validate.isTrue(name != null && !name.isEmpty(), "name cannot be null or empty");
+    Validator.isTrue(name != null && !name.isEmpty(), "name cannot be null or empty");
 
     // POST body
     RequestBody body = new MultipartBuilder().type(MultipartBuilder.FORM)
@@ -258,7 +258,7 @@ public class VisualRecognition extends WatsonService {
    * @see VisualClassifier
    */
   public void deleteClassifier(String classifierId) {
-    Validate.isTrue(classifierId != null && !classifierId.isEmpty(),
+    Validator.isTrue(classifierId != null && !classifierId.isEmpty(),
         "classifierId cannot be null or empty");
 
     Request request = RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId))
@@ -274,7 +274,7 @@ public class VisualRecognition extends WatsonService {
    * @see VisualClassifier
    */
   public VisualClassifier getClassifier(String classifierId) {
-    Validate.isTrue(classifierId != null && !classifierId.isEmpty(),
+    Validator.isTrue(classifierId != null && !classifierId.isEmpty(),
         "classifierId cannot be null or empty");
 
     Request request = RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId))

@@ -23,7 +23,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Response from requesting a list of provisioned Solr Clusters.
  */
-public class SolrClusterList extends GenericModel {
+public class SolrClusters extends GenericModel {
   @SerializedName(SOLR_CLUSTER_RESPONSES)
   private final List<SolrCluster> solrClusters;
 
@@ -32,7 +32,7 @@ public class SolrClusterList extends GenericModel {
    * 
    * @param solrClusterResponses the solr cluster responses
    */
-  public SolrClusterList(final List<SolrCluster> solrClusterResponses) {
+  public SolrClusters(final List<SolrCluster> solrClusterResponses) {
     this.solrClusters = solrClusterResponses;
   }
 

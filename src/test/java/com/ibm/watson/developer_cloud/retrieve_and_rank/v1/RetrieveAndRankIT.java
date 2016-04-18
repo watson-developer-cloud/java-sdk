@@ -34,7 +34,7 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Rankers;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster.Status;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterList;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
 import com.ibm.watson.developer_cloud.service.BadRequestException;
 
@@ -184,7 +184,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
 
   @Test
   public void testGetSolrClusters() {
-    final SolrClusterList clusters = service.getSolrClusters();
+    final SolrClusters clusters = service.getSolrClusters();
     assertNotNull(clusters);
     assertNotNull(clusters.getSolrClusters());
     assertTrue(!clusters.getSolrClusters().isEmpty());

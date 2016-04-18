@@ -22,7 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Request.Builder;
@@ -133,7 +133,7 @@ public abstract class AlchemyService extends WatsonService {
   @Override
   protected <T extends GenericModel> T executeRequest(Request request, Class<T> returnType) {
     final Response response = this.execute(request);
-    return ResponseUtil.getObject(response, returnType);
+    return ResponseUtils.getObject(response, returnType);
   }
 
   /**

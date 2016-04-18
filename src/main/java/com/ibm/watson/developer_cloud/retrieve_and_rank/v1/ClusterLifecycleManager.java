@@ -14,7 +14,7 @@
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterList;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
 
 /**
@@ -58,5 +58,5 @@ public interface ClusterLifecycleManager {
    * 
    * @return the Solr cluster list
    */
-  SolrClusterList getSolrClusters();
+  SolrClusters getSolrClusters();
 }

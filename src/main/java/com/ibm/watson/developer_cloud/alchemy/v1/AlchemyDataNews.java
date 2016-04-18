@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * AlchemyData News indexes 250k to 300k English language news and blog articles every day with
@@ -36,12 +36,12 @@ public class AlchemyDataNews extends AlchemyService {
   /**
    * The TimeFormat Enumeration.
    */
-  public static enum TimeFormat {
+  public enum TimeFormat {
 
     /** The Time format d. */
     d, /** The Time format h. */
     h, /** The Time format m. */
-    m, /** The Time format m. */
+    m, /** The Time format M. */
     M, /** The Time format now. */
     NOW, /** The Time format s. */
     s, /** The Time format y. */
@@ -80,9 +80,9 @@ public class AlchemyDataNews extends AlchemyService {
    * @return the news documents
    */
   public DocumentsResult getNewsDocuments(Map<String, Object> parameters) {
-    Validate.notNull(parameters.get(START), "start time cannot be null");
-    Validate.notNull(parameters.get(END), "end time cannot be null");
-    Validate.notNull(parameters.get(RETURN), "return cannot be null");
+    Validator.notNull(parameters.get(START), "start time cannot be null");
+    Validator.notNull(parameters.get(END), "end time cannot be null");
+    Validator.notNull(parameters.get(RETURN), "return cannot be null");
 
     // Return json
     parameters.put(OUTPUT_MODE, JSON);
@@ -107,8 +107,8 @@ public class AlchemyDataNews extends AlchemyService {
    * @return {@link VolumeResult}
    */
   public VolumeResult getVolume(final String start, final String end, final String timeSlice) {
-    Validate.notNull(start, "start time cannot be null");
-    Validate.notNull(end, "end time cannot be null");
+    Validator.notNull(start, "start time cannot be null");
+    Validator.notNull(end, "end time cannot be null");
 
     final RequestBuilder requestBuilder = RequestBuilder.get(NEWS_END_POINT);
 

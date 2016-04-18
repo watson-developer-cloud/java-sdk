@@ -61,9 +61,9 @@ public class ImageSceneText extends AlchemyGenericModel {
   }
 
   /**
-   * Sets the image faces.
+   * Sets the image texts.
    * 
-   * @param imageFaces The imageFaces
+   * @param imageTexts The imageTexts
    */
   public void setSceneTextLines(List<ImageSceneTextLine> imageTexts) {
     this.sceneTextLines = imageTexts;

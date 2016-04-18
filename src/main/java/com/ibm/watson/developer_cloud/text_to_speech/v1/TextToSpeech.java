@@ -24,8 +24,8 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
@@ -64,7 +64,7 @@ public class TextToSpeech extends WatsonService {
   public List<Voice> getVoices() {
     final Request request = RequestBuilder.get("/v1/voices").build();
     final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
     final List<Voice> voices = GsonSingleton.getGsonWithoutPrettyPrinting()
         .fromJson(jsonObject.get("voices"), listVoiceType);
     return voices;
@@ -102,8 +102,8 @@ public class TextToSpeech extends WatsonService {
    * @return the input stream
    */
   public InputStream synthesize(final String text, final Voice voice, final String outputFormat) {
-    Validate.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
-    Validate.isTrue(voice != null, "voice cannot be null or empty");
+    Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
+    Validator.isTrue(voice != null, "voice cannot be null or empty");
 
     final RequestBuilder request = RequestBuilder.get(PATH_SYNTHESIZE);
     request.withQuery(TEXT, text);
@@ -116,6 +116,6 @@ public class TextToSpeech extends WatsonService {
     request.withQuery(ACCEPT, outputFormat != null ? outputFormat : HttpMediaType.AUDIO_WAV);
 
     final Response response = execute(request.build());
-    return ResponseUtil.getInputStream(response);
+    return ResponseUtils.getInputStream(response);
   }
 }

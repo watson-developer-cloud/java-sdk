@@ -35,7 +35,7 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import com.squareup.okhttp.Headers;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.MultipartBuilder;
@@ -138,7 +138,7 @@ public class DocumentConversion extends WatsonService {
             .build();
 
     final Response response = execute(request);
-    return ResponseUtil.getInputStream(response);
+    return ResponseUtils.getInputStream(response);
   }
 
   /**

@@ -28,22 +28,22 @@ public interface RecognizeDelegate {
    * 
    * @param speechResults the speech results
    */
-  public void onMessage(SpeechResults speechResults);
+  void onMessage(SpeechResults speechResults);
 
   /**
    * Called when a WebSocket connection was made
    */
-  public void onConnected();
+  void onConnected();
 
   /**
    * Called when there is an error in the Web Socket connection
    * 
    * @param e the exception
    */
-  public void onError(Exception e);
+  void onError(Exception e);
 
   /**
    * Called when a WebSocket connection was closed
    */
-  public void onDisconnected();
+  void onDisconnected();
 }

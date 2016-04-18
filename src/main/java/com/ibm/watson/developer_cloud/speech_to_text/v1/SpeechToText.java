@@ -30,8 +30,8 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeDelegate;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.WebSocketSpeechToTextClient;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
@@ -136,7 +136,7 @@ public class SpeechToText extends WatsonService {
    * @return the {@link SpeechSession}
    */
   public SpeechSession createSession(SpeechModel model) {
-    Validate.notNull(model, "model cannot be null");
+    Validator.notNull(model, "model cannot be null");
     return createSession(model.getName());
   }
 
@@ -156,7 +156,7 @@ public class SpeechToText extends WatsonService {
       request.withQuery(MODEL, model);
 
     final Response response = execute(request.build());
-    final SpeechSession speechSession = ResponseUtil.getObject(response, SpeechSession.class);
+    final SpeechSession speechSession = ResponseUtils.getObject(response, SpeechSession.class);
     return speechSession;
   }
 
@@ -173,7 +173,7 @@ public class SpeechToText extends WatsonService {
         RequestBuilder.delete(String.format(PATH_SESSION, session.getSessionId())).build();
     final Response response = execute(request);
 
-    ResponseUtil.getString(response);
+    ResponseUtils.getString(response);
     if (response.code() != HttpStatus.NO_CONTENT)
       throw new RuntimeException("Cound't delete session");
   }
@@ -218,7 +218,7 @@ public class SpeechToText extends WatsonService {
     final Request request =
         RequestBuilder.get(String.format(PATH_SESSION_RECOGNIZE, session.getSessionId())).build();
     final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtil.getJsonObject(response);
+    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
     return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(SESSION), SessionStatus.class);
   }
 
@@ -265,15 +265,15 @@ public class SpeechToText extends WatsonService {
    * @return the speech results
    */
   public SpeechResults recognize(File audio, RecognizeOptions options) {
-    Validate.isTrue(audio != null && audio.exists(), "audio file is null or does not exist");
+    Validator.isTrue(audio != null && audio.exists(), "audio file is null or does not exist");
 
     final double fileSize = audio.length() / Math.pow(1024, 2);
-    Validate.isTrue(fileSize < 100.0, "The audio file is greater than 100MB.");
+    Validator.isTrue(fileSize < 100.0, "The audio file is greater than 100MB.");
 
     String contentType = MediaTypeUtils.getMediaTypeFromFile(audio);
     if (options != null && options.getContentType() != null)
       contentType = options.getContentType();
-    Validate.notNull(contentType, "The audio format cannot be recognized");
+    Validator.notNull(contentType, "The audio format cannot be recognized");
 
     String path = PATH_RECOGNIZE;
     if (options != null && (options.getSessionId() != null && !options.getSessionId().isEmpty()))
@@ -347,10 +347,10 @@ public class SpeechToText extends WatsonService {
    */
   public void recognizeUsingWebSockets(InputStream audio, RecognizeOptions options,
       RecognizeDelegate delegate) {
-    Validate.notNull(audio, "audio cannot be null");
-    Validate.notNull(options, "options cannot be null");
-    Validate.notNull(options.getContentType(), "options.contentType cannot be null");
-    Validate.notNull(delegate, "delegate cannot be null");
+    Validator.notNull(audio, "audio cannot be null");
+    Validator.notNull(options, "options cannot be null");
+    Validator.notNull(options.getContentType(), "options.contentType cannot be null");
+    Validator.notNull(delegate, "delegate cannot be null");
 
     String url = getEndPoint().replaceFirst("(https|http)", "wss");
     WebSocketSpeechToTextClient webSocket =

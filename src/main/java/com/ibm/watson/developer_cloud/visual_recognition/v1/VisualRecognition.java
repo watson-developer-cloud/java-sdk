@@ -23,7 +23,7 @@ import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.ibm.watson.developer_cloud.visual_recognition.v1.model.LabelSet;
 import com.ibm.watson.developer_cloud.visual_recognition.v1.model.VisualRecognitionImages;
 import com.squareup.okhttp.MultipartBuilder;
@@ -87,7 +87,7 @@ public class VisualRecognition extends WatsonService {
    * @return the visual recognition images
    */
   public VisualRecognitionImages recognize(final File image, final LabelSet labelSet) {
-    Validate.isTrue(image != null && image.exists(), "image cannot be null or not be found");
+    Validator.isTrue(image != null && image.exists(), "image cannot be null or not be found");
     InputStream stream = null;
     try {
       stream = new FileInputStream(image);

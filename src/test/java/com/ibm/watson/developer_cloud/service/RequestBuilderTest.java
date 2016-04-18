@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import okio.Buffer;
 
 import org.junit.Test;
@@ -28,7 +29,6 @@ import org.junit.Test;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.util.RequestUtil;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.MediaType;
 import com.squareup.okhttp.Request;
@@ -124,7 +124,7 @@ public class RequestBuilderTest {
     final String url = "/v1/ping";
     final Request request = RequestBuilder.get(url).build();
     assertEquals("GET", request.method());
-    assertTrue(RequestUtil.isRelative(request));
+    assertTrue(RequestUtils.isRelative(request));
     assertEquals(url, HttpUrl.parse(request.urlString()).encodedPath());
   }
 

@@ -18,30 +18,29 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-
 /**
- * {@link TranslationModel} list used by the {@link LanguageTranslation} service.
+ * Identifiable language list used by the {@link LanguageTranslation} service.
+ * 
  */
-public class TranslationModelList extends GenericModel {
+public class IdentifiableLanguages extends GenericModel {
 
-  private List<TranslationModel> models;
+  private List<IdentifiableLanguage> languages;
 
   /**
-   * Gets the models.
+   * Gets the languages.
    * 
-   * @return the models
+   * @return the languages
    */
-  public List<TranslationModel> getModels() {
-    return models;
+  public List<IdentifiableLanguage> getLanguages() {
+    return languages;
   }
 
   /**
-   * Sets the models.
+   * Sets the languages.
    * 
-   * @param models the models to set
+   * @param languages the new languages
    */
-  public void setModels(List<TranslationModel> models) {
-    this.models = models;
+  public void setLanguages(List<IdentifiableLanguage> languages) {
+    this.languages = languages;
   }
-
 }

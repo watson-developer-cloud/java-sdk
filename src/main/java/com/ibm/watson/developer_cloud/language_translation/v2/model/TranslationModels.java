@@ -11,37 +11,37 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model;
-
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.ApiConstants.SOLR_CONFIGS;
+package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
+
 /**
- * The Solr configuration list
+ * {@link TranslationModel} list used by the {@link LanguageTranslation} service.
  */
-public class SolrConfigList extends GenericModel {
-  @SerializedName(SOLR_CONFIGS)
-  private final List<String> solrConfigs;
+public class TranslationModels extends GenericModel {
+
+  private List<TranslationModel> models;
 
   /**
-   * Instantiates a new solr configuration list.
+   * Gets the models.
    * 
-   * @param solrConfigs the solr configuration
+   * @return the models
    */
-  public SolrConfigList(final List<String> solrConfigs) {
-    this.solrConfigs = solrConfigs;
+  public List<TranslationModel> getModels() {
+    return models;
   }
 
   /**
-   * Gets the solr configurations.
+   * Sets the models.
    * 
-   * @return the solr configurations
+   * @param models the models to set
    */
-  public List<String> getSolrConfigs() {
-    return solrConfigs;
+  public void setModels(List<TranslationModel> models) {
+    this.models = models;
   }
+
 }

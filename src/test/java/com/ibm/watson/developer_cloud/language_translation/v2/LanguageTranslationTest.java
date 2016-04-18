@@ -38,10 +38,10 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguageList;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguages;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.Translation;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModels;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
@@ -58,9 +58,9 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
   private String modelId;
   private LanguageTranslation service;
   private String text;
-  private IdentifiableLanguageList identifiableLanguages;
+  private IdentifiableLanguages identifiableLanguages;
   private TranslationModel model;
-  private TranslationModelList models;
+  private TranslationModels models;
 
   /*
    * (non-Javadoc)
@@ -80,9 +80,9 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
     // fixtures
     identifiableLanguages =
-        loadFixture(RESOURCE + "identifiable_languages.json", IdentifiableLanguageList.class);
+        loadFixture(RESOURCE + "identifiable_languages.json", IdentifiableLanguages.class);
     model = loadFixture(RESOURCE + "model.json", TranslationModel.class);
-    models = loadFixture(RESOURCE + "models.json", TranslationModelList.class);
+    models = loadFixture(RESOURCE + "models.json", TranslationModels.class);
   }
 
   /**
