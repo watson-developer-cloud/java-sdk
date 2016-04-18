@@ -15,6 +15,7 @@ package com.ibm.watson.developer_cloud.util;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -99,8 +100,10 @@ public class ResponseUtil {
   public static <T extends GenericModel> T getObject(Response response, Class<T> type) {
     JsonReader reader;
     try {
-      reader = new JsonReader(response.body().charStream());
+      Reader stream = response.body().charStream();
+      reader = new JsonReader(stream);
       final T model = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(reader, type);
+      stream.close();
       return model;
     } catch (IOException e) {
       log.log(Level.SEVERE, ERROR_MESSAGE, e);
