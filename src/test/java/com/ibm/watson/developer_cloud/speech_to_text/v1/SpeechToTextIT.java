@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.ResponseListener;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -213,5 +214,20 @@ public class SpeechToTextIT extends WatsonServiceTest {
     lock.await(20000, TimeUnit.MILLISECONDS);
     assertNotNull(asyncResults);
   }
+
+  @Test
+  public void testRecognizeOkhttpWebSocket() throws FileNotFoundException, InterruptedException {
+    RecognizeOptions options = new RecognizeOptions();
+    options.continuous(true).interimResults(true);
+    options.inactivityTimeout(40).timestamps(true).maxAlternatives(2);
+    options.model(EN_BROADBAND16K).contentType(HttpMediaType.AUDIO_WAV);
+
+    service.recognizeUsingOkhttpWebsocket(new FileInputStream(
+          "src/test/resources/speech_to_text/sample1.wav"), options);
+
+    lock.await(20000, TimeUnit.MILLISECONDS);
+    //assertNotNull(asyncResults);
+  }
+
 
 }
