@@ -20,6 +20,7 @@ import java.io.FileNotFoundException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
+import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
 public class DocumentConversionCustomConfigExample {
@@ -37,7 +38,7 @@ public class DocumentConversionCustomConfigExample {
     // Those sections will be returned as Answers
     System.out.println("Convert html document to Answer Units using default configuration");
     final Answers htmlToAnswersWithDefaultConfig =
-        service.convertDocumentToAnswer(html, HttpMediaType.TEXT_HTML);
+        service.convertDocumentToAnswer(html, HttpMediaType.TEXT_HTML).execute();
     System.out.println(htmlToAnswersWithDefaultConfig);
 
     System.out.println("==================================================");
@@ -54,7 +55,7 @@ public class DocumentConversionCustomConfigExample {
 
     System.out.println("Convert html document to Answer Units using custom configuration");
     final Answers htmlToAnswersWithCustomConfig =
-        service.convertDocumentToAnswer(html, HttpMediaType.TEXT_HTML, customConfig);
+        service.convertDocumentToAnswer(html, HttpMediaType.TEXT_HTML, customConfig).execute();
     System.out.println(htmlToAnswersWithCustomConfig);
 
     System.out.println("==================================================");
@@ -70,7 +71,7 @@ public class DocumentConversionCustomConfigExample {
         "src/test/resources/document_conversion/answer_unit_config_selector_h2.json";
     JsonObject customConfigFromFile = null;
     try {
-      customConfigFromFile = service.loadCustomConfig(new FileInputStream(customConfigFilePath));
+      customConfigFromFile = ConversionUtils.loadCustomConfig(new FileInputStream(customConfigFilePath));
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
@@ -81,7 +82,7 @@ public class DocumentConversionCustomConfigExample {
     }
 
     final Answers htmlToAnswersWithCustomConfigFromFile =
-        service.convertDocumentToAnswer(html, HttpMediaType.TEXT_HTML, customConfigFromFile);
+        service.convertDocumentToAnswer(html, HttpMediaType.TEXT_HTML, customConfigFromFile).execute();
     System.out.println(htmlToAnswersWithCustomConfigFromFile);
   }
 }

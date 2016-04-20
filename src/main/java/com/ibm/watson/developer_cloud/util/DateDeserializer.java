@@ -1,3 +1,16 @@
+/**
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.ibm.watson.developer_cloud.util;
 
 import java.lang.reflect.Type;
@@ -12,6 +25,9 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
+/**
+ * The Class DateDeserializer.
+ */
 public class DateDeserializer implements JsonDeserializer<Date> {
   private static final String DATE_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS";
   private static final String DATE_WITHOUT_SECONDS = "yyyy-MM-dd'T'HH:mm:ssZ";
@@ -25,6 +41,9 @@ public class DateDeserializer implements JsonDeserializer<Date> {
 
   private static final Logger log = Logger.getLogger(DateDeserializer.class.getName());
 
+  /* (non-Javadoc)
+   * @see com.google.gson.JsonDeserializer#deserialize(com.google.gson.JsonElement, java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
+   */
   @Override
   public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
       throws JsonParseException {

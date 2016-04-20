@@ -68,8 +68,8 @@ public class SpeechResults extends GenericModel {
   }
 
   /**
-   * Returns <code>true</code> if the results are final
-   * 
+   * Returns <code>true</code> if the results are final.
+   *
    * @return true, if the results are final
    */
   public boolean isFinal() {

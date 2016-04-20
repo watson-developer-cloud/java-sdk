@@ -50,7 +50,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
         new File("src/test/resources/natural_language_classifier/weather_data_train.csv");
 
     final String name = "itest-example";
-    Classifier classifier = service.createClassifier(name, "en", trainingData);
+    Classifier classifier = service.createClassifier(name, "en", trainingData).execute();
 
     try {
       assertNotNull(classifier);
@@ -58,7 +58,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
       assertEquals(name, classifier.getName());
 
       Thread.sleep(2000L);
-      classifier = service.getClassifier(classifier.getId());
+      classifier = service.getClassifier(classifier.getId()).execute();
 
       assertNotNull(classifier);
       assertEquals(name, classifier.getName());
@@ -76,7 +76,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    */
   @Test
   public void testClassify() throws Exception {
-    final Classification classification = service.classify(classifierId, "is it hot outside?");
+    final Classification classification = service.classify(classifierId, "is it hot outside?").execute();
     assertNotNull(classification);
     assertEquals("temperature", classification.getTopClass());
   }
@@ -103,7 +103,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    */
   @Test
   public void testGetClassifier() {
-    final Classifier classifier = service.getClassifier(classifierId);
+    final Classifier classifier = service.getClassifier(classifierId).execute();
     assertNotNull(classifier);
     assertEquals(classifierId, classifier.getId());
   }
@@ -113,7 +113,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    */
   @Test
   public void testGetClassifiers() {
-    final Classifiers classifiers = service.getClassifiers();
+    final Classifiers classifiers = service.getClassifiers().execute();
     assertNotNull(classifiers);
     assertTrue(!classifiers.getClassifiers().isEmpty());
   }

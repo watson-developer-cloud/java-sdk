@@ -44,6 +44,11 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   private Profile profile;
   private ContentItem contentItem;
 
+  /**
+   * Instantiates a new personality insights test.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
   public PersonalityInsightsTest() throws FileNotFoundException {
     profile = loadFixture(RESOURCE + "profile.json", Profile.class);
     text = "foo-bar-text";
@@ -51,6 +56,9 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   }
 
 
+  /* (non-Javadoc)
+   * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
+   */
   @Override
   @Before
   public void setUp() throws Exception {
@@ -60,6 +68,9 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     service.setApiKey("");
   }
 
+  /**
+   * Test get profile with content.
+   */
   @Test
   public void testGetProfileWithContent() {
     Content content = new Content();
@@ -72,11 +83,14 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
     // test
     ProfileOptions options = new ProfileOptions().addContentItem(contentItem);
-    Profile profile = service.getProfile(options);
+    Profile profile = service.getProfile(options).execute();
     Assert.assertNotNull(profile);
     Assert.assertEquals(profile, this.profile);
   }
 
+  /**
+   * Test get profile with english text.
+   */
   @Test
   public void testGetProfileWithEnglishText() {
     mockServer.when(
@@ -85,12 +99,15 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
         response().withHeaders(APPLICATION_JSON).withBody(profile.toString()));
 
     ProfileOptions options = new ProfileOptions().text(text).language(Language.ENGLISH);
-    Profile profile = service.getProfile(options);
+    Profile profile = service.getProfile(options).execute();
 
     Assert.assertNotNull(profile);
     Assert.assertEquals(profile, this.profile);
   }
 
+  /**
+   * Test get profile with spanish text.
+   */
   @Test
   public void testGetProfileWithSpanishText() {
     mockServer.when(
@@ -100,7 +117,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
 
     ProfileOptions options = new ProfileOptions().text(text).language(Language.SPANISH);
-    Profile profile = service.getProfile(options);
+    Profile profile = service.getProfile(options).execute();
 
     Assert.assertNotNull(profile);
     Assert.assertEquals(profile, this.profile);

@@ -36,9 +36,6 @@ public class Classification extends GenericModel {
   @SerializedName("top_class")
   private String topClass;
 
-  /** The top class confidence. */
-  private transient Double topConfidence;
-
   private String url;
 
   /**
@@ -75,15 +72,6 @@ public class Classification extends GenericModel {
    */
   public String getTopClass() {
     return topClass;
-  }
-
-  /**
-   * Gets the top confidence.
-   * 
-   * @return the topConfidence
-   */
-  public Double getTopConfidence() {
-    return topConfidence;
   }
 
   /**
@@ -129,15 +117,6 @@ public class Classification extends GenericModel {
    */
   public void setTopClass(String topClass) {
     this.topClass = topClass;
-  }
-
-  /**
-   * Sets the top confidence.
-   * 
-   * @param topConfidence the topConfidence to set
-   */
-  public void setTopConfidence(Double topConfidence) {
-    this.topConfidence = topConfidence;
   }
 
   /**

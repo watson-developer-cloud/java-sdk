@@ -24,7 +24,7 @@ public class ConceptInsightsExample {
 
     Annotations annotations =
       service.annotateText(Graph.WIKIPEDIA,
-        "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
+        "IBM Watson won the Jeopardy television show hosted by Alex Trebek").execute();
 
     System.out.println(annotations);
   }

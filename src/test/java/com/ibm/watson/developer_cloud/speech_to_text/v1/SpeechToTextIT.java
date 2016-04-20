@@ -142,7 +142,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   }
 
   /**
-   * Test recognize audio file
+   * Test recognize audio file.
    */
   @Test
   public void testRecognizeFileString() {
@@ -168,10 +168,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
   }
 
   /**
-   * Test recognize webSocket
-   * 
+   * Test recognize webSocket.
+   *
    * @throws FileNotFoundException the file not found exception
-   * @throws InterruptedException
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {

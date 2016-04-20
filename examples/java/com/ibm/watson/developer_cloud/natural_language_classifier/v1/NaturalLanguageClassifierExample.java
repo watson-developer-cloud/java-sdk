@@ -21,7 +21,7 @@ public class NaturalLanguageClassifierExample {
     NaturalLanguageClassifier service = new NaturalLanguageClassifier();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    Classification classification = service.classify("<classifier-id>", "Is it sunny?");
+    Classification classification = service.classify("<classifier-id>", "Is it sunny?").execute();
 
     System.out.println(classification);
   }

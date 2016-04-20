@@ -22,7 +22,7 @@ public class DialogServiceExample {
     DialogService service = new DialogService();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    List<Dialog> dialogs = service.getDialogs();
+    List<Dialog> dialogs = service.getDialogs().execute();
     System.out.println(dialogs);
   }
 

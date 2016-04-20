@@ -29,7 +29,7 @@ public class AlchemyLanguageExample {
     Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.TEXT,
         "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
-    DocumentSentiment sentiment = service.getSentiment(params);
+    DocumentSentiment sentiment = service.getSentiment(params).execute();
 
     System.out.println(sentiment);
   }

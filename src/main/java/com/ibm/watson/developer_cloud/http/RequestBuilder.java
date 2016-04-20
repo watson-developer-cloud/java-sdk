@@ -18,14 +18,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.util.RequestUtil;
-import com.squareup.okhttp.FormEncodingBuilder;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Request.Builder;
-import com.squareup.okhttp.RequestBody;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
+
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+
 
 /**
  * Convenience class for constructing HTTP/HTTPS requests.
@@ -36,7 +36,6 @@ public class RequestBuilder {
   private enum HTTPMethod {
     DELETE, GET, POST, PUT
   }
-
 
   /**
    * The DELETE method requests that the origin server delete the resource identified by the
@@ -86,25 +85,11 @@ public class RequestBuilder {
     return new RequestBuilder(HTTPMethod.PUT, url);
   }
 
-  /** The body. */
   private RequestBody body;
-  private okhttp3.RequestBody body3;
-
-  /** The form params. */
-  private final List<NameValue> formParams = new ArrayList<NameValue>();
-
-  /** The headers. */
-  private final List<NameValue> headers = new ArrayList<NameValue>();
-
-  /** The url. */
   private HttpUrl httpUrl;
-
-  private okhttp3.HttpUrl httpUrl3;
-
-  /** The method. */
+  private final List<NameValue> formParams = new ArrayList<NameValue>();
+  private final List<NameValue> headers = new ArrayList<NameValue>();
   private final HTTPMethod method;
-
-  /** The query params. */
   private final List<NameValue> queryParams = new ArrayList<NameValue>();
 
   /**
@@ -120,11 +105,8 @@ public class RequestBuilder {
 
     // Since HttpUrl requires requires a http/s full url, add a default endpoint
     httpUrl = HttpUrl.parse(url);
-    httpUrl3 = okhttp3.HttpUrl.parse(url);
     if (httpUrl == null)
-      this.httpUrl = HttpUrl.parse(RequestUtil.DEFAULT_ENDPOINT + url);
-    if (httpUrl3 == null)
-      this.httpUrl3 = okhttp3.HttpUrl.parse(RequestUtil.DEFAULT_ENDPOINT + url);
+      this.httpUrl = HttpUrl.parse(RequestUtils.DEFAULT_ENDPOINT + url);
   }
 
   /**
@@ -172,15 +154,20 @@ public class RequestBuilder {
     params.add(new NameValue(name, value == null ? null : String.valueOf(value)));
   }
 
-  public okhttp3.Request build3() {
-    final okhttp3.Request.Builder builder = new okhttp3.Request.Builder();
+  /**
+   * Builds the.
+   *
+   * @return the request
+   */
+  public Request build() {
+    final Request.Builder builder = new Request.Builder();
     // URL
     builder.url(toUrl3());
 
     // POST/PUT require a body so send an empty body if the actual is null
-    okhttp3.RequestBody requestBody = body3;
-    if (body3 == null)
-      requestBody = okhttp3.RequestBody.create(null, new byte[0]);
+    RequestBody requestBody = body;
+    if (body == null)
+      requestBody = RequestBody.create(null, new byte[0]);
 
     if (!formParams.isEmpty()) {
       final FormBody.Builder formBody = new FormBody.Builder();
@@ -218,58 +205,6 @@ public class RequestBuilder {
     return builder.build();
   }
 
-  /**
-   * Builds a request with the given set of parameters and files.
-   * 
-   * 
-   * @return HTTP request, prepared to be executed
-   */
-  public Request build() {
-    final Builder builder = new Request.Builder();
-    // URL
-    builder.url(toUrl());
-
-    // POST/PUT require a body so send an empty body if the actual is null
-    RequestBody requestBody = body;
-    if (body == null)
-      requestBody = RequestBody.create(null, new byte[0]);
-
-    if (!formParams.isEmpty()) {
-      final FormEncodingBuilder formBody = new FormEncodingBuilder();
-      for (final NameValue param : formParams) {
-        final String value = param.getValue() != null ? param.getValue() : "";
-        formBody.add(param.getName(), value);
-      }
-      requestBody = formBody.build();
-    }
-
-    // accept application/json by default
-    builder.addHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
-
-    if (!headers.isEmpty()) {
-      for (final NameValue header : headers) {
-        builder.addHeader(header.getName(), header.getValue());
-      }
-    }
-
-    switch (method) {
-      case GET:
-        builder.get();
-        break;
-      case POST:
-        builder.post(requestBody);
-        break;
-      case PUT:
-        builder.put(requestBody);
-        break;
-      case DELETE:
-        builder.delete(requestBody);
-        break;
-    }
-
-    return builder.build();
-  }
-
   /*
    * (non-Javadoc)
    * 
@@ -278,29 +213,18 @@ public class RequestBuilder {
   @Override
   public String toString() {
     return "RequestBuilder [method=" + method + ", formParams=" + formParams + ", headers="
-        + headers + ", queryParams=" + queryParams + ", httpUrl=" + httpUrl + "]";
+        + headers + ", queryParams=" + queryParams + ", httpUrl=" + httpUrl.toString() + "]";
   }
 
   /**
-   * Create and return the URL being used in the request.
-   * 
-   * 
-   * @return the URL as string
+   * To url3.
+   *
+   * @return the string
    */
-  public String toUrl() {
+  public String toUrl3() {
     final HttpUrl.Builder builder = httpUrl.newBuilder();
     for (final NameValue param : queryParams) {
-      // TODO: we should not be manually encoding the query parameters.
-      builder.addEncodedQueryParameter(RequestUtil.encode(param.getName()),
-          RequestUtil.encode(param.getValue()));
-    }
-    return builder.build().url().toString();
-  }
-
-  public String toUrl3() {
-    final okhttp3.HttpUrl.Builder builder = httpUrl3.newBuilder();
-    for (final NameValue param : queryParams) {
-      builder.addEncodedQueryParameter(RequestUtil.encode(param.getName()), RequestUtil.encode(param.getValue()));
+      builder.addEncodedQueryParameter(RequestUtils.encode(param.getName()), RequestUtils.encode(param.getValue()));
     }
     return builder.build().url().toString();
   }
@@ -325,19 +249,13 @@ public class RequestBuilder {
   }
 
   /**
-   * Adds an arbitrary entity to the request (used with POST/PUT).
-   * 
-   * @param body the request body to POST/PUT
-   * 
-   * @return this
+   * With body.
+   *
+   * @param body the body
+   * @return the request builder
    */
   public RequestBuilder withBody(RequestBody body) {
     this.body = body;
-    return this;
-  }
-
-  public RequestBuilder withBody(okhttp3.RequestBody body) {
-    this.body3 = body;
     return this;
   }
 
@@ -352,7 +270,6 @@ public class RequestBuilder {
    */
   public RequestBuilder withBodyContent(String content, String contentType) {
     body = RequestBody.create(MediaType.parse(contentType), content);
-    body3 = okhttp3.RequestBody.create(okhttp3.MediaType.parse(contentType), content);
     return this;
   }
 
@@ -428,6 +345,5 @@ public class RequestBuilder {
     }
     return this;
   }
-
 
 }

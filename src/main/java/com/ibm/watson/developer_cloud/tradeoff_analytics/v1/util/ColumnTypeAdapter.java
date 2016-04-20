@@ -35,7 +35,7 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Numeric
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.TextColumn;
 
 /**
- * ColumnTypeAdapter
+ * ColumnTypeAdapter.
  */
 public class ColumnTypeAdapter extends TypeAdapter<Column> {
 

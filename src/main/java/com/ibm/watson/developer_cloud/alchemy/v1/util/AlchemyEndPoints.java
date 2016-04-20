@@ -96,13 +96,13 @@ public class AlchemyEndPoints {
     /** The title. */
     title,
 
-    /** The publication date */
+    /**  The publication date. */
     publication_date,
 
-    /** dates */
+    /**  dates. */
     dates,
 
-    /** emotion */
+    /**  emotion. */
     emotion
   }
 

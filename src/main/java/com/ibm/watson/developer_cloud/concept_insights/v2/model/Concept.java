@@ -18,7 +18,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Concept returned by the {@link ConceptInsights} service.
@@ -56,8 +56,8 @@ public class Concept extends GenericModel {
    * @param concept the concept
    */
   public Concept(final Graph graph, final String concept) {
-    Validate.notNull(graph, "graph cannot be null");
-    Validate.notNull(graph.getId(), "graph.id cannot be null");
+    Validator.notNull(graph, "graph cannot be null");
+    Validator.notNull(graph.getId(), "graph.id cannot be null");
     setName(concept);
     setId(graph.getId() + "/concepts/" + concept);
   }
@@ -70,12 +70,14 @@ public class Concept extends GenericModel {
    * @param concept the concept
    */
   public Concept(final String accountId, final String graphName, final String concept) {
-    Validate.notNull(concept, "concept cannot be null");
+    Validator.notNull(concept, "concept cannot be null");
     setName(concept);
     setId(new Graph(accountId, graphName).getId() + "/concepts/" + concept);
   }
 
   /**
+   * Gets the abstract.
+   *
    * @return the abstract. Brief description of the concept. Typically 1-3 sentences. ,
    */
   public String getAbstract() {
@@ -92,8 +94,8 @@ public class Concept extends GenericModel {
   }
 
   /**
-   * Gets the Human-readable title of the concept
-   * 
+   * Gets the Human-readable title of the concept.
+   *
    * @return The label
    */
   public String getLabel() {
@@ -101,6 +103,8 @@ public class Concept extends GenericModel {
   }
 
   /**
+   * Gets the link.
+   *
    * @return the Link to external resource for this concept (for example, a wikipedia page)
    */
   public String getLink() {
@@ -117,6 +121,8 @@ public class Concept extends GenericModel {
   }
 
   /**
+   * Gets the ontology.
+   *
    * @return the list of potential categories for a concept
    */
   public List<String> getOntology() {
@@ -124,6 +130,8 @@ public class Concept extends GenericModel {
   }
 
   /**
+   * Gets the thumbnail.
+   *
    * @return the URL of a small image of the concept
    */
   public String getThumbnail() {
@@ -131,6 +139,8 @@ public class Concept extends GenericModel {
   }
 
   /**
+   * Sets the abstract.
+   *
    * @param abs the brief description of the concept. Typically 1-3 sentences. ,
    */
   public void setAbstract(String abs) {
@@ -147,8 +157,8 @@ public class Concept extends GenericModel {
   }
 
   /**
-   * Sets the Human-readable title of the concept
-   * 
+   * Sets the Human-readable title of the concept.
+   *
    * @param label The label
    */
   public void setLabel(String label) {
@@ -156,6 +166,8 @@ public class Concept extends GenericModel {
   }
 
   /**
+   * Sets the link.
+   *
    * @param link the Link to external resource for this concept (for example, a wikipedia page)
    */
   public void setLink(String link) {
@@ -172,6 +184,8 @@ public class Concept extends GenericModel {
   }
 
   /**
+   * Sets the ontology.
+   *
    * @param ontology the list of potential categories for a concept
    */
   public void setOntology(List<String> ontology) {
@@ -179,6 +193,8 @@ public class Concept extends GenericModel {
   }
 
   /**
+   * Sets the thumbnail.
+   *
    * @param thumbnail the URL of a small image of the concept
    */
   public void setThumbnail(String thumbnail) {

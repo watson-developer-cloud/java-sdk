@@ -28,19 +28,33 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
  */
 public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
 
+  /** The Constant APPLICATION_JSON. */
   protected static final Header APPLICATION_JSON = new Header(HttpHeaders.CONTENT_TYPE,
       HttpMediaType.APPLICATION_JSON);
+  
+  /** The Constant TEXT_PLAIN. */
   protected static final Header TEXT_PLAIN = new Header(HttpHeaders.CONTENT_TYPE,
       HttpMediaType.TEXT.toString());
 
+  /** The Constant DELETE. */
   protected static final String DELETE = "DELETE";
+  
+  /** The Constant GET. */
   protected static final String GET = "GET";
+  
+  /** The Constant POST. */
   protected static final String POST = "POST";
+  
+  /** The Constant PUT. */
   protected static final String PUT = "PUT";
 
+  /** The Constant MOCK_SERVER_PORT. */
   protected static final int MOCK_SERVER_PORT = 9898;
+  
+  /** The Constant MOCK_SERVER_URL. */
   protected static final String MOCK_SERVER_URL = "http://localhost:" + MOCK_SERVER_PORT;
 
+  /** The mock server. */
   protected ClientAndServer mockServer;
 
   /**
@@ -54,7 +68,7 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
   }
 
   /**
-   * Stops the mock server
+   * Stops the mock server.
    */
   @After
   public void tearDown() {

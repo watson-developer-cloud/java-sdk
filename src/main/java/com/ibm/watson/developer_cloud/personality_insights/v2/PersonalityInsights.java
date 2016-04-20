@@ -23,11 +23,11 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions;
+import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.TimestampTypeAdapter;
-import com.ibm.watson.developer_cloud.util.Validate;
-import com.squareup.okhttp.Response;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The Watson Personality Insights service uses linguistic analytics to extract a spectrum of
@@ -40,31 +40,26 @@ import com.squareup.okhttp.Response;
  *      Personality Insights</a>
  */
 public class PersonalityInsights extends WatsonService {
-
+  private static final String SERVICE_NAME = "personality_insights";
   private static final String PATH_PROFILE = "/v2/profile";
-
-  /** The Constant INCLUDE_RAW (value is "include_raw"). */
   private static final String INCLUDE_RAW = "include_raw";
-
   private static final String URL = "https://gateway.watsonplatform.net/personality-insights/api";
-
   private static final Gson gson =
       new GsonBuilder().registerTypeAdapter(Date.class, new TimestampTypeAdapter()).create();
 
-  /** The Constant HEADERS (value is "headers"). */
   private static final String HEADERS = "headers";
 
   /**
    * Instantiates a new Personality Insights service.
    */
   public PersonalityInsights() {
-    super("personality_insights");
+    super(SERVICE_NAME);
     setEndPoint(URL);
   }
 
   private RequestBuilder buildProfileRequest(ProfileOptions options) {
-    Validate.notNull(options, "options cannot be null");
-    Validate.isTrue(options.getText() != null || options.getContentItems() != null,
+    Validator.notNull(options, "options cannot be null");
+    Validator.isTrue(options.getText() != null || options.getContentItems() != null,
         "text, html or content items need to be specified");
 
     final String contentType = options.getContentType();
@@ -111,12 +106,12 @@ public class PersonalityInsights extends WatsonService {
    * 
    * @return The personality {@link Profile}
    */
-  public Profile getProfile(final String text) {
-    Validate.notEmpty(text, "text cannot be null or empty");
+  public ServiceCall<Profile> getProfile(final String text) {
+    Validator.notEmpty(text, "text cannot be null or empty");
 
     final ProfileOptions options = new ProfileOptions().text(text);
     final RequestBuilder requestBuilder = buildProfileRequest(options);
-    return executeRequest(requestBuilder.build(), Profile.class);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Profile.class));
   }
 
   /**
@@ -141,9 +136,9 @@ public class PersonalityInsights extends WatsonService {
    * @param options the {@link ProfileOptions}
    * @return The personality {@link Profile}
    */
-  public Profile getProfile(final ProfileOptions options) {
+  public ServiceCall<Profile> getProfile(final ProfileOptions options) {
     final RequestBuilder requestBuilder = buildProfileRequest(options);
-    return executeRequest(requestBuilder.build(), Profile.class);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Profile.class));
   }
 
   /**
@@ -153,13 +148,12 @@ public class PersonalityInsights extends WatsonService {
    * @param includeHeaders if true returns the CSV headers
    * @return the CSV profile
    */
-  public String getProfileAsCSV(final ProfileOptions options, final boolean includeHeaders) {
+  public ServiceCall<String> getProfileAsCSV(final ProfileOptions options, final boolean includeHeaders) {
     final RequestBuilder requestBuilder = buildProfileRequest(options);
 
     requestBuilder.withHeader(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
     requestBuilder.withQuery(HEADERS, includeHeaders);
-    final Response response = execute(requestBuilder.build());
-    return ResponseUtil.getString(response);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getString());
   }
 
 }

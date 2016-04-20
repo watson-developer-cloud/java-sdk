@@ -1,5 +1,5 @@
 /**
- * Copyright 2016 IBM Corp. All Rights Reserved.
+ * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -13,7 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,12 +30,21 @@ import java.util.zip.ZipFile;
 
 import org.junit.Test;
 
+import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.ZipUtils;
 
+/**
+ * The Class ZipUtilsTest.
+ */
 public class ZipUtilsTest {
   private static final String CONFIG_PATH = "src/test/resources/retrieve_and_rank/config_dir";
   private static final String CONFIG_NAME = "config_whatever";
 
+  /**
+   * Creates_config_zip.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void creates_config_zip() throws IOException {
     final Set<String> configs = new HashSet<String>();
@@ -50,7 +59,7 @@ public class ZipUtilsTest {
       assertEquals(configs, fileMap.keySet());
 
       for (final String config : configs) {
-        final String fileString = streamToString(new FileInputStream(CONFIG_PATH + "/" + config));
+        final String fileString = ConversionUtils.writeInputStreamToString(new FileInputStream(CONFIG_PATH + "/" + config));
         assertEquals(fileMap.get(config), fileString);
       }
     } finally {
@@ -66,7 +75,7 @@ public class ZipUtilsTest {
       while (entries.hasMoreElements()) {
         final ZipEntry entry = entries.nextElement();
         final InputStream input = zip.getInputStream(entry);
-        fileMap.put(entry.getName(), streamToString(input));
+        fileMap.put(entry.getName(), ConversionUtils.writeInputStreamToString(input));
       }
       zip.close();
     } catch (final IOException e) {
@@ -76,14 +85,4 @@ public class ZipUtilsTest {
 
     return fileMap;
   }
-
-  static String streamToString(java.io.InputStream inputStream) {
-    final java.util.Scanner s = new java.util.Scanner(inputStream).useDelimiter("\\A");
-    try {
-      return s.hasNext() ? s.next() : "";
-    } finally {
-      s.close();
-    }
-  }
-
 }

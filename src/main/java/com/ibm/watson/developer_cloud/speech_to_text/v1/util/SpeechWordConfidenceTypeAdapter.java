@@ -22,7 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordConfidence;
 
 /**
- * SpeechWordConfidenceTypeAdapter
+ * SpeechWordConfidenceTypeAdapter.
  */
 public class SpeechWordConfidenceTypeAdapter extends TypeAdapter<SpeechWordConfidence> {
 

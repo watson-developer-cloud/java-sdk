@@ -21,23 +21,25 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import okio.Buffer;
-
 import org.junit.Test;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.util.RequestUtil;
-import com.squareup.okhttp.HttpUrl;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
+
+import okhttp3.HttpUrl;
+import okhttp3.MediaType;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okio.Buffer;
 
 /**
  * The Class RequestBuilderTest.
  */
 public class RequestBuilderTest {
+
+  private static final String X_TOKEN = "x-token";
 
   /** The url. */
   private final String url = "http://www.example.com/";
@@ -50,10 +52,10 @@ public class RequestBuilderTest {
    */
   @Test
   public void testBuild() {
-    final String xToken = "x-token";
+    final String xToken = X_TOKEN;
     final Request request =
-        RequestBuilder.post(urlWithQuery).withBodyContent("body1", HttpMediaType.TEXT_PLAIN)
-            .withHeader("x-token", "token1").build();
+        RequestBuilder.post(urlWithQuery)
+          .withBodyContent("body1", HttpMediaType.TEXT_PLAIN).withHeader(X_TOKEN, "token1").build();
 
     assertEquals("POST", request.method());
     assertEquals("token1", request.header(xToken));
@@ -66,7 +68,7 @@ public class RequestBuilderTest {
   public void testDelete() {
     final Request request = RequestBuilder.delete(urlWithQuery).build();
     assertEquals("DELETE", request.method());
-    assertEquals(urlWithQuery, request.urlString());
+    assertEquals(urlWithQuery, request.url().toString());
   }
 
   /**
@@ -76,7 +78,7 @@ public class RequestBuilderTest {
   public void testGet() {
     final Request request = RequestBuilder.get(urlWithQuery).build();
     assertEquals("GET", request.method());
-    assertEquals(urlWithQuery, request.urlString());
+    assertEquals(urlWithQuery, request.url().toString());
   }
 
   /**
@@ -103,7 +105,7 @@ public class RequestBuilderTest {
   public void testPost() {
     final Request request = RequestBuilder.post(url).build();
     assertEquals("POST", request.method());
-    assertEquals(url, request.urlString());
+    assertEquals(url, request.url().toString());
   }
 
   /**
@@ -113,7 +115,7 @@ public class RequestBuilderTest {
   public void testPut() {
     final Request request = RequestBuilder.put(urlWithQuery).build();
     assertEquals("PUT", request.method());
-    assertEquals(urlWithQuery, request.urlString());
+    assertEquals(urlWithQuery, request.url().toString());
   }
 
   /**
@@ -124,8 +126,8 @@ public class RequestBuilderTest {
     final String url = "/v1/ping";
     final Request request = RequestBuilder.get(url).build();
     assertEquals("GET", request.method());
-    assertTrue(RequestUtil.isRelative(request));
-    assertEquals(url, HttpUrl.parse(request.urlString()).encodedPath());
+    assertTrue(RequestUtils.isRelative(request));
+    assertEquals(url, HttpUrl.parse(request.url().toString()).encodedPath());
   }
 
   /**
@@ -243,7 +245,7 @@ public class RequestBuilderTest {
 
     final Request request = RequestBuilder.post(url).withQueryMap(queryParams).build();
 
-    assertEquals("p2=p2&foo=bar", request.httpUrl().query());
+    assertEquals("p2=p2&foo=bar", request.url().query());
   }
 
   /**
@@ -252,7 +254,7 @@ public class RequestBuilderTest {
   @Test
   public void testWithQueryObjectArray() {
     final Request request = RequestBuilder.post(url).withQuery("foo", "bar", "p2", "p2").build();
-    assertEquals(urlWithQuery, request.urlString());
+    assertEquals(urlWithQuery, request.url().toString());
   }
 
 }

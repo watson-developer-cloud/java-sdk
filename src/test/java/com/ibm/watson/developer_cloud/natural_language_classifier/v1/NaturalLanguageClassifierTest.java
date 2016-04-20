@@ -79,7 +79,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
             response().withHeader(APPLICATION_JSON).withBody(
                 GsonSingleton.getGsonWithoutPrettyPrinting().toJson(classification)));
 
-    Classification result = service.classify(classifierId, classification.getText());
+    Classification result = service.classify(classifierId, classification.getText()).execute();
 
     assertEquals(classification, result);
   }
@@ -93,7 +93,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
         response().withHeader(APPLICATION_JSON)
             .withBody(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(classifier)));
 
-    Classifier response = service.getClassifier(classifierId);
+    Classifier response = service.getClassifier(classifierId).execute();
     assertEquals(classifier, response);
 
   }
@@ -108,7 +108,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
             GsonSingleton.getGsonWithoutPrettyPrinting().toJson(classifiers)));
 
 
-    Classifiers response = service.getClassifiers();
+    Classifiers response = service.getClassifiers().execute();
 
     assertEquals(classifiers, response);
   }

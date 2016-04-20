@@ -25,7 +25,7 @@ public class TextToSpeechExample extends WatsonServiceTest {
     TextToSpeech service = new TextToSpeech();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    List<Voice> voices = service.getVoices();
+    List<Voice> voices = service.getVoices().execute();
     System.out.println(voices);
   }
 

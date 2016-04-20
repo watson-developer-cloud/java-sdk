@@ -20,7 +20,7 @@ import com.google.gson.annotations.Expose;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Speech model set
+ * Speech model set.
  */
 public class SpeechModelSet extends GenericModel {
 

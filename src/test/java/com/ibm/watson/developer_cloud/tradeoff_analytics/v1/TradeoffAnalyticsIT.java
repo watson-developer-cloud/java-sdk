@@ -63,7 +63,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
    */
   @Test
   public void testDilemmas() {
-    Dilemma dilemma = service.dilemmas(problem, false);
+    Dilemma dilemma = service.dilemmas(problem, false).execute();
     assertNotNull(dilemma);
     assertNotNull(dilemma.getProblem());
     assertNotNull(dilemma.getResolution());
@@ -84,8 +84,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     List<Column> columns = new ArrayList<Column>();
     problem.setColumns(columns);
 
-    columns.add(new NumericColumn().withRange(0, 100).withKey(price).withGoal(Goal.MIN)
-        .withObjective(true));
+    columns.add(new NumericColumn().withRange(0, 100).withKey(price).withGoal(Goal.MIN).withObjective(true));
     columns.add(new NumericColumn().withKey(screen).withGoal(Goal.MAX).withObjective(true));
     columns.add(new NumericColumn().withKey(ram).withGoal(Goal.MAX));
 
@@ -112,7 +111,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     options.add(new Option("3", "LG Optimus G").withValues(optimusSpecs));
 
     // Call the service and get the resolution
-    Dilemma dilemma = service.dilemmas(problem, false);
+    Dilemma dilemma = service.dilemmas(problem, false).execute();
     assertNotNull(dilemma);
     assertNotNull(dilemma.getProblem());
     assertNotNull(dilemma.getResolution());
@@ -136,8 +135,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     List<Column> columns = new ArrayList<Column>();
     problem.setColumns(columns);
 
-    columns.add(new NumericColumn().withRange(0, 100).withKey(price).withGoal(Goal.MIN)
-        .withObjective(true));
+    columns.add(new NumericColumn().withRange(0, 100).withKey(price).withGoal(Goal.MIN).withObjective(true));
     columns.add(new NumericColumn().withKey(screen).withGoal(Goal.MAX).withObjective(true));
     columns.add(new NumericColumn().withKey(ram).withGoal(Goal.MAX));
 
@@ -164,7 +162,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     options.add(new Option("3", "LG Optimus G").withValues(optimusSpecs));
 
     // Call the service and get the resolution
-    Dilemma dilemma = service.dilemmas(problem);
+    Dilemma dilemma = service.dilemmas(problem).execute();
     assertNotNull(dilemma);
   }
 }

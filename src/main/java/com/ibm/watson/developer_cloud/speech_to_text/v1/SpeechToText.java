@@ -15,25 +15,26 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import java.io.File;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.List;
 
-import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.http.HttpStatus;
+import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.service.ResponseConverter;
 import com.ibm.watson.developer_cloud.service.ServiceCall;
-import com.ibm.watson.developer_cloud.service.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SessionStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModelSet;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeDelegate;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.WebSocketSpeechToTextClient;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtil;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
+
+import okhttp3.Request;
 
 /**
  * The Speech to Text service uses IBM's speech recognition capabilities to convert English speech
@@ -41,8 +42,8 @@ import com.ibm.watson.developer_cloud.util.Validate;
  * minimal delay, and it is corrected as more speech is heard.
  * 
  * @version v1
- * @see <a
- *      href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/speech-to-text.html">
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/speech-to-text.html">
  *      Speech to Text</a>
  */
 public class SpeechToText extends WatsonService {
@@ -60,10 +61,10 @@ public class SpeechToText extends WatsonService {
   private static final String TIMESTAMPS = "timestamps";
   private final static String URL = "https://stream.watsonplatform.net/speech-to-text/api";
   private static final String WORD_CONFIDENCE = "word_confidence";
-  private static final String SESSION = "session";
   private static final String KEYWORDS_THRESHOLD = "keywords_threshold";
   private static final String WORD_ALTERNATIVES_THRESHOLD = "word_alternatives_threshold";
   private static final String KEYWORDS = "keywords";
+  private static final Type TYPE_LIST_MODELS = new TypeToken<List<SpeechModel>>() {}.getType();
 
   /**
    * Instantiates a new speech to text.
@@ -134,7 +135,7 @@ public class SpeechToText extends WatsonService {
    * @return the {@link SpeechSession}
    */
   public ServiceCall<SpeechSession> createSession(SpeechModel model) {
-    Validate.notNull(model, "Model cannot be null");
+    Validator.notNull(model, "Model cannot be null");
     return createSession(model.getName());
   }
 
@@ -153,21 +154,22 @@ public class SpeechToText extends WatsonService {
     if (model != null)
       request.withQuery(MODEL, model);
 
-    return createServiceCall(createCall(request.build3()), ResponseUtil.getObjectConverter(SpeechSession.class));
+    return createServiceCall(request.build(), ResponseConverterUtils.getObject(SpeechSession.class));
   }
 
   /**
    * Delete a session.
-   * 
+   *
    * @param session the speech session
+   * @return the service call
    */
   public ServiceCall<Void> deleteSession(final SpeechSession session) {
     if (session == null)
       throw new IllegalArgumentException("Session was not specified");
 
-    final okhttp3.Request request = RequestBuilder.delete(String.format(PATH_SESSION, session.getSessionId())).build3();
+    Request request = RequestBuilder.delete(String.format(PATH_SESSION, session.getSessionId())).build();
 
-    return createServiceCall(createCall(request), ResponseUtil.getVoidConverter());
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
   /**
@@ -180,8 +182,8 @@ public class SpeechToText extends WatsonService {
     if (name == null)
       throw new IllegalArgumentException("Name was not specified");
 
-    final okhttp3.Request request = RequestBuilder.get(String.format(PATH_MODEL, name)).build3();
-    return createServiceCall(createCall(request), ResponseUtil.getObjectConverter(SpeechModel.class));
+    Request request = RequestBuilder.get(String.format(PATH_MODEL, name)).build();
+    return createServiceCall(request, ResponseConverterUtils.getObject(SpeechModel.class));
   }
 
   /**
@@ -190,8 +192,9 @@ public class SpeechToText extends WatsonService {
    * @return the models
    */
   public ServiceCall<List<SpeechModel>> getModels() {
-    final okhttp3.Request request = RequestBuilder.get(PATH_MODELS).build3();
-    return createServiceCall(createCall(request), ResponseUtil.getSpeechModelSetConverter());
+    Request request = RequestBuilder.get(PATH_MODELS).build();
+    ResponseConverter<List<SpeechModel>> converter = ResponseConverterUtils.getGenericObject(TYPE_LIST_MODELS, "models");
+    return createServiceCall(request, converter);
   }
 
   /**
@@ -207,8 +210,8 @@ public class SpeechToText extends WatsonService {
     if (session == null)
       throw new IllegalArgumentException("Session was not specified");
 
-    final okhttp3.Request request = RequestBuilder.get(String.format(PATH_SESSION_RECOGNIZE, session.getSessionId())).build3();
-    return createServiceCall(createCall(request), ResponseUtil.getObjectConverter(SessionStatus.class));
+    Request request = RequestBuilder.get(String.format(PATH_SESSION_RECOGNIZE, session.getSessionId())).build();
+    return createServiceCall(request, ResponseConverterUtils.getObject(SessionStatus.class));
   }
 
   /**
@@ -253,16 +256,17 @@ public class SpeechToText extends WatsonService {
    * @param options the options
    * @return the speech results
    */
+
   public ServiceCall<SpeechResults> recognize(File audio, RecognizeOptions options) {
-    Validate.isTrue(audio != null && audio.exists(), "audio file is null or does not exist");
+    Validator.isTrue(audio != null && audio.exists(), "audio file is null or does not exist");
 
     final double fileSize = audio.length() / Math.pow(1024, 2);
-    Validate.isTrue(fileSize < 100.0, "The audio file is greater than 100MB.");
+    Validator.isTrue(fileSize < 100.0, "The audio file is greater than 100MB.");
 
     String contentType = MediaTypeUtils.getMediaTypeFromFile(audio);
     if (options != null && options.getContentType() != null)
       contentType = options.getContentType();
-    Validate.notNull(contentType, "The audio format cannot be recognized");
+    Validator.notNull(contentType, "The audio format cannot be recognized");
 
     String path = PATH_RECOGNIZE;
     if (options != null && (options.getSessionId() != null && !options.getSessionId().isEmpty()))
@@ -271,41 +275,7 @@ public class SpeechToText extends WatsonService {
     final RequestBuilder requestBuilder = RequestBuilder.post(path);
     buildRecognizeRequest(requestBuilder, options);
     requestBuilder.withBody(okhttp3.RequestBody.create(okhttp3.MediaType.parse(contentType), audio));
-    return createServiceCall(createCall(requestBuilder.build3()), ResponseUtil.getObjectConverter(SpeechResults.class));
-  }
-
-  /**
-   * Recognizes an audio file and returns {@link SpeechResults}.
-   * 
-   * @param audio the audio file
-   * @param contentType the media type of the audio.
-   * @return the {@link SpeechResults}
-   * @deprecated Deprecated in 2.6.0<br>
-   *             Use {@link SpeechToText#recognize(File, RecognizeOptions)}
-   * 
-   */
-  public ServiceCall<SpeechResults> recognize(File audio, String contentType) {
-    return recognize(audio, contentType, null);
-  }
-
-  /**
-   * Recognizes an audio file and returns {@link SpeechResults}.
-   * 
-   * @param audio the audio file
-   * @param contentType the media type of the audio. If you use the audio/l16 MIME type, specify the
-   *        rate and channels.
-   * 
-   * @param options the {@link RecognizeOptions}
-   * @return the {@link SpeechResults}
-   * @deprecated Deprecated in 2.6.0<br>
-   *             Use {@link SpeechToText#recognize(File, RecognizeOptions)}
-   */
-  public ServiceCall<SpeechResults> recognize(File audio, String contentType, RecognizeOptions options) {
-    RecognizeOptions opt = options;
-    if (opt == null)
-      opt = new RecognizeOptions().contentType(contentType);
-
-    return recognize(audio, opt);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(SpeechResults.class));
   }
 
   /**
@@ -334,16 +304,14 @@ public class SpeechToText extends WatsonService {
    * @param options the recognize options
    * @param delegate the delegate
    */
-  public void recognizeUsingWebSockets(InputStream audio, RecognizeOptions options,
-      RecognizeDelegate delegate) {
-    Validate.notNull(audio, "audio cannot be null");
-    Validate.notNull(options, "options cannot be null");
-    Validate.notNull(options.getContentType(), "options.contentType cannot be null");
-    Validate.notNull(delegate, "delegate cannot be null");
+  public void recognizeUsingWebSockets(InputStream audio, RecognizeOptions options, RecognizeDelegate delegate) {
+    Validator.notNull(audio, "audio cannot be null");
+    Validator.notNull(options, "options cannot be null");
+    Validator.notNull(options.getContentType(), "options.contentType cannot be null");
+    Validator.notNull(delegate, "delegate cannot be null");
 
     String url = getEndPoint().replaceFirst("(https|http)", "wss");
-    WebSocketSpeechToTextClient webSocket =
-        new WebSocketSpeechToTextClient(url + PATH_RECOGNIZE, getToken());
+    WebSocketSpeechToTextClient webSocket = new WebSocketSpeechToTextClient(url + PATH_RECOGNIZE, getToken());
     webSocket.recognize(audio, options, delegate);
   }
 }

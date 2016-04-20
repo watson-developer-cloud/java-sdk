@@ -14,7 +14,8 @@
 package com.ibm.watson.developer_cloud.service;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
-import com.squareup.okhttp.Response;
+
+import okhttp3.Response;
 
 /**
  * 413 Request Entity Too Large (HTTP/1.1 - RFC 2616)
@@ -33,10 +34,6 @@ public class RequestTooLargeException extends ServiceResponseException {
    * @param response the HTTP response
    */
   public RequestTooLargeException(String message, Response response) {
-    super(HttpStatus.REQUEST_TOO_LONG, message, response);
-  }
-
-  public RequestTooLargeException(String message, okhttp3.Response response) {
     super(HttpStatus.REQUEST_TOO_LONG, message, response);
   }
 

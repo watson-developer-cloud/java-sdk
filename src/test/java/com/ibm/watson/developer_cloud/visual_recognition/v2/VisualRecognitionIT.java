@@ -24,12 +24,13 @@ import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.service.NotFoundException;
-import com.ibm.watson.developer_cloud.visual_recognition.v2.model.VisualClassification;
-import com.ibm.watson.developer_cloud.visual_recognition.v2.model.VisualClassifier;
+import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.VisualRecognition;
+import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.model.VisualClassification;
+import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.model.VisualClassifier;
 
 /**
- * Visual Recognition Integration test
- * 
+ * Visual Recognition Integration test.
+ *
  * @version v2
  */
 public class VisualRecognitionIT extends WatsonServiceTest {
@@ -54,13 +55,12 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   }
 
   /**
-   * Test classify image
-   * 
+   * Test classify image.
    */
   @Test
   public void testClassifyImages() {
     File images = new File("src/test/resources/visual_recognition/test.zip");
-    final VisualClassification result = service.classify(images);
+    final VisualClassification result = service.classify(images).execute();
 
     Assert.assertNotNull(result);
     Assert.assertNotNull(result.getImages());
@@ -80,7 +80,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Test
   public void testClassifyInputStreamImages() throws FileNotFoundException {
     FileInputStream images = new FileInputStream("src/test/resources/visual_recognition/test.zip");
-    final VisualClassification result = service.classify("images.zip", images);
+    final VisualClassification result = service.classify("images.zip", images).execute();
 
     Assert.assertNotNull(result);
     Assert.assertNotNull(result.getImages());
@@ -91,7 +91,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     Assert.assertNotNull(result.getImages().get(0).getScores().get(0).getClassifierId());
     Assert.assertNotNull(result.getImages().get(0).getScores().get(0).getScore());
   }
-  
+
   /**
    * Test recognize with labels.
    * 
@@ -103,10 +103,9 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   }
 
   /**
-   * Test create a classifier
-   * 
-   * @throws FileNotFoundException
-   * 
+   * Test create a classifier.
+   *
+   * @throws FileNotFoundException the file not found exception
    */
   @Test
   public void testCreateClassifierAndClassifyImage() throws FileNotFoundException {
@@ -114,10 +113,10 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     File negativeImages = new File("src/test/resources/visual_recognition/negative.zip");
     File image = new File("src/test/resources/visual_recognition/car.png");
 
-    VisualClassifier newClass = service.createClassifier("foo", positiveImages, negativeImages);
+    VisualClassifier newClass = service.createClassifier("foo", positiveImages, negativeImages).execute();
     try {
-      newClass = service.getClassifier(newClass.getId());
-      VisualClassification result = service.classify(image, newClass);
+      newClass = service.getClassifier(newClass.getId()).execute();
+      VisualClassification result = service.classify(image, newClass).execute();
       Assert.assertNotNull(result);
     } finally {
       // FIXME: deleteClassifier is returning 404 but the classifier is deleted
@@ -134,7 +133,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    */
   @Test
   public void testGetClassifiers() {
-    List<VisualClassifier> classifiers = service.getClassifiers();
+    List<VisualClassifier> classifiers = service.getClassifiers().execute();
     Assert.assertNotNull(classifiers);
 
     VisualClassifier classifier = classifiers.get(0);
@@ -149,7 +148,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    */
   @Test
   public void testGetClassifier() {
-    VisualClassifier classifier = service.getClassifier(CLASSIFIER_ID_CAR);
+    VisualClassifier classifier = service.getClassifier(CLASSIFIER_ID_CAR).execute();
     Assert.assertNotNull(classifier);
     Assert.assertNotNull(classifier.getId());
     Assert.assertNotNull(classifier.getName());

@@ -14,8 +14,9 @@
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterList;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
+import com.ibm.watson.developer_cloud.service.ServiceCall;
 
 /**
  * A client for communicating with the Retrieve and Rank API.
@@ -27,7 +28,7 @@ public interface ClusterLifecycleManager {
    * 
    * @return the Solr cluster
    */
-  SolrCluster createSolrCluster();
+  ServiceCall<SolrCluster> createSolrCluster();
 
   /**
    * Creates a new Solr cluster, based on the provided configuration.
@@ -35,15 +36,16 @@ public interface ClusterLifecycleManager {
    * @param solrClusterConfig the solr cluster configuration
    * @return the Solr cluster
    */
-  SolrCluster createSolrCluster(SolrClusterOptions solrClusterConfig);
+  ServiceCall<SolrCluster> createSolrCluster(SolrClusterOptions solrClusterConfig);
 
   /**
    * Deletes an existing Solr Cluster {@code SolrCluster}. <br>
    * Reports success even if no corresponding cluster actually exists.
-   * 
+   *
    * @param SolrClusterId the Solr cluster id
+   * @return the service call
    */
-  void deleteSolrCluster(String SolrClusterId);
+  ServiceCall<Void> deleteSolrCluster(String SolrClusterId);
 
   /**
    * Returns a Solr cluster information.
@@ -51,12 +53,12 @@ public interface ClusterLifecycleManager {
    * @param SolrClusterId the Solr cluster id
    * @return the Solr cluster
    */
-  SolrCluster getSolrCluster(String SolrClusterId);
+  ServiceCall<SolrCluster> getSolrCluster(String SolrClusterId);
 
   /**
    * Lists all Solr clusters currently associated with the service instance.
    * 
    * @return the Solr cluster list
    */
-  SolrClusterList getSolrClusters();
+  ServiceCall<SolrClusters> getSolrClusters();
 }

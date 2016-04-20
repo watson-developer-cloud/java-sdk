@@ -16,12 +16,10 @@ package com.ibm.watson.developer_cloud.alchemy.v1;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.ListIterator;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.model.AlchemyGenericModel;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeyword;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneText;
@@ -30,8 +28,11 @@ import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints.AlchemyAP
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
-import com.ibm.watson.developer_cloud.util.Validate;
-import com.squareup.okhttp.RequestBody;
+import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
+
+import okhttp3.RequestBody;
 
 /**
  * The Alchemy Vision service uses deep learning innovations to understand a picture’s content and
@@ -42,39 +43,14 @@ import com.squareup.okhttp.RequestBody;
  * @see <a href="http://www.alchemyapi.com/products/alchemyvision"> Alchemy Vision</a>
  */
 public class AlchemyVision extends AlchemyService {
-
-  /**
-   * The Constant FORCE_SHOW_ALL. (value is "forceShowAll")
-   */
-  public static final String FORCE_SHOW_ALL = "forceShowAll";
-
-  /** The Constant HTML. (value is "html") */
-  public static final String HTML = "html";
-
-  /** The Constant IMAGE. (value is "image") */
-  public static final String IMAGE = "image";
-
-  /**
-   * The Constant IMAGE_POST_MODE. (value is "imagePostMode")
-   */
-  public static final String IMAGE_POST_MODE = "imagePostMode";
-
-  /**
-   * The Constant KNOWLEDGE_GRAPH. (value is "knowledgeGraph")
-   */
-  public static final String KNOWLEDGE_GRAPH = "knowledgeGraph";
-
-  /** The Constant NOT_RAW. (value is "not-raw") */
-  public static final String NOT_RAW = "not-raw";
-
-  /** The Constant RAW. (value is "raw") */
-  public static final String RAW = "raw";
-
-  /** The Constant URL. (value is "url") */
-  public static final String URL = "url";
-
-  /** The Constant NO_TAGS. (value is "NO_TAGS") */
-  private static final String NO_TAGS = "NO_TAGS";
+  private static final String FORCE_SHOW_ALL = "forceShowAll";
+  private static final String HTML = "html";
+  private static final String IMAGE = "image";
+  private static final String IMAGE_POST_MODE = "imagePostMode";
+  private static final String KNOWLEDGE_GRAPH = "knowledgeGraph";
+  private static final String NOT_RAW = "not-raw";
+  private static final String RAW = "raw";
+  private static final String URL = "url";
 
   /**
    * Executes the request and return the POJO that represent the response.
@@ -85,7 +61,7 @@ public class AlchemyVision extends AlchemyService {
    * @param returnType the POJO class to be parsed from the response
    * @return the POJO object that represent the response
    */
-  private <T extends AlchemyGenericModel> T executeRequest(Map<String, Object> params,
+  private <T extends AlchemyGenericModel> ServiceCall<T> createServiceCall(Map<String, Object> params,
       AlchemyAPI operation, Class<T> returnType) {
     final String inputType = getInputFormat(params, IMAGE, URL, HTML);
     final String path = AlchemyEndPoints.getPath(operation, inputType);
@@ -120,52 +96,52 @@ public class AlchemyVision extends AlchemyService {
       }
     }
 
-    return executeRequest(requestBuilder.build(), returnType);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(returnType));
   }
 
   /**
-   * Identifies text in an image
-   * 
+   * Identifies text in an image.
+   *
    * @param image the image file
    * @return {@link ImageSceneText}
    */
-  public ImageSceneText getImageSceneText(File image) {
-    Validate.notNull(image, "image cannot be null");
-    Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
+  public ServiceCall<ImageSceneText> getImageSceneText(File image) {
+    Validator.notNull(image, "image cannot be null");
+    Validator.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
 
-    return executeRequest(params, AlchemyAPI.image_scene_text, ImageSceneText.class);
+    return createServiceCall(params, AlchemyAPI.image_scene_text, ImageSceneText.class);
   }
 
   /**
    * Identifies text in an image specified by URL or in the primary image in a web page specified by
-   * URL
-   * 
+   * URL.
+   *
    * @param url the image URL
    * @return {@link ImageSceneText}
    */
-  public ImageSceneText getImageSceneText(URL url) {
-    Validate.notNull(url, "url cannot be null");
+  public ServiceCall<ImageSceneText> getImageSceneText(URL url) {
+    Validator.notNull(url, "url cannot be null");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
 
-    return executeRequest(params, AlchemyAPI.image_scene_text, ImageSceneText.class);
+    return createServiceCall(params, AlchemyAPI.image_scene_text, ImageSceneText.class);
   }
 
   /**
-   * Extracts keywords from an image
-   * 
+   * Extracts keywords from an image.
+   *
    * @param image the image file
    * @param forceShowAll Includes lower confidence tags
    * @param knowledgeGraph Include knowledge graph information in the the results.
    * @return {@link ImageKeywords}
    */
-  public ImageKeywords getImageKeywords(File image, Boolean forceShowAll, Boolean knowledgeGraph) {
-    Validate.notNull(image, "image cannot be null");
-    Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
+  public ServiceCall<ImageKeywords> getImageKeywords(File image, Boolean forceShowAll, Boolean knowledgeGraph) {
+    Validator.notNull(image, "image cannot be null");
+    Validator.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
@@ -176,16 +152,8 @@ public class AlchemyVision extends AlchemyService {
     if (knowledgeGraph != null)
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
 
-    ImageKeywords imageKeywords = executeRequest(params, AlchemyAPI.image_keywords, ImageKeywords.class);
+    return createServiceCall(params, AlchemyAPI.image_keywords, ImageKeywords.class);
 
-    // Remove the NO_TAGS keywords
-    ListIterator<ImageKeyword> iter = imageKeywords.getImageKeywords().listIterator();
-    while (iter.hasNext()) {
-      if (iter.next().getText().equals(NO_TAGS)) {
-        iter.remove();
-      }
-    }
-    return imageKeywords;
   }
 
 
@@ -197,8 +165,8 @@ public class AlchemyVision extends AlchemyService {
    * @param knowledgeGraph Include knowledge graph information in the the results.
    * @return {@link ImageKeywords}
    */
-  public ImageKeywords getImageKeywords(URL url, Boolean forceShowAll, Boolean knowledgeGraph) {
-    Validate.notNull(url, "url cannot be null");
+  public ServiceCall<ImageKeywords> getImageKeywords(URL url, Boolean forceShowAll, Boolean knowledgeGraph) {
+    Validator.notNull(url, "url cannot be null");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
@@ -209,7 +177,7 @@ public class AlchemyVision extends AlchemyService {
     if (knowledgeGraph != null)
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
 
-    return executeRequest(params, AlchemyAPI.image_keywords, ImageKeywords.class);
+    return createServiceCall(params, AlchemyAPI.image_keywords, ImageKeywords.class);
   }
 
   /**
@@ -218,13 +186,13 @@ public class AlchemyVision extends AlchemyService {
    * @param url the image URL
    * @return {@link ImageLink}
    */
-  public ImageLink getImageLink(URL url) {
-    Validate.notNull(url, "url cannot be null");
+  public ServiceCall<ImageLink> getImageLink(URL url) {
+    Validator.notNull(url, "url cannot be null");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
 
-    return executeRequest(params, AlchemyAPI.image_link, ImageLink.class);
+    return createServiceCall(params, AlchemyAPI.image_link, ImageLink.class);
   }
 
   /**
@@ -233,13 +201,13 @@ public class AlchemyVision extends AlchemyService {
    * @param html the HTML
    * @return {@link ImageLink}
    */
-  public ImageLink getImageLink(String html) {
-    Validate.notNull(html, "html cannot be null");
+  public ServiceCall<ImageLink> getImageLink(String html) {
+    Validator.notNull(html, "html cannot be null");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(HTML, html);
 
-    return executeRequest(params, AlchemyAPI.image_link, ImageLink.class);
+    return createServiceCall(params, AlchemyAPI.image_link, ImageLink.class);
   }
 
   /**
@@ -259,7 +227,7 @@ public class AlchemyVision extends AlchemyService {
    * service.setApiKey(&quot;&lt;api_key&gt;&quot;);
    * 
    * File image = new File(&quot;obama.jpg&quot;);
-   * ImageFaces faces = service.recognizeFaces(image, true);
+   * ImageFaces faces = service.recognizeFaces(image, true).execute();
    * 
    * System.out.println(faces);
    * </pre>
@@ -268,9 +236,9 @@ public class AlchemyVision extends AlchemyService {
    * @param knowledgeGraph provide extra metadata for detected celebrities
    * @return {@link ImageFaces}
    */
-  public ImageFaces recognizeFaces(File image, Boolean knowledgeGraph) {
-    Validate.notNull(image, "image cannot be null");
-    Validate.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
+  public ServiceCall<ImageFaces> recognizeFaces(File image, Boolean knowledgeGraph) {
+    Validator.notNull(image, "image cannot be null");
+    Validator.isTrue(image.exists(), "image file: " + image.getAbsolutePath() + " not found");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
@@ -279,7 +247,7 @@ public class AlchemyVision extends AlchemyService {
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
 
 
-    return executeRequest(params, AlchemyAPI.image_recognition, ImageFaces.class);
+    return createServiceCall(params, AlchemyAPI.image_recognition, ImageFaces.class);
   }
 
   /**
@@ -299,7 +267,7 @@ public class AlchemyVision extends AlchemyService {
    * service.setApiKey(&quot;&lt;api_key&gt;&quot;);
    * 
    * URL image = new URL(&quot;http://foo.com/the-image.png&quot;);
-   * ImageFaces faces = service.recognizeFaces(image, true);
+   * ImageFaces faces = service.recognizeFaces(image, true).execute();
    * 
    * System.out.println(faces);
    * </pre>
@@ -308,8 +276,8 @@ public class AlchemyVision extends AlchemyService {
    * @param knowledgeGraph provide extra metadata for detected celebrities
    * @return {@link ImageFaces}
    */
-  public ImageFaces recognizeFaces(URL url, Boolean knowledgeGraph) {
-    Validate.notNull(url, "url cannot be null");
+  public ServiceCall<ImageFaces> recognizeFaces(URL url, Boolean knowledgeGraph) {
+    Validator.notNull(url, "url cannot be null");
 
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
@@ -318,6 +286,6 @@ public class AlchemyVision extends AlchemyService {
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
 
 
-    return executeRequest(params, AlchemyAPI.image_recognition, ImageFaces.class);
+    return createServiceCall(params, AlchemyAPI.image_recognition, ImageFaces.class);
   }
 }

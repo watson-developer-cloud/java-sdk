@@ -24,8 +24,9 @@ import org.junit.runners.MethodSorters;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.service.BadRequestException;
-import com.ibm.watson.developer_cloud.visual_insights.v1.model.Classifiers;
-import com.ibm.watson.developer_cloud.visual_insights.v1.model.Summary;
+import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.VisualInsights;
+import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.model.Classifiers;
+import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.model.Summary;
 
 /**
  * The Class VisualInsightsTest.
@@ -60,7 +61,7 @@ public class VisualInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetClassifiers() {
-    final Classifiers classifiers = service.getClassifiers();
+    final Classifiers classifiers = service.getClassifiers().execute();
     Assert.assertNotNull(classifiers);
   }
 
@@ -69,7 +70,7 @@ public class VisualInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetClassifiersFilterByName() {
-    final Classifiers classifiers = service.getClassifiers("animal");
+    final Classifiers classifiers = service.getClassifiers("animal").execute();
     Assert.assertNotNull(classifiers);
   }
 
@@ -79,7 +80,7 @@ public class VisualInsightsIT extends WatsonServiceTest {
   @Test
   public void testGetSummary() {
     final File images = new File(RESOURCES + "images.zip");
-    final Summary summary = service.getSummary(images);
+    final Summary summary = service.getSummary(images).execute();
     Assert.assertNotNull(summary);
   }
 
@@ -93,7 +94,7 @@ public class VisualInsightsIT extends WatsonServiceTest {
 
     boolean didItHappen = false;
     try {
-      service.getSummary(images);
+      service.getSummary(images).execute();
     } catch (final BadRequestException e) {
       didItHappen = true;
     }
@@ -110,7 +111,7 @@ public class VisualInsightsIT extends WatsonServiceTest {
 
     boolean didItHappen = false;
     try {
-      service.getSummary(images);
+      service.getSummary(images).execute();
     } catch (final BadRequestException e) {
       didItHappen = true;
     }

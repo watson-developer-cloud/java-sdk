@@ -13,13 +13,13 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.util;
 
+import java.io.IOException;
+
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeyword;
-
-import java.io.IOException;
 
 /**
  * Type Adapter for the {@link ImageKeyword} class.

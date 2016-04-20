@@ -19,11 +19,10 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
-import java.util.Iterator;
-
-import junit.framework.AssertionFailedError;
 
 import org.junit.Ignore;
+
+import junit.framework.AssertionFailedError;
 
 /**
  * The Class TestUtils.

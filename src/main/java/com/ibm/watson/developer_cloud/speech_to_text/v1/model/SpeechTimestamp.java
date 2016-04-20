@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.SpeechTimestampTypeAdapter;
 
 /**
- * Transcription timestamp
+ * Transcription timestamp.
  */
 @JsonAdapter(SpeechTimestampTypeAdapter.class)
 public class SpeechTimestamp extends GenericModel {

@@ -24,7 +24,7 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
- * Test that the {@link Problem} object can be converted to JSON
+ * Test that the {@link Problem} object can be converted to JSON.
  */
 public class ProblemTest {
 

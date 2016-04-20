@@ -15,7 +15,6 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
-import io.netty.handler.codec.http.HttpHeaders;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -43,9 +42,12 @@ import org.mockserver.model.Parameter;
 import com.google.common.io.Files;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
+import io.netty.handler.codec.http.HttpHeaders;
 
 /**
  * The Class TextToSpeechTest.
@@ -163,7 +165,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
                   new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.AUDIO_WAV)).withBody(
                   Files.toByteArray(audio)));
 
-      final InputStream in = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV).execute();
+      final InputStream in = service.synthesize(text, Voice.EN_LISA, AudioFormat.WAV).execute();
       Assert.assertNotNull(in);
 
       writeInputStreamToOutputStream(in, new FileOutputStream("target/output.wav"));
@@ -175,40 +177,14 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     }
   }
 
-  /**
-   * Test synthesize with empty '' input text string.
-   */
-  @Test
-  public void testSynthesizeEmptyTextParamValue() {
-    boolean throwException = false;
-    try {
-      service.synthesize(null, Voice.EN_ALLISON, "empty input string");
-    } catch (final IllegalArgumentException e) {
-      throwException = true;
-    }
-    Assert.assertTrue(throwException);
-  }
+
 
   /**
-   * Test synthesize with a wrong format type.
-   */
-  @Test
-  public void testSynthesizeWithWrongFormat() {
-    boolean throwException = false;
-    try {
-      service.synthesize(text, null, "bad format");
-    } catch (final IllegalArgumentException e) {
-      throwException = true;
-    }
-    Assert.assertTrue(throwException);
-  }
-
-  /**
-   * Test with voice as wav.
+   * Test with voice as AudioFormat.WAV.
    */
   // @Test
   public void testWithVoiceAsWav() {
-    final InputStream is = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV).execute();
+    final InputStream is = service.synthesize(text, Voice.EN_LISA, AudioFormat.WAV).execute();
     Assert.assertNotNull(is);
 
     try {

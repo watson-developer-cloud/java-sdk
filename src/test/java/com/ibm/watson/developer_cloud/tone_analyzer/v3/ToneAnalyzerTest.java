@@ -26,10 +26,11 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3_beta.ToneAnalyzer;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3_beta.model.ToneAnalysis;
 
 /**
- * Tone Analyzer unit test
+ * Tone Analyzer unit test.
  */
 public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   
@@ -58,8 +59,8 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
   /**
    * Test get tone.
-   * 
-   * @throws FileNotFoundException
+   *
+   * @throws FileNotFoundException the file not found exception
    */
   @Test
   public void testGetTone() throws FileNotFoundException {
@@ -85,7 +86,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
           .withBody(response.toString()));
 
     // Call the service and compare the result
-    Assert.assertEquals(response, service.getTone(text));
+    Assert.assertEquals(response, service.getTone(text).execute());
   }
 
   /**

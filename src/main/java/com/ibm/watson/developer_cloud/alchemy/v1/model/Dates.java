@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Dates extends AlchemyLanguageGenericModel {
 
   /**
-   * The date along with the text from where the date was extracted
+   * The date along with the text from where the date was extracted.
    */
   public static class ExtractedDate extends GenericModel {
 

@@ -15,7 +15,9 @@ package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.Collection;
+
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrConfigs;
+import com.ibm.watson.developer_cloud.service.ServiceCall;
 
 /**
  * Manages Solr Clusters configuration.
@@ -29,22 +31,24 @@ public interface SolrConfigManager {
    * For uploading a directory, use
    * {@link #uploadSolrClusterConfigurationDirectory(String , String, File)} instead. Config files
    * on the XSLT path will not be uploaded.
-   * 
+   *
    * @param solrClusterId the solr cluster id
    * @param configName the name of the config in ZooKeeper. This name is used when referencing the
    *        config when creating a collection.
    * @param zippedConfig the ZIP file to upload.
+   * @return the service call
    */
-  void uploadSolrClusterConfigurationZip(final String solrClusterId, final String configName,
+  ServiceCall<Void> uploadSolrClusterConfigurationZip(final String solrClusterId, final String configName,
       final File zippedConfig);
 
   /**
    * Deletes a configuration namespace in ZooKeeper.
-   * 
+   *
    * @param solrClusterId the solr cluster id
    * @param configurationName the name of the configuration in ZooKeeper.
+   * @return the service call
    */
-  void deleteSolrClusterConfiguration(final String solrClusterId, final String configurationName);
+  ServiceCall<Void> deleteSolrClusterConfiguration(final String solrClusterId, final String configurationName);
 
   /**
    * Gets the configuration from ZooKeeper.
@@ -54,7 +58,7 @@ public interface SolrConfigManager {
    * @return an InputStream containing the zipped configuration if it exists in ZooKeeper or null if
    *         it is not found
    */
-  InputStream getSolrClusterConfiguration(final String solrClusterId,
+  ServiceCall<InputStream> getSolrClusterConfiguration(final String solrClusterId,
       final String configurationName);
 
   /**
@@ -64,14 +68,15 @@ public interface SolrConfigManager {
    * The configuration directory is sent to Solr as a ZIP file. For uploading a ZIP file directly,
    * use {@link #uploadSolrClusterConfigurationZip(String, String, File)} instead. Config files on
    * the XSLT path will not be uploaded.
-   * 
+   *
    * @param solrClusterId the solr cluster id
    * @param configName the name of the config in ZooKeeper. This name is used when referencing the
    *        config when creating a collection.
    * @param configDirectory the directory to upload.
+   * @return the service call
    * @throws IllegalArgumentException if configDirectory is not a directory
    */
-  void uploadSolrClusterConfigurationDirectory(final String solrClusterId, final String configName,
+  ServiceCall<Void> uploadSolrClusterConfigurationDirectory(final String solrClusterId, final String configName,
       final File configDirectory);
 
   /**
@@ -80,5 +85,5 @@ public interface SolrConfigManager {
    * @param solrClusterId the solr cluster id
    * @return a list of the names of the configuration sets
    */
-  Collection<String> getSolrClusterConfigurations(final String solrClusterId);
+  ServiceCall<SolrConfigs> getSolrClusterConfigurations(final String solrClusterId);
 }

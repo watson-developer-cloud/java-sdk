@@ -52,6 +52,11 @@ public abstract class WatsonServiceTest {
     setupLogging();
   }
 
+  /**
+   * Gets the default headers.
+   *
+   * @return the default headers
+   */
   protected Map<String, String> getDefaultHeaders() {
     Map<String, String> headers = new HashMap<String, String>();
     headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, String.valueOf(true));

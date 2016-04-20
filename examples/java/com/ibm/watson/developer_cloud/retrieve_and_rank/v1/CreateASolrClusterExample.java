@@ -29,13 +29,13 @@ public class CreateASolrClusterExample {
 
     // 2 create the Solr Cluster
     SolrClusterOptions options = new SolrClusterOptions("<cluster-name>", 1);
-    SolrCluster cluster = service.createSolrCluster(options);
+    SolrCluster cluster = service.createSolrCluster(options).execute();
     System.out.println("SolrCluster: " + cluster);
 
     // 2 wait until the Solr Cluster is available
     while (cluster.getStatus() == Status.NOT_AVAILABLE) {
       Thread.sleep(10000); // sleep 10 seconds
-      cluster = service.getSolrCluster(cluster.getId());
+      cluster = service.getSolrCluster(cluster.getId()).execute();
       System.out.println("SolrCluster status: " + cluster.getStatus());
     }
 

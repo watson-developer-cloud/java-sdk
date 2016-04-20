@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.util.ColumnTypeAdapter;
 
 /**
- * Tradeoff Analytics column
+ * Tradeoff Analytics column.
  */
 @JsonAdapter(ColumnTypeAdapter.class)
 public abstract class Column extends GenericModel {
@@ -67,7 +67,7 @@ public abstract class Column extends GenericModel {
      * 
      * @param columnType the column type
      */
-    private ColumnType(String columnType) {
+    ColumnType(String columnType) {
       this.type = columnType;
     }
 
@@ -128,7 +128,7 @@ public abstract class Column extends GenericModel {
      * 
      * @param goal the goal
      */
-    private Goal(String goal) {
+    Goal(String goal) {
       this.goal = goal;
     }
 

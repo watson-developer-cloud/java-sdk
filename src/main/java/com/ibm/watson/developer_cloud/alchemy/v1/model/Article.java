@@ -63,6 +63,15 @@ public class Article extends GenericModel {
     }
 
     /**
+     * Gets the sentiment.
+     *
+     * @return The sentiment
+       */
+    public Sentiment getSentiment() {
+      return sentiment;
+    }
+
+    /**
      * Gets the taxonomy.
      * 
      * @return The taxonomy
@@ -87,6 +96,15 @@ public class Article extends GenericModel {
      */
     public void setEntities(List<Entity> entities) {
       this.entities = entities;
+    }
+
+    /**
+     * Sets the sentiment.
+     *
+     * @param sentiment The sentiment
+       */
+    public void setSentiment(Sentiment sentiment) {
+      this.sentiment = sentiment;
     }
 
     /**

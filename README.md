@@ -18,7 +18,6 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Alchemy Language](#alchemy-language)
     * [Alchemy Vision](#alchemy-vision)
     * [Alchemy Data News](#alchemy-data-news)
-    * [Concept Expansion](#concept-expansion)
     * [Concept Insights](#concept-insights)
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
@@ -48,13 +47,13 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>2.9.0</version>
+	<version>2.10.0</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:2.9.0'
+'com.ibm.watson.developer_cloud:java-sdk:2.10.0'
 ```
 
 Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
@@ -153,33 +152,6 @@ DocumentsResult result = service.getNewsDocuments(params);
 
 System.out.println(result);
 ```
-
-### Concept Expansion
-Map euphemisms or colloquial terms to more commonly understood phrases using
-the [Concept Expansion][concept_expansion] service.
-Example: Create a job, wait for it to finish, and then retrieve results.
-
-```java
-ConceptExpansion service = new ConceptExpansion();
-service.setUsernameAndPassword("<username>", "<password>");
-
-String[] seeds = new String[] {"nyc", "dc", "london", "big cities"};
-String label = "demo";
-
-Job job = service.createJob(label, seeds);
-
-while (service.getJobStatus(job) == Job.Status.AWAITING_WORK
-    || service.getJobStatus(job) == Job.Status.IN_FLIGHT) {
-  try {
-    Thread.sleep(4000);
-  } catch (final InterruptedException e) {
-    e.printStackTrace();
-  }
-}
-
-System.out.println(service.getJobResult(job));
-```
-
 
 ### Concept Insights
 Use the [Concept Insights][concept_insights] service to identify words in the text that
@@ -482,7 +454,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-2.9.0.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-2.10.0.jar)
   $ gradle test # run tests
   ```
 
@@ -552,4 +524,4 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [apache_maven]: http://maven.apache.org/
 [releases]: https://github.com/watson-developer-cloud/java-sdk/releases
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-2.9.0/java-sdk-2.9.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-2.10.0/java-sdk-2.10.0-jar-with-dependencies.jar

@@ -19,7 +19,7 @@ import java.util.List;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Graphs returned by the {@link ConceptInsights} service.
@@ -108,8 +108,8 @@ public class Corpus extends GenericModel {
    * @param name the corpus name
    */
   public Corpus(String accountId, String name) {
-    Validate.notEmpty(accountId, "accountId cannot be empty");
-    Validate.notEmpty(name, "name cannot be empty");
+    Validator.notEmpty(accountId, "accountId cannot be empty");
+    Validator.notEmpty(name, "name cannot be empty");
     setName(name);
     setId("/corpora/" + accountId + "/" + name);
   }
@@ -137,8 +137,10 @@ public class Corpus extends GenericModel {
    */
   public enum Access {
 
+    /** The public. */
     @SerializedName("public") PUBLIC,
 
+    /** The private. */
     @SerializedName("private") PRIVATE;
   }
 

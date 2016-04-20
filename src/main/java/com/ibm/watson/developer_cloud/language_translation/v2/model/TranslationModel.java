@@ -93,9 +93,9 @@ public class TranslationModel extends GenericModel {
 
   /**
    * Gets the model id.
-   * 
-   * @deprecated Use {@link TranslationModel#getId()}
+   *
    * @return The modelId
+   * @deprecated Use {@link TranslationModel#getId()}
    */
   public String getModelId() {
     return getId();

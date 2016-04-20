@@ -68,7 +68,7 @@ public class TradeoffAnalyticsExample {
     options.add(new Option("3", "LG Optimus G").withValues(optimusSpecs));
 
     // Call the service and get the resolution
-    Dilemma dilemma = service.dilemmas(problem);
+    Dilemma dilemma = service.dilemmas(problem).execute();
 
     System.out.println(dilemma);
   }

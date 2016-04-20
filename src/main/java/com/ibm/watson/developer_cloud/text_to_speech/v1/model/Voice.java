@@ -21,6 +21,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Voice extends GenericModel {
 
+  /** The Constant EN_MICHAEL (value is "en-US_MichaelVoice"). */
+  public static final Voice EN_MICHAEL = new Voice("en-US_MichaelVoice", "male", "en-US");
+
   /** The Constant DE_DIETER (value is "de-DE_DieterVoice"). */
   public static final Voice DE_DIETER = new Voice("de-DE_DieterVoice", "male", "de-DE");
 

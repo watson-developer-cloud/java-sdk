@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.SpeechWordConfidenceTypeAdapter;
 
 /**
- * Transcription word confidence
+ * Transcription word confidence.
  */
 @JsonAdapter(SpeechWordConfidenceTypeAdapter.class)
 public class SpeechWordConfidence extends GenericModel {

@@ -18,7 +18,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
-import io.netty.handler.codec.http.HttpHeaders;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -39,13 +38,18 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.LanguageList;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguages;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.Translation;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModelList;
+import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModels;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
+import io.netty.handler.codec.http.HttpHeaders;
+
+/**
+ * The Class LanguageTranslationTest.
+ */
 public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
   private final static String GET_MODELS_PATH = "/v2/models";
@@ -57,9 +61,9 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
   private String modelId;
   private LanguageTranslation service;
   private String text;
-  private LanguageList identifiableLanguages;
+  private IdentifiableLanguages identifiableLanguages;
   private TranslationModel model;
-  private TranslationModelList models;
+  private TranslationModels models;
 
   /*
    * (non-Javadoc)
@@ -79,9 +83,9 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
     // fixtures
     identifiableLanguages =
-        loadFixture(RESOURCE + "identifiable_languages.json", LanguageList.class);
+        loadFixture(RESOURCE + "identifiable_languages.json", IdentifiableLanguages.class);
     model = loadFixture(RESOURCE + "model.json", TranslationModel.class);
-    models = loadFixture(RESOURCE + "models.json", TranslationModelList.class);
+    models = loadFixture(RESOURCE + "models.json", TranslationModels.class);
   }
 
   /**
@@ -255,8 +259,7 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testTranslateWithNull() {
-    service.translate(null, "", "").execute();
-
+    service.translate(null, null, null).execute();
   }
 
   /**

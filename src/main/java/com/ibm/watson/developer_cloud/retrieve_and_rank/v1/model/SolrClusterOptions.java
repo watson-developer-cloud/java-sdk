@@ -30,8 +30,8 @@ public class SolrClusterOptions {
   private final String clusterSize;
 
   /**
-   * Instantiates options to create a new Solr cluster of the specified size
-   * 
+   * Instantiates options to create a new Solr cluster of the specified size.
+   *
    * @param clusterName the cluster name
    * @param clusterSize the cluster size
    */
@@ -45,8 +45,8 @@ public class SolrClusterOptions {
   }
 
   /**
-   * Instantiates options to create a new free Solr cluster
-   * 
+   * Instantiates options to create a new free Solr cluster.
+   *
    * @param clusterName the cluster name
    */
   public SolrClusterOptions(String clusterName) {

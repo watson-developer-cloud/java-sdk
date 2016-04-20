@@ -18,10 +18,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3_beta.ToneAnalyzer;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3_beta.model.ToneAnalysis;
 
 /**
- * Tone Analyzer Integration tests
+ * Tone Analyzer Integration tests.
  */
 public class ToneAnalyzerIT extends WatsonServiceTest {
 
@@ -45,6 +46,9 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
 
   }
 
+  /**
+   * Test get tone.
+   */
   @Test
   public void testGetTone() {
     final String text =
@@ -55,7 +59,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
 
 
     // Call the service and get the tone
-    final ToneAnalysis tone = service.getTone(text);
+    final ToneAnalysis tone = service.getTone(text).execute();
     Assert.assertNotNull(tone);
     Assert.assertNotNull(tone.getDocumentTone());
     Assert.assertEquals(3, tone.getDocumentTone().getTones().size());

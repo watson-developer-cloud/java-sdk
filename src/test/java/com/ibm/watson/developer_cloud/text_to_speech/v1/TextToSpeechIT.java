@@ -40,12 +40,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 
 /**
- * The Class TextToSpeechIntegrationTest.
+ * Text to Speech integration tests.
  */
 public class TextToSpeechIT extends WatsonServiceTest {
 
@@ -77,17 +77,22 @@ public class TextToSpeechIT extends WatsonServiceTest {
     List<Voice> voices = service.getVoices().execute();
     Assert.assertNotNull(voices);
     Assert.assertTrue(!voices.isEmpty());
+    Assert.assertNotNull(voices.get(0).getDescription());
+    Assert.assertNotNull(voices.get(0).getGender());
+    Assert.assertNotNull(voices.get(0).getLanguage());
+    Assert.assertNotNull(voices.get(0).getName());
+    Assert.assertNotNull(voices.get(0).getUrl());
   }
 
   /**
-   * Synthesize text and write it to a temporary file
-   * 
+   * Synthesize text and write it to a temporary file.
+   *
    * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
   public void testSynthesize() throws IOException {
     String text = "This is an integration test";
-    InputStream result = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV).execute();
+    InputStream result = service.synthesize(text, Voice.EN_LISA, AudioFormat.WAV).execute();
     writeInputStreamToFile(result, File.createTempFile("tts-audio", "wav"));
   }
 
@@ -100,7 +105,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testSynthesizeAndFixHeader() throws IOException, UnsupportedAudioFileException {
     String text = "one two three four five";
-    InputStream result = service.synthesize(text, Voice.EN_LISA, HttpMediaType.AUDIO_WAV).execute();
+    InputStream result = service.synthesize(text, Voice.EN_LISA, AudioFormat.WAV).execute();
     Assert.assertNotNull(result);
     result = WaveUtils.reWriteWaveHeader(result);
     File tempFile = File.createTempFile("output", ".wav");

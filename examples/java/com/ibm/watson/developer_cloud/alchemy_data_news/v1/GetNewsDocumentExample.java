@@ -50,7 +50,7 @@ public class GetNewsDocumentExample {
     params.put("q.enriched.url.enrichedTitle.docSentiment.type", "positive");
     params.put("q.enriched.url.enrichedTitle.taxonomy.taxonomy_.label", "technology and computing");
 
-    DocumentsResult result = service.getNewsDocuments(params);
+    DocumentsResult result = service.getNewsDocuments(params).execute();
 
     System.out.println(result);
   }

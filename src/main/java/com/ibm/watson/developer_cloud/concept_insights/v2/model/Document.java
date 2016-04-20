@@ -21,7 +21,7 @@ import java.util.Map;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validate;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Document returned by the {@link ConceptInsights} service.
@@ -67,8 +67,8 @@ public class Document extends GenericModel {
    * @param document the document
    */
   public Document(final Corpus corpus, final String document) {
-    Validate.notNull(corpus, "corpus cannot be null");
-    Validate.notEmpty(corpus.getId(), "corpus.id cannot be empty");
+    Validator.notNull(corpus, "corpus cannot be null");
+    Validator.notEmpty(corpus.getId(), "corpus.id cannot be empty");
     setName(document);
     setId(corpus.getId() + "/documents/" + document);
   }
@@ -81,7 +81,7 @@ public class Document extends GenericModel {
    * @param document the document
    */
   public Document(final String accountId, final String corpusName, final String document) {
-    Validate.notEmpty(document, "document cannot be empty");
+    Validator.notEmpty(document, "document cannot be empty");
     setName(document);
     setId(new Corpus(accountId, corpusName).getId() + "/documents/" + document);
   }
@@ -225,8 +225,8 @@ public class Document extends GenericModel {
   }
 
   /**
-   * Sets the time to live in hours
-   * 
+   * Sets the time to live in hours.
+   *
    * @param hours the number of hours to keep the document alive.
    */
   public void setTimeToLive(Integer hours) {

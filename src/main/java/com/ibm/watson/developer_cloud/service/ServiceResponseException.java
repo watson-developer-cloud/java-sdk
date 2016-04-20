@@ -13,7 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import com.squareup.okhttp.Response;
+import okhttp3.Response;
 
 /**
  * Generic Service Response Exception.
@@ -41,14 +41,6 @@ public class ServiceResponseException extends RuntimeException {
   public ServiceResponseException(int statusCode, String message, Response response) {
     super(message);
     this.statusCode = statusCode;
-    this.response = response;
-    //Have for testing. Will remove (along with entire method) upon migration completion
-    this.response3 = null;
-  }
-
-  public ServiceResponseException(int statusCode, String message, okhttp3.Response response) {
-    super(message);
-    this.statusCode = statusCode;
     this.response3 = response;
     //Have for testing. Will remove upon migration completion
     this.response = null;
@@ -72,6 +64,11 @@ public class ServiceResponseException extends RuntimeException {
     return response;
   }
 
+  /**
+   * Gets the response3.
+   *
+   * @return the response3
+   */
   //Will update appropriately once migration is complete
   public okhttp3.Response getResponse3() { return response3; }
 }

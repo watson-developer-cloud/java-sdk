@@ -13,7 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util;
 
-import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.*;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.CONFIG_NOT_DIR_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.ERROR_CREATING_ZIP_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.ERROR_READING_FILE_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.ERROR_ZIPPING_1;
+import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.Messages.bundleName;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +30,7 @@ import java.util.zip.ZipOutputStream;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * Utility class to manage Solr ZIP configuration files
+ * Utility class to manage Solr ZIP configuration files.
  */
 public class ZipUtils {
   private static final MessageFormatter MSGS = new MessageFormatter(bundleName());

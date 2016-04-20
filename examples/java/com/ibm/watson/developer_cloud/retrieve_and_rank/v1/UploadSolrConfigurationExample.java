@@ -32,7 +32,7 @@ public class UploadSolrConfigurationExample {
     service.setUsernameAndPassword("<username>", "<password>");
 
     // 2 return the existing SolrCluster using the id
-    SolrCluster cluster = service.getSolrCluster("<solr-cluster-id>");
+    SolrCluster cluster = service.getSolrCluster("<solr-cluster-id>").execute();
     System.out.println("SolrCluster: " + cluster);
 
     // 3 upload the Solr configuration directory
@@ -40,7 +40,7 @@ public class UploadSolrConfigurationExample {
     service.uploadSolrClusterConfigurationDirectory(cluster.getId(), "<config-name>", directory);
 
     // 4 list the existing solr configurations
-    List<String> configs = service.getSolrClusterConfigurations(cluster.getId());
+    List<String> configs = service.getSolrClusterConfigurations(cluster.getId()).execute().getSolrConfigs();
     System.out.println("Solr configurations: " + configs);
   }
 }

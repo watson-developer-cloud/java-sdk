@@ -13,7 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.http;
 
-import com.squareup.okhttp.MediaType;
+import okhttp3.MediaType;
 
 /**
  * An abstraction for a media type. Instances are immutable.
@@ -95,7 +95,7 @@ public interface HttpMediaType {
    * Field BINARY_FILE. (value is "application/octet-stream")
    */
   MediaType BINARY_FILE = MediaType.parse(APPLICATION_OCTET_STREAM);
-  okhttp3.MediaType BINARY_FILE3 = okhttp3.MediaType.parse(APPLICATION_OCTET_STREAM);
+
   /**
    * Field BINARY_OCTET_STREAM. (value is "binary/octet-stream")
    */

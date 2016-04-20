@@ -14,7 +14,8 @@
 package com.ibm.watson.developer_cloud.service;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
-import com.squareup.okhttp.Response;
+
+import okhttp3.Response;
 
 /**
  * 409 Conflict (HTTP/1.1 - RFC 2616)
@@ -33,10 +34,6 @@ public class ConflictException extends ServiceResponseException {
    * @param response the HTTP response
    */
   public ConflictException(String message, Response response) {
-    super(HttpStatus.CONFLICT, message, response);
-  }
-
-  public ConflictException(String message, okhttp3.Response response) {
     super(HttpStatus.CONFLICT, message, response);
   }
 

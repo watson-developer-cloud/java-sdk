@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column;
 
 /**
- * The Problem representation to be used by the {@link TradeoffAnalytics} V1 service
+ * The Problem representation to be used by the {@link TradeoffAnalytics} V1 service.
  */
 public class Problem extends GenericModel {
 

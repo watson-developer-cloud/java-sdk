@@ -14,7 +14,8 @@
 package com.ibm.watson.developer_cloud.service;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
-import com.squareup.okhttp.Response;
+
+import okhttp3.Response;
 
 /**
  * 400 Bad Request (HTTP/1.1 - RFC 2616)
@@ -31,10 +32,6 @@ public class BadRequestException extends ServiceResponseException {
    * @param response the HTTP response
    */
   public BadRequestException(String message, Response response) {
-    super(HttpStatus.BAD_REQUEST, message, response);
-  }
-
-  public BadRequestException(String message, okhttp3.Response response) {
     super(HttpStatus.BAD_REQUEST, message, response);
   }
 

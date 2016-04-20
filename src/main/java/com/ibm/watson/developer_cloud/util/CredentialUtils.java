@@ -26,7 +26,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.squareup.okhttp.Credentials;
+
+import okhttp3.Credentials;
 
 /**
  * The Class CredentialUtils.

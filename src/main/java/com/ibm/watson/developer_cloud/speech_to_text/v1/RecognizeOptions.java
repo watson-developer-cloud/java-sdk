@@ -17,7 +17,8 @@ import org.apache.commons.lang3.Validate;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
-import com.squareup.okhttp.MediaType;
+
+import okhttp3.MediaType;
 
 
 /**
@@ -300,8 +301,8 @@ public class RecognizeOptions {
    * <li><code>audio/l16</code> for Linear 16-bit Pulse-Code Modulation (PCM)</li>
    * <li><code>audio/wav</code> for Waveform Audio File Format (WAV)</li>
    * <li><code>audio/ogg;codecs=opus</code> for Ogg format files that use the opus codec</li>
-   * </ul>
-   * 
+   * </ul>.
+   *
    * @param contentType the content type
    * @return the recognize options
    */

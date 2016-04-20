@@ -15,7 +15,6 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import static org.mockserver.model.HttpRequest.request;
 import static org.mockserver.model.HttpResponse.response;
-import io.netty.handler.codec.http.HttpHeaders;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -39,6 +38,8 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.TestUtils;
+
+import io.netty.handler.codec.http.HttpHeaders;
 
 /**
  * The Class SpeechToTextTest.

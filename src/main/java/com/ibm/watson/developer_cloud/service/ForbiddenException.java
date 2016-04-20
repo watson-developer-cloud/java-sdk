@@ -14,7 +14,8 @@
 package com.ibm.watson.developer_cloud.service;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
-import com.squareup.okhttp.Response;
+
+import okhttp3.Response;
 
 /**
  * 403 Forbidden (HTTP/1.0 - RFC 1945)
@@ -33,10 +34,6 @@ public class ForbiddenException extends ServiceResponseException {
    * @param response the HTTP response
    */
   public ForbiddenException(String message, Response response) {
-    super(HttpStatus.FORBIDDEN, message, response);
-  }
-
-  public ForbiddenException(String message, okhttp3.Response response) {
     super(HttpStatus.FORBIDDEN, message, response);
   }
 
