@@ -48,7 +48,7 @@ public class PersonalityInsights extends WatsonService {
 
   private static final String URL = "https://gateway.watsonplatform.net/personality-insights/api";
 
-  private static final Gson gson =
+  private static final Gson GSON =
       new GsonBuilder().registerTypeAdapter(Date.class, new TimestampTypeAdapter()).create();
 
   /** The Constant HEADERS (value is "headers"). */
@@ -76,7 +76,7 @@ public class PersonalityInsights extends WatsonService {
     } else {
       final Content content = new Content();
       content.setContentItems(options.getContentItems());
-      String body = gson.toJson(content);
+      String body = GSON.toJson(content);
       request.withBodyContent(body, contentType);
     }
 
