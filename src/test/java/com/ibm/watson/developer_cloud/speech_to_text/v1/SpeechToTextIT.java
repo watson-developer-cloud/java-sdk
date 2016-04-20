@@ -214,4 +214,19 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(asyncResults);
   }
 
+  @Test
+  public void testRecognizeOkhttpWebSocket() throws FileNotFoundException, InterruptedException {
+    RecognizeOptions options = new RecognizeOptions();
+    options.continuous(true).interimResults(true);
+    options.inactivityTimeout(40).timestamps(true).maxAlternatives(2);
+    options.model(EN_BROADBAND16K).contentType(HttpMediaType.AUDIO_WAV);
+
+    service.recognizeUsingOkhttpWebsocket(new FileInputStream(
+          "src/test/resources/speech_to_text/sample1.wav"), options);
+
+    lock.await(20000, TimeUnit.MILLISECONDS);
+    //assertNotNull(asyncResults);
+  }
+
+
 }

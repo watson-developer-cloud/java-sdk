@@ -29,11 +29,14 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeDelegate;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.ResponseListener;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.WebSocketManager;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.WebSocketSpeechToTextClient;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
 /**
@@ -313,5 +316,18 @@ public class SpeechToText extends WatsonService {
     String url = getEndPoint().replaceFirst("(https|http)", "wss");
     WebSocketSpeechToTextClient webSocket = new WebSocketSpeechToTextClient(url + PATH_RECOGNIZE, getToken());
     webSocket.recognize(audio, options, delegate);
+  }
+
+  public void recognizeUsingOkhttpWebsocket(InputStream audio, RecognizeOptions options) {
+    String url = getEndPoint().replaceFirst("(https|http)", "wss");
+    WebSocketManager wsManager = new WebSocketManager(url + PATH_RECOGNIZE, new OkHttpClient.Builder().build(),getToken(), new ResponseListener() {
+      @Override
+      public void onResponse(String response) {
+        System.out.println(response);
+      }
+    });
+    //wsManager.recognize(audio, options);
+    wsManager.connect(options);
+
   }
 }
