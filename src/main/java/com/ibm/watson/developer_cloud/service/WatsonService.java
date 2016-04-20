@@ -49,7 +49,7 @@ import com.squareup.okhttp.Response;
 public abstract class WatsonService {
 
   private static final String BASIC = "Basic ";
-  private static final Logger log = Logger.getLogger(WatsonService.class.getName());
+  private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
   private String apiKey;
   private final OkHttpClient client;
   private String endPoint;
@@ -117,11 +117,11 @@ public abstract class WatsonService {
 
     final Request newRequest = builder.build();
     Response response;
-    log.log(Level.FINEST, "Request to: " + newRequest.urlString());
+    LOG.log(Level.FINEST, "Request to: " + newRequest.urlString());
     try {
       response = client.newCall(newRequest).execute();
     } catch (final IOException e) {
-      log.log(Level.SEVERE, "IOException", e);
+      LOG.log(Level.SEVERE, "IOException", e);
       throw new RuntimeException(e);
     }
 
@@ -134,7 +134,7 @@ public abstract class WatsonService {
     // There was a Client Error 4xx or a Server Error 5xx
     // Get the error message and create the exception
     final String error = getErrorMessage(response);
-    log.log(Level.SEVERE, newRequest.urlString() + ", status: " + status + ", error: " + error);
+    LOG.log(Level.SEVERE, newRequest.urlString() + ", status: " + status + ", error: " + error);
 
     switch (status) {
       case HttpStatus.BAD_REQUEST: // HTTP 400

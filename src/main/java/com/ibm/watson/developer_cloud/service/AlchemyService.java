@@ -41,7 +41,7 @@ public abstract class AlchemyService extends WatsonService {
 
   private static final String DAILY_TRANSACTION_LIMIT_EXCEEDED = "daily-transaction-limit-exceeded";
   private static final String INVALID_API_KEY = "invalid-api-key";
-  private static final Logger log = Logger.getLogger(AlchemyService.class.getName());
+  private static final Logger LOG = Logger.getLogger(AlchemyService.class.getName());
   private static final String MESSAGE_CODE = "code";
   private static final String MESSAGE_ERROR = "error";
 
@@ -108,7 +108,7 @@ public abstract class AlchemyService extends WatsonService {
     if (error == null) {
       return response;
     }
-    log.log(Level.SEVERE, error.toString());
+    LOG.log(Level.SEVERE, error.toString());
     final int code = error.get(MESSAGE_CODE).getAsInt();
     switch (code) {
       case HttpStatus.BAD_REQUEST: // HTTP 400
