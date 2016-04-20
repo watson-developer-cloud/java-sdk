@@ -83,21 +83,21 @@ public class DialogService extends WatsonService {
   public static final String LIMIT = "limit";
 
   /** The list conversation data type. */
-  private static final Type listConversationDataType = new TypeToken<List<ConversationData>>() {}
+  private static final Type LIST_CONVERSATION_DATA_TYPE = new TypeToken<List<ConversationData>>() {}
       .getType();
 
   /** The list dialog content type. */
-  private static final Type listDialogContentType = new TypeToken<List<DialogContent>>() {}
+  private static final Type LIST_DIALOG_CONTENT_TYPE = new TypeToken<List<DialogContent>>() {}
       .getType();
 
   /** The list dialog type. */
-  private static final Type listDialogType = new TypeToken<List<Dialog>>() {}.getType();
+  private static final Type LIST_DIALOG_TYPE = new TypeToken<List<Dialog>>() {}.getType();
 
   /** The list name value type. */
-  private static Type listNameValueType = new TypeToken<List<NameValue>>() {}.getType();
+  private static final Type LIST_NAME_VALUE_TYPE = new TypeToken<List<NameValue>>() {}.getType();
 
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(DialogService.class.getName());
+  /** The Constant LOG. */
+  private static final Logger LOG = Logger.getLogger(DialogService.class.getName());
 
   /** The Constant NAME. */
   private static final String NAME = "name";
@@ -111,8 +111,8 @@ public class DialogService extends WatsonService {
   /** The Constant PATH_DIALOGS. */
   private static final String PATH_DIALOGS = "/v1/dialogs";
 
-  /** The Constant sdfDate. */
-  private static final SimpleDateFormat sdfDate = new SimpleDateFormat(CONVERSATION_DATE_FORMAT);
+  /** The Constant SIMPLE_DATE_FORMAT. */
+  private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat(CONVERSATION_DATE_FORMAT);
 
   /** The Constant URL. */
   private static final String URL = "https://gateway.watsonplatform.net/dialog/api";
@@ -163,10 +163,10 @@ public class DialogService extends WatsonService {
       throw new IllegalArgumentException("dialog id cannot be null or empty");
 
     if (conversationId == null)
-      log.info("Creating a new conversation with for dialog: " + dialogId);
+      LOG.info("Creating a new conversation with for dialog: " + dialogId);
 
     if (clientId == null) {
-      log.info("Creating a new client id with for dialog: " + dialogId);
+      LOG.info("Creating a new client id with for dialog: " + dialogId);
     }
 
     final String path = String.format(PATH_DIALOG_CONVERSATION, dialogId);
@@ -249,7 +249,7 @@ public class DialogService extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
     final List<DialogContent> content =
-        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("items"), listDialogContentType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("items"), LIST_DIALOG_CONTENT_TYPE);
     return content;
   }
 
@@ -280,8 +280,8 @@ public class DialogService extends WatsonService {
     if (from.after(to))
       throw new IllegalArgumentException("'" + DATE_FROM + "' is greater than '" + DATE_TO + "'");
 
-    final String fromString = sdfDate.format(from);
-    final String toString = sdfDate.format(to);
+    final String fromString = SIMPLE_DATE_FORMAT.format(from);
+    final String toString = SIMPLE_DATE_FORMAT.format(to);
 
     final String path = String.format(PATH_DIALOG_CONVERSATION, dialogId);
 
@@ -298,7 +298,7 @@ public class DialogService extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
     final List<ConversationData> conversationDataList =
-        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(CONVERSATIONS), listConversationDataType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(CONVERSATIONS), LIST_CONVERSATION_DATA_TYPE);
     return conversationDataList;
   }
 
@@ -313,7 +313,7 @@ public class DialogService extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
     final List<Dialog> dialogs =
-        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("dialogs"), listDialogType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("dialogs"), LIST_DIALOG_TYPE);
     return dialogs;
   }
 
@@ -345,7 +345,7 @@ public class DialogService extends WatsonService {
     final Response response = execute(request);
     final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
     final List<NameValue> nameValues =
-        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(NAME_VALUES), listNameValueType);
+        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(NAME_VALUES), LIST_NAME_VALUE_TYPE);
 
     return fromNameValues(nameValues);
   }

@@ -42,8 +42,8 @@ public class CredentialUtils {
   /** The Constant CREDENTIALS. */
   private static final String CREDENTIALS = "credentials";
 
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(CredentialUtils.class.getName());
+  /** The Constant LOG. */
+  private static final Logger LOG = Logger.getLogger(CredentialUtils.class.getName());
 
   /** The Constant PASSWORD. */
   private static final String PASSWORD = "password";
@@ -133,7 +133,7 @@ public class CredentialUtils {
         return null;
       }
     } catch (ClassNotFoundException exception) {
-      log.info("JNDI string lookups is not available.");
+      LOG.info("JNDI string lookups is not available.");
     }
     return null;
   }
@@ -154,7 +154,7 @@ public class CredentialUtils {
       final JsonParser parser = new JsonParser();
       vcapServices = (JsonObject) parser.parse(envServices);
     } catch (final JsonSyntaxException e) {
-      log.log(Level.INFO, "Error parsing VCAP_SERVICES", e);
+      LOG.log(Level.INFO, "Error parsing VCAP_SERVICES", e);
     }
     return vcapServices;
   }

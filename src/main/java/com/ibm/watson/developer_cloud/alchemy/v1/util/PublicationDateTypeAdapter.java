@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -31,16 +31,16 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.PublicationDate;
  */
 public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
 
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(PublicationDateTypeAdapter.class.getName());
+  /** The Constant LOG. */
+  private static final Logger LOG = Logger.getLogger(PublicationDateTypeAdapter.class.getName());
 
-  /** The df. */
-  private final DateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
+  /** The dateFormat. */
+  private static final DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
 
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.google.gson.TypeAdapter#read(com.google.gson.stream.JsonReader)
    */
   @Override
@@ -64,9 +64,9 @@ public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
         final String dateAsString = reader.nextString();
         if (dateAsString != null && !dateAsString.isEmpty())
           try {
-            publicationDate.setDate(df.parse(dateAsString));
+            publicationDate.setDate(dateFormat.parse(dateAsString));
           } catch (final ParseException e) {
-            log.log(Level.SEVERE, "Error parsing: " + dateAsString, e);
+            LOG.log(Level.SEVERE, "Error parsing: " + dateAsString, e);
           }
       } else {
         reader.skipValue();
@@ -78,7 +78,7 @@ public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.google.gson.TypeAdapter#write(com.google.gson.stream.JsonWriter, java.lang.Object)
    */
   @Override
@@ -91,7 +91,7 @@ public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
     writer.beginObject();
 
     if (value.getDate() != null)
-      writer.name("date").value(df.format(value.getDate()));
+      writer.name("date").value(dateFormat.format(value.getDate()));
     if (value.getConfident() != null)
       writer.name("confident").value(String.valueOf(value.getConfident() ? "yes" : "no"));
 

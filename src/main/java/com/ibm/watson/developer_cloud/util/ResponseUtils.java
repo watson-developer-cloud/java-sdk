@@ -36,8 +36,8 @@ public class ResponseUtils {
   /** The Constant ERROR_MESSAGE. */
   private static final String ERROR_MESSAGE = "Error reading the http response";
 
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(ResponseUtils.class.getName());
+  /** The Constant LOG. */
+  private static final Logger LOG = Logger.getLogger(ResponseUtils.class.getName());
 
   /**
    * Returns the HTTP Response {@link InputStream}.
@@ -49,7 +49,7 @@ public class ResponseUtils {
     try {
       return response.body().byteStream();
     } catch (final IOException e) {
-      log.log(Level.SEVERE, ERROR_MESSAGE, e);
+      LOG.log(Level.SEVERE, ERROR_MESSAGE, e);
       throw new RuntimeException(ERROR_MESSAGE, e);
     }
   }
@@ -64,7 +64,7 @@ public class ResponseUtils {
     try {
       return new JsonParser().parse(response.body().charStream());
     } catch (final IOException e) {
-      log.log(Level.SEVERE, ERROR_MESSAGE, e);
+      LOG.log(Level.SEVERE, ERROR_MESSAGE, e);
       throw new RuntimeException(ERROR_MESSAGE, e);
     }
   }
@@ -106,13 +106,13 @@ public class ResponseUtils {
       stream.close();
       return model;
     } catch (IOException e) {
-      log.log(Level.SEVERE, ERROR_MESSAGE, e);
+      LOG.log(Level.SEVERE, ERROR_MESSAGE, e);
       throw new RuntimeException(ERROR_MESSAGE, e);
     } finally {
       try {
         response.body().close();
       } catch (IOException e) {
-        log.log(Level.SEVERE, "Error closing the HTTP Response", e);
+        LOG.log(Level.SEVERE, "Error closing the HTTP Response", e);
       }
     }
   }
@@ -128,7 +128,7 @@ public class ResponseUtils {
     try {
       return response.body().string();
     } catch (final IOException e) {
-      log.log(Level.SEVERE, ERROR_MESSAGE, e);
+      LOG.log(Level.SEVERE, ERROR_MESSAGE, e);
       throw new RuntimeException(ERROR_MESSAGE, e);
     }
   }

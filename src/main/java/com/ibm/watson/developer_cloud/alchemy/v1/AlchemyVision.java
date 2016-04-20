@@ -136,7 +136,7 @@ public class AlchemyVision extends AlchemyService {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
 
-    return executeRequest(params, AlchemyAPI.image_scene_text, ImageSceneText.class);
+    return executeRequest(params, AlchemyAPI.IMAGE_SCENE_TEXT, ImageSceneText.class);
   }
 
   /**
@@ -152,7 +152,7 @@ public class AlchemyVision extends AlchemyService {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
 
-    return executeRequest(params, AlchemyAPI.image_scene_text, ImageSceneText.class);
+    return executeRequest(params, AlchemyAPI.IMAGE_SCENE_TEXT, ImageSceneText.class);
   }
 
   /**
@@ -176,7 +176,7 @@ public class AlchemyVision extends AlchemyService {
     if (knowledgeGraph != null)
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
 
-    ImageKeywords imageKeywords = executeRequest(params, AlchemyAPI.image_keywords, ImageKeywords.class);
+    ImageKeywords imageKeywords = executeRequest(params, AlchemyAPI.IMAGE_KEYWORDS, ImageKeywords.class);
 
     // Remove the NO_TAGS keywords
     ListIterator<ImageKeyword> iter = imageKeywords.getImageKeywords().listIterator();
@@ -209,7 +209,7 @@ public class AlchemyVision extends AlchemyService {
     if (knowledgeGraph != null)
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
 
-    return executeRequest(params, AlchemyAPI.image_keywords, ImageKeywords.class);
+    return executeRequest(params, AlchemyAPI.IMAGE_KEYWORDS, ImageKeywords.class);
   }
 
   /**
@@ -224,7 +224,7 @@ public class AlchemyVision extends AlchemyService {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
 
-    return executeRequest(params, AlchemyAPI.image_link, ImageLink.class);
+    return executeRequest(params, AlchemyAPI.IMAGE_LINK, ImageLink.class);
   }
 
   /**
@@ -239,7 +239,7 @@ public class AlchemyVision extends AlchemyService {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(HTML, html);
 
-    return executeRequest(params, AlchemyAPI.image_link, ImageLink.class);
+    return executeRequest(params, AlchemyAPI.IMAGE_LINK, ImageLink.class);
   }
 
   /**
@@ -279,7 +279,7 @@ public class AlchemyVision extends AlchemyService {
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
 
 
-    return executeRequest(params, AlchemyAPI.image_recognition, ImageFaces.class);
+    return executeRequest(params, AlchemyAPI.IMAGE_RECOGNITION, ImageFaces.class);
   }
 
   /**
@@ -318,6 +318,6 @@ public class AlchemyVision extends AlchemyService {
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
 
 
-    return executeRequest(params, AlchemyAPI.image_recognition, ImageFaces.class);
+    return executeRequest(params, AlchemyAPI.IMAGE_RECOGNITION, ImageFaces.class);
   }
 }

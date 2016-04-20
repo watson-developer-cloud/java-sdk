@@ -18,12 +18,12 @@ public class DateDeserializer implements JsonDeserializer<Date> {
   private static final String DATE_FROM_DIALOG = "yyyy-MM-dd HH:mm:ss";
   private static final String DATE_FROM_ALCHEMY = "yyyyMMdd'T'HHmmss";
 
-  private static final SimpleDateFormat utc = new SimpleDateFormat(DATE_UTC);
-  private static final SimpleDateFormat utcWithoutSec = new SimpleDateFormat(DATE_WITHOUT_SECONDS);
-  private static final SimpleDateFormat dialogDate = new SimpleDateFormat(DATE_FROM_DIALOG);
-  private static final SimpleDateFormat alchemyDate = new SimpleDateFormat(DATE_FROM_ALCHEMY);
+  private static final SimpleDateFormat UTC = new SimpleDateFormat(DATE_UTC);
+  private static final SimpleDateFormat UTC_WITHOUT_SEC = new SimpleDateFormat(DATE_WITHOUT_SECONDS);
+  private static final SimpleDateFormat DIALOG_DATE = new SimpleDateFormat(DATE_FROM_DIALOG);
+  private static final SimpleDateFormat ALCHEMY_DATE = new SimpleDateFormat(DATE_FROM_ALCHEMY);
 
-  private static final Logger log = Logger.getLogger(DateDeserializer.class.getName());
+  private static final Logger LOG = Logger.getLogger(DateDeserializer.class.getName());
 
   @Override
   public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
@@ -32,18 +32,18 @@ public class DateDeserializer implements JsonDeserializer<Date> {
     String dateAsString = json.getAsJsonPrimitive().getAsString();
     dateAsString = dateAsString.replaceAll("Z$", "+0000");
     try {
-      return utc.parse(dateAsString);
+      return UTC.parse(dateAsString);
     } catch (Exception e1) {
       try {
-        return utcWithoutSec.parse(dateAsString);
+        return UTC_WITHOUT_SEC.parse(dateAsString);
       } catch (ParseException e2) {
         try {
-          return dialogDate.parse(dateAsString);
+          return DIALOG_DATE.parse(dateAsString);
         } catch (ParseException e3) {
           try {
-            return alchemyDate.parse(dateAsString);
+            return ALCHEMY_DATE.parse(dateAsString);
           } catch (ParseException e4) {
-            log.log(Level.SEVERE, "Error parsing: " + dateAsString, e4);
+            LOG.log(Level.SEVERE, "Error parsing: " + dateAsString, e4);
           }
         }
       }
