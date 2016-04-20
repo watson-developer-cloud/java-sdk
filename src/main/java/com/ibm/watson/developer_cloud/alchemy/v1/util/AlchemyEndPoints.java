@@ -39,78 +39,78 @@ public class AlchemyEndPoints {
    */
   public enum AlchemyAPI {
 
-    /** The authors. */
-    authors,
+    /** The AUTHORS. */
+    AUTHORS,
 
-    /** The combined. */
-    combined,
+    /** The COMBINED. */
+    COMBINED,
 
-    /** The concepts. */
-    concepts,
+    /** The CONCEPTS. */
+    CONCEPTS,
 
-    /** The entities. */
-    entities,
+    /** The ENTITIES. */
+    ENTITIES,
 
-    /** The feeds. */
-    feeds,
+    /** The FEEDS. */
+    FEEDS,
 
-    /** The image_keywords. */
-    image_keywords,
+    /** The IMAGE_KEYWORDS. */
+    IMAGE_KEYWORDS,
 
-    /** The image_link. */
-    image_link,
+    /** The IMAGE_LINK. */
+    IMAGE_LINK,
 
-    /** The image_recognition. */
-    image_recognition,
+    /** The IMAGE_RECOGNITION. */
+    IMAGE_RECOGNITION,
 
-    /** The image_scene_text. */
-    image_scene_text,
+    /** The IMAGE_SCENE_TEXT. */
+    IMAGE_SCENE_TEXT,
 
-    /** The keywords. */
-    keywords,
+    /** The KEYWORDS. */
+    KEYWORDS,
 
-    /** The language. */
-    language,
+    /** The LANGUAGE. */
+    LANGUAGE,
 
-    /** The microformats. */
-    microformats,
+    /** The MICROFORMATS. */
+    MICROFORMATS,
 
-    /** The relations. */
-    relations,
+    /** The RELATIONS. */
+    RELATIONS,
 
-    /** The sentiment. */
-    sentiment,
+    /** The SENTIMENT. */
+    SENTIMENT,
 
-    /** The sentiment_targeted. */
-    sentiment_targeted,
+    /** The SENTIMENT_TARGETED. */
+    SENTIMENT_TARGETED,
 
-    /** The taxonomy. */
-    taxonomy,
+    /** The TAXONOMY. */
+    TAXONOMY,
 
-    /** The text. */
-    text,
+    /** The TEXT. */
+    TEXT,
 
-    /** The text_raw. */
-    text_raw,
+    /** The TEXT_RAW. */
+    TEXT_RAW,
 
-    /** The title. */
-    title,
+    /** The TITLE. */
+    TITLE,
 
-    /** The publication date */
-    publication_date,
+    /** The PUBLICATION DATE */
+    PUBLICATION_DATE,
 
-    /** dates */
-    dates,
+    /** DATES */
+    DATES,
 
-    /** emotion */
-    emotion
+    /** EMOTION */
+    EMOTION
   }
 
   /** The file where alchemy endpoints are described. */
-  private static final String filePath = "/alchemy_endpoints.json";
+  private static final String FILE_PATH = "/alchemy_endpoints.json";
 
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(AlchemyEndPoints.class.getName());
+  /** The Constant LOG. */
+  private static final Logger LOG = Logger.getLogger(AlchemyEndPoints.class.getName());
 
   /** The alchemy operations. */
   private static Map<String, Map<String, String>> operations;
@@ -132,7 +132,7 @@ public class AlchemyEndPoints {
       return operations.get(operation.name()).get(inputType);
     } else {
       final String error = "Operation: " + operation + ", inputType: " + inputType + " not found";
-      log.log(Level.SEVERE, error);
+      LOG.log(Level.SEVERE, error);
       throw new IllegalArgumentException(error);
     }
   }
@@ -141,13 +141,13 @@ public class AlchemyEndPoints {
    * Load the endpoints from json file.
    */
   private static void loadEndPointsFromJsonFile() {
-    log.log(Level.FINE, "Parsing End Points JSON file ");
+    LOG.log(Level.FINE, "Parsing End Points JSON file ");
     operations = new HashMap<String, Map<String, String>>();
     final JsonParser parser = new JsonParser();
 
     Reader fileReader = null;
     try {
-      final InputStream is = AlchemyEndPoints.class.getResourceAsStream(filePath);
+      final InputStream is = AlchemyEndPoints.class.getResourceAsStream(FILE_PATH);
       if (null != is) {
         fileReader = new InputStreamReader(is);
       }
@@ -167,15 +167,15 @@ public class AlchemyEndPoints {
         }
       }
     } catch (final JsonParseException e) {
-      log.log(Level.SEVERE, "Could not parse json file: " + filePath, e);
+      LOG.log(Level.SEVERE, "Could not parse json file: " + FILE_PATH, e);
     } catch (final NullPointerException e) {
-      log.log(Level.SEVERE, "Not able to locate the end points json file: " + filePath, e);
+      LOG.log(Level.SEVERE, "Not able to locate the end points json file: " + FILE_PATH, e);
     } finally {
       if (fileReader != null) {
         try {
           fileReader.close();
         } catch (final IOException e) {
-          log.log(Level.SEVERE, "Could not close file reader: " + filePath, e);
+          LOG.log(Level.SEVERE, "Could not close file reader: " + FILE_PATH, e);
         }
       }
     }

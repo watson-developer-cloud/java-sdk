@@ -84,7 +84,7 @@ public class AlchemyLanguage extends AlchemyService {
   // language to be used with request
   private LanguageSelection language = LanguageSelection.DETECT;
 
-  private static final SimpleDateFormat anchorDateFormat =
+  private static final SimpleDateFormat ANCHOR_DATE_FORMAT =
       new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
   /**
@@ -141,7 +141,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentAuthors}
    */
   public DocumentAuthors getAuthors(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.authors, DocumentAuthors.class, HTML, URL);
+    return executeRequest(params, AlchemyAPI.AUTHORS, DocumentAuthors.class, HTML, URL);
   }
 
 
@@ -153,7 +153,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Concepts}
    */
   public Concepts getConcepts(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.concepts, Concepts.class, TEXT, HTML, URL);
+    return executeRequest(params, AlchemyAPI.CONCEPTS, Concepts.class, TEXT, HTML, URL);
   }
 
   /**
@@ -163,7 +163,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentPublicationDate}
    */
   public DocumentPublicationDate getPublicationDate(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.publication_date, DocumentPublicationDate.class, HTML,
+    return executeRequest(params, AlchemyAPI.PUBLICATION_DATE, DocumentPublicationDate.class, HTML,
         URL);
   }
 
@@ -175,7 +175,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Taxonomies}
    */
   public Taxonomies getTaxonomy(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.taxonomy, Taxonomies.class, TEXT, HTML, URL);
+    return executeRequest(params, AlchemyAPI.TAXONOMY, Taxonomies.class, TEXT, HTML, URL);
   }
 
   /**
@@ -187,7 +187,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Microformats}
    */
   public CombinedResults getCombinedResults(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.combined, CombinedResults.class, TEXT, HTML, URL);
+    return executeRequest(params, AlchemyAPI.COMBINED, CombinedResults.class, TEXT, HTML, URL);
   }
 
   /**
@@ -199,7 +199,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Entities}
    */
   public Entities getEntities(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.entities, Entities.class, TEXT, HTML, URL);
+    return executeRequest(params, AlchemyAPI.ENTITIES, Entities.class, TEXT, HTML, URL);
   }
 
   /**
@@ -209,7 +209,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Feeds}
    */
   public Feeds getFeeds(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.feeds, Feeds.class, HTML, URL);
+    return executeRequest(params, AlchemyAPI.FEEDS, Feeds.class, HTML, URL);
   }
 
   /**
@@ -220,7 +220,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Keywords}
    */
   public Keywords getKeywords(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.keywords, Keywords.class, TEXT, HTML, URL);
+    return executeRequest(params, AlchemyAPI.KEYWORDS, Keywords.class, TEXT, HTML, URL);
   }
 
   /**
@@ -231,7 +231,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Language}
    */
   public Language getLanguage(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.language, Language.class, TEXT, HTML, URL);
+    return executeRequest(params, AlchemyAPI.LANGUAGE, Language.class, TEXT, HTML, URL);
   }
 
   /**
@@ -241,7 +241,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Microformats}
    */
   public Microformats getMicroformats(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.microformats, Microformats.class, HTML, URL);
+    return executeRequest(params, AlchemyAPI.MICROFORMATS, Microformats.class, HTML, URL);
   }
 
   /**
@@ -252,7 +252,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link SAORelations}
    */
   public SAORelations getRelations(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.relations, SAORelations.class, TEXT, HTML, URL);
+    return executeRequest(params, AlchemyAPI.RELATIONS, SAORelations.class, TEXT, HTML, URL);
   }
 
   /**
@@ -263,9 +263,9 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentSentiment}
    */
   public DocumentSentiment getSentiment(Map<String, Object> params) {
-    AlchemyAPI operation = AlchemyAPI.sentiment;
+    AlchemyAPI operation = AlchemyAPI.SENTIMENT;
     if (params.get(TARGET) != null || params.get(TARGETS) != null)
-      operation = AlchemyAPI.sentiment_targeted;
+      operation = AlchemyAPI.SENTIMENT_TARGETED;
 
     return executeRequest(params, operation, DocumentSentiment.class, TEXT, HTML, URL);
   }
@@ -278,9 +278,9 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentText}
    */
   public DocumentText getText(Map<String, Object> params) {
-    AlchemyAPI operation = AlchemyAPI.text;
+    AlchemyAPI operation = AlchemyAPI.TEXT;
     if (params.get(RAW) != null)
-      operation = AlchemyAPI.text_raw;
+      operation = AlchemyAPI.TEXT_RAW;
 
     return executeRequest(params, operation, DocumentText.class, HTML, URL);
   }
@@ -292,7 +292,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentTitle}
    */
   public DocumentTitle getTitle(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.title, DocumentTitle.class, HTML, URL);
+    return executeRequest(params, AlchemyAPI.TITLE, DocumentTitle.class, HTML, URL);
   }
 
   /**
@@ -303,7 +303,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentEmotion}
    */
   public DocumentEmotion getEmotion(Map<String, Object> params) {
-    return executeRequest(params, AlchemyAPI.emotion, DocumentEmotion.class, TEXT, HTML, URL);
+    return executeRequest(params, AlchemyAPI.EMOTION, DocumentEmotion.class, TEXT, HTML, URL);
   }
 
   /**
@@ -317,11 +317,11 @@ public class AlchemyLanguage extends AlchemyService {
 
     if (params != null && params.containsKey(ANCHOR_DATE)) {
       if (params.get(ANCHOR_DATE) != null && params.get(ANCHOR_DATE) instanceof Date) {
-        String anchorDate = anchorDateFormat.format(params.get(ANCHOR_DATE));
+        String anchorDate = ANCHOR_DATE_FORMAT.format(params.get(ANCHOR_DATE));
         params.put(ANCHOR_DATE, anchorDate);
       }
     }
 
-    return executeRequest(params, AlchemyAPI.dates, Dates.class, TEXT, HTML, URL);
+    return executeRequest(params, AlchemyAPI.DATES, Dates.class, TEXT, HTML, URL);
   }
 }
