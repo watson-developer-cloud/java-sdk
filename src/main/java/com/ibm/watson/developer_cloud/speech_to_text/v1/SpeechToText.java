@@ -203,7 +203,7 @@ public class SpeechToText extends WatsonService {
   /**
    * Gets the session status. Concurrent recognition tasks during the same session are not allowed.
    * This method offers a way to check whether the session can accept another recognition task. The
-   * returned state must be "initialized" to call {@link #recognize(File, String, RecognizeOptions)}
+   * returned state must be "initialized" to call {@link #recognize(File, RecognizeOptions)}
    * .
    * 
    * @param session the speech session
