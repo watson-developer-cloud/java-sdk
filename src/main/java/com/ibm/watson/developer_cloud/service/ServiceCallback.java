@@ -14,23 +14,22 @@
 package com.ibm.watson.developer_cloud.service;
 
 /**
- * Created by harrisonsaylor on 4/12/16.
- *
+ * Callback with the response for an Asynchronous request.
  * @param <T> the generic type
  */
 public interface ServiceCallback<T> {
     
     /**
-     * On response.
+     * Called with the response
      *
      * @param response the response
      */
     void onResponse(T response);
     
     /**
-     * On failure.
+     * Called if there is an error during the request
      *
-     * @param e the e
+     * @param e the exception thrown during the request
      */
     void onFailure(Exception e);
 }

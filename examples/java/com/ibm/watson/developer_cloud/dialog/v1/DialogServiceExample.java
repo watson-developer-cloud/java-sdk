@@ -16,14 +16,29 @@ package com.ibm.watson.developer_cloud.dialog.v1;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.dialog.v1.model.Dialog;
+import com.ibm.watson.developer_cloud.service.ServiceCallback;
 
 public class DialogServiceExample {
   public static void main(String[] args) {
     DialogService service = new DialogService();
     service.setUsernameAndPassword("<username>", "<password>");
 
+    // sync
     List<Dialog> dialogs = service.getDialogs().execute();
     System.out.println(dialogs);
+    
+    
+    // async
+    service.getDialogs().enqueue(new ServiceCallback<List<Dialog>>() {
+      @Override
+      public void onResponse(List<Dialog> response) {
+        System.out.println(response);
+      }
+
+      @Override
+      public void onFailure(Exception e) {
+      }}
+    );    
   }
 
 }

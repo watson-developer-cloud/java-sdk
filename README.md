@@ -45,12 +45,12 @@ The version 3.0.0-RC1 is a major release focused on simplicity and consistency. 
 
 ### Synchronous vs Asynchronous
 
-Before 3.0 all the API calls were synchonous
+Before 3.0 all the API calls were synchronous
 ```java
 List<Dialog> dialogs = dialogService.getDialogs();
 System.out.println(dialogs);
 ```
-Now to do synchonous call you need to add `execute()`
+Now to do synchronous call you need to add `execute()`
 
 ```java
 List<Dialog> dialogs = dialogService.getDialogs().execute();
@@ -59,21 +59,19 @@ System.out.println(dialogs);
 To do asynchronous calls you need to specify a callback
 
 ```java
-List<Dialog> dialogs = dialogService.getDialogs().enqueue(new Callback<List<Dialog>() {
+service.getDialogs().enqueue(new ServiceCallback<List<Dialog>>() {
   @Override
-  public void onFailure(Exception e) {
-
-  }
-
-  @Override
-  public void onResponse(List<Dialog> response) throws IOException {
+  public void onResponse(List<Dialog> response) {
     System.out.println(response);
   }
-}
+
+  @Override
+  public void onFailure(Exception e) {
+  }}
+);
 ```
 
-* Websocke requests are now using `okhttp-ws` instead of `nv-websocket-client`
-* Several deprecated services have been removed
+For more information, take a look at the [CHANGELOG](CHANGELOG.md).
 
 ## Installation
 
@@ -93,7 +91,7 @@ List<Dialog> dialogs = dialogService.getDialogs().enqueue(new Callback<List<Dial
 
 ##### JAR
 
-Download the jar file [here][jar].
+Download the jar with dependencies [here][jar].
 
 Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
 
@@ -145,7 +143,7 @@ service.setApiKey("<api_key>");
 
 Map<String,Object> params = new HashMap<String, Object>();
 params.put(AlchemyLanguage.TEXT, "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
-DocumentSentiment sentiment =  service.getSentiment(params).execute();
+DocumentSentiment sentiment = service.getSentiment(params).execute();
 
 System.out.println(sentiment);
 ```
@@ -169,7 +167,7 @@ System.out.println(keywords);
 
 ### Alchemy Data News
 [Alchemy Data News][alchemy_data_news] indexes 250k to 300k English language news and
-blog articles every day with historical search available for the past 60 days.
+blog articles every day with historical search available for the past 60 days.  
 Example: Get 7 documents between Friday 28th August 2015 and Friday 4th September 2015.
 
 ```java
@@ -334,7 +332,7 @@ while (cluster.getStatus() == Status.NOT_AVAILABLE) {
 }
 
 // 3 list Solr Clusters
-System.out.println("Solr clusters: " + service.getSolrClusters());
+System.out.println("Solr clusters: " + service.getSolrClusters().execute());
 ```
 
 Retrieve and Rank is built on top of Apache Solr.
@@ -482,13 +480,13 @@ following picture.
 ![Car](https://visual-recognition-demo.mybluemix.net/images/samples/5.jpg)
 
 ```java
-VisualRecognition service = new VisualRecognition();
+VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2015_12_02);
 service.setUsernameAndPassword("<username>", "<password>");
 
 File image = new File("src/test/resources/visual_recognition/car.png");
 
-VisualRecognitionImages recognizedImage = service.recognize(image).execute();
-System.out.println(recognizedImage);
+VisualClassification result = service.classify(image).execute();
+System.out.println(result);
 ```
 
 ## Android
