@@ -15,7 +15,6 @@ package com.ibm.watson.developer_cloud.http;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
@@ -161,7 +160,7 @@ public class RequestBuilder {
   public Request build() {
     final Request.Builder builder = new Request.Builder();
     // URL
-    builder.url(toUrl3());
+    builder.url(toUrl());
 
     // POST/PUT require a body so send an empty body if the actual is null
     RequestBody requestBody = body;
@@ -216,11 +215,11 @@ public class RequestBuilder {
   }
 
   /**
-   * To url3.
+   * Return the request url including query parameters
    *
    * @return the string
    */
-  public String toUrl3() {
+  private String toUrl() {
     final HttpUrl.Builder builder = httpUrl.newBuilder();
     for (final NameValue param : queryParams) {
       builder.addEncodedQueryParameter(RequestUtils.encode(param.getName()), RequestUtils.encode(param.getValue()));
@@ -248,18 +247,18 @@ public class RequestBuilder {
   }
 
   /**
-   * With body.
+   * Sets the body.
    *
    * @param body the body
    * @return the request builder
    */
-  public RequestBuilder withBody(RequestBody body) {
+  public RequestBuilder body(RequestBody body) {
     this.body = body;
     return this;
   }
 
   /**
-   * Adds string content to the request (used with POST/PUT). This will encapsulate the string into
+   * Sets the string content to the request (used with POST/PUT). This will encapsulate the string into
    * a {@link RequestBody} encoded with UTF-8
    * 
    * @param content the content to POST/PUT
@@ -267,21 +266,21 @@ public class RequestBuilder {
    * 
    * @return this
    */
-  public RequestBuilder withBodyContent(String content, String contentType) {
+  public RequestBuilder bodyContent(String content, String contentType) {
     body = RequestBody.create(MediaType.parse(contentType), content);
     return this;
   }
 
   /**
    * Adds a JSON content to the request (used with POST/PUT). This will encapsulate the json into a
-   * {@link RequestBody} encoded with UTF-8 and use "application/json" as Content-Type
+   * {@link RequestBody} encoded with UTF-8 and use {@code "application/json"} as Content-Type
    * 
    * @param json the JsonObject json
    * 
    * @return this
    */
-  public RequestBuilder withBodyJson(JsonObject json) {
-    return withBodyContent(json.toString(), HttpMediaType.APPLICATION_JSON);
+  public RequestBuilder bodyJson(JsonObject json) {
+    return bodyContent(json.toString(), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -291,22 +290,8 @@ public class RequestBuilder {
    * 
    * @return this
    */
-  public RequestBuilder withForm(Object... args) {
+  public RequestBuilder form(Object... args) {
     return with(formParams, args);
-  }
-
-  /**
-   * Adds form parameters.
-   * 
-   * @param parameters a list of name-value form parameters
-   * 
-   * @return this
-   */
-  public RequestBuilder withFormMap(Map<String, Object> parameters) {
-    for (final Map.Entry<String, Object> entry : parameters.entrySet()) {
-      withForm(entry.getKey(), entry.getValue());
-    }
-    return this;
   }
 
   /**
@@ -316,7 +301,7 @@ public class RequestBuilder {
    * 
    * @return this
    */
-  public RequestBuilder withHeader(Object... args) {
+  public RequestBuilder header(Object... args) {
     return with(headers, args);
   }
 
@@ -327,22 +312,8 @@ public class RequestBuilder {
    * 
    * @return this
    */
-  public RequestBuilder withQuery(Object... args) {
+  public RequestBuilder query(Object... args) {
     return with(queryParams, args);
-  }
-
-  /**
-   * Adds query parameters.
-   * 
-   * @param parameters a list of name-value query parameters
-   * 
-   * @return this
-   */
-  public RequestBuilder withQueryMap(Map<String, Object> parameters) {
-    for (final Map.Entry<String, Object> entry : parameters.entrySet()) {
-      withQuery(entry.getKey(), entry.getValue());
-    }
-    return this;
   }
 
 }
