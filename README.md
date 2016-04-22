@@ -73,6 +73,21 @@ service.getDialogs().enqueue(new ServiceCallback<List<Dialog>>() {
 
 For more information, take a look at the [CHANGELOG](CHANGELOG.md).
 
+## Migration
+
+To migrate to 3.0 from a previous version, simply add `.execute()` to the old methods.
+For example if you previously had
+```java
+List<Dialog> dialogs = dialogService.getDialogs();
+System.out.println(dialogs);
+```
+Just add `execute()` on the end and your code will work exactly the same as before.
+
+```java
+List<Dialog> dialogs = dialogService.getDialogs().execute();
+System.out.println(dialogs);
+```
+
 ## Installation
 
 ##### Maven
