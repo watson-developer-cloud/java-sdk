@@ -19,10 +19,10 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -79,7 +79,7 @@ public class NaturalLanguageClassifier extends WatsonService {
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty(TEXT, text);
     final String path = String.format(PATH_CLASSIFY, classifierId);
-    final Request request = RequestBuilder.post(path).withBodyJson(contentJson).build();
+    final Request request = RequestBuilder.post(path).bodyJson(contentJson).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(Classification.class));
   }
 
@@ -112,7 +112,7 @@ public class NaturalLanguageClassifier extends WatsonService {
             RequestBody.create(HttpMediaType.BINARY_FILE, trainingData))
         .addFormDataPart(TRAINING_METADATA, contentJson.toString()).build();
 
-    final Request request = RequestBuilder.post(PATH_CLASSIFIERS).withBody(body).build();
+    final Request request = RequestBuilder.post(PATH_CLASSIFIERS).body(body).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(Classifier.class));
   }
 

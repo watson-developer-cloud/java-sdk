@@ -15,8 +15,21 @@ package com.ibm.watson.developer_cloud.dialog.v1.model;
 
 import java.util.Date;
 
+import com.ibm.watson.developer_cloud.util.Validator;
+
 /**
- * Conversational data options used by the {@link Dialog} service.
+ * Conversational data options used by the {@link Dialog} service.<br>
+ * <br>
+ * Here is an example of how to create a {@link ConversationDataOptions}:
+ * 
+ * <pre>
+ * <code>
+ * ConversationDataOptions options = new ConversationDataOptions.Builder()
+     .dialogId(&quot;dialog-id-here&quot;)
+     .offset(0)
+     .limit(10).build();
+  </code>
+ * </pre>
  */
 public class ConversationDataOptions {
   private String dialogId;
@@ -25,28 +38,113 @@ public class ConversationDataOptions {
   private Integer offset;
   private Date to;
 
+  /**
+   * Instantiates a new conversation data options.
+   *
+   * @param builder the builder
+   */
+  private ConversationDataOptions(Builder builder) {
+    this.dialogId = builder.dialogId;
+    this.from = builder.from;
+    this.limit = builder.limit;
+    this.offset = builder.offset;
+    this.to = builder.to;
+  }
 
   /**
-   * Sets the dialog id.
+   * New builder.
    *
-   * @param dialogId the dialog id
-   * @return the conversation data options
+   * @return the builder
    */
-  public ConversationDataOptions dialogId(String dialogId) {
-    this.dialogId = dialogId;
-    return this;
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
 
   /**
-   * Sets the 'from' date.
-   *
-   * @param from the from
-   * @return the conversation data options
+   * Builder.
    */
-  public ConversationDataOptions from(Date from) {
-    this.from = from;
-    return this;
+  public static class Builder {
+    private String dialogId;
+    private Date from;
+    private Integer limit;
+    private Integer offset;
+    private Date to;
+
+    public Builder() {}
+
+    private Builder(ConversationDataOptions options) {
+      this.dialogId = options.dialogId;
+      this.from = options.from;
+      this.limit = options.limit;
+      this.offset = options.offset;
+      this.to = options.to;
+    }
+
+    /**
+     * Builds the conversation options
+     *
+     * @return the conversation data options
+     */
+    public ConversationDataOptions build() {
+      Validator.notNull(dialogId, "dialogId cannot be null");
+      return new ConversationDataOptions(this);
+    }
+
+    /**
+     * Sets the dialog id.
+     *
+     * @param dialogId the dialog id
+     * @return the builder
+     */
+    public Builder dialogId(String dialogId) {
+      this.dialogId = dialogId;
+      return this;
+    }
+
+    /**
+     * Sets the 'from' date.
+     *
+     * @param from the from
+     * @return the builder
+     */
+    public Builder from(Date from) {
+      this.from = from;
+      return this;
+    }
+
+    /**
+     * Sets the data limit.
+     *
+     * @param limit the limit
+     * @return the builder
+     */
+    public Builder limit(Integer limit) {
+      this.limit = limit;
+      return this;
+    }
+
+    /**
+     * Sets the data offset.
+     *
+     * @param offset the offset
+     * @return the builder
+     */
+    public Builder offset(Integer offset) {
+      this.offset = offset;
+      return this;
+    }
+
+    /**
+     * Sets the 'to' date.
+     *
+     * @param to the to
+     * @return the builder
+     */
+    public Builder to(Date to) {
+      this.to = to;
+      return this;
+    }
   }
 
   /**
@@ -54,7 +152,7 @@ public class ConversationDataOptions {
    *
    * @return the dialog id
    */
-  public String getDialogId() {
+  public String dialogId() {
     return dialogId;
   }
 
@@ -63,7 +161,7 @@ public class ConversationDataOptions {
    *
    * @return the from
    */
-  public Date getFrom() {
+  public Date from() {
     return from;
   }
 
@@ -72,7 +170,7 @@ public class ConversationDataOptions {
    *
    * @return the limit
    */
-  public Integer getLimit() {
+  public Integer limit() {
     return limit;
   }
 
@@ -81,7 +179,7 @@ public class ConversationDataOptions {
    *
    * @return the offset
    */
-  public Integer getOffset() {
+  public Integer offset() {
     return offset;
   }
 
@@ -90,41 +188,8 @@ public class ConversationDataOptions {
    *
    * @return the to
    */
-  public Date getTo() {
+  public Date to() {
     return to;
-  }
-
-  /**
-   * Sets the data limit.
-   *
-   * @param limit the limit
-   * @return the conversation data options
-   */
-  public ConversationDataOptions limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-  /**
-   * Sets the data offset.
-   *
-   * @param offset the offset
-   * @return the conversation data options
-   */
-  public ConversationDataOptions offset(Integer offset) {
-    this.offset = offset;
-    return this;
-  }
-
-  /**
-   * Sets the 'to' date.
-   *
-   * @param to the to
-   * @return the conversation data options
-   */
-  public ConversationDataOptions to(Date to) {
-    this.to = to;
-    return this;
   }
 
 }

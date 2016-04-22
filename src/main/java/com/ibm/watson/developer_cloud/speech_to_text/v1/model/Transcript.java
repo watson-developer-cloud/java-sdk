@@ -63,15 +63,4 @@ public class Transcript extends GenericModel {
   public void setFinal(final boolean finalValue) {
     this._final = finalValue;
   }
-
-  /**
-   * With alternatives.
-   * 
-   * @param alternatives the alternatives
-   * @return the speech
-   */
-  public Transcript withAlternatives(final List<SpeechAlternative> alternatives) {
-    this.alternatives = alternatives;
-    return this;
-  }
 }

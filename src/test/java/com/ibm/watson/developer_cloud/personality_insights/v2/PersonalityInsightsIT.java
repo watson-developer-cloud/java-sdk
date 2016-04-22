@@ -84,7 +84,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ContentItem cItem = new ContentItem().content(englishText).created(new Date());
-    ProfileOptions options = new ProfileOptions().contentItems(Arrays.asList(cItem));
+    ProfileOptions options = new ProfileOptions.Builder().contentItems(Arrays.asList(cItem)).build();
     Profile profile = service.getProfile(options).execute();
 
     assertProfile(profile);

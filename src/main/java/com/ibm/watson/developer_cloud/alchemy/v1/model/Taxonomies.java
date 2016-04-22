@@ -44,15 +44,4 @@ public class Taxonomies extends AlchemyLanguageGenericModel {
   public void setTaxonomy(List<Taxonomy> taxonomy) {
     this.taxonomy = taxonomy;
   }
-
-  /**
-   * With taxonomy.
-   * 
-   * @param taxonomy the taxonomy
-   * @return the taxonomy
-   */
-  public Taxonomies withTaxonomy(List<Taxonomy> taxonomy) {
-    this.taxonomy = taxonomy;
-    return this;
-  }
 }

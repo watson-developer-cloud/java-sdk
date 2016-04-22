@@ -20,11 +20,7 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
  * Numeric column. See {@link TradeoffAnalytics}
  */
 public class NumericColumn extends Column {
-
-  /** The high. */
   private Double high;
-
-  /** The low. */
   private Double low;
 
   /**

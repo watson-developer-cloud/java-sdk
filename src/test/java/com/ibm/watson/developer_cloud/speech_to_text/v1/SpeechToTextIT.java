@@ -156,8 +156,13 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testRecognizeFileStringRecognizeOptions() {
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
     String contentType = HttpMediaType.AUDIO_WAV;
-    RecognizeOptions options = new RecognizeOptions();
-    options.continuous(true).timestamps(true).wordConfidence(true).model(EN_BROADBAND16K).contentType(contentType);
+    RecognizeOptions options = new RecognizeOptions.Builder()
+      .continuous(true)
+      .timestamps(true)
+      .wordConfidence(true)
+      .model(EN_BROADBAND16K)
+      .contentType(contentType)
+      .build();
     SpeechResults results = service.recognize(audio, options).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTimestamps());
@@ -172,10 +177,14 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
-    RecognizeOptions options = new RecognizeOptions();
-    options.continuous(true).interimResults(true);
-    options.inactivityTimeout(40).timestamps(true).maxAlternatives(2);
-    options.model(EN_BROADBAND16K).contentType(HttpMediaType.AUDIO_WAV);
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .continuous(true)
+        .interimResults(true)
+        .inactivityTimeout(40)
+        .timestamps(true)
+        .maxAlternatives(2)
+        .model(EN_BROADBAND16K)
+        .contentType(HttpMediaType.AUDIO_WAV).build();
     FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/sample1.wav");
     
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {

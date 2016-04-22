@@ -27,9 +27,9 @@ import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ContentItem;
+import com.ibm.watson.developer_cloud.personality_insights.v2.model.Language;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions.Language;
 
 /**
  * The Class PersonalityInsightsTest.
@@ -82,7 +82,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
         .respond(response().withHeaders(APPLICATION_JSON).withBody(profile.toString()));
 
     // test
-    ProfileOptions options = new ProfileOptions().addContentItem(contentItem);
+    ProfileOptions options = new ProfileOptions.Builder().addContentItem(contentItem).build();
     Profile profile = service.getProfile(options).execute();
     Assert.assertNotNull(profile);
     Assert.assertEquals(profile, this.profile);
@@ -98,7 +98,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
             .withHeader(HttpHeaders.CONTENT_LANGUAGE, "en").withBody(text)).respond(
         response().withHeaders(APPLICATION_JSON).withBody(profile.toString()));
 
-    ProfileOptions options = new ProfileOptions().text(text).language(Language.ENGLISH);
+    ProfileOptions options = new ProfileOptions.Builder().text(text).language(Language.ENGLISH).build();
     Profile profile = service.getProfile(options).execute();
 
     Assert.assertNotNull(profile);
@@ -116,7 +116,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
         response().withHeaders(APPLICATION_JSON).withBody(profile.toString()));
 
 
-    ProfileOptions options = new ProfileOptions().text(text).language(Language.SPANISH);
+    ProfileOptions options = new ProfileOptions.Builder().text(text).language(Language.SPANISH).build();
     Profile profile = service.getProfile(options).execute();
 
     Assert.assertNotNull(profile);

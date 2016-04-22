@@ -59,7 +59,7 @@ public class SolrClusterOptions {
    * 
    * @return the cluster name
    */
-  public String getClusterName() {
+  public String clusterName() {
     return clusterName;
   }
 
@@ -68,7 +68,7 @@ public class SolrClusterOptions {
    *
    * @return the cluster size
    */
-  public Integer getClusterSize() {
+  public Integer clusterSize() {
     if (FREE_CLUSTER_SIZE.equals(clusterSize)) {
       return null;
     }

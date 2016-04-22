@@ -47,17 +47,6 @@ public class Problem extends GenericModel {
   }
 
   /**
-   * Sets columns.
-   * 
-   * @param columns the columns
-   * @return the problem
-   */
-  public Problem columns(List<Column> columns) {
-    this.columns = columns;
-    return this;
-  }
-
-  /**
    * Gets the columns.
    * 
    * @return The columns
@@ -85,17 +74,6 @@ public class Problem extends GenericModel {
   }
 
   /**
-   * Sets options.
-   * 
-   * @param options the options
-   * @return the problem
-   */
-  public Problem options(List<Option> options) {
-    this.options = options;
-    return this;
-  }
-
-  /**
    * Sets the columns.
    * 
    * @param columns The columns
@@ -120,17 +98,6 @@ public class Problem extends GenericModel {
    */
   public void setSubject(String subject) {
     this.subject = subject;
-  }
-
-  /**
-   * Sets subject.
-   * 
-   * @param subject the subject
-   * @return the problem
-   */
-  public Problem subject(String subject) {
-    this.subject = subject;
-    return this;
   }
 
 }

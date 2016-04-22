@@ -23,14 +23,14 @@ import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
-import com.ibm.watson.developer_cloud.service.ResponseConverter;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -89,28 +89,28 @@ public class LanguageTranslation extends WatsonService {
    */
   public ServiceCall<TranslationModel> createModel(CreateModelOptions options) {
     Validator.notNull(options, "options cannot be null");
-    Validator.notEmpty(options.getBaseModelId(), "options.baseModelId cannot be null or empty");
+    Validator.notEmpty(options.baseModelId(), "options.baseModelId cannot be null or empty");
 
     final RequestBuilder requestBuilder = RequestBuilder.post(PATH_MODELS);
-    requestBuilder.withQuery(BASE_MODEL_ID, options.getBaseModelId());
+    requestBuilder.query(BASE_MODEL_ID, options.baseModelId());
 
-    if (options.getName() != null)
-      requestBuilder.withQuery(NAME, options.getName());
+    if (options.name() != null)
+      requestBuilder.query(NAME, options.name());
 
     final MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
     // either forced glossary, monolingual corpus or parallel corpus should be specified
-    if (options.getForcedGlossary() != null)
-      bodyBuilder.addFormDataPart(FORCED_GLOSSARY, options.getForcedGlossary().getName(),
-          RequestBody.create(HttpMediaType.BINARY_FILE, options.getForcedGlossary()));
-    if (options.getMonolingualCorpus() != null)
-      bodyBuilder.addFormDataPart(MONOLINGUAL_CORPUS, options.getMonolingualCorpus().getName(),
-          RequestBody.create(HttpMediaType.BINARY_FILE, options.getMonolingualCorpus()));
-    if (options.getParallelCorpus() != null)
-      bodyBuilder.addFormDataPart(PARALLEL_CORPUS, options.getParallelCorpus().getName(),
-          RequestBody.create(HttpMediaType.BINARY_FILE, options.getParallelCorpus()));
+    if (options.forcedGlossary() != null)
+      bodyBuilder.addFormDataPart(FORCED_GLOSSARY, options.forcedGlossary().getName(),
+          RequestBody.create(HttpMediaType.BINARY_FILE, options.forcedGlossary()));
+    if (options.monolingualCorpus() != null)
+      bodyBuilder.addFormDataPart(MONOLINGUAL_CORPUS, options.monolingualCorpus().getName(),
+          RequestBody.create(HttpMediaType.BINARY_FILE, options.monolingualCorpus()));
+    if (options.parallelCorpus() != null)
+      bodyBuilder.addFormDataPart(PARALLEL_CORPUS, options.parallelCorpus().getName(),
+          RequestBody.create(HttpMediaType.BINARY_FILE, options.parallelCorpus()));
 
-    return createServiceCall(requestBuilder.withBody(bodyBuilder.build()).build(),
+    return createServiceCall(requestBuilder.body(bodyBuilder.build()).build(),
         ResponseConverterUtils.getObject(TranslationModel.class));
   }
 
@@ -182,13 +182,13 @@ public class LanguageTranslation extends WatsonService {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_MODELS);
 
     if (source != null && !source.isEmpty())
-      requestBuilder.withQuery(SOURCE, source);
+      requestBuilder.query(SOURCE, source);
 
     if (target != null && !target.isEmpty())
-      requestBuilder.withQuery(TARGET, source);
+      requestBuilder.query(TARGET, source);
 
     if (showDefault != null)
-      requestBuilder.withQuery(DEFAULT, showDefault);
+      requestBuilder.query(DEFAULT, showDefault);
 
     ResponseConverter<List<TranslationModel>> converter =
         ResponseConverterUtils.getGenericObject(TYPE_LIST_TRANSLATION_MODEL, MODELS);
@@ -204,7 +204,7 @@ public class LanguageTranslation extends WatsonService {
    */
   public ServiceCall<List<IdentifiedLanguage>> identify(final String text) {
     final RequestBuilder requestBuilder = RequestBuilder.post(PATH_IDENTIFY)
-        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).withBodyContent(text, HttpMediaType.TEXT_PLAIN);
+        .header(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).bodyContent(text, HttpMediaType.TEXT_PLAIN);
 
     ResponseConverter<List<IdentifiedLanguage>> converter =
         ResponseConverterUtils.getGenericObject(TYPE_LIST_IDENTIFIED_LANGUAGE, LANGUAGES);
@@ -270,7 +270,7 @@ public class LanguageTranslation extends WatsonService {
     contentJson.add(TEXT, paragraphs);
 
     final RequestBuilder requestBuilder =
-        RequestBuilder.post(PATH_TRANSLATE).withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
+        RequestBuilder.post(PATH_TRANSLATE).header(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
 
     if (source != null)
       contentJson.addProperty(SOURCE, source.toString());
@@ -281,7 +281,7 @@ public class LanguageTranslation extends WatsonService {
     if (modelId != null && !modelId.isEmpty())
       contentJson.addProperty(MODEL_ID, modelId);
 
-    requestBuilder.withBodyJson(contentJson);
+    requestBuilder.bodyJson(contentJson);
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(TranslationResult.class));
   }
 

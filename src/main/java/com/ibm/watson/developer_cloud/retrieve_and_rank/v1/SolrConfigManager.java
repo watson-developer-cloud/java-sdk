@@ -16,8 +16,8 @@ package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 import java.io.File;
 import java.io.InputStream;
 
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrConfigs;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 
 /**
  * Manages Solr Clusters configuration.

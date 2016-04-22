@@ -65,8 +65,11 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateAndDeleteModel() {
-    CreateModelOptions options = new CreateModelOptions("integration-test", "en-es");
-    options.forcedGlossary(new File(RESOURCE + "glossary.tmx"));
+    CreateModelOptions options = new CreateModelOptions.Builder()
+        .name("integration-test")
+        .baseModelId("en-es")
+        .forcedGlossary(new File(RESOURCE + "glossary.tmx"))
+        .build();
 
     TranslationModel model = null;
     try {

@@ -65,26 +65,4 @@ public class Dialog extends GenericModel {
   public void setName(final String name) {
     this.name = name;
   }
-
-  /**
-   * With dialog id.
-   * 
-   * @param id the id
-   * @return the dialog
-   */
-  public Dialog withDialogId(final String id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * With name.
-   * 
-   * @param name the name
-   * @return the dialog
-   */
-  public Dialog withName(final String name) {
-    this.name = name;
-    return this;
-  }
 }

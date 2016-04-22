@@ -65,15 +65,4 @@ public class SAORelations extends AlchemyLanguageGenericModel {
   public void setText(String text) {
     this.text = text;
   }
-
-  /**
-   * With relations.
-   * 
-   * @param relations the relations
-   * @return the relations
-   */
-  public SAORelations withRelations(List<SAORelation> relations) {
-    this.relations = relations;
-    return this;
-  }
 }

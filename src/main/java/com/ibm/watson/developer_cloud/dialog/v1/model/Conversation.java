@@ -141,48 +141,4 @@ public class Conversation extends GenericModel {
   public void setResponse(final List<String> response) {
     this.response = response;
   }
-
-  /**
-   * With client id.
-   * 
-   * @param clientId the client id
-   * @return the conversation
-   */
-  public Conversation withClientId(final int clientId) {
-    this.clientId = clientId;
-    return this;
-  }
-
-  /**
-   * With confidence.
-   * 
-   * @param confidence the confidence
-   * @return the conversation
-   */
-  public Conversation withConfidence(final Double confidence) {
-    this.confidence = confidence;
-    return this;
-  }
-
-  /**
-   * With conversation id.
-   * 
-   * @param id the id
-   * @return the conversation
-   */
-  public Conversation withId(final int id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * With input.
-   * 
-   * @param input the input
-   * @return the conversation
-   */
-  public Conversation withInput(final String input) {
-    this.input = input;
-    return this;
-  }
 }

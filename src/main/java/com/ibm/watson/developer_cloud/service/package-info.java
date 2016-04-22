@@ -1,6 +1,6 @@
 /**
- * This package contains generic collection interfaces and implementations, and
- * other utilities for working with Watson services.
+ * This package contains Watson and Alchemy generic service implementation.<br>
+ * Services will extend this classes with concrete implementations
  */
 package com.ibm.watson.developer_cloud.service;
 

@@ -32,8 +32,8 @@ import com.ibm.watson.developer_cloud.dialog.v1.model.DialogContent;
 import com.ibm.watson.developer_cloud.dialog.v1.model.NameValue;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.service.ResponseConverter;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
@@ -137,9 +137,9 @@ public class DialogService extends WatsonService {
     final String path = String.format(PATH_DIALOG_CONVERSATION, conversation.getDialogId());
 
     final RequestBuilder requestBuilder = RequestBuilder.post(path);
-    requestBuilder.withForm(CONVERSATION_ID, conversation.getId());
-    requestBuilder.withForm(CLIENT_ID, conversation.getClientId());
-    requestBuilder.withForm(INPUT, newMessage);
+    requestBuilder.form(CONVERSATION_ID, conversation.getId());
+    requestBuilder.form(CLIENT_ID, conversation.getClientId());
+    requestBuilder.form(INPUT, newMessage);
 
     return createServiceCall(requestBuilder.build(), new ResponseConverter<Conversation>() {
       @Override
@@ -179,7 +179,7 @@ public class DialogService extends WatsonService {
         .addFormDataPart(FILE, dialogFile.getName(), RequestBody.create(HttpMediaType.BINARY_FILE, dialogFile))
         .addFormDataPart(NAME, name).build();
 
-    final Request request = RequestBuilder.post(PATH_DIALOGS).withBody(body).build();
+    final Request request = RequestBuilder.post(PATH_DIALOGS).body(body).build();
 
     return createServiceCall(request, ResponseConverterUtils.getObject(Dialog.class));
   }
@@ -221,26 +221,26 @@ public class DialogService extends WatsonService {
    */
   public ServiceCall<List<ConversationData>> getConversationData(ConversationDataOptions options) {
     Validator.notNull(options, "options cannot be null");
-    Validator.isTrue(options.getDialogId() != null && !options.getDialogId().isEmpty(),
+    Validator.isTrue(options.dialogId() != null && !options.dialogId().isEmpty(),
         "options.dialogId cannot be null or empty");
 
-    Validator.notNull(options.getFrom(), "options.from cannot be null");
-    Validator.notNull(options.getTo(), "options.to cannot be null");
+    Validator.notNull(options.from(), "options.from cannot be null");
+    Validator.notNull(options.to(), "options.to cannot be null");
 
-    if (options.getFrom().after(options.getTo()))
+    if (options.from().after(options.to()))
       throw new IllegalArgumentException("options.from is greater than options.to");
 
-    final String fromString = DATE_FORMATTER.format(options.getFrom());
-    final String toString = DATE_FORMATTER.format(options.getTo());
+    final String fromString = DATE_FORMATTER.format(options.from());
+    final String toString = DATE_FORMATTER.format(options.to());
 
-    final String path = String.format(PATH_DIALOG_CONVERSATION, options.getDialogId());
+    final String path = String.format(PATH_DIALOG_CONVERSATION, options.dialogId());
 
-    final RequestBuilder requestBuilder = RequestBuilder.get(path).withQuery(DATE_FROM, fromString, DATE_TO, toString);
+    final RequestBuilder requestBuilder = RequestBuilder.get(path).query(DATE_FROM, fromString, DATE_TO, toString);
 
-    if (options.getOffset() != null)
-      requestBuilder.withQuery(OFFSET, options.getOffset());
-    if (options.getLimit() != null)
-      requestBuilder.withQuery(LIMIT, options.getLimit());
+    if (options.offset() != null)
+      requestBuilder.query(OFFSET, options.offset());
+    if (options.limit() != null)
+      requestBuilder.query(LIMIT, options.limit());
 
     final Request request = requestBuilder.build();
     ResponseConverter<List<ConversationData>> converter =
@@ -286,11 +286,11 @@ public class DialogService extends WatsonService {
     Validator.notNull(clientId, "clientId cannot be null");
 
     final RequestBuilder requestBuilder =
-        RequestBuilder.get(String.format(PATH_PROFILE, dialogId)).withQuery(CLIENT_ID, clientId);
+        RequestBuilder.get(String.format(PATH_PROFILE, dialogId)).query(CLIENT_ID, clientId);
 
     if (names != null) {
       for (final String name : names) {
-        requestBuilder.withQuery(NAME, name);
+        requestBuilder.query(NAME, name);
       }
     }
 
@@ -319,7 +319,7 @@ public class DialogService extends WatsonService {
     final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
         .addFormDataPart(FILE, dialogFile.getName(), RequestBody.create(HttpMediaType.BINARY_FILE, dialogFile)).build();
 
-    final Request request = RequestBuilder.put(String.format(PATH_DIALOG, dialogId)).withBody(body).build();
+    final Request request = RequestBuilder.put(String.format(PATH_DIALOG, dialogId)).body(body).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
@@ -357,7 +357,7 @@ public class DialogService extends WatsonService {
 
     contentJson.add(NAME_VALUES, GSON.toJsonTree(toNameValue(profile)));
 
-    final Request request = RequestBuilder.put(String.format(PATH_PROFILE, dialogId)).withBodyJson(contentJson).build();
+    final Request request = RequestBuilder.put(String.format(PATH_PROFILE, dialogId)).bodyJson(contentJson).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 

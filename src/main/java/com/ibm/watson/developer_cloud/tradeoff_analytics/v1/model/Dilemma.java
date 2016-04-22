@@ -62,27 +62,4 @@ public class Dilemma extends GenericModel {
   public void setResolution(Resolution resolution) {
     this.resolution = resolution;
   }
-
-  /**
-   * With problem.
-   * 
-   * @param problem the problem
-   * @return the dilemma
-   */
-  public Dilemma withProblem(Problem problem) {
-    this.problem = problem;
-    return this;
-  }
-
-  /**
-   * With resolution.
-   * 
-   * @param resolution the resolution
-   * @return the dilemma
-   */
-  public Dilemma withResolution(Resolution resolution) {
-    this.resolution = resolution;
-    return this;
-  }
-
 }

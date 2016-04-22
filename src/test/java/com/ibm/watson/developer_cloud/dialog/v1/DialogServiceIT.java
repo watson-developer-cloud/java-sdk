@@ -113,8 +113,12 @@ public class DialogServiceIT extends WatsonServiceTest {
     assertEquals(service.getProfile(dialogId, c.getClientId()).execute().get(variable), "foo");
     assertEquals(service.getProfile(dialogId, c.getClientId(), variable).execute().get(variable), "foo");
 
-    ConversationDataOptions options = new ConversationDataOptions();
-    options.from(DateUtils.addDays(new Date(), -10)).to(new Date()).dialogId(dialogId).offset(0).limit(10);
+    ConversationDataOptions options = new ConversationDataOptions.Builder()
+        .from(DateUtils.addDays(new Date(), -10))
+        .to(new Date())
+        .dialogId(dialogId)
+        .offset(0)
+        .limit(10).build();
 
     List<ConversationData> data = service.getConversationData(options).execute();
     assertNotNull(data);

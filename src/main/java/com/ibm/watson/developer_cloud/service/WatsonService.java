@@ -30,6 +30,9 @@ import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
+import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.ConflictException;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
@@ -217,8 +220,8 @@ public abstract class WatsonService {
     Type tokenType = new TypeToken<String>() {}.getType();
     HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, AUTHORIZATION).build();
     Request request = RequestBuilder.get(url + PATH_AUTHORIZATION_V1_TOKEN)
-        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN)
-        .withQuery(URL, getEndPoint())
+        .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN)
+        .query(URL, getEndPoint())
         .build();
     
     ResponseConverter<String> converter = ResponseConverterUtils.getGenericObject(tokenType, TOKEN);

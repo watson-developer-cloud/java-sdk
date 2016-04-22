@@ -44,7 +44,7 @@ import com.ibm.watson.developer_cloud.concept_insights.v2.util.IDHelper;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
@@ -164,7 +164,7 @@ public class ConceptInsights extends WatsonService {
     final RequestBuilder requestBuilder = RequestBuilder.get(resourcePath);
     if (queryParams != null && !queryParams.isEmpty()) {
       for (final Map.Entry<String, Object> entry : queryParams.entrySet()) {
-        requestBuilder.withQuery(entry.getKey(), entry.getValue());
+        requestBuilder.query(entry.getKey(), entry.getValue());
       }
     }
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(returnType));
@@ -193,8 +193,8 @@ public class ConceptInsights extends WatsonService {
     Validator.notEmpty(text, "text cannot be empty");
 
     final Request request =
-        RequestBuilder.post(API_VERSION + graphId + ANNOTATE_TEXT_PATH).withBodyContent(text, HttpMediaType.TEXT_PLAIN)
-            .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).build();
+        RequestBuilder.post(API_VERSION + graphId + ANNOTATE_TEXT_PATH).bodyContent(text, HttpMediaType.TEXT_PLAIN)
+            .header(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).build();
 
     return createServiceCall(request, ResponseConverterUtils.getObject(Annotations.class));
   }
@@ -259,7 +259,7 @@ public class ConceptInsights extends WatsonService {
   public ServiceCall<Void> createCorpus(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
     final Request request = RequestBuilder.put(API_VERSION + corpusId)
-        .withBodyContent(GSON.toJson(corpus), HttpMediaType.APPLICATION_JSON).build();
+        .bodyContent(GSON.toJson(corpus), HttpMediaType.APPLICATION_JSON).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
@@ -272,7 +272,7 @@ public class ConceptInsights extends WatsonService {
   public ServiceCall<Void> createDocument(final Document document) {
     IDHelper.getDocumentId(document);
     final Request request = RequestBuilder.put(API_VERSION + document.getId())
-        .withBodyContent(GSON.toJson(document), HttpMediaType.APPLICATION_JSON).build();
+        .bodyContent(GSON.toJson(document), HttpMediaType.APPLICATION_JSON).build();
 
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
@@ -776,7 +776,7 @@ public class ConceptInsights extends WatsonService {
   public ServiceCall<Void> updateCorpus(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
     final Request request = RequestBuilder.post(API_VERSION + corpusId)
-        .withBodyContent(GSON.toJson(corpus), HttpMediaType.APPLICATION_JSON).build();
+        .bodyContent(GSON.toJson(corpus), HttpMediaType.APPLICATION_JSON).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
@@ -789,7 +789,7 @@ public class ConceptInsights extends WatsonService {
   public ServiceCall<Void> updateDocument(final Document document) {
     final String documentId = IDHelper.getDocumentId(document);
     final Request request = RequestBuilder.post(API_VERSION + documentId)
-        .withBodyContent(GSON.toJson(document), HttpMediaType.APPLICATION_JSON).build();
+        .bodyContent(GSON.toJson(document), HttpMediaType.APPLICATION_JSON).build();
 
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }

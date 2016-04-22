@@ -17,59 +17,151 @@ package com.ibm.watson.developer_cloud.personality_insights.v2.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Profile Options when using the {@link PersonalityInsights#getProfile(ProfileOptions)} method.
  */
-public class ProfileOptions extends GenericModel {
-  private String text;
-  private String contentType;
-  private List<ContentItem> contentItems;
-  private Boolean includeRaw;
+public class ProfileOptions {
+  
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private AcceptLanguage acceptLanguage;
+    private List<ContentItem> contentItems;
+    private String contentType;
+    private Boolean includeRaw;
+    private Language language;
+    private String text;
+
+    private Builder(ProfileOptions options) {
+      this.text = options.text;
+      this.contentType = options.contentType;
+      this.contentItems = options.contentItems;
+      this.includeRaw = options.includeRaw;
+      this.acceptLanguage = options.acceptLanguage;
+      this.language = options.language;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {}
+
+    /**
+     * Accept language.
+     * 
+     * @param acceptLanguage the accept language
+     * @return the profile options
+     */
+    public Builder acceptLanguage(AcceptLanguage acceptLanguage) {
+      this.acceptLanguage = acceptLanguage;
+      return this;
+    }
+
+    /**
+     * Adds a content items.
+     * 
+     * @param contentItem the content item
+     * @return the profile options
+     */
+    public Builder addContentItem(ContentItem contentItem) {
+      if (this.contentItems == null) {
+        this.contentItems = new ArrayList<ContentItem>();
+        this.contentType = HttpMediaType.APPLICATION_JSON;
+      }
+      this.contentItems.add(contentItem);
+      return this;
+    }
+
+    /**
+     * Builds the profile options.
+     *
+     * @return the profile options
+     */
+    public ProfileOptions build() {
+      return new ProfileOptions(this);
+    }
+
+    /**
+     * Content items.
+     * 
+     * @param contentItems the content items
+     * @return the profile options
+     */
+    public Builder contentItems(List<ContentItem> contentItems) {
+      this.contentItems = contentItems;
+      this.contentType = HttpMediaType.APPLICATION_JSON;
+      return this;
+    }
+
+    /**
+     * Html.
+     * 
+     * @param html the html
+     * @return the profile options
+     */
+    public Builder html(String html) {
+      this.text = html;
+      this.contentType = HttpMediaType.TEXT_HTML;
+      return this;
+    }
+
+
+    /**
+     * Include raw.
+     * 
+     * @param includeRaw the include raw
+     * @return the profile options
+     */
+    public Builder includeRaw(boolean includeRaw) {
+      this.includeRaw = includeRaw;
+      return this;
+    }
+
+    /**
+     * Language.
+     * 
+     * @param language the language
+     * @return the profile options
+     */
+    public Builder language(Language language) {
+      this.language = language;
+      return this;
+    }
+
+    /**
+     * Text.
+     * 
+     * @param text the text
+     * @return the profile options
+     */
+    public Builder text(String text) {
+      this.text = text;
+      this.contentType = HttpMediaType.TEXT_PLAIN;
+      return this;
+    }
+  }
+
   private AcceptLanguage acceptLanguage;
+  private List<ContentItem> contentItems;
+  private String contentType;
+  private Boolean includeRaw;
   private Language language;
+  private String text;
+  private ProfileOptions(Builder builder) {
+    Validator.isTrue((builder.text != null && !builder.text.isEmpty())
+        || (builder.contentItems != null && !builder.contentItems.isEmpty()), "text or contentItems are required");
 
-
-  /**
-   * Gets the text.
-   * 
-   * @return the text
-   */
-  public String getText() {
-    return text;
-  }
-
-
-  /**
-   * Gets the content type.
-   * 
-   * @return the contentType
-   */
-  public String getContentType() {
-    return contentType;
-  }
-
-  /**
-   * Gets the content items.
-   * 
-   * @return the contentItems
-   */
-  public List<ContentItem> getContentItems() {
-    return contentItems;
-  }
-
-
-  /**
-   * Gets the include raw.
-   * 
-   * @return the includeRaw
-   */
-  public Boolean getIncludeRaw() {
-    return includeRaw;
+    this.text = builder.text;
+    this.contentType = builder.contentType;
+    this.contentItems = builder.contentItems;
+    this.includeRaw = builder.includeRaw;
+    this.acceptLanguage = builder.acceptLanguage;
+    this.language = builder.language;
   }
 
 
@@ -78,8 +170,37 @@ public class ProfileOptions extends GenericModel {
    * 
    * @return the acceptLanguage
    */
-  public AcceptLanguage getAcceptLanguage() {
+  public AcceptLanguage acceptLanguage() {
     return acceptLanguage;
+  }
+
+
+  /**
+   * Gets the content items.
+   * 
+   * @return the contentItems
+   */
+  public List<ContentItem> contentItems() {
+    return contentItems;
+  }
+
+
+  /**
+   * Gets the content type.
+   * 
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
+  }
+
+  /**
+   * Gets the include raw.
+   * 
+   * @return the includeRaw
+   */
+  public Boolean includeRaw() {
+    return includeRaw;
   }
 
 
@@ -88,157 +209,30 @@ public class ProfileOptions extends GenericModel {
    * 
    * @return the language
    */
-  public Language getLanguage() {
+  public Language language() {
     return language;
   }
 
 
   /**
-   * The Language Status.
+   * New builder.
+   *
+   * @return the builder
    */
-  public enum Language {
-
-    /** The english. */
-    @SerializedName("en") ENGLISH("en"),
-
-    /** The spanish. */
-    @SerializedName("es") SPANISH("es");
-
-    private final String text;
-
-    /**
-     * @param text
-     */
-    private Language(final String text) {
-      this.text = text;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Enum#toString()
-     */
-    @Override
-    public String toString() {
-      return text;
-    }
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
 
   /**
-   * The Language Status.
-   */
-  public enum AcceptLanguage {
-
-    /** The english. */
-    @SerializedName("en") ENGLISH("en"),
-
-    /** The spanish. */
-    @SerializedName("es") SPANISH("es");
-
-    private final String text;
-
-    /**
-     * @param text
-     */
-    private AcceptLanguage(final String text) {
-      this.text = text;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Enum#toString()
-     */
-    @Override
-    public String toString() {
-      return text;
-    }
-  }
-
-  /**
-   * Text.
+   * Gets the text.
    * 
-   * @param text the text
-   * @return the profile options
+   * @return the text
    */
-  public ProfileOptions text(String text) {
-    this.text = text;
-    this.contentType = HttpMediaType.TEXT_PLAIN;
-    return this;
-  }
-
-  /**
-   * Html.
-   * 
-   * @param html the html
-   * @return the profile options
-   */
-  public ProfileOptions html(String html) {
-    this.text = html;
-    this.contentType = HttpMediaType.TEXT_HTML;
-    return this;
-  }
-
-  /**
-   * Content items.
-   * 
-   * @param contentItems the content items
-   * @return the profile options
-   */
-  public ProfileOptions contentItems(List<ContentItem> contentItems) {
-    this.contentItems = contentItems;
-    this.contentType = HttpMediaType.APPLICATION_JSON;
-    return this;
-  }
-
-  /**
-   * Adds a content items.
-   * 
-   * @param contentItem the content item
-   * @return the profile options
-   */
-  public ProfileOptions addContentItem(ContentItem contentItem) {
-    if (this.contentItems == null) {
-      this.contentItems = new ArrayList<ContentItem>();
-      this.contentType = HttpMediaType.APPLICATION_JSON;
-    }
-    this.contentItems.add(contentItem);
-    return this;
+  public String text() {
+    return text;
   }
 
 
-  /**
-   * Include raw.
-   * 
-   * @param includeRaw the include raw
-   * @return the profile options
-   */
-  public ProfileOptions includeRaw(boolean includeRaw) {
-    this.includeRaw = includeRaw;
-    return this;
-  }
-
-  /**
-   * Language.
-   * 
-   * @param language the language
-   * @return the profile options
-   */
-  public ProfileOptions language(Language language) {
-    this.language = language;
-    return this;
-  }
-
-  /**
-   * Accept language.
-   * 
-   * @param acceptLanguage the accept language
-   * @return the profile options
-   */
-  public ProfileOptions acceptLanguage(AcceptLanguage acceptLanguage) {
-    this.acceptLanguage = acceptLanguage;
-    return this;
-  }
 
 }

@@ -20,9 +20,9 @@ import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.service.ResponseConverter;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
-import com.ibm.watson.developer_cloud.service.ServiceCallback;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
+import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
@@ -89,32 +89,32 @@ public class SpeechToText extends WatsonService {
     if (options == null)
       return;
 
-    if (options.getWordConfidence() != null)
-      requestBuilder.withQuery(WORD_CONFIDENCE, options.getWordConfidence());
+    if (options.wordConfidence() != null)
+      requestBuilder.query(WORD_CONFIDENCE, options.wordConfidence());
 
-    if (options.getContinuous() != null)
-      requestBuilder.withQuery(CONTINUOUS, options.getContinuous());
+    if (options.continuous() != null)
+      requestBuilder.query(CONTINUOUS, options.continuous());
 
-    if (options.getMaxAlternatives() != null)
-      requestBuilder.withQuery(MAX_ALTERNATIVES, options.getMaxAlternatives());
+    if (options.maxAlternatives() != null)
+      requestBuilder.query(MAX_ALTERNATIVES, options.maxAlternatives());
 
-    if (options.getTimestamps() != null)
-      requestBuilder.withQuery(TIMESTAMPS, options.getTimestamps());
+    if (options.timestamps() != null)
+      requestBuilder.query(TIMESTAMPS, options.timestamps());
 
-    if (options.getInactivityTimeout() != null)
-      requestBuilder.withQuery(INACTIVITY_TIMEOUT, options.getInactivityTimeout());
+    if (options.inactivityTimeout() != null)
+      requestBuilder.query(INACTIVITY_TIMEOUT, options.inactivityTimeout());
 
-    if (options.getModel() != null)
-      requestBuilder.withQuery(MODEL, options.getModel());
+    if (options.model() != null)
+      requestBuilder.query(MODEL, options.model());
 
-    if (options.getKeywordsThreshold() != null)
-      requestBuilder.withQuery(KEYWORDS_THRESHOLD, options.getKeywordsThreshold());
+    if (options.keywordsThreshold() != null)
+      requestBuilder.query(KEYWORDS_THRESHOLD, options.keywordsThreshold());
 
-    if (options.getKeywords() != null && options.getKeywords().length > 0)
-      requestBuilder.withQuery(KEYWORDS, GsonSingleton.getGsonWithoutPrettyPrinting().toJson(options.getKeywords()));
+    if (options.keywords() != null && options.keywords().length > 0)
+      requestBuilder.query(KEYWORDS, GsonSingleton.getGsonWithoutPrettyPrinting().toJson(options.keywords()));
 
-    if (options.getWordAlternativesThreshold() != null)
-      requestBuilder.withQuery(WORD_ALTERNATIVES_THRESHOLD, options.getWordAlternativesThreshold());
+    if (options.wordAlternativesThreshold() != null)
+      requestBuilder.query(WORD_ALTERNATIVES_THRESHOLD, options.wordAlternativesThreshold());
   }
 
   /**
@@ -157,7 +157,7 @@ public class SpeechToText extends WatsonService {
     final RequestBuilder request = RequestBuilder.post(PATH_SESSIONS);
 
     if (model != null)
-      request.withQuery(MODEL, model);
+      request.query(MODEL, model);
 
     return createServiceCall(request.build(), ResponseConverterUtils.getObject(SpeechSession.class));
   }
@@ -270,17 +270,17 @@ public class SpeechToText extends WatsonService {
     Validator.isTrue(fileSize < 100.0, "The audio file is greater than 100MB.");
 
     String contentType = MediaTypeUtils.getMediaTypeFromFile(audio);
-    if (options != null && options.getContentType() != null)
-      contentType = options.getContentType();
+    if (options != null && options.contentType() != null)
+      contentType = options.contentType();
     Validator.notNull(contentType, "The audio format cannot be recognized");
 
     String path = PATH_RECOGNIZE;
-    if (options != null && (options.getSessionId() != null && !options.getSessionId().isEmpty()))
-      path = String.format(PATH_SESSION_RECOGNIZE, options.getSessionId());
+    if (options != null && (options.sessionId() != null && !options.sessionId().isEmpty()))
+      path = String.format(PATH_SESSION_RECOGNIZE, options.sessionId());
 
     final RequestBuilder requestBuilder = RequestBuilder.post(path);
     buildRecognizeRequest(requestBuilder, options);
-    requestBuilder.withBody(okhttp3.RequestBody.create(okhttp3.MediaType.parse(contentType), audio));
+    requestBuilder.body(okhttp3.RequestBody.create(okhttp3.MediaType.parse(contentType), audio));
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(SpeechResults.class));
   }
 
@@ -317,7 +317,7 @@ public class SpeechToText extends WatsonService {
       final RecognizeCallback callback) {
     Validator.notNull(audio, "audio cannot be null");
     Validator.notNull(options, "options cannot be null");
-    Validator.notNull(options.getContentType(), "options.contentType cannot be null");
+    Validator.notNull(options.contentType(), "options.contentType cannot be null");
     Validator.notNull(callback, "callback cannot be null");
 
 

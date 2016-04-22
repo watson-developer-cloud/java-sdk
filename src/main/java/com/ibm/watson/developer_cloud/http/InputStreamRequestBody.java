@@ -40,8 +40,6 @@ public class InputStreamRequestBody extends RequestBody {
    * @return the request body
    */
   public static RequestBody create(final MediaType mediaType, final InputStream inputStream) {
-
-
     return new InputStreamRequestBody(inputStream, mediaType);
   }
 

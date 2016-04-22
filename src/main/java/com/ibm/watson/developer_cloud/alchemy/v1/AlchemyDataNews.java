@@ -18,8 +18,8 @@ import java.util.Map;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -76,7 +76,7 @@ public class AlchemyDataNews extends AlchemyService {
 
     final RequestBuilder requestBuilder = RequestBuilder.get(NEWS_END_POINT);
     for (final String param : parameters.keySet()) {
-      requestBuilder.withQuery(param, parameters.get(param));
+      requestBuilder.query(param, parameters.get(param));
     }
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(DocumentsResult.class));
@@ -96,11 +96,11 @@ public class AlchemyDataNews extends AlchemyService {
 
     final RequestBuilder requestBuilder = RequestBuilder.get(NEWS_END_POINT);
 
-    requestBuilder.withQuery(START, start);
-    requestBuilder.withQuery(END, end);
-    requestBuilder.withQuery(OUTPUT_MODE, JSON);
+    requestBuilder.query(START, start);
+    requestBuilder.query(END, end);
+    requestBuilder.query(OUTPUT_MODE, JSON);
     if (timeSlice != null)
-      requestBuilder.withQuery(TIME_SLICE, timeSlice);
+      requestBuilder.query(TIME_SLICE, timeSlice);
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VolumeResult.class));
   }

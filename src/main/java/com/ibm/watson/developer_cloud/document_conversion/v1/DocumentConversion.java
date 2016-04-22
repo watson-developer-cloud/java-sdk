@@ -26,7 +26,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtil
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 
@@ -116,7 +116,7 @@ public class DocumentConversion extends WatsonService {
             RequestBody.create(mType, document))
         .build();
 
-    return RequestBuilder.post(CONVERT_DOCUMENT_PATH).withQuery(VERSION, versionDate).withBody(body).build();
+    return RequestBuilder.post(CONVERT_DOCUMENT_PATH).query(VERSION, versionDate).body(body).build();
   }
 
   /**

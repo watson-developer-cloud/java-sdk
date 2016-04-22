@@ -223,7 +223,7 @@ public class WebSocketManager {
    * @return the web socket call
    */
   private WebSocketCall createConnection(RecognizeOptions options) {
-    String speechModel = options.getModel() != null ? "?model=" + options.getModel() : "";
+    String speechModel = options.model() != null ? "?model=" + options.model() : "";
     Request connectionRequest =
         new Request.Builder().url(url + speechModel).addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token).build();
 

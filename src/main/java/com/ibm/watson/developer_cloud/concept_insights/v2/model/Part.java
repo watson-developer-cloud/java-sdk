@@ -45,28 +45,6 @@ public class Part extends GenericModel {
   }
 
   /**
-   * Sets the content type.
-   * 
-   * @param contentType The content-type
-   * @return the part
-   */
-  public Part contentType(String contentType) {
-    this.contentType = contentType;
-    return this;
-  }
-
-  /**
-   * Sets the data.
-   * 
-   * @param data The data
-   * @return the part
-   */
-  public Part data(String data) {
-    this.data = data;
-    return this;
-  }
-
-  /**
    * Gets the content type.
    * 
    * @return The contentType
@@ -91,18 +69,6 @@ public class Part extends GenericModel {
    */
   public String getName() {
     return name;
-  }
-
-
-  /**
-   * Sets the name.
-   * 
-   * @param name The name
-   * @return the part
-   */
-  public Part name(String name) {
-    this.name = name;
-    return this;
   }
 
   /**

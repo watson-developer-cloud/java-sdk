@@ -80,15 +80,4 @@ public class Graph extends GenericModel {
   public void setName(String name) {
     this.name = name;
   }
-
-  /**
-   * With name.
-   * 
-   * @param name the name
-   * @return the graph
-   */
-  public Graph withName(String name) {
-    setName(name);
-    return this;
-  }
 }

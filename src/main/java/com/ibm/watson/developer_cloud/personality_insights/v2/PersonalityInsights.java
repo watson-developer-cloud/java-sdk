@@ -20,10 +20,10 @@ import com.google.gson.GsonBuilder;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.TimestampTypeAdapter;
@@ -59,30 +59,30 @@ public class PersonalityInsights extends WatsonService {
 
   private RequestBuilder buildProfileRequest(ProfileOptions options) {
     Validator.notNull(options, "options cannot be null");
-    Validator.isTrue(options.getText() != null || options.getContentItems() != null,
+    Validator.isTrue(options.text() != null || options.contentItems() != null,
         "text, html or content items need to be specified");
 
-    final String contentType = options.getContentType();
+    final String contentType = options.contentType();
 
     final RequestBuilder request = RequestBuilder.post(PATH_PROFILE);
 
-    if (options.getText() != null) {
-      request.withBodyContent(options.getText(), contentType);
+    if (options.text() != null) {
+      request.bodyContent(options.text(), contentType);
     } else {
       final Content content = new Content();
-      content.setContentItems(options.getContentItems());
+      content.setContentItems(options.contentItems());
       String body = GSON.toJson(content);
-      request.withBodyContent(body, contentType);
+      request.bodyContent(body, contentType);
     }
 
-    if (options.getIncludeRaw() != null)
-      request.withQuery(INCLUDE_RAW, options.getIncludeRaw());
+    if (options.includeRaw() != null)
+      request.query(INCLUDE_RAW, options.includeRaw());
 
-    if (options.getLanguage() != null)
-      request.withHeader(HttpHeaders.CONTENT_LANGUAGE, options.getLanguage());
+    if (options.language() != null)
+      request.header(HttpHeaders.CONTENT_LANGUAGE, options.language());
 
-    if (options.getAcceptLanguage() != null)
-      request.withHeader(HttpHeaders.ACCEPT_LANGUAGE, options.getAcceptLanguage());
+    if (options.acceptLanguage() != null)
+      request.header(HttpHeaders.ACCEPT_LANGUAGE, options.acceptLanguage());
 
     return request;
   }
@@ -109,7 +109,7 @@ public class PersonalityInsights extends WatsonService {
   public ServiceCall<Profile> getProfile(final String text) {
     Validator.notEmpty(text, "text cannot be null or empty");
 
-    final ProfileOptions options = new ProfileOptions().text(text);
+    final ProfileOptions options = new ProfileOptions.Builder().text(text).build();
     final RequestBuilder requestBuilder = buildProfileRequest(options);
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Profile.class));
   }
@@ -151,8 +151,8 @@ public class PersonalityInsights extends WatsonService {
   public ServiceCall<String> getProfileAsCSV(final ProfileOptions options, final boolean includeHeaders) {
     final RequestBuilder requestBuilder = buildProfileRequest(options);
 
-    requestBuilder.withHeader(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
-    requestBuilder.withQuery(HEADERS, includeHeaders);
+    requestBuilder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
+    requestBuilder.query(HEADERS, includeHeaders);
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getString());
   }
 

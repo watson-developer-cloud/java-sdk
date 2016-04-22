@@ -22,6 +22,8 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranker;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Rankers;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
@@ -30,8 +32,6 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOpti
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrConfigs;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.ZipUtils;
-import com.ibm.watson.developer_cloud.service.ResponseConverter;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
@@ -121,7 +121,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
             RequestBody.create(HttpMediaType.TEXT, contentJson.toString()))
         .build();
 
-    final Request request = RequestBuilder.post(PATH_CREATE_RANKER).withBody(body).build();
+    final Request request = RequestBuilder.post(PATH_CREATE_RANKER).body(body).build();
 
     return createServiceCall(request, ResponseConverterUtils.getObject(Ranker.class));
   }
@@ -150,7 +150,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     final RequestBuilder requestBuilder = RequestBuilder.post(PATH_SOLR_CLUSTERS);
 
     if (config != null) {
-      requestBuilder.withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(config),
+      requestBuilder.bodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(config),
           HttpMediaType.APPLICATION_JSON);
     }
 
@@ -251,7 +251,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
     final String configPath = createConfigPath(solrClusterId, configName);
     final RequestBuilder requestBuider =
-        RequestBuilder.get(configPath).withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_ZIP);
+        RequestBuilder.get(configPath).header(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_ZIP);
     return createServiceCall(requestBuider.build(), ResponseConverterUtils.getInputStream());
   }
 
@@ -315,7 +315,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
         .build();
 
     final String path = String.format(PATH_RANK, rankerID);
-    final Request request = RequestBuilder.post(path).withBody(body).build();
+    final Request request = RequestBuilder.post(path).body(body).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(Ranking.class));
   }
 
@@ -364,7 +364,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
       File zippedConfig) {
     final String configPath = createConfigPath(solrClusterId, configName);
     final RequestBuilder requestBuilder = RequestBuilder.post(configPath);
-    requestBuilder.withBody(RequestBody.create(MediaType.parse(HttpMediaType.APPLICATION_ZIP), zippedConfig));
+    requestBuilder.body(RequestBody.create(MediaType.parse(HttpMediaType.APPLICATION_ZIP), zippedConfig));
     return requestBuilder;
   }
 }

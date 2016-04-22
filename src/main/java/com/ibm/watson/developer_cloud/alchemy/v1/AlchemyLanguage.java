@@ -39,8 +39,8 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomies;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints.AlchemyAPI;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 
 /**
@@ -177,7 +177,7 @@ public class AlchemyLanguage extends AlchemyService {
 
     final RequestBuilder requestBuilder = RequestBuilder.post(path);
     for (final String param : params.keySet()) {
-      requestBuilder.withForm(param, params.get(param));
+      requestBuilder.form(param, params.get(param));
     }
     return createServiceCall(requestBuilder.build(),ResponseConverterUtils.getObject(returnType));
   }

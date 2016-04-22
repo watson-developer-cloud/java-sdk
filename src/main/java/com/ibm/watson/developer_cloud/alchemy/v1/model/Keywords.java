@@ -66,15 +66,4 @@ public class Keywords extends AlchemyLanguageGenericModel {
     this.text = text;
   }
 
-  /**
-   * With keywords.
-   * 
-   * @param keywords the keywords
-   * @return the keywords
-   */
-  public Keywords withKeywords(List<Keyword> keywords) {
-    this.keywords = keywords;
-    return this;
-  }
-
 }

@@ -17,7 +17,7 @@ import java.io.File;
 
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.model.Classifiers;
@@ -76,7 +76,7 @@ public class VisualInsights extends WatsonService {
     final RequestBuilder requestBuilder = RequestBuilder.get(CLASSIFIERS_PATH);
 
     if (name != null && !name.isEmpty())
-      requestBuilder.withQuery(FILTER_NAME, name);
+      requestBuilder.query(FILTER_NAME, name);
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Classifiers.class));
   }
@@ -108,7 +108,7 @@ public class VisualInsights extends WatsonService {
     final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
         .addFormDataPart(IMAGES_FILE, imagesFile.getName(), RequestBody.create(mediaType, imagesFile)).build();
 
-    final Request request = RequestBuilder.post(SUMMARY_PATH).withBody(body).build();
+    final Request request = RequestBuilder.post(SUMMARY_PATH).body(body).build();
 
     return createServiceCall(request, ResponseConverterUtils.getObject(Summary.class));
 

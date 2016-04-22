@@ -27,8 +27,8 @@ import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints.AlchemyAPI;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -78,7 +78,7 @@ public class AlchemyVision extends AlchemyService {
               "The file: " + image.getAbsolutePath() + " does not exist.");
         } else {
           requestBuilder
-              .withBody(RequestBody.create(HttpMediaType.BINARY_FILE, (File) params.get(IMAGE)));
+              .body(RequestBody.create(HttpMediaType.BINARY_FILE, (File) params.get(IMAGE)));
           params.remove(IMAGE);
         }
       }
@@ -90,9 +90,9 @@ public class AlchemyVision extends AlchemyService {
     // add all the parameters into the request as form-url-encoded parameters
     for (final String param : params.keySet()) {
       if (inputType.equals(IMAGE)) {
-        requestBuilder.withQuery(param, params.get(param));
+        requestBuilder.query(param, params.get(param));
       } else {
-        requestBuilder.withForm(param, params.get(param));
+        requestBuilder.form(param, params.get(param));
       }
     }
 

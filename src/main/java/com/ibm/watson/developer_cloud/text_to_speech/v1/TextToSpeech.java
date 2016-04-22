@@ -19,8 +19,8 @@ import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.service.ResponseConverter;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
@@ -94,9 +94,9 @@ public class TextToSpeech extends WatsonService {
     Validator.isTrue(voice != null, "voice cannot be null or empty");
 
     final RequestBuilder request = RequestBuilder.get(PATH_SYNTHESIZE);
-    request.withQuery(TEXT, text);
-    request.withQuery(VOICE, voice.getName());
-    request.withQuery(ACCEPT, audioFormat != null ? audioFormat : AudioFormat.WAV);
+    request.query(TEXT, text);
+    request.query(VOICE, voice.getName());
+    request.query(ACCEPT, audioFormat != null ? audioFormat : AudioFormat.WAV);
 
     return createServiceCall(request.build(), ResponseConverterUtils.getInputStream());
   }

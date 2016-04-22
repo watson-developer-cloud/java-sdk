@@ -14,8 +14,8 @@
 package com.ibm.watson.developer_cloud.relationship_extraction.v1_beta;
 
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.model.Dataset;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -76,7 +76,7 @@ public class RelationshipExtraction extends WatsonService {
     Validator.notNull(text, "text cannot be null");
 
     final Request request =
-        RequestBuilder.post("/v1/sire/0").withForm(SID, dataset.getId(), RETURN_TYPE, returnType, TEXT, text).build();
+        RequestBuilder.post("/v1/sire/0").form(SID, dataset.getId(), RETURN_TYPE, returnType, TEXT, text).build();
     return createServiceCall(request, ResponseConverterUtils.getString());
   }
 

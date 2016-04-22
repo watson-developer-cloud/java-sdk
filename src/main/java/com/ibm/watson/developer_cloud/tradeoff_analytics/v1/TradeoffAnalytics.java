@@ -17,7 +17,7 @@ import org.apache.commons.lang3.Validate;
 
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Dilemma;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
@@ -96,10 +96,10 @@ public class TradeoffAnalytics extends WatsonService {
     final String contentJson = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(problem);
 
     final RequestBuilder requestBuilder =
-        RequestBuilder.post(PATH_DILEMMAS).withBodyContent(contentJson, HttpMediaType.APPLICATION_JSON);
+        RequestBuilder.post(PATH_DILEMMAS).bodyContent(contentJson, HttpMediaType.APPLICATION_JSON);
 
     if (generateVisualization != null)
-      requestBuilder.withQuery(GENERATE_VISUALIZATION, generateVisualization);
+      requestBuilder.query(GENERATE_VISUALIZATION, generateVisualization);
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Dilemma.class));
   }

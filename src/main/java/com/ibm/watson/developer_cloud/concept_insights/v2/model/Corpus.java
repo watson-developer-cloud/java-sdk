@@ -205,14 +205,4 @@ public class Corpus extends GenericModel {
     this.ttlInHours = ttlInHours;
   }
 
-  /**
-   * With name.
-   * 
-   * @param name the name
-   * @return the corpus
-   */
-  public Corpus withName(String name) {
-    setName(name);
-    return this;
-  }
 }

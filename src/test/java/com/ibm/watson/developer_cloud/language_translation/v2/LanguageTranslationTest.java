@@ -99,7 +99,9 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithBaseModelNull() {
-    final CreateModelOptions options = new CreateModelOptions().forcedGlossary(new File("src/test/resources/car.png"));
+    final CreateModelOptions options = new CreateModelOptions.Builder()
+        .forcedGlossary(new File("src/test/resources/car.png"))
+        .build();
     service.createModel(options).execute();
   }
 
@@ -108,7 +110,7 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithGlossaryNull() {
-    service.createModel(new CreateModelOptions()).execute();
+    service.createModel(new CreateModelOptions.Builder().build()).execute();
   }
 
   /**
@@ -207,7 +209,8 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
     final Map<String, Object> response = new HashMap<String, Object>();
     final List<Translation> translations = new ArrayList<Translation>();
 
-    final Translation t = new Translation().withTranslation("El equipo es increible IBM Watson");
+    final Translation t = new Translation();
+    t.setTranslation("El equipo es increible IBM Watson");
     translations.add(t);
 
     response.put("word_count", 6);

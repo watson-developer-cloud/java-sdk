@@ -13,10 +13,10 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 
 /**
  * A client for communicating with the Retrieve and Rank API.

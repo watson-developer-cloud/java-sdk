@@ -36,8 +36,8 @@ public class SolrClusterOptionsTest {
   @Test
   public void canCreateAFreeCluster() {
     final SolrClusterOptions options = new SolrClusterOptions(CLUSTER_NAME);
-    assertEquals(CLUSTER_NAME, options.getClusterName());
-    assertEquals(null, options.getClusterSize());
+    assertEquals(CLUSTER_NAME, options.clusterName());
+    assertEquals(null, options.clusterSize());
   }
 
   /**
@@ -46,7 +46,7 @@ public class SolrClusterOptionsTest {
   @Test
   public void canCreateASizedCluster() {
     final SolrClusterOptions options = new SolrClusterOptions(CLUSTER_NAME, CLUSTER_SIZE);
-    assertEquals(CLUSTER_NAME, options.getClusterName());
-    assertEquals(CLUSTER_SIZE, options.getClusterSize());
+    assertEquals(CLUSTER_NAME, options.clusterName());
+    assertEquals(CLUSTER_SIZE, options.clusterSize());
   }
 }

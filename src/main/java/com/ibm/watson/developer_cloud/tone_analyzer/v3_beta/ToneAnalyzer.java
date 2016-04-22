@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v3_beta;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3_beta.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
@@ -76,7 +76,7 @@ public class ToneAnalyzer extends WatsonService {
     contentJson.addProperty(TEXT, text);
 
     final Request request =
-        RequestBuilder.post(PATH_TONE).withQuery(VERSION_DATE, versionDate).withBodyJson(contentJson).build();
+        RequestBuilder.post(PATH_TONE).query(VERSION_DATE, versionDate).bodyJson(contentJson).build();
 
     return createServiceCall(request, ResponseConverterUtils.getObject(ToneAnalysis.class));
   }

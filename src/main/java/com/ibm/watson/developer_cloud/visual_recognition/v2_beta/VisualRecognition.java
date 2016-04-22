@@ -27,9 +27,9 @@ import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
-import com.ibm.watson.developer_cloud.service.ResponseConverter;
-import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -199,7 +199,7 @@ public class VisualRecognition extends WatsonService {
     }
 
     RequestBuilder requestBuilder =
-        RequestBuilder.post(PATH_CLASSIFY).withQuery(VERSION, versionDate).withBody(bodyBuilder.build());
+        RequestBuilder.post(PATH_CLASSIFY).query(VERSION, versionDate).body(bodyBuilder.build());
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VisualClassification.class));
   }
@@ -249,7 +249,7 @@ public class VisualRecognition extends WatsonService {
         .addFormDataPart(NAME, name).build();
 
     RequestBuilder requestBuilder =
-        RequestBuilder.post(PATH_CLASSIFIERS).withQuery(VERSION, versionDate).withBody(body);
+        RequestBuilder.post(PATH_CLASSIFIERS).query(VERSION, versionDate).body(body);
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VisualClassifier.class));
   }
@@ -266,7 +266,7 @@ public class VisualRecognition extends WatsonService {
     Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
 
     RequestBuilder requestBuilder =
-        RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId)).withQuery(VERSION, versionDate);
+        RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId)).query(VERSION, versionDate);
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -281,7 +281,7 @@ public class VisualRecognition extends WatsonService {
     Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
 
     RequestBuilder requestBuilder =
-        RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId)).withQuery(VERSION, versionDate);
+        RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId)).query(VERSION, versionDate);
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VisualClassifier.class));
   }
 
@@ -293,7 +293,7 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<List<VisualClassifier>> getClassifiers() {
     RequestBuilder requestBuilder =
-        RequestBuilder.get(PATH_CLASSIFIERS).withQuery(VERSION, versionDate).withQuery(VERBOSE, true);
+        RequestBuilder.get(PATH_CLASSIFIERS).query(VERSION, versionDate).query(VERBOSE, true);
 
     ResponseConverter<List<VisualClassifier>> converter =
         ResponseConverterUtils.getGenericObject(TYPE_LIST_CLASSIFIERS, CLASSIFIERS);

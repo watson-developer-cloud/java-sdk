@@ -17,7 +17,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.service.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import okhttp3.Response;
