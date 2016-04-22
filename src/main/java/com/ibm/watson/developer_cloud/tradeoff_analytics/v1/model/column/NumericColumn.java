@@ -14,16 +14,13 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
+
 /**
- * Numeric column.
- * 
+ * Numeric column. See {@link TradeoffAnalytics}
  */
 public class NumericColumn extends Column {
-
-  /** The high. */
   private Double high;
-
-  /** The low. */
   private Double low;
 
   /**
@@ -52,26 +49,26 @@ public class NumericColumn extends Column {
   }
 
   /**
-   * With numeric range.
+   * Sets numeric range.
    * 
    * @param low the low
    * @param high the high
    * @return the numeric column
    */
-  public NumericColumn withRange(Double low, Double high) {
+  public NumericColumn range(Double low, Double high) {
     this.low = low;
     this.high = high;
     return this;
   }
 
   /**
-   * With numeric range.
+   * Sets numeric range.
    * 
    * @param low the low
    * @param high the high
    * @return the numeric column
    */
-  public NumericColumn withRange(Integer low, Integer high) {
+  public NumericColumn range(Integer low, Integer high) {
     this.low = (double) low;
     this.high = (double) high;
     return this;

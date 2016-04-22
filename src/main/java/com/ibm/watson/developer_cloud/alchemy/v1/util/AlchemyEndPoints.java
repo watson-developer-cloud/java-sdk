@@ -40,114 +40,91 @@ public class AlchemyEndPoints {
   public enum AlchemyAPI {
 
     /** The authors. */
-    authors,
+    AUTHORS,
 
     /** The combined. */
-    combined,
+    COMBINED,
 
     /** The concepts. */
-    concepts,
+    CONCEPTS,
+
+    /** dates. */
+    DATES,
+
+    /** emotion. */
+    EMOTION,
 
     /** The entities. */
-    entities,
+    ENTITIES,
 
     /** The feeds. */
-    feeds,
+    FEEDS,
 
     /** The image_keywords. */
-    image_keywords,
+    IMAGE_KEYWORDS,
 
     /** The image_link. */
-    image_link,
+    IMAGE_LINK,
 
     /** The image_recognition. */
-    image_recognition,
+    IMAGE_RECOGNITION,
 
     /** The image_scene_text. */
-    image_scene_text,
+    IMAGE_SCENE_TEXT,
 
     /** The keywords. */
-    keywords,
+    KEYWORDS,
 
     /** The language. */
-    language,
+    LANGUAGE,
 
     /** The microformats. */
-    microformats,
+    MICROFORMATS,
+
+    /** The publication date. */
+    PUBLICATION_DATE,
 
     /** The relations. */
-    relations,
+    RELATIONS,
 
     /** The sentiment. */
-    sentiment,
+    SENTIMENT,
 
     /** The sentiment_targeted. */
-    sentiment_targeted,
+    SENTIMENT_TARGETED,
 
     /** The taxonomy. */
-    taxonomy,
+    TAXONOMY,
 
     /** The text. */
-    text,
+    TEXT,
 
     /** The text_raw. */
-    text_raw,
+    TEXT_RAW,
 
     /** The title. */
-    title,
-
-    /** The publication date */
-    publication_date,
-
-    /** dates */
-    dates,
-
-    /** emotion */
-    emotion
+    TITLE
   }
 
-  /** The file where alchemy endpoints are described. */
-  private static final String filePath = "/alchemy_endpoints.json";
-
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(AlchemyEndPoints.class.getName());
-
-  /** The alchemy operations. */
-  private static Map<String, Map<String, String>> operations;
+  private static final String FILE_PATH = "/alchemy_endpoints.json";
+  private static final Logger LOG = Logger.getLogger(AlchemyEndPoints.class.getName());
+  private static Map<String, Map<String, String>> OPERATIONS;
 
   static {
     loadEndPointsFromJsonFile();
   }
 
   /**
-   * Gets the path based on the operation and input type.
-   * 
-   * @param operation the operation
-   * @param inputType the input type
-   * @return the string that represent the path based on the operation and input type
-   */
-  public static String getPath(AlchemyAPI operation, String inputType) {
-    if ((operations.get(operation.name()) != null)
-        && operations.get(operation.name()).get(inputType) != null) {
-      return operations.get(operation.name()).get(inputType);
-    } else {
-      final String error = "Operation: " + operation + ", inputType: " + inputType + " not found";
-      log.log(Level.SEVERE, error);
-      throw new IllegalArgumentException(error);
-    }
-  }
-
-  /**
    * Load the endpoints from json file.
    */
   private static void loadEndPointsFromJsonFile() {
-    log.log(Level.FINE, "Parsing End Points JSON file ");
-    operations = new HashMap<String, Map<String, String>>();
+    LOG.log(Level.FINE, "Parsing End Points JSON file ");
+    OPERATIONS = new HashMap<String, Map<String, String>>();
     final JsonParser parser = new JsonParser();
 
     Reader fileReader = null;
     try {
-      final InputStream is = AlchemyEndPoints.class.getResourceAsStream(filePath);
+      final InputStream is = AlchemyEndPoints.class.getResourceAsStream(FILE_PATH);
       if (null != is) {
         fileReader = new InputStreamReader(is);
       }
@@ -163,21 +140,38 @@ public class AlchemyEndPoints {
           for (final Map.Entry<String, JsonElement> e : elt.getAsJsonObject().entrySet()) {
             records.put(e.getKey(), e.getValue().getAsString());
           }
-          operations.put(object.name(), records);
+          OPERATIONS.put(object.name(), records);
         }
       }
     } catch (final JsonParseException e) {
-      log.log(Level.SEVERE, "Could not parse json file: " + filePath, e);
+      LOG.log(Level.SEVERE, "Could not parse json file: " + FILE_PATH, e);
     } catch (final NullPointerException e) {
-      log.log(Level.SEVERE, "Not able to locate the end points json file: " + filePath, e);
+      LOG.log(Level.SEVERE, "Not able to locate the end points json file: " + FILE_PATH, e);
     } finally {
       if (fileReader != null) {
         try {
           fileReader.close();
         } catch (final IOException e) {
-          log.log(Level.SEVERE, "Could not close file reader: " + filePath, e);
+          LOG.log(Level.SEVERE, "Could not close file reader: " + FILE_PATH, e);
         }
       }
+    }
+  }
+
+  /**
+   * Gets the path based on the operation and input type.
+   * 
+   * @param operation the operation
+   * @param inputType the input type
+   * @return the string that represent the path based on the operation and input type
+   */
+  public static String getPath(AlchemyAPI operation, String inputType) {
+    if ((OPERATIONS.get(operation.name()) != null) && OPERATIONS.get(operation.name()).get(inputType) != null) {
+      return OPERATIONS.get(operation.name()).get(inputType);
+    } else {
+      final String error = "Operation: " + operation + ", inputType: " + inputType + " not found";
+      LOG.log(Level.SEVERE, error);
+      throw new IllegalArgumentException(error);
     }
   }
 

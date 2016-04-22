@@ -26,6 +26,17 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * 
  */
 public class Corpus extends GenericModel {
+  /**
+   * Corpus access.
+   */
+  public enum Access {
+
+    /** The private. */
+    @SerializedName("private") PRIVATE,
+
+    /** The public. */
+    @SerializedName("public") PUBLIC;
+  }
 
   /** The Constant IBM_RESEARCHERS. */
   public final static Corpus IBM_RESEARCHERS = new Corpus("public", "ibmresearcher");
@@ -33,17 +44,16 @@ public class Corpus extends GenericModel {
   /** The Constant TED_TALKS. */
   public final static Corpus TED_TALKS = new Corpus("public", "TEDTalks");
 
-  /** The access. */
   private Access access;
 
-  /** The accountPermissions. */
   @SerializedName("users")
   private List<AccountPermission> accountPermissions;
 
-  /** The id. */
+  @SerializedName("expires_on")
+  private String expiresOn;
+
   private String id;
 
-  /** The corpus name. */
   private String name;
 
   @SerializedName("ttl_hours")
@@ -52,49 +62,6 @@ public class Corpus extends GenericModel {
   // set the expiration time after which the corpus will be automatically deleted. ,
   // expires_on (string, optional): Date and time in standard ISO format at which the corpus will
   // expire and be marked for deletion.
-
-  @SerializedName("expires_on")
-  private String expiresOn;
-
-  /**
-   * Gets the time to live in hours.
-   *
-   * @return the time to live in hours
-   */
-  public Integer getTtlInHours() {
-    return ttlInHours;
-  }
-
-  /**
-   * Sets the time to live in hours. This will internally set the expiration time after which the
-   * corpus will be automatically deleted.
-   * 
-   * @param ttlInHours the new time to live in hours
-   */
-  public void setTtlInHours(Integer ttlInHours) {
-    this.ttlInHours = ttlInHours;
-  }
-
-  /**
-   * Gets the expires on.
-   *
-   * @return the expires on
-   */
-  public String getExpiresOn() {
-    return expiresOn;
-  }
-
-  /**
-   * Sets the expires on. The value needs to be in standard ISO format at which the corpus will
-   * expire and be marked for deletion.
-   *
-   * For example: YYYY-MM-DD (e.g. 2016-07-16)
-   * 
-   * @param expiresOn the new expires on
-   */
-  public void setExpiresOn(String expiresOn) {
-    this.expiresOn = expiresOn;
-  }
 
   /**
    * Instantiates a new corpus.
@@ -112,6 +79,18 @@ public class Corpus extends GenericModel {
     Validator.notEmpty(name, "name cannot be empty");
     setName(name);
     setId("/corpora/" + accountId + "/" + name);
+  }
+
+  /**
+   * Adds an {@link AccountPermission}.
+   *
+   * @param accountPermission the account permission
+   */
+  public void addAccountPermissions(AccountPermission accountPermission) {
+    if (this.accountPermissions == null)
+      this.accountPermissions = new ArrayList<AccountPermission>();
+
+    this.accountPermissions.add(accountPermission);
   }
 
   /**
@@ -133,13 +112,12 @@ public class Corpus extends GenericModel {
   }
 
   /**
-   * Corpus access.
+   * Gets the expires on.
+   *
+   * @return the expires on
    */
-  public enum Access {
-
-    @SerializedName("public") PUBLIC,
-
-    @SerializedName("private") PRIVATE;
+  public String getExpiresOn() {
+    return expiresOn;
   }
 
   /**
@@ -161,6 +139,15 @@ public class Corpus extends GenericModel {
   }
 
   /**
+   * Gets the time to live in hours.
+   *
+   * @return the time to live in hours
+   */
+  public Integer getTtlInHours() {
+    return ttlInHours;
+  }
+
+  /**
    * Sets the access.
    * 
    * @param access The access
@@ -179,15 +166,15 @@ public class Corpus extends GenericModel {
   }
 
   /**
-   * Adds an {@link AccountPermission}.
+   * Sets the expires on. The value needs to be in standard ISO format at which the corpus will
+   * expire and be marked for deletion.
    *
-   * @param accountPermission the account permission
+   * For example: YYYY-MM-DD (e.g. 2016-07-16)
+   * 
+   * @param expiresOn the new expires on
    */
-  public void addAccountPermissions(AccountPermission accountPermission) {
-    if (this.accountPermissions == null)
-      this.accountPermissions = new ArrayList<AccountPermission>();
-
-    this.accountPermissions.add(accountPermission);
+  public void setExpiresOn(String expiresOn) {
+    this.expiresOn = expiresOn;
   }
 
   /**
@@ -209,13 +196,13 @@ public class Corpus extends GenericModel {
   }
 
   /**
-   * With name.
+   * Sets the time to live in hours. This will internally set the expiration time after which the
+   * corpus will be automatically deleted.
    * 
-   * @param name the name
-   * @return the corpus
+   * @param ttlInHours the new time to live in hours
    */
-  public Corpus withName(String name) {
-    setName(name);
-    return this;
+  public void setTtlInHours(Integer ttlInHours) {
+    this.ttlInHours = ttlInHours;
   }
+
 }

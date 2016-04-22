@@ -54,7 +54,7 @@ public class AlchemyDataNewsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetCount() {
-    final VolumeResult result = service.getVolume("now-30", "now", null);
+    final VolumeResult result = service.getVolume("now-30", "now", null).execute();
     Assert.assertNotNull(result);
   }
 
@@ -63,7 +63,7 @@ public class AlchemyDataNewsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetCountTimeSlice() {
-    final VolumeResult result = service.getVolume("now-7d", "now", "12h");
+    final VolumeResult result = service.getVolume("now-7d", "now", "12h").execute();
     Assert.assertNotNull(result);
   }
 
@@ -86,11 +86,16 @@ public class AlchemyDataNewsIT extends WatsonServiceTest {
     params.put("q.enriched.url.enrichedTitle.docSentiment.type", "positive");
     params.put("q.enriched.url.enrichedTitle.taxonomy.taxonomy_.label", "technology and computing");
 
-    final DocumentsResult result = service.getNewsDocuments(params);
+    final DocumentsResult result = service.getNewsDocuments(params).execute();
     Assert.assertNotNull(result);
   }
 
 
+  /**
+   * Test json deserializer.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void testJsonDeserializer() throws IOException {
     DocumentsResult result = loadFixture("src/test/resources/alchemy/get_news.json", DocumentsResult.class);

@@ -21,6 +21,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Ignore;
@@ -34,10 +35,12 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Rankers;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster.Status;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
-import com.ibm.watson.developer_cloud.service.BadRequestException;
 
+/**
+ * The Class RetrieveAndRankIT.
+ */
 public class RetrieveAndRankIT extends WatsonServiceTest {
 
   private static final Integer CREATED_CLUSTER_SIZE_ONE = 1;
@@ -52,9 +55,13 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
   private String rankerId;
   private String clusterId;
 
+  /** The expected exception. */
   @Rule
   public final ExpectedException expectedException = ExpectedException.none();
 
+  /* (non-Javadoc)
+   * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
+   */
   @Override
   @Before
   public void setUp() throws Exception {
@@ -68,6 +75,11 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     clusterId = getValidProperty("retrieve_and_rank.cluster_id");
   }
 
+  /**
+   * Test create ranker and rank results.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   @Ignore
   public void testCreateRankerAndRankResults() throws InterruptedException {
@@ -75,16 +87,16 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     final File testFile = new File(RESOURCE_PATH + "ranker_test.csv");
     final int numToRank = 5;
 
-    final Ranker ranker = service.createRanker(RANKER_NAME, trainingFile);
+    final Ranker ranker = service.createRanker(RANKER_NAME, trainingFile).execute();
     try {
       assertEquals(RANKER_NAME, ranker.getName());
       for (int x = 0; x < 20
-          && service.getRankerStatus(ranker.getId()).getStatus() != Ranker.Status.AVAILABLE; x++) {
+          && service.getRankerStatus(ranker.getId()).execute().getStatus() != Ranker.Status.AVAILABLE; x++) {
         Thread.sleep(10000);
       }
-      assertEquals(Ranker.Status.AVAILABLE, service.getRankerStatus(ranker.getId()).getStatus());
+      assertEquals(Ranker.Status.AVAILABLE, service.getRankerStatus(ranker.getId()).execute().getStatus());
 
-      final Ranking ranking = service.rank(ranker.getId(), testFile, numToRank);
+      final Ranking ranking = service.rank(ranker.getId(), testFile, numToRank).execute();
       assertTrue(!ranking.getAnswers().isEmpty());
     } finally {
       service.deleteRanker(ranker.getId());
@@ -92,48 +104,60 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
 
   }
 
+  /**
+   * Test create and delete solr cluster.
+   */
   @Test
   @Ignore
   public void testCreateAndDeleteSolrCluster() {
-    final SolrCluster solrCluster = service.createSolrCluster();
+    final SolrCluster solrCluster = service.createSolrCluster().execute();
     final SolrCluster expectedSolrCluster =
         new SolrCluster(solrCluster.getId(), CREATED_CLUSTER_DEFAULT_NAME,
             CREATED_CLUSTER_SIZE_FREE, Status.NOT_AVAILABLE);
     try {
-      assertTrue(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
+      assertTrue(service.getSolrClusters().execute().getSolrClusters().contains(expectedSolrCluster));
     } finally {
       service.deleteSolrCluster(solrCluster.getId());
-      assertFalse(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
+      assertFalse(service.getSolrClusters().execute().getSolrClusters().contains(expectedSolrCluster));
     }
   }
 
+  /**
+   * Test create and delete solr cluster with options.
+   */
   @Test
   public void testCreateAndDeleteSolrClusterWithOptions() {
     final SolrClusterOptions options =
         new SolrClusterOptions(CREATED_CLUSTER_NAME, CREATED_CLUSTER_SIZE_ONE);
-    final SolrCluster solrCluster = service.createSolrCluster(options);
+    final SolrCluster solrCluster = service.createSolrCluster(options).execute();
     final SolrCluster expectedSolrCluster =
         new SolrCluster(solrCluster.getId(), CREATED_CLUSTER_NAME,
             CREATED_CLUSTER_SIZE_ONE.toString(), Status.NOT_AVAILABLE);
     try {
-      assertTrue(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
+      assertTrue(service.getSolrClusters().execute().getSolrClusters().contains(expectedSolrCluster));
     } finally {
-      service.deleteSolrCluster(solrCluster.getId());
-      assertFalse(service.getSolrClusters().getSolrClusters().contains(expectedSolrCluster));
+      service.deleteSolrCluster(solrCluster.getId()).execute();
+      assertFalse(service.getSolrClusters().execute().getSolrClusters().contains(expectedSolrCluster));
     }
   }
 
+  /**
+   * Test get rankers.
+   */
   @Test
   public void testGetRankers() {
-    final Rankers rankers = service.getRankers();
+    final Rankers rankers = service.getRankers().execute();
     assertNotNull(rankers);
     assertNotNull(rankers.getRankers());
     assertTrue(!rankers.getRankers().isEmpty());
   }
 
+  /**
+   * Test get ranker status.
+   */
   @Test
   public void testGetRankerStatus() {
-    final Ranker ranker = service.getRankerStatus(rankerId);
+    final Ranker ranker = service.getRankerStatus(rankerId).execute();
     assertNotNull(ranker);
     assertNotNull(ranker.getCreated());
     assertNotNull(ranker.getName());
@@ -143,9 +167,12 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     assertEquals(rankerId, ranker.getId());
   }
 
+  /**
+   * Test get solr cluster.
+   */
   @Test
   public void testGetSolrCluster() {
-    final SolrCluster cluster = service.getSolrCluster(clusterId);
+    final SolrCluster cluster = service.getSolrCluster(clusterId).execute();
     assertNotNull(cluster);
     assertNotNull(cluster.getSize());
     assertNotNull(cluster.getName());
@@ -153,24 +180,32 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     assertEquals(clusterId, cluster.getId());
   }
 
+  /**
+   * Preserves error messages.
+   */
   @Test
   public void preservesErrorMessages() {
     final String malformedClusterId = "BAD CLUSTER ID";
     expectedException.expect(BadRequestException.class);
     expectedException.expectMessage(malformedClusterId);
     expectedException.expectMessage("malformed");
-    service.getSolrCluster(malformedClusterId);
+    service.getSolrCluster(malformedClusterId).execute();
   }
 
+  /**
+   * Test get solr cluster configuration.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void testGetSolrClusterConfiguration() throws IOException {
     try {
       final File configDir = new File(RESOURCE_PATH + "config_dir");
-      service.uploadSolrClusterConfigurationDirectory(clusterId, CONFIG_NAME, configDir);
+      service.uploadSolrClusterConfigurationDirectory(clusterId, CONFIG_NAME, configDir).execute();
 
       InputStream configStream = null;
       try {
-        configStream = service.getSolrClusterConfiguration(clusterId, CONFIG_NAME);
+        configStream = service.getSolrClusterConfiguration(clusterId, CONFIG_NAME).execute();
         assertNotNull(configStream);
       } finally {
         if (configStream != null) {
@@ -178,18 +213,23 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
         }
       }
     } finally {
-      service.deleteSolrClusterConfiguration(clusterId, CONFIG_NAME);
+      service.deleteSolrClusterConfiguration(clusterId, CONFIG_NAME).execute();
     }
   }
 
+  /**
+   * Test get solr clusters.
+   */
   @Test
   public void testGetSolrClusters() {
-    final SolrClusters clusters = service.getSolrClusters();
+    final List<SolrCluster> clusters = service.getSolrClusters().execute().getSolrClusters();
     assertNotNull(clusters);
-    assertNotNull(clusters.getSolrClusters());
-    assertTrue(!clusters.getSolrClusters().isEmpty());
+    assertTrue(!clusters.isEmpty());
   }
 
+  /**
+   * Test get solr url.
+   */
   @Test
   public void testGetSolrUrl() {
     final String solrUrl = service.getSolrUrl(clusterId);
@@ -197,29 +237,35 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     assertEquals(expectedUrl, solrUrl);
   }
 
+  /**
+   * Test upload and delete solr cluster configuration directory.
+   */
   @Test
   public void testUploadAndDeleteSolrClusterConfigurationDirectory() {
     try {
       final File configDir = new File(RESOURCE_PATH + "config_dir");
-      service.uploadSolrClusterConfigurationDirectory(clusterId, CONFIG_NAME, configDir);
+      service.uploadSolrClusterConfigurationDirectory(clusterId, CONFIG_NAME, configDir).execute();
 
-      assertTrue(service.getSolrClusterConfigurations(clusterId).contains(CONFIG_NAME));
+      assertTrue(service.getSolrClusterConfigurations(clusterId).execute().getSolrConfigs().contains(CONFIG_NAME));
     } finally {
-      service.deleteSolrClusterConfiguration(clusterId, CONFIG_NAME);
-      assertFalse(service.getSolrClusterConfigurations(clusterId).contains(CONFIG_NAME));
+      service.deleteSolrClusterConfiguration(clusterId, CONFIG_NAME).execute();
+      assertFalse(service.getSolrClusterConfigurations(clusterId).execute().getSolrConfigs().contains(CONFIG_NAME));
     }
   }
 
+  /**
+   * Test upload and delete solr cluster configuration zip.
+   */
   @Test
   public void testUploadAndDeleteSolrClusterConfigurationZip() {
     try {
       final File configZip = new File(RESOURCE_PATH + "config.zip");
-      service.uploadSolrClusterConfigurationZip(clusterId, CONFIG_NAME, configZip);
+      service.uploadSolrClusterConfigurationZip(clusterId, CONFIG_NAME, configZip).execute();
 
-      assertTrue(service.getSolrClusterConfigurations(clusterId).contains(CONFIG_NAME));
+      assertTrue(service.getSolrClusterConfigurations(clusterId).execute().getSolrConfigs().contains(CONFIG_NAME));
     } finally {
-      service.deleteSolrClusterConfiguration(clusterId, CONFIG_NAME);
-      assertFalse(service.getSolrClusterConfigurations(clusterId).contains(CONFIG_NAME));
+      service.deleteSolrClusterConfiguration(clusterId, CONFIG_NAME).execute();
+      assertFalse(service.getSolrClusterConfigurations(clusterId).execute().getSolrConfigs().contains(CONFIG_NAME));
     }
   }
 

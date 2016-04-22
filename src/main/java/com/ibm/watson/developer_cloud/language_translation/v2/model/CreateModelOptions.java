@@ -15,65 +15,114 @@
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
 import java.io.File;
-
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Model Options when using the {@link LanguageTranslation#createModel(CreateModelOptions)} method.
  * 
  */
-public class CreateModelOptions extends GenericModel {
+public class CreateModelOptions {
+
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private String baseModelId;
+    private File forcedGlossary;
+    private File monolingualCorpus;
+    private String name;
+    private File parallelCorpus;
+
+    private Builder(CreateModelOptions options) {
+      this.name = options.name;
+      this.baseModelId = options.baseModelId;
+      this.parallelCorpus = options.parallelCorpus;
+      this.monolingualCorpus = options.monolingualCorpus;
+      this.forcedGlossary = options.forcedGlossary;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {}
+
+    /**
+     * Base model id.
+     * 
+     * @param baseModelId the base model id
+     * @return the creates the model options
+     */
+    public Builder baseModelId(String baseModelId) {
+      this.baseModelId = baseModelId;
+      return this;
+    }
+
+    /**
+     * Builds the model creation options.
+     *
+     * @return the model creation options
+     */
+    public CreateModelOptions build() {
+      return new CreateModelOptions(this);
+    }
+
+    /**
+     * With forced glossary.
+     * 
+     * @param forcedGlossary the forced glossary
+     * @return the creates the model options
+     */
+    public Builder forcedGlossary(File forcedGlossary) {
+      this.forcedGlossary = forcedGlossary;
+      return this;
+    }
+
+    /**
+     * Sets the monolingual corpus.
+     * 
+     * @param monolingualCorpus the monolingual corpus
+     * @return the creates the model options
+     */
+    public Builder monolingualCorpus(File monolingualCorpus) {
+      this.monolingualCorpus = monolingualCorpus;
+      return this;
+    }
+
+    /**
+     * Sets the name.
+     * 
+     * @param name the name
+     * @return the profile options
+     */
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    /**
+     * Sets the parallel corpus.
+     * 
+     * @param parallelCorpus the parallel corpus
+     * @return the creates the model options
+     */
+    public Builder parallelCorpus(File parallelCorpus) {
+      this.parallelCorpus = parallelCorpus;
+      return this;
+    }
+  }
 
   private String baseModelId;
-
   private File forcedGlossary;
-
   private File monolingualCorpus;
-
   private String name;
-
   private File parallelCorpus;
 
-  /**
-   * Instantiates a new creates the model options.
-   */
-  public CreateModelOptions() {}
-
-
-  /**
-   * Instantiates a new creates the model options.
-   * 
-   * @param name the name
-   * @param baseModelId the base model id
-   */
-  public CreateModelOptions(String name, String baseModelId) {
-    super();
-    this.name = name;
-    this.baseModelId = baseModelId;
-  }
-
-
-  /**
-   * Base model id.
-   * 
-   * @param baseModelId the base model id
-   * @return the creates the model options
-   */
-  public CreateModelOptions baseModelId(String baseModelId) {
-    this.baseModelId = baseModelId;
-    return this;
-  }
-
-  /**
-   * With forced glossary.
-   * 
-   * @param forcedGlossary the forced glossary
-   * @return the creates the model options
-   */
-  public CreateModelOptions forcedGlossary(File forcedGlossary) {
-    this.forcedGlossary = forcedGlossary;
-    return this;
+  private CreateModelOptions(Builder builder) {
+    this.baseModelId = builder.baseModelId;
+    this.forcedGlossary = builder.forcedGlossary;
+    this.parallelCorpus = builder.parallelCorpus;
+    this.name = builder.name;
+    this.monolingualCorpus = builder.monolingualCorpus;
   }
 
   /**
@@ -81,7 +130,7 @@ public class CreateModelOptions extends GenericModel {
    * 
    * @return the baseModelId
    */
-  public String getBaseModelId() {
+  public String baseModelId() {
     return baseModelId;
   }
 
@@ -90,7 +139,7 @@ public class CreateModelOptions extends GenericModel {
    * 
    * @return the forcedGlossary
    */
-  public File getForcedGlossary() {
+  public File forcedGlossary() {
     return forcedGlossary;
   }
 
@@ -99,7 +148,7 @@ public class CreateModelOptions extends GenericModel {
    * 
    * @return the monolingualCorpus
    */
-  public File getMonolingualCorpus() {
+  public File monolingualCorpus() {
     return monolingualCorpus;
   }
 
@@ -108,8 +157,17 @@ public class CreateModelOptions extends GenericModel {
    * 
    * @return the name
    */
-  public String getName() {
+  public String name() {
     return name;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
@@ -117,86 +175,10 @@ public class CreateModelOptions extends GenericModel {
    * 
    * @return the parallelCorpus
    */
-  public File getParallelCorpus() {
+  public File parallelCorpus() {
     return parallelCorpus;
   }
 
-  /**
-   * With monolingual corpus.
-   * 
-   * @param monolingualCorpus the monolingual corpus
-   * @return the creates the model options
-   */
-  public CreateModelOptions monolingualCorpus(File monolingualCorpus) {
-    this.monolingualCorpus = monolingualCorpus;
-    return this;
-  }
-
-  /**
-   * Name.
-   * 
-   * @param name the name
-   * @return the profile options
-   */
-  public CreateModelOptions name(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * With parallel corpus.
-   * 
-   * @param parallelCorpus the parallel corpus
-   * @return the creates the model options
-   */
-  public CreateModelOptions parallelCorpus(File parallelCorpus) {
-    this.parallelCorpus = parallelCorpus;
-    return this;
-  }
-
-  /**
-   * Sets the base model id.
-   * 
-   * @param baseModelId the baseModelId to set
-   */
-  public void setBaseModelId(String baseModelId) {
-    this.baseModelId = baseModelId;
-  }
-
-  /**
-   * Sets the forced glossary.
-   * 
-   * @param forcedGlossary the forcedGlossary to set
-   */
-  public void setForcedGlossary(File forcedGlossary) {
-    this.forcedGlossary = forcedGlossary;
-  }
-
-  /**
-   * Sets the monolingual corpus.
-   * 
-   * @param monolingualCorpus the monolingualCorpus to set
-   */
-  public void setMonolingualCorpus(File monolingualCorpus) {
-    this.monolingualCorpus = monolingualCorpus;
-  }
-
-  /**
-   * Sets the name.
-   * 
-   * @param name the name to set
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the parallel corpus.
-   * 
-   * @param parallelCorpus the parallelCorpus to set
-   */
-  public void setParallelCorpus(File parallelCorpus) {
-    this.parallelCorpus = parallelCorpus;
-  }
-
 }
+
+

@@ -34,6 +34,7 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Conversation;
 import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationData;
+import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationDataOptions;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Dialog;
 import com.ibm.watson.developer_cloud.dialog.v1.model.DialogContent;
 
@@ -61,8 +62,7 @@ public class DialogServiceIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new DialogService();
-    service.setUsernameAndPassword(getValidProperty("dialog.username"),
-        getValidProperty("dialog.password"));
+    service.setUsernameAndPassword(getValidProperty("dialog.username"), getValidProperty("dialog.password"));
     service.setEndPoint(getValidProperty("dialog.url"));
     service.setDefaultHeaders(getDefaultHeaders());
     dialogId = getValidProperty("dialog.dialog_id");
@@ -89,54 +89,54 @@ public class DialogServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testConverseAndGetConversationData() throws ParseException, InterruptedException {
-    Conversation c = service.createConversation(dialogId);
+    Conversation c = service.createConversation(dialogId).execute();
     testConversation(c);
     final String[] messages = new String[] {"large", "onions, pepperoni, cheese", "pickup", "yes"};
     for (final String message : messages) {
-      c = service.converse(c, message);
+      c = service.converse(c, message).execute();
       testConversation(c);
       Thread.sleep(500);
     }
 
-    final List<DialogContent> dialogContent = service.getContent(dialogId);
+    final List<DialogContent> dialogContent = service.getContent(dialogId).execute();
     assertNotNull(dialogContent);
     assertFalse(dialogContent.isEmpty());
     assertNotNull(dialogContent.get(0));
 
-    Map<String, String> profile = service.getProfile(dialogId, c.getClientId());
-    
+    Map<String, String> profile = service.getProfile(dialogId, c.getClientId()).execute();
+
     // update profile
     String variable = profile.keySet().iterator().next();
     profile.put(variable, "foo");
-    service.updateProfile(dialogId, c.getClientId(), profile);
-    
-    assertEquals(service.getProfile(dialogId, c.getClientId()).get(variable), "foo");
-    assertEquals(service.getProfile(dialogId, c.getClientId(), variable).get(variable), "foo");
-    
-    final Map<String, Object> params = new HashMap<String,Object>();
-    params.put(DialogService.DATE_FROM, DateUtils.addDays(new Date(), -10));
-    params.put(DialogService.DATE_TO, new Date());
-    params.put(DialogService.DIALOG_ID, dialogId);
-    params.put(DialogService.OFFSET, 0);
-    params.put(DialogService.LIMIT, 10);
-    
-    List<ConversationData> data = service.getConversationData(params);
+    service.updateProfile(dialogId, c.getClientId(), profile).execute();
+
+    assertEquals(service.getProfile(dialogId, c.getClientId()).execute().get(variable), "foo");
+    assertEquals(service.getProfile(dialogId, c.getClientId(), variable).execute().get(variable), "foo");
+
+    ConversationDataOptions options = new ConversationDataOptions.Builder()
+        .from(DateUtils.addDays(new Date(), -10))
+        .to(new Date())
+        .dialogId(dialogId)
+        .offset(0)
+        .limit(10).build();
+
+    List<ConversationData> data = service.getConversationData(options).execute();
     assertNotNull(data);
     assertFalse(data.isEmpty());
   }
 
-  
+
   /**
    * Test get content.
    */
   @Test
   public void testGetContent() {
-    List<DialogContent> content =  service.getContent(dialogId);
+    List<DialogContent> content = service.getContent(dialogId).execute();
     assertNotNull(content);
   }
-  
+
   /**
-   * Test profile variable encoding. 
+   * Test profile variable encoding.
    */
   @Test
   @Ignore
@@ -144,26 +144,24 @@ public class DialogServiceIT extends WatsonServiceTest {
     String variable = "size", value = "Germán";
 
     // start a conversation
-    Conversation c = service.createConversation(dialogId);
-    
+    Conversation c = service.createConversation(dialogId).execute();
+
     // update profile with a non-ascii value
-    Map<String, String> profile = new HashMap<String,String >();
+    Map<String, String> profile = new HashMap<String, String>();
     profile.put(variable, value);
     service.updateProfile(dialogId, c.getClientId(), profile);
-    
+
     // verify that value is equal to the one in the profile
-    profile = service.getProfile(dialogId, c.getClientId(), variable);
+    profile = service.getProfile(c, variable).execute();
     assertEquals(profile.get(variable), value);
   }
-  
+
   /**
    * Test converse with nulls.
    */
-  @SuppressWarnings("deprecation")
   @Test(expected = IllegalArgumentException.class)
   public void testConverseWithNulls() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    service.converse(params);
+    service.converse(null, null).execute();
   }
 
   /**
@@ -171,7 +169,7 @@ public class DialogServiceIT extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testCreateConversationWithNull() {
-    service.createConversation(null);
+    service.createConversation(null).execute();
   }
 
 
@@ -184,14 +182,13 @@ public class DialogServiceIT extends WatsonServiceTest {
   public void testCreateDialog() throws URISyntaxException {
     final File dialogFile = new File(DIALOG_FILE_SAMPLE);
     final String dialogName = "" + UUID.randomUUID().toString().substring(0, 15);
-    Dialog newDialog = service.createDialog(dialogName, dialogFile);
+    Dialog newDialog = service.createDialog(dialogName, dialogFile).execute();
 
     try {
       assertNotNull(newDialog.getId());
-      newDialog = service.updateDialog(newDialog.getId(), dialogFile);
-      assertNotNull(newDialog.getId());
+      service.updateDialog(newDialog.getId(), dialogFile).execute();
     } finally {
-      service.deleteDialog(newDialog.getId());
+      service.deleteDialog(newDialog.getId()).execute();
     }
   }
 
@@ -200,7 +197,7 @@ public class DialogServiceIT extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testCreateDialogWithNull() {
-    service.createDialog(null, null);
+    service.createDialog(null, null).execute();
   }
 
   /**
@@ -208,7 +205,7 @@ public class DialogServiceIT extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testDeleteDialogWithNull() {
-    service.deleteDialog(null);
+    service.deleteDialog(null).execute();
   }
 
   /**
@@ -216,7 +213,7 @@ public class DialogServiceIT extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testGetContentWithNull() {
-    service.getContent(null);
+    service.getContent(null).execute();
   }
 
   /**
@@ -224,8 +221,7 @@ public class DialogServiceIT extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testGetConversationData() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    service.getConversationData(params);
+    service.getConversationData(null).execute();
   }
 
   /**
@@ -233,7 +229,7 @@ public class DialogServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testGetDialogs() {
-    final List<Dialog> dialogs = service.getDialogs();
+    final List<Dialog> dialogs = service.getDialogs().execute();
     assertNotNull(dialogs);
     assertFalse(dialogs.isEmpty());
   }
@@ -243,7 +239,7 @@ public class DialogServiceIT extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testGetProfile() {
-    service.getProfile(null, null);
+    service.getProfile(null).execute();
   }
 
   /**

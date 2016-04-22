@@ -27,7 +27,7 @@
     <dependency>
         <groupId>com.ibm.watson.developer_cloud</groupId>
         <artifactId>java-sdk</artifactId>
-        <version>2.10.0</version>
+        <version>3.0.0-RC1</version>
     </dependency>
   </dependencies>
 </project>

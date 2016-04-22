@@ -23,8 +23,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class Accounts extends GenericModel {
-
-  /** The accounts. */
   private List<Account> accounts;
 
   /**

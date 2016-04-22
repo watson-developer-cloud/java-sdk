@@ -28,11 +28,11 @@ import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SessionStatus;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSessionStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeDelegate;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 
 /**
  * The Class SpeechToTextIT.
@@ -40,11 +40,9 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeD
 public class SpeechToTextIT extends WatsonServiceTest {
 
   private static String EN_BROADBAND16K = "en-US_BroadbandModel";
-  private SpeechResults asyncResults;
-
   private CountDownLatch lock = new CountDownLatch(1);
-
   private SpeechToText service;
+  private SpeechResults asyncResults;
 
   /*
    * (non-Javadoc)
@@ -67,12 +65,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateSession() {
-    SpeechSession session = service.createSession();
+    SpeechSession session = service.createSession().execute();
     try {
       assertNotNull(session);
       assertNotNull(session.getSessionId());
     } finally {
-      service.deleteSession(session);
+      service.deleteSession(session).execute();
     }
   }
 
@@ -81,12 +79,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateSessionSpeechModel() {
-    SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K);
+    SpeechSession session = service.createSession(SpeechModel.EN_US_BROADBANDMODEL).execute();
     try {
       assertNotNull(session);
       assertNotNull(session.getSessionId());
     } finally {
-      service.deleteSession(session);
+      service.deleteSession(session).execute();
     }
   }
 
@@ -95,12 +93,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateSessionString() {
-    SpeechSession session = service.createSession(EN_BROADBAND16K);
+    SpeechSession session = service.createSession(EN_BROADBAND16K).execute();
     try {
       assertNotNull(session);
       assertNotNull(session.getSessionId());
     } finally {
-      service.deleteSession(session);
+      service.deleteSession(session).execute();
     }
   }
 
@@ -109,7 +107,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testGetModel() {
-    SpeechModel model = service.getModel(EN_BROADBAND16K);
+    SpeechModel model = service.getModel(EN_BROADBAND16K).execute();
     assertNotNull(model);
     assertNotNull(model.getName());
     assertNotNull(model.getRate());
@@ -120,7 +118,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testGetModels() {
-    List<SpeechModel> models = service.getModels();
+    List<SpeechModel> models = service.getModels().execute();
     assertNotNull(models);
     assertTrue(!models.isEmpty());
   }
@@ -130,24 +128,24 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testGetRecognizeStatus() {
-    SpeechSession session = service.createSession(SpeechModel.EN_BROADBAND16K);
-    SessionStatus status = service.getRecognizeStatus(session);
+    SpeechSession session = service.createSession(SpeechModel.EN_US_BROADBANDMODEL).execute();
+    SpeechSessionStatus status = service.getRecognizeStatus(session).execute();
     try {
       assertNotNull(status);
       assertNotNull(status.getModel());
       assertNotNull(status.getState());
     } finally {
-      service.deleteSession(session);
+      service.deleteSession(session).execute();
     }
   }
 
   /**
-   * Test recognize audio file
+   * Test recognize audio file.
    */
   @Test
   public void testRecognizeFileString() {
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
-    SpeechResults results = service.recognize(audio);
+    SpeechResults results = service.recognize(audio).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
   }
 
@@ -158,30 +156,38 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testRecognizeFileStringRecognizeOptions() {
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
     String contentType = HttpMediaType.AUDIO_WAV;
-    RecognizeOptions options = new RecognizeOptions();
-    options.continuous(true).timestamps(true).wordConfidence(true).model(EN_BROADBAND16K)
-        .contentType(contentType);
-    SpeechResults results = service.recognize(audio, options);
+    RecognizeOptions options = new RecognizeOptions.Builder()
+      .continuous(true)
+      .timestamps(true)
+      .wordConfidence(true)
+      .model(EN_BROADBAND16K)
+      .contentType(contentType)
+      .build();
+    SpeechResults results = service.recognize(audio, options).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTimestamps());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getWordConfidences());
   }
 
   /**
-   * Test recognize webSocket
-   * 
+   * Test recognize webSocket.
+   *
    * @throws FileNotFoundException the file not found exception
-   * @throws InterruptedException
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
-    RecognizeOptions options = new RecognizeOptions();
-    options.continuous(true).interimResults(true);
-    options.inactivityTimeout(40).timestamps(true).maxAlternatives(2);
-    options.model(EN_BROADBAND16K).contentType(HttpMediaType.AUDIO_WAV);
-
-    service.recognizeUsingWebSockets(new FileInputStream(
-        "src/test/resources/speech_to_text/sample1.wav"), options, new BaseRecognizeDelegate() {
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .continuous(true)
+        .interimResults(true)
+        .inactivityTimeout(40)
+        .timestamps(true)
+        .maxAlternatives(2)
+        .model(EN_BROADBAND16K)
+        .contentType(HttpMediaType.AUDIO_WAV).build();
+    FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/sample1.wav");
+    
+    service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
 
       @Override
       public void onConnected() {
@@ -201,17 +207,17 @@ public class SpeechToTextIT extends WatsonServiceTest {
       }
 
       @Override
-      public void onMessage(SpeechResults speechResults) {
+      public void onTranscription(SpeechResults speechResults) {
         if (speechResults != null && speechResults.isFinal()) {
           asyncResults = speechResults;
-          //System.out.println(speechResults);
         }
       }
 
     });
 
-    lock.await(20000, TimeUnit.MILLISECONDS);
+    lock.await(2, TimeUnit.MINUTES);
     assertNotNull(asyncResults);
   }
+
 
 }

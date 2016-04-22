@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 
 /**
- * The Solution used by the {@link TradeoffAnalytics} v1 service
+ * Solution used by the {@link TradeoffAnalytics} v1 service.
  */
 public class Solution extends GenericModel {
 
@@ -37,6 +37,8 @@ public class Solution extends GenericModel {
     private List<String> tokens;
 
     /**
+     * Gets the error code.
+     *
      * @return the errorCode
      */
     public String getErrorCode() {
@@ -44,6 +46,8 @@ public class Solution extends GenericModel {
     }
 
     /**
+     * Gets the message.
+     *
      * @return the message
      */
     public String getMessage() {
@@ -51,6 +55,8 @@ public class Solution extends GenericModel {
     }
 
     /**
+     * Gets the tokens.
+     *
      * @return the tokens
      */
     public List<String> getTokens() {
@@ -58,6 +64,8 @@ public class Solution extends GenericModel {
     }
 
     /**
+     * Sets the error code.
+     *
      * @param errorCode the errorCode to set
      */
     public void setErrorCode(String errorCode) {
@@ -65,6 +73,8 @@ public class Solution extends GenericModel {
     }
 
     /**
+     * Sets the message.
+     *
      * @param message the message to set
      */
     public void setMessage(String message) {
@@ -72,6 +82,8 @@ public class Solution extends GenericModel {
     }
 
     /**
+     * Sets the tokens.
+     *
      * @param tokens the tokens to set
      */
     public void setTokens(List<String> tokens) {
@@ -132,6 +144,8 @@ public class Solution extends GenericModel {
   }
 
   /**
+   * Gets the status cause.
+   *
    * @return the statusCause
    */
   public StatusCause getStatusCause() {
@@ -175,6 +189,8 @@ public class Solution extends GenericModel {
   }
 
   /**
+   * Sets the status cause.
+   *
    * @param statusCause the statusCause to set
    */
   public void setStatusCause(StatusCause statusCause) {

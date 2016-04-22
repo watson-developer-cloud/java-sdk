@@ -23,8 +23,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class Graphs extends GenericModel {
-
-  /** The graphs. */
   private List<String> graphs;
 
   /**

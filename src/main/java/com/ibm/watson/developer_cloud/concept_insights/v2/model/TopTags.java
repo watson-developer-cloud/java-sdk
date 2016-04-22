@@ -20,33 +20,20 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Class TopTags.
+ * Document tags
  */
 public class TopTags extends GenericModel {
 
-  /** The corpus tags histogram. */
   @SerializedName("corpus_tags_histogram")
   private Map<String, Integer> corpusTagsHistogram;
-
-  /** The document length histogram. */
   @SerializedName("document_length_histogram")
   private Map<String, Integer> documentLengthHistogram;
-
-  /** The documents. */
   private Integer documents;
-
-  /** The document tags histogram. */
   @SerializedName("document_tags_histogram")
   private Map<String, Integer> documentTagsHistogram;
-
-  /** The tags. */
   private List<Tag> tags;
-
-  /** The total tags. */
   @SerializedName("total_tags")
   private Integer totalTags;
-
-  /** The unique tags. */
   @SerializedName("unique_tags")
   private Integer uniqueTags;
 

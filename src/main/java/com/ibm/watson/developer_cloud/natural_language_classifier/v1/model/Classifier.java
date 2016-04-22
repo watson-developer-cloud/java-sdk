@@ -27,47 +27,24 @@ public class Classifier extends GenericModel {
 
 
   /**
-   * The Classifier Status.
+   * Classifier Status.
    */
   public enum Status {
-
-    /** The available. */
     @SerializedName("Available") AVAILABLE,
-
-    /** The failed. */
     @SerializedName("Failed") FAILED,
-
-    /** The non existent. */
     @SerializedName("Non Existent") NON_EXISTENT,
-
-    /** The training. */
     @SerializedName("Training") TRAINING,
-
-    /** The unavailable. */
     @SerializedName("Unavailable") UNAVAILABLE
   }
 
-  /** The created. */
-  private Date created;
-
-  /** The id. */
   @SerializedName("classifier_id")
   private String id;
-
-  /** The language. */
   private String language;
-
-  /** The name. */
   private String name;
-
-  /** The status. */
   private Status status;
-
-  /** The status description. */
+  private Date created;
   @SerializedName("status_description")
   private String statusDescription;
-
-  /** The url. */
   private String url;
 
   /**

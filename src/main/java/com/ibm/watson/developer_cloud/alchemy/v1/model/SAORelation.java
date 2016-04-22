@@ -98,17 +98,6 @@ public class SAORelation extends GenericModel {
         this.text = text;
       }
 
-      /**
-       * With text.
-       * 
-       * @param text the text
-       * @return the verb
-       */
-      public Verb withText(String text) {
-        this.text = text;
-        return this;
-      }
-
     }
 
     /** The lemmatized. */
@@ -172,28 +161,6 @@ public class SAORelation extends GenericModel {
      */
     public void setVerb(Verb verb) {
       this.verb = verb;
-    }
-
-    /**
-     * With lemmatized.
-     * 
-     * @param lemmatized the lemmatized
-     * @return the action
-     */
-    public Action withLemmatized(String lemmatized) {
-      this.lemmatized = lemmatized;
-      return this;
-    }
-
-    /**
-     * With text.
-     * 
-     * @param text the text
-     * @return the action
-     */
-    public Action withText(String text) {
-      this.text = text;
-      return this;
     }
   }
 

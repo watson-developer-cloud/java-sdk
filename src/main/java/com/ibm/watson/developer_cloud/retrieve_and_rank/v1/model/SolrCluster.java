@@ -30,7 +30,8 @@ public class SolrCluster extends GenericModel {
    * The Solr Cluster Status.
    */
   public enum Status {
-    READY, NOT_AVAILABLE
+    READY, 
+    NOT_AVAILABLE
   }
 
   @SerializedName(SOLR_CLUSTER_ID)

@@ -26,7 +26,7 @@ public class ImageKeywordsExample {
     service.setApiKey("<api_key>");
 
     File image = new File("src/test/resources/alchemy/obama.jpg");
-    ImageKeywords keywords = service.getImageKeywords(image, true, true);
+    ImageKeywords keywords = service.getImageKeywords(image, true, true).execute();
 
     System.out.println(keywords);
   }

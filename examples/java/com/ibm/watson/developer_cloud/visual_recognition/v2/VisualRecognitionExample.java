@@ -15,8 +15,9 @@ package com.ibm.watson.developer_cloud.visual_recognition.v2;
 
 import java.io.File;
 
-import com.ibm.watson.developer_cloud.visual_recognition.v2.model.VisualClassification;
-import com.ibm.watson.developer_cloud.visual_recognition.v2.model.VisualClassifier;
+import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.VisualRecognition;
+import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.model.VisualClassification;
+import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.model.VisualClassifier;
 
 public class VisualRecognitionExample {
 
@@ -27,12 +28,12 @@ public class VisualRecognitionExample {
     File image = new File("src/test/resources/visual_recognition/car.png");
 
     System.out.println("Classify using all the classifiers");
-    VisualClassification result = service.classify(image);
+    VisualClassification result = service.classify(image).execute();
     System.out.println(result);
 
     System.out.println("Classify using the 'Car' classifier");
     VisualClassifier car = new VisualClassifier("Car");
-    result = service.classify(image, car);
+    result = service.classify(image, car).execute();
     System.out.println(result);
 
     System.out.println("Create a classifier with positive and negative images");
@@ -40,7 +41,7 @@ public class VisualRecognitionExample {
     File positiveImages = new File("src/test/resources/visual_recognition/positive.zip");
     File negativeImages = new File("src/test/resources/visual_recognition/negative.zip");
 
-    VisualClassifier foo = service.createClassifier("foo", positiveImages, negativeImages);
+    VisualClassifier foo = service.createClassifier("foo", positiveImages, negativeImages).execute();
     System.out.println(foo);
 
 

@@ -24,18 +24,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class CorpusProcessingState extends GenericModel {
-
-  /** The build status. */
   @SerializedName("build_status")
   private BuildStatus buildStatus;
-
-  /** The documents. */
   private Integer documents;
-
-  /** The id. */
   private String id;
-
-  /** The last updated. */
   @SerializedName("last_updated")
   private Date lastUpdated;
 

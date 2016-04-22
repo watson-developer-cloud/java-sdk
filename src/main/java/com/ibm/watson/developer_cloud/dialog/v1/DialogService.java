@@ -17,28 +17,33 @@ import java.io.File;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Conversation;
 import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationData;
+import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationDataOptions;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Dialog;
 import com.ibm.watson.developer_cloud.dialog.v1.model.DialogContent;
 import com.ibm.watson.developer_cloud.dialog.v1.model.NameValue;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
-import com.squareup.okhttp.MultipartBuilder;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
+import com.ibm.watson.developer_cloud.util.Validator;
+
+import okhttp3.MultipartBody;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 /**
  * The IBM Watson Dialog service Dialogs enhances application by providing chitchat for topics
@@ -52,303 +57,42 @@ import com.squareup.okhttp.Response;
  */
 public class DialogService extends WatsonService {
 
+  private static final String CLIENT_ID = "client_id";
   private static final String CONVERSATION_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-
+  private static final String CONVERSATION_ID = "conversation_id";
   private static final String CONVERSATIONS = "conversations";
-
-  private static final String PATH_DIALOG_CONVERSATION = "/v1/dialogs/%s/conversation";
-
-  /** The Constant CLIENT_ID. */
-  public static final String CLIENT_ID = "client_id";
-
-  /** The Constant CONVERSATION_ID. */
-  public static final String CONVERSATION_ID = "conversation_id";
-
-  /** The Constant DATE_FROM. */
-  public static final String DATE_FROM = "date_from";
-
-  /** The Constant DATE_TO. */
-  public static final String DATE_TO = "date_to";
-
-  /** The Constant DIALOG_ID. */
-  public static final String DIALOG_ID = "dialog_id";
-
-  /** The Constant FILE. */
+  private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(CONVERSATION_DATE_FORMAT);
+  private static final String DATE_FROM = "date_from";
+  private static final String DATE_TO = "date_to";
+  private static final String DIALOGS = "dialogs";
   private static final String FILE = "file";
-
-  /** The Constant INPUT. */
-  public static final String INPUT = "input";
-
-  /** The Constant LIMIT. */
-  public static final String LIMIT = "limit";
-
-  /** The list conversation data type. */
-  private static final Type listConversationDataType = new TypeToken<List<ConversationData>>() {}
-      .getType();
-
-  /** The list dialog content type. */
-  private static final Type listDialogContentType = new TypeToken<List<DialogContent>>() {}
-      .getType();
-
-  /** The list dialog type. */
+  private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
+  private static final String INPUT = "input";
+  private static final String ITEMS = "items";
+  private static final String LIMIT = "limit";
+  private static final Type listConversationDataType = new TypeToken<List<ConversationData>>() {}.getType();
+  private static final Type listDialogContentType = new TypeToken<List<DialogContent>>() {}.getType();
   private static final Type listDialogType = new TypeToken<List<Dialog>>() {}.getType();
-
-  /** The list name value type. */
-  private static Type listNameValueType = new TypeToken<List<NameValue>>() {}.getType();
-
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(DialogService.class.getName());
-
-  /** The Constant NAME. */
+  private static final Type listNameValueType = new TypeToken<List<NameValue>>() {}.getType();
   private static final String NAME = "name";
-
-  /** The Constant NAME_VALUES. */
-  public static final String NAME_VALUES = "name_values";
-
-  /** The Constant OFFSET. */
-  public static final String OFFSET = "offset";
-
-  /** The Constant PATH_DIALOGS. */
-  private static final String PATH_DIALOGS = "/v1/dialogs";
-
-  /** The Constant sdfDate. */
-  private static final SimpleDateFormat sdfDate = new SimpleDateFormat(CONVERSATION_DATE_FORMAT);
-
-  /** The Constant URL. */
-  private static final String URL = "https://gateway.watsonplatform.net/dialog/api";
-  private static final String PATH_PROFILE = "/v1/dialogs/%s/profile";
-  private static final String PATH_DIALOG_CONTENT = "/v1/dialogs/%s/content";
+  private static final String NAME_VALUES = "name_values";
+  private static final String OFFSET = "offset";
   private static final String PATH_DIALOG = "/v1/dialogs/%s";
+  private static final String PATH_DIALOG_CONTENT = "/v1/dialogs/%s/content";
+  private static final String PATH_DIALOG_CONVERSATION = "/v1/dialogs/%s/conversation";
+  private static final String PATH_DIALOGS = "/v1/dialogs";
+  private static final String PATH_PROFILE = "/v1/dialogs/%s/profile";
+  private static final String SERVICE_NAME = "dialog";
+  private static final String URL = "https://gateway.watsonplatform.net/dialog/api";
 
   /**
    * Instantiates a new Dialog service with the default URL.
    */
   public DialogService() {
-    super("dialog");
+    super(SERVICE_NAME);
     setEndPoint(URL);
   }
 
-
-  /**
-   * Starts or continue conversations.
-   * 
-   * @param conversation the current conversation
-   * @param newMessage the new message
-   * @return the {@link Conversation} with the response
-   */
-  public Conversation converse(final Conversation conversation, String newMessage) {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(DIALOG_ID, conversation.getDialogId());
-    params.put(INPUT, newMessage);
-    params.put(CLIENT_ID, conversation.getClientId());
-    params.put(CONVERSATION_ID, conversation.getId());
-    return converse(params);
-  }
-
-  /**
-   * Starts or continue conversations.
-   * 
-   * @param params the params
-   * @return the {@link Conversation} with the response
-   * @deprecated Use {@link DialogService#converse(Conversation, String)}
-   */
-  public Conversation converse(final Map<String, Object> params) {
-
-    final String dialogId = (String) params.get(DIALOG_ID);
-    final String input = (String) params.get(INPUT);
-    final Integer clientId = (Integer) params.get(CLIENT_ID);
-    final Integer conversationId = (Integer) params.get(CONVERSATION_ID);
-
-    if (dialogId == null || dialogId.isEmpty())
-      throw new IllegalArgumentException("dialog id cannot be null or empty");
-
-    if (conversationId == null)
-      log.info("Creating a new conversation with for dialog: " + dialogId);
-
-    if (clientId == null) {
-      log.info("Creating a new client id with for dialog: " + dialogId);
-    }
-
-    final String path = String.format(PATH_DIALOG_CONVERSATION, dialogId);
-
-    final Request request =
-        RequestBuilder.post(path)
-            .withForm(CONVERSATION_ID, conversationId, CLIENT_ID, clientId, INPUT, input).build();
-
-    final Conversation conversation = executeRequest(request, Conversation.class);
-    conversation.setDialogId(dialogId);
-    return conversation;
-  }
-
-  /**
-   * Starts or continue conversations.
-   * 
-   * @param dialogId the dialog identifier
-   * @return a new {@link Conversation}
-   */
-  public Conversation createConversation(final String dialogId) {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(DIALOG_ID, dialogId);
-    return converse(params);
-  }
-
-  /**
-   * Creates a dialog.
-   * 
-   * @param name The dialog name
-   * @param dialogFile The dialog file created by using the Dialog service Applet.
-   * @return The created dialog
-   * @see Dialog
-   */
-  public Dialog createDialog(final String name, final File dialogFile) {
-    if (name == null || name.isEmpty())
-      throw new IllegalArgumentException("name cannot be null or empty");
-
-    if (dialogFile == null || !dialogFile.exists())
-      throw new IllegalArgumentException("dialogFile cannot be null or empty");
-
-    final RequestBody body =
-        new MultipartBuilder()
-            .type(MultipartBuilder.FORM)
-            .addFormDataPart(FILE, dialogFile.getName(),
-                RequestBody.create(HttpMediaType.BINARY_FILE, dialogFile))
-            .addFormDataPart(NAME, name).build();
-
-    final Request request = RequestBuilder.post(PATH_DIALOGS).withBody(body).build();
-
-    return executeRequest(request, Dialog.class);
-  }
-
-  /**
-   * Deletes a dialog.
-   * 
-   * @param dialogId The dialog identifier
-   * @see DialogService
-   */
-  public void deleteDialog(final String dialogId) {
-    if (dialogId == null || dialogId.isEmpty())
-      throw new IllegalArgumentException("dialogId cannot be null or empty");
-
-    final Request request = RequestBuilder.delete(String.format(PATH_DIALOG, dialogId)).build();
-    executeWithoutResponse(request);
-  }
-
-  /**
-   * Gets content for nodes.
-   * 
-   * @param dialogId the dialog identifier
-   * @return The {@link DialogContent} for nodes
-   */
-  public List<DialogContent> getContent(final String dialogId) {
-    if (dialogId == null || dialogId.isEmpty())
-      throw new IllegalArgumentException("dialogId cannot be null or empty");
-
-    final Request request =
-        RequestBuilder.get(String.format(PATH_DIALOG_CONTENT, dialogId)).build();
-
-    final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
-    final List<DialogContent> content =
-        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("items"), listDialogContentType);
-    return content;
-  }
-
-  /**
-   * Returns chat session data dump for a given date rage.
-   * 
-   * @param params the params
-   * @return A list of {@link ConversationData}
-   */
-  public List<ConversationData> getConversationData(final Map<String, Object> params) {
-    final String dialogId = (String) params.get(DIALOG_ID);
-
-    final Date from = (Date) params.get(DATE_FROM);
-    final Date to = (Date) params.get(DATE_TO);
-
-    final Integer offset = (Integer) params.get(OFFSET);
-    final Integer limit = (Integer) params.get(LIMIT);
-
-    if (dialogId == null || dialogId.isEmpty())
-      throw new IllegalArgumentException(DIALOG_ID + " cannot be null or empty");
-
-    if (from == null)
-      throw new IllegalArgumentException(DATE_FROM + " cannot be null");
-
-    if (to == null)
-      throw new IllegalArgumentException(DATE_TO + " cannot be null");
-
-    if (from.after(to))
-      throw new IllegalArgumentException("'" + DATE_FROM + "' is greater than '" + DATE_TO + "'");
-
-    final String fromString = sdfDate.format(from);
-    final String toString = sdfDate.format(to);
-
-    final String path = String.format(PATH_DIALOG_CONVERSATION, dialogId);
-
-    final RequestBuilder requestBuilder =
-        RequestBuilder.get(path).withQuery(DATE_FROM, fromString, DATE_TO, toString);
-
-    if (offset != null)
-      requestBuilder.withQuery(OFFSET, offset);
-    if (limit != null)
-      requestBuilder.withQuery(LIMIT, limit);
-
-    final Request request = requestBuilder.build();
-
-    final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
-    final List<ConversationData> conversationDataList =
-        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(CONVERSATIONS), listConversationDataType);
-    return conversationDataList;
-  }
-
-  /**
-   * Retrieves the list of Dialogs for the user.
-   * 
-   * @return the {@link Dialog} list
-   */
-  public List<Dialog> getDialogs() {
-    final Request request = RequestBuilder.get(PATH_DIALOGS).build();
-
-    final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
-    final List<Dialog> dialogs =
-        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get("dialogs"), listDialogType);
-    return dialogs;
-  }
-
-  /**
-   * Returns a list of name-value pars associated with a client id.
-   * 
-   * @param dialogId The dialog identifier
-   * @param clientId the client id
-   * @param names the profile variables to return
-   * @return the created dialog
-   */
-  public Map<String, String> getProfile(String dialogId, Integer clientId, String... names) {
-    if (dialogId == null || dialogId.isEmpty())
-      throw new IllegalArgumentException("dialogId cannot be null or empty");
-
-    if (clientId == null)
-      throw new IllegalArgumentException("clientId cannot be null");
-
-    final RequestBuilder requestbuilder =
-        RequestBuilder.get(String.format(PATH_PROFILE, dialogId)).withQuery(CLIENT_ID, clientId);
-
-    if (names != null) {
-      for (final String name : names) {
-        requestbuilder.withQuery("name", name);
-      }
-    }
-
-    final Request request = requestbuilder.build();
-    final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
-    final List<NameValue> nameValues =
-        GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonObject.get(NAME_VALUES), listNameValueType);
-
-    return fromNameValues(nameValues);
-  }
 
   /**
    * Returns a Map from a {@link NameValue} list.
@@ -364,63 +108,6 @@ public class DialogService extends WatsonService {
     return profile;
   }
 
-
-  /**
-   * Updates a dialog.
-   * 
-   * @param dialogId The dialog identifier
-   * @param dialogFile The dialog file
-   * @return the created dialog
-   * @see Dialog
-   */
-  public Dialog updateDialog(final String dialogId, final File dialogFile) {
-    if (dialogId == null || dialogId.isEmpty())
-      throw new IllegalArgumentException("dialogId cannot be null or empty");
-
-    if (dialogFile == null || !dialogFile.exists())
-      throw new IllegalArgumentException("dialogFile cannot be null or empty");
-
-    final RequestBody body =
-        new MultipartBuilder()
-            .type(MultipartBuilder.FORM)
-            .addFormDataPart(FILE, dialogFile.getName(),
-                RequestBody.create(HttpMediaType.BINARY_FILE, dialogFile)).build();
-
-    final Request request =
-        RequestBuilder.put(String.format(PATH_DIALOG, dialogId)).withBody(body).build();
-
-    executeWithoutResponse(request);
-    final Dialog dialog = new Dialog().withDialogId(dialogId);
-    return dialog;
-  }
-
-  /**
-   * Updates a dialog profile with a profile. Profile variables are case sensitive.
-   * 
-   * @param dialogId The dialog identifier
-   * @param clientId the client id
-   * @param profile the profile variables
-   */
-  public void updateProfile(final String dialogId, final Integer clientId,
-      final Map<String, String> profile) {
-    if (dialogId == null || dialogId.isEmpty())
-      throw new IllegalArgumentException("dialogId cannot be null or empty");
-
-    if (profile == null || profile.isEmpty())
-      throw new IllegalArgumentException("profile cannot be null or empty");
-
-    final JsonObject contentJson = new JsonObject();
-    if (clientId != null)
-      contentJson.addProperty(CLIENT_ID, clientId);
-
-    contentJson.add(NAME_VALUES, GsonSingleton.getGsonWithoutPrettyPrinting().toJsonTree(toNameValue(profile)));
-
-    final Request request =
-        RequestBuilder.put(String.format(PATH_PROFILE, dialogId)).withBodyJson(contentJson).build();
-    executeWithoutResponse(request);
-  }
-
-
   /**
    * Converts the profile map into a {@link NameValue} list.
    * 
@@ -433,6 +120,245 @@ public class DialogService extends WatsonService {
       nameValues.add(new NameValue(key, profile.get(key)));
     }
     return nameValues;
+  }
+
+  /**
+   * Starts or continue conversations.
+   * 
+   * @param conversation the current conversation
+   * @param newMessage the new message
+   * @return the {@link Conversation} with the response
+   */
+  public ServiceCall<Conversation> converse(final Conversation conversation, String newMessage) {
+    Validator.notNull(conversation, "conversation cannot be null");
+    Validator.isTrue(conversation.getDialogId() != null && !conversation.getDialogId().isEmpty(),
+        "conversation.dialogId cannot be null or empty");
+
+    final String path = String.format(PATH_DIALOG_CONVERSATION, conversation.getDialogId());
+
+    final RequestBuilder requestBuilder = RequestBuilder.post(path);
+    requestBuilder.form(CONVERSATION_ID, conversation.getId());
+    requestBuilder.form(CLIENT_ID, conversation.getClientId());
+    requestBuilder.form(INPUT, newMessage);
+
+    return createServiceCall(requestBuilder.build(), new ResponseConverter<Conversation>() {
+      @Override
+      public Conversation convert(Response response) {
+        Conversation newConversation = ResponseUtils.getObject(response, Conversation.class);
+        newConversation.setDialogId(conversation.getDialogId());
+        return newConversation;
+      }
+    });
+  }
+
+  /**
+   * Starts or continue conversations.
+   * 
+   * @param dialogId the dialog identifier
+   * @return a new {@link Conversation}
+   */
+  public ServiceCall<Conversation> createConversation(final String dialogId) {
+    Conversation conversation = new Conversation();
+    conversation.setDialogId(dialogId);
+    return converse(conversation, null);
+  }
+
+  /**
+   * Creates a dialog.
+   * 
+   * @param name The dialog name
+   * @param dialogFile The dialog script file
+   * @return The created dialog
+   * @see Dialog
+   */
+  public ServiceCall<Dialog> createDialog(final String name, final File dialogFile) {
+    Validator.isTrue(name != null && !name.isEmpty(), "name cannot be null or empty");
+    Validator.isTrue(dialogFile != null && dialogFile.exists(), "dialogFile cannot be null or inexistent");
+
+    final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+        .addFormDataPart(FILE, dialogFile.getName(), RequestBody.create(HttpMediaType.BINARY_FILE, dialogFile))
+        .addFormDataPart(NAME, name).build();
+
+    final Request request = RequestBuilder.post(PATH_DIALOGS).body(body).build();
+
+    return createServiceCall(request, ResponseConverterUtils.getObject(Dialog.class));
+  }
+
+  /**
+   * Deletes a dialog.
+   *
+   * @param dialogId The dialog identifier
+   * @return the service call
+   * @see DialogService
+   */
+  public ServiceCall<Void> deleteDialog(final String dialogId) {
+    Validator.isTrue(dialogId != null && !dialogId.isEmpty(), "dialogId cannot be null or empty");
+
+    final Request request = RequestBuilder.delete(String.format(PATH_DIALOG, dialogId)).build();
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Gets content for nodes.
+   * 
+   * @param dialogId the dialog identifier
+   * @return The {@link DialogContent} for nodes
+   */
+  public ServiceCall<List<DialogContent>> getContent(final String dialogId) {
+    Validator.isTrue(dialogId != null && !dialogId.isEmpty(), "dialogId cannot be null or empty");
+
+    final Request request = RequestBuilder.get(String.format(PATH_DIALOG_CONTENT, dialogId)).build();
+    final ResponseConverter<List<DialogContent>> converter =
+        ResponseConverterUtils.getGenericObject(listDialogContentType, ITEMS);
+    return createServiceCall(request, converter);
+  }
+
+  /**
+   * Returns chat session data dump for a given date rage.
+   *
+   * @param options the options
+   * @return A list of {@link ConversationData}
+   */
+  public ServiceCall<List<ConversationData>> getConversationData(ConversationDataOptions options) {
+    Validator.notNull(options, "options cannot be null");
+    Validator.isTrue(options.dialogId() != null && !options.dialogId().isEmpty(),
+        "options.dialogId cannot be null or empty");
+
+    Validator.notNull(options.from(), "options.from cannot be null");
+    Validator.notNull(options.to(), "options.to cannot be null");
+
+    if (options.from().after(options.to()))
+      throw new IllegalArgumentException("options.from is greater than options.to");
+
+    final String fromString = DATE_FORMATTER.format(options.from());
+    final String toString = DATE_FORMATTER.format(options.to());
+
+    final String path = String.format(PATH_DIALOG_CONVERSATION, options.dialogId());
+
+    final RequestBuilder requestBuilder = RequestBuilder.get(path).query(DATE_FROM, fromString, DATE_TO, toString);
+
+    if (options.offset() != null)
+      requestBuilder.query(OFFSET, options.offset());
+    if (options.limit() != null)
+      requestBuilder.query(LIMIT, options.limit());
+
+    final Request request = requestBuilder.build();
+    ResponseConverter<List<ConversationData>> converter =
+        ResponseConverterUtils.getGenericObject(listConversationDataType, CONVERSATIONS);
+    return createServiceCall(request, converter);
+  }
+
+  /**
+   * Retrieves the list of Dialogs for the user.
+   * 
+   * @return the {@link Dialog} list
+   */
+  public ServiceCall<List<Dialog>> getDialogs() {
+    final Request request = RequestBuilder.get(PATH_DIALOGS).build();
+
+    ResponseConverter<List<Dialog>> converter = ResponseConverterUtils.getGenericObject(listDialogType, DIALOGS);
+    return createServiceCall(request, converter);
+  }
+
+  /**
+   * Returns a list of name-value pars associated with a client id.
+   * 
+   * @param conversation The current conversation
+   * @param names the profile variables to return
+   * @return the profile
+   */
+  public ServiceCall<Map<String, String>> getProfile(final Conversation conversation, String... names) {
+    Validator.notNull(conversation, "conversation cannot be null");
+    return getProfile(conversation.getDialogId(), conversation.getClientId(), names);
+  }
+
+
+  /**
+   * Returns a list of name-value pars associated with a client id.
+   * 
+   * @param dialogId The dialog identifier
+   * @param clientId the client id
+   * @param names the profile variables to return
+   * @return the profile
+   */
+  public ServiceCall<Map<String, String>> getProfile(String dialogId, Integer clientId, String... names) {
+    Validator.isTrue(dialogId != null && !dialogId.isEmpty(), "dialogId cannot be null or empty");
+    Validator.notNull(clientId, "clientId cannot be null");
+
+    final RequestBuilder requestBuilder =
+        RequestBuilder.get(String.format(PATH_PROFILE, dialogId)).query(CLIENT_ID, clientId);
+
+    if (names != null) {
+      for (final String name : names) {
+        requestBuilder.query(NAME, name);
+      }
+    }
+
+    return createServiceCall(requestBuilder.build(), new ResponseConverter<Map<String, String>>() {
+      @Override
+      public Map<String, String> convert(Response response) {
+        JsonObject jsonObject = ResponseUtils.getJsonObject(response);
+        final List<NameValue> nameValues = GSON.fromJson(jsonObject.get(NAME_VALUES), listNameValueType);
+        return fromNameValues(nameValues);
+      }
+    });
+  }
+
+  /**
+   * Updates an existing {@link Dialog}.
+   *
+   * @param dialogId The dialog identifier
+   * @param dialogFile The dialog file
+   * @return the service call
+   * @see Dialog
+   */
+  public ServiceCall<Void> updateDialog(final String dialogId, final File dialogFile) {
+    Validator.isTrue(dialogId != null && !dialogId.isEmpty(), "dialogId cannot be null or empty");
+    Validator.isTrue(dialogFile != null && dialogFile.exists(), "dialogFile cannot be null or inexistent");
+
+    final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+        .addFormDataPart(FILE, dialogFile.getName(), RequestBody.create(HttpMediaType.BINARY_FILE, dialogFile)).build();
+
+    final Request request = RequestBuilder.put(String.format(PATH_DIALOG, dialogId)).body(body).build();
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Updates a profile with a Map of key-value variables.<br>
+   * Profile variables are case sensitive.
+   *
+   * @param conversation the conversation
+   * @param profile the profile
+   * @return the service call
+   */
+  public ServiceCall<Void> updateProfile(final Conversation conversation, final Map<String, String> profile) {
+    Validator.notNull(conversation, "conversation cannot be null");
+
+    return updateProfile(conversation.getDialogId(), conversation.getClientId(), profile);
+  }
+
+  /**
+   * Updates a dialog profile with a profile.<br>
+   * Profile variables are case sensitive.
+   *
+   * @param dialogId The dialog identifier
+   * @param clientId the client identifier
+   * @param profile the profile variables
+   * @return the service call
+   */
+  public ServiceCall<Void> updateProfile(final String dialogId, final Integer clientId,
+      final Map<String, String> profile) {
+    Validator.isTrue(dialogId != null && !dialogId.isEmpty(), "dialogId cannot be null or empty");
+    Validator.isTrue(profile != null && !profile.isEmpty(), "profile cannot be null or empty");
+
+    final JsonObject contentJson = new JsonObject();
+    if (clientId != null)
+      contentJson.addProperty(CLIENT_ID, clientId);
+
+    contentJson.add(NAME_VALUES, GSON.toJsonTree(toNameValue(profile)));
+
+    final Request request = RequestBuilder.put(String.format(PATH_PROFILE, dialogId)).bodyJson(contentJson).build();
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
 }

@@ -29,18 +29,18 @@ public class CreateARankerExample {
     service.setUsernameAndPassword("<service>", "<password>");
 
     // 2 create a ranker
-    Ranker ranker = service.createRanker("example-ranker-1", new File("<path_to_training_csv>"));
+    Ranker ranker = service.createRanker("example-ranker-1", new File("<path_to_training_csv>")).execute();
     System.out.println("ranker: " + ranker);
 
     // 3 wait until is trained
     while (ranker.getStatus() == Status.TRAINING) {
       Thread.sleep(4000); // sleep 4 seconds
-      ranker = service.getRankerStatus(ranker.getId());
+      ranker = service.getRankerStatus(ranker.getId()).execute();
       System.out.println("ranker status: " + ranker.getStatus());
     }
 
     // 4 rank answers
-    Ranking ranking = service.rank(ranker.getId(), new File("<path_to_answer_csv>"), 5);
+    Ranking ranking = service.rank(ranker.getId(), new File("<path_to_answer_csv>"), 5).execute();
     System.out.println("ranking: " + ranking);
 
     // 5 delete ranker

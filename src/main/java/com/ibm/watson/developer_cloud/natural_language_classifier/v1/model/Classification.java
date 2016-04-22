@@ -26,19 +26,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Classification extends GenericModel {
 
   private List<ClassifiedClass> classes;
-
   @SerializedName("classifier_id")
   private String id;
-
   private String text;
-
-  /** The top class. */
   @SerializedName("top_class")
   private String topClass;
-
-  /** The top class confidence. */
-  private transient Double topConfidence;
-
   private String url;
 
   /**
@@ -75,15 +67,6 @@ public class Classification extends GenericModel {
    */
   public String getTopClass() {
     return topClass;
-  }
-
-  /**
-   * Gets the top confidence.
-   * 
-   * @return the topConfidence
-   */
-  public Double getTopConfidence() {
-    return topConfidence;
   }
 
   /**
@@ -129,15 +112,6 @@ public class Classification extends GenericModel {
    */
   public void setTopClass(String topClass) {
     this.topClass = topClass;
-  }
-
-  /**
-   * Sets the top confidence.
-   * 
-   * @param topConfidence the topConfidence to set
-   */
-  public void setTopConfidence(Double topConfidence) {
-    this.topConfidence = topConfidence;
   }
 
   /**

@@ -21,11 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * The Class HitNode.
  */
 public class HitNode extends GenericModel {
-
-  /** The details. */
   private String details;
-
-  /** The label. */
   private String label;
 
   /**

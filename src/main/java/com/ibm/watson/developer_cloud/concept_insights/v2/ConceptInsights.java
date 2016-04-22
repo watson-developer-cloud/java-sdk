@@ -44,13 +44,14 @@ import com.ibm.watson.developer_cloud.concept_insights.v2.util.IDHelper;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+
+import okhttp3.Request;
 
 /**
  * The IBM Watson™ Concept Insights service provides APIs that enable you to work with concepts and
@@ -61,33 +62,28 @@ import com.squareup.okhttp.Response;
  * 
  * @version v2
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html">
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept-insights.html">
  *      Concept Insights</a>
  */
 public class ConceptInsights extends WatsonService {
 
-  private static final String FORWARD_SLASH = "/";
-
-  /**
-   * The ACCOUNTS_PATH. (value is "/v2/accounts")
-   */
   private static final String ACCOUNTS_PATH = "/v2/accounts";
-
-  /**
-   * The Constant ANNOTATE_TEXT_PATH. (value is "/annotate_text")
-   */
   private static final String ANNOTATE_TEXT_PATH = "/annotate_text";
-
-  /**
-   * The ANNOTATIONS_PATH. (value is "/annotations")
-   */
   private static final String ANNOTATIONS_PATH = "/annotations";
-
-  /**
-   * The API VERSION. (value is "/v2")
-   */
   private static final String API_VERSION = "/v2";
-
+  private static final String CONCEPTUAL_SEARCH_PATH = "/conceptual_search";
+  private static final String CORPORA_PATH = "/v2/corpora";
+  private static final String DOCUMENTS_PATH = "/documents";
+  private static final String FORWARD_SLASH = "/";
+  private static final String GRAPHS_PATH = "/v2/graphs";
+  private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
+  private static final String LABEL_SEARCH_PATH = "/label_search";
+  private static final String PROCESSING_STATE_PATH = "/processing_state";
+  private static final String RELATED_CONCEPTS_PATH = "/related_concepts";
+  private static final String RELATION_SCORES_PATH = "/relation_scores";
+  private static final String SERVICE_NAME = "concept_insights";
+  private static final String STATS_PATH = "/stats";
+  private static final String URL = "https://gateway.watsonplatform.net/concept-insights/api";
   /**
    * The Constant CONCEPT. (value is "concept")
    */
@@ -104,16 +100,6 @@ public class ConceptInsights extends WatsonService {
   public static final String CONCEPTS = "concepts";
 
   /**
-   * The Constant CONCEPTUAL_SEARCH_PATH. (value is "/conceptual_search")
-   */
-  private static final String CONCEPTUAL_SEARCH_PATH = "/conceptual_search";
-
-  /**
-   * The CORPORA_PATH. (value is "/v2/corpora")
-   */
-  private static final String CORPORA_PATH = "/v2/corpora";
-
-  /**
    * The Constant CURSOR. (value is "cursor")
    */
   public static final String CURSOR = "cursor";
@@ -124,24 +110,10 @@ public class ConceptInsights extends WatsonService {
   public static final String DOCUMENT_FIELDS = "document_fields";
 
   /**
-   * The Constant DOCUMENTS. (value is "documents")
-   */
-  public static final String DOCUMENTS_PATH = "/documents";
-
-  /**
-   * The GRAPHS_PATH. (value is "/v2/graphs")
-   */
-  private static final String GRAPHS_PATH = "/v2/graphs";
-
-  /**
    * The Constant IDS. (value is "ids")
    */
   public static final String IDS = "ids";
 
-  /**
-   * The LABEL_SEARCH_PATH. (value is "/label_search")
-   */
-  private static final String LABEL_SEARCH_PATH = "/label_search";
 
   /**
    * The Constant LEVEL. (value is "level")
@@ -159,50 +131,54 @@ public class ConceptInsights extends WatsonService {
   public static final String PREFIX = "prefix";
 
   /**
-   * The Constant PROCESSING_STATE_PATH. (value is "/processing_state")
-   */
-  private static final String PROCESSING_STATE_PATH = "/processing_state";
-
-  /**
    * The Constant query. (value is "query")
    */
   public static final String QUERY = "query";
-
-  /**
-   * The RELATED_CONCEPTS_PATH. (value is "/related_concepts")
-   */
-  private static final String RELATED_CONCEPTS_PATH = "/related_concepts";
-
-  /**
-   * The Constant RELATION_SCORES_PATH. (value is "/relation_scores")
-   */
-  private static final String RELATION_SCORES_PATH = "/relation_scores";
-
-  /**
-   * The Constant STATS_PATH. (value is "/stats")
-   */
-  private static final String STATS_PATH = "/stats";
 
   /**
    * The Constant TEXT. (value is "text")
    */
   public static final String TEXT = "text";
 
-  /**
-   * The service url. (value is "https://gateway.watsonplatform.net/concept-insights/api")
-   */
-  private static final String URL = "https://gateway.watsonplatform.net/concept-insights/api";
-
-  /** The account id. */
-  private String accountId = null;
+  private String accountId;
 
   /**
    * Instantiates a new Concept Insights service.
    */
   public ConceptInsights() {
-    super("concept_insights");
+    super(SERVICE_NAME);
     setEndPoint(URL);
+  }
 
+  /**
+   * Creates a GET request
+   * 
+   * @param <T> The POJO that represents the response object
+   * @param resourcePath the resource path
+   * @param queryParams the query parameters
+   * @param returnType the POJO class to be parsed from the response
+   * @return the POJO object that represent the response
+   */
+  private <T extends GenericModel> ServiceCall<T> createGETRequest(final String resourcePath,
+      final Map<String, Object> queryParams, final Class<T> returnType) {
+    final RequestBuilder requestBuilder = RequestBuilder.get(resourcePath);
+    if (queryParams != null && !queryParams.isEmpty()) {
+      for (final Map.Entry<String, Object> entry : queryParams.entrySet()) {
+        requestBuilder.query(entry.getKey(), entry.getValue());
+      }
+    }
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(returnType));
+  }
+
+  /**
+   * Returns the JSON representation of @param object This method is being use to transform into
+   * JSON query parameters for some of the {@link ConceptInsights} calls
+   * 
+   * @param object the object to transform
+   * @return the JSON representation of the object
+   */
+  private String toJson(Object object) {
+    return new Gson().toJson(object);
   }
 
   /**
@@ -212,16 +188,15 @@ public class ConceptInsights extends WatsonService {
    * @param text - The text to annotate.
    * @return {@link Annotations}
    */
-  public Annotations annotateText(final Graph graph, final String text) {
+  public ServiceCall<Annotations> annotateText(final Graph graph, final String text) {
     final String graphId = IDHelper.getGraphId(graph, getFirstAccountId());
     Validator.notEmpty(text, "text cannot be empty");
 
-    final Request request = RequestBuilder.post(API_VERSION + graphId + ANNOTATE_TEXT_PATH)
-        .withBodyContent(text, HttpMediaType.TEXT_PLAIN)
-        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).build();
+    final Request request =
+        RequestBuilder.post(API_VERSION + graphId + ANNOTATE_TEXT_PATH).bodyContent(text, HttpMediaType.TEXT_PLAIN)
+            .header(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).build();
 
-    final Response response = execute(request);
-    return ResponseUtils.getObject(response, Annotations.class);
+    return createServiceCall(request, ResponseConverterUtils.getObject(Annotations.class));
   }
 
   /**
@@ -240,7 +215,7 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link QueryConcepts}
    */
-  public QueryConcepts conceptualSearch(Corpus corpus, Map<String, Object> parameters) {
+  public ServiceCall<QueryConcepts> conceptualSearch(Corpus corpus, Map<String, Object> parameters) {
     Validator.notNull(parameters.get(IDS), "ids cannot be null");
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
 
@@ -272,95 +247,59 @@ public class ConceptInsights extends WatsonService {
         queryParams.put(DOCUMENT_FIELDS, toJson(fields.getFields()));
     }
 
-    return executeRequest(API_VERSION + corpusId + CONCEPTUAL_SEARCH_PATH, queryParams,
-        QueryConcepts.class);
+    return createGETRequest(API_VERSION + corpusId + CONCEPTUAL_SEARCH_PATH, queryParams, QueryConcepts.class);
   }
 
   /**
    * Creates an empty corpus.
-   * 
+   *
    * @param corpus Corpus the corpus object.
+   * @return the service call
    */
-  public void createCorpus(final Corpus corpus) {
+  public ServiceCall<Void> createCorpus(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
     final Request request = RequestBuilder.put(API_VERSION + corpusId)
-        .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(corpus),
-            HttpMediaType.APPLICATION_JSON)
-        .build();
-    executeWithoutResponse(request);
+        .bodyContent(GSON.toJson(corpus), HttpMediaType.APPLICATION_JSON).build();
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
   /**
    * Creates a document in a given corpus.
-   * 
+   *
    * @param document {@link Document} The document to create.
+   * @return the service call
    */
-  public void createDocument(final Document document) {
+  public ServiceCall<Void> createDocument(final Document document) {
     IDHelper.getDocumentId(document);
     final Request request = RequestBuilder.put(API_VERSION + document.getId())
-        .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(document),
-            HttpMediaType.APPLICATION_JSON)
-        .build();
+        .bodyContent(GSON.toJson(document), HttpMediaType.APPLICATION_JSON).build();
 
-    executeWithoutResponse(request);
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
   /**
    * Deletes a corpus by ID.
-   * 
+   *
    * @param corpus Corpus the corpus object.
+   * @return the service call
    */
-  public void deleteCorpus(final Corpus corpus) {
+  public ServiceCall<Void> deleteCorpus(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
     final Request request = RequestBuilder.delete(API_VERSION + corpusId).build();
-    executeWithoutResponse(request);
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
   /**
    * Deletes a document in a given corpus.
-   * 
+   *
    * @param document Document the document.
+   * @return the service call
    */
 
-  public void deleteDocument(final Document document) {
+  public ServiceCall<Void> deleteDocument(final Document document) {
     IDHelper.getDocumentId(document);
     final Request request = RequestBuilder.delete(API_VERSION + document.getId()).build();
-    executeWithoutResponse(request);
-  }
-
-  /**
-   * Execute the request and return the POJO that represent the response.
-   * 
-   * @param <T> The POJO that represents the response object
-   * @param resourcePath the resource path
-   * @param queryParams the query parameters
-   * @param returnType the POJO class to be parsed from the response
-   * @return the POJO object that represent the response
-   */
-  private <T extends GenericModel> T executeRequest(final String resourcePath,
-      final Map<String, Object> queryParams, final Class<T> returnType) {
-    final RequestBuilder requestBuilder = RequestBuilder.get(resourcePath);
-    if (queryParams != null && !queryParams.isEmpty()) {
-      for (final Map.Entry<String, Object> entry : queryParams.entrySet()) {
-        requestBuilder.withQuery(entry.getKey(), entry.getValue());
-      }
-    }
-    return executeRequest(requestBuilder.build(), returnType);
-  }
-
-  /**
-   * Returns the first account id.
-   * 
-   * @return the account id
-   */
-  public String getFirstAccountId() {
-    if (accountId == null) {
-      final Accounts accounts = getAccountsInfo();
-      if (accounts != null && accounts.getAccounts() != null && !accounts.getAccounts().isEmpty()) {
-        accountId = accounts.getAccounts().get(0).getId();
-      }
-    }
-    return accountId;
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
   /**
@@ -368,8 +307,8 @@ public class ConceptInsights extends WatsonService {
    * 
    * @return the {@link Accounts}
    */
-  public Accounts getAccountsInfo() {
-    return executeRequest(ACCOUNTS_PATH, null, Accounts.class);
+  public ServiceCall<Accounts> getAccountsInfo() {
+    return createGETRequest(ACCOUNTS_PATH, null, Accounts.class);
   }
 
   /**
@@ -378,9 +317,9 @@ public class ConceptInsights extends WatsonService {
    * @param concept Concept the concept object.
    * @return {@link ConceptMetadata}
    */
-  public ConceptMetadata getConcept(final Concept concept) {
+  public ServiceCall<ConceptMetadata> getConcept(final Concept concept) {
     IDHelper.getConceptId(concept);
-    return executeRequest(API_VERSION + concept.getId(), null, ConceptMetadata.class);
+    return createGETRequest(API_VERSION + concept.getId(), null, ConceptMetadata.class);
   }
 
   /**
@@ -397,8 +336,7 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Concepts}
    */
-  public Concepts getConceptRelatedConcepts(final Concept concept,
-      final Map<String, Object> parameters) {
+  public ServiceCall<Concepts> getConceptRelatedConcepts(final Concept concept, final Map<String, Object> parameters) {
     final String conceptId = IDHelper.getConceptId(concept);
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
@@ -412,8 +350,7 @@ public class ConceptInsights extends WatsonService {
       if (fields != null && !fields.isEmpty())
         queryParameters.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
-    return executeRequest(API_VERSION + conceptId + RELATED_CONCEPTS_PATH, queryParameters,
-        Concepts.class);
+    return createGETRequest(API_VERSION + conceptId + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
   }
 
   /**
@@ -422,9 +359,9 @@ public class ConceptInsights extends WatsonService {
    * @param corpus Corpus the corpus object.
    * @return the Corpus
    */
-  public Corpus getCorpus(final Corpus corpus) {
+  public ServiceCall<Corpus> getCorpus(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
-    return executeRequest(API_VERSION + corpusId, null, Corpus.class);
+    return createGETRequest(API_VERSION + corpusId, null, Corpus.class);
   }
 
   /**
@@ -433,10 +370,9 @@ public class ConceptInsights extends WatsonService {
    * @param corpus Corpus the corpus object.
    * @return {@link CorpusProcessingState} The processing state of a given corpus.
    */
-  public CorpusProcessingState getCorpusProcessingState(final Corpus corpus) {
+  public ServiceCall<CorpusProcessingState> getCorpusProcessingState(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
-    return executeRequest(API_VERSION + corpusId + PROCESSING_STATE_PATH, null,
-        CorpusProcessingState.class);
+    return createGETRequest(API_VERSION + corpusId + PROCESSING_STATE_PATH, null, CorpusProcessingState.class);
   }
 
   /**
@@ -453,8 +389,7 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Concepts}
    */
-  public Concepts getCorpusRelatedConcepts(final Corpus corpus,
-      final Map<String, Object> parameters) {
+  public ServiceCall<Concepts> getCorpusRelatedConcepts(final Corpus corpus, final Map<String, Object> parameters) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
@@ -468,8 +403,7 @@ public class ConceptInsights extends WatsonService {
       if (fields != null && !fields.isEmpty())
         queryParameters.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
-    return executeRequest(API_VERSION + corpusId + RELATED_CONCEPTS_PATH, queryParameters,
-        Concepts.class);
+    return createGETRequest(API_VERSION + corpusId + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
   }
 
   /**
@@ -480,7 +414,7 @@ public class ConceptInsights extends WatsonService {
    * @param concepts Array of concept IDs, each identifying a concept
    * @return {@link Scores}
    */
-  public Scores getCorpusRelationScores(final Corpus corpus, final List<Concept> concepts) {
+  public ServiceCall<Scores> getCorpusRelationScores(final Corpus corpus, final List<Concept> concepts) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
     Validator.notEmpty(concepts, "concepts cannot be empty");
 
@@ -492,8 +426,7 @@ public class ConceptInsights extends WatsonService {
     }
     contentJson.add(CONCEPTS, conceptsJson);
     queryParameters.put(CONCEPTS, conceptsJson.toString());
-    return executeRequest(API_VERSION + corpusId + RELATION_SCORES_PATH, queryParameters,
-        Scores.class);
+    return createGETRequest(API_VERSION + corpusId + RELATION_SCORES_PATH, queryParameters, Scores.class);
   }
 
   /**
@@ -502,9 +435,9 @@ public class ConceptInsights extends WatsonService {
    * @param corpus The corpus object
    * @return the {@link CorpusStats}
    */
-  public CorpusStats getCorpusStats(final Corpus corpus) {
+  public ServiceCall<CorpusStats> getCorpusStats(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
-    return executeRequest(API_VERSION + corpusId + STATS_PATH, null, CorpusStats.class);
+    return createGETRequest(API_VERSION + corpusId + STATS_PATH, null, CorpusStats.class);
   }
 
   /**
@@ -513,9 +446,9 @@ public class ConceptInsights extends WatsonService {
    * @param document Document the document object,
    * @return {@link Document}
    */
-  public Document getDocument(final Document document) {
+  public ServiceCall<Document> getDocument(final Document document) {
     final String documentId = IDHelper.getDocumentId(document);
-    return executeRequest(API_VERSION + documentId, null, Document.class);
+    return createGETRequest(API_VERSION + documentId, null, Document.class);
   }
 
   /**
@@ -524,10 +457,9 @@ public class ConceptInsights extends WatsonService {
    * @param document Document the document object,
    * @return {@link DocumentAnnotations}
    */
-  public DocumentAnnotations getDocumentAnnotations(final Document document) {
+  public ServiceCall<DocumentAnnotations> getDocumentAnnotations(final Document document) {
     final String documentId = IDHelper.getDocumentId(document);
-    return executeRequest(API_VERSION + documentId + ANNOTATIONS_PATH, null,
-        DocumentAnnotations.class);
+    return createGETRequest(API_VERSION + documentId + ANNOTATIONS_PATH, null, DocumentAnnotations.class);
   }
 
   /**
@@ -536,10 +468,9 @@ public class ConceptInsights extends WatsonService {
    * @param document Document the document object,
    * @return {@link DocumentProcessingStatus}
    */
-  public DocumentProcessingStatus getDocumentProcessingState(final Document document) {
+  public ServiceCall<DocumentProcessingStatus> getDocumentProcessingState(final Document document) {
     final String documentId = IDHelper.getDocumentId(document);
-    return executeRequest(API_VERSION + documentId + PROCESSING_STATE_PATH, null,
-        DocumentProcessingStatus.class);
+    return createGETRequest(API_VERSION + documentId + PROCESSING_STATE_PATH, null, DocumentProcessingStatus.class);
   }
 
   /**
@@ -556,7 +487,7 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Concepts}
    */
-  public Concepts getDocumentRelatedConcepts(final Document document,
+  public ServiceCall<Concepts> getDocumentRelatedConcepts(final Document document,
       final Map<String, Object> parameters) {
     final String documentId = IDHelper.getDocumentId(document);
     final String[] queryParameters = new String[] {LEVEL, LIMIT};
@@ -570,8 +501,7 @@ public class ConceptInsights extends WatsonService {
       if (fields != null && !fields.isEmpty())
         queryParams.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
-    return executeRequest(API_VERSION + documentId + RELATED_CONCEPTS_PATH, queryParams,
-        Concepts.class);
+    return createGETRequest(API_VERSION + documentId + RELATED_CONCEPTS_PATH, queryParams, Concepts.class);
   }
 
   /**
@@ -581,7 +511,7 @@ public class ConceptInsights extends WatsonService {
    * @param concepts the concepts
    * @return {@link Scores}
    */
-  public Scores getDocumentRelationScores(final Document document, final List<Concept> concepts) {
+  public ServiceCall<Scores> getDocumentRelationScores(final Document document, final List<Concept> concepts) {
     final String documentId = IDHelper.getDocumentId(document);
     Validator.notEmpty(concepts, "concepts cannot be empty");
 
@@ -594,8 +524,22 @@ public class ConceptInsights extends WatsonService {
     }
     contentJson.add(CONCEPTS, conceptsJson);
     queryParams.put(CONCEPTS, conceptsJson.toString());
-    return executeRequest(API_VERSION + documentId + RELATION_SCORES_PATH, queryParams,
-        Scores.class);
+    return createGETRequest(API_VERSION + documentId + RELATION_SCORES_PATH, queryParams, Scores.class);
+  }
+
+  /**
+   * Returns the first account id.
+   * 
+   * @return the account id
+   */
+  public String getFirstAccountId() {
+    if (accountId == null) {
+      final Accounts accounts = getAccountsInfo().execute();
+      if (accounts != null && accounts.getAccounts() != null && !accounts.getAccounts().isEmpty()) {
+        accountId = accounts.getAccounts().get(0).getId();
+      }
+    }
+    return accountId;
   }
 
   /**
@@ -614,7 +558,7 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Concepts}
    */
-  public Concepts getGraphRelatedConcepts(final Graph graph, final List<Concept> concepts,
+  public ServiceCall<Concepts> getGraphRelatedConcepts(final Graph graph, final List<Concept> concepts,
       final Map<String, Object> parameters) {
     final String graphId = IDHelper.getGraphId(graph, getFirstAccountId());
     Validator.notEmpty(concepts, "concepts cannot be empty");
@@ -637,19 +581,7 @@ public class ConceptInsights extends WatsonService {
     }
     contentJson.add(CONCEPTS, conceptsJson);
     queryParameters.put(CONCEPTS, conceptsJson.toString());
-    return executeRequest(API_VERSION + graphId + RELATED_CONCEPTS_PATH, queryParameters,
-        Concepts.class);
-  }
-
-  /**
-   * Returns the JSON representation of @param object This method is being use to transform into
-   * JSON query parameters for some of the {@link ConceptInsights} calls
-   * 
-   * @param object the object to transform
-   * @return the JSON representation of the object
-   */
-  private String toJson(Object object) {
-    return new Gson().toJson(object);
+    return createGETRequest(API_VERSION + graphId + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
   }
 
   /**
@@ -661,7 +593,7 @@ public class ConceptInsights extends WatsonService {
    * 
    * @return {@link Scores}
    */
-  public Scores getGraphRelationScores(final Concept concept, final List<String> concepts) {
+  public ServiceCall<Scores> getGraphRelationScores(final Concept concept, final List<String> concepts) {
     final String conceptId = IDHelper.getConceptId(concept);
     Validator.notEmpty(concepts, "concepts cannot be empty");
 
@@ -675,8 +607,7 @@ public class ConceptInsights extends WatsonService {
     contentJson.add(CONCEPTS, conceptsJson);
     queryParameters.put(CONCEPTS, conceptsJson.toString());
 
-    return executeRequest(API_VERSION + conceptId + RELATION_SCORES_PATH, queryParameters,
-        Scores.class);
+    return createGETRequest(API_VERSION + conceptId + RELATION_SCORES_PATH, queryParameters, Scores.class);
   }
 
   /**
@@ -684,8 +615,8 @@ public class ConceptInsights extends WatsonService {
    * 
    * @return {@link Corpora}
    */
-  public Corpora listCorpora() {
-    return executeRequest(CORPORA_PATH, null, Corpora.class);
+  public ServiceCall<Corpora> listCorpora() {
+    return createGETRequest(CORPORA_PATH, null, Corpora.class);
   }
 
   /**
@@ -694,9 +625,9 @@ public class ConceptInsights extends WatsonService {
    * @param accountId The account identifier.
    * @return {@link Corpora}
    */
-  public Corpora listCorpora(final String accountId) {
+  public ServiceCall<Corpora> listCorpora(final String accountId) {
     Validator.notEmpty(accountId, "account_id cannot be empty");
-    return executeRequest(CORPORA_PATH + FORWARD_SLASH + accountId, null, Corpora.class);
+    return createGETRequest(CORPORA_PATH + FORWARD_SLASH + accountId, null, Corpora.class);
   }
 
   /**
@@ -706,7 +637,7 @@ public class ConceptInsights extends WatsonService {
    * @return {@link Documents}
    */
 
-  public Documents listDocuments(final Corpus corpus) {
+  public ServiceCall<Documents> listDocuments(final Corpus corpus) {
     return listDocuments(corpus, null);
   }
 
@@ -729,7 +660,7 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Documents}
    */
-  public Documents listDocuments(final Corpus corpus, final Map<String, Object> parameters) {
+  public ServiceCall<Documents> listDocuments(final Corpus corpus, final Map<String, Object> parameters) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
 
     final Map<String, Object> queryParameters = new HashMap<String, Object>();
@@ -746,8 +677,7 @@ public class ConceptInsights extends WatsonService {
         queryParameters.put(QUERY, parameters.get(QUERY));
       }
     }
-    return executeRequest(API_VERSION + corpusId + DOCUMENTS_PATH, queryParameters,
-        Documents.class);
+    return createGETRequest(API_VERSION + corpusId + DOCUMENTS_PATH, queryParameters, Documents.class);
   }
 
   /**
@@ -755,8 +685,8 @@ public class ConceptInsights extends WatsonService {
    * 
    * @return the {@link Graphs}
    */
-  public Graphs listGraphs() {
-    return executeRequest(GRAPHS_PATH, null, Graphs.class);
+  public ServiceCall<Graphs> listGraphs() {
+    return createGETRequest(GRAPHS_PATH, null, Graphs.class);
   }
 
   /**
@@ -776,7 +706,7 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Matches}
    */
-  public Matches searchCorpusByLabel(final Corpus corpus, final Map<String, Object> parameters) {
+  public ServiceCall<Matches> searchCorpusByLabel(final Corpus corpus, final Map<String, Object> parameters) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
     Validator.notEmpty((String) parameters.get(QUERY), "query cannot be empty");
 
@@ -798,8 +728,7 @@ public class ConceptInsights extends WatsonService {
       if (fields != null && !fields.isEmpty())
         queryParameters.put(DOCUMENT_FIELDS, toJson(fields.getFields()));
     }
-    return executeRequest(API_VERSION + corpusId + LABEL_SEARCH_PATH, queryParameters,
-        Matches.class);
+    return createGETRequest(API_VERSION + corpusId + LABEL_SEARCH_PATH, queryParameters, Matches.class);
   }
 
   /**
@@ -819,8 +748,7 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Matches}
    */
-  public Matches searchGraphsConceptByLabel(final Graph graph,
-      final Map<String, Object> parameters) {
+  public ServiceCall<Matches> searchGraphsConceptByLabel(final Graph graph, final Map<String, Object> parameters) {
     final String graphId = IDHelper.getGraphId(graph, getFirstAccountId());
     Validator.notEmpty((String) parameters.get(QUERY), "query cannot be empty");
 
@@ -836,35 +764,33 @@ public class ConceptInsights extends WatsonService {
       if (fields != null && !fields.isEmpty())
         queryParameters.put(CONCEPT_FIELDS, toJson(fields.getFields()));
     }
-    return executeRequest(API_VERSION + graphId + LABEL_SEARCH_PATH, queryParameters,
-        Matches.class);
+    return createGETRequest(API_VERSION + graphId + LABEL_SEARCH_PATH, queryParameters, Matches.class);
   }
 
   /**
    * Updates existing corpus meta-data (access and permissions).
-   * 
+   *
    * @param corpus {@link Corpus} the corpus to update.
+   * @return the service call
    */
-  public void updateCorpus(final Corpus corpus) {
+  public ServiceCall<Void> updateCorpus(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
     final Request request = RequestBuilder.post(API_VERSION + corpusId)
-        .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(corpus),
-            HttpMediaType.APPLICATION_JSON)
-        .build();
-    executeWithoutResponse(request);
+        .bodyContent(GSON.toJson(corpus), HttpMediaType.APPLICATION_JSON).build();
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
   /**
    * Updates a document in a given corpus.
-   * 
+   *
    * @param document {@link Document} The document to update.
+   * @return the service call
    */
-  public void updateDocument(final Document document) {
+  public ServiceCall<Void> updateDocument(final Document document) {
     final String documentId = IDHelper.getDocumentId(document);
     final Request request = RequestBuilder.post(API_VERSION + documentId)
-        .withBodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(document),
-            HttpMediaType.APPLICATION_JSON)
-        .build();
-    executeWithoutResponse(request);
+        .bodyContent(GSON.toJson(document), HttpMediaType.APPLICATION_JSON).build();
+
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 }

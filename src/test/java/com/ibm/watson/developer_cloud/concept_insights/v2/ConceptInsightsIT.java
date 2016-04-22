@@ -89,7 +89,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
   public void testAnnotateText() {
     final Annotations annotations =
         service.annotateText(Graph.WIKIPEDIA,
-            "Nizar Magboul Alseddeg is currently living in Austin Texas");
+            "Nizar Magboul Alseddeg is currently living in Austin Texas").execute();
     Assert.assertNotNull(annotations);
   }
 
@@ -108,7 +108,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     fs.include("abstract");
     params.put(ConceptInsights.CONCEPT_FIELDS, fs);
     params.put(ConceptInsights.DOCUMENT_FIELDS, fs);
-    final QueryConcepts cp = service.conceptualSearch(Corpus.TED_TALKS, params);
+    final QueryConcepts cp = service.conceptualSearch(Corpus.TED_TALKS, params).execute();
     Assert.assertNotNull(cp);
   }
 
@@ -117,7 +117,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testDocumentAnnotations() {
-    final DocumentAnnotations annotations = service.getDocumentAnnotations(EXAMPLE_DOCUMENT);
+    final DocumentAnnotations annotations = service.getDocumentAnnotations(EXAMPLE_DOCUMENT).execute();
     Assert.assertNotNull(annotations);
   }
 
@@ -126,7 +126,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetAccounts() {
-    final Accounts accounts = service.getAccountsInfo();
+    final Accounts accounts = service.getAccountsInfo().execute();
     Assert.assertNotNull(accounts);
     Assert.assertFalse(accounts.getAccounts().isEmpty());
   }
@@ -136,7 +136,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetConcept() {
-    final ConceptMetadata conceptMetaData = service.getConcept(EXAMPLE_CONCEPT);
+    final ConceptMetadata conceptMetaData = service.getConcept(EXAMPLE_CONCEPT).execute();
     Assert.assertNotNull(conceptMetaData);
 
   }
@@ -152,7 +152,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     final RequestedFields fs = new RequestedFields();
     fs.include("abstract");
     params.put(ConceptInsights.CONCEPT_FIELDS, fs);
-    Concepts concepts = service.getConceptRelatedConcepts(EXAMPLE_CONCEPT, params);
+    Concepts concepts = service.getConceptRelatedConcepts(EXAMPLE_CONCEPT, params).execute();
     Assert.assertNotNull(concepts);
     Assert.assertNotNull(concepts.getConcepts().get(0).getConcept().getAbstract());
   }
@@ -162,11 +162,11 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetCorporaByAccount() {
-    Corpora corpora = service.listCorpora(PUBLIC);
+    Corpora corpora = service.listCorpora(PUBLIC).execute();
     Assert.assertNotNull(corpora);
     Assert.assertFalse(corpora.getCorpora().isEmpty());
 
-    corpora = service.listCorpora();
+    corpora = service.listCorpora().execute();
     Assert.assertNotNull(corpora);
     Assert.assertFalse(corpora.getCorpora().isEmpty());
   }
@@ -176,9 +176,9 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetCorpus() {
-    Corpus corpus = service.getCorpus(Corpus.IBM_RESEARCHERS);
+    Corpus corpus = service.getCorpus(Corpus.IBM_RESEARCHERS).execute();
     Assert.assertNotNull(corpus);
-    corpus = service.getCorpus(Corpus.TED_TALKS);
+    corpus = service.getCorpus(Corpus.TED_TALKS).execute();
     Assert.assertNotNull(corpus);
   }
 
@@ -195,7 +195,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     fs.include("abstract");
     query.put(ConceptInsights.CONCEPT_FIELDS, fs);
     query.put(ConceptInsights.DOCUMENT_FIELDS, fs);
-    final Matches matches = service.searchCorpusByLabel(Corpus.IBM_RESEARCHERS, query);
+    final Matches matches = service.searchCorpusByLabel(Corpus.IBM_RESEARCHERS, query).execute();
     Assert.assertNotNull(matches);
   }
 
@@ -205,7 +205,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
   @Test
   public void testGetCorpusProcessingState() {
     final CorpusProcessingState corpusProcessingState =
-        service.getCorpusProcessingState(Corpus.IBM_RESEARCHERS);
+        service.getCorpusProcessingState(Corpus.IBM_RESEARCHERS).execute();
     Assert.assertNotNull(corpusProcessingState);
   }
 
@@ -221,7 +221,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     fs.include("abstract");
     params.put(ConceptInsights.CONCEPT_FIELDS, fs);
     
-    final Concepts concepts = service.getCorpusRelatedConcepts(Corpus.IBM_RESEARCHERS, params);
+    final Concepts concepts = service.getCorpusRelatedConcepts(Corpus.IBM_RESEARCHERS, params).execute();
     Assert.assertNotNull(concepts);
   }
 
@@ -232,7 +232,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
   public void testGetCorpusRelationScores() {
     final List<Concept> concepts = new ArrayList<Concept>();
     concepts.add(EXAMPLE_CONCEPT);
-    final Scores scores = service.getCorpusRelationScores(Corpus.IBM_RESEARCHERS, concepts);
+    final Scores scores = service.getCorpusRelationScores(Corpus.IBM_RESEARCHERS, concepts).execute();
     Assert.assertNotNull(scores);
   }
 
@@ -241,7 +241,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetCorpusStats() {
-    final CorpusStats corpusStats = service.getCorpusStats(Corpus.IBM_RESEARCHERS);
+    final CorpusStats corpusStats = service.getCorpusStats(Corpus.IBM_RESEARCHERS).execute();
     Assert.assertNotNull(corpusStats);
   }
 
@@ -250,7 +250,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetDocument() {
-    final Document document = service.getDocument(EXAMPLE_DOCUMENT);
+    final Document document = service.getDocument(EXAMPLE_DOCUMENT).execute();
     Assert.assertNotNull(document);
   }
 
@@ -260,7 +260,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
   @Test
   public void testGetDocumentProcessingState() {
     final DocumentProcessingStatus documentProcessingState =
-        service.getDocumentProcessingState(EXAMPLE_DOCUMENT);
+        service.getDocumentProcessingState(EXAMPLE_DOCUMENT).execute();
     Assert.assertNotNull(documentProcessingState);
   }
 
@@ -272,7 +272,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(ConceptInsights.LEVEL, "1");
     params.put(ConceptInsights.LIMIT, 10);
-    final Concepts concepts = service.getDocumentRelatedConcepts(EXAMPLE_DOCUMENT, params);
+    final Concepts concepts = service.getDocumentRelatedConcepts(EXAMPLE_DOCUMENT, params).execute();
     Assert.assertNotNull(concepts);
   }
 
@@ -283,7 +283,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
   public void testGetDocumentRelationScores() {
     final List<Concept> concepts = new ArrayList<Concept>();
     concepts.add(EXAMPLE_CONCEPT);
-    final Scores scores = service.getDocumentRelationScores(EXAMPLE_DOCUMENT, concepts);
+    final Scores scores = service.getDocumentRelationScores(EXAMPLE_DOCUMENT, concepts).execute();
     Assert.assertNotNull(scores);
   }
 
@@ -298,7 +298,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     final RequestedFields fs = new RequestedFields();
     fs.include("abstract");
     params.put(ConceptInsights.CONCEPT_FIELDS, fs);
-    final Concepts concepts = service.getDocumentRelatedConcepts(EXAMPLE_DOCUMENT, params);
+    final Concepts concepts = service.getDocumentRelatedConcepts(EXAMPLE_DOCUMENT, params).execute();
     Assert.assertNotNull(concepts);
   }
 
@@ -317,7 +317,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     fs.include("link");
     fs.include("name");
     params.put(ConceptInsights.CONCEPT_FIELDS, fs);
-    Concepts conceptResults = service.getGraphRelatedConcepts(Graph.WIKIPEDIA, concepts, params);
+    Concepts conceptResults = service.getGraphRelatedConcepts(Graph.WIKIPEDIA, concepts, params).execute();
     Assert.assertNotNull(conceptResults);
     Assert.assertTrue(!conceptResults.getConcepts().isEmpty());
     Assert.assertNotNull(conceptResults.getConcepts().get(0).getConcept().getAbstract());
@@ -330,14 +330,14 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testGetGraphs() {
-    final Graphs graphs = service.listGraphs();
+    final Graphs graphs = service.listGraphs().execute();
     Assert.assertNotNull(graphs);
     Assert.assertNotNull(graphs.getGraphs());
     Assert.assertFalse(graphs.getGraphs().isEmpty());
   }
 
   /**
-   * Test create and delete corpus
+   * Test create and delete corpus.
    */
   @Test
   public void testCreateAndDeleteCorpus() {
@@ -346,8 +346,8 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     Corpus corpus = new Corpus(account, name);
     corpus.addAccountPermissions(new AccountPermission(account, Permission.READ_WRITE_ADMIN));
     try {
-      service.createCorpus(corpus);
-      corpus = service.getCorpus(corpus);
+      service.createCorpus(corpus).execute();
+      corpus = service.getCorpus(corpus).execute();
       corpus.setAccess(Access.PUBLIC);
       service.updateCorpus(corpus);
     } finally {
@@ -369,7 +369,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     fs.include("abstract");
     params.put(ConceptInsights.CONCEPT_FIELDS, fs);
 
-    final Matches matches = service.searchGraphsConceptByLabel(Graph.WIKIPEDIA, params);
+    final Matches matches = service.searchGraphsConceptByLabel(Graph.WIKIPEDIA, params).execute();
     Assert.assertNotNull(matches);
     Assert.assertFalse(matches.getMatches().isEmpty());
     Assert.assertNotNull(matches.getMatches().get(0).getAbstract());
@@ -383,7 +383,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
   public void testGetGraphsRelatedScores() {
     final List<String> concepts = new ArrayList<String>();
     concepts.add(EXAMPLE_CONCEPT.getId());
-    final Scores scores = service.getGraphRelationScores(EXAMPLE_CONCEPT, concepts);
+    final Scores scores = service.getGraphRelationScores(EXAMPLE_CONCEPT, concepts).execute();
     Assert.assertNotNull(scores);
   }
 
@@ -392,18 +392,18 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testlistCorpora() {
-    final Corpora corpora = service.listCorpora();
+    final Corpora corpora = service.listCorpora().execute();
     Assert.assertNotNull(corpora);
     Assert.assertFalse(corpora.getCorpora().isEmpty());
   }
 
   /**
-   * Test list corpora for account
+   * Test list corpora for account.
    */
   @Test
   public void testlistCorporaForAccount() {
-    final Account account = service.getAccountsInfo().getAccounts().get(0);
-    final Corpora corpora = service.listCorpora(account.getId());
+    final Account account = service.getAccountsInfo().execute().getAccounts().get(0);
+    final Corpora corpora = service.listCorpora(account.getId()).execute();
     Assert.assertNotNull(corpora);
     Assert.assertFalse(corpora.getCorpora().isEmpty());
   }
@@ -413,8 +413,8 @@ public class ConceptInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateAndDeleteDocument() {
-    final Account account = service.getAccountsInfo().getAccounts().get(0);
-    final Corpora corpora = service.listCorpora(account.getId());
+    final Account account = service.getAccountsInfo().execute().getAccounts().get(0);
+    final Corpora corpora = service.listCorpora(account.getId()).execute();
 
     Assert.assertTrue(!corpora.getCorpora().isEmpty());
 
@@ -423,8 +423,8 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     newDocument.setLabel("test document");
     newDocument.addParts(new Part("part1", "this is the first part", HttpMediaType.TEXT_PLAIN));
     try {
-      service.createDocument(newDocument);
-      newDocument = service.getDocument(newDocument);
+      service.createDocument(newDocument).execute();
+      newDocument = service.getDocument(newDocument).execute();
       newDocument.setTimeToLive(3600);
       service.updateDocument(newDocument);
     } finally {
@@ -441,7 +441,7 @@ public class ConceptInsightsIT extends WatsonServiceTest {
     params.put(ConceptInsights.CURSOR, 0);
     params.put(ConceptInsights.LIMIT, 20);
 
-    final Documents documents = service.listDocuments(Corpus.TED_TALKS, params);
+    final Documents documents = service.listDocuments(Corpus.TED_TALKS, params).execute();
     Assert.assertNotNull(documents);
   }
 }

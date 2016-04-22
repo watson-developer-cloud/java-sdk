@@ -27,16 +27,16 @@ import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.PublicationDate;
 
 /**
- * The Class PublicationDateTypeAdapter.
+ * Type adapter to publication date a taxonomy from JSON to {@link PublicationDate}
  */
 public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
-
-  /** The Constant log. */
-  private static final Logger log = Logger.getLogger(PublicationDateTypeAdapter.class.getName());
-
-  /** The df. */
-  private final DateFormat df = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
-
+  private static final String CONFIDENT = "confident";
+  private static final String DATE = "date";
+  private static final String FALSE = "false";
+  private static final Logger LOG = Logger.getLogger(PublicationDateTypeAdapter.class.getName());
+  private static final String NO = "no";
+  private static final String YES = "yes";
+  private final DateFormat DATE_FORMATTER = new SimpleDateFormat("yyyyMMdd'T'HHmmss");
 
   /*
    * (non-Javadoc)
@@ -56,17 +56,17 @@ public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
     while (reader.hasNext()) {
       final String name = reader.nextName();
 
-      if (name.equals("confident")) {
+      if (name.equals(CONFIDENT)) {
         final String confidentAsString = reader.nextString();
-        publicationDate.setConfident(confidentAsString != null && !confidentAsString.equals("no")
-            && !confidentAsString.equals("false"));
-      } else if (name.equals("date")) {
+        publicationDate.setConfident(
+            confidentAsString != null && !confidentAsString.equals(NO) && !confidentAsString.equals(FALSE));
+      } else if (name.equals(DATE)) {
         final String dateAsString = reader.nextString();
         if (dateAsString != null && !dateAsString.isEmpty())
           try {
-            publicationDate.setDate(df.parse(dateAsString));
+            publicationDate.setDate(DATE_FORMATTER.parse(dateAsString));
           } catch (final ParseException e) {
-            log.log(Level.SEVERE, "Error parsing: " + dateAsString, e);
+            LOG.log(Level.SEVERE, "Error parsing: " + dateAsString, e);
           }
       } else {
         reader.skipValue();
@@ -91,9 +91,9 @@ public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
     writer.beginObject();
 
     if (value.getDate() != null)
-      writer.name("date").value(df.format(value.getDate()));
+      writer.name(DATE).value(DATE_FORMATTER.format(value.getDate()));
     if (value.getConfident() != null)
-      writer.name("confident").value(String.valueOf(value.getConfident() ? "yes" : "no"));
+      writer.name(CONFIDENT).value(String.valueOf(value.getConfident() ? YES : NO));
 
     writer.endObject();
     writer.flush();

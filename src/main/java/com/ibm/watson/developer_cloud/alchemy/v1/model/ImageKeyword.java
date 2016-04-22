@@ -26,14 +26,24 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class ImageKeyword extends GenericModel {
 
 
+  /** The hierarchy. */
+  private String hierarchy;
+
   /** The score. */
   private Double score;
 
   /** The text. */
   private String text;
 
-  /** The hierarchy. */
-  private String hierarchy;
+  /**
+   * Gets the hierarchy. A value is only present if the request that produced this instance was made
+   * with {@code knowledgeGraph = true}.
+   *
+   * @return The hierarchy, if it exists.
+   */
+  public String getHierarchy() {
+    return hierarchy;
+  }
 
   /**
    * Gets the score.
@@ -54,6 +64,15 @@ public class ImageKeyword extends GenericModel {
   }
 
   /**
+   * Sets the hierarchy.
+   *
+   * @param hierarchy The hierarchy.
+   */
+  public void setHierarchy(String hierarchy) {
+    this.hierarchy = hierarchy;
+  }
+
+  /**
    * Sets the score.
    * 
    * @param score The score
@@ -69,24 +88,5 @@ public class ImageKeyword extends GenericModel {
    */
   public void setText(String text) {
     this.text = text;
-  }
-
-  /**
-   * Sets the hierarchy.
-   *
-   * @param hierarchy The hierarchy.
-   */
-  public void setHierarchy(String hierarchy) {
-    this.hierarchy = hierarchy;
-  }
-
-  /**
-   * Gets the hierarchy. A value is only present if the request that produced this instance was made
-   * with {@code knowledgeGraph = true}.
-   *
-   * @return The hierarchy, if it exists.
-   */
-  public String getHierarchy() {
-    return hierarchy;
   }
 }

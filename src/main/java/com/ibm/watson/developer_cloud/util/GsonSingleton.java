@@ -56,11 +56,11 @@ public class GsonSingleton {
    *
    * @return the Gson
    */
-  public static Gson getGsonWithoutPrettyPrinting() {
-    if (gsonWithoutPrinting == null) {
-      gsonWithoutPrinting = createGson(false);
+  public static Gson getGson() {
+    if (gson == null) {
+      gson = createGson(true);
     }
-    return gsonWithoutPrinting;
+    return gson;
   }
 
   /**
@@ -68,10 +68,10 @@ public class GsonSingleton {
    *
    * @return the Gson
    */
-  public static Gson getGson() {
-    if (gson == null) {
-      gson = createGson(true);
+  public static Gson getGsonWithoutPrettyPrinting() {
+    if (gsonWithoutPrinting == null) {
+      gsonWithoutPrinting = createGson(false);
     }
-    return gson;
+    return gsonWithoutPrinting;
   }
 }

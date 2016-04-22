@@ -14,7 +14,7 @@
 package com.ibm.watson.developer_cloud.http;
 
 /**
- * Http constant headers.
+ * HTTP constant headers.
  */
 public interface HttpHeaders {
 

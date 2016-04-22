@@ -61,23 +61,26 @@ public class LanguageTranslationIT extends WatsonServiceTest {
   }
 
   /**
-   * Test create and delete model
+   * Test create and delete model.
    */
   @Test
   public void testCreateAndDeleteModel() {
-    CreateModelOptions options = new CreateModelOptions("integration-test", "en-es");
-    options.forcedGlossary(new File(RESOURCE + "glossary.tmx"));
+    CreateModelOptions options = new CreateModelOptions.Builder()
+        .name("integration-test")
+        .baseModelId("en-es")
+        .forcedGlossary(new File(RESOURCE + "glossary.tmx"))
+        .build();
 
     TranslationModel model = null;
     try {
-      model = service.createModel(options);
+      model = service.createModel(options).execute();
       Thread.sleep(3000);
       assertNotNull(model);
     } catch (InterruptedException e) {
       e.printStackTrace();
     } finally {
       if (model != null)
-        service.deleteModel(model.getId());
+        service.deleteModel(model.getId()).execute();
     }
   }
 
@@ -86,7 +89,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testGetIdentifiableLanguages() {
-    final List<IdentifiableLanguage> languages = service.getIdentifiableLanguages();
+    final List<IdentifiableLanguage> languages = service.getIdentifiableLanguages().execute();
     assertNotNull(languages);
     assertTrue(!languages.isEmpty());
   }
@@ -96,7 +99,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testGetModel() {
-    final TranslationModel model = service.getModel(ENGLISH_TO_SPANISH);
+    final TranslationModel model = service.getModel(ENGLISH_TO_SPANISH).execute();
     assertNotNull(model);
   }
 
@@ -105,7 +108,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testGetModels() {
-    final List<TranslationModel> models = service.getModels();
+    final List<TranslationModel> models = service.getModels().execute();
 
     assertNotNull(models);
     assertFalse(models.isEmpty());
@@ -116,7 +119,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testIdentify() {
-    final List<IdentifiedLanguage> identifiedLanguages = service.identify(text);
+    final List<IdentifiedLanguage> identifiedLanguages = service.identify(text).execute();
     assertNotNull(identifiedLanguages);
     assertFalse(identifiedLanguages.isEmpty());
   }
@@ -127,13 +130,13 @@ public class LanguageTranslationIT extends WatsonServiceTest {
   @Test
   public void testTranslate() {
     final String result = "El equipo es increíble IBM Watson";
-    testTranslationResult(text, result, service.translate(text, ENGLISH_TO_SPANISH));
-    testTranslationResult(text, result, service.translate(text, Language.ENGLISH, Language.SPANISH));
+    testTranslationResult(text, result, service.translate(text, ENGLISH_TO_SPANISH).execute());
+    testTranslationResult(text, result, service.translate(text, Language.ENGLISH, Language.SPANISH).execute());
   }
 
   private void testTranslationResult(String text, String result, TranslationResult translationResult) {
     assertNotNull(translationResult);
-    assertEquals(translationResult.getWordCount(), text.split(" ").length);
+    assertEquals(translationResult.getWordCount().intValue(), text.split(" ").length);
     assertNotNull(translationResult.getTranslations());
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
     assertEquals(result, translationResult.getTranslations().get(0).getTranslation());

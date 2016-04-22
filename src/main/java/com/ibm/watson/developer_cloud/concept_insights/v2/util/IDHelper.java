@@ -30,27 +30,25 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class IDHelper {
 
-  /**
-   * The CONCEPT_ID_REGEX. (format is "/graphs/{account_id}/{graph}/concepts/{concept}")
-   */
-  private final static String CONCEPT_ID_REGEX =
-      "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*/concepts/[_\\-\\w\\s\\(\\)]*$";
-
-  /**
-   * The CORPUS_ID_REGEX. (format is "/corpora/{account_id}/{corpus}")
-   */
+  private final static String CONCEPT_ID_REGEX = "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*/concepts/[_\\-\\w\\s\\(\\)]*$";
   private final static String CORPUS_ID_REGEX = "^/corpora/[_\\-\\w\\s]*/[_\\-\\w\\s]*$";
-
-  /**
-   * The DOCUMENT_ID_REGEX. (format is "/corpora/{account_id}/{corpus}/documents/{document}")
-   */
-  private final static String DOCUMENT_ID_REGEX =
-      "^/corpora/[_\\-\\w\\s]*/[_\\-\\w\\s]*/documents/[_\\-\\w\\s]*$";
-
-  /**
-   * The GRAPH_ID_REGEX. (format is "/graphs/{account_id}/{graph}")
-   */
+  private final static String DOCUMENT_ID_REGEX = "^/corpora/[_\\-\\w\\s]*/[_\\-\\w\\s]*/documents/[_\\-\\w\\s]*$";
   private final static String GRAPH_ID_REGEX = "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*$";
+
+  /**
+   * ID validation.
+   * 
+   * @param regex the regex the regular expression used during the validation,
+   * @param id the id to be check.
+   * @param message the exception message if invalid.
+   */
+  private static void validate(final String regex, final String id, final String message) {
+    final Pattern pattern = Pattern.compile(regex);
+    final Matcher matcher = pattern.matcher(id);
+    if (!matcher.matches()) {
+      throw new IllegalArgumentException(message);
+    }
+  }
 
   /**
    * The purpose of this method to validate / generate the concept.id.
@@ -78,8 +76,8 @@ public class IDHelper {
   public static String getCorpusId(final Corpus corpus, final String accountId) {
     Validator.notNull(corpus, "corpus cannot be null");
     if (corpus.getId() != null) {
-      validate(CORPUS_ID_REGEX, corpus.getId(), "Provide a valid corpus.id (format is " + '"'
-          + "/corpora/{account_id}/{corpus} +" + '"' + ")");
+      validate(CORPUS_ID_REGEX, corpus.getId(),
+          "Provide a valid corpus.id (format is " + '"' + "/corpora/{account_id}/{corpus} +" + '"' + ")");
       return corpus.getId();
     } else {
       Validator.notNull(corpus.getName(), "corpus.name cannot be null");
@@ -113,27 +111,12 @@ public class IDHelper {
   public static String getGraphId(final Graph graph, final String accountId) {
     Validator.notNull(graph, "graph object cannot be null");
     if (graph.getId() != null) {
-      validate(GRAPH_ID_REGEX, graph.getId(), "Provide a valid graph.id (format is " + '"'
-          + " (/graphs/{account_id}/{graph}) +" + '"' + ")");
+      validate(GRAPH_ID_REGEX, graph.getId(),
+          "Provide a valid graph.id (format is " + '"' + " (/graphs/{account_id}/{graph}) +" + '"' + ")");
       return graph.getId();
     } else {
       Validator.notNull(graph.getName(), "graph.name cannot be null");
       return "/graphs/" + accountId + "/" + graph.getName();
-    }
-  }
-
-  /**
-   * ID validation.
-   * 
-   * @param regex the regex the regular expression used during the validation,
-   * @param id the id to be check.
-   * @param message the exception message if invalid.
-   */
-  private static void validate(final String regex, final String id, final String message) {
-    final Pattern pattern = Pattern.compile(regex);
-    final Matcher matcher = pattern.matcher(id);
-    if (!matcher.matches()) {
-      throw new IllegalArgumentException(message);
     }
   }
 

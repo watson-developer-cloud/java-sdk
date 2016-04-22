@@ -22,8 +22,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class Account extends GenericModel {
-
-  /** The id. */
   @SerializedName("account_id")
   private String id;
 

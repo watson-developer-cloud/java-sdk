@@ -54,12 +54,12 @@ public class DocumentConversionIT extends WatsonServiceTest {
   }
 
   /**
-   * Test Convert to answers unit
+   * Test Convert to answers unit.
    */
   @Test
   public void testConvertToAnswers() {
     for (final File file : files) {
-      final Answers answers = service.convertDocumentToAnswer(file);
+      final Answers answers = service.convertDocumentToAnswer(file).execute();
       Assert.assertNotNull(answers);
       Assert.assertNotNull(answers.getAnswerUnits());
       Assert.assertTrue(!answers.getAnswerUnits().isEmpty());
@@ -67,24 +67,24 @@ public class DocumentConversionIT extends WatsonServiceTest {
   }
 
   /**
-   * Test convert to HTML
+   * Test convert to HTML.
    */
   @Test
   public void testConvertToHtml() {
     for (final File file : files) {
-      final String html = service.convertDocumentToHTML(file);
+      final String html = service.convertDocumentToHTML(file).execute();
       Assert.assertNotNull(html);
       Assert.assertNotEquals(html, "");
     }
   }
 
   /**
-   * Test convert to Text
+   * Test convert to Text.
    */
   @Test
   public void testConvertToText() {
     for (final File file : files) {
-      final String text = service.convertDocumentToText(file);
+      final String text = service.convertDocumentToText(file).execute();
       Assert.assertNotNull(text);
       Assert.assertNotEquals(text, "");
     }

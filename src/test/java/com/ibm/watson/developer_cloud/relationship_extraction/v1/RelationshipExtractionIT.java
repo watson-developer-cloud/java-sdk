@@ -18,7 +18,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.relationship_extraction.v1.model.Dataset;
+import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.RelationshipExtraction;
+import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.ReturnType;
+import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.model.Dataset;
 
 /**
  * The Class RelationshipExtractionTest.
@@ -54,11 +56,11 @@ public class RelationshipExtractionIT extends WatsonServiceTest {
   public void testExtract() {
     String text ="IBM Watson Developer Cloud";
     service.setDataset(Dataset.ENGLISH_NEWS);
-    String response = service.extract(text);
+    String response = service.extract(text).execute();
     Assert.assertNotNull(response);
     
     service.setReturnType(ReturnType.JSON);
-    response = service.extract(text);
+    response = service.extract(text).execute();
     Assert.assertNotNull(response);
     
   }

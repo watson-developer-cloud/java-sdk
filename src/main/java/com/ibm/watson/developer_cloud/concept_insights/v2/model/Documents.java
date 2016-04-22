@@ -23,8 +23,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class Documents extends GenericModel {
-
-  /** The documents. */
   private List<String> documents;
 
   /**

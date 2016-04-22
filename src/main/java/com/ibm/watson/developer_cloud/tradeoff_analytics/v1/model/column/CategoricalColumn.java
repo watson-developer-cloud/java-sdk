@@ -16,9 +16,10 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
 import java.util.List;
 
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
+
 /**
- * The Class Column.
- * 
+ * The Class Column. See {@link TradeoffAnalytics}
  */
 public class CategoricalColumn extends Column {
 
@@ -54,6 +55,17 @@ public class CategoricalColumn extends Column {
   }
 
   /**
+   * Sets the range.
+   * 
+   * @param range the range
+   * @return the categorical column
+   */
+  public CategoricalColumn range(List<String> range) {
+    setRange(range);
+    return this;
+  }
+
+  /**
    * Sets the preference.
    * 
    * @param preference the preference to set
@@ -69,17 +81,6 @@ public class CategoricalColumn extends Column {
    */
   public void setRange(List<String> range) {
     this.range = range;
-  }
-
-  /**
-   * With range.
-   * 
-   * @param range the range
-   * @return the categorical column
-   */
-  public CategoricalColumn withRange(List<String> range) {
-    setRange(range);
-    return this;
   }
 
 }

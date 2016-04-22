@@ -19,36 +19,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.SpeechTimestampTypeAdapter;
 
 /**
- * Transcription timestamp
+ * Transcription timestamp.
  */
 @JsonAdapter(SpeechTimestampTypeAdapter.class)
 public class SpeechTimestamp extends GenericModel {
-
-  /** The word. */
+  private Double endTime;
+  private Double startTime;
   private String word;
 
-  /** The start time. */
-  private Double startTime;
-
-  /** The end time. */
-  private Double endTime;
-
   /**
-   * Gets the word.
+   * Gets the end time.
    * 
-   * @return The word
+   * @return The end time
    */
-  public String getWord() {
-    return word;
-  }
-
-  /**
-   * Sets the word.
-   * 
-   * @param word The word
-   */
-  public void setWord(final String word) {
-    this.word = word;
+  public Double getEndTime() {
+    return endTime;
   }
 
   /**
@@ -61,21 +46,12 @@ public class SpeechTimestamp extends GenericModel {
   }
 
   /**
-   * Sets the start time.
+   * Gets the word.
    * 
-   * @param startTime The start time
+   * @return The word
    */
-  public void setStartTime(final Double startTime) {
-    this.startTime = startTime;
-  }
-
-  /**
-   * Gets the end time.
-   * 
-   * @return The end time
-   */
-  public Double getEndTime() {
-    return endTime;
+  public String getWord() {
+    return word;
   }
 
   /**
@@ -85,5 +61,23 @@ public class SpeechTimestamp extends GenericModel {
    */
   public void setEndTime(final Double endTime) {
     this.endTime = endTime;
+  }
+
+  /**
+   * Sets the start time.
+   * 
+   * @param startTime The start time
+   */
+  public void setStartTime(final Double startTime) {
+    this.startTime = startTime;
+  }
+
+  /**
+   * Sets the word.
+   * 
+   * @param word The word
+   */
+  public void setWord(final String word) {
+    this.word = word;
   }
 }

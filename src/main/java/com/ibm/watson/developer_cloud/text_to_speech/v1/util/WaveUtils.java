@@ -1,3 +1,16 @@
+/**
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.ibm.watson.developer_cloud.text_to_speech.v1.util;
 
 import java.io.ByteArrayInputStream;
@@ -16,11 +29,24 @@ public class WaveUtils {
   /** The WAVE meta-data header size. (value is 8) */
   private static final int WAVE_HEADER_SIZE = 8;
 
+  /** The WAVE meta-data position in bytes. (value is 74) */
+  private static final int WAVE_METADATA_POS = 74;
+
   /** The WAVE meta-data size position. (value is 4) */
   private static final int WAVE_SIZE_POS = 4;
 
-  /** The WAVE meta-data position in bytes. (value is 74) */
-  private static final int WAVE_METADATA_POS = 74;
+  /**
+   * Writes an number into an array using 4 bytes
+   * 
+   * @param value the number to write
+   * @param array the byte array
+   * @param offset the offset
+   */
+  private static void writeInt(int value, byte[] array, int offset) {
+    for (int i = 0; i < 4; i++) {
+      array[offset + i] = (byte) (value >>> (8 * i));
+    }
+  }
 
   /**
    * Re-writes the data size in the header(bytes 4-8) of the WAVE(.wav) input stream.<br>
@@ -41,21 +67,8 @@ public class WaveUtils {
   }
 
   /**
-   * Writes an number into an array using 4 bytes
-   * 
-   * @param value the number to write
-   * @param array the byte array
-   * @param offset the offset
-   */
-  private static void writeInt(int value, byte[] array, int offset) {
-    for (int i = 0; i < 4; i++) {
-      array[offset + i] = (byte) (value >>> (8 * i));
-    }
-  }
-
-  /**
-   * Converts an {@link InputStream} to byte array
-   * 
+   * Converts an {@link InputStream} to byte array.
+   *
    * @param is the input stream
    * @return the byte array
    * @throws IOException If the first byte cannot be read for any reason other than end of file, or

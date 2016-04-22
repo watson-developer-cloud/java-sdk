@@ -50,21 +50,21 @@ public class DocumentAuthors extends AlchemyLanguageGenericModel {
     }
 
     /**
-     * Sets the confident.
-     * 
-     * @param confident the confident to set
-     */
-    public void setConfident(String confident) {
-      this.confident = confident;
-    }
-
-    /**
      * Gets the names.
      * 
      * @return The names
      */
     public List<String> getNames() {
       return names;
+    }
+
+    /**
+     * Sets the confident.
+     * 
+     * @param confident the confident to set
+     */
+    public void setConfident(String confident) {
+      this.confident = confident;
     }
 
     /**

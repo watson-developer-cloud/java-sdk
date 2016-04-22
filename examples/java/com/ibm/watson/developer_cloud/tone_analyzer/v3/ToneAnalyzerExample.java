@@ -13,7 +13,8 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3_beta.ToneAnalyzer;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3_beta.model.ToneAnalysis;
 
 public class ToneAnalyzerExample {
 
@@ -35,7 +36,7 @@ public class ToneAnalyzerExample {
           + "business outcomes. Economy has nothing to do with it.";
 
     // Call the service and get the tone
-    ToneAnalysis tone = service.getTone(text);
+    ToneAnalysis tone = service.getTone(text).execute();
     System.out.println(tone);
 
   }

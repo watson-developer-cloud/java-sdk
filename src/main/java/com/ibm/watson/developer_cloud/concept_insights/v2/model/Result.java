@@ -23,17 +23,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Result extends GenericModel {
 
-  /** The explanation tags. */
   @SerializedName("explanation_tags")
   private List<Annotation> explanationTags;
-
-  /** The id. */
   private String id;
-
-  /** The label. */
   private String label;
-
-  /** The score. */
   private Double score;
 
   /**

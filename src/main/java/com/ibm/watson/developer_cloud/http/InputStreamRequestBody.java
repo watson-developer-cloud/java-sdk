@@ -16,14 +16,12 @@ package com.ibm.watson.developer_cloud.http;
 import java.io.IOException;
 import java.io.InputStream;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.internal.Util;
 import okio.BufferedSink;
 import okio.Okio;
 import okio.Source;
-
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.internal.Util;
-
 
 /**
  * RequestBody that takes an {@link InputStream}.
@@ -35,15 +33,13 @@ public class InputStreamRequestBody extends RequestBody {
   private MediaType mediaType;
 
   /**
-   * Creates the @link {@link RequestBody} from an @link {@link InputStream}
-   * 
+   * Creates the @link {@link RequestBody} from an @link {@link InputStream}.
+   *
    * @param mediaType the media type
    * @param inputStream the input stream
    * @return the request body
    */
   public static RequestBody create(final MediaType mediaType, final InputStream inputStream) {
-
-
     return new InputStreamRequestBody(inputStream, mediaType);
   }
 

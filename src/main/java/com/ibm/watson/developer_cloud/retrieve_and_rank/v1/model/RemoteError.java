@@ -23,7 +23,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  * Meant to copy Solr's error format.
  */
-
 public class RemoteError extends GenericModel {
   @SerializedName(ERROR_MESSAGE)
   private final String message;
