@@ -30,28 +30,14 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class Document extends GenericModel {
   @SerializedName("expires_on")
   private Date expiresOn;
-
-  /** The id. */
   private String id;
-
-  /** The label. */
   private String label;
-
-  /** The last modified. */
   @SerializedName("last_modified")
   private Date lastModified;
-
-  /** The document name. */
   private String name;
-
-  /** The parts. */
   private List<Part> parts;
-
-  /** The time to live. */
   @SerializedName("ttl_hours")
   private Integer timeToLive;
-
-  /** The user fields. */
   @SerializedName("user_fields")
   private Map<String, String> userFields;
 

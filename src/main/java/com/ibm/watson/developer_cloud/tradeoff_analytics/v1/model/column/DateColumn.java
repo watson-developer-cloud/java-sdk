@@ -16,9 +16,10 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
 import java.util.Date;
 
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
+
 /**
- * Date column.
- * 
+ * Date column. See {@link TradeoffAnalytics}
  */
 public class DateColumn extends Column {
 

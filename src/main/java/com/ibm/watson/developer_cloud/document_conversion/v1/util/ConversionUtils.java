@@ -41,13 +41,10 @@ public class ConversionUtils {
   public static String getMediaTypeFromFile(final File file) {
     if (file != null) {
       final String fileName = file.getName().toLowerCase();
-      final String[] supportedExtensions =
-          {".htm", ".html", ".dot", ".doc", ".docx", ".xml", ".xhtml", ".pdf"};
-      final String[] supportedMediaTypes =
-          {HttpMediaType.TEXT_HTML, HttpMediaType.TEXT_HTML, HttpMediaType.APPLICATION_MS_WORD,
-              HttpMediaType.APPLICATION_MS_WORD, HttpMediaType.APPLICATION_MS_WORD_DOCX,
-              HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_XHTML_XML,
-              HttpMediaType.APPLICATION_PDF};
+      final String[] supportedExtensions = {".htm", ".html", ".dot", ".doc", ".docx", ".xml", ".xhtml", ".pdf"};
+      final String[] supportedMediaTypes = {HttpMediaType.TEXT_HTML, HttpMediaType.TEXT_HTML,
+          HttpMediaType.APPLICATION_MS_WORD, HttpMediaType.APPLICATION_MS_WORD, HttpMediaType.APPLICATION_MS_WORD_DOCX,
+          HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_PDF};
 
       for (int i = 0; i < supportedMediaTypes.length; i++) {
         if (fileName.endsWith(supportedExtensions[i])) {
@@ -66,10 +63,8 @@ public class ConversionUtils {
    */
   public static Boolean isValidMediaType(final String mediaType) {
     if (mediaType != null) {
-      final String[] supportedMediaTypes =
-          {HttpMediaType.TEXT_HTML, HttpMediaType.APPLICATION_MS_WORD,
-              HttpMediaType.APPLICATION_MS_WORD_DOCX, HttpMediaType.APPLICATION_XHTML_XML,
-              HttpMediaType.APPLICATION_PDF};
+      final String[] supportedMediaTypes = {HttpMediaType.TEXT_HTML, HttpMediaType.APPLICATION_MS_WORD,
+          HttpMediaType.APPLICATION_MS_WORD_DOCX, HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_PDF};
 
       for (final String supportedMediaType : supportedMediaTypes) {
         if (mediaType.equalsIgnoreCase(supportedMediaType)) {
@@ -78,6 +73,17 @@ public class ConversionUtils {
       }
     }
     return false;
+  }
+
+  /**
+   * Loads a custom configuration from the input stream specified.
+   *
+   * @param customConfig input stream for the custom configuration
+   * @return the custom configuration as a JsonObject
+   */
+  public static JsonObject loadCustomConfig(InputStream customConfig) {
+    final Reader reader = new InputStreamReader(customConfig);
+    return new JsonParser().parse(reader).getAsJsonObject();
   }
 
   /**
@@ -92,23 +98,12 @@ public class ConversionUtils {
     int length;
     try {
       while ((length = is.read(buffer)) != -1) {
-          result.write(buffer, 0, length);
+        result.write(buffer, 0, length);
       }
       return result.toString("UTF-8");
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
   }
-  
-  /**
-   * Loads a custom configuration from the input stream specified.
-   *
-   * @param customConfig input stream for the custom configuration
-   * @return the custom configuration as a JsonObject
-   */
-  public static JsonObject loadCustomConfig(InputStream customConfig) {
-    final Reader reader = new InputStreamReader(customConfig);
-    return new JsonParser().parse(reader).getAsJsonObject();
-  }
-  
+
 }

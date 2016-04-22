@@ -26,16 +26,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Classification extends GenericModel {
 
   private List<ClassifiedClass> classes;
-
   @SerializedName("classifier_id")
   private String id;
-
   private String text;
-
-  /** The top class. */
   @SerializedName("top_class")
   private String topClass;
-
   private String url;
 
   /**

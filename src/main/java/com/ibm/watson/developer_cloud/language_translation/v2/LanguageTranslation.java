@@ -50,6 +50,8 @@ import okhttp3.RequestBody;
  */
 public class LanguageTranslation extends WatsonService {
 
+  private static final String LANGUAGES = "languages";
+  private static final String MODELS = "models";
   private static final String SERVICE_NAME = "language_translation";
   private static final String PATH_IDENTIFY = "/v2/identify";
   private static final String PATH_TRANSLATE = "/v2/translate";
@@ -70,7 +72,7 @@ public class LanguageTranslation extends WatsonService {
   private static final Type TYPE_LIST_TRANSLATION_MODEL = new TypeToken<List<TranslationModel>>() {}.getType();
   private static final Type TYPE_LIST_IDENTIFIABLE_LANGUAGE = new TypeToken<List<IdentifiableLanguage>>() {}.getType();
   private static final Type TYPE_LIST_IDENTIFIED_LANGUAGE = new TypeToken<List<IdentifiedLanguage>>() {}.getType();
-  
+
   /**
    * Instantiates a new Language Translation service.
    */
@@ -85,7 +87,6 @@ public class LanguageTranslation extends WatsonService {
    * @param options the create model options
    * @return the translation model
    */
-
   public ServiceCall<TranslationModel> createModel(CreateModelOptions options) {
     Validator.notNull(options, "options cannot be null");
     Validator.notEmpty(options.getBaseModelId(), "options.baseModelId cannot be null or empty");
@@ -128,37 +129,37 @@ public class LanguageTranslation extends WatsonService {
   }
 
   /**
-   * Retrieves the list of identifiable languages.
+   * Gets the The identifiable languages.
    *
    * @return the identifiable languages
    * @see TranslationModel
+   * See {@link IdentifiableLanguage}
    */
   public ServiceCall<List<IdentifiableLanguage>> getIdentifiableLanguages() {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_IDENTIFIABLE_LANGUAGES);
 
     ResponseConverter<List<IdentifiableLanguage>> converter =
-        ResponseConverterUtils.getGenericObject(TYPE_LIST_IDENTIFIABLE_LANGUAGE, "languages");
+        ResponseConverterUtils.getGenericObject(TYPE_LIST_IDENTIFIABLE_LANGUAGE, LANGUAGES);
 
     return createServiceCall(requestBuilder.build(), converter);
 
   }
 
   /**
-   * Retrieves a translation models.
+   * Gets a translation models.
    *
    * @param modelId the model identifier
    * @return the translation models
    * @see TranslationModel
    */
   public ServiceCall<TranslationModel> getModel(String modelId) {
-    if (modelId == null || modelId.isEmpty())
-      throw new IllegalArgumentException("modelId cannot be null or empty");
+    Validator.isTrue(modelId != null && !modelId.isEmpty(), "modelId cannot be null or empty");
     Request request = RequestBuilder.get(String.format(PATH_MODEL, modelId)).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(TranslationModel.class));
   }
 
   /**
-   * Retrieves the list of translation models.
+   * Gets the translation models.
    *
    * @return the translation models
    * @see TranslationModel
@@ -190,7 +191,7 @@ public class LanguageTranslation extends WatsonService {
       requestBuilder.withQuery(DEFAULT, showDefault);
 
     ResponseConverter<List<TranslationModel>> converter =
-        ResponseConverterUtils.getGenericObject(TYPE_LIST_TRANSLATION_MODEL, "models");
+        ResponseConverterUtils.getGenericObject(TYPE_LIST_TRANSLATION_MODEL, MODELS);
 
     return createServiceCall(requestBuilder.build(), converter);
   }
@@ -203,17 +204,16 @@ public class LanguageTranslation extends WatsonService {
    */
   public ServiceCall<List<IdentifiedLanguage>> identify(final String text) {
     final RequestBuilder requestBuilder = RequestBuilder.post(PATH_IDENTIFY)
-        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON)
-        .withBodyContent(text, HttpMediaType.TEXT_PLAIN);
+        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON).withBodyContent(text, HttpMediaType.TEXT_PLAIN);
 
     ResponseConverter<List<IdentifiedLanguage>> converter =
-        ResponseConverterUtils.getGenericObject(TYPE_LIST_IDENTIFIED_LANGUAGE, "languages");
+        ResponseConverterUtils.getGenericObject(TYPE_LIST_IDENTIFIED_LANGUAGE, LANGUAGES);
 
     return createServiceCall(requestBuilder.build(), converter);
   }
 
   /**
-   * Translate text using a model.
+   * Translate text using a given model.
    *
    * @param text The submitted paragraphs to translate
    * @param modelId the model id
@@ -234,12 +234,12 @@ public class LanguageTranslation extends WatsonService {
    * LanguageTranslation service = new LanguageTranslation();
    * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
    *
-   * TranslationResult translationResult = service.translate(&quot;hello&quot;, &quot;en&quot;, &quot;es&quot;);
+   * TranslationResult translationResult = service.translate(&quot;hello&quot;, Language.SPANISH, Language.ENGLISH).execute();
    *
    * System.out.println(translationResult);
    * </pre>
    *
-   * @param text The submitted paragraphs to translate
+   * @param text The paragraphs to translate
    * @param source The source language
    * @param target The target language
    * @return The {@link TranslationResult}
@@ -258,7 +258,8 @@ public class LanguageTranslation extends WatsonService {
    * @param target the target
    * @return The {@link TranslationResult}
    */
-  private ServiceCall<TranslationResult> translateRequest(String text, String modelId, Language source, Language target) {
+  private ServiceCall<TranslationResult> translateRequest(String text, String modelId, Language source,
+      Language target) {
     Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();

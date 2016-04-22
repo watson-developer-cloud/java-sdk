@@ -45,6 +45,7 @@ public class GetNewsDocumentExample {
     params.put(AlchemyDataNews.START, "1440720000");
     params.put(AlchemyDataNews.END, "1441407600");
     params.put(AlchemyDataNews.COUNT, 7);
+
     //Query on adjacent nested fields: 
     params.put("q.enriched.url.enrichedTitle.entities.entity", "|text=IBM,type=company|");
     params.put("q.enriched.url.enrichedTitle.docSentiment.type", "positive");

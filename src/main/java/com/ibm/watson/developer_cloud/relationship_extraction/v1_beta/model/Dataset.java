@@ -18,16 +18,16 @@ import javax.management.relation.RelationException;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Dataset to be use in the {@link RelationException} service.
+ * Dataset to be use in the {@link RelationException} service.
  */
 public class Dataset extends GenericModel {
 
   /**
-   * Field ENGLISH_NEWS.
+   * English News
    */
   public static final Dataset ENGLISH_NEWS = new Dataset("ie-en-news");
   /**
-   * Field SPANISH_NEWS.
+   * Spanish news
    */
   public static final Dataset SPANISH_NEWS = new Dataset("ie-es-news");
 

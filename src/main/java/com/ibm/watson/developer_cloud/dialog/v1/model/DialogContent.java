@@ -21,11 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class DialogContent extends GenericModel {
-
-  /** The content. */
   private String content;
-
-  /** The node. */
   private String node;
 
   /**

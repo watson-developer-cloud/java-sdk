@@ -133,7 +133,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
 
   private void testTranslationResult(String text, String result, TranslationResult translationResult) {
     assertNotNull(translationResult);
-    assertEquals(translationResult.getWordCount(), text.split(" ").length);
+    assertEquals(translationResult.getWordCount().intValue(), text.split(" ").length);
     assertNotNull(translationResult.getTranslations());
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
     assertEquals(result, translationResult.getTranslations().get(0).getTranslation());

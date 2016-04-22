@@ -19,9 +19,12 @@ import java.util.Arrays;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -34,116 +37,145 @@ import okhttp3.ws.WebSocketListener;
 import okio.Buffer;
 
 /**
- * WebSocket manager
+ * Manages Speech to text recognition over WebSockets.<br>
+ * This class is in charge of opening a {@link WebSocket} connection, stream audio to the API and
+ * close the connection once the audio was transmitted.
  */
-public class WebSocketManager implements WebSocketListener {
+public class WebSocketManager {
+  private final String url;
+  private final OkHttpClient client;
+  private String token;
 
+  /**
+   * The listener interface for receiving {@link WebSocket} events. <br>
+   * The class that is interested in processing a event implements this interface. When the event
+   * occurs, that object's appropriate method is invoked.
+   *
+   * @see SpeechToText
+   */
+  private class SpeechToTextWebSocketListener implements WebSocketListener {
+
+    private static final String STATE = "state";
     private static final String MODEL = "model";
     private static final String START = "start";
     private static final String STOP = "stop";
     private static final String ACTION = "action";
-
-    private String url;
-    private OkHttpClient client;
-    private ResponseListener listener;
-
-    private volatile boolean connecting;
-    private volatile boolean connected;
-
     private static final int FOUR_KB = 4096;
-
-    /** The socket. */
-    public WebSocket socket;
-
-    private String token;
+    private static final String ERROR = "error";
+    private static final String RESULTS = "results";
+    private final InputStream stream;
+    private final RecognizeOptions options;
+    private final RecognizeCallback callback;
+    private Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
+    private WebSocket socket;
+    private boolean audioSent = false;
+    private int CLOSE_NORMAL = 1000;
 
     /**
-     * Instantiates a new web socket manager.
+     * Instantiates a new speech to text web socket listener.
      *
-     * @param url the url
-     * @param client the client
-     * @param token the token
-     * @param listener the listener
+     * @param stream the {@link InputStream} where the audio to recognize is
+     * @param options the recognize options
+     * @param callback the callback
      */
-    public WebSocketManager(String url, OkHttpClient client, String token, ResponseListener listener) {
-      this.url = url;
-      this.client = client;
-      this.token = token;
-      this.listener = listener;
+    public SpeechToTextWebSocketListener(final InputStream stream, final RecognizeOptions options,
+        final RecognizeCallback callback) {
+      this.stream = stream;
+      this.options = options;
+      this.callback = callback;
     }
 
-    /**
-     * Connect.
-     *
-     * @param options the options
+    /*
+     * (non-Javadoc)
+     * 
+     * @see okhttp3.ws.WebSocketListener#onClose(int, java.lang.String)
      */
-    public void connect(RecognizeOptions options) {
-      if(connecting != true) {
-        connecting = true;
+    @Override
+    public void onClose(int code, String reason) {
+      callback.onDisconnected();
+    }
 
-        String speechModel = options.getModel() != null ? "?model=" + options.getModel() : "";
-        Request connectionRequest = new Request.Builder()
-              .url(url + speechModel)
-              .addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token)
-              .build();
-        WebSocketCall.create(client, connectionRequest).enqueue(this);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see okhttp3.ws.WebSocketListener#onFailure(java.io.IOException, okhttp3.Response)
+     */
+    @Override
+    public void onFailure(IOException e, Response response) {
+      callback.onError(e);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see okhttp3.ws.WebSocketListener#onMessage(okhttp3.ResponseBody)
+     */
+    @Override
+    public void onMessage(ResponseBody response) throws IOException {
+      String message = response.string();
+      if (message == null)
+        return;
+
+      try {
+        JsonObject json = new JsonParser().parse(message).getAsJsonObject();
+        if (json.has(ERROR)) {
+          callback.onError(new RuntimeException(json.get(ERROR).getAsString()));
+        } else if (json.has(RESULTS)) {
+          callback.onTranscription(GSON.fromJson(message, SpeechResults.class));
+        } else if (json.has(STATE)) {
+          if (!audioSent) {
+            sendInputSteam(stream);
+            socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStopMessage().toString()));
+            audioSent = true;
+          } else {
+            socket.close(CLOSE_NORMAL, "Transcription completed");
+          }
+        }
+      } catch (JsonParseException e) {
+        throw new RuntimeException("Error parsing the incoming message: " + response.string());
       }
     }
 
-    /**
-     * Force close.
-     *
-     * @throws IOException Signals that an I/O exception has occurred.
+    /*
+     * (non-Javadoc)
+     * 
+     * @see okhttp3.ws.WebSocketListener#onOpen(okhttp3.ws.WebSocket, okhttp3.Response)
      */
-    public void forceClose() throws IOException {
-        socket.close(1000, "User forced socket close");
+    @Override
+    public void onOpen(WebSocket socket, Response response) {
+      callback.onConnected();
+      this.socket = socket;
+      try {
+        socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStartMessage(options).toString()));
+      } catch (IOException e) {
+        callback.onError(e);
+      }
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see okhttp3.ws.WebSocketListener#onPong(okio.Buffer)
+     */
+    @Override
+    public void onPong(Buffer buffer) {}
 
     /**
      * Send input steam.
      *
      * @param inputStream the input stream
+     * @throws IOException Signals that an I/O exception has occurred.
      */
-    public void sendInputSteam(InputStream inputStream) {
-        if (!connected || socket == null)
-            throw new IllegalStateException("WebSocket not connected; call connect()");
-
-        try {
-            byte[] buffer = new byte[FOUR_KB];
-            int read;
-            while ((read = inputStream.read(buffer)) > 0) {
-                if (read == FOUR_KB)
-                    socket.sendMessage(RequestBody.create(WebSocket.BINARY, buffer));
-                else
-                    socket.sendMessage(RequestBody.create(WebSocket.BINARY, Arrays.copyOfRange(buffer, 0, read)));
-
-                Thread.sleep(20);
-            }
-            inputStream.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    /**
-     * Recognize.
-     *
-     * @param stream the stream
-     * @param options the options
-     */
-    public void recognize(InputStream stream, RecognizeOptions options) {
-      if (connected != true)
-        connect(options);
-
-      try {
-        socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStartMessage(options).body().toString()));
-        sendInputSteam(stream);
-        socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStopMessage().body().toString()));
-      } catch (IOException e) {
-        e.printStackTrace();
+    private void sendInputSteam(InputStream inputStream) throws IOException {
+      byte[] buffer = new byte[FOUR_KB];
+      int read;
+      while ((read = inputStream.read(buffer)) > 0) {
+        if (read == FOUR_KB)
+          socket.sendMessage(RequestBody.create(WebSocket.BINARY, buffer));
+        else
+          socket.sendMessage(RequestBody.create(WebSocket.BINARY, Arrays.copyOfRange(buffer, 0, read)));
       }
-
-
+      inputStream.close();
     }
 
     /**
@@ -152,62 +184,61 @@ public class WebSocketManager implements WebSocketListener {
      * @param options the options
      * @return the request
      */
-    public Request buildStartMessage(RecognizeOptions options) {
+    private String buildStartMessage(RecognizeOptions options) {
       JsonObject startMessage = new JsonParser().parse(new Gson().toJson(options)).getAsJsonObject();
       startMessage.remove(MODEL);
       startMessage.addProperty(ACTION, START);
-      return new Request.Builder().post(RequestBody.create(WebSocket.TEXT, startMessage.toString())).build();
+      return startMessage.toString();
     }
 
-    private Request buildStopMessage() {
+    /**
+     * Builds the stop message.
+     *
+     * @return the string
+     */
+    private String buildStopMessage() {
       JsonObject stopMessage = new JsonObject();
       stopMessage.addProperty(ACTION, STOP);
-      return new Request.Builder().post(RequestBody.create(WebSocket.TEXT, stopMessage.toString())).build();
+      return stopMessage.toString();
     }
+  }
 
-    /* (non-Javadoc)
-     * @see okhttp3.ws.WebSocketListener#onOpen(okhttp3.ws.WebSocket, okhttp3.Response)
-     */
-    @Override
-    public void onOpen(WebSocket webSocket, Response response) {
-      socket = webSocket;
-      connecting = false;
-      connected = true;
-    }
+  /**
+   * Instantiates a new web socket manager.
+   *
+   * @param url the url
+   * @param client the client
+   * @param token the token
+   */
+  public WebSocketManager(String url, OkHttpClient client, String token) {
+    this.url = url;
+    this.client = client;
+    this.token = token;
+  }
 
-    /* (non-Javadoc)
-     * @see okhttp3.ws.WebSocketListener#onFailure(java.io.IOException, okhttp3.Response)
-     */
-    @Override
-    public void onFailure(IOException e, Response response) {
-      connecting = false;
-      connected = false;
+  /**
+   * Creates a connection.
+   *
+   * @param options the recognize options
+   * @return the web socket call
+   */
+  private WebSocketCall createConnection(RecognizeOptions options) {
+    String speechModel = options.getModel() != null ? "?model=" + options.getModel() : "";
+    Request connectionRequest =
+        new Request.Builder().url(url + speechModel).addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token).build();
 
-    }
+    return WebSocketCall.create(client, connectionRequest);
+  }
 
-    /* (non-Javadoc)
-     * @see okhttp3.ws.WebSocketListener#onMessage(okhttp3.ResponseBody)
-     */
-    @Override
-    public void onMessage(ResponseBody responseBody) throws IOException {
-      listener.onResponse(responseBody.string());
-    }
-
-    /* (non-Javadoc)
-     * @see okhttp3.ws.WebSocketListener#onPong(okio.Buffer)
-     */
-    @Override
-    public void onPong(Buffer buffer) {
-
-    }
-
-    /* (non-Javadoc)
-     * @see okhttp3.ws.WebSocketListener#onClose(int, java.lang.String)
-     */
-    @Override
-    public void onClose(int i, String s) {
-      connecting = false;
-      connected = false;
-    }
+  /**
+   * Recognize.
+   *
+   * @param stream the stream
+   * @param options the options
+   * @param delegate the delegate
+   */
+  public void recognize(final InputStream stream, final RecognizeOptions options, RecognizeCallback delegate) {
+    createConnection(options).enqueue(new SpeechToTextWebSocketListener(stream, options, delegate));
+  }
 
 }

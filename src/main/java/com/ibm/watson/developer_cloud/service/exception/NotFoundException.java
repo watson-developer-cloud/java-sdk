@@ -11,16 +11,16 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.service;
+package com.ibm.watson.developer_cloud.service.exception;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
 
 import okhttp3.Response;
 
 /**
- * 500 Server Error (HTTP/1.0 - RFC 1945)
+ * 404 Not Found (HTTP/1.0 - RFC 1945)
  */
-public class InternalServerErrorException extends ServiceResponseException {
+public class NotFoundException extends ServiceResponseException {
 
   /**
    * The Constant serialVersionUID.
@@ -28,13 +28,13 @@ public class InternalServerErrorException extends ServiceResponseException {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Instantiates a new Internal Server Error Exception.
+   * Instantiates a new not found exception.
    * 
-   * @param message the error message
+   * @param message the message
    * @param response the HTTP response
    */
-  public InternalServerErrorException(String message, Response response) {
-    super(HttpStatus.INTERNAL_SERVER_ERROR, message, response);
+  public NotFoundException(String message, Response response) {
+    super(HttpStatus.NOT_FOUND, message, response);
   }
 
 }

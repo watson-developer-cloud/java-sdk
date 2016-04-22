@@ -48,15 +48,6 @@ public class ToneScore extends GenericModel {
   }
 
   /**
-   * Sets the id.
-   *
-   * @param id the new id
-   */
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  /**
    * Gets the name.
    *
    * @return the name
@@ -66,21 +57,30 @@ public class ToneScore extends GenericModel {
   }
 
   /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
    * Gets the score.
    *
    * @return the score
    */
   public Double getScore() {
     return score;
+  }
+
+  /**
+   * Sets the id.
+   *
+   * @param id the new id
+   */
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  /**
+   * Sets the name.
+   *
+   * @param name the new name
+   */
+  public void setName(String name) {
+    this.name = name;
   }
 
   /**

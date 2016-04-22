@@ -52,22 +52,21 @@ import okhttp3.RequestBody;
  */
 public class VisualRecognition extends WatsonService {
 
-  private static final String SERVICE_NAME = "visual_recognition";
-  
-  /** The Constant VERSION_DATE_2015_12_02. */
-  public static final String VERSION_DATE_2015_12_02 = "2015-12-02";
-  private static final String POSITIVE_EXAMPLES = "positive_examples";
-  private static final String NEGATIVE_EXAMPLES = "negative_examples";
+  private static final String CLASSIFIER_IDS = "classifier_ids";
+  private static final String CLASSIFIERS = "classifiers";
   private static final String IMAGES_FILE = "images_file";
   private static final String NAME = "name";
-  private static final String VERBOSE = "verbose";
-  private static final String CLASSIFIER_IDS = "classifier_ids";
-
+  private static final String NEGATIVE_EXAMPLES = "negative_examples";
   private static final String PATH_CLASSIFIER = "/v2/classifiers/%s";
   private static final String PATH_CLASSIFIERS = "/v2/classifiers";
   private static final String PATH_CLASSIFY = "/v2/classify";
-  private static final String URL = "https://gateway.watsonplatform.net/visual-recognition-beta/api";
+  private static final String POSITIVE_EXAMPLES = "positive_examples";
+  private static final String SERVICE_NAME = "visual_recognition";
   private static final Type TYPE_LIST_CLASSIFIERS = new TypeToken<List<VisualClassifier>>() {}.getType();
+  private static final String URL = "https://gateway.watsonplatform.net/visual-recognition-beta/api";
+  private static final String VERBOSE = "verbose";
+  /** Version date */
+  public static final String VERSION_DATE_2015_12_02 = "2015-12-02";
 
   private String versionDate;
 
@@ -85,6 +84,23 @@ public class VisualRecognition extends WatsonService {
 
 
   /**
+   * Creates a {@link JsonObject} with an array of classifier ids.
+   * 
+   * @param classifiers the classifiers
+   * @return the classifier ids as {@link JsonObject}
+   */
+  private JsonObject getClassifierIdsAsJson(VisualClassifier... classifiers) {
+    JsonObject ret = new JsonObject();
+    JsonArray array = new JsonArray();
+    ret.add(CLASSIFIER_IDS, array);
+
+    for (VisualClassifier classifier : classifiers) {
+      array.add(new JsonPrimitive(classifier.getId()));
+    }
+    return ret;
+  }
+
+  /**
    * Classifies the image/s against all the classifiers. The response includes a score for a
    * classifier if the score meets the minimum threshold of 0.5. If no score meets the threshold for
    * an image, no classifiers are returned. <br>
@@ -97,7 +113,7 @@ public class VisualRecognition extends WatsonService {
    * 
    * File image = new File(&quot;car.png&quot;);
    * 
-   * VisualClassification result = service.classify(image);
+   * VisualClassification result = service.classify(image).execute();
    * System.out.println(result);
    * </pre>
    * 
@@ -124,7 +140,7 @@ public class VisualRecognition extends WatsonService {
    * File image = new File(&quot;car.png&quot;);
    * VisualClassifier car = new VisualClassifier(&quot;Car&quot;);
    * 
-   * VisualClassification result = service.classify(image, car);
+   * VisualClassification result = service.classify(image, car).execute();
    * System.out.println(result);
    * </pre>
    * 
@@ -159,7 +175,7 @@ public class VisualRecognition extends WatsonService {
    * FileInputStream image = new FileInputStream(&quot;car.png&quot;);
    * VisualClassifier car = new VisualClassifier(&quot;Car&quot;);
    * 
-   * VisualClassification result = service.classify(&quot;foo.png&quot;, image, car);
+   * VisualClassification result = service.classify(&quot;foo.png&quot;, image, car).execute();
    * System.out.println(result);
    * </pre>
    * 
@@ -189,23 +205,6 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Creates a {@link JsonObject} with an array of classifier ids.
-   * 
-   * @param classifiers the classifiers
-   * @return the classifier ids as {@link JsonObject}
-   */
-  private JsonObject getClassifierIdsAsJson(VisualClassifier... classifiers) {
-    JsonObject ret = new JsonObject();
-    JsonArray array = new JsonArray();
-    ret.add(CLASSIFIER_IDS, array);
-
-    for (VisualClassifier classifier : classifiers) {
-      array.add(new JsonPrimitive(classifier.getId()));
-    }
-    return ret;
-  }
-
-  /**
    * Train a new classifier on the uploaded image data. Upload a compressed (.zip) file of images
    * (.jpg, .png, or .gif) with positive examples that show your classifier and another compressed
    * file with negative examples that are similar to but do NOT show your classifier. <br>
@@ -219,7 +218,7 @@ public class VisualRecognition extends WatsonService {
    * File positiveImages = new File(&quot;positive.zip&quot;); // zip file with at least 10 images
    * File negativeImages = new File(&quot;negative.zip&quot;);
    * 
-   * VisualClassifier foo = service.createClassifier(&quot;foo&quot;, positiveImages, negativeImages);
+   * VisualClassifier foo = service.createClassifier(&quot;foo&quot;, positiveImages, negativeImages).execute();
    * System.out.println(foo);
    * </pre>
    * 
@@ -232,7 +231,8 @@ public class VisualRecognition extends WatsonService {
    * @return the created {@link VisualClassifier}
    * @see VisualClassifier
    */
-  public ServiceCall<VisualClassifier> createClassifier(final String name, final File positiveImages, final File negativeImages) {
+  public ServiceCall<VisualClassifier> createClassifier(final String name, final File positiveImages,
+      final File negativeImages) {
     Validator.isTrue(positiveImages != null && positiveImages.exists(),
         "positiveImages cannot be null or not be found");
     Validator.isTrue(negativeImages != null && negativeImages.exists(),
@@ -248,7 +248,8 @@ public class VisualRecognition extends WatsonService {
             RequestBody.create(HttpMediaType.BINARY_FILE, negativeImages))
         .addFormDataPart(NAME, name).build();
 
-    RequestBuilder requestBuilder = RequestBuilder.post(PATH_CLASSIFIERS).withQuery(VERSION, versionDate).withBody(body);
+    RequestBuilder requestBuilder =
+        RequestBuilder.post(PATH_CLASSIFIERS).withQuery(VERSION, versionDate).withBody(body);
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VisualClassifier.class));
   }
@@ -264,9 +265,8 @@ public class VisualRecognition extends WatsonService {
   public ServiceCall<Void> deleteClassifier(String classifierId) {
     Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
 
-    RequestBuilder requestBuilder = RequestBuilder
-        .delete(String.format(PATH_CLASSIFIER, classifierId))
-        .withQuery(VERSION, versionDate);
+    RequestBuilder requestBuilder =
+        RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId)).withQuery(VERSION, versionDate);
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -292,12 +292,11 @@ public class VisualRecognition extends WatsonService {
    * @see VisualClassifier
    */
   public ServiceCall<List<VisualClassifier>> getClassifiers() {
-    RequestBuilder requestBuilder = RequestBuilder.get(PATH_CLASSIFIERS)
-        .withQuery(VERSION, versionDate)
-        .withQuery(VERBOSE, true);
-    
-    ResponseConverter<List<VisualClassifier>> converter = ResponseConverterUtils
-        .getGenericObject(TYPE_LIST_CLASSIFIERS, "classifiers");
+    RequestBuilder requestBuilder =
+        RequestBuilder.get(PATH_CLASSIFIERS).withQuery(VERSION, versionDate).withQuery(VERBOSE, true);
+
+    ResponseConverter<List<VisualClassifier>> converter =
+        ResponseConverterUtils.getGenericObject(TYPE_LIST_CLASSIFIERS, CLASSIFIERS);
     return createServiceCall(requestBuilder.build(), converter);
   }
 }

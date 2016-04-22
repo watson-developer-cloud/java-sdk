@@ -22,14 +22,9 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * 
  */
 public class Graph extends GenericModel {
-
   /** The WIKIPEDIA Graph. */
   public static final Graph WIKIPEDIA = new Graph("wikipedia", "en-20120601");
-
-  /** The id. */
   private String id;
-
-  /** The name. */
   private String name;
 
   /**

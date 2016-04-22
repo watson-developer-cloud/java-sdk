@@ -13,64 +13,27 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
+import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
+
 /**
- * The Enum Language.
+ * The languages available in {@link LanguageTranslation}
  */
 public enum Language {
+  ARABIC("ar"), ENGLISH("en"), SPANISH("es"), FRENCH("fr"), ITALIAN("it"), PORTUGUESE("pt");
 
-  /** The arabic. */
-  ARABIC {
-    @Override
-    public String toString() {
-      return "ar";
-    }
-  },
-  
-  /** The english. */
-  ENGLISH {
-    @Override
-    public String toString() {
-      return "en";
-    }
-  },
-  
-  /** The spanish. */
-  SPANISH {
-    @Override
-    public String toString() {
-      return "es";
-    }
-  },
-  
-  /** The french. */
-  FRENCH {
-    @Override
-    public String toString() {
-      return "fr";
-    }
-  },
-  
-  /** The italian. */
-  ITALIAN {
-    @Override
-    public String toString() {
-      return "it";
-    }
-  },
-  
-  /** The portuguese. */
-  PORTUGUESE {
-    @Override
-    public String toString() {
-      return "pt";
-    }
-  };
+  String language;
 
-  /* (non-Javadoc)
+  Language(String language) {
+    this.language = language;
+  }
+
+  /*
+   * (non-Javadoc)
+   * 
    * @see java.lang.Enum#toString()
    */
   @Override
   public String toString() {
-    return "";
+    return language;
   }
 }

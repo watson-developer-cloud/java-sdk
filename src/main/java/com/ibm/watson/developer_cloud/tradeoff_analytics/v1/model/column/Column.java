@@ -17,10 +17,12 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.util.ColumnTypeAdapter;
 
 /**
- * Tradeoff Analytics column.
+ * {@link TradeoffAnalytics} column
+ * 
  */
 @JsonAdapter(ColumnTypeAdapter.class)
 public abstract class Column extends GenericModel {
@@ -199,6 +201,26 @@ public abstract class Column extends GenericModel {
   }
 
   /**
+   * Sets the type.
+   * 
+   * @param type The type
+   */
+  protected void setType(ColumnType type) {
+    this.type = type;
+  }
+
+  /**
+   * Sets the full name.
+   * 
+   * @param fullName the full name
+   * @return the column
+   */
+  public Column fullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+  /**
    * Gets the description.
    * 
    * @return the description
@@ -280,12 +302,45 @@ public abstract class Column extends GenericModel {
   }
 
   /**
+   * Sets the goal.
+   * 
+   * @param goal the goal
+   * @return the column
+   */
+  public Column goal(Goal goal) {
+    this.goal = goal;
+    return this;
+  }
+
+  /**
    * Checks if is objective.
    * 
    * @return true, if is objective
    */
   public Boolean isObjective() {
     return objective;
+  }
+
+  /**
+   * Sets the key.
+   * 
+   * @param key the key
+   * @return the column
+   */
+  public Column key(String key) {
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * Sets is objective.
+   * 
+   * @param objective the is objective
+   * @return the column
+   */
+  public Column objective(boolean objective) {
+    this.objective = objective;
+    return this;
   }
 
   /**
@@ -367,58 +422,5 @@ public abstract class Column extends GenericModel {
    */
   public void setSignificantLoss(Double significantLoss) {
     this.significantLoss = significantLoss;
-  }
-
-  /**
-   * Sets the type.
-   * 
-   * @param type The type
-   */
-  protected void setType(ColumnType type) {
-    this.type = type;
-  }
-
-  /**
-   * With full name.
-   * 
-   * @param fullName the full name
-   * @return the column
-   */
-  public Column withFullName(String fullName) {
-    this.fullName = fullName;
-    return this;
-  }
-
-  /**
-   * With goal.
-   * 
-   * @param goal the goal
-   * @return the column
-   */
-  public Column withGoal(Goal goal) {
-    this.goal = goal;
-    return this;
-  }
-
-  /**
-   * With key.
-   * 
-   * @param key the key
-   * @return the column
-   */
-  public Column withKey(String key) {
-    this.key = key;
-    return this;
-  }
-
-  /**
-   * With is objective.
-   * 
-   * @param objective the is objective
-   * @return the column
-   */
-  public Column withObjective(boolean objective) {
-    this.objective = objective;
-    return this;
   }
 }

@@ -21,13 +21,12 @@ import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.VisualRecogniti
 
 /**
  * Classifier used by the {@link VisualRecognition} V2 service.
- * 
  */
 public class VisualClassifier extends GenericModel {
 
+  private Date created;
   @SerializedName("classifier_id")
   private String id;
-  private Date created;
   private String name;
   private String owner;
 

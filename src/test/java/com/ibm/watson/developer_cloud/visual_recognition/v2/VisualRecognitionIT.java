@@ -23,7 +23,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.service.NotFoundException;
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.model.VisualClassification;
 import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.model.VisualClassifier;

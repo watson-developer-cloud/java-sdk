@@ -59,7 +59,7 @@ import okhttp3.Response;
 public class RetrieveAndRank extends WatsonService implements ClusterLifecycleManager, SolrConfigManager {
 
   private static final String ANSWERS = "answers";
-  private static final Logger log = Logger.getLogger(RetrieveAndRank.class.getName());
+  private static final Logger LOG = Logger.getLogger(RetrieveAndRank.class.getName());
   private static final String NAME = "name";
   private static final String PATH_CREATE_RANKER = "/v1/rankers";
   private static final String PATH_GET_SOLR_CLUSTER = "/v1/solr_clusters/%s";
@@ -340,7 +340,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
       public Void convert(Response response) {
         if (!zipFile.delete()) {
           zipFile.deleteOnExit();
-          log.log(Level.WARNING, "Unable to delete the Solr cluster configuration file.");
+          LOG.log(Level.WARNING, "Unable to delete the Solr cluster configuration file.");
         }
         return null;
       }

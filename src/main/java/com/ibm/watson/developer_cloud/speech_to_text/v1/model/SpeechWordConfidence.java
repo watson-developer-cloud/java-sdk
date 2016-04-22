@@ -23,30 +23,8 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.util.SpeechWordConfidenc
  */
 @JsonAdapter(SpeechWordConfidenceTypeAdapter.class)
 public class SpeechWordConfidence extends GenericModel {
-
-  /** The word. */
-  private String word;
-
-  /** The confidence. */
   private Double confidence;
-
-  /**
-   * Gets the word.
-   * 
-   * @return The word
-   */
-  public String getWord() {
-    return word;
-  }
-
-  /**
-   * Sets the word.
-   * 
-   * @param word The word
-   */
-  public void setWord(final String word) {
-    this.word = word;
-  }
+  private String word;
 
   /**
    * Gets the confidence.
@@ -58,11 +36,29 @@ public class SpeechWordConfidence extends GenericModel {
   }
 
   /**
+   * Gets the word.
+   * 
+   * @return The word
+   */
+  public String getWord() {
+    return word;
+  }
+
+  /**
    * Sets the confidence.
    * 
    * @param confidence The confidence
    */
   public void setConfidence(final Double confidence) {
     this.confidence = confidence;
+  }
+
+  /**
+   * Sets the word.
+   * 
+   * @param word The word
+   */
+  public void setWord(final String word) {
+    this.word = word;
   }
 }

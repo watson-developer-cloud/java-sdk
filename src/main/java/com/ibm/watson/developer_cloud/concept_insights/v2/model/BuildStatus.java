@@ -21,14 +21,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class BuildStatus extends GenericModel {
-
-  /** The number of documents that were processed with an error. */
   private Integer error;
-
-  /** The number of documents that are being processed. */
   private Integer processing;
-
-  /** The number of documents that were processed. */
   private Integer ready;
 
   /**

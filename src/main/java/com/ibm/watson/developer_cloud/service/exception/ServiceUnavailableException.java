@@ -11,38 +11,30 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
+package com.ibm.watson.developer_cloud.service.exception;
 
-package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
+import com.ibm.watson.developer_cloud.http.HttpStatus;
 
-import java.util.List;
-
-import com.google.gson.annotations.Expose;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import okhttp3.Response;
 
 /**
- * Speech model set.
+ * 503 Service Unavailable (HTTP/1.0 - RFC 1945)
  */
-public class SpeechModelSet extends GenericModel {
-
-  /** The models. */
-  @Expose
-  private List<SpeechModel> models;
+public class ServiceUnavailableException extends ServiceResponseException {
 
   /**
-   * Gets the models.
-   * 
-   * @return The models
+   * The Constant serialVersionUID.
    */
-  public List<SpeechModel> getModels() {
-    return models;
-  }
+  private static final long serialVersionUID = 1L;
 
   /**
-   * Sets the models.
+   * Instantiates a new Service Unavailable Exception.
    * 
-   * @param models The models
+   * @param message the error message
+   * @param response the HTTP response
    */
-  public void setModels(final List<SpeechModel> models) {
-    this.models = models;
+  public ServiceUnavailableException(String message, Response response) {
+    super(HttpStatus.SERVICE_UNAVAILABLE, message, response);
   }
+
 }

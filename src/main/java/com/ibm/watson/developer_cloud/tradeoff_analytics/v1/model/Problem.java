@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column;
 
 /**
- * The Problem representation to be used by the {@link TradeoffAnalytics} V1 service.
+ * Problem representation to be used by the {@link TradeoffAnalytics} V1 service.
  */
 public class Problem extends GenericModel {
 
@@ -44,6 +44,17 @@ public class Problem extends GenericModel {
   public Problem(String subject) {
     super();
     this.subject = subject;
+  }
+
+  /**
+   * Sets columns.
+   * 
+   * @param columns the columns
+   * @return the problem
+   */
+  public Problem columns(List<Column> columns) {
+    this.columns = columns;
+    return this;
   }
 
   /**
@@ -74,6 +85,17 @@ public class Problem extends GenericModel {
   }
 
   /**
+   * Sets options.
+   * 
+   * @param options the options
+   * @return the problem
+   */
+  public Problem options(List<Option> options) {
+    this.options = options;
+    return this;
+  }
+
+  /**
    * Sets the columns.
    * 
    * @param columns The columns
@@ -101,34 +123,12 @@ public class Problem extends GenericModel {
   }
 
   /**
-   * With columns.
-   * 
-   * @param columns the columns
-   * @return the problem
-   */
-  public Problem withColumns(List<Column> columns) {
-    this.columns = columns;
-    return this;
-  }
-
-  /**
-   * With options.
-   * 
-   * @param options the options
-   * @return the problem
-   */
-  public Problem withOptions(List<Option> options) {
-    this.options = options;
-    return this;
-  }
-
-  /**
-   * With subject.
+   * Sets subject.
    * 
    * @param subject the subject
    * @return the problem
    */
-  public Problem withSubject(String subject) {
+  public Problem subject(String subject) {
     this.subject = subject;
     return this;
   }

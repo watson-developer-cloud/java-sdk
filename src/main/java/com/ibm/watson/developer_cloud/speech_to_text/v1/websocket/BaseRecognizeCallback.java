@@ -16,23 +16,23 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
 /**
- * An empty implementation of {@link RecognizeDelegate} interface.
+ * An empty implementation of {@link RecognizeCallback} interface.
  */
-public class BaseRecognizeDelegate implements RecognizeDelegate {
+public class BaseRecognizeCallback implements RecognizeCallback {
 
   /*
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeDelegate#onMessage(com.
+   * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onTranscription(com.
    * ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults)
    */
-  public void onMessage(SpeechResults speechResults) {};
+  public void onTranscription(SpeechResults speechResults) {};
 
   /*
    * (non-Javadoc)
    * 
-   * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeDelegate#onConnected()
+   * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onConnected()
    */
   public void onConnected() {};
 
@@ -40,7 +40,7 @@ public class BaseRecognizeDelegate implements RecognizeDelegate {
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeDelegate#onError(java.lang
+   * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onError(java.lang
    * .Exception)
    */
   public void onError(Exception e) {};
@@ -49,7 +49,7 @@ public class BaseRecognizeDelegate implements RecognizeDelegate {
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeDelegate#onDisconnected()
+   * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onDisconnected()
    */
   public void onDisconnected() {};
 

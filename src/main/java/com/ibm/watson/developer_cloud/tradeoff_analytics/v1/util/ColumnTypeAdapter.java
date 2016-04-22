@@ -35,12 +35,87 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Numeric
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.TextColumn;
 
 /**
- * ColumnTypeAdapter.
+ * Type adapter to transform JSON into a {@link Column} and vice versa.
  */
 public class ColumnTypeAdapter extends TypeAdapter<Column> {
 
-  private static final Logger log = Logger.getLogger(ColumnTypeAdapter.class.getName());
-  private final DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+  private static final String DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss'Z'";
+  private static final String DESCRIPTION = "description";
+  private static final String FORMAT = "format";
+  private static final String FULL_NAME = "full_name";
+  private static final String GOAL = "goal";
+  private static final String HIGH = "high";
+  private static final String INSIGNIFICANT_LOSS = "insignificant_loss";
+  private static final String IS_OBJECTIVE = "is_objective";
+  private static final String KEY = "key";
+  private static final Logger LOG = Logger.getLogger(ColumnTypeAdapter.class.getName());
+  private static final String LOW = "low";
+  private static final String RANGE = "range";
+  private static final String SIGNIFICANT_GAIN = "significant_gain";
+  private static final String SIGNIFICANT_LOSS = "significant_loss";
+  private static final String TYPE2 = "type";
+  private final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
+
+  /**
+   * Write categorical column.
+   * 
+   * @param catCol the cat col
+   * @param writer the writer
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  private void writeCategoricalColumn(CategoricalColumn catCol, JsonWriter writer) throws IOException {
+    if (catCol.getPreference() != null) {
+      writer.name(RANGE);
+      writer.beginArray();
+      for (final String pref : catCol.getPreference()) {
+        writer.value(pref);
+      }
+      writer.endArray();
+    }
+
+    // range
+    if (catCol.getRange() != null) {
+      writer.name(RANGE);
+      writer.beginArray();
+      for (final String value : catCol.getRange()) {
+        writer.value(value);
+      }
+      writer.endArray();
+    }
+  }
+
+  /**
+   * Write date column.
+   * 
+   * @param dateCol the date col
+   * @param writer the writer
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  private void writeDateColumn(DateColumn dateCol, JsonWriter writer) throws IOException {
+    if (dateCol.getLow() != null) {
+      writer.name(RANGE).beginObject();
+      writer.name(LOW).value(DATE_FORMATTER.format(dateCol.getLow()));
+      writer.name(HIGH).value(DATE_FORMATTER.format(dateCol.getHigh()));
+      writer.endObject();
+    }
+  }
+
+  /**
+   * Write numerical column.
+   * 
+   * @param numCol the num col
+   * @param writer the writer
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  private void writeNumericalColumn(NumericColumn numCol, JsonWriter writer) throws IOException {
+    if (numCol.getLow() != null) {
+      writer.name(RANGE);
+      writer.beginObject();
+      writer.name(LOW).value(numCol.getLow());
+      writer.name(HIGH).value(numCol.getHigh());
+      writer.endObject();
+    }
+  }
 
   /*
    * (non-Javadoc)
@@ -68,25 +143,25 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
     while (reader.hasNext()) {
       String name = reader.nextName();
 
-      if (name.equals("type")) {
+      if (name.equals(TYPE2)) {
         type = ColumnType.fromString(reader.nextString());
-      } else if (name.equals("key")) {
+      } else if (name.equals(KEY)) {
         key = reader.nextString();
-      } else if (name.equals("goal")) {
+      } else if (name.equals(GOAL)) {
         goal = Goal.fromString(reader.nextString());
-      } else if (name.equals("is_objective")) {
+      } else if (name.equals(IS_OBJECTIVE)) {
         objective = reader.nextBoolean();
-      } else if (name.equals("format")) {
+      } else if (name.equals(FORMAT)) {
         format = reader.nextString();
-      } else if (name.equals("description")) {
+      } else if (name.equals(DESCRIPTION)) {
         description = reader.nextString();
-      } else if (name.equals("full_name")) {
+      } else if (name.equals(FULL_NAME)) {
         fullName = reader.nextString();
-      } else if (name.equals("significant_gain")) {
+      } else if (name.equals(SIGNIFICANT_GAIN)) {
         significantGain = reader.nextDouble();
-      } else if (name.equals("significant_loss")) {
+      } else if (name.equals(SIGNIFICANT_LOSS)) {
         significantLoss = reader.nextDouble();
-      } else if (name.equals("insignificant_loss")) {
+      } else if (name.equals(INSIGNIFICANT_LOSS)) {
         insignificantLoss = reader.nextDouble();
       } else if (name.equals("preference")) {
         reader.beginArray();
@@ -95,7 +170,7 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
           categoricalPreference.add(reader.nextString());
         }
         reader.endArray();
-      } else if (name.equals("range")) {
+      } else if (name.equals(RANGE)) {
         if (reader.peek().equals(JsonToken.BEGIN_ARRAY)) {
           reader.beginArray();
           categoricalRange = new ArrayList<String>();
@@ -107,9 +182,9 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
           reader.beginObject();
           while (reader.hasNext()) {
             name = reader.nextName();
-            if (name.equals("low")) {
+            if (name.equals(LOW)) {
               low = reader.nextString();
-            } else if (name.equals("high")) {
+            } else if (name.equals(HIGH)) {
               high = reader.nextString();
             } else {
               reader.skipValue();
@@ -136,15 +211,15 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
       column = new DateColumn();
       if (low != null) {
         try {
-          ((DateColumn) column).withRange(df.parse(low), df.parse(high));
+          ((DateColumn) column).withRange(DATE_FORMATTER.parse(low), DATE_FORMATTER.parse(high));
         } catch (final ParseException e) {
-          log.log(Level.SEVERE, "Error parsing the date", e);
+          LOG.log(Level.SEVERE, "Error parsing the date", e);
         }
       }
     } else if (type == ColumnType.NUMERIC) {
       column = new NumericColumn();
       if (low != null) {
-        ((NumericColumn) column).withRange(Double.valueOf(low), Double.valueOf(high));
+        ((NumericColumn) column).range(Double.valueOf(low), Double.valueOf(high));
       }
     } else {
       column = new TextColumn();
@@ -200,39 +275,39 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
   public void write(JsonWriter writer, Column column) throws IOException {
     writer.beginObject();
 
-    writer.name("key").value(column.getKey());
-    writer.name("type").value(column.getType().toString());
+    writer.name(KEY).value(column.getKey());
+    writer.name(TYPE2).value(column.getType().toString());
 
     if (column.getGoal() != null) {
-      writer.name("goal").value(column.getGoal().toString());
+      writer.name(GOAL).value(column.getGoal().toString());
     }
 
     if (column.isObjective() != null) {
-      writer.name("is_objective").value(column.isObjective());
+      writer.name(IS_OBJECTIVE).value(column.isObjective());
     }
 
     if (column.getFormat() != null) {
-      writer.name("format").value(column.getFormat());
+      writer.name(FORMAT).value(column.getFormat());
     }
 
     if (column.getDescription() != null) {
-      writer.name("description").value(column.getDescription());
+      writer.name(DESCRIPTION).value(column.getDescription());
     }
 
     if (column.getFullName() != null) {
-      writer.name("full_name").value(column.getFullName());
+      writer.name(FULL_NAME).value(column.getFullName());
     }
 
     if (column.getSignificantGain() != null) {
-      writer.name("significant_gain").value(column.getSignificantGain());
+      writer.name(SIGNIFICANT_GAIN).value(column.getSignificantGain());
     }
 
     if (column.getSignificantLoss() != null) {
-      writer.name("significant_loss").value(column.getSignificantLoss());
+      writer.name(SIGNIFICANT_LOSS).value(column.getSignificantLoss());
     }
 
     if (column.getInsignificantLoss() != null) {
-      writer.name("insignificant_loss").value(column.getInsignificantLoss());
+      writer.name(INSIGNIFICANT_LOSS).value(column.getInsignificantLoss());
     }
 
     final ColumnType type = column.getType();
@@ -255,69 +330,5 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
 
     writer.endObject();
     writer.flush();
-
-    // writer.close();
-  }
-
-  /**
-   * Write categorical column.
-   * 
-   * @param catCol the cat col
-   * @param writer the writer
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  private void writeCategoricalColumn(CategoricalColumn catCol, JsonWriter writer)
-      throws IOException {
-    if (catCol.getPreference() != null) {
-      writer.name("range");
-      writer.beginArray();
-      for (final String pref : catCol.getPreference()) {
-        writer.value(pref);
-      }
-      writer.endArray();
-    }
-
-    // range
-    if (catCol.getRange() != null) {
-      writer.name("range");
-      writer.beginArray();
-      for (final String value : catCol.getRange()) {
-        writer.value(value);
-      }
-      writer.endArray();
-    }
-  }
-
-  /**
-   * Write date column.
-   * 
-   * @param dateCol the date col
-   * @param writer the writer
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  private void writeDateColumn(DateColumn dateCol, JsonWriter writer) throws IOException {
-    if (dateCol.getLow() != null) {
-      writer.name("range").beginObject();
-      writer.name("low").value(df.format(dateCol.getLow()));
-      writer.name("high").value(df.format(dateCol.getHigh()));
-      writer.endObject();
-    }
-  }
-
-  /**
-   * Write numerical column.
-   * 
-   * @param numCol the num col
-   * @param writer the writer
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  private void writeNumericalColumn(NumericColumn numCol, JsonWriter writer) throws IOException {
-    if (numCol.getLow() != null) {
-      writer.name("range");
-      writer.beginObject();
-      writer.name("low").value(numCol.getLow());
-      writer.name("high").value(numCol.getHigh());
-      writer.endObject();
-    }
   }
 }

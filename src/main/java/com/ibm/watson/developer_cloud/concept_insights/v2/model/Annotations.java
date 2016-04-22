@@ -20,11 +20,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Annotations returned by the {@link ConceptInsights} service.
- * 
  */
 public class Annotations extends GenericModel {
-
-  /** The annotations. */
   private List<ScoredConcept> annotations;
 
   /**

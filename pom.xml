@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<version>2.10.1-SNAPSHOT</version>
+	<version>3.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<artifactId>java-sdk</artifactId>
 	<name>Watson Developer Cloud Java SDK</name>
@@ -49,16 +49,17 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.neovisionaries</groupId>
-			<artifactId>nv-websocket-client</artifactId>
-			<version>1.22</version>
-		</dependency>
 		<!-- mockserver -->
 		<dependency>
 			<groupId>org.mock-server</groupId>
 			<artifactId>mockserver-netty</artifactId>
 			<version>3.9.17</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>mockwebserver</artifactId>
+			<version>3.2.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

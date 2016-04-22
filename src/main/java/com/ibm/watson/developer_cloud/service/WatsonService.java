@@ -14,6 +14,7 @@
 package com.ibm.watson.developer_cloud.service;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.Map;
@@ -24,11 +25,25 @@ import java.util.logging.Logger;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
+import com.ibm.watson.developer_cloud.service.exception.ConflictException;
+import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
+import com.ibm.watson.developer_cloud.service.exception.InternalServerErrorException;
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.watson.developer_cloud.service.exception.RequestTooLargeException;
+import com.ibm.watson.developer_cloud.service.exception.ServiceResponseException;
+import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableException;
+import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
+import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
+import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
 import com.ibm.watson.developer_cloud.util.CredentialUtils;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
 
 import okhttp3.Call;
@@ -51,6 +66,10 @@ import okhttp3.Response;
  */
 public abstract class WatsonService {
 
+  private static final String URL = "url";
+  private static final String PATH_AUTHORIZATION_V1_TOKEN = "/v1/token";
+  private static final String AUTHORIZATION = "authorization";
+  private static final String TOKEN = "token";
   private static final String MESSAGE_ERROR_3 = "message";
   private static final String MESSAGE_ERROR_2 = "error_message";
   private static final String BASIC = "Basic ";
@@ -194,16 +213,16 @@ public abstract class WatsonService {
    * 
    * @return the token
    */
-  public String getToken() {
-    HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, "authorization").build();
-    Request request = RequestBuilder.get(url + "/v1/token").withQuery("url", getEndPoint()).build();
-    Response response = null;
-    try {
-      response = createCall(request).execute();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-    return ResponseUtils.getJsonObject(response).get("token").getAsString();
+  public ServiceCall<String> getToken() {
+    Type tokenType = new TypeToken<String>() {}.getType();
+    HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, AUTHORIZATION).build();
+    Request request = RequestBuilder.get(url + PATH_AUTHORIZATION_V1_TOKEN)
+        .withHeader(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN)
+        .withQuery(URL, getEndPoint())
+        .build();
+    
+    ResponseConverter<String> converter = ResponseConverterUtils.getGenericObject(tokenType, TOKEN);
+    return createServiceCall(request, converter);
   }
 
   /**
@@ -257,7 +276,7 @@ public abstract class WatsonService {
    * @return the user agent
    */
   private String getUserAgent() {
-    return "watson-developer-cloud-java-sdk-2.10.0";
+    return "watson-developer-cloud-java-sdk-3.0.0";
   }
 
   /**

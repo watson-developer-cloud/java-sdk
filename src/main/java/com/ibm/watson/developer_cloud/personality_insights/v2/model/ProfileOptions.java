@@ -26,17 +26,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * Profile Options when using the {@link PersonalityInsights#getProfile(ProfileOptions)} method.
  */
 public class ProfileOptions extends GenericModel {
-
   private String text;
-
   private String contentType;
-
   private List<ContentItem> contentItems;
-
   private Boolean includeRaw;
-
   private AcceptLanguage acceptLanguage;
-
   private Language language;
 
 

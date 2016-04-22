@@ -20,19 +20,11 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 /**
  * SessionStatus used by {@link SpeechToText}.
  */
-public class SessionStatus extends GenericModel {
-
-  /** The model. */
+public class SpeechSessionStatus extends GenericModel {
   private String model;
-
-  /** The observe result. */
   @SerializedName("observe_result")
   private String observeResult;
-
-  /** The recognize. */
   private String recognize;
-
-  /** The state. */
   private String state;
 
   /**

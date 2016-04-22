@@ -21,14 +21,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * The Class DocumentAnnotations.
  */
 public class DocumentAnnotations extends GenericModel {
-
-  /** The annotations. */
   private List<List<Annotation>> annotations;
-
-  /** The id. */
   private String id;
-
-  /** The label. */
   private String label;
 
   /**

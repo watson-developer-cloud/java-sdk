@@ -31,8 +31,8 @@ import okhttp3.Request;
 
 
 /**
- * The Text to Speech service uses IBM's speech synthesis capabilities to convert English or Spanish
- * text to an audio signal. The audio is streamed back to the client with minimal delay.
+ * The Text to Speech service uses IBM's speech synthesis capabilities to convert text to an audio
+ * signal. The audio is streamed back to the client in a {@link InputStream}
  * 
  * @version v1
  * @see <a href=
@@ -41,15 +41,15 @@ import okhttp3.Request;
  */
 public class TextToSpeech extends WatsonService {
 
-  private static final String SERVICE_NAME = "text_to_speech";
   private static final String ACCEPT = "accept";
-  private static final String VOICE = "voice";
-  private static final String TEXT = "text";
-  private static final String PATH_SYNTHESIZE = "/v1/synthesize";
   private static final String PATH_GET_VOICES = "/v1/voices";
+  private static final String PATH_SYNTHESIZE = "/v1/synthesize";
+  private static final String SERVICE_NAME = "text_to_speech";
+  private static final String TEXT = "text";
   private static final Type TYPE_GET_VOICES = new TypeToken<List<Voice>>() {}.getType();
-
   private final static String URL = "https://stream.watsonplatform.net/text-to-speech/api";
+  private static final String VOICE = "voice";
+  private static final String VOICES = "voices";
 
   /**
    * Instantiates a new text to speech.
@@ -66,7 +66,7 @@ public class TextToSpeech extends WatsonService {
    */
   public ServiceCall<List<Voice>> getVoices() {
     final Request request = RequestBuilder.get(PATH_GET_VOICES).build();
-    ResponseConverter<List<Voice>> converter = ResponseConverterUtils.getGenericObject(TYPE_GET_VOICES, "voices");
+    ResponseConverter<List<Voice>> converter = ResponseConverterUtils.getGenericObject(TYPE_GET_VOICES, VOICES);
     return createServiceCall(request, converter);
   }
 

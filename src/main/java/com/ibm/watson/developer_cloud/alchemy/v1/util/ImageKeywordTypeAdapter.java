@@ -22,9 +22,14 @@ import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeyword;
 
 /**
- * Type Adapter for the {@link ImageKeyword} class.
+ * Type adapter for the {@link ImageKeyword} class.
  */
 public class ImageKeywordTypeAdapter extends TypeAdapter<ImageKeyword> {
+
+  private static final String KNOWLEDGE_GRAPH = "knowledgeGraph";
+  private static final String SCORE = "score";
+  private static final String TEXT = "text";
+  private static final String TYPE_HIERARCHY = "typeHierarchy";
 
   /*
    * (non-Javadoc)
@@ -43,16 +48,16 @@ public class ImageKeywordTypeAdapter extends TypeAdapter<ImageKeyword> {
     while (reader.hasNext()) {
       final String name = reader.nextName();
 
-      if (name.equals("text")) {
+      if (name.equals(TEXT)) {
         final String text = reader.nextString();
         ImageKeyword.setText(text);
-      } else if (name.equals("score")) {
+      } else if (name.equals(SCORE)) {
         final String score = reader.nextString();
         if (score != null && !score.isEmpty())
           ImageKeyword.setScore(Double.valueOf(score));
-      } else if (name.equals("knowledgeGraph")) {
+      } else if (name.equals(KNOWLEDGE_GRAPH)) {
         reader.beginObject();
-        if (reader.hasNext() && reader.nextName().equals("typeHierarchy")) {
+        if (reader.hasNext() && reader.nextName().equals(TYPE_HIERARCHY)) {
           final String hierarchy = reader.nextString();
           ImageKeyword.setHierarchy(hierarchy);
         }
@@ -83,9 +88,9 @@ public class ImageKeywordTypeAdapter extends TypeAdapter<ImageKeyword> {
     writer.beginObject();
 
     if (value.getScore() != null)
-      writer.name("score").value(value.getScore());
+      writer.name(SCORE).value(value.getScore());
     if (value.getText() != null)
-      writer.name("text").value(value.getText());
+      writer.name(TEXT).value(value.getText());
 
     writer.endObject();
     writer.flush();

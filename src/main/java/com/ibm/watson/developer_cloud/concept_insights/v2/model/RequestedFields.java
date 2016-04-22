@@ -23,9 +23,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * RequestedFields returned by the {@link ConceptInsights} service.
  */
 public class RequestedFields extends GenericModel {
-
-  /** The fields. */
   private Map<String, Object> fields;
+
+  /**
+   * Initialize the fields map.
+   */
+  private void init() {
+    if (fields == null)
+      fields = new HashMap<String, Object>();
+  }
 
   /**
    * Exclude.
@@ -54,14 +60,6 @@ public class RequestedFields extends GenericModel {
   public void include(String field) {
     init();
     fields.put(field, 1);
-  }
-
-  /**
-   * Initialize the fields map.
-   */
-  private void init() {
-    if (fields == null)
-      fields = new HashMap<String, Object>();
   }
 
   /**

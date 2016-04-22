@@ -13,88 +13,58 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util;
 
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
+
 /**
- * The messages.
+ * The {@link RetrieveAndRank} messages.
  */
 public enum Messages implements BundleKey {
-  
-  /** The unable to close http client. */
-  // HttpClusterLifecycleClient
-  UNABLE_TO_CLOSE_HTTP_CLIENT,
 
-  /** The CONFI g_ no t_ di r_1. */
-  // HttpSolrConfigManager
-  CONFIG_NOT_DIR_1,
+   // HttpClusterLifecycleClient
+   UNABLE_TO_CLOSE_HTTP_CLIENT,
 
-  /** The no credentials for preemptive auth. */
-  // HttpClientFactory
-  NO_CREDENTIALS_FOR_PREEMPTIVE_AUTH,
+   // HttpSolrConfigManager
+   CONFIG_NOT_DIR_1,
 
-  /** The error creating cluster. */
-  // ClusterLifecycleRestSender
-  ERROR_CREATING_CLUSTER, 
- /** The ERRO r_ creatin g_ cluste r_1. */
- ERROR_CREATING_CLUSTER_1, 
- /** The ERRO r_ deletin g_ cluste r_1. */
- ERROR_DELETING_CLUSTER_1, 
- /** The ERRO r_ deletin g_ cluste r_2. */
- ERROR_DELETING_CLUSTER_2, 
- /** The error listing clusters. */
- ERROR_LISTING_CLUSTERS, 
- /** The ERRO r_ listin g_ cluster s_1. */
- ERROR_LISTING_CLUSTERS_1, 
- /** The ERRO r_ pollin g_ cluste r_1. */
- ERROR_POLLING_CLUSTER_1, 
- /** The ERRO r_ pollin g_ cluste r_2. */
- ERROR_POLLING_CLUSTER_2, 
- /** The ERRO r_ caus e_1. */
- ERROR_CAUSE_1,
+   // HttpClientFactory
+   NO_CREDENTIALS_FOR_PREEMPTIVE_AUTH,
 
-  /** The failed listing configs. */
-  // SolrConfigRestSender
-  FAILED_LISTING_CONFIGS, 
- /** The FAILE d_ listin g_ config s_ wit h_ cod e_1. */
- FAILED_LISTING_CONFIGS_WITH_CODE_1, 
- /** The FAILE d_ t o_ delet e_ tem p_2. */
- FAILED_TO_DELETE_TEMP_2, 
- /** The FAILE d_ gettin g_ confi g_1. */
- FAILED_GETTING_CONFIG_1, 
- /** The FAILE d_ gettin g_ confi g_ wit h_ cod e_2. */
- FAILED_GETTING_CONFIG_WITH_CODE_2, 
- /** The FAILUR e_ respons e_3. */
- FAILURE_RESPONSE_3,
+   // ClusterLifecycleRestSender
+   ERROR_CREATING_CLUSTER, 
+   ERROR_CREATING_CLUSTER_1, 
+   ERROR_DELETING_CLUSTER_1, 
+   ERROR_DELETING_CLUSTER_2, 
+   ERROR_LISTING_CLUSTERS, 
+   ERROR_LISTING_CLUSTERS_1, 
+   ERROR_POLLING_CLUSTER_1, 
+   ERROR_POLLING_CLUSTER_2, 
+   ERROR_CAUSE_1,
 
-  /** The ERRO r_ zippin g_1. */
-  // ZipUtils
-  ERROR_ZIPPING_1, 
- /** The ERRO r_ creatin g_ zi p_1. */
- ERROR_CREATING_ZIP_1, 
- /** The FAILE d_ t o_ visi t_1. */
- FAILED_TO_VISIT_1, 
- /** The ERRO r_ readin g_ fil e_1. */
- ERROR_READING_FILE_1,
+   // SolrConfigRestSender
+   FAILED_LISTING_CONFIGS, 
+   FAILED_LISTING_CONFIGS_WITH_CODE_1, 
+   FAILED_TO_DELETE_TEMP_2, 
+   FAILED_GETTING_CONFIG_1, 
+   FAILED_GETTING_CONFIG_WITH_CODE_2, 
+   FAILURE_RESPONSE_3,
 
-  /** The NO t_ nul l_1. */
-  // Preconditions
-  NOT_NULL_1, 
- /** The NO t_ empt y_1. */
- NOT_EMPTY_1, 
- /** The NO t_ blan k_1. */
- NOT_BLANK_1, 
- /** The CANNO t_ contai n_2. */
- CANNOT_CONTAIN_2, 
- /** The A t_ leas t_3. */
- AT_LEAST_3, 
- /** The I n_ rang e_4. */
- IN_RANGE_4, 
- /** The BEFOR e_ dat e_3. */
- BEFORE_DATE_3, 
- /** The AFTE r_ dat e_3. */
- AFTER_DATE_3, 
- /** The CHEC k_ collection s_ nul l_1. */
- CHECK_COLLECTIONS_NULL_1, 
- /** The CHEC k_ pai r_3. */
- CHECK_PAIR_3;
+   // ZipUtils
+   ERROR_ZIPPING_1, 
+   ERROR_CREATING_ZIP_1, 
+   FAILED_TO_VISIT_1, 
+   ERROR_READING_FILE_1,
+
+   // Preconditions
+   NOT_NULL_1, 
+   NOT_EMPTY_1, 
+   NOT_BLANK_1, 
+   CANNOT_CONTAIN_2, 
+   AT_LEAST_3, 
+   IN_RANGE_4, 
+   BEFORE_DATE_3, 
+   AFTER_DATE_3, 
+   CHECK_COLLECTIONS_NULL_1, 
+   CHECK_PAIR_3;
 
   /**
    * Bundle name.

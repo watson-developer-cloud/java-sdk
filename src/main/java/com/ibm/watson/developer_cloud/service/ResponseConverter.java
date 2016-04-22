@@ -23,10 +23,10 @@ import okhttp3.Response;
 public interface ResponseConverter<T> {
   
   /**
-   * Convert.
+   * Converts a response into a generic type to be defined
    *
    * @param response the response
-   * @return the t
+   * @return the the generic type
    */
   T convert(Response response);
 }

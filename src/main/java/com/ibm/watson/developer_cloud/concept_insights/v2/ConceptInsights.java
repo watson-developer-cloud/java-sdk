@@ -67,25 +67,23 @@ import okhttp3.Request;
  */
 public class ConceptInsights extends WatsonService {
 
-  private static final String SERVICE_NAME = "concept_insights";
-  private static final String FORWARD_SLASH = "/";
   private static final String ACCOUNTS_PATH = "/v2/accounts";
   private static final String ANNOTATE_TEXT_PATH = "/annotate_text";
   private static final String ANNOTATIONS_PATH = "/annotations";
   private static final String API_VERSION = "/v2";
+  private static final String CONCEPTUAL_SEARCH_PATH = "/conceptual_search";
+  private static final String CORPORA_PATH = "/v2/corpora";
+  private static final String DOCUMENTS_PATH = "/documents";
+  private static final String FORWARD_SLASH = "/";
+  private static final String GRAPHS_PATH = "/v2/graphs";
+  private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
+  private static final String LABEL_SEARCH_PATH = "/label_search";
   private static final String PROCESSING_STATE_PATH = "/processing_state";
   private static final String RELATED_CONCEPTS_PATH = "/related_concepts";
   private static final String RELATION_SCORES_PATH = "/relation_scores";
+  private static final String SERVICE_NAME = "concept_insights";
   private static final String STATS_PATH = "/stats";
   private static final String URL = "https://gateway.watsonplatform.net/concept-insights/api";
-  private static final String CONCEPTUAL_SEARCH_PATH = "/conceptual_search";
-  private static final String CORPORA_PATH = "/v2/corpora";
-  private static final String LABEL_SEARCH_PATH = "/label_search";
-  private static final String DOCUMENTS_PATH = "/documents";
-  private static final String GRAPHS_PATH = "/v2/graphs";
-  private static final Gson gson = GsonSingleton.getGsonWithoutPrettyPrinting();
-  private String accountId;
-  
   /**
    * The Constant CONCEPT. (value is "concept")
    */
@@ -111,11 +109,11 @@ public class ConceptInsights extends WatsonService {
    */
   public static final String DOCUMENT_FIELDS = "document_fields";
 
-
   /**
    * The Constant IDS. (value is "ids")
    */
   public static final String IDS = "ids";
+
 
   /**
    * The Constant LEVEL. (value is "level")
@@ -142,12 +140,45 @@ public class ConceptInsights extends WatsonService {
    */
   public static final String TEXT = "text";
 
+  private String accountId;
+
   /**
    * Instantiates a new Concept Insights service.
    */
   public ConceptInsights() {
     super(SERVICE_NAME);
     setEndPoint(URL);
+  }
+
+  /**
+   * Creates a GET request
+   * 
+   * @param <T> The POJO that represents the response object
+   * @param resourcePath the resource path
+   * @param queryParams the query parameters
+   * @param returnType the POJO class to be parsed from the response
+   * @return the POJO object that represent the response
+   */
+  private <T extends GenericModel> ServiceCall<T> createGETRequest(final String resourcePath,
+      final Map<String, Object> queryParams, final Class<T> returnType) {
+    final RequestBuilder requestBuilder = RequestBuilder.get(resourcePath);
+    if (queryParams != null && !queryParams.isEmpty()) {
+      for (final Map.Entry<String, Object> entry : queryParams.entrySet()) {
+        requestBuilder.withQuery(entry.getKey(), entry.getValue());
+      }
+    }
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(returnType));
+  }
+
+  /**
+   * Returns the JSON representation of @param object This method is being use to transform into
+   * JSON query parameters for some of the {@link ConceptInsights} calls
+   * 
+   * @param object the object to transform
+   * @return the JSON representation of the object
+   */
+  private String toJson(Object object) {
+    return new Gson().toJson(object);
   }
 
   /**
@@ -228,7 +259,7 @@ public class ConceptInsights extends WatsonService {
   public ServiceCall<Void> createCorpus(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
     final Request request = RequestBuilder.put(API_VERSION + corpusId)
-        .withBodyContent(gson.toJson(corpus), HttpMediaType.APPLICATION_JSON).build();
+        .withBodyContent(GSON.toJson(corpus), HttpMediaType.APPLICATION_JSON).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
@@ -241,7 +272,7 @@ public class ConceptInsights extends WatsonService {
   public ServiceCall<Void> createDocument(final Document document) {
     IDHelper.getDocumentId(document);
     final Request request = RequestBuilder.put(API_VERSION + document.getId())
-        .withBodyContent(gson.toJson(document), HttpMediaType.APPLICATION_JSON).build();
+        .withBodyContent(GSON.toJson(document), HttpMediaType.APPLICATION_JSON).build();
 
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
@@ -269,41 +300,6 @@ public class ConceptInsights extends WatsonService {
     IDHelper.getDocumentId(document);
     final Request request = RequestBuilder.delete(API_VERSION + document.getId()).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Creates a GET request
-   * 
-   * @param <T> The POJO that represents the response object
-   * @param resourcePath the resource path
-   * @param queryParams the query parameters
-   * @param returnType the POJO class to be parsed from the response
-   * @return the POJO object that represent the response
-   */
-  private <T extends GenericModel> ServiceCall<T> createGETRequest(final String resourcePath,
-      final Map<String, Object> queryParams, final Class<T> returnType) {
-    final RequestBuilder requestBuilder = RequestBuilder.get(resourcePath);
-    if (queryParams != null && !queryParams.isEmpty()) {
-      for (final Map.Entry<String, Object> entry : queryParams.entrySet()) {
-        requestBuilder.withQuery(entry.getKey(), entry.getValue());
-      }
-    }
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(returnType));
-  }
-
-  /**
-   * Returns the first account id.
-   * 
-   * @return the account id
-   */
-  public String getFirstAccountId() {
-    if (accountId == null) {
-      final Accounts accounts = getAccountsInfo().execute();
-      if (accounts != null && accounts.getAccounts() != null && !accounts.getAccounts().isEmpty()) {
-        accountId = accounts.getAccounts().get(0).getId();
-      }
-    }
-    return accountId;
   }
 
   /**
@@ -491,7 +487,8 @@ public class ConceptInsights extends WatsonService {
    *        </ul>
    * @return {@link Concepts}
    */
-  public ServiceCall<Concepts> getDocumentRelatedConcepts(final Document document, final Map<String, Object> parameters) {
+  public ServiceCall<Concepts> getDocumentRelatedConcepts(final Document document,
+      final Map<String, Object> parameters) {
     final String documentId = IDHelper.getDocumentId(document);
     final String[] queryParameters = new String[] {LEVEL, LIMIT};
     final Map<String, Object> queryParams = new HashMap<String, Object>();
@@ -528,6 +525,21 @@ public class ConceptInsights extends WatsonService {
     contentJson.add(CONCEPTS, conceptsJson);
     queryParams.put(CONCEPTS, conceptsJson.toString());
     return createGETRequest(API_VERSION + documentId + RELATION_SCORES_PATH, queryParams, Scores.class);
+  }
+
+  /**
+   * Returns the first account id.
+   * 
+   * @return the account id
+   */
+  public String getFirstAccountId() {
+    if (accountId == null) {
+      final Accounts accounts = getAccountsInfo().execute();
+      if (accounts != null && accounts.getAccounts() != null && !accounts.getAccounts().isEmpty()) {
+        accountId = accounts.getAccounts().get(0).getId();
+      }
+    }
+    return accountId;
   }
 
   /**
@@ -570,17 +582,6 @@ public class ConceptInsights extends WatsonService {
     contentJson.add(CONCEPTS, conceptsJson);
     queryParameters.put(CONCEPTS, conceptsJson.toString());
     return createGETRequest(API_VERSION + graphId + RELATED_CONCEPTS_PATH, queryParameters, Concepts.class);
-  }
-
-  /**
-   * Returns the JSON representation of @param object This method is being use to transform into
-   * JSON query parameters for some of the {@link ConceptInsights} calls
-   * 
-   * @param object the object to transform
-   * @return the JSON representation of the object
-   */
-  private String toJson(Object object) {
-    return new Gson().toJson(object);
   }
 
   /**
@@ -775,7 +776,7 @@ public class ConceptInsights extends WatsonService {
   public ServiceCall<Void> updateCorpus(final Corpus corpus) {
     final String corpusId = IDHelper.getCorpusId(corpus, getFirstAccountId());
     final Request request = RequestBuilder.post(API_VERSION + corpusId)
-        .withBodyContent(gson.toJson(corpus), HttpMediaType.APPLICATION_JSON).build();
+        .withBodyContent(GSON.toJson(corpus), HttpMediaType.APPLICATION_JSON).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
@@ -788,7 +789,7 @@ public class ConceptInsights extends WatsonService {
   public ServiceCall<Void> updateDocument(final Document document) {
     final String documentId = IDHelper.getDocumentId(document);
     final Request request = RequestBuilder.post(API_VERSION + documentId)
-        .withBodyContent(gson.toJson(document), HttpMediaType.APPLICATION_JSON).build();
+        .withBodyContent(GSON.toJson(document), HttpMediaType.APPLICATION_JSON).build();
 
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }

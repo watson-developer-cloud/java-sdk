@@ -22,10 +22,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class IdentifiableLanguage extends GenericModel {
 
-  /** The language. */
   private final String language;
-
-  /** The confidence. */
   private final String name;
 
   /**

@@ -16,18 +16,16 @@ package com.ibm.watson.developer_cloud.util;
 import java.util.Collection;
 
 /**
- * This class assists in validating arguments.
- * 
+ * This class assists in validating arguments.<br>
  * If an argument value is deemed invalid, an IllegalArgumentException is thrown.
- * 
  */
 @SuppressWarnings("rawtypes")
 public class Validator {
 
   /**
-   * Validator that the argument condition is <code>true</code>; otherwise throwing an exception with
-   * the specified message. This method is useful when validating according to an arbitrary boolean
-   * expression, such as validating a primitive number or using your own custom validation
+   * Validates that the argument condition is <code>true</code>; otherwise throwing an exception
+   * with the specified message. This method is useful when validating according to an arbitrary
+   * boolean expression, such as validating a primitive number or using your own custom validation
    * expression.
    * 
    * 
@@ -42,8 +40,8 @@ public class Validator {
   }
 
   /**
-   * Validator that the specified argument collection is neither <code>null</code> nor a size of zero
-   * (no elements); otherwise throwing an exception with the specified message.
+   * Validates that the specified argument collection is neither <code>null</code> nor a size of
+   * zero (no elements); otherwise throwing an exception with the specified message.
    * 
    * @param collection the collection to check
    * @param message the exception message if invalid
@@ -57,7 +55,7 @@ public class Validator {
 
 
   /**
-   * Validator that the specified argument array is neither <code>null</code> nor a length of zero
+   * Validates that the specified argument array is neither <code>null</code> nor a length of zero
    * (no elements); otherwise throwing an exception with the specified message.
    * 
    * @param array the array to check
@@ -85,7 +83,7 @@ public class Validator {
   }
 
   /**
-   * Validator that the specified argument is not <code>null</code>; otherwise throwing an exception
+   * Validates that the specified argument is not <code>null</code>; otherwise throwing an exception
    * with the specified message.
    * 
    * @param object the object to check

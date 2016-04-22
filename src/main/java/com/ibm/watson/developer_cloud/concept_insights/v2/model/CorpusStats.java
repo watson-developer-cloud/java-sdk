@@ -22,15 +22,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * The Class CorpusStats.
  */
 public class CorpusStats extends GenericModel {
-
-  /** The id. */
   private String id;
-
-  /** The last updated. */
   @SerializedName("last_updated")
   private Date lastUpdated;
-
-  /** The top tags. */
   @SerializedName("top_tags")
   private TopTags topTags;
 

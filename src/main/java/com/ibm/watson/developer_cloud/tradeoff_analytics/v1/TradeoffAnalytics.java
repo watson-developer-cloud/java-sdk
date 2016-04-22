@@ -36,9 +36,9 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
  */
 public class TradeoffAnalytics extends WatsonService {
 
-  private static final String SERVICE_NAME = "tradeoff_analytics";
   private static final String GENERATE_VISUALIZATION = "generate_visualization";
   private static final String PATH_DILEMMAS = "/v1/dilemmas";
+  private static final String SERVICE_NAME = "tradeoff_analytics";
   private final static String URL = "https://gateway.watsonplatform.net/tradeoff-analytics/api";
 
   /**

@@ -29,7 +29,6 @@ import okhttp3.RequestBody;
 
 /**
  * Convenience class for constructing HTTP/HTTPS requests.
- * 
  */
 public class RequestBuilder {
 

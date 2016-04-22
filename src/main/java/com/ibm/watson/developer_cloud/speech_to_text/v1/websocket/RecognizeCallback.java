@@ -16,19 +16,20 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
+import okhttp3.ws.WebSocket;
+
 
 /**
- * The recognize delegate used in the
- * {@link SpeechToText#recognizeUsingWebSockets(java.io.InputStream, com.ibm.watson.developer_cloud.speech_to_text.v1.RecognizeOptions, RecognizeDelegate)}
+ * The recognize callback used during a {@link WebSocket} recognition by the {@link SpeechToText} service
  */
-public interface RecognizeDelegate {
+public interface RecognizeCallback {
 
   /**
    * Called when a {@link SpeechResults} was received.
    * 
    * @param speechResults the speech results
    */
-  void onMessage(SpeechResults speechResults);
+  void onTranscription(SpeechResults speechResults);
 
   /**
    * Called when a WebSocket connection was made.

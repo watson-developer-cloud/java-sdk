@@ -25,25 +25,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class Conversation extends GenericModel {
-
-  /** The client id. */
   @SerializedName("client_id")
   private Integer clientId;
-
-  /** The confidence. */
   private Double confidence;
-
-  /** The dialog id. */
   private String dialogId;
-
-  /** The id. */
   @SerializedName("conversation_id")
   private Integer id;
-
-  /** The input. */
   private String input;
-
-  /** The response. */
   private List<String> response;
 
   /**

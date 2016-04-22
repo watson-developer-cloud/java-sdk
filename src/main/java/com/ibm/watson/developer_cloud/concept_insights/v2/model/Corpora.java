@@ -23,8 +23,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class Corpora extends GenericModel {
-
-  /** The corpora. */
   private List<Corpus> corpora;
 
   /**

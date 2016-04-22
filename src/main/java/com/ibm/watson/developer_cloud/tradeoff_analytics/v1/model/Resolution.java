@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 
 /**
- * The Problem {@link Resolution} used by the {@link TradeoffAnalytics} V1 service.
+ * Problem {@link Resolution} used by the {@link TradeoffAnalytics} V1 service.
  */
 public class Resolution extends GenericModel {
   private List<Solution> solutions;

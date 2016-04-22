@@ -44,7 +44,7 @@ public class PersonalityInsights extends WatsonService {
   private static final String PATH_PROFILE = "/v2/profile";
   private static final String INCLUDE_RAW = "include_raw";
   private static final String URL = "https://gateway.watsonplatform.net/personality-insights/api";
-  private static final Gson gson =
+  private static final Gson GSON =
       new GsonBuilder().registerTypeAdapter(Date.class, new TimestampTypeAdapter()).create();
 
   private static final String HEADERS = "headers";
@@ -71,7 +71,7 @@ public class PersonalityInsights extends WatsonService {
     } else {
       final Content content = new Content();
       content.setContentItems(options.getContentItems());
-      String body = gson.toJson(content);
+      String body = GSON.toJson(content);
       request.withBodyContent(body, contentType);
     }
 
@@ -98,7 +98,7 @@ public class PersonalityInsights extends WatsonService {
    *     service.setUsernameAndPassword("username", "password");
    * 
    *     String text = "write the text with at least 100 unique words here..."
-   *     Profile profile = service.getProfile(text);
+   *     Profile profile = service.getProfile(text).execute();
    *     System.out.println(profile);
    * </pre>
    * 
@@ -128,7 +128,7 @@ public class PersonalityInsights extends WatsonService {
    *     ContentItem cItem = new ContentItem().content(text).created(new Date());
    *     ProfileOptions options = new ProfileOptions().contentItems(Arrays.asList(cItem));
    * 
-   *     Profile profile = service.getProfile(options);
+   *     Profile profile = service.getProfile(options).execute();
    * 
    *     System.out.println(profile);
    * </pre>

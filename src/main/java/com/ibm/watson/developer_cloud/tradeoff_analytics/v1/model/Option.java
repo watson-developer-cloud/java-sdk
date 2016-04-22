@@ -69,6 +69,28 @@ public class Option extends GenericModel {
   }
 
   /**
+   * Sets the application data.
+   * 
+   * @param appData the app data
+   * @return the option
+   */
+  public Option appData(HashMap<String, String> appData) {
+    this.appData = appData;
+    return this;
+  }
+
+  /**
+   * Sets the HTML description .
+   * 
+   * @param descriptionHtml the HTML description
+   * @return the option
+   */
+  public Option descriptionHtml(String descriptionHtml) {
+    this.descriptionHtml = descriptionHtml;
+    return this;
+  }
+
+  /**
    * Gets the HTML description.
    * 
    * @return The HTML description
@@ -102,6 +124,28 @@ public class Option extends GenericModel {
    */
   public HashMap<String, Object> getValues() {
     return values;
+  }
+
+  /**
+   * Sets the key.
+   * 
+   * @param key the key
+   * @return the option
+   */
+  public Option key(String key) {
+    this.key = key;
+    return this;
+  }
+
+  /**
+   * Sets the name.
+   * 
+   * @param name the name
+   * @return the option
+   */
+  public Option name(String name) {
+    this.name = name;
+    return this;
   }
 
   /**
@@ -141,57 +185,13 @@ public class Option extends GenericModel {
   }
 
   /**
-   * With application data.
-   * 
-   * @param appData the app data
-   * @return the option
-   */
-  public Option withAppData(HashMap<String, String> appData) {
-    this.appData = appData;
-    return this;
-  }
-
-  /**
-   * With description html.
-   * 
-   * @param descriptionHtml the description html
-   * @return the option
-   */
-  public Option withDescriptionHtml(String descriptionHtml) {
-    this.descriptionHtml = descriptionHtml;
-    return this;
-  }
-
-  /**
-   * With key.
-   * 
-   * @param key the key
-   * @return the option
-   */
-  public Option withKey(String key) {
-    this.key = key;
-    return this;
-  }
-
-  /**
-   * With name.
-   * 
-   * @param name the name
-   * @return the option
-   */
-  public Option withName(String name) {
-    this.name = name;
-    return this;
-  }
-
-  /**
-   * With value.
+   * Sets value.
    * 
    * @param name the name
    * @param value the value
    * @return the option
    */
-  public Option withValue(String name, Object value) {
+  public Option value(String name, Object value) {
     if (values == null) {
       values = new HashMap<String, Object>();
     }
@@ -201,12 +201,12 @@ public class Option extends GenericModel {
   }
 
   /**
-   * With values.
+   * Sets values.
    * 
    * @param values the values
    * @return the option
    */
-  public Option withValues(HashMap<String, Object> values) {
+  public Option values(HashMap<String, Object> values) {
     this.values = values;
     return this;
   }

@@ -20,7 +20,6 @@ import com.google.gson.annotations.SerializedName;
  * ToneCategory objects which is the actual result, and also some metadata about the sentence: The
  * original text (if it needs to be tracked back), and the position of the sentence in the original
  * text (as index of first and last character).
- * 
  */
 public class SentenceTone extends ElementTone {
 
@@ -46,30 +45,12 @@ public class SentenceTone extends ElementTone {
   }
 
   /**
-   * Sets the id.
-   *
-   * @param id the new id
-   */
-  public void setId(Integer id) {
-    this.id = id;
-  }
-
-  /**
    * Gets the input from.
    *
    * @return the input from
    */
   public Integer getInputFrom() {
     return inputFrom;
-  }
-
-  /**
-   * Sets the input from.
-   *
-   * @param inputFrom the new input from
-   */
-  public void setInputFrom(Integer inputFrom) {
-    this.inputFrom = inputFrom;
   }
 
   /**
@@ -82,21 +63,39 @@ public class SentenceTone extends ElementTone {
   }
 
   /**
-   * Sets the input to.
-   *
-   * @param inputTo the new input to
-   */
-  public void setInputTo(Integer inputTo) {
-    this.inputTo = inputTo;
-  }
-
-  /**
    * Gets the text.
    *
    * @return the text
    */
   public String getText() {
     return text;
+  }
+
+  /**
+   * Sets the id.
+   *
+   * @param id the new id
+   */
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  /**
+   * Sets the input from.
+   *
+   * @param inputFrom the new input from
+   */
+  public void setInputFrom(Integer inputFrom) {
+    this.inputFrom = inputFrom;
+  }
+
+  /**
+   * Sets the input to.
+   *
+   * @param inputTo the new input to
+   */
+  public void setInputTo(Integer inputTo) {
+    this.inputTo = inputTo;
   }
 
   /**

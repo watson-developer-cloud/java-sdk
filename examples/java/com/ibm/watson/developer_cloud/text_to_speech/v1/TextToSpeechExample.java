@@ -15,10 +15,9 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 
-public class TextToSpeechExample extends WatsonServiceTest {
+public class TextToSpeechExample {
 
 
   public static void main(String[] args) {

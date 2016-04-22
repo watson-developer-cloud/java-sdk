@@ -48,6 +48,20 @@ public class ResponseConverterUtils {
   }
 
   /**
+   * Creates an {@link InputStream} converter.
+   *
+   * @return the input stream converter
+   */
+  public static ResponseConverter<InputStream> getInputStream() {
+    return new ResponseConverter<InputStream>() {
+      @Override
+      public InputStream convert(Response response) {
+        return ResponseUtils.getInputStream(response);
+      }
+    };
+  }
+
+  /**
    * Creates a generic {@link ResponseConverter} for a POJO class. <br>
    * It should extends {@link GenericModel}
    *
@@ -74,20 +88,6 @@ public class ResponseConverterUtils {
       @Override
       public String convert(Response response) {
         return ResponseUtils.getString(response);
-      }
-    };
-  }
-  
-  /**
-   * Creates an {@link InputStream} converter.
-   *
-   * @return the input stream converter
-   */
-  public static ResponseConverter<InputStream> getInputStream() {
-    return new ResponseConverter<InputStream>() {
-      @Override
-      public InputStream convert(Response response) {
-        return ResponseUtils.getInputStream(response);
       }
     };
   }

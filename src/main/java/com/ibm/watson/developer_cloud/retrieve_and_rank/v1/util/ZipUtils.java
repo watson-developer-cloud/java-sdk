@@ -35,8 +35,6 @@ import org.apache.commons.lang3.StringUtils;
 public class ZipUtils {
   private static final MessageFormatter MSGS = new MessageFormatter(bundleName());
 
-  private ZipUtils() {}
-
   /**
    * Builds the configuration ZIP file.
    * 

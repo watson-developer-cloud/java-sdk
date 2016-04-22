@@ -200,7 +200,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentAuthors}
    */
   public ServiceCall<DocumentAuthors> getAuthors(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.authors, DocumentAuthors.class, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.AUTHORS, DocumentAuthors.class, HTML, URL);
   }
 
 
@@ -212,7 +212,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Concepts}
    */
   public ServiceCall<Concepts> getConcepts(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.concepts, Concepts.class, TEXT, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.CONCEPTS, Concepts.class, TEXT, HTML, URL);
   }
 
   /**
@@ -222,7 +222,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentPublicationDate}
    */
   public ServiceCall<DocumentPublicationDate> getPublicationDate(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.publication_date, DocumentPublicationDate.class, HTML,
+    return createServiceCall(params, AlchemyAPI.PUBLICATION_DATE, DocumentPublicationDate.class, HTML,
         URL);
   }
 
@@ -234,7 +234,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Taxonomies}
    */
   public ServiceCall<Taxonomies> getTaxonomy(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.taxonomy, Taxonomies.class, TEXT, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.TAXONOMY, Taxonomies.class, TEXT, HTML, URL);
   }
 
   /**
@@ -246,7 +246,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Microformats}
    */
   public ServiceCall<CombinedResults> getCombinedResults(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.combined, CombinedResults.class, TEXT, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.COMBINED, CombinedResults.class, TEXT, HTML, URL);
   }
 
   /**
@@ -258,7 +258,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Entities}
    */
   public ServiceCall<Entities> getEntities(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.entities, Entities.class, TEXT, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.ENTITIES, Entities.class, TEXT, HTML, URL);
   }
 
   /**
@@ -268,7 +268,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Feeds}
    */
   public ServiceCall<Feeds> getFeeds(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.feeds, Feeds.class, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.FEEDS, Feeds.class, HTML, URL);
   }
 
   /**
@@ -279,7 +279,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Keywords}
    */
   public ServiceCall<Keywords> getKeywords(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.keywords, Keywords.class, TEXT, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.KEYWORDS, Keywords.class, TEXT, HTML, URL);
   }
 
   /**
@@ -290,7 +290,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Language}
    */
   public ServiceCall<Language> getLanguage(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.language, Language.class, TEXT, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.LANGUAGE, Language.class, TEXT, HTML, URL);
   }
 
   /**
@@ -300,7 +300,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Microformats}
    */
   public ServiceCall<Microformats> getMicroformats(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.microformats, Microformats.class, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.MICROFORMATS, Microformats.class, HTML, URL);
   }
 
   /**
@@ -311,7 +311,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link SAORelations}
    */
   public ServiceCall<SAORelations> getRelations(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.relations, SAORelations.class, TEXT, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.RELATIONS, SAORelations.class, TEXT, HTML, URL);
   }
 
   /**
@@ -322,9 +322,9 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentSentiment}
    */
   public ServiceCall<DocumentSentiment> getSentiment(Map<String, Object> params) {
-    AlchemyAPI operation = AlchemyAPI.sentiment;
+    AlchemyAPI operation = AlchemyAPI.SENTIMENT;
     if (params.get(TARGET) != null || params.get(TARGETS) != null)
-      operation = AlchemyAPI.sentiment_targeted;
+      operation = AlchemyAPI.SENTIMENT_TARGETED;
 
     return createServiceCall(params, operation, DocumentSentiment.class, TEXT, HTML, URL);
   }
@@ -337,9 +337,9 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentText}
    */
   public ServiceCall<DocumentText> getText(Map<String, Object> params) {
-    AlchemyAPI operation = AlchemyAPI.text;
+    AlchemyAPI operation = AlchemyAPI.TEXT;
     if (params.get(RAW) != null)
-      operation = AlchemyAPI.text_raw;
+      operation = AlchemyAPI.TEXT_RAW;
 
     return createServiceCall(params, operation, DocumentText.class, HTML, URL);
   }
@@ -351,7 +351,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentTitle}
    */
   public ServiceCall<DocumentTitle> getTitle(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.title, DocumentTitle.class, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.TITLE, DocumentTitle.class, HTML, URL);
   }
 
   /**
@@ -362,7 +362,7 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link DocumentEmotion}
    */
   public ServiceCall<DocumentEmotion> getEmotion(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.emotion, DocumentEmotion.class, TEXT, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.EMOTION, DocumentEmotion.class, TEXT, HTML, URL);
   }
 
   /**
@@ -381,6 +381,6 @@ public class AlchemyLanguage extends AlchemyService {
       }
     }
 
-    return createServiceCall(params, AlchemyAPI.dates, Dates.class, TEXT, HTML, URL);
+    return createServiceCall(params, AlchemyAPI.DATES, Dates.class, TEXT, HTML, URL);
   }
 }

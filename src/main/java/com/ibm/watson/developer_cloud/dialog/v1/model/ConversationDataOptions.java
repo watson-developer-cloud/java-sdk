@@ -19,24 +19,13 @@ import java.util.Date;
  * Conversational data options used by the {@link Dialog} service.
  */
 public class ConversationDataOptions {
-
+  private String dialogId;
   private Date from;
   private Integer limit;
   private Integer offset;
   private Date to;
-  private String dialogId;
-  
-  
-  /**
-   * Gets the dialog id.
-   *
-   * @return the dialog id
-   */
-  public String getDialogId() {
-    return dialogId;
-  }
 
-  
+
   /**
    * Sets the dialog id.
    *
@@ -48,6 +37,7 @@ public class ConversationDataOptions {
     return this;
   }
 
+
   /**
    * Sets the 'from' date.
    *
@@ -57,6 +47,15 @@ public class ConversationDataOptions {
   public ConversationDataOptions from(Date from) {
     this.from = from;
     return this;
+  }
+
+  /**
+   * Gets the dialog id.
+   *
+   * @return the dialog id
+   */
+  public String getDialogId() {
+    return dialogId;
   }
 
   /**

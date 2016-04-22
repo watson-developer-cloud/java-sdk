@@ -26,13 +26,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class CreateModelOptions extends GenericModel {
 
   private String baseModelId;
-
   private File forcedGlossary;
-
   private File monolingualCorpus;
-
   private String name;
-
   private File parallelCorpus;
 
   /**
@@ -122,7 +118,7 @@ public class CreateModelOptions extends GenericModel {
   }
 
   /**
-   * With monolingual corpus.
+   * Sets the monolingual corpus.
    * 
    * @param monolingualCorpus the monolingual corpus
    * @return the creates the model options
@@ -133,7 +129,7 @@ public class CreateModelOptions extends GenericModel {
   }
 
   /**
-   * Name.
+   * Sets the name.
    * 
    * @param name the name
    * @return the profile options
@@ -144,7 +140,7 @@ public class CreateModelOptions extends GenericModel {
   }
 
   /**
-   * With parallel corpus.
+   * Sets the parallel corpus.
    * 
    * @param parallelCorpus the parallel corpus
    * @return the creates the model options

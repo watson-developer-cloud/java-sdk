@@ -21,11 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class NameValue extends GenericModel {
-
-  /** The name. */
   private String name;
-
-  /** The value. */
   private String value;
 
 

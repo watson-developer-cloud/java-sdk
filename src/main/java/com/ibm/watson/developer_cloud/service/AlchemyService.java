@@ -21,6 +21,10 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
+import com.ibm.watson.developer_cloud.service.exception.ServiceResponseException;
+import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
+import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 
 import okhttp3.HttpUrl;
 import okhttp3.Request.Builder;
@@ -28,25 +32,19 @@ import okhttp3.Response;
 
 /**
  * Abstract class which has functionality for the different Alchemy services.
- * 
  */
 public abstract class AlchemyService extends WatsonService {
   private static final String SERVICE_NAME = "alchemy_api";
   private static final String DAILY_TRANSACTION_LIMIT_EXCEEDED = "daily-transaction-limit-exceeded";
   private static final String INVALID_API_KEY = "invalid-api-key";
-  private static final Logger log = Logger.getLogger(AlchemyService.class.getName());
   private static final String PARAM_APIKEY = "apikey";
   private static final String STATUS_ERROR = "ERROR";
   private static final String X_ALCHEMY_API_ERROR_MSG = "X-AlchemyAPI-Error-Msg";
   private static final String X_ALCHEMY_API_STATUS = "X-AlchemyAPI-Status";
+  private static final Logger LOG = Logger.getLogger(AlchemyService.class.getName());
 
-  /** The Constant ENDPOINT. */
   protected final static String ENDPOINT = "https://gateway-a.watsonplatform.net/calls";
-
-  /** The Constant JSONP. */
   protected static final String JSONP = "jsonp";
-
-  /** The Constant OUTPUT_MODE. */
   protected static final String OUTPUT_MODE = "outputMode";
 
   /**
@@ -110,7 +108,7 @@ public abstract class AlchemyService extends WatsonService {
     final String errorMessage = error.get(MESSAGE_ERROR).getAsString();
     final int code = error.get(MESSAGE_CODE).getAsInt();
 
-    log.log(Level.SEVERE, response.request().method() + " " + response.request().url().toString() + ", API status: "
+    LOG.log(Level.SEVERE, response.request().method() + " " + response.request().url().toString() + ", API status: "
         + response.code() + ", error: " + error.get(MESSAGE_ERROR).getAsString());
 
     switch (code) {
@@ -179,8 +177,8 @@ public abstract class AlchemyService extends WatsonService {
   /*
    * (non-Javadoc)
    * 
-   * @see com.ibm.watson.developer_cloud.service.WatsonService#setAuthentication(com.squareup
-   * .okhttp.Request.Builder)
+   * @see
+   * com.ibm.watson.developer_cloud.service.WatsonService#setAuthentication(okhttp3.Request.Builder)
    */
   @Override
   protected void setAuthentication(Builder builder) {

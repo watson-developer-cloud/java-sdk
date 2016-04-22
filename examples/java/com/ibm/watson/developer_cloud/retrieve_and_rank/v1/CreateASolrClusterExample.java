@@ -40,7 +40,7 @@ public class CreateASolrClusterExample {
     }
 
     // 3 list Solr Clusters
-    System.out.println("Solr clusters: " + service.getSolrClusters());
+    System.out.println("Solr clusters: " + service.getSolrClusters().execute());
 
   }
 }

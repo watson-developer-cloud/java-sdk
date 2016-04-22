@@ -51,30 +51,12 @@ public class ImageSceneTextLine extends GenericModel {
     }
 
     /**
-     * Sets the region height.
-     * 
-     * @param height The height
-     */
-    public void setHeight(Integer height) {
-      this.height = height;
-    }
-
-    /**
      * Gets the region width.
      * 
      * @return The width
      */
     public Integer getWidth() {
       return width;
-    }
-
-    /**
-     * Sets the region width.
-     * 
-     * @param width The width
-     */
-    public void setWidth(Integer width) {
-      this.width = width;
     }
 
     /**
@@ -87,21 +69,39 @@ public class ImageSceneTextLine extends GenericModel {
     }
 
     /**
-     * Sets the region x.
-     * 
-     * @param x The x.
-     */
-    public void setX(Integer x) {
-      this.x = x;
-    }
-
-    /**
      * Gets the region y.
      * 
      * @return The y
      */
     public Integer getY() {
       return y;
+    }
+
+    /**
+     * Sets the region height.
+     * 
+     * @param height The height
+     */
+    public void setHeight(Integer height) {
+      this.height = height;
+    }
+
+    /**
+     * Sets the region width.
+     * 
+     * @param width The width
+     */
+    public void setWidth(Integer width) {
+      this.width = width;
+    }
+
+    /**
+     * Sets the region x.
+     * 
+     * @param x The x.
+     */
+    public void setX(Integer x) {
+      this.x = x;
     }
 
     /**
@@ -138,15 +138,6 @@ public class ImageSceneTextLine extends GenericModel {
     }
 
     /**
-     * Sets the confidence.
-     * 
-     * @param confidence The confidence
-     */
-    public void setConfidence(Double confidence) {
-      this.confidence = confidence;
-    }
-
-    /**
      * Gets the region.
      * 
      * @return The region
@@ -156,21 +147,30 @@ public class ImageSceneTextLine extends GenericModel {
     }
 
     /**
-     * Sets the region.
-     * 
-     * @param region The region
-     */
-    public void setRegion(Region region) {
-      this.region = region;
-    }
-
-    /**
      * Gets the text.
      *
      * @return The text
      */
     public String getText() {
       return text;
+    }
+
+    /**
+     * Sets the confidence.
+     * 
+     * @param confidence The confidence
+     */
+    public void setConfidence(Double confidence) {
+      this.confidence = confidence;
+    }
+
+    /**
+     * Sets the region.
+     * 
+     * @param region The region
+     */
+    public void setRegion(Region region) {
+      this.region = region;
     }
 
     /**
@@ -206,30 +206,12 @@ public class ImageSceneTextLine extends GenericModel {
   }
 
   /**
-   * Sets the confidence.
-   * 
-   * @param confidence The confidence
-   */
-  public void setConfidence(Double confidence) {
-    this.confidence = confidence;
-  }
-
-  /**
    * Gets the region.
    * 
    * @return The region
    */
   public Region getRegion() {
     return region;
-  }
-
-  /**
-   * Sets the region.
-   * 
-   * @param region The region
-   */
-  public void setRegion(Region region) {
-    this.region = region;
   }
 
   /**
@@ -242,21 +224,39 @@ public class ImageSceneTextLine extends GenericModel {
   }
 
   /**
-   * Sets the text.
-   * 
-   * @param text The text
-   */
-  public void setText(String text) {
-    this.text = text;
-  }
-
-  /**
    * Gets the words.
    * 
    * @return The words
    */
   public List<Word> getWords() {
     return words;
+  }
+
+  /**
+   * Sets the confidence.
+   * 
+   * @param confidence The confidence
+   */
+  public void setConfidence(Double confidence) {
+    this.confidence = confidence;
+  }
+
+  /**
+   * Sets the region.
+   * 
+   * @param region The region
+   */
+  public void setRegion(Region region) {
+    this.region = region;
+  }
+
+  /**
+   * Sets the text.
+   * 
+   * @param text The text
+   */
+  public void setText(String text) {
+    this.text = text;
   }
 
   /**

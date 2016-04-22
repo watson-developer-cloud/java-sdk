@@ -47,12 +47,12 @@ import okhttp3.RequestBody;
  */
 public class DocumentConversion extends WatsonService {
 
-  private static final String SERVICE_NAME = "document_conversion";
   private static final String CONVERSION_TARGET = "conversion_target";
   private static final String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
-  private static final String URL = "https://gateway.watsonplatform.net/document-conversion/api";
   private static final JsonObject EMPTY_CONFIG = new JsonParser().parse("{}").getAsJsonObject();
-  
+  private static final String SERVICE_NAME = "document_conversion";
+  private static final String URL = "https://gateway.watsonplatform.net/document-conversion/api";
+
   /** The Constant VERSION_DATE_2015_12_01. */
   public static final String VERSION_DATE_2015_12_01 = "2015-12-01";
 
@@ -87,7 +87,7 @@ public class DocumentConversion extends WatsonService {
       throw new IllegalArgumentException("document cannot be null and must exist");
 
     JsonObject config = null;
-    
+
     if (customConfig != null)
       config = customConfig;
     else
@@ -116,10 +116,7 @@ public class DocumentConversion extends WatsonService {
             RequestBody.create(mType, document))
         .build();
 
-     return RequestBuilder.post(CONVERT_DOCUMENT_PATH)
-        .withQuery(VERSION, versionDate)
-        .withBody(body)
-        .build();
+    return RequestBuilder.post(CONVERT_DOCUMENT_PATH).withQuery(VERSION, versionDate).withBody(body).build();
   }
 
   /**

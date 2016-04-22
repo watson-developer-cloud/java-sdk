@@ -32,23 +32,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
  *      News</a>
  */
 public class AlchemyDataNews extends AlchemyService {
-
   private static final String JSON = "json";
-
-  /**
-   * The TimeFormat Enumeration.
-   */
-  public enum TimeFormat {
-
-    /** The Time format d. */
-    d, /** The Time format h. */
-    h, /** The Time format m. */
-    m, /** The Time format M. */
-    M, /** The Time format now. */
-    NOW, /** The Time format s. */
-    s, /** The Time format y. */
-    y
-  }
+  private static final String NEWS_END_POINT = "/data/GetNews";
 
   /** The Constant COUNT (value is "count"). */
   public static final String COUNT = "count";
@@ -58,10 +43,7 @@ public class AlchemyDataNews extends AlchemyService {
    */
   public static final String END = "end";
 
-  /** The Constant String NEWS_END_POINT. */
-  private static final String NEWS_END_POINT = "/data/GetNews";
-
-  /**  The Constant String RETURN (value is "return"). */
+  /** The Constant String RETURN (value is "return"). */
   public static final String RETURN = "return";
 
   /**

@@ -11,28 +11,29 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.service;
-
-import com.ibm.watson.developer_cloud.http.HttpStatus;
+package com.ibm.watson.developer_cloud.service.exception;
 
 import okhttp3.Response;
 
 /**
- * 400 Bad Request (HTTP/1.1 - RFC 2616)
+ * 429 Too Many Requests (HTTP/1.1 - RFC 6585)
  */
-public class BadRequestException extends ServiceResponseException {
+public class TooManyRequestsException extends ServiceResponseException {
 
   /** The Constant serialVersionUID. */
   private static final long serialVersionUID = 1L;
 
+  /** The Constant TOO_MANY_REQUESTS. */
+  private static final int TOO_MANY_REQUESTS = 429;
+
   /**
-   * Instantiates a new BadRequest Exception. HTTP 400
+   * Instantiates a new Too Many Requests Exception.
    * 
    * @param message the error message
    * @param response the HTTP response
    */
-  public BadRequestException(String message, Response response) {
-    super(HttpStatus.BAD_REQUEST, message, response);
+  public TooManyRequestsException(String message, Response response) {
+    super(TOO_MANY_REQUESTS, message, response);
   }
 
 }

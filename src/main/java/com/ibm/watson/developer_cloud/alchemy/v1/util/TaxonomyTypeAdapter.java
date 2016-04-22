@@ -22,9 +22,14 @@ import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomy;
 
 /**
- * The Class TaxonomyTypeAdapter.
+ * Type adapter to transform a taxonomy from JSON to {@link Taxonomy}
  */
 public class TaxonomyTypeAdapter extends TypeAdapter<Taxonomy> {
+
+  private static final String CONFIDENT = "confident";
+  private static final String LABEL = "label";
+  private static final String NO = "no";
+  private static final String SCORE = "score";
 
   /*
    * (non-Javadoc)
@@ -45,13 +50,13 @@ public class TaxonomyTypeAdapter extends TypeAdapter<Taxonomy> {
     while (reader.hasNext()) {
       final String name = reader.nextName();
 
-      if (name.equals("confident")) {
+      if (name.equals(CONFIDENT)) {
         final String confidentAsString = reader.nextString();
-        taxonomy.setConfident(confidentAsString == null || !confidentAsString.equals("no"));
-      } else if (name.equals("label")) {
+        taxonomy.setConfident(confidentAsString == null || !confidentAsString.equals(NO));
+      } else if (name.equals(LABEL)) {
         final String label = reader.nextString();
         taxonomy.setLabel(label);
-      } else if (name.equals("score")) {
+      } else if (name.equals(SCORE)) {
         final Double score = reader.nextDouble();
         taxonomy.setScore(score);
       } else {
@@ -77,11 +82,11 @@ public class TaxonomyTypeAdapter extends TypeAdapter<Taxonomy> {
     writer.beginObject();
 
     if (value.getScore() != null)
-      writer.name("score").value(value.getScore());
+      writer.name(SCORE).value(value.getScore());
     if (!value.getConfident())
-      writer.name("confident").value("no");
+      writer.name(CONFIDENT).value(NO);
     if (value.getLabel() != null)
-      writer.name("label").value(value.getLabel());
+      writer.name(LABEL).value(value.getLabel());
 
     writer.endObject();
     writer.flush();

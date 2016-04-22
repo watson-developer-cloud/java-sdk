@@ -21,41 +21,17 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * The Content to be analyzed.
  */
 public class ContentItem extends GenericModel {
-
-  /** The charset. */
   private String charset;
-
-  /** The content. */
   private String content;
-
-  /** The content type. */
   private String contenttype;
-
-  /** The created. */
   private Date created;
-
-  /** The forward. */
   private Boolean forward;
-
-  /** The id. */
   private String id;
-
-  /** The language. */
   private String language;
-
-  /** The parent id. */
   private String parentid;
-
-  /** The reply. */
   private Boolean reply;
-
-  /** The source id. */
   private String sourceid;
-
-  /** The updated. */
   private Date updated;
-
-  /** The user id. */
   private String userid;
 
 

@@ -29,11 +29,24 @@ public class WaveUtils {
   /** The WAVE meta-data header size. (value is 8) */
   private static final int WAVE_HEADER_SIZE = 8;
 
+  /** The WAVE meta-data position in bytes. (value is 74) */
+  private static final int WAVE_METADATA_POS = 74;
+
   /** The WAVE meta-data size position. (value is 4) */
   private static final int WAVE_SIZE_POS = 4;
 
-  /** The WAVE meta-data position in bytes. (value is 74) */
-  private static final int WAVE_METADATA_POS = 74;
+  /**
+   * Writes an number into an array using 4 bytes
+   * 
+   * @param value the number to write
+   * @param array the byte array
+   * @param offset the offset
+   */
+  private static void writeInt(int value, byte[] array, int offset) {
+    for (int i = 0; i < 4; i++) {
+      array[offset + i] = (byte) (value >>> (8 * i));
+    }
+  }
 
   /**
    * Re-writes the data size in the header(bytes 4-8) of the WAVE(.wav) input stream.<br>
@@ -51,19 +64,6 @@ public class WaveUtils {
     writeInt(filesize - WAVE_HEADER_SIZE, audioBytes, WAVE_METADATA_POS);
 
     return new ByteArrayInputStream(audioBytes);
-  }
-
-  /**
-   * Writes an number into an array using 4 bytes
-   * 
-   * @param value the number to write
-   * @param array the byte array
-   * @param offset the offset
-   */
-  private static void writeInt(int value, byte[] array, int offset) {
-    for (int i = 0; i < 4; i++) {
-      array[offset + i] = (byte) (value >>> (8 * i));
-    }
   }
 
   /**

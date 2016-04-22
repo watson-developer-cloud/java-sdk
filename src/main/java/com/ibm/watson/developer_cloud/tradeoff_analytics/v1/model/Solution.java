@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 
 /**
- * The Solution used by the {@link TradeoffAnalytics} v1 service.
+ * Solution used by the {@link TradeoffAnalytics} v1 service.
  */
 public class Solution extends GenericModel {
 

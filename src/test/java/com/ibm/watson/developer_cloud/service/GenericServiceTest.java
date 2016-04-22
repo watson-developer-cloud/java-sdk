@@ -27,6 +27,16 @@ import org.mockserver.model.HttpRequest;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
+import com.ibm.watson.developer_cloud.service.exception.ConflictException;
+import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
+import com.ibm.watson.developer_cloud.service.exception.InternalServerErrorException;
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.watson.developer_cloud.service.exception.RequestTooLargeException;
+import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableException;
+import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
+import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
+import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
 
 /**
  * Generic Service Test.
@@ -204,6 +214,6 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     mockAPICall();
     service.getProfile(sampleText).execute();
     mockServer.verify(new HttpRequest().withMethod("POST").withHeader(
-        new Header(HttpHeaders.USER_AGENT, "watson-developer-cloud-java-sdk-2.10.0")));
+        new Header(HttpHeaders.USER_AGENT, "watson-developer-cloud-java-sdk-3.0.0")));
   }
 }

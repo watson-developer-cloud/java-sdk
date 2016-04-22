@@ -30,6 +30,15 @@ public class ElementTone extends GenericModel {
   private List<ToneCategory> tones;
 
   /**
+   * Adds the tone.
+   *
+   * @param tone the tone
+   */
+  public void addTone(ToneCategory tone) {
+    this.tones.add(tone);
+  }
+
+  /**
    * Gets the tones.
    *
    * @return the tones
@@ -45,15 +54,6 @@ public class ElementTone extends GenericModel {
    */
   public void setTones(List<ToneCategory> tones) {
     this.tones = tones;
-  }
-
-  /**
-   * Adds the tone.
-   *
-   * @param tone the tone
-   */
-  public void addTone(ToneCategory tone) {
-    this.tones.add(tone);
   }
 
 }

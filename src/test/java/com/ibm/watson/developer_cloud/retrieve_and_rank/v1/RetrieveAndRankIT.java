@@ -35,8 +35,8 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Rankers;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster.Status;
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
-import com.ibm.watson.developer_cloud.service.BadRequestException;
 
 /**
  * The Class RetrieveAndRankIT.

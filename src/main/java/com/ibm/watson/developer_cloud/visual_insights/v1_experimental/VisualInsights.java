@@ -39,14 +39,14 @@ import okhttp3.RequestBody;
  */
 public class VisualInsights extends WatsonService {
 
-  private static final String SERVICE_NAME = "visual_insights";
   private static final String CLASSIFIERS_PATH = "/v1/classifiers";
-  
-  /** The Constant FILTER_NAME. */
-  public static final String FILTER_NAME = "filter_name";
   private static final String IMAGES_FILE = "images_file";
+
+  private static final String SERVICE_NAME = "visual_insights";
   private static final String SUMMARY_PATH = "/v1/summary";
   private static final String URL = "https://gateway.watsonplatform.net/visual-insights-experimental/api";
+  /** The Constant FILTER_NAME. */
+  public static final String FILTER_NAME = "filter_name";
 
   /**
    * Instantiates a new visual insights service.
@@ -105,8 +105,7 @@ public class VisualInsights extends WatsonService {
       throw new IllegalArgumentException("imagesFile cannot be null or empty");
 
     final MediaType mediaType = HttpMediaType.BINARY_FILE;
-    final RequestBody body = new MultipartBody.Builder()
-        .setType(MultipartBody.FORM)
+    final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
         .addFormDataPart(IMAGES_FILE, imagesFile.getName(), RequestBody.create(mediaType, imagesFile)).build();
 
     final Request request = RequestBuilder.post(SUMMARY_PATH).withBody(body).build();

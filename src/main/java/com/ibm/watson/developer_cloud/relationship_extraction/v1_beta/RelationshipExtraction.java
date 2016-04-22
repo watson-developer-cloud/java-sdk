@@ -32,32 +32,22 @@ import okhttp3.Request;
  *      Relationship Extraction</a>
  */
 public class RelationshipExtraction extends WatsonService {
-
+  private static final String SERVICE_NAME = "relatonship_extraction";
   private static final String JSON = "json";
-
   private static final String XML = "xml";
-
   private static final String TEXT = "txt";
-
   private static final String RETURN_TYPE = "rt";
-
   private static final String SID = "sid";
+  private static final String URL = "https://gateway.watsonplatform.net/relationship-extraction-beta/api";
 
-  /** The url. */
-  private static final String URL =
-      "https://gateway.watsonplatform.net/relationship-extraction-beta/api";
-
-  /** The dataset. */
   private Dataset dataset;
-
-  /** The return type. */
   private String returnType = XML;
 
   /**
    * Instantiates a new relationship extraction service.
    */
   public RelationshipExtraction() {
-    super("relatonship_extraction");
+    super(SERVICE_NAME);
     setEndPoint(URL);
   }
 
@@ -85,8 +75,8 @@ public class RelationshipExtraction extends WatsonService {
     Validator.notNull(dataset, "dataset cannot be null");
     Validator.notNull(text, "text cannot be null");
 
-    final Request request = RequestBuilder.post("/v1/sire/0")
-        .withForm(SID, dataset.getId(), RETURN_TYPE, returnType, TEXT, text).build();
+    final Request request =
+        RequestBuilder.post("/v1/sire/0").withForm(SID, dataset.getId(), RETURN_TYPE, returnType, TEXT, text).build();
     return createServiceCall(request, ResponseConverterUtils.getString());
   }
 

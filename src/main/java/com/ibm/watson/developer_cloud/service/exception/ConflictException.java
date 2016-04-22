@@ -11,16 +11,16 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.service;
+package com.ibm.watson.developer_cloud.service.exception;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
 
 import okhttp3.Response;
 
 /**
- * 403 Forbidden (HTTP/1.0 - RFC 1945)
+ * 409 Conflict (HTTP/1.1 - RFC 2616)
  */
-public class ForbiddenException extends ServiceResponseException {
+public class ConflictException extends ServiceResponseException {
 
   /**
    * The Constant serialVersionUID.
@@ -33,8 +33,8 @@ public class ForbiddenException extends ServiceResponseException {
    * @param message the error message
    * @param response the HTTP response
    */
-  public ForbiddenException(String message, Response response) {
-    super(HttpStatus.FORBIDDEN, message, response);
+  public ConflictException(String message, Response response) {
+    super(HttpStatus.CONFLICT, message, response);
   }
 
 }

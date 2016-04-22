@@ -18,50 +18,24 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Language Model used by the {@link TranslationModel}.
- * 
  */
 public class TranslationModel extends GenericModel {
+  public enum Status {
+    AVAILABLE, ERROR, TRAINING;
+  }
 
-  /** The Constant STATUS_AVAILABLE. */
-  public static final String STATUS_AVAILABLE = "training";
-
-  /** The Constant STATUS_ERROR. */
-  public static final String STATUS_ERROR = "training";
-
-  /** The Constant STATUS_TRAINING. */
-  public static final String STATUS_TRAINING = "training";
-
-  /** The base model id. */
   @SerializedName("base_model_id")
   private String baseModelId;
-
-  /** The customizable. */
-  private boolean customizable;
-
-  /** The default model. */
+  private Boolean customizable;
   @SerializedName("default_model")
-  private boolean defaultModel;
-
-  /** The domain. */
+  private Boolean defaultModel;
   private String domain;
-
-  /** The model id. */
   @SerializedName("model_id")
   private String id;
-
-  /** The name. */
   private String name;
-
-  /** The owner. */
   private String owner;
-
-  /** The source. */
   private String source;
-
-  /** The status. */
-  private String status;
-
-  /** The target. */
+  private Status status;
   private String target;
 
   /**
@@ -89,16 +63,6 @@ public class TranslationModel extends GenericModel {
    */
   public String getId() {
     return id;
-  }
-
-  /**
-   * Gets the model id.
-   *
-   * @return The modelId
-   * @deprecated Use {@link TranslationModel#getId()}
-   */
-  public String getModelId() {
-    return getId();
   }
 
   /**
@@ -133,7 +97,7 @@ public class TranslationModel extends GenericModel {
    * 
    * @return The status
    */
-  public String getStatus() {
+  public Status getStatus() {
     return status;
   }
 
@@ -241,7 +205,7 @@ public class TranslationModel extends GenericModel {
    * 
    * @param status The status
    */
-  public void setStatus(final String status) {
+  public void setStatus(final Status status) {
     this.status = status;
   }
 

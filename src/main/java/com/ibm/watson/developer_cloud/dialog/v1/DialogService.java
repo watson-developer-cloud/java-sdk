@@ -61,11 +61,12 @@ public class DialogService extends WatsonService {
   private static final String CONVERSATION_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
   private static final String CONVERSATION_ID = "conversation_id";
   private static final String CONVERSATIONS = "conversations";
+  private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(CONVERSATION_DATE_FORMAT);
   private static final String DATE_FROM = "date_from";
   private static final String DATE_TO = "date_to";
   private static final String DIALOGS = "dialogs";
   private static final String FILE = "file";
-  private static final Gson gson = GsonSingleton.getGsonWithoutPrettyPrinting();
+  private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
   private static final String INPUT = "input";
   private static final String ITEMS = "items";
   private static final String LIMIT = "limit";
@@ -81,7 +82,6 @@ public class DialogService extends WatsonService {
   private static final String PATH_DIALOG_CONVERSATION = "/v1/dialogs/%s/conversation";
   private static final String PATH_DIALOGS = "/v1/dialogs";
   private static final String PATH_PROFILE = "/v1/dialogs/%s/profile";
-  private static final SimpleDateFormat sdfDate = new SimpleDateFormat(CONVERSATION_DATE_FORMAT);
   private static final String SERVICE_NAME = "dialog";
   private static final String URL = "https://gateway.watsonplatform.net/dialog/api";
 
@@ -93,6 +93,34 @@ public class DialogService extends WatsonService {
     setEndPoint(URL);
   }
 
+
+  /**
+   * Returns a Map from a {@link NameValue} list.
+   * 
+   * @param nameValues the {@link NameValue} list
+   * @return the map
+   */
+  private Map<String, String> fromNameValues(List<NameValue> nameValues) {
+    final Map<String, String> profile = new HashMap<String, String>();
+    for (final NameValue nameValue : nameValues) {
+      profile.put(nameValue.getName(), nameValue.getValue());
+    }
+    return profile;
+  }
+
+  /**
+   * Converts the profile map into a {@link NameValue} list.
+   * 
+   * @param profile the profile
+   * @return the {@link NameValue} list.
+   */
+  private List<NameValue> toNameValue(Map<String, String> profile) {
+    final List<NameValue> nameValues = new ArrayList<NameValue>();
+    for (final String key : profile.keySet()) {
+      nameValues.add(new NameValue(key, profile.get(key)));
+    }
+    return nameValues;
+  }
 
   /**
    * Starts or continue conversations.
@@ -171,20 +199,6 @@ public class DialogService extends WatsonService {
   }
 
   /**
-   * Returns a Map from a {@link NameValue} list.
-   * 
-   * @param nameValues the {@link NameValue} list
-   * @return the map
-   */
-  private Map<String, String> fromNameValues(List<NameValue> nameValues) {
-    final Map<String, String> profile = new HashMap<String, String>();
-    for (final NameValue nameValue : nameValues) {
-      profile.put(nameValue.getName(), nameValue.getValue());
-    }
-    return profile;
-  }
-
-  /**
    * Gets content for nodes.
    * 
    * @param dialogId the dialog identifier
@@ -216,8 +230,8 @@ public class DialogService extends WatsonService {
     if (options.getFrom().after(options.getTo()))
       throw new IllegalArgumentException("options.from is greater than options.to");
 
-    final String fromString = sdfDate.format(options.getFrom());
-    final String toString = sdfDate.format(options.getTo());
+    final String fromString = DATE_FORMATTER.format(options.getFrom());
+    final String toString = DATE_FORMATTER.format(options.getTo());
 
     final String path = String.format(PATH_DIALOG_CONVERSATION, options.getDialogId());
 
@@ -258,6 +272,7 @@ public class DialogService extends WatsonService {
     return getProfile(conversation.getDialogId(), conversation.getClientId(), names);
   }
 
+
   /**
    * Returns a list of name-value pars associated with a client id.
    * 
@@ -283,25 +298,10 @@ public class DialogService extends WatsonService {
       @Override
       public Map<String, String> convert(Response response) {
         JsonObject jsonObject = ResponseUtils.getJsonObject(response);
-        final List<NameValue> nameValues = gson.fromJson(jsonObject.get(NAME_VALUES), listNameValueType);
+        final List<NameValue> nameValues = GSON.fromJson(jsonObject.get(NAME_VALUES), listNameValueType);
         return fromNameValues(nameValues);
       }
     });
-  }
-
-
-  /**
-   * Converts the profile map into a {@link NameValue} list.
-   * 
-   * @param profile the profile
-   * @return the {@link NameValue} list.
-   */
-  private List<NameValue> toNameValue(Map<String, String> profile) {
-    final List<NameValue> nameValues = new ArrayList<NameValue>();
-    for (final String key : profile.keySet()) {
-      nameValues.add(new NameValue(key, profile.get(key)));
-    }
-    return nameValues;
   }
 
   /**
@@ -355,7 +355,7 @@ public class DialogService extends WatsonService {
     if (clientId != null)
       contentJson.addProperty(CLIENT_ID, clientId);
 
-    contentJson.add(NAME_VALUES, gson.toJsonTree(toNameValue(profile)));
+    contentJson.add(NAME_VALUES, GSON.toJsonTree(toNameValue(profile)));
 
     final Request request = RequestBuilder.put(String.format(PATH_PROFILE, dialogId)).withBodyJson(contentJson).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());

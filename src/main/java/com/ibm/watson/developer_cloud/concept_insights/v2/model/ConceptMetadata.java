@@ -24,8 +24,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class ConceptMetadata extends GenericModel {
-
-  /** The _abstract. */
   @SerializedName("abstract")
   private String _abstract;
 

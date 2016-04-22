@@ -24,14 +24,23 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
  */
 public class ImageSceneText extends AlchemyGenericModel {
 
+  /** The scene text. */
+  private String sceneText;
+
   /** The image text lines. */
   private List<ImageSceneTextLine> sceneTextLines;
 
   /** The url. */
   private String url;
 
-  /** The scene text. */
-  private String sceneText;
+  /**
+   * Gets the scene text.
+   * 
+   * @return The scene text
+   */
+  public String getSceneText() {
+    return sceneText;
+  }
 
   /**
    * Gets the image faces.
@@ -49,15 +58,6 @@ public class ImageSceneText extends AlchemyGenericModel {
    */
   public String getUrl() {
     return url;
-  }
-
-  /**
-   * Gets the scene text.
-   * 
-   * @return The scene text
-   */
-  public String getSceneText() {
-    return sceneText;
   }
 
   /**

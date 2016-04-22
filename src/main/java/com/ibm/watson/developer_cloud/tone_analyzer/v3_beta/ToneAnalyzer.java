@@ -19,13 +19,14 @@ import com.ibm.watson.developer_cloud.service.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3_beta.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 import okhttp3.Request;
 
 /**
- * The IBM Watson The Tone Analyzer service uses linguistic analysis to detect emotional tones,
- * social propensities, and writing styles in written communication. Then it offers suggestions to
- * help the writer improve their intended language tones.
+ * The IBM Watson Tone Analyzer service uses linguistic analysis to detect emotional tones, social
+ * propensities, and writing styles in written communication. Then it offers suggestions to help the
+ * writer improve their intended language tones.
  * 
  * @version v3
  * @see <a href=
@@ -34,14 +35,15 @@ import okhttp3.Request;
  */
 public class ToneAnalyzer extends WatsonService {
 
-  private static final String VERSION_DATE = "version";
   private static final String PATH_TONE = "/v3/tone";
+  private static final String SERVICE_NAME = "tone_analyzer";
   private static final String TEXT = "text";
   private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer-beta/api";
-  private String versionDate;
-
-  /**  The version date. */
+  private static final String VERSION_DATE = "version";
+  /** Version date. */
   public static final String VERSION_DATE_2016_02_11 = "2016-02-11";
+
+  private String versionDate;
 
 
   /**
@@ -51,7 +53,7 @@ public class ToneAnalyzer extends WatsonService {
    *        will keep your API calls from failing when the service introduces breaking changes.
    */
   public ToneAnalyzer(String versionDate) {
-    super("tone_analyzer");
+    super(SERVICE_NAME);
     setEndPoint(URL);
     this.versionDate = versionDate;
   }
@@ -68,18 +70,14 @@ public class ToneAnalyzer extends WatsonService {
    * 
    */
   public ServiceCall<ToneAnalysis> getTone(final String text) {
-
-    if (text == null || text.isEmpty())
-      throw new IllegalArgumentException("text cannot be null or empty");
+    Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty(TEXT, text);
 
-    final Request request = RequestBuilder.post(PATH_TONE)
-        .withQuery(VERSION_DATE, versionDate)
-        .withBodyJson(contentJson)
-        .build();
-    
+    final Request request =
+        RequestBuilder.post(PATH_TONE).withQuery(VERSION_DATE, versionDate).withBodyJson(contentJson).build();
+
     return createServiceCall(request, ResponseConverterUtils.getObject(ToneAnalysis.class));
   }
 

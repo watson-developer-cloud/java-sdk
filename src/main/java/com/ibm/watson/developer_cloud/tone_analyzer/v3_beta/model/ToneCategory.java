@@ -21,7 +21,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Top level tone (or Tone Category) from the list of Writing Tone, Emotion Tone or Social Tone. It
  * holds a list of scores for individual Tones.
- * 
  */
 public class ToneCategory extends GenericModel {
 
@@ -32,21 +31,21 @@ public class ToneCategory extends GenericModel {
   private List<ToneScore> tones;
 
   /**
+   * Adds the tone.
+   *
+   * @param score the score
+   */
+  public void addTone(ToneScore score) {
+    this.tones.add(score);
+  }
+
+  /**
    * Gets the id.
    *
    * @return the id
    */
   public String getId() {
     return id;
-  }
-
-  /**
-   * Sets the id.
-   *
-   * @param id the new id
-   */
-  public void setId(String id) {
-    this.id = id;
   }
 
   /**
@@ -59,15 +58,6 @@ public class ToneCategory extends GenericModel {
   }
 
   /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
    * Gets the tones.
    *
    * @return the tones
@@ -77,20 +67,29 @@ public class ToneCategory extends GenericModel {
   }
 
   /**
+   * Sets the id.
+   *
+   * @param id the new id
+   */
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  /**
+   * Sets the name.
+   *
+   * @param name the new name
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
    * Sets the tones.
    *
    * @param tones the new tones
    */
   public void setTones(List<ToneScore> tones) {
     this.tones = tones;
-  }
-
-  /**
-   * Adds the tone.
-   *
-   * @param score the score
-   */
-  public void addTone(ToneScore score) {
-    this.tones.add(score);
   }
 }

@@ -11,16 +11,16 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.service;
+package com.ibm.watson.developer_cloud.service.exception;
 
 import com.ibm.watson.developer_cloud.http.HttpStatus;
 
 import okhttp3.Response;
 
 /**
- * 503 Service Unavailable (HTTP/1.0 - RFC 1945)
+ * 401 Unauthorized (HTTP/1.0 - RFC 1945)
  */
-public class ServiceUnavailableException extends ServiceResponseException {
+public class UnauthorizedException extends ServiceResponseException {
 
   /**
    * The Constant serialVersionUID.
@@ -28,13 +28,13 @@ public class ServiceUnavailableException extends ServiceResponseException {
   private static final long serialVersionUID = 1L;
 
   /**
-   * Instantiates a new Service Unavailable Exception.
+   * Instantiates a new Unauthorized Exception.
    * 
    * @param message the error message
    * @param response the HTTP response
    */
-  public ServiceUnavailableException(String message, Response response) {
-    super(HttpStatus.SERVICE_UNAVAILABLE, message, response);
+  public UnauthorizedException(String message, Response response) {
+    super(HttpStatus.UNAUTHORIZED, message, response);
   }
 
 }

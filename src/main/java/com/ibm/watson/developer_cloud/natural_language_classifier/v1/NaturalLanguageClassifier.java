@@ -47,10 +47,6 @@ import okhttp3.RequestBody;
 public class NaturalLanguageClassifier extends WatsonService {
 
   private static final String SERVICE_NAME = "natural_language_classifier";
-
-  /** The Constant LANGUAGE_EN. */
-  public static final String LANGUAGE_EN = "en";
-
   private static final String FORM_DATA_TRAINING_DATA = "form-data; name=\"training_data\"";
   private static final String PATH_CLASSIFIERS = "/v1/classifiers";
   private static final String TEXT = "text";
@@ -77,19 +73,13 @@ public class NaturalLanguageClassifier extends WatsonService {
    * @return the classification of a phrase with a given classifier
    */
   public ServiceCall<Classification> classify(final String classifierId, final String text) {
-    if (classifierId == null || classifierId.isEmpty())
-      throw new IllegalArgumentException("classifierId cannot be null or empty");
-
-    if (text == null || text.isEmpty())
-      throw new IllegalArgumentException("text cannot be null or empty");
+    Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
+    Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty(TEXT, text);
-
     final String path = String.format(PATH_CLASSIFY, classifierId);
-
     final Request request = RequestBuilder.post(path).withBodyJson(contentJson).build();
-
     return createServiceCall(request, ResponseConverterUtils.getObject(Classification.class));
   }
 
@@ -123,7 +113,6 @@ public class NaturalLanguageClassifier extends WatsonService {
         .addFormDataPart(TRAINING_METADATA, contentJson.toString()).build();
 
     final Request request = RequestBuilder.post(PATH_CLASSIFIERS).withBody(body).build();
-
     return createServiceCall(request, ResponseConverterUtils.getObject(Classifier.class));
   }
 
@@ -135,8 +124,7 @@ public class NaturalLanguageClassifier extends WatsonService {
    * @see Classifier
    */
   public ServiceCall<Void> deleteClassifier(String classifierId) {
-    if (classifierId == null || classifierId.isEmpty())
-      throw new IllegalArgumentException("classifierId cannot be null or empty");
+    Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
 
     final Request request = RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId)).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
@@ -150,8 +138,7 @@ public class NaturalLanguageClassifier extends WatsonService {
    * @see Classifier
    */
   public ServiceCall<Classifier> getClassifier(String classifierId) {
-    if (classifierId == null || classifierId.isEmpty())
-      throw new IllegalArgumentException("classifierId cannot be null or empty");
+    Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
 
     final Request request = RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId)).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(Classifier.class));

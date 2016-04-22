@@ -20,15 +20,12 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Class Transcript.
+ * Encapsulates a transcription along with the alternatives
  */
 public class Transcript extends GenericModel {
 
-  /** The _final. */
   @SerializedName("final")
   private boolean _final;
-
-  /** The alternatives. */
   private List<SpeechAlternative> alternatives;
 
   /**
@@ -59,12 +56,12 @@ public class Transcript extends GenericModel {
   }
 
   /**
-   * Sets the final.
+   * Sets the final value.
    * 
-   * @param _final The final
+   * @param finalValue The final
    */
-  public void setFinal(final boolean _final) {
-    this._final = _final;
+  public void setFinal(final boolean finalValue) {
+    this._final = finalValue;
   }
 
   /**

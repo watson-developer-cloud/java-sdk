@@ -19,10 +19,8 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * 
  * Main object containing the result of running Tone Analyzer on a document. It contains both the
  * sentence-level and document-level results.
- * 
  */
 public class ToneAnalysis extends GenericModel {
 
@@ -33,21 +31,21 @@ public class ToneAnalysis extends GenericModel {
   private List<SentenceTone> sentencesTone;
 
   /**
+   * Adds the sentences tone.
+   *
+   * @param analysis the analysis
+   */
+  public void addSentencesTone(SentenceTone analysis) {
+    this.sentencesTone.add(analysis);
+  }
+
+  /**
    * Gets the document tone.
    *
    * @return the document tone
    */
   public ElementTone getDocumentTone() {
     return documentTone;
-  }
-
-  /**
-   * Sets the document tone.
-   *
-   * @param documentTone the new document tone
-   */
-  public void setDocumentTone(ElementTone documentTone) {
-    this.documentTone = documentTone;
   }
 
   /**
@@ -60,21 +58,21 @@ public class ToneAnalysis extends GenericModel {
   }
 
   /**
+   * Sets the document tone.
+   *
+   * @param documentTone the new document tone
+   */
+  public void setDocumentTone(ElementTone documentTone) {
+    this.documentTone = documentTone;
+  }
+
+  /**
    * Sets the sentences tone.
    *
    * @param sentencesTone the new sentences tone
    */
   public void setSentencesTone(List<SentenceTone> sentencesTone) {
     this.sentencesTone = sentencesTone;
-  }
-
-  /**
-   * Adds the sentences tone.
-   *
-   * @param analysis the analysis
-   */
-  public void addSentencesTone(SentenceTone analysis) {
-    this.sentencesTone.add(analysis);
   }
 
 

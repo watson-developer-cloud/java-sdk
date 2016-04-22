@@ -25,43 +25,14 @@ public class AccountPermission extends GenericModel {
    * The Enum Permission.
    */
   public enum Permission {
-
-    /** The read. */
-    @SerializedName("Read") READ,
-
-    /** The write. */
-    @SerializedName("Write") WRITE,
-
-    /** The admin. */
-    @SerializedName("Admin") ADMIN,
-
-    /** The read write admin. */
-    @SerializedName("ReadWriteAdmin") READ_WRITE_ADMIN
+    @SerializedName("Admin") ADMIN, @SerializedName("Read") READ, @SerializedName("ReadWriteAdmin") READ_WRITE_ADMIN, @SerializedName("Write") WRITE
 
   }
 
-  /**
-   * The account id.
-   */
   @SerializedName("account_id")
   private String accountId;
-
-  /**
-   * The permission.
-   */
   private Permission permission;
-
-  /**
-   * The uid.
-   */
   private String uid;
-
-  /**
-   * Instantiates a new account permission.
-   */
-  public AccountPermission() {
-
-  }
 
   /**
    * Instantiates a new account permission.

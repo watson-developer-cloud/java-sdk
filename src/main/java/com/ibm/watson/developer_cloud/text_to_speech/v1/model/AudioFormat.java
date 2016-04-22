@@ -20,15 +20,15 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
  * Audio format supported by the {@link TextToSpeech} service.
  */
 public enum AudioFormat {
-  
-  /**  OGG format (value is "audio/ogg; codecs=opus"). */
-  OGG(HttpMediaType.AUDIO_OGG), 
-  
-  /**  WAV format (value is "audio/wav"). */
-  WAV(HttpMediaType.AUDIO_WAV), 
-  
-  /**  FLAC format (value is "audio/flac"). */
-  FLAC(HttpMediaType.AUDIO_FLAC);
+
+  /** FLAC format (value is "audio/flac"). */
+  FLAC(HttpMediaType.AUDIO_FLAC),
+
+  /** OGG format (value is "audio/ogg; codecs=opus"). */
+  OGG(HttpMediaType.AUDIO_OGG),
+
+  /** WAV format (value is "audio/wav"). */
+  WAV(HttpMediaType.AUDIO_WAV);
 
   private String mediaType;
 
@@ -40,9 +40,11 @@ public enum AudioFormat {
   AudioFormat(String mediaType) {
     this.mediaType = mediaType;
   }
-  
-  
-  /* (non-Javadoc)
+
+
+  /*
+   * (non-Javadoc)
+   * 
    * @see java.lang.Enum#toString()
    */
   @Override
