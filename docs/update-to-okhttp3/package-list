@@ -23,6 +23,7 @@ com.ibm.watson.developer_cloud.retrieve_and_rank.v1
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util
 com.ibm.watson.developer_cloud.service
+com.ibm.watson.developer_cloud.service.exception
 com.ibm.watson.developer_cloud.service.model
 com.ibm.watson.developer_cloud.speech_to_text.v1
 com.ibm.watson.developer_cloud.speech_to_text.v1.model
