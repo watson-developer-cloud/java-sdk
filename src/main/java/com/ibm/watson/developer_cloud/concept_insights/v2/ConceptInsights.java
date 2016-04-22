@@ -62,7 +62,7 @@ import okhttp3.Request;
  * 
  * @version v2
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html">
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept-insights.html">
  *      Concept Insights</a>
  */
 public class ConceptInsights extends WatsonService {
