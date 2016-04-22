@@ -8,6 +8,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 
 
 ## Table of Contents
+  * [Breaking Changes for v3.0](#breaking-changes-for-v30)
   * [Installation](#installation)
     * [Maven](#maven)
     * [Gradle](#gradle)
@@ -38,23 +39,61 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [License](#license)
   * [Contributing](#contributing)
 
-## Installation
+## Breaking Changes for v3.0
 
-[![Download Jar](https://raw.githubusercontent.com/watson-developer-cloud/java-sdk/master/src/test/resources/download.png)][jar]
+The version 3.0.0-RC1 is a major release focused on simplicity and consistency. Several breaking changes were introduced.
+
+### Synchronous vs Asynchronous
+
+Before 3.0 all the API calls were synchonous
+```java
+List<Dialog> dialogs = dialogService.getDialogs();
+System.out.println(dialogs);
+```
+Now to do synchonous call you need to add `execute()`
+
+```java
+List<Dialog> dialogs = dialogService.getDialogs().execute();
+System.out.println(dialogs);
+```
+To do asynchronous calls you need to specify a callback
+
+```java
+List<Dialog> dialogs = dialogService.getDialogs().enqueue(new Callback<List<Dialog>() {
+  @Override
+  public void onFailure(Exception e) {
+
+  }
+
+  @Override
+  public void onResponse(List<Dialog> response) throws IOException {
+    System.out.println(response);
+  }
+}
+```
+
+* Websocke requests are now using `okhttp-ws` instead of `nv-websocket-client`
+* Several deprecated services have been removed
+
+## Installation
 
 ##### Maven
 ```xml
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>3.0.0</version>
+	<version>3.0.0-RC1</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:3.0.0'
+'com.ibm.watson.developer_cloud:java-sdk:3.0.0-RC1'
 ```
+
+##### JAR
+
+Download the jar file [here][jar].
 
 Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
 
@@ -106,7 +145,7 @@ service.setApiKey("<api_key>");
 
 Map<String,Object> params = new HashMap<String, Object>();
 params.put(AlchemyLanguage.TEXT, "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
-DocumentSentiment sentiment =  service.getSentiment(params);
+DocumentSentiment sentiment =  service.getSentiment(params).execute();
 
 System.out.println(sentiment);
 ```
@@ -123,7 +162,7 @@ service.setApiKey("<api_key>");
 File image = new File("src/test/resources/alchemy/obama.jpg");
 Boolean forceShowAll = false;
 Boolean knowledgeGraph = false;
-ImageKeywords keywords =  service.getImageKeywords(image, forceShowAll, knowledgeGraph);
+ImageKeywords keywords =  service.getImageKeywords(image, forceShowAll, knowledgeGraph).execute();
 
 System.out.println(keywords);
 ```
@@ -148,7 +187,7 @@ params.put(AlchemyDataNews.START, "1440720000");
 params.put(AlchemyDataNews.END, "1441407600");
 params.put(AlchemyDataNews.COUNT, 7);
 
-DocumentsResult result = service.getNewsDocuments(params);
+DocumentsResult result = service.getNewsDocuments(params).execute();
 
 System.out.println(result);
 ```
@@ -162,7 +201,8 @@ ConceptInsights service = new ConceptInsights();
 service.setUsernameAndPassword("<username>", "<password>");
 
 Annotations annotations = service.annotateText(Graph.WIKIPEDIA,
-    "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
+    "IBM Watson won the Jeopardy television show hosted by Alex Trebek")
+    .execute();
 
 System.out.println(annotations);
 ```
@@ -174,7 +214,7 @@ Returns the dialog list using the [Dialog][dialog] service.
 DialogService service = new DialogService();
 service.setUsernameAndPassword("<username>", "<password>");
 
-List<Dialog> dialogs = service.getDialogs();
+List<Dialog> dialogs = service.getDialogs().execute();
 System.out.println(dialogs);
 ```
 
@@ -188,7 +228,7 @@ DocumentConversion service = new DocumentConversion("2015-12-01");
 service.setUsernameAndPassword("<username>", "<password>");
 
 File doc = new File("src/test/resources/document_conversion/word-document-heading-input.doc");
-Answers htmlToAnswers = service.convertDocumentToAnswer(doc);
+Answers htmlToAnswers = service.convertDocumentToAnswer(doc).execute();
 System.out.println(htmlToAnswers);
 ```
 
@@ -200,7 +240,10 @@ Example: Translate 'hello' from English to Spanish using the [Language Translati
 LanguageTranslation service = new LanguageTranslation();
 service.setUsernameAndPassword("<username>", "<password>");
 
-TranslationResult translationResult = service.translate("hello", "en", "es");
+TranslationResult translationResult = service.translate(
+  "hello", Language.ENGLISH, Language.SPANISH)
+  .execute();
+
 System.out.println(translationResult);
 ```
 
@@ -211,7 +254,7 @@ Use [Natural Language Classifier](http://www.ibm.com/smarterplanet/us/en/ibmwats
 NaturalLanguageClassifier service = new NaturalLanguageClassifier();
 service.setUsernameAndPassword("<username>", "<password>");
 
-Classification classification = service.classify("<classifier-id>", "Is it sunny?");
+Classification classification = service.classify("<classifier-id>", "Is it sunny?").execute();
 System.out.println(classification);
 ```
 
@@ -244,7 +287,7 @@ String text = "Call me Ishmael. Some years ago-never mind how long precisely-hav
     + "city of the Manhattoes, belted round by wharves as Indian isles by coral reefs-commerce surrounds "
     + "it with her surf. Right and left, the streets take you waterward.";
 
-Profile profile = service.getProfile(text);
+Profile profile = service.getProfile(text).execute();
 System.out.println(profile);
 ```
 
@@ -263,7 +306,7 @@ RelationshipExtraction service = new RelationshipExtraction();
 service.setUsernameAndPassword("<username>", "<password>");
 
 service.setDataset(Dataset.ENGLISH_NEWS);
-String response = service.extract("IBM Watson Developer Cloud");
+String response = service.extract("IBM Watson Developer Cloud").execute();
 System.out.println(response);
 ```
 
@@ -280,13 +323,13 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 // 1 create the Solr Cluster
 SolrClusterOptions options = new SolrClusterOptions("my-cluster-name", 1);
-SolrCluster cluster = service.createSolrCluster(options);
+SolrCluster cluster = service.createSolrCluster(options).execute();
 System.out.println("Solr cluster: " + cluster);
 
 // 2 wait until the Solr Cluster is available
 while (cluster.getStatus() == Status.NOT_AVAILABLE) {
   Thread.sleep(10000); // sleep 10 seconds
-  cluster = service.getSolrCluster(cluster.getId());
+  cluster = service.getSolrCluster(cluster.getId()).execute();
   System.out.println("Solr cluster status: " + cluster.getStatus());
 }
 
@@ -306,7 +349,7 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 File audio = new File("src/test/resources/sample1.wav");
 
-SpeechResults transcript = service.recognize(audio, HttpMediaType.AUDIO_WAV);
+SpeechResults transcript = service.recognize(audio, HttpMediaType.AUDIO_WAV).execute();
 System.out.println(transcript);
 ```
 
@@ -315,7 +358,24 @@ System.out.println(transcript);
 Speech to Text supports WebSocket, the url is:  
   `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`  
 
-We recommend you use [this](http://java-websocket.org/) java client.
+  ```java
+SpeechToText service = new SpeechToText();
+service.setUsernameAndPassword("<username>", "<password>");
+
+File audio = new File("src/test/resources/sample1.wav");
+
+RecognizeOptions options = new RecognizeOptions();
+  options.continuous(true).interimResults(true).contentType(HttpMediaType.AUDIO_WAV);
+
+  service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
+    @Override
+    public void onTranscription(SpeechResults speechResults) {
+      System.out.println(speechResults);
+    }
+  );
+  // wait 20 seconds for the asynchronous response
+  Thread.sleep(20000);
+```
 
 ### Text to Speech
 Use the [Text to Speech][text_to_speech] service to get the available voices to synthesize.
@@ -324,7 +384,7 @@ Use the [Text to Speech][text_to_speech] service to get the available voices to 
 TextToSpeech service = new TextToSpeech();
 service.setUsernameAndPassword("<username>", "<password>");
 
-List<Voice> voices = service.getVoices();
+List<Voice> voices = service.getVoices().execute();
 System.out.println(voices);
 ```
 
@@ -348,7 +408,7 @@ String text =
       + "business outcomes. Economy has nothing to do with it.";
 
 // Call the service and get the tone
-ToneAnalysis tone = service.getTone(text);
+ToneAnalysis tone = service.getTone(text).execute();
 System.out.println(tone);
 ```
 
@@ -398,7 +458,7 @@ optimusSpecs.put(screen, 5);
 options.add(new Option("3", "LG Optimus G").withValues(optimusSpecs));
 
 // Call the service and get the resolution
-Dilemma dilemma = service.dilemmas(problem);
+Dilemma dilemma = service.dilemmas(problem).execute();
 System.out.println(dilemma);
 ```
 
@@ -410,7 +470,7 @@ VisualInsights service = new VisualInsights();
 service.setUsernameAndPassword("<username>", "<password>");
 
 File images = new File("src/test/resources/visual_insights/images.zip");
-Summary summary = service.getSummary(images);
+Summary summary = service.getSummary(images).execute();
 
 System.out.println(summary);
 ```
@@ -427,7 +487,7 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 File image = new File("src/test/resources/visual_recognition/car.png");
 
-VisualRecognitionImages recognizedImage = service.recognize(image);
+VisualRecognitionImages recognizedImage = service.recognize(image).execute();
 System.out.println(recognizedImage);
 ```
 
@@ -454,7 +514,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.0.0.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.0.0-RC1.jar)
   $ gradle test # run tests
   ```
 
@@ -524,4 +584,4 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [apache_maven]: http://maven.apache.org/
 [releases]: https://github.com/watson-developer-cloud/java-sdk/releases
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.0.0/java-sdk-3.0.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.0.0-RC1/java-sdk-3.0.0-RC1-jar-with-dependencies.jar
