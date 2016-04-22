@@ -2,29 +2,23 @@ sudo: false
 language: java
 install: /bin/true
 script: ./.utility/travis.sh
-
 jdk:
 - oraclejdk8
 - oraclejdk7
-
 cache:
   directories:
   - $HOME/.m2/repository
-
 env:
   global:
   - secure: VvKBWj1OCu7SH+utwqe7kdli0N7jTYQ7D/citdFIV0cDjpcX3MwxfPcIeMvOuWLgJKaOSD4xnG9pOgMoLMMCGcsCHa2bqx78clA8t4sV7I0sx8pSN2Iuj/wQJvNV3/uEETC84+P9hKIt+o8JZqhgC1GEpz5fbyKyUIlRkspW1WQ=
   - secure: oU2JnPAV8BSQurUpleD2QwPtF+/WTAeRokYBdTA2lrhp4XtExZ33PMjIdAyMCORtuPNYLWl/St7HpJNN0f63FlB7hWmZUq4UIHpMPhHR/H/32AwqZ9A99wNt873IPortlbxM2tKJRSCyIMzFSyoWXY1rVU0FE64Rrku6/lifQSQ=
   - secure: eeYXzeW1kMU9Wbg6B6tjpzGq9rGliKlFtk+4zit3QxZsxsBver28YJVnpIhyaZlD3bZ4Pq5MmANV+zR/enRxQ3HaGMhDJO0fsyIpoA6D/qw7N/meMS7iBF66l/XH+XoMw8t/rxKyCyRy0FivNR2IGHBGlOOIM9GuIQyxXXPL0oI=
-
 before_install:
 - pip install --user codecov
-
 after_success:
 - codecov
 - mvn javadoc:javadoc
 - .utility/push-javadoc-to-gh-pages.sh
 - .utility/deploy_snapshot.sh
-
 notifications:
   email: false
