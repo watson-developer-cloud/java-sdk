@@ -10,9 +10,9 @@ cache:
   - $HOME/.m2/repository
 env:
   global:
-  - secure: VvKBWj1OCu7SH+utwqe7kdli0N7jTYQ7D/citdFIV0cDjpcX3MwxfPcIeMvOuWLgJKaOSD4xnG9pOgMoLMMCGcsCHa2bqx78clA8t4sV7I0sx8pSN2Iuj/wQJvNV3/uEETC84+P9hKIt+o8JZqhgC1GEpz5fbyKyUIlRkspW1WQ=
-  - secure: oU2JnPAV8BSQurUpleD2QwPtF+/WTAeRokYBdTA2lrhp4XtExZ33PMjIdAyMCORtuPNYLWl/St7HpJNN0f63FlB7hWmZUq4UIHpMPhHR/H/32AwqZ9A99wNt873IPortlbxM2tKJRSCyIMzFSyoWXY1rVU0FE64Rrku6/lifQSQ=
-  - secure: eeYXzeW1kMU9Wbg6B6tjpzGq9rGliKlFtk+4zit3QxZsxsBver28YJVnpIhyaZlD3bZ4Pq5MmANV+zR/enRxQ3HaGMhDJO0fsyIpoA6D/qw7N/meMS7iBF66l/XH+XoMw8t/rxKyCyRy0FivNR2IGHBGlOOIM9GuIQyxXXPL0oI=
+  - secure: S2KIWOJX35j1FczyV7JRFrFpTftb8Hmkf6C50bJh8E03IbPu7tnX2znPKBbRWcIQndO6qd5dL7+BqtXabByOzd5Slj5/NBdXPcGffsO7B0cpFQS8ngpIMAGReCXQ12PbOiO8CIk2f/20lU3L0kqcP1TaPyZYIlSwkUg98ls8p90=
+  - secure: eLv41LVZoRCqQehOM29RLodZ6NZhrIdLWklAkMdLGlFDEiVY5f0shaPLffpUiuv/3pg+CuQk9ffBc72m8lwTsimex9unC/WVsqQJhqQEWJEaPGL0UamV/HqHMeBQEpKiCcKHaBRHFGk7QQJVtiXvVvlbwk7Jks5giUR7+s/Q6iI=
+  - secure: l0dde5NSGedD6fny5aMr1ll90FYVd7IKDsZ0Kd1GWnB+iDd3rjDBwz5q6NUwN2LTqw3jWFqmqdEnGUGO3Er0rdfdtPh3K194sTK3XuCZz8GEjFvYAEDRQ59oyK8fhw60c86cWppBQ4gluLKLstm12DLkARTUvJiIsTQTnuc2YGg=
 before_install:
 - pip install --user codecov
 after_success:
