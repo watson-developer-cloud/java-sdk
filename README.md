@@ -71,7 +71,7 @@ service.getDialogs().enqueue(new ServiceCallback<List<Dialog>>() {
 );
 ```
 
-For more information, take a look at the [CHANGELOG](CHANGELOG.md).
+See the [CHANGELOG](CHANGELOG.md) for the release notes.
 
 ## Migration
 
