@@ -41,16 +41,16 @@ public class DocumentConversionIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01);
-    service.setUsernameAndPassword(prop.getProperty("document_conversion.username"),
-        prop.getProperty("document_conversion.password"));
-    service.setEndPoint(prop.getProperty("document_conversion.url"));
+    service.setUsernameAndPassword(
+        getExistingProperty("document_conversion.username"), 
+        getExistingProperty("document_conversion.password")
+    );
+    service.setEndPoint(getExistingProperty("document_conversion.url"));
     service.setDefaultHeaders(getDefaultHeaders());
-    files =
-        new File[] {
-            new File("src/test/resources/document_conversion/word-docx-heading-input.docx"),
-            new File("src/test/resources/document_conversion/word-document-heading-input.doc"),
-            new File("src/test/resources/document_conversion/pdf-with-sections-input.pdf"),
-            new File("src/test/resources/document_conversion/html-with-extra-content-input.htm"),};
+    files = new File[] {new File("src/test/resources/document_conversion/word-docx-heading-input.docx"),
+        new File("src/test/resources/document_conversion/word-document-heading-input.doc"),
+        new File("src/test/resources/document_conversion/pdf-with-sections-input.pdf"),
+        new File("src/test/resources/document_conversion/html-with-extra-content-input.htm"),};
   }
 
   /**
