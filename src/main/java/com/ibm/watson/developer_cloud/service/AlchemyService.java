@@ -106,11 +106,18 @@ public abstract class AlchemyService extends WatsonService {
 
     // There was a Client Error 4xx or a Server Error 5xx
     // Get the error message and create the exception
-    final String errorMessage = error.get(MESSAGE_ERROR).getAsString();
-    final int code = error.get(MESSAGE_CODE).getAsInt();
+    final String errorMessage;
+    final int code;
+    if (error != null) {
+      errorMessage = error.get(MESSAGE_ERROR).getAsString();
+      code = error.get(MESSAGE_CODE).getAsInt();
+    } else {
+      errorMessage = null;
+      code = -1;
+    }
 
     LOG.log(Level.SEVERE, response.request().method() + " " + response.request().url().toString() + ", API status: "
-        + response.code() + ", error: " + error.get(MESSAGE_ERROR).getAsString());
+        + response.code() + ", error: " + errorMessage);
 
     switch (code) {
       case HttpStatus.BAD_REQUEST: // HTTP 400
@@ -146,7 +153,7 @@ public abstract class AlchemyService extends WatsonService {
     final String status = response.header(X_ALCHEMY_API_STATUS);
     final String errorMessage = response.header(X_ALCHEMY_API_ERROR_MSG);
 
-    if (status != null && status.equals(STATUS_ERROR)) {
+    if (STATUS_ERROR.equals(status)) {
       final int code = detectErrorCode(errorMessage);
       final JsonObject error = new JsonObject();
       error.addProperty(MESSAGE_ERROR, errorMessage != null ? errorMessage : "Unknown error");
