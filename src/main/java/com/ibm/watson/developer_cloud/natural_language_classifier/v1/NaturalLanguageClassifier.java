@@ -55,7 +55,7 @@ public class NaturalLanguageClassifier extends WatsonService {
   private static final String NAME = "name";
   private static final String TRAINING_METADATA = "training_metadata";
   private static final String PATH_CLASSIFIER = "/v1/classifiers/%s";
-  private static String URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
+  private static final String URL = "https://gateway.watsonplatform.net/natural-language-classifier/api";
 
   /**
    * Instantiates a new Natural Language Classifier service.
