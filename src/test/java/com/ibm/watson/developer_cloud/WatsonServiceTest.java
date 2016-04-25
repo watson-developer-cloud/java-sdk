@@ -37,17 +37,18 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Utility class to test the Watson Services.
- * 
  */
 public abstract class WatsonServiceTest {
 
-  private static final Logger log = Logger.getLogger(WatsonServiceTest.class.getName());
+  private static final String DEFAULT_PROPERTIES = "config.properties";
+  private static final String LOCAL_PROPERTIES = ".config.properties";
+  private static final Logger LOG = Logger.getLogger(WatsonServiceTest.class.getName());
 
   /**
    * Instantiates a new watson service test.
    */
   public WatsonServiceTest() {
-    if (prop == null)
+    if (PROPERTIES == null)
       loadProperties();
     setupLogging();
   }
@@ -134,7 +135,7 @@ public abstract class WatsonServiceTest {
   }
 
   /** The prop. */
-  protected static Properties prop = null;
+  protected static Properties PROPERTIES = null;
 
   /**
    * Gets the existing property.
@@ -143,7 +144,7 @@ public abstract class WatsonServiceTest {
    * @return the existing property
    */
   public String getExistingProperty(String property) {
-    final String value = prop.getProperty(property);
+    final String value = PROPERTIES.getProperty(property);
     if (value == null)
       throw new MissingPropertyException(property);
     return value;
@@ -178,18 +179,22 @@ public abstract class WatsonServiceTest {
   }
 
   private void loadProperties() {
-    prop = new Properties();
-    final String filename = "config.properties";
-    final InputStream input =
-        WatsonServiceTest.class.getClassLoader().getResourceAsStream(filename);
+    PROPERTIES = new Properties();
+
+    InputStream input = WatsonServiceTest.class.getClassLoader().getResourceAsStream(LOCAL_PROPERTIES);
+    if (input == null) {
+      input = WatsonServiceTest.class.getClassLoader().getResourceAsStream(DEFAULT_PROPERTIES);
+    } else {
+      LOG.info("Using " + LOCAL_PROPERTIES);
+    }
     if (input == null)
-      throw new RuntimeException(filename + " was not found.");
+      throw new RuntimeException(DEFAULT_PROPERTIES + " was not found.");
 
     // load a properties file from class path, inside static method
     try {
-      prop.load(input);
+      PROPERTIES.load(input);
     } catch (IOException e) {
-      log.log(Level.SEVERE, "Error loading the config.properties");
+      LOG.log(Level.SEVERE, "Error loading the config.properties");
     }
 
   }
@@ -241,8 +246,7 @@ public abstract class WatsonServiceTest {
    * @return the t
    * @throws FileNotFoundException the file not found exception
    */
-  public static <T> T loadFixture(String filename, Class<T> returnType)
-      throws FileNotFoundException {
+  public static <T> T loadFixture(String filename, Class<T> returnType) throws FileNotFoundException {
     String jsonString = getStringFromInputStream(new FileInputStream(filename));
     return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(jsonString, returnType);
   }

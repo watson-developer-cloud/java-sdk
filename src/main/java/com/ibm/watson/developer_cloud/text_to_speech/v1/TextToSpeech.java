@@ -23,6 +23,8 @@ import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Phoneme;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -44,12 +46,14 @@ public class TextToSpeech extends WatsonService {
   private static final String ACCEPT = "accept";
   private static final String PATH_GET_VOICES = "/v1/voices";
   private static final String PATH_SYNTHESIZE = "/v1/synthesize";
+  private static final String PATH_GET_PRONUNCIATION = "/v1/pronunciation";
   private static final String SERVICE_NAME = "text_to_speech";
   private static final String TEXT = "text";
   private static final Type TYPE_GET_VOICES = new TypeToken<List<Voice>>() {}.getType();
   private final static String URL = "https://stream.watsonplatform.net/text-to-speech/api";
   private static final String VOICE = "voice";
   private static final String VOICES = "voices";
+  private static final String FORMAT = "format";
 
   /**
    * Instantiates a new text to speech.
@@ -68,6 +72,26 @@ public class TextToSpeech extends WatsonService {
     final Request request = RequestBuilder.get(PATH_GET_VOICES).build();
     ResponseConverter<List<Voice>> converter = ResponseConverterUtils.getGenericObject(TYPE_GET_VOICES, VOICES);
     return createServiceCall(request, converter);
+  }
+
+  /**
+   * Returns the phonetic pronunciation for the <code>word</code> specified.
+   *
+   * @param word The word for which the pronunciation is requested.
+   * @param voice the voice to obtain the pronunciation for the specified word in the language of
+   *        that voice.
+   * @param phoneme the phoneme set in which to return the pronunciation
+   * @return the word pronunciation
+   * @see Pronunciation
+   */
+  public ServiceCall<Pronunciation> getPronunciation(String word, Voice voice, Phoneme phoneme) {
+    final RequestBuilder requestBuilder = RequestBuilder.get(PATH_GET_PRONUNCIATION).query(TEXT, word);
+    if (voice != null)
+      requestBuilder.query(VOICE, voice.getName());
+    if (phoneme != null)
+      requestBuilder.query(FORMAT, phoneme);
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Pronunciation.class));
   }
 
   /**

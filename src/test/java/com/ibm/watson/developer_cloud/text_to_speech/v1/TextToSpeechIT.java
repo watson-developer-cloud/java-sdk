@@ -41,6 +41,8 @@ import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Phoneme;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 
@@ -61,9 +63,10 @@ public class TextToSpeechIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new TextToSpeech();
-    service.setUsernameAndPassword(prop.getProperty("text_to_speech.username"),
-        prop.getProperty("text_to_speech.password"));
-    service.setEndPoint(prop.getProperty("text_to_speech.url"));
+    service.setUsernameAndPassword(
+        getExistingProperty("text_to_speech.username"),
+        getExistingProperty("text_to_speech.password"));
+    service.setEndPoint(getExistingProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
@@ -96,6 +99,32 @@ public class TextToSpeechIT extends WatsonServiceTest {
     writeInputStreamToFile(result, File.createTempFile("tts-audio", "wav"));
   }
 
+  /**
+   *  Test word pronunciation
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void testGetWordPronunciation(){
+    String word = "Congressman";
+    Pronunciation pronunciation = service.getPronunciation(word, Voice.EN_MICHAEL,Phoneme.SPR).execute();
+    Assert.assertNotNull(pronunciation);
+    Assert.assertNotNull(pronunciation.getPronunciation());
+    
+    pronunciation = service.getPronunciation(word, null,Phoneme.SPR).execute();
+    Assert.assertNotNull(pronunciation);
+    Assert.assertNotNull(pronunciation.getPronunciation());
+    
+    pronunciation = service.getPronunciation(word, Voice.EN_MICHAEL, null).execute();
+    Assert.assertNotNull(pronunciation);
+    Assert.assertNotNull(pronunciation.getPronunciation());
+    
+    pronunciation = service.getPronunciation(word, Voice.EN_MICHAEL,Phoneme.IPA).execute();
+    Assert.assertNotNull(pronunciation);
+    Assert.assertNotNull(pronunciation.getPronunciation());
+    
+  }
+  
   /**
    * Test the fix wave header not having the size due to be streamed.
    * 
