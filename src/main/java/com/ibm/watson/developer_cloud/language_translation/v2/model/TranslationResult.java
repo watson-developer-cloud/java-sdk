@@ -21,27 +21,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Translation results from calling the translate method. Contains the word count, character count
  * and the {@link Translation} list
- * 
  */
 public class TranslationResult extends GenericModel {
 
-  /** The character count. */
   @SerializedName("character_count")
-  private int characterCount;
-
-  /** The translations. */
+  private Integer characterCount;
   private List<Translation> translations;
-
-  /** The word count. */
   @SerializedName("word_count")
-  private int wordCount;
+  private Integer wordCount;
 
   /**
    * Gets the character count.
    * 
    * @return The characterCount
    */
-  public int getCharacterCount() {
+  public Integer getCharacterCount() {
     return characterCount;
   }
 
@@ -71,7 +65,7 @@ public class TranslationResult extends GenericModel {
    * 
    * @return The word count
    */
-  public int getWordCount() {
+  public Integer getWordCount() {
     return wordCount;
   }
 
@@ -80,7 +74,7 @@ public class TranslationResult extends GenericModel {
    * 
    * @param characterCount The character count
    */
-  public void setCharacterCount(final int characterCount) {
+  public void setCharacterCount(final Integer characterCount) {
     this.characterCount = characterCount;
   }
 
@@ -98,7 +92,7 @@ public class TranslationResult extends GenericModel {
    * 
    * @param wordCount The word count
    */
-  public void setWordCount(final int wordCount) {
+  public void setWordCount(final Integer wordCount) {
     this.wordCount = wordCount;
   }
 }

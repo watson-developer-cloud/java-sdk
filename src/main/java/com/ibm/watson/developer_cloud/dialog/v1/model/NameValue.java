@@ -21,11 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class NameValue extends GenericModel {
-
-  /** The name. */
   private String name;
-
-  /** The value. */
   private String value;
 
 
@@ -78,23 +74,23 @@ public class NameValue extends GenericModel {
   }
 
   /**
-   * With name.
+   * Sets the name.
    * 
    * @param name the name
    * @return the name value
    */
-  public NameValue withName(final String name) {
+  public NameValue name(final String name) {
     this.name = name;
     return this;
   }
 
   /**
-   * With value.
+   * Sets the value.
    * 
    * @param value the value
    * @return the name value
    */
-  public NameValue withValue(final String value) {
+  public NameValue value(final String value) {
     this.value = value;
     return this;
   }

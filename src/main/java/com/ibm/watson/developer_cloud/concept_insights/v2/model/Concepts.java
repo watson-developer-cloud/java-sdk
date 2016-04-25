@@ -24,8 +24,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 
 public class Concepts extends GenericModel {
-
-  /** The concepts. */
   private List<ScoredConcept> concepts;
 
   /**

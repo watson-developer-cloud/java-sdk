@@ -22,7 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechTimestamp;
 
 /**
- * SpeechTimestampTypeAdapter
+ * Type adapter to transform timestamp from json into objects and viseversa.
  */
 public class SpeechTimestampTypeAdapter extends TypeAdapter<SpeechTimestamp> {
 

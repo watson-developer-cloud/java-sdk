@@ -22,12 +22,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * The Class QueryConcepts.
  */
 public class QueryConcepts extends GenericModel {
-
-  /** The query concepts. */
   @SerializedName("query_concepts")
   private List<Concept> queryConcepts;
-
-  /** The results. */
   private List<Result> results;
 
   /**

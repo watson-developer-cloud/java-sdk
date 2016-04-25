@@ -22,23 +22,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * Conversation data stores information about a conversation.
  */
 public class ConversationData extends GenericModel {
-
-  /** The client id. */
   @SerializedName("client_id")
   private Integer clientId;
-
-  /** The conversation id. */
   @SerializedName("conversation_id")
   private Integer conversationId;
-
-  /** The hit nodes. */
   @SerializedName("hit_nodes")
   private List<HitNode> hitNodes;
-
-  /** The messages. */
   private List<Message> messages;
-
-  /** The profile. */
   private List<NameValue> profile;
 
   /**

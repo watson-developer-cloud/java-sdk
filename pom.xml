@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<version>2.10.1-SNAPSHOT</version>
+	<version>3.0.0-RC2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<artifactId>java-sdk</artifactId>
 	<name>Watson Developer Cloud Java SDK</name>
@@ -18,9 +18,19 @@
 	</licenses>
 	<dependencies>
 		<dependency>
-			<groupId>com.squareup.okhttp</groupId>
+			<groupId>com.squareup.okhttp3</groupId>
 			<artifactId>okhttp</artifactId>
-			<version>2.7.2</version>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp-ws</artifactId>
+			<version>3.2.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>okhttp-urlconnection</artifactId>
+			<version>3.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -38,16 +48,17 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.neovisionaries</groupId>
-			<artifactId>nv-websocket-client</artifactId>
-			<version>1.22</version>
-		</dependency>
 		<!-- mockserver -->
 		<dependency>
 			<groupId>org.mock-server</groupId>
 			<artifactId>mockserver-netty</artifactId>
 			<version>3.9.17</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.squareup.okhttp3</groupId>
+			<artifactId>mockwebserver</artifactId>
+			<version>3.2.0</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -61,12 +72,12 @@
 	<distributionManagement>
 		<!-- Repository for snapshots -->
 		<snapshotRepository>
-			<id>sonatype-nexus-snapshots</id>
+			<id>ossrh</id>
 			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
 		</snapshotRepository>
 		<!-- Repository for releases -->
 		<repository>
-			<id>nexus-releases</id>
+			<id>ossrh</id>
 			<name>Nexus Release Repository</name>
 			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>

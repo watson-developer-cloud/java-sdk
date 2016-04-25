@@ -66,7 +66,7 @@ public class MultiThreadTest extends WatsonServiceTest {
      */
     public void sendRequest() {
       try {
-        service.translate("This is a test - " + Math.random(), "en-es");
+        service.translate("This is a test - " + Math.random(), "en-es").execute();
       } catch (final Exception e) {
         log.severe("ERROR: " + e.getLocalizedMessage());
       }

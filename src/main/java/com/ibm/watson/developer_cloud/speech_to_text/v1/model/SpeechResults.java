@@ -20,15 +20,11 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Class SpeechResults.
+ * Results obtained during a speech recognition.
  */
 public class SpeechResults extends GenericModel {
-
-  /** The result index. */
   @SerializedName("result_index")
   private int resultIndex;
-
-  /** The results. */
   private List<Transcript> results;
 
   /**
@@ -50,6 +46,16 @@ public class SpeechResults extends GenericModel {
   }
 
   /**
+   * Returns <code>true</code> if the results are final.
+   *
+   * @return true, if the results are final
+   */
+  public boolean isFinal() {
+    return (results != null && resultIndex < results.size() && results.get(resultIndex) != null
+        && results.get(resultIndex).isFinal());
+  }
+
+  /**
    * Sets the result index.
    * 
    * @param resultIndex The result_index
@@ -65,15 +71,5 @@ public class SpeechResults extends GenericModel {
    */
   public void setResults(final List<Transcript> results) {
     this.results = results;
-  }
-
-  /**
-   * Returns <code>true</code> if the results are final
-   * 
-   * @return true, if the results are final
-   */
-  public boolean isFinal() {
-    return (results != null && resultIndex < results.size() && results.get(resultIndex) != null && results.get(resultIndex)
-        .isFinal());
   }
 }

@@ -22,31 +22,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * The personality trait/model POJO class.
  */
 public class Trait extends GenericModel {
-
-  /** The category. */
   private String category;
-
-  /** The children. */
   private List<Trait> children;
-
-  /** The id. */
   private String id;
-
-  /** The name. */
   private String name;
-
-  /** The percentage. */
   private Double percentage;
-
-  /** The raw sampling error. */
   @SerializedName("raw_sampling_error")
   private Double rawSamplingError;
-
-  /** The raw score. */
   @SerializedName("raw_score")
   private Double rawScore;
-
-  /** The sampling error. */
   @SerializedName("sampling_error")
   private Double samplingError;
 

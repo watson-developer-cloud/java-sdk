@@ -20,41 +20,15 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * SpeechAlternative contains the transcript of the utterance along with confidence, timestamp,
- * etc...
+ * Contains the transcript of the utterance along with confidence and timestamp.
  */
 public class SpeechAlternative extends GenericModel {
-
-  /** The transcript. */
+  private Double confidence;
+  private List<SpeechTimestamp> timestamps;
   private String transcript;
 
-  /** The confidence. */
-  private Double confidence;
-
-  /** The timestamps. */
-  private List<SpeechTimestamp> timestamps;
-
-  /** The word confidences. */
   @SerializedName("word_confidence")
   private List<SpeechWordConfidence> wordConfidences;
-
-  /**
-   * Gets the transcript.
-   * 
-   * @return The transcript
-   */
-  public String getTranscript() {
-    return transcript;
-  }
-
-  /**
-   * Sets the transcript.
-   * 
-   * @param transcript The transcript
-   */
-  public void setTranscript(final String transcript) {
-    this.transcript = transcript;
-  }
 
   /**
    * Gets the confidence.
@@ -63,15 +37,6 @@ public class SpeechAlternative extends GenericModel {
    */
   public Double getConfidence() {
     return confidence;
-  }
-
-  /**
-   * Sets the confidence.
-   * 
-   * @param confidence The confidence
-   */
-  public void setConfidence(final Double confidence) {
-    this.confidence = confidence;
   }
 
   /**
@@ -84,25 +49,13 @@ public class SpeechAlternative extends GenericModel {
   }
 
   /**
-   * Sets the timestamps.
+   * Gets the transcript.
    * 
-   * @param timestamps The timestamps
+   * @return The transcript
    */
-  public void setTimestamps(final List<SpeechTimestamp> timestamps) {
-    this.timestamps = timestamps;
+  public String getTranscript() {
+    return transcript;
   }
-
-  /**
-   * With timestamps.
-   * 
-   * @param timestamps the timestamps
-   * @return the speech
-   */
-  public SpeechAlternative withTimestamps(final List<SpeechTimestamp> timestamps) {
-    this.timestamps = timestamps;
-    return this;
-  }
-
 
   /**
    * Gets the word confidences.
@@ -114,22 +67,38 @@ public class SpeechAlternative extends GenericModel {
   }
 
   /**
+   * Sets the confidence.
+   * 
+   * @param confidence The confidence
+   */
+  public void setConfidence(final Double confidence) {
+    this.confidence = confidence;
+  }
+
+  /**
+   * Sets the timestamps.
+   * 
+   * @param timestamps The timestamps
+   */
+  public void setTimestamps(final List<SpeechTimestamp> timestamps) {
+    this.timestamps = timestamps;
+  }
+
+  /**
+   * Sets the transcript.
+   * 
+   * @param transcript The transcript
+   */
+  public void setTranscript(final String transcript) {
+    this.transcript = transcript;
+  }
+
+  /**
    * Sets the word confidences.
    * 
    * @param wordConfidences The wordConfidences
    */
   public void setWordConfidences(final List<SpeechWordConfidence> wordConfidences) {
     this.wordConfidences = wordConfidences;
-  }
-
-  /**
-   * With word confidences.
-   * 
-   * @param wordConfidences the wordConfidences
-   * @return the speech
-   */
-  public SpeechAlternative withWordConfidences(final List<SpeechWordConfidence> wordConfidences) {
-    this.wordConfidences = wordConfidences;
-    return this;
   }
 }

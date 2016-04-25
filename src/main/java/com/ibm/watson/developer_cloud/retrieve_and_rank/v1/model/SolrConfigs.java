@@ -21,7 +21,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Solr configuration list
+ * The Solr configuration list.
  */
 public class SolrConfigs extends GenericModel {
   @SerializedName(SOLR_CONFIGS)

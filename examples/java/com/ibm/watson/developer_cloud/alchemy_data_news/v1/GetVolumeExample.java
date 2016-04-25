@@ -28,7 +28,7 @@ public class GetVolumeExample {
     AlchemyDataNews service = new AlchemyDataNews();
     service.setApiKey("<api_key>");
 
-    VolumeResult result = service.getVolume("now-7d", "now", "12h");
+    VolumeResult result = service.getVolume("now-7d", "now", "12h").execute();
 
     System.out.println(result);
   }

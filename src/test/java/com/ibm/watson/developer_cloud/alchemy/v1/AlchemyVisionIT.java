@@ -13,6 +13,13 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
+import java.io.File;
+import java.io.FileInputStream;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeyword;
@@ -21,13 +28,8 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneText;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneTextLine;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneTextLine.Word;
-import com.squareup.okhttp.HttpUrl;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
+import okhttp3.HttpUrl;
 
 /**
  * The Class AlchemyVisionTest.
@@ -67,7 +69,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
    */
   @Test
   public void testGetImageFromURL() {
-    final ImageLink image = service.getImageLink(HttpUrl.parse("http://www.techcrunch.com/").url());
+    final ImageLink image = service.getImageLink(HttpUrl.parse("http://www.techcrunch.com/").url()).execute();
     Assert.assertNotNull(image);
   }
 
@@ -76,7 +78,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
    */
   @Test
   public void testGetImageWithHTML() {
-    final ImageLink image = service.getImageLink(htmlExample);
+    final ImageLink image = service.getImageLink(htmlExample).execute();
     Assert.assertNotNull(image);
   }
 
@@ -86,7 +88,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   @Test
   public void testGetRankedImageSceneTextFromImage() {
     final File imageFile = new File(IMAGE_COLORADO);
-    final ImageSceneText image = service.getImageSceneText(imageFile);
+    final ImageSceneText image = service.getImageSceneText(imageFile).execute();
 
     Assert.assertEquals("colorado\n1\nl", image.getSceneText());
     Assert.assertEquals(3, image.getSceneTextLines().size());
@@ -116,7 +118,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   @Test
   public void testGetRankedImageSceneTextFromURL() {
     final ImageSceneText image =
-        service.getImageSceneText(HttpUrl.parse(IMAGE_COLORADO_URL).url());
+        service.getImageSceneText(HttpUrl.parse(IMAGE_COLORADO_URL).url()).execute();
 
     Assert.assertEquals("colorado\n1\nl", image.getSceneText());
     Assert.assertEquals(3, image.getSceneTextLines().size());
@@ -129,7 +131,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   @Test
   public void testGetRankedImageKeywordsFromImage() {
     final File imageFile = new File(IMAGE_OBAMA);
-    final ImageKeywords image = service.getImageKeywords(imageFile, null, null);
+    final ImageKeywords image = service.getImageKeywords(imageFile, null, null).execute();
 
     Assert.assertNotNull(image);
   }
@@ -140,7 +142,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   @Test
   public void testGetRankedImageKeywordsFromImageWithKnowledgeGraph() {
     final File imageFile = new File(IMAGE_OBAMA);
-    final ImageKeywords image = service.getImageKeywords(imageFile, null, true);
+    final ImageKeywords image = service.getImageKeywords(imageFile, null, true).execute();
 
     Assert.assertNotNull(image);
     if (image.getImageKeywords() != null && !image.getImageKeywords().isEmpty()) {
@@ -156,7 +158,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   @Test
   public void testGetRankedImageKeywordsFromURL() {
     final ImageKeywords image =
-        service.getImageKeywords(HttpUrl.parse(BABY_IMAGE).url(), true, true);
+        service.getImageKeywords(HttpUrl.parse(BABY_IMAGE).url(), true, true).execute();
 
     Assert.assertNotNull(image);
   }
@@ -167,7 +169,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   @Test
   public void testRecognizeFacesFromImage() {
     final File imageFile = new File(IMAGE_OBAMA);
-    final ImageFaces image = service.recognizeFaces(imageFile, true);
+    final ImageFaces image = service.recognizeFaces(imageFile, true).execute();
 
     Assert.assertNotNull(image);
   }
@@ -177,7 +179,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeFacesFromURL() {
-    final ImageFaces image = service.recognizeFaces(HttpUrl.parse(BABY_IMAGE).url(), false);
+    final ImageFaces image = service.recognizeFaces(HttpUrl.parse(BABY_IMAGE).url(), false).execute();
 
     Assert.assertNotNull(image);
   }

@@ -8,15 +8,17 @@ jdk:
 cache:
   directories:
   - $HOME/.m2/repository
-before_install:
-- '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_a973fe4f8e79_key -iv $encrypted_a973fe4f8e79_iv -in config.properties.enc -out src/test/resources/config.properties -d || true'
-- pip install --user codecov
-notifications:
-  email: false
 env:
   global:
-  - secure: VvKBWj1OCu7SH+utwqe7kdli0N7jTYQ7D/citdFIV0cDjpcX3MwxfPcIeMvOuWLgJKaOSD4xnG9pOgMoLMMCGcsCHa2bqx78clA8t4sV7I0sx8pSN2Iuj/wQJvNV3/uEETC84+P9hKIt+o8JZqhgC1GEpz5fbyKyUIlRkspW1WQ=
+  - secure: S2KIWOJX35j1FczyV7JRFrFpTftb8Hmkf6C50bJh8E03IbPu7tnX2znPKBbRWcIQndO6qd5dL7+BqtXabByOzd5Slj5/NBdXPcGffsO7B0cpFQS8ngpIMAGReCXQ12PbOiO8CIk2f/20lU3L0kqcP1TaPyZYIlSwkUg98ls8p90=
+  - secure: eLv41LVZoRCqQehOM29RLodZ6NZhrIdLWklAkMdLGlFDEiVY5f0shaPLffpUiuv/3pg+CuQk9ffBc72m8lwTsimex9unC/WVsqQJhqQEWJEaPGL0UamV/HqHMeBQEpKiCcKHaBRHFGk7QQJVtiXvVvlbwk7Jks5giUR7+s/Q6iI=
+  - secure: l0dde5NSGedD6fny5aMr1ll90FYVd7IKDsZ0Kd1GWnB+iDd3rjDBwz5q6NUwN2LTqw3jWFqmqdEnGUGO3Er0rdfdtPh3K194sTK3XuCZz8GEjFvYAEDRQ59oyK8fhw60c86cWppBQ4gluLKLstm12DLkARTUvJiIsTQTnuc2YGg=
+before_install:
+- pip install --user codecov
 after_success:
 - codecov
 - mvn javadoc:javadoc
 - .utility/push-javadoc-to-gh-pages.sh
+- .utility/deploy_snapshot.sh
+notifications:
+  email: false

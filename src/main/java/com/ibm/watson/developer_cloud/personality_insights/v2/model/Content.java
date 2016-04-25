@@ -22,10 +22,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * {@link ContentItem} container.
  */
 public class Content extends GenericModel {
-
-  /**
-   * Field contentItems.
-   */
   private List<ContentItem> contentItems;
 
   /**

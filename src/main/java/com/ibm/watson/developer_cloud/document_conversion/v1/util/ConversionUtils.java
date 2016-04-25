@@ -13,9 +13,15 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
@@ -35,13 +41,10 @@ public class ConversionUtils {
   public static String getMediaTypeFromFile(final File file) {
     if (file != null) {
       final String fileName = file.getName().toLowerCase();
-      final String[] supportedExtensions =
-          {".htm", ".html", ".dot", ".doc", ".docx", ".xml", ".xhtml", ".pdf"};
-      final String[] supportedMediaTypes =
-          {HttpMediaType.TEXT_HTML, HttpMediaType.TEXT_HTML, HttpMediaType.APPLICATION_MS_WORD,
-              HttpMediaType.APPLICATION_MS_WORD, HttpMediaType.APPLICATION_MS_WORD_DOCX,
-              HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_XHTML_XML,
-              HttpMediaType.APPLICATION_PDF};
+      final String[] supportedExtensions = {".htm", ".html", ".dot", ".doc", ".docx", ".xml", ".xhtml", ".pdf"};
+      final String[] supportedMediaTypes = {HttpMediaType.TEXT_HTML, HttpMediaType.TEXT_HTML,
+          HttpMediaType.APPLICATION_MS_WORD, HttpMediaType.APPLICATION_MS_WORD, HttpMediaType.APPLICATION_MS_WORD_DOCX,
+          HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_PDF};
 
       for (int i = 0; i < supportedMediaTypes.length; i++) {
         if (fileName.endsWith(supportedExtensions[i])) {
@@ -60,10 +63,8 @@ public class ConversionUtils {
    */
   public static Boolean isValidMediaType(final String mediaType) {
     if (mediaType != null) {
-      final String[] supportedMediaTypes =
-          {HttpMediaType.TEXT_HTML, HttpMediaType.APPLICATION_MS_WORD,
-              HttpMediaType.APPLICATION_MS_WORD_DOCX, HttpMediaType.APPLICATION_XHTML_XML,
-              HttpMediaType.APPLICATION_PDF};
+      final String[] supportedMediaTypes = {HttpMediaType.TEXT_HTML, HttpMediaType.APPLICATION_MS_WORD,
+          HttpMediaType.APPLICATION_MS_WORD_DOCX, HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_PDF};
 
       for (final String supportedMediaType : supportedMediaTypes) {
         if (mediaType.equalsIgnoreCase(supportedMediaType)) {
@@ -75,17 +76,34 @@ public class ConversionUtils {
   }
 
   /**
+   * Loads a custom configuration from the input stream specified.
+   *
+   * @param customConfig input stream for the custom configuration
+   * @return the custom configuration as a JsonObject
+   */
+  public static JsonObject loadCustomConfig(InputStream customConfig) {
+    final Reader reader = new InputStreamReader(customConfig);
+    return new JsonParser().parse(reader).getAsJsonObject();
+  }
+
+  /**
    * Write input stream to output stream.
    * 
    * @param is the input stream
    * @return String
    */
   public static String writeInputStreamToString(InputStream is) {
-    final java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+    ByteArrayOutputStream result = new ByteArrayOutputStream();
+    byte[] buffer = new byte[1024];
+    int length;
     try {
-      return s.hasNext() ? s.next() : "";
-    } finally {
-      s.close();
+      while ((length = is.read(buffer)) != -1) {
+        result.write(buffer, 0, length);
+      }
+      return result.toString("UTF-8");
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
   }
+
 }

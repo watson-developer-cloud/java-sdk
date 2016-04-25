@@ -17,26 +17,35 @@ import org.apache.commons.lang3.Validate;
 
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Dilemma;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Resolution;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 
 /**
- * The Class TradeoffAnalytics.
+ * The IBM Watson Tradeoff Analytics service applies decision analytics technology, enabling users
+ * to avoid choice overload when making complex decisions involving multiple, conflicting goals.
+ * 
+ * @version v1
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tradeoff-analytics.html">
+ *      Tradeoff Analytics</a>
  */
 public class TradeoffAnalytics extends WatsonService {
 
   private static final String GENERATE_VISUALIZATION = "generate_visualization";
   private static final String PATH_DILEMMAS = "/v1/dilemmas";
+  private static final String SERVICE_NAME = "tradeoff_analytics";
   private final static String URL = "https://gateway.watsonplatform.net/tradeoff-analytics/api";
 
   /**
    * Instantiates a new tradeoff analytics.
    */
   public TradeoffAnalytics() {
-    super("tradeoff_analytics");
+    super(SERVICE_NAME);
     setEndPoint(URL);
   }
 
@@ -58,7 +67,7 @@ public class TradeoffAnalytics extends WatsonService {
    * @param problem the decision problem
    * @return the dilemma
    */
-  public Dilemma dilemmas(final Problem problem) {
+  public ServiceCall<Dilemma> dilemmas(final Problem problem) {
     return dilemmas(problem, null);
   }
 
@@ -81,18 +90,17 @@ public class TradeoffAnalytics extends WatsonService {
    * @param generateVisualization if true the Dilemma contains information to generate visualization
    * @return the decision problem
    */
-  public Dilemma dilemmas(final Problem problem, final Boolean generateVisualization) {
+  public ServiceCall<Dilemma> dilemmas(final Problem problem, final Boolean generateVisualization) {
     Validate.notNull(problem, "problem was not specified");
 
     final String contentJson = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(problem);
 
     final RequestBuilder requestBuilder =
-        RequestBuilder.post(PATH_DILEMMAS).withBodyContent(contentJson,
-            HttpMediaType.APPLICATION_JSON);
+        RequestBuilder.post(PATH_DILEMMAS).bodyContent(contentJson, HttpMediaType.APPLICATION_JSON);
 
     if (generateVisualization != null)
-      requestBuilder.withQuery(GENERATE_VISUALIZATION, generateVisualization);
+      requestBuilder.query(GENERATE_VISUALIZATION, generateVisualization);
 
-    return executeRequest(requestBuilder.build(), Dilemma.class);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Dilemma.class));
   }
 }

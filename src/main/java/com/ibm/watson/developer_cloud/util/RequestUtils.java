@@ -21,7 +21,8 @@ import java.util.Map;
 import org.apache.commons.lang3.ArrayUtils;
 
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.squareup.okhttp.Request;
+
+import okhttp3.Request;
 
 /**
  * Utility functions to use when creating a
@@ -31,14 +32,14 @@ import com.squareup.okhttp.Request;
 public class RequestUtils {
 
   /**
-   * default endpoints for relative request. It will be updated by {@link WatsonService} with the
-   * service endpoint.
+   * Default end point for relative request. It will be updated by {@link WatsonService} with the
+   * real service end point.
    */
   public static final String DEFAULT_ENDPOINT = "http://do.not.use";
 
 
   /**
-   * Encode.
+   * Encode a string into a valid URL string
    * 
    * @param content the content
    * @return the string
@@ -53,12 +54,12 @@ public class RequestUtils {
 
   /**
    * Checks if is relative.
-   * 
-   * @param request the request
+   *
+   * @param request the okhttp3 request
    * @return true, if is relative
    */
   public static boolean isRelative(Request request) {
-    return request.urlString().startsWith(DEFAULT_ENDPOINT);
+    return request.url().toString().startsWith(DEFAULT_ENDPOINT);
   }
 
   /**
@@ -109,7 +110,7 @@ public class RequestUtils {
   }
 
   /**
-   * Replace the url endpoint (schema + host + port) with the given end point.
+   * Replace the url end point (schema + host + port) with the given end point.
    * 
    * @param url the url to update
    * @param endPoint the end point

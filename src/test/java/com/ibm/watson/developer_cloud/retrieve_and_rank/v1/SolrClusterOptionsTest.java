@@ -19,21 +19,34 @@ import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
 
+/**
+ * The Class SolrClusterOptionsTest.
+ */
 public class SolrClusterOptionsTest {
+  
+  /** The Constant CLUSTER_NAME. */
   public static final String CLUSTER_NAME = "cluster_name";
+  
+  /** The Constant CLUSTER_SIZE. */
   public static final Integer CLUSTER_SIZE = 5;
 
+  /**
+   * Can create a free cluster.
+   */
   @Test
   public void canCreateAFreeCluster() {
     final SolrClusterOptions options = new SolrClusterOptions(CLUSTER_NAME);
-    assertEquals(CLUSTER_NAME, options.getClusterName());
-    assertEquals(null, options.getClusterSize());
+    assertEquals(CLUSTER_NAME, options.clusterName());
+    assertEquals(null, options.clusterSize());
   }
 
+  /**
+   * Can create a sized cluster.
+   */
   @Test
   public void canCreateASizedCluster() {
     final SolrClusterOptions options = new SolrClusterOptions(CLUSTER_NAME, CLUSTER_SIZE);
-    assertEquals(CLUSTER_NAME, options.getClusterName());
-    assertEquals(CLUSTER_SIZE, options.getClusterSize());
+    assertEquals(CLUSTER_NAME, options.clusterName());
+    assertEquals(CLUSTER_SIZE, options.clusterSize());
   }
 }

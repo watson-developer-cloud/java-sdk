@@ -17,21 +17,22 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
 
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.Response;
+
+import okhttp3.Request;
+
 
 /**
- * The Text to Speech service uses IBM's speech synthesis capabilities to convert English or Spanish
- * text to an audio signal. The audio is streamed back to the client with minimal delay.
+ * The Text to Speech service uses IBM's speech synthesis capabilities to convert text to an audio
+ * signal. The audio is streamed back to the client in a {@link InputStream}
  * 
  * @version v1
  * @see <a href=
@@ -41,18 +42,20 @@ import com.squareup.okhttp.Response;
 public class TextToSpeech extends WatsonService {
 
   private static final String ACCEPT = "accept";
-  private static final String VOICE = "voice";
-  private static final String TEXT = "text";
+  private static final String PATH_GET_VOICES = "/v1/voices";
   private static final String PATH_SYNTHESIZE = "/v1/synthesize";
-  private final static Type listVoiceType = new TypeToken<List<Voice>>() {}.getType();
+  private static final String SERVICE_NAME = "text_to_speech";
+  private static final String TEXT = "text";
+  private static final Type TYPE_GET_VOICES = new TypeToken<List<Voice>>() {}.getType();
   private final static String URL = "https://stream.watsonplatform.net/text-to-speech/api";
-
+  private static final String VOICE = "voice";
+  private static final String VOICES = "voices";
 
   /**
    * Instantiates a new text to speech.
    */
   public TextToSpeech() {
-    super("text_to_speech");
+    super(SERVICE_NAME);
     setEndPoint(URL);
   }
 
@@ -61,25 +64,10 @@ public class TextToSpeech extends WatsonService {
    * 
    * @return the list of {@link Voice}
    */
-  public List<Voice> getVoices() {
-    final Request request = RequestBuilder.get("/v1/voices").build();
-    final Response response = execute(request);
-    final JsonObject jsonObject = ResponseUtils.getJsonObject(response);
-    final List<Voice> voices = GsonSingleton.getGsonWithoutPrettyPrinting()
-        .fromJson(jsonObject.get("voices"), listVoiceType);
-    return voices;
-  }
-
-  /**
-   * Synthesize text using a provided format
-   * 
-   * @param text the text to synthesize
-   * @param format the format, it needs to be an audio mime type, for example: audio/wav or
-   *        audio/ogg; codecs=opus
-   * @return the input stream with the synthesized audio doesn't have the content-length set.
-   */
-  public InputStream synthesize(final String text, final String format) {
-    return synthesize(text, Voice.EN_LISA, format);
+  public ServiceCall<List<Voice>> getVoices() {
+    final Request request = RequestBuilder.get(PATH_GET_VOICES).build();
+    ResponseConverter<List<Voice>> converter = ResponseConverterUtils.getGenericObject(TYPE_GET_VOICES, VOICES);
+    return createServiceCall(request, converter);
   }
 
   /**
@@ -89,33 +77,27 @@ public class TextToSpeech extends WatsonService {
    * @param voice the voice
    * @return the input stream
    */
-  public InputStream synthesize(final String text, final Voice voice) {
-    return synthesize(text, voice, HttpMediaType.AUDIO_WAV);
+  public ServiceCall<InputStream> synthesize(final String text, final Voice voice) {
+    return synthesize(text, voice, null);
   }
 
   /**
-   * Synthesize text using a voice and format.
+   * Synthesize text using a {@link Voice} and {@link AudioFormat}.
    * 
    * @param text the text
    * @param voice the voice
-   * @param outputFormat the output format. e.g: audio/wav or audio/ogg; codecs=opus
+   * @param audioFormat the {@link AudioFormat}
    * @return the input stream
    */
-  public InputStream synthesize(final String text, final Voice voice, final String outputFormat) {
+  public ServiceCall<InputStream> synthesize(final String text, final Voice voice, final AudioFormat audioFormat) {
     Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
     Validator.isTrue(voice != null, "voice cannot be null or empty");
 
     final RequestBuilder request = RequestBuilder.get(PATH_SYNTHESIZE);
-    request.withQuery(TEXT, text);
-    request.withQuery(VOICE, voice.getName());
+    request.query(TEXT, text);
+    request.query(VOICE, voice.getName());
+    request.query(ACCEPT, audioFormat != null ? audioFormat : AudioFormat.WAV);
 
-    if (outputFormat != null && !outputFormat.startsWith("audio/"))
-      throw new IllegalArgumentException(
-          "format needs to be an audio mime type, for example: audio/wav or audio/ogg; codecs=opus");
-
-    request.withQuery(ACCEPT, outputFormat != null ? outputFormat : HttpMediaType.AUDIO_WAV);
-
-    final Response response = execute(request.build());
-    return ResponseUtils.getInputStream(response);
+    return createServiceCall(request.build(), ResponseConverterUtils.getInputStream());
   }
 }

@@ -44,16 +44,4 @@ public class Entities extends AlchemyLanguageGenericModel {
   public void setEntities(List<Entity> entities) {
     this.entities = entities;
   }
-
-  /**
-   * With entities.
-   * 
-   * @param entities the entities
-   * @return the entities
-   */
-  public Entities withEntities(List<Entity> entities) {
-    this.entities = entities;
-    return this;
-  }
-
 }

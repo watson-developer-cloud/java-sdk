@@ -16,7 +16,8 @@ package com.ibm.watson.developer_cloud.visual_insights.v1;
 
 import java.io.File;
 
-import com.ibm.watson.developer_cloud.visual_insights.v1.model.Summary;
+import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.VisualInsights;
+import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.model.Summary;
 
 
 public class VisualInsightsExample {
@@ -26,7 +27,7 @@ public class VisualInsightsExample {
     service.setUsernameAndPassword("<username>", "<password>");
 
     File images = new File("src/test/resources/visual_insights/images.zip");
-    Summary summary = service.getSummary(images);
+    Summary summary = service.getSummary(images).execute();
 
     System.out.println(summary);
   }

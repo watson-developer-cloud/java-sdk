@@ -22,7 +22,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  * @version v1
  */
-
 public class Rankers extends GenericModel {
   /** List of rankers */
   private List<Ranker> rankers;

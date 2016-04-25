@@ -14,10 +14,10 @@
 package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
 
 /**
- * The Class Voice.
- * 
+ * {@link TextToSpeech} voice
  */
 public class Voice extends GenericModel {
 
@@ -32,6 +32,9 @@ public class Voice extends GenericModel {
 
   /** The Constant EN_LISA (value is "en-US_LisaVoice"). */
   public static final Voice EN_LISA = new Voice("en-US_LisaVoice", "female", "en-US");
+
+  /** The Constant EN_MICHAEL (value is "en-US_MichaelVoice"). */
+  public static final Voice EN_MICHAEL = new Voice("en-US_MichaelVoice", "male", "en-US");
 
   /** The Constant ES_ENRIQUE (value is "es-ES_EnriqueVoice"). */
   public static final Voice ES_ENRIQUE = new Voice("es-ES_EnriqueVoice", "male", "es-ES");

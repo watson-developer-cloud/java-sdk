@@ -20,10 +20,7 @@ package com.ibm.watson.developer_cloud.alchemy.v1.model;
  */
 public abstract class AlchemyLanguageGenericModel extends AlchemyGenericModel {
 
-  /** The language. */
   private String language;
-
-  /** The url. */
   private String url;
 
   /**

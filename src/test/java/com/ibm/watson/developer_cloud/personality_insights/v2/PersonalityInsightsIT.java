@@ -29,7 +29,7 @@ import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions;
 
 /**
- * Personality Insights Integration Tests
+ * Personality Insights Integration Tests.
  */
 public class PersonalityInsightsIT extends WatsonServiceTest {
 
@@ -51,12 +51,18 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
+  /**
+   * Gets the profile with text.
+   *
+   * @return the profile with text
+   * @throws Exception the exception
+   */
   @Test
   public void getProfileWithText() throws Exception {
     File file = new File("src/test/resources/personality_insights/en.txt");
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
-    Profile profile = service.getProfile(englishText);
+    Profile profile = service.getProfile(englishText).execute();
 
     assertProfile(profile);
   }
@@ -66,14 +72,20 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     assertNotNull(profile.getTree());
   }
 
+  /**
+   * Gets the profile with content items.
+   *
+   * @return the profile with content items
+   * @throws Exception the exception
+   */
   @Test
   public void getProfileWithContentItems() throws Exception {
     File file = new File("src/test/resources/personality_insights/en.txt");
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
     ContentItem cItem = new ContentItem().content(englishText).created(new Date());
-    ProfileOptions options = new ProfileOptions().contentItems(Arrays.asList(cItem));
-    Profile profile = service.getProfile(options);
+    ProfileOptions options = new ProfileOptions.Builder().contentItems(Arrays.asList(cItem)).build();
+    Profile profile = service.getProfile(options).execute();
 
     assertProfile(profile);
   }

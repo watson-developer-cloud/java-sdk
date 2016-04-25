@@ -42,14 +42,4 @@ public class DocumentTitle extends AlchemyLanguageGenericModel {
     this.title = title;
   }
 
-  /**
-   * With title.
-   * 
-   * @param title the title
-   * @return the title
-   */
-  public DocumentTitle withTitle(String title) {
-    this.title = title;
-    return this;
-  }
 }

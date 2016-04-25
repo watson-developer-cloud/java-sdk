@@ -39,102 +39,79 @@ public class AlchemyEndPoints {
    */
   public enum AlchemyAPI {
 
-    /** The AUTHORS. */
+    /** The authors. */
     AUTHORS,
 
-    /** The COMBINED. */
+    /** The combined. */
     COMBINED,
 
-    /** The CONCEPTS. */
+    /** The concepts. */
     CONCEPTS,
 
-    /** The ENTITIES. */
-    ENTITIES,
-
-    /** The FEEDS. */
-    FEEDS,
-
-    /** The IMAGE_KEYWORDS. */
-    IMAGE_KEYWORDS,
-
-    /** The IMAGE_LINK. */
-    IMAGE_LINK,
-
-    /** The IMAGE_RECOGNITION. */
-    IMAGE_RECOGNITION,
-
-    /** The IMAGE_SCENE_TEXT. */
-    IMAGE_SCENE_TEXT,
-
-    /** The KEYWORDS. */
-    KEYWORDS,
-
-    /** The LANGUAGE. */
-    LANGUAGE,
-
-    /** The MICROFORMATS. */
-    MICROFORMATS,
-
-    /** The RELATIONS. */
-    RELATIONS,
-
-    /** The SENTIMENT. */
-    SENTIMENT,
-
-    /** The SENTIMENT_TARGETED. */
-    SENTIMENT_TARGETED,
-
-    /** The TAXONOMY. */
-    TAXONOMY,
-
-    /** The TEXT. */
-    TEXT,
-
-    /** The TEXT_RAW. */
-    TEXT_RAW,
-
-    /** The TITLE. */
-    TITLE,
-
-    /** The PUBLICATION DATE */
-    PUBLICATION_DATE,
-
-    /** DATES */
+    /** dates. */
     DATES,
 
-    /** EMOTION */
-    EMOTION
+    /** emotion. */
+    EMOTION,
+
+    /** The entities. */
+    ENTITIES,
+
+    /** The feeds. */
+    FEEDS,
+
+    /** The image_keywords. */
+    IMAGE_KEYWORDS,
+
+    /** The image_link. */
+    IMAGE_LINK,
+
+    /** The image_recognition. */
+    IMAGE_RECOGNITION,
+
+    /** The image_scene_text. */
+    IMAGE_SCENE_TEXT,
+
+    /** The keywords. */
+    KEYWORDS,
+
+    /** The language. */
+    LANGUAGE,
+
+    /** The microformats. */
+    MICROFORMATS,
+
+    /** The publication date. */
+    PUBLICATION_DATE,
+
+    /** The relations. */
+    RELATIONS,
+
+    /** The sentiment. */
+    SENTIMENT,
+
+    /** The sentiment_targeted. */
+    SENTIMENT_TARGETED,
+
+    /** The taxonomy. */
+    TAXONOMY,
+
+    /** The text. */
+    TEXT,
+
+    /** The text_raw. */
+    TEXT_RAW,
+
+    /** The title. */
+    TITLE
   }
 
-  /** The file where alchemy endpoints are described. */
   private static final String FILE_PATH = "/alchemy_endpoints.json";
-
-  /** The Constant LOG. */
   private static final Logger LOG = Logger.getLogger(AlchemyEndPoints.class.getName());
-
-  /** The alchemy operations. */
-  private static Map<String, Map<String, String>> operations;
+  private static Map<String, Map<String, String>> OPERATIONS;
 
   static {
     loadEndPointsFromJsonFile();
-  }
-
-  /**
-   * Gets the path based on the operation and input type.
-   * 
-   * @param operation the operation
-   * @param inputType the input type
-   * @return the string that represent the path based on the operation and input type
-   */
-  public static String getPath(AlchemyAPI operation, String inputType) {
-    if ((operations.get(operation.name()) != null)
-        && operations.get(operation.name()).get(inputType) != null) {
-      return operations.get(operation.name()).get(inputType);
-    } else {
-      final String error = "Operation: " + operation + ", inputType: " + inputType + " not found";
-      LOG.log(Level.SEVERE, error);
-      throw new IllegalArgumentException(error);
-    }
   }
 
   /**
@@ -142,7 +119,7 @@ public class AlchemyEndPoints {
    */
   private static void loadEndPointsFromJsonFile() {
     LOG.log(Level.FINE, "Parsing End Points JSON file ");
-    operations = new HashMap<String, Map<String, String>>();
+    OPERATIONS = new HashMap<String, Map<String, String>>();
     final JsonParser parser = new JsonParser();
 
     Reader fileReader = null;
@@ -163,7 +140,7 @@ public class AlchemyEndPoints {
           for (final Map.Entry<String, JsonElement> e : elt.getAsJsonObject().entrySet()) {
             records.put(e.getKey(), e.getValue().getAsString());
           }
-          operations.put(object.name(), records);
+          OPERATIONS.put(object.name(), records);
         }
       }
     } catch (final JsonParseException e) {
@@ -178,6 +155,23 @@ public class AlchemyEndPoints {
           LOG.log(Level.SEVERE, "Could not close file reader: " + FILE_PATH, e);
         }
       }
+    }
+  }
+
+  /**
+   * Gets the path based on the operation and input type.
+   * 
+   * @param operation the operation
+   * @param inputType the input type
+   * @return the string that represent the path based on the operation and input type
+   */
+  public static String getPath(AlchemyAPI operation, String inputType) {
+    if ((OPERATIONS.get(operation.name()) != null) && OPERATIONS.get(operation.name()).get(inputType) != null) {
+      return OPERATIONS.get(operation.name()).get(inputType);
+    } else {
+      final String error = "Operation: " + operation + ", inputType: " + inputType + " not found";
+      LOG.log(Level.SEVERE, error);
+      throw new IllegalArgumentException(error);
     }
   }
 

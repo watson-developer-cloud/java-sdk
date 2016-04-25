@@ -26,7 +26,7 @@ public class RecognizeFacesExample {
     service.setApiKey("<api_key>");
 
     File image = new File("src/test/resources/alchemy/obama.jpg");
-    ImageFaces faces = service.recognizeFaces(image, true);
+    ImageFaces faces = service.recognizeFaces(image, true).execute();
 
     System.out.println(faces);
   }

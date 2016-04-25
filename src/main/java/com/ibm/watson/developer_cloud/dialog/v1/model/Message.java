@@ -23,16 +23,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * The Class Message.
  */
 public class Message extends GenericModel {
-
-  /** The date time. */
   @SerializedName("date_time")
   private Date dateTime;
-
-  /** The from client. */
   @SerializedName("from_client")
   private String fromClient;
-
-  /** The text. */
   private String text;
 
   /**

@@ -66,7 +66,7 @@ public class Article extends GenericModel {
      * Gets the sentiment.
      *
      * @return The sentiment
-       */
+     */
     public Sentiment getSentiment() {
       return sentiment;
     }
@@ -102,7 +102,7 @@ public class Article extends GenericModel {
      * Sets the sentiment.
      *
      * @param sentiment The sentiment
-       */
+     */
     public void setSentiment(Sentiment sentiment) {
       this.sentiment = sentiment;
     }

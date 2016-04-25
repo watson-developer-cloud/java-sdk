@@ -22,18 +22,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * The Class Annotation.
  */
 public class Annotation extends GenericModel {
-
-  /** The concept. */
   private Concept concept;
-
-  /** The parts index. */
   @SerializedName("parts_index")
   private Integer partsIndex;
-
-  /** The score. */
   private Double score;
-
-  /** The text index. */
   @SerializedName("text_index")
   private List<Integer> textIndex;
 

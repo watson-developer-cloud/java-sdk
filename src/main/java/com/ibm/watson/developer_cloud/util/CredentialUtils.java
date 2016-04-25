@@ -26,7 +26,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.squareup.okhttp.Credentials;
+
+import okhttp3.Credentials;
 
 /**
  * The Class CredentialUtils.
@@ -42,14 +43,20 @@ public class CredentialUtils {
   /** The Constant CREDENTIALS. */
   private static final String CREDENTIALS = "credentials";
 
-  /** The Constant LOG. */
-  private static final Logger LOG = Logger.getLogger(CredentialUtils.class.getName());
+  /** The Constant log. */
+  private static final Logger log = Logger.getLogger(CredentialUtils.class.getName());
 
   /** The Constant PASSWORD. */
   private static final String PASSWORD = "password";
 
   /** The Constant PLAN. */
   private static final String PLAN = "plan";
+
+  /** The services. */
+  private static String services;
+
+  /** The Constant USERNAME. */
+  private static final String USERNAME = "username";
 
   /** The Constant PLAN_EXPERIMENTAL. */
   public static final String PLAN_EXPERIMENTAL = "experimental";
@@ -60,11 +67,49 @@ public class CredentialUtils {
   /** The Constant PLAN_STANDARD. */
   public static final String PLAN_STANDARD = "standard";
 
-  /** The services. */
-  private static String services;
+  /**
+   * Attempt to get the Base64-encoded API key through JNDI
+   * 
+   * @param serviceName Name of the bluemix service
+   * @return The encoded API Key
+   */
+  private static String getKeyUsingJNDI(String serviceName) {
+    try {
+      Class.forName("javax.naming.Context");
+      try {
+        Context context = new InitialContext();
+        String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
+        String apiKey = (String) context.lookup(lookupName);
+        return apiKey;
+      } catch (NamingException e) {
+        return null;
+      }
+    } catch (ClassNotFoundException exception) {
+      log.info("JNDI string lookups is not available.");
+    }
+    return null;
+  }
 
-  /** The Constant USERNAME. */
-  private static final String USERNAME = "username";
+  /**
+   * Gets the <b>VCAP_SERVICES</b> environment variable and return it as a {@link JsonObject}.
+   * 
+   * @return the VCAP_SERVICES as a {@link JsonObject}.
+   */
+  private static JsonObject getVCAPServices() {
+    final String envServices = services != null ? services : System.getenv("VCAP_SERVICES");
+    if (envServices == null)
+      return null;
+
+    JsonObject vcapServices = null;
+
+    try {
+      final JsonParser parser = new JsonParser();
+      vcapServices = (JsonObject) parser.parse(envServices);
+    } catch (final JsonSyntaxException e) {
+      log.log(Level.INFO, "Error parsing VCAP_SERVICES", e);
+    }
+    return vcapServices;
+  }
 
   /**
    * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists.
@@ -113,50 +158,6 @@ public class CredentialUtils {
       }
     }
     return null;
-  }
-
-  /**
-   * Attempt to get the Base64-encoded API key through JNDI
-   * 
-   * @param serviceName Name of the bluemix service
-   * @return The encoded API Key
-   */
-  private static String getKeyUsingJNDI(String serviceName) {
-    try {
-      Class.forName("javax.naming.Context");
-      try {
-        Context context = new InitialContext();
-        String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
-        String apiKey = (String) context.lookup(lookupName);
-        return apiKey;
-      } catch (NamingException e) {
-        return null;
-      }
-    } catch (ClassNotFoundException exception) {
-      LOG.info("JNDI string lookups is not available.");
-    }
-    return null;
-  }
-
-  /**
-   * Gets the <b>VCAP_SERVICES</b> environment variable and return it as a {@link JsonObject}.
-   * 
-   * @return the VCAP_SERVICES as a {@link JsonObject}.
-   */
-  private static JsonObject getVCAPServices() {
-    final String envServices = services != null ? services : System.getenv("VCAP_SERVICES");
-    if (envServices == null)
-      return null;
-
-    JsonObject vcapServices = null;
-
-    try {
-      final JsonParser parser = new JsonParser();
-      vcapServices = (JsonObject) parser.parse(envServices);
-    } catch (final JsonSyntaxException e) {
-      LOG.log(Level.INFO, "Error parsing VCAP_SERVICES", e);
-    }
-    return vcapServices;
   }
 
   /**

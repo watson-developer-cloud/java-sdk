@@ -21,11 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * 
  */
 public class Score extends GenericModel {
-
-  /** The concept. */
   private String concept;
-
-  /** The score. */
   private Double score;
 
   /**

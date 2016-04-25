@@ -14,9 +14,10 @@
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
 
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
+
 /**
- * Text column.
- * 
+ * Text column. See {@link TradeoffAnalytics}
  */
 public class TextColumn extends Column {
 

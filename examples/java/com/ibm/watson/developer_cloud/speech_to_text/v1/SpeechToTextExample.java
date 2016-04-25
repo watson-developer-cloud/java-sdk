@@ -29,7 +29,7 @@ public class SpeechToTextExample {
     service.setUsernameAndPassword("<username>", "<password>");
 
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
-    SpeechResults transcript = service.recognize(audio);
+    SpeechResults transcript = service.recognize(audio).execute();
 
     System.out.println(transcript);
   }

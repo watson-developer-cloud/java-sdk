@@ -78,7 +78,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
 
     final AlchemyLanguage language = new AlchemyLanguage();
     language.setApiKey(null);
-    language.getKeywords(params);
+    language.getKeywords(params).execute();
   }
 
   /**
@@ -88,7 +88,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testComboined() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final CombinedResults combined = service.getCombinedResults(params);
+    final CombinedResults combined = service.getCombinedResults(params).execute();
     Assert.assertNotNull(combined);
   }
 
@@ -99,7 +99,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testFeeds() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final Feeds feeds = service.getFeeds(params);
+    final Feeds feeds = service.getFeeds(params).execute();
     Assert.assertNotNull(feeds);
   }
 
@@ -112,7 +112,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     params
         .put(AlchemyLanguage.URL,
             "http://www.politico.com/blogs/media/2012/02/detroit-news-ed-upset-over-romney-edit-115247.html");
-    final DocumentAuthors authors = service.getAuthors(params);
+    final DocumentAuthors authors = service.getAuthors(params).execute();
     Assert.assertNotNull(authors);
   }
 
@@ -123,7 +123,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetConceptsHTML() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
-    final Concepts concepts = service.getConcepts(params);
+    final Concepts concepts = service.getConcepts(params).execute();
     Assert.assertNotNull(concepts);
     Assert.assertFalse(concepts.getConcepts().isEmpty());
   }
@@ -135,7 +135,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetConceptsText() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.TEXT, htmlExample);
-    final Concepts concepts = service.getConcepts(params);
+    final Concepts concepts = service.getConcepts(params).execute();
     Assert.assertNotNull(concepts);
     Assert.assertFalse(concepts.getConcepts().isEmpty());
   }
@@ -147,7 +147,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetConceptsUrl() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final Concepts concepts = service.getConcepts(params);
+    final Concepts concepts = service.getConcepts(params).execute();
     Assert.assertNotNull(concepts);
     Assert.assertFalse(concepts.getConcepts().isEmpty());
   }
@@ -160,7 +160,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
 
-    final Entities entities = service.getEntities(params);
+    final Entities entities = service.getEntities(params).execute();
     Assert.assertNotNull(entities);
     Assert.assertFalse(entities.getEntities().isEmpty());
   }
@@ -172,7 +172,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetEntitiesUrl() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final Entities entities = service.getEntities(params);
+    final Entities entities = service.getEntities(params).execute();
     Assert.assertNotNull(entities);
     Assert.assertFalse(entities.getEntities().isEmpty());
   }
@@ -189,7 +189,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
             + "ladies and gentlemen: -.*&^%$#@!@#$%^&*()";
     params.put(AlchemyLanguage.TEXT, text);
 
-    final Entities entities = service.getEntities(params);
+    final Entities entities = service.getEntities(params).execute();
     Assert.assertNotNull(entities);
     Assert.assertFalse(entities.getEntities().isEmpty());
   }
@@ -201,7 +201,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetLanguage() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://news.google.fr/");
-    final Language language = service.getLanguage(params);
+    final Language language = service.getLanguage(params).execute();
     Assert.assertNotNull(language);
   }
 
@@ -212,7 +212,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetPublicationDateHTML() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
-    final DocumentPublicationDate date = service.getPublicationDate(params);
+    final DocumentPublicationDate date = service.getPublicationDate(params).execute();
     Assert.assertNotNull(date);
     Assert.assertNotNull(date.getPublicationDate());
   }
@@ -224,7 +224,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetPublicationDateURL() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final DocumentPublicationDate date = service.getPublicationDate(params);
+    final DocumentPublicationDate date = service.getPublicationDate(params).execute();
     Assert.assertNotNull(date);
     Assert.assertNotNull(date.getPublicationDate());
   }
@@ -237,7 +237,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetRelationsHtml() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
-    final SAORelations relations = service.getRelations(params);
+    final SAORelations relations = service.getRelations(params).execute();
     Assert.assertNotNull(relations);
   }
 
@@ -248,7 +248,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetRelationsUrl() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final SAORelations relations = service.getRelations(params);
+    final SAORelations relations = service.getRelations(params).execute();
     Assert.assertNotNull(relations);
   }
 
@@ -260,7 +260,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
     params.put(AlchemyLanguage.TARGET, "Watson");
-    final DocumentSentiment documentSentiment = service.getSentiment(params);
+    final DocumentSentiment documentSentiment = service.getSentiment(params).execute();
     Assert.assertNotNull(documentSentiment);
   }
 
@@ -275,7 +275,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
             AlchemyLanguage.URL,
             "http://techcrunch.com/2012/03/01/keen-on-anand-rajaraman-how-walmart-wants-to-leapfrog-over-amazon-tctv/");
     params.put(AlchemyLanguage.TARGET, "Walmart");
-    final DocumentSentiment documentSentiment = service.getSentiment(params);
+    final DocumentSentiment documentSentiment = service.getSentiment(params).execute();
     Assert.assertNotNull(documentSentiment);
   }
 
@@ -290,7 +290,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
             AlchemyLanguage.URL,
             "http://techcrunch.com/2012/03/01/keen-on-anand-rajaraman-how-walmart-wants-to-leapfrog-over-amazon-tctv/");
     params.put(AlchemyLanguage.TARGETS, "Walmart|Walmart");
-    final DocumentSentiment documentSentiment = service.getSentiment(params);
+    final DocumentSentiment documentSentiment = service.getSentiment(params).execute();
     Assert.assertNotNull(documentSentiment);
   }
 
@@ -303,7 +303,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetTaxonomyHtml() throws IOException {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
-    final Taxonomies taxonomy = service.getTaxonomy(params);
+    final Taxonomies taxonomy = service.getTaxonomy(params).execute();
     Assert.assertNotNull(taxonomy);
     Assert.assertFalse(taxonomy.getTaxonomy().isEmpty());
   }
@@ -315,7 +315,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetTaxonomyUrl() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final Taxonomies taxonomy = service.getTaxonomy(params);
+    final Taxonomies taxonomy = service.getTaxonomy(params).execute();
     Assert.assertNotNull(taxonomy);
     Assert.assertFalse(taxonomy.getTaxonomy().isEmpty());
   }
@@ -327,7 +327,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetTextSentimentHtml() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
-    final DocumentSentiment documentSentiment = service.getSentiment(params);
+    final DocumentSentiment documentSentiment = service.getSentiment(params).execute();
     Assert.assertNotNull(documentSentiment);
   }
 
@@ -338,7 +338,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetTextSentimentUrl() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final DocumentSentiment documentSentiment = service.getSentiment(params);
+    final DocumentSentiment documentSentiment = service.getSentiment(params).execute();
     Assert.assertNotNull(documentSentiment);
   }
 
@@ -349,7 +349,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetTitle() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final DocumentTitle title = service.getTitle(params);
+    final DocumentTitle title = service.getTitle(params).execute();
     Assert.assertNotNull(title);
   }
 
@@ -362,7 +362,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
 
-    final Keywords keywords = service.getKeywords(params);
+    final Keywords keywords = service.getKeywords(params).execute();
     Assert.assertNotNull(keywords);
     Assert.assertFalse(keywords.getKeywords().isEmpty());
   }
@@ -374,7 +374,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetWordsUrl() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final Keywords keywords = service.getKeywords(params);
+    final Keywords keywords = service.getKeywords(params).execute();
     Assert.assertNotNull(keywords);
     Assert.assertFalse(keywords.getKeywords().isEmpty());
   }
@@ -386,7 +386,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testMicroformats() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://microformats.org/wiki/hcard");
-    final Microformats microformats = service.getMicroformats(params);
+    final Microformats microformats = service.getMicroformats(params).execute();
     Assert.assertNotNull(microformats);
   }
 
@@ -398,7 +398,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.test.com/");
     params.put(AlchemyLanguage.RAW, true);
-    final DocumentText text = service.getText(params);
+    final DocumentText text = service.getText(params).execute();
     Assert.assertNotNull(text);
   }
 
@@ -409,12 +409,12 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testText() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final DocumentText text = service.getText(params);
+    final DocumentText text = service.getText(params).execute();
     Assert.assertNotNull(text);
   }
 
   /**
-   * Test get dates from a url 
+   * Test get dates from a url.
    */
   @Test
   public void testGetDates() {
@@ -422,7 +422,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     params.put(AlchemyLanguage.TEXT, "Let's meet on January 4th, 2004");
     params.put(AlchemyLanguage.ANCHOR_DATE, "2013-12-16 20:06:18");
     
-    final Dates dates = service.getDates(params);
+    final Dates dates = service.getDates(params).execute();
     Assert.assertNotNull(dates);
     Assert.assertNotNull(dates.getDates());
     Assert.assertFalse(dates.getDates().isEmpty());
@@ -435,7 +435,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetEmotionHTML() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
-    final DocumentEmotion emotion = service.getEmotion(params);
+    final DocumentEmotion emotion = service.getEmotion(params).execute();
     Assert.assertNotNull(emotion);
     Assert.assertNotNull(emotion.getEmotion());
   }
@@ -447,7 +447,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetEmotionText() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.TEXT, htmlExample);
-    final DocumentEmotion emotion = service.getEmotion(params);
+    final DocumentEmotion emotion = service.getEmotion(params).execute();
     Assert.assertNotNull(emotion);
     Assert.assertNotNull(emotion.getEmotion());
   }
@@ -459,7 +459,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetEmotionUrl() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
-    final DocumentEmotion emotion = service.getEmotion(params);
+    final DocumentEmotion emotion = service.getEmotion(params).execute();
     Assert.assertNotNull(emotion);
     Assert.assertNotNull(emotion.getEmotion());
   }

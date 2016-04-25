@@ -31,15 +31,15 @@ public class DocumentConversionExample {
     File doc =  new File("src/test/resources/document_conversion/word-document-heading-input.doc");
 
     System.out.println("Convert html document to Answers");
-    Answers htmlToAnswers = service.convertDocumentToAnswer(html);
+    Answers htmlToAnswers = service.convertDocumentToAnswer(html).execute();
     System.out.println(htmlToAnswers);
 
     System.out.println("Convert pdf document to Normalized HTML");
-    String normalizedHTML = service.convertDocumentToHTML(pdf);
+    String normalizedHTML = service.convertDocumentToHTML(pdf).execute();
     System.out.println(normalizedHTML);
 
     System.out.println("Convert html document to Normalized Text");
-    String normalizedText = service.convertDocumentToText(doc);
+    String normalizedText = service.convertDocumentToText(doc).execute();
     System.out.println(normalizedText);
 
   }

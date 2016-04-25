@@ -32,6 +32,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
+import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 
 /**
  * Document Conversion unit tests.
@@ -86,11 +87,11 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testConvertDocument() throws URISyntaxException, IOException {
-    Answers convertedDoc = service.convertDocumentToAnswer(html, null);
+    Answers convertedDoc = service.convertDocumentToAnswer(html, null).execute();
     assertNotNull(convertedDoc);
 
     // Convert document with a specified media type
-    convertedDoc = service.convertDocumentToAnswer(html, TEXT_HTML);
+    convertedDoc = service.convertDocumentToAnswer(html, TEXT_HTML).execute();
     assertNotNull(convertedDoc);
   }
 
@@ -101,8 +102,8 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testConvertDocument_with_custom_config() throws Exception {
-    JsonObject customConfig = service.loadCustomConfig(new FileInputStream(RESOURCE + "custom_config.json"));
-    service.convertDocumentToAnswer(html, null, customConfig);
+    JsonObject customConfig = ConversionUtils.loadCustomConfig(new FileInputStream(RESOURCE + "custom_config.json"));
+    service.convertDocumentToAnswer(html, null, customConfig).execute();
 
     String entity = getRequestEntity();
     assertTrue(entity.contains("\"word\":"));
@@ -116,7 +117,7 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testConvertDocument_with_version_date() throws Exception {
-    service.convertDocumentToAnswer(html);
+    service.convertDocumentToAnswer(html).execute();
     mockServer.verify(request().withMethod(POST).withPath(CONVERT_DOCUMENT_PATH)
         .withQueryStringParameter(VERSION, DocumentConversion.VERSION_DATE_2015_12_01));
   }

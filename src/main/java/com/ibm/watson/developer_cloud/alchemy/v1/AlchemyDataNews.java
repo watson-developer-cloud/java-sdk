@@ -18,7 +18,9 @@ import java.util.Map;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.VolumeResult;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.AlchemyService;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
@@ -30,23 +32,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
  *      News</a>
  */
 public class AlchemyDataNews extends AlchemyService {
-
   private static final String JSON = "json";
-
-  /**
-   * The TimeFormat Enumeration.
-   */
-  public enum TimeFormat {
-
-    /** The Time format d. */
-    d, /** The Time format h. */
-    h, /** The Time format m. */
-    m, /** The Time format M. */
-    M, /** The Time format now. */
-    NOW, /** The Time format s. */
-    s, /** The Time format y. */
-    y
-  }
+  private static final String NEWS_END_POINT = "/data/GetNews";
 
   /** The Constant COUNT (value is "count"). */
   public static final String COUNT = "count";
@@ -56,10 +43,7 @@ public class AlchemyDataNews extends AlchemyService {
    */
   public static final String END = "end";
 
-  /** The Constant String NEWS_END_POINT. */
-  private static final String NEWS_END_POINT = "/data/GetNews";
-
-  /** The Constant String RETURN (value is "return") */
+  /** The Constant String RETURN (value is "return"). */
   public static final String RETURN = "return";
 
   /**
@@ -79,7 +63,7 @@ public class AlchemyDataNews extends AlchemyService {
    * @param parameters the parameters
    * @return the news documents
    */
-  public DocumentsResult getNewsDocuments(Map<String, Object> parameters) {
+  public ServiceCall<DocumentsResult> getNewsDocuments(Map<String, Object> parameters) {
     Validator.notNull(parameters.get(START), "start time cannot be null");
     Validator.notNull(parameters.get(END), "end time cannot be null");
     Validator.notNull(parameters.get(RETURN), "return cannot be null");
@@ -92,10 +76,10 @@ public class AlchemyDataNews extends AlchemyService {
 
     final RequestBuilder requestBuilder = RequestBuilder.get(NEWS_END_POINT);
     for (final String param : parameters.keySet()) {
-      requestBuilder.withQuery(param, parameters.get(param));
+      requestBuilder.query(param, parameters.get(param));
     }
 
-    return executeRequest(requestBuilder.build(), DocumentsResult.class);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(DocumentsResult.class));
   }
 
   /**
@@ -106,19 +90,19 @@ public class AlchemyDataNews extends AlchemyService {
    * @param timeSlice String the duration (in seconds) of each time slice.
    * @return {@link VolumeResult}
    */
-  public VolumeResult getVolume(final String start, final String end, final String timeSlice) {
+  public ServiceCall<VolumeResult> getVolume(final String start, final String end, final String timeSlice) {
     Validator.notNull(start, "start time cannot be null");
     Validator.notNull(end, "end time cannot be null");
 
     final RequestBuilder requestBuilder = RequestBuilder.get(NEWS_END_POINT);
 
-    requestBuilder.withQuery(START, start);
-    requestBuilder.withQuery(END, end);
-    requestBuilder.withQuery(OUTPUT_MODE, JSON);
+    requestBuilder.query(START, start);
+    requestBuilder.query(END, end);
+    requestBuilder.query(OUTPUT_MODE, JSON);
     if (timeSlice != null)
-      requestBuilder.withQuery(TIME_SLICE, timeSlice);
+      requestBuilder.query(TIME_SLICE, timeSlice);
 
-    return executeRequest(requestBuilder.build(), VolumeResult.class);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VolumeResult.class));
   }
 
 }

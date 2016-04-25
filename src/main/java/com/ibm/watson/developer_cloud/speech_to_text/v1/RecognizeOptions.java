@@ -13,11 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import org.apache.commons.lang3.Validate;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
-import com.squareup.okhttp.MediaType;
+import com.ibm.watson.developer_cloud.util.Validator;
+
+import okhttp3.MediaType;
 
 
 /**
@@ -25,12 +25,229 @@ import com.squareup.okhttp.MediaType;
  */
 public class RecognizeOptions {
 
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private String contentType;
+    private Boolean continuous;
+    private Integer inactivityTimeout;
+    private Boolean interimResults;
+    private String[] keywords;
+    private Double keywordsThreshold;
+    private Integer maxAlternatives;
+    private String model;
+    private String sessionId;
+    private Boolean timestamps;
+    private Double wordAlternativesThreshold;
+    private Boolean wordConfidence;
+
+    
+    private Builder(RecognizeOptions options) {
+      this.contentType = options.contentType;
+      this.continuous = options.continuous;
+      this.inactivityTimeout = options.inactivityTimeout;
+      this.interimResults = options.interimResults;
+      this.keywords = options.keywords;
+      this.keywordsThreshold = options.keywordsThreshold;
+      this.maxAlternatives = options.maxAlternatives;
+      this.model = options.model;
+      this.sessionId = options.sessionId;
+      this.timestamps = options.timestamps;
+      this.wordAlternativesThreshold = options.wordAlternativesThreshold;
+      this.wordConfidence = options.wordConfidence;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {}
+
+    /**
+     * Builds the profile options.
+     *
+     * @return the profile options
+     */
+    public RecognizeOptions build() {
+      return new RecognizeOptions(this);
+    }
+    
+    /**
+     * The format of the audio data specified as one of the following values: <br>
+     * <ul>
+     * <li><code>audio/flac</code> for Free Lossless Audio Codec (FLAC)</li>
+     * <li><code>audio/l16</code> for Linear 16-bit Pulse-Code Modulation (PCM)</li>
+     * <li><code>audio/wav</code> for Waveform Audio File Format (WAV)</li>
+     * <li><code>audio/ogg;codecs=opus</code> for Ogg format files that use the opus codec</li>
+     * </ul>
+     * .
+     *
+     * @param contentType the content type
+     * @return the recognize options
+     */
+    public Builder contentType(String contentType) {
+      Validator.isTrue(MediaType.parse(contentType) != null,
+          "contentType is not a valid mime audio format. Valid formats start with 'audio/'");
+      this.contentType = contentType;
+      return this;
+    }
+
+    /**
+     * If true, multiple final results that represent multiple consecutive phrases separated by pauses
+     * are returned. Otherwise, the recognition ends after first "end of speech" is detected.
+     * 
+     * @param continuous the continuous
+     * @return the recognize options
+     */
+    public Builder continuous(Boolean continuous) {
+      this.continuous = continuous;
+      return this;
+    }
+
+    /**
+     * Inactivity timeout.
+     * 
+     * @param inactivityTimeout the inactivity timeout
+     * @return the recognize options
+     */
+    public Builder inactivityTimeout(Integer inactivityTimeout) {
+      this.inactivityTimeout = inactivityTimeout;
+      return this;
+    }
+
+    /**
+     * If true, the service sends interim results for the transcription. Otherwise, the recognition
+     * ends after first "end of speech" is detected. The default is false.
+     * 
+     * @param interimResults the interim results
+     * @return the recognize options
+     */
+    public Builder interimResults(Boolean interimResults) {
+      this.interimResults = interimResults;
+      return this;
+    }
+
+    /**
+     * Specifies an array of keyword strings to be matched in the input audio. By default, the service
+     * does no keyword spotting.
+     * 
+     * 
+     * @param keywords the keywords
+     * @return the recognize options
+     */
+    public Builder keywords(String[] keywords) {
+      this.keywords = keywords;
+      return this;
+    }
+
+
+
+    /**
+     * Specifies a minimum level of confidence that the service must have to report a matching keyword
+     * in the input audio. Specify a probability value between 0 and 1 inclusive. A match must have at
+     * least the specified confidence to be returned. Omit the parameter or specify a value of null
+     * (the default) to spot no keywords. If you specify a valid threshold, you must also specify at
+     * least one keyword.
+     * 
+     * 
+     * @param keywordsThreshold the keywords threshold
+     * @return the recognize options
+     */
+    public Builder keywordsThreshold(Double keywordsThreshold) {
+      this.keywordsThreshold = keywordsThreshold;
+      return this;
+    }
+
+    /**
+     * Maximum number of alternative transcripts returned.
+     * 
+     * @param maxAlternatives the max alternatives
+     * @return the recognize options
+     */
+    public Builder maxAlternatives(Integer maxAlternatives) {
+      this.maxAlternatives = maxAlternatives;
+      return this;
+    }
+
+    /**
+     * Sets the model name used for the recognition.
+     * 
+     * @param model the model
+     * @return the recognize options
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
+
+    /**
+     * Sets the session id.
+     * 
+     * @param session the {@link SpeechSession}
+     * @return the recognize options
+     */
+    public Builder session(SpeechSession session) {
+      this.sessionId = session.getSessionId();
+      return this;
+    }
+
+    /**
+     * Sets session id.
+     * 
+     * @param sessionId the session id
+     * @return the recognize options
+     */
+    public Builder sessionId(String sessionId) {
+      this.sessionId = sessionId;
+      return this;
+    }
+
+    /**
+     * If true, time alignment for each word is returned.
+     * 
+     * @param timestamps the timestamps
+     * @return the recognize options
+     */
+    public Builder timestamps(Boolean timestamps) {
+      this.timestamps = timestamps;
+      return this;
+    }
+
+    /**
+     * Specifies a minimum level of confidence that the service must have to report a hypothesis for a
+     * word from the input audio. Specify a probability value between 0 and 1 inclusive. A hypothesis
+     * must have at least the specified confidence to be returned as a word alternative. Omit the
+     * parameter or specify a value of null (the default) to return no word alternatives.
+     * 
+     * 
+     * 
+     * @param wordAlternativesThreshold the wordAalternatives threshold
+     * @return the recognize options
+     */
+    public Builder wordAlternativesThreshold(Double wordAlternativesThreshold) {
+      this.wordAlternativesThreshold = wordAlternativesThreshold;
+      return this;
+    }
+
+
+    /**
+     * If true, confidence measure per word is returned if available.
+     * 
+     * @param wordConfidence the word confidence
+     * @return the recognize options
+     */
+    public Builder wordConfidence(Boolean wordConfidence) {
+      this.wordConfidence = wordConfidence;
+      return this;
+    }
+  }
 
   @SerializedName("content-type")
   private String contentType;
-  private Boolean continuous;
-  private Integer inactivityTimeout;
 
+  private Boolean continuous;
+
+  private Integer inactivityTimeout;
   @SerializedName("interim_results")
   private Boolean interimResults;
   private String[] keywords;
@@ -38,26 +255,28 @@ public class RecognizeOptions {
   @SerializedName("keywords_threshold")
   private Double keywordsThreshold;
   private Integer maxAlternatives;
+
   private String model;
   private String sessionId;
   private Boolean timestamps;
-
   @SerializedName("word_alternatives_threshold")
   private Double wordAlternativesThreshold;
-
   @SerializedName("word_confidence")
   private Boolean wordConfidence;
 
-  /**
-   * If true, multiple final results that represent multiple consecutive phrases separated by pauses
-   * are returned. Otherwise, the recognition ends after first "end of speech" is detected.
-   * 
-   * @param continuous the continuous
-   * @return the recognize options
-   */
-  public RecognizeOptions continuous(Boolean continuous) {
-    this.continuous = continuous;
-    return this;
+  private RecognizeOptions(Builder builder) {
+    this.contentType = builder.contentType;
+    this.continuous = builder.continuous;
+    this.inactivityTimeout = builder.inactivityTimeout;
+    this.interimResults = builder.interimResults;
+    this.keywords = builder.keywords;
+    this.keywordsThreshold = builder.keywordsThreshold;
+    this.maxAlternatives = builder.maxAlternatives;
+    this.model = builder.model;
+    this.sessionId = builder.sessionId;
+    this.timestamps = builder.timestamps;
+    this.wordAlternativesThreshold = builder.wordAlternativesThreshold;
+    this.wordConfidence = builder.wordConfidence;
   }
 
   /**
@@ -65,16 +284,17 @@ public class RecognizeOptions {
    * 
    * @return the contentType
    */
-  public String getContentType() {
+  public String contentType() {
     return contentType;
   }
+
 
   /**
    * Gets the continuous.
    * 
    * @return the continuous
    */
-  public Boolean getContinuous() {
+  public Boolean continuous() {
     return continuous;
   }
 
@@ -83,7 +303,7 @@ public class RecognizeOptions {
    * 
    * @return the inactivity timeout
    */
-  public Integer getInactivityTimeout() {
+  public Integer inactivityTimeout() {
     return inactivityTimeout;
   }
 
@@ -92,7 +312,7 @@ public class RecognizeOptions {
    * 
    * @return the interimResults
    */
-  public Boolean getInterimResults() {
+  public Boolean interimResults() {
     return interimResults;
   }
 
@@ -101,7 +321,7 @@ public class RecognizeOptions {
    * 
    * @return the keywords
    */
-  public String[] getKeywords() {
+  public String[] keywords() {
     return keywords;
   }
 
@@ -110,7 +330,7 @@ public class RecognizeOptions {
    * 
    * @return the keywordsThreshold
    */
-  public Double getKeywordsThreshold() {
+  public Double keywordsThreshold() {
     return keywordsThreshold;
   }
 
@@ -119,7 +339,7 @@ public class RecognizeOptions {
    * 
    * @return the maxAlternatives
    */
-  public Integer getMaxAlternatives() {
+  public Integer maxAlternatives() {
     return maxAlternatives;
   }
 
@@ -128,8 +348,17 @@ public class RecognizeOptions {
    * 
    * @return the model
    */
-  public String getModel() {
+  public String model() {
     return model;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
@@ -137,7 +366,7 @@ public class RecognizeOptions {
    * 
    * @return the sessionId
    */
-  public String getSessionId() {
+  public String sessionId() {
     return sessionId;
   }
 
@@ -146,7 +375,7 @@ public class RecognizeOptions {
    * 
    * @return the timestamps
    */
-  public Boolean getTimestamps() {
+  public Boolean timestamps() {
     return timestamps;
   }
 
@@ -155,7 +384,7 @@ public class RecognizeOptions {
    * 
    * @return the wordAlternativesThreshold
    */
-  public Double getWordAlternativesThreshold() {
+  public Double wordAlternativesThreshold() {
     return wordAlternativesThreshold;
   }
 
@@ -164,164 +393,7 @@ public class RecognizeOptions {
    * 
    * @return the wordConfidence
    */
-  public Boolean getWordConfidence() {
+  public Boolean wordConfidence() {
     return wordConfidence;
   }
-
-  /**
-   * Inactivity timeout.
-   * 
-   * @param inactivityTimeout the inactivity timeout
-   * @return the recognize options
-   */
-  public RecognizeOptions inactivityTimeout(Integer inactivityTimeout) {
-    this.inactivityTimeout = inactivityTimeout;
-    return this;
-  }
-
-  /**
-   * If true, the service sends interim results for the transcription. Otherwise, the recognition
-   * ends after first "end of speech" is detected. The default is false.
-   * 
-   * @param interimResults the interim results
-   * @return the recognize options
-   */
-  public RecognizeOptions interimResults(Boolean interimResults) {
-    this.interimResults = interimResults;
-    return this;
-  }
-
-  /**
-   * Specifies an array of keyword strings to be matched in the input audio. By default, the service
-   * does no keyword spotting.
-   * 
-   * 
-   * @param keywords the keywords
-   * @return the recognize options
-   */
-  public RecognizeOptions keywords(String[] keywords) {
-    this.keywords = keywords;
-    return this;
-  }
-
-
-
-  /**
-   * Specifies a minimum level of confidence that the service must have to report a matching keyword
-   * in the input audio. Specify a probability value between 0 and 1 inclusive. A match must have at
-   * least the specified confidence to be returned. Omit the parameter or specify a value of null
-   * (the default) to spot no keywords. If you specify a valid threshold, you must also specify at
-   * least one keyword.
-   * 
-   * 
-   * @param keywordsThreshold the keywords threshold
-   * @return the recognize options
-   */
-  public RecognizeOptions keywordsThreshold(Double keywordsThreshold) {
-    this.keywordsThreshold = keywordsThreshold;
-    return this;
-  }
-
-  /**
-   * Maximum number of alternative transcripts returned.
-   * 
-   * @param maxAlternatives the max alternatives
-   * @return the recognize options
-   */
-  public RecognizeOptions maxAlternatives(Integer maxAlternatives) {
-    this.maxAlternatives = maxAlternatives;
-    return this;
-  }
-
-  /**
-   * Sets the model name used for the recognition.
-   * 
-   * @param model the model
-   * @return the recognize options
-   */
-  public RecognizeOptions model(String model) {
-    this.model = model;
-    return this;
-  }
-
-  /**
-   * Sets the session id.
-   * 
-   * @param session the {@link SpeechSession}
-   * @return the recognize options
-   */
-  public RecognizeOptions session(SpeechSession session) {
-    this.sessionId = session.getSessionId();
-    return this;
-  }
-
-  /**
-   * Sets session id.
-   * 
-   * @param sessionId the session id
-   * @return the recognize options
-   */
-  public RecognizeOptions sessionId(String sessionId) {
-    this.sessionId = sessionId;
-    return this;
-  }
-
-  /**
-   * If true, time alignment for each word is returned.
-   * 
-   * @param timestamps the timestamps
-   * @return the recognize options
-   */
-  public RecognizeOptions timestamps(Boolean timestamps) {
-    this.timestamps = timestamps;
-    return this;
-  }
-
-  /**
-   * Specifies a minimum level of confidence that the service must have to report a hypothesis for a
-   * word from the input audio. Specify a probability value between 0 and 1 inclusive. A hypothesis
-   * must have at least the specified confidence to be returned as a word alternative. Omit the
-   * parameter or specify a value of null (the default) to return no word alternatives.
-   * 
-   * 
-   * 
-   * @param wordAlternativesThreshold the wordAalternatives threshold
-   * @return the recognize options
-   */
-  public RecognizeOptions wordAlternativesThreshold(Double wordAlternativesThreshold) {
-    this.wordAlternativesThreshold = wordAlternativesThreshold;
-    return this;
-  }
-
-  /**
-   * The format of the audio data specified as one of the following values: <br>
-   * <ul>
-   * <li><code>audio/flac</code> for Free Lossless Audio Codec (FLAC)</li>
-   * <li><code>audio/l16</code> for Linear 16-bit Pulse-Code Modulation (PCM)</li>
-   * <li><code>audio/wav</code> for Waveform Audio File Format (WAV)</li>
-   * <li><code>audio/ogg;codecs=opus</code> for Ogg format files that use the opus codec</li>
-   * </ul>
-   * 
-   * @param contentType the content type
-   * @return the recognize options
-   */
-  public RecognizeOptions contentType(String contentType) {
-    Validate.isTrue(MediaType.parse(contentType) != null,
-        "contentType is not a valid mime audio format. Valid formats start with 'audio/'");
-    this.contentType = contentType;
-    return this;
-  }
-
-
-  /**
-   * If true, confidence measure per word is returned if available.
-   * 
-   * @param wordConfidence the word confidence
-   * @return the recognize options
-   */
-  public RecognizeOptions wordConfidence(Boolean wordConfidence) {
-    this.wordConfidence = wordConfidence;
-    return this;
-  }
-
 }

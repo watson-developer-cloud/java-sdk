@@ -17,7 +17,7 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The decision problem with the objectives and options
+ * Decision problem with the objectives and options.
  */
 public class Dilemma extends GenericModel {
 
@@ -62,27 +62,4 @@ public class Dilemma extends GenericModel {
   public void setResolution(Resolution resolution) {
     this.resolution = resolution;
   }
-
-  /**
-   * With problem.
-   * 
-   * @param problem the problem
-   * @return the dilemma
-   */
-  public Dilemma withProblem(Problem problem) {
-    this.problem = problem;
-    return this;
-  }
-
-  /**
-   * With resolution.
-   * 
-   * @param resolution the resolution
-   * @return the dilemma
-   */
-  public Dilemma withResolution(Resolution resolution) {
-    this.resolution = resolution;
-    return this;
-  }
-
 }

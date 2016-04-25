@@ -22,7 +22,7 @@ public class LanguageTranslationExample {
     LanguageTranslation service = new LanguageTranslation();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    TranslationResult translationResult = service.translate("hello", Language.ENGLISH, Language.SPANISH);
+    TranslationResult translationResult = service.translate("hello", Language.ENGLISH, Language.SPANISH).execute();
 
     System.out.println(translationResult);
   }
