@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![codecov.io](https://codecov.io/github/watson-developer-cloud/java-sdk/coverage.svg?branch=master)](https://codecov.io/github/watson-developer-cloud/java-sdk?branch=master)
+[![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
+
 
 Java client library to use the [Watson Developer Cloud][wdc] services, a collection of REST
 APIs and SDKs that use cognitive computing to solve complex problems.
