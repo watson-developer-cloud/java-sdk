@@ -15,3 +15,5 @@ bin/
 *.ipr
 *.iws
 src/test/resources/.config.properties
+local.properties
+.metadata
