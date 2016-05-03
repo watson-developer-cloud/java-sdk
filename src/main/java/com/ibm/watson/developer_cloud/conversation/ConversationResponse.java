@@ -11,34 +11,28 @@
 /*                                                                   */
 /* ***************************************************************** */
 
-package com.ibm.watson.developer_cloud.conversation_helper.dialog;
+package com.ibm.watson.developer_cloud.conversation;
 
 import java.util.Map;
 
 /**
- * Request for {@link DialogService#message(String, DialogRequest)}.
+ * Response for {@link ConversationService#message(String, ConversationRequest)}.
  */
-public class DialogRequest {
-  private final Input input;
-  private final Map<String, Object> state;
+public class ConversationResponse {
+  private Map<String, Object> output;
+  private Map<String, Object> state;
 
   /**
-   * Creates a {@code DialogRequest} for the given {@code text} and {@code state}.
-   *
-   * @param text Text message for communicating with Dialogs v2 Service API.
-   * @param state State from a previous {@link DialogResponse} with the Dialog v2 Service API.
-   * Pass an empty map (e.g. {@code Collections.emptyMap()}) if no prior state exists.
+   * @return 'output' field from response.
    */
-  public DialogRequest(String text, Map<String, Object> state) {
-    input = new Input(text);
-    this.state = state;
+  public Map<String, Object> getOutput() {
+    return output;
   }
 
-  private static class Input {
-    String text;
-
-    Input(String text) {
-      this.text = text;
-    }
+  /**
+   * @return 'state' field from response.
+   */
+  public Map<String, Object> getState() {
+    return state;
   }
 }

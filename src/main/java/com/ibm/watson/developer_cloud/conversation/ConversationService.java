@@ -11,7 +11,7 @@
 /*                                                                   */
 /* ***************************************************************** */
 
-package com.ibm.watson.developer_cloud.conversation_helper.dialog;
+package com.ibm.watson.developer_cloud.conversation;
 
 import com.ibm.watson.developer_cloud.service.ServiceResponseException;
 import com.squareup.okhttp.Authenticator;
@@ -31,7 +31,7 @@ import retrofit.http.Path;
 /**
  * Thin wrapper around the Dialog v2 Service REST API.
  */
-public final class DialogService {
+public final class ConversationService {
   private static final String URL = "http://wea-orchestratorv2.mybluemix.net/conversation/";
   private final OkHttpClient wclient;
   private String endPoint;
@@ -40,7 +40,7 @@ public final class DialogService {
   /**
    * Returns an instance of the Dialog v2 Service using the service's default endpoint (URL).
    */
-  public DialogService() {
+  public ConversationService() {
     client = new OkHttpClient();
     setEndPoint(URL);
   }
@@ -85,18 +85,18 @@ public final class DialogService {
   }
 
   /**
-   * Sends a message to the service through a {@link DialogRequest} for the given
+   * Sends a message to the service through a {@link ConversationRequest} for the given
    * {@code workspaceId}. This call is blocking and performs networking on the thread it's invoked
    * from.
    *
    * @param workspaceId Workspace ID for the Dialogs v2 Service API.
    * @param body Body request parameter containing an embedded message
    *
-   * @return Response for the given {@code workspaceId} and {@link DialogRequest}.
+   * @return Response for the given {@code workspaceId} and {@link ConversationRequest}.
    */
-  public DialogResponse message(String workspaceId, DialogRequest body) {
+  public ConversationResponse message(String workspaceId, ConversationRequest body) {
     try {
-      Response<DialogResponse> response = createRestService().message(workspaceId, body).execute();
+      Response<ConversationResponse> response = createRestService().message(workspaceId, body).execute();
       if (response.isSuccess()) {
         return response.body();
       } else {
@@ -135,7 +135,7 @@ public final class DialogService {
 
   private interface RestService {
     @POST("v2/workspaces/{workspace_id}/message")
-    Call<DialogResponse> message(@Path("workspace_id") String workspaceId,
-        @Body DialogRequest body);
+    Call<ConversationResponse> message(@Path("workspace_id") String workspaceId,
+        @Body ConversationRequest body);
   }
 }

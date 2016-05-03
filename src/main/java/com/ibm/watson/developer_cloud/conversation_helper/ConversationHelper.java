@@ -13,9 +13,9 @@
 
 package com.ibm.watson.developer_cloud.conversation_helper;
 
-import com.ibm.watson.developer_cloud.conversation_helper.dialog.DialogRequest;
-import com.ibm.watson.developer_cloud.conversation_helper.dialog.DialogResponse;
-import com.ibm.watson.developer_cloud.conversation_helper.dialog.DialogService;
+import com.ibm.watson.developer_cloud.conversation.ConversationResponse;
+import com.ibm.watson.developer_cloud.conversation.ConversationService;
+import com.ibm.watson.developer_cloud.conversation.ConversationRequest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.service.exception.ServiceResponseException;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.RecognizeOptions;
@@ -43,44 +43,44 @@ public final class ConversationHelper {
 
   private final String workspaceId;
   private final Executor executor;
-  private final DialogService dialogService;
+  private final ConversationService conversationService;
   private final SpeechToText sttService;
   private final TextToSpeech ttsService;
 
-  private ConversationHelper(String workspaceId, Executor executor, DialogService dialogService,
+  private ConversationHelper(String workspaceId, Executor executor, ConversationService conversationService,
       SpeechToText sttService, TextToSpeech ttsService) {
     this.workspaceId = workspaceId;
     this.executor = executor;
-    this.dialogService = dialogService;
+    this.conversationService = conversationService;
     this.sttService = sttService;
     this.ttsService = ttsService;
   }
 
   /**
-   * Send a text message to the {@code DialogService}. This method is useful for when there is no
+   * Send a text message to the {@code ConversationService}. This method is useful for when there is no
    * prior state and a new {@code ConversationHelper} is starting.
    *
-   * @param message Text message that's sent to the {@code DialogService}.
-   * @param handler Notified when there is a response (or error) from the {@code DialogService}.
+   * @param message Text message that's sent to the {@code ConversationService}.
+   * @param handler Notified when there is a response (or error) from the {@code ConversationService}.
    */
-  public void sendText(String message, CompletionHandler<DialogResponse> handler) {
+  public void sendText(String message, CompletionHandler<ConversationResponse> handler) {
     sendText(message, Collections.<String, Object>emptyMap(), handler);
   }
 
   /**
-   * Send a text message and some existing state to the {@code DialogService}. Use this when an
+   * Send a text message and some existing state to the {@code ConversationService}. Use this when an
    * existing {@code ConversationHelper} is already active.
    *
-   * @param message Text message that's sent to the {@code DialogService}.
+   * @param message Text message that's sent to the {@code ConversationService}.
    * @param state State from a previous point in a {@code ConversationHelper}. This can be retrieved from
-   * the {@code DialogResponse} that's passed to a successful {@link CompletionHandler}.
-   * @param handler Notified when there's a response (or error) from the {@code DialogService}.
+   * the {@code ConversationResponse} that's passed to a successful {@link CompletionHandler}.
+   * @param handler Notified when there's a response (or error) from the {@code ConversationService}.
    */
   public void sendText(final String message, final Map<String, Object> state,
-      final CompletionHandler<DialogResponse> handler) {
-    invokeService(new ServiceRequester<DialogResponse>() {
-      @Override public DialogResponse request() throws ServiceResponseException {
-        return dialogService.message(workspaceId, new DialogRequest(message, state));
+      final CompletionHandler<ConversationResponse> handler) {
+    invokeService(new ServiceRequester<ConversationResponse>() {
+      @Override public ConversationResponse request() throws ServiceResponseException {
+        return conversationService.message(workspaceId, new ConversationRequest(message, state));
       }
     }, handler);
   }
@@ -238,7 +238,7 @@ public final class ConversationHelper {
    */
   public static class Builder {
     private final String workspaceId;
-    private DialogService dialogService;
+    private ConversationService conversationService;
     private SpeechToText sttService;
     private TextToSpeech ttsService;
     private Executor executor;
@@ -254,14 +254,14 @@ public final class ConversationHelper {
     }
 
     /**
-     * Provide a custom {@code DialogService} instance for the {@link ConversationHelper} to use. This is
+     * Provide a custom {@code ConversationService} instance for the {@link ConversationHelper} to use. This is
      * necessary for configuring a service with a custom URL or auth credentials, for instance.
      *
-     * @param dialogService Custom instance of {@code DialogService}.
+     * @param conversationService Custom instance of {@code ConversationService}.
      * @return This {@code Builder} for chaining.
      */
-    public Builder dialogService(DialogService dialogService) {
-      this.dialogService = dialogService;
+    public Builder dialogService(ConversationService conversationService) {
+      this.conversationService = conversationService;
       return this;
     }
 
@@ -308,12 +308,12 @@ public final class ConversationHelper {
      */
     public ConversationHelper build() {
       // provide sane defaults
-      if (dialogService == null) dialogService = new DialogService();
+      if (conversationService == null) conversationService = new ConversationService();
       if (sttService == null) sttService = new SpeechToText();
       if (ttsService == null) ttsService = new TextToSpeech();
       if (executor == null) executor = Executors.newSingleThreadExecutor();
 
-      return new ConversationHelper(workspaceId, executor, dialogService, sttService, ttsService);
+      return new ConversationHelper(workspaceId, executor, conversationService, sttService, ttsService);
     }
   }
 }
