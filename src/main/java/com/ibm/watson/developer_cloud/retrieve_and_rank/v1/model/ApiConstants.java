@@ -48,4 +48,13 @@ public class ApiConstants {
 
   /** The Constant String ERROR_MESSAGE. */
   public static final String ERROR_MESSAGE = "msg";
+
+  // Cluster stats constants
+  public static final String DISK_USAGE = "disk_usage";
+  public static final String MEMORY_USAGE = "memory_usage";
+  public static final String READABLE_USED_RESOURCES = "used";
+  public static final String READABLE_TOTAL_RESOURCES = "total";
+  public static final String USED_RESOURCES_IN_BYTES = "used_bytes";
+  public static final String TOTAL_RESOURCES_IN_BYTES = "total_bytes";
+  public static final String PERCENT_USED = "percent_used";
 }
