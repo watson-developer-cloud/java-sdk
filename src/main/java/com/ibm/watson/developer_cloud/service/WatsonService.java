@@ -298,7 +298,7 @@ public abstract class WatsonService {
    */
   protected void setAuthentication(Builder builder) {
     if (getApiKey() == null) {
-      throw new IllegalArgumentException("apiKey or username and password were not specified");
+    	return;
     }
     builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
   }

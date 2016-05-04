@@ -13,10 +13,11 @@
 
 package com.ibm.watson.developer_cloud.conversation_helper;
 
-import com.ibm.watson.developer_cloud.conversation.ConversationResponse;
-import com.ibm.watson.developer_cloud.conversation.ConversationService;
-import com.ibm.watson.developer_cloud.conversation.ConversationRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ConversationRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ConversationResponse;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.exception.ServiceResponseException;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
@@ -24,6 +25,8 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
+import com.ibm.watson.developer_cloud.util.CredentialUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +34,8 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Converse with the Watson Engagement Advisor (WEA) through text and voice. Operations on a
@@ -40,6 +45,8 @@ import java.util.concurrent.Executors;
  */
 public final class ConversationHelper {
   private static final String TAG = ConversationHelper.class.getName();
+  /** The Constant log. */
+  private static final Logger log = Logger.getLogger(CredentialUtils.class.getName());
 
   private final String workspaceId;
   private final Executor executor;
@@ -78,9 +85,11 @@ public final class ConversationHelper {
    */
   public void sendText(final String message, final Map<String, Object> state,
       final CompletionHandler<ConversationResponse> handler) {
+	  
+	  
     invokeService(new ServiceRequester<ConversationResponse>() {
       @Override public ConversationResponse request() throws ServiceResponseException {
-        return conversationService.message(workspaceId, new ConversationRequest(message, state));
+        return conversationService.message(workspaceId, new ConversationRequest(message, state)).execute();
       }
     }, handler);
   }
@@ -110,6 +119,7 @@ public final class ConversationHelper {
    */
   public void sendVoice(final File voice, final CompletionHandler<SpeechResults> handler,
       final RecognizeOptions options) {
+	 
     invokeService(new ServiceRequester<SpeechResults>() {
       @Override public SpeechResults request() throws ServiceResponseException {
         return sttService.recognize(voice, options).execute();
@@ -167,7 +177,7 @@ public final class ConversationHelper {
             try {
               audioStream.close();
             } catch (IOException e1) {
-              Log.e(TAG, e.getMessage());
+            	log.log(Level.SEVERE, e.getMessage(), e);
             }
           }
 
@@ -176,7 +186,7 @@ public final class ConversationHelper {
             try {
               audioStream.close();
             } catch (IOException e) {
-              Log.e(TAG, e.getMessage());
+              log.log(Level.SEVERE, e.getMessage(), e);
             }
           }
         });

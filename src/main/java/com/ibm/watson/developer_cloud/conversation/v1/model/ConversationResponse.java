@@ -11,34 +11,31 @@
 /*                                                                   */
 /* ***************************************************************** */
 
-package com.ibm.watson.developer_cloud.conversation;
+package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.Map;
 
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
- * Request for {@link ConversationService#message(String, ConversationRequest)}.
+ * Response for {@link ConversationService#message(String, ConversationRequest)}.
  */
-public class ConversationRequest {
-  private final Input input;
-  private final Map<String, Object> state;
+public class ConversationResponse extends GenericModel{
+  private Map<String, Object> output;
+  private Map<String, Object> state;
 
   /**
-   * Creates a {@code ConversationRequest} for the given {@code text} and {@code state}.
-   *
-   * @param text Text message for communicating with Dialogs v2 Service API.
-   * @param state State from a previous {@link ConversationResponse} with the Dialog v2 Service API.
-   * Pass an empty map (e.g. {@code Collections.emptyMap()}) if no prior state exists.
+   * @return 'output' field from response.
    */
-  public ConversationRequest(String text, Map<String, Object> state) {
-    input = new Input(text);
-    this.state = state;
+  public Map<String, Object> getOutput() {
+    return output;
   }
 
-  private static class Input {
-    String text;
-
-    Input(String text) {
-      this.text = text;
-    }
+  /**
+   * @return 'state' field from response.
+   */
+  public Map<String, Object> getState() {
+    return state;
   }
 }
