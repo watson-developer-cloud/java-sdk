@@ -54,13 +54,14 @@ public abstract class WatsonServiceTest {
   }
 
   /**
-   * Gets the default headers.
+   * Gets the default test headers.
    *
    * @return the default headers
    */
   protected Map<String, String> getDefaultHeaders() {
     Map<String, String> headers = new HashMap<String, String>();
     headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, String.valueOf(true));
+    headers.put(HttpHeaders.X_WATSON_TEST, String.valueOf(true));
     return headers;
   }
 
