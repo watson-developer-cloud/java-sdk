@@ -13,7 +13,9 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -310,6 +312,45 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
         .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_data\""),
             RequestBody.create(HttpMediaType.BINARY_FILE, answers))
+        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_metadata\""),
+            RequestBody.create(HttpMediaType.TEXT, contentJson.toString()))
+        .build();
+
+    final String path = String.format(PATH_RANK, rankerID);
+    final Request request = RequestBuilder.post(path).body(body).build();
+    return createServiceCall(request, ResponseConverterUtils.getObject(Ranking.class));
+  }
+
+  /**
+   * Gets and returns the ranked answers.
+   *
+   * @param rankerID The ranker ID
+   * @param answers The CSV input that contains the search results that you want to rank.
+   * @param topAnswers The number of top answers needed, default is 10
+   * @return the ranking of the answers
+   */
+  public ServiceCall<Ranking> rank(final String rankerID, final InputStream answers,
+      Integer topAnswers) {
+    Validator.isTrue(rankerID != null && !rankerID.isEmpty(), "rankerID cannot be null or empty");
+    Validator.notNull(answers, "answers file cannot be null");
+
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty(ANSWERS, (topAnswers != null && topAnswers > 0) ? topAnswers : 10);
+
+    final ByteArrayOutputStream answersBuffer = new ByteArrayOutputStream();
+    int bytesRead;
+    final byte[] data = new byte[10000];
+    try {
+      while ((bytesRead = answers.read(data, 0, data.length)) != -1) {
+        answersBuffer.write(data, 0, bytesRead);
+      }
+    } catch (final IOException e) {
+      throw new RuntimeException("Error reading search results input", e);
+    }
+
+    final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_data\""),
+            RequestBody.create(HttpMediaType.BINARY_FILE, answersBuffer.toByteArray()))
         .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_metadata\""),
             RequestBody.create(HttpMediaType.TEXT, contentJson.toString()))
         .build();
