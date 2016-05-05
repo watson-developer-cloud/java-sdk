@@ -31,6 +31,7 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Rankers;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterStats;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrConfigs;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.ZipUtils;
@@ -281,6 +282,22 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   public ServiceCall<SolrClusters> getSolrClusters() {
     final Request request = RequestBuilder.get(PATH_SOLR_CLUSTERS).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(SolrClusters.class));
+  }
+
+  /**
+   * Gathers memory and disk usage stats from a Solr cluster
+   *
+   * @param solrClusterId the ID of the Solr cluster to gather stats from
+   * @return stats about the Solr cluster
+   */
+  public ServiceCall<SolrClusterStats> getSolrClusterStats(String solrClusterId) {
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
+        "solrClusterId cannot be null or empty");
+
+    final Request request =
+        RequestBuilder.get(String.format(PATH_GET_SOLR_CLUSTER, solrClusterId) + "/stats").build();
+    return createServiceCall(request, ResponseConverterUtils.getObject(SolrClusterStats.class));
+
   }
 
   /**
