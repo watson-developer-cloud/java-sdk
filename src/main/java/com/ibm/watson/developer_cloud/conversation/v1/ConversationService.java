@@ -31,7 +31,7 @@ import okhttp3.Response;
 public final class ConversationService extends WatsonService{
   private static final String URL = "https://gateway.watsonplatform.net/conversation/conversation-experimental/api";
   private static final String SERVICE_NAME = "conversation";
-  private final static String MESSAGE_PATH = "/v1/workspaces/{id}/message";
+  private final static String MESSAGE_PATH = "/v2/rest/workspaces/{id}/message";   //"/v1/workspaces/{id}/message";
 
   /**
    * Returns an instance of the Dialog v2 Service using the service's default endpoint (URL).
