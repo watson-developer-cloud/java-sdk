@@ -185,4 +185,7 @@ public interface HttpHeaders {
   /** Allow Watson to collect the payload. */
   String X_WATSON_LEARNING_OPT_OUT = "X-Watson-Learning-Opt-Out";
 
+  /** Mark Bluemix interactions from tests */
+  String X_WATSON_TEST = "X-Watson-Test";
+
 }
