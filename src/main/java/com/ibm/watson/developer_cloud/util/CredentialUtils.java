@@ -74,20 +74,27 @@ public class CredentialUtils {
    * @return The encoded API Key
    */
   private static String getKeyUsingJNDI(String serviceName) {
-    try {
-      Class.forName("javax.naming.Context");
-      try {
-        Context context = new InitialContext();
-        String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
-        String apiKey = (String) context.lookup(lookupName);
-        return apiKey;
-      } catch (NamingException e) {
-        return null;
-      }
-    } catch (ClassNotFoundException exception) {
+    if (!isClassAvailable("javax.naming.Context")) {
       log.info("JNDI string lookups is not available.");
+      return null;
     }
-    return null;
+    try {
+      Context context = new InitialContext();
+      String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
+      String apiKey = (String) context.lookup(lookupName);
+      return apiKey;
+    } catch (NamingException e) {
+      return null;
+    }
+  }
+
+  private static boolean isClassAvailable(String className) {
+    try {
+      Class.forName(className);
+      return true;
+    } catch (Throwable e) {
+      return false;
+    }
   }
 
   /**
