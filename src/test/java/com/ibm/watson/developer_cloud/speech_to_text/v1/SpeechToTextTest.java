@@ -106,6 +106,23 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     service.deleteSession(null).execute();
   }
 
+
+  /**
+   * Test PCM without rate
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testPcmWithoutRate() {
+    new RecognizeOptions.Builder().contentType(HttpMediaType.AUDIO_RAW).build();
+  }
+  
+  /**
+   * Test PCM with rate
+   */
+  @Test
+  public void testPcmWithRate() {
+    new RecognizeOptions.Builder().contentType(HttpMediaType.AUDIO_RAW + "; rate=44000").build();
+  }
+  
   /**
    * Test get model.
    */

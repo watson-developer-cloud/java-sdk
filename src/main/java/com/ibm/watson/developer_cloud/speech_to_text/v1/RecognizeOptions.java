@@ -14,6 +14,7 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -42,7 +43,7 @@ public class RecognizeOptions {
     private Double wordAlternativesThreshold;
     private Boolean wordConfidence;
 
-    
+
     private Builder(RecognizeOptions options) {
       this.contentType = options.contentType;
       this.continuous = options.continuous;
@@ -71,12 +72,12 @@ public class RecognizeOptions {
     public RecognizeOptions build() {
       return new RecognizeOptions(this);
     }
-    
+
     /**
      * The format of the audio data specified as one of the following values: <br>
      * <ul>
      * <li><code>audio/flac</code> for Free Lossless Audio Codec (FLAC)</li>
-     * <li><code>audio/l16</code> for Linear 16-bit Pulse-Code Modulation (PCM)</li>
+     * <li><code>audio/l16</code> for Linear 16-bit Pulse-Code Modulation (PCM).</li>
      * <li><code>audio/wav</code> for Waveform Audio File Format (WAV)</li>
      * <li><code>audio/ogg;codecs=opus</code> for Ogg format files that use the opus codec</li>
      * </ul>
@@ -84,17 +85,24 @@ public class RecognizeOptions {
      *
      * @param contentType the content type
      * @return the recognize options
+     * @throws IllegalArgumentException when contentType is null or invalid
+     * @see Use if audio is PCM
      */
     public Builder contentType(String contentType) {
       Validator.isTrue(MediaType.parse(contentType) != null,
           "contentType is not a valid mime audio format. Valid formats start with 'audio/'");
+
+      Validator.isTrue(contentType.contains(HttpMediaType.AUDIO_RAW) && contentType.contains("rate"),
+          "When using PCM the audio rate should be specified.");
+
       this.contentType = contentType;
       return this;
     }
 
+
     /**
-     * If true, multiple final results that represent multiple consecutive phrases separated by pauses
-     * are returned. Otherwise, the recognition ends after first "end of speech" is detected.
+     * If true, multiple final results that represent multiple consecutive phrases separated by
+     * pauses are returned. Otherwise, the recognition ends after first "end of speech" is detected.
      * 
      * @param continuous the continuous
      * @return the recognize options
@@ -128,8 +136,8 @@ public class RecognizeOptions {
     }
 
     /**
-     * Specifies an array of keyword strings to be matched in the input audio. By default, the service
-     * does no keyword spotting.
+     * Specifies an array of keyword strings to be matched in the input audio. By default, the
+     * service does no keyword spotting.
      * 
      * 
      * @param keywords the keywords
@@ -143,11 +151,11 @@ public class RecognizeOptions {
 
 
     /**
-     * Specifies a minimum level of confidence that the service must have to report a matching keyword
-     * in the input audio. Specify a probability value between 0 and 1 inclusive. A match must have at
-     * least the specified confidence to be returned. Omit the parameter or specify a value of null
-     * (the default) to spot no keywords. If you specify a valid threshold, you must also specify at
-     * least one keyword.
+     * Specifies a minimum level of confidence that the service must have to report a matching
+     * keyword in the input audio. Specify a probability value between 0 and 1 inclusive. A match
+     * must have at least the specified confidence to be returned. Omit the parameter or specify a
+     * value of null (the default) to spot no keywords. If you specify a valid threshold, you must
+     * also specify at least one keyword.
      * 
      * 
      * @param keywordsThreshold the keywords threshold
@@ -214,10 +222,10 @@ public class RecognizeOptions {
     }
 
     /**
-     * Specifies a minimum level of confidence that the service must have to report a hypothesis for a
-     * word from the input audio. Specify a probability value between 0 and 1 inclusive. A hypothesis
-     * must have at least the specified confidence to be returned as a word alternative. Omit the
-     * parameter or specify a value of null (the default) to return no word alternatives.
+     * Specifies a minimum level of confidence that the service must have to report a hypothesis for
+     * a word from the input audio. Specify a probability value between 0 and 1 inclusive. A
+     * hypothesis must have at least the specified confidence to be returned as a word alternative.
+     * Omit the parameter or specify a value of null (the default) to return no word alternatives.
      * 
      * 
      * 
