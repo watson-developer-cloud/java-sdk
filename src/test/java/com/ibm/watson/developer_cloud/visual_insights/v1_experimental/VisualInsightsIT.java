@@ -12,7 +12,7 @@
  * the License.
  */
 
-package com.ibm.watson.developer_cloud.visual_insights.v1;
+package com.ibm.watson.developer_cloud.visual_insights.v1_experimental;
 
 import java.io.File;
 

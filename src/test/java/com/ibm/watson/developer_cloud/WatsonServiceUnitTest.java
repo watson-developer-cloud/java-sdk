@@ -15,12 +15,15 @@ package com.ibm.watson.developer_cloud;
 
 import static org.mockserver.integration.ClientAndServer.startClientAndServer;
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+
+import okhttp3.mockwebserver.MockWebServer;
 
 /**
  * Utility class to Mock the Watson Services.
@@ -73,6 +76,16 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
   @After
   public void tearDown() {
     mockServer.stop();
+  }
+
+  /**
+   * Gets the mock web server url.
+   *
+   * @param server the {@link MockWebServer}
+   * @return the server url
+   */
+  protected String getMockWebServerUrl(MockWebServer server) {
+    return StringUtils.chop(server.url("/").toString());
   }
 
 }
