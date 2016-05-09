@@ -140,11 +140,12 @@ public class AlchemyLanguage extends AlchemyService {
   /** The Constant ANCHOR_DATE. */
   public static final String ANCHOR_DATE = "anchorDate";
 
-  // language to be used with request
   private LanguageSelection language = LanguageSelection.DETECT;
 
   private static final SimpleDateFormat anchorDateFormat =
       new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+  private static final String LANGUAGE = "language";
 
   /**
    * Execute the request and return the POJO that represent the response.
@@ -168,8 +169,8 @@ public class AlchemyLanguage extends AlchemyService {
     // Return json
     params.put(OUTPUT_MODE, "json");
 
-    if (language != LanguageSelection.DETECT) {
-      params.put("language", language.toString().toLowerCase());
+    if (!params.containsKey(LANGUAGE) && language != LanguageSelection.DETECT) {
+      params.put(LANGUAGE, language.toString().toLowerCase());
     }
 
     // Prevent jsonp to be returned
