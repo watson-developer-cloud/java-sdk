@@ -17,8 +17,6 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -38,20 +36,6 @@ public class RequestUtils {
    * real service end point.
    */
   public static final String DEFAULT_ENDPOINT = "http://do.not.use";
-
-  private static final String HTML_PATTERN = "<(\"[^\"]*\"|'[^']*'|[^'\">])*>";
-  private static final Pattern htmlPattern = Pattern.compile(HTML_PATTERN);
-
-  /**
-   * Checks if the given text has HTML tags
-   * 
-   * @param text the text
-   * @return true if text has HTML tags
-   */
-  public static boolean hasHTMLTags(String text) {
-    Matcher matcher = htmlPattern.matcher(text);
-    return matcher.matches();
-  }
 
   /**
    * Encode a string into a valid URL string

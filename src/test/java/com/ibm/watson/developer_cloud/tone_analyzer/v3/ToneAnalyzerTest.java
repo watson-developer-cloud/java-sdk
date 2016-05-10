@@ -65,7 +65,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testGetToneWithNull() {
-    service.getTone(null);
+    service.getTone(null, false, null);
   }
 
 
@@ -90,7 +90,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     service.setEndPoint(getMockWebServerUrl(server));
 
     // execute request
-    ToneAnalysis serviceResponse = service.getTone(text, null).execute();
+    ToneAnalysis serviceResponse = service.getTone(text, false, null).execute();
 
     // first request
     RecordedRequest request = server.takeRequest();
@@ -99,19 +99,21 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     assertEquals(path, request.getPath());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertEquals(serviceResponse, mockResponse);
+    assertEquals(HttpMediaType.APPLICATION_JSON, request.getHeader(HttpHeaders.ACCEPT));
 
     // second request
-    serviceResponse = service.getTone("<html>" + text + "</html>").execute();
-    request = server.takeRequest();  
+    serviceResponse = service.getTone(text, true, null).execute();
+    request = server.takeRequest();
+    System.out.println(request.getHeaders());
     assertEquals(path, request.getPath());
     assertEquals(HttpMediaType.TEXT_HTML, request.getHeader(HttpHeaders.ACCEPT));
-    
+
     // third request
-    serviceResponse = service.getTone(text, null, Tone.EMOTION, Tone.LANGUAGE, Tone.SOCIAL).execute();
+    serviceResponse = service.getTone(text, false, null, Tone.EMOTION, Tone.LANGUAGE, Tone.SOCIAL).execute();
     request = server.takeRequest();
     path = path + "&tones=emotion%2Clanguage%2Csocial";
     assertEquals(path, request.getPath());
-    
+
 
     // Shut down the server.
     server.shutdown();
