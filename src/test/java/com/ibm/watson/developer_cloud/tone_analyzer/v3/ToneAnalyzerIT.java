@@ -13,7 +13,9 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -51,16 +53,29 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   }
 
   /**
-   * Test get all tone.
+   * Test get tone from text.
    */
   @Test
-  public void testGetAllTone() {
-    final ToneAnalysis tone = service.getTone(text, true, Tone.EMOTION, Tone.LANGUAGE, Tone.SOCIAL).execute();
-    Assert.assertNotNull(tone);
-    Assert.assertNotNull(tone.getDocumentTone());
-    Assert.assertEquals(3, tone.getDocumentTone().getTones().size());
-    Assert.assertNotNull(tone.getSentencesTone());
-    Assert.assertEquals(4, tone.getSentencesTone().size());
-    Assert.assertEquals("I know the times are difficult!", tone.getSentencesTone().get(0).getText());
+  public void testGetToneFromText() {
+    final ToneAnalysis tone = service.getTone(text, false, true, Tone.EMOTION, Tone.LANGUAGE, Tone.SOCIAL).execute();
+    assertToneAnalysis(tone);
+  }
+  
+  /**
+   * Test get tone from html
+   */
+  @Test
+  public void testGetToneFromHtml() {
+    final ToneAnalysis tone = service.getTone(text, true, true, Tone.EMOTION, Tone.LANGUAGE, Tone.SOCIAL).execute();
+    assertToneAnalysis(tone);
+  }
+
+  private void assertToneAnalysis(final ToneAnalysis tone) {
+    assertNotNull(tone);
+    assertNotNull(tone.getDocumentTone());
+    assertEquals(3, tone.getDocumentTone().getTones().size());
+    assertNotNull(tone.getSentencesTone());
+    assertEquals(4, tone.getSentencesTone().size());
+    assertEquals("I know the times are difficult!", tone.getSentencesTone().get(0).getText());
   }
 }
