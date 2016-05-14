@@ -11,51 +11,152 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.visual_recognition.v2_beta.model;
+package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.VisualRecognition;
 
 /**
- * Classifier used by the {@link VisualRecognition} V2 service.
+ * Classifier used by the {@link VisualRecognition} service.
  */
 public class VisualClassifier extends GenericModel {
 
-  private Date created;
+  /**
+   * Classifier.
+   */
+  public class VisualClass {
+    @SerializedName("class")
+    private String name;
+    private Double score;
+    @SerializedName("type_hierarchy")
+    private String typeHierarchy;
+
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
+    public String getName() {
+      return name;
+    }
+
+    /**
+     * Sets the name.
+     *
+     * @param name the new name
+     */
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    /**
+     * Gets the score.
+     *
+     * @return the score
+     */
+    public Double getScore() {
+      return score;
+    }
+
+    /**
+     * Sets the score.
+     *
+     * @param score the new score
+     */
+    public void setScore(Double score) {
+      this.score = score;
+    }
+
+    /**
+     * Gets the type hierarchy.
+     *
+     * @return the type hierarchy
+     */
+    public String getTypeHierarchy() {
+      return typeHierarchy;
+    }
+
+    /**
+     * Sets the type hierarchy.
+     *
+     * @param typeHierarchy the new type hierarchy
+     */
+    public void setTypeHierarchy(String typeHierarchy) {
+      this.typeHierarchy = typeHierarchy;
+    }
+  }
+
   @SerializedName("classifier_id")
   private String id;
   private String name;
+  private List<VisualClass> classes;
+
   private String owner;
-  
+  private Date created;
+  private String explanation;
   private Status status;
+
+
 
   /**
    * {@link VisualClassifier} Status.
    */
   public enum Status {
+    
+    /** The available. */
     @SerializedName("Available") AVAILABLE,
+    
+    /** The failed. */
     @SerializedName("Failed") FAILED,
+    
+    /** The non existent. */
     @SerializedName("Non Existent") NON_EXISTENT,
+    
+    /** The training. */
     @SerializedName("Training") TRAINING,
+    
+    /** The unavailable. */
     @SerializedName("Unavailable") UNAVAILABLE
   }
   
   /**
-   * Instantiates a new visual classifier.
+   * Gets the explanation.
+   *
+   * @return the explanation
    */
-  public VisualClassifier() {}
+  public String getExplanation() {
+    return explanation;
+  }
 
   /**
-   * Instantiates a new visual classifier.
-   * 
-   * @param id the id
+   * Gets the status.
+   *
+   * @return the status
    */
-  public VisualClassifier(String id) {
-    this();
-    this.id = id;
+  public Status getStatus() {
+    return status;
+  }
+
+  /**
+   * Sets the status.
+   *
+   * @param status the new status
+   */
+  public void setStatus(Status status) {
+    this.status = status;
+  }
+
+  /**
+   * Sets the explanation.
+   *
+   * @param explanation the new explanation
+   */
+  public void setExplanation(String explanation) {
+    this.explanation = explanation;
   }
 
   /**
@@ -130,11 +231,21 @@ public class VisualClassifier extends GenericModel {
     this.owner = owner;
   }
 
-  public Status getStatus() {
-    return status;
+  /**
+   * Gets the classes.
+   *
+   * @return the classes
+   */
+  public List<VisualClass> getClasses() {
+    return classes;
   }
 
-  public void setStatus(Status status) {
-    this.status = status;
+  /**
+   * Sets the classes.
+   *
+   * @param classes the new classes
+   */
+  public void setClasses(List<VisualClass> classes) {
+    this.classes = classes;
   }
 }

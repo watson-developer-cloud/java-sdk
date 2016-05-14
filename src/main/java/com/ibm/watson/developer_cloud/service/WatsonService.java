@@ -22,9 +22,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
@@ -59,6 +57,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
+import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication
@@ -76,19 +75,19 @@ public abstract class WatsonService {
   private static final String MESSAGE_ERROR_3 = "message";
   private static final String MESSAGE_ERROR_2 = "error_message";
   private static final String BASIC = "Basic ";
-  private static final Logger log = Logger.getLogger(WatsonService.class.getName());
+  private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
   private String apiKey;
   private final OkHttpClient client;
   private String endPoint;
   private final String name;
   private Headers defaultHeaders = null;
-  
+
   /** The Constant MESSAGE_CODE. */
   protected static final String MESSAGE_CODE = "code";
-  
+
   /** The Constant MESSAGE_ERROR. */
   protected static final String MESSAGE_ERROR = "error";
-  
+
   /** The Constant VERSION. */
   protected static final String VERSION = "version";
 
@@ -121,6 +120,16 @@ public abstract class WatsonService {
     builder.writeTimeout(60, TimeUnit.SECONDS);
     builder.readTimeout(90, TimeUnit.SECONDS);
 
+    // add logging
+    HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new okhttp3.logging.HttpLoggingInterceptor.Logger() {
+      @Override
+      public void log(String message) {
+        LOG.fine(message);
+      }
+    });
+    logging.setLevel(okhttp3.logging.HttpLoggingInterceptor.Level.BODY);
+    builder.addInterceptor(logging);
+    
     return builder.build();
   }
 
@@ -220,10 +229,8 @@ public abstract class WatsonService {
     Type tokenType = new TypeToken<String>() {}.getType();
     HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, AUTHORIZATION).build();
     Request request = RequestBuilder.get(url + PATH_AUTHORIZATION_V1_TOKEN)
-        .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN)
-        .query(URL, getEndPoint())
-        .build();
-    
+        .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN).query(URL, getEndPoint()).build();
+
     ResponseConverter<String> converter = ResponseConverterUtils.getGenericObject(tokenType, TOKEN);
     return createServiceCall(request, converter);
   }
@@ -253,10 +260,8 @@ public abstract class WatsonService {
       } else if (jsonObject.has(MESSAGE_ERROR_3)) {
         error = jsonObject.get(MESSAGE_ERROR_3).getAsString();
       }
-    } catch (final JsonIOException e) {
-      // Ignore JsonIOException and use fallback String version of response
-    } catch (final JsonSyntaxException e) {
-      // Ignore JsonSyntaxException and use fallback String version of response
+    } catch (final Exception e) {
+      // Ignore any kind of exception parsing the json and use fallback String version of response
     }
 
     return error;
@@ -365,10 +370,8 @@ public abstract class WatsonService {
     // There was a Client Error 4xx or a Server Error 5xx
     // Get the error message and create the exception
     final String error = getErrorMessage(response);
-    log.log(Level.SEVERE, response.request().method() +
-        " "+ response.request().url().toString() + 
-        ", status: " + response.code() + 
-        ", error: " + error);
+    LOG.log(Level.SEVERE, response.request().method() + " " + response.request().url().toString() + ", status: "
+        + response.code() + ", error: " + error);
 
     switch (response.code()) {
       case HttpStatus.BAD_REQUEST: // HTTP 400

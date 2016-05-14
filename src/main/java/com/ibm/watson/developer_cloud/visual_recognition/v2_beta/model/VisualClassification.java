@@ -33,7 +33,6 @@ public class VisualClassification extends GenericModel {
   public class Image {
 
     private String image;
-
     private List<Score> scores;
 
     /**
