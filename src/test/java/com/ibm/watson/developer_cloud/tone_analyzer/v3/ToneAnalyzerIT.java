@@ -30,7 +30,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
 
   /** The service. */
   private ToneAnalyzer service;
-  private final String text = "I know the times are difficult! Our sales have been "
+  private String text = "I know the times are difficult! Our sales have been "
       + "disappointing for the past three quarters for our data analytics "
       + "product suite. We have a competitive data analytics product "
       + "suite in the industry. But we need to do our job selling it! ";
@@ -57,20 +57,24 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
    */
   @Test
   public void testGetToneFromText() {
-    final ToneAnalysis tone = service.getTone(text, false, true, Tone.EMOTION, Tone.LANGUAGE, Tone.SOCIAL).execute();
+    ToneOptions options =
+        new ToneOptions.Builder().addTone(Tone.EMOTION).addTone(Tone.LANGUAGE).addTone(Tone.SOCIAL).build();
+
+    ToneAnalysis tone = service.getTone(text, options).execute();
     assertToneAnalysis(tone);
   }
-  
+
   /**
    * Test get tone from html
    */
   @Test
   public void testGetToneFromHtml() {
-    final ToneAnalysis tone = service.getTone(text, true, true, Tone.EMOTION, Tone.LANGUAGE, Tone.SOCIAL).execute();
+    ToneOptions options = new ToneOptions.Builder().html(true).build();
+    ToneAnalysis tone = service.getTone(text, options).execute();
     assertToneAnalysis(tone);
   }
 
-  private void assertToneAnalysis(final ToneAnalysis tone) {
+  private void assertToneAnalysis(ToneAnalysis tone) {
     assertNotNull(tone);
     assertNotNull(tone.getDocumentTone());
     assertEquals(3, tone.getDocumentTone().getTones().size());
