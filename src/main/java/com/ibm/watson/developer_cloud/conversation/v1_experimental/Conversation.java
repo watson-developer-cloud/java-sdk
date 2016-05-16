@@ -30,22 +30,11 @@ import okhttp3.Response;
  * Thin wrapper around the Conversation Service REST API.
  */
 public final class Conversation extends WatsonService {
-  //An enum to provide easy access to the version names of the Conversation service
-  public static enum API_VERSION {
-    V2016_01_24("2016_01_24");
-    private String version;
-
-    API_VERSION(String value) {
-      this.version = value;
-    }
-
-    public String value() {
-      return this.version;
-    }
-  }
-
+  
+  public static final String VERSION_DATE_2016_01_24 = "2016-01-24";
   // TODO As API updates occur - update this var!
-  private static API_VERSION LATEST_VERSION = API_VERSION.V2016_01_24;
+  private static final String LATEST_VERSION = VERSION_DATE_2016_01_24;
+  
 
   private static final String URL = "https://gateway.watsonplatform.net/conversation/conversation-experimental/api";
   private static final String SERVICE_NAME = "conversation";
@@ -53,14 +42,6 @@ public final class Conversation extends WatsonService {
   private static final String VERSION_PARAM = "version";
   private final String version;
 
-  /**
-   * Returns an instance of the Conversation Service using the service's default endpoint (URL).
-   * 
-   * @param version Version of the API which is to be invoked by the REST client.
-   */
-  public Conversation(API_VERSION version) {
-    this(version.value());
-  }
 
   /**
    * Returns an instance of the Conversation Service using the service's default endpoint (URL).
@@ -76,7 +57,7 @@ public final class Conversation extends WatsonService {
       this.version = version;
     else
       throw new IllegalArgumentException(
-          String.format("The version must be specified. %s is the latest version.", LATEST_VERSION.value()));
+          String.format("The version must be specified. %s is the latest version.", LATEST_VERSION));
 
   }
 

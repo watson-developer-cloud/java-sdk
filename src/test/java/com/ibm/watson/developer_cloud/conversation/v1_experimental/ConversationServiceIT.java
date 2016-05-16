@@ -46,7 +46,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Override @Before public void setUp() throws Exception {
     super.setUp();
-    service = new Conversation(Conversation.API_VERSION.V2016_01_24);
+    service = new Conversation(Conversation.VERSION_DATE_2016_01_24);
     service.setUsernameAndPassword(getValidProperty("conversation.username"),
         getValidProperty("conversation.password"));
     service.setEndPoint(getValidProperty("conversation.url"));
