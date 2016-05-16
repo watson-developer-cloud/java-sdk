@@ -57,6 +57,9 @@ public class CredentialUtils {
 
   /** The Constant USERNAME. */
   private static final String USERNAME = "username";
+  
+  /** The Constant URL. */
+  private static final String URL = "url";
 
   /** The Constant PLAN_EXPERIMENTAL. */
   public static final String PLAN_EXPERIMENTAL = "experimental";
@@ -74,27 +77,20 @@ public class CredentialUtils {
    * @return The encoded API Key
    */
   private static String getKeyUsingJNDI(String serviceName) {
-    if (!isClassAvailable("javax.naming.Context")) {
+    try {
+      Class.forName("javax.naming.Context");
+      try {
+        Context context = new InitialContext();
+        String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
+        String apiKey = (String) context.lookup(lookupName);
+        return apiKey;
+      } catch (NamingException e) {
+        return null;
+      }
+    } catch (ClassNotFoundException exception) {
       log.info("JNDI string lookups is not available.");
-      return null;
     }
-    try {
-      Context context = new InitialContext();
-      String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
-      String apiKey = (String) context.lookup(lookupName);
-      return apiKey;
-    } catch (NamingException e) {
-      return null;
-    }
-  }
-
-  private static boolean isClassAvailable(String className) {
-    try {
-      Class.forName(className);
-      return true;
-    } catch (Throwable e) {
-      return false;
-    }
+    return null;
   }
 
   /**
@@ -160,6 +156,44 @@ public class CredentialUtils {
               final String password = credentials.get(PASSWORD).getAsString();
               return Credentials.basic(username, password);
             }
+          }
+        }
+      }
+    }
+    return null;
+  }
+  
+  public static String getAPIUrl(String serviceName) {
+    return getAPIUrl(serviceName, null);
+  }
+  
+  /**
+   * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists. If plan is specified, then
+   * only credentials for the given plan will be returned.
+   * 
+   * @param serviceName the service name
+   * @param plan the service plan: standard, free or experimental
+   * @return the API key
+   */
+  public static String getAPIUrl(String serviceName, String plan) {
+    if (serviceName == null || serviceName.isEmpty())
+      return null;
+
+    final JsonObject services = getVCAPServices();
+    if (services == null)
+      return null;
+
+    for (final Entry<String, JsonElement> entry : services.entrySet()) {
+      final String key = entry.getKey();
+      if (key.startsWith(serviceName)) {
+        final JsonArray servInstances = services.getAsJsonArray(key);
+        for (final JsonElement instance : servInstances) {
+          final JsonObject service = instance.getAsJsonObject();
+          final String instancePlan = service.get(PLAN).getAsString();
+          if (plan == null || plan.equalsIgnoreCase(instancePlan)) {
+            final JsonObject credentials = instance.getAsJsonObject().getAsJsonObject(CREDENTIALS);
+            if(credentials.has(URL))
+              return credentials.get(URL).getAsString();
           }
         }
       }

@@ -82,13 +82,14 @@ public abstract class WatsonService {
   private String endPoint;
   private final String name;
   private Headers defaultHeaders = null;
-  
+  private boolean skipAuthentication;
+
   /** The Constant MESSAGE_CODE. */
   protected static final String MESSAGE_CODE = "code";
-  
+
   /** The Constant MESSAGE_ERROR. */
   protected static final String MESSAGE_ERROR = "error";
-  
+
   /** The Constant VERSION. */
   protected static final String VERSION = "version";
 
@@ -101,6 +102,11 @@ public abstract class WatsonService {
     this.name = name;
     this.apiKey = CredentialUtils.getAPIKey(name);
     this.client = configureHttpClient();
+    String url = CredentialUtils.getAPIUrl(name);
+    if (url != null && !url.isEmpty()) {
+      // The VCAP_SERVICES will typically contain a url. If present use it.
+      setEndPoint(url);
+    }
   }
 
 
@@ -163,8 +169,7 @@ public abstract class WatsonService {
   protected final <T> ServiceCall<T> createServiceCall(final Request request, final ResponseConverter<T> converter) {
     final Call call = createCall(request);
     return new ServiceCall<T>() {
-      @Override
-      public T execute() {
+      @Override public T execute() {
         try {
           Response response = call.execute();
           return processServiceCall(converter, response);
@@ -173,16 +178,13 @@ public abstract class WatsonService {
         }
       }
 
-      @Override
-      public void enqueue(final ServiceCallback<T> callback) {
+      @Override public void enqueue(final ServiceCallback<T> callback) {
         call.enqueue(new Callback() {
-          @Override
-          public void onFailure(Call call, IOException e) {
+          @Override public void onFailure(Call call, IOException e) {
             callback.onFailure(e);
           }
 
-          @Override
-          public void onResponse(Call call, Response response) throws IOException {
+          @Override public void onResponse(Call call, Response response) throws IOException {
             callback.onResponse(processServiceCall(converter, response));
           }
         });
@@ -220,10 +222,8 @@ public abstract class WatsonService {
     Type tokenType = new TypeToken<String>() {}.getType();
     HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, AUTHORIZATION).build();
     Request request = RequestBuilder.get(url + PATH_AUTHORIZATION_V1_TOKEN)
-        .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN)
-        .query(URL, getEndPoint())
-        .build();
-    
+        .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN).query(URL, getEndPoint()).build();
+
     ResponseConverter<String> converter = ResponseConverterUtils.getGenericObject(tokenType, TOKEN);
     return createServiceCall(request, converter);
   }
@@ -279,7 +279,7 @@ public abstract class WatsonService {
    * @return the user agent
    */
   private String getUserAgent() {
-    return "watson-developer-cloud-java-sdk-3.0.0-RC1";
+    return "watson-developer-cloud-java-sdk-3.0.0-RC2";
   }
 
   /**
@@ -298,6 +298,8 @@ public abstract class WatsonService {
    */
   protected void setAuthentication(Builder builder) {
     if (getApiKey() == null) {
+      if (skipAuthentication) // This may be a proxy or some other component where the developer has
+        return; // chosen to skip authentication with the service
       throw new IllegalArgumentException("apiKey or username and password were not specified");
     }
     builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
@@ -309,6 +311,11 @@ public abstract class WatsonService {
    * @param endPoint the new end point
    */
   public void setEndPoint(String endPoint) {
+    if (endPoint != null && !endPoint.isEmpty()) {
+      if (endPoint.endsWith("/")) {
+        endPoint = endPoint.substring(0, endPoint.length() - 1);
+      }
+    }
     this.endPoint = endPoint;
   }
 
@@ -336,8 +343,7 @@ public abstract class WatsonService {
    * 
    * @see java.lang.Object#toString()
    */
-  @Override
-  public String toString() {
+  @Override public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append(name);
     builder.append(" [");
@@ -365,10 +371,8 @@ public abstract class WatsonService {
     // There was a Client Error 4xx or a Server Error 5xx
     // Get the error message and create the exception
     final String error = getErrorMessage(response);
-    log.log(Level.SEVERE, response.request().method() +
-        " "+ response.request().url().toString() + 
-        ", status: " + response.code() + 
-        ", error: " + error);
+    log.log(Level.SEVERE, response.request().method() + " " + response.request().url().toString() + ", status: "
+        + response.code() + ", error: " + error);
 
     switch (response.code()) {
       case HttpStatus.BAD_REQUEST: // HTTP 400
@@ -397,5 +401,9 @@ public abstract class WatsonService {
       default: // other errors
         throw new ServiceResponseException(response.code(), error, response);
     }
+  }
+
+  public void setSkipAuthentication(boolean skipAuthentication) {
+    this.skipAuthentication = skipAuthentication;
   }
 }

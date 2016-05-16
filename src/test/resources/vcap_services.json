@@ -11,6 +11,18 @@
          }
       }
    ],
+   "conversation": [
+      {
+         "name": "conversation",
+         "label": "conversation",
+         "plan": "standard",
+         "credentials": {
+            "url": "https://gateway.watsonplatform.net/conversation/api",
+            "username": "not-a-username",
+            "password": "not-a-password"
+         }
+      }
+   ],
    "dialog": [
       {
          "name": "dialog_docs",

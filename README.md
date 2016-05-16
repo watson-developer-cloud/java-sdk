@@ -22,6 +22,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Alchemy Vision](#alchemy-vision)
     * [Alchemy Data News](#alchemy-data-news)
     * [Concept Insights](#concept-insights)
+    * [Conversation](#conversation)
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
     * [Language Translation](#language-translation)
@@ -205,6 +206,19 @@ params.put(AlchemyDataNews.COUNT, 7);
 DocumentsResult result = service.getNewsDocuments(params).execute();
 
 System.out.println(result);
+```
+
+### Conversation
+Use the [Conversation][conversation] service to identify intents. The Conversation service
+is in experimental for now.
+
+```java
+Conversation service = new Conversation(Conversation.API_VERSION.V2016_01_24);
+service.setUsernameAndPassword("<username>", "<password>");
+
+ConversationResponse response = service.message(workspaceId, new ConversationRequest("What is my account balance?", contextMap)).execute();
+
+System.out.println(response.getOutput().get("text"));
 ```
 
 ### Concept Insights
@@ -585,6 +599,7 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [tone_analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
 [dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
 [concept_insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
+[conversation]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/
 [visual_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-insights/
 [retrieve_and_rank]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/
 [concept_expansion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-expansion/
