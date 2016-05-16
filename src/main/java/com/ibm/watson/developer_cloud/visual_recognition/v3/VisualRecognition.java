@@ -16,7 +16,9 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -58,6 +60,8 @@ public class VisualRecognition extends WatsonService {
   private static final String PARAM_PARAMETERS = "parameters";
   private static final String PARAM_POSITIVE_EXAMPLES = "positive_examples";
   private static final String PARAM_URL = "url";
+  private static final String PARAM_CLASSIFIER_IDS = "classifier_ids";
+  private static final String PARAM_THRESHOLD = "threshold";
   private static final String PATH_CLASSIFIER = "/v3/classifiers/%s";
   private static final String PATH_CLASSIFIERS = "/v3/classifiers";
   private static final String PATH_CLASSIFY = "/v3/classify";
@@ -100,9 +104,26 @@ public class VisualRecognition extends WatsonService {
     }
   }
 
-  private Object getParametersAsJson(ClassifyImagesOptions options) {
-    // TODO Auto-generated method stub
-    return null;
+  private JsonObject getParametersAsJson(ClassifyImagesOptions options) {
+    JsonObject ret = new JsonObject();
+
+    if (options.url() != null && options.images() == null) {
+      ret.addProperty(PARAM_URL, options.url().toString());
+    }
+    
+    if (options.classifierIds() != null && !options.classifierIds().isEmpty()) {
+      JsonArray array = new JsonArray();
+      for (String cId : options.classifierIds()) {
+        array.add(new JsonPrimitive(cId));
+      }
+      ret.add(PARAM_CLASSIFIER_IDS, array);
+    }
+    
+    if (options.threshold() != null) {
+      ret.addProperty(PARAM_THRESHOLD, options.threshold());
+    }
+    
+    return ret;
   }
 
   /**
@@ -142,12 +163,12 @@ public class VisualRecognition extends WatsonService {
 
     // build body
     Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-    if (options.url() != null) {
-      bodyBuilder.addFormDataPart(PARAM_PARAMETERS, getParametersAsJson(options).toString());
-    } else {
+    
+    if (options.images() != null) {
       RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.images());
       bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.images().getName(), requestBody);
     }
+    bodyBuilder.addFormDataPart(PARAM_PARAMETERS, getParametersAsJson(options).toString());
 
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_CLASSIFY);
     requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());

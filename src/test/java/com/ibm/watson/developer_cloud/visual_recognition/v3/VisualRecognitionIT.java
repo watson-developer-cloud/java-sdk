@@ -33,6 +33,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier.Status;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognitionOptions;
 
 /**
@@ -53,11 +54,18 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private void assertClassifyImage(VisualClassification result, ClassifyImagesOptions options) {
     assertNotNull(result);
     assertNotNull(result.getImages());
-    assertEquals(2, result.getImages().size());
-    assertNotNull(result.getImages().get(0).getImage());
+    assertTrue(result.getImages().size() > 0);
     assertNull(result.getImages().get(0).getError());
     assertNotNull(result.getImages().get(0).getClassifiers());
     assertTrue(!result.getImages().get(0).getClassifiers().isEmpty());
+    
+    if (options.url() != null) {
+      assertNotNull(result.getImages().get(0).getResolvedUrl());
+      assertNotNull(result.getImages().get(0).getSourceUrl());
+    } else {
+      assertNotNull(result.getImages().get(0).getImage());
+    }
+    
   }
 
   /**
@@ -69,7 +77,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private void assertDetectedFaces(DetectedFaces detectedFaces, VisualRecognitionOptions options) {
     assertNotNull(detectedFaces);
     assertNotNull(detectedFaces.getImages());
-    assertEquals(8, detectedFaces.getImages().size());
+    assertTrue(detectedFaces.getImages().size() > 0);
     assertNull(detectedFaces.getImages().get(0).getError());
     assertNotNull(detectedFaces.getImages().get(0).getFaces());
 
@@ -162,10 +170,11 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       assertEquals(classifierName, newClass.getName());
       boolean ready = false;
       for (int x = 0; x < 20 && !ready; x++) {
-        ready = service.getClassifier(newClass.getId()).execute().getStatus() != VisualClassifier.Status.AVAILABLE;
-        Thread.sleep(5000);
+        Thread.sleep(2000);
+        newClass = service.getClassifier(newClass.getId()).execute();
+        ready = newClass.getStatus().equals(Status.AVAILABLE);
       }
-      assertEquals(VisualClassifier.Status.AVAILABLE, service.getClassifier(newClass.getId()).execute().getStatus());
+      assertEquals(VisualClassifier.Status.AVAILABLE, newClass.getStatus());
 
       ClassifyImagesOptions options = new ClassifyImagesOptions.Builder().images(imageToClassify).build();
       VisualClassification classification = service.classify(options).execute();

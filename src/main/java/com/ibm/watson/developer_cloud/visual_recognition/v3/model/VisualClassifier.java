@@ -108,19 +108,19 @@ public class VisualClassifier extends GenericModel {
   public enum Status {
     
     /** The available. */
-    @SerializedName("Available") AVAILABLE,
+    @SerializedName("ready") AVAILABLE,
     
     /** The failed. */
-    @SerializedName("Failed") FAILED,
+    @SerializedName("failed") FAILED,
     
     /** The non existent. */
     @SerializedName("Non Existent") NON_EXISTENT,
     
     /** The training. */
-    @SerializedName("Training") TRAINING,
+    @SerializedName("training") TRAINING,
     
     /** The unavailable. */
-    @SerializedName("Unavailable") UNAVAILABLE
+    @SerializedName("unavailable") UNAVAILABLE
   }
   
   /**
