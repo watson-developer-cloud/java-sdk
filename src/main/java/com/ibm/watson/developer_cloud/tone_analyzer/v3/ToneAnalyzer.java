@@ -21,7 +21,6 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -68,23 +67,15 @@ public class ToneAnalyzer extends WatsonService {
    * conscientiousness, agreeableness, openness).
    *
    * @param text The text to analyze
-   * @param isHTML if true the text is treated as HTML
-   * @param includeSentences Allows disabling sentence-level analysis, which is omitted in the
-   *        output. This speeds up processing of the API call. It default to "true" (include
-   *        sentences processing)
-   * @param tones Allows analyzing only a subset of tones, while the rest are omitted from the
-   *        output. This speeds up processing of the API call. It is a comma-separated list from the
-   *        values "emotion", "social", "language" (or "writing"). It defaults to processing all
-   *        tones.
+   * @param options The {@link ToneOptions} options
    * @return the {@link ToneAnalysis} with the response
    */
-  public ServiceCall<ToneAnalysis> getTone(final String text, final boolean isHTML, final Boolean includeSentences,
-      final Tone... tones) {
-    Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
+  public ServiceCall<ToneAnalysis> getTone(String text, ToneOptions options) {
+    Validator.notNull(text, "text cannot be null");
 
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_TONE).query(VERSION_DATE, versionDate);
 
-    if (isHTML) {
+    if (options != null && options.html() != null && options.html()) {
       requestBuilder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_HTML);
       requestBuilder.bodyContent(text, HttpMediaType.TEXT_HTML);
     } else {
@@ -93,12 +84,12 @@ public class ToneAnalyzer extends WatsonService {
       requestBuilder.bodyJson(contentJson);
     }
 
-    if (tones != null && tones.length > 0) {
-      requestBuilder.query(TONES, StringUtils.join(tones, ","));
+    if (options != null && options.tones() != null) {
+      requestBuilder.query(TONES, StringUtils.join(options.tones(), ","));
     }
 
-    if (includeSentences != null) {
-      requestBuilder.query(SENTENCES, includeSentences.toString());
+    if (options != null && options.includeSentences() != null) {
+      requestBuilder.query(SENTENCES, options.includeSentences().toString());
     }
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(ToneAnalysis.class));
