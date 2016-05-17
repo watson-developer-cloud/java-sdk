@@ -16,7 +16,7 @@ package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationOptions;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -52,11 +52,11 @@ public final class ConversationService extends WatsonService {
   }
 
   /**
-   * Sends a message to the service through a {@link ConversationOptions}.
+   * Sends a message to the service through a {@link NewMessageOptions}.
    *
    * @return The response for the given message.
    */
-  public ServiceCall<Message> message(ConversationOptions options) {
+  public ServiceCall<Message> message(NewMessageOptions options) {
     Validator.notNull(options, "'options' cannot be null");
     
     RequestBuilder builder = RequestBuilder.post(String.format(PATH_MESSAGE, options.workspaceId()));
@@ -71,7 +71,7 @@ public final class ConversationService extends WatsonService {
    * @param options the options
    * @return the message as json
    */
-  private JsonObject getMessageAsJson(ConversationOptions options) {
+  private JsonObject getMessageAsJson(NewMessageOptions options) {
     JsonObject json = new JsonObject();
     
     JsonObject input = new JsonObject();

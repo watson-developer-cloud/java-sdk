@@ -21,7 +21,7 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Context;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationOptions;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
 
 /**
  * Integration test for the {@link ConversationService}.
@@ -55,7 +55,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testStartAConversationWithoutMessage() {
-    ConversationOptions options = new ConversationOptions.Builder()
+    NewMessageOptions options = new NewMessageOptions.Builder()
         .workspaceId(workspaceId)
         .build();
     Message response = service.message(options).execute();
@@ -76,7 +76,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
     Context context = null;
     
     for (final String message : messages) {
-      ConversationOptions options = new ConversationOptions.Builder()
+      NewMessageOptions options = new NewMessageOptions.Builder()
           .workspaceId(workspaceId)
           .context(context)
           .inputText(message)

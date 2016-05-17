@@ -13,7 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationOptions;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 
@@ -23,13 +23,13 @@ public class ConversationExample {
     service.setUsernameAndPassword("<username>", "<password>");
 
     // sync
-    ConversationOptions conversation = new ConversationOptions.Builder().inputText("Hi").build();
-    Message dialogs = service.message(conversation).execute();
+    NewMessageOptions newMessage = new NewMessageOptions.Builder().inputText("Hi").build();
+    Message dialogs = service.message(newMessage).execute();
     System.out.println(dialogs);
     
     
     // async
-    service.message(conversation).enqueue(new ServiceCallback<Message>() {
+    service.message(newMessage).enqueue(new ServiceCallback<Message>() {
       @Override
       public void onResponse(Message response) {
         System.out.println(response);

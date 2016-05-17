@@ -25,7 +25,7 @@ import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationOptions;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
@@ -81,7 +81,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     service.setEndPoint(getMockWebServerUrl(server));
 
 
-    ConversationOptions options = new ConversationOptions.Builder().inputText(text).workspaceId(WORKSPACE_ID).build();
+    NewMessageOptions options = new NewMessageOptions.Builder().inputText(text).workspaceId(WORKSPACE_ID).build();
 
     // execute first request
     Message serviceResponse = service.message(options).execute();

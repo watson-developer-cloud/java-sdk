@@ -17,11 +17,11 @@ import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationS
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * This class contains the parameters when using {@link ConversationService#message(ConversationOptions)}.
+ * This class contains the parameters when using {@link ConversationService#message(NewMessageOptions)}.
  * 
  * @see ConversationService
  */
-public class ConversationOptions {
+public class NewMessageOptions {
 
   private String inputText;
   private Context context;
@@ -46,7 +46,7 @@ public class ConversationOptions {
      *
      * @param options the options
      */
-    public Builder(ConversationOptions options) {
+    public Builder(NewMessageOptions options) {
       this.inputText = options.inputText;
       this.context = options.context;
       this.workspaceId = options.workspaceId;
@@ -87,17 +87,17 @@ public class ConversationOptions {
 
     
     /**
-     * Builds the {@link ConversationOptions} object.
+     * Builds the {@link NewMessageOptions} object.
      *
      * @return the gets the tone options
      */
-    public ConversationOptions build() {
+    public NewMessageOptions build() {
       Validator.notNull(workspaceId, "workspaceId cannot be null");      
-      return new ConversationOptions(this);
+      return new NewMessageOptions(this);
     }
   }
 
-  private ConversationOptions(Builder builder) {
+  private NewMessageOptions(Builder builder) {
     this.inputText = builder.inputText;
     this.context = builder.context;
     this.workspaceId = builder.workspaceId;
