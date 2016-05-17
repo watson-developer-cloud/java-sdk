@@ -39,6 +39,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.Language;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Microformats;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.SAORelations;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomies;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelations;
 
 /**
  * Created by nizar on 8/25/15.
@@ -462,5 +463,41 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
     final DocumentEmotion emotion = service.getEmotion(params).execute();
     Assert.assertNotNull(emotion);
     Assert.assertNotNull(emotion.getEmotion());
+  }
+  
+  /**
+   * Test get typed relations from HTML.
+   */
+  @Test
+  public void testGetTypedRelationsHTML() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.HTML, htmlExample);
+    final TypedRelations typedRelations = service.getTypedRelations(params).execute();
+    Assert.assertNotNull(typedRelations);
+    Assert.assertNotNull(typedRelations.getTypedRelations());
+  }
+
+  /**
+   * Test get typed relations from text.
+   */
+  @Test
+  public void testGetTypedRelationsText() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.TEXT, "Jake is one of the developers in the team.");
+    final TypedRelations typedRelations = service.getTypedRelations(params).execute();
+    Assert.assertNotNull(typedRelations);
+    Assert.assertNotNull(typedRelations.getTypedRelations());
+  }
+
+  /**
+   * Test Get typed relations from URL.
+   */
+  @Test
+  public void testGetTypedRelationsUrl() {
+    final Map<String, Object> params = new HashMap<String, Object>();
+    params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
+    final TypedRelations typedRelations = service.getTypedRelations(params).execute();
+    Assert.assertNotNull(typedRelations);
+    Assert.assertNotNull(typedRelations.getTypedRelations());
   }
 }

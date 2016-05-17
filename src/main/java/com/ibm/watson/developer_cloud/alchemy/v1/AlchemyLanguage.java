@@ -36,6 +36,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.LanguageSelection;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Microformats;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.SAORelations;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomies;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelations;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints.AlchemyAPI;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -366,6 +367,17 @@ public class AlchemyLanguage extends AlchemyService {
     return createServiceCall(params, AlchemyAPI.EMOTION, DocumentEmotion.class, TEXT, HTML, URL);
   }
 
+  /**
+   * Finds entities and their relationships from a text, URL or HTML.
+   * 
+   * @param params The parameters to be used in the service call, text, html or url should be
+   *        specified
+   * @return {@link DocumentEmotion}
+   */
+  public ServiceCall<TypedRelations> getTypedRelations(Map<String, Object> params) {
+    return createServiceCall(params, AlchemyAPI.TYPED, TypedRelations.class, TEXT, HTML, URL);
+  }
+  
   /**
    * Extracts dates for text, a URL or HTML.
    * 
