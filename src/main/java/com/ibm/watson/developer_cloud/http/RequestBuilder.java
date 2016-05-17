@@ -175,13 +175,13 @@ public class RequestBuilder {
       }
       requestBody = formBody.build();
     }
-
+    
     //accept application/json by default
-    builder.addHeader(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
+    builder.header(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
 
     if (!headers.isEmpty()) {
       for (final NameValue header : headers) {
-        builder.addHeader(header.getName(), header.getValue());
+        builder.header(header.getName(), header.getValue());
       }
     }
 

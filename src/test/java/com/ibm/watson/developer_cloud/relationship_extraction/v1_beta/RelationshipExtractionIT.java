@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.relationship_extraction.v1;
+package com.ibm.watson.developer_cloud.relationship_extraction.v1_beta;
 
 import org.junit.Assert;
 import org.junit.Before;
