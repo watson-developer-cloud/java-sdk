@@ -7,8 +7,6 @@ com.ibm.watson.developer_cloud.concept_insights.v2.model
 com.ibm.watson.developer_cloud.concept_insights.v2.util
 com.ibm.watson.developer_cloud.conversation.v1_experimental
 com.ibm.watson.developer_cloud.conversation.v1_experimental.model
-com.ibm.watson.developer_cloud.conversation_helper
-com.ibm.watson.developer_cloud.conversation_helper.internal
 com.ibm.watson.developer_cloud.dialog.v1
 com.ibm.watson.developer_cloud.dialog.v1.model
 com.ibm.watson.developer_cloud.document_conversion.v1
