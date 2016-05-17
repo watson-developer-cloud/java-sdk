@@ -209,16 +209,19 @@ System.out.println(result);
 ```
 
 ### Conversation
-Use the [Conversation][conversation] service to identify intents. The Conversation service
-is in experimental for now.
+Use the experimental [Conversation][conversation] service to identify intents, entities, and conduct conversations.
 
 ```java
-Conversation service = new Conversation(Conversation.API_VERSION.V2016_01_24);
+ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
 service.setUsernameAndPassword("<username>", "<password>");
 
-ConversationResponse response = service.message(workspaceId, new ConversationRequest("What is my account balance?", contextMap)).execute();
+ConversationOptions options = new ConversationOptions.Builder()
+  .workspaceId("<your-workspace-id>") // Created with the tooling app
+  .inputText("What is my account balance?")
+  .build();
 
-System.out.println(response.getOutput().get("text"));
+Message messageResponse = service.message(options).execute();
+System.out.println(messageResponse);
 ```
 
 ### Concept Insights
@@ -424,7 +427,7 @@ System.out.println(voices);
 Use the [Tone Analyzer][tone_analyzer] service to get the tone of your email.
 
 ```java
-ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_02_11);
+ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
 service.setUsernameAndPassword("<username>", "<password>");
 
 String text =
@@ -440,7 +443,7 @@ String text =
       + "business outcomes. Economy has nothing to do with it.";
 
 // Call the service and get the tone
-ToneAnalysis tone = service.getTone(text).execute();
+ToneAnalysis tone = service.getTone(text, null).execute();
 System.out.println(tone);
 ```
 
