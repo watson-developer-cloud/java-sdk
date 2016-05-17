@@ -76,7 +76,7 @@ public class ToneAnalyzer extends WatsonService {
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_TONE).query(VERSION_DATE, versionDate);
 
     if (options != null && options.html() != null && options.html()) {
-      requestBuilder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_HTML);
+      requestBuilder.header(HttpHeaders.CONTENT_TYPE, HttpMediaType.TEXT_HTML);
       requestBuilder.bodyContent(text, HttpMediaType.TEXT_HTML);
     } else {
       JsonObject contentJson = new JsonObject();
