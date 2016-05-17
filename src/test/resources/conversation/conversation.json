@@ -1,0 +1,8 @@
+{
+  "intents": [
+    {
+       "intent": "get_quote",
+       "confidence": 0.943643
+     }
+   ]
+}
