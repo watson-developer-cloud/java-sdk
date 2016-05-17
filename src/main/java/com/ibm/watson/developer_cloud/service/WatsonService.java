@@ -14,7 +14,6 @@
 package com.ibm.watson.developer_cloud.service;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
 import java.util.Map;
@@ -25,7 +24,6 @@ import java.util.logging.Logger;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
@@ -72,7 +70,6 @@ public abstract class WatsonService {
   private static final String URL = "url";
   private static final String PATH_AUTHORIZATION_V1_TOKEN = "/v1/token";
   private static final String AUTHORIZATION = "authorization";
-  private static final String TOKEN = "token";
   private static final String MESSAGE_ERROR_3 = "message";
   private static final String MESSAGE_ERROR_2 = "error_message";
   private static final String BASIC = "Basic ";
@@ -184,8 +181,12 @@ public abstract class WatsonService {
             callback.onFailure(e);
           }
 
-          @Override public void onResponse(Call call, Response response) throws IOException {
-            callback.onResponse(processServiceCall(converter, response));
+          @Override public void onResponse(Call call, Response response) {
+            try {
+              callback.onResponse(processServiceCall(converter, response));
+            } catch(Exception e) {
+              callback.onFailure(e);
+            }
           }
         });
       }
@@ -219,13 +220,13 @@ public abstract class WatsonService {
    * @return the token
    */
   public ServiceCall<String> getToken() {
-    Type tokenType = new TypeToken<String>() {}.getType();
     HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, AUTHORIZATION).build();
     Request request = RequestBuilder.get(url + PATH_AUTHORIZATION_V1_TOKEN)
-        .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN).query(URL, getEndPoint()).build();
+        .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN)
+        .query(URL, getEndPoint())
+        .build();
 
-    ResponseConverter<String> converter = ResponseConverterUtils.getGenericObject(tokenType, TOKEN);
-    return createServiceCall(request, converter);
+    return createServiceCall(request, ResponseConverterUtils.getString());
   }
 
   /**

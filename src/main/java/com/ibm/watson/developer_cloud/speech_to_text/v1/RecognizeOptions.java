@@ -89,10 +89,10 @@ public class RecognizeOptions {
      * @see Use if audio is PCM
      */
     public Builder contentType(String contentType) {
-      Validator.isTrue(MediaType.parse(contentType) != null,
+      Validator.isTrue(MediaType.parse(contentType) != null && contentType.startsWith("audio/"),
           "contentType is not a valid mime audio format. Valid formats start with 'audio/'");
 
-      Validator.isTrue(contentType.contains(HttpMediaType.AUDIO_RAW) && contentType.contains("rate"),
+      Validator.isTrue(!contentType.contains(HttpMediaType.AUDIO_RAW) || contentType.contains("rate"),
           "When using PCM the audio rate should be specified.");
 
       this.contentType = contentType;

@@ -39,7 +39,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   private static final String VERSION_DATE = "version";
   private static final String FIXTURE = "src/test/resources/tone_analyzer/tone.json";
   private final static String TONE_PATH = "/v3/tone";
-  public static final String EMPTY = "";
+  private static final String EMPTY = "";
 
   /** The service. */
   private ToneAnalyzer service;

@@ -324,7 +324,7 @@ public class SpeechToText extends WatsonService {
     getToken().enqueue(new ServiceCallback<String>() {
       @Override
       public void onFailure(Exception e) {
-        throw new RuntimeException(e);
+        callback.onError(e);
       }
 
       @Override
