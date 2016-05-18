@@ -18,6 +18,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -68,14 +69,28 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
 
   }
 
+  /**
+   * Test delete all classifiers.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testDeleteAllClassifiers() {
+    List<Classifier> classifiers = service.getClassifiers().execute().getClassifiers();
+    for (Classifier classifier : classifiers) {
+      if (classifier.getName() != null)
+        service.deleteClassifier(classifier.getId());
+    }
+  }
 
+  
   /**
    * Test classify.
    * 
    * @throws Exception the exception
    */
   @Test
-  public void testClassify() throws Exception {
+  public void testClassify() {
     final Classification classification = service.classify(classifierId, "is it hot outside?").execute();
     assertNotNull(classification);
     assertEquals("temperature", classification.getTopClass());

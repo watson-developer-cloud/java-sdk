@@ -78,6 +78,19 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
   }
 
   /**
+   * Test delete all rankers.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testDeleteAllRankers() {
+    List<Ranker> rankers = service.getRankers().execute().getRankers();
+    for (Ranker ranker : rankers) {
+      if (!ranker.getName().equals(rankerId))
+        service.deleteRanker(ranker.getId());
+    }
+  }
+  /**
    * Test create ranker and rank results.
    *
    * @throws InterruptedException the interrupted exception
