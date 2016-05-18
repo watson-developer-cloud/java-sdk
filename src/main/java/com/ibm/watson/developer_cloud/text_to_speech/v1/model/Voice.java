@@ -54,6 +54,11 @@ public class Voice extends GenericModel {
   /** The Constant IT_FRANCESCA (value is "it-IT_FrancescaVoice"). */
   public static final Voice IT_FRANCESCA = new Voice("it-IT_FrancescaVoice", "female", "it-IT");
 
+  /** The Constant JA_EMI (value is "ja-JP_EmiVoice"). */
+  public static final Voice JA_EMI = new Voice("ja-JP_EmiVoice", "female", "ja-JP");
+
+  /** The Constant PT_ISABELA (value is "pt-BR_IsabelaVoice"). */
+  public static final Voice PT_ISABELA = new Voice("pt-BR_IsabelaVoice", "female", "pt-BR");
 
   private String description;
   private String gender;
