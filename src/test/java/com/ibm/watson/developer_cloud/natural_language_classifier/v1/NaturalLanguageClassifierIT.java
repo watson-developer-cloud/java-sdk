@@ -79,7 +79,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     List<Classifier> classifiers = service.getClassifiers().execute().getClassifiers();
     for (Classifier classifier : classifiers) {
       if (classifier.getName() != null)
-        service.deleteClassifier(classifier.getId());
+        service.deleteClassifier(classifier.getId()).execute();
     }
   }
 

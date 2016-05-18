@@ -87,7 +87,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     List<Ranker> rankers = service.getRankers().execute().getRankers();
     for (Ranker ranker : rankers) {
       if (!ranker.getName().equals(rankerId))
-        service.deleteRanker(ranker.getId());
+        service.deleteRanker(ranker.getId()).execute();
     }
   }
   /**
@@ -122,7 +122,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
         testInputStream.close();
       }
     } finally {
-      service.deleteRanker(ranker.getId());
+      //service.deleteRanker(ranker.getId());
     }
 
   }
