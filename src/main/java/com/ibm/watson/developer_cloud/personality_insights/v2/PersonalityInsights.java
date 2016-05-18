@@ -67,7 +67,7 @@ public class PersonalityInsights extends WatsonService {
     final RequestBuilder request = RequestBuilder.post(PATH_PROFILE);
 
     if (options.text() != null) {
-      request.header(HttpHeaders.ACCEPT, contentType);
+      request.header(HttpHeaders.CONTENT_TYPE, contentType);
       request.bodyContent(options.text(), contentType);
     } else {
       final Content content = new Content();

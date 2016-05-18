@@ -1,3 +1,4 @@
+
 # Watson Developer Cloud Java SDK
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
@@ -500,12 +501,14 @@ following picture.
 ![Car](https://visual-recognition-demo.mybluemix.net/images/samples/5.jpg)
 
 ```java
-VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2015_12_02);
+VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
 service.setUsernameAndPassword("<username>", "<password>");
 
-File image = new File("src/test/resources/visual_recognition/car.png");
-
-VisualClassification result = service.classify(image).execute();
+System.out.println("Classify an image");
+ClassifyImagesOptions options = new ClassifyImagesOptions.Builder()
+    .images(new File("src/test/resources/visual_recognition/car.png"))
+    .build();
+VisualClassification result = service.classify(options).execute();
 System.out.println(result);
 ```
 
@@ -573,8 +576,6 @@ available in [LICENSE](LICENSE).
 See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 [personality_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/personality-insights/
-[language_identification]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/lidapi/
-[machine_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/mtapi/
 [document_conversion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/document-conversion/
 [relationship_extraction]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/sireapi/
 [language_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/
@@ -587,7 +588,6 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [concept_insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
 [visual_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-insights/
 [retrieve_and_rank]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/
-[concept_expansion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-expansion/
 
 [alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage
 [sentiment_analysis]: http://www.alchemyapi.com/products/alchemylanguage/sentiment-analysis
@@ -600,6 +600,5 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [OkHttp]: http://square.github.io/okhttp/
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
-[releases]: https://github.com/watson-developer-cloud/java-sdk/releases
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.0.0-RC1/java-sdk-3.0.0-RC1-jar-with-dependencies.jar

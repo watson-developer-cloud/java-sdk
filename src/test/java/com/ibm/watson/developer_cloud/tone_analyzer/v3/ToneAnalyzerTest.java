@@ -15,6 +15,7 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
@@ -106,7 +107,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     request = server.takeRequest();
     System.out.println(request.getHeaders());
     assertEquals(path, request.getPath());
-    assertEquals(HttpMediaType.TEXT_HTML, request.getHeader(HttpHeaders.ACCEPT));
+    assertTrue(request.getHeader(HttpHeaders.CONTENT_TYPE).startsWith(HttpMediaType.TEXT_HTML));
 
     // third request
     ToneOptions options = new ToneOptions.Builder().html(true).addTone(Tone.EMOTION).addTone(Tone.LANGUAGE).addTone(Tone.SOCIAL).build();

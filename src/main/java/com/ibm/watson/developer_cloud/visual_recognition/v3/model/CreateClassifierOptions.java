@@ -65,7 +65,7 @@ public class CreateClassifierOptions {
      * @throws FileNotFoundException if the file does not exist, is a directory rather than a
      *         regular file, or for some other reason cannot be opened for reading.
      */
-    public Builder addClass(String className, File positiveExamples) throws FileNotFoundException {
+    public Builder addClass(String className, File positiveExamples) {
       Validator.notNull(className, "'className' cannot be null");
       Validator.notNull(positiveExamples, "'positiveExamples' cannot be null");
 
@@ -115,7 +115,9 @@ public class CreateClassifierOptions {
     Validator.notNull(builder.classifierName, "'classifierName' cannot be null");
     Validator.isTrue(!builder.positiveExamplesByName.isEmpty(), "There are no classes. " + errorMessage);
 
-    Validator.isTrue(builder.positiveExamplesByName.size() > 1 || negativeExamples != null, errorMessage);
+    boolean hasExamples = builder.positiveExamplesByName.size() > 1
+        || (builder.negativeExamples != null && builder.positiveExamplesByName.size() == 1);
+    Validator.isTrue(hasExamples, errorMessage);
     this.classifierName = builder.classifierName;
     this.negativeExamples = builder.negativeExamples;
     this.positiveExamplesByName = builder.positiveExamplesByName;

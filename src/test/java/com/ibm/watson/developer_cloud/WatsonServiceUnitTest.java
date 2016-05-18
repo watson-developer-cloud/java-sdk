@@ -75,7 +75,8 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
    */
   @After
   public void tearDown() {
-    mockServer.stop();
+    if (mockServer !=null)
+      mockServer.stop();
   }
 
   /**
