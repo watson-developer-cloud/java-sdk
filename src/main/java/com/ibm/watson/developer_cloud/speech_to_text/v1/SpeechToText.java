@@ -36,7 +36,9 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
+import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.ws.WebSocket;
 
 /**
@@ -281,7 +283,7 @@ public class SpeechToText extends WatsonService {
 
     final RequestBuilder requestBuilder = RequestBuilder.post(path);
     buildRecognizeRequest(requestBuilder, options);
-    requestBuilder.body(okhttp3.RequestBody.create(okhttp3.MediaType.parse(contentType), audio));
+    requestBuilder.body(RequestBody.create(MediaType.parse(contentType), audio));
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(SpeechResults.class));
   }
 

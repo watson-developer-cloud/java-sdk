@@ -55,7 +55,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication
@@ -123,16 +122,6 @@ public abstract class WatsonService {
     builder.writeTimeout(60, TimeUnit.SECONDS);
     builder.readTimeout(90, TimeUnit.SECONDS);
 
-    // add logging
-    HttpLoggingInterceptor logging = new HttpLoggingInterceptor(new okhttp3.logging.HttpLoggingInterceptor.Logger() {
-      @Override
-      public void log(String message) {
-        LOG.fine(message);
-      }
-    });
-    logging.setLevel(okhttp3.logging.HttpLoggingInterceptor.Level.BASIC);
-    builder.addInterceptor(logging);
-    
     return builder.build();
   }
 
