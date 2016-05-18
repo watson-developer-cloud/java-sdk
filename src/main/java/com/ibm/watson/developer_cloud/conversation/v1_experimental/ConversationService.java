@@ -81,7 +81,6 @@ public final class ConversationService extends WatsonService {
     if (options.context() != null) {
       json.add("context", new Gson().toJsonTree(options.context()));
     }
-    System.out.println(json.toString());
     return json;
   }
 }

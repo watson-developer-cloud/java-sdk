@@ -106,7 +106,6 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     // second request
     serviceResponse = service.getTone(text, new ToneOptions.Builder().html(true).build()).execute();
     request = server.takeRequest();
-    System.out.println(request.getHeaders());
     assertEquals(path, request.getPath());
     assertTrue(request.getHeader(HttpHeaders.CONTENT_TYPE).startsWith(HttpMediaType.TEXT_HTML));
 

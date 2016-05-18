@@ -31,6 +31,8 @@ import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
+import org.slf4j.LoggerFactory;
+
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
@@ -203,6 +205,8 @@ public abstract class WatsonServiceTest {
    * Setup logging.
    */
   private void setupLogging() {
+    ch.qos.logback.classic.Logger root = (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+    root.setLevel(ch.qos.logback.classic.Level.OFF);
     try {
       FileInputStream configFile = new FileInputStream("src/test/resources/logging.properties");
       LogManager.getLogManager().readConfiguration(configFile);

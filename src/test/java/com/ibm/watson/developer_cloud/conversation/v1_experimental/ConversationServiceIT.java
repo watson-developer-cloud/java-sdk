@@ -82,7 +82,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
           .inputText(message)
           .build();
       Message response = service.message(options).execute();
-      System.out.println(response);
+
       assertMessageFromService(response);
       context = response.getContext();
       Thread.sleep(500);
