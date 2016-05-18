@@ -13,8 +13,8 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 
 public class ConversationExample {

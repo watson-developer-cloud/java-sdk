@@ -17,7 +17,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
@@ -27,7 +26,6 @@ import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -71,8 +69,6 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
     Message mockResponse = loadFixture(FIXTURE, Message.class);
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
 
     server.start();
 
@@ -93,8 +89,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(path, request.getPath());
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertNotNull(request.getBody().readString(Charset.defaultCharset()), "");
+    assertNotNull(request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
-    assertEquals(HttpMediaType.APPLICATION_JSON, request.getHeader(HttpHeaders.ACCEPT));
   }
 }

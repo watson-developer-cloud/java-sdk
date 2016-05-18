@@ -11,12 +11,12 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.tone_analyzer.v3;
+package com.ibm.watson.developer_cloud.tone_analyzer.v3.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Tone;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 
 /**
  * This class contains the parameters when using {@link ToneAnalyzer#getTone(ToneOptions)}.
