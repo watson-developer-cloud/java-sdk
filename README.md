@@ -1,3 +1,4 @@
+
 # Watson Developer Cloud Java SDK
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
@@ -500,12 +501,14 @@ following picture.
 ![Car](https://visual-recognition-demo.mybluemix.net/images/samples/5.jpg)
 
 ```java
-VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2015_12_02);
+VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
 service.setUsernameAndPassword("<username>", "<password>");
 
-File image = new File("src/test/resources/visual_recognition/car.png");
-
-VisualClassification result = service.classify(image).execute();
+System.out.println("Classify an image");
+ClassifyImagesOptions options = new ClassifyImagesOptions.Builder()
+    .images(new File("src/test/resources/visual_recognition/car.png"))
+    .build();
+VisualClassification result = service.classify(options).execute();
 System.out.println(result);
 ```
 

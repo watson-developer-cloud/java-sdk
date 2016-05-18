@@ -65,7 +65,7 @@ public class CreateClassifierOptions {
      * @throws FileNotFoundException if the file does not exist, is a directory rather than a
      *         regular file, or for some other reason cannot be opened for reading.
      */
-    public Builder addClass(String className, File positiveExamples) throws FileNotFoundException {
+    public Builder addClass(String className, File positiveExamples) {
       Validator.notNull(className, "'className' cannot be null");
       Validator.notNull(positiveExamples, "'positiveExamples' cannot be null");
 
