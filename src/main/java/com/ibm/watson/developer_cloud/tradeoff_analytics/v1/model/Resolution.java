@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -23,7 +23,19 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
  * Problem {@link Resolution} used by the {@link TradeoffAnalytics} V1 service.
  */
 public class Resolution extends GenericModel {
+  /** The map. */
+  private ResolutionMap map;
+
   private List<Solution> solutions;
+  
+  /**
+   * Gets the map.
+   *
+   * @return the map
+   */
+  public ResolutionMap getMap() {
+    return map;
+  }
 
   /**
    * Gets the solutions.
@@ -32,6 +44,15 @@ public class Resolution extends GenericModel {
    */
   public List<Solution> getSolutions() {
     return solutions;
+  }
+
+  /**
+   * Sets the map.
+   *
+   * @param map the new map
+   */
+  public void setMap(ResolutionMap map) {
+    this.map = map;
   }
 
   /**
