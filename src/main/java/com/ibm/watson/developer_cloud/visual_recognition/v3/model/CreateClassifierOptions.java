@@ -115,7 +115,9 @@ public class CreateClassifierOptions {
     Validator.notNull(builder.classifierName, "'classifierName' cannot be null");
     Validator.isTrue(!builder.positiveExamplesByName.isEmpty(), "There are no classes. " + errorMessage);
 
-    Validator.isTrue(builder.positiveExamplesByName.size() > 1 || negativeExamples != null, errorMessage);
+    boolean hasExamples = builder.positiveExamplesByName.size() > 1
+        || (builder.negativeExamples != null && builder.positiveExamplesByName.size() == 1);
+    Validator.isTrue(hasExamples, errorMessage);
     this.classifierName = builder.classifierName;
     this.negativeExamples = builder.negativeExamples;
     this.positiveExamplesByName = builder.positiveExamplesByName;
