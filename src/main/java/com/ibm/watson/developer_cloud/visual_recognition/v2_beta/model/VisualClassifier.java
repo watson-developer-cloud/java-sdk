@@ -29,7 +29,20 @@ public class VisualClassifier extends GenericModel {
   private String id;
   private String name;
   private String owner;
+  
+  private Status status;
 
+  /**
+   * {@link VisualClassifier} Status.
+   */
+  public enum Status {
+    @SerializedName("Available") AVAILABLE,
+    @SerializedName("Failed") FAILED,
+    @SerializedName("Non Existent") NON_EXISTENT,
+    @SerializedName("Training") TRAINING,
+    @SerializedName("Unavailable") UNAVAILABLE
+  }
+  
   /**
    * Instantiates a new visual classifier.
    */
@@ -115,5 +128,13 @@ public class VisualClassifier extends GenericModel {
    */
   public void setOwner(String owner) {
     this.owner = owner;
+  }
+
+  public Status getStatus() {
+    return status;
+  }
+
+  public void setStatus(Status status) {
+    this.status = status;
   }
 }

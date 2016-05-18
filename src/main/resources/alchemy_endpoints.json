@@ -98,5 +98,10 @@
     "url": "/url/URLGetTitle",
     "text": "/text/TextGetTitle",
     "html": "/html/HTMLGetTitle"
+  },
+  "TYPED": {
+    "url": "/url/URLGetTypedRelations",
+    "text": "/text/TextGetTypedRelations",
+    "html": "/html/HTMLGetTypedRelations"
   }
 }

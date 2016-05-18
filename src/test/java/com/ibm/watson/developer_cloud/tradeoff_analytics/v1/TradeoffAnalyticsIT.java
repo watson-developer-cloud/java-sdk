@@ -63,10 +63,15 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
    */
   @Test
   public void testDilemmas() {
-    Dilemma dilemma = service.dilemmas(problem, false).execute();
+    Dilemma dilemma = service.dilemmas(problem, true).execute();
     assertNotNull(dilemma);
     assertNotNull(dilemma.getProblem());
     assertNotNull(dilemma.getResolution());
+    assertNotNull(dilemma.getResolution().getMap());
+    assertNotNull(dilemma.getResolution().getSolutions());
+    assertNotNull(dilemma.getResolution().getMap().getAnchors());
+    assertNotNull(dilemma.getResolution().getMap().getNodes());
+    assertNotNull(dilemma.getResolution().getMap().getVersion());
   }
 
   /**
