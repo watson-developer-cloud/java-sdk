@@ -1,0 +1,33 @@
+{
+  "images_processed": 1,
+  "images": [
+    {
+      "text": "its\nopen",
+      "words": [
+        {
+          "word": "its",
+          "location": {
+            "width": 72,
+            "height": 36,
+            "left": 28,
+            "top": 28
+          },
+          "score": 0.979764,
+          "line_number": 0
+        },
+        {
+          "word": "open",
+          "location": {
+            "width": 171,
+            "height": 69,
+            "left": 29,
+            "top": 69
+          },
+          "score": 0.993262,
+          "line_number": 1
+        }
+      ],
+      "image": "open.png"
+    }
+  ]
+}
