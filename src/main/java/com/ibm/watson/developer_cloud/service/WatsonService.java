@@ -130,7 +130,7 @@ public abstract class WatsonService {
         LOG.fine(message);
       }
     });
-    logging.setLevel(okhttp3.logging.HttpLoggingInterceptor.Level.BODY);
+    logging.setLevel(okhttp3.logging.HttpLoggingInterceptor.Level.BASIC);
     builder.addInterceptor(logging);
     
     return builder.build();
