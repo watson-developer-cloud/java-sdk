@@ -1,0 +1,456 @@
+{
+  "problem": {
+    "columns": [
+      {
+        "type": "categorical",
+        "key": "brand",
+        "full_name": "Brand",
+        "range": [
+          "Samsung",
+          "Apple",
+          "HTC",
+          "LG",
+          "Nokia",
+          "Sony"
+        ],
+        "goal": "min",
+        "preference": [
+          "Samsung",
+          "Apple",
+          "HTC",
+          "LG",
+          "Nokia",
+          "Sony"
+        ],
+        "is_objective": true
+      },
+      {
+        "type": "numeric",
+        "key": "RAM",
+        "full_name": "RAM (MB)",
+        "goal": "max",
+        "is_objective": false
+      },
+      {
+        "type": "numeric",
+        "key": "screen_size",
+        "full_name": "Screen (inch)",
+        "goal": "max",
+        "is_objective": true
+      },
+      {
+        "type": "numeric",
+        "key": "camera",
+        "full_name": "Camera",
+        "format": "####0 MP",
+        "goal": "max",
+        "is_objective": false
+      },
+      {
+        "type": "numeric",
+        "key": "memory_size",
+        "full_name": "Memory",
+        "format": "####0 GB",
+        "goal": "max",
+        "is_objective": false
+      },
+      {
+        "type": "numeric",
+        "key": "battery",
+        "full_name": "Battery (mAh)",
+        "goal": "max",
+        "is_objective": false
+      },
+      {
+        "type": "numeric",
+        "key": "weight",
+        "full_name": "Weight",
+        "format": "####0 g",
+        "goal": "min",
+        "is_objective": true
+      },
+      {
+        "type": "datetime",
+        "key": "rDate",
+        "full_name": "Release Date",
+        "range": {
+          "low": "2010-04-29T00:00:00Z",
+          "high": "2017-04-29T00:00:00Z"
+        },
+        "goal": "max",
+        "is_objective": false
+      }
+    ],
+    "subject": "phone",
+    "options": [
+      {
+        "key": "1",
+        "name": "Samsung Galaxy S4 White",
+        "values": {
+          "price": -1,
+          "rDate": "2013-04-29T00:00:00Z",
+          "weight": 130,
+          "screen_size": 5,
+          "battery": 2600,
+          "camera": 13,
+          "brand": "Samsung",
+          "RAM": 2048,
+          "memory_size": 16
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/Samsung_GALAXY_S4_zoom_%28White%29.jpg/800px-Samsung_GALAXY_S4_zoom_%28White%29.jpg\" /> <a title=\"Photo by Samsung Belgium (Flickr: GALAXY S4 zoom (1)) [CC BY 2.0 (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:Samsung_GALAXY_S4_zoom_%28White%29.jpg\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "2",
+        "name": "Samsung Galaxy S4 Black",
+        "values": {
+          "price": 239,
+          "rDate": "2013-04-29T00:00:00Z",
+          "weight": 130,
+          "screen_size": 5,
+          "battery": 2600,
+          "camera": 13,
+          "brand": "Samsung1",
+          "RAM": 2048,
+          "memory_size": 16
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Samsung_Galaxy_S4.jpg/200px-Samsung_Galaxy_S4.jpg\" /><a title=\"Photo by Karlis Dambrans (Flickr: Samsung Galaxy S4) [CC BY 2.0 (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:Samsung_Galaxy_S4.jpg\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "3",
+        "name": "Samsung Galaxy S3 White",
+        "values": {
+          "price": 79,
+          "rDate": "2020-05-29T00:00:00Z",
+          "weight": 133,
+          "screen_size": 4.8,
+          "battery": 2100,
+          "camera": 8,
+          "brand": "Samsung",
+          "RAM": 2048,
+          "memory_size": 16
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Samsung_Galaxy_S_III.png/300px-Samsung_Galaxy_S_III.png\" /> <a title=\"Photo by GalaxyOptimus (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:Samsung_Galaxy_S_III.png\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "4",
+        "name": "Samsung Galaxy S3 Blue",
+        "values": {
+          "price": 79,
+          "rDate": "2012-05-29T00:00:00Z",
+          "weight": 133,
+          "screen_size": 4.8,
+          "battery": 2100,
+          "camera": 8,
+          "brand": "Samsung",
+          "RAM": 2048,
+          "memory_size": 16
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Samsung_Galaxy_S_Advance_i9070.JPG/250px-Samsung_Galaxy_S_Advance_i9070.JPG\" /> <a title=\"Photo by Macs79 (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:Samsung_Galaxy_S_Advance_i9070.JPG\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "5",
+        "name": "Samsung Galaxy S3 mini White",
+        "values": {
+          "price": 299,
+          "rDate": "2012-10-01T00:00:00Z",
+          "weight": 111,
+          "screen_size": 4,
+          "battery": 1000,
+          "camera": 5,
+          "brand": "Samsung",
+          "RAM": 1024,
+          "memory_size": 8
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Samsung_Galaxy_S_III_mini.png/300px-Samsung_Galaxy_S_III_mini.png\" /> <a title=\"Photo by GalaxyOptimus (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:Samsung_Galaxy_S_III_mini.png\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "6",
+        "name": "Apple iPhone 5 White",
+        "values": {
+          "price": 449,
+          "rDate": "2012-09-21T00:00:00Z",
+          "weight": 112,
+          "screen_size": 4,
+          "battery": 1440,
+          "camera": 8,
+          "brand": "Apple",
+          "RAM": 1024,
+          "memory_size": 32
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/IPhone5white.png/228px-IPhone5white.png\" /> <a title=\"Photo by Pixeden.com [CC BY 3.0 (http://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:IPhone5white.png\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "7",
+        "name": "Apple iPhone 5 Black",
+        "values": {
+          "price": 449,
+          "rDate": "2012-09-21T00:00:00Z",
+          "weight": 112,
+          "screen_size": 4,
+          "battery": 1440,
+          "camera": 8,
+          "brand": "Apple",
+          "RAM": 1024,
+          "memory_size": 32
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/IPhone_5.png/300px-IPhone_5.png\" /> <a title=\"Photo by Zach Vega (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:IPhone_5.png\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "9",
+        "name": "HTC One",
+        "values": {
+          "price": 189,
+          "rDate": "2013-03-01T00:00:00Z",
+          "weight": 143,
+          "screen_size": 4.7,
+          "battery": 2300,
+          "camera": 4,
+          "brand": "HTC",
+          "RAM": 2048,
+          "memory_size": 32
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/7/70/HTC_One.png/149px-HTC_One.png\" /> <a title=\"Photo by M0rphzone (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:HTC_One.png\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "10",
+        "name": "LG Optimus G",
+        "values": {
+          "price": 189,
+          "rDate": "2012-09-19T00:00:00Z",
+          "weight": 145,
+          "screen_size": 4.7,
+          "battery": 2100,
+          "camera": 13,
+          "brand": "LG",
+          "RAM": 1024,
+          "memory_size": 32
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/LG_Optimus_G_%28Black%29.jpg/330px-LG_Optimus_G_%28Black%29.jpg\" /> <a title=\"[CC BY 2.0 (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:LG_Optimus_G_%28Black%29.jpg\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "11",
+        "name": "Nokia Lumia 520",
+        "values": {
+          "price": 199,
+          "rDate": "2013-02-25T00:00:00Z",
+          "weight": 124,
+          "screen_size": 4,
+          "battery": 1430,
+          "camera": 5,
+          "brand": "Nokia",
+          "RAM": 512,
+          "memory_size": 8
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Lumia_520.jpg/450px-Lumia_520.jpg\" /> <a title=\"Photo by Krby Dambrns from Latvia (MWC Barcelona 2013 260  Uploaded by RaviC) [CC BY 2.0 (http://creativecommons.org/licenses/by/2.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:Lumia_520.jpg\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "13",
+        "name": "Samsung Galaxy Ace 2 Black",
+        "values": {
+          "price": 220,
+          "rDate": "2012-02-05T00:00:00Z",
+          "weight": 122,
+          "screen_size": 3.8,
+          "battery": 1000,
+          "camera": 5,
+          "brand": "Samsung",
+          "RAM": 768,
+          "memory_size": 4
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Front_Ace_2.JPG/330px-Front_Ace_2.JPG\" /> <a title=\"Photo by Fan samsung ace2 (Own work) [CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:Front_Ace_2.JPG\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "14",
+        "name": "Samsung Galaxy Mini 2 Black",
+        "values": {
+          "price": 220,
+          "rDate": "2012-02-05T00:00:00Z",
+          "weight": 105,
+          "screen_size": 3.27,
+          "battery": 1300,
+          "camera": 3.15,
+          "brand": "Samsung",
+          "RAM": 512,
+          "memory_size": 4
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/3/3d/GT-S6500L.jpg/375px-GT-S6500L.jpg\" /> <a title=\"Photo by Eriqvaldezz (Own work) [GFDL (http://www.gnu.org/copyleft/fdl.html) or CC BY 3.0 (http://creativecommons.org/licenses/by/3.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:GT-S6500L.jpg\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      },
+      {
+        "key": "15",
+        "name": "Sony Xperia P Silver",
+        "values": {
+          "price": 255,
+          "rDate": "2012-02-27T00:00:00Z",
+          "weight": 120,
+          "screen_size": 4,
+          "battery": 1305,
+          "camera": 8,
+          "brand": "Sony",
+          "RAM": 1024,
+          "memory_size": 16
+        },
+        "description_html": "<img style=\"max-height:100px;max-width:100px\" src=\"http://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Xperia_P.jpg/330px-Xperia_P.jpg\" /> <a title=\"Photo by vsy (http://www.flickr.com/photos/vsy/7176314726/) [CC BY-SA 2.0 (http://creativecommons.org/licenses/by-sa/2.0)], via Wikimedia Commons\" href=\"http://commons.wikimedia.org/wiki/File:Xperia_P.jpg\" target=\"_blank\" rel=\"nofollow\"> <img style=\"max-height:14px;max-width:14px\" src=\"http://mirrors.creativecommons.org/presskit/icons/cc.png\" /> </a>"
+      }
+    ]
+  },
+  "resolution": {
+    "solutions": [
+      {
+        "solution_ref": "1",
+        "status": "FRONT"
+      },
+      {
+        "solution_ref": "2",
+        "status": "INCOMPLETE",
+        "status_cause": {
+          "message": "A column of a option is out of range. Option \"2\" has a value in column \"brand\" which is:\"Samsung1\" while the column range\" is: [\"Samsung\",\"Apple\",\"HTC\",\"LG\",\"Nokia\",\"Sony\"]",
+          "error_code": "RANGE_MISMATCH",
+          "tokens": [
+            "brand",
+            "Samsung1",
+            "[\"Samsung\",\"Apple\",\"HTC\",\"LG\",\"Nokia\",\"Sony\"]"
+          ]
+        }
+      },
+      {
+        "solution_ref": "3",
+        "status": "INCOMPLETE",
+        "status_cause": {
+          "message": "A column of a option is out of range. Option \"3\" has a value in column \"rDate\" which is:\"2020-05-29T00:00:00Z\" while the column range\" is: [Thu Apr 29 00:00:00 UTC 2010,Sat Apr 29 00:00:00 UTC 2017]",
+          "error_code": "RANGE_MISMATCH",
+          "tokens": [
+            "rDate",
+            "2020-05-29T00:00:00Z",
+            "[Thu Apr 29 00:00:00 UTC 2010,Sat Apr 29 00:00:00 UTC 2017]"
+          ]
+        }
+      },
+      {
+        "solution_ref": "4",
+        "status": "EXCLUDED"
+      },
+      {
+        "solution_ref": "5",
+        "status": "FRONT"
+      },
+      {
+        "solution_ref": "6",
+        "status": "EXCLUDED"
+      },
+      {
+        "solution_ref": "7",
+        "status": "EXCLUDED"
+      },
+      {
+        "solution_ref": "9",
+        "status": "EXCLUDED"
+      },
+      {
+        "solution_ref": "10",
+        "status": "EXCLUDED"
+      },
+      {
+        "solution_ref": "11",
+        "status": "EXCLUDED"
+      },
+      {
+        "solution_ref": "13",
+        "status": "EXCLUDED"
+      },
+      {
+        "solution_ref": "14",
+        "status": "FRONT"
+      },
+      {
+        "solution_ref": "15",
+        "status": "EXCLUDED"
+      }
+    ],
+    "map": {
+      "nodes": [
+        {
+          "coordinates": {
+            "x": 4,
+            "y": 0
+          },
+          "solution_refs": [
+            "14"
+          ]
+        },
+        {
+          "coordinates": {
+            "x": 2.5,
+            "y": 0.8660254037844386
+          },
+          "solution_refs": [
+            "5"
+          ]
+        },
+        {
+          "coordinates": {
+            "x": 2,
+            "y": 3.4641016151377544
+          },
+          "solution_refs": [
+            "1"
+          ]
+        }
+      ],
+      "anchors": [
+        {
+          "name": "brand",
+          "position": {
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "name": "screen_size",
+          "position": {
+            "x": 3,
+            "y": 5.196152422706632
+          }
+        },
+        {
+          "name": "weight",
+          "position": {
+            "x": 6,
+            "y": 0
+          }
+        }
+      ],
+      "version": "APIV1-ANN",
+      "config": {
+        "params": {
+          "rInit": 2.4075506225207395,
+          "rFinish": 1,
+          "seed": 20010,
+          "rAnchor": 1.5,
+          "alpha_init": 0.75,
+          "map_size": 27,
+          "training_period": 100,
+          "anchor_epoch": 6
+        },
+        "drivers": {
+          "r_fin": 1,
+          "r_init": 0.6,
+          "r_anchor_init": 0.9,
+          "training_length": 100,
+          "max_map_size": 200,
+          "alpha_init": 0.75,
+          "training_anchors": 2,
+          "data_multiplier": 9
+        }
+      },
+      "metrics": {
+        "mqe": "NaN",
+        "tau": "NaN",
+        "somers": "NaN",
+        "kappa": 0.6666666666666666,
+        "kappa_delta": "NaN",
+        "weighted_kappa": "NaN",
+        "final_kappa": 0.6666666666666666
+      }
+    }
+  }
+}

@@ -1,23 +1,6 @@
 {
   "subject": "phone",
-  "columns": [
-    {
-      "key": "price",
-      "type": "numeric",
-      "goal": "min",
-      "full_name": "Price",
-      "is_objective": true,
-      "format": "€####0.00",
-      "range": [
-        "Samsung",
-        "Apple",
-        "HTC",
-        "LG",
-        "Nokia",
-        "Sony"
-      ]
-    },
-    {
+  "columns": [{
       "key": "brand",
       "type": "categorical",
       "goal": "min",
