@@ -28,6 +28,7 @@ import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
@@ -41,7 +42,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   private static final String VERSION_DATE = "version";
   private static final String FIXTURE = "src/test/resources/tone_analyzer/tone.json";
   private final static String TONE_PATH = "/v3/tone";
-  public static final String EMPTY = "";
+  private static final String EMPTY = "";
 
   /** The service. */
   private ToneAnalyzer service;

@@ -24,6 +24,7 @@ import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
@@ -324,7 +325,7 @@ public class SpeechToText extends WatsonService {
     getToken().enqueue(new ServiceCallback<String>() {
       @Override
       public void onFailure(Exception e) {
-        throw new RuntimeException(e);
+        callback.onError(e);
       }
 
       @Override

@@ -1,0 +1,16 @@
+{
+  "intents": [
+    {
+       "intent": "get_quote",
+       "confidence": 0.943643
+     }
+   ],
+   
+  "context": {
+   
+  },
+  
+  "output": {
+    "text": "Do you want to get a quote?"
+  }
+}

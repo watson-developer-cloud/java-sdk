@@ -23,6 +23,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Alchemy Vision](#alchemy-vision)
     * [Alchemy Data News](#alchemy-data-news)
     * [Concept Insights](#concept-insights)
+    * [Conversation](#conversation)
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
     * [Language Translation](#language-translation)
@@ -206,6 +207,22 @@ params.put(AlchemyDataNews.COUNT, 7);
 DocumentsResult result = service.getNewsDocuments(params).execute();
 
 System.out.println(result);
+```
+
+### Conversation
+Use the experimental [Conversation][conversation] service to identify intents, entities, and conduct conversations.
+
+```java
+ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
+service.setUsernameAndPassword("<username>", "<password>");
+
+ConversationOptions options = new ConversationOptions.Builder()
+  .workspaceId("<your-workspace-id>") // Created with the tooling app
+  .inputText("What is my account balance?")
+  .build();
+
+Message messageResponse = service.message(options).execute();
+System.out.println(messageResponse);
 ```
 
 ### Concept Insights
@@ -411,7 +428,7 @@ System.out.println(voices);
 Use the [Tone Analyzer][tone_analyzer] service to get the tone of your email.
 
 ```java
-ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_02_11);
+ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
 service.setUsernameAndPassword("<username>", "<password>");
 
 String text =
@@ -427,7 +444,7 @@ String text =
       + "business outcomes. Economy has nothing to do with it.";
 
 // Call the service and get the tone
-ToneAnalysis tone = service.getTone(text).execute();
+ToneAnalysis tone = service.getTone(text, null).execute();
 System.out.println(tone);
 ```
 
@@ -586,6 +603,7 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [tone_analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
 [dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
 [concept_insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
+[conversation]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/
 [visual_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-insights/
 [retrieve_and_rank]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/
 

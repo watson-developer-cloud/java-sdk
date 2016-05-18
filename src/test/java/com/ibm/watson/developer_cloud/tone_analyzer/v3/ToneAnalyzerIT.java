@@ -22,6 +22,7 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 
 /**
  * Tone Analyzer Integration tests.

@@ -22,7 +22,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
