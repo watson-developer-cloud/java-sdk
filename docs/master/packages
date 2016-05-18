@@ -4,6 +4,8 @@ com.ibm.watson.developer_cloud.alchemy.v1.util
 com.ibm.watson.developer_cloud.concept_insights.v2
 com.ibm.watson.developer_cloud.concept_insights.v2.model
 com.ibm.watson.developer_cloud.concept_insights.v2.util
+com.ibm.watson.developer_cloud.conversation.v1_experimental
+com.ibm.watson.developer_cloud.conversation.v1_experimental.model
 com.ibm.watson.developer_cloud.dialog.v1
 com.ibm.watson.developer_cloud.dialog.v1.model
 com.ibm.watson.developer_cloud.document_conversion.v1
@@ -45,3 +47,5 @@ com.ibm.watson.developer_cloud.visual_insights.v1_experimental
 com.ibm.watson.developer_cloud.visual_insights.v1_experimental.model
 com.ibm.watson.developer_cloud.visual_recognition.v2_beta
 com.ibm.watson.developer_cloud.visual_recognition.v2_beta.model
+com.ibm.watson.developer_cloud.visual_recognition.v3
+com.ibm.watson.developer_cloud.visual_recognition.v3.model
