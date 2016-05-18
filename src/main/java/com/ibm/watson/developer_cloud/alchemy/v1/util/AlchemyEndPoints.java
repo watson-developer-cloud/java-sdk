@@ -103,7 +103,10 @@ public class AlchemyEndPoints {
     TEXT_RAW,
 
     /** The title. */
-    TITLE
+    TITLE, 
+    
+    /** The typed. */
+    TYPED
   }
 
   private static final String FILE_PATH = "/alchemy_endpoints.json";
