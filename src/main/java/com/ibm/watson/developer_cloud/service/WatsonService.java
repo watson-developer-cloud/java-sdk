@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- *
+ * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- *
+ * 
  * http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -60,7 +60,7 @@ import okhttp3.Response;
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication
  * and default url
- *
+ * 
  * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/"> IBM Watson
  *      Developer Cloud</a>
  */
@@ -91,7 +91,7 @@ public abstract class WatsonService {
 
   /**
    * Instantiates a new Watson service.
-   *
+   * 
    * @param name the service name
    */
   public WatsonService(String name) {
@@ -108,7 +108,7 @@ public abstract class WatsonService {
 
   /**
    * Configures the HTTP client.
-   *
+   * 
    * @return the HTTP client
    */
   protected OkHttpClient configureHttpClient() {
@@ -187,6 +187,8 @@ public abstract class WatsonService {
               callback.onFailure(e);
             }
           }
+
+
         });
       }
 
@@ -209,14 +211,13 @@ public abstract class WatsonService {
 
         return completableFuture;
       }
-
     };
   }
 
   /**
    * Gets the API key.
-   *
-   *
+   * 
+   * 
    * @return the API key
    */
   protected String getApiKey() {
@@ -225,8 +226,8 @@ public abstract class WatsonService {
 
   /**
    * Gets the API end point.
-   *
-   *
+   * 
+   * 
    * @return the API end point
    */
   public String getEndPoint() {
@@ -235,8 +236,8 @@ public abstract class WatsonService {
 
   /**
    * Gets an authorization token that can be use to authorize API calls.
-   *
-   *
+   * 
+   * 
    * @return the token
    */
   public ServiceCall<String> getToken() {
@@ -251,14 +252,14 @@ public abstract class WatsonService {
 
   /**
    * Gets the error message from a JSON response
-   *
+   * 
    * <pre>
    * {
    *   code: 400
    *   error: 'bad request'
    * }
    * </pre>
-   *
+   * 
    * @param response the HTTP response
    * @return the error message from the JSON object
    */
@@ -283,7 +284,7 @@ public abstract class WatsonService {
 
   /**
    * Gets the name.
-   *
+   * 
    * @return the name
    */
   public String getName() {
@@ -293,8 +294,8 @@ public abstract class WatsonService {
 
   /**
    * Gets the user agent.
-   *
-   *
+   * 
+   * 
    * @return the user agent
    */
   private String getUserAgent() {
@@ -303,7 +304,7 @@ public abstract class WatsonService {
 
   /**
    * Sets the API key.
-   *
+   * 
    * @param apiKey the new API key
    */
   public void setApiKey(String apiKey) {
@@ -326,7 +327,7 @@ public abstract class WatsonService {
 
   /**
    * Sets the end point.
-   *
+   * 
    * @param endPoint the new end point
    */
   public void setEndPoint(String endPoint) {
@@ -340,7 +341,7 @@ public abstract class WatsonService {
 
   /**
    * Sets the username and password.
-   *
+   * 
    * @param username the username
    * @param password the password
    */
@@ -350,7 +351,7 @@ public abstract class WatsonService {
 
   /**
    * Set the default headers to be used on every HTTP request.
-   *
+   * 
    * @param headers name value pairs of headers
    */
   public void setDefaultHeaders(Map<String, String> headers) {
@@ -359,7 +360,7 @@ public abstract class WatsonService {
 
   /*
    * (non-Javadoc)
-   *
+   * 
    * @see java.lang.Object#toString()
    */
   @Override public String toString() {
