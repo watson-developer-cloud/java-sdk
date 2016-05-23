@@ -15,10 +15,12 @@ package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Output;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
+import jersey.repackaged.jsr166e.CompletableFuture;
 
 public class ConversationExample {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws Exception{
     ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
     service.setUsernameAndPassword("<username>", "<password>");
 
@@ -38,7 +40,37 @@ public class ConversationExample {
       @Override
       public void onFailure(Exception e) {
       }}
-    );    
+    );
+
+    // rx callback
+    service.message(newMessage).rx().thenApply(new CompletableFuture.Fun<Message, Output>() {
+      @Override
+      public Output apply(Message message) {
+        return message.getOutput();
+      }
+    }).thenAccept(new CompletableFuture.Action<Output>() {
+      @Override
+      public void accept(Output output) {
+        System.out.println(output);
+      }
+    });
+
+    // rx async callback
+    service.message(newMessage).rx().thenApplyAsync(new CompletableFuture.Fun<Message, Output>() {
+      @Override
+      public Output apply(Message message) {
+        return message.getOutput();
+      }
+    }).thenAccept(new CompletableFuture.Action<Output>() {
+      @Override
+      public void accept(Output output) {
+        System.out.println(output);
+      }
+    });
+
+    // rx sync
+    Message rxDialogs=service.message(newMessage).rx().get();
+    System.out.println(rxDialogs);
   }
 
 }
