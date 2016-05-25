@@ -261,4 +261,20 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     assertEquals(0, server.getRequestCount());
   }
+
+  /**
+   * Test MediaTypeUtils class.
+   */
+  @Test
+  public void testMediaTypeUtils() {
+    assertEquals(HttpMediaType.AUDIO_WAV, MediaTypeUtils.getMediaTypeFromFile(new File("test.wav")));
+    assertEquals(HttpMediaType.AUDIO_OGG, MediaTypeUtils.getMediaTypeFromFile(new File("test.OGG")));
+    assertNull(MediaTypeUtils.getMediaTypeFromFile(new File("invalid.png")));
+    assertNull(MediaTypeUtils.getMediaTypeFromFile(new File("invalidwav")));
+    assertNull(MediaTypeUtils.getMediaTypeFromFile(null));
+
+    assertTrue(MediaTypeUtils.isValidMediaType("audio/wav"));
+    assertFalse(MediaTypeUtils.isValidMediaType("image/png"));
+    assertFalse(MediaTypeUtils.isValidMediaType(null));
+  }
 }
