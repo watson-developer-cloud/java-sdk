@@ -49,6 +49,11 @@
 			<version>3.4</version>
 		</dependency>
 		<dependency>
+			<groupId>org.glassfish.jersey.bundles.repackaged</groupId>
+			<artifactId>jersey-jsr166e</artifactId>
+			<version>2.22.2</version>
+		</dependency>
+		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.12</version>

@@ -45,6 +45,7 @@ import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
 
+import jersey.repackaged.jsr166e.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Credentials;
@@ -186,7 +187,29 @@ public abstract class WatsonService {
               callback.onFailure(e);
             }
           }
+
+
         });
+      }
+
+      @Override public CompletableFuture<T> rx() {
+        final CompletableFuture<T> completableFuture=new CompletableFuture<T>();
+
+        call.enqueue(new Callback() {
+          @Override public void onFailure(Call call, IOException e) {
+            completableFuture.completeExceptionally(e);
+          }
+
+          @Override public void onResponse(Call call, Response response) {
+            try {
+              completableFuture.complete(processServiceCall(converter, response));
+            } catch(Exception e) {
+              completableFuture.completeExceptionally(e);
+            }
+          }
+        });
+
+        return completableFuture;
       }
     };
   }

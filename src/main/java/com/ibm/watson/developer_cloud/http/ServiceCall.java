@@ -13,6 +13,8 @@
  */
 package com.ibm.watson.developer_cloud.http;
 
+import jersey.repackaged.jsr166e.CompletableFuture;
+
 /**
  * Service Call.
  *
@@ -33,4 +35,11 @@ public interface ServiceCall<T> {
      * @param callback the callback
      */
     void enqueue(ServiceCallback<T> callback);
+
+    /**
+     * Reactive requests, in this case, you could take advantage both synchronous and asynchronous.
+     *
+     * @return a CompletableFuture wrapper for your response
+     */
+    CompletableFuture<T> rx();
 }

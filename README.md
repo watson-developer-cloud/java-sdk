@@ -11,6 +11,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 
 
 ## Table of Contents
+  * [Reactive API call for v3.0.1](#introduce-reactive-api-call-for-v301)
   * [Breaking Changes for v3.0](#breaking-changes-for-v30)
   * [Installation](#installation)
     * [Maven](#maven)
@@ -42,6 +43,44 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
   * [License](#license)
   * [Contributing](#contributing)
+
+## Introduce reactive API call for v3.0.1  
+
+Now to do reactive call you need to add `rx()`, with reactive you could use synchronous or asynchronous as you like. And you could combine multiple rest calls more efficient.
+
+Use callback way
+```java
+service.getDialogs().rx().thenApply(new CompletableFuture.Fun<List<Dialog>, Integer>() {
+  @Override
+  public Integer apply(List<Dialog> dialogs) {
+    return dialogs.size();
+  }
+}).thenAccept(new CompletableFuture.Action<Integer>() {
+  @Override
+  public void accept(Integer integer) {
+    System.out.println(integer);
+  }
+});    
+```
+Use asynchronous callback way
+```java
+service.getDialogs().rx().thenApplyAsync(new CompletableFuture.Fun<List<Dialog>, Integer>() {
+  @Override
+  public Integer apply(List<Dialog> dialogs) {
+    return dialogs.size();
+  }
+}).thenAccept(new CompletableFuture.Action<Integer>() {
+  @Override
+  public void accept(Integer size) {
+    System.out.println(size);
+  }
+});
+```
+Use synchronous way
+```java
+Integer size=service.getDialogs().rx().get().size();
+System.out.println(size);
+```
 
 ## Breaking Changes for v3.0
 
