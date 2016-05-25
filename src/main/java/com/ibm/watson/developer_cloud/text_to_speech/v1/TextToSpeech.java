@@ -44,7 +44,8 @@ import okhttp3.Request;
 public class TextToSpeech extends WatsonService {
 
   private static final String ACCEPT = "accept";
-  private static final String PATH_GET_VOICES = "/v1/voices";
+  private static final String PATH_VOICES = "/v1/voices";
+  private static final String PATH_VOICE = "/v1/voices/%s";
   private static final String PATH_SYNTHESIZE = "/v1/synthesize";
   private static final String PATH_GET_PRONUNCIATION = "/v1/pronunciation";
   private static final String SERVICE_NAME = "text_to_speech";
@@ -69,9 +70,22 @@ public class TextToSpeech extends WatsonService {
    * @return the list of {@link Voice}
    */
   public ServiceCall<List<Voice>> getVoices() {
-    final Request request = RequestBuilder.get(PATH_GET_VOICES).build();
+    final Request request = RequestBuilder.get(PATH_VOICES).build();
     ResponseConverter<List<Voice>> converter = ResponseConverterUtils.getGenericObject(TYPE_GET_VOICES, VOICES);
     return createServiceCall(request, converter);
+  }
+
+  /**
+   *  Gets the voice based on a given name.
+   *
+   *  @param voiceName the voice name
+   *  @return the {@link Voice}
+   */
+  public ServiceCall<Voice> getVoice(final String voiceName) {
+    Validator.notNull(voiceName, "name can not be null");
+
+    Request request = RequestBuilder.get(String.format(PATH_VOICE, voiceName)).build();
+    return createServiceCall(request, ResponseConverterUtils.getObject(Voice.class));
   }
 
   /**
