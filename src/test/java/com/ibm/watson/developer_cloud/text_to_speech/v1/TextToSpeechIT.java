@@ -52,6 +52,7 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 public class TextToSpeechIT extends WatsonServiceTest {
 
   private TextToSpeech service;
+  private String voiceName;
 
   /*
    * (non-Javadoc)
@@ -68,6 +69,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
         getExistingProperty("text_to_speech.password"));
     service.setEndPoint(getExistingProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
+    voiceName = getExistingProperty("text_to_speech.voice_name");
   }
 
 
@@ -85,6 +87,20 @@ public class TextToSpeechIT extends WatsonServiceTest {
     Assert.assertNotNull(voices.get(0).getLanguage());
     Assert.assertNotNull(voices.get(0).getName());
     Assert.assertNotNull(voices.get(0).getUrl());
+  }
+
+  /**
+   * Test get voice
+   */
+  @Test
+  public void testGetVoice() {
+    Voice voice = service.getVoice(voiceName).execute();
+    Assert.assertNotNull(voice);
+    Assert.assertNotNull(voice.getDescription());
+    Assert.assertNotNull(voice.getGender());
+    Assert.assertNotNull(voice.getLanguage());
+    Assert.assertNotNull(voice.getName());
+    Assert.assertNotNull(voice.getUrl());
   }
 
   /**
