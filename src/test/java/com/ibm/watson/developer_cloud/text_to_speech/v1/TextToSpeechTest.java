@@ -46,6 +46,7 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.TestUtils;
 
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
@@ -152,6 +153,33 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     assertNotNull(result);
     assertFalse(result.isEmpty());
     assertEquals(voices, result);
+  }
+
+  /**
+   * Test get voice
+   */
+  @Test
+  public void testGetVoice() {
+    final Voice voice = new Voice();
+    voice.setUrl("http://ibm.watson.com/text-to-speech/voices/en-US_TestMaleVoice");
+    voice.setName("en-US_TestMaleVoice");
+    voice.setGender("male");
+    voice.setLanguage("en-US");
+    voice.setDescription("TestMale");
+
+    server.enqueue(new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(voice)));
+
+    Voice result = service.getVoice(voice.getName()).execute();
+    assertNotNull(result);
+    assertEquals(result, voice);
+
+    try {
+      TestUtils.assertNoExceptionsOnGetters(result);
+    } catch (final Exception e) {
+      Assert.fail(e.getMessage());
+    }
   }
 
   /**
