@@ -55,6 +55,9 @@ public class TextToSpeech extends WatsonService {
   private static final String VOICE = "voice";
   private static final String VOICES = "voices";
   private static final String FORMAT = "format";
+  private static final String CUSTOMIZATION_ID = "customization_id";
+  
+  private final Customizations customizations;
 
   /**
    * Instantiates a new text to speech.
@@ -62,6 +65,8 @@ public class TextToSpeech extends WatsonService {
   public TextToSpeech() {
     super(SERVICE_NAME);
     setEndPoint(URL);
+    
+    customizations = new Customizations(this);
   }
 
   /**
@@ -128,6 +133,20 @@ public class TextToSpeech extends WatsonService {
    * @return the input stream
    */
   public ServiceCall<InputStream> synthesize(final String text, final Voice voice, final AudioFormat audioFormat) {
+    return synthesize(text, voice, audioFormat, null);
+  }
+  
+  /**
+   * Synthesize text using a {@link Voice} and {@link AudioFormat}.
+   * 
+   * @param text the text
+   * @param voice the voice
+   * @param audioFormat the {@link AudioFormat}
+   * @param customizationId the customization ID
+   * @return the input stream
+   */
+  public ServiceCall<InputStream> synthesize(final String text, final Voice voice, final AudioFormat audioFormat,
+      String customizationId) {
     Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
     Validator.isTrue(voice != null, "voice cannot be null or empty");
 
@@ -136,6 +155,33 @@ public class TextToSpeech extends WatsonService {
     request.query(VOICE, voice.getName());
     request.query(ACCEPT, audioFormat != null ? audioFormat : AudioFormat.WAV);
 
+    if (customizationId != null) {
+      request.query(CUSTOMIZATION_ID, customizationId);
+    }
+
     return createServiceCall(request.build(), ResponseConverterUtils.getInputStream());
   }
+
+  /**
+   * Gets the Customizations service, which manages custom voice models and word pronounciations.
+   * @return the Customizations service
+   */
+  public Customizations getCustomizations() {
+    return customizations;
+  }
+  
+  /**
+   * Creates the service call.
+   * 
+   * This method has been added to TextToSpeech, because Customizations uses it as proxy for making API requests.
+   *
+   * @param <T> the generic type
+   * @param request the request
+   * @param converter the converter
+   * @return the service call
+   */
+  protected <T> ServiceCall<T> createNewServiceCall(final Request request, final ResponseConverter<T> converter) {
+    return super.createServiceCall(request, converter);
+  }
+  
 }
