@@ -163,13 +163,15 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Gets the Customizations service, which manages custom voice models and word pronounciations.
+   * Gets the Customizations service, which manages custom voice models and word
+   * pronunciations.
+   * 
    * @return the Customizations service
    */
   public Customizations getCustomizations() {
     return customizations;
   }
-  
+
   /**
    * Creates the service call.
    * 

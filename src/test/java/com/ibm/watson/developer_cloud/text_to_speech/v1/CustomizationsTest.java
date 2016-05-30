@@ -28,7 +28,7 @@ import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModel;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import okhttp3.mockwebserver.MockResponse;
@@ -88,8 +88,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
         .setBody(GSON.toJson(ImmutableMap.of(key, o)));
   }
 
-  private static VoiceModel instantiateVoiceModel() {
-    VoiceModel model = new VoiceModel();
+  private static CustomVoiceModel instantiateVoiceModel() {
+    CustomVoiceModel model = new CustomVoiceModel();
     model.setId("cafebabe-1234-5678-9abc-def012345678");
     model.setName(MODEL_NAME);
     model.setDescription(MODEL_DESCRIPTION);
@@ -104,10 +104,10 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetVoiceModels() throws InterruptedException {
-    final List<VoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
+    final List<CustomVoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
     server.enqueue(jsonResponse(CUSTOMIZATIONS, expected));
 
-    final List<VoiceModel> result = service.getVoiceModels(MODEL_LANGUAGE).execute();
+    final List<CustomVoiceModel> result = service.getVoiceModels(MODEL_LANGUAGE).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(VOICE_MODELS_PATH + "?language=" + MODEL_LANGUAGE, request.getPath());
@@ -118,10 +118,10 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetVoiceModel() throws InterruptedException {
-    final VoiceModel expected = instantiateVoiceModel();
+    final CustomVoiceModel expected = instantiateVoiceModel();
     server.enqueue(jsonResponse(expected));
 
-    final VoiceModel result = service.getVoiceModel(expected.getId()).execute();
+    final CustomVoiceModel result = service.getVoiceModel(expected.getId()).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(VOICE_MODELS_PATH + "/" + expected.getId(), request.getPath());
@@ -131,15 +131,15 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   @Test
   public void testCreateVoiceModel() throws InterruptedException {
-    final VoiceModel expected = instantiateVoiceModel();
+    final CustomVoiceModel expected = instantiateVoiceModel();
     server.enqueue(jsonResponse(ImmutableMap.of(ID, expected.getId())));
 
-    final VoiceModel newModel = new VoiceModel();
+    final CustomVoiceModel newModel = new CustomVoiceModel();
     newModel.setName(expected.getName());
     newModel.setLanguage(expected.getLanguage());
     newModel.setDescription(expected.getDescription());
 
-    final VoiceModel result = service.saveVoiceModel(newModel).execute();
+    final CustomVoiceModel result = service.saveVoiceModel(newModel).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(VOICE_MODELS_PATH, request.getPath());
@@ -149,10 +149,10 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   @Test
   public void testUpdateVoiceModel() throws InterruptedException {
-    final VoiceModel expected = instantiateVoiceModel();
+    final CustomVoiceModel expected = instantiateVoiceModel();
 
     server.enqueue(new MockResponse().setResponseCode(201));
-    final VoiceModel result = service.saveVoiceModel(expected).execute();
+    final CustomVoiceModel result = service.saveVoiceModel(expected).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(VOICE_MODELS_PATH + "/" + expected.getId(), request.getPath());
@@ -162,9 +162,9 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   @Test
   public void testDeleteVoiceModel() throws InterruptedException {
-    final VoiceModel expected = instantiateVoiceModel();
+    final CustomVoiceModel expected = instantiateVoiceModel();
 
-    server.enqueue(new MockResponse().setResponseCode(201));
+    server.enqueue(new MockResponse().setResponseCode(204));
     service.deleteVoiceModel(expected).execute();
     final RecordedRequest request = server.takeRequest();
 
@@ -174,7 +174,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   @Test
   public void testGetWords() throws InterruptedException {
-    final VoiceModel model = instantiateVoiceModel();
+    final CustomVoiceModel model = instantiateVoiceModel();
     final List<CustomTranslation> expected = instantiateWords();
 
     server.enqueue(jsonResponse(WORDS, expected));
@@ -188,7 +188,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   @Test
   public void testAddWord() throws InterruptedException {
-    final VoiceModel model = instantiateVoiceModel();
+    final CustomVoiceModel model = instantiateVoiceModel();
     final List<CustomTranslation> expected = instantiateWords();
 
     server.enqueue(new MockResponse().setResponseCode(201));
@@ -208,10 +208,10 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   @Test
   public void testDeleteWord() throws InterruptedException {
-    final VoiceModel model = instantiateVoiceModel();
+    final CustomVoiceModel model = instantiateVoiceModel();
     final CustomTranslation expected = instantiateWords().get(0);
 
-    server.enqueue(new MockResponse().setResponseCode(201));
+    server.enqueue(new MockResponse().setResponseCode(204));
     service.deleteWord(model, expected).execute();
     final RecordedRequest request = server.takeRequest();
 
