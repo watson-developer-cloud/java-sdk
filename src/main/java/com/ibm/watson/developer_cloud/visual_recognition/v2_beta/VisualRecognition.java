@@ -82,6 +82,18 @@ public class VisualRecognition extends WatsonService {
     this.versionDate = versionDate;
   }
 
+  /**
+   * Instantiates a new Visual Recognition V2 service by username and password.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *        will keep your API calls from failing when the service introduces breaking changes.
+   * @param username the username
+   * @param password the password
+   */
+  public VisualRecognition(String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
+  }
 
   /**
    * Creates a {@link JsonObject} with an array of classifier ids.

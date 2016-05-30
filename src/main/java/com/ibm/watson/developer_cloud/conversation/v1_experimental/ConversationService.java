@@ -52,6 +52,17 @@ public final class ConversationService extends WatsonService {
   }
 
   /**
+   * Returns an instance of the Conversation Service using the service's default endpoint (URL), username and password.
+   * @param versionDate Version of the API which is to be invoked by the REST client.
+   * @param username the username
+   * @param password the password
+   */
+  public ConversationService(final String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Sends a message to the service through a {@link NewMessageOptions}.
    *
    * @return The response for the given message.

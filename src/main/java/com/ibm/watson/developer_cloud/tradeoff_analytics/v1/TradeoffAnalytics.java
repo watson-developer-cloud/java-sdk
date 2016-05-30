@@ -50,6 +50,16 @@ public class TradeoffAnalytics extends WatsonService {
   }
 
   /**
+   * Instantiates a new tradeoff analytics service by username and password.
+   * @param username the username
+   * @param password the password
+   */
+  public TradeoffAnalytics(String username, String password) {
+    this();
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Returns a dilemma that contains the {@link Problem} and a {@link Resolution}. The
    * {@link Problem} contains a set of options and objectives. The {@link Resolution} contains a set
    * of optimal options, their analytical characteristics, and by default their representation on a

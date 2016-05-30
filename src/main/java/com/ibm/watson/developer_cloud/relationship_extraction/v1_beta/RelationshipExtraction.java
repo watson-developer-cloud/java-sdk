@@ -52,6 +52,16 @@ public class RelationshipExtraction extends WatsonService {
   }
 
   /**
+   * Instantiates a new relationship extraction service by username and password.
+   * @param username the username
+   * @param password the password
+   */
+  public RelationshipExtraction(String username, String password) {
+    this();
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Extracts relationships between sentence components (nouns, verbs, subjects, objects, etc.)
    * 
    * <br>

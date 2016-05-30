@@ -90,6 +90,19 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
+   * Instantiates a new Visual Recognition V2 service by username and password.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *        will keep your API calls from failing when the service introduces breaking changes.
+   * @param username the username
+   * @param password the password
+   */
+  public VisualRecognition(String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Adds the Alchemy API key to HTTP request.
    * 
    * @param builder the builder

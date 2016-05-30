@@ -65,6 +65,16 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
+   * Instantiates a new text to speech service by username and password.
+   * @param username the username
+   * @param password the password
+   */
+  public TextToSpeech(String username, String password) {
+    this();
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Gets the voices.
    * 
    * @return the list of {@link Voice}

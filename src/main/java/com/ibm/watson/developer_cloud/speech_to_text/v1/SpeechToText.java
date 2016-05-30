@@ -83,6 +83,16 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
+   * Instantiates a new Speech to Text service by username and password.
+   * @param username the username
+   * @param password the password
+   */
+  public SpeechToText(String username, String password) {
+    this();
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Builds the recognize request using the {@link RecognizeOptions}.
    * 
    * @param requestBuilder the request builder

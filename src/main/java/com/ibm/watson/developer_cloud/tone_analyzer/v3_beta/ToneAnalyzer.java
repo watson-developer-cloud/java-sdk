@@ -58,7 +58,18 @@ public class ToneAnalyzer extends WatsonService {
     this.versionDate = versionDate;
   }
 
-
+  /**
+   * Instantiates a new tone analyzer with username and password.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *        will keep your API calls from failing when the service introduces breaking changes.
+   * @param username the username
+   * @param password the password
+   */
+  public ToneAnalyzer(String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
+  }
 
   /**
    * Analyzes the "tone" of a piece of text. The message is analyzed from several tones (social
