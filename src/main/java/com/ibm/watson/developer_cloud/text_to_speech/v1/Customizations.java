@@ -13,14 +13,13 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
@@ -120,13 +119,13 @@ public class Customizations {
   }
 
   public ServiceCall<Void> saveWord(VoiceModel model, CustomTranslation word) {
-    return saveWords(model, ImmutableList.of(word));
+    return saveWords(model, Arrays.asList(word));
   }
 
   public ServiceCall<Void> saveWords(VoiceModel model, List<CustomTranslation> words) {
     Validator.notEmpty(model.getId(), "model id must not be empty");
-
-    final String json = GSON.toJson(ImmutableMap.of("words", words));
+    
+    final String json = GSON.toJson(Collections.singletonMap("words", words));
     final String path = String.format(PATH_WORDS, model.getId());
     final RequestBody body = RequestBody.create(HttpMediaType.JSON, json);
     final Request request = RequestBuilder.post(path).body(body).build();

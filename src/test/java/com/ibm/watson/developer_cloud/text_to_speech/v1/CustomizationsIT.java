@@ -1,18 +1,24 @@
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.VoiceModel;
 
 public class CustomizationsIT extends WatsonServiceTest {
@@ -94,15 +100,15 @@ public class CustomizationsIT extends WatsonServiceTest {
     assertNotNull(model2.getOwner());
     assertNotNull(model2.getLastModified());
   }
-  
+
   @Test
   public void testUpdateVoiceModel() {
     final String newName = "new test";
-    
+
     model = createVoiceModel();
     model.setName(newName);
     service.saveVoiceModel(model).execute();
-    
+
     VoiceModel model2 = service.getVoiceModel(model.getId()).execute();
     assertModelsEqual(model, model2);
   }
@@ -144,14 +150,14 @@ public class CustomizationsIT extends WatsonServiceTest {
   }
 
   private CustomTranslation instantiateCustomTranslation() {
-    return new CustomTranslation("whip", "hwhip");
+    return new CustomTranslation("hodor", "hold the door");
   }
 
   @Test
   public void testAddWord() {
     model = createVoiceModel();
     CustomTranslation word = instantiateCustomTranslation();
-    
+
     service.saveWord(model, word).execute();
 
     List<CustomTranslation> words = service.getWords(model).execute();
@@ -169,6 +175,19 @@ public class CustomizationsIT extends WatsonServiceTest {
 
     List<CustomTranslation> words = service.getWords(model).execute();
     assertEquals(0, words.size());
+  }
+
+  @Test
+  public void testSynthesize() throws IOException {
+    model = createVoiceModel();
+    CustomTranslation word = instantiateCustomTranslation();
+
+    service.saveWord(model, word).execute();
+    InputStream stream1 = ttsService.synthesize(word.getWord(), Voice.EN_MICHAEL, AudioFormat.WAV).execute();
+    InputStream stream2 = ttsService.synthesize(word.getWord(), Voice.EN_MICHAEL, AudioFormat.WAV, model.getId())
+        .execute();
+
+    assertFalse(IOUtils.contentEquals(stream1, stream2));
   }
 
 }

@@ -13,9 +13,9 @@ public class CustomTranslation extends GenericModel {
   }
 
   public CustomTranslation(String word, String translation) {
-    super();
-    this.word = word;
-    this.translation = translation;
+    this();
+    setWord(word);
+    setTranslation(translation);
   }
 
   public String getWord() {

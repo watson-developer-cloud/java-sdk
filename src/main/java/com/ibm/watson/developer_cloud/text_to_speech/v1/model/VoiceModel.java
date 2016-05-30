@@ -57,10 +57,6 @@ public class VoiceModel extends GenericModel {
     return owner;
   }
 
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
-
   public Long getCreated() {
     return created;
   }
