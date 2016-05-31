@@ -13,6 +13,9 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
@@ -37,13 +40,14 @@ public class CustomVoiceModel extends GenericModel {
 
   private String owner;
 
-  private Long created;
+  private Timestamp created;
 
   @SerializedName("last_modified")
-  private Long lastModified;
+  private Timestamp lastModified;
 
   /**
    * Returns the id
+   * 
    * @return the id, or null if the voice model has not been saved yet.
    */
   public String getId() {
@@ -52,7 +56,9 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Sets the id
-   * @param id the id
+   * 
+   * @param id
+   *          the id
    */
   public void setId(String id) {
     this.id = id;
@@ -60,6 +66,7 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Returns the name
+   * 
    * @return the name
    */
   public String getName() {
@@ -68,7 +75,9 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Sets the name
-   * @param name the name
+   * 
+   * @param name
+   *          the name
    */
   public void setName(String name) {
     this.name = name;
@@ -76,6 +85,7 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Returns the description
+   * 
    * @return the description
    */
   public String getDescription() {
@@ -84,7 +94,9 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Sets the description
-   * @param description the description
+   * 
+   * @param description
+   *          the description
    */
   public void setDescription(String description) {
     this.description = description;
@@ -92,6 +104,7 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Returns the language code (e.g. en-us)
+   * 
    * @return the language code
    */
   public String getLanguage() {
@@ -100,7 +113,9 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Sets the language code (e.g. en-us)
-   * @param language the language code
+   * 
+   * @param language
+   *          the language code
    */
   public void setLanguage(String language) {
     this.language = language;
@@ -108,6 +123,7 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Returns the owner id
+   * 
    * @return the owner id
    */
   public String getOwner() {
@@ -116,17 +132,19 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Returns the creation date
+   * 
    * @return the creation date
    */
-  public Long getCreated() {
+  public Date getCreated() {
     return created;
   }
 
   /**
    * Returns the last modification date
+   * 
    * @return the last modification date
    */
-  public Long getLastModified() {
+  public Date getLastModified() {
     return lastModified;
   }
 
