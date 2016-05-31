@@ -13,9 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
-import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +27,7 @@ import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -220,14 +219,7 @@ public class Customizations {
     Validator.notEmpty(model.getId(), "model id must not be empty");
     Validator.notEmpty(translation.getWord(), "word must not be empty");
 
-    String path;
-
-    try {
-      path = String.format(PATH_WORD, model.getId(), URLEncoder.encode(translation.getWord(), "UTF-8"));
-    } catch (UnsupportedEncodingException e) {
-      throw new RuntimeException(e);
-    }
-
+    final String path = String.format(PATH_WORD, model.getId(), RequestUtils.encode(translation.getWord()));
     final Request request = RequestBuilder.delete(path).build();
     return service.createNewServiceCall(request, ResponseConverterUtils.getVoid());
   }
