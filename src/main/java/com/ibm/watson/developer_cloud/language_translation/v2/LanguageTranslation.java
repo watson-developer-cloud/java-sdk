@@ -14,6 +14,7 @@
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 
 import com.google.gson.JsonArray;
@@ -220,8 +221,7 @@ public class LanguageTranslation extends WatsonService {
    * @return The {@link TranslationResult}
    */
   public ServiceCall<TranslationResult> translate(final String text, final String modelId) {
-    Validator.isTrue(modelId != null && !modelId.isEmpty(), "modelId cannot be null or empty");
-    return translateRequest(text, modelId, null, null);
+    return translate(Collections.singletonList(text), modelId);
   }
 
   /**
@@ -245,28 +245,55 @@ public class LanguageTranslation extends WatsonService {
    * @return The {@link TranslationResult}
    */
   public ServiceCall<TranslationResult> translate(final String text, final Language source, final Language target) {
-    return translateRequest(text, null, source, target);
+    return translate(Collections.singletonList(text), source, target);
+  }
+
+  /**
+   * Translate multiple texts using a given model.
+   *
+   * @param texts The submitted texts to translate
+   * @param modelId the model id
+   * @return The {@link TranslationResult} with translations in the same order as the supplied texts.
+   */
+  public ServiceCall<TranslationResult> translate(final List<String> texts, final String modelId) {
+    Validator.isTrue(modelId != null && !modelId.isEmpty(), "modelId cannot be null or empty");
+    return translateRequest(texts, modelId, null, null);
+  }
+
+  /**
+   * Translate multiple texts using source and target languages.
+   *
+   * @param texts  The texts to translate
+   * @param source The source language
+   * @param target The target language
+   * @return The {@link TranslationResult} with translations in the same order as the supplied texts.
+   */
+  public ServiceCall<TranslationResult> translate(final List<String> texts, final Language source, final Language target) {
+    return translateRequest(texts, null, source, target);
   }
 
   /**
    * Translate paragraphs of text using a model and or source and target. model_id or source and
    * target needs to be specified. If both are specified, then only model_id will be used
    *
-   * @param text the text
+   * @param texts the texts
    * @param modelId the model id
    * @param source the source
    * @param target the target
    * @return The {@link TranslationResult}
    */
-  private ServiceCall<TranslationResult> translateRequest(String text, String modelId, Language source,
+  private ServiceCall<TranslationResult> translateRequest(List<String> texts, String modelId, Language source,
       Language target) {
-    Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
+    Validator.isTrue(texts != null && !texts.isEmpty(), "texts cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
 
     // convert the text into a json array
     final JsonArray paragraphs = new JsonArray();
-    paragraphs.add(new JsonPrimitive(text));
+    for(String text : texts) {
+      Validator.notNull(text, "text cannot be null");
+      paragraphs.add(new JsonPrimitive(text));
+    }
     contentJson.add(TEXT, paragraphs);
 
     final RequestBuilder requestBuilder =
