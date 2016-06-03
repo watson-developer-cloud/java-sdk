@@ -16,6 +16,10 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * {@link TextToSpeech} voice
  */
@@ -63,6 +67,12 @@ public class Voice extends GenericModel {
 
   /** The Constant PT_ISABELA (value is "pt-BR_IsabelaVoice"). */
   public static final Voice PT_ISABELA = new Voice("pt-BR_IsabelaVoice", "female", "pt-BR");
+
+  /** The List of all predefined Voices */
+  public static final List<Voice> ALL = Collections.unmodifiableList(Arrays.asList(
+      DE_DIETER, DE_BIRGIT, EN_ALLISON, EN_LISA, EN_MICHAEL, ES_ENRIQUE,
+      ES_LAURA, ES_SOFIA, FR_RENEE, GB_KATE, IT_FRANCESCA, JA_EMI, PT_ISABELA
+  ));
 
   private String description;
   private String gender;
@@ -176,5 +186,21 @@ public class Voice extends GenericModel {
    */
   public void setUrl(final String url) {
     this.url = url;
+  }
+
+  /**
+   * Gets the Voice by its name (e.g. en-US_AllisonVoice).
+   *
+   * @param name the Voice name
+   * @return the Voice, or null if no matching Voice was found
+   */
+  public static Voice getByName(String name) {
+    for (Voice voice : ALL) {
+      if (voice.getName().equals(name)) {
+        return voice;
+      }
+    }
+
+    return null;
   }
 }
