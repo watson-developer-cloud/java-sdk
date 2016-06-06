@@ -23,7 +23,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class QueryConcepts extends GenericModel {
   @SerializedName("query_concepts")
-  private List<Concept> queryConcepts;
+  private List<Concept> concepts;
   private List<Result> results;
 
   /**
@@ -32,7 +32,7 @@ public class QueryConcepts extends GenericModel {
    * @return The queryConcepts
    */
   public List<Concept> getQueryConcepts() {
-    return queryConcepts;
+    return concepts;
   }
 
   /**
@@ -47,10 +47,10 @@ public class QueryConcepts extends GenericModel {
   /**
    * Sets the query concepts.
    * 
-   * @param queryConcepts The query_concepts
+   * @param concepts The concepts
    */
-  public void setQueryConcepts(List<Concept> queryConcepts) {
-    this.queryConcepts = queryConcepts;
+  public void setQueryConcepts(List<Concept> concepts) {
+    this.concepts = concepts;
   }
 
   /**
