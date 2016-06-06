@@ -13,9 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -23,17 +20,15 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSessionStatus;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
+
+import static org.junit.Assert.*;
 
 /**
  * The Class SpeechToTextIT.
@@ -168,6 +163,47 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTimestamps());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getWordConfidences());
+  }
+
+  /**
+   * Test keyword recognition.
+   */
+  @Test
+  public void testRecognizeKeywords() {
+    final String keyword1 = "rain";
+    final String keyword2 = "tornadoes";
+
+    final RecognizeOptions options = new RecognizeOptions.Builder()
+        .contentType("audio/wav")
+        .model(SpeechModel.EN_US_BROADBANDMODEL.getName())
+        .continuous(true)
+        .inactivityTimeout(500)
+        .keywords(new String[] { keyword1, keyword2 })
+        .keywordsThreshold(0.7)
+        .build();
+
+    final File audio = new File("src/test/resources/speech_to_text/sample1.wav");
+    final SpeechResults results = service.recognize(audio, options).execute();
+    final Transcript transcript = results.getResults().get(0);
+
+    assertEquals(2, transcript.getKeywordsResult().size());
+    assertTrue(transcript.getKeywordsResult().containsKey(keyword1));
+    assertTrue(transcript.getKeywordsResult().containsKey(keyword2));
+
+    assertEquals(1, transcript.getKeywordsResult().get(keyword1).size());
+    assertEquals(1, transcript.getKeywordsResult().get(keyword2).size());
+
+    final KeywordsResult result1 = transcript.getKeywordsResult().get(keyword1).get(0);
+    assertEquals(keyword1, result1.getNormalizedText());
+    assertEquals(0.9, result1.getConfidence(), 0.1);
+    assertEquals(5.58, result1.getStartTime(), 1.0);
+    assertEquals(6.14, result1.getEndTime(), 1.0);
+
+    final KeywordsResult result2 = transcript.getKeywordsResult().get(keyword2).get(0);
+    assertEquals(keyword2, result2.getNormalizedText());
+    assertEquals(0.9, result2.getConfidence(), 0.1);
+    assertEquals(4.42, result2.getStartTime(), 1.0);
+    assertEquals(5.04, result2.getEndTime(), 1.0);
   }
 
   /**
