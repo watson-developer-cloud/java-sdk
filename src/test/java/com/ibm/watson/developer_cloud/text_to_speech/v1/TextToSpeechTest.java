@@ -14,28 +14,6 @@
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 
-import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
-import static org.junit.Assert.*;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-import java.util.Map;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.FixMethodOrder;
-import org.junit.Test;
-import org.junit.runners.MethodSorters;
-
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
@@ -47,12 +25,27 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.TestUtils;
-
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import okio.Buffer;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.FixMethodOrder;
+import org.junit.Test;
+import org.junit.runners.MethodSorters;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.List;
+import java.util.Map;
+
+import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
+import static org.junit.Assert.*;
 
 /**
  * The Class TextToSpeechTest.
@@ -243,6 +236,35 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     File tempFile = File.createTempFile("output", ".wav");
     writeInputStreamToFile(stream, tempFile);
     Assert.assertNotNull(AudioSystem.getAudioFileFormat(tempFile));
+  }
+
+  /**
+   * Tests the static method Voice.getByName
+   *
+   * @throws IllegalAccessException
+   */
+  @Test
+  public void testVoiceClass() throws IllegalAccessException {
+    Field[] fields = Voice.class.getDeclaredFields();
+    int count = 0;
+
+    for(Field field : fields) {
+      boolean isVoice = field.getType().isAssignableFrom(Voice.class);
+      boolean isDeprecated = field.getAnnotation(Deprecated.class) != null;
+
+      if(Modifier.isStatic(field.getModifiers()) && isVoice && ! isDeprecated) {
+        Voice voice = (Voice) field.get(null);
+
+        Assert.assertEquals(voice, Voice.getByName(voice.getName()));
+        count++;
+      }
+    }
+
+    Assert.assertTrue(count > 0);
+    Assert.assertEquals(Voice.ALL.size(), count);
+    Assert.assertNull(Voice.getByName("not existing"));
+    Assert.assertNull(Voice.getByName(null));
+    Assert.assertEquals(Voice.EN_ALLISON, Voice.getByName("en-US_AllisonVoice"));
   }
 
 }

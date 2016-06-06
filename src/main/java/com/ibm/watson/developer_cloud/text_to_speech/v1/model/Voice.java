@@ -16,6 +16,10 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * {@link TextToSpeech} voice
  */
@@ -24,8 +28,12 @@ public class Voice extends GenericModel {
   /** The Constant DE_DIETER (value is "de-DE_DieterVoice"). */
   public static final Voice DE_DIETER = new Voice("de-DE_DieterVoice", "male", "de-DE");
 
-  /** The Constant DE_GIRGIT (value is "de-DE_BirgitVoice"). */
-  public static final Voice DE_GIRGIT = new Voice("de-DE_BirgitVoice", "female", "de-DE");
+  /** The Constant DE_BIRGIT (value is "de-DE_BirgitVoice"). */
+  public static final Voice DE_BIRGIT = new Voice("de-DE_BirgitVoice", "female", "de-DE");
+
+  /** Deprecated. Use DE_BIRGIT instead. */
+  @Deprecated
+  public static final Voice DE_GIRGIT = DE_BIRGIT;
 
   /** The Constant EN_ALLISON (value is "en-US_AllisonVoice"). */
   public static final Voice EN_ALLISON = new Voice("en-US_AllisonVoice", "female", "en-US");
@@ -59,6 +67,12 @@ public class Voice extends GenericModel {
 
   /** The Constant PT_ISABELA (value is "pt-BR_IsabelaVoice"). */
   public static final Voice PT_ISABELA = new Voice("pt-BR_IsabelaVoice", "female", "pt-BR");
+
+  /** The List of all predefined Voices */
+  public static final List<Voice> ALL = Collections.unmodifiableList(Arrays.asList(
+      DE_DIETER, DE_BIRGIT, EN_ALLISON, EN_LISA, EN_MICHAEL, ES_ENRIQUE,
+      ES_LAURA, ES_SOFIA, FR_RENEE, GB_KATE, IT_FRANCESCA, JA_EMI, PT_ISABELA
+  ));
 
   private String description;
   private String gender;
@@ -172,5 +186,21 @@ public class Voice extends GenericModel {
    */
   public void setUrl(final String url) {
     this.url = url;
+  }
+
+  /**
+   * Gets the Voice by its name (e.g. en-US_AllisonVoice).
+   *
+   * @param name the Voice name
+   * @return the Voice, or null if no matching Voice was found
+   */
+  public static Voice getByName(String name) {
+    for (Voice voice : ALL) {
+      if (voice.getName().equals(name)) {
+        return voice;
+      }
+    }
+
+    return null;
   }
 }
