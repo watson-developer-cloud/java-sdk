@@ -15,13 +15,14 @@ package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 
 import static org.junit.Assert.assertNotNull;
 
+import java.util.Map;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Context;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
 
 /**
  * Integration test for the {@link ConversationService}.
@@ -55,14 +56,12 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testStartAConversationWithoutMessage() {
-    NewMessageOptions options = new NewMessageOptions.Builder()
-        .workspaceId(workspaceId)
-        .build();
-    Message response = service.message(options).execute();
+    MessageRequest request = new MessageRequest.Builder(null, null).build();
+    MessageResponse response = service.message(workspaceId, request).execute();
     assertNotNull(response);
     assertNotNull(response.getContext());
     assertNotNull(response.getOutput());
-    assertNotNull(response.getOutput().getText());
+    assertNotNull(response.getText());
   }
 
   /**
@@ -73,15 +72,10 @@ public class ConversationServiceIT extends WatsonServiceTest {
   @Test
   public void testSendMessages() throws InterruptedException {
     final String[] messages = new String[] {"turn ac on", "turn right", "no", "yes"};
-    Context context = null;
-    
+    Map<String, Object> context = null;
     for (final String message : messages) {
-      NewMessageOptions options = new NewMessageOptions.Builder()
-          .workspaceId(workspaceId)
-          .context(context)
-          .inputText(message)
-          .build();
-      Message response = service.message(options).execute();
+      MessageRequest request = new MessageRequest.Builder(message, context).build();
+      MessageResponse response = service.message(workspaceId, request).execute();
 
       assertMessageFromService(response);
       context = response.getContext();
@@ -90,11 +84,11 @@ public class ConversationServiceIT extends WatsonServiceTest {
   }
 
   /**
-   * Assert {@link Message} from service.
+   * Assert {@link MessageResponse} from service.
    *
    * @param message the message from the {@link ConversationService}
    */
-  private void assertMessageFromService(Message message) {
+  private void assertMessageFromService(MessageResponse message) {
     assertNotNull(message);
     assertNotNull(message.getContext());
     assertNotNull(message.getOutput());
@@ -105,7 +99,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testMessageWithNulls() {
-    service.message(null).execute();
+    service.message(null, null).execute();
   }
 
   /**

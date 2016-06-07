@@ -19,12 +19,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.common.collect.ImmutableMap;
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockserver.model.Header;
+import org.mockserver.model.HttpRequest;
 
+import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
@@ -38,6 +38,9 @@ import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableExcept
 import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
+
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.RecordedRequest;
 
 /**
  * Generic Service Test.

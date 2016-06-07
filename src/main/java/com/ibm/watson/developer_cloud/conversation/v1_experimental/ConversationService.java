@@ -13,13 +13,13 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -73,31 +73,11 @@ public final class ConversationService extends WatsonService {
    *
    * @return The response for the given message.
    */
-  public ServiceCall<Message> message(NewMessageOptions options) {
-    Validator.notNull(options, "'options' cannot be null");
-    
-    RequestBuilder builder = RequestBuilder.post(String.format(PATH_MESSAGE, options.workspaceId()));
+  public ServiceCall<MessageResponse> message(String workspaceId, MessageRequest request) {
+    RequestBuilder builder = RequestBuilder.post(getEndPoint() + String.format(PATH_MESSAGE, workspaceId));
     builder.query(VERSION_PARAM, this.versionDate);
-    builder.bodyJson(getMessageAsJson(options));
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Message.class));
+    builder.bodyJson(request != null ? GsonSingleton.getGsonWithoutPrettyPrinting().toJsonTree(request, MessageRequest.class).getAsJsonObject() : new JsonObject());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
   }
 
-  /**
-   * Gets the message as json.
-   *
-   * @param options the options
-   * @return the message as json
-   */
-  private JsonObject getMessageAsJson(NewMessageOptions options) {
-    JsonObject json = new JsonObject();
-    
-    JsonObject input = new JsonObject();
-    input.addProperty("text", options.inputText() != null ? options.inputText() : "");
-    
-    json.add("input", input);
-    if (options.context() != null) {
-      json.add("context", new Gson().toJsonTree(options.context()));
-    }
-    return json;
-  }
 }

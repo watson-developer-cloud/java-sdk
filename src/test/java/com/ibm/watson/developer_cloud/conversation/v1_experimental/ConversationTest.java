@@ -23,8 +23,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 
 import okhttp3.mockwebserver.RecordedRequest;
@@ -63,19 +63,20 @@ public class ConversationTest extends WatsonServiceUnitTest {
   public void testSendMessage() throws IOException, InterruptedException {
     String text = "I'd like to get a quote to replace my windows";
 
-    Message mockResponse = loadFixture(FIXTURE, Message.class);
+    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
 
-    NewMessageOptions options = new NewMessageOptions.Builder().inputText(text).workspaceId(WORKSPACE_ID).build();
+    MessageRequest options = new MessageRequest.Builder().text(text).build();
 
     // execute first request
-    Message serviceResponse = service.message(options).execute();
+    MessageResponse serviceResponse = service.message(WORKSPACE_ID, options).execute();
 
     // first request
     RecordedRequest request = server.takeRequest();
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2016_05_19);
     assertEquals(path, request.getPath());
+    assertEquals("Do you want to get a quote?", serviceResponse.getText());
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertNotNull(request.getBody().readUtf8());
