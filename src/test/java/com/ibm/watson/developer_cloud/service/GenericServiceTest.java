@@ -209,4 +209,20 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     final RecordedRequest request = checkRequest();
     assertEquals("watson-apis-java-sdk/3.0.0-RC1", request.getHeader(HttpHeaders.USER_AGENT));
   }
+  
+  /**
+   * Test custom user agent is set.
+   */
+  @Test
+  public void testCustomUserAgentIsSet() {
+    mockAPICall();
+    Map<String, String> headers = new HashMap<String, String>();
+    headers.put(HttpHeaders.USER_AGENT, "foo-bar");
+    service.setDefaultHeaders(headers);
+    service.getProfile(sampleText).execute();
+    mockServer.verify(new HttpRequest().withMethod("POST").withHeader(
+        new Header(HttpHeaders.USER_AGENT, "watson-apis-java-sdk/3.0.0-RC1; foo-bar")));
+    service.setDefaultHeaders(null);
+  }
+  
 }
