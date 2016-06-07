@@ -6,9 +6,8 @@
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1fdb12900d5845459033784aba3a7300)](https://www.codacy.com/app/gattana/java-sdk?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=watson-developer-cloud/java-sdk&amp;utm_campaign=Badge_Grade)
 
-Java client library to use the [Watson Developer Cloud][wdc] services, a collection of REST
+The Java SDK uses the [Watson Developer Cloud][wdc] services, a collection of REST
 APIs and SDKs that use cognitive computing to solve complex problems.
-
 
 ## Table of Contents
   * [Reactive API call for v3.0.1](#introduce-reactive-api-call-for-v301)
@@ -46,7 +45,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 
 ## Introduce reactive API call for v3.0.1  
 
-Now to do reactive call you need to add `rx()`, with reactive you could use synchronous or asynchronous as you like. And you could combine multiple rest calls more efficient.
+To do a reactive call, you need to add `rx()`.  With reactive you can use synchronous or asynchronous calls as you like, and you can combine multiple rest calls more efficiently.
 
 Use callback way
 ```java
@@ -86,20 +85,20 @@ System.out.println(size);
 
 The version 3.0.0-RC1 is a major release focused on simplicity and consistency. Several breaking changes were introduced.
 
-### Synchronous vs Asynchronous
+### Synchronous vs. Asynchronous
 
-Before 3.0 all the API calls were synchronous
+Before 3.0 all the API calls were synchronous.
 ```java
 List<Dialog> dialogs = dialogService.getDialogs();
 System.out.println(dialogs);
 ```
-Now to do synchronous call you need to add `execute()`
+To do a synchronous call, you need to add `execute()`.
 
 ```java
 List<Dialog> dialogs = dialogService.getDialogs().execute();
 System.out.println(dialogs);
 ```
-To do asynchronous calls you need to specify a callback
+To do an asynchronous call, you need to specify a callback.
 
 ```java
 service.getDialogs().enqueue(new ServiceCallback<List<Dialog>>() {
@@ -124,7 +123,7 @@ For example if you previously had
 List<Dialog> dialogs = dialogService.getDialogs();
 System.out.println(dialogs);
 ```
-Just add `execute()` on the end and your code will work exactly the same as before.
+Just add `execute()` on the end, and your code will work exactly the same as before.
 
 ```java
 List<Dialog> dialogs = dialogService.getDialogs().execute();
@@ -180,7 +179,7 @@ Once you have credentials, copy config.properties.example to src/test/resources/
 
 ## Questions
 
-If you are having difficulties using the APIs or have a question about the IBM
+If you are having difficulties using the APIs or you have a question about the IBM
 Watson Services, please ask a question on
 [dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=watson)
 or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
@@ -386,7 +385,7 @@ System.out.println(response);
 ### Retrieve and Rank
 The [Retrieve and Rank][retrieve_and_rank] service helps users find the most
 relevant information for their query by using a  combination of search and
-machine learning to find “signals” in the data.
+machine learning to find "signals" in the data.
 
 
 ```java
