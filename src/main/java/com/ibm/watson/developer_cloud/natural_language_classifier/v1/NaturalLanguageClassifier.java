@@ -66,6 +66,16 @@ public class NaturalLanguageClassifier extends WatsonService {
   }
 
   /**
+   * Instantiates a new natural language service by username and password.
+   * @param username the username
+   * @param password the password
+   */
+  public NaturalLanguageClassifier(String username, String password) {
+    this();
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Returns classification information for a classifier on a phrase.
    * 
    * @param classifierId The classifier id

@@ -93,6 +93,15 @@ public class DialogService extends WatsonService {
     setEndPoint(URL);
   }
 
+  /**
+   * Instantiates a new dialog service by username and password.
+   * @param username the username
+   * @param password the password
+   */
+  public DialogService(String username, String password) {
+    this();
+    setUsernameAndPassword(username, password);
+  }
 
   /**
    * Returns a Map from a {@link NameValue} list.

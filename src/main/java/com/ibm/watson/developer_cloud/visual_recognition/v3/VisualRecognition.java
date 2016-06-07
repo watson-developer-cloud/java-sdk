@@ -46,6 +46,7 @@ import okhttp3.RequestBody;
  * specific results that are tailored to your needs.
  * 
  * @version v3
+ * @version_data 2016-05-19
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
  *      Visual Recognition</a>
@@ -87,6 +88,19 @@ public class VisualRecognition extends WatsonService {
     setEndPoint(URL);
     Validator.notNull(versionDate, "versionDate cannot be null. Use '2016-05-19'");
     this.versionDate = versionDate;
+  }
+
+  /**
+   * Instantiates a new Visual Recognition V3 service by username and password.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *        will keep your API calls from failing when the service introduces breaking changes.
+   * @param username the username
+   * @param password the password
+   */
+  public VisualRecognition(String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
   }
 
   /**

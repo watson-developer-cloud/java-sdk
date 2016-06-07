@@ -58,6 +58,21 @@ public class AlchemyDataNews extends AlchemyService {
   public static final String TIME_SLICE = "timeSlice";
 
   /**
+   * Instantiates a new alchemy data news service.
+   */
+  public AlchemyDataNews() {
+    super();
+  }
+
+  /**
+   * Instantiates a new alchemy data news service by apiKey.
+   * @param apiKey the api key
+   */
+  public AlchemyDataNews(String apiKey) {
+    super(apiKey);
+  }
+
+  /**
    * Gets the news documents.
    * 
    * @param parameters the parameters

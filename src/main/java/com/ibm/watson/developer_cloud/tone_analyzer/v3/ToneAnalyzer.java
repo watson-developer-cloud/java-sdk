@@ -32,6 +32,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * writer improve their intended language tones.
  * 
  * @version v3
+ * @version_data 2016-05-19
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html"> Tone
  *      Analyzer</a>
@@ -60,6 +61,19 @@ public class ToneAnalyzer extends WatsonService {
     super(SERVICE_NAME);
     setEndPoint(URL);
     this.versionDate = versionDate;
+  }
+
+  /**
+   * Instantiates a new tone analyzer with username and password.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *        will keep your API calls from failing when the service introduces breaking changes.
+   * @param username the username
+   * @param password the password
+   */
+  public ToneAnalyzer(String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
   }
 
   /**

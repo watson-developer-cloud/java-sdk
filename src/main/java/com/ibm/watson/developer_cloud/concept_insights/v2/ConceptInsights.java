@@ -151,6 +151,16 @@ public class ConceptInsights extends WatsonService {
   }
 
   /**
+   * Instantiates a new Concept Insights service by username and password.
+   * @param username the username
+   * @param password the password
+   */
+  public ConceptInsights(String username, String password) {
+    this();
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Creates a GET request
    * 
    * @param <T> The POJO that represents the response object

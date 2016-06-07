@@ -57,6 +57,16 @@ public class PersonalityInsights extends WatsonService {
     setEndPoint(URL);
   }
 
+  /**
+   * Instantiates a new personality insights service by username and password.
+   * @param username the username
+   * @param password the password
+   */
+  public PersonalityInsights(String username, String password) {
+    this();
+    setUsernameAndPassword(username, password);
+  }
+
   private RequestBuilder buildProfileRequest(ProfileOptions options) {
     Validator.notNull(options, "options cannot be null");
     Validator.isTrue(options.text() != null || options.contentItems() != null,

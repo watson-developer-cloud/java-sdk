@@ -149,6 +149,21 @@ public class AlchemyLanguage extends AlchemyService {
   private static final String LANGUAGE = "language";
 
   /**
+   * Instantiates a new alchemy data news service.
+   */
+  public AlchemyLanguage() {
+    super();
+  }
+
+  /**
+   * Instantiates a new alchemy language service by apiKey.
+   * @param apiKey the api key
+   */
+  public AlchemyLanguage(String apiKey) {
+    super(apiKey);
+  }
+
+  /**
    * Execute the request and return the POJO that represent the response.
    * 
    * @param <T> The POJO that represents the response object
