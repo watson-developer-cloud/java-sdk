@@ -42,7 +42,6 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.TestUtils;
 
 import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
 /**
@@ -59,7 +58,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
   private SpeechToText service;
   private SpeechSession session;
-  private MockWebServer server;
 
   /*
    * (non-Javadoc)
@@ -73,12 +71,9 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     session = loadFixture("src/test/resources/speech_to_text/session.json", SpeechSession.class);
 
-    server = new MockWebServer();
-    server.start();
-
     service = new SpeechToText();
     service.setApiKey("");
-    service.setEndPoint(getMockWebServerUrl(server));
+    service.setEndPoint(getMockWebServerUrl());
   }
 
   /**

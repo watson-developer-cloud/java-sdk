@@ -30,8 +30,6 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
 /**
@@ -58,7 +56,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     super.setUp();
     service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
     service.setApiKey("");
-    service.setEndPoint(MOCK_SERVER_URL);
+    service.setEndPoint(getMockWebServerUrl());
 
   }
 
@@ -78,18 +76,10 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
         + "product suite. We have a competitive data analytics product "
         + "suite in the industry. But we need to do our job selling it! ";
 
-    MockWebServer server = new MockWebServer();
-
     ToneAnalysis mockResponse = loadFixture(FIXTURE, ToneAnalysis.class);
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-
-    server.start();
-
-    ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
-    service.setApiKey(EMPTY);
-    service.setEndPoint(getMockWebServerUrl(server));
+    server.enqueue(jsonResponse(mockResponse));
+    server.enqueue(jsonResponse(mockResponse));
+    server.enqueue(jsonResponse(mockResponse));
 
     // execute request
     ToneAnalysis serviceResponse = service.getTone(text, null).execute();
@@ -115,9 +105,5 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     request = server.takeRequest();
     path = path + "&tones=emotion%2Clanguage%2Csocial";
     assertEquals(path, request.getPath());
-
-
-    // Shut down the server.
-    server.shutdown();
   }
 }

@@ -27,8 +27,6 @@ import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
 public class ConversationTest extends WatsonServiceUnitTest {
@@ -51,7 +49,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     super.setUp();
     service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
     service.setApiKey(EMPTY);
-    service.setEndPoint(MOCK_SERVER_URL);
+    service.setEndPoint(getMockWebServerUrl());
 
   }
 
@@ -65,17 +63,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
   public void testSendMessage() throws IOException, InterruptedException {
     String text = "I'd like to get a quote to replace my windows";
 
-    MockWebServer server = new MockWebServer();
-
     Message mockResponse = loadFixture(FIXTURE, Message.class);
-    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-
-    server.start();
-
-    ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
-    service.setApiKey(EMPTY);
-    service.setEndPoint(getMockWebServerUrl(server));
-
+    server.enqueue(jsonResponse(mockResponse));
 
     NewMessageOptions options = new NewMessageOptions.Builder().inputText(text).workspaceId(WORKSPACE_ID).build();
 

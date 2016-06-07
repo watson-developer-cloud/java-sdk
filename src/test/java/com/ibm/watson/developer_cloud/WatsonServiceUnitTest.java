@@ -13,17 +13,21 @@
  */
 package com.ibm.watson.developer_cloud;
 
-import static org.mockserver.integration.ClientAndServer.startClientAndServer;
+import static com.ibm.watson.developer_cloud.http.HttpHeaders.CONTENT_TYPE;
 
+import com.google.gson.Gson;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import okhttp3.mockwebserver.MockResponse;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 
-import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
 import okhttp3.mockwebserver.MockWebServer;
+
+import java.io.IOException;
 
 /**
  * Utility class to Mock the Watson Services.
@@ -32,11 +36,11 @@ import okhttp3.mockwebserver.MockWebServer;
 public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
 
   /** The Constant APPLICATION_JSON. */
-  protected static final Header APPLICATION_JSON = new Header(HttpHeaders.CONTENT_TYPE,
+  protected static final Header APPLICATION_JSON = new Header(CONTENT_TYPE,
       HttpMediaType.APPLICATION_JSON);
   
   /** The Constant TEXT_PLAIN. */
-  protected static final Header TEXT_PLAIN = new Header(HttpHeaders.CONTENT_TYPE,
+  protected static final Header TEXT_PLAIN = new Header(CONTENT_TYPE,
       HttpMediaType.TEXT.toString());
 
   /** The Constant DELETE. */
@@ -57,7 +61,11 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
   /** The Constant MOCK_SERVER_URL. */
   protected static final String MOCK_SERVER_URL = "http://localhost:" + MOCK_SERVER_PORT;
 
-  /** The mock server. */
+  private static final Gson GSON = GsonSingleton.getGson();
+
+  protected MockWebServer server;
+
+  @Deprecated // use OkHttp's MockWebServer instead (see #316)
   protected ClientAndServer mockServer;
 
   /**
@@ -67,26 +75,39 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
    */
   @Override
   public void setUp() throws Exception {
-    mockServer = startClientAndServer(MOCK_SERVER_PORT);
+    mockServer = ClientAndServer.startClientAndServer(MOCK_SERVER_PORT);
+
+    server = new MockWebServer();
+    server.start();
   }
 
-  /**
-   * Stops the mock server.
-   */
   @After
-  public void tearDown() {
-    if (mockServer !=null)
+  public void tearDown() throws IOException {
+    if (mockServer != null)
       mockServer.stop();
+
+    server.shutdown();
   }
 
   /**
    * Gets the mock web server url.
    *
-   * @param server the {@link MockWebServer}
    * @return the server url
    */
-  protected String getMockWebServerUrl(MockWebServer server) {
+  protected String getMockWebServerUrl() {
     return StringUtils.chop(server.url("/").toString());
+  }
+
+  /**
+   * Create a MockResponse with JSON content type and the object serialized to JSON as body
+   *
+   * @param body
+   * @return
+   */
+  protected static MockResponse jsonResponse(Object body) {
+    return new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(body));
   }
 
 }

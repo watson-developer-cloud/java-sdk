@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.gson.Gson;
@@ -35,7 +36,6 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifi
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognitionOptions;
 
 import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
 public class VisualRecognitionTest extends WatsonServiceUnitTest {
@@ -53,6 +53,18 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String PATH_DETECT_FACES = "/v3/detect_faces";
   private static final String PATH_RECOGNIZE_TEXT = "/v3/recognize_text";
 
+  private VisualRecognition service;
+
+  @Override
+  @Before
+  public void setUp() throws Exception {
+    super.setUp();
+
+    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
+    service.setApiKey(API_KEY);
+    service.setEndPoint(getMockWebServerUrl());
+  }
+
   /**
    * Test classify with file.
    *
@@ -61,16 +73,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testClassifyWithFile() throws IOException, InterruptedException {
-    MockWebServer server = new MockWebServer();
-
     VisualClassification mockResponse = loadFixture(FIXTURE_CLASSIFICATION, VisualClassification.class);
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-
-    server.start();
-
-    VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
-    service.setApiKey(API_KEY);
-    service.setEndPoint(getMockWebServerUrl(server));
 
     // execute request
     File images = new File(IMAGE_FILE);
@@ -85,9 +89,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals(serviceResponse, mockResponse);
-
-    // Shut down the server.
-    server.shutdown();
   }
 
   /**
@@ -100,13 +101,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void testCreateClassifier() throws IOException, InterruptedException {
     VisualClassifier mockResponse = loadFixture(FIXTURE_CLASSIFIER, VisualClassifier.class);
     
-    MockWebServer server = new MockWebServer();
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-    server.start();
-
-    VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
-    service.setApiKey(API_KEY);
-    service.setEndPoint(getMockWebServerUrl(server));
 
     // execute request
     File images = new File(IMAGE_FILE);
@@ -133,23 +128,13 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertTrue(body.contains(contentDisposition));
     assertTrue(body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
-
-    // Shut down the server.
-    server.shutdown();
   }
 
   @Test
   public void testDeleteClassifier() throws IOException, InterruptedException {
-    
-    MockWebServer server = new MockWebServer();
     server.enqueue(new MockResponse().setBody(""));
-    server.start();
 
-    VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
-    service.setApiKey(API_KEY);
-    service.setEndPoint(getMockWebServerUrl(server));
-
-    String class1 = "class1"; 
+    String class1 = "class1";
     service.deleteClassifier(class1).execute();
 
     // first request
@@ -160,22 +145,13 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     
     assertEquals(path, request.getPath());
     assertEquals("DELETE", request.getMethod());
-
-    // Shut down the server.
-    server.shutdown();
   }
 
   @Test
   public void testDetectFaces() throws IOException, InterruptedException  {
     DetectedFaces mockResponse = loadFixture(FIXTURE_FACES, DetectedFaces.class);
     
-    MockWebServer server = new MockWebServer();
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-    server.start();
-
-    VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
-    service.setApiKey(API_KEY);
-    service.setEndPoint(getMockWebServerUrl(server));
 
     // execute request
     File images = new File(IMAGE_FILE);
@@ -196,9 +172,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(serviceResponse, mockResponse);
     String contentDisposition = "Content-Disposition: form-data; name=\"images_file\"; filename=\"test.zip\"";
     assertTrue(request.getBody().readUtf8().contains(contentDisposition));
-    
-    // Shut down the server.
-    server.shutdown();
   }
 
   @Test
@@ -206,13 +179,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     try {
       VisualClassifier mockResponse = loadFixture(FIXTURE_CLASSIFIER, VisualClassifier.class);
       
-      MockWebServer server = new MockWebServer();
       server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-      server.start();
-
-      VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
-      service.setApiKey(API_KEY);
-      service.setEndPoint(getMockWebServerUrl(server));
 
       // execute request
       String class1 = "class1"; 
@@ -227,9 +194,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
       assertEquals(path, request.getPath());
       assertEquals("GET", request.getMethod());
       assertEquals(serviceResponse, mockResponse);
-
-      // Shut down the server.
-      server.shutdown();
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -247,13 +211,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     JsonObject mockResponse = new JsonObject();
     mockResponse.add("classifiers", new Gson().toJsonTree(classifiers));
     
-    MockWebServer server = new MockWebServer();
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-    server.start();
-
-    VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
-    service.setApiKey(API_KEY);
-    service.setEndPoint(getMockWebServerUrl(server));
 
     List<VisualClassifier> serviceResponse = service.getClassifiers().execute();
 
@@ -266,23 +224,13 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(path, request.getPath());
     assertEquals("GET", request.getMethod());
     assertEquals(serviceResponse, classifiers);
-
-    // Shut down the server.
-    server.shutdown();
-
   }
 
   @Test
   public void testRecognizeText() throws IOException, InterruptedException  {
     RecognizedText mockResponse = loadFixture(FIXTURE_TEXT, RecognizedText.class);
     
-    MockWebServer server = new MockWebServer();
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
-    server.start();
-
-    VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
-    service.setApiKey(API_KEY);
-    service.setEndPoint(getMockWebServerUrl(server));
 
     // execute request
     String url = "https://test.com";
@@ -305,10 +253,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String body = request.getBody().readUtf8();
     assertTrue(body.contains("Content-Disposition: form-data; name=\"parameters\""));
     assertTrue(body.contains("{\"url\":\"https://test.com/\"}"));
-    
-
-    // Shut down the server.
-    server.shutdown();
   }
 
 }

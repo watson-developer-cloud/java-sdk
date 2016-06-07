@@ -49,8 +49,6 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   private static final String CUSTOMIZATIONS = "customizations";
   private static final String WORDS = "words";
 
-  private MockWebServer server;
-
   /** The service. */
   private TextToSpeech service;
 
@@ -64,24 +62,9 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    server = new MockWebServer();
-    server.start();
-
     service = new TextToSpeech();
     service.setApiKey("");
-    service.setEndPoint(getMockWebServerUrl(server));
-  }
-
-  private static MockResponse jsonResponse(Object o) {
-    return new MockResponse()
-        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
-        .setBody(GSON.toJson(o));
-  }
-
-  private static MockResponse jsonResponse(String key, Object o) {
-    return new MockResponse()
-        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
-        .setBody(GSON.toJson(ImmutableMap.of(key, o)));
+    service.setEndPoint(getMockWebServerUrl());
   }
 
   private static CustomVoiceModel instantiateVoiceModel() {
@@ -101,7 +84,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   @Test
   public void testGetVoiceModels() throws InterruptedException {
     final List<CustomVoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
-    server.enqueue(jsonResponse(CUSTOMIZATIONS, expected));
+    server.enqueue(jsonResponse(ImmutableMap.of(CUSTOMIZATIONS, expected)));
 
     final List<CustomVoiceModel> result = service.getCustomVoiceModels(MODEL_LANGUAGE).execute();
     final RecordedRequest request = server.takeRequest();
@@ -173,7 +156,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final CustomVoiceModel model = instantiateVoiceModel();
     final List<CustomTranslation> expected = instantiateWords();
 
-    server.enqueue(jsonResponse(WORDS, expected));
+    server.enqueue(jsonResponse(ImmutableMap.of(WORDS, expected)));
     final List<CustomTranslation> result = service.getWords(model).execute();
     final RecordedRequest request = server.takeRequest();
 

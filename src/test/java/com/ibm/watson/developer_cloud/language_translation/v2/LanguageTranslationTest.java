@@ -34,7 +34,6 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
@@ -45,8 +44,6 @@ import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationR
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
-import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
 /**
@@ -74,8 +71,6 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
   private TranslationModels models;
   private Map<String, Object> identifiableLanguages;
 
-  private MockWebServer server;
-
   /*
    * (non-Javadoc)
    * 
@@ -86,12 +81,9 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    server = new MockWebServer();
-    server.start();
-
     service = new LanguageTranslation();
     service.setApiKey("");
-    service.setEndPoint(getMockWebServerUrl(server));
+    service.setEndPoint(getMockWebServerUrl());
 
     // fixtures
     String jsonString = getStringFromInputStream(new FileInputStream(RESOURCE + "identifiable_languages.json"));
@@ -298,11 +290,5 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
     assertEquals(translationResult.getWordCount().intValue(), text.split(" ").length);
     assertNotNull(translationResult.getTranslations());
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
-  }
-
-  private static MockResponse jsonResponse(Object o) {
-    return new MockResponse()
-        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
-        .setBody(GSON.toJson(o));
   }
 }
