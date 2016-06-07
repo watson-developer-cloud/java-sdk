@@ -140,12 +140,19 @@ public abstract class WatsonService {
       builder.url(RequestUtils.replaceEndPoint(request.url().toString(), getEndPoint()));
     }
 
+    String userAgent = getUserAgent();
+
     if (defaultHeaders != null) {
-      for (String key : defaultHeaders.names())
+      for (String key : defaultHeaders.names()) {
         builder.header(key, defaultHeaders.get(key));
+      }
+      if (defaultHeaders.get(HttpHeaders.USER_AGENT) != null) {
+        userAgent += "; " + defaultHeaders.get(HttpHeaders.USER_AGENT);
+      }
+
     }
 
-    builder.header(HttpHeaders.USER_AGENT, getUserAgent());
+    builder.header(HttpHeaders.USER_AGENT, userAgent);
 
     setAuthentication(builder);
 
@@ -165,7 +172,8 @@ public abstract class WatsonService {
   protected final <T> ServiceCall<T> createServiceCall(final Request request, final ResponseConverter<T> converter) {
     final Call call = createCall(request);
     return new ServiceCall<T>() {
-      @Override public T execute() {
+      @Override
+      public T execute() {
         try {
           Response response = call.execute();
           return processServiceCall(converter, response);
@@ -174,16 +182,19 @@ public abstract class WatsonService {
         }
       }
 
-      @Override public void enqueue(final ServiceCallback<T> callback) {
+      @Override
+      public void enqueue(final ServiceCallback<T> callback) {
         call.enqueue(new Callback() {
-          @Override public void onFailure(Call call, IOException e) {
+          @Override
+          public void onFailure(Call call, IOException e) {
             callback.onFailure(e);
           }
 
-          @Override public void onResponse(Call call, Response response) {
+          @Override
+          public void onResponse(Call call, Response response) {
             try {
               callback.onResponse(processServiceCall(converter, response));
-            } catch(Exception e) {
+            } catch (Exception e) {
               callback.onFailure(e);
             }
           }
@@ -192,18 +203,21 @@ public abstract class WatsonService {
         });
       }
 
-      @Override public CompletableFuture<T> rx() {
-        final CompletableFuture<T> completableFuture=new CompletableFuture<T>();
+      @Override
+      public CompletableFuture<T> rx() {
+        final CompletableFuture<T> completableFuture = new CompletableFuture<T>();
 
         call.enqueue(new Callback() {
-          @Override public void onFailure(Call call, IOException e) {
+          @Override
+          public void onFailure(Call call, IOException e) {
             completableFuture.completeExceptionally(e);
           }
 
-          @Override public void onResponse(Call call, Response response) {
+          @Override
+          public void onResponse(Call call, Response response) {
             try {
               completableFuture.complete(processServiceCall(converter, response));
-            } catch(Exception e) {
+            } catch (Exception e) {
               completableFuture.completeExceptionally(e);
             }
           }
@@ -243,9 +257,7 @@ public abstract class WatsonService {
   public ServiceCall<String> getToken() {
     HttpUrl url = HttpUrl.parse(getEndPoint()).newBuilder().setPathSegment(0, AUTHORIZATION).build();
     Request request = RequestBuilder.get(url + PATH_AUTHORIZATION_V1_TOKEN)
-        .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN)
-        .query(URL, getEndPoint())
-        .build();
+        .header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_PLAIN).query(URL, getEndPoint()).build();
 
     return createServiceCall(request, ResponseConverterUtils.getString());
   }
@@ -355,7 +367,11 @@ public abstract class WatsonService {
    * @param headers name value pairs of headers
    */
   public void setDefaultHeaders(Map<String, String> headers) {
-    defaultHeaders = Headers.of(headers);
+    if (headers == null) {
+      defaultHeaders = null;
+    } else {
+      defaultHeaders = Headers.of(headers);
+    }
   }
 
   /*
@@ -363,7 +379,8 @@ public abstract class WatsonService {
    * 
    * @see java.lang.Object#toString()
    */
-  @Override public String toString() {
+  @Override
+  public String toString() {
     final StringBuilder builder = new StringBuilder();
     builder.append(name);
     builder.append(" [");
@@ -423,6 +440,11 @@ public abstract class WatsonService {
     }
   }
 
+  /**
+   * Sets the skip authentication.
+   * 
+   * @param skipAuthentication the new skip authentication
+   */
   public void setSkipAuthentication(boolean skipAuthentication) {
     this.skipAuthentication = skipAuthentication;
   }
