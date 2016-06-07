@@ -25,6 +25,12 @@ import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Thin wrapper around the Conversation Service REST API.
+ *
+ * @version v1
+ * @version_data 2016-05-19
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html">
+ *      Conversation</a>
  */
 public final class ConversationService extends WatsonService {
 

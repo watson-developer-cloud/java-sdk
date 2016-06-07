@@ -30,6 +30,7 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
  * to avoid choice overload when making complex decisions involving multiple, conflicting goals.
  * 
  * @version v1
+ * @version_data 2015-05-28
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tradeoff-analytics.html">
  *      Tradeoff Analytics</a>

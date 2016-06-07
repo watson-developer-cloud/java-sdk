@@ -32,6 +32,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * writer improve their intended language tones.
  * 
  * @version v3
+ * @version_data 2016-05-19
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html"> Tone
  *      Analyzer</a>
