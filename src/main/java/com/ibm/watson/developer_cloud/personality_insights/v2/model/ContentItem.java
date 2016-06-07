@@ -15,7 +15,9 @@ package com.ibm.watson.developer_cloud.personality_insights.v2.model;
 
 import java.util.Date;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.LongToDateTypeAdapter;
 
 /**
  * The Content to be analyzed.
@@ -24,6 +26,8 @@ public class ContentItem extends GenericModel {
   private String charset;
   private String content;
   private String contenttype;
+  
+  @JsonAdapter(LongToDateTypeAdapter.class)
   private Date created;
   private Boolean forward;
   private String id;
@@ -31,6 +35,8 @@ public class ContentItem extends GenericModel {
   private String parentid;
   private Boolean reply;
   private String sourceid;
+  
+  @JsonAdapter(LongToDateTypeAdapter.class)
   private Date updated;
   private String userid;
 
