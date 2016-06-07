@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Type;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
@@ -32,7 +33,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSessionStatu
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.WebSocketManager;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -113,8 +114,10 @@ public class SpeechToText extends WatsonService {
     if (options.keywordsThreshold() != null)
       requestBuilder.query(KEYWORDS_THRESHOLD, options.keywordsThreshold());
 
-    if (options.keywords() != null && options.keywords().length > 0)
-      requestBuilder.query(KEYWORDS, GsonSingleton.getGsonWithoutPrettyPrinting().toJson(options.keywords()));
+    if (options.keywords() != null && options.keywords().length > 0) {
+      final String keywords = RequestUtils.join(Arrays.asList(options.keywords()), ",");
+      requestBuilder.query(KEYWORDS, RequestUtils.encode(keywords));
+    }
 
     if (options.wordAlternativesThreshold() != null)
       requestBuilder.query(WORD_ALTERNATIVES_THRESHOLD, options.wordAlternativesThreshold());

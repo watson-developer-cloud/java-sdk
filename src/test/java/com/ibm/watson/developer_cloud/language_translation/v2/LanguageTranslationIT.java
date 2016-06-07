@@ -13,6 +13,8 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
+import static com.ibm.watson.developer_cloud.language_translation.v2.model.Language.ENGLISH;
+import static com.ibm.watson.developer_cloud.language_translation.v2.model.Language.SPANISH;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -20,16 +22,18 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
 
 /**
@@ -41,7 +45,11 @@ public class LanguageTranslationIT extends WatsonServiceTest {
   private static final String RESOURCE = "src/test/resources/language_translation/";
 
   private LanguageTranslation service;
-  private String text;
+
+  private final Map<String, String> translations = ImmutableMap.of(
+      "The IBM Watson team is awesome", "El equipo es increíble IBM Watson",
+      "Welcome to the cognitive era", "Bienvenido a la era cognitiva");
+  private final List<String> texts = ImmutableList.copyOf(translations.keySet());
 
   /*
    * (non-Javadoc)
@@ -52,7 +60,6 @@ public class LanguageTranslationIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    text = "The IBM Watson team is awesome";
     service = new LanguageTranslation();
     service.setUsernameAndPassword(getValidProperty("language_translation.username"),
         getValidProperty("language_translation.password"));
@@ -119,7 +126,7 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testIdentify() {
-    final List<IdentifiedLanguage> identifiedLanguages = service.identify(text).execute();
+    final List<IdentifiedLanguage> identifiedLanguages = service.identify(texts.get(0)).execute();
     assertNotNull(identifiedLanguages);
     assertFalse(identifiedLanguages.isEmpty());
   }
@@ -129,9 +136,27 @@ public class LanguageTranslationIT extends WatsonServiceTest {
    */
   @Test
   public void testTranslate() {
-    final String result = "El equipo es increíble IBM Watson";
-    testTranslationResult(text, result, service.translate(text, ENGLISH_TO_SPANISH).execute());
-    testTranslationResult(text, result, service.translate(text, Language.ENGLISH, Language.SPANISH).execute());
+    for(String text : texts) {
+      testTranslationResult(text, translations.get(text), service.translate(text, ENGLISH_TO_SPANISH).execute());
+      testTranslationResult(text, translations.get(text), service.translate(text, ENGLISH, SPANISH).execute());
+    }
+  }
+
+  /**
+   * Test translate multiple.
+   */
+  @Test
+  public void testTranslateMultiple() {
+    TranslationResult results = service.translate(texts, ENGLISH_TO_SPANISH).execute();
+    assertEquals(2, results.getTranslations().size());
+    assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslation());
+    assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslation());
+
+    results = service.translate(texts, ENGLISH, SPANISH).execute();
+    assertEquals(2, results.getTranslations().size());
+    assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslation());
+    assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslation());
+
   }
 
   private void testTranslationResult(String text, String result, TranslationResult translationResult) {

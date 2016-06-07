@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,6 +27,7 @@ import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Dilemma;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Option;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.CategoricalColumn;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column.Goal;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.NumericColumn;
@@ -84,6 +86,12 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     String price = "price";
     String ram = "ram";
     String screen = "screen";
+    
+    String os = "OS";
+    String android = "Android";
+    String windows = "Windows Phone";
+    String blackberry = "BlackBerry";
+    String ios = "IOS";
 
     // Define the objectives
     List<Column> columns = new ArrayList<Column>();
@@ -92,6 +100,12 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     columns.add(new NumericColumn().range(0, 100).key(price).goal(Goal.MIN).objective(true));
     columns.add(new NumericColumn().key(screen).goal(Goal.MAX).objective(true));
     columns.add(new NumericColumn().key(ram).goal(Goal.MAX));
+    
+    CategoricalColumn osColumn = new CategoricalColumn();
+    osColumn.key(os).goal(Goal.MIN).objective(true);
+    osColumn.range(Arrays.asList(android, windows, blackberry, ios));
+    osColumn.setPreference(Arrays.asList(android, ios));
+    columns.add(osColumn);
 
     // Define the options to choose
     List<Option> options = new ArrayList<Option>();
@@ -101,18 +115,21 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     galaxySpecs.put(price, 50);
     galaxySpecs.put(ram, 45);
     galaxySpecs.put(screen, 5);
+    galaxySpecs.put(os, android);
     options.add(new Option("1", "Galaxy S4").values(galaxySpecs));
 
     HashMap<String, Object> iphoneSpecs = new HashMap<String, Object>();
     iphoneSpecs.put(price, 99);
     iphoneSpecs.put(ram, 40);
     iphoneSpecs.put(screen, 4);
+    iphoneSpecs.put(os, ios);
     options.add(new Option("2", "iPhone 5").values(iphoneSpecs));
 
     HashMap<String, Object> optimusSpecs = new HashMap<String, Object>();
     optimusSpecs.put(price, 10);
     optimusSpecs.put(ram, 300);
     optimusSpecs.put(screen, 5);
+    optimusSpecs.put(os, android);
     options.add(new Option("3", "LG Optimus G").values(optimusSpecs));
 
     // Call the service and get the resolution

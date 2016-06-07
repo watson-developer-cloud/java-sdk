@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -13,29 +13,25 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
+import static com.ibm.watson.developer_cloud.http.HttpHeaders.CONTENT_TYPE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockserver.model.Header;
-import org.mockserver.verify.VerificationTimes;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
@@ -46,9 +42,12 @@ import com.ibm.watson.developer_cloud.language_translation.v2.model.Translation;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModels;
 import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
-import io.netty.handler.codec.http.HttpHeaders;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 
 /**
  * The Class LanguageTranslationTest.
@@ -62,13 +61,20 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
   private final static String RESOURCE = "src/test/resources/language_translation/";
   private static final Type TYPE_IDENTIFIED_LANGUAGES =
       new TypeToken<Map<String, List<IdentifiableLanguage>>>() {}.getType();
-  private Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
-  private String modelId;
+  private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
+  private final String modelId = "foo-bar";
   private LanguageTranslation service;
-  private String text;
+
+  private final Map<String, String> translations = ImmutableMap.of(
+      "The IBM Watson team is awesome", "El equipo es increíble IBM Watson",
+      "Welcome to the cognitive era", "Bienvenido a la era cognitiva");
+  private final List<String> texts = ImmutableList.copyOf(translations.keySet());
+
   private TranslationModel model;
   private TranslationModels models;
   private Map<String, Object> identifiableLanguages;
+
+  private MockWebServer server;
 
   /*
    * (non-Javadoc)
@@ -79,17 +85,18 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    modelId = "foo-bar";
-    text = "The IBM Watson team is awesome";
+
+    server = new MockWebServer();
+    server.start();
 
     service = new LanguageTranslation();
     service.setApiKey("");
-    service.setEndPoint(MOCK_SERVER_URL);
+    service.setEndPoint(getMockWebServerUrl(server));
 
     // fixtures
     String jsonString = getStringFromInputStream(new FileInputStream(RESOURCE + "identifiable_languages.json"));
     identifiableLanguages = GSON.fromJson(jsonString, TYPE_IDENTIFIED_LANGUAGES);
-    
+
     model = loadFixture(RESOURCE + "model.json", TranslationModel.class);
     models = loadFixture(RESOURCE + "models.json", TranslationModels.class);
   }
@@ -125,28 +132,27 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
    * Test Get Identifiable languages.
    */
   @Test
-  public void testGetIdentifiableLanguages() {
+  public void testGetIdentifiableLanguages() throws InterruptedException {
+    server.enqueue(jsonResponse(identifiableLanguages));
 
-    mockServer.when(request().withPath(IDENTIFIABLE_LANGUAGES_PATH)).respond(response().withHeader(APPLICATION_JSON)
-        .withBody(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(identifiableLanguages)));
+    final List<IdentifiableLanguage> languages = service.getIdentifiableLanguages().execute();
+    final RecordedRequest request = server.takeRequest();
 
-    List<IdentifiableLanguage> languages = service.getIdentifiableLanguages().execute();
-
-    assertEquals(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(languages),
-        GsonSingleton.getGsonWithoutPrettyPrinting().toJson(identifiableLanguages.get("languages")));
+    assertEquals(IDENTIFIABLE_LANGUAGES_PATH, request.getPath());
+    assertEquals(GSON.toJson(languages), GSON.toJson(identifiableLanguages.get("languages")));
   }
 
   /**
    * Test Get Model.
    */
   @Test
-  public void testGetModel() {
+  public void testGetModel() throws InterruptedException {
+    server.enqueue(jsonResponse(model));
 
-    mockServer.when(request().withPath(GET_MODELS_PATH + "/" + model.getId())).respond(
-        response().withHeader(APPLICATION_JSON).withBody(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(model)));
+    final TranslationModel returnedModel = service.getModel(model.getId()).execute();
+    final RecordedRequest request = server.takeRequest();
 
-    TranslationModel returnedModel = service.getModel(model.getId()).execute();
-
+    assertEquals(GET_MODELS_PATH + "/" + model.getId(), request.getPath());
     assertEquals(model, returnedModel);
   }
 
@@ -154,17 +160,14 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
    * Test Get Models.
    */
   @Test
-  public void testGetModels() {
-    mockServer.when(request().withPath(GET_MODELS_PATH))
-        .respond(response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON))
-            .withBody(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(models)));
+  public void testGetModels() throws InterruptedException {
+    server.enqueue(jsonResponse(models));
 
     final List<TranslationModel> modelList = service.getModels().execute();
+    final RecordedRequest request = server.takeRequest();
 
-    mockServer.verify(request().withPath(GET_MODELS_PATH), VerificationTimes.exactly(1));
-
-    assertEquals(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(models.getModels()),
-        GsonSingleton.getGsonWithoutPrettyPrinting().toJson(modelList));
+    assertEquals(GET_MODELS_PATH, request.getPath());
+    assertEquals(GSON.toJson(models.getModels()), GSON.toJson(modelList));
   }
 
   /**
@@ -180,20 +183,22 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
    * Test Identify.
    */
   @Test
-  public void testIdentify() {
+  public void testIdentify() throws InterruptedException {
+    final List<IdentifiedLanguage> langs = Arrays.asList(
+        new IdentifiedLanguage("en", 0.877159),
+        new IdentifiedLanguage("af", 0.0752636)
+    );
+    final Map<String, ?> response = ImmutableMap.of("languages", langs);
+    final String text = texts.get(0);
 
-    final Map<String, Object> response = new HashMap<String, Object>();
-    final List<IdentifiedLanguage> langs = new ArrayList<IdentifiedLanguage>();
-    langs.add(new IdentifiedLanguage("en", 0.877159));
-    langs.add(new IdentifiedLanguage("af", 0.0752636));
-
-    response.put("languages", langs);
-
-    mockServer.when(request().withMethod("POST").withPath(IDENTITY_PATH).withBody(text))
-        .respond(response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON))
-            .withBody(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(response)));
+    server.enqueue(jsonResponse(response));
 
     final List<IdentifiedLanguage> identifiedLanguages = service.identify(text).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(IDENTITY_PATH, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertEquals(text, request.getBody().readUtf8());
     assertNotNull(identifiedLanguages);
     assertFalse(identifiedLanguages.isEmpty());
     assertNotNull(identifiedLanguages.containsAll(langs));
@@ -203,57 +208,74 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
    * Test translate.
    */
   @Test
-  public void testTranslate() {
-
-    // Mocking the response
-    final Map<String, Object> response = new HashMap<String, Object>();
-    final List<Translation> translations = new ArrayList<Translation>();
-
+  public void testTranslate() throws InterruptedException {
+    final String text = texts.get(0);
     final Translation t = new Translation();
-    t.setTranslation("El equipo es increible IBM Watson");
-    translations.add(t);
+    t.setTranslation(text);
 
-    response.put("word_count", 6);
-    response.put("character_count", 20);
-    response.put("translations", translations);
+    final Map<String, ?> response = ImmutableMap.of(
+        "word_count", 6,
+        "character_count", 20,
+        "translations", Collections.singletonList(t)
+    );
 
-    final String[] text1 = new String[] {text};
+    final Map<String, ?> requestBody =  ImmutableMap.of(
+        "text", Collections.singleton(text),
+        "model_id", modelId
+    );
 
-    final JsonObject contentJson = new JsonObject();
-    final JsonArray paragraphs = new JsonArray();
-    for (final String paragraph : text1) {
-      paragraphs.add(new JsonPrimitive(paragraph));
-    }
-    contentJson.add("text", paragraphs);
-    contentJson.addProperty("model_id", modelId);
-    mockServer.when(request().withMethod("POST").withPath(LANGUAGE_TRANSLATION_PATH)
-
-    .withBody(contentJson.toString())
-
-    ).respond(response().withHeaders(new Header(HttpHeaders.Names.CONTENT_TYPE, HttpMediaType.APPLICATION_JSON))
-        .withBody(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(response)));
-
+    server.enqueue(jsonResponse(response));
     TranslationResult translationResult = service.translate(text, modelId).execute();
-    testTranslationResult(text, translationResult);
+    final RecordedRequest request = server.takeRequest();
 
-    translationResult = service.translate(text, modelId).execute();
+    assertEquals(LANGUAGE_TRANSLATION_PATH, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertEquals(GSON.toJson(requestBody), request.getBody().readUtf8());
     testTranslationResult(text, translationResult);
-    assertNotNull(service.toString());
+  }
+
+  /**
+   * Test translate multiple texts.
+   * @throws InterruptedException
+   */
+  @Test
+  public void testTranslateMultiple() throws InterruptedException {
+    final Translation t1 = new Translation();
+    t1.setTranslation(translations.get(texts.get(0)));
+    final Translation t2 = new Translation();
+    t2.setTranslation(translations.get(texts.get(1)));
+
+    final Map<String, ?> response = ImmutableMap.of(
+        "word_count", 6,
+        "character_count", 20,
+        "translations", Arrays.asList(t1, t2)
+    );
+
+    final Map<String, ?> requestBody =  ImmutableMap.of(
+        "text", texts,
+        "model_id", modelId
+    );
+
+    server.enqueue(jsonResponse(response));
+    TranslationResult translationResult = service.translate(texts, modelId).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(LANGUAGE_TRANSLATION_PATH, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertEquals(GSON.toJson(requestBody), request.getBody().readUtf8());
+    assertEquals(2, translationResult.getTranslations().size());
+    assertEquals(translations.get(texts.get(0)), translationResult.getTranslations().get(0).getTranslation());
+    assertEquals(translations.get(texts.get(1)), translationResult.getTranslations().get(1).getTranslation());
   }
 
   /**
    * Test Translate with an invalid model.
    */
-  @Test
+  @Test(expected = BadRequestException.class)
   public void testTranslateNotSupported() {
-    boolean fail = true;
-    try {
-      // Mocking the response
-      service.translate("X", "FOO-BAR-FOO").execute();
-    } catch (final Exception e) {
-      fail = false;
-    }
-    assertFalse(fail);
+    Map<String, ?> response = ImmutableMap.of("error_code", 400, "error message", "error");
+    server.enqueue(jsonResponse(response).setResponseCode(400));
+    service.translate("X", "FOO-BAR-FOO").execute();
   }
 
 
@@ -262,12 +284,12 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testTranslateWithNull() {
-    service.translate(null, null, null).execute();
+    service.translate((String) null, null, null).execute();
   }
 
   /**
    * Test translation result.
-   * 
+   *
    * @param text the text
    * @param translationResult the translation result
    */
@@ -278,4 +300,9 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
   }
 
+  private static MockResponse jsonResponse(Object o) {
+    return new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(o));
+  }
 }

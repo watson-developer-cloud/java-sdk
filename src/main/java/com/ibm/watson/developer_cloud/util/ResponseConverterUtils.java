@@ -101,6 +101,7 @@ public class ResponseConverterUtils {
     return new ResponseConverter<Void>() {
       @Override
       public Void convert(Response response) {
+        ResponseUtils.getString(response); // read the response to prevent a connection leak
         return null;
       }
     };

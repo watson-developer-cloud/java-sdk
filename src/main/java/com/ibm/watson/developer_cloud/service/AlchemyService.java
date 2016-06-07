@@ -26,6 +26,7 @@ import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.ServiceResponseException;
 import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
 
 import okhttp3.HttpUrl;
 import okhttp3.Request.Builder;
@@ -158,6 +159,10 @@ public abstract class AlchemyService extends WatsonService {
       final JsonObject error = new JsonObject();
       error.addProperty(MESSAGE_ERROR, errorMessage != null ? errorMessage : "Unknown error");
       error.addProperty(MESSAGE_CODE, code);
+      
+      // #242: Close the request body to prevent a connection leak
+      ResponseUtils.getString(response);
+      
       return error;
     }
     return null; // no error

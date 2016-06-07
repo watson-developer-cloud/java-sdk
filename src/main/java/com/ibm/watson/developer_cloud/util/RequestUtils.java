@@ -118,4 +118,27 @@ public class RequestUtils {
   public static String replaceEndPoint(String url, String endPoint) {
     return endPoint + url.replaceFirst(DEFAULT_ENDPOINT, "");
   }
+
+  /**
+   * Creates a String of all elements of an iterable, separated by a separator.
+   *
+   * @param iterable  the iterable
+   * @param separator the separator
+   * @return the joined String
+   */
+  public static String join(Iterable<?> iterable, String separator) {
+    final StringBuilder sb = new StringBuilder();
+    boolean first = true;
+
+    for (Object item : iterable) {
+      if (first)
+        first = false;
+      else
+        sb.append(separator);
+
+      sb.append(item.toString());
+    }
+
+    return sb.toString();
+  }
 }

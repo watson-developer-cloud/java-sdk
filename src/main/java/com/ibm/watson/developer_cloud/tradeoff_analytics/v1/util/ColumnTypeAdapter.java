@@ -51,6 +51,7 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
   private static final Logger LOG = Logger.getLogger(ColumnTypeAdapter.class.getName());
   private static final String LOW = "low";
   private static final String RANGE = "range";
+  private static final String PREFERENCE = "preference";
   private static final String SIGNIFICANT_GAIN = "significant_gain";
   private static final String SIGNIFICANT_LOSS = "significant_loss";
   private static final String TYPE2 = "type";
@@ -65,7 +66,7 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
    */
   private void writeCategoricalColumn(CategoricalColumn catCol, JsonWriter writer) throws IOException {
     if (catCol.getPreference() != null) {
-      writer.name(RANGE);
+      writer.name(PREFERENCE);
       writer.beginArray();
       for (final String pref : catCol.getPreference()) {
         writer.value(pref);

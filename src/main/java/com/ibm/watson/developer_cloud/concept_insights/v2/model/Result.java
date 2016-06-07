@@ -14,12 +14,14 @@
 package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Class Result.
+ * Result from a {@link ConceptInsights#conceptualSearch(Corpus, Map)}
  */
 public class Result extends GenericModel {
 
@@ -28,6 +30,45 @@ public class Result extends GenericModel {
   private String id;
   private String label;
   private Double score;
+
+  @SerializedName("user_fields")
+  private Map<String, String> userFields;
+
+  /**
+   * Gets the explanation tags.
+   *
+   * @return the explanation tags
+   */
+  public List<Annotation> getExplanationTags() {
+    return explanationTags;
+  }
+
+  /**
+   * Sets the explanation tags.
+   *
+   * @param explanationTags the new explanation tags
+   */
+  public void setExplanationTags(List<Annotation> explanationTags) {
+    this.explanationTags = explanationTags;
+  }
+
+  /**
+   * Gets the user fields.
+   *
+   * @return the user fields
+   */
+  public Map<String, String> getUserFields() {
+    return userFields;
+  }
+
+  /**
+   * Sets the user fields.
+   *
+   * @param userFields the user fields
+   */
+  public void setUserFields(Map<String, String> userFields) {
+    this.userFields = userFields;
+  }
 
   /**
    * Gets the explanation tags.
