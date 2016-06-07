@@ -52,7 +52,7 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
   protected static final String PUT = "PUT";
 
   /** The Constant MOCK_SERVER_PORT. */
-  protected static final int MOCK_SERVER_PORT = 9898;
+  protected static final int MOCK_SERVER_PORT = 9890;
   
   /** The Constant MOCK_SERVER_URL. */
   protected static final String MOCK_SERVER_URL = "http://localhost:" + MOCK_SERVER_PORT;

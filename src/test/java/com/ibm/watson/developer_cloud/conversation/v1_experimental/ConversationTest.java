@@ -23,8 +23,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationRequest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationResponse;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 
 import okhttp3.mockwebserver.MockResponse;
@@ -67,7 +67,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
     MockWebServer server = new MockWebServer();
 
-    ConversationResponse mockResponse = loadFixture(FIXTURE, ConversationResponse.class);
+    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
 
     server.start();
@@ -77,16 +77,17 @@ public class ConversationTest extends WatsonServiceUnitTest {
     service.setEndPoint(getMockWebServerUrl(server));
 
 
-    ConversationRequest convRequest = new ConversationRequest(text, null);
+    MessageRequest convRequest = new MessageRequest.Builder(text, null).build();
 
     // execute first request
-    ConversationResponse serviceResponse = service.message(WORKSPACE_ID, convRequest).execute();
+    MessageResponse serviceResponse = service.message(WORKSPACE_ID, convRequest).execute();
 
     // first request
     RecordedRequest request = server.takeRequest();
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2016_05_19);
     assertEquals(path, request.getPath());
+    assertEquals("Do you want to get a quote?", serviceResponse.getText());
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertNotNull(request.getBody().readUtf8());
