@@ -21,8 +21,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationRequest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationResponse;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
 
 /**
  * Integration test for the {@link ConversationService}.
@@ -56,12 +56,12 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testStartAConversationWithoutMessage() {
-    ConversationRequest request = new ConversationRequest(null, null);
-    ConversationResponse response = service.message(workspaceId, request).execute();
+    MessageRequest request = new MessageRequest.Builder(null, null).build();
+    MessageResponse response = service.message(workspaceId, request).execute();
     assertNotNull(response);
     assertNotNull(response.getContext());
     assertNotNull(response.getOutput());
-    assertNotNull(response.getOutput().getText());
+    assertNotNull(response.getText());
   }
 
   /**
@@ -74,8 +74,8 @@ public class ConversationServiceIT extends WatsonServiceTest {
     final String[] messages = new String[] {"turn ac on", "turn right", "no", "yes"};
     Map<String, Object> context = null;
     for (final String message : messages) {
-      ConversationRequest request = new ConversationRequest(message, context);
-      ConversationResponse response = service.message(workspaceId, request).execute();
+      MessageRequest request = new MessageRequest.Builder(message, context).build();
+      MessageResponse response = service.message(workspaceId, request).execute();
 
       assertMessageFromService(response);
       context = response.getContext();
@@ -84,11 +84,11 @@ public class ConversationServiceIT extends WatsonServiceTest {
   }
 
   /**
-   * Assert {@link ConversationResponse} from service.
+   * Assert {@link MessageResponse} from service.
    *
    * @param message the message from the {@link ConversationService}
    */
-  private void assertMessageFromService(ConversationResponse message) {
+  private void assertMessageFromService(MessageResponse message) {
     assertNotNull(message);
     assertNotNull(message.getContext());
     assertNotNull(message.getOutput());

@@ -14,17 +14,14 @@
 package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationRequest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationResponse;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-
-import okhttp3.Response;
 
 /**
  * Thin wrapper around the Conversation Service REST API.
@@ -59,28 +56,11 @@ public final class ConversationService extends WatsonService {
    *
    * @return The response for the given message.
    */
-  public ServiceCall<ConversationResponse> message(String workspaceId, ConversationRequest request) {
+  public ServiceCall<MessageResponse> message(String workspaceId, MessageRequest request) {
     RequestBuilder builder = RequestBuilder.post(getEndPoint() + String.format(PATH_MESSAGE, workspaceId));
     builder.query(VERSION_PARAM, this.versionDate);
-    builder.bodyJson(request != null ? GsonSingleton.getGsonWithoutPrettyPrinting().toJsonTree(request, ConversationRequest.class).getAsJsonObject() : new JsonObject());
-    
-    /*
-     * Conversation is a special case in terms of responses. The `output` property of the Conversation response can contain
-     * custom properties set by the conversation designer. The SDK needs to provide the raw JSON of the output so that
-     * the developer can read custom properties set in the service.
-     */
-    ResponseConverter<ConversationResponse> converter = new ResponseConverter<ConversationResponse>() {
-      @Override
-      public ConversationResponse convert(Response response) {
-        JsonObject raw = ResponseUtils.getJsonObject(response);
-        ConversationResponse responseObj = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(raw, ConversationResponse.class);
-        if(raw.has("output")){
-          responseObj.setRawOutput(raw.get("output").getAsJsonObject());
-        }
-        return responseObj;
-      }
-    };
-    return createServiceCall(builder.build(), converter);
+    builder.bodyJson(request != null ? GsonSingleton.getGsonWithoutPrettyPrinting().toJsonTree(request, MessageRequest.class).getAsJsonObject() : new JsonObject());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
   }
 
 }
