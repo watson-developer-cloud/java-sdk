@@ -23,8 +23,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationRequest;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.ConversationResponse;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 
 import okhttp3.mockwebserver.MockResponse;
@@ -67,7 +67,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
     MockWebServer server = new MockWebServer();
 
-    Message mockResponse = loadFixture(FIXTURE, Message.class);
+    ConversationResponse mockResponse = loadFixture(FIXTURE, ConversationResponse.class);
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
 
     server.start();
@@ -77,10 +77,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     service.setEndPoint(getMockWebServerUrl(server));
 
 
-    NewMessageOptions options = new NewMessageOptions.Builder().inputText(text).workspaceId(WORKSPACE_ID).build();
+    ConversationRequest convRequest = new ConversationRequest(text, null);
 
     // execute first request
-    Message serviceResponse = service.message(options).execute();
+    ConversationResponse serviceResponse = service.message(WORKSPACE_ID, convRequest).execute();
 
     // first request
     RecordedRequest request = server.takeRequest();
