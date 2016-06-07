@@ -13,16 +13,16 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v2;
 
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.FileNotFoundException;
 
-import org.junit.Assert;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
@@ -64,7 +64,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new PersonalityInsights();
-    service.setEndPoint(MOCK_SERVER_URL);
+    service.setEndPoint(getMockWebServerUrl());
     service.setApiKey("");
   }
 
@@ -72,55 +72,58 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    * Test get profile with content.
    */
   @Test
-  public void testGetProfileWithContent() {
-    Content content = new Content();
+  public void testGetProfileWithContent() throws InterruptedException {
+    final Content content = new Content();
     content.addContentItem(contentItem);
+    final ProfileOptions options = new ProfileOptions.Builder().addContentItem(contentItem).build();
 
-    // mock
-    mockServer.when(
-        request().withMethod(POST).withPath(PROFILE_PATH).withBody(new Gson().toJson(content)))
-        .respond(response().withHeaders(APPLICATION_JSON).withBody(profile.toString()));
+    server.enqueue(jsonResponse(profile));
+    final Profile profile = service.getProfile(options).execute();
+    final RecordedRequest request = server.takeRequest();
 
-    // test
-    ProfileOptions options = new ProfileOptions.Builder().addContentItem(contentItem).build();
-    Profile profile = service.getProfile(options).execute();
-    Assert.assertNotNull(profile);
-    Assert.assertEquals(profile, this.profile);
+    assertEquals(PROFILE_PATH, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertNotNull(profile);
+    assertEquals(this.profile, profile);
   }
 
   /**
    * Test get profile with english text.
    */
   @Test
-  public void testGetProfileWithEnglishText() {
-    mockServer.when(
-        request().withMethod(POST).withPath(PROFILE_PATH).withHeader(TEXT_PLAIN)
-            .withHeader(HttpHeaders.CONTENT_LANGUAGE, "en").withBody(text)).respond(
-        response().withHeaders(APPLICATION_JSON).withBody(profile.toString()));
+  public void testGetProfileWithEnglishText() throws InterruptedException {
+    final ProfileOptions options = new ProfileOptions.Builder().text(text).language(Language.ENGLISH).build();
 
-    ProfileOptions options = new ProfileOptions.Builder().text(text).language(Language.ENGLISH).build();
-    Profile profile = service.getProfile(options).execute();
+    server.enqueue(jsonResponse(profile));
+    final Profile profile = service.getProfile(options).execute();
+    final RecordedRequest request = server.takeRequest();
 
-    Assert.assertNotNull(profile);
-    Assert.assertEquals(profile, this.profile);
+    assertEquals(PROFILE_PATH, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertEquals("en", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
+    assertEquals(HttpMediaType.TEXT.toString(), request.getHeader(HttpHeaders.CONTENT_TYPE));
+    assertEquals(text, request.getBody().readUtf8());
+    assertNotNull(profile);
+    assertEquals(this.profile, profile);
   }
 
   /**
    * Test get profile with spanish text.
    */
   @Test
-  public void testGetProfileWithSpanishText() {
-    mockServer.when(
-        request().withMethod(POST).withPath(PROFILE_PATH).withHeader(TEXT_PLAIN)
-            .withHeader(HttpHeaders.CONTENT_LANGUAGE, "es").withBody(text)).respond(
-        response().withHeaders(APPLICATION_JSON).withBody(profile.toString()));
+  public void testGetProfileWithSpanishText() throws InterruptedException {
+    final ProfileOptions options = new ProfileOptions.Builder().text(text).language(Language.SPANISH).build();
 
+    server.enqueue(jsonResponse(profile));
+    final Profile profile = service.getProfile(options).execute();
+    final RecordedRequest request = server.takeRequest();
 
-    ProfileOptions options = new ProfileOptions.Builder().text(text).language(Language.SPANISH).build();
-    Profile profile = service.getProfile(options).execute();
-
-    Assert.assertNotNull(profile);
-    Assert.assertEquals(profile, this.profile);
-
+    assertEquals(PROFILE_PATH, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertEquals("es", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
+    assertEquals(HttpMediaType.TEXT.toString(), request.getHeader(HttpHeaders.CONTENT_TYPE));
+    assertEquals(text, request.getBody().readUtf8());
+    assertNotNull(profile);
+    assertEquals(profile, this.profile);
   }
 }

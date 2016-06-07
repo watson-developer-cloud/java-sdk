@@ -54,7 +54,6 @@ import com.ibm.watson.developer_cloud.util.TestUtils;
 
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 import okio.Buffer;
 
@@ -67,8 +66,6 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
   private final static String GET_VOICES_PATH = "/v1/voices";
   private final static String SYNTHESIZE_PATH = "/v1/synthesize";
-  
-  private MockWebServer server;
   
   /**
    * Write input stream to output stream.
@@ -115,12 +112,9 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
     
-    server = new MockWebServer();
-  	server.start();
-
     service = new TextToSpeech();
     service.setApiKey("");
-    service.setEndPoint(getMockWebServerUrl(server));
+    service.setEndPoint(getMockWebServerUrl());
   }
 
   /**
