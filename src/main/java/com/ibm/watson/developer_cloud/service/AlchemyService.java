@@ -58,6 +58,14 @@ public abstract class AlchemyService extends WatsonService {
   }
 
   /**
+   * Instantiates a new alchemy service by apiKey.
+   */
+  public AlchemyService(String apiKey) {
+    this();
+    setApiKey(apiKey);
+  }
+
+  /**
    * Adds the Alchemy API key to HTTP request.
    * 
    * @param builder the builder

@@ -28,7 +28,8 @@ import okhttp3.Request;
  * propensities, and writing styles in written communication. Then it offers suggestions to help the
  * writer improve their intended language tones.
  * 
- * @version v3
+ * @version v3_beta
+ * @version_data 2016-02-11
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html"> Tone
  *      Analyzer</a>
@@ -47,7 +48,7 @@ public class ToneAnalyzer extends WatsonService {
 
 
   /**
-   * Instantiates a new tone analyzer.
+   * Instantiates a new tone analyzer V3_beta service.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
    *        will keep your API calls from failing when the service introduces breaking changes.
@@ -58,7 +59,18 @@ public class ToneAnalyzer extends WatsonService {
     this.versionDate = versionDate;
   }
 
-
+  /**
+   * Instantiates a new tone analyzer V3_beta service with username and password.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *        will keep your API calls from failing when the service introduces breaking changes.
+   * @param username the username
+   * @param password the password
+   */
+  public ToneAnalyzer(String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
+  }
 
   /**
    * Analyzes the "tone" of a piece of text. The message is analyzed from several tones (social
