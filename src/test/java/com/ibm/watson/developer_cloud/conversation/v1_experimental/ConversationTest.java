@@ -66,7 +66,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
 
-    MessageRequest options = new MessageRequest.Builder().text(text).build();
+    MessageRequest options = new MessageRequest.Builder().inputText(text).build();
 
     // execute first request
     MessageResponse serviceResponse = service.message(WORKSPACE_ID, options).execute();
@@ -79,7 +79,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals("Do you want to get a quote?", serviceResponse.getText());
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertNotNull(request.getBody().readUtf8());
+    assertEquals("{\"input\":{\"text\":\"I'd like to get a quote to replace my windows\"}}", request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
   }
 }

@@ -26,8 +26,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 /**
  * Thin wrapper around the Conversation Service REST API.
  *
- * @version v1
- * @version_data 2016-05-19
+ * @version v1-experimental
+ * @version_date 2016-05-19
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html">
  *      Conversation</a>
@@ -74,9 +74,16 @@ public final class ConversationService extends WatsonService {
    * @return The response for the given message.
    */
   public ServiceCall<MessageResponse> message(String workspaceId, MessageRequest request) {
+    Validator.isTrue(workspaceId != null && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
+    
+    JsonObject body = new JsonObject();
+    if (request != null) {
+      body = GsonSingleton.getGson().toJsonTree(request).getAsJsonObject(); 
+    }
+    
     RequestBuilder builder = RequestBuilder.post(getEndPoint() + String.format(PATH_MESSAGE, workspaceId));
     builder.query(VERSION_PARAM, this.versionDate);
-    builder.bodyJson(request != null ? GsonSingleton.getGsonWithoutPrettyPrinting().toJsonTree(request, MessageRequest.class).getAsJsonObject() : new JsonObject());
+    builder.bodyJson(body);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
   }
 

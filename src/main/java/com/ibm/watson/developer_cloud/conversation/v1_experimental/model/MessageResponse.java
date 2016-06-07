@@ -1,5 +1,6 @@
 package com.ibm.watson.developer_cloud.conversation.v1_experimental.model;
 
+import java.util.List;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
@@ -13,12 +14,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  *      http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html</a>
  */
 public class MessageResponse extends GenericModel {
+  private static final String TEXT = "text";
+
   /**
    * An class used to describe the entity payload object
    */
   public static class Entity {
     private String entity;
-    private int[] location;
+    private Integer[] location;
     private String value;
 
     /**
@@ -38,7 +41,7 @@ public class MessageResponse extends GenericModel {
      * 
      * @return an array of locations (start and end)
      */
-    public int[] getLocation() {
+    public Integer[] getLocation() {
       return location;
     }
 
@@ -63,9 +66,9 @@ public class MessageResponse extends GenericModel {
     /**
      * Sets the location of the entity detected by the system (i.e. starting index and end index).
      * 
-     * @param location an array of <code>ints</code> representing a start and end index
+     * @param location an array of <code>Integers</code> representing a start and end index
      */
-    public void setLocation(int[] location) {
+    public void setLocation(Integer[] location) {
       this.location = location;
     }
 
@@ -85,7 +88,7 @@ public class MessageResponse extends GenericModel {
    * confidence score ranging between 0.0 and 1.0, with 1.0 being the most confident.
    */
   public static class Intent {
-    private float confidence;
+    private Double confidence;
     private String intent;
 
     /**
@@ -99,7 +102,7 @@ public class MessageResponse extends GenericModel {
      * 
      * @return a float representing system confidence
      */
-    public float getConfidence() {
+    public Double getConfidence() {
       return confidence;
     }
 
@@ -115,9 +118,9 @@ public class MessageResponse extends GenericModel {
     /**
      * Sets the system confidence in the intent
      * 
-     * @param confidence a float between 0 and 1
+     * @param confidence a float between 0.0 and 1.0
      */
-    public void setConfidence(float confidence) {
+    public void setConfidence(Double confidence) {
       this.confidence = confidence;
     }
 
@@ -132,29 +135,15 @@ public class MessageResponse extends GenericModel {
   }
 
   private Map<String, Object> context;
-  private Entity[] entities;
-  private Intent[] intents;
+  private List<Entity> entities;
+  private List<Intent> intents;
   private Map<String, Object> output;
 
-  /**
-   * Create a new instance of the message API response payload. The message API will always return a
-   * list of intents, entities, an output and context.
-   * 
-   * <pre>
-   * {
-   *   intents:[{intent:"pay_bill", confidence: 0.86}, {intent: ......}],
-   *   entities: [{entity:"phone", value:"telephone", location:[21, 30]],
-   *   context:{some_var:"some val", address:{street: "22 Queen St", city: "Boston"}},
-   *   output:{text: "I can help you pay your phone bill"}
-   * }
-   * </pre>
-   */
-  public MessageResponse() {}
 
   /**
    * Returns the context as returned by the service. At each step in the chat flow the conversation
    * designer has the ability to add information to the chat context. The context is a map of key
-   * value pairs, with the values being any valid JSON objects/primatives.
+   * value pairs, with the values being any valid JSON objects/primitives.
    * 
    * @return a map representing context/state
    */
@@ -167,7 +156,7 @@ public class MessageResponse extends GenericModel {
    * 
    * @return an array of {@link Entity} objects
    */
-  public Entity[] getEntities() {
+  public List<Entity> getEntities() {
     return entities;
   }
 
@@ -176,7 +165,7 @@ public class MessageResponse extends GenericModel {
    * 
    * @return an array of {@link Intent} objects.
    */
-  public Intent[] getIntents() {
+  public List<Intent> getIntents() {
     return intents;
   }
 
@@ -203,7 +192,7 @@ public class MessageResponse extends GenericModel {
    * 
    * @param entities an array of entities
    */
-  public void setEntities(Entity[] entities) {
+  public void setEntities(List<Entity> entities) {
     this.entities = entities;
   }
 
@@ -212,7 +201,7 @@ public class MessageResponse extends GenericModel {
    * 
    * @param intents an array of intents
    */
-  public void setIntents(Intent[] intents) {
+  public void setIntents(List<Intent> intents) {
     this.intents = intents;
   }
 
@@ -230,15 +219,14 @@ public class MessageResponse extends GenericModel {
    * to calling:
    * 
    * <pre>
-   * String text = null; Map<String, Object> output = response.getOutput(); if(output != null){ text
+   * String text = null;
+   * Map<String, Object> output = response.getOutput();
+   * return if(output != null){ text
    * = output.get("text"); }
    * 
    * @return the text which is to be displayed/returned to the end user
    */
   public String getText() {
-    if (this.output != null && this.output.containsKey("text")) {
-      return (String) this.output.get("text");
-    }
-    return null;
+    return (output != null && output.containsKey(TEXT)) ? output.get(TEXT).toString() : null;
   }
 }

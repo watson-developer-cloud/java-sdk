@@ -56,7 +56,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testStartAConversationWithoutMessage() {
-    MessageRequest request = new MessageRequest.Builder(null, null).build();
+    MessageRequest request = new MessageRequest.Builder().build();
     MessageResponse response = service.message(workspaceId, request).execute();
     assertNotNull(response);
     assertNotNull(response.getContext());
@@ -74,7 +74,10 @@ public class ConversationServiceIT extends WatsonServiceTest {
     final String[] messages = new String[] {"turn ac on", "turn right", "no", "yes"};
     Map<String, Object> context = null;
     for (final String message : messages) {
-      MessageRequest request = new MessageRequest.Builder(message, context).build();
+      MessageRequest request = new MessageRequest.Builder()
+          .inputText(message)
+          .context(context)
+          .build();
       MessageResponse response = service.message(workspaceId, request).execute();
 
       assertMessageFromService(response);
