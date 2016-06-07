@@ -52,9 +52,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   private MockWebServer server;
 
   /** The service. */
-  private TextToSpeech ttsService;
-
-  private Customizations service;
+  private TextToSpeech service;
 
   /*
    * (non-Javadoc)
@@ -69,11 +67,9 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     server = new MockWebServer();
     server.start();
 
-    ttsService = new TextToSpeech();
-    ttsService.setApiKey("");
-    ttsService.setEndPoint(getMockWebServerUrl(server));
-
-    service = ttsService.getCustomizations();
+    service = new TextToSpeech();
+    service.setApiKey("");
+    service.setEndPoint(getMockWebServerUrl(server));
   }
 
   private static MockResponse jsonResponse(Object o) {
@@ -107,7 +103,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final List<CustomVoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
     server.enqueue(jsonResponse(CUSTOMIZATIONS, expected));
 
-    final List<CustomVoiceModel> result = service.getVoiceModels(MODEL_LANGUAGE).execute();
+    final List<CustomVoiceModel> result = service.getCustomVoiceModels(MODEL_LANGUAGE).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(VOICE_MODELS_PATH + "?language=" + MODEL_LANGUAGE, request.getPath());
@@ -121,7 +117,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final CustomVoiceModel expected = instantiateVoiceModel();
     server.enqueue(jsonResponse(expected));
 
-    final CustomVoiceModel result = service.getVoiceModel(expected.getId()).execute();
+    final CustomVoiceModel result = service.getCustomVoiceModel(expected.getId()).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(VOICE_MODELS_PATH + "/" + expected.getId(), request.getPath());
@@ -139,7 +135,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     newModel.setLanguage(expected.getLanguage());
     newModel.setDescription(expected.getDescription());
 
-    final CustomVoiceModel result = service.saveVoiceModel(newModel).execute();
+    final CustomVoiceModel result = service.saveCustomVoiceModel(newModel).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(VOICE_MODELS_PATH, request.getPath());
@@ -152,7 +148,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final CustomVoiceModel expected = instantiateVoiceModel();
 
     server.enqueue(new MockResponse().setResponseCode(201));
-    final CustomVoiceModel result = service.saveVoiceModel(expected).execute();
+    final CustomVoiceModel result = service.saveCustomVoiceModel(expected).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(VOICE_MODELS_PATH + "/" + expected.getId(), request.getPath());
@@ -165,7 +161,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final CustomVoiceModel expected = instantiateVoiceModel();
 
     server.enqueue(new MockResponse().setResponseCode(204));
-    service.deleteVoiceModel(expected).execute();
+    service.deleteCustomVoiceModel(expected).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(VOICE_MODELS_PATH + "/" + expected.getId(), request.getPath());
@@ -192,14 +188,14 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final List<CustomTranslation> expected = instantiateWords();
 
     server.enqueue(new MockResponse().setResponseCode(201));
-    service.saveWords(model, expected).execute();
+    service.saveWords(model, expected.toArray(new CustomTranslation[]{})).execute();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(String.format(WORDS_PATH, model.getId()), request.getPath());
     assertEquals("POST", request.getMethod());
 
     server.enqueue(new MockResponse().setResponseCode(201));
-    service.saveWord(model, expected.get(0)).execute();
+    service.saveWords(model, expected.get(0)).execute();
     request = server.takeRequest();
 
     assertEquals(String.format(WORDS_PATH, model.getId()), request.getPath());

@@ -16,6 +16,8 @@ package com.ibm.watson.developer_cloud.util;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -98,6 +100,35 @@ public final class TestUtils {
       throw new AssertionFailedError("Collection is null");
     if (objs.isEmpty())
       throw new AssertionFailedError("Collection is empty");
+  }
+
+  /**
+   * Checks if both InputStreams have the same content and length. The streams are closed after reading.
+   *
+   * @param s1
+   * @param s2
+   * @return true, if the InputStreams are equal
+   * @throws IOException
+   */
+  public static boolean streamContentEquals(InputStream s1, InputStream s2) throws IOException {
+    try {
+      int b1, b2;
+
+      do { // read while both stream contents are equal and s1 still has more bytes
+        b1 = s1.read();
+        b2 = s2.read();
+      } while (b1 == b2 && b1 != -1);
+
+      // this is true iff both streams are equally long and have the same content
+      return b1 == b2;
+    } finally {
+      try {
+        s1.close();
+        s2.close();
+      } catch (Exception e) {
+        // Exceptions during closing seem to be ok!
+      }
+    }
   }
 
   /**
