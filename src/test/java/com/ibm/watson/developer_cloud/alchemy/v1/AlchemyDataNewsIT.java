@@ -77,10 +77,12 @@ public class AlchemyDataNewsIT extends WatsonServiceTest {
     final String[] fields = new String[] {"enriched.url.title", "enriched.url.url",
         "enriched.url.author", "enriched.url.publicationDate",
         "enriched.url.enrichedTitle.entities", "enriched.url.enrichedTitle.docSentiment",
-        "enriched.url.enrichedTitle.concepts", "enriched.url.enrichedTitle.taxonomy"};
+        "enriched.url.enrichedTitle.concepts", "enriched.url.enrichedTitle.taxonomy",
+        "enriched.url.entities", "enriched.url.docSentiment",
+        "enriched.url.concepts", "enriched.url.taxonomy"};
     params.put(AlchemyDataNews.RETURN, StringUtils.join(fields, ","));
-    params.put(AlchemyDataNews.START, "1440720000");
-    params.put(AlchemyDataNews.END, "1441407600");
+    params.put(AlchemyDataNews.START, "now-30d");
+    params.put(AlchemyDataNews.END, "now");
     params.put(AlchemyDataNews.COUNT, "7");
     params.put("q.enriched.url.enrichedTitle.entities.entity", "|text=IBM,type=company|");
     params.put("q.enriched.url.enrichedTitle.docSentiment.type", "positive");
@@ -88,6 +90,8 @@ public class AlchemyDataNewsIT extends WatsonServiceTest {
 
     final DocumentsResult result = service.getNewsDocuments(params).execute();
     Assert.assertNotNull(result);
+    Assert.assertNotNull(result.getDocuments());
+    Assert.assertNotNull(result.getDocuments().getDocuments());
   }
 
 

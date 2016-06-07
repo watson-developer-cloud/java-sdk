@@ -86,8 +86,9 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
   public void testDeleteAllRankers() {
     List<Ranker> rankers = service.getRankers().execute().getRankers();
     for (Ranker ranker : rankers) {
-      if (!ranker.getName().equals(rankerId))
+      if (!ranker.getId().equals(rankerId)) {
         service.deleteRanker(ranker.getId()).execute();
+      }
     }
   }
   /**
@@ -97,6 +98,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
    * @throws IOException
    */
   @Test
+  @Ignore
   public void testCreateRankerAndRankResults() throws InterruptedException, IOException {
     final File trainingFile = new File(RESOURCE_PATH + "ranker_train.csv");
     final File testFile = new File(RESOURCE_PATH + "ranker_test.csv");
@@ -105,7 +107,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     final Ranker ranker = service.createRanker(RANKER_NAME, trainingFile).execute();
     try {
       assertEquals(RANKER_NAME, ranker.getName());
-      for (int x = 0; x < 20 && service.getRankerStatus(ranker.getId()).execute()
+      for (int x = 0; x < 30 && service.getRankerStatus(ranker.getId()).execute()
           .getStatus() != Ranker.Status.AVAILABLE; x++) {
         Thread.sleep(10000);
       }
@@ -122,7 +124,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
         testInputStream.close();
       }
     } finally {
-      //service.deleteRanker(ranker.getId());
+      service.deleteRanker(ranker.getId());
     }
 
   }

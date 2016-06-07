@@ -19,9 +19,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Context;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Context;
 
 /**
  * Integration test for the {@link ConversationService}.

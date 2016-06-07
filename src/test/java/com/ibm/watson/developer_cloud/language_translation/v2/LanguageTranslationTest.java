@@ -13,7 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
-import static com.ibm.watson.developer_cloud.http.HttpHeaders.CONTENT_TYPE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;

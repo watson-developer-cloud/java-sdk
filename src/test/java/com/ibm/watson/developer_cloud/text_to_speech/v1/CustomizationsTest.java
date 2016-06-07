@@ -13,7 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
@@ -24,20 +23,15 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
 
 public class CustomizationsTest extends WatsonServiceUnitTest {
 
-  private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
   private final static String VOICE_MODELS_PATH = "/v1/customizations";
   private final static String WORDS_PATH = VOICE_MODELS_PATH + "/%s/words";
 

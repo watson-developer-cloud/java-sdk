@@ -18,8 +18,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.RelationshipExtraction;
-import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.ReturnType;
 import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.model.Dataset;
 
 /**

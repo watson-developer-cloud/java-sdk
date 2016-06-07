@@ -24,7 +24,6 @@ import org.junit.runners.MethodSorters;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
-import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.VisualInsights;
 import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.model.Classifiers;
 import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.model.Summary;
 
