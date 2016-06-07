@@ -11,7 +11,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.util.TestUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,6 +20,7 @@ import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
+import com.ibm.watson.developer_cloud.util.TestUtils;
 
 public class CustomizationsIT extends WatsonServiceTest {
 

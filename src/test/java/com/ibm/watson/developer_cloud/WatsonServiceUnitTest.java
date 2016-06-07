@@ -15,19 +15,19 @@ package com.ibm.watson.developer_cloud;
 
 import static com.ibm.watson.developer_cloud.http.HttpHeaders.CONTENT_TYPE;
 
-import com.google.gson.Gson;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import okhttp3.mockwebserver.MockResponse;
+import java.io.IOException;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
 import org.mockserver.integration.ClientAndServer;
 import org.mockserver.model.Header;
 
+import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
+import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-
-import java.io.IOException;
 
 /**
  * Utility class to Mock the Watson Services.

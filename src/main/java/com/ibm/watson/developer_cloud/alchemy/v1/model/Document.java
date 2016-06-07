@@ -13,8 +13,12 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
+import java.util.Date;
+
+import com.google.gson.annotations.JsonAdapter;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.LongToDateTypeAdapter;
 
 /**
  * Doc returned by the {@link AlchemyDataNews} service.
@@ -29,7 +33,8 @@ public class Document extends GenericModel {
   private Source source;
 
   /** The timestamp. */
-  private Integer timestamp;
+  @JsonAdapter(LongToDateTypeAdapter.class)
+  private Date timestamp;
 
   /**
    * Gets the id.
@@ -54,7 +59,7 @@ public class Document extends GenericModel {
    * 
    * @return The timestamp
    */
-  public int getTimestamp() {
+  public Date getTimestamp() {
     return timestamp;
   }
 
@@ -81,16 +86,8 @@ public class Document extends GenericModel {
    * 
    * @param timestamp The timestamp
    */
-  public void setTimestamp(int timestamp) {
+  public void setTimestamp(Date timestamp) {
     this.timestamp = timestamp;
   }
 
-  /**
-   * Sets the timestamp.
-   * 
-   * @param timestamp the timestamp to set
-   */
-  public void setTimestamp(Integer timestamp) {
-    this.timestamp = timestamp;
-  }
 }

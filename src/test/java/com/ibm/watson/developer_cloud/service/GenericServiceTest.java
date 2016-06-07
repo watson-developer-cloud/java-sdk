@@ -21,8 +21,6 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockserver.model.Header;
-import org.mockserver.model.HttpRequest;
 
 import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
@@ -204,6 +202,8 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
 
   /**
    * Test user agent is set.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testUserAgentIsSet() throws InterruptedException {
@@ -214,17 +214,19 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   }
   
   /**
-   * Test custom user agent is set.
+   * Test custom user agent
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testCustomUserAgentIsSet() {
-    mockAPICall();
+  public void testCustomUserAgent() throws InterruptedException {
+    server.enqueue(jsonResponse(Collections.emptyMap()));
     Map<String, String> headers = new HashMap<String, String>();
     headers.put(HttpHeaders.USER_AGENT, "foo-bar");
     service.setDefaultHeaders(headers);
     service.getProfile(sampleText).execute();
-    mockServer.verify(new HttpRequest().withMethod("POST").withHeader(
-        new Header(HttpHeaders.USER_AGENT, "watson-apis-java-sdk/3.0.0-RC1; foo-bar")));
+    final RecordedRequest request = checkRequest();
+    assertEquals("watson-apis-java-sdk/3.0.0-RC1 foo-bar", request.getHeader(HttpHeaders.USER_AGENT));
     service.setDefaultHeaders(null);
   }
   

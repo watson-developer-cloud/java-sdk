@@ -90,26 +90,26 @@ public class AlchemyVisionIT extends WatsonServiceTest {
     final File imageFile = new File(IMAGE_COLORADO);
     final ImageSceneText image = service.getImageSceneText(imageFile).execute();
 
-    Assert.assertEquals("colorado\n1\nl", image.getSceneText());
-    Assert.assertEquals(3, image.getSceneTextLines().size());
+    Assert.assertEquals("colorado", image.getSceneText());
+    Assert.assertEquals(1, image.getSceneTextLines().size());
     
     ImageSceneTextLine first = image.getSceneTextLines().get(0);
     Assert.assertEquals("colorado", first.getText());
-    Assert.assertEquals(24, (int)first.getRegion().getHeight());
+    Assert.assertEquals(25, (int)first.getRegion().getHeight());
     Assert.assertEquals(104, (int)first.getRegion().getWidth());
     Assert.assertEquals(484, (int)first.getRegion().getX());
-    Assert.assertEquals(216, (int)first.getRegion().getY());
-    Assert.assertEquals(new Double(0.984956), first.getConfidence());
+    Assert.assertEquals(215, (int)first.getRegion().getY());
+    Assert.assertNotNull(first.getConfidence());
     Assert.assertNotNull(image);
     
     Assert.assertEquals(1, first.getWords().size());
     Word word = first.getWords().get(0);
     Assert.assertEquals("colorado", word.getText());
-    Assert.assertEquals(24, (int)word.getRegion().getHeight());
+    Assert.assertEquals(25, (int)word.getRegion().getHeight());
     Assert.assertEquals(104, (int)word.getRegion().getWidth());
     Assert.assertEquals(484, (int)word.getRegion().getX());
-    Assert.assertEquals(216, (int)word.getRegion().getY());
-    Assert.assertEquals(new Double(0.984956), word.getConfidence());
+    Assert.assertEquals(215, (int)word.getRegion().getY());
+    Assert.assertNotNull(word.getConfidence());
   }
   
   /**
@@ -120,8 +120,8 @@ public class AlchemyVisionIT extends WatsonServiceTest {
     final ImageSceneText image =
         service.getImageSceneText(HttpUrl.parse(IMAGE_COLORADO_URL).url()).execute();
 
-    Assert.assertEquals("colorado\n1\nl", image.getSceneText());
-    Assert.assertEquals(3, image.getSceneTextLines().size());
+    Assert.assertEquals("colorado", image.getSceneText());
+    Assert.assertEquals(1, image.getSceneTextLines().size());
     Assert.assertNotNull(image);
   }
   

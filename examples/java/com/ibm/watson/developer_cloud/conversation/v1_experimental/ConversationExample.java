@@ -13,64 +13,73 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Message;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.NewMessageOptions;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.Output;
+import java.util.Map;
+
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
+
 import jersey.repackaged.jsr166e.CompletableFuture;
 
+/**
+ * Example of how to call the {@link ConversationService#message(String, MessageRequest)} method
+ * synchronous, asynchronous, and using react.
+ * @version v1-experimental
+ */
 public class ConversationExample {
-  public static void main(String[] args) throws Exception{
+
+  public static void main(String[] args) throws Exception {
     ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
     service.setUsernameAndPassword("<username>", "<password>");
 
     // sync
-    NewMessageOptions newMessage = new NewMessageOptions.Builder().inputText("Hi").build();
-    Message dialogs = service.message(newMessage).execute();
-    System.out.println(dialogs);
-    
-    
+    MessageRequest newMessage = new MessageRequest.Builder().inputText("Hi").build();
+    MessageResponse response = service.message("<workspace-id>", newMessage).execute();
+    System.out.println(response);
+
+
     // async
-    service.message(newMessage).enqueue(new ServiceCallback<Message>() {
+    service.message("<workspace-id>", newMessage).enqueue(new ServiceCallback<MessageResponse>() {
       @Override
-      public void onResponse(Message response) {
+      public void onResponse(MessageResponse response) {
         System.out.println(response);
       }
 
       @Override
-      public void onFailure(Exception e) {
-      }}
-    );
+      public void onFailure(Exception e) {}
+    });
 
     // rx callback
-    service.message(newMessage).rx().thenApply(new CompletableFuture.Fun<Message, Output>() {
-      @Override
-      public Output apply(Message message) {
-        return message.getOutput();
-      }
-    }).thenAccept(new CompletableFuture.Action<Output>() {
-      @Override
-      public void accept(Output output) {
-        System.out.println(output);
-      }
-    });
+    service.message("<workspace-id>", newMessage).rx()
+        .thenApply(new CompletableFuture.Fun<MessageResponse, Map<String, Object>>() {
+          @Override
+          public Map<String, Object> apply(MessageResponse message) {
+            return message.getOutput();
+          }
+        }).thenAccept(new CompletableFuture.Action<Map<String, Object>>() {
+          @Override
+          public void accept(Map<String, Object> output) {
+            System.out.println(output);
+          }
+        });
 
     // rx async callback
-    service.message(newMessage).rx().thenApplyAsync(new CompletableFuture.Fun<Message, Output>() {
-      @Override
-      public Output apply(Message message) {
-        return message.getOutput();
-      }
-    }).thenAccept(new CompletableFuture.Action<Output>() {
-      @Override
-      public void accept(Output output) {
-        System.out.println(output);
-      }
-    });
+    service.message("<workspace-id>", newMessage).rx()
+        .thenApplyAsync(new CompletableFuture.Fun<MessageResponse, Map<String, Object>>() {
+          @Override
+          public Map<String, Object> apply(MessageResponse message) {
+            return message.getOutput();
+          }
+        }).thenAccept(new CompletableFuture.Action<Map<String, Object>>() {
+          @Override
+          public void accept(Map<String, Object> output) {
+            System.out.println(output);
+          }
+        });
 
     // rx sync
-    Message rxDialogs=service.message(newMessage).rx().get();
-    System.out.println(rxDialogs);
+    MessageResponse rxMessageResponse = service.message("<workspace-id>", newMessage).rx().get();
+    System.out.println(rxMessageResponse);
   }
 
 }

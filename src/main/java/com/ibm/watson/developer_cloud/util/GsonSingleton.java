@@ -13,7 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 import com.google.gson.Gson;
@@ -50,7 +49,6 @@ public class GsonSingleton {
     // Date serializer and deserializer
     builder.registerTypeAdapter(Date.class, new DateDeserializer());
     builder.registerTypeAdapter(Date.class, new DateSerializer());
-    builder.registerTypeAdapter(Timestamp.class, new TimestampTypeAdapter());
   }
 
   /**

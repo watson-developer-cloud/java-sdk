@@ -17,7 +17,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
-import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,6 +25,8 @@ import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
+
+import okhttp3.mockwebserver.RecordedRequest;
 
 /**
  * The Class NaturalLanguageClassifierTest.
