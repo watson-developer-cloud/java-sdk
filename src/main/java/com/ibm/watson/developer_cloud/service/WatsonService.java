@@ -147,7 +147,7 @@ public abstract class WatsonService {
         builder.header(key, defaultHeaders.get(key));
       }
       if (defaultHeaders.get(HttpHeaders.USER_AGENT) != null) {
-        userAgent += "; " + defaultHeaders.get(HttpHeaders.USER_AGENT);
+        userAgent += " " + defaultHeaders.get(HttpHeaders.USER_AGENT);
       }
 
     }
