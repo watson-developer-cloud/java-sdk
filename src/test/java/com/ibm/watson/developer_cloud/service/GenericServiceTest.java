@@ -13,9 +13,9 @@
  */
 package com.ibm.watson.developer_cloud.service;
 
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
+import static org.junit.Assert.assertEquals;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.mockserver.model.Header;
 import org.mockserver.model.HttpRequest;
 
+import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
@@ -38,6 +39,9 @@ import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
 
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.RecordedRequest;
+
 /**
  * Generic Service Test.
  */
@@ -46,24 +50,16 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   private final String sampleText = "this is a test";
   private PersonalityInsights service;
 
-  /**
-   * Mock a successful PersonalityInsights call.
-   */
-  private void mockAPICall() {
-    mockServer.when(request().withMethod(POST).withPath(GET_PROFILE_PATH)).respond(
-        response().withStatusCode(200).withBody("{}"));
+  private MockResponse errorResponse(int code, String errorMessage) {
+    return jsonResponse(ImmutableMap.of("code", code, "error", errorMessage)).setResponseCode(code);
   }
 
-  /**
-   * Mock an API call and return an error.
-   *
-   * @param code the code
-   * @param errorMessage the error message
-   */
-  private void mockAPICallWithError(int code, String errorMessage) {
-    mockServer.when(request().withMethod(POST).withPath(GET_PROFILE_PATH)).respond(
-        response().withStatusCode(code).withBody(
-            "{\"code\":" + code + ", \"error\":\"" + errorMessage + "\"}"));
+  private RecordedRequest checkRequest() throws InterruptedException {
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(GET_PROFILE_PATH, request.getPath());
+    return request;
   }
 
   /**
@@ -71,7 +67,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = ServiceUnavailableException.class)
   public void ServiceUnavailableException() {
-    mockAPICallWithError(503, "ServiceUnavailableException");
+    server.enqueue(errorResponse(503, "ServiceUnavailableException"));
     service.getProfile(sampleText).execute();
   }
 
@@ -84,7 +80,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     super.setUp();
     service = new PersonalityInsights();
     service.setApiKey("");
-    service.setEndPoint(MOCK_SERVER_URL);
+    service.setEndPoint(getMockWebServerUrl());
   }
 
   /**
@@ -92,7 +88,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = BadRequestException.class)
   public void testBadRequestException() {
-    mockAPICallWithError(400, "Bad request");
+    server.enqueue(errorResponse(400, "Bad request"));
     service.getProfile(sampleText).execute();
   }
 
@@ -101,7 +97,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = ConflictException.class)
   public void testConflictException() {
-    mockAPICallWithError(409, "Conflict Exception");
+    server.enqueue(errorResponse(409, "Conflict Exception"));
     service.getProfile(sampleText).execute();
   }
 
@@ -109,27 +105,27 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    * Test default headers are set.
    */
   @Test
-  public void testDefaultHeadersAreSet() {
+  public void testDefaultHeadersAreSet() throws InterruptedException {
     final Map<String, String> headers = new HashMap<String, String>();
     headers.put("name1", "value1");
     headers.put("name2", "value2");
 
-    final Header expectedHeader1 = new Header("name1", "value1");
-    final Header expectedHeader2 = new Header("name2", "value2");
-
     service.setDefaultHeaders(headers);
-    mockAPICall();
+
+    server.enqueue(jsonResponse(Collections.emptyMap()));
     service.getProfile(sampleText).execute();
-    mockServer.verify(new HttpRequest().withMethod(POST).withHeader(expectedHeader1)
-        .withHeader(expectedHeader2));
+    final RecordedRequest request = checkRequest();
+
+    assertEquals("value1", request.getHeader("name1"));
+    assertEquals("value2", request.getHeader("name2"));
   }
 
   /**
    * Test forbidden exception.
    */
   @Test(expected = ForbiddenException.class)
-  public void testForbiddenException() {
-    mockAPICallWithError(403, "Bad request");
+  public void testForbiddenException() throws InterruptedException {
+    server.enqueue(errorResponse(403, "Bad request"));
     service.getProfile(sampleText).execute();
   }
 
@@ -137,7 +133,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    * Test illegal argument exception.
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testIllegalArgumentException() {
+  public void testIllegalArgumentException() throws InterruptedException {
     final PersonalityInsights service = new PersonalityInsights();
     service.setEndPoint(null);
     service.getProfile(sampleText).execute();
@@ -147,8 +143,8 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    * Test internal server error exception.
    */
   @Test(expected = InternalServerErrorException.class)
-  public void testInternalServerErrorException() {
-    mockAPICallWithError(500, "Bad request");
+  public void testInternalServerErrorException() throws InterruptedException {
+    server.enqueue(errorResponse(500, "Bad request"));
     service.getProfile(sampleText).execute();
   }
 
@@ -157,7 +153,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = NotFoundException.class)
   public void testNotFoundException() {
-    mockAPICallWithError(404, "Bad request");
+    server.enqueue(errorResponse(404, "Bad request"));
     service.getProfile(sampleText).execute();
   }
 
@@ -166,7 +162,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = RequestTooLargeException.class)
   public void testRequestTooLargeException() {
-    mockAPICallWithError(413, "Bad request");
+    server.enqueue(errorResponse(413, "Bad request"));
     service.getProfile(sampleText).execute();
   }
 
@@ -175,7 +171,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = ServiceUnavailableException.class)
   public void testServiceUnavailableException() {
-    mockAPICallWithError(503, "Service Unavailable");
+    server.enqueue(errorResponse(503, "Service Unavailable"));
     service.getProfile(sampleText).execute();
   }
 
@@ -184,7 +180,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = TooManyRequestsException.class)
   public void testTooManyRequestsException() {
-    mockAPICallWithError(429, "TooManyRequestsException");
+    server.enqueue(errorResponse(429, "TooManyRequestsException"));
     service.getProfile(sampleText).execute();
   }
 
@@ -193,7 +189,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = UnauthorizedException.class)
   public void testUnauthorizedException() {
-    mockAPICallWithError(401, "UnauthorizedException");
+    server.enqueue(errorResponse(401, "UnauthorizedException"));
     service.getProfile(sampleText).execute();
   }
 
@@ -202,7 +198,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = UnsupportedException.class)
   public void testUnsupportedException() {
-    mockAPICallWithError(415, "UnsupportedException");
+    server.enqueue(errorResponse(415, "UnsupportedException"));
     service.getProfile(sampleText).execute();
   }
 
@@ -210,10 +206,26 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    * Test user agent is set.
    */
   @Test
-  public void testUserAgentIsSet() {
+  public void testUserAgentIsSet() throws InterruptedException {
+    server.enqueue(jsonResponse(Collections.emptyMap()));
+    service.getProfile(sampleText).execute();
+    final RecordedRequest request = checkRequest();
+    assertEquals("watson-apis-java-sdk/3.0.0-RC1", request.getHeader(HttpHeaders.USER_AGENT));
+  }
+  
+  /**
+   * Test custom user agent is set.
+   */
+  @Test
+  public void testCustomUserAgentIsSet() {
     mockAPICall();
+    Map<String, String> headers = new HashMap<String, String>();
+    headers.put(HttpHeaders.USER_AGENT, "foo-bar");
+    service.setDefaultHeaders(headers);
     service.getProfile(sampleText).execute();
     mockServer.verify(new HttpRequest().withMethod("POST").withHeader(
-        new Header(HttpHeaders.USER_AGENT, "watson-apis-java-sdk/3.0.0-RC1")));
+        new Header(HttpHeaders.USER_AGENT, "watson-apis-java-sdk/3.0.0-RC1; foo-bar")));
+    service.setDefaultHeaders(null);
   }
+  
 }

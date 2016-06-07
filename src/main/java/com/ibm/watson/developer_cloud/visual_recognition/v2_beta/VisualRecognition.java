@@ -45,7 +45,8 @@ import okhttp3.RequestBody;
  * can organize image libraries, understand an individual image, and create custom classifiers for
  * specific results that are tailored to your needs.
  * 
- * @version v2
+ * @version v2_beta
+ * @version_data 2015-12-02
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
  *      Visual Recognition</a>
@@ -71,7 +72,7 @@ public class VisualRecognition extends WatsonService {
   private String versionDate;
 
   /**
-   * Instantiates a new Visual Recognition V2 service.
+   * Instantiates a new Visual Recognition V2_beta service.
    * 
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
    *        will keep your API calls from failing when the service introduces breaking changes.
@@ -82,6 +83,18 @@ public class VisualRecognition extends WatsonService {
     this.versionDate = versionDate;
   }
 
+  /**
+   * Instantiates a new Visual Recognition V2_beta service by username and password.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
+   *        will keep your API calls from failing when the service introduces breaking changes.
+   * @param username the username
+   * @param password the password
+   */
+  public VisualRecognition(String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
+  }
 
   /**
    * Creates a {@link JsonObject} with an array of classifier ids.

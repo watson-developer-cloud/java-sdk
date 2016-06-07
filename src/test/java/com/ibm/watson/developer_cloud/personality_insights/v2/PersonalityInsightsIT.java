@@ -24,9 +24,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ContentItem;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Personality Insights Integration Tests.
@@ -73,13 +75,13 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   }
 
   /**
-   * Gets the profile with content items.
+   * Gets the profile from a single content item
    *
-   * @return the profile with content items
+   * @return the profile from a single content item
    * @throws Exception the exception
    */
   @Test
-  public void getProfileWithContentItems() throws Exception {
+  public void getProfileWithASingleContentItem() throws Exception {
     File file = new File("src/test/resources/personality_insights/en.txt");
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
@@ -91,4 +93,20 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   }
 
 
+  /**
+   * Gets the profile from a list of content items.
+   *
+   * @return the profile with content items
+   * @throws Exception the exception
+   */
+  @Test
+  public void getProfileWithContentItems() throws Exception {
+    File file = new File("src/test/resources/personality_insights/contentitems.json");
+    String contentItems = getStringFromInputStream(new FileInputStream(file));
+    Content content = GsonSingleton.getGson().fromJson(contentItems, Content.class);
+    ProfileOptions options = new ProfileOptions.Builder().contentItems(content.getContentItems()).build();
+    Profile profile = service.getProfile(options).execute();
+
+    assertProfile(profile);
+  }
 }

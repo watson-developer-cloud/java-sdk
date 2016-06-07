@@ -57,6 +57,16 @@ public class VisualInsights extends WatsonService {
   }
 
   /**
+   * Instantiates a new visual insights service by username and password.
+   * @param username the username
+   * @param password the password
+   */
+  public VisualInsights(String username, String password) {
+    this();
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Returns a summary of the collection's visual classifiers.
    * 
    * @return the Summary

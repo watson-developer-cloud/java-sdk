@@ -25,6 +25,12 @@ import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Thin wrapper around the Conversation Service REST API.
+ *
+ * @version v1
+ * @version_data 2016-05-19
+ * @see <a href=
+ *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html">
+ *      Conversation</a>
  */
 public final class ConversationService extends WatsonService {
 
@@ -49,6 +55,17 @@ public final class ConversationService extends WatsonService {
     Validator.isTrue(versionDate != null && !versionDate.isEmpty(),
         "'version cannot be null. Use " + VERSION_DATE_2016_05_19);
     this.versionDate = versionDate;
+  }
+
+  /**
+   * Returns an instance of the Conversation Service using the service's default endpoint (URL), username and password.
+   * @param versionDate Version of the API which is to be invoked by the REST client.
+   * @param username the username
+   * @param password the password
+   */
+  public ConversationService(final String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
   }
 
   /**

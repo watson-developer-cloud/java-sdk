@@ -53,6 +53,21 @@ public class AlchemyVision extends AlchemyService {
   private static final String URL = "url";
 
   /**
+   * Instantiates a new alchemy data news service.
+   */
+  public AlchemyVision() {
+    super();
+  }
+
+  /**
+   * Instantiates a new alchemy vision service by apiKey.
+   * @param apiKey the api key
+   */
+  public AlchemyVision(String apiKey) {
+    super(apiKey);
+  }
+
+  /**
    * Executes the request and return the POJO that represent the response.
    * 
    * @param <T> The POJO that represents the response object

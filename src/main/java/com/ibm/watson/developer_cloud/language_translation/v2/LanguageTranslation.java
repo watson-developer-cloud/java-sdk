@@ -83,6 +83,16 @@ public class LanguageTranslation extends WatsonService {
   }
 
   /**
+   * Instantiates a new language translation service by username and password.
+   * @param username the username
+   * @param password the password
+   */
+  public LanguageTranslation(String username, String password) {
+    this();
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
    * Creates a translation models.
    *
    * @param options the create model options
