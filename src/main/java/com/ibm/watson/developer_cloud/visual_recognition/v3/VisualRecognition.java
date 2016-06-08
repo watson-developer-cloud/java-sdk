@@ -1,11 +1,11 @@
 /*
- * Copyright 2016 IBM Corp. All Rights Reserved.
- * 
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -124,7 +124,7 @@ public class VisualRecognition extends WatsonService {
     if (options.url() != null && options.images() == null) {
       ret.addProperty(PARAM_URL, options.url().toString());
     }
-    
+
     if (options.classifierIds() != null && !options.classifierIds().isEmpty()) {
       JsonArray array = new JsonArray();
       for (String cId : options.classifierIds()) {
@@ -132,11 +132,11 @@ public class VisualRecognition extends WatsonService {
       }
       ret.add(PARAM_CLASSIFIER_IDS, array);
     }
-    
+
     if (options.threshold() != null) {
       ret.addProperty(PARAM_THRESHOLD, options.threshold());
     }
-    
+
     return ret;
   }
 
@@ -177,7 +177,7 @@ public class VisualRecognition extends WatsonService {
 
     // build body
     Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-    
+
     if (options.images() != null) {
       RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.images());
       bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.images().getName(), requestBody);
@@ -316,7 +316,13 @@ public class VisualRecognition extends WatsonService {
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(RecognizedText.class));
   }
 
+  /**
+   * The Visual Recognition V3 service use an <code>api_key</code> instead of username and password.
+   * <br/>
+   * Use: {@link VisualRecognition#setApiKey(String)}
+   */
   @Override
+  @Deprecated
   public void setUsernameAndPassword(String username, String password) {
     throw new IllegalArgumentException("This service requires an api_key. Use the setApiKey() method instead");
   }

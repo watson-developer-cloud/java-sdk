@@ -81,7 +81,7 @@ public final class ConversationService extends WatsonService {
       body = GsonSingleton.getGson().toJsonTree(request).getAsJsonObject(); 
     }
     
-    RequestBuilder builder = RequestBuilder.post(getEndPoint() + String.format(PATH_MESSAGE, workspaceId));
+    RequestBuilder builder = RequestBuilder.post(String.format(PATH_MESSAGE, workspaceId));
     builder.query(VERSION_PARAM, this.versionDate);
     builder.bodyJson(body);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));

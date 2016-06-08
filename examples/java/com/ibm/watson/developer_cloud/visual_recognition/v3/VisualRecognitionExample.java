@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.visual_recognition.v2;
+package com.ibm.watson.developer_cloud.visual_recognition.v3;
 
 import java.io.File;
 
@@ -25,7 +25,7 @@ public class VisualRecognitionExample {
 
   public static void main(String[] args) {
     VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
-    service.setUsernameAndPassword("<username>", "<password>");
+    service.setApiKey("<api-key>");
 
     System.out.println("Classify an image");
     ClassifyImagesOptions options = new ClassifyImagesOptions.Builder()

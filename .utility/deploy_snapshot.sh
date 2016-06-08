@@ -9,7 +9,7 @@
 set -e -u
 
 if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && \
-   [ "$TRAVIS_JDK_VERSION" == "oraclejdk8" ] && \
+   [ "$TRAVIS_JDK_VERSION" == "oraclejdk7" ] && \
    [ "$TRAVIS_PULL_REQUEST" == "false" ] && \
    [ "$TRAVIS_BRANCH" == "master" ]; then
   echo "Publishing Maven snapshot..."
