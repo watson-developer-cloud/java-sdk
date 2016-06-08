@@ -212,7 +212,7 @@
               <head>Version Date:</head>
             </tag>
           </tags>
-          <additionalparam>-Xdoclint:none</additionalparam>
+          <additionalparam>${javadoc.doclint.none}</additionalparam>
         </configuration>
       </plugin>
     </plugins>
