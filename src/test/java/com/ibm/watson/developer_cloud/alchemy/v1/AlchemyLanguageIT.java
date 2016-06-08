@@ -495,6 +495,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
    * Test Get typed relations from URL.
    */
   @Test
+  @Ignore
   public void testGetTypedRelationsUrl() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
