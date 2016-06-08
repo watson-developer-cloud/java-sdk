@@ -175,6 +175,7 @@
 						<phase>integration-test</phase>
 						<goals>
 							<goal>integration-test</goal>
+							<goal>verify</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -186,6 +187,7 @@
 				<configuration>
 					<format>xml</format>
 					<aggregate>true</aggregate>
+					<check></check>
 					<instrumentation>
 						<ignores>
 							<ignore>*.model*</ignore>
