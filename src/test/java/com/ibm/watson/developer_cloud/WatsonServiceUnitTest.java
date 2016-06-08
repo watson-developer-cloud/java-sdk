@@ -19,8 +19,6 @@ import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.After;
-import org.mockserver.integration.ClientAndServer;
-import org.mockserver.model.Header;
 
 import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
@@ -35,14 +33,6 @@ import okhttp3.mockwebserver.MockWebServer;
  */
 public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
 
-  /** The Constant APPLICATION_JSON. */
-  protected static final Header APPLICATION_JSON = new Header(CONTENT_TYPE,
-      HttpMediaType.APPLICATION_JSON);
-  
-  /** The Constant TEXT_PLAIN. */
-  protected static final Header TEXT_PLAIN = new Header(CONTENT_TYPE,
-      HttpMediaType.TEXT.toString());
-
   /** The Constant DELETE. */
   protected static final String DELETE = "DELETE";
   
@@ -55,18 +45,9 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
   /** The Constant PUT. */
   protected static final String PUT = "PUT";
 
-  /** The Constant MOCK_SERVER_PORT. */
-  protected static final int MOCK_SERVER_PORT = 9898;
-  
-  /** The Constant MOCK_SERVER_URL. */
-  protected static final String MOCK_SERVER_URL = "http://localhost:" + MOCK_SERVER_PORT;
-
   private static final Gson GSON = GsonSingleton.getGson();
 
   protected MockWebServer server;
-
-  @Deprecated // use OkHttp's MockWebServer instead (see #316)
-  protected ClientAndServer mockServer;
 
   /**
    * Setups and starts the mock server.
@@ -75,17 +56,12 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
    */
   @Override
   public void setUp() throws Exception {
-    mockServer = ClientAndServer.startClientAndServer(MOCK_SERVER_PORT);
-
     server = new MockWebServer();
     server.start();
   }
 
   @After
   public void tearDown() throws IOException {
-    if (mockServer != null)
-      mockServer.stop();
-
     server.shutdown();
   }
 
