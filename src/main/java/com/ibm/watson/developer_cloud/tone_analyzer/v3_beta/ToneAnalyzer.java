@@ -32,7 +32,7 @@ import okhttp3.Request;
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html"> Tone
  *      Analyzer</a>
- * @version_data 2016-02-11
+ * @api.version_date 2016-02-11
  */
 public class ToneAnalyzer extends WatsonService {
 

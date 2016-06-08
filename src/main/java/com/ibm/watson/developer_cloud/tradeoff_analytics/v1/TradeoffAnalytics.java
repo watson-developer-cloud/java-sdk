@@ -33,7 +33,7 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tradeoff-analytics.html">
  *      Tradeoff Analytics</a>
- * @version_data 2015-05-28
+ * @api.version_date 2015-05-28
  */
 public class TradeoffAnalytics extends WatsonService {
 

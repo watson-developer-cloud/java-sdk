@@ -35,7 +35,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html"> Tone
  *      Analyzer</a>
- * @version_data 2016-05-19
+ * @api.version_date 2016-05-19
  */
 public class ToneAnalyzer extends WatsonService {
 

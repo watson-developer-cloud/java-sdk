@@ -29,7 +29,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html">
  *      Conversation</a>
- * @version_date 2016-05-19
+ * @api.version_date 2016-05-19
  */
 public final class ConversationService extends WatsonService {
 

@@ -49,7 +49,7 @@ import okhttp3.RequestBody;
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
  *      Visual Recognition</a>
- * @version_data 2015-12-02
+ * @api.version_date 2015-12-02
  */
 public class VisualRecognition extends WatsonService {
 

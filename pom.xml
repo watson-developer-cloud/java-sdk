@@ -204,6 +204,21 @@
 					</instrumentation>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9.1</version>
+				<configuration>
+					<tags>
+						<tag>
+							<name>api.version_date</name>
+							<placement>a</placement>
+							<head>Version Date:</head>
+						</tag>
+					</tags>
+					<additionalparam>-Xdoclint:none</additionalparam>
+				</configuration>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>
@@ -266,6 +281,13 @@
 									<goal>jar</goal>
 								</goals>
 								<configuration>
+									<tags>
+										<tag>
+											<name>version_date</name>
+											<placement>a</placement>
+											<head>Version Date:</head>
+										</tag>
+									</tags>
 									<additionalparam>${javadoc.doclint.none}</additionalparam>
 								</configuration>
 							</execution>
