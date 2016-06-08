@@ -45,8 +45,13 @@ public abstract class AlchemyService extends WatsonService {
   private static final String X_ALCHEMY_API_STATUS = "X-AlchemyAPI-Status";
   private static final Logger LOG = Logger.getLogger(AlchemyService.class.getName());
 
+  /** The Constant ENDPOINT. */
   protected final static String ENDPOINT = "https://gateway-a.watsonplatform.net/calls";
+  
+  /** The Constant JSONP. */
   protected static final String JSONP = "jsonp";
+  
+  /** The Constant OUTPUT_MODE. */
   protected static final String OUTPUT_MODE = "outputMode";
 
   /**
@@ -59,6 +64,7 @@ public abstract class AlchemyService extends WatsonService {
 
   /**
    * Instantiates a new alchemy service by apiKey.
+   * @param apiKey The API key
    */
   public AlchemyService(String apiKey) {
     this();

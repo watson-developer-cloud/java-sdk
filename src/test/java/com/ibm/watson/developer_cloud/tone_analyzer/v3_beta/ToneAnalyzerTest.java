@@ -57,6 +57,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
    * Test get tone.
    *
    * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetTone() throws FileNotFoundException, InterruptedException {
@@ -65,8 +66,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
         + "product suite. We have a competitive data analytics product "
         + "suite in the industry. But we need to do our job selling it! ";
 
-    ToneAnalysis response =
-        loadFixture(FIXTURE, ToneAnalysis.class);
+    ToneAnalysis response = loadFixture(FIXTURE, ToneAnalysis.class);
 
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty(TEXT, text);

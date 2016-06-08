@@ -101,6 +101,8 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
 
   /**
    * Test default headers are set.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testDefaultHeadersAreSet() throws InterruptedException {
@@ -120,6 +122,8 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
 
   /**
    * Test forbidden exception.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test(expected = ForbiddenException.class)
   public void testForbiddenException() throws InterruptedException {
@@ -129,6 +133,8 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
 
   /**
    * Test illegal argument exception.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test(expected = IllegalArgumentException.class)
   public void testIllegalArgumentException() throws InterruptedException {
@@ -139,6 +145,8 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
 
   /**
    * Test internal server error exception.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test(expected = InternalServerErrorException.class)
   public void testInternalServerErrorException() throws InterruptedException {
@@ -214,7 +222,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   }
   
   /**
-   * Test custom user agent
+   * Test custom user agent.
    *
    * @throws InterruptedException the interrupted exception
    */

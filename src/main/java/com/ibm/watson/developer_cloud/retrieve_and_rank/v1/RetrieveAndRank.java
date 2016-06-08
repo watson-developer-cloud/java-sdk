@@ -295,7 +295,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   }
 
   /**
-   * Gathers memory and disk usage stats from a Solr cluster
+   * Gathers memory and disk usage stats from a Solr cluster.
    *
    * @param solrClusterId the ID of the Solr cluster to gather stats from
    * @return stats about the Solr cluster

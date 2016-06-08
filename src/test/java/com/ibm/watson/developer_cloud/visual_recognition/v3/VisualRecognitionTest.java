@@ -38,6 +38,9 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognit
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 
+/**
+ * Unit tests for the {@link VisualRecognition} service
+ */
 public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   private static final String API_KEY = "alchemykey";
@@ -55,6 +58,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   private VisualRecognition service;
 
+  /* (non-Javadoc)
+   * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
+   */
   @Override
   @Before
   public void setUp() throws Exception {
@@ -130,6 +136,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(serviceResponse, mockResponse);
   }
 
+  /**
+   * Test delete classifier.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteClassifier() throws IOException, InterruptedException {
     server.enqueue(new MockResponse().setBody(""));
@@ -147,6 +159,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("DELETE", request.getMethod());
   }
 
+  /**
+   * Test detect faces.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDetectFaces() throws IOException, InterruptedException  {
     DetectedFaces mockResponse = loadFixture(FIXTURE_FACES, DetectedFaces.class);
@@ -174,6 +192,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertTrue(request.getBody().readUtf8().contains(contentDisposition));
   }
 
+  /**
+   * Test get classifier.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void testGetClassifier() throws InterruptedException, IOException {
     try {
@@ -200,6 +224,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   }
 
+  /**
+   * Test get classifiers.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void testGetClassifiers() throws InterruptedException, IOException {
     VisualClassifier mockClassifier = loadFixture(FIXTURE_CLASSIFIER, VisualClassifier.class);
@@ -226,6 +256,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(serviceResponse, classifiers);
   }
 
+  /**
+   * Test recognize text.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testRecognizeText() throws IOException, InterruptedException  {
     RecognizedText mockResponse = loadFixture(FIXTURE_TEXT, RecognizedText.class);

@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Article returned by the {@link AlchemyDataNews} service
+ * Article returned by the {@link AlchemyDataNews} service.
  */
 public class Article extends GenericModel {
 

@@ -82,8 +82,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
   /**
    * Test create and delete session.
-   * 
-   * @throws InterruptedException
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testCreateAndDeleteSession() throws InterruptedException {
@@ -116,7 +116,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test PCM without rate
+   * Test PCM without rate.
    */
   @Test(expected = IllegalArgumentException.class)
   public void testPcmWithoutRate() {
@@ -124,7 +124,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test PCM with rate
+   * Test PCM with rate.
    */
   @Test
   public void testPcmWithRate() {
@@ -133,8 +133,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
   /**
    * Test get model.
-   * 
-   * @throws Exception
+   *
+   * @throws Exception the exception
    */
   @Test
   public void testGetModel() throws Exception {
@@ -166,6 +166,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
   /**
    * Test get models.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetModels() throws InterruptedException {
@@ -205,9 +207,9 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
   /**
    * Test recognize.
-   * 
+   *
    * @throws URISyntaxException the URI syntax exception
-   * @throws InterruptedException
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testRecognize() throws URISyntaxException, InterruptedException {
@@ -242,10 +244,9 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
   /**
    * Test recognize -missing audio file, generate IllegalArgumentException.
-   * 
-   * @throws URISyntaxException
-   *           the URI syntax exception
-   * @throws InterruptedException
+   *
+   * @throws URISyntaxException           the URI syntax exception
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testRecognizeMissingAudioFile() throws URISyntaxException, InterruptedException {

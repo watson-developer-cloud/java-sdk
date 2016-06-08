@@ -103,8 +103,8 @@ public class HttpMediaType {
   public static String AUDIO_RAW = "audio/l16";
 
   /**
-   * Creates an <code>audio/l16</code> media type that includes sample rate
-   * 
+   * Creates an <code>audio/l16</code> media type that includes sample rate.
+   *
    * @param rate The sample rate
    * @return <code>audio/l16; rate={rate}</code>
    * @see SpeechToText#recognizeUsingWebSocket(InputStream, RecognizeOptions, RecognizeCallback)

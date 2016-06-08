@@ -16,7 +16,7 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Phonetic pronunciation class
+ * Phonetic pronunciation class.
  */
 public class Pronunciation extends GenericModel {
 

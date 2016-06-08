@@ -29,6 +29,9 @@ import com.ibm.watson.developer_cloud.http.HttpHeaders;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
+/**
+ * Unit tests for the {@link ConversationService}
+ */
 public class ConversationTest extends WatsonServiceUnitTest {
   private ConversationService service;
   private static final String FIXTURE = "src/test/resources/conversation/conversation.json";

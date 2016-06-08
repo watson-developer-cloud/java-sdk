@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
 /**
- * This class represent a detected face by {@link VisualRecognition#detectFaces(DetectFacesOptions)}
+ * This class represent a detected face by {@link VisualRecognition#detectFaces(VisualRecognitionOptions)}
  * .
  * 
  * @see VisualRecognition

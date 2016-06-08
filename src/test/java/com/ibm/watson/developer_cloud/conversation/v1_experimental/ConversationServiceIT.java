@@ -23,7 +23,6 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
-import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 
 /**
  * Integration test for the {@link ConversationService}.
@@ -55,7 +54,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
   /**
    * Test start a conversation without message.
    */
-  @Test(expected=BadRequestException.class)
+  @Test(expected=IllegalArgumentException.class)
   public void testStartAConversationWithoutMessage() {
     service.message(workspaceId, null).execute();
   }

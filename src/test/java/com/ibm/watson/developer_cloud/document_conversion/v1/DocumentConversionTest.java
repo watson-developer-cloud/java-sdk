@@ -38,6 +38,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtil
 /**
  * Document Conversion unit tests.
  */
+@SuppressWarnings("resource")
 public class DocumentConversionTest extends WatsonServiceUnitTest {
 
   private static final String VERSION = "version";
@@ -91,6 +92,7 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
    *
    * @throws URISyntaxException the URI syntax exception
    * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testConvertDocument() throws URISyntaxException, IOException, InterruptedException {
@@ -105,6 +107,7 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
    *
    * @throws URISyntaxException the URI syntax exception
    * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testConvertDocumentWithMediaType() throws URISyntaxException, IOException, InterruptedException {

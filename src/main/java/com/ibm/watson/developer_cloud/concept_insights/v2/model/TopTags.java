@@ -20,7 +20,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Document tags
+ * Document tags.
  */
 public class TopTags extends GenericModel {
 

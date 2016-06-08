@@ -13,8 +13,6 @@
  */
 package com.ibm.watson.developer_cloud;
 
-import static com.ibm.watson.developer_cloud.http.HttpHeaders.CONTENT_TYPE;
-
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
@@ -47,6 +45,7 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
 
   private static final Gson GSON = GsonSingleton.getGson();
 
+  /** The server. */
   protected MockWebServer server;
 
   /**
@@ -60,6 +59,11 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
     server.start();
   }
 
+  /**
+   * Tear down.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @After
   public void tearDown() throws IOException {
     server.shutdown();
@@ -75,10 +79,10 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
   }
 
   /**
-   * Create a MockResponse with JSON content type and the object serialized to JSON as body
+   * Create a MockResponse with JSON content type and the object serialized to JSON as body.
    *
-   * @param body
-   * @return
+   * @param body the body
+   * @return the mock response
    */
   protected static MockResponse jsonResponse(Object body) {
     return new MockResponse()

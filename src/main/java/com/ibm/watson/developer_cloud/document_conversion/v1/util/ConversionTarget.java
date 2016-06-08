@@ -21,5 +21,11 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
  * @see DocumentConversion
  */
 public enum ConversionTarget {
-  ANSWER_UNITS, NORMALIZED_HTML, NORMALIZED_TEXT
+  
+  /** The answer units. */
+  ANSWER_UNITS, 
+ /** The normalized html. */
+ NORMALIZED_HTML, 
+ /** The normalized text. */
+ NORMALIZED_TEXT
 }

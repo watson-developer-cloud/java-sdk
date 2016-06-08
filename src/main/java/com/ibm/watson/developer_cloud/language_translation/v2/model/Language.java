@@ -16,13 +16,31 @@ package com.ibm.watson.developer_cloud.language_translation.v2.model;
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 
 /**
- * The languages available in {@link LanguageTranslation}
+ * The languages available in {@link LanguageTranslation}.
  */
 public enum Language {
-  ARABIC("ar"), ENGLISH("en"), SPANISH("es"), FRENCH("fr"), ITALIAN("it"), PORTUGUESE("pt");
+  
+  /** arabic. */
+  ARABIC("ar"), 
+ /** english. */
+ ENGLISH("en"), 
+ /** spanish. */
+ SPANISH("es"), 
+ /** french. */
+ FRENCH("fr"), 
+ /** italian. */
+ ITALIAN("it"), 
+ /** portuguese. */
+ PORTUGUESE("pt");
 
+  /** language. */
   String language;
 
+  /**
+   * Instantiates a new language.
+   *
+   * @param language the language
+   */
   Language(String language) {
     this.language = language;
   }

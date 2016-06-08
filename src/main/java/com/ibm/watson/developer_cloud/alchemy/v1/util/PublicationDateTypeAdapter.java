@@ -27,7 +27,7 @@ import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.PublicationDate;
 
 /**
- * Type adapter to publication date a taxonomy from JSON to {@link PublicationDate}
+ * Type adapter to publication date a taxonomy from JSON to {@link PublicationDate}.
  */
 public class PublicationDateTypeAdapter extends TypeAdapter<PublicationDate> {
   private static final String CONFIDENT = "confident";

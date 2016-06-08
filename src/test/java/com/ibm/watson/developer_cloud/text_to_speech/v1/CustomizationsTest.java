@@ -30,6 +30,9 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 
+/**
+ * Unit tests for the Speech to text customization API
+ */
 public class CustomizationsTest extends WatsonServiceUnitTest {
 
   private final static String VOICE_MODELS_PATH = "/v1/customizations";
@@ -75,6 +78,11 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     return ImmutableList.of(new CustomTranslation("hodor", "hold the door"));
   }
 
+  /**
+   * Test get voice models.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetVoiceModels() throws InterruptedException {
     final List<CustomVoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
@@ -89,6 +97,11 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     assertEquals(expected, result);
   }
 
+  /**
+   * Test get voice model.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetVoiceModel() throws InterruptedException {
     final CustomVoiceModel expected = instantiateVoiceModel();
@@ -102,6 +115,11 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     assertEquals(expected, result);
   }
 
+  /**
+   * Test create voice model.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testCreateVoiceModel() throws InterruptedException {
     final CustomVoiceModel expected = instantiateVoiceModel();
@@ -120,6 +138,11 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     assertEquals(expected, result);
   }
 
+  /**
+   * Test update voice model.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testUpdateVoiceModel() throws InterruptedException {
     final CustomVoiceModel expected = instantiateVoiceModel();
@@ -133,6 +156,11 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     assertEquals(expected, result);
   }
 
+  /**
+   * Test delete voice model.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteVoiceModel() throws InterruptedException {
     final CustomVoiceModel expected = instantiateVoiceModel();
@@ -145,6 +173,11 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     assertEquals("DELETE", request.getMethod());
   }
 
+  /**
+   * Test get words.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testGetWords() throws InterruptedException {
     final CustomVoiceModel model = instantiateVoiceModel();
@@ -159,6 +192,11 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     assertEquals(expected, result);
   }
 
+  /**
+   * Test add word.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testAddWord() throws InterruptedException {
     final CustomVoiceModel model = instantiateVoiceModel();
@@ -179,6 +217,11 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
   }
 
+  /**
+   * Test delete word.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
   @Test
   public void testDeleteWord() throws InterruptedException {
     final CustomVoiceModel model = instantiateVoiceModel();

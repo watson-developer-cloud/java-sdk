@@ -146,7 +146,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    * Test create a classifier.
    *
    * @throws FileNotFoundException the file not found exception
-   * @throws InterruptedException
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testCreateClassifierAndClassifyImage() throws FileNotFoundException, InterruptedException {
@@ -199,7 +199,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   }
 
   /**
-   * Test detect faces from url
+   * Test detect faces from url.
    */
   @Test
   public void testDetectFacesFromUrl() {
@@ -243,7 +243,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   }
 
   /**
-   * Test recognize text from url
+   * Test recognize text from url.
    */
   @Test
   public void testRecognizeTextFromUrl() {

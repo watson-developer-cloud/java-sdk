@@ -30,45 +30,45 @@ public class TypedRelation {
     private List<Entity> entities;
 
     /**
-     * 
-     * @return
-     *     The text
+     * Gets the text.
+     *
+     * @return     The text
      */
     public String getText() {
         return text;
     }
 
     /**
-     * 
-     * @param text
-     *     The text
+     * Sets the text.
+     *
+     * @param text     The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
     /**
-     * 
-     * @return
-     *     The type
+     * Gets the type.
+     *
+     * @return     The type
      */
     public String getType() {
         return type;
     }
 
     /**
-     * 
-     * @param type
-     *     The type
+     * Sets the type.
+     *
+     * @param type     The type
      */
     public void setType(String type) {
         this.type = type;
     }
 
     /**
-     * 
-     * @return
-     *     The score
+     * Gets the score.
+     *
+     * @return     The score
      */
     public Double getScore() {
         return score;
@@ -84,18 +84,18 @@ public class TypedRelation {
     }
 
     /**
-     * 
-     * @return
-     *     The entities
+     * Gets the entities.
+     *
+     * @return     The entities
      */
     public List<Entity> getEntities() {
         return entities;
     }
 
     /**
-     * 
-     * @param entities
-     *     The entities
+     * Sets the entities.
+     *
+     * @param entities     The entities
      */
     public void setEntities(List<Entity> entities) {
         this.entities = entities;

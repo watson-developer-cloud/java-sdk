@@ -22,7 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomy;
 
 /**
- * Type adapter to transform a taxonomy from JSON to {@link Taxonomy}
+ * Type adapter to transform a taxonomy from JSON to {@link Taxonomy}.
  */
 public class TaxonomyTypeAdapter extends TypeAdapter<Taxonomy> {
 

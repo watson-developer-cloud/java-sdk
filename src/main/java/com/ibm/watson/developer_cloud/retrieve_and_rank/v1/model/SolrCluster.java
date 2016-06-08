@@ -27,10 +27,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class SolrCluster extends GenericModel {
 
   /**
-   * The Solr Cluster Status.
+   * Solr Cluster Status.
    */
   public enum Status {
-    READY, 
+
+    /** Ready. */
+    READY,
+
+    /** Not available. */
     NOT_AVAILABLE
   }
 
@@ -51,8 +55,8 @@ public class SolrCluster extends GenericModel {
    * @param solrClusterSize the Solr cluster size
    * @param solrClusterStatus the Solr cluster status
    */
-  public SolrCluster(final String solrClusterId, final String solrClusterName,
-      final String solrClusterSize, final Status solrClusterStatus) {
+  public SolrCluster(final String solrClusterId, final String solrClusterName, final String solrClusterSize,
+      final Status solrClusterStatus) {
     this.solrClusterId = solrClusterId;
     this.solrClusterName = solrClusterName;
     this.solrClusterSize = solrClusterSize;

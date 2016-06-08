@@ -20,5 +20,23 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
  *
  */
 public enum LanguageSelection {
-  DETECT, ENGLISH, FRENCH, GERMAN, ITALIAN, PORTUGUESE, RUSSIAN, SPANISH, SWEDISH
+  
+  /** The detect. */
+  DETECT, 
+ /** The english. */
+ ENGLISH, 
+ /** The french. */
+ FRENCH, 
+ /** The german. */
+ GERMAN, 
+ /** The italian. */
+ ITALIAN, 
+ /** The portuguese. */
+ PORTUGUESE, 
+ /** The russian. */
+ RUSSIAN, 
+ /** The spanish. */
+ SPANISH, 
+ /** The swedish. */
+ SWEDISH
 }

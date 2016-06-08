@@ -20,7 +20,7 @@ import okhttp3.ws.WebSocket;
 
 
 /**
- * The recognize callback used during a {@link WebSocket} recognition by the {@link SpeechToText} service
+ * The recognize callback used during a {@link WebSocket} recognition by the {@link SpeechToText} service.
  */
 public interface RecognizeCallback {
 

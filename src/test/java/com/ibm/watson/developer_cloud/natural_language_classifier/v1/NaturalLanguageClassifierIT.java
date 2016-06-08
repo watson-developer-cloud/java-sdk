@@ -15,12 +15,9 @@ package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.List;
-
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 
 import org.junit.Assume;
 import org.junit.AssumptionViolatedException;
@@ -32,6 +29,7 @@ import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Class
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifier.Status;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classifiers;
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 
 /**
  * The Class NaturalLanguageClassifierTest.
@@ -75,8 +73,6 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
 
   /**
    * Test delete all classifiers.
-   *
-   * @throws Exception the exception
    */
   @Test
   public void testDeleteAllClassifiers() {
@@ -87,12 +83,9 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
       }
     }
   }
-
-
+  
   /**
    * Test classify.
-   *
-   * @throws Exception the exception
    */
   @Test
   public void testClassify() {

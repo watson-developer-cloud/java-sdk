@@ -35,7 +35,7 @@ public class KeywordsResult extends GenericModel {
   private Double confidence;
 
   /**
-   * Gets the specified keyword normalized to the spoken phrase that matched in the input audio
+   * Gets the specified keyword normalized to the spoken phrase that matched in the input audio.
    *
    * @return the keyword
    */
@@ -44,7 +44,7 @@ public class KeywordsResult extends GenericModel {
   }
 
   /**
-   * Sets the normalized keyword
+   * Sets the normalized keyword.
    *
    * @param normalizedText the keyword
    */

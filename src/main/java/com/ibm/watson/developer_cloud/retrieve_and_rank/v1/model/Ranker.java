@@ -26,13 +26,23 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Ranker extends GenericModel {
   /**
-   * The Ranker Status.
+   * Ranker Status.
    */
   public enum Status {
+
+    /** available. */
     @SerializedName("Available") AVAILABLE,
+
+    /** failed. */
     @SerializedName("Failed") FAILED,
+
+    /** non existent. */
     @SerializedName("Non Existent") NON_EXISTENT,
+
+    /** training. */
     @SerializedName("Training") TRAINING,
+
+    /** unavailable. */
     @SerializedName("Unavailable") UNAVAILABLE
   }
 

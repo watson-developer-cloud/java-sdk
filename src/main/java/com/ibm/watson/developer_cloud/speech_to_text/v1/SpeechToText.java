@@ -179,7 +179,7 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Deletes a {@link SpeechSession}
+   * Deletes a {@link SpeechSession}.
    *
    * @param session the speech session to delete
    * @return the service call

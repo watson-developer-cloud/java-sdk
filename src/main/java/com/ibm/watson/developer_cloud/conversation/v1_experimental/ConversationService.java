@@ -13,7 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 
-import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -27,13 +26,14 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * Thin wrapper around the Conversation Service REST API.
  *
  * @version v1-experimental
- * @version_date 2016-05-19
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html">
  *      Conversation</a>
+ * @api.version_date 2016-05-19
  */
 public final class ConversationService extends WatsonService {
 
+  /** The Constant VERSION_DATE_2016_05_19. */
   public static final String VERSION_DATE_2016_05_19 = "2016-05-19";
   private static final String URL = "https://gateway.watsonplatform.net/conversation-experimental/api";
   private static final String SERVICE_NAME = "conversation";
@@ -44,7 +44,7 @@ public final class ConversationService extends WatsonService {
 
   /**
    * Returns an instance of the Conversation Service using the service's default endpoint (URL).
-   * 
+   *
    * @param versionDate Version of the API which is to be invoked by the REST client.
    */
   public ConversationService(final String versionDate) {
@@ -69,21 +69,20 @@ public final class ConversationService extends WatsonService {
   }
 
   /**
-   * Sends a message to the service through a {@link NewMessageOptions}.
+   * Sends a message to the service through a {@link MessageRequest}.
    *
+   * @param workspaceId the workspace id
+   * @param request the request
    * @return The response for the given message.
    */
   public ServiceCall<MessageResponse> message(String workspaceId, MessageRequest request) {
     Validator.isTrue(workspaceId != null && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
-    
-    JsonObject body = new JsonObject();
-    if (request != null) {
-      body = GsonSingleton.getGson().toJsonTree(request).getAsJsonObject(); 
-    }
-    
+    Validator.notNull(request, "'request' cannot be null");
+    Validator.isTrue(request.input() != null && !request.input().isEmpty(), "'request.input' cannot be null or empty");
+
     RequestBuilder builder = RequestBuilder.post(String.format(PATH_MESSAGE, workspaceId));
     builder.query(VERSION_PARAM, this.versionDate);
-    builder.bodyJson(body);
+    builder.bodyJson(GsonSingleton.getGson().toJsonTree(request).getAsJsonObject());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
   }
 

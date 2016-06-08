@@ -121,6 +121,8 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
   /**
    * Test Get Identifiable languages.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetIdentifiableLanguages() throws InterruptedException {
@@ -135,6 +137,8 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
   /**
    * Test Get Model.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetModel() throws InterruptedException {
@@ -149,6 +153,8 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
   /**
    * Test Get Models.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetModels() throws InterruptedException {
@@ -172,6 +178,8 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
   /**
    * Test Identify.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testIdentify() throws InterruptedException {
@@ -197,6 +205,8 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
   /**
    * Test translate.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testTranslate() throws InterruptedException {
@@ -227,7 +237,8 @@ public class LanguageTranslationTest extends WatsonServiceUnitTest {
 
   /**
    * Test translate multiple texts.
-   * @throws InterruptedException
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testTranslateMultiple() throws InterruptedException {

@@ -244,6 +244,9 @@ public class TextToSpeech extends WatsonService {
 
   /**
    * Deletes the given CustomVoiceModel (requires a valid id to be set).
+   *
+   * @param model the model
+   * @return the service call
    */
   public ServiceCall<Void> deleteCustomVoiceModel(CustomVoiceModel model) {
     Validator.notEmpty(model.getId(), "model id must not be empty");
@@ -273,11 +276,9 @@ public class TextToSpeech extends WatsonService {
    * given word is existing, a new translation is created. Elsewise, the
    * existing translation is updated.
    *
-   * @param model
-   *          the CustomVoiceModel
-   * @param translations
-   *          the translations to be saved or updated
-   * @return
+   * @param model          the CustomVoiceModel
+   * @param translations          the translations to be saved or updated
+   * @return the service call
    */
   public ServiceCall<Void> saveWords(CustomVoiceModel model, CustomTranslation... translations) {
     Validator.notEmpty(model.getId(), "model id must not be empty");
@@ -293,11 +294,9 @@ public class TextToSpeech extends WatsonService {
   /**
    * Deletes a custom word translation.
    *
-   * @param model
-   *          the CustomVoiceModel
-   * @param translation
-   *          the translation
-   * @return
+   * @param model          the CustomVoiceModel
+   * @param translation          the translation
+   * @return the service call
    */
   public ServiceCall<Void> deleteWord(CustomVoiceModel model, CustomTranslation translation) {
     Validator.notEmpty(model.getId(), "model id must not be empty");

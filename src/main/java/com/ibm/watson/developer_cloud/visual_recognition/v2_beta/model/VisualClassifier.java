@@ -36,10 +36,20 @@ public class VisualClassifier extends GenericModel {
    * {@link VisualClassifier} Status.
    */
   public enum Status {
+    
+    /** The available. */
     @SerializedName("Available") AVAILABLE,
+    
+    /** The failed. */
     @SerializedName("Failed") FAILED,
+    
+    /** The non existent. */
     @SerializedName("Non Existent") NON_EXISTENT,
+    
+    /** The training. */
     @SerializedName("Training") TRAINING,
+    
+    /** The unavailable. */
     @SerializedName("Unavailable") UNAVAILABLE
   }
   
@@ -130,10 +140,20 @@ public class VisualClassifier extends GenericModel {
     this.owner = owner;
   }
 
+  /**
+   * Gets the status.
+   *
+   * @return the status
+   */
   public Status getStatus() {
     return status;
   }
 
+  /**
+   * Sets the status.
+   *
+   * @param status the new status
+   */
   public void setStatus(Status status) {
     this.status = status;
   }

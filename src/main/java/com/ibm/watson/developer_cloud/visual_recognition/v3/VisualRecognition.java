@@ -44,12 +44,12 @@ import okhttp3.RequestBody;
  * Visual Recognition allows you to derive insights from an image based on its visual content. You
  * can organize image libraries, understand an individual image, and create custom classifiers for
  * specific results that are tailored to your needs.
- * 
+ *
  * @version v3
- * @version_data 2016-05-19
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
  *      Visual Recognition</a>
+ * @api.version_date 2016-05-19
  */
 public class VisualRecognition extends WatsonService {
 
@@ -72,7 +72,8 @@ public class VisualRecognition extends WatsonService {
   private static final Type TYPE_LIST_CLASSIFIERS = new TypeToken<List<VisualClassifier>>() {}.getType();
   private static final String URL = "https://gateway-a.watsonplatform.net/visual-recognition/api";
   private static final String VERBOSE = "verbose";
-  /** Version date */
+  
+  /**  Version date. */
   public static final String VERSION_DATE_2016_05_19 = "2016-05-19";
 
   private String versionDate;
@@ -168,6 +169,7 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
+   * Classify.
    *
    * @param options the classify options
    * @return the {@link VisualClassification}
@@ -242,6 +244,7 @@ public class VisualRecognition extends WatsonService {
 
 
   /**
+   * Detect faces.
    *
    * @param options the recognize text options
    * @return the {@link VisualClassification}
@@ -295,6 +298,7 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
+   * Recognize text.
    *
    * @param options the recognize text options
    * @return the {@link RecognizedText}
@@ -320,6 +324,9 @@ public class VisualRecognition extends WatsonService {
    * The Visual Recognition V3 service use an <code>api_key</code> instead of username and password.
    * <br/>
    * Use: {@link VisualRecognition#setApiKey(String)}
+   *
+   * @param username the username
+   * @param password the password
    */
   @Override
   @Deprecated

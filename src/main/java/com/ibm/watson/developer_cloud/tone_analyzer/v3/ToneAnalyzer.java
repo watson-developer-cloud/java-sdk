@@ -30,12 +30,12 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * The IBM Watson Tone Analyzer service uses linguistic analysis to detect emotional tones, social
  * propensities, and writing styles in written communication. Then it offers suggestions to help the
  * writer improve their intended language tones.
- * 
+ *
  * @version v3
- * @version_data 2016-05-19
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html"> Tone
  *      Analyzer</a>
+ * @api.version_date 2016-05-19
  */
 public class ToneAnalyzer extends WatsonService {
 
@@ -49,6 +49,7 @@ public class ToneAnalyzer extends WatsonService {
 
   private String versionDate;
 
+  /** The Constant VERSION_DATE_2016_05_19. */
   public static final String VERSION_DATE_2016_05_19 = "2016-05-19";
 
   /**

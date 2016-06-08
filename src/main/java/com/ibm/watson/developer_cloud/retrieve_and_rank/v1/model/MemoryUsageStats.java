@@ -1,5 +1,5 @@
-/**
- * Copyright 2016 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -18,6 +18,9 @@ import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.ApiConst
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
+/**
+ * Memory Usage Stats
+ */
 public class MemoryUsageStats extends GenericModel {
 
   @SerializedName(USED_RESOURCES_IN_BYTES)
@@ -31,6 +34,15 @@ public class MemoryUsageStats extends GenericModel {
   @SerializedName(PERCENT_USED)
   private final double percentUsed;
 
+  /**
+   * Instantiates a new memory usage stats.
+   *
+   * @param usedBytes the used bytes
+   * @param totalBytes the total bytes
+   * @param used the used
+   * @param total the total
+   * @param percentUsed the percent used
+   */
   public MemoryUsageStats(final long usedBytes, final long totalBytes, final String used,
       final String total, final double percentUsed) {
     this.usedBytes = usedBytes;
@@ -40,22 +52,47 @@ public class MemoryUsageStats extends GenericModel {
     this.percentUsed = percentUsed;
   }
 
+  /**
+   * Gets the used.
+   *
+   * @return the used
+   */
   public String getUsed() {
     return used;
   }
 
+  /**
+   * Gets the used bytes.
+   *
+   * @return the used bytes
+   */
   public long getUsedBytes() {
     return usedBytes;
   }
 
+  /**
+   * Gets the total.
+   *
+   * @return the total
+   */
   public String getTotal() {
     return total;
   }
 
+  /**
+   * Gets the total bytes.
+   *
+   * @return the total bytes
+   */
   public long getTotalBytes() {
     return totalBytes;
   }
 
+  /**
+   * Gets the percent used.
+   *
+   * @return the percent used
+   */
   public double getPercentUsed() {
     return percentUsed;
   }

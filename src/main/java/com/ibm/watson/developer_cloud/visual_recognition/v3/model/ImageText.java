@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
 /**
  * The recognized text in a processed image after calling
- * {@link VisualRecognition#recognizeText(RecognizeTextOptions)} .
+ * {@link VisualRecognition#recognizeText(VisualRecognitionOptions)} .
  * 
  * @see VisualRecognition
  */
