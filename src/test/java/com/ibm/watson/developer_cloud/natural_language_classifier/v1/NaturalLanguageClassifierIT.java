@@ -21,7 +21,11 @@ import java.io.File;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
-import org.junit.*;
+
+import org.junit.Assume;
+import org.junit.AssumptionViolatedException;
+import org.junit.Before;
+import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;

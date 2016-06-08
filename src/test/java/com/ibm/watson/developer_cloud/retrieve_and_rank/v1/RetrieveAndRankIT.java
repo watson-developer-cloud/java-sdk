@@ -25,7 +25,13 @@ import java.io.InputStream;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
-import org.junit.*;
+
+import org.junit.Assume;
+import org.junit.AssumptionViolatedException;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
