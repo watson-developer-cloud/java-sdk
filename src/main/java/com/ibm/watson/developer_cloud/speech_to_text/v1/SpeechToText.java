@@ -71,9 +71,11 @@ public class SpeechToText extends WatsonService {
   private static final String URL = "https://stream.watsonplatform.net/speech-to-text/api";
   private static final String WORD_ALTERNATIVES_THRESHOLD = "word_alternatives_threshold";
   private static final String WORD_CONFIDENCE = "word_confidence";
-
+  private static final String PROFANITY_FILTER = "profanity_filter";
+  
   private static final Type TYPE_LIST_MODELS = new TypeToken<List<SpeechModel>>() {}.getType();
   private static final Type TYPE_SESSION_STATUS = new TypeToken<SpeechSessionStatus>() {}.getType();
+  
 
   /**
    * Instantiates a new Speech to Text service.
@@ -108,6 +110,9 @@ public class SpeechToText extends WatsonService {
 
     if (options.continuous() != null)
       requestBuilder.query(CONTINUOUS, options.continuous());
+
+    if (options.profanityFilter() != null)
+      requestBuilder.query(PROFANITY_FILTER, options.profanityFilter());
 
     if (options.maxAlternatives() != null)
       requestBuilder.query(MAX_ALTERNATIVES, options.maxAlternatives());

@@ -42,6 +42,7 @@ public class RecognizeOptions {
     private Boolean timestamps;
     private Double wordAlternativesThreshold;
     private Boolean wordConfidence;
+    private Boolean profanityFilter;
 
 
     private Builder(RecognizeOptions options) {
@@ -57,6 +58,7 @@ public class RecognizeOptions {
       this.timestamps = options.timestamps;
       this.wordAlternativesThreshold = options.wordAlternativesThreshold;
       this.wordConfidence = options.wordConfidence;
+      this.profanityFilter = options.profanityFilter;
     }
 
     /**
@@ -98,6 +100,19 @@ public class RecognizeOptions {
       return this;
     }
 
+
+    /**
+     * If true, filters profanity from all output except for keyword results by
+     * replacing inappropriate words with a series of asterisks. Set the parameter to false to
+     * return results with no censoring. Applies to US English transcription only.
+     * 
+     * @param profanityFilter the profanity filter
+     * @return the recognize options
+     */
+    public Builder profanityFilter(Boolean profanityFilter) {
+      this.profanityFilter = profanityFilter;
+      return this;
+    }
 
     /**
      * If true, multiple final results that represent multiple consecutive phrases separated by
@@ -262,7 +277,7 @@ public class RecognizeOptions {
   @SerializedName("keywords_threshold")
   private Double keywordsThreshold;
   private Integer maxAlternatives;
-
+  private Boolean profanityFilter;
   private String model;
   private String sessionId;
   private Boolean timestamps;
@@ -284,6 +299,7 @@ public class RecognizeOptions {
     this.timestamps = builder.timestamps;
     this.wordAlternativesThreshold = builder.wordAlternativesThreshold;
     this.wordConfidence = builder.wordConfidence;
+    this.profanityFilter = builder.profanityFilter;
   }
 
   /**
@@ -295,7 +311,15 @@ public class RecognizeOptions {
     return contentType;
   }
 
-
+  /**
+   * Gets the profanity filter
+   * 
+   * @return the profanity filter
+   */
+  public Boolean profanityFilter() {
+    return profanityFilter;
+  }
+  
   /**
    * Gets the continuous.
    * 

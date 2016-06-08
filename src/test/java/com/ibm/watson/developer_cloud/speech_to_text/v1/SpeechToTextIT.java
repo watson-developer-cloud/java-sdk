@@ -166,6 +166,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       .wordConfidence(true)
       .model(EN_BROADBAND16K)
       .contentType(contentType)
+      .profanityFilter(false)
       .build();
     SpeechResults results = service.recognize(audio, options).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
