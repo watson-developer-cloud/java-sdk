@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -469,6 +470,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
    * Test get typed relations from HTML.
    */
   @Test
+  @Ignore
   public void testGetTypedRelationsHTML() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.HTML, htmlExample);
