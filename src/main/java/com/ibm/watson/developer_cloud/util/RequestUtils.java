@@ -38,8 +38,8 @@ public class RequestUtils {
   public static final String DEFAULT_ENDPOINT = "http://do.not.use";
 
   /**
-   * Encode a string into a valid URL string
-   * 
+   * Encode a string into a valid URL string.
+   *
    * @param content the content
    * @return the string
    */

@@ -13,11 +13,17 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
+/**
+ * Phoneme enumeration.
+ */
 public enum Phoneme {
-  IPA("ipa"), SPR("spr");
 
-  String phoneme;
+  /** ipa */
+  IPA("ipa"), 
+  /** spr. */
+  SPR("spr");
 
+  private String phoneme;
   private Phoneme(String phoneme) {
     this.phoneme = phoneme;
   }
@@ -29,6 +35,6 @@ public enum Phoneme {
    */
   @Override
   public String toString() {
-   return phoneme;
+    return phoneme;
   }
 }

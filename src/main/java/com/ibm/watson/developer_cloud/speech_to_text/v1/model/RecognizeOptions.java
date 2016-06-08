@@ -86,7 +86,6 @@ public class RecognizeOptions {
      * @param contentType the content type
      * @return the recognize options
      * @throws IllegalArgumentException when contentType is null or invalid
-     * @see Use if audio is PCM
      */
     public Builder contentType(String contentType) {
       Validator.isTrue(MediaType.parse(contentType) != null && contentType.startsWith("audio/"),

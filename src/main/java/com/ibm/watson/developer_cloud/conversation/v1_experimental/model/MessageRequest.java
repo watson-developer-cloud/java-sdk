@@ -29,13 +29,16 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class MessageRequest extends GenericModel {
 
+  /**
+   * The Class Builder.
+   */
   public static class Builder {
     private static final String TEXT = "text";
     private Map<String, Object> context;
     private Map<String, Object> input;
 
     /**
-     * Instantiates a new Builder
+     * Instantiates a new Builder.
      */
     public Builder() {}
 

@@ -20,14 +20,14 @@ package com.ibm.watson.developer_cloud.http;
 public interface ServiceCallback<T> {
     
     /**
-     * Called with the response
+     * Called with the response.
      *
      * @param response the response
      */
     void onResponse(final T response);
     
     /**
-     * Called if there is an error during the request
+     * Called if there is an error during the request.
      *
      * @param e the exception thrown during the request
      */

@@ -21,8 +21,7 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.util.ColumnTypeAdapter;
 
 /**
- * {@link TradeoffAnalytics} column
- * 
+ * {@link TradeoffAnalytics} column.
  */
 @JsonAdapter(ColumnTypeAdapter.class)
 public abstract class Column extends GenericModel {

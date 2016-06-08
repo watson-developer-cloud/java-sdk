@@ -71,8 +71,6 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
 
   /**
    * Test delete all classifiers.
-   *
-   * @throws Exception the exception
    */
   @Test
   public void testDeleteAllClassifiers() {
@@ -87,8 +85,6 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   
   /**
    * Test classify.
-   * 
-   * @throws Exception the exception
    */
   @Test
   public void testClassify() {

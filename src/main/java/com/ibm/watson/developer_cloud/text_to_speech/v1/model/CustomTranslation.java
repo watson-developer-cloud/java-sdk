@@ -37,17 +37,18 @@ public class CustomTranslation extends GenericModel {
 
   private String translation;
 
+  /**
+   * Instantiates a new custom translation.
+   */
   public CustomTranslation() {
     super();
   }
 
   /**
-   * Creates a new CustomTranslation
-   * 
-   * @param word
-   *          the word
-   * @param translation
-   *          the custom translation
+   * Creates a new CustomTranslation.
+   *
+   * @param word          the word
+   * @param translation          the custom translation
    */
   public CustomTranslation(String word, String translation) {
     this();
@@ -56,8 +57,8 @@ public class CustomTranslation extends GenericModel {
   }
 
   /**
-   * Returns the original word
-   * 
+   * Returns the original word.
+   *
    * @return the word
    */
   public String getWord() {
@@ -65,10 +66,9 @@ public class CustomTranslation extends GenericModel {
   }
 
   /**
-   * Sets the original word
-   * 
-   * @param word
-   *          the word
+   * Sets the original word.
+   *
+   * @param word          the word
    */
   public void setWord(String word) {
     Validator.notEmpty(word, "word must not be empty");
@@ -76,8 +76,8 @@ public class CustomTranslation extends GenericModel {
   }
 
   /**
-   * Returns the custom translation
-   * 
+   * Returns the custom translation.
+   *
    * @return the translation
    */
   public String getTranslation() {
@@ -97,8 +97,7 @@ public class CustomTranslation extends GenericModel {
    * <li>{@code <phoneme alphabet="ipa" ph="tɹaɪnˈaɪtɹəglɪsəɹɨn"></phoneme>}
    * </li>
    * <li>{@code try<phoneme alphabet="ipa" ph="nˈaɪtɹəglɪsəɹɨn"></phoneme>}</li>
-   * <li>{@code {@code <phoneme alphabet="spr" ph="trYn1YtrxglIsxrXn"></phoneme>
-   * }</li>
+   * <li>{@code <phoneme alphabet="spr" ph="trYn1YtrxglIsxrXn"></phoneme>}</li>
    * 
    * @param translation
    *          the translation

@@ -19,7 +19,7 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 
 /**
- * This class contains the parameters when using {@link ToneAnalyzer#getTone(ToneOptions)}.
+ * This class contains the parameters when using {@link ToneAnalyzer#getTone(String, ToneOptions)}.
  * 
  * @see ToneAnalyzer
  */
@@ -57,7 +57,7 @@ public class ToneOptions {
     /**
      * Sets the text as HTML.
      *
-     * @param text the text
+     * @param isHtml set the text as html
      * @return the builder
      */
     public Builder html(Boolean isHtml) {
@@ -126,7 +126,7 @@ public class ToneOptions {
   }
 
   /**
-   * Gets the tones
+   * Gets the tones.
    *
    * @return the tone list
    */

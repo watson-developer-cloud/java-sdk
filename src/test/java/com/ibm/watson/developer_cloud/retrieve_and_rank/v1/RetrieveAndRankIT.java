@@ -79,8 +79,6 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
 
   /**
    * Test delete all rankers.
-   *
-   * @throws Exception the exception
    */
   @Test
   public void testDeleteAllRankers() {
@@ -91,11 +89,12 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
       }
     }
   }
+  
   /**
    * Test create ranker and rank results.
    *
    * @throws InterruptedException the interrupted exception
-   * @throws IOException
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
   @Ignore

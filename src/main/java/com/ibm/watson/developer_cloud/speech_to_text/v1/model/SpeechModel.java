@@ -17,44 +17,47 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Speech model
+ * Speech model.
  */
 public class SpeechModel extends GenericModel {
-  /** Modern Standard Arabic broadband model */
+  
+  /**  Modern Standard Arabic broadband model. */
   public static final SpeechModel AR_AR_BROADBANDMODEL = new SpeechModel("ar-AR_BroadbandModel");
-  /** UK English broadband model */
+  
+  /**  UK English broadband model. */
   public static final SpeechModel EN_UK_BROADBANDMODEL = new SpeechModel("en-UK_BroadbandModel");
-  /** UK English narrowband model */
+  
+  /**  UK English narrowband model. */
   public static final SpeechModel EN_UK_NARROWBANDMODEL = new SpeechModel("en-UK_NarrowbandModel");
 
-  /** US English broadband model */
+  /**  US English broadband model. */
   public static final SpeechModel EN_US_BROADBANDMODEL = new SpeechModel("en-US_BroadbandModel");
 
-  /** US English narrowband model */
+  /**  US English narrowband model. */
   public static final SpeechModel EN_US_NARROWBANDMODEL = new SpeechModel("en-US_NarrowbandModel");
 
-  /** Spanish broadband model */
+  /**  Spanish broadband model. */
   public static final SpeechModel ES_ES_BROADBANDMODEL = new SpeechModel("es-ES_BroadbandModel");
 
-  /** Spanish narrowband model */
+  /**  Spanish narrowband model. */
   public static final SpeechModel ES_ES_NARROWBANDMODEL = new SpeechModel("es-ES_NarrowbandModel");
 
-  /** Japanese broadband model */
+  /**  Japanese broadband model. */
   public static final SpeechModel JA_JP_BROADBANDMODEL = new SpeechModel("ja-JP_BroadbandModel");
 
-  /** Japanese narrowband model */
+  /**  Japanese narrowband model. */
   public static final SpeechModel JA_JP_NARROWBANDMODEL = new SpeechModel("ja-JP_NarrowbandModel");
 
-  /** Brazilian Portuguese broadband model */
+  /**  Brazilian Portuguese broadband model. */
   public static final SpeechModel PT_BR_BROADBANDMODEL = new SpeechModel("pt-BR_BroadbandModel");
 
-  /** Brazilian Portuguese narrowband model */
+  /**  Brazilian Portuguese narrowband model. */
   public static final SpeechModel PT_BR_NARROWBANDMODEL = new SpeechModel("pt-BR_NarrowbandModel");
 
-  /** Mandarin broadband model */
+  /**  Mandarin broadband model. */
   public static final SpeechModel ZH_CN_BROADBANDMODEL = new SpeechModel("zh-CN_BroadbandModel");
 
-  /** Mandarin narrowband model */
+  /**  Mandarin narrowband model. */
   public static final SpeechModel ZH_CN_NARROWBANDMODEL = new SpeechModel("zh-CN_NarrowbandModel");
 
   private String name;

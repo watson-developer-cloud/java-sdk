@@ -26,7 +26,7 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 public class Solution extends GenericModel {
 
   /**
-   * Represent the error when the {@link Solution#status} is INCOMPLETE.
+   * Represent the error when the {@link Solution#getStatus()} is <code>INCOMPLETE</code>.
    */
   public class StatusCause {
 

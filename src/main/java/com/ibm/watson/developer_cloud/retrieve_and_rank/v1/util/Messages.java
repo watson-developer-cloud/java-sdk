@@ -18,18 +18,12 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 /**
  * The {@link RetrieveAndRank} messages.
  */
+@SuppressWarnings("javadoc")
 public enum Messages implements BundleKey {
 
-   // HttpClusterLifecycleClient
    UNABLE_TO_CLOSE_HTTP_CLIENT,
-
-   // HttpSolrConfigManager
    CONFIG_NOT_DIR_1,
-
-   // HttpClientFactory
    NO_CREDENTIALS_FOR_PREEMPTIVE_AUTH,
-
-   // ClusterLifecycleRestSender
    ERROR_CREATING_CLUSTER, 
    ERROR_CREATING_CLUSTER_1, 
    ERROR_DELETING_CLUSTER_1, 
@@ -39,22 +33,16 @@ public enum Messages implements BundleKey {
    ERROR_POLLING_CLUSTER_1, 
    ERROR_POLLING_CLUSTER_2, 
    ERROR_CAUSE_1,
-
-   // SolrConfigRestSender
    FAILED_LISTING_CONFIGS, 
    FAILED_LISTING_CONFIGS_WITH_CODE_1, 
    FAILED_TO_DELETE_TEMP_2, 
    FAILED_GETTING_CONFIG_1, 
    FAILED_GETTING_CONFIG_WITH_CODE_2, 
    FAILURE_RESPONSE_3,
-
-   // ZipUtils
    ERROR_ZIPPING_1, 
    ERROR_CREATING_ZIP_1, 
    FAILED_TO_VISIT_1, 
    ERROR_READING_FILE_1,
-
-   // Preconditions
    NOT_NULL_1, 
    NOT_EMPTY_1, 
    NOT_BLANK_1, 

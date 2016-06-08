@@ -1,3 +1,16 @@
+/*
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import static com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat.WAV;
@@ -22,6 +35,9 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
 import com.ibm.watson.developer_cloud.util.TestUtils;
 
+/**
+ * Integration tests for the Speech to text customization API
+ */
 public class CustomizationsIT extends WatsonServiceTest {
 
   private TextToSpeech service;
@@ -43,8 +59,7 @@ public class CustomizationsIT extends WatsonServiceTest {
     super.setUp();
 
     service = new TextToSpeech();
-    service.setUsernameAndPassword(
-        getExistingProperty("text_to_speech.username"),
+    service.setUsernameAndPassword(getExistingProperty("text_to_speech.username"),
         getExistingProperty("text_to_speech.password"));
     service.setEndPoint(getExistingProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
@@ -60,8 +75,7 @@ public class CustomizationsIT extends WatsonServiceTest {
   }
 
   private List<CustomTranslation> instantiateCustomTranslations() {
-    return ImmutableList.of(
-        new CustomTranslation("hodor", "hold the door"),
+    return ImmutableList.of(new CustomTranslation("hodor", "hold the door"),
         new CustomTranslation("trinitroglycerin", "try<phoneme alphabet=\"ipa\" ph=\"nˈaɪtɹəglɪsəɹɨn\"></phoneme>"),
         new CustomTranslation("shocking", "<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>"));
   }
@@ -76,6 +90,9 @@ public class CustomizationsIT extends WatsonServiceTest {
     assertEquals(a.getDescription(), b.getDescription());
   }
 
+  /**
+   * Clean up.
+   */
   @After
   public void cleanUp() {
     if (model != null && model.getId() != null) {
@@ -87,6 +104,9 @@ public class CustomizationsIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test create voice model.
+   */
   @Test
   public void testCreateVoiceModel() {
     model = createVoiceModel();
@@ -94,6 +114,9 @@ public class CustomizationsIT extends WatsonServiceTest {
     assertNotNull(model.getId());
   }
 
+  /**
+   * Test get voice model.
+   */
   @Test
   public void testGetVoiceModel() {
     model = createVoiceModel();
@@ -106,6 +129,9 @@ public class CustomizationsIT extends WatsonServiceTest {
     assertNotNull(model2.getLastModified());
   }
 
+  /**
+   * Test update voice model.
+   */
   @Test
   public void testUpdateVoiceModel() {
     final String newName = "new test";
@@ -119,6 +145,9 @@ public class CustomizationsIT extends WatsonServiceTest {
     assertModelsEqual(model, model2);
   }
 
+  /**
+   * Test delete voice model.
+   */
   @Test
   public void testDeleteVoiceModel() {
     model = createVoiceModel();
@@ -133,11 +162,17 @@ public class CustomizationsIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test get models.
+   */
   @Test
   public void testGetModels() {
     service.getCustomVoiceModels(instantiateVoiceModel().getLanguage());
   }
 
+  /**
+   * Test get models after create.
+   */
   @Test
   public void testGetModelsAfterCreate() {
     model = createVoiceModel();
@@ -155,6 +190,9 @@ public class CustomizationsIT extends WatsonServiceTest {
     assertModelsEqual(model, model2);
   }
 
+  /**
+   * Test add word.
+   */
   @Test
   public void testAddWord() {
     model = createVoiceModel();
@@ -171,18 +209,24 @@ public class CustomizationsIT extends WatsonServiceTest {
     assertEquals(expected.getTranslation(), result.getTranslation());
   }
 
+  /**
+   * Test add words.
+   */
   @Test
   public void testAddWords() {
     model = createVoiceModel();
     final List<CustomTranslation> expected = instantiateCustomTranslations();
 
-    service.saveWords(model, expected.toArray(new CustomTranslation[]{})).execute();
+    service.saveWords(model, expected.toArray(new CustomTranslation[] {})).execute();
 
     final List<CustomTranslation> words = service.getWords(model).execute();
     assertEquals(expected.size(), words.size());
     assertEquals(expected, words);
   }
 
+  /**
+   * Test remove word.
+   */
   @Test
   public void testRemoveWord() {
     model = createVoiceModel();
@@ -195,6 +239,11 @@ public class CustomizationsIT extends WatsonServiceTest {
     assertEquals(0, results.size());
   }
 
+  /**
+   * Test synthesize.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void testSynthesize() throws IOException {
     model = createVoiceModel();

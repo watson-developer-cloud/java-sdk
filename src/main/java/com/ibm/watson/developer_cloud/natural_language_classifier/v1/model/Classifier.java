@@ -30,10 +30,20 @@ public class Classifier extends GenericModel {
    * Classifier Status.
    */
   public enum Status {
+    
+    /** The available. */
     @SerializedName("Available") AVAILABLE,
+    
+    /** The failed. */
     @SerializedName("Failed") FAILED,
+    
+    /** The non existent. */
     @SerializedName("Non Existent") NON_EXISTENT,
+    
+    /** The training. */
     @SerializedName("Training") TRAINING,
+    
+    /** The unavailable. */
     @SerializedName("Unavailable") UNAVAILABLE
   }
 

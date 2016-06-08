@@ -65,6 +65,8 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
 
   /**
    * Test classify.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testClassify() throws InterruptedException {
@@ -85,6 +87,8 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
 
   /**
    * Test get classifier.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetClassifier() throws InterruptedException {
@@ -98,6 +102,8 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
 
   /**
    * Test get classifiers.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetClassifiers() throws InterruptedException {

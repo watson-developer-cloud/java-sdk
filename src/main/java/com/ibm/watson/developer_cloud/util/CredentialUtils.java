@@ -170,6 +170,12 @@ public class CredentialUtils {
     return null;
   }
   
+  /**
+   * Gets the API url.
+   *
+   * @param serviceName the service name
+   * @return the API url
+   */
   public static String getAPIUrl(String serviceName) {
     return getAPIUrl(serviceName, null);
   }

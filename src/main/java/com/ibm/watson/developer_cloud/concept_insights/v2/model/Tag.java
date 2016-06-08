@@ -16,7 +16,7 @@ package com.ibm.watson.developer_cloud.concept_insights.v2.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Tag
+ * Tag.
  */
 public class Tag extends GenericModel {
   private String concept;

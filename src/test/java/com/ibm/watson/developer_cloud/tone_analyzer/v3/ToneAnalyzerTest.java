@@ -68,6 +68,12 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   }
 
 
+  /**
+   * Test get tones.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @Test
   public void testGetTones() throws InterruptedException, IOException {
     String text = "I know the times are difficult! Our sales have been "

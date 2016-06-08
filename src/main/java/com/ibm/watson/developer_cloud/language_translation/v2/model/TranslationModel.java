@@ -20,8 +20,18 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * Language Model used by the {@link TranslationModel}.
  */
 public class TranslationModel extends GenericModel {
+  
+  /**
+   * The Enum Status.
+   */
   public enum Status {
-    AVAILABLE, ERROR, TRAINING;
+    
+    /** The available. */
+    AVAILABLE, 
+ /** The error. */
+ ERROR, 
+ /** The training. */
+ TRAINING;
   }
 
   @SerializedName("base_model_id")

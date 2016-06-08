@@ -21,7 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * {@link TextToSpeech} voice
+ * {@link TextToSpeech} voice.
  */
 public class Voice extends GenericModel {
 
@@ -68,7 +68,7 @@ public class Voice extends GenericModel {
   /** The Constant PT_ISABELA (value is "pt-BR_IsabelaVoice"). */
   public static final Voice PT_ISABELA = new Voice("pt-BR_IsabelaVoice", "female", "pt-BR");
 
-  /** The List of all predefined Voices */
+  /**  The List of all predefined Voices. */
   public static final List<Voice> ALL = Collections.unmodifiableList(Arrays.asList(
       DE_DIETER, DE_BIRGIT, EN_ALLISON, EN_LISA, EN_MICHAEL, ES_ENRIQUE,
       ES_LAURA, ES_SOFIA, FR_RENEE, GB_KATE, IT_FRANCESCA, JA_EMI, PT_ISABELA

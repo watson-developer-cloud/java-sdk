@@ -28,12 +28,12 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 /**
  * The IBM Watson Tradeoff Analytics service applies decision analytics technology, enabling users
  * to avoid choice overload when making complex decisions involving multiple, conflicting goals.
- * 
+ *
  * @version v1
- * @version_data 2015-05-28
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tradeoff-analytics.html">
  *      Tradeoff Analytics</a>
+ * @version_data 2015-05-28
  */
 public class TradeoffAnalytics extends WatsonService {
 

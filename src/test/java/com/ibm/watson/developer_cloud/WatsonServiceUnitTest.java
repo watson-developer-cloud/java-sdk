@@ -63,8 +63,10 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
 
   private static final Gson GSON = GsonSingleton.getGson();
 
+  /** The server. */
   protected MockWebServer server;
 
+  /** The mock server. */
   @Deprecated // use OkHttp's MockWebServer instead (see #316)
   protected ClientAndServer mockServer;
 
@@ -81,6 +83,11 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
     server.start();
   }
 
+  /**
+   * Tear down.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
   @After
   public void tearDown() throws IOException {
     if (mockServer != null)
@@ -99,10 +106,10 @@ public abstract class WatsonServiceUnitTest extends WatsonServiceTest {
   }
 
   /**
-   * Create a MockResponse with JSON content type and the object serialized to JSON as body
+   * Create a MockResponse with JSON content type and the object serialized to JSON as body.
    *
-   * @param body
-   * @return
+   * @param body the body
+   * @return the mock response
    */
   protected static MockResponse jsonResponse(Object body) {
     return new MockResponse()

@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Result from a {@link ConceptInsights#conceptualSearch(Corpus, Map)}
+ * Result from a {@link ConceptInsights#conceptualSearch(Corpus, Map)}.
  */
 public class Result extends GenericModel {
 

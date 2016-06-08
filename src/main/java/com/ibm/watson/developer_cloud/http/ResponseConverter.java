@@ -23,7 +23,7 @@ import okhttp3.Response;
 public interface ResponseConverter<T> {
   
   /**
-   * Converts a response into a generic type to be defined
+   * Converts a response into a generic type to be defined.
    *
    * @param response the response
    * @return the the generic type

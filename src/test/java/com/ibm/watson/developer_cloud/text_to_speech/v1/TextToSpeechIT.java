@@ -90,7 +90,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
   }
 
   /**
-   * Test get voice
+   * Test get voice.
    */
   @Test
   public void testGetVoice() {
@@ -116,9 +116,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
   }
 
   /**
-   *  Test word pronunciation
-   *
-   * @throws IOException Signals that an I/O exception has occurred.
+   *  Test word pronunciation.
    */
   @Test
   public void testGetWordPronunciation(){

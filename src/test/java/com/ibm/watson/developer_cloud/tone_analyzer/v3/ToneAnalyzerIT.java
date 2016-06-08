@@ -66,7 +66,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   }
 
   /**
-   * Test get tone from html
+   * Test get tone from html.
    */
   @Test
   public void testGetToneFromHtml() {

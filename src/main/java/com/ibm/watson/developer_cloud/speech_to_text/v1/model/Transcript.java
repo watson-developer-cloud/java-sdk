@@ -21,7 +21,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Encapsulates a transcription along with the alternatives
+ * Encapsulates a transcription along with the alternatives.
  */
 public class Transcript extends GenericModel {
 

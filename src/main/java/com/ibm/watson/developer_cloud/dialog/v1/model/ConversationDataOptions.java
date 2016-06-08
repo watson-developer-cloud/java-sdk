@@ -71,6 +71,10 @@ public class ConversationDataOptions {
     private Integer offset;
     private Date to;
 
+    
+    /**
+     * Instantiates a new builder.
+     */
     public Builder() {}
 
     private Builder(ConversationDataOptions options) {
@@ -82,7 +86,7 @@ public class ConversationDataOptions {
     }
 
     /**
-     * Builds the conversation options
+     * Builds the conversation options.
      *
      * @return the conversation data options
      */

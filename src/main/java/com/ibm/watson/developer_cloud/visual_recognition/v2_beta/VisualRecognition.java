@@ -44,12 +44,12 @@ import okhttp3.RequestBody;
  * Visual Recognition allows you to derive insights from an image based on its visual content. You
  * can organize image libraries, understand an individual image, and create custom classifiers for
  * specific results that are tailored to your needs.
- * 
+ *
  * @version v2_beta
- * @version_data 2015-12-02
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
  *      Visual Recognition</a>
+ * @version_data 2015-12-02
  */
 public class VisualRecognition extends WatsonService {
 
@@ -66,7 +66,8 @@ public class VisualRecognition extends WatsonService {
   private static final Type TYPE_LIST_CLASSIFIERS = new TypeToken<List<VisualClassifier>>() {}.getType();
   private static final String URL = "https://gateway.watsonplatform.net/visual-recognition-beta/api";
   private static final String VERBOSE = "verbose";
-  /** Version date */
+  
+  /**  Version date. */
   public static final String VERSION_DATE_2015_12_02 = "2015-12-02";
 
   private String versionDate;

@@ -49,8 +49,8 @@ public class CustomVoiceModel extends GenericModel {
   private Date lastModified;
 
   /**
-   * Returns the id
-   * 
+   * Returns the id.
+   *
    * @return the id, or null if the voice model has not been saved yet.
    */
   public String getId() {
@@ -58,18 +58,17 @@ public class CustomVoiceModel extends GenericModel {
   }
 
   /**
-   * Sets the id
-   * 
-   * @param id
-   *          the id
+   * Sets the id.
+   *
+   * @param id          the id
    */
   public void setId(String id) {
     this.id = id;
   }
 
   /**
-   * Returns the name
-   * 
+   * Returns the name.
+   *
    * @return the name
    */
   public String getName() {
@@ -77,18 +76,17 @@ public class CustomVoiceModel extends GenericModel {
   }
 
   /**
-   * Sets the name
-   * 
-   * @param name
-   *          the name
+   * Sets the name.
+   *
+   * @param name          the name
    */
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * Returns the description
-   * 
+   * Returns the description.
+   *
    * @return the description
    */
   public String getDescription() {
@@ -96,10 +94,9 @@ public class CustomVoiceModel extends GenericModel {
   }
 
   /**
-   * Sets the description
-   * 
-   * @param description
-   *          the description
+   * Sets the description.
+   *
+   * @param description          the description
    */
   public void setDescription(String description) {
     this.description = description;
@@ -125,8 +122,8 @@ public class CustomVoiceModel extends GenericModel {
   }
 
   /**
-   * Returns the owner id
-   * 
+   * Returns the owner id.
+   *
    * @return the owner id
    */
   public String getOwner() {
@@ -134,8 +131,8 @@ public class CustomVoiceModel extends GenericModel {
   }
 
   /**
-   * Returns the creation date
-   * 
+   * Returns the creation date.
+   *
    * @return the creation date
    */
   public Date getCreated() {
@@ -143,8 +140,8 @@ public class CustomVoiceModel extends GenericModel {
   }
 
   /**
-   * Returns the last modification date
-   * 
+   * Returns the last modification date.
+   *
    * @return the last modification date
    */
   public Date getLastModified() {

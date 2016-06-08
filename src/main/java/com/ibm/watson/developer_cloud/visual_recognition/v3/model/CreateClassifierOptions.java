@@ -15,7 +15,6 @@
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -62,8 +61,6 @@ public class CreateClassifierOptions {
      * @param className the class name
      * @param positiveExamples the positive examples
      * @return the builder
-     * @throws FileNotFoundException if the file does not exist, is a directory rather than a
-     *         regular file, or for some other reason cannot be opened for reading.
      */
     public Builder addClass(String className, File positiveExamples) {
       Validator.notNull(className, "'className' cannot be null");

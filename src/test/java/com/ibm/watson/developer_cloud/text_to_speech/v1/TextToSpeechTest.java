@@ -119,7 +119,8 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
 
   /**
    * Test get voices.
-   * @throws InterruptedException 
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetVoices() throws InterruptedException {
@@ -154,7 +155,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test get voice
+   * Test get voice.
    */
   @Test
   public void testGetVoice() {
@@ -182,8 +183,9 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
 
   /**
    * Test synthesize.
-   * @throws IOException 
-   * @throws InterruptedException 
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
    */
   @SuppressWarnings("resource")
   @Test
@@ -247,7 +249,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   /**
    * Tests the static method Voice.getByName
    *
-   * @throws IllegalAccessException
+   * @throws IllegalAccessException the illegal access exception
    */
   @Test
   public void testVoiceClass() throws IllegalAccessException {

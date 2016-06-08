@@ -71,6 +71,8 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
   /**
    * Test get profile with content.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetProfileWithContent() throws InterruptedException {
@@ -90,6 +92,8 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
   /**
    * Test get profile with english text.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetProfileWithEnglishText() throws InterruptedException {
@@ -110,6 +114,8 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
   /**
    * Test get profile with spanish text.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetProfileWithSpanishText() throws InterruptedException {

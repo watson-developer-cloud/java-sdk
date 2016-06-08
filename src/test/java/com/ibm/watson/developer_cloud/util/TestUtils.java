@@ -105,10 +105,10 @@ public final class TestUtils {
   /**
    * Checks if both InputStreams have the same content and length. The streams are closed after reading.
    *
-   * @param s1
-   * @param s2
+   * @param s1 the s1
+   * @param s2 the s2
    * @return true, if the InputStreams are equal
-   * @throws IOException
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   public static boolean streamContentEquals(InputStream s1, InputStream s2) throws IOException {
     try {
