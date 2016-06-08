@@ -91,7 +91,7 @@ public class DocumentConversion extends WatsonService {
    * @param conversionTarget The conversion target to use
    * @param customConfig The configuration parameters
    * @return Converted document in the specified format
-   * @see {@link HttpMediaType} for available media types
+   * @see HttpMediaType HttpMediaType for available media types
    */
   private Request createConversionRequest(final File document, final String mediaType,
       final ConversionTarget conversionTarget, final JsonObject customConfig) {
@@ -152,7 +152,7 @@ public class DocumentConversion extends WatsonService {
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided
    * @return Converted document as {@link Answers}
-   * @see HttpMediaType for available media types
+   * @see HttpMediaType HttpMediaType for available media types
    */
   public ServiceCall<Answers> convertDocumentToAnswer(File document, String mediaType) {
     Request request = createConversionRequest(document, mediaType, ConversionTarget.ANSWER_UNITS, null);
