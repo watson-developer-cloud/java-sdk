@@ -173,6 +173,12 @@
 				<configuration>
 					<includes>
 						<include>**/*IT.java</include>
+						<!--
+						This is a simple way to include the unit tests in Cobertura's
+						code coverage. One downside is, that unit tests are now executed
+						twice during the verify phase.
+						-->
+						<include>**/*Test.java</include>
 					</includes>
 				</configuration>
 				<executions>
