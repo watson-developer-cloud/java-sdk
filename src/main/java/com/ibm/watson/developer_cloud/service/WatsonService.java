@@ -140,7 +140,7 @@ public abstract class WatsonService {
       builder.url(RequestUtils.replaceEndPoint(request.url().toString(), getEndPoint()));
     }
 
-    String userAgent = getUserAgent();
+    String userAgent = RequestUtils.getUserAgent();
 
     if (defaultHeaders != null) {
       for (String key : defaultHeaders.names()) {
@@ -303,16 +303,6 @@ public abstract class WatsonService {
     return name;
   }
 
-
-  /**
-   * Gets the user agent.
-   * 
-   * 
-   * @return the user agent
-   */
-  private String getUserAgent() {
-    return "watson-apis-java-sdk/3.0.0-RC1";
-  }
 
   /**
    * Sets the API key.

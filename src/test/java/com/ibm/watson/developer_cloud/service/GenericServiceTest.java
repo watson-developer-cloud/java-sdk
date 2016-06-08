@@ -14,6 +14,7 @@
 package com.ibm.watson.developer_cloud.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -234,7 +235,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     service.setDefaultHeaders(headers);
     service.getProfile(sampleText).execute();
     final RecordedRequest request = checkRequest();
-    assertEquals("watson-apis-java-sdk/3.0.0-RC1 foo-bar", request.getHeader(HttpHeaders.USER_AGENT));
+    assertTrue(request.getHeader(HttpHeaders.USER_AGENT).endsWith("foo-bar"));
     service.setDefaultHeaders(null);
   }
   

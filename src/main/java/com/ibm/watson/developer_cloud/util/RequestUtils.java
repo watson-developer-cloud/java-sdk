@@ -37,6 +37,11 @@ public class RequestUtils {
    */
   public static final String DEFAULT_ENDPOINT = "http://do.not.use";
 
+  private static final String SDK_VERSION = "3.0.0-RC1";
+  private static final String[] properties =
+      new String[] {"java.vendor", "java.version", "os.arch", "os.name", "os.version"};
+  private static String userAgent;
+
   /**
    * Encode a string into a valid URL string.
    *
@@ -122,7 +127,7 @@ public class RequestUtils {
   /**
    * Creates a String of all elements of an iterable, separated by a separator.
    *
-   * @param iterable  the iterable
+   * @param iterable the iterable
    * @param separator the separator
    * @return the joined String
    */
@@ -141,4 +146,38 @@ public class RequestUtils {
 
     return sb.toString();
   }
+
+  /**
+   * Gets the user agent.
+   *
+   * @return the user agent
+   */
+  public static String getUserAgent() {
+    if (userAgent == null) {
+      userAgent = buildUserAgent();
+    }
+    return userAgent;
+  }
+
+  /**
+   * Builds the user agent using System properties
+   *
+   * @return the string that represents the user agent
+   */
+  private static String buildUserAgent() {
+    StringBuilder stringBuilder = new StringBuilder();
+    stringBuilder.append("watson-apis-java-sdk/");
+    stringBuilder.append(SDK_VERSION);
+    stringBuilder.append(" (");
+    for (String propertyName : properties) {
+      stringBuilder.append(propertyName);
+      stringBuilder.append("=");
+      stringBuilder.append(System.getProperty(propertyName));
+      stringBuilder.append("; ");
+    }
+    stringBuilder.append(")");
+
+    return stringBuilder.toString();
+  }
+
 }
