@@ -219,7 +219,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(Collections.emptyMap()));
     service.getProfile(sampleText).execute();
     final RecordedRequest request = checkRequest();
-    assertEquals("watson-apis-java-sdk/3.0.0-RC1", request.getHeader(HttpHeaders.USER_AGENT));
+    assertTrue(request.getHeader(HttpHeaders.USER_AGENT).startsWith("watson-apis-java-sdk/3.0.0-RC1"));
   }
   
   /**
