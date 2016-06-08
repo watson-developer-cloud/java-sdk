@@ -194,9 +194,6 @@
           <aggregate>true</aggregate>
           <check></check>
           <instrumentation>
-            <ignores>
-              <ignore>*.model*</ignore>
-            </ignores>
             <excludes>
               <exclude>**/*/model/*</exclude>
             </excludes>
