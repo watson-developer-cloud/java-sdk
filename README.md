@@ -557,7 +557,7 @@ following picture.
 
 ```java
 VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
-service.setUsernameAndPassword("<username>", "<password>");
+service.setApiKey("<api-key>");
 
 System.out.println("Classify an image");
 ClassifyImagesOptions options = new ClassifyImagesOptions.Builder()
