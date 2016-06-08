@@ -168,7 +168,6 @@
 					<includes>
 						<include>**/*IT.java</include>
 					</includes>
-					<skipAfterFailureCount>1</skipAfterFailureCount>
 				</configuration>
 				<executions>
 					<execution>
