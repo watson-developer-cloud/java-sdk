@@ -37,7 +37,7 @@ public class RequestUtils {
    */
   public static final String DEFAULT_ENDPOINT = "http://do.not.use";
 
-  private static final String SDK_VERSION = "3.0.0-RC1";
+  private static final String SDK_VERSION = "3.0.1";
   private static final String[] properties =
       new String[] {"java.vendor", "java.version", "os.arch", "os.name", "os.version"};
   private static String userAgent;
