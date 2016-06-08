@@ -101,7 +101,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void getProfileWithContentItems() throws Exception {
-    File file = new File("src/test/resources/personality_insights/contentitems.json");
+    File file = new File("src/test/resources/personality_insights/contentItems.json");
     String contentItems = getStringFromInputStream(new FileInputStream(file));
     Content content = GsonSingleton.getGson().fromJson(contentItems, Content.class);
     ProfileOptions options = new ProfileOptions.Builder().contentItems(content.getContentItems()).build();
