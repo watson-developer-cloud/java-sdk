@@ -2,8 +2,8 @@
 
 if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" ] && [ "$TRAVIS_BUILD_NUMBER.1" == "$TRAVIS_JOB_NUMBER" ]; then
 
-  git config --global user.email "travis@travis-ci.org"
-  git config --global user.name "travis-ci"
+  git config --global user.email "wps@us.ibm.com"
+  git config --global user.name "Watson Github Bot"
   git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/watson-developer-cloud/java-sdk gh-pages > /dev/null
 
   pushd gh-pages
@@ -13,7 +13,7 @@ if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && [ "$TRAVIS_PU
 
     cp -rf ../target/site/apidocs/* docs/$TRAVIS_BRANCH
     ../.utility/generate_index_html.sh > index.html
-    
+
 	# update the latest/ symlink
     # on tagged builds, $TRAVIS_TAG is set to the tag, but it's blank on regular builds, unlike $TRAVIS_BRANCH
     if [ $TRAVIS_TAG ]; then
