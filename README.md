@@ -146,11 +146,15 @@ System.out.println(dialogs);
 'com.ibm.watson.developer_cloud:java-sdk:3.0.0-RC1'
 ```
 
+Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
+
+
 ##### JAR
 
 Download the jar with dependencies [here][jar].
 
 Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
+
 
 ## Usage
 
@@ -656,5 +660,6 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [OkHttp]: http://square.github.io/okhttp/
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
+[sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/java-sdk/
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.0.0-RC1/java-sdk-3.0.0-RC1-jar-with-dependencies.jar
