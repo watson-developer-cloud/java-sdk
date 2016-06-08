@@ -45,6 +45,8 @@ public abstract class WatsonServiceTest {
   private static final String LOCAL_PROPERTIES = ".config.properties";
   private static final Logger LOG = Logger.getLogger(WatsonServiceTest.class.getName());
 
+  protected static final String CONTENT_TYPE = "Content-Type";
+
   /**
    * Instantiates a new watson service test.
    */

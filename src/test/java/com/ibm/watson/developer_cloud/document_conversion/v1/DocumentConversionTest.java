@@ -14,22 +14,23 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import static com.ibm.watson.developer_cloud.http.HttpMediaType.TEXT_HTML;
-import static org.apache.commons.io.IOUtils.toByteArray;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.mockserver.model.HttpRequest.request;
-import static org.mockserver.model.HttpResponse.response;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 
+import okhttp3.HttpUrl;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.RecordedRequest;
+import okio.Buffer;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
@@ -37,6 +38,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtil
 /**
  * Document Conversion unit tests.
  */
+@SuppressWarnings("resource")
 public class DocumentConversionTest extends WatsonServiceUnitTest {
 
   private static final String VERSION = "version";
@@ -46,22 +48,21 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
   private DocumentConversion service;
 
   private final File html;
-  private final byte[] expAnswer;
+  private InputStream expAnswer;
 
   /**
    * Instantiates a new document conversion test.
-   * 
+   *
    * @throws Exception the exception
    */
   public DocumentConversionTest() throws Exception {
     html = new File(RESOURCE + "html-with-extra-content-input.htm");
-    expAnswer =
-        toByteArray(new FileInputStream(RESOURCE + "html-with-extra-content-input-to-answer.json"));
+
   }
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
    */
   @Override
@@ -70,63 +71,75 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
     super.setUp();
     service = new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01);
     service.setApiKey("");
-    service.setEndPoint(MOCK_SERVER_URL);
+    service.setEndPoint(getMockWebServerUrl());
 
-    // mock the convert request for all the tests methods
-    mockServer.when(
-        request().withMethod(POST).withPath(CONVERT_DOCUMENT_PATH)
-            .withQueryStringParameter(VERSION, DocumentConversion.VERSION_DATE_2015_12_01))
-        .respond(response().withBody(expAnswer));
+    expAnswer = new FileInputStream(RESOURCE + "html-with-extra-content-input-to-answer.json");
+  }
+
+  private RecordedRequest checkRequest() throws InterruptedException {
+    final RecordedRequest request = server.takeRequest();
+    final HttpUrl url = HttpUrl.parse(getMockWebServerUrl() + request.getPath());
+
+    assertEquals(CONVERT_DOCUMENT_PATH, url.encodedPath());
+    assertEquals(DocumentConversion.VERSION_DATE_2015_12_01, url.queryParameter(VERSION));
+    assertEquals(POST, request.getMethod());
+
+    return request;
   }
 
   /**
    * Test convert document.
-   * 
+   *
    * @throws URISyntaxException the URI syntax exception
    * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testConvertDocument() throws URISyntaxException, IOException {
+  public void testConvertDocument() throws URISyntaxException, IOException, InterruptedException {
+    server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expAnswer)));
     Answers convertedDoc = service.convertDocumentToAnswer(html, null).execute();
+    checkRequest();
     assertNotNull(convertedDoc);
+  }
 
+  /**
+   * Test convert document.
+   *
+   * @throws URISyntaxException the URI syntax exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testConvertDocumentWithMediaType() throws URISyntaxException, IOException, InterruptedException {
     // Convert document with a specified media type
-    convertedDoc = service.convertDocumentToAnswer(html, TEXT_HTML).execute();
+    server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expAnswer)));
+    Answers convertedDoc = service.convertDocumentToAnswer(html, TEXT_HTML).execute();
+    checkRequest();
     assertNotNull(convertedDoc);
   }
 
   /**
    * Test convert document_with_custom_config.
-   * 
+   *
    * @throws Exception the exception
    */
   @Test
   public void testConvertDocument_with_custom_config() throws Exception {
     JsonObject customConfig = ConversionUtils.loadCustomConfig(new FileInputStream(RESOURCE + "custom_config.json"));
+    server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expAnswer)));
     service.convertDocumentToAnswer(html, null, customConfig).execute();
-
-    String entity = getRequestEntity();
-    assertTrue(entity.contains("\"word\":"));
-    assertTrue(entity.contains("\"conversion_target\":"));
+    checkRequest();
   }
 
   /**
    * Test convert document_with_version_date.
-   * 
+   *
    * @throws Exception the exception
    */
   @Test
   public void testConvertDocument_with_version_date() throws Exception {
+    server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expAnswer)));
     service.convertDocumentToAnswer(html).execute();
-    mockServer.verify(request().withMethod(POST).withPath(CONVERT_DOCUMENT_PATH)
-        .withQueryStringParameter(VERSION, DocumentConversion.VERSION_DATE_2015_12_01));
-  }
-
-  private String getRequestEntity() {
-    String request =
-        mockServer.retrieveAsJSON(request().withMethod(POST).withPath(CONVERT_DOCUMENT_PATH));
-    JsonObject requestAsJson =
-        new JsonParser().parse(request).getAsJsonArray().get(0).getAsJsonObject();
-    return requestAsJson.getAsJsonObject("httpRequest").getAsJsonPrimitive("body").getAsString();
+    checkRequest();
   }
 }

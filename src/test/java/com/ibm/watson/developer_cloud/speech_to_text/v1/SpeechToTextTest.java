@@ -13,7 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import static io.netty.handler.codec.http.HttpHeaders.Names.CONTENT_TYPE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
