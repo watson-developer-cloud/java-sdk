@@ -258,13 +258,9 @@ Use the experimental [Conversation][conversation] service to identify intents, e
 ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
 service.setUsernameAndPassword("<username>", "<password>");
 
-ConversationOptions options = new ConversationOptions.Builder()
-  .workspaceId("<your-workspace-id>") // Created with the tooling app
-  .inputText("What is my account balance?")
-  .build();
-
-Message messageResponse = service.message(options).execute();
-System.out.println(messageResponse);
+MessageRequest newMessage = new MessageRequest.Builder().inputText("Hi").build();
+MessageResponse response = service.message("<workspace-id>", newMessage).execute();
+System.out.println(response);
 ```
 
 ### Concept Insights
