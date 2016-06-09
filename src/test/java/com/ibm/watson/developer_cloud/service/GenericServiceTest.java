@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -305,9 +306,15 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   /**
    * Tests request without authentication.
    */
-  @Test(expected = IllegalArgumentException.class)
+  @Test
   public void testNoAuthentication() {
-    new SpeechToText().getModels().execute();
+    try {
+      new SpeechToText().getModels();
+      throw new AssumptionViolatedException("createServiceCall() did not throw an IllegalArgumentException, " +
+        "even though no authentication has been specified.");
+    } catch (IllegalArgumentException e) {
+      // success!
+    }
   }
 
   /**
