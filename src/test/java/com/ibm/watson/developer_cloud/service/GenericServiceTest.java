@@ -307,7 +307,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testNoAuthentication() {
-    new SpeechToText().getModels();
+    new SpeechToText().getModels().execute();
   }
 
   /**
