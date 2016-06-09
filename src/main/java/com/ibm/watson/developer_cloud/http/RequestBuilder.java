@@ -18,13 +18,13 @@ import java.util.List;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-
 
 /**
  * Convenience class for constructing HTTP/HTTPS requests.
@@ -104,7 +104,7 @@ public class RequestBuilder {
     // Since HttpUrl requires requires a http/s full url, add a default endpoint
     httpUrl = HttpUrl.parse(url);
     if (httpUrl == null)
-      this.httpUrl = HttpUrl.parse(RequestUtils.DEFAULT_ENDPOINT + url);
+      httpUrl = HttpUrl.parse(RequestUtils.DEFAULT_ENDPOINT + url);
   }
 
   /**
@@ -162,42 +162,29 @@ public class RequestBuilder {
     // URL
     builder.url(toUrl());
 
-    // POST/PUT require a body so send an empty body if the actual is null
-    RequestBody requestBody = body;
-    if (body == null)
-      requestBody = RequestBody.create(null, new byte[0]);
 
-    if (!formParams.isEmpty()) {
+    if (method == HTTPMethod.GET) {
+      Validator.isNull(body, "cannot send a RequestBody in a GET request");
+    } else if (!formParams.isEmpty()) {
+      // The current behaviour of the RequestBuilder is to replace the body when formParams is present
       final FormBody.Builder formBody = new FormBody.Builder();
       for (final NameValue param : formParams) {
         final String value = param.getValue() != null ? param.getValue() : "";
         formBody.add(param.getName(), value);
       }
-      requestBody = formBody.build();
+      body = formBody.build();
+    } else if (body == null) {
+      // POST/PUT require a body so send an empty body if the actual is null
+      // DELETE allows an empty request body
+      body = RequestBody.create(null, new byte[0]);
     }
+    builder.method(method.name(), body);
     
     //accept application/json by default
     builder.header(HttpHeaders.ACCEPT, HttpMediaType.APPLICATION_JSON);
 
-    if (!headers.isEmpty()) {
-      for (final NameValue header : headers) {
-        builder.header(header.getName(), header.getValue());
-      }
-    }
-
-    switch (method) {
-      case GET:
-        builder.get();
-        break;
-      case POST:
-        builder.post(requestBody);
-        break;
-      case PUT:
-        builder.put(requestBody);
-        break;
-      case DELETE:
-        builder.delete(requestBody);
-        break;
+    for (final NameValue header : headers) {
+      builder.header(header.getName(), header.getValue());
     }
 
     return builder.build();
@@ -222,7 +209,7 @@ public class RequestBuilder {
   private String toUrl() {
     final HttpUrl.Builder builder = httpUrl.newBuilder();
     for (final NameValue param : queryParams) {
-      builder.addEncodedQueryParameter(RequestUtils.encode(param.getName()), RequestUtils.encode(param.getValue()));
+      builder.addQueryParameter(param.getName(), param.getValue());
     }
     return builder.build().url().toString();
   }
@@ -237,8 +224,7 @@ public class RequestBuilder {
    */
   private RequestBuilder with(List<NameValue> params, Object... args) {
     if (args != null) {
-      if (args.length % 2 != 0)
-        throw new IllegalArgumentException("need even number of arguments");
+      Validator.isTrue(args.length % 2 == 0, "need even number of arguments");
       for (int i = 0; i < args.length; i += 2) {
         add(params, args[i].toString(), args[i + 1]);
       }

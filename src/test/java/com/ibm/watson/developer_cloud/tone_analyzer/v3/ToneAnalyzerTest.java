@@ -108,7 +108,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     ToneOptions options = new ToneOptions.Builder().html(true).addTone(Tone.EMOTION).addTone(Tone.LANGUAGE).addTone(Tone.SOCIAL).build();
     serviceResponse = service.getTone(text, options).execute();
     request = server.takeRequest();
-    path = path + "&tones=emotion%2Clanguage%2Csocial";
+    path = path + "&tones=emotion,language,social";
     assertEquals(path, request.getPath());
   }
 }

@@ -14,10 +14,12 @@
 package com.ibm.watson.developer_cloud.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -51,12 +53,21 @@ public class RequestBuilderTest {
   @Test
   public void testBuild() {
     final String xToken = X_TOKEN;
-    final Request request =
-        RequestBuilder.post(urlWithQuery)
-          .bodyContent("body1", HttpMediaType.TEXT_PLAIN).header(X_TOKEN, "token1").build();
+    final RequestBuilder builder =  RequestBuilder.post(urlWithQuery)
+      .bodyContent("body1", HttpMediaType.TEXT_PLAIN).header(X_TOKEN, "token1");
+    final Request request = builder.build();
 
     assertEquals("POST", request.method());
     assertEquals("token1", request.header(xToken));
+    assertNotNull(builder.toString());
+  }
+
+  /**
+   * Test request with null url.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testUrlNull() {
+    RequestBuilder.get(null);
   }
 
   /**
@@ -214,6 +225,27 @@ public class RequestBuilderTest {
   public void testWithQueryObjectArray() {
     final Request request = RequestBuilder.post(url).query("foo", "bar", "p2", "p2").build();
     assertEquals(urlWithQuery, request.url().toString());
+  }
+
+  /**
+   * Test with nested arrays.
+   */
+  @Test
+  public void testWithNestedArray() {
+    Request request = RequestBuilder.post(url).query("foo", new String[] {"bar", "bar2"}).build();
+    assertEquals(url + "?foo=bar&foo=bar2", request.url().toString());
+
+    request = RequestBuilder.post(url).query("foo", Arrays.asList("bar", "bar2")).build();
+    assertEquals(url + "?foo=bar&foo=bar2", request.url().toString());
+  }
+
+  /**
+   * Test requests with special characters in the query string.
+   */
+  @Test
+  public void testSpecialCharacterQuery() {
+    final Request request = RequestBuilder.get(url).query("ä&ö", "ö=ü").build();
+    assertEquals(url + "?%C3%A4%26%C3%B6=%C3%B6%3D%C3%BC", request.url().toString());
   }
 
 }
