@@ -1,7 +1,7 @@
 sudo: false
 language: java
 install: /bin/true
-script: mvn javadoc:javadoc && ./.utility/travis.sh
+script: ./.utility/travis.sh
 jdk:
 - oraclejdk8
 - oraclejdk7
@@ -17,6 +17,7 @@ before_install:
 - pip install --user codecov
 after_success:
 - codecov
+- mvn javadoc:javadoc
 - .utility/push-javadoc-to-gh-pages.sh
 - .utility/deploy_snapshot.sh
 notifications:
