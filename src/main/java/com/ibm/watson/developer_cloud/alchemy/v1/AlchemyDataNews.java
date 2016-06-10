@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
@@ -82,6 +83,9 @@ public class AlchemyDataNews extends AlchemyService {
     Validator.notNull(parameters.get(START), "start time cannot be null");
     Validator.notNull(parameters.get(END), "end time cannot be null");
     Validator.notNull(parameters.get(RETURN), "return cannot be null");
+
+    // clone parameters, to prevent errors if the user continues to use the provided Map, or it is immutable
+    parameters = new HashMap<String, Object>(parameters);
 
     // Return json
     parameters.put(OUTPUT_MODE, JSON);

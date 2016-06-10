@@ -15,6 +15,7 @@ package com.ibm.watson.developer_cloud.util;
 
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
 
 import java.io.IOException;
@@ -42,7 +43,8 @@ public class LongToDateTypeAdapter extends TypeAdapter<Date> {
    */
   @Override
   public Date read(JsonReader in) throws IOException {
-    if (in.peek() == null) {
+    if (in.peek() == JsonToken.NULL) {
+      in.nextNull();
       return null;
     } else {
       // nextLong() tries to parse Strings to Longs as well

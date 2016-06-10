@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.alchemy.v1;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.model.AlchemyGenericModel;
@@ -175,6 +176,9 @@ public class AlchemyLanguage extends AlchemyService {
    */
   private <T extends AlchemyGenericModel> ServiceCall<T> createServiceCall(Map<String, Object> params,
       AlchemyAPI operation, Class<T> returnType, String... acceptedFormats) {
+
+    // clone params, to prevent errors if the user continues to use the provided Map, or it is immutable
+    params = new HashMap<String, Object>(params);
 
     // Get the input format and check for missing parameters
     final String format = getInputFormat(params, acceptedFormats);
@@ -401,10 +405,12 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Dates}
    */
   public ServiceCall<Dates> getDates(Map<String, Object> params) {
-
     if (params != null && params.containsKey(ANCHOR_DATE)) {
       if (params.get(ANCHOR_DATE) != null && params.get(ANCHOR_DATE) instanceof Date) {
         String anchorDate = anchorDateFormat.format(params.get(ANCHOR_DATE));
+
+        // clone params, to prevent errors if the user continues to use the provided Map, or it is immutable
+        params = new HashMap<String, Object>(params);
         params.put(ANCHOR_DATE, anchorDate);
       }
     }

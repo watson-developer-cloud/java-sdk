@@ -95,4 +95,17 @@ public class Validator {
     }
   }
 
+  /**
+   * Validates that the specified argument is <code>null</code>; otherwise throwing an exception
+   * with the specified message.
+   *
+   * @param object the object to check
+   * @param message the exception message if invalid
+   */
+  public static void isNull(Object object, String message) {
+    if (object != null) {
+      throw new IllegalArgumentException(message);
+    }
+  }
+
 }
