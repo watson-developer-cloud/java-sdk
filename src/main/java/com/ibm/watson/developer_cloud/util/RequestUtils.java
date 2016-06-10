@@ -22,6 +22,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -41,6 +43,8 @@ public class RequestUtils {
    * real service end point.
    */
   public static final String DEFAULT_ENDPOINT = "http://do.not.use";
+
+  private static final Logger LOG = Logger.getLogger(RequestUtils.class.getName());
 
   private static final String[] properties =
       new String[] {"java.vendor", "java.version", "os.arch", "os.name", "os.version"};
@@ -164,13 +168,13 @@ public class RequestUtils {
   }
 
   private static String loadSdkVersion() {
-    InputStream inputStream = RequestUtils.class.getClassLoader().getResourceAsStream("version.properties");
+    InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("version.properties");
     Properties properties = new Properties();
 
     try {
       properties.load(inputStream);
     } catch (IOException e) {
-      e.printStackTrace();
+      LOG.log(Level.WARNING, "Could not load version.properties", e);
     }
 
     return properties.getProperty("version", "unknown-version");
