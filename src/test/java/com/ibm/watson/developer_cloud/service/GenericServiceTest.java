@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,7 @@ import java.util.concurrent.ExecutionException;
 import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.Document;
 
 import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
@@ -61,6 +63,9 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
 import jersey.repackaged.jsr166e.CompletableFuture;
 import okhttp3.Credentials;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -279,11 +284,26 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testUserAgentIsSet() throws InterruptedException {
+  public void testUserAgentIsSet() throws Exception {
     server.enqueue(jsonResponse(Collections.emptyMap()));
     service.getProfile(sampleText).execute();
     final RecordedRequest request = checkRequest();
-    assertTrue(request.getHeader(HttpHeaders.USER_AGENT).startsWith("watson-apis-java-sdk/3.0.1"));
+    final String userAgent = request.getHeader(HttpHeaders.USER_AGENT);
+
+    final String prefix = "watson-apis-java-sdk/";
+    String version = "";
+
+    assertTrue("Illegal user agent: " + userAgent, userAgent.startsWith(prefix));
+
+    try {
+      final DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+      final Document doc = builder.parse(new File("pom.xml"));
+      version = doc.getElementsByTagName("version").item(0).getTextContent();
+    } catch(Exception e) {
+      throw new AssumptionViolatedException(e.getMessage(), e);
+    }
+
+    assertTrue("Illegal user agent version: " + userAgent, userAgent.startsWith(prefix + version));
   }
   
   /**
