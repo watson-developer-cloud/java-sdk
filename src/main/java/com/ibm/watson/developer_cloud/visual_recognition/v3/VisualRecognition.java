@@ -92,16 +92,15 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Instantiates a new Visual Recognition V3 service by username and password.
+   * Instantiates a new Visual Recognition V3 service with a given API key.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
    *        will keep your API calls from failing when the service introduces breaking changes.
-   * @param username the username
-   * @param password the password
+   * @param apiKey the api key
    */
-  public VisualRecognition(String versionDate, String username, String password) {
+  public VisualRecognition(String versionDate, String apiKey) {
     this(versionDate);
-    setUsernameAndPassword(username, password);
+    setApiKey(apiKey);
   }
 
   /**

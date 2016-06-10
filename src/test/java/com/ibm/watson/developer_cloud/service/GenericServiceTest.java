@@ -14,19 +14,34 @@
 package com.ibm.watson.developer_cloud.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
+import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
+import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
+import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
+import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
+import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
+import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.RelationshipExtraction;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.ConflictException;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
@@ -37,7 +52,15 @@ import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableExcept
 import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
+import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.VisualInsights;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
+import jersey.repackaged.jsr166e.CompletableFuture;
+import okhttp3.Credentials;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -49,6 +72,8 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   private final String sampleText = "this is a test";
   private PersonalityInsights service;
 
+  private boolean reactiveSuccess = false;
+
   private MockResponse errorResponse(int code, String errorMessage) {
     return jsonResponse(ImmutableMap.of("code", code, "error", errorMessage)).setResponseCode(code);
   }
@@ -59,6 +84,45 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     assertEquals(GET_PROFILE_PATH, request.getPath());
     return request;
+  }
+
+  /**
+   * Checks the credential constructors of all services.
+   */
+  @Test
+  public void testConstructors() {
+    final String u = "u-s-e-r";
+    final String p = "p-a-s-s";
+    final String key = Credentials.basic(u, p);
+
+    checkApiKey(new AlchemyDataNews(key), key);
+    checkApiKey(new AlchemyLanguage(key), key);
+    checkApiKey(new AlchemyVision(key), key);
+
+    checkApiKey(new ConceptInsights(u, p), key);
+    checkApiKey(new ConversationService(ConversationService.VERSION_DATE_2016_05_19, u, p), key);
+    checkApiKey(new DialogService(u, p), key);
+    checkApiKey(new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01, u, p), key);
+    checkApiKey(new LanguageTranslation(u, p), key);
+    checkApiKey(new NaturalLanguageClassifier(u, p), key);
+    checkApiKey(new PersonalityInsights(u, p), key);
+    checkApiKey(new RelationshipExtraction(u, p), key);
+    checkApiKey(new RetrieveAndRank(u, p), key);
+    checkApiKey(new SpeechToText(u, p), key);
+    checkApiKey(new TextToSpeech(u, p), key);
+    checkApiKey(new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19, u, p), key);
+    checkApiKey(new TradeoffAnalytics(u, p), key);
+    checkApiKey(new VisualInsights(u, p), key);
+    checkApiKey(new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19, key), key);
+  }
+
+  /**
+   * Checks the equality of API keys.
+   * @param service the service
+   * @param apiKey the API key
+   */
+  private static void checkApiKey(WatsonService service, String apiKey) {
+    assertEquals(service.getApiKey(), apiKey);
   }
 
   /**
@@ -238,5 +302,57 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     assertTrue(request.getHeader(HttpHeaders.USER_AGENT).endsWith("foo-bar"));
     service.setDefaultHeaders(null);
   }
-  
+
+  /**
+   * Tests request without authentication.
+   */
+  @Test
+  public void testNoAuthentication() {
+    try {
+      new SpeechToText().getModels();
+      throw new AssumptionViolatedException("createServiceCall() did not throw an IllegalArgumentException, " +
+        "even though no authentication has been specified.");
+    } catch (IllegalArgumentException e) {
+      // success!
+    }
+  }
+
+  /**
+   * Tests request with skipped authentication
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testSkipAuthentication() throws InterruptedException {
+    server.enqueue(jsonResponse(Collections.emptyMap()));
+    service.setApiKey(null);
+    service.setSkipAuthentication(true);
+    service.getProfile(sampleText).execute();
+    checkRequest();
+  }
+
+  /**
+   * Tests the execution of reactive calls.
+   * @throws InterruptedException the interrupted exception
+   * @throws ExecutionException the execution exception
+   */
+  @Test
+  public void testReactiveCalls() throws InterruptedException, ExecutionException {
+    server.enqueue(jsonResponse(Collections.emptyMap()));
+    service.getProfile(sampleText).rx().thenAccept(new CompletableFuture.Action<Profile>() {
+      @Override
+      public void accept(Profile profile) {
+        assertNotNull(profile);
+        reactiveSuccess = true;
+      }
+    });
+
+    for(int i = 0; i < 10; i++) {
+      if(reactiveSuccess) {
+        return;
+      }
+
+      Thread.sleep(100);
+    }
+  }
+
 }

@@ -38,37 +38,20 @@ public class SpeechTimestampTypeAdapter extends TypeAdapter<SpeechTimestamp> {
       return null;
     }
 
-    String word = null;
-    Double startTime = null, endTime = null;
-
+    final SpeechTimestamp speechTimestamp = new SpeechTimestamp();
     reader.beginArray();
 
     if (reader.peek() == JsonToken.STRING) {
-      word = reader.nextString();
+      speechTimestamp.setWord(reader.nextString());
     }
     if (reader.peek() == JsonToken.NUMBER) {
-      startTime = reader.nextDouble();
+      speechTimestamp.setStartTime(reader.nextDouble());
     }
     if (reader.peek() == JsonToken.NUMBER) {
-      endTime = reader.nextDouble();
+      speechTimestamp.setEndTime(reader.nextDouble());
     }
 
     reader.endArray();
-
-    SpeechTimestamp speechTimestamp = new SpeechTimestamp();
-
-    if (word != null) {
-      speechTimestamp.setWord(word);
-    }
-
-    if (startTime != null) {
-      speechTimestamp.setStartTime(startTime);
-    }
-
-    if (endTime != null) {
-      speechTimestamp.setEndTime(endTime);
-    }
-
     return speechTimestamp;
   }
 

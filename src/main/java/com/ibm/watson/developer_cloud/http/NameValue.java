@@ -13,6 +13,8 @@
  */
 package com.ibm.watson.developer_cloud.http;
 
+import com.ibm.watson.developer_cloud.util.Validator;
+
 /**
  * A name / value pair parameter used as an element of HTTP messages.
  * 
@@ -39,38 +41,21 @@ public class NameValue {
    */
   public NameValue(final String name, final String value) {
     super();
-    if (name == null) {
-      throw new IllegalArgumentException("name cannot be null");
-    }
+    Validator.notNull(name, "name cannot be null");
+
     this.name = name;
     this.value = value;
   }
 
-  /*
-   * (non-Javadoc)
-   * 
-   * @see java.lang.Object#equals(java.lang.Object)
-   */
   @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (!(obj instanceof NameValue))
-      return false;
-    final NameValue other = (NameValue) obj;
-    if (name == null) {
-      if (other.name != null)
-        return false;
-    } else if (!name.equals(other.name))
-      return false;
-    if (value == null) {
-      if (other.value != null)
-        return false;
-    } else if (!value.equals(other.value))
-      return false;
-    return true;
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    NameValue nameValue = (NameValue) o;
+
+    if (!name.equals(nameValue.name)) return false;
+    return value != null ? value.equals(nameValue.value) : nameValue.value == null;
   }
 
   /**
@@ -100,7 +85,7 @@ public class NameValue {
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result + name.hashCode();
     result = prime * result + ((value == null) ? 0 : value.hashCode());
     return result;
   }

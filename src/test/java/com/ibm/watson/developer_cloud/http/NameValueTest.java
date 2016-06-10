@@ -14,6 +14,8 @@
 package com.ibm.watson.developer_cloud.http;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
@@ -24,13 +26,21 @@ import org.junit.Test;
  */
 public class NameValueTest {
 
+  private NameValue fooBar ;
+  private NameValue foo;
+  private NameValue fooBuzz;
+
   /**
    * Sets the up.
    *
    * @throws Exception the exception
    */
   @Before
-  public void setUp() throws Exception {}
+  public void setUp() throws Exception {
+    fooBar = new NameValue("foo", "bar");
+    foo = new NameValue("foo", null);
+    fooBuzz = new NameValue("foo", "buzz");
+  }
 
   /**
    * Test name null.
@@ -43,23 +53,48 @@ public class NameValueTest {
   /**
    * Test name equals.
    */
-  public void testNameEquals() {
-    NameValue name1 = new NameValue("foo", "bar");
-    NameValue name2 = new NameValue("foo", "bar");
+  @Test
+  public void testEquals() {
+    assertNameValueEquals(fooBar, new NameValue("foo", "bar"));
+    assertNameValueEquals(foo, new NameValue("foo", null));
+  }
 
-    assertEquals(name1, name2);
-    assertEquals(name1.toString(), name2.toString());
-    assertEquals(name1.hashCode(), name2.hashCode());
-    assertTrue(name1.equals(name2));
-    
+  /**
+   * Test inequality.
+   */
+  @Test
+  public void testNotEquals() {
+    assertNotEquals(fooBar, fooBuzz);
   }
 
   /**
    * Test value null.
    */
-  public void testValueNull() {
-    NameValue name1 = new NameValue("foo", null);
-    assertEquals(name1, "foo");
+  @Test
+  public void testNull() {
+    assertEquals(foo.getName(), "foo");
+    assertNull(foo.getValue());
+    assertNotEquals(foo.hashCode(), fooBar.hashCode());
+    assertNotEquals(foo, fooBar);
+  }
+
+  /**
+   * Test toString().
+   */
+  @Test
+  public void testToString() {
+    assertEquals("foo=bar", fooBar.toString());
+    assertEquals("foo", foo.toString());
+  }
+
+  /**
+   * Assert equals.
+   */
+  private static void assertNameValueEquals(NameValue a, NameValue b) {
+    assertEquals(a, b);
+    assertEquals(a.toString(), b.toString());
+    assertEquals(a.hashCode(), b.hashCode());
+    assertTrue(a.equals(b));
   }
 
 }

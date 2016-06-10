@@ -38,30 +38,17 @@ public class SpeechWordConfidenceTypeAdapter extends TypeAdapter<SpeechWordConfi
       return null;
     }
 
-    String word = null;
-    Double confidence = null;
-
+    final SpeechWordConfidence speechWordConfidence = new SpeechWordConfidence();
     reader.beginArray();
 
     if (reader.peek() == JsonToken.STRING) {
-      word = reader.nextString();
+      speechWordConfidence.setWord(reader.nextString());
     }
     if (reader.peek() == JsonToken.NUMBER) {
-      confidence = reader.nextDouble();
+      speechWordConfidence.setConfidence(reader.nextDouble());
     }
 
     reader.endArray();
-
-    SpeechWordConfidence speechWordConfidence = new SpeechWordConfidence();
-
-    if (word != null) {
-      speechWordConfidence.setWord(word);
-    }
-
-    if (confidence != null) {
-      speechWordConfidence.setConfidence(confidence);
-    }
-
     return speechWordConfidence;
   }
 

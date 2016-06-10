@@ -15,6 +15,7 @@ package com.ibm.watson.developer_cloud.util;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -76,21 +77,19 @@ public class RequestUtils {
   public static Map<String, Object> omit(Map<String, Object> params, String... toOmit) {
     if (params == null)
       return null;
-    if (toOmit == null || toOmit.length == 0)
-      return params;
 
-    final Map<String, Object> ret = new HashMap<String, Object>();
+    final Map<String, Object> ret = new HashMap<String, Object>(params);
 
-    for (final String key : params.keySet()) {
-      if (!ArrayUtils.contains(toOmit, key))
-        ret.put(key, params.get(key));
-    }
+    if (toOmit != null)
+      ret.keySet().removeAll(Arrays.asList(toOmit));
+
     return ret;
   }
 
 
   /**
    * Return a copy of a {@link Map} with only the specified given key, or array of keys.
+   * If {@code toPick} is empty all keys will remain in the Map.
    * 
    * @param params the parameters
    * @param toPick the keys to pick
@@ -100,15 +99,11 @@ public class RequestUtils {
   public static Map<String, Object> pick(Map<String, Object> params, String... toPick) {
     if (params == null)
       return null;
-    if (toPick == null || toPick.length == 0)
-      return params;
 
-    final Map<String, Object> ret = new HashMap<String, Object>();
+    final Map<String, Object> ret = new HashMap<String, Object>(params);
 
-    for (final String key : params.keySet()) {
-      if (ArrayUtils.contains(toPick, key))
-        ret.put(key, params.get(key));
-    }
+    if (toPick != null && toPick.length > 0)
+      ret.keySet().retainAll(Arrays.asList(toPick));
 
     return ret;
   }
