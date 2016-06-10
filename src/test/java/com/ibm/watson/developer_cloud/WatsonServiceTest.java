@@ -185,9 +185,9 @@ public abstract class WatsonServiceTest {
   private void loadProperties() {
     PROPERTIES = new Properties();
 
-    InputStream input = WatsonServiceTest.class.getClassLoader().getResourceAsStream(LOCAL_PROPERTIES);
+    InputStream input = Thread.currentThread().getContextClassLoader().getResourceAsStream(LOCAL_PROPERTIES);
     if (input == null) {
-      input = WatsonServiceTest.class.getClassLoader().getResourceAsStream(DEFAULT_PROPERTIES);
+      input = Thread.currentThread().getContextClassLoader().getResourceAsStream(DEFAULT_PROPERTIES);
     } else {
       LOG.info("Using " + LOCAL_PROPERTIES);
     }

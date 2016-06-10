@@ -46,7 +46,7 @@ public class CredentialUtilsTest extends WatsonServiceTest {
    */
   @Before
   public void setup() {
-    final InputStream in = this.getClass().getClassLoader().getResourceAsStream(VCAP_SERVICES);
+    final InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(VCAP_SERVICES);
     final String vcapServices = getStringFromInputStream(in);
     CredentialUtils.setServices(vcapServices);
   }

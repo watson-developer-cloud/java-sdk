@@ -22,10 +22,14 @@ import com.google.gson.GsonBuilder;
  * Gson singleton to be use when transforming from JSON to Java Objects and vise versa. It handles
  * date formatting and pretty print the result
  */
-public class GsonSingleton {
+public final class GsonSingleton {
 
   private static Gson gson;
   private static Gson gsonWithoutPrinting;
+
+  private GsonSingleton() {
+    // This is a utility class - no instantiation allowed.
+  }
 
   /**
    * Creates a {@link com.google.gson.Gson} object that can be use to serialize and deserialize Java
@@ -56,7 +60,7 @@ public class GsonSingleton {
    *
    * @return the Gson
    */
-  public static Gson getGson() {
+  public static synchronized Gson getGson() {
     if (gson == null) {
       gson = createGson(true);
     }
@@ -68,7 +72,7 @@ public class GsonSingleton {
    *
    * @return the Gson
    */
-  public static Gson getGsonWithoutPrettyPrinting() {
+  public static synchronized Gson getGsonWithoutPrettyPrinting() {
     if (gsonWithoutPrinting == null) {
       gsonWithoutPrinting = createGson(false);
     }

@@ -30,7 +30,7 @@ import okhttp3.Request;
  * {@link com.ibm.watson.developer_cloud.http.RequestBuilder }
  * 
  */
-public class RequestUtils {
+public final class RequestUtils {
 
   /**
    * Default end point for relative request. It will be updated by {@link WatsonService} with the
@@ -42,6 +42,10 @@ public class RequestUtils {
   private static final String[] properties =
       new String[] {"java.vendor", "java.version", "os.arch", "os.name", "os.version"};
   private static String userAgent;
+
+  private RequestUtils() {
+    // This is a utility class - no instantiation allowed.
+  }
 
   /**
    * Encode a string into a valid URL string.
@@ -147,7 +151,7 @@ public class RequestUtils {
    *
    * @return the user agent
    */
-  public static String getUserAgent() {
+  public static synchronized String getUserAgent() {
     if (userAgent == null) {
       userAgent = buildUserAgent();
     }

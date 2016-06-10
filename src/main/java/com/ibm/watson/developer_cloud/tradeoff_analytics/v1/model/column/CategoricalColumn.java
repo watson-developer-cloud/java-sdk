@@ -27,7 +27,7 @@ public class CategoricalColumn extends Column {
   private List<String> preference;
 
   /** The range. */
-  List<String> range;
+  private List<String> range;
 
   /**
    * Instantiates a new categorical column.

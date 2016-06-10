@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
  * Utility class to write the data size header in wave(.wav) files synthesized with the
  * {@link TextToSpeech} service
  */
-public class WaveUtils {
+public final class WaveUtils {
   /** The WAVE meta-data header size. (value is 8) */
   private static final int WAVE_HEADER_SIZE = 8;
 
@@ -34,6 +34,10 @@ public class WaveUtils {
 
   /** The WAVE meta-data size position. (value is 4) */
   private static final int WAVE_SIZE_POS = 4;
+
+  private WaveUtils() {
+    // This is a utility class - no instantiation allowed.
+  }
 
   /**
    * Writes an number into an array using 4 bytes

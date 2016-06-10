@@ -55,7 +55,7 @@ public class MessageResponse extends GenericModel {
      * @return an array of locations (start and end)
      */
     public Integer[] getLocation() {
-      return location;
+      return location.clone();
     }
 
     /**
@@ -81,8 +81,8 @@ public class MessageResponse extends GenericModel {
      * 
      * @param location an array of <code>Integers</code> representing a start and end index
      */
-    public void setLocation(Integer[] location) {
-      this.location = location;
+    public void setLocation(Integer... location) {
+      this.location = location.clone();
     }
 
     /**

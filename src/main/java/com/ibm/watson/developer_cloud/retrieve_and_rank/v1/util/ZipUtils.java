@@ -32,8 +32,12 @@ import org.apache.commons.lang3.StringUtils;
 /**
  * Utility class to manage Solr ZIP configuration files.
  */
-public class ZipUtils {
+public final class ZipUtils {
   private static final MessageFormatter MSGS = new MessageFormatter(bundleName());
+
+  private ZipUtils() {
+    // This is a utility class - no instantiation allowed.
+  }
 
   /**
    * Builds the configuration ZIP file.
@@ -63,11 +67,9 @@ public class ZipUtils {
       throw new RuntimeException(MSGS.format(ERROR_ZIPPING_1, parentDir.toString()), e);
     } finally {
       try {
-        if (out != null) {
-          out.close();
-        }
+        out.close();
       } catch (final IOException e) {
-        throw new RuntimeException(e);
+        // do nothing
       }
     }
   }

@@ -46,7 +46,7 @@ public class ZipUtilsTest {
    * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
-  public void creates_config_zip() throws IOException {
+  public void createsConfigZip() throws IOException {
     final Set<String> configs = new HashSet<String>();
     configs.add("schema.xml");
     configs.add("solrconfig.xml");

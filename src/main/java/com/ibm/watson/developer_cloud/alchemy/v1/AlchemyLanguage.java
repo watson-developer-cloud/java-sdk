@@ -174,31 +174,31 @@ public class AlchemyLanguage extends AlchemyService {
    * @param acceptedFormats the accepted input formats e.g. "html", "text"...
    * @return the POJO object that represent the response
    */
-  private <T extends AlchemyGenericModel> ServiceCall<T> createServiceCall(Map<String, Object> params,
+  private <T extends AlchemyGenericModel> ServiceCall<T> createServiceCall(final Map<String, Object> params,
       AlchemyAPI operation, Class<T> returnType, String... acceptedFormats) {
 
     // clone params, to prevent errors if the user continues to use the provided Map, or it is immutable
-    params = new HashMap<String, Object>(params);
+    final Map<String, Object> paramsCopy = new HashMap<String, Object>(params);
 
     // Get the input format and check for missing parameters
-    final String format = getInputFormat(params, acceptedFormats);
+    final String format = getInputFormat(paramsCopy, acceptedFormats);
 
     // Get the path that represent this operation based on the operation and format
     final String path = AlchemyEndPoints.getPath(operation, format);
 
     // Return json
-    params.put(OUTPUT_MODE, "json");
+    paramsCopy.put(OUTPUT_MODE, "json");
 
-    if (!params.containsKey(LANGUAGE) && language != LanguageSelection.DETECT) {
-      params.put(LANGUAGE, language.toString().toLowerCase());
+    if (!paramsCopy.containsKey(LANGUAGE) && language != LanguageSelection.DETECT) {
+      paramsCopy.put(LANGUAGE, language.toString().toLowerCase());
     }
 
     // Prevent jsonp to be returned
-    params.remove(JSONP);
+    paramsCopy.remove(JSONP);
 
     final RequestBuilder requestBuilder = RequestBuilder.post(path);
-    for (final String param : params.keySet()) {
-      requestBuilder.form(param, params.get(param));
+    for (final String param : paramsCopy.keySet()) {
+      requestBuilder.form(param, paramsCopy.get(param));
     }
     return createServiceCall(requestBuilder.build(),ResponseConverterUtils.getObject(returnType));
   }
@@ -404,17 +404,15 @@ public class AlchemyLanguage extends AlchemyService {
    *        specified.
    * @return {@link Dates}
    */
-  public ServiceCall<Dates> getDates(Map<String, Object> params) {
-    if (params != null && params.containsKey(ANCHOR_DATE)) {
-      if (params.get(ANCHOR_DATE) != null && params.get(ANCHOR_DATE) instanceof Date) {
-        String anchorDate = anchorDateFormat.format(params.get(ANCHOR_DATE));
+  public ServiceCall<Dates> getDates(final Map<String, Object> params) {
+    // clone params, to prevent errors if the user continues to use the provided Map, or it is immutable
+    Map<String, Object> paramsCopy = new HashMap<String, Object>(params);
 
-        // clone params, to prevent errors if the user continues to use the provided Map, or it is immutable
-        params = new HashMap<String, Object>(params);
-        params.put(ANCHOR_DATE, anchorDate);
-      }
+    if (params.containsKey(ANCHOR_DATE) && params.get(ANCHOR_DATE) instanceof Date) {
+      String anchorDate = anchorDateFormat.format(params.get(ANCHOR_DATE));
+      paramsCopy.put(ANCHOR_DATE, anchorDate);
     }
 
-    return createServiceCall(params, AlchemyAPI.DATES, Dates.class, TEXT, HTML, URL);
+    return createServiceCall(paramsCopy, AlchemyAPI.DATES, Dates.class, TEXT, HTML, URL);
   }
 }
