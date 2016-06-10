@@ -36,7 +36,11 @@ import okhttp3.RequestBody;
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-insights.html">
  *      Visual Insights</a>
+ * @deprecated The Visual Insights service is being deprecated. After May 30, 2016, 2016, you will
+ *             not be able to create service instances, and on June, 30, 2016, you will no longer be
+ *             able to make calls to the service.
  */
+@Deprecated
 public class VisualInsights extends WatsonService {
 
   private static final String CLASSIFIERS_PATH = "/v1/classifiers";
@@ -58,6 +62,7 @@ public class VisualInsights extends WatsonService {
 
   /**
    * Instantiates a new visual insights service by username and password.
+   * 
    * @param username the username
    * @param password the password
    */
