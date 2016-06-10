@@ -22,6 +22,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
@@ -46,6 +47,8 @@ public class WebSocketManager {
   private final OkHttpClient client;
   private String token;
 
+  private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
+
   /**
    * The listener interface for receiving {@link WebSocket} events. <br>
    * The class that is interested in processing a event implements this interface. When the event
@@ -66,7 +69,6 @@ public class WebSocketManager {
     private final InputStream stream;
     private final RecognizeOptions options;
     private final RecognizeCallback callback;
-    private Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
     private WebSocket socket;
     private boolean audioSent = false;
     private int CLOSE_NORMAL = 1000;
@@ -113,8 +115,6 @@ public class WebSocketManager {
     @Override
     public void onMessage(ResponseBody response) throws IOException {
       String message = response.string();
-      if (message == null)
-        return;
 
       try {
         JsonObject json = new JsonParser().parse(message).getAsJsonObject();
@@ -125,14 +125,14 @@ public class WebSocketManager {
         } else if (json.has(STATE)) {
           if (!audioSent) {
             sendInputSteam(stream);
-            socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStopMessage().toString()));
+            socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStopMessage()));
             audioSent = true;
           } else {
             socket.close(CLOSE_NORMAL, "Transcription completed");
           }
         }
       } catch (JsonParseException e) {
-        throw new RuntimeException("Error parsing the incoming message: " + response.string());
+        throw new RuntimeException("Error parsing the incoming message: " + response.string(), e);
       }
     }
 
@@ -146,7 +146,7 @@ public class WebSocketManager {
       callback.onConnected();
       this.socket = socket;
       try {
-        socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStartMessage(options).toString()));
+        socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStartMessage(options)));
       } catch (IOException e) {
         callback.onError(e);
       }

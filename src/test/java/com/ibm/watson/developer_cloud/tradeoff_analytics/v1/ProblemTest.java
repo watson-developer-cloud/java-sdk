@@ -34,7 +34,7 @@ public class ProblemTest {
   @Test
   public void testJsonProblem() {
     final InputStream in =
-        this.getClass().getClassLoader().getResourceAsStream("tradeoff_analytics/problem.json");
+      Thread.currentThread().getContextClassLoader().getResourceAsStream("tradeoff_analytics/problem.json");
     final String problemJson = WatsonServiceTest.getStringFromInputStream(in);
     final Problem problem = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(problemJson, Problem.class);
     assertNotNull(problem.getSubject());

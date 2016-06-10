@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Pronunciation extends GenericModel {
 
   /** The pronunciation. */
-  String pronunciation;
+  private String pronunciation;
 
   /**
    * Gets the pronunciation.

@@ -79,23 +79,23 @@ public class AlchemyDataNews extends AlchemyService {
    * @param parameters the parameters
    * @return the news documents
    */
-  public ServiceCall<DocumentsResult> getNewsDocuments(Map<String, Object> parameters) {
+  public ServiceCall<DocumentsResult> getNewsDocuments(final Map<String, Object> parameters) {
     Validator.notNull(parameters.get(START), "start time cannot be null");
     Validator.notNull(parameters.get(END), "end time cannot be null");
     Validator.notNull(parameters.get(RETURN), "return cannot be null");
 
     // clone parameters, to prevent errors if the user continues to use the provided Map, or it is immutable
-    parameters = new HashMap<String, Object>(parameters);
+    final Map<String, Object> parametersCopy = new HashMap<String, Object>(parameters);
 
     // Return json
-    parameters.put(OUTPUT_MODE, JSON);
+    parametersCopy.put(OUTPUT_MODE, JSON);
 
     // Prevent jsonp to be returned
-    parameters.remove(JSONP);
+    parametersCopy.remove(JSONP);
 
     final RequestBuilder requestBuilder = RequestBuilder.get(NEWS_END_POINT);
-    for (final String param : parameters.keySet()) {
-      requestBuilder.query(param, parameters.get(param));
+    for (final String param : parametersCopy.keySet()) {
+      requestBuilder.query(param, parametersCopy.get(param));
     }
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(DocumentsResult.class));

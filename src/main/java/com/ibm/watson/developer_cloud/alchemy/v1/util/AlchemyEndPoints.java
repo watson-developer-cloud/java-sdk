@@ -32,7 +32,7 @@ import com.google.gson.JsonParser;
  * The Class AlchemyEndPoints.
  * 
  */
-public class AlchemyEndPoints {
+public final class AlchemyEndPoints {
 
   /**
    * The AlchemyOperations.
@@ -117,6 +117,10 @@ public class AlchemyEndPoints {
     loadEndPointsFromJsonFile();
   }
 
+  private AlchemyEndPoints() {
+    // This is a utility class - no instantiation allowed.
+  }
+
   /**
    * Load the endpoints from json file.
    */
@@ -169,7 +173,7 @@ public class AlchemyEndPoints {
    * @return the string that represent the path based on the operation and input type
    */
   public static String getPath(AlchemyAPI operation, String inputType) {
-    if ((OPERATIONS.get(operation.name()) != null) && OPERATIONS.get(operation.name()).get(inputType) != null) {
+    if (OPERATIONS.get(operation.name()) != null && OPERATIONS.get(operation.name()).get(inputType) != null) {
       return OPERATIONS.get(operation.name()).get(inputType);
     } else {
       final String error = "Operation: " + operation + ", inputType: " + inputType + " not found";

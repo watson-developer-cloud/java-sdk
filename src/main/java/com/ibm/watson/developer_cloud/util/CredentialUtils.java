@@ -32,7 +32,7 @@ import okhttp3.Credentials;
 /**
  * The Class CredentialUtils.
  */
-public class CredentialUtils {
+public final class CredentialUtils {
 
   /** The Constant ALCHEMY_API. */
   private static final String ALCHEMY_API = "alchemy_api";
@@ -70,6 +70,10 @@ public class CredentialUtils {
   /** The Constant PLAN_STANDARD. */
   public static final String PLAN_STANDARD = "standard";
 
+  private CredentialUtils() {
+    // This is a utility class - no instantiation allowed.
+  }
+
   /**
    * Attempt to get the Base64-encoded API key through JNDI
    * 
@@ -84,8 +88,7 @@ public class CredentialUtils {
     try {
       Context context = new InitialContext();
       String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
-      String apiKey = (String) context.lookup(lookupName);
-      return apiKey;
+      return (String) context.lookup(lookupName);
     } catch (NamingException e) {
       return null;
     }

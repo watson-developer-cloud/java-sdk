@@ -28,12 +28,16 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * document_id for {@link ConceptInsights},.
  * 
  */
-public class IDHelper {
+public final class IDHelper {
 
   private final static String CONCEPT_ID_REGEX = "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*/concepts/[_\\-\\w\\s\\(\\)]*$";
   private final static String CORPUS_ID_REGEX = "^/corpora/[_\\-\\w\\s]*/[_\\-\\w\\s]*$";
   private final static String DOCUMENT_ID_REGEX = "^/corpora/[_\\-\\w\\s]*/[_\\-\\w\\s]*/documents/[_\\-\\w\\s]*$";
   private final static String GRAPH_ID_REGEX = "^/graphs/[_\\-\\w\\s]*/[_\\-\\w\\s]*$";
+
+  private IDHelper() {
+    // This is a utility class - no instantiation allowed.
+  }
 
   /**
    * ID validation.

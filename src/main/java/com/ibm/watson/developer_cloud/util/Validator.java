@@ -20,7 +20,11 @@ import java.util.Collection;
  * If an argument value is deemed invalid, an IllegalArgumentException is thrown.
  */
 @SuppressWarnings("rawtypes")
-public class Validator {
+public final class Validator {
+
+  private Validator() {
+    // This is a utility class - no instantiation allowed.
+  }
 
   /**
    * Validates that the argument condition is <code>true</code>; otherwise throwing an exception
@@ -48,7 +52,7 @@ public class Validator {
    * @throws IllegalArgumentException if the collection is empty
    */
   public static void notEmpty(Collection collection, String message) {
-    if (collection == null || collection.size() == 0) {
+    if (collection == null || collection.isEmpty()) {
       throw new IllegalArgumentException(message);
     }
   }

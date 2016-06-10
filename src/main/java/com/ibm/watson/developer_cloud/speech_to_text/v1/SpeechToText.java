@@ -296,7 +296,7 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(contentType, "The audio format cannot be recognized");
 
     String path = PATH_RECOGNIZE;
-    if (options != null && (options.sessionId() != null && !options.sessionId().isEmpty()))
+    if (options != null && options.sessionId() != null && !options.sessionId().isEmpty())
       path = String.format(PATH_SESSION_RECOGNIZE, options.sessionId());
 
     final RequestBuilder requestBuilder = RequestBuilder.post(path);

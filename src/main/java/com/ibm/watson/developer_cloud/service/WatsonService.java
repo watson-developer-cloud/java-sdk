@@ -332,13 +332,12 @@ public abstract class WatsonService {
    * 
    * @param endPoint the new end point
    */
-  public void setEndPoint(String endPoint) {
-    if (endPoint != null && !endPoint.isEmpty()) {
-      if (endPoint.endsWith("/")) {
-        endPoint = endPoint.substring(0, endPoint.length() - 1);
-      }
+  public void setEndPoint(final String endPoint) {
+    if (endPoint != null && !endPoint.isEmpty() && endPoint.endsWith("/")) {
+      this.endPoint = endPoint.substring(0, endPoint.length() - 1);
+    } else {
+      this.endPoint = endPoint;
     }
-    this.endPoint = endPoint;
   }
 
   /**
@@ -371,15 +370,16 @@ public abstract class WatsonService {
    */
   @Override
   public String toString() {
-    final StringBuilder builder = new StringBuilder();
-    builder.append(name);
-    builder.append(" [");
+    final StringBuilder builder = new StringBuilder()
+      .append(name)
+      .append(" [");
+
     if (endPoint != null) {
-      builder.append("endPoint=");
-      builder.append(endPoint);
+      builder.append("endPoint=")
+        .append(endPoint);
     }
-    builder.append("]");
-    return builder.toString();
+
+    return builder.append(']').toString();
   }
 
 

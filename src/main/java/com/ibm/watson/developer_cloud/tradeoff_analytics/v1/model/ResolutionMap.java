@@ -50,7 +50,7 @@ public class ResolutionMap {
      *
      * @return the metrics
      */
-    public java.util.Map<String, Object> getMetrics() {
+    public Map<String, Object> getMetrics() {
       return metrics;
     }
 
@@ -95,7 +95,7 @@ public class ResolutionMap {
      *
      * @param metrics the metrics
      */
-    public void setMetrics(java.util.Map<String, Object> metrics) {
+    public void setMetrics(Map<String, Object> metrics) {
       this.metrics = metrics;
     }
 

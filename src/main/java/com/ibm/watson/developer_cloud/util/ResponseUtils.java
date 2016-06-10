@@ -31,9 +31,13 @@ import okhttp3.Response;
  * 
  * @see Response
  */
-public class ResponseUtils {
+public final class ResponseUtils {
   private static final String ERROR_MESSAGE = "Error reading the http response";
   private static final Logger LOG = Logger.getLogger(ResponseUtils.class.getName());
+
+  private ResponseUtils() {
+    // This is a utility class - no instantiation allowed.
+  }
 
   /**
    * Returns the HTTP Response {@link InputStream}.
@@ -87,8 +91,7 @@ public class ResponseUtils {
     JsonReader reader;
     try {
       reader = new JsonReader(response.body().charStream());
-      final T model = GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(reader, type);
-      return model;
+      return GsonSingleton.getGsonWithoutPrettyPrinting().fromJson(reader, type);
     } finally {
       response.body().close();
     }

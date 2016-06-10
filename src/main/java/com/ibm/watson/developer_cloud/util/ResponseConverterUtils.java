@@ -27,7 +27,11 @@ import okhttp3.Response;
  *
  * @see ResponseConverter
  */
-public class ResponseConverterUtils {
+public final class ResponseConverterUtils {
+
+  private ResponseConverterUtils() {
+    // This is a utility class - no instantiation allowed.
+  }
 
   /**
    * Creates a generic {@link ResponseConverter} for a generic class.

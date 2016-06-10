@@ -23,11 +23,15 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
  * 
  * @see SpeechToText
  */
-public class MediaTypeUtils {
-  private static String[] SUPPORTED_EXTENSION = {".wav", ".ogg", ".oga", ".flac", ".raw"};
+public final class MediaTypeUtils {
+  private static final String[] SUPPORTED_EXTENSION = {".wav", ".ogg", ".oga", ".flac", ".raw"};
 
-  private static String[] SUPPORTED_MEDIA_TYPES = {HttpMediaType.AUDIO_WAV, HttpMediaType.AUDIO_OGG,
+  private static final String[] SUPPORTED_MEDIA_TYPES = {HttpMediaType.AUDIO_WAV, HttpMediaType.AUDIO_OGG,
       HttpMediaType.AUDIO_OGG, HttpMediaType.AUDIO_FLAC, HttpMediaType.AUDIO_RAW};
+
+  private MediaTypeUtils() {
+    // This is a utility class - no instantiation allowed.
+  }
 
   /**
    * Returns the media type for a given file.

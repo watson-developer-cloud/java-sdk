@@ -124,7 +124,7 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
    * @throws Exception the exception
    */
   @Test
-  public void testConvertDocument_with_custom_config() throws Exception {
+  public void testConvertDocumentWithCustomConfig() throws Exception {
     JsonObject customConfig = ConversionUtils.loadCustomConfig(new FileInputStream(RESOURCE + "custom_config.json"));
     server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expAnswer)));
     service.convertDocumentToAnswer(html, null, customConfig).execute();
@@ -137,7 +137,7 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
    * @throws Exception the exception
    */
   @Test
-  public void testConvertDocument_with_version_date() throws Exception {
+  public void testConvertDocumentWithVersionDate() throws Exception {
     server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expAnswer)));
     service.convertDocumentToAnswer(html).execute();
     checkRequest();

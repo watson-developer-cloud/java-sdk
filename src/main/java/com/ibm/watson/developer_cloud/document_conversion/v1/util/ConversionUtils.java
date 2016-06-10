@@ -30,7 +30,11 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
  * 
  * @see DocumentConversion
  */
-public class ConversionUtils {
+public final class ConversionUtils {
+
+  private ConversionUtils() {
+    // This is a utility class - no instantiation allowed.
+  }
 
   /**
    * Returns the media type for a given file.
