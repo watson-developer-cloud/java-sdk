@@ -35,7 +35,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Text to Speech](#text-to-speech)
     * [Tone Analyzer](#tone-analyzer)
     * [Tradeoff Analytics](#tradeoff-analytics)
-    * [Visual Insights](#visual-insights)
+    * **DEPRECATED** [Visual Insights](#visual-insights) 
     * [Visual Recognition](#visual-recognition)
   * [Android](#android)
   * [Running in Bluemix](#running-in-bluemix)
