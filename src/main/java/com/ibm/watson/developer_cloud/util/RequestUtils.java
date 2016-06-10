@@ -13,10 +13,15 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.lang3.ArrayUtils;
 
@@ -37,7 +42,6 @@ public class RequestUtils {
    */
   public static final String DEFAULT_ENDPOINT = "http://do.not.use";
 
-  private static final String SDK_VERSION = "3.0.1";
   private static final String[] properties =
       new String[] {"java.vendor", "java.version", "os.arch", "os.name", "os.version"};
   private static String userAgent;
@@ -159,25 +163,35 @@ public class RequestUtils {
     return userAgent;
   }
 
+  private static String loadSdkVersion() {
+    InputStream inputStream = RequestUtils.class.getClassLoader().getResourceAsStream("version.properties");
+    Properties properties = new Properties();
+
+    try {
+      properties.load(inputStream);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+    return properties.getProperty("version", "unknown-version");
+  }
+
+  public static void main(String[] args) {
+    System.out.println(getUserAgent());
+  }
+
   /**
    * Builds the user agent using System properties
    *
    * @return the string that represents the user agent
    */
   private static String buildUserAgent() {
-    StringBuilder stringBuilder = new StringBuilder();
-    stringBuilder.append("watson-apis-java-sdk/");
-    stringBuilder.append(SDK_VERSION);
-    stringBuilder.append(" (");
+    final List<String> details = new ArrayList<String>();
     for (String propertyName : properties) {
-      stringBuilder.append(propertyName);
-      stringBuilder.append("=");
-      stringBuilder.append(System.getProperty(propertyName));
-      stringBuilder.append("; ");
+      details.add(propertyName + "=" + System.getProperty(propertyName));
     }
-    stringBuilder.append(")");
 
-    return stringBuilder.toString();
+    return "watson-apis-java-sdk/" + loadSdkVersion() + " (" + RequestUtils.join(details, "; ") + ")";
   }
 
 }
