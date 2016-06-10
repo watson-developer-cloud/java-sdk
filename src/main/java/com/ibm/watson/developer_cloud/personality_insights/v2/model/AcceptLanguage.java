@@ -24,7 +24,13 @@ public enum AcceptLanguage {
   @SerializedName("en") ENGLISH("en"),
   
   /** spanish. */
-  @SerializedName("es") SPANISH("es");
+  @SerializedName("es") SPANISH("es"),
+
+  /** arabic. */
+  @SerializedName("ar") ARABIC("ar"),
+
+  /** japanese */
+  @SerializedName("ja") JAPANESE("ja");
 
   private final String text;
 
