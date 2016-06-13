@@ -158,7 +158,7 @@ public class RecognizeOptions {
      * @return the recognize options
      */
     public Builder keywords(String... keywords) {
-      this.keywords = keywords.clone();
+      this.keywords = (keywords == null) ? null : keywords.clone();
       return this;
     }
 
@@ -353,7 +353,7 @@ public class RecognizeOptions {
    * @return the keywords
    */
   public String[] keywords() {
-    return keywords.clone();
+    return (keywords == null) ? null : keywords.clone();
   }
 
   /**
