@@ -13,12 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.model;
 
-import javax.management.relation.RelationException;
-
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Dataset to be use in the {@link RelationException} service.
+ * Dataset to be use in the
+ * {@link com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.RelationshipExtraction} service.
  */
 public class Dataset extends GenericModel {
 

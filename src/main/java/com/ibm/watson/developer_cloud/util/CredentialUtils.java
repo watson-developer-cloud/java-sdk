@@ -19,7 +19,6 @@ import java.util.logging.Logger;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -76,6 +75,8 @@ public final class CredentialUtils {
 
   /**
    * Attempt to get the Base64-encoded API key through JNDI
+   *
+   * This method should will always return null on Android due to the javax functions being unsupported
    * 
    * @param serviceName Name of the bluemix service
    * @return The encoded API Key
@@ -89,7 +90,7 @@ public final class CredentialUtils {
       Context context = new InitialContext();
       String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
       return (String) context.lookup(lookupName);
-    } catch (NamingException e) {
+    } catch (Exception e) {
       return null;
     }
   }
