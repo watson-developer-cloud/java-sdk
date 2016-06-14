@@ -56,6 +56,10 @@ public class DateDeserializer implements JsonDeserializer<Date> {
   public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
       throws JsonParseException {
 
+    if(json.isJsonNull() || json.getAsString().isEmpty()) {
+      return null;
+    }
+
     String dateAsString = json.getAsJsonPrimitive().getAsString().replaceAll("Z$", "+0000");
     ParseException e = null;
 
