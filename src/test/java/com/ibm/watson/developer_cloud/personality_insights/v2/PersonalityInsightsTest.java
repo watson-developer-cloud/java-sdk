@@ -53,7 +53,8 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   public PersonalityInsightsTest() throws FileNotFoundException {
     profile = loadFixture(RESOURCE + "profile.json", Profile.class);
     text = "foo-bar-text";
-    contentItem = new ContentItem().content(text);
+    contentItem = new ContentItem();
+    contentItem.setContent(text);
   }
 
 

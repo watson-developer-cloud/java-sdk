@@ -18,6 +18,7 @@ import static org.junit.Assert.assertNotNull;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 
 import org.junit.Before;
@@ -83,8 +84,10 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     File file = new File("src/test/resources/personality_insights/en.txt");
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
-    ContentItem cItem = new ContentItem().content(englishText).created(new Date());
-    ProfileOptions options = new ProfileOptions.Builder().contentItems(Arrays.asList(cItem)).build();
+    ContentItem cItem = new ContentItem();
+    cItem.setContent(englishText);
+    cItem.setCreated(new Date());
+    ProfileOptions options = new ProfileOptions.Builder().contentItems(Collections.singletonList(cItem)).build();
     Profile profile = service.getProfile(options).execute();
 
     assertProfile(profile);
