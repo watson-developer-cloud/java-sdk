@@ -21,7 +21,10 @@ import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.VisualRecogniti
 
 /**
  * Classifier used by the {@link VisualRecognition} V2 service.
+ *
+ * Use visual_recognition.v3.VisualRecognition instead. The V2 service will stop at June 30th 2016.
  */
+@Deprecated
 public class VisualClassifier extends GenericModel {
 
   private Date created;

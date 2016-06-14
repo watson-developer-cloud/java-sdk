@@ -19,6 +19,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -45,12 +46,15 @@ import okhttp3.RequestBody;
  * can organize image libraries, understand an individual image, and create custom classifiers for
  * specific results that are tailored to your needs.
  *
+ * Use visual_recognition.v3.VisualRecognition instead. The V2 service will stop at June 30th 2016.
+ *
  * @version v2_beta
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
  *      Visual Recognition</a>
  * @api.version_date 2015-12-02
  */
+@Deprecated
 public class VisualRecognition extends WatsonService {
 
   private static final String CLASSIFIER_IDS = "classifier_ids";
@@ -66,6 +70,8 @@ public class VisualRecognition extends WatsonService {
   private static final Type TYPE_LIST_CLASSIFIERS = new TypeToken<List<VisualClassifier>>() {}.getType();
   private static final String URL = "https://gateway.watsonplatform.net/visual-recognition-beta/api";
   private static final String VERBOSE = "verbose";
+
+  private static final Logger LOG = Logger.getLogger(VisualRecognition.class.getName());
   
   /**  Version date. */
   public static final String VERSION_DATE_2015_12_02 = "2015-12-02";
@@ -82,6 +88,8 @@ public class VisualRecognition extends WatsonService {
     super(SERVICE_NAME);
     setEndPoint(URL);
     this.versionDate = versionDate;
+
+    LOG.warning("VisualRecognition v2_beta will shut down at June 30th 2016. Please migrate to v3.");
   }
 
   /**
@@ -95,6 +103,8 @@ public class VisualRecognition extends WatsonService {
   public VisualRecognition(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
+
+    LOG.warning("VisualRecognition v2_beta will shut down at June 30th 2016. Please migrate to v3.");
   }
 
   /**

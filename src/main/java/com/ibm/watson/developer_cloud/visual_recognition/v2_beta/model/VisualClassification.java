@@ -23,8 +23,10 @@ import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.VisualRecogniti
 /**
  * The visual classification of images used by the
  * {@link VisualRecognition#classify(File, VisualClassifier...)} method.
- * 
+ *
+ * Use visual_recognition.v3.VisualRecognition instead. The V2 service will stop at June 30th 2016.
  */
+@Deprecated
 public class VisualClassification extends GenericModel {
 
   /**
