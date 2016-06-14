@@ -17,9 +17,10 @@ If you want to contribute to the repository, here's a quick guide:
     * Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
     * Check for unnecessary whitespace with git diff --check before committing.
   3. Make the test pass
-  4. Commit your changes  
-      Commit messages should start with the service name and end with the issue number if exists  
-      `[concept-insights] Added functionality to list the graphs #135`
+  4. Commit your changes:   
+    * Use the present tense (`"Add feature"` not `"Added Feature"`)
+    * Use the imperative mood (`"Move cursor to…"` not `"Moves cursor to…"`)
+    * Include relevant Emoji from our [Emoji cheatsheet](#emoji-cheatsheet)
   5. Push to your fork and submit a pull request to the **master** branch
 
 # Developer's Certificate of Origin 1.1
@@ -48,6 +49,23 @@ By making a contribution to this project, I certify that:
    maintained indefinitely and may be redistributed consistent with
    this project or the open source license(s) involved.
 
+## Emoji Cheatsheet
+
+When creating creating commits or updating the CHANGELOG, please **start** the commit message or update with one of the following applicable Emoji. Emoji should not be used at the start of issue or pull request titles.
+
+* :new: `:new:` when adding new functionality
+* :bug: `:bug:` when fixing a bug
+* :memo: `:memo:` when writing documentation
+* :art: `:art:` when improving the format/structure of the code
+* :fire: `:fire:` when removing code or files
+* :racehorse: `:racehorse:` when improving performance
+* :white_check_mark: `:white_check_mark:` when adding tests
+* :green_heart: `:green_heart:` when fixing the CI build
+* :lock: `:lock:` when dealing with security
+* :crystal_ball: `:crystal_ball:` when experimenting
+* :unamused: `:unamused:` when doing chore work (updating dependencies, etc…)
+* :boom: `:boom:` when changing in a non-backwards-compatible way current functionality
+* :shipit: `:shipit:` when creating a new release
 
 ## Additional Resources
 + [General GitHub documentation](https://help.github.com/)
