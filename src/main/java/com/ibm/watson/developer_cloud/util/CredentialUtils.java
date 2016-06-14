@@ -76,7 +76,7 @@ public final class CredentialUtils {
   /**
    * Attempt to get the Base64-encoded API key through JNDI
    *
-   * This method should will always return null on Android due to the javax functions being unsupported
+   * This method should always return null on Android due to the javax functions being unsupported
    * 
    * @param serviceName Name of the bluemix service
    * @return The encoded API Key
