@@ -15,19 +15,16 @@ package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
-import com.ibm.watson.developer_cloud.alchemy.v1.util.ImageKeywordTypeAdapter;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * ImageKeyword by the {@link AlchemyVision} service.
  * 
  */
-@JsonAdapter(ImageKeywordTypeAdapter.class)
 public class ImageKeyword extends GenericModel {
 
-
-  /** The hierarchy. */
-  private String hierarchy;
+  /** The {@link KnowledgeGraph}. */
+  private KnowledgeGraph knowledgeGraph;
 
   /** The score. */
   private Double score;
@@ -42,7 +39,7 @@ public class ImageKeyword extends GenericModel {
    * @return The hierarchy, if it exists.
    */
   public String getHierarchy() {
-    return hierarchy;
+    return (knowledgeGraph == null) ? null : knowledgeGraph.getTypeHierarchy();
   }
 
   /**
@@ -69,7 +66,11 @@ public class ImageKeyword extends GenericModel {
    * @param hierarchy The hierarchy.
    */
   public void setHierarchy(String hierarchy) {
-    this.hierarchy = hierarchy;
+    if(knowledgeGraph == null) {
+      knowledgeGraph = new KnowledgeGraph();
+    }
+
+    knowledgeGraph.setTypeHierarchy(hierarchy);
   }
 
   /**

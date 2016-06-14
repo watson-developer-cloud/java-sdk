@@ -14,8 +14,9 @@
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import com.google.gson.annotations.JsonAdapter;
-import com.ibm.watson.developer_cloud.alchemy.v1.util.TaxonomyTypeAdapter;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.BooleanToStringTypeAdapter;
 
 /**
  * Taxonomy returned by the {@link AlchemyLanguage} service.
@@ -24,11 +25,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * 
  */
-@JsonAdapter(TaxonomyTypeAdapter.class)
 public class Taxonomy extends GenericModel {
 
   /** The confident. */
-  private Boolean confident;
+  @JsonAdapter(BooleanToStringTypeAdapter.class)
+  private Boolean confident = true;
 
   /** The label. */
   private String label;

@@ -17,17 +17,17 @@ import java.util.Date;
 
 import com.google.gson.annotations.JsonAdapter;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
-import com.ibm.watson.developer_cloud.alchemy.v1.util.PublicationDateTypeAdapter;
+import com.ibm.watson.developer_cloud.util.BooleanToStringTypeAdapter;
 
 /**
  * PublicationDate returned by the {@link AlchemyLanguage} service.
  * 
  */
-@JsonAdapter(PublicationDateTypeAdapter.class)
 public class PublicationDate extends AlchemyLanguageGenericModel {
 
   /** The confident. */
-  private Boolean confident;
+  @JsonAdapter(BooleanToStringTypeAdapter.class)
+  private Boolean confident = true;
 
   /** The date. */
   private Date date;
