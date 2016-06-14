@@ -18,8 +18,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -33,10 +37,13 @@ import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
+import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints;
 import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
+import com.ibm.watson.developer_cloud.concept_insights.v2.util.IDHelper;
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
 import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
@@ -44,6 +51,7 @@ import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsight
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
 import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.RelationshipExtraction;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.ZipUtils;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.ConflictException;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
@@ -55,9 +63,16 @@ import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
+import com.ibm.watson.developer_cloud.util.CredentialUtils;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
 import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.VisualInsights;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
@@ -119,6 +134,39 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     checkApiKey(new TradeoffAnalytics(u, p), key);
     checkApiKey(new VisualInsights(u, p), key);
     checkApiKey(new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19, key), key);
+  }
+
+  /**
+   * Tests Utility classes and their private constructors
+   *
+   * @throws NoSuchMethodException
+   */
+  @Test
+  @SuppressWarnings("unchecked")
+  public void testUtilityClasses() throws NoSuchMethodException {
+    final List<Class<?>> utilityClasses = Arrays.asList(
+      AlchemyEndPoints.class, IDHelper.class, ConversionUtils.class, ZipUtils.class,
+      MediaTypeUtils.class, WaveUtils.class, CredentialUtils.class, GsonSingleton.class,
+      RequestUtils.class, ResponseUtils.class, Validator.class
+    );
+
+    for(Class<?> cls : utilityClasses) {
+      assertTrue("Utility class " + cls.getName() + " should be final.", Modifier.isFinal(cls.getModifiers()));
+      assertEquals("Utility class " + cls.getName() + " should have one private constructor.",
+        1, cls.getDeclaredConstructors().length);
+
+      final Constructor<?> constructor = cls.getDeclaredConstructor();
+      assertTrue("Utility class " + cls.getName() + " should have one private constructor.",
+        Modifier.isPrivate(constructor.getModifiers()));
+
+      constructor.setAccessible(true);
+
+      try {
+        constructor.newInstance();
+      } catch(Exception e) {
+        // receiving an exception, e.g. UnsupportedOperationException, is fine here!
+      }
+    }
   }
 
   /**
