@@ -134,7 +134,7 @@ public class RetrieveAndRankSolrJExample {
   private static void uploadConfiguration() {
     System.out.println("Uploading configuration...");
     service.uploadSolrClusterConfigurationDirectory(SOLR_CLUSTER_ID, CONFIG_NAME, new File(
-        CONFIG_DIRECTORY));
+        CONFIG_DIRECTORY)).execute();
     System.out.println("Uploaded configuration.");
   }
 
@@ -205,7 +205,7 @@ public class RetrieveAndRankSolrJExample {
     } finally {
       try {
         System.out.println("Deleting configuration...");
-        service.deleteSolrClusterConfiguration(SOLR_CLUSTER_ID, CONFIG_NAME);
+        service.deleteSolrClusterConfiguration(SOLR_CLUSTER_ID, CONFIG_NAME).execute();
         System.out.println("Configuration deleted.");
       } finally {
         System.out.println("Closing Solr client...");
