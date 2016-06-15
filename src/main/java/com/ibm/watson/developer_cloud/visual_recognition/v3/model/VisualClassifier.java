@@ -18,7 +18,7 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.visual_recognition.v2_beta.VisualRecognition;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
 /**
  * Classifier used by the {@link VisualRecognition} service.

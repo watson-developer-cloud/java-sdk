@@ -35,7 +35,6 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Text to Speech](#text-to-speech)
     * [Tone Analyzer](#tone-analyzer)
     * [Tradeoff Analytics](#tradeoff-analytics)
-    * **DEPRECATED** [Visual Insights](#visual-insights) 
     * [Visual Recognition](#visual-recognition)
   * [Android](#android)
   * [Running in Bluemix](#running-in-bluemix)
@@ -536,19 +535,6 @@ Dilemma dilemma = service.dilemmas(problem).execute();
 System.out.println(dilemma);
 ```
 
-### Visual Insights
-Use the [Visual Insights][visual_insights] to get insight into the themes present in a collection of images based on their visual appearance/content.
-
-```java
-VisualInsights service = new VisualInsights();
-service.setUsernameAndPassword("<username>", "<password>");
-
-File images = new File("src/test/resources/visual_insights/images.zip");
-Summary summary = service.getSummary(images).execute();
-
-System.out.println(summary);
-```
-
 ### Visual Recognition
 Use the [Visual Recognition][visual_recognition] service to recognize the
 following picture.
@@ -642,7 +628,6 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
 [concept_insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
 [conversation]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/
-[visual_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-insights/
 [retrieve_and_rank]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/
 
 [alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage

@@ -73,7 +73,6 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import com.ibm.watson.developer_cloud.visual_insights.v1_experimental.VisualInsights;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
 import jersey.repackaged.jsr166e.CompletableFuture;
@@ -132,7 +131,6 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     checkApiKey(new TextToSpeech(u, p), key);
     checkApiKey(new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19, u, p), key);
     checkApiKey(new TradeoffAnalytics(u, p), key);
-    checkApiKey(new VisualInsights(u, p), key);
     checkApiKey(new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19, key), key);
   }
 
