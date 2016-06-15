@@ -43,9 +43,5 @@ com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model
 com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column
 com.ibm.watson.developer_cloud.tradeoff_analytics.v1.util
 com.ibm.watson.developer_cloud.util
-com.ibm.watson.developer_cloud.visual_insights.v1_experimental
-com.ibm.watson.developer_cloud.visual_insights.v1_experimental.model
-com.ibm.watson.developer_cloud.visual_recognition.v2_beta
-com.ibm.watson.developer_cloud.visual_recognition.v2_beta.model
 com.ibm.watson.developer_cloud.visual_recognition.v3
 com.ibm.watson.developer_cloud.visual_recognition.v3.model
