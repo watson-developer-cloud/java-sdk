@@ -39,7 +39,7 @@ public class ServiceResponseException extends RuntimeException {
   public ServiceResponseException(int statusCode, String message, Response response) {
     super(message);
     this.statusCode = statusCode;
-    this.response = null;
+    this.response = response;
   }
 
   /**
