@@ -151,18 +151,6 @@
          }
       }
    ],
-   "visual_insights": [
-      {
-         "name": "visual_insights_experimental_docs",
-         "label": "visual_insights",
-         "plan": "experimental",
-         "credentials": {
-            "url": "https://gateway.watsonplatform.net/visual-insights-experimental/api",
-            "username": "not-a-username",
-            "password": "not-a-password"
-         }
-      }
-   ],
    "retrieve_and_rank": [
       {
          "name": "retrieve_and_rank_docs",
@@ -177,11 +165,11 @@
    ],
    "visual_recognition": [
       {
-         "name": "visual_recognition_beta_docs",
+         "name": "visual_recognition_docs",
          "label": "visual_recognition",
          "plan": "free",
          "credentials": {
-            "url": "https://gateway.watsonplatform.net/visual-recognition-beta/api",
+            "url": "https://gateway.watsonplatform.net/visual-recognition/api",
             "username": "not-a-username",
             "password": "not-a-password"
          }
