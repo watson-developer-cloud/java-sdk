@@ -56,7 +56,7 @@ public final class CredentialUtils {
 
   /** The Constant USERNAME. */
   private static final String USERNAME = "username";
-  
+
   /** The Constant URL. */
   private static final String URL = "url";
 
@@ -151,6 +151,62 @@ public final class CredentialUtils {
     final JsonObject services = getVCAPServices();
     if (services == null)
       return getKeyUsingJNDI(serviceName);
+    if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
+      for (final Entry<String, JsonElement> entry : services.entrySet()) {
+        final String key = entry.getKey();
+        if (key.startsWith(serviceName)) {
+          final JsonArray servInstances = services.getAsJsonArray(key);
+          for (final JsonElement instance : servInstances) {
+            final JsonObject service = instance.getAsJsonObject();
+            final String instancePlan = service.get(PLAN).getAsString();
+            if (plan == null || plan.equalsIgnoreCase(instancePlan)) {
+              final JsonObject credentials = instance.getAsJsonObject().getAsJsonObject(CREDENTIALS);
+              if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
+                return credentials.get(APIKEY).getAsString();
+              }
+            }
+          }
+        }
+      }
+    } else {
+      String[] userNameAndPw = getUserNameAndPassword(serviceName, plan);
+      if (userNameAndPw != null && userNameAndPw.length == 2) {
+        return Credentials.basic(userNameAndPw[0], userNameAndPw[1]);
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Returns the username and password as defined in the VCAP_SERVICES or null if they do not exist
+   * or are not accessible. This is a utility method for
+   * {@link #getUserNameAndPassword(String, String)}. Invoking this method is identical to calling
+   * <code>getUserNameAndPassword(serviceName, null);</code>
+   * 
+   * @param serviceName the name of the service whose credentials are sought
+   * @return a string array of length 2. The first array entry is the username, the second the
+   *         password.
+   */
+  public static String[] getUserNameAndPassword(String serviceName) {
+    return getUserNameAndPassword(serviceName, null);
+  }
+
+  /**
+   * Returns the username and password as defined in the VCAP_SERVICES or null if they do not exist
+   * or are not accessible. If a plan is provided then only the credentials for that plan (and
+   * service) will be returned. Null will be returned if the plan does not exist.
+   * 
+   * @param serviceName the name of the service whose credentials are sought
+   * @return a string array of length 2. The first array entry is the username, the second the
+   *         password.
+   */
+  public static String[] getUserNameAndPassword(String serviceName, String plan) {
+    if (serviceName == null || serviceName.isEmpty())
+      return null;
+
+    final JsonObject services = getVCAPServices();
+    if (services == null)
+      return null;
 
     for (final Entry<String, JsonElement> entry : services.entrySet()) {
       final String key = entry.getKey();
@@ -162,11 +218,11 @@ public final class CredentialUtils {
           if (plan == null || plan.equalsIgnoreCase(instancePlan)) {
             final JsonObject credentials = instance.getAsJsonObject().getAsJsonObject(CREDENTIALS);
             if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
-              return credentials.get(APIKEY).getAsString();
+              return null;
             } else {
               final String username = credentials.get(USERNAME).getAsString();
               final String password = credentials.get(PASSWORD).getAsString();
-              return Credentials.basic(username, password);
+              return new String[] {username, password};
             }
           }
         }
@@ -174,17 +230,18 @@ public final class CredentialUtils {
     }
     return null;
   }
-  
+
   /**
    * Gets the API url.
    *
    * @param serviceName the service name
    * @return the API url
    */
+
   public static String getAPIUrl(String serviceName) {
     return getAPIUrl(serviceName, null);
   }
-  
+
   /**
    * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists. If plan is specified, then
    * only credentials for the given plan will be returned.
@@ -210,7 +267,7 @@ public final class CredentialUtils {
           final String instancePlan = service.get(PLAN).getAsString();
           if (plan == null || plan.equalsIgnoreCase(instancePlan)) {
             final JsonObject credentials = instance.getAsJsonObject().getAsJsonObject(CREDENTIALS);
-            if(credentials.has(URL))
+            if (credentials.has(URL))
               return credentials.get(URL).getAsString();
           }
         }
