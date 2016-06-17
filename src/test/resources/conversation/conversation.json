@@ -11,6 +11,6 @@
   },
   
   "output": {
-    "text": "Do you want to get a quote?"
+    "text": ["Do you want to get a quote?"]
   }
 }

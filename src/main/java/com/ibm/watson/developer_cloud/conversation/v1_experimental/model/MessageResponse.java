@@ -16,6 +16,8 @@ package com.ibm.watson.developer_cloud.conversation.v1_experimental.model;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
@@ -232,14 +234,28 @@ public class MessageResponse extends GenericModel {
    * to calling:
    * 
    * <pre>
-   * String text = null;
-   * Map<String, Object> output = response.getOutput();
-   * return if(output != null){ text
-   * = output.get("text"); }
+   * String[] text = null; Map<String, Object> output = response.getOutput(); return if(output !=
+   * null){ text = (String[])output.get("text"); }
    * 
-   * @return the text which is to be displayed/returned to the end user
+   * @return an array of strings which is to be displayed/returned to the end user
    */
-  public String getText() {
-    return (output != null && output.containsKey(TEXT)) ? output.get(TEXT).toString() : null;
+  public String[] getText() {
+    return (output != null && output.containsKey(TEXT)) ? (String[]) output.get(TEXT) : null;
+  }
+
+  /**
+   * A convenience method for getting the text property from the output object. The text property is
+   * an array of strings. This convenience class concatenates the array, separating each entry with
+   * the separator string.
+   * 
+   * @return a concatenation of the strings in the output array, with each string separated by the
+   *         separator string
+   */
+  public String getTextConcatenated(String separator) {
+    if (output != null && output.containsKey(TEXT)) {
+      String[] outputText = (String[]) output.get(TEXT);
+      return StringUtils.join(outputText, separator);
+    }
+    return null;
   }
 }
