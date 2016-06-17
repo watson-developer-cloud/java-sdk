@@ -18,6 +18,7 @@ import static org.junit.Assert.assertNull;
 
 import java.io.InputStream;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -40,6 +41,12 @@ public class CredentialUtilsTest extends WatsonServiceTest {
 
   /** The Constant VCAP_SERVICES. */
   private static final String VCAP_SERVICES = "vcap_services.json";
+  
+  private static final String NOT_A_USERNAME = "not-a-username";
+  private static final String NOT_A_PASSWORD = "not-a-password";
+  private static final String NOT_A_FREE_USERNAME = "not-a-free-username";
+  private static final String NOT_A_FREE_PASSWORD = "not-a-free-password";
+  private static final String PLAN = "standard";
 
   /**
    * Setup.
@@ -63,5 +70,35 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     assertEquals(API_KEY_FREE, CredentialUtils.getAPIKey(SERVICE_NAME, null));
     assertEquals(API_KEY_FREE, CredentialUtils.getAPIKey(SERVICE_NAME, CredentialUtils.PLAN_FREE));
     assertEquals(API_KEY_STANDARD, CredentialUtils.getAPIKey(SERVICE_NAME, CredentialUtils.PLAN_STANDARD));
+  }
+  
+  @Test
+  public void testGetUserNameAndPasswordWithoutPlan(){
+    assertNull(CredentialUtils.getUserNameAndPassword(null));
+    assertNull(CredentialUtils.getUserNameAndPassword(null, null));
+    
+    String[] credentials = CredentialUtils.getUserNameAndPassword(SERVICE_NAME);
+    Assert.assertTrue(credentials != null);
+    assertEquals(credentials.length, 2);
+    assertEquals(credentials[0], NOT_A_FREE_USERNAME);
+    assertEquals(credentials[1], NOT_A_FREE_PASSWORD);
+    
+    credentials = CredentialUtils.getUserNameAndPassword(SERVICE_NAME, null);
+    Assert.assertTrue(credentials != null);
+    assertEquals(credentials.length, 2);
+    assertEquals(credentials[0], NOT_A_FREE_USERNAME);
+    assertEquals(credentials[1], NOT_A_FREE_PASSWORD);
+  }
+  
+  @Test
+  public void testGetUserCredentialsWithPlan(){
+    assertNull(CredentialUtils.getUserNameAndPassword(null));
+    assertNull(CredentialUtils.getUserNameAndPassword(null, null));
+    
+    String[] credentials = CredentialUtils.getUserNameAndPassword(SERVICE_NAME, PLAN);
+    Assert.assertTrue(credentials != null);
+    assertEquals(credentials.length, 2);
+    assertEquals(credentials[0], NOT_A_USERNAME);
+    assertEquals(credentials[1], NOT_A_PASSWORD);
   }
 }
