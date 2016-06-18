@@ -39,8 +39,6 @@ public class CustomizationExample {
     //create custom word translations
     CustomTranslation customTranslation = new CustomTranslation("hodor", "hold the door");
     service.saveWords(customVoiceModel, customTranslation).execute();
-    List<CustomTranslation> results = service.getWords(customVoiceModel).execute();
-    System.out.println(results);
 
     //get custom word translations
     List<CustomTranslation> words = service.getWords(customVoiceModel).execute();
