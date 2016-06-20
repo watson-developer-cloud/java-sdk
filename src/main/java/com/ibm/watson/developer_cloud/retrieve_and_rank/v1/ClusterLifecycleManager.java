@@ -16,8 +16,8 @@ package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterSizeResponse;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
-
 /**
  * A client for communicating with the Retrieve and Rank API.
  */
@@ -61,4 +61,18 @@ public interface ClusterLifecycleManager {
    * @return the Solr cluster list
    */
   ServiceCall<SolrClusters> getSolrClusters();
+
+  /**
+   * Change the size of the Solr cluster.
+   *
+   * @return the status of the resize request
+   */
+  ServiceCall<SolrClusterSizeResponse> resizeSolrCluster(String SolrClusterId, int requestedSize);
+
+  /**
+   * Get the status of a resize request for a cluster.
+   *
+   * @return the status of the resize request
+   */
+  ServiceCall<SolrClusterSizeResponse> getSolrClusterResizeStatus(String SolrClusterId);
 }
