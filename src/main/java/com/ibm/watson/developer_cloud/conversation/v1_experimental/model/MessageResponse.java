@@ -94,24 +94,6 @@ public class MessageResponse extends GenericModel {
     public void setValue(String value) {
       this.value = value;
     }
-
-    @Override public boolean equals(Object obj) {
-      if (this == obj)
-        return true;
-      if (obj instanceof MessageResponse) {
-        MessageResponse.Entity test = (MessageResponse.Entity) obj;
-        if (this.getEntity() == test.getEntity()) {
-          if (this.getLocation() == test.getLocation()) {
-            if (this.getValue() == test.getValue()) {
-              return true;
-            }
-          }
-        }
-      }
-      return false;
-    }
-
-
   }
 
   /**
@@ -163,21 +145,6 @@ public class MessageResponse extends GenericModel {
      */
     public void setIntent(String intent) {
       this.intent = intent;
-    }
-
-    @Override public boolean equals(Object obj) {
-      if (this == obj) {
-        return true;
-      }
-      if (obj instanceof MessageResponse.Intent) {
-        MessageResponse.Intent test = (Intent) obj;
-        if (this.getConfidence() == test.getConfidence()) {
-          if (this.getIntent() == test.getIntent()) {
-            return true;
-          }
-        }
-      }
-      return false;
     }
   }
 
@@ -309,9 +276,9 @@ public class MessageResponse extends GenericModel {
   public void setInput(Map<String, Object> input) {
     this.input = input;
   }
-  
-  public String getInputText(){
-    if(this.input != null && this.input.containsKey(TEXT)){
+
+  public String getInputText() {
+    if (this.input != null && this.input.containsKey(TEXT)) {
       return this.input.get(TEXT).toString();
     }
     return null;
