@@ -63,7 +63,7 @@ public final class RequestUtils {
     try {
       return URLEncoder.encode(content, "UTF-8");
     } catch (final UnsupportedEncodingException e) {
-      return null;
+      throw new AssertionError(e);
     }
   }
 
@@ -82,7 +82,7 @@ public final class RequestUtils {
    * 
    * @param params the parameters
    * @param toOmit the keys to omit
-   * @return the map with the omitted key-value pars
+   * @return the map with the omitted key-value pars, or null if params is null
    */
   public static Map<String, Object> omit(Map<String, Object> params, String... toOmit) {
     if (params == null)
@@ -103,7 +103,7 @@ public final class RequestUtils {
    *
    * @param params the parameters
    * @param toPick the keys to pick
-   * @return the map with the picked key-value pars
+   * @return the map with the picked key-value pars, or null if params is null
    */
 
   public static Map<String, Object> pick(Map<String, Object> params, String... toPick) {

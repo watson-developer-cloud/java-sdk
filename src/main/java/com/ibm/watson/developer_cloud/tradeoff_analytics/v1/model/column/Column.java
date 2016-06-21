@@ -47,7 +47,7 @@ public abstract class Column extends GenericModel {
      * From string.
      * 
      * @param text the text
-     * @return the column type
+     * @return the column type, or null if none found
      */
     public static ColumnType fromString(String text) {
       if (text != null) {
@@ -108,7 +108,7 @@ public abstract class Column extends GenericModel {
      * From string.
      * 
      * @param text the text
-     * @return the goal
+     * @return the goal, or null if none found
      */
     public static Goal fromString(String text) {
       if (text != null) {
