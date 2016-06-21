@@ -225,6 +225,16 @@ public abstract class WatsonService {
 
         return completableFuture;
       }
+
+      @Override
+      protected void finalize() throws Throwable {
+        super.finalize();
+
+        if (!call.isExecuted()) {
+          final Request r = call.request();
+          LOG.warning(r.method() + " request to " + r.url() + " has not been sent. Did you forget to call execute()?");
+        }
+      }
     };
   }
 
