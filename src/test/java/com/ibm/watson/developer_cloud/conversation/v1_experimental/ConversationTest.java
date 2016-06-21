@@ -13,14 +13,13 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertArrayEquals;
 
 import java.io.IOException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -66,7 +65,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testSendMessage() throws IOException, InterruptedException {
-    String text = "I'd like to get a quote to replace my windows";
+    String text = "I'd like to get insurance to for my home";
 
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
@@ -85,7 +84,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals("{\"input\":{\"text\":\"I'd like to get a quote to replace my windows\"}}", request.getBody().readUtf8());
+    assertEquals("{\"input\":{\"text\":\"I'd like to get insurance to for my home\"}}", request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
   }
 }

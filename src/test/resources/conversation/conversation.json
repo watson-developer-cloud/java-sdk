@@ -5,7 +5,14 @@
        "confidence": 0.943643
      }
    ],
-   
+   "entities": [
+     {
+       "entity": "house",
+       "value": "home",
+       "location": [21, 25]
+     }
+  ],
+  
   "context": {
    
   },

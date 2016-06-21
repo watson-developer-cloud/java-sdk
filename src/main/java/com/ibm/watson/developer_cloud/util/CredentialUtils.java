@@ -32,6 +32,35 @@ import okhttp3.Credentials;
  * The Class CredentialUtils.
  */
 public final class CredentialUtils {
+  /**
+   * A util class to easily store service credentials.
+   * 
+   */
+  public static class ServiceCredentials {
+    private String password;
+    private String username;
+
+    public ServiceCredentials(String username, String password) {
+      this.username = username;
+      this.password = password;
+    }
+
+    public String getPassword() {
+      return password;
+    }
+
+    public String getUsername() {
+      return username;
+    }
+
+    public void setPassword(String password) {
+      this.password = password;
+    }
+
+    public void setUsername(String username) {
+      this.username = username;
+    }
+  }
 
   /** The Constant ALCHEMY_API. */
   private static final String ALCHEMY_API = "alchemy_api";
@@ -151,26 +180,14 @@ public final class CredentialUtils {
     if (services == null)
       return getKeyUsingJNDI(serviceName);
     if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
-      for (final Entry<String, JsonElement> entry : services.entrySet()) {
-        final String key = entry.getKey();
-        if (key.startsWith(serviceName)) {
-          final JsonArray servInstances = services.getAsJsonArray(key);
-          for (final JsonElement instance : servInstances) {
-            final JsonObject service = instance.getAsJsonObject();
-            final String instancePlan = service.get(PLAN).getAsString();
-            if (plan == null || plan.equalsIgnoreCase(instancePlan)) {
-              final JsonObject credentials = instance.getAsJsonObject().getAsJsonObject(CREDENTIALS);
-              if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
-                return credentials.get(APIKEY).getAsString();
-              }
-            }
-          }
-        }
+      final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
+      if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
+        return credentials.get(APIKEY).getAsString();
       }
     } else {
-      String[] userNameAndPw = getUserNameAndPassword(serviceName, plan);
-      if (userNameAndPw != null && userNameAndPw.length == 2) {
-        return Credentials.basic(userNameAndPw[0], userNameAndPw[1]);
+      ServiceCredentials credentials = getUserNameAndPassword(serviceName, plan);
+      if (credentials != null) {
+        return Credentials.basic(credentials.getUsername(), credentials.getPassword());
       }
     }
     return null;
@@ -183,10 +200,9 @@ public final class CredentialUtils {
    * <code>getUserNameAndPassword(serviceName, null);</code>
    * 
    * @param serviceName the name of the service whose credentials are sought
-   * @return a string array of length 2. The first array entry is the username, the second the
-   *         password.
+   * @return an object representing the service's credentials
    */
-  public static String[] getUserNameAndPassword(String serviceName) {
+  public static ServiceCredentials getUserNameAndPassword(String serviceName) {
     return getUserNameAndPassword(serviceName, null);
   }
 
@@ -196,10 +212,9 @@ public final class CredentialUtils {
    * service) will be returned. Null will be returned if the plan does not exist.
    * 
    * @param serviceName the name of the service whose credentials are sought
-   * @return a string array of length 2. The first array entry is the username, the second the
-   *         password.
+   * @return an object representing the service's credentials
    */
-  public static String[] getUserNameAndPassword(String serviceName, String plan) {
+  public static ServiceCredentials getUserNameAndPassword(String serviceName, String plan) {
     if (serviceName == null || serviceName.isEmpty())
       return null;
 
@@ -207,22 +222,42 @@ public final class CredentialUtils {
     if (services == null)
       return null;
 
-    for (final Entry<String, JsonElement> entry : services.entrySet()) {
+    JsonObject jsonCredentials = getCredentialsObject(services, serviceName, plan);
+    if (jsonCredentials != null) {
+      String username = null;
+      if (jsonCredentials.has(USERNAME)) {
+        username = jsonCredentials.get(USERNAME).getAsString();
+      }
+      String password = null;
+      if (jsonCredentials.has(PASSWORD)) {
+        password = jsonCredentials.get(PASSWORD).getAsString();
+      }
+      if (username != null || password != null) {
+        // both will be null in the case of Alchemy API
+        return new ServiceCredentials(username, password);
+      }
+    }
+    return null;
+  }
+
+  /**
+   * A helper method to retrieve the appropriate 'credentials' JSON property value from the VCAP_SERVICES
+   * 
+   * @param vcapServices JSON object representing the VCAP_SERVICES
+   * @param serviceName the name of the service whose credentials are sought
+   * @param plan the name of the plan for which the credentials are sought, e.g. 'standard', 'beta' etc, may be null
+   * @return the first set of credentials that match the search criteria, service name and plan. May return null
+   */
+  private static JsonObject getCredentialsObject(JsonObject vcapServices, String serviceName, String plan) {
+    for (final Entry<String, JsonElement> entry : vcapServices.entrySet()) {
       final String key = entry.getKey();
       if (key.startsWith(serviceName)) {
-        final JsonArray servInstances = services.getAsJsonArray(key);
+        final JsonArray servInstances = vcapServices.getAsJsonArray(key);
         for (final JsonElement instance : servInstances) {
           final JsonObject service = instance.getAsJsonObject();
           final String instancePlan = service.get(PLAN).getAsString();
           if (plan == null || plan.equalsIgnoreCase(instancePlan)) {
-            final JsonObject credentials = instance.getAsJsonObject().getAsJsonObject(CREDENTIALS);
-            if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
-              return null;
-            } else {
-              final String username = credentials.get(USERNAME).getAsString();
-              final String password = credentials.get(PASSWORD).getAsString();
-              return new String[] {username, password};
-            }
+            return instance.getAsJsonObject().getAsJsonObject(CREDENTIALS);
           }
         }
       }
@@ -257,21 +292,10 @@ public final class CredentialUtils {
     if (services == null)
       return null;
 
-    for (final Entry<String, JsonElement> entry : services.entrySet()) {
-      final String key = entry.getKey();
-      if (key.startsWith(serviceName)) {
-        final JsonArray servInstances = services.getAsJsonArray(key);
-        for (final JsonElement instance : servInstances) {
-          final JsonObject service = instance.getAsJsonObject();
-          final String instancePlan = service.get(PLAN).getAsString();
-          if (plan == null || plan.equalsIgnoreCase(instancePlan)) {
-            final JsonObject credentials = instance.getAsJsonObject().getAsJsonObject(CREDENTIALS);
-            if (credentials.has(URL))
-              return credentials.get(URL).getAsString();
-          }
-        }
-      }
-    }
+    final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
+    if (credentials.has(URL))
+      return credentials.get(URL).getAsString();
+
     return null;
   }
 
