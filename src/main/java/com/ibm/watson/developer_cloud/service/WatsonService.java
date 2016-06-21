@@ -183,7 +183,7 @@ public abstract class WatsonService {
       }
 
       @Override
-      public void enqueue(final ServiceCallback<T> callback) {
+      public void enqueue(final ServiceCallback<? super T> callback) {
         call.enqueue(new Callback() {
           @Override
           public void onFailure(Call call, IOException e) {
