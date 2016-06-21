@@ -185,6 +185,7 @@ public class MessageResponse extends GenericModel {
   private List<Entity> entities;
   private List<Intent> intents;
   private Map<String, Object> output;
+  private Map<String, Object> input;
 
 
   /**
@@ -297,6 +298,21 @@ public class MessageResponse extends GenericModel {
     List<String> outputText = getText();
     if (outputText != null) {
       return RequestUtils.join(outputText, separator);
+    }
+    return null;
+  }
+
+  public Map<String, Object> getInput() {
+    return input;
+  }
+
+  public void setInput(Map<String, Object> input) {
+    this.input = input;
+  }
+  
+  public String getInputText(){
+    if(this.input != null && this.input.containsKey(TEXT)){
+      return this.input.get(TEXT).toString();
     }
     return null;
   }
