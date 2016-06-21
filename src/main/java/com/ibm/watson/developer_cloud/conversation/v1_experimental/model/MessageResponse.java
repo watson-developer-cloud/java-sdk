@@ -16,10 +16,9 @@ package com.ibm.watson.developer_cloud.conversation.v1_experimental.model;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 
 /**
  * The response payload from the Conversation service's message API call
@@ -165,15 +164,15 @@ public class MessageResponse extends GenericModel {
     public void setIntent(String intent) {
       this.intent = intent;
     }
-    
+
     @Override public boolean equals(Object obj) {
-      if(this == obj){
+      if (this == obj) {
         return true;
       }
-      if(obj instanceof MessageResponse.Intent){
-        MessageResponse.Intent test = (Intent)obj;
-        if(this.getConfidence() == test.getConfidence()){
-          if(this.getIntent() == test.getIntent()){
+      if (obj instanceof MessageResponse.Intent) {
+        MessageResponse.Intent test = (Intent) obj;
+        if (this.getConfidence() == test.getConfidence()) {
+          if (this.getIntent() == test.getIntent()) {
             return true;
           }
         }
@@ -267,16 +266,20 @@ public class MessageResponse extends GenericModel {
    * to calling:
    * 
    * <pre>
-   * String[] text = null; Map<String, Object> output = response.getOutput(); return if(output !=
-   * null){ text = (String[])output.get("text"); }
+   * List<?> text = null;
+   * Map<String, Object> output = response.getOutput();
+   * if (output != null) {
+   *   text = (List<?>) output.get("text");
+   * }
+   * </pre>
    * 
    * @return an array of strings which is to be displayed/returned to the end user
    */
-  public String[] getText() {
+  public List<String> getText() {
     if (output != null && output.containsKey(TEXT)) {
       List<?> text = (List<?>) output.get(TEXT);
       if (text != null) {
-        text.toArray(new String[0]);
+        return (List<String>) text;
       }
     }
     return null;
@@ -291,9 +294,9 @@ public class MessageResponse extends GenericModel {
    *         separator string
    */
   public String getTextConcatenated(String separator) {
-    if (output != null && output.containsKey(TEXT)) {
-      String[] outputText = (String[]) output.get(TEXT);
-      return StringUtils.join(outputText, separator);
+    List<String> outputText = getText();
+    if (outputText != null) {
+      return RequestUtils.join(outputText, separator);
     }
     return null;
   }
