@@ -45,6 +45,8 @@ import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
@@ -145,7 +147,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     final List<Class<?>> utilityClasses = Arrays.asList(
       AlchemyEndPoints.class, IDHelper.class, ConversionUtils.class, ZipUtils.class,
       MediaTypeUtils.class, WaveUtils.class, CredentialUtils.class, GsonSingleton.class,
-      RequestUtils.class, ResponseUtils.class, Validator.class
+      RequestUtils.class, ResponseUtils.class, Validator.class, HttpMediaType.class
     );
 
     for(Class<?> cls : utilityClasses) {
