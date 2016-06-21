@@ -160,7 +160,7 @@ public abstract class AlchemyService extends WatsonService {
    * .
    * 
    * @param response the HTTP response
-   * @return the error message from the json object
+   * @return the error message from the json object, or null if none found
    */
   private JsonObject getErrorMessage(Response response) {
 

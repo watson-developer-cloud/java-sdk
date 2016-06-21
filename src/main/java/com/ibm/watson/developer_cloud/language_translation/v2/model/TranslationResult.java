@@ -42,7 +42,7 @@ public class TranslationResult extends GenericModel {
   /**
    * Gets the first translation.
    *
-   * @return the first translation
+   * @return the first translation, or null if none found
    */
   public String getFirstTranslation() {
     if (translations != null && !translations.isEmpty())

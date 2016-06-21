@@ -91,6 +91,7 @@ public final class CredentialUtils {
       String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
       return (String) context.lookup(lookupName);
     } catch (Exception e) {
+      log.warning("Error during JNDI key lookup: " + e.getMessage());
       return null;
     }
   }
