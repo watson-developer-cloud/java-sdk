@@ -95,6 +95,24 @@ public class MessageResponse extends GenericModel {
     public void setValue(String value) {
       this.value = value;
     }
+
+    @Override public boolean equals(Object obj) {
+      if (this == obj)
+        return true;
+      if (obj instanceof MessageResponse) {
+        MessageResponse.Entity test = (MessageResponse.Entity) obj;
+        if (this.getEntity() == test.getEntity()) {
+          if (this.getLocation() == test.getLocation()) {
+            if (this.getValue() == test.getValue()) {
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    }
+
+
   }
 
   /**
@@ -146,6 +164,21 @@ public class MessageResponse extends GenericModel {
      */
     public void setIntent(String intent) {
       this.intent = intent;
+    }
+    
+    @Override public boolean equals(Object obj) {
+      if(this == obj){
+        return true;
+      }
+      if(obj instanceof MessageResponse.Intent){
+        MessageResponse.Intent test = (Intent)obj;
+        if(this.getConfidence() == test.getConfidence()){
+          if(this.getIntent() == test.getIntent()){
+            return true;
+          }
+        }
+      }
+      return false;
     }
   }
 
@@ -240,7 +273,13 @@ public class MessageResponse extends GenericModel {
    * @return an array of strings which is to be displayed/returned to the end user
    */
   public String[] getText() {
-    return (output != null && output.containsKey(TEXT)) ? (String[]) output.get(TEXT) : null;
+    if (output != null && output.containsKey(TEXT)) {
+      List<?> text = (List<?>) output.get(TEXT);
+      if (text != null) {
+        text.toArray(new String[0]);
+      }
+    }
+    return null;
   }
 
   /**

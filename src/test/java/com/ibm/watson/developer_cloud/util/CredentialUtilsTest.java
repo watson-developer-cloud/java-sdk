@@ -24,6 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.util.CredentialUtils.ServiceCredentials;
 
 /**
  * The Class CredentialUtilsTest.
@@ -78,17 +79,15 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     assertNull(CredentialUtils.getUserNameAndPassword(null));
     assertNull(CredentialUtils.getUserNameAndPassword(null, null));
     
-    String[] credentials = CredentialUtils.getUserNameAndPassword(SERVICE_NAME);
+    ServiceCredentials credentials = CredentialUtils.getUserNameAndPassword(SERVICE_NAME);
     Assert.assertTrue(credentials != null);
-    assertEquals(credentials.length, 2);
-    assertEquals(credentials[0], NOT_A_FREE_USERNAME);
-    assertEquals(credentials[1], NOT_A_FREE_PASSWORD);
+    assertEquals(credentials.getUsername(), NOT_A_FREE_USERNAME);
+    assertEquals(credentials.getPassword(), NOT_A_FREE_PASSWORD);
     
     credentials = CredentialUtils.getUserNameAndPassword(SERVICE_NAME, null);
     assertTrue(credentials != null);
-    assertEquals(credentials.length, 2);
-    assertEquals(credentials[0], NOT_A_FREE_USERNAME);
-    assertEquals(credentials[1], NOT_A_FREE_PASSWORD);
+    assertEquals(credentials.getUsername(), NOT_A_FREE_USERNAME);
+    assertEquals(credentials.getPassword(), NOT_A_FREE_PASSWORD);
   }
   
   @Test
@@ -96,10 +95,9 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     assertNull(CredentialUtils.getUserNameAndPassword(null));
     assertNull(CredentialUtils.getUserNameAndPassword(null, null));
     
-    String[] credentials = CredentialUtils.getUserNameAndPassword(SERVICE_NAME, PLAN);
+    ServiceCredentials credentials = CredentialUtils.getUserNameAndPassword(SERVICE_NAME, PLAN);
     assertTrue(credentials != null);
-    assertEquals(credentials.length, 2);
-    assertEquals(credentials[0], NOT_A_USERNAME);
-    assertEquals(credentials[1], NOT_A_PASSWORD);
+    assertEquals(credentials.getUsername(), NOT_A_USERNAME);
+    assertEquals(credentials.getPassword(), NOT_A_PASSWORD);
   }
 }
