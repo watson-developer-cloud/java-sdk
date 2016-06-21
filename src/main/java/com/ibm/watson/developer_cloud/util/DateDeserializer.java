@@ -33,16 +33,17 @@ import com.google.gson.JsonParseException;
 public class DateDeserializer implements JsonDeserializer<Date> {
   private static final String DATE_FROM_ALCHEMY = "yyyyMMdd'T'HHmmss";
   private static final String DATE_FROM_DIALOG = "yyyy-MM-dd HH:mm:ss";
-  private static final String DATE_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+  protected static final String DATE_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS";
   private static final String DATE_WITHOUT_SECONDS = "yyyy-MM-dd'T'HH:mm:ssZ";
-  
-  private static final SimpleDateFormat ALCHEMY_DATE = new SimpleDateFormat(DATE_FROM_ALCHEMY);
-  private static final SimpleDateFormat DIALOG_DATE = new SimpleDateFormat(DATE_FROM_DIALOG);
-  protected static final SimpleDateFormat UTC = new SimpleDateFormat(DATE_UTC);
-  private static final SimpleDateFormat UTC_WITHOUT_SECONDS = new SimpleDateFormat(DATE_WITHOUT_SECONDS);
 
-  private static final List<SimpleDateFormat> FORMATS = Arrays.asList(
-    UTC, UTC_WITHOUT_SECONDS, DIALOG_DATE, ALCHEMY_DATE);
+  // SimpleDateFormat is NOT thread safe - they require private visibility and synchronized access
+  private final SimpleDateFormat alchemyDateFormatter = new SimpleDateFormat(DATE_FROM_ALCHEMY);
+  private final SimpleDateFormat dialogDateFormatter = new SimpleDateFormat(DATE_FROM_DIALOG);
+  private final SimpleDateFormat utcDateFormatter = new SimpleDateFormat(DATE_UTC);
+  private final SimpleDateFormat utcWithoutSecondsDateFormatter = new SimpleDateFormat(DATE_WITHOUT_SECONDS);
+
+  private final List<SimpleDateFormat> FORMATS = Arrays.asList(
+    utcDateFormatter, utcWithoutSecondsDateFormatter, dialogDateFormatter, alchemyDateFormatter);
 
   private static final Logger LOG = Logger.getLogger(DateDeserializer.class.getName());
   
@@ -53,7 +54,8 @@ public class DateDeserializer implements JsonDeserializer<Date> {
    * java.lang.reflect.Type, com.google.gson.JsonDeserializationContext)
    */
   @Override
-  public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
+  // DateSerializer.deserialize() is NOT thread safe because of the underlying SimpleDateFormats.
+  public synchronized Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
       throws JsonParseException {
 
     if(json.isJsonNull() || json.getAsString().isEmpty()) {
