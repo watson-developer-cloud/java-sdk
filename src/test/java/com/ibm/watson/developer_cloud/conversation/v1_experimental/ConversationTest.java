@@ -18,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
@@ -80,7 +81,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2016_05_19);
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[] {"Do you want to get a quote?"}, serviceResponse.getText());
+    assertArrayEquals(new String[] {"Do you want to get a quote?"}, serviceResponse.getText().toArray(new String[0]));
     assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
