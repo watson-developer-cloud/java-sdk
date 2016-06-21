@@ -13,8 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 
-import org.apache.commons.lang3.Validate;
-
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
@@ -24,6 +22,7 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Resolution;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The IBM Watson Tradeoff Analytics service applies decision analytics technology, enabling users
@@ -102,7 +101,7 @@ public class TradeoffAnalytics extends WatsonService {
    * @return the decision problem
    */
   public ServiceCall<Dilemma> dilemmas(final Problem problem, final Boolean generateVisualization) {
-    Validate.notNull(problem, "problem was not specified");
+    Validator.notNull(problem, "problem was not specified");
 
     final String contentJson = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(problem);
 

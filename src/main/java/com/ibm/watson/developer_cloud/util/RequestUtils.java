@@ -26,8 +26,6 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import com.ibm.watson.developer_cloud.service.WatsonService;
 
 import okhttp3.Request;
@@ -129,6 +127,17 @@ public final class RequestUtils {
    */
   public static String replaceEndPoint(String url, String endPoint) {
     return endPoint + url.replaceFirst(DEFAULT_ENDPOINT, "");
+  }
+
+  /**
+   * Creates a String of all elements of an array, separated by a separator.
+   *
+   * @param array the array
+   * @param separator the separator
+   * @return the joined String
+   */
+  public static <T> String join(T[] array, String separator) {
+    return join(Arrays.asList(array), separator);
   }
 
   /**

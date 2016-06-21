@@ -87,7 +87,7 @@ public final class ResponseUtils {
    * @param type the type of the response
    * @return the POJO
    */
-  public static <T extends GenericModel> T getObject(Response response, Class<T> type) {
+  public static <T extends GenericModel> T getObject(Response response, Class<? extends T> type) {
     JsonReader reader;
     try {
       reader = new JsonReader(response.body().charStream());

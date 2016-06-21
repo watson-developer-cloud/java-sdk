@@ -34,7 +34,7 @@ public interface ServiceCall<T> {
      *
      * @param callback the callback
      */
-    void enqueue(ServiceCallback<T> callback);
+    void enqueue(ServiceCallback<? super T> callback);
 
     /**
      * Reactive requests, in this case, you could take advantage both synchronous and asynchronous.
