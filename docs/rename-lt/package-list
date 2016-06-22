@@ -15,6 +15,8 @@ com.ibm.watson.developer_cloud.document_conversion.v1.util
 com.ibm.watson.developer_cloud.http
 com.ibm.watson.developer_cloud.language_translation.v2
 com.ibm.watson.developer_cloud.language_translation.v2.model
+com.ibm.watson.developer_cloud.language_translator.v2
+com.ibm.watson.developer_cloud.language_translator.v2.model
 com.ibm.watson.developer_cloud.natural_language_classifier.v1
 com.ibm.watson.developer_cloud.natural_language_classifier.v1.model
 com.ibm.watson.developer_cloud.personality_insights.v2
