@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1_experimental;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -64,7 +65,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testSendMessage() throws IOException, InterruptedException {
-    String text = "I'd like to get a quote to replace my windows";
+    String text = "I'd like to get insurance to for my home";
 
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
@@ -79,10 +80,11 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
     String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2016_05_19);
     assertEquals(path, request.getPath());
-    assertEquals("Do you want to get a quote?", serviceResponse.getText());
+    assertArrayEquals(new String[] {"Do you want to get a quote?"}, serviceResponse.getText().toArray(new String[0]));
+    assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals("{\"input\":{\"text\":\"I'd like to get a quote to replace my windows\"}}", request.getBody().readUtf8());
+    assertEquals("{\"input\":{\"text\":\"I'd like to get insurance to for my home\"}}", request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
   }
 }

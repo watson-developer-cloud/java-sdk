@@ -18,6 +18,7 @@ import java.util.Map;
 
 import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 
 /**
  * The response payload from the Conversation service's message API call
@@ -151,6 +152,7 @@ public class MessageResponse extends GenericModel {
   private List<Entity> entities;
   private List<Intent> intents;
   private Map<String, Object> output;
+  private Map<String, Object> input;
 
 
   /**
@@ -232,14 +234,53 @@ public class MessageResponse extends GenericModel {
    * to calling:
    * 
    * <pre>
-   * String text = null;
+   * List<?> text = null;
    * Map<String, Object> output = response.getOutput();
-   * return if(output != null){ text
-   * = output.get("text"); }
+   * if (output != null) {
+   *   text = (List<?>) output.get("text");
+   * }
+   * </pre>
    * 
-   * @return the text which is to be displayed/returned to the end user
+   * @return an array of strings which is to be displayed/returned to the end user
    */
-  public String getText() {
-    return (output != null && output.containsKey(TEXT)) ? output.get(TEXT).toString() : null;
+  public List<String> getText() {
+    if (output != null && output.containsKey(TEXT)) {
+      List<?> text = (List<?>) output.get(TEXT);
+      if (text != null) {
+        return (List<String>) text;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * A convenience method for getting the text property from the output object. The text property is
+   * an array of strings. This convenience class concatenates the array, separating each entry with
+   * the separator string.
+   * 
+   * @return a concatenation of the strings in the output array, with each string separated by the
+   *         separator string
+   */
+  public String getTextConcatenated(String separator) {
+    List<String> outputText = getText();
+    if (outputText != null) {
+      return RequestUtils.join(outputText, separator);
+    }
+    return null;
+  }
+
+  public Map<String, Object> getInput() {
+    return input;
+  }
+
+  public void setInput(Map<String, Object> input) {
+    this.input = input;
+  }
+
+  public String getInputText() {
+    if (this.input != null && this.input.containsKey(TEXT)) {
+      return this.input.get(TEXT).toString();
+    }
+    return null;
   }
 }
