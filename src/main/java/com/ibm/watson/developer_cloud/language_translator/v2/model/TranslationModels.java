@@ -11,27 +11,24 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.language_translation.v2.model;
-
-import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+package com.ibm.watson.developer_cloud.language_translator.v2.model;
 
 import java.util.List;
 
+import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 
 /**
- * {@link TranslationModel} list used by the {@link LanguageTranslation} service.
- *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
+ * {@link TranslationModel} list used by the {@link LanguageTranslator} service.
  */
-@Deprecated
 public class TranslationModels extends GenericModel {
 
   private List<TranslationModel> models;
 
   /**
    * Gets the models.
-   *
+   * 
    * @return the models
    */
   public List<TranslationModel> getModels() {
@@ -40,7 +37,7 @@ public class TranslationModels extends GenericModel {
 
   /**
    * Sets the models.
-   *
+   * 
    * @param models the models to set
    */
   public void setModels(List<TranslationModel> models) {

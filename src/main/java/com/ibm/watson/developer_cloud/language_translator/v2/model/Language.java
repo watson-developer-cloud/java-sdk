@@ -11,16 +11,13 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.language_translation.v2.model;
+package com.ibm.watson.developer_cloud.language_translator.v2.model;
 
-import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
+import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
 
 /**
- * The languages available in {@link LanguageTranslation}.
- *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
+ * The languages available in {@link LanguageTranslator}.
  */
-@Deprecated
 public enum Language {
   
   /** arabic. */

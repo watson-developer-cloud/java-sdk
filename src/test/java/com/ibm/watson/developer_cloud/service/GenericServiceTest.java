@@ -46,8 +46,8 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
+import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
@@ -124,6 +124,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     checkApiKey(new ConversationService(ConversationService.VERSION_DATE_2016_05_19, u, p), key);
     checkApiKey(new DialogService(u, p), key);
     checkApiKey(new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01, u, p), key);
+    checkApiKey(new LanguageTranslator(u, p), key);
     checkApiKey(new LanguageTranslation(u, p), key);
     checkApiKey(new NaturalLanguageClassifier(u, p), key);
     checkApiKey(new PersonalityInsights(u, p), key);
