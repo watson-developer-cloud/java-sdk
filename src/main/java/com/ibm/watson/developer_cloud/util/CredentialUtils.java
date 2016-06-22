@@ -174,7 +174,7 @@ public final class CredentialUtils {
       return getKeyUsingJNDI(serviceName);
     if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
       final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
-      if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
+      if (credentials != null && serviceName.equalsIgnoreCase(ALCHEMY_API)) {
         return credentials.get(APIKEY).getAsString();
       }
     } else {
@@ -286,7 +286,7 @@ public final class CredentialUtils {
       return null;
 
     final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
-    if (credentials.has(URL))
+    if (credentials != null && credentials.has(URL))
       return credentials.get(URL).getAsString();
 
     return null;
