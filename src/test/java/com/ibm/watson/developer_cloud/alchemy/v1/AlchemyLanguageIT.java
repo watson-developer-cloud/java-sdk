@@ -486,6 +486,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   public void testGetTypedRelationsText() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.TEXT, "Jake is one of the developers in the team.");
+    params.put(AlchemyLanguage.MODEL_ID, "en-us-tir");
     final TypedRelations typedRelations = service.getTypedRelations(params).execute();
     Assert.assertNotNull(typedRelations);
     Assert.assertNotNull(typedRelations.getTypedRelations());
