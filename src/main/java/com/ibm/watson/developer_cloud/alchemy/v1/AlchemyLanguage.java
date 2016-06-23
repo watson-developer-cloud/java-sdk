@@ -142,6 +142,9 @@ public class AlchemyLanguage extends AlchemyService {
   /** The Constant ANCHOR_DATE. */
   public static final String ANCHOR_DATE = "anchorDate";
 
+  /** The Constant MODEL_ID. */
+  public static final String MODEL_ID = "model_id";
+  
   private LanguageSelection language = LanguageSelection.DETECT;
 
   private static final SimpleDateFormat anchorDateFormat =
@@ -200,6 +203,11 @@ public class AlchemyLanguage extends AlchemyService {
     for (final String param : paramsCopy.keySet()) {
       requestBuilder.form(param, paramsCopy.get(param));
     }
+    
+    if (operation == AlchemyAPI.TYPED && params.containsKey(MODEL_ID)) {
+      requestBuilder.query(MODEL_ID, params.get(MODEL_ID));
+    }
+    
     return createServiceCall(requestBuilder.build(),ResponseConverterUtils.getObject(returnType));
   }
 
