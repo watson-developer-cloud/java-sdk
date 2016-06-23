@@ -11,17 +11,14 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.language_translation.v2.model;
+package com.ibm.watson.developer_cloud.language_translator.v2.model;
 
-import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
+import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
 
 /**
- * Language detected by the {@link LanguageTranslation} service.
- *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
+ * Language detected by the {@link LanguageTranslator} service.
  * 
  */
-@Deprecated
 public class IdentifiedLanguage extends IdentifiableLanguage {
 
   /** The confidence. */

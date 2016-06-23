@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.language_translation.v2.model;
+package com.ibm.watson.developer_cloud.language_translator.v2.model;
 
 import java.util.List;
 
@@ -21,10 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Translation results from calling the translate method. Contains the word count, character count
  * and the {@link Translation} list
- *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
  */
-@Deprecated
 public class TranslationResult extends GenericModel {
 
   @SerializedName("character_count")
@@ -35,7 +32,7 @@ public class TranslationResult extends GenericModel {
 
   /**
    * Gets the character count.
-   *
+   * 
    * @return The characterCount
    */
   public Integer getCharacterCount() {
@@ -56,7 +53,7 @@ public class TranslationResult extends GenericModel {
 
   /**
    * Gets the translations.
-   *
+   * 
    * @return The translations
    */
   public List<Translation> getTranslations() {
@@ -65,7 +62,7 @@ public class TranslationResult extends GenericModel {
 
   /**
    * Gets the word count.
-   *
+   * 
    * @return The word count
    */
   public Integer getWordCount() {
@@ -74,7 +71,7 @@ public class TranslationResult extends GenericModel {
 
   /**
    * Sets the character count.
-   *
+   * 
    * @param characterCount The character count
    */
   public void setCharacterCount(final Integer characterCount) {
@@ -83,7 +80,7 @@ public class TranslationResult extends GenericModel {
 
   /**
    * Sets the translations.
-   *
+   * 
    * @param translations The translations
    */
   public void setTranslations(final List<Translation> translations) {

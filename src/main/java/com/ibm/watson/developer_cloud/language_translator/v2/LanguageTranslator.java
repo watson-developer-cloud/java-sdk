@@ -11,7 +11,7 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.language_translation.v2;
+package com.ibm.watson.developer_cloud.language_translator.v2;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
@@ -26,12 +26,12 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.CreateModelOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiableLanguage;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiedLanguage;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.Language;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModel;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -44,16 +44,12 @@ import okhttp3.RequestBody;
  * The IBM Watson Language Translator service translate text from one language to another and
  * identifies the language in which text is written.
  *
- * <p>This class is deprecated. Use {@link com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator}
- * instead.</p>
- *
  * @version v2
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-translation.html">
  *      Language Translator</a>
  */
-@Deprecated
-public class LanguageTranslation extends WatsonService {
+public class LanguageTranslator extends WatsonService {
 
   private static final String LANGUAGES = "languages";
   private static final String MODELS = "models";
@@ -81,7 +77,7 @@ public class LanguageTranslation extends WatsonService {
   /**
    * Instantiates a new Language Translator service.
    */
-  public LanguageTranslation() {
+  public LanguageTranslator() {
     super(SERVICE_NAME);
     setEndPoint(URL);
   }
@@ -91,7 +87,7 @@ public class LanguageTranslation extends WatsonService {
    * @param username the username
    * @param password the password
    */
-  public LanguageTranslation(String username, String password) {
+  public LanguageTranslator(String username, String password) {
     this();
     setUsernameAndPassword(username, password);
   }
@@ -193,7 +189,7 @@ public class LanguageTranslation extends WatsonService {
    * @see TranslationModel
    */
   public ServiceCall<List<TranslationModel>> getModels(final Boolean showDefault, final String source,
-                                                       final String target) {
+      final String target) {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_MODELS);
 
     if (source != null && !source.isEmpty())
@@ -297,7 +293,7 @@ public class LanguageTranslation extends WatsonService {
    * @return The {@link TranslationResult}
    */
   private ServiceCall<TranslationResult> translateRequest(List<String> texts, String modelId, Language source,
-                                                          Language target) {
+      Language target) {
     Validator.isTrue(texts != null && !texts.isEmpty(), "texts cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
