@@ -45,7 +45,7 @@ public class ResizeASolrClusterExample {
             System.out.println("SolrCluster status: " + cluster.getStatus());
         }
         // 3 resize the cluster form size 1 to size 2
-        final int desiredClusterSize = 5;
+    final int desiredClusterSize = 2;
         SolrClusterSizeResponse response = service.resizeSolrCluster(solrClusterId, desiredClusterSize).execute();
         System.out.println(response.toString());
 
