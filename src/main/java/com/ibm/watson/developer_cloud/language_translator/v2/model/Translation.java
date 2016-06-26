@@ -11,19 +11,16 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.language_translation.v2.model;
+package com.ibm.watson.developer_cloud.language_translator.v2.model;
 
 import com.google.gson.annotations.Expose;
-import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
+import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The Translation result used as POJO by the {@link LanguageTranslation}.
- *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
+ * The Translation result used as POJO by the {@link LanguageTranslator}.
  * 
  */
-@Deprecated
 public class Translation extends GenericModel {
 
   /** The translation. */

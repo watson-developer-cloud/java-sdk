@@ -14,6 +14,8 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.util;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
@@ -24,10 +26,18 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
  * @see SpeechToText
  */
 public final class MediaTypeUtils {
-  private static final String[] SUPPORTED_EXTENSION = {".wav", ".ogg", ".oga", ".flac", ".raw"};
 
-  private static final String[] SUPPORTED_MEDIA_TYPES = {HttpMediaType.AUDIO_WAV, HttpMediaType.AUDIO_OGG,
-      HttpMediaType.AUDIO_OGG, HttpMediaType.AUDIO_FLAC, HttpMediaType.AUDIO_RAW};
+  private static final Map<String, String> MEDIA_TYPES;
+
+  static {
+    MEDIA_TYPES = new HashMap<String, String>();
+
+    MEDIA_TYPES.put(".wav", HttpMediaType.AUDIO_WAV);
+    MEDIA_TYPES.put(".ogg", HttpMediaType.AUDIO_OGG);
+    MEDIA_TYPES.put(".oga", HttpMediaType.AUDIO_OGG);
+    MEDIA_TYPES.put(".flac", HttpMediaType.AUDIO_FLAC);
+    MEDIA_TYPES.put(".raw", HttpMediaType.AUDIO_RAW);
+  }
 
   private MediaTypeUtils() {
     // This is a utility class - no instantiation allowed.
@@ -37,18 +47,19 @@ public final class MediaTypeUtils {
    * Returns the media type for a given file.
    * 
    * @param file the file object for which media type needs to be provided
-   * @return Internet media type for the file
+   * @return Internet media type for the file, or null if none found
    */
   public static String getMediaTypeFromFile(final File file) {
-    if (file != null) {
-      final String fileName = file.getName().toLowerCase();
-      for (int i = 0; i < SUPPORTED_MEDIA_TYPES.length; i++) {
-        if (fileName.endsWith(SUPPORTED_EXTENSION[i])) {
-          return SUPPORTED_MEDIA_TYPES[i];
-        }
-      }
-    }
-    return null;
+    if (file == null)
+      return null;
+
+    final String fileName = file.getName();
+    final int i = fileName.lastIndexOf('.');
+
+    if(i == -1)
+      return null;
+
+    return MEDIA_TYPES.get(fileName.substring(i).toLowerCase());
   }
 
   /**
@@ -57,15 +68,8 @@ public final class MediaTypeUtils {
    * @param mediaType Internet media type for the file
    * @return true if it is supported, false if not.
    */
-  public static Boolean isValidMediaType(final String mediaType) {
-    if (mediaType != null) {
-      for (final String supportedMediaType : SUPPORTED_MEDIA_TYPES) {
-        if (mediaType.equalsIgnoreCase(supportedMediaType)) {
-          return true;
-        }
-      }
-    }
-    return false;
+  public static boolean isValidMediaType(final String mediaType) {
+    return mediaType != null && MEDIA_TYPES.values().contains(mediaType.toLowerCase());
   }
 
 }

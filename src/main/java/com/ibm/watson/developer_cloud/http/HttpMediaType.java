@@ -27,10 +27,10 @@ import okhttp3.MediaType;
  * @see <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.7">HTTP/1.1 section
  *      3.7</a>
  */
-public class HttpMediaType {
+public final class HttpMediaType {
 
   private HttpMediaType() {
-
+    // This is a utility class - no instantiation allowed.
   }
 
   /**
@@ -109,7 +109,7 @@ public class HttpMediaType {
    * @return <code>audio/l16; rate={rate}</code>
    * @see SpeechToText#recognizeUsingWebSocket(InputStream, RecognizeOptions, RecognizeCallback)
    */
-  public static final String createAudioRaw(int rate) {
+  public static String createAudioRaw(int rate) {
     return AUDIO_RAW + "; rate=" + rate;
   };
 

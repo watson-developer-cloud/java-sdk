@@ -73,7 +73,7 @@ public final class ResponseConverterUtils {
    * @param type the type
    * @return the response converter
    */
-  public static <T extends GenericModel> ResponseConverter<T> getObject(final Class<T> type) {
+  public static <T extends GenericModel> ResponseConverter<T> getObject(final Class<? extends T> type) {
     return new ResponseConverter<T>() {
       @Override
       public T convert(Response response) {

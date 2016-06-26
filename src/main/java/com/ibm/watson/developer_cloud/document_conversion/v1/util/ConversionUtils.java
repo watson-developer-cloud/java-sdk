@@ -19,6 +19,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -32,6 +34,21 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
  */
 public final class ConversionUtils {
 
+  private static final Map<String, String> MEDIA_TYPES;
+
+  static {
+    MEDIA_TYPES = new HashMap<String, String>();
+
+    MEDIA_TYPES.put(".htm", HttpMediaType.TEXT_HTML);
+    MEDIA_TYPES.put(".html", HttpMediaType.TEXT_HTML);
+    MEDIA_TYPES.put(".dot", HttpMediaType.APPLICATION_MS_WORD);
+    MEDIA_TYPES.put(".doc", HttpMediaType.APPLICATION_MS_WORD);
+    MEDIA_TYPES.put(".docx", HttpMediaType.APPLICATION_MS_WORD_DOCX);
+    MEDIA_TYPES.put(".xml", HttpMediaType.APPLICATION_XHTML_XML);
+    MEDIA_TYPES.put(".xhtml", HttpMediaType.APPLICATION_XHTML_XML);
+    MEDIA_TYPES.put(".pdf", HttpMediaType.APPLICATION_PDF);
+  }
+
   private ConversionUtils() {
     // This is a utility class - no instantiation allowed.
   }
@@ -40,23 +57,19 @@ public final class ConversionUtils {
    * Returns the media type for a given file.
    * 
    * @param file the file object for which media type needs to be provided
-   * @return Internet media type for the file
+   * @return Internet media type for the file, or null if none found
    */
   public static String getMediaTypeFromFile(final File file) {
-    if (file != null) {
-      final String fileName = file.getName().toLowerCase();
-      final String[] supportedExtensions = {".htm", ".html", ".dot", ".doc", ".docx", ".xml", ".xhtml", ".pdf"};
-      final String[] supportedMediaTypes = {HttpMediaType.TEXT_HTML, HttpMediaType.TEXT_HTML,
-          HttpMediaType.APPLICATION_MS_WORD, HttpMediaType.APPLICATION_MS_WORD, HttpMediaType.APPLICATION_MS_WORD_DOCX,
-          HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_PDF};
+    if (file == null)
+      return null;
 
-      for (int i = 0; i < supportedMediaTypes.length; i++) {
-        if (fileName.endsWith(supportedExtensions[i])) {
-          return supportedMediaTypes[i];
-        }
-      }
-    }
-    return null;
+    final String fileName = file.getName();
+    final int i = fileName.lastIndexOf('.');
+
+    if(i == -1)
+      return null;
+
+    return MEDIA_TYPES.get(fileName.substring(i).toLowerCase());
   }
 
   /**
@@ -65,18 +78,9 @@ public final class ConversionUtils {
    * @param mediaType Internet media type for the file
    * @return true if it is supported, false if not.
    */
-  public static Boolean isValidMediaType(final String mediaType) {
-    if (mediaType != null) {
-      final String[] supportedMediaTypes = {HttpMediaType.TEXT_HTML, HttpMediaType.APPLICATION_MS_WORD,
-          HttpMediaType.APPLICATION_MS_WORD_DOCX, HttpMediaType.APPLICATION_XHTML_XML, HttpMediaType.APPLICATION_PDF};
+  public static boolean isValidMediaType(final String mediaType) {
+    return mediaType != null && MEDIA_TYPES.values().contains(mediaType.toLowerCase());
 
-      for (final String supportedMediaType : supportedMediaTypes) {
-        if (mediaType.equalsIgnoreCase(supportedMediaType)) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
   /**

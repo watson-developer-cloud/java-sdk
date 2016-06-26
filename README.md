@@ -26,7 +26,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Conversation](#conversation)
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
-    * [Language Translation](#language-translation)
+    * [Language Translator](#language-translator)
     * [Natural Language Classifier](#natural-language-classifier)
     * [Personality Insights](#personality-insights)
     * [Relationship Extraction](#relationship-extraction)
@@ -302,12 +302,12 @@ Answers htmlToAnswers = service.convertDocumentToAnswer(doc).execute();
 System.out.println(htmlToAnswers);
 ```
 
-### Language Translation
+### Language Translator
 Select a domain, then identify or select the language of text, and then translate the text from one supported language to another.  
-Example: Translate 'hello' from English to Spanish using the [Language Translation][language_translation] service.
+Example: Translate 'hello' from English to Spanish using the [Language Translator][language_translator] service.
 
 ```java
-LanguageTranslation service = new LanguageTranslation();
+LanguageTranslator service = new LanguageTranslator();
 service.setUsernameAndPassword("<username>", "<password>");
 
 TranslationResult translationResult = service.translate(
@@ -619,7 +619,7 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [personality_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/personality-insights/
 [document_conversion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/document-conversion/
 [relationship_extraction]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/sireapi/
-[language_translation]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/
+[language_translator]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/
 [visual_recognition]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-recognition/
 [tradeoff_analytics]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tradeoff-analytics/
 [text_to_speech]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/

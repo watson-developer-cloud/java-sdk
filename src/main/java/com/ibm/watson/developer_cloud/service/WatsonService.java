@@ -183,7 +183,7 @@ public abstract class WatsonService {
       }
 
       @Override
-      public void enqueue(final ServiceCallback<T> callback) {
+      public void enqueue(final ServiceCallback<? super T> callback) {
         call.enqueue(new Callback() {
           @Override
           public void onFailure(Call call, IOException e) {
@@ -224,6 +224,16 @@ public abstract class WatsonService {
         });
 
         return completableFuture;
+      }
+
+      @Override
+      protected void finalize() throws Throwable {
+        super.finalize();
+
+        if (!call.isExecuted()) {
+          final Request r = call.request();
+          LOG.warning(r.method() + " request to " + r.url() + " has not been sent. Did you forget to call execute()?");
+        }
       }
     };
   }

@@ -13,8 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
-import org.apache.commons.lang3.StringUtils;
-
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
@@ -23,6 +21,7 @@ import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -101,7 +100,7 @@ public class ToneAnalyzer extends WatsonService {
     }
 
     if (options != null && options.tones() != null) {
-      requestBuilder.query(TONES, StringUtils.join(options.tones(), ","));
+      requestBuilder.query(TONES, RequestUtils.join(options.tones(), ","));
     }
 
     if (options != null && options.includeSentences() != null) {
