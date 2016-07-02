@@ -13,6 +13,17 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
@@ -33,17 +44,6 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomies;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedEntity;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelation;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelations;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by nizar on 8/25/15.
