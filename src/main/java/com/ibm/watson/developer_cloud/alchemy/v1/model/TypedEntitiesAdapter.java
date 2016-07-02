@@ -28,6 +28,8 @@ public class TypedEntitiesAdapter extends TypeAdapter<List<TypedEntity>> {
 
     @Override
     public void write(JsonWriter writer, List<TypedEntity> value) throws IOException {
+        // No coding the serialization as there is no code relying on this
+        // type to serialize payloads
     }
 
     @Override
