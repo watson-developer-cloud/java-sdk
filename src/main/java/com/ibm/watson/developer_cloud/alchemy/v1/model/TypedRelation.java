@@ -14,9 +14,11 @@
 
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
-import java.util.List;
-
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+
+import java.util.List;
 
 /**
  * Typed relation between {@link TypedEntity}.
@@ -27,7 +29,10 @@ public class TypedRelation {
     private String text;
     private String type;
     private Double score;
-    private List<Entity> entities;
+
+    @JsonAdapter(TypedEntitiesAdapter.class)
+    @SerializedName("arguments")
+    private List<TypedEntity> entities;
 
     /**
      * Gets the text.
@@ -84,20 +89,16 @@ public class TypedRelation {
     }
 
     /**
-     * Gets the entities.
-     *
-     * @return     The entities
+     * @return the entities
      */
-    public List<Entity> getEntities() {
+    public List<TypedEntity> getEntities() {
         return entities;
     }
 
     /**
-     * Sets the entities.
-     *
-     * @param entities     The entities
+     * @param entities the entities to set
      */
-    public void setEntities(List<Entity> entities) {
+    public void setEntities(List<TypedEntity> entities) {
         this.entities = entities;
     }
 

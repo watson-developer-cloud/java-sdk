@@ -13,16 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Concepts;
@@ -40,7 +30,19 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.Language;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Microformats;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.SAORelations;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomies;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelation;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelations;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Ignore;
+import org.junit.Test;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by nizar on 8/25/15.
@@ -485,11 +487,21 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   @Test
   public void testGetTypedRelationsText() {
     final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(AlchemyLanguage.TEXT, "Jake is one of the developers in the team.");
-    params.put(AlchemyLanguage.MODEL_ID, "en-us-tir");
+    params.put(AlchemyLanguage.TEXT, "Leiming Qian lives in New York.");
+    params.put(AlchemyLanguage.MODEL_ID, "ie-en-news");
     final TypedRelations typedRelations = service.getTypedRelations(params).execute();
     Assert.assertNotNull(typedRelations);
-    Assert.assertNotNull(typedRelations.getTypedRelations());
+    List<TypedRelation> trs = typedRelations.getTypedRelations();
+    Assert.assertNotNull(trs);
+    Assert.assertFalse(trs.isEmpty());
+    trs.stream().forEach(tr -> Assert.assertNotNull(tr.getType()));
+    trs.stream().forEach(tr -> Assert.assertNotNull(tr.getEntities()));
+    trs.stream().forEach(tr -> Assert.assertFalse(tr.getEntities().isEmpty()));
+    trs.stream().forEach(tr -> tr.getEntities().stream().forEach(e -> {
+        Assert.assertNotNull(e.getId());
+        Assert.assertNotNull(e.getText());
+        Assert.assertNotNull(e.getType());
+    }));
   }
 
   /**
