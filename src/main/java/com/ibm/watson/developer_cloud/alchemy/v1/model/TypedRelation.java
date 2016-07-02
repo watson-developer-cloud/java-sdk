@@ -14,11 +14,11 @@
 
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
-
-import java.util.List;
 
 /**
  * Typed relation between {@link TypedEntity}.
