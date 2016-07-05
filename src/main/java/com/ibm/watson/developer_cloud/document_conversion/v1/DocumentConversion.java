@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -21,6 +21,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.Metadata;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionTarget;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
@@ -39,7 +42,7 @@ import okhttp3.RequestBody;
 /**
  * The IBM Watson Document Conversion service converts provided source documents (HTML, Word, PDF)
  * into JSON Answer Units, Normalized HTML, or Normalized Text.
- * 
+ *
  * @version v1
  * @see <a href=
  *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/document-conversion.html">
@@ -48,7 +51,14 @@ import okhttp3.RequestBody;
 public class DocumentConversion extends WatsonService {
 
   private static final String CONVERSION_TARGET = "conversion_target";
-  private static final String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
+  private static final String DRY_RUN = "dry_run";
+  private static final String SERVICE_INSTANCE_ID = "service_instance_id";
+  private static final String CLUSTER_ID = "cluster_id";
+  private static final String SEARCH_COLLECTION = "search_collection";
+  private static final String RETRIEVE_AND_RANK = "retrieve_and_rank";
+  private static final String CONVERT_DOCUMENT = "convert_document";
+  private static final String CONVERT_DOCUMENT_PATH = "/v1/" + CONVERT_DOCUMENT;
+  private static final String INDEX_DOCUMENT_PATH = "/v1/index_document";
   private static final JsonObject EMPTY_CONFIG = new JsonParser().parse("{}").getAsJsonObject();
   private static final String SERVICE_NAME = "document_conversion";
   private static final String URL = "https://gateway.watsonplatform.net/document-conversion/api";
@@ -85,7 +95,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document and returns an {@link InputStream}.
-   * 
+   *
    * @param document The file to convert
    * @param mediaType Internet media type of the file
    * @param conversionTarget The conversion target to use
@@ -94,7 +104,7 @@ public class DocumentConversion extends WatsonService {
    * @see HttpMediaType HttpMediaType for available media types
    */
   private Request createConversionRequest(final File document, final String mediaType,
-      final ConversionTarget conversionTarget, final JsonObject customConfig) {
+                                          final ConversionTarget conversionTarget, final JsonObject customConfig) {
 
     if (document == null || !document.exists())
       throw new IllegalArgumentException("document cannot be null and must exist");
@@ -106,13 +116,6 @@ public class DocumentConversion extends WatsonService {
     else
       config = EMPTY_CONFIG;
 
-    final String type = mediaType != null ? mediaType : ConversionUtils.getMediaTypeFromFile(document);
-    if (type == null) {
-      throw new RuntimeException("mediaType cannot be null or empty");
-    } else if (!ConversionUtils.isValidMediaType(type)) {
-      throw new IllegalArgumentException("file with the given media type is not supported");
-    }
-
     final JsonObject configJson = new JsonObject();
     // Do this since we shouldn't mutate customConfig
     for (Map.Entry<String, JsonElement> entry : config.entrySet()) {
@@ -121,7 +124,7 @@ public class DocumentConversion extends WatsonService {
     // Add or override the conversion target
     configJson.addProperty(CONVERSION_TARGET, conversionTarget.toString());
 
-    final MediaType mType = MediaType.parse(type);
+    final MediaType mType = parseMediaType(document, mediaType);
     final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
         .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"config\""),
             RequestBody.create(HttpMediaType.JSON, configJson.toString()))
@@ -136,10 +139,10 @@ public class DocumentConversion extends WatsonService {
    * Converts a document to Answer Units. <br>
    * Use {@link DocumentConversion#convertDocumentToAnswer(File, String)} if you want to specify the
    * media type
-   * 
+   *
    * @param document the document
    * @return Converted document as {@link Answers}
-   * 
+   *
    */
   public ServiceCall<Answers> convertDocumentToAnswer(File document) {
     Request request = createConversionRequest(document, null, ConversionTarget.ANSWER_UNITS, null);
@@ -148,7 +151,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to Answer Units.
-   * 
+   *
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided
    * @return Converted document as {@link Answers}
@@ -161,7 +164,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to Answer Units using a custom configuration.
-   * 
+   *
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @param customConfig the configuration parameters to customize the conversion
@@ -176,7 +179,7 @@ public class DocumentConversion extends WatsonService {
    * Converts a document to HTML. <br>
    * Use {@link DocumentConversion#convertDocumentToHTML(File, String)} if you want to specify the
    * media type.
-   * 
+   *
    * @param document the document
    * @return Converted document as {@link String}
    */
@@ -187,7 +190,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to HTML.
-   * 
+   *
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @return Converted document as {@link String}
@@ -200,7 +203,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to HTML using a custom configuration.
-   * 
+   *
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @param customConfig the configuration parameters to customize the conversion
@@ -215,7 +218,7 @@ public class DocumentConversion extends WatsonService {
    * Converts a document to Text. <br>
    * Use {@link DocumentConversion#convertDocumentToText(File, String)} if you want to specify the
    * media type.
-   * 
+   *
    * @param document the document
    * @return Converted document as {@link String}
    */
@@ -226,7 +229,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to Text.
-   * 
+   *
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @return Converted document as {@link String}
@@ -239,7 +242,7 @@ public class DocumentConversion extends WatsonService {
 
   /**
    * Converts a document to Text using a custom configuration.
-   * 
+   *
    * @param document the document
    * @param mediaType the document media type. It will use the file extension if not provided.
    * @param customConfig the configuration parameters to customize the conversion
@@ -248,6 +251,86 @@ public class DocumentConversion extends WatsonService {
   public ServiceCall<String> convertDocumentToText(File document, String mediaType, JsonObject customConfig) {
     Request request = createConversionRequest(document, null, ConversionTarget.NORMALIZED_TEXT, customConfig);
     return createServiceCall(request, ResponseConverterUtils.getString());
+  }
+
+  /**
+   * Converts and indexes the document and metadata provided
+   * @param indexDocumentOptions Specifies the options for indexing the document
+   * @return index document response as {@link String}
+   */
+  public ServiceCall<String> indexDocument(final IndexDocumentOptions indexDocumentOptions) {
+    if (indexDocumentOptions != null) {
+      File document = indexDocumentOptions.document();
+      InputStream documentInputStream = indexDocumentOptions.getDocumentInputStream();
+      Boolean dryRun = indexDocumentOptions.dryRun();
+      String mediaType = indexDocumentOptions.mediaType();
+      JsonObject convertDocumentConfig = indexDocumentOptions.convertDocumentConfig();
+      IndexConfiguration indexConfiguration = indexDocumentOptions.indexConfiguration();
+      Metadata metadata = new Metadata();
+      metadata.setMetadata(indexDocumentOptions.metadata());
+
+      if (document == null && documentInputStream == null && metadata.getMetadata() == null)
+        throw new IllegalArgumentException("The request does not contain a document or metadata. At least one of those is required.");
+      if (document != null && documentInputStream != null)
+        throw new IllegalArgumentException("Both a document File and InputStream were provided, only one is allowed.");
+      if (!dryRun && indexConfiguration == null)
+        throw new IllegalArgumentException("A configuration is required for indexing.");
+      // Build the configuration for the index document request
+      final JsonObject config = new JsonObject();
+      JsonObject rnrConfig = new JsonObject();
+      if (dryRun) {
+        rnrConfig.addProperty(DRY_RUN, true);
+      } else {
+        rnrConfig.addProperty(DRY_RUN, false);
+        rnrConfig.addProperty(SERVICE_INSTANCE_ID, indexConfiguration.getServiceInstanceId());
+        rnrConfig.addProperty(CLUSTER_ID, indexConfiguration.getClusterId());
+        rnrConfig.addProperty(SEARCH_COLLECTION, indexConfiguration.getSearchCollectionName());
+      }
+      config.add(RETRIEVE_AND_RANK, rnrConfig);
+      if (convertDocumentConfig != null) {
+        config.add(CONVERT_DOCUMENT, convertDocumentConfig);
+      }
+      // Create the request for the index document API call
+      final MultipartBody.Builder multiPartBodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
+          .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"config\""),
+              RequestBody.create(HttpMediaType.JSON, config.toString()));
+      if (documentInputStream != null) {
+        final MediaType mType = parseMediaType(document, mediaType);
+        byte[] documentContent = ConversionUtils.writeInputStreamToString(documentInputStream).getBytes();
+        multiPartBodyBuilder.addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"file\""),
+            RequestBody.create(mType, documentContent));
+      }
+      if (document != null) {
+        final MediaType mType = parseMediaType(document, mediaType);
+        multiPartBodyBuilder.addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"file\""),
+            RequestBody.create(mType, document));
+      }
+      if (metadata.getMetadata() != null) {
+        multiPartBodyBuilder.addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"metadata\""),
+            RequestBody.create(HttpMediaType.JSON, metadata.toString()));
+      }
+      final RequestBody body = multiPartBodyBuilder.build();
+
+      Request request = RequestBuilder.post(INDEX_DOCUMENT_PATH).query(VERSION, versionDate).body(body).build();
+      return createServiceCall(request, ResponseConverterUtils.getString());
+    } else
+      throw new IllegalArgumentException("The request does not contain a file or metadata. At least one of those is required.");
+  }
+
+  /**
+   * Parses the provided media type or auto-detects it from the document
+   * @param document The document that is being converted
+   * @param mediaType The media type of the document to be converted
+   * @return MediaType of the document
+   */
+  private MediaType parseMediaType(final File document, final String mediaType) {
+    final String type = mediaType != null ? mediaType : ConversionUtils.getMediaTypeFromFile(document);
+    if (type == null) {
+      throw new RuntimeException("mediaType cannot be null or empty");
+    } else if (!ConversionUtils.isValidMediaType(type)) {
+      throw new IllegalArgumentException("file with the given media type is not supported");
+    }
+    return MediaType.parse(type);
   }
 
 }
