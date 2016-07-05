@@ -277,16 +277,16 @@ public class DocumentConversion extends WatsonService {
         throw new IllegalArgumentException("A configuration is required for indexing.");
       // Build the configuration for the index document request
       final JsonObject config = new JsonObject();
-      JsonObject rnrConfig = new JsonObject();
+      JsonObject retrieveAndRankConfig = new JsonObject();
       if (dryRun) {
-        rnrConfig.addProperty(DRY_RUN, true);
+        retrieveAndRankConfig.addProperty(DRY_RUN, true);
       } else {
-        rnrConfig.addProperty(DRY_RUN, false);
-        rnrConfig.addProperty(SERVICE_INSTANCE_ID, indexConfiguration.getServiceInstanceId());
-        rnrConfig.addProperty(CLUSTER_ID, indexConfiguration.getClusterId());
-        rnrConfig.addProperty(SEARCH_COLLECTION, indexConfiguration.getSearchCollectionName());
+        retrieveAndRankConfig.addProperty(DRY_RUN, false);
+        retrieveAndRankConfig.addProperty(SERVICE_INSTANCE_ID, indexConfiguration.getServiceInstanceId());
+        retrieveAndRankConfig.addProperty(CLUSTER_ID, indexConfiguration.getClusterId());
+        retrieveAndRankConfig.addProperty(SEARCH_COLLECTION, indexConfiguration.getSearchCollectionName());
       }
-      config.add(RETRIEVE_AND_RANK, rnrConfig);
+      config.add(RETRIEVE_AND_RANK, retrieveAndRankConfig);
       if (convertDocumentConfig != null) {
         config.add(CONVERT_DOCUMENT, convertDocumentConfig);
       }
