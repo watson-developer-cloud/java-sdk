@@ -63,7 +63,8 @@ public class Metadata extends GenericModel {
   }
 
   private static class MetadataEntry extends GenericModel {
-    private String name, value;
+    private String name;
+    private String value;
 
     MetadataEntry(String name, String value) {
       this.name = name;
