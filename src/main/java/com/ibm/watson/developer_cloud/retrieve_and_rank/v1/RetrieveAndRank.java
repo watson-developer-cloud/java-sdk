@@ -31,6 +31,8 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Rankers;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterResizeRequest;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterSizeResponse;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterStats;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusters;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrConfigs;
@@ -74,6 +76,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   private static final String PATH_SOLR_CLUSTERS_CONFIG = "/v1/solr_clusters/%s/config";
   private static final String PATH_SOLR_CLUSTERS_CONFIGS = "/v1/solr_clusters/%s/config/%s";
   private static final String URL = "https://gateway.watsonplatform.net/retrieve-and-rank/api";
+  private static final String PATH_SOLR_CLUSTERS_SIZE = "/v1/solr_clusters/%s/cluster_size";
 
   /**
    * Instantiates a new ranker client.
@@ -434,5 +437,53 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     final RequestBuilder requestBuilder = RequestBuilder.post(configPath);
     requestBuilder.body(RequestBody.create(MediaType.parse(HttpMediaType.APPLICATION_ZIP), zippedConfig));
     return requestBuilder;
+  }
+  /*
+   * (non-Javadoc)
+   *
+   * @see
+   * com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#resizeSolrCluster
+   * (java.lang.String)
+   */
+  @Override
+  public ServiceCall<SolrClusterSizeResponse> resizeSolrCluster(String SolrClusterId,
+      int requestedSize) {
+    final Request request = buildResizeRequest(SolrClusterId, requestedSize);
+    return createServiceCall(request,
+        ResponseConverterUtils.getObject(SolrClusterSizeResponse.class));
+  }
+
+  /*
+   * (non-Javadoc)
+   *
+   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#
+   * getSolrClusterResizeStatus (java.lang.String)
+   */
+  @Override
+  public ServiceCall<SolrClusterSizeResponse> getSolrClusterResizeStatus(String SolrClusterId) {
+    final Request request = buildGetSizeRequest(SolrClusterId);
+    return createServiceCall(request,
+        ResponseConverterUtils.getObject(SolrClusterSizeResponse.class));
+  }
+
+  private Request buildResizeRequest(String solrClusterId, int desiredSize) {
+    final String resizePath = createSizePath(solrClusterId);
+    final SolrClusterResizeRequest resizeRequest = new SolrClusterResizeRequest(desiredSize);
+    final RequestBuilder requestBuilder = RequestBuilder.put(resizePath);
+    requestBuilder.bodyContent(GsonSingleton.getGsonWithoutPrettyPrinting().toJson(resizeRequest),
+        HttpMediaType.APPLICATION_JSON);
+    return requestBuilder.build();
+  }
+
+  private String createSizePath(String solrClusterId) {
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
+        "solrClusterId cannot be null or empty");
+    return String.format(PATH_SOLR_CLUSTERS_SIZE, solrClusterId);
+  }
+
+  private Request buildGetSizeRequest(String solrClusterId) {
+    final String resizePath = createSizePath(solrClusterId);
+    final RequestBuilder requestBuilder = RequestBuilder.get(resizePath);
+    return requestBuilder.build();
   }
 }

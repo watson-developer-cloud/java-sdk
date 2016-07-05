@@ -70,4 +70,16 @@ public class ApiConstants {
   
   /** The Constant PERCENT_USED. */
   public static final String PERCENT_USED = "percent_used";
+  /** The Constant RESIZE_STATUS. */
+
+  public static final String RESIZE_STATUS = "status";
+
+  /** The Constant RESIZE_MESSAGE. */
+  public static final String RESIZE_MESSAGE = "message";
+
+  /** The Constant TARGET_CLUSTER_SIZE. */
+  public static final String TARGET_CLUSTER_SIZE = "target_cluster_size";
+
+  /** The Constant String CLUSTER_ID. */
+  public static final String CLUSTER_ID = "cluster_id";
 }
