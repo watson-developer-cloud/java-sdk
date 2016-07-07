@@ -16,6 +16,8 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -47,6 +49,8 @@ public class WebSocketManager {
   private String token;
 
   private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
+  private static final Logger LOG = Logger.getLogger(WebSocketManager.class.getName());
+
 
   /**
    * The listener interface for receiving {@link WebSocket} events. <br>
@@ -149,7 +153,7 @@ public class WebSocketManager {
                 try {
                   socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStopMessage()));
                 } catch (IOException e) {
-                  e.printStackTrace();
+                  LOG.log(Level.SEVERE, e.getMessage(), e);
                 }
               }
             }
@@ -205,7 +209,7 @@ public class WebSocketManager {
             socket.sendMessage(RequestBody.create(WebSocket.BINARY, Arrays.copyOfRange(buffer, 0, read)));
         }
       } catch (IOException e) {
-        e.printStackTrace();
+        LOG.log(Level.SEVERE, e.getMessage(), e);
       } finally {
         try {
           inputStream.close();
