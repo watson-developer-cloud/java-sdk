@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParseException;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
@@ -66,11 +65,14 @@ public class WebSocketManager {
     private static final int FOUR_KB = 4096;
     private static final String ERROR = "error";
     private static final String RESULTS = "results";
+    private static final String TIMEOUT_PREFIX = "No speech detected for";
+
     private final InputStream stream;
     private final RecognizeOptions options;
     private final RecognizeCallback callback;
     private WebSocket socket;
-    private boolean audioSent = false;
+    private boolean socketOpen = true;
+    private Thread audioThread = null;
     private int CLOSE_NORMAL = 1000;
 
     /**
@@ -94,6 +96,7 @@ public class WebSocketManager {
      */
     @Override
     public void onClose(int code, String reason) {
+      socketOpen = false;
       callback.onDisconnected();
     }
 
@@ -104,6 +107,7 @@ public class WebSocketManager {
      */
     @Override
     public void onFailure(IOException e, Response response) {
+      socketOpen = false;
       callback.onError(e);
     }
 
@@ -116,23 +120,45 @@ public class WebSocketManager {
     public void onMessage(ResponseBody response) throws IOException {
       String message = response.string();
 
-      try {
-        JsonObject json = new JsonParser().parse(message).getAsJsonObject();
-        if (json.has(ERROR)) {
-          callback.onError(new RuntimeException(json.get(ERROR).getAsString()));
-        } else if (json.has(RESULTS)) {
-          callback.onTranscription(GSON.fromJson(message, SpeechResults.class));
-        } else if (json.has(STATE)) {
-          if (!audioSent) {
-            sendInputSteam(stream);
-            socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStopMessage()));
-            audioSent = true;
-          } else {
-            socket.close(CLOSE_NORMAL, "Transcription completed");
-          }
+      JsonObject json = new JsonParser().parse(message).getAsJsonObject();
+      if (json.has(ERROR)) {
+        String error = json.get(ERROR).getAsString();
+
+        // Only call onError() if a real error occured. The STT service sends
+        // {"error" : "No speech detected for 5s"} for valid timeouts, configured by
+        // RecognizeOptions.Builder.inactivityTimeout()
+        if(!error.startsWith(TIMEOUT_PREFIX)) {
+          callback.onError(new RuntimeException(error));
         }
-      } catch (JsonParseException e) {
-        throw new RuntimeException("Error parsing the incoming message: " + response.string(), e);
+      } else if (json.has(RESULTS)) {
+        callback.onTranscription(GSON.fromJson(message, SpeechResults.class));
+      } else if (json.has(STATE)) {
+        if (audioThread == null) {
+          // Send the InputStream on a different Thread. Elsewise, interim results cannot be received,
+          // because the Thread that called SpeechToText.recognizeUsingWebSocket is blocked.
+          audioThread = new Thread() {
+            @Override
+            public void run() {
+              sendInputSteam(stream);
+
+              // Do not send the stop message, if the socket has been closed already, for example because of
+              // the inactivity timeout.
+              if(socketOpen) {
+                // If the socket is still open after the sending finishes, for example because the user closed
+                // the microphone AudioInputStream, send a stop message.
+                try {
+                  socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStopMessage()));
+                } catch (IOException e) {
+                  e.printStackTrace();
+                }
+              }
+            }
+          };
+
+          audioThread.start();
+        } else {
+          socket.close(CLOSE_NORMAL, "Transcription completed");
+        }
       }
     }
 
@@ -164,18 +190,29 @@ public class WebSocketManager {
      * Send input steam.
      *
      * @param inputStream the input stream
-     * @throws IOException Signals that an I/O exception has occurred.
      */
-    private void sendInputSteam(InputStream inputStream) throws IOException {
+    private void sendInputSteam(InputStream inputStream) {
       byte[] buffer = new byte[FOUR_KB];
       int read;
-      while ((read = inputStream.read(buffer)) > 0) {
-        if (read == FOUR_KB)
-          socket.sendMessage(RequestBody.create(WebSocket.BINARY, buffer));
-        else
-          socket.sendMessage(RequestBody.create(WebSocket.BINARY, Arrays.copyOfRange(buffer, 0, read)));
+      try {
+        // This method uses a blocking while loop to receive all contents of the underlying input stream.
+        // AudioInputStreams, typically used for streaming microphone inputs return 0 only when the stream has been
+        // closed. Elsewise AudioInputStream.read() blocks until enough audio frames are read.
+        while ((read = inputStream.read(buffer)) > 0 && socketOpen) {
+          if (read == FOUR_KB)
+            socket.sendMessage(RequestBody.create(WebSocket.BINARY, buffer));
+          else
+            socket.sendMessage(RequestBody.create(WebSocket.BINARY, Arrays.copyOfRange(buffer, 0, read)));
+        }
+      } catch (IOException e) {
+        e.printStackTrace();
+      } finally {
+        try {
+          inputStream.close();
+        } catch (IOException e) {
+          // do nothing - the InputStream may have already been closed externally.
+        }
       }
-      inputStream.close();
     }
 
     /**
@@ -223,9 +260,11 @@ public class WebSocketManager {
    * @return the web socket call
    */
   private WebSocketCall createConnection(RecognizeOptions options) {
-    String speechModel = options.model() != null ? "?model=" + options.model() : "";
-    Request connectionRequest =
-        new Request.Builder().url(url + speechModel).addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token).build();
+    String speechModel = options.model() == null ? "" : "?model=" + options.model();
+    Request connectionRequest = new Request.Builder()
+      .url(url + speechModel)
+      .addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token)
+      .build();
 
     return WebSocketCall.create(client, connectionRequest);
   }
