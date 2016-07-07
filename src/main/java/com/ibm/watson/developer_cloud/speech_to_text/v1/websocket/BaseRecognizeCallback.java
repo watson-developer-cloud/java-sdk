@@ -43,7 +43,9 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onError(java.lang
    * .Exception)
    */
-  public void onError(Exception e) {};
+  public void onError(Exception e) {
+    e.printStackTrace();
+  };
 
   /*
    * (non-Javadoc)
