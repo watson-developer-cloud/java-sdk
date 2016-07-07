@@ -1,0 +1,7 @@
+{
+  "cluster_id": "ANY_CLUSTER_ID",
+  "cluster_size": 1,
+  "target_cluster_size": 2,
+  "status": "RESIZING",
+  "message": "WRRCSR027: Resizing cluster [ANY_CLUSTER_ID] from size [1] to size [2]."
+}

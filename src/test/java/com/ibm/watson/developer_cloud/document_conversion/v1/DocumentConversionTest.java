@@ -17,12 +17,17 @@ import static com.ibm.watson.developer_cloud.http.HttpMediaType.TEXT_HTML;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.HashMap;
+import java.util.Map;
 
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -43,12 +48,16 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
 
   private static final String VERSION = "version";
   private static final String CONVERT_DOCUMENT_PATH = "/v1/convert_document";
+  private static final String INDEX_DOCUMENT_PATH = "/v1/index_document";
   private static final String RESOURCE = "src/test/resources/document_conversion/";
 
   private DocumentConversion service;
 
   private final File html;
   private InputStream expAnswer;
+  private InputStream expIndexResponse;
+  private InputStream expIndexDryRunResponse;
+  private IndexConfiguration indexConfiguration;
 
   /**
    * Instantiates a new document conversion test.
@@ -74,13 +83,16 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
     service.setEndPoint(getMockWebServerUrl());
 
     expAnswer = new FileInputStream(RESOURCE + "html-with-extra-content-input-to-answer.json");
+    expIndexResponse = new ByteArrayInputStream("{\"status\": \"success\"}".getBytes());
+    expIndexDryRunResponse = new FileInputStream(RESOURCE + "html-with-extra-content-input-index-dry-run.json");
+    indexConfiguration = new IndexConfiguration("serviceInstanceId", "clusterId", "searchCollectionName");
   }
 
-  private RecordedRequest checkRequest() throws InterruptedException {
+  private RecordedRequest checkRequest(String requestPath) throws InterruptedException {
     final RecordedRequest request = server.takeRequest();
     final HttpUrl url = HttpUrl.parse(getMockWebServerUrl() + request.getPath());
 
-    assertEquals(CONVERT_DOCUMENT_PATH, url.encodedPath());
+    assertEquals(requestPath, url.encodedPath());
     assertEquals(DocumentConversion.VERSION_DATE_2015_12_01, url.queryParameter(VERSION));
     assertEquals(POST, request.getMethod());
 
@@ -98,7 +110,7 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
   public void testConvertDocument() throws URISyntaxException, IOException, InterruptedException {
     server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expAnswer)));
     Answers convertedDoc = service.convertDocumentToAnswer(html, null).execute();
-    checkRequest();
+    checkRequest(CONVERT_DOCUMENT_PATH);
     assertNotNull(convertedDoc);
   }
 
@@ -114,7 +126,7 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
     // Convert document with a specified media type
     server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expAnswer)));
     Answers convertedDoc = service.convertDocumentToAnswer(html, TEXT_HTML).execute();
-    checkRequest();
+    checkRequest(CONVERT_DOCUMENT_PATH);
     assertNotNull(convertedDoc);
   }
 
@@ -128,7 +140,7 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
     JsonObject customConfig = ConversionUtils.loadCustomConfig(new FileInputStream(RESOURCE + "custom_config.json"));
     server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expAnswer)));
     service.convertDocumentToAnswer(html, null, customConfig).execute();
-    checkRequest();
+    checkRequest(CONVERT_DOCUMENT_PATH);
   }
 
   /**
@@ -140,6 +152,43 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
   public void testConvertDocumentWithVersionDate() throws Exception {
     server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expAnswer)));
     service.convertDocumentToAnswer(html).execute();
-    checkRequest();
+    checkRequest(CONVERT_DOCUMENT_PATH);
+  }
+
+  /**
+   * Test index document
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testIndexDocument() throws Exception {
+    IndexDocumentOptions indexDocumentOptions = new IndexDocumentOptions.Builder()
+        .document(html)
+        .dryRun(false)
+        .indexConfiguration(indexConfiguration)
+        .build();
+    server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expIndexResponse)));
+    service.indexDocument(indexDocumentOptions).execute();
+    checkRequest(INDEX_DOCUMENT_PATH);
+  }
+
+  /**
+   * Test a dry run of index document with metadata
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testIndexDocumentDryRun() throws Exception {
+    Map<String,String> metadata = new HashMap<String, String>();
+    metadata.put("id", "123");
+    metadata.put("SomeMetadataName", "SomeMetadataValue");
+    IndexDocumentOptions indexDocumentOptions = new IndexDocumentOptions.Builder()
+        .document(html)
+        .metadata(metadata)
+        .dryRun(true)
+        .build();
+    server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expIndexDryRunResponse)));
+    service.indexDocument(indexDocumentOptions).execute();
+    checkRequest(INDEX_DOCUMENT_PATH);
   }
 }
