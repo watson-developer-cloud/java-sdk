@@ -68,7 +68,7 @@ public class VisualRecognition extends WatsonService {
   private static final String PATH_CLASSIFY = "/v3/classify";
   private static final String PATH_DETECT_FACES = "/v3/detect_faces";
   private static final String PATH_RECOGNIZE_TEXT = "/v3/recognize_text";
-  private static final String SERVICE_NAME = "visual_recognition";
+  private static final String SERVICE_NAME = "watson_vision_combined";
   private static final Type TYPE_LIST_CLASSIFIERS = new TypeToken<List<VisualClassifier>>() {}.getType();
   private static final String URL = "https://gateway-a.watsonplatform.net/visual-recognition/api";
   private static final String VERBOSE = "verbose";
