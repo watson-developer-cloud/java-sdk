@@ -128,7 +128,9 @@ public class ClassifyImagesOptions {
     /**
      * Instantiates a new builder.
      */
-    public Builder() {}
+    public Builder() {
+      this.classifierIds = new ArrayList<String>();
+    }
 
     /**
      * Builds the profile options.
