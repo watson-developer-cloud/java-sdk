@@ -16,6 +16,8 @@ package com.ibm.watson.developer_cloud.service;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -25,6 +27,7 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
+import com.ibm.watson.developer_cloud.http.ProxyConfiguration;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
@@ -46,6 +49,7 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
 
 import jersey.repackaged.jsr166e.CompletableFuture;
+import okhttp3.Authenticator;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Credentials;
@@ -56,6 +60,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
+import okhttp3.Route;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication
@@ -79,6 +84,7 @@ public abstract class WatsonService {
   private final String name;
   private Headers defaultHeaders = null;
   private boolean skipAuthentication = false;
+  private static ProxyConfiguration proxyConfiguration = null;
 
   /** The Constant MESSAGE_CODE. */
   protected static final String MESSAGE_CODE = "code";
@@ -122,6 +128,26 @@ public abstract class WatsonService {
     builder.connectTimeout(60, TimeUnit.SECONDS);
     builder.writeTimeout(60, TimeUnit.SECONDS);
     builder.readTimeout(90, TimeUnit.SECONDS);
+
+    if (proxyConfiguration != null) {
+
+      builder.proxy(new Proxy(Proxy.Type.HTTP, new InetSocketAddress(
+        proxyConfiguration.getHostname(), proxyConfiguration.getPort())));
+
+      if (proxyConfiguration.getCredentials() != null) {
+
+        Authenticator authenticator = new Authenticator() {
+          @Override
+          public Request authenticate(Route route, Response response)
+              throws IOException {
+            return response.request().newBuilder()
+                .header("Proxy-Authorization", proxyConfiguration.getCredentials()).build();
+          }
+        };
+        builder.proxyAuthenticator(authenticator);
+
+      }
+    }
 
     return builder.build();
   }
@@ -447,5 +473,14 @@ public abstract class WatsonService {
    */
   public void setSkipAuthentication(boolean skipAuthentication) {
     this.skipAuthentication = skipAuthentication;
+  }
+
+  /**
+   * Sets the proxy configuration.
+   *
+   * @param proxyConfiguration	the proxy configuration
+   */
+  public static void setProxyConfiguration(ProxyConfiguration proxyConfiguration) {
+    WatsonService.proxyConfiguration = proxyConfiguration;
   }
 }
