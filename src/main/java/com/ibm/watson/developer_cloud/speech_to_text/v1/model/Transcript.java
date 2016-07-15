@@ -14,11 +14,11 @@
 
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import java.util.List;
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Encapsulates a transcription along with the alternatives.
@@ -30,6 +30,12 @@ public class Transcript extends GenericModel {
   private List<SpeechAlternative> alternatives;
   @SerializedName("keywords_result")
   private Map<String, List<KeywordsResult>> keywordsResult;
+
+  /**
+   * The word_alternatives. Add by Focuson
+   */
+  @SerializedName("word_alternatives")
+  private List<SpeechWordAlternative> wordAlternatives;
 
   /**
    * Gets the alternatives.
@@ -83,5 +89,13 @@ public class Transcript extends GenericModel {
    */
   public void setKeywordsResult(Map<String, List<KeywordsResult>> keywordsResult) {
     this.keywordsResult = keywordsResult;
+  }
+
+  public List<SpeechWordAlternative> getWordAlternatives() {
+    return wordAlternatives;
+  }
+
+  public void setWordAlternatives(List<SpeechWordAlternative> wordAlternatives) {
+    this.wordAlternatives = wordAlternatives;
   }
 }
