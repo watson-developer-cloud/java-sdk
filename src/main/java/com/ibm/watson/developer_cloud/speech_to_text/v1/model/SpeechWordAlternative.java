@@ -1,3 +1,4 @@
+
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import com.google.gson.annotations.SerializedName;
