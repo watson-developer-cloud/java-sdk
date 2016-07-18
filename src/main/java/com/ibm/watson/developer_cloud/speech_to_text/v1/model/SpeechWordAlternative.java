@@ -11,7 +11,6 @@ import java.util.List;
 public class SpeechWordAlternative extends GenericModel {
     @SerializedName("start_time")
     private Double startTime;
-    
     /*
      * alternative in word_alternatives
      */
