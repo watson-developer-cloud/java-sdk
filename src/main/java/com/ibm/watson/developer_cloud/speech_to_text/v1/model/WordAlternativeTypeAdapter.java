@@ -37,14 +37,12 @@ public class WordAlternativeTypeAdapter extends TypeAdapter<WordAlternative> {
         String word = null;
 
         reader.beginObject();
-
         if(reader.nextName().equals("confidence")) {
             confidence = reader.nextDouble();
         }
         if (reader.nextName().equals("word")) {
             word = reader.nextString();
         }
-
         reader.endObject();
 
         WordAlternative wordAlternative = new WordAlternative(confidence, word);
