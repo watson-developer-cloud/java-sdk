@@ -36,8 +36,6 @@ public class WordAlternativeTypeAdapter extends TypeAdapter<WordAlternative> {
         Double confidence = null;
         String word = null;
 
-        List<WordAlternative> alternatives = new LinkedList<WordAlternative>();
-
         reader.beginObject();
 
         if(reader.nextName().equals("confidence")) {

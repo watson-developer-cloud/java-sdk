@@ -15,7 +15,7 @@ public class SpeechWordAlternative extends GenericModel {
     /*
      * alternative in word_alternatives
      */
-    List<WordAlternative> alternatives;
+    private List<WordAlternative> alternatives;
 
     @SerializedName("end_time")
     private Double endTime;
