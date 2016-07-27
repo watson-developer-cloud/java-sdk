@@ -26,6 +26,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
 import okhttp3.HttpUrl;
@@ -58,6 +59,8 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
   private InputStream expIndexResponse;
   private InputStream expIndexDryRunResponse;
   private IndexConfiguration indexConfiguration;
+  private IndexConfiguration indexConfigWithFields;
+  private IndexConfiguration indexConfigWithFieldsForDryRun;
 
   /**
    * Instantiates a new document conversion test.
@@ -86,6 +89,24 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
     expIndexResponse = new ByteArrayInputStream("{\"status\": \"success\"}".getBytes());
     expIndexDryRunResponse = new FileInputStream(RESOURCE + "html-with-extra-content-input-index-dry-run.json");
     indexConfiguration = new IndexConfiguration("serviceInstanceId", "clusterId", "searchCollectionName");
+    String fieldsAsString = "{" +
+        "\"fields\": {" +
+        "    \"mappings\": [" +
+        "      { \"from\": \"Author\", \"to\": \"Created By\" }," +
+        "      { \"from\": \"Date Created\", \"to\": \"Created On\" }" +
+        "    ]," +
+        "    \"include\": [" +
+        "      \"Created By\"," +
+        "      \"Created On\"" +
+        "    ]," +
+        "    \"exclude\": [" +
+        "      \"Category\"" +
+        "    ]" +
+        "  }" +
+        "}";
+    JsonObject fields = new JsonParser().parse(fieldsAsString).getAsJsonObject();
+    indexConfigWithFields = new IndexConfiguration("serviceInstanceId", "clusterId", "searchCollectionName", fields);
+    indexConfigWithFieldsForDryRun = new IndexConfiguration(null, null, null, fields);
   }
 
   private RecordedRequest checkRequest(String requestPath) throws InterruptedException {
@@ -173,6 +194,23 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
   }
 
   /**
+   * Test index document with fields
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testIndexDocumentWithFields() throws Exception {
+    IndexDocumentOptions indexDocumentOptions = new IndexDocumentOptions.Builder()
+        .document(html)
+        .dryRun(false)
+        .indexConfiguration(indexConfigWithFields)
+        .build();
+    server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expIndexResponse)));
+    service.indexDocument(indexDocumentOptions).execute();
+    checkRequest(INDEX_DOCUMENT_PATH);
+  }
+
+  /**
    * Test a dry run of index document with metadata
    *
    * @throws Exception the exception
@@ -186,6 +224,27 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
         .document(html)
         .metadata(metadata)
         .dryRun(true)
+        .build();
+    server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expIndexDryRunResponse)));
+    service.indexDocument(indexDocumentOptions).execute();
+    checkRequest(INDEX_DOCUMENT_PATH);
+  }
+
+  /**
+   * Test a dry run of index document with metadata and index fields
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testIndexDocumentWithFieldsDryRun() throws Exception {
+    Map<String,String> metadata = new HashMap<String, String>();
+    metadata.put("id", "123");
+    metadata.put("SomeMetadataName", "SomeMetadataValue");
+    IndexDocumentOptions indexDocumentOptions = new IndexDocumentOptions.Builder()
+        .document(html)
+        .metadata(metadata)
+        .dryRun(true)
+        .indexConfiguration(indexConfigWithFieldsForDryRun)
         .build();
     server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expIndexDryRunResponse)));
     service.indexDocument(indexDocumentOptions).execute();

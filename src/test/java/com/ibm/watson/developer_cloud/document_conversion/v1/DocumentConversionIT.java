@@ -19,6 +19,7 @@ import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
 import org.junit.Assert;
 import org.junit.Before;
@@ -37,6 +38,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
   private File[] files;
   private Map<String, String> metadata;
   private JsonObject convertDocumentConfig;
+  private IndexConfiguration indexConfiguration;
   private Boolean dryRun;
 
   /*
@@ -63,6 +65,23 @@ public class DocumentConversionIT extends WatsonServiceTest {
     metadata.put("SomeMetadataName", "SomeMetadataValue");
     String convertDocumentConfigAsString = "{ \"normalized_html\" : { \"exclude_tags_completely\":[\"a\"] } }";
     convertDocumentConfig = new JsonParser().parse(convertDocumentConfigAsString).getAsJsonObject();
+    String fieldsAsString = "{" +
+        "\"fields\": {" +
+        "    \"mappings\": [" +
+        "      { \"from\": \"Author\", \"to\": \"Created By\" }," +
+        "      { \"from\": \"Date Created\", \"to\": \"Created On\" }" +
+        "    ]," +
+        "    \"include\": [" +
+        "      \"Created By\"," +
+        "      \"Created On\"" +
+        "    ]," +
+        "    \"exclude\": [" +
+        "      \"Category\"" +
+        "    ]" +
+        "  }" +
+        "}";
+    JsonObject fields = new JsonParser().parse(fieldsAsString).getAsJsonObject();
+    indexConfiguration = new IndexConfiguration(null, null, null, fields);;
     dryRun = true;
   }
 
@@ -165,6 +184,27 @@ public class DocumentConversionIT extends WatsonServiceTest {
           .metadata(metadata)
           .dryRun(dryRun)
           .convertDocumentConfig(convertDocumentConfig)
+          .build();
+      final String response = service.indexDocument(indexDocumentOptions).execute();
+      Assert.assertNotNull(response);
+      Assert.assertNotEquals(response, "");
+      Assert.assertTrue(response.contains("SomeMetadataName"));
+      Assert.assertTrue(response.contains("SomeMetadataValue"));
+    }
+  }
+
+  /**
+   * Test a dry run of the index document api with document, metadata, convert document config, and index config.
+   */
+  @Test
+  public void testIndexDocumentAndMetadataConvertDocConfigAndIndexConfig() {
+    for (final File file : files) {
+      IndexDocumentOptions indexDocumentOptions = new IndexDocumentOptions.Builder()
+          .document(file)
+          .metadata(metadata)
+          .dryRun(dryRun)
+          .convertDocumentConfig(convertDocumentConfig)
+          .indexConfiguration(indexConfiguration)
           .build();
       final String response = service.indexDocument(indexDocumentOptions).execute();
       Assert.assertNotNull(response);

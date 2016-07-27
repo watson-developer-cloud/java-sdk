@@ -37,6 +37,25 @@ public class DocumentConversionIndexDocumentExample {
     // ----- Global Values -----
     IndexConfiguration indexConfiguration = new IndexConfiguration("<serviceInstanceId>", "<clusterId>", "<searchCollectionName>");
 
+    // Create an index configuration with the fields object (field mappings, fields to include, fields to exclude)
+    String fieldsAsString = "{" +
+        "\"fields\": {" +
+        "    \"mappings\": [" +
+        "      { \"from\": \"Author\", \"to\": \"Created By\" }," +
+        "      { \"from\": \"Date Created\", \"to\": \"Created On\" }" +
+        "    ]," +
+        "    \"include\": [" +
+        "      \"Created By\"," +
+        "      \"Created On\"" +
+        "    ]," +
+        "    \"exclude\": [" +
+        "      \"Category\"" +
+        "    ]" +
+        "  }" +
+        "}";
+    JsonObject fields = new JsonParser().parse(fieldsAsString).getAsJsonObject();
+    IndexConfiguration indexConfigurationWithFields = new IndexConfiguration("<serviceInstanceId>", "<clusterId>", "<searchCollectionName>", fields);
+
     // Create some metadata for indexing
     final Map<String, String> metadata = new HashMap<String, String>();
     metadata.put("id", "1");
@@ -148,6 +167,18 @@ public class DocumentConversionIndexDocumentExample {
         .build();
     String indexDocumentWithMediaTypeAndMetadataAndConfig = service.indexDocument(indexDocumentOptions10).execute();
     System.out.println(indexDocumentWithMediaTypeAndMetadataAndConfig);
+
+    printHeaderForExample("Index document with provided media type, metadata, convert document config, and fields");
+    IndexDocumentOptions indexDocumentOptions11 = new IndexDocumentOptions.Builder()
+        .document(document)
+        .metadata(metadata)
+        .mediaType(HttpMediaType.TEXT_HTML)
+        .convertDocumentConfig(convertDocumentConfig)
+        .indexConfiguration(indexConfigurationWithFields)
+        .dryRun(false)
+        .build();
+    String indexDocumentWithMediaTypeAndMetadataConfigAndFields = service.indexDocument(indexDocumentOptions11).execute();
+    System.out.println(indexDocumentWithMediaTypeAndMetadataConfigAndFields);
   }
 
   private static void printHeaderForExample(String message) {

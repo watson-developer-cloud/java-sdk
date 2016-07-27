@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -42,6 +43,12 @@ public class IndexConfiguration extends GenericModel {
   private String searchCollectionName;
 
   /**
+   * The field mapping object to pass to the Retrieve and Rank service (this includes
+   * field mappings, fields to include, fields to exclude during indexing)
+   */
+  private JsonObject fields;
+
+  /**
    * Constructor for the Retrieve and Rank configuration. You will need to get Retrieve and Rank
    * service credentials and create a Solr cluster through the Retrieve and Rank service prior
    * to creating this configuration object.
@@ -52,9 +59,25 @@ public class IndexConfiguration extends GenericModel {
    * @see RetrieveAndRank
    */
   public IndexConfiguration(String serviceInstanceId, String clusterId, String searchCollectionName) {
+    this(serviceInstanceId, clusterId, searchCollectionName, null);
+  }
+
+  /**
+   * Constructor for the Retrieve and Rank configuration. You will need to get Retrieve and Rank
+   * service credentials and create a Solr cluster through the Retrieve and Rank service prior
+   * to creating this configuration object.
+   * @param serviceInstanceId The instance id for the Retrieve and Rank service
+   * @param clusterId The Solr cluster id from the Retrieve and Rank service
+   * @param searchCollectionName The Solr search collection name
+   * @param fields The field mapping object to pass to the Retrieve and Rank service
+   *
+   * @see RetrieveAndRank
+   */
+  public IndexConfiguration(String serviceInstanceId, String clusterId, String searchCollectionName, JsonObject fields) {
     this.serviceInstanceId = serviceInstanceId;
     this.clusterId = clusterId;
     this.searchCollectionName = searchCollectionName;
+    this.fields = fields;
   }
 
   /**
@@ -74,4 +97,10 @@ public class IndexConfiguration extends GenericModel {
    * @return String
    */
   public String getSearchCollectionName() { return searchCollectionName; }
+
+  /**
+   * Gets the fields object to pass to the Retrieve and Rank service
+   * @return Fields
+   */
+  public JsonObject getFields() { return fields; }
 }

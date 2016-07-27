@@ -286,6 +286,9 @@ public class DocumentConversion extends WatsonService {
         retrieveAndRankConfig.addProperty(CLUSTER_ID, indexConfiguration.getClusterId());
         retrieveAndRankConfig.addProperty(SEARCH_COLLECTION, indexConfiguration.getSearchCollectionName());
       }
+      if (indexConfiguration != null && indexConfiguration.getFields() != null) {
+        retrieveAndRankConfig.add("fields", indexConfiguration.getFields());
+      }
       config.add(RETRIEVE_AND_RANK, retrieveAndRankConfig);
       if (convertDocumentConfig != null) {
         config.add(CONVERT_DOCUMENT, convertDocumentConfig);
