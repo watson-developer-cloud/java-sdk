@@ -13,10 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
-import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.List;
 
 /**
  * Structure that stores the configuration for the Retrieve and Rank service
@@ -43,10 +44,10 @@ public class IndexConfiguration extends GenericModel {
   private String searchCollectionName;
 
   /**
-   * The field mapping object to pass to the Retrieve and Rank service (this includes
-   * field mappings, fields to include, fields to exclude during indexing)
+   * The fields configuration object. Allows you to specify field mappings,
+   * field mappings, fields to include, and fields to exclude during indexing
    */
-  private JsonObject fields;
+  private Fields fields;
 
   /**
    * Constructor for the Retrieve and Rank configuration. You will need to get Retrieve and Rank
@@ -73,7 +74,7 @@ public class IndexConfiguration extends GenericModel {
    *
    * @see RetrieveAndRank
    */
-  public IndexConfiguration(String serviceInstanceId, String clusterId, String searchCollectionName, JsonObject fields) {
+  public IndexConfiguration(String serviceInstanceId, String clusterId, String searchCollectionName, Fields fields) {
     this.serviceInstanceId = serviceInstanceId;
     this.clusterId = clusterId;
     this.searchCollectionName = searchCollectionName;
@@ -102,5 +103,119 @@ public class IndexConfiguration extends GenericModel {
    * Gets the fields object to pass to the Retrieve and Rank service
    * @return Fields
    */
-  public JsonObject getFields() { return fields; }
+  public Fields getFields() { return fields; }
+
+  /**
+   * Fields configuration object. The fields that you want to map, fields that
+   * you want to include, and the fields that you want to exclude during indexing
+   */
+  public static class Fields extends GenericModel {
+
+    /**
+     * List of field mappings
+     */
+    List<Mapping> mappings;
+
+    /**
+     * List of fields to include during indexing
+     */
+    List<String> include;
+
+    /**
+     * List of fields to exclude during indexing
+     */
+    List<String> exclude;
+
+    /**
+     * Gets the list of field mappings
+     * @return List
+     */
+    public List<Mapping> getMappings() {
+      return mappings;
+    }
+
+    /**
+     * Gets the list of fields to include
+     * @return List
+     */
+    public List<String> getInclude() {
+      return include;
+    }
+
+    /**
+     * Gets the list of fields to exclude
+     * @return
+     */
+    public List<String> getExclude() {
+      return exclude;
+    }
+
+    /**
+     * Sets the list of field mappings
+     * @param mappings list of field mappings to use during indexing
+     */
+    public void setMappings(List<Mapping> mappings) {
+      this.mappings = mappings;
+    }
+
+    /**
+     * Sets the list of fields to include
+     * @param include list of fields to include during indexing
+     */
+    public void setInclude(List<String> include) {
+      this.include = include;
+    }
+
+    /**
+     * Sets the list of fields to exclude
+     * @param exclude list of fields to exclude during indexing
+     */
+    public void setExclude(List<String> exclude) {
+      this.exclude = exclude;
+    }
+  }
+
+  /**
+   * Field Mapping object for indexing. Allows you to map
+   * a fields from a certain name to a new name
+   */
+  public static class Mapping extends GenericModel {
+
+    /**
+     * The name of the field that will be mapped
+     */
+    private String from;
+
+    /**
+     * The new name that the field will be mapped to
+     */
+    private String to;
+
+    /**
+     * Creates a Mapping object which allows you to map
+     * a field from a certain name to a new name
+     * @param from the original name of the field that will be mapped
+     * @param to the new name that the field will be mapped to
+     */
+    public Mapping(String from, String to) {
+      this.from = from;
+      this.to = to;
+    }
+
+    /**
+     * Gets the original field name that is being mapped
+     * @return String
+     */
+    public String getFrom() {
+      return from;
+    }
+
+    /**
+     * Gets the new name that the fields will be mapped to
+     * @return String
+     */
+    public String getTo() {
+      return to;
+    }
+  }
 }

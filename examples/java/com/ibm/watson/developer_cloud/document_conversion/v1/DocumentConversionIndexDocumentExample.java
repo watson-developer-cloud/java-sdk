@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.document_conversion.v1;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,22 +39,11 @@ public class DocumentConversionIndexDocumentExample {
     IndexConfiguration indexConfiguration = new IndexConfiguration("<serviceInstanceId>", "<clusterId>", "<searchCollectionName>");
 
     // Create an index configuration with the fields object (field mappings, fields to include, fields to exclude)
-    String fieldsAsString = "{" +
-        "\"fields\": {" +
-        "    \"mappings\": [" +
-        "      { \"from\": \"Author\", \"to\": \"Created By\" }," +
-        "      { \"from\": \"Date Created\", \"to\": \"Created On\" }" +
-        "    ]," +
-        "    \"include\": [" +
-        "      \"Created By\"," +
-        "      \"Created On\"" +
-        "    ]," +
-        "    \"exclude\": [" +
-        "      \"Category\"" +
-        "    ]" +
-        "  }" +
-        "}";
-    JsonObject fields = new JsonParser().parse(fieldsAsString).getAsJsonObject();
+    IndexConfiguration.Fields fields = new IndexConfiguration.Fields();
+    fields.setMappings(Arrays.asList(new IndexConfiguration.Mapping("Author", "Created By"),
+        new IndexConfiguration.Mapping("Date Created", "Created On")));
+    fields.setInclude(Arrays.asList("SomeMetadataName", "id", "Created By", "Created On"));
+    fields.setExclude(Arrays.asList("Category"));
     IndexConfiguration indexConfigurationWithFields = new IndexConfiguration("<serviceInstanceId>", "<clusterId>", "<searchCollectionName>", fields);
 
     // Create some metadata for indexing

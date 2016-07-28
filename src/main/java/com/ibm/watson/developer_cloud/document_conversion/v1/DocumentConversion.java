@@ -55,6 +55,7 @@ public class DocumentConversion extends WatsonService {
   private static final String SERVICE_INSTANCE_ID = "service_instance_id";
   private static final String CLUSTER_ID = "cluster_id";
   private static final String SEARCH_COLLECTION = "search_collection";
+  private static final String RETRIEVE_AND_RANK_FIELDS = "fields";
   private static final String RETRIEVE_AND_RANK = "retrieve_and_rank";
   private static final String CONVERT_DOCUMENT = "convert_document";
   private static final String CONVERT_DOCUMENT_PATH = "/v1/" + CONVERT_DOCUMENT;
@@ -287,7 +288,7 @@ public class DocumentConversion extends WatsonService {
         retrieveAndRankConfig.addProperty(SEARCH_COLLECTION, indexConfiguration.getSearchCollectionName());
       }
       if (indexConfiguration != null && indexConfiguration.getFields() != null) {
-        retrieveAndRankConfig.add("fields", indexConfiguration.getFields());
+        retrieveAndRankConfig.add(RETRIEVE_AND_RANK_FIELDS, new JsonParser().parse(indexConfiguration.getFields().toString()));
       }
       config.add(RETRIEVE_AND_RANK, retrieveAndRankConfig);
       if (convertDocumentConfig != null) {

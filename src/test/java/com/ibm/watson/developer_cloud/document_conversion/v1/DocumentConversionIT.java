@@ -14,6 +14,7 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -65,22 +66,11 @@ public class DocumentConversionIT extends WatsonServiceTest {
     metadata.put("SomeMetadataName", "SomeMetadataValue");
     String convertDocumentConfigAsString = "{ \"normalized_html\" : { \"exclude_tags_completely\":[\"a\"] } }";
     convertDocumentConfig = new JsonParser().parse(convertDocumentConfigAsString).getAsJsonObject();
-    String fieldsAsString = "{" +
-        "\"fields\": {" +
-        "    \"mappings\": [" +
-        "      { \"from\": \"Author\", \"to\": \"Created By\" }," +
-        "      { \"from\": \"Date Created\", \"to\": \"Created On\" }" +
-        "    ]," +
-        "    \"include\": [" +
-        "      \"Created By\"," +
-        "      \"Created On\"" +
-        "    ]," +
-        "    \"exclude\": [" +
-        "      \"Category\"" +
-        "    ]" +
-        "  }" +
-        "}";
-    JsonObject fields = new JsonParser().parse(fieldsAsString).getAsJsonObject();
+    IndexConfiguration.Fields fields = new IndexConfiguration.Fields();
+    fields.setMappings(Arrays.asList(new IndexConfiguration.Mapping("Author","Created By"),
+        new IndexConfiguration.Mapping("Date Created","Created On")));
+    fields.setInclude(Arrays.asList("SomeMetadataName", "id", "Created By", "Created On"));
+    fields.setExclude(Arrays.asList("Category"));
     indexConfiguration = new IndexConfiguration(null, null, null, fields);;
     dryRun = true;
   }

@@ -23,10 +23,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
 import okhttp3.HttpUrl;
@@ -89,22 +89,11 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
     expIndexResponse = new ByteArrayInputStream("{\"status\": \"success\"}".getBytes());
     expIndexDryRunResponse = new FileInputStream(RESOURCE + "html-with-extra-content-input-index-dry-run.json");
     indexConfiguration = new IndexConfiguration("serviceInstanceId", "clusterId", "searchCollectionName");
-    String fieldsAsString = "{" +
-        "\"fields\": {" +
-        "    \"mappings\": [" +
-        "      { \"from\": \"Author\", \"to\": \"Created By\" }," +
-        "      { \"from\": \"Date Created\", \"to\": \"Created On\" }" +
-        "    ]," +
-        "    \"include\": [" +
-        "      \"Created By\"," +
-        "      \"Created On\"" +
-        "    ]," +
-        "    \"exclude\": [" +
-        "      \"Category\"" +
-        "    ]" +
-        "  }" +
-        "}";
-    JsonObject fields = new JsonParser().parse(fieldsAsString).getAsJsonObject();
+    IndexConfiguration.Fields fields = new IndexConfiguration.Fields();
+    fields.setMappings(Arrays.asList(new IndexConfiguration.Mapping("Author", "Created By"),
+        new IndexConfiguration.Mapping("Date Created", "Created On")));
+    fields.setInclude(Arrays.asList("SomeMetadataName", "id", "Created By", "Created On"));
+    fields.setExclude(Arrays.asList("Category"));
     indexConfigWithFields = new IndexConfiguration("serviceInstanceId", "clusterId", "searchCollectionName", fields);
     indexConfigWithFieldsForDryRun = new IndexConfiguration(null, null, null, fields);
   }
