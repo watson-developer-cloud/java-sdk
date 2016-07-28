@@ -114,17 +114,17 @@ public class IndexConfiguration extends GenericModel {
     /**
      * List of field mappings
      */
-    List<Mapping> mappings;
+    private List<Mapping> mappings;
 
     /**
      * List of fields to include during indexing
      */
-    List<String> include;
+    private List<String> include;
 
     /**
      * List of fields to exclude during indexing
      */
-    List<String> exclude;
+    private List<String> exclude;
 
     /**
      * Gets the list of field mappings
