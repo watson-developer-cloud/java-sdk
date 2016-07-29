@@ -143,7 +143,6 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    * @throws NoSuchMethodException
    */
   @Test
-  @SuppressWarnings("unchecked")
   public void testUtilityClasses() throws NoSuchMethodException {
     final List<Class<?>> utilityClasses = Arrays.asList(
       AlchemyEndPoints.class, IDHelper.class, ConversionUtils.class, ZipUtils.class,
@@ -330,7 +329,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   /**
    * Test user agent is set.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws Exception the exception
    */
   @Test
   public void testUserAgentIsSet() throws Exception {

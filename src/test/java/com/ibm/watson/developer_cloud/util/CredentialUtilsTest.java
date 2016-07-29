@@ -74,6 +74,9 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     assertEquals(API_KEY_STANDARD, CredentialUtils.getAPIKey(SERVICE_NAME, CredentialUtils.PLAN_STANDARD));
   }
   
+  /**
+   * Test get user name and password without plan.
+   */
   @Test
   public void testGetUserNameAndPasswordWithoutPlan(){
     assertNull(CredentialUtils.getUserNameAndPassword(null));
@@ -90,6 +93,9 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     assertEquals(credentials.getPassword(), NOT_A_FREE_PASSWORD);
   }
   
+  /**
+   * Test get user credentials with plan.
+   */
   @Test
   public void testGetUserCredentialsWithPlan(){
     assertNull(CredentialUtils.getUserNameAndPassword(null));

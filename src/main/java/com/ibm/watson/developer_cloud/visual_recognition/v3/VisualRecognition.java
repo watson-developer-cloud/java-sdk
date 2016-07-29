@@ -46,9 +46,8 @@ import okhttp3.RequestBody;
  * specific results that are tailored to your needs.
  *
  * @version v3
- * @see <a href=
- *      "http://www.ibm.com/watson/developercloud/visual-recognition.html">
- *      Visual Recognition</a>
+ * @see <a href= "http://www.ibm.com/watson/developercloud/visual-recognition.html"> Visual
+ *      Recognition</a>
  * @api.version_date 2016-05-19
  */
 public class VisualRecognition extends WatsonService {
@@ -72,8 +71,8 @@ public class VisualRecognition extends WatsonService {
   private static final Type TYPE_LIST_CLASSIFIERS = new TypeToken<List<VisualClassifier>>() {}.getType();
   private static final String URL = "https://gateway-a.watsonplatform.net/visual-recognition/api";
   private static final String VERBOSE = "verbose";
-  
-  /**  Version date. */
+
+  /** Version date. */
   public static final String VERSION_DATE_2016_05_19 = "2016-05-19";
 
   private String versionDate;
