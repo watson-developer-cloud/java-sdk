@@ -45,7 +45,7 @@ import okhttp3.RequestBody;
  *
  * @version v1
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/document-conversion.html">
+ *      "http://www.ibm.com/watson/developercloud/document-conversion.html">
  *      Document Conversion</a>
  */
 public class DocumentConversion extends WatsonService {

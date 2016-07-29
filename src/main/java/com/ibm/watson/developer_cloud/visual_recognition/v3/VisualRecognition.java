@@ -47,7 +47,7 @@ import okhttp3.RequestBody;
  *
  * @version v3
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/visual-recognition.html">
+ *      "http://www.ibm.com/watson/developercloud/visual-recognition.html">
  *      Visual Recognition</a>
  * @api.version_date 2016-05-19
  */

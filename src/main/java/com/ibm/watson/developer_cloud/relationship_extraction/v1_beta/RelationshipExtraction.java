@@ -28,7 +28,7 @@ import okhttp3.Request;
  * 
  * @version v1
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/relationship-extraction.html">
+ *      "http://www.ibm.com/watson/developercloud/relationship-extraction.html">
  *      Relationship Extraction</a>
  */
 public class RelationshipExtraction extends WatsonService {

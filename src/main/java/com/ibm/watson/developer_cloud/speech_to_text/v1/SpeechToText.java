@@ -49,7 +49,7 @@ import okhttp3.ws.WebSocket;
  * 
  * @version v1
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/speech-to-text.html">
+ *      "http://www.ibm.com/watson/developercloud/speech-to-text.html">
  *      Speech to Text</a>
  */
 public class SpeechToText extends WatsonService {
