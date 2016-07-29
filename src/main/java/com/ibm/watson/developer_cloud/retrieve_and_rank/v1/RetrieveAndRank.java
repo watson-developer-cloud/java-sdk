@@ -58,7 +58,7 @@ import okhttp3.Response;
  * 
  * @version v1
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/retrieve-rank.html">
+ *      "http://www.ibm.com/watson/developercloud/retrieve-rank.html">
  *      Retrieve and Rank</a>
  */
 public class RetrieveAndRank extends WatsonService implements ClusterLifecycleManager, SolrConfigManager {

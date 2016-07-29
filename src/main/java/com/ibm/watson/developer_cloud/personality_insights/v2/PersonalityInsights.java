@@ -32,7 +32,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * 
  * @version v2
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/personality-insights.html">
+ *      "http://www.ibm.com/watson/developercloud/personality-insights.html">
  *      Personality Insights</a>
  */
 public class PersonalityInsights extends WatsonService {

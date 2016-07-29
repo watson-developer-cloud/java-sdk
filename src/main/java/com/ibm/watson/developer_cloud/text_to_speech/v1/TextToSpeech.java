@@ -39,7 +39,7 @@ import okhttp3.Response;
  * 
  * @version v1
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/text-to-speech.html"> Text
+ *      "http://www.ibm.com/watson/developercloud/text-to-speech.html"> Text
  *      to Speech</a>
  */
 public class TextToSpeech extends WatsonService {

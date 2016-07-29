@@ -52,7 +52,7 @@ import okhttp3.Response;
  * VAs that answer questions, show personality, decide, provide guidance, and even perform tasks.
  * 
  * @version v1
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/dialog.html">
+ * @see <a href="http://www.ibm.com/watson/developercloud/dialog.html">
  *      Dialog</a>
  */
 public class DialogService extends WatsonService {

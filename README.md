@@ -318,7 +318,7 @@ System.out.println(translationResult);
 ```
 
 ### Natural Language Classifier
-Use [Natural Language Classifier](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/nl-classifier/) service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.
+Use [Natural Language Classifier](http://www.ibm.com/watson/developercloud/doc/nl-classifier/) service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.
 
 ```java
 NaturalLanguageClassifier service = new NaturalLanguageClassifier();
@@ -616,26 +616,26 @@ available in [LICENSE](LICENSE).
 ## Contributing
 See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
-[personality_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/personality-insights/
-[document_conversion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/document-conversion/
-[relationship_extraction]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/sireapi/
-[language_translator]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/
-[visual_recognition]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-recognition/
-[tradeoff_analytics]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tradeoff-analytics/
-[text_to_speech]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/
-[speech_to_text]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/speech-to-text/
-[tone_analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
-[dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
-[concept_insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
-[conversation]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/
-[retrieve_and_rank]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/
+[personality_insights]: http://www.ibm.com/watson/developercloud/doc/personality-insights/
+[document_conversion]: http://www.ibm.com/watson/developercloud/doc/document-conversion/
+[relationship_extraction]: http://www.ibm.com/watson/developercloud/doc/sireapi/
+[language_translator]: http://www.ibm.com/watson/developercloud/doc/language-translation/
+[visual_recognition]: http://www.ibm.com/watson/developercloud/doc/visual-recognition/
+[tradeoff_analytics]: http://www.ibm.com/watson/developercloud/doc/tradeoff-analytics/
+[text_to_speech]: http://www.ibm.com/watson/developercloud/doc/text-to-speech/
+[speech_to_text]: http://www.ibm.com/watson/developercloud/doc/speech-to-text/
+[tone_analyzer]: http://www.ibm.com/watson/developercloud/doc/tone-analyzer/
+[dialog]: http://www.ibm.com/watson/developercloud/doc/dialog/
+[concept_insights]: https://www.ibm.com/watson/developercloud/doc/concept-insights/
+[conversation]: https://www.ibm.com/watson/developercloud/doc/conversation/
+[retrieve_and_rank]: http://www.ibm.com/watson/developercloud/doc/retrieve-rank/
 
 [alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage
 [sentiment_analysis]: http://www.alchemyapi.com/products/alchemylanguage/sentiment-analysis
 [alchemy_vision]: http://www.alchemyapi.com/products/alchemyvision
 [alchemy_data_news]: http://www.alchemyapi.com/products/alchemydata-news
 
-[wdc]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/
+[wdc]: http://www.ibm.com/watson/developercloud/
 [bluemix]: https://console.ng.bluemix.net
 [Gradle]: http://www.gradle.org/
 [OkHttp]: http://square.github.io/okhttp/

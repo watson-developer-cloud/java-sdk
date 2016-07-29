@@ -23,8 +23,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * Object that represents the input and context of a conversation. This is used by the
  * {@link ConversationService#message(String, MessageRequest)} method
  * 
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html">
- *      http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">
+ *      http://www.ibm.com/watson/developercloud/conversation.html</a>
  * 
  */
 public class MessageRequest extends GenericModel {
