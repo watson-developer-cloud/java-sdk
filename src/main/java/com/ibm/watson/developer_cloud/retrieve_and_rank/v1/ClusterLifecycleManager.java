@@ -65,6 +65,8 @@ public interface ClusterLifecycleManager {
   /**
    * Change the size of the Solr cluster.
    *
+   * @param SolrClusterId the solr cluster id
+   * @param requestedSize the requested size
    * @return the status of the resize request
    */
   ServiceCall<SolrClusterSizeResponse> resizeSolrCluster(String SolrClusterId, int requestedSize);
@@ -72,6 +74,7 @@ public interface ClusterLifecycleManager {
   /**
    * Get the status of a resize request for a cluster.
    *
+   * @param SolrClusterId the solr cluster id
    * @return the status of the resize request
    */
   ServiceCall<SolrClusterSizeResponse> getSolrClusterResizeStatus(String SolrClusterId);
