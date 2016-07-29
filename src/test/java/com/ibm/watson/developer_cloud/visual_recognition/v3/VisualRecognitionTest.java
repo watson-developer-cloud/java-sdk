@@ -84,7 +84,10 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     // execute request
     File images = new File(IMAGE_FILE);
-    ClassifyImagesOptions options = new ClassifyImagesOptions.Builder().images(images).build();
+    ClassifyImagesOptions options = new ClassifyImagesOptions.Builder()
+        .images(images)
+        .classifierIds("car")
+        .build();
     VisualClassification serviceResponse = service.classify(options).execute();
 
     // first request
