@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.alchemy.v1;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -40,6 +41,8 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.Language;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Microformats;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.SAORelations;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomies;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedEntity;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelation;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelations;
 
 /**
@@ -484,12 +487,24 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
    */
   @Test
   public void testGetTypedRelationsText() {
-    final Map<String, Object> params = new HashMap<String, Object>();
-    params.put(AlchemyLanguage.TEXT, "Jake is one of the developers in the team.");
-    params.put(AlchemyLanguage.MODEL_ID, "en-us-tir");
-    final TypedRelations typedRelations = service.getTypedRelations(params).execute();
-    Assert.assertNotNull(typedRelations);
-    Assert.assertNotNull(typedRelations.getTypedRelations());
+      final Map<String, Object> params = new HashMap<String, Object>();
+      params.put(AlchemyLanguage.TEXT, "Leiming Qian lives in New York.");
+      params.put(AlchemyLanguage.MODEL_ID, "ie-en-news");
+      final TypedRelations typedRelations = service.getTypedRelations(params).execute();
+      Assert.assertNotNull(typedRelations);
+      List<TypedRelation> trs = typedRelations.getTypedRelations();
+      Assert.assertNotNull(trs);
+      Assert.assertFalse(trs.isEmpty());
+      for (TypedRelation tr : trs) {
+         Assert.assertNotNull(tr.getType());
+         Assert.assertNotNull(tr.getEntities());
+         Assert.assertFalse(tr.getEntities().isEmpty());
+         for (TypedEntity e : tr.getEntities()) {
+            Assert.assertNotNull(e.getId());
+            Assert.assertNotNull(e.getText());
+            Assert.assertNotNull(e.getType());
+         }
+      }
   }
 
   /**
