@@ -115,6 +115,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(model);
     assertNotNull(model.getName());
     assertNotNull(model.getRate());
+    assertNotNull(model.getDescription());
   }
 
   /**
