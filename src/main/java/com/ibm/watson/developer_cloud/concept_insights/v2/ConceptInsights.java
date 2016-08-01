@@ -147,7 +147,8 @@ public class ConceptInsights extends WatsonService {
    */
   public ConceptInsights() {
     super(SERVICE_NAME);
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
   }
 
   /**

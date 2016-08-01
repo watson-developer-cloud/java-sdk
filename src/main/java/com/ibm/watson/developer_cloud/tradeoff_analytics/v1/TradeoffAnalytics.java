@@ -46,7 +46,8 @@ public class TradeoffAnalytics extends WatsonService {
    */
   public TradeoffAnalytics() {
     super(SERVICE_NAME);
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
   }
 
   /**

@@ -49,7 +49,7 @@ public final class ConversationService extends WatsonService {
    */
   public ConversationService(final String versionDate) {
     super(SERVICE_NAME);
-    if (getEndPoint() == null)
+    if (getEndPoint() == null || getEndPoint().isEmpty())
       setEndPoint(URL);
 
     Validator.isTrue(versionDate != null && !versionDate.isEmpty(),

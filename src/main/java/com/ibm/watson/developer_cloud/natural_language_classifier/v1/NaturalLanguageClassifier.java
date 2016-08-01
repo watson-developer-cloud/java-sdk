@@ -62,7 +62,8 @@ public class NaturalLanguageClassifier extends WatsonService {
    */
   public NaturalLanguageClassifier() {
     super(SERVICE_NAME);
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
   }
 
   /**

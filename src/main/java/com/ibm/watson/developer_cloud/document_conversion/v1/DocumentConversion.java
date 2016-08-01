@@ -76,7 +76,8 @@ public class DocumentConversion extends WatsonService {
    */
   public DocumentConversion(String versionDate) {
     super(SERVICE_NAME);
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
     this.versionDate = versionDate;
   }
 

@@ -83,7 +83,8 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    */
   public RetrieveAndRank() {
     super("retrieve_and_rank");
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
   }
 
   /**
