@@ -15,14 +15,16 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v3_beta;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3_beta.model.ToneAnalysis;
 
 /**
- * Tone Analyzer Integration tests.
+ * Tone Analyzer v3 Beta Integration tests.
  */
+@Ignore
 public class ToneAnalyzerIT extends WatsonServiceTest {
 
   /** The service. */

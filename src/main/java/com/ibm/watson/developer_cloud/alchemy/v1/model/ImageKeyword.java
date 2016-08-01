@@ -65,7 +65,7 @@ public class ImageKeyword extends GenericModel {
    * @param hierarchy The hierarchy.
    */
   public void setHierarchy(String hierarchy) {
-    if(knowledgeGraph == null) {
+    if (knowledgeGraph == null) {
       knowledgeGraph = new KnowledgeGraph();
     }
 
