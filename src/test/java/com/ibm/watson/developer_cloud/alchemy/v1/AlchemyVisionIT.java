@@ -38,7 +38,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
 
   private static final String IMAGE_OBAMA = "src/test/resources/alchemy/obama.jpg";
   private static final String IMAGE_COLORADO = "src/test/resources/alchemy/colorado.jpg";
-  private static final String IMAGE_COLORADO_URL = "http://vision.alchemy.ai/img/demo/1754836.jpg";
+  private static final String IMAGE_COLORADO_URL = "https://raw.githubusercontent.com/watson-developer-cloud/doc-tutorial-downloads/master/visual-recognition/colorado.jpg";
   private static final String BABY_IMAGE =
       "https://visual-recognition-demo.mybluemix.net/images/samples/1.jpg";
 

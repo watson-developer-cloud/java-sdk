@@ -21,6 +21,7 @@ import java.util.UUID;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -53,6 +54,7 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 /**
  * The Class ConceptInsightsTest.
  */
+@Ignore
 public class ConceptInsightsIT extends WatsonServiceTest {
 
   /** The Constant PUBLIC. */
