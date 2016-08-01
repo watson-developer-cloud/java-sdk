@@ -326,7 +326,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
   /**
    * Test solr cluster resize.
    *
-   * @throws InterruptedException
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   @Ignore

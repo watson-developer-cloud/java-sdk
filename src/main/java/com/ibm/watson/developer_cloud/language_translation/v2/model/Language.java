@@ -17,25 +17,21 @@ import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslatio
 
 /**
  * The languages available in {@link LanguageTranslation}.
- *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
  */
-@Deprecated
 public enum Language {
-  
   /** arabic. */
   ARABIC("ar"), 
- /** english. */
- ENGLISH("en"), 
- /** spanish. */
- SPANISH("es"), 
- /** french. */
- FRENCH("fr"), 
- /** italian. */
- ITALIAN("it"), 
- /** portuguese. */
- PORTUGUESE("pt");
-
+  /** english. */
+  ENGLISH("en"), 
+  /** spanish. */
+  SPANISH("es"), 
+  /** french. */
+  FRENCH("fr"), 
+  /** italian. */
+  ITALIAN("it"), 
+  /** portuguese. */
+  PORTUGUESE("pt");
+  
   /** language. */
   String language;
 

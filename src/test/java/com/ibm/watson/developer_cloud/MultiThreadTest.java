@@ -19,7 +19,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
+import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 
 /**
  * MultiThread Environment test.
@@ -35,14 +35,14 @@ public class MultiThreadTest extends WatsonServiceTest {
     private final Logger log = Logger.getLogger(LTSenderRunnable.class.getName());
 
     /** The service. */
-    private final LanguageTranslator service;
+    private final LanguageTranslation service;
 
     /**
      * Instantiates a new LT sender runnable.
      * 
      * @param service the service
      */
-    public LTSenderRunnable(LanguageTranslator service) {
+    public LTSenderRunnable(LanguageTranslation service) {
       this.service = service;
     }
 
@@ -75,7 +75,7 @@ public class MultiThreadTest extends WatsonServiceTest {
   }
 
   /** The service. */
-  private LanguageTranslator service;
+  private LanguageTranslation service;
 
   /*
    * (non-Javadoc)
@@ -86,7 +86,7 @@ public class MultiThreadTest extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new LanguageTranslator();
+    service = new LanguageTranslation();
     service.setUsernameAndPassword(getValidProperty("language_translation.username"),
         getValidProperty("language_translation.password"));
     service.setEndPoint(getValidProperty("language_translation.url"));

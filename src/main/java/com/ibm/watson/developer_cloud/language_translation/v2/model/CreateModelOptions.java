@@ -15,14 +15,13 @@
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
 import java.io.File;
+
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 
 /**
  * Model Options when using the {@link LanguageTranslation#createModel(CreateModelOptions)} method.
  *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
  */
-@Deprecated
 public class CreateModelOptions {
 
   /**

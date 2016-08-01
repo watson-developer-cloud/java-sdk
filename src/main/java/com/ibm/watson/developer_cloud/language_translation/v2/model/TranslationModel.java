@@ -19,22 +19,17 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Language Model used by the {@link TranslationModel}.
  *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
  */
-@Deprecated
 public class TranslationModel extends GenericModel {
-  
+
   /**
    * The Enum Status.
    */
   public enum Status {
-    
     /** The available. */
-    AVAILABLE, 
- /** The error. */
- ERROR, 
- /** The training. */
- TRAINING;
+    AVAILABLE, /** The error. */
+    ERROR, /** The training. */
+    TRAINING;
   }
 
   @SerializedName("base_model_id")
