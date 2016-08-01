@@ -19,8 +19,6 @@ com.ibm.watson.developer_cloud.natural_language_classifier.v1
 com.ibm.watson.developer_cloud.natural_language_classifier.v1.model
 com.ibm.watson.developer_cloud.personality_insights.v2
 com.ibm.watson.developer_cloud.personality_insights.v2.model
-com.ibm.watson.developer_cloud.relationship_extraction.v1_beta
-com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.model
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util
@@ -36,8 +34,6 @@ com.ibm.watson.developer_cloud.text_to_speech.v1.model
 com.ibm.watson.developer_cloud.text_to_speech.v1.util
 com.ibm.watson.developer_cloud.tone_analyzer.v3
 com.ibm.watson.developer_cloud.tone_analyzer.v3.model
-com.ibm.watson.developer_cloud.tone_analyzer.v3_beta
-com.ibm.watson.developer_cloud.tone_analyzer.v3_beta.model
 com.ibm.watson.developer_cloud.tradeoff_analytics.v1
 com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model
 com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column
