@@ -61,7 +61,7 @@ import okhttp3.Response;
  * Watson service abstract common functionality of various Watson Services. It handle authentication
  * and default url
  * 
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/"> IBM Watson
+ * @see <a href="http://www.ibm.com/watson/developercloud/"> IBM Watson
  *      Developer Cloud</a>
  */
 public abstract class WatsonService {

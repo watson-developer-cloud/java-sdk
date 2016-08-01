@@ -30,7 +30,7 @@ import okhttp3.Request;
  *
  * @version v3_beta
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html"> Tone
+ *      "http://www.ibm.com/watson/developercloud/tone-analyzer.html"> Tone
  *      Analyzer</a>
  * @api.version_date 2016-02-11
  */

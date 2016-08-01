@@ -13,18 +13,13 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 
 import org.junit.Assume;
 import org.junit.AssumptionViolatedException;
@@ -41,8 +36,10 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster.Status;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
+import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterSizeResponse;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterStats;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 
 /**
  * The Class RetrieveAndRankIT.
@@ -320,4 +317,28 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test solr cluster resize.
+   *
+   * @throws InterruptedException
+   */
+  @Test
+  public void testSolrClusterResize() throws InterruptedException {
+    SolrClusterSizeResponse resizeRequestResponse =
+        service.resizeSolrCluster(clusterId, 2).execute();
+    assertTrue(resizeRequestResponse.geClusterId().equals(clusterId));
+    assertTrue(resizeRequestResponse.getCurrentSize().equals(CREATED_CLUSTER_SIZE_ONE));
+    assertTrue(resizeRequestResponse.getTargetSize().equals(2));
+    try {
+      for (int x = 0; x < 60 && resizeRequestResponse.getCurrentSize() != 2; x++) {
+        Thread.sleep(10000);
+        resizeRequestResponse = service.getSolrClusterResizeStatus(clusterId).execute();
+      }
+      assertTrue(resizeRequestResponse.geClusterId().equals(clusterId));
+      assertTrue(resizeRequestResponse.getCurrentSize().equals(2));
+      assertNull(resizeRequestResponse.getTargetSize());
+    } finally {
+      service.deleteSolrCluster(clusterId).execute();
+    }
+  }
 }

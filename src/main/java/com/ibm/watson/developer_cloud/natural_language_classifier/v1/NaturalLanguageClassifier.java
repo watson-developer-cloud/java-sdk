@@ -41,7 +41,7 @@ import okhttp3.RequestBody;
  * 
  * @version v1
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/nl-classifier.html">
+ *      "http://www.ibm.com/watson/developercloud/nl-classifier.html">
  *      Natural Language Classifier</a>
  */
 public class NaturalLanguageClassifier extends WatsonService {

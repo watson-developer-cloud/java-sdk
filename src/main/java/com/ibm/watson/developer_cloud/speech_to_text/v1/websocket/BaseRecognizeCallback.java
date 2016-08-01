@@ -15,10 +15,15 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * An empty implementation of {@link RecognizeCallback} interface.
  */
 public class BaseRecognizeCallback implements RecognizeCallback {
+
+  private static final Logger LOG = Logger.getLogger(BaseRecognizeCallback.class.getName());
 
   /*
    * (non-Javadoc)
@@ -43,7 +48,9 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onError(java.lang
    * .Exception)
    */
-  public void onError(Exception e) {};
+  public void onError(Exception e) {
+    LOG.log(Level.SEVERE, e.getMessage(), e);
+  };
 
   /*
    * (non-Javadoc)

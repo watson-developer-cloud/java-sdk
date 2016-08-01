@@ -30,7 +30,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  *
  * @version v1
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tradeoff-analytics.html">
+ *      "http://www.ibm.com/watson/developercloud/tradeoff-analytics.html">
  *      Tradeoff Analytics</a>
  * @api.version_date 2015-05-28
  */

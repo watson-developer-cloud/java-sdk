@@ -62,7 +62,7 @@ import okhttp3.Request;
  * 
  * @version v2
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept-insights.html">
+ *      "http://www.ibm.com/watson/developercloud/concept-insights.html">
  *      Concept Insights</a>
  */
 public class ConceptInsights extends WatsonService {
@@ -659,7 +659,7 @@ public class ConceptInsights extends WatsonService {
    *        <ul>
    *        <li>String concept - The concept name.<br>
    *        <li>String query - For query syntax see <a href=
-   *        "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/concept_insights.html"
+   *        "http://www.ibm.com/watson/developercloud/concept_insights.html"
    *        >API Explorer</a>.<br>
    *        JSON object that allows to filter the list of documents. Valid values are
    *        {"status":"error"}, {"status":"processing"}, and {"status":"ready"} which allow to

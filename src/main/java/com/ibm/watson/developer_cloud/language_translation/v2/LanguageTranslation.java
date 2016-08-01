@@ -49,7 +49,7 @@ import okhttp3.RequestBody;
  *
  * @version v2
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/language-translation.html">
+ *      "http://www.ibm.com/watson/developercloud/language-translation.html">
  *      Language Translator</a>
  */
 @Deprecated

@@ -86,10 +86,26 @@ public final class HttpMediaType {
    * Field AUDIO_OGG. (value is "audio/ogg; codecs=opus")
    */
   public static final String AUDIO_OGG = "audio/ogg; codecs=opus";
+  
+  /**
+   * Field AUDIO_OGG_VORBIS. (value is "audio/ogg; codecs=vorbis")
+   */
+  public static final String AUDIO_OGG_VORBIS = "audio/ogg; codecs=vorbis";
+  
   /**
    * Field AUDIO_WAV. (value is "audio/wav")
    */
   public static final String AUDIO_WAV = "audio/wav";
+
+  /**
+   * Field AUDIO_PCM. (value is "audio/l16")
+   */
+  public static final String AUDIO_PCM = "audio/l16";
+
+  /**
+   * Field AUDIO_BASIC. (value is "audio/basic")
+   */
+  public static final String AUDIO_BASIC = "audio/basic";
 
   /**
    * Field AUDIO_FLAC. (value is "audio/flac")
@@ -164,4 +180,5 @@ public final class HttpMediaType {
    * Field WILDCARD. (value is "*\/*")
    */
   public static final String WILDCARD = "*/*";
+
 }
