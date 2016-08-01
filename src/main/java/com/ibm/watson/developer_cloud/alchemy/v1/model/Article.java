@@ -37,7 +37,7 @@ public class Article extends GenericModel {
     private Sentiment sentiment;
     private List<Taxonomy> taxonomy;
 
-    
+
     /**
      * Gets the concepts.
      *
@@ -64,6 +64,7 @@ public class Article extends GenericModel {
     public List<Keyword> getKeywords() {
       return keywords;
     }
+
     /**
      * Gets the relations.
      *
@@ -72,7 +73,7 @@ public class Article extends GenericModel {
     public List<SAORelation> getRelations() {
       return relations;
     }
-    
+
     /**
      * Gets the sentiment.
      *
@@ -200,6 +201,7 @@ public class Article extends GenericModel {
   public EnrichedTitle getEnrichedTitle() {
     return enrichedTitle;
   }
+
   /**
    * Gets the entities.
    *
@@ -208,6 +210,7 @@ public class Article extends GenericModel {
   public List<Entity> getEntities() {
     return entities;
   }
+
   /**
    * Gets the feeds.
    *
@@ -216,6 +219,7 @@ public class Article extends GenericModel {
   public List<Feed> getFeeds() {
     return feeds;
   }
+
   /**
    * Gets the image.
    *
@@ -224,6 +228,7 @@ public class Article extends GenericModel {
   public String getImage() {
     return image;
   }
+
   /**
    * Gets the image keywords.
    *
@@ -232,6 +237,7 @@ public class Article extends GenericModel {
   public List<ImageKeyword> getImageKeywords() {
     return imageKeywords;
   }
+
   /**
    * Gets the keywords.
    *
@@ -240,6 +246,7 @@ public class Article extends GenericModel {
   public List<Keyword> getKeywords() {
     return keywords;
   }
+
   /**
    * Gets the language.
    *
@@ -248,6 +255,7 @@ public class Article extends GenericModel {
   public String getLanguage() {
     return language;
   }
+
   /**
    * Gets the publication date.
    *
@@ -256,6 +264,7 @@ public class Article extends GenericModel {
   public PublicationDate getPublicationDate() {
     return publicationDate;
   }
+
   /**
    * Gets the relations.
    *
@@ -264,6 +273,7 @@ public class Article extends GenericModel {
   public List<SAORelation> getRelations() {
     return relations;
   }
+
   /**
    * Gets the sentiment.
    *
@@ -272,6 +282,7 @@ public class Article extends GenericModel {
   public Sentiment getSentiment() {
     return sentiment;
   }
+
   /**
    * Gets the taxonomy.
    *
@@ -280,6 +291,7 @@ public class Article extends GenericModel {
   public List<Taxonomy> getTaxonomy() {
     return taxonomy;
   }
+
   /**
    * Gets the text.
    *
@@ -288,6 +300,7 @@ public class Article extends GenericModel {
   public String getText() {
     return text;
   }
+
   /**
    * Gets the title.
    *
@@ -296,6 +309,7 @@ public class Article extends GenericModel {
   public String getTitle() {
     return title;
   }
+
   /**
    * Gets the url.
    *
@@ -304,6 +318,7 @@ public class Article extends GenericModel {
   public String getUrl() {
     return url;
   }
+
   /**
    * Sets the author.
    *
@@ -322,7 +337,7 @@ public class Article extends GenericModel {
     this.cleanedTitle = cleanedTitle;
   }
 
-  
+
   /**
    * Sets the concepts.
    *
@@ -349,7 +364,7 @@ public class Article extends GenericModel {
   public void setEntities(List<Entity> entities) {
     this.entities = entities;
   }
-  
+
   /**
    * Sets the feeds.
    *
