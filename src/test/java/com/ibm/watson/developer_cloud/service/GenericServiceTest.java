@@ -53,7 +53,6 @@ import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslatio
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
-import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.RelationshipExtraction;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.ZipUtils;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
@@ -126,7 +125,6 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     checkApiKey(new LanguageTranslation(u, p), key);
     checkApiKey(new NaturalLanguageClassifier(u, p), key);
     checkApiKey(new PersonalityInsights(u, p), key);
-    checkApiKey(new RelationshipExtraction(u, p), key);
     checkApiKey(new RetrieveAndRank(u, p), key);
     checkApiKey(new SpeechToText(u, p), key);
     checkApiKey(new TextToSpeech(u, p), key);

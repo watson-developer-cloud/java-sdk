@@ -29,7 +29,6 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Language Translation](#language-translation)
     * [Natural Language Classifier](#natural-language-classifier)
     * [Personality Insights](#personality-insights)
-    * [Relationship Extraction](#relationship-extraction)
     * [Retrieve and Rank](#retrieve-and-rank)
     * [Speech to Text](#speech-to-text)
     * [Text to Speech](#text-to-speech)
@@ -366,21 +365,6 @@ authentication errors, remember that the Personality Insights service is not
 a free service.
 
 
-### Relationship Extraction
-Analyze an English news article and get the relationships between sentence
-components (nouns, verbs, subjects, objects, etc.) by using the
-[Relationship Extraction][relationship_extraction] service.
-
-```java
-RelationshipExtraction service = new RelationshipExtraction();
-service.setUsernameAndPassword("<username>", "<password>");
-
-service.setDataset(Dataset.ENGLISH_NEWS);
-String response = service.extract("IBM Watson Developer Cloud").execute();
-System.out.println(response);
-```
-
-
 ### Retrieve and Rank
 The [Retrieve and Rank][retrieve_and_rank] service helps users find the most
 relevant information for their query by using a  combination of search and
@@ -618,7 +602,6 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 [personality_insights]: http://www.ibm.com/watson/developercloud/doc/personality-insights/
 [document_conversion]: http://www.ibm.com/watson/developercloud/doc/document-conversion/
-[relationship_extraction]: http://www.ibm.com/watson/developercloud/doc/sireapi/
 [language_translation]: http://www.ibm.com/watson/developercloud/doc/language-translation/
 [visual_recognition]: http://www.ibm.com/watson/developercloud/doc/visual-recognition/
 [tradeoff_analytics]: http://www.ibm.com/watson/developercloud/doc/tradeoff-analytics/
