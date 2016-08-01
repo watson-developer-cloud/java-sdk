@@ -188,10 +188,6 @@ public final class RequestUtils {
     return properties.getProperty("version", "unknown-version");
   }
 
-  public static void main(String[] args) {
-    System.out.println(getUserAgent());
-  }
-
   /**
    * Builds the user agent using System properties
    *

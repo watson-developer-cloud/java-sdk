@@ -22,9 +22,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * Translation results from calling the translate method. Contains the word count, character count
  * and the {@link Translation} list
  *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
  */
-@Deprecated
 public class TranslationResult extends GenericModel {
 
   @SerializedName("character_count")

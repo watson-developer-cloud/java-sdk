@@ -20,10 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * The Translation result used as POJO by the {@link LanguageTranslation}.
  *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
- * 
  */
-@Deprecated
 public class Translation extends GenericModel {
 
   /** The translation. */

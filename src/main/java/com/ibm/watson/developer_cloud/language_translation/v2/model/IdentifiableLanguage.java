@@ -19,10 +19,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Identifiable language used by the {@link LanguageTranslation} service.
  *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
  * 
  */
-@Deprecated
 public class IdentifiableLanguage extends GenericModel {
 
   private final String language;

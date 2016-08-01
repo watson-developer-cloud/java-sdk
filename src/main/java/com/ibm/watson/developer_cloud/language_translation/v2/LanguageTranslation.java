@@ -44,15 +44,11 @@ import okhttp3.RequestBody;
  * The IBM Watson Language Translator service translate text from one language to another and
  * identifies the language in which text is written.
  *
- * <p>This class is deprecated. Use {@link com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator}
- * instead.</p>
- *
  * @version v2
  * @see <a href=
  *      "http://www.ibm.com/watson/developercloud/language-translation.html">
- *      Language Translator</a>
+ *      Language translation</a>
  */
-@Deprecated
 public class LanguageTranslation extends WatsonService {
 
   private static final String LANGUAGES = "languages";
