@@ -41,19 +41,17 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.Language;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Microformats;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.SAORelations;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Taxonomies;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedArguments;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedEntity;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelation;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelations;
 
 /**
- * Created by nizar on 8/25/15.
+ * Alchemy Language Integration tests
  */
 public class AlchemyLanguageIT extends WatsonServiceTest {
 
-  /** The html example. */
   private String htmlExample;
-
-  /** The service. */
   private AlchemyLanguage service;
 
   /*
@@ -492,17 +490,23 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
       params.put(AlchemyLanguage.MODEL_ID, "ie-en-news");
       final TypedRelations typedRelations = service.getTypedRelations(params).execute();
       Assert.assertNotNull(typedRelations);
-      List<TypedRelation> trs = typedRelations.getTypedRelations();
-      Assert.assertNotNull(trs);
-      Assert.assertFalse(trs.isEmpty());
-      for (TypedRelation tr : trs) {
-         Assert.assertNotNull(tr.getType());
-         Assert.assertNotNull(tr.getEntities());
-         Assert.assertFalse(tr.getEntities().isEmpty());
-         for (TypedEntity e : tr.getEntities()) {
-            Assert.assertNotNull(e.getId());
-            Assert.assertNotNull(e.getText());
-            Assert.assertNotNull(e.getType());
+      List<TypedRelation> relations = typedRelations.getTypedRelations();
+      Assert.assertNotNull(relations);
+      Assert.assertFalse(relations.isEmpty());
+      for (TypedRelation relation : relations) {
+         Assert.assertNotNull(relation.getType());
+         Assert.assertNotNull(relation.getSentence());
+         Assert.assertNotNull(relation.getArguments());
+         Assert.assertFalse(relation.getArguments().isEmpty());
+         for (TypedArguments arg : relation.getArguments()) {
+            Assert.assertNotNull(arg.getPart());
+            Assert.assertNotNull(arg.getText());
+            Assert.assertNotNull(arg.getEntities());
+            for (TypedEntity e : arg.getEntities()) {
+              Assert.assertNotNull(e.getId());
+              Assert.assertNotNull(e.getText());
+              Assert.assertNotNull(e.getType());
+            }
          }
       }
   }

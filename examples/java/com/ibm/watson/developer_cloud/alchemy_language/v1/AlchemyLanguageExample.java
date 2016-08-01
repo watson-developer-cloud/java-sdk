@@ -20,6 +20,7 @@ import java.util.Map;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.Entities;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelations;
 
 public class AlchemyLanguageExample {
 
@@ -31,11 +32,17 @@ public class AlchemyLanguageExample {
     params.put(AlchemyLanguage.TEXT,
         "IBM Watson won the Jeopardy television show hosted by Alex Trebek");
 
+     // get sentiment
     DocumentSentiment sentiment = service.getSentiment(params).execute();
     System.out.println("Sentiment: " + sentiment);
-    
+
+    // get entities
     Entities entities = service.getEntities(params).execute();
     System.out.println("Entities: " + entities);
+    
+    // get typed relations
+    TypedRelations relations = service.getTypedRelations(params).execute();
+    System.out.println("Relations: " + relations);
     
   }
 

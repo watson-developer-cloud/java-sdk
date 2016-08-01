@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -16,90 +16,92 @@ package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Typed relation between {@link TypedEntity}.
+ * Typed relation between {@link TypedArguments}.
+ * 
  * @see AlchemyLanguage#getTypedRelations(java.util.Map)
  */
-public class TypedRelation {
+public class TypedRelation extends GenericModel {
 
-    private String text;
-    private String type;
-    private Double score;
+  private String sentence;
+  private String type;
+  private Double score;
 
-    @JsonAdapter(TypedEntitiesAdapter.class)
-    @SerializedName("arguments")
-    private List<TypedEntity> entities;
+  private List<TypedArguments> arguments;
 
-    /**
-     * Gets the text.
-     *
-     * @return     The text
-     */
-    public String getText() {
-        return text;
-    }
+  /**
+   * Gets the type.
+   *
+   * @return The type
+   */
+  public String getType() {
+    return type;
+  }
 
-    /**
-     * Sets the text.
-     *
-     * @param text     The text
-     */
-    public void setText(String text) {
-        this.text = text;
-    }
+  /**
+   * Sets the type.
+   *
+   * @param type The type
+   */
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    /**
-     * Gets the type.
-     *
-     * @return     The type
-     */
-    public String getType() {
-        return type;
-    }
+  /**
+   * Gets the score.
+   *
+   * @return The score
+   */
+  public Double getScore() {
+    return score;
+  }
 
-    /**
-     * Sets the type.
-     *
-     * @param type     The type
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
+  /**
+   * Sets the score.
+   *
+   * @param score The score
+   */
+  public void setScore(Double score) {
+    this.score = score;
+  }
 
-    /**
-     * Gets the score.
-     *
-     * @return     The score
-     */
-    public Double getScore() {
-        return score;
-    }
+  /**
+   * Gets the sentence.
+   *
+   * @return the sentence
+   */
+  public String getSentence() {
+    return sentence;
+  }
 
-    /**
-     * Sets the score.
-     *
-     * @param score     The score
-     */
-    public void setScore(Double score) {
-        this.score = score;
-    }
+  /**
+   * Sets the sentence.
+   *
+   * @param sentence the new sentence
+   */
+  public void setSentence(String sentence) {
+    this.sentence = sentence;
+  }
 
-    /**
-     * @return the entities
-     */
-    public List<TypedEntity> getEntities() {
-        return entities;
-    }
+  /**
+   * Gets the arguments.
+   *
+   * @return the arguments
+   */
+  public List<TypedArguments> getArguments() {
+    return arguments;
+  }
 
-    /**
-     * @param entities the entities to set
-     */
-    public void setEntities(List<TypedEntity> entities) {
-        this.entities = entities;
-    }
+  /**
+   * Sets the arguments.
+   *
+   * @param arguments the new arguments
+   */
+  public void setArguments(List<TypedArguments> arguments) {
+    this.arguments = arguments;
+  }
 
 }
