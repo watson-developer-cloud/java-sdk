@@ -85,7 +85,8 @@ public class VisualRecognition extends WatsonService {
    */
   public VisualRecognition(String versionDate) {
     super(SERVICE_NAME);
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
     Validator.notNull(versionDate, "versionDate cannot be null. Use '2016-05-19'");
     this.versionDate = versionDate;
   }

@@ -83,7 +83,8 @@ public class LanguageTranslation extends WatsonService {
    */
   public LanguageTranslation() {
     super(SERVICE_NAME);
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
   }
 
   /**

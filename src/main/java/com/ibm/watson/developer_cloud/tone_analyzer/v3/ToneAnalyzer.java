@@ -59,7 +59,8 @@ public class ToneAnalyzer extends WatsonService {
    */
   public ToneAnalyzer(String versionDate) {
     super(SERVICE_NAME);
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
     this.versionDate = versionDate;
   }
 

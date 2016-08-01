@@ -82,7 +82,8 @@ public class SpeechToText extends WatsonService {
    */
   public SpeechToText() {
     super(SERVICE_NAME);
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
   }
 
   /**
