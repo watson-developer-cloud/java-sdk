@@ -8,7 +8,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * Created by Focuson on 16-7-13.
+ * WordAlternativeTypeAdapter for Json parse
  */
 public class WordAlternativeTypeAdapter extends TypeAdapter<WordAlternative> {
     @Override

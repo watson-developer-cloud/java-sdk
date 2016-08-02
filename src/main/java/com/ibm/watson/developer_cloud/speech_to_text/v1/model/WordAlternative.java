@@ -1,12 +1,11 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Created by Focuson on 16-7-13.
+ * Word Alternative
  */
-@JsonAdapter(WordAlternativeTypeAdapter.class)
+
 public class WordAlternative extends GenericModel {
 
     private Double confidence;

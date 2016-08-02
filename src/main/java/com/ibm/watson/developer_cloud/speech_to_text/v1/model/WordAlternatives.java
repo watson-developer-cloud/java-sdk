@@ -6,9 +6,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.List;
 
 /**
- * Created by Focuson on 16-7-13.
+ * Word Alternatives
  */
-public class SpeechWordAlternative extends GenericModel {
+public class WordAlternatives extends GenericModel {
     @SerializedName("start_time")
     private Double startTime;
     /*

@@ -35,7 +35,7 @@ public class Transcript extends GenericModel {
    * The word_alternatives. Add by Focuson
    */
   @SerializedName("word_alternatives")
-  private List<SpeechWordAlternative> wordAlternatives;
+  private List<WordAlternatives> wordAlternatives;
 
   /**
    * Gets the alternatives.
@@ -91,11 +91,11 @@ public class Transcript extends GenericModel {
     this.keywordsResult = keywordsResult;
   }
 
-  public List<SpeechWordAlternative> getWordAlternatives() {
+  public List<WordAlternatives> getWordAlternatives() {
     return wordAlternatives;
   }
 
-  public void setWordAlternatives(List<SpeechWordAlternative> wordAlternatives) {
+  public void setWordAlternatives(List<WordAlternatives> wordAlternatives) {
     this.wordAlternatives = wordAlternatives;
   }
 }
