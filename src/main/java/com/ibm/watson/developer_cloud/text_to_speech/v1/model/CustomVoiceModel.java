@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.util.LongToDateTypeAdapter;
  * for Waton's Text to Speech API.
  * 
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/custom-intro.shtml">
+ *      "http://www.ibm.com/watson/developercloud/doc/text-to-speech/custom-intro.shtml">
  *      Customization</a>
  */
 public class CustomVoiceModel extends GenericModel {

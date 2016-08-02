@@ -32,7 +32,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  *
  * @version v3
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/tone-analyzer.html"> Tone
+ *      "http://www.ibm.com/watson/developercloud/tone-analyzer.html"> Tone
  *      Analyzer</a>
  * @api.version_date 2016-05-19
  */
@@ -59,7 +59,8 @@ public class ToneAnalyzer extends WatsonService {
    */
   public ToneAnalyzer(String versionDate) {
     super(SERVICE_NAME);
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
     this.versionDate = versionDate;
   }
 

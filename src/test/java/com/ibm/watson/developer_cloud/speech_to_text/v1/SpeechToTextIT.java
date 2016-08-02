@@ -35,6 +35,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSessionStatus;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordAlternatives;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 
@@ -115,6 +116,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(model);
     assertNotNull(model.getName());
     assertNotNull(model.getRate());
+    assertNotNull(model.getDescription());
   }
 
   /**
@@ -229,6 +231,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .inactivityTimeout(40)
         .timestamps(true)
         .maxAlternatives(2)
+        .wordAlternativesThreshold(0.5)
         .model(EN_BROADBAND16K)
         .contentType(HttpMediaType.AUDIO_WAV).build();
     FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/sample1.wav");
@@ -263,6 +266,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
     lock.await(2, TimeUnit.MINUTES);
     assertNotNull(asyncResults);
+    
+    List<SpeechWordAlternatives> wordAlternatives = asyncResults.getResults().get(asyncResults.getResultIndex()).getWordAlternatives();
+    assertTrue(wordAlternatives != null && !wordAlternatives.isEmpty());
+    assertNotNull(wordAlternatives.get(0).getAlternatives());
   }
 
 

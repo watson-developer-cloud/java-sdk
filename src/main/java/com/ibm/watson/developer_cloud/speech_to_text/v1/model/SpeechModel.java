@@ -66,6 +66,7 @@ public class SpeechModel extends GenericModel {
 
   private String sessions;
 
+  private String description;
 
   /**
    * Instantiates a new speech model.
@@ -97,11 +98,20 @@ public class SpeechModel extends GenericModel {
 
   /**
    * Gets the sessions.
-   * 
+   *
    * @return the sessions
    */
   public String getSessions() {
     return sessions;
+  }
+
+  /**
+   * Gets the description.
+   *
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
   }
 
   /**
@@ -115,11 +125,20 @@ public class SpeechModel extends GenericModel {
 
   /**
    * Sets the rate.
-   * 
+   *
    * @param rate The rate
    */
   public void setRate(final int rate) {
     this.rate = rate;
+  }
+
+  /**
+   * Sets the description.
+   *
+   * @param description The description
+   */
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   /**

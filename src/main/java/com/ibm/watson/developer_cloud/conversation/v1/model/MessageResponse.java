@@ -11,12 +11,12 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1_experimental.model;
+package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 

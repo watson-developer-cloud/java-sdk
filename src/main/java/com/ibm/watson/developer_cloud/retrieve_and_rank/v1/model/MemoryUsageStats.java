@@ -19,7 +19,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Memory Usage Stats
+ * Memory Usage Stats.
  */
 public class MemoryUsageStats extends GenericModel {
 

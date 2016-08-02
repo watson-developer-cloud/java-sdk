@@ -11,20 +11,21 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1_experimental.model;
+package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Object that represents the input and context of a conversation. This is used by the
  * {@link ConversationService#message(String, MessageRequest)} method
  * 
- * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">
- *      http://www.ibm.com/watson/developercloud/conversation.html</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html"> http://www.ibm.com/
+ *      watson/developercloud/conversation.html</a>
  * 
  */
 public class MessageRequest extends GenericModel {
@@ -36,6 +37,7 @@ public class MessageRequest extends GenericModel {
     private static final String TEXT = "text";
     private Map<String, Object> context;
     private Map<String, Object> input;
+    private Boolean alternateIntents;
 
     /**
      * Instantiates a new Builder.
@@ -50,6 +52,7 @@ public class MessageRequest extends GenericModel {
     private Builder(MessageRequest messageRequest) {
       this.input = new HashMap<String, Object>(messageRequest.input);
       this.context = new HashMap<String, Object>(messageRequest.context);
+      this.alternateIntents = messageRequest.alternateIntents;
     }
 
     /**
@@ -80,6 +83,17 @@ public class MessageRequest extends GenericModel {
     }
 
     /**
+     * Sets the alternate intents flag. Set to true to return all matching intents
+     *
+     * @param alternateIntents the alternate intents flag
+     * @return a builder object
+     */
+    public Builder alternateIntents(final Boolean alternateIntents) {
+      this.alternateIntents = alternateIntents;
+      return this;
+    }
+    
+    /**
      * Sets the input which is to be sent to the message API as a part of the service request.
      * Typically the input will contain a <code>text</code> property (key and value). The
      * <code>text</code> property is generally interpreted as being the user/system input which the
@@ -92,7 +106,7 @@ public class MessageRequest extends GenericModel {
      * @return a builder object
      */
     public Builder input(Map<String, Object> input) {
-      this.input = input !=null ? new HashMap<String, Object>(input) : null;
+      this.input = input != null ? new HashMap<String, Object>(input) : null;
       return this;
     }
 
@@ -113,6 +127,8 @@ public class MessageRequest extends GenericModel {
 
   private Map<String, Object> context;
   private Map<String, Object> input;
+  @SerializedName("alternate_intents")
+  private Boolean alternateIntents;
 
   /**
    * Creates a new instance of the MessageRequest for the {@link ConversationService} service.
@@ -123,6 +139,7 @@ public class MessageRequest extends GenericModel {
   private MessageRequest(Builder options) {
     this.context = options.context;
     this.input = options.input;
+    this.alternateIntents = options.alternateIntents;
   }
 
   /**
@@ -137,6 +154,17 @@ public class MessageRequest extends GenericModel {
   }
 
   /**
+   * Whether to return more than one intent. Set to true to return all matching intents boolean<br/>
+   * Default: false
+   *
+   * @return the boolean indicating if alternate intents should be returned
+   */
+  public Boolean alternateIntents() {
+    return alternateIntents;
+  }
+
+
+  /**
    * Returns a map storing the input which is to be sent to the service as a part of the API
    * request.
    * 
@@ -145,6 +173,7 @@ public class MessageRequest extends GenericModel {
   public Map<String, Object> input() {
     return input;
   }
+
 
   /**
    * Convenience method which allows the developer to quickly retrieve the 'text' property from the

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -11,25 +11,64 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
+
+import java.util.List;
 
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Recognized entity from {@link AlchemyLanguage#getTypedRelations(java.util.Map)}
+ * Argument of a typed relation. It includes the detected {@link TypedEntity}, text and part.
+ * 
+ * @see AlchemyLanguage#getTypedRelations(java.util.Map)
  */
-public class TypedEntity extends GenericModel {
+public class TypedArguments extends GenericModel {
 
-  private String id;
+  private String part;
   private String text;
-  private String type;
+  private List<TypedEntity> entities;
+
+  /**
+   * Gets the entities.
+   *
+   * @return the entities
+   */
+  public List<TypedEntity> getEntities() {
+    return entities;
+  }
+
+  /**
+   * Sets the entities.
+   *
+   * @param entities the new entities
+   */
+  public void setTypedEntities(List<TypedEntity> entities) {
+    this.entities = entities;
+  }
+
+  /**
+   * Gets the part.
+   *
+   * @return the part
+   */
+  public String getPart() {
+    return part;
+  }
+
+  /**
+   * Sets the part.
+   *
+   * @param part the new part
+   */
+  public void setPart(String part) {
+    this.part = part;
+  }
 
   /**
    * Gets the text.
    *
-   * @return The text
+   * @return the text
    */
   public String getText() {
     return text;
@@ -38,46 +77,10 @@ public class TypedEntity extends GenericModel {
   /**
    * Sets the text.
    *
-   * @param text The text
+   * @param text the new text
    */
   public void setText(String text) {
     this.text = text;
-  }
-
-  /**
-   * Gets the type.
-   *
-   * @return The type
-   */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * Sets the type.
-   *
-   * @param type The type
-   */
-  public void setType(String type) {
-    this.type = type;
-  }
-
-  /**
-   * Gets the id.
-   *
-   * @return The id
-   */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * Sets the id.
-   *
-   * @param id The id
-   */
-  public void setId(String id) {
-    this.id = id;
   }
 
 }

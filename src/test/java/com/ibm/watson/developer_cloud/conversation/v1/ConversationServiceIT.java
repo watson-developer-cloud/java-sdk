@@ -11,24 +11,22 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1_experimental;
+package com.ibm.watson.developer_cloud.conversation.v1;
 
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Map;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 
 /**
  * Integration test for the {@link ConversationService}.
  */
-@Ignore
 public class ConversationServiceIT extends WatsonServiceTest {
 
   private ConversationService service;
@@ -43,12 +41,12 @@ public class ConversationServiceIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    workspaceId = getValidProperty("conversation.v1_experimental.workspace_id");
-    String username = getValidProperty("conversation.v1_experimental.username");
-    String password = getValidProperty("conversation.v1_experimental.password");
+    workspaceId = getValidProperty("conversation.v1.workspace_id");
+    String username = getValidProperty("conversation.v1.username");
+    String password = getValidProperty("conversation.v1.password");
 
-    service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
-    service.setEndPoint(getValidProperty("conversation.v1_experimental.url"));
+    service = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
+    service.setEndPoint(getValidProperty("conversation.v1.url"));
     service.setUsernameAndPassword(username, password);
     service.setDefaultHeaders(getDefaultHeaders());
   }
@@ -71,7 +69,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
     final String[] messages = new String[] {"turn ac on", "turn right", "no", "yes"};
     Map<String, Object> context = null;
     for (final String message : messages) {
-      MessageRequest request = new MessageRequest.Builder().inputText(message).context(context).build();
+      MessageRequest request = new MessageRequest.Builder().inputText(message).alternateIntents(true).context(context).build();
       MessageResponse response = service.message(workspaceId, request).execute();
 
       assertMessageFromService(response);
@@ -87,8 +85,6 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   private void assertMessageFromService(MessageResponse message) {
     assertNotNull(message);
-    //assertNotNull(message.getContext());
-    //assertNotNull(message.getOutput());
     assertNotNull(message.getEntities());
     assertNotNull(message.getIntents());
   }
