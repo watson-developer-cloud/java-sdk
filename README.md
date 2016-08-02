@@ -250,10 +250,10 @@ System.out.println(result);
 ```
 
 ### Conversation
-Use the experimental [Conversation][conversation] service to identify intents, entities, and conduct conversations.
+Use the [Conversation][conversation] service to identify intents, entities, and conduct conversations.
 
 ```java
-ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
+ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
 service.setUsernameAndPassword("<username>", "<password>");
 
 MessageRequest newMessage = new MessageRequest.Builder().inputText("Hi").build();
