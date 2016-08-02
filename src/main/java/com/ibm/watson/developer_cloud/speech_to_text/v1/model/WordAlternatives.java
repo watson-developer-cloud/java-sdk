@@ -8,6 +8,7 @@ import java.util.List;
 /**
  * Word Alternatives
  */
+
 public class WordAlternatives extends GenericModel {
     @SerializedName("start_time")
     private Double startTime;

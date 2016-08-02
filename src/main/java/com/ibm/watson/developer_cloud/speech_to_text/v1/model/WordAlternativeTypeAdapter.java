@@ -10,6 +10,7 @@ import java.io.IOException;
 /**
  * WordAlternativeTypeAdapter for Json parse
  */
+
 public class WordAlternativeTypeAdapter extends TypeAdapter<WordAlternative> {
     @Override
     public void write(JsonWriter writer, WordAlternative value) throws IOException {

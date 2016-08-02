@@ -32,7 +32,7 @@ public class Transcript extends GenericModel {
   private Map<String, List<KeywordsResult>> keywordsResult;
 
   /**
-   * The word_alternatives. Add by Focuson
+   * The word_alternatives.
    */
   @SerializedName("word_alternatives")
   private List<WordAlternatives> wordAlternatives;
