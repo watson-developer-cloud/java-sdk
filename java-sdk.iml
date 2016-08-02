@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_6" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" exported="" name="Maven: com.squareup.okhttp3:okhttp:3.3.1" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.squareup.okio:okio:1.8.0" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.squareup.okhttp3:logging-interceptor:3.3.1" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.squareup.okhttp3:okhttp-ws:3.3.1" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.squareup.okhttp3:okhttp-urlconnection:3.3.1" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.google.code.gson:gson:2.6.2" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: org.apache.commons:commons-lang3:3.4" level="project" />
+    <orderEntry type="library" exported="" name="Maven: org.glassfish.jersey.bundles.repackaged:jersey-jsr166e:2.22.2" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: junit:junit:4.12" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: com.squareup.okhttp3:mockwebserver:3.3.1" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: org.bouncycastle:bcprov-jdk15on:1.50" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: ch.qos.logback:logback-classic:1.1.7" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: ch.qos.logback:logback-core:1.1.7" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: org.slf4j:slf4j-api:1.7.20" level="project" />
+    <orderEntry type="library" exported="" scope="TEST" name="Maven: com.google.guava:guava:19.0" level="project" />
+  </component>
+</module>
