@@ -242,7 +242,7 @@ public class LanguageTranslation extends WatsonService {
    *
    *
    * <pre>
-   * LanguageTranslator service = new LanguageTranslator();
+   * LanguageTranslation service = new LanguageTranslation();
    * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
    *
    * TranslationResult translationResult = service.translate(&quot;hello&quot;, Language.SPANISH, Language.ENGLISH).execute();
