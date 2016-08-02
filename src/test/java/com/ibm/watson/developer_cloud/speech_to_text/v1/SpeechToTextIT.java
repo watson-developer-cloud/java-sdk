@@ -35,7 +35,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSessionStatus;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordAlternatives;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordAlternatives;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 
@@ -267,7 +267,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     lock.await(2, TimeUnit.MINUTES);
     assertNotNull(asyncResults);
     
-    List<SpeechWordAlternatives> wordAlternatives = asyncResults.getResults().get(asyncResults.getResultIndex()).getWordAlternatives();
+    List<WordAlternatives> wordAlternatives = asyncResults.getResults().get(asyncResults.getResultIndex()).getWordAlternatives();
     assertTrue(wordAlternatives != null && !wordAlternatives.isEmpty());
     assertNotNull(wordAlternatives.get(0).getAlternatives());
   }
