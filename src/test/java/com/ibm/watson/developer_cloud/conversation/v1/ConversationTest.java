@@ -84,7 +84,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals("{\"input\":{\"text\":\"I'd like to get insurance to for my home\"}}", request.getBody().readUtf8());
+    assertEquals("{\"input\":{\"text\":\"I'd like to get insurance to for my home\"},\"alternate_intents\":true}", request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
   }
 }
