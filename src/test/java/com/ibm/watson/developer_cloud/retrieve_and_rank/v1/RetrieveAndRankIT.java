@@ -13,7 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -81,6 +85,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
   /**
    * Test delete all rankers.
    */
+  @Ignore
   @Test
   public void testDeleteAllRankers() {
     List<Ranker> rankers = service.getRankers().execute().getRankers();
@@ -208,6 +213,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
    * Test get solr cluster.
    */
   @Test
+  @Ignore
   public void testGetSolrCluster() {
     final SolrCluster cluster = service.getSolrCluster(clusterId).execute();
     assertNotNull(cluster);
@@ -320,9 +326,10 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
   /**
    * Test solr cluster resize.
    *
-   * @throws InterruptedException
+   * @throws InterruptedException the interrupted exception
    */
   @Test
+  @Ignore
   public void testSolrClusterResize() throws InterruptedException {
     SolrClusterSizeResponse resizeRequestResponse =
         service.resizeSolrCluster(clusterId, 2).execute();

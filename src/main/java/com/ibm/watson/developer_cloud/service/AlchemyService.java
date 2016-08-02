@@ -58,7 +58,8 @@ public abstract class AlchemyService extends WatsonService {
    */
   public AlchemyService() {
     super(SERVICE_NAME);
-    setEndPoint(ENDPOINT);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(ENDPOINT);
   }
 
   /**

@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+## Version 3.2.0
+
+_2016-08-02_
+
+ * New: Conversation v1
+ * New: Text To Speech now supports `audio/basic`, `audio/i16` and `ogg/vorgis`
+ * New: AlchemyLanguage now has a TypedRelation method that extract relationships and entities from text
+ * Fix: Speech to Text now returns the voice description when calling `getVoices()`
+ * Fix: url from `VCAP_SERVICES` take presecent over the default url
+ * Fix: Removed Relationship Extraction v1-beta
+ * Fix: Removed Tone Analyzer v3-beta
+
 ## Version 3.0.1
 
 _2016-06-08_

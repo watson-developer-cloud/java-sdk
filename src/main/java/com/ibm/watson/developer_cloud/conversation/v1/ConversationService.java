@@ -11,10 +11,10 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1_experimental;
+package com.ibm.watson.developer_cloud.conversation.v1;
 
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.model.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -25,17 +25,17 @@ import com.ibm.watson.developer_cloud.util.Validator;
 /**
  * Thin wrapper around the Conversation Service REST API.
  *
- * @version v1-experimental
+ * @version v1
  * @see <a href=
  *      "http://www.ibm.com/watson/developercloud/conversation.html">
  *      Conversation</a>
- * @api.version_date 2016-05-19
+ * @api.version_date 2016-07-11
  */
 public final class ConversationService extends WatsonService {
 
-  /** The Constant VERSION_DATE_2016_05_19. */
-  public static final String VERSION_DATE_2016_05_19 = "2016-05-19";
-  private static final String URL = "https://gateway.watsonplatform.net/conversation-experimental/api";
+  /** The Constant VERSION_DATE_2016-07-11. */
+  public static final String VERSION_DATE_2016_07_11 = "2016-07-11";
+  private static final String URL = "https://gateway.watsonplatform.net/conversation/api";
   private static final String SERVICE_NAME = "conversation";
   private static final String PATH_MESSAGE = "/v1/workspaces/%s/message";
   private static final String VERSION_PARAM = "version";
@@ -53,7 +53,7 @@ public final class ConversationService extends WatsonService {
       setEndPoint(URL);
 
     Validator.isTrue(versionDate != null && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2016_05_19);
+        "'version cannot be null. Use " + VERSION_DATE_2016_07_11);
     this.versionDate = versionDate;
   }
 

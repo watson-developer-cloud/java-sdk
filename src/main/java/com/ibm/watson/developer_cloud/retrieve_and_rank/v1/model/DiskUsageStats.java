@@ -19,7 +19,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Disk Usage Stats
+ * Disk Usage Stats.
  */
 public class DiskUsageStats extends GenericModel {
 

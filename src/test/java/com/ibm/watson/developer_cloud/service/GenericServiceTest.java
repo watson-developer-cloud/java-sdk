@@ -27,6 +27,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,11 +50,9 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtil
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
-import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
-import com.ibm.watson.developer_cloud.relationship_extraction.v1_beta.RelationshipExtraction;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.ZipUtils;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
@@ -79,9 +80,6 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
 import jersey.repackaged.jsr166e.CompletableFuture;
 import okhttp3.Credentials;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -124,11 +122,9 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     checkApiKey(new ConversationService(ConversationService.VERSION_DATE_2016_05_19, u, p), key);
     checkApiKey(new DialogService(u, p), key);
     checkApiKey(new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01, u, p), key);
-    checkApiKey(new LanguageTranslator(u, p), key);
     checkApiKey(new LanguageTranslation(u, p), key);
     checkApiKey(new NaturalLanguageClassifier(u, p), key);
     checkApiKey(new PersonalityInsights(u, p), key);
-    checkApiKey(new RelationshipExtraction(u, p), key);
     checkApiKey(new RetrieveAndRank(u, p), key);
     checkApiKey(new SpeechToText(u, p), key);
     checkApiKey(new TextToSpeech(u, p), key);
@@ -143,7 +139,6 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
    * @throws NoSuchMethodException
    */
   @Test
-  @SuppressWarnings("unchecked")
   public void testUtilityClasses() throws NoSuchMethodException {
     final List<Class<?>> utilityClasses = Arrays.asList(
       AlchemyEndPoints.class, IDHelper.class, ConversionUtils.class, ZipUtils.class,
@@ -330,7 +325,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   /**
    * Test user agent is set.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws Exception the exception
    */
   @Test
   public void testUserAgentIsSet() throws Exception {

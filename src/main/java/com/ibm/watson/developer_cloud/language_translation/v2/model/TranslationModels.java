@@ -13,18 +13,16 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
 
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
-import java.util.List;
 
 
 /**
  * {@link TranslationModel} list used by the {@link LanguageTranslation} service.
  *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
  */
-@Deprecated
 public class TranslationModels extends GenericModel {
 
   private List<TranslationModel> models;
