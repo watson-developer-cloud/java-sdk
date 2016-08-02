@@ -19,6 +19,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * An class used to describe the entity payload object.
  */
 public class Entity extends GenericModel {
+
+  /**
+   * Instantiates a new entity.
+   *
+   * @param entity the entity
+   * @param value the value
+   * @param location the location
+   */
+  public Entity(String entity, String value, Integer[] location) {
+    super();
+    this.entity = entity;
+    this.value = value;
+    this.location = location;
+  }
+
   private String entity;
   private Integer[] location;
   private String value;
