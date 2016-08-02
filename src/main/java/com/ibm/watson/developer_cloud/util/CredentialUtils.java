@@ -117,12 +117,12 @@ public final class CredentialUtils {
       log.info("JNDI string lookups is not available.");
       return null;
     }
+    String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
     try {
       Context context = new InitialContext();
-      String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
       return (String) context.lookup(lookupName);
     } catch (Exception e) {
-      log.warning("Error during JNDI key lookup: " + e.getMessage());
+      log.info("JNDI " + lookupName + " not found.");
       return null;
     }
   }
