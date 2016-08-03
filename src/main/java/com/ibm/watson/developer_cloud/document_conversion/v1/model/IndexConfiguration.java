@@ -17,8 +17,6 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-import java.util.List;
-
 /**
  * Structure that stores the configuration for the Retrieve and Rank service
  * when indexing documents through the Document Conversion service
