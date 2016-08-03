@@ -27,7 +27,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * ({@code try<phoneme alphabet="ipa" ph="nˈaɪtɹəglɪsəɹɨn"></phoneme>})
  * 
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/custom-intro.shtml">
+ *      "http://www.ibm.com/watson/developercloud/doc/text-to-speech/custom-intro.shtml">
  *      Customization</a>
  *
  */
@@ -102,7 +102,7 @@ public class CustomTranslation extends GenericModel {
    * @param translation
    *          the translation
    * @see <a href=
-   *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/custom-intro.shtml">
+   *      "http://www.ibm.com/watson/developercloud/doc/text-to-speech/custom-intro.shtml">
    *      Customization</a>
    */
   public void setTranslation(String translation) {

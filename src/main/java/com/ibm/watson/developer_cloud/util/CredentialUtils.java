@@ -45,10 +45,20 @@ public final class CredentialUtils {
       this.password = password;
     }
 
+    /**
+     * Gets the password.
+     *
+     * @return the password
+     */
     public String getPassword() {
       return password;
     }
 
+    /**
+     * Gets the username.
+     *
+     * @return the username
+     */
     public String getUsername() {
       return username;
     }
@@ -107,12 +117,12 @@ public final class CredentialUtils {
       log.info("JNDI string lookups is not available.");
       return null;
     }
+    String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
     try {
       Context context = new InitialContext();
-      String lookupName = "watson-developer-cloud/" + serviceName + "/credentials";
       return (String) context.lookup(lookupName);
     } catch (Exception e) {
-      log.warning("Error during JNDI key lookup: " + e.getMessage());
+      log.info("JNDI " + lookupName + " not found.");
       return null;
     }
   }
@@ -203,8 +213,9 @@ public final class CredentialUtils {
    * Returns the username and password as defined in the VCAP_SERVICES or null if they do not exist
    * or are not accessible. If a plan is provided then only the credentials for that plan (and
    * service) will be returned. Null will be returned if the plan does not exist.
-   * 
+   *
    * @param serviceName the name of the service whose credentials are sought
+   * @param plan the plan name
    * @return an object representing the service's credentials
    */
   public static ServiceCredentials getUserNameAndPassword(String serviceName, String plan) {

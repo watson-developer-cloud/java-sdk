@@ -18,10 +18,7 @@ import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslatio
 /**
  * Language detected by the {@link LanguageTranslation} service.
  *
- * <p>This class is deprecated. Use the {@code language_translator} classes instead.</p>
- * 
  */
-@Deprecated
 public class IdentifiedLanguage extends IdentifiableLanguage {
 
   /** The confidence. */

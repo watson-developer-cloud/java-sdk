@@ -13,7 +13,6 @@
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
@@ -66,7 +65,7 @@ public class ImageKeyword extends GenericModel {
    * @param hierarchy The hierarchy.
    */
   public void setHierarchy(String hierarchy) {
-    if(knowledgeGraph == null) {
+    if (knowledgeGraph == null) {
       knowledgeGraph = new KnowledgeGraph();
     }
 

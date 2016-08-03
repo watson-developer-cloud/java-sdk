@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -20,10 +20,30 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 
 /**
  * Typed relation between {@link TypedEntity}.
+ * 
  * @see AlchemyLanguage#getTypedRelations(java.util.Map)
  */
-public class TypedRelations extends AlchemyLanguageGenericModel{
+public class TypedRelations extends AlchemyLanguageGenericModel {
 
+  private String model;
+
+  /**
+   * Gets the model.
+   *
+   * @return the model
+   */
+  public String getModel() {
+    return model;
+  }
+
+  /**
+   * Sets the model.
+   *
+   * @param model the new model
+   */
+  public void setModel(String model) {
+    this.model = model;
+  }
 
   /** The typedRelations. */
   private List<TypedRelation> typedRelations;
@@ -45,6 +65,6 @@ public class TypedRelations extends AlchemyLanguageGenericModel{
   public void setTypedRelations(List<TypedRelation> typedRelations) {
     this.typedRelations = typedRelations;
   }
-  
-  
+
+
 }

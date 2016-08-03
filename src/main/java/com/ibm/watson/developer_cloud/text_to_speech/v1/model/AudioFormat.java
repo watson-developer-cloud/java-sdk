@@ -27,9 +27,18 @@ public enum AudioFormat {
   /** OGG format (value is "audio/ogg; codecs=opus"). */
   OGG(HttpMediaType.AUDIO_OGG),
 
+  /** OGG_VORBIS format (value is "audio/ogg; codecs=vorbis"). */
+  OGG_VORBIS(HttpMediaType.AUDIO_OGG_VORBIS),
+  
   /** WAV format (value is "audio/wav"). */
-  WAV(HttpMediaType.AUDIO_WAV);
+  WAV(HttpMediaType.AUDIO_WAV),
 
+  /** Linear 16-bit Pulse-Code Modulation (PCM) format (value is "audio/l16"). */
+  PCM(HttpMediaType.AUDIO_PCM),
+  
+  /** BASIC format, single-channel audio encoded using 8-bit u-law (or mu-law) data sampled at 8 KHz (value is "audio/basic"). */
+  BASIC(HttpMediaType.AUDIO_BASIC);
+  
   private String mediaType;
 
   /**

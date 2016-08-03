@@ -1,5 +1,5 @@
-/**
- * Copyright 2016 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -13,17 +13,17 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
 /**
- * Structure that stores all metadata entries for document when indexing
+ * Structure that stores all metadata entries for document when indexing.
  *
  * @see DocumentConversion
  */
@@ -33,14 +33,14 @@ public class Metadata extends GenericModel {
   private Map<String, String> metadata;
 
   /**
-   * Gets the metadata
+   * Gets the metadata.
    *
    * @return Map of metadata values
    */
   public Map<String, String> getMetadata() { return metadata; }
 
   /**
-   * Sets the metadata
+   * Sets the metadata.
    *
    * @param metadata The Map of metadata values
    */

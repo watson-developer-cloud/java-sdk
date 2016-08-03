@@ -1,11 +1,27 @@
+/*
+ * Copyright 2015 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
-
-import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
 
+import com.google.gson.JsonObject;
+
+/**
+ * Options when indexing a document
+ */
 public class IndexDocumentOptions {
   private File document;
   private InputStream documentInputStream;
@@ -88,6 +104,11 @@ public class IndexDocumentOptions {
     private IndexConfiguration indexConfiguration;
     private boolean dryRun;
 
+    /**
+     * Instantiates a new builder.
+     *
+     * @param options the options
+     */
     private Builder(IndexDocumentOptions options) {
       this.document = options.document;
       this.documentInputStream = options.documentInputStream;
@@ -166,7 +187,7 @@ public class IndexDocumentOptions {
       return this;
     }
 
-    /*
+    /**
      * Sets the retrieve and rank configuration
      *
      * @param indexConfiguration Configuration for the retrieve and rank service for the indexing phase
@@ -177,7 +198,8 @@ public class IndexDocumentOptions {
       return this;
     }
 
-    /*
+    
+    /**
     * Sets the dryRun flag
     *
     * @param dryRun If true, performs a dry run for testing purposes (document won't be indexed), else to index the document
@@ -197,5 +219,14 @@ public class IndexDocumentOptions {
     this.convertDocumentConfig = builder.conversionConfiguration;
     this.indexConfiguration = builder.indexConfiguration;
     this.dryRun = builder.dryRun;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 }

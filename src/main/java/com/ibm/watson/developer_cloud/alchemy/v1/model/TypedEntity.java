@@ -14,20 +14,17 @@
 
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Recognized entity from {@link AlchemyLanguage#getTypedRelations(java.util.Map)}
  */
-public class TypedEntity {
+public class TypedEntity extends GenericModel {
 
-  private String text;
-  private String mention;
-  private String type;
-  @SerializedName("argNum")
-  private Integer argumentNumber;
   private String id;
+  private String text;
+  private String type;
 
   /**
    * Gets the text.
@@ -48,24 +45,6 @@ public class TypedEntity {
   }
 
   /**
-   * Gets the mention.
-   *
-   * @return The mention
-   */
-  public String getMention() {
-    return mention;
-  }
-
-  /**
-   * Sets the mention.
-   *
-   * @param mention The mention
-   */
-  public void setMention(String mention) {
-    this.mention = mention;
-  }
-
-  /**
    * Gets the type.
    *
    * @return The type
@@ -81,24 +60,6 @@ public class TypedEntity {
    */
   public void setType(String type) {
     this.type = type;
-  }
-
-  /**
-   * Gets the argument number.
-   *
-   * @return The argument number
-   */
-  public Integer getArgumentNumber() {
-    return argumentNumber;
-  }
-
-  /**
-   * Sets the argument number.
-   *
-   * @param argumentNumber the new argument number
-   */
-  public void setArgumentNumber(Integer argumentNumber) {
-    this.argumentNumber = argumentNumber;
   }
 
   /**

@@ -109,6 +109,10 @@ public class ClassifyImagesOptions {
      * @return the builder
      */
     public Builder classifierIds(String classifierId) {
+      if (this.classifierIds == null) {
+        this.classifierIds = new ArrayList<String>();
+      }
+      
       this.classifierIds.add(classifierId);
       return this;
     }

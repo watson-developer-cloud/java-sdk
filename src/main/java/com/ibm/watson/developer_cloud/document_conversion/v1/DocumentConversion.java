@@ -45,7 +45,7 @@ import okhttp3.RequestBody;
  *
  * @version v1
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/document-conversion.html">
+ *      "http://www.ibm.com/watson/developercloud/document-conversion.html">
  *      Document Conversion</a>
  */
 public class DocumentConversion extends WatsonService {
@@ -77,7 +77,8 @@ public class DocumentConversion extends WatsonService {
    */
   public DocumentConversion(String versionDate) {
     super(SERVICE_NAME);
-    setEndPoint(URL);
+    if (getEndPoint() == null || getEndPoint().isEmpty())
+      setEndPoint(URL);
     this.versionDate = versionDate;
   }
 

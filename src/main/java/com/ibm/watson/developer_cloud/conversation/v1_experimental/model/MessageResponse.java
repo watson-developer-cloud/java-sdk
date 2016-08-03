@@ -24,8 +24,8 @@ import com.ibm.watson.developer_cloud.util.RequestUtils;
  * The response payload from the Conversation service's message API call
  * {@link ConversationService#message(String, MessageRequest)}.
  *
- * @see <a href="http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html">
- *      http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html"> http://www.ibm.com/
+ *      watson/developercloud/conversation.html</a>
  */
 public class MessageResponse extends GenericModel {
   private static final String TEXT = "text";
@@ -243,6 +243,7 @@ public class MessageResponse extends GenericModel {
    * 
    * @return an array of strings which is to be displayed/returned to the end user
    */
+  @SuppressWarnings("unchecked")
   public List<String> getText() {
     if (output != null && output.containsKey(TEXT)) {
       List<?> text = (List<?>) output.get(TEXT);
@@ -257,7 +258,8 @@ public class MessageResponse extends GenericModel {
    * A convenience method for getting the text property from the output object. The text property is
    * an array of strings. This convenience class concatenates the array, separating each entry with
    * the separator string.
-   * 
+   *
+   * @param separator the separator
    * @return a concatenation of the strings in the output array, with each string separated by the
    *         separator string
    */
@@ -269,14 +271,29 @@ public class MessageResponse extends GenericModel {
     return null;
   }
 
+  /**
+   * Gets the input.
+   *
+   * @return the input
+   */
   public Map<String, Object> getInput() {
     return input;
   }
 
+  /**
+   * Sets the input.
+   *
+   * @param input the input
+   */
   public void setInput(Map<String, Object> input) {
     this.input = input;
   }
 
+  /**
+   * Gets the input text.
+   *
+   * @return the input text
+   */
   public String getInputText() {
     if (this.input != null && this.input.containsKey(TEXT)) {
       return this.input.get(TEXT).toString();

@@ -26,10 +26,9 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Conversation](#conversation)
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
-    * [Language Translator](#language-translator)
+    * [Language Translation](#language-translation)
     * [Natural Language Classifier](#natural-language-classifier)
     * [Personality Insights](#personality-insights)
-    * [Relationship Extraction](#relationship-extraction)
     * [Retrieve and Rank](#retrieve-and-rank)
     * [Speech to Text](#speech-to-text)
     * [Text to Speech](#text-to-speech)
@@ -47,6 +46,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 To do a reactive call, you need to add `rx()`.  With reactive you can use synchronous or asynchronous calls as you like, and you can combine multiple rest calls more efficiently.
 
 Use callback way
+
 ```java
 service.getDialogs().rx().thenApply(new CompletableFuture.Fun<List<Dialog>, Integer>() {
   @Override
@@ -58,9 +58,11 @@ service.getDialogs().rx().thenApply(new CompletableFuture.Fun<List<Dialog>, Inte
   public void accept(Integer integer) {
     System.out.println(integer);
   }
-});    
+});
 ```
+
 Use asynchronous callback way
+
 ```java
 service.getDialogs().rx().thenApplyAsync(new CompletableFuture.Fun<List<Dialog>, Integer>() {
   @Override
@@ -74,7 +76,9 @@ service.getDialogs().rx().thenApplyAsync(new CompletableFuture.Fun<List<Dialog>,
   }
 });
 ```
+
 Use synchronous way
+
 ```java
 Integer size=service.getDialogs().rx().get().size();
 System.out.println(size);
@@ -136,13 +140,13 @@ System.out.println(dialogs);
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>3.0.1</version>
+	<version>3.2.0</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:3.0.1'
+'com.ibm.watson.developer_cloud:java-sdk:3.2.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
@@ -251,10 +255,10 @@ System.out.println(result);
 ```
 
 ### Conversation
-Use the experimental [Conversation][conversation] service to identify intents, entities, and conduct conversations.
+Use the [Conversation][conversation] service to identify intents, entities, and conduct conversations.
 
 ```java
-ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
+ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
 service.setUsernameAndPassword("<username>", "<password>");
 
 MessageRequest newMessage = new MessageRequest.Builder().inputText("Hi").build();
@@ -302,12 +306,12 @@ Answers htmlToAnswers = service.convertDocumentToAnswer(doc).execute();
 System.out.println(htmlToAnswers);
 ```
 
-### Language Translator
+### Language Translation
 Select a domain, then identify or select the language of text, and then translate the text from one supported language to another.  
-Example: Translate 'hello' from English to Spanish using the [Language Translator][language_translator] service.
+Example: Translate 'hello' from English to Spanish using the [Language Translator][language_translation] service.
 
 ```java
-LanguageTranslator service = new LanguageTranslator();
+LanguageTranslator service = new LanguageTranslation();
 service.setUsernameAndPassword("<username>", "<password>");
 
 TranslationResult translationResult = service.translate(
@@ -318,7 +322,7 @@ System.out.println(translationResult);
 ```
 
 ### Natural Language Classifier
-Use [Natural Language Classifier](http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/nl-classifier/) service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.
+Use [Natural Language Classifier](http://www.ibm.com/watson/developercloud/doc/nl-classifier/) service to create a classifier instance by providing a set of representative strings and a set of one or more correct classes for each as training. Then use the trained classifier to classify your new question for best matching answers or to retrieve next actions for your application.
 
 ```java
 NaturalLanguageClassifier service = new NaturalLanguageClassifier();
@@ -364,21 +368,6 @@ System.out.println(profile);
 **Note:** Don't forget to update the `text` variable! Also, if you experience
 authentication errors, remember that the Personality Insights service is not
 a free service.
-
-
-### Relationship Extraction
-Analyze an English news article and get the relationships between sentence
-components (nouns, verbs, subjects, objects, etc.) by using the
-[Relationship Extraction][relationship_extraction] service.
-
-```java
-RelationshipExtraction service = new RelationshipExtraction();
-service.setUsernameAndPassword("<username>", "<password>");
-
-service.setDataset(Dataset.ENGLISH_NEWS);
-String response = service.extract("IBM Watson Developer Cloud").execute();
-System.out.println(response);
-```
 
 
 ### Retrieve and Rank
@@ -576,7 +565,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.0.1.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.2.0.jar)
   $ gradle test # run tests
   ```
 
@@ -616,26 +605,25 @@ available in [LICENSE](LICENSE).
 ## Contributing
 See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
-[personality_insights]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/personality-insights/
-[document_conversion]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/document-conversion/
-[relationship_extraction]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/sireapi/
-[language_translator]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/language-translation/
-[visual_recognition]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/visual-recognition/
-[tradeoff_analytics]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tradeoff-analytics/
-[text_to_speech]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/text-to-speech/
-[speech_to_text]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/speech-to-text/
-[tone_analyzer]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/tone-analyzer/
-[dialog]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/dialog/
-[concept_insights]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/concept-insights/
-[conversation]: https://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/conversation/
-[retrieve_and_rank]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/doc/retrieve-rank/
+[personality_insights]: http://www.ibm.com/watson/developercloud/doc/personality-insights/
+[document_conversion]: http://www.ibm.com/watson/developercloud/doc/document-conversion/
+[language_translation]: http://www.ibm.com/watson/developercloud/doc/language-translation/
+[visual_recognition]: http://www.ibm.com/watson/developercloud/doc/visual-recognition/
+[tradeoff_analytics]: http://www.ibm.com/watson/developercloud/doc/tradeoff-analytics/
+[text_to_speech]: http://www.ibm.com/watson/developercloud/doc/text-to-speech/
+[speech_to_text]: http://www.ibm.com/watson/developercloud/doc/speech-to-text/
+[tone_analyzer]: http://www.ibm.com/watson/developercloud/doc/tone-analyzer/
+[dialog]: http://www.ibm.com/watson/developercloud/doc/dialog/
+[concept_insights]: https://www.ibm.com/watson/developercloud/doc/concept-insights/
+[conversation]: https://www.ibm.com/watson/developercloud/doc/conversation/
+[retrieve_and_rank]: http://www.ibm.com/watson/developercloud/doc/retrieve-rank/
 
 [alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage
 [sentiment_analysis]: http://www.alchemyapi.com/products/alchemylanguage/sentiment-analysis
 [alchemy_vision]: http://www.alchemyapi.com/products/alchemyvision
 [alchemy_data_news]: http://www.alchemyapi.com/products/alchemydata-news
 
-[wdc]: http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/
+[wdc]: http://www.ibm.com/watson/developercloud/
 [bluemix]: https://console.ng.bluemix.net
 [Gradle]: http://www.gradle.org/
 [OkHttp]: http://square.github.io/okhttp/
@@ -643,4 +631,4 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/java-sdk/
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.0.1/java-sdk-3.0.1-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.2.0/java-sdk-3.2.0-jar-with-dependencies.jar

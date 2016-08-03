@@ -27,7 +27,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  *
  * @version v1-experimental
  * @see <a href=
- *      "http://www.ibm.com/smarterplanet/us/en/ibmwatson/developercloud/conversation.html">
+ *      "http://www.ibm.com/watson/developercloud/conversation.html">
  *      Conversation</a>
  * @api.version_date 2016-05-19
  */
@@ -49,7 +49,7 @@ public final class ConversationService extends WatsonService {
    */
   public ConversationService(final String versionDate) {
     super(SERVICE_NAME);
-    if (getEndPoint() == null)
+    if (getEndPoint() == null || getEndPoint().isEmpty())
       setEndPoint(URL);
 
     Validator.isTrue(versionDate != null && !versionDate.isEmpty(),
