@@ -14,7 +14,6 @@
 package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import java.io.File;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,6 +21,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexFields;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -66,11 +66,15 @@ public class DocumentConversionIT extends WatsonServiceTest {
     metadata.put("SomeMetadataName", "SomeMetadataValue");
     String convertDocumentConfigAsString = "{ \"normalized_html\" : { \"exclude_tags_completely\":[\"a\"] } }";
     convertDocumentConfig = new JsonParser().parse(convertDocumentConfigAsString).getAsJsonObject();
-    IndexConfiguration.Fields fields = new IndexConfiguration.Fields();
-    fields.setMappings(Arrays.asList(new IndexConfiguration.Mapping("Author","Created By"),
-        new IndexConfiguration.Mapping("Date Created","Created On")));
-    fields.setInclude(Arrays.asList("SomeMetadataName", "id", "Created By", "Created On"));
-    fields.setExclude(Arrays.asList("Category"));
+    IndexFields fields = new IndexFields.Builder()
+        .mappings("Author", "Created By")
+        .mappings("Date Created", "Created On")
+        .include("SomeMetadataName")
+        .include("id")
+        .include("Created By")
+        .include("Created On")
+        .exclude("Category")
+        .build();
     indexConfiguration = new IndexConfiguration(null, null, null, fields);;
     dryRun = true;
   }

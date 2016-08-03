@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.document_conversion.v1;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexFields;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
 /**
@@ -39,11 +39,15 @@ public class DocumentConversionIndexDocumentExample {
     IndexConfiguration indexConfiguration = new IndexConfiguration("<serviceInstanceId>", "<clusterId>", "<searchCollectionName>");
 
     // Create an index configuration with the fields object (field mappings, fields to include, fields to exclude)
-    IndexConfiguration.Fields fields = new IndexConfiguration.Fields();
-    fields.setMappings(Arrays.asList(new IndexConfiguration.Mapping("Author", "Created By"),
-        new IndexConfiguration.Mapping("Date Created", "Created On")));
-    fields.setInclude(Arrays.asList("SomeMetadataName", "id", "Created By", "Created On"));
-    fields.setExclude(Arrays.asList("Category"));
+    IndexFields fields = new IndexFields.Builder()
+        .mappings("Author", "Created By")
+        .mappings("Date Created", "Created On")
+        .include("SomeMetadataName")
+        .include("id")
+        .include("Created By")
+        .include("Created On")
+        .exclude("Category")
+        .build();;
     IndexConfiguration indexConfigurationWithFields = new IndexConfiguration("<serviceInstanceId>", "<clusterId>", "<searchCollectionName>", fields);
 
     // Create some metadata for indexing
