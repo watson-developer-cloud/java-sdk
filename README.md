@@ -531,7 +531,7 @@ following picture.
 ![Car](https://visual-recognition-demo.mybluemix.net/images/samples/5.jpg)
 
 ```java
-VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
+VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
 service.setApiKey("<api-key>");
 
 System.out.println("Classify an image");
