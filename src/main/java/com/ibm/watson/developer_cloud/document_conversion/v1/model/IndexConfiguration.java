@@ -1,5 +1,5 @@
-/**
- * Copyright 2016 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -18,8 +18,8 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Structure that stores the configuration for the Retrieve and Rank service
- * when indexing documents through the Document Conversion service
+ * Structure that stores the configuration for the Retrieve and Rank service when indexing documents
+ * through the Document Conversion service.
  *
  * @see DocumentConversion
  * @see RetrieveAndRank
@@ -27,14 +27,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class IndexConfiguration extends GenericModel {
 
   /**
-   * The instance id for the Retrieve and Rank service
-   */
-  private String serviceInstanceId;
-
-  /**
    * The Solr cluster id from the Retrieve and Rank service
    */
   private String clusterId;
+
+  /**
+   * The fields configuration object. Allows you to specify field mappings, field mappings, fields
+   * to include, and fields to exclude during indexing
+   */
+  private IndexFields fields;
 
   /**
    * The Solr search collection name
@@ -42,16 +43,19 @@ public class IndexConfiguration extends GenericModel {
   private String searchCollectionName;
 
   /**
-   * The fields configuration object. Allows you to specify field mappings,
-   * field mappings, fields to include, and fields to exclude during indexing
+   * The instance id for the Retrieve and Rank service
    */
-  private IndexFields fields;
+  private String serviceInstanceId;
 
   /**
    * Constructor for the Retrieve and Rank configuration. You will need to get Retrieve and Rank
-   * service credentials and create a Solr cluster through the Retrieve and Rank service prior
-   * to creating this configuration object.
-   * @param serviceInstanceId The instance id for the Retrieve and Rank service
+   * service credentials and create a Solr cluster through the Retrieve and Rank service prior to
+   * creating this configuration object.
+   * 
+   * @param serviceInstanceId The instance id for the Retrieve and Rank service. To find your
+   *        <code>service_instance_id</code>, click the tile for your service in Bluemix, and then
+   *        look at the URL in the browser for the <code>serviceGuid=</code> request parameter. The
+   *        value for <code>service_instance_id</code> is the value for <code>serviceGuid</code>.
    * @param clusterId The Solr cluster id from the Retrieve and Rank service
    * @param searchCollectionName The Solr search collection name
    *
@@ -63,8 +67,9 @@ public class IndexConfiguration extends GenericModel {
 
   /**
    * Constructor for the Retrieve and Rank configuration. You will need to get Retrieve and Rank
-   * service credentials and create a Solr cluster through the Retrieve and Rank service prior
-   * to creating this configuration object.
+   * service credentials and create a Solr cluster through the Retrieve and Rank service prior to
+   * creating this configuration object.
+   * 
    * @param serviceInstanceId The instance id for the Retrieve and Rank service
    * @param clusterId The Solr cluster id from the Retrieve and Rank service
    * @param searchCollectionName The Solr search collection name
@@ -72,7 +77,8 @@ public class IndexConfiguration extends GenericModel {
    *
    * @see RetrieveAndRank
    */
-  public IndexConfiguration(String serviceInstanceId, String clusterId, String searchCollectionName, IndexFields fields) {
+  public IndexConfiguration(String serviceInstanceId, String clusterId, String searchCollectionName,
+      IndexFields fields) {
     this.serviceInstanceId = serviceInstanceId;
     this.clusterId = clusterId;
     this.searchCollectionName = searchCollectionName;
@@ -80,27 +86,42 @@ public class IndexConfiguration extends GenericModel {
   }
 
   /**
-   * Gets the service instance id for the Retrieve and Rank service
-   * @return String
+   * Gets the cluster id for the Retrieve and Rank service.
+   *
+   * @return String the cluster id
    */
-  public String getServiceInstanceId() { return serviceInstanceId; }
+  public String getClusterId() {
+    return clusterId;
+  }
 
   /**
-   * Gets the cluster id for the Retrieve and Rank service
-   * @return String
+   * Gets the fields object to pass to the Retrieve and Rank service.
+   *
+   * @return Fields the fields
    */
-  public String getClusterId() { return clusterId; }
+  public IndexFields getFields() {
+    return fields;
+  }
 
   /**
-   * Gets the search collection name for the Retrieve and Rank service
-   * @return String
+   * Gets the search collection name for the Retrieve and Rank service.
+   *
+   * @return String the collection name
    */
-  public String getSearchCollectionName() { return searchCollectionName; }
+  public String getSearchCollectionName() {
+    return searchCollectionName;
+  }
 
   /**
-   * Gets the fields object to pass to the Retrieve and Rank service
-   * @return Fields
+   * Gets the service instance id for the Retrieve and Rank service. To find your
+   * <code>service_instance_id</code>, click the tile for your service in Bluemix, and then look at
+   * the URL in the browser for the <code>serviceGuid=</code> request parameter. The value for
+   * <code>service_instance_id</code> is the value for <code>serviceGuid</code>.
+   * 
+   * @return String the service instance id
    */
-  public IndexFields getFields() { return fields; }
+  public String getServiceInstanceId() {
+    return serviceInstanceId;
+  }
 
 }

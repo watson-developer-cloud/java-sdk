@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.document_conversion.v1;
 import static com.ibm.watson.developer_cloud.http.HttpMediaType.TEXT_HTML;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -241,6 +242,20 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
         .build();
     server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expIndexDryRunResponse)));
     service.indexDocument(indexDocumentOptions).execute();
-    checkRequest(INDEX_DOCUMENT_PATH);
+    RecordedRequest request = checkRequest(INDEX_DOCUMENT_PATH);
+    String body = request.getBody().readUtf8();
+
+    // config
+    assertTrue(body.contains("Content-Disposition: form-data; name=\"config\""));
+    assertTrue(body.contains("{\"retrieve_and_rank\":{\"dry_run\":true,\"fields\":{\"include\":[\"SomeMetadataName\",\"id\",\"Created By\",\"Created On\"]}}}"));
+
+    // file
+    assertTrue(body.contains("Content-Disposition: form-data; name=\"file\""));
+    assertTrue(body.contains("Content-Type: text/html"));
+        
+    // metadata
+    assertTrue(body.contains("Content-Disposition: form-data; name=\"metadata\""));
+    assertTrue(body.contains("{\"metadata\":[{\"name\":\"id\",\"value\":\"123\"},{\"name\":\"SomeMetadataName\",\"value\":\"SomeMetadataValue\"}]}"));
+
   }
 }

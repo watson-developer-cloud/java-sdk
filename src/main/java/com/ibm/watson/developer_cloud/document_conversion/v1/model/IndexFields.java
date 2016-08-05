@@ -13,58 +13,25 @@
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
- * Index Fields configuration object. The fields that you want to map, fields that
- * you want to include, and the fields that you want to exclude during indexing
+ * Index Fields configuration object. The fields that you want to map, fields that you want to
+ * include, and the fields that you want to exclude during indexing
  */
 public class IndexFields extends GenericModel {
-  /**
-   * List of field mappings
-   */
-  private Map<String, String> mappings;
-
-  /**
-   * List of fields to include during indexing
-   */
-  private List<String> include;
-
-  /**
-   * List of fields to exclude during indexing
-   */
-  private List<String> exclude;
-
-  /**
-   * Field mappings to use during indexing
-   * @return field mappings
-   */
-  public Map<String, String> mappings() { return mappings; }
-
-  /**
-   * Fields to include during indexing
-   * @return list of fields to include during indexing
-   */
-  public List<String> include() { return include; }
-
-  /**
-   * Fields to exclude during indexing
-   * @return list of fields to exclude during indexing
-   */
-  public List<String> exclude() { return exclude; }
-
   /**
    * Builder.
    */
   public static class Builder {
-    private Map<String, String> mappings;
-    private List<String> include;
     private List<String> exclude;
+    private List<String> include;
+    private Map<String, String> mappings;
 
     private Builder(IndexFields fields) {
       this.mappings = fields.mappings;
@@ -82,24 +49,27 @@ public class IndexFields extends GenericModel {
      *
      * @return the index fields
      */
-    public IndexFields build() { return new IndexFields(this); }
+    public IndexFields build() {
+      return new IndexFields(this);
+    }
 
     /**
-     * Field to map during indexing
-     * @param from the field name to map
-     * @param to to field name to map the field to
+     * Field to exclude during indexing
+     * 
+     * @param exclude field to exclude
      * @return the index fields builder
      */
-    public Builder mappings(String from, String to) {
-      if (this.mappings == null) {
-        this.mappings = new HashMap<String, String>();
+    public Builder exclude(String exclude) {
+      if (this.exclude == null) {
+        this.exclude = new ArrayList<String>();
       }
-      this.mappings.put(from, to);
+      this.exclude.add(exclude);
       return this;
     }
 
     /**
      * Field to include during indexing
+     * 
      * @param include field to include
      * @return the index fields builder
      */
@@ -112,20 +82,73 @@ public class IndexFields extends GenericModel {
     }
 
     /**
-     * Field to exclude during indexing
-     * @param exclude field to exclude
+     * Field to map during indexing
+     * 
+     * @param from the field name to map
+     * @param to to field name to map the field to
      * @return the index fields builder
      */
-    public Builder exclude(String exclude) {
-      if (this.exclude == null) {
-        this.exclude = new ArrayList<String>();
+    public Builder mappings(String from, String to) {
+      if (this.mappings == null) {
+        this.mappings = new HashMap<String, String>();
       }
-      this.exclude.add(exclude);
+      this.mappings.put(from, to);
       return this;
     }
   }
 
+  /**
+   * List of fields to exclude during indexing
+   */
+  private List<String> exclude;
+
+  /**
+   * List of fields to include during indexing
+   */
+  private List<String> include;
+
+  /**
+   * List of field mappings
+   */
+  private Map<String, String> mappings;
+
   private IndexFields(Builder builder) {
     this.include = builder.include;
+  }
+
+  /**
+   * Fields to exclude during indexing
+   * 
+   * @return list of fields to exclude during indexing
+   */
+  public List<String> exclude() {
+    return exclude;
+  }
+
+  /**
+   * Fields to include during indexing
+   * 
+   * @return list of fields to include during indexing
+   */
+  public List<String> include() {
+    return include;
+  }
+
+  /**
+   * Field mappings to use during indexing
+   * 
+   * @return field mappings
+   */
+  public Map<String, String> mappings() {
+    return mappings;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 }

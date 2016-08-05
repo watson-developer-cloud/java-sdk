@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -47,7 +47,7 @@ public class DocumentConversionIndexDocumentExample {
         .include("Created By")
         .include("Created On")
         .exclude("Category")
-        .build();;
+        .build();
     IndexConfiguration indexConfigurationWithFields = new IndexConfiguration("<serviceInstanceId>", "<clusterId>", "<searchCollectionName>", fields);
 
     // Create some metadata for indexing
@@ -145,7 +145,6 @@ public class DocumentConversionIndexDocumentExample {
         .metadata(metadata)
         .mediaType(HttpMediaType.TEXT_HTML)
         .indexConfiguration(indexConfiguration)
-        .dryRun(false)
         .build();
     String indexDocumentWithMediaTypeAndMetadata = service.indexDocument(indexDocumentOptions9).execute();
     System.out.println(indexDocumentWithMediaTypeAndMetadata);
