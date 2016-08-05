@@ -48,7 +48,7 @@ import okhttp3.RequestBody;
  * @version v3
  * @see <a href= "http://www.ibm.com/watson/developercloud/visual-recognition.html"> Visual
  *      Recognition</a>
- * @api.version_date 2016-05-19
+ * @api.version_date 2016-05-20
  */
 public class VisualRecognition extends WatsonService {
 
@@ -73,7 +73,7 @@ public class VisualRecognition extends WatsonService {
   private static final String VERBOSE = "verbose";
 
   /** Version date. */
-  public static final String VERSION_DATE_2016_05_19 = "2016-05-19";
+  public static final String VERSION_DATE_2016_05_20 = "2016-05-20";
 
   private String versionDate;
 

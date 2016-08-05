@@ -114,7 +114,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
+    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
     service.setApiKey(getValidProperty("visual_recognition.v3.api_key"));
     service.setDefaultHeaders(getDefaultHeaders());
   }

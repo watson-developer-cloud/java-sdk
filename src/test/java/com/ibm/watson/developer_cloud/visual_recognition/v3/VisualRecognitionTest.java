@@ -66,7 +66,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
+    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
     service.setApiKey(API_KEY);
     service.setEndPoint(getMockWebServerUrl());
   }
@@ -93,7 +93,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 +
+    String path = PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 +
         "&api_key=" + API_KEY;
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
@@ -127,7 +127,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     String path = String.format(PATH_CLASSIFIER, classifierId);
     RecordedRequest request = server.takeRequest();
-    path += "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + "&api_key=" + API_KEY;
+    path += "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key=" + API_KEY;
     
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
@@ -166,7 +166,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
     String path = PATH_CLASSIFIERS + "?" +
-        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + 
+        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + 
         "&api_key=" + API_KEY;
     
     assertEquals(path, request.getPath());
@@ -195,7 +195,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
     String path = String.format(PATH_CLASSIFIER + "?" +
-        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + 
+        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + 
         "&" + "api_key=" + API_KEY, class1);
     
     assertEquals(path, request.getPath());
@@ -225,7 +225,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
     String path = PATH_DETECT_FACES + "?" +
-        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + 
+        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + 
         "&api_key=" + API_KEY;
     
     assertEquals(path, request.getPath());
@@ -255,7 +255,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
       // first request
       RecordedRequest request = server.takeRequest();
       String path = String.format(PATH_CLASSIFIER +  "?" +
-          VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + 
+          VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + 
           "&" + "api_key=" + API_KEY, class1);
       
       assertEquals(path, request.getPath());
@@ -291,7 +291,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
     String path = PATH_CLASSIFIERS + "?" +
-        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 +
+        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 +
         "&verbose=true&api_key=" + API_KEY;
     
     assertEquals(path, request.getPath());
@@ -322,7 +322,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
     String path = PATH_RECOGNIZE_TEXT + "?" +
-        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + 
+        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + 
         "&api_key=" + API_KEY;
     
     assertEquals(path, request.getPath());

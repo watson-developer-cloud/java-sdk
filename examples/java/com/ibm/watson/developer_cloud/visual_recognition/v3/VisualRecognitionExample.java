@@ -24,7 +24,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifi
 public class VisualRecognitionExample {
 
   public static void main(String[] args) {
-    VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
+    VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
     service.setApiKey("<api-key>");
 
     System.out.println("Classify an image");
