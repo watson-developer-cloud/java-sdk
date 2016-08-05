@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -24,9 +24,9 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
 /**
  * Create Classifier Options when using the
- * {@link VisualRecognition#createClassifier(CreateClassifierOptions)} method.
+ * {@link VisualRecognition#createClassifier(ClassifierOptions)} method.
  */
-public class CreateClassifierOptions {
+public class ClassifierOptions {
 
   private File negativeExamples;
   private Map<String, File> positiveExamplesByName;
@@ -40,7 +40,7 @@ public class CreateClassifierOptions {
     private Map<String, File> positiveExamplesByName;
     private String classifierName;
 
-    private Builder(CreateClassifierOptions options) {
+    private Builder(ClassifierOptions options) {
       this();
       this.classifierName = options.classifierName;
       this.negativeExamples = options.negativeExamples;
@@ -87,8 +87,8 @@ public class CreateClassifierOptions {
      *
      * @return the creates the classifier options
      */
-    public CreateClassifierOptions build() {
-      return new CreateClassifierOptions(this);
+    public ClassifierOptions build() {
+      return new ClassifierOptions(this);
     }
 
     /**
@@ -105,16 +105,7 @@ public class CreateClassifierOptions {
 
   }
 
-  private CreateClassifierOptions(Builder builder) {
-    String errorMessage = "To create a classifier, you must supply at least 2 zip files - "
-        + "either 2 positive example sets, or 1 positive and 1 negative set";
-
-    Validator.notNull(builder.classifierName, "'classifierName' cannot be null");
-    Validator.isTrue(!builder.positiveExamplesByName.isEmpty(), "There are no classes. " + errorMessage);
-
-    boolean hasExamples = builder.positiveExamplesByName.size() > 1
-        || (builder.negativeExamples != null && builder.positiveExamplesByName.size() == 1);
-    Validator.isTrue(hasExamples, errorMessage);
+  private ClassifierOptions(Builder builder) {
     this.classifierName = builder.classifierName;
     this.negativeExamples = builder.negativeExamples;
     this.positiveExamplesByName = builder.positiveExamplesByName;

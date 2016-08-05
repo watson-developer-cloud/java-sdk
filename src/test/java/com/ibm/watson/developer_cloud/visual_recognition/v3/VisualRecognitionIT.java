@@ -27,8 +27,8 @@ import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions.Builder;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions.Builder;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
@@ -150,7 +150,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateClassifierAndClassifyImage() throws FileNotFoundException, InterruptedException {
-    String classifierName = "integration-test-classifier";
+    String classifierName = "integration-test-java-sdk";
     String carClassifier = "car";
     String baseballClassifier = "baseball";
 
@@ -160,7 +160,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     File imageToClassify = new File("src/test/resources/visual_recognition/car.png");
 
 
-    Builder builder = new CreateClassifierOptions.Builder().classifierName(classifierName);
+    Builder builder = new ClassifierOptions.Builder().classifierName(classifierName);
     builder.addClass(carClassifier, carImages);
     builder.addClass(baseballClassifier, baseballImages);
     builder.negativeExamples(negativeImages);
