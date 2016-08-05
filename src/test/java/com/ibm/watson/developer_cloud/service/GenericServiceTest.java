@@ -41,9 +41,7 @@ import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
 import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints;
-import com.ibm.watson.developer_cloud.concept_insights.v2.ConceptInsights;
-import com.ibm.watson.developer_cloud.concept_insights.v2.util.IDHelper;
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
 import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
@@ -117,9 +115,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     checkApiKey(new AlchemyDataNews(key), key);
     checkApiKey(new AlchemyLanguage(key), key);
     checkApiKey(new AlchemyVision(key), key);
-
-    checkApiKey(new ConceptInsights(u, p), key);
-    checkApiKey(new ConversationService(ConversationService.VERSION_DATE_2016_05_19, u, p), key);
+    checkApiKey(new ConversationService(ConversationService.VERSION_DATE_2016_07_11, u, p), key);
     checkApiKey(new DialogService(u, p), key);
     checkApiKey(new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01, u, p), key);
     checkApiKey(new LanguageTranslation(u, p), key);
@@ -141,7 +137,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   @Test
   public void testUtilityClasses() throws NoSuchMethodException {
     final List<Class<?>> utilityClasses = Arrays.asList(
-      AlchemyEndPoints.class, IDHelper.class, ConversionUtils.class, ZipUtils.class,
+      AlchemyEndPoints.class, ConversionUtils.class, ZipUtils.class,
       MediaTypeUtils.class, WaveUtils.class, CredentialUtils.class, GsonSingleton.class,
       RequestUtils.class, ResponseUtils.class, Validator.class, HttpMediaType.class
     );
