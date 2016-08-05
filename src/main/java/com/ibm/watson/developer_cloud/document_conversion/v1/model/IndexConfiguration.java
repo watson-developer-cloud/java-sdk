@@ -42,6 +42,12 @@ public class IndexConfiguration extends GenericModel {
   private String searchCollectionName;
 
   /**
+   * The fields configuration object. Allows you to specify field mappings,
+   * field mappings, fields to include, and fields to exclude during indexing
+   */
+  private IndexFields fields;
+
+  /**
    * Constructor for the Retrieve and Rank configuration. You will need to get Retrieve and Rank
    * service credentials and create a Solr cluster through the Retrieve and Rank service prior
    * to creating this configuration object.
@@ -52,9 +58,25 @@ public class IndexConfiguration extends GenericModel {
    * @see RetrieveAndRank
    */
   public IndexConfiguration(String serviceInstanceId, String clusterId, String searchCollectionName) {
+    this(serviceInstanceId, clusterId, searchCollectionName, null);
+  }
+
+  /**
+   * Constructor for the Retrieve and Rank configuration. You will need to get Retrieve and Rank
+   * service credentials and create a Solr cluster through the Retrieve and Rank service prior
+   * to creating this configuration object.
+   * @param serviceInstanceId The instance id for the Retrieve and Rank service
+   * @param clusterId The Solr cluster id from the Retrieve and Rank service
+   * @param searchCollectionName The Solr search collection name
+   * @param fields The field mapping object to pass to the Retrieve and Rank service
+   *
+   * @see RetrieveAndRank
+   */
+  public IndexConfiguration(String serviceInstanceId, String clusterId, String searchCollectionName, IndexFields fields) {
     this.serviceInstanceId = serviceInstanceId;
     this.clusterId = clusterId;
     this.searchCollectionName = searchCollectionName;
+    this.fields = fields;
   }
 
   /**
@@ -74,4 +96,11 @@ public class IndexConfiguration extends GenericModel {
    * @return String
    */
   public String getSearchCollectionName() { return searchCollectionName; }
+
+  /**
+   * Gets the fields object to pass to the Retrieve and Rank service
+   * @return Fields
+   */
+  public IndexFields getFields() { return fields; }
+
 }
