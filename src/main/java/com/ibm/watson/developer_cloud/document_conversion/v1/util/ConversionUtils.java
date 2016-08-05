@@ -49,10 +49,6 @@ public final class ConversionUtils {
     MEDIA_TYPES.put(".pdf", HttpMediaType.APPLICATION_PDF);
   }
 
-  private ConversionUtils() {
-    // This is a utility class - no instantiation allowed.
-  }
-
   /**
    * Returns the media type for a given file.
    * 
@@ -66,7 +62,7 @@ public final class ConversionUtils {
     final String fileName = file.getName();
     final int i = fileName.lastIndexOf('.');
 
-    if(i == -1)
+    if (i == -1)
       return null;
 
     return MEDIA_TYPES.get(fileName.substring(i).toLowerCase());
@@ -112,6 +108,10 @@ public final class ConversionUtils {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private ConversionUtils() {
+    // This is a utility class - no instantiation allowed.
   }
 
 }

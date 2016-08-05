@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.document_conversion.v1;
 import static com.ibm.watson.developer_cloud.http.HttpMediaType.TEXT_HTML;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -28,6 +29,7 @@ import java.util.Map;
 
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexFields;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -58,6 +60,8 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
   private InputStream expIndexResponse;
   private InputStream expIndexDryRunResponse;
   private IndexConfiguration indexConfiguration;
+  private IndexConfiguration indexConfigWithFields;
+  private IndexConfiguration indexConfigWithFieldsForDryRun;
 
   /**
    * Instantiates a new document conversion test.
@@ -86,6 +90,17 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
     expIndexResponse = new ByteArrayInputStream("{\"status\": \"success\"}".getBytes());
     expIndexDryRunResponse = new FileInputStream(RESOURCE + "html-with-extra-content-input-index-dry-run.json");
     indexConfiguration = new IndexConfiguration("serviceInstanceId", "clusterId", "searchCollectionName");
+    IndexFields fields = new IndexFields.Builder()
+        .mappings("Author", "Created By")
+        .mappings("Date Created", "Created On")
+        .include("SomeMetadataName")
+        .include("id")
+        .include("Created By")
+        .include("Created On")
+        .exclude("Category")
+        .build();
+    indexConfigWithFields = new IndexConfiguration("serviceInstanceId", "clusterId", "searchCollectionName", fields);
+    indexConfigWithFieldsForDryRun = new IndexConfiguration(null, null, null, fields);
   }
 
   private RecordedRequest checkRequest(String requestPath) throws InterruptedException {
@@ -173,6 +188,23 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
   }
 
   /**
+   * Test index document with fields
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testIndexDocumentWithFields() throws Exception {
+    IndexDocumentOptions indexDocumentOptions = new IndexDocumentOptions.Builder()
+        .document(html)
+        .dryRun(false)
+        .indexConfiguration(indexConfigWithFields)
+        .build();
+    server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expIndexResponse)));
+    service.indexDocument(indexDocumentOptions).execute();
+    checkRequest(INDEX_DOCUMENT_PATH);
+  }
+
+  /**
    * Test a dry run of index document with metadata
    *
    * @throws Exception the exception
@@ -190,5 +222,40 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
     server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expIndexDryRunResponse)));
     service.indexDocument(indexDocumentOptions).execute();
     checkRequest(INDEX_DOCUMENT_PATH);
+  }
+
+  /**
+   * Test a dry run of index document with metadata and index fields
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testIndexDocumentWithFieldsDryRun() throws Exception {
+    Map<String,String> metadata = new HashMap<String, String>();
+    metadata.put("id", "123");
+    metadata.put("SomeMetadataName", "SomeMetadataValue");
+    IndexDocumentOptions indexDocumentOptions = new IndexDocumentOptions.Builder()
+        .document(html)
+        .metadata(metadata)
+        .dryRun(true)
+        .indexConfiguration(indexConfigWithFieldsForDryRun)
+        .build();
+    server.enqueue(new MockResponse().setBody(new Buffer().readFrom(expIndexDryRunResponse)));
+    service.indexDocument(indexDocumentOptions).execute();
+    RecordedRequest request = checkRequest(INDEX_DOCUMENT_PATH);
+    String body = request.getBody().readUtf8();
+
+    // config
+    assertTrue(body.contains("Content-Disposition: form-data; name=\"config\""));
+    assertTrue(body.contains("{\"retrieve_and_rank\":{\"dry_run\":true,\"fields\":{\"include\":[\"SomeMetadataName\",\"id\",\"Created By\",\"Created On\"]}}}"));
+
+    // file
+    assertTrue(body.contains("Content-Disposition: form-data; name=\"file\""));
+    assertTrue(body.contains("Content-Type: text/html"));
+        
+    // metadata
+    assertTrue(body.contains("Content-Disposition: form-data; name=\"metadata\""));
+    assertTrue(body.contains("{\"metadata\":[{\"name\":\"id\",\"value\":\"123\"},{\"name\":\"SomeMetadataName\",\"value\":\"SomeMetadataValue\"}]}"));
+
   }
 }
