@@ -21,6 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 
@@ -69,7 +70,15 @@ public class ConversationServiceIT extends WatsonServiceTest {
     final String[] messages = new String[] {"turn ac on", "turn right", "no", "yes"};
     Map<String, Object> context = null;
     for (final String message : messages) {
-      MessageRequest request = new MessageRequest.Builder().inputText(message).alternateIntents(true).context(context).build();
+      MessageRequest request = new MessageRequest.Builder()
+          .inputText(message)
+          .alternateIntents(true)
+          .context(context)
+          .build();
+      
+      if (message.equals("yes")) {
+        request = request.newBuilder().intent(new Intent("off_topic", 1.0)).build();
+      }
       MessageResponse response = service.message(workspaceId, request).execute();
 
       assertMessageFromService(response);
