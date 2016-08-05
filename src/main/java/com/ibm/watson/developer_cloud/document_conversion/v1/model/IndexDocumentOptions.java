@@ -143,7 +143,7 @@ public class IndexDocumentOptions {
      * @return the index document options
      */
     public Builder metadata(Map<String, String> metadata) {
-      this.metadata = new HashMap<String,String>();
+      this.metadata = new HashMap<String, String>();
       this.metadata.putAll(metadata);
       return this;
     }
@@ -230,7 +230,10 @@ public class IndexDocumentOptions {
    * @return metadata The metadata of the document that will be indexed
    */
   public Map<String, String> metadata() {
-    Map<String, String> copy = new HashMap<String,String>();
+    if (metadata == null) {
+      return null;
+    }
+    Map<String, String> copy = new HashMap<String, String>();
     copy.putAll(metadata);
     return copy;
   }
