@@ -43,6 +43,8 @@ public abstract class WatsonServiceTest {
 
   private static final String DEFAULT_PROPERTIES = "config.properties";
   private static final String LOCAL_PROPERTIES = ".config.properties";
+  protected static final String PLACEHOLDER = "SERVICE_USERNAME";
+
   private static final Logger LOG = Logger.getLogger(WatsonServiceTest.class.getName());
 
   protected static final String CONTENT_TYPE = "Content-Type";
@@ -66,42 +68,6 @@ public abstract class WatsonServiceTest {
     headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, String.valueOf(true));
     headers.put(HttpHeaders.X_WATSON_TEST, String.valueOf(true));
     return headers;
-  }
-
-  /**
-   * The Class EmptyPropertyException.
-   */
-  private class EmptyPropertyException extends IllegalStateException {
-
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * Instantiates a new empty property exception.
-     * 
-     * @param property the property
-     */
-    EmptyPropertyException(String property) {
-      super("Property " + property + " is empty. It's probably unset.");
-    }
-  }
-
-  /**
-   * The Class MissingPropertyException.
-   */
-  private class MissingPropertyException extends IllegalStateException {
-
-    /** The Constant serialVersionUID. */
-    private static final long serialVersionUID = 1L;
-
-    /**
-     * Instantiates a new missing property exception.
-     * 
-     * @param property the property
-     */
-    MissingPropertyException(String property) {
-      super("A property expected to exist does not exist: " + property);
-    }
   }
 
   /**
@@ -142,44 +108,13 @@ public abstract class WatsonServiceTest {
   protected static Properties PROPERTIES = null;
 
   /**
-   * Gets the existing property.
-   * 
-   * @param property the property
-   * @return the existing property
-   */
-  public String getExistingProperty(String property) {
-    final String value = PROPERTIES.getProperty(property);
-    if (value == null)
-      throw new MissingPropertyException(property);
-    return value;
-  }
-
-  /**
-   * Gets the existing property if exists, otherwise it returns the defaultValue.
-   *
-   * @param property the property
-   * @param defaultValue the default value
-   * @return the existing property
-   */
-  public String getExistingProperty(String property, String defaultValue) {
-    try {
-      return getExistingProperty(property);
-    } catch (MissingPropertyException me) {
-      return defaultValue;
-    }
-  }
-
-  /**
    * Gets the valid property.
    * 
    * @param property the property
    * @return the valid property
    */
-  public String getValidProperty(String property) {
-    final String value = getExistingProperty(property);
-    if ("".equals(value))
-      throw new EmptyPropertyException(property);
-    return value;
+  public String getProperty(String property) {
+    return PROPERTIES.getProperty(property);
   }
 
   private void loadProperties() {
@@ -191,9 +126,10 @@ public abstract class WatsonServiceTest {
     } else {
       LOG.info("Using " + LOCAL_PROPERTIES);
     }
-    if (input == null)
-      throw new RuntimeException(DEFAULT_PROPERTIES + " was not found.");
-
+    if (input == null) {
+      LOG.warning(DEFAULT_PROPERTIES + " was not found.");
+      return;
+    }
     // load a properties file from class path, inside static method
     try {
       PROPERTIES.load(input);

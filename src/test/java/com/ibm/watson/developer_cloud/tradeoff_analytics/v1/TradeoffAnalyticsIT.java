@@ -20,6 +20,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,10 +53,16 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    
+    String username = getProperty("tradeoff_analytics.username");
+    
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals(PLACEHOLDER));
+    
     service = new TradeoffAnalytics();
-    service.setUsernameAndPassword(getValidProperty("tradeoff_analytics.username"),
-        getValidProperty("tradeoff_analytics.password"));
-    service.setEndPoint(getValidProperty("tradeoff_analytics.url"));
+    service.setUsernameAndPassword(username,
+        getProperty("tradeoff_analytics.password"));
+    service.setEndPoint(getProperty("tradeoff_analytics.url"));
     service.setDefaultHeaders(getDefaultHeaders());
     problem = loadFixture("src/test/resources/tradeoff_analytics/problem.json", Problem.class);
   }

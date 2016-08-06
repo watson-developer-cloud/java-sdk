@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -114,8 +115,12 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    String apiKey = getProperty("visual_recognition.v3.api_key");
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        apiKey == null || apiKey.equals("API_KEY"));
+    
     service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
-    service.setApiKey(getValidProperty("visual_recognition.v3.api_key"));
+    service.setApiKey(apiKey);
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

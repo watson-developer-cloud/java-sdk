@@ -23,6 +23,7 @@ import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfigur
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexFields;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,11 +53,15 @@ public class DocumentConversionIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01);
+    String username = getProperty("document_conversion.username");
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals("SERVICE_USERNAME"));
+    
     service.setUsernameAndPassword(
-        getExistingProperty("document_conversion.username"),
-        getExistingProperty("document_conversion.password")
+        username,
+        getProperty("document_conversion.password")
     );
-    service.setEndPoint(getExistingProperty("document_conversion.url"));
+    service.setEndPoint(getProperty("document_conversion.url"));
     service.setDefaultHeaders(getDefaultHeaders());
     files = new File[] {new File("src/test/resources/document_conversion/word-docx-heading-input.docx"),
         new File("src/test/resources/document_conversion/word-document-heading-input.doc"),
