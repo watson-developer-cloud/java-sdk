@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.util.Collections;
 import java.util.Date;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,10 +47,15 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    String username = getProperty("personality_insights.username");
+    String password = getProperty("personality_insights.password");
+    
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals(PLACEHOLDER));
+    
     service = new PersonalityInsights();
-    service.setUsernameAndPassword(getValidProperty("personality_insights.username"),
-        getValidProperty("personality_insights.password"));
-    service.setEndPoint(getValidProperty("personality_insights.url"));
+    service.setUsernameAndPassword(username, password);
+    service.setEndPoint(getProperty("personality_insights.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

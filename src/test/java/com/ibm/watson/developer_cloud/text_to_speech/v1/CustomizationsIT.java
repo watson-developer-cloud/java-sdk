@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,11 +58,14 @@ public class CustomizationsIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-
+    String username = getProperty("text_to_speech.username");
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username ==null || username.equals(PLACEHOLDER));
+    
     service = new TextToSpeech();
-    service.setUsernameAndPassword(getExistingProperty("text_to_speech.username"),
-        getExistingProperty("text_to_speech.password"));
-    service.setEndPoint(getExistingProperty("text_to_speech.url"));
+    service.setUsernameAndPassword(username,
+        getProperty("text_to_speech.password"));
+    service.setEndPoint(getProperty("text_to_speech.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

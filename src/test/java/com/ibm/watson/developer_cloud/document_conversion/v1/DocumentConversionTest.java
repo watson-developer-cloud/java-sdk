@@ -255,7 +255,8 @@ public class DocumentConversionTest extends WatsonServiceUnitTest {
         
     // metadata
     assertTrue(body.contains("Content-Disposition: form-data; name=\"metadata\""));
-    assertTrue(body.contains("{\"metadata\":[{\"name\":\"id\",\"value\":\"123\"},{\"name\":\"SomeMetadataName\",\"value\":\"SomeMetadataValue\"}]}"));
-
+    assertTrue(body.contains("{\"metadata\""));
+    assertTrue(body.contains("{\"name\":\"id\",\"value\":\"123\"}"));
+    assertTrue(body.contains("{\"name\":\"SomeMetadataName\",\"value\":\"SomeMetadataValue\"}"));
   }
 }

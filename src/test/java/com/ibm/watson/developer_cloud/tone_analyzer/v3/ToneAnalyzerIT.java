@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,10 +46,16 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    
+    String username = getProperty("tone_analyzer.v3.username");
+        
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals(PLACEHOLDER));
+    
     service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
-    service.setUsernameAndPassword(getValidProperty("tone_analyzer.v3.username"),
-        getValidProperty("tone_analyzer.v3.password"));
-    service.setEndPoint(getValidProperty("tone_analyzer.v3.url"));
+    service.setUsernameAndPassword(username,
+        getProperty("tone_analyzer.v3.password"));
+    service.setEndPoint(getProperty("tone_analyzer.v3.url"));
     service.setDefaultHeaders(getDefaultHeaders());
 
   }
