@@ -20,6 +20,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -77,10 +78,14 @@ public class ConceptInsightsIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    String username = getProperty("concept_insights.username");
+    
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals(PLACEHOLDER));
+    
     service = new ConceptInsights();
-    service.setUsernameAndPassword(getValidProperty("concept_insights.username"),
-        getValidProperty("concept_insights.password"));
-    service.setEndPoint(getValidProperty("concept_insights.url"));
+    service.setUsernameAndPassword(username, getProperty("concept_insights.password"));
+    service.setEndPoint(getProperty("concept_insights.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

@@ -73,13 +73,18 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    String username = getProperty("retrieve_and_rank.username");
+    String password = getProperty("retrieve_and_rank.password");
+    
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals(PLACEHOLDER));
+
     service = new RetrieveAndRank();
-    service.setUsernameAndPassword(getValidProperty("retrieve_and_rank.username"),
-        getValidProperty("retrieve_and_rank.password"));
-    service.setEndPoint(getValidProperty("retrieve_and_rank.url"));
+    service.setUsernameAndPassword(username, password);
+    service.setEndPoint(getProperty("retrieve_and_rank.url"));
     service.setDefaultHeaders(getDefaultHeaders());
-    rankerId = getValidProperty("retrieve_and_rank.ranker_id");
-    clusterId = getValidProperty("retrieve_and_rank.cluster_id");
+    rankerId = getProperty("retrieve_and_rank.ranker_id");
+    clusterId = getProperty("retrieve_and_rank.cluster_id");
   }
 
   /**
