@@ -1,6 +1,21 @@
 Change Log
 ==========
 
+## Version 3.3.0
+
+_2016-08-08_
+
+ * New: Tests are ignored if `config.properties` doesn't have valid credentials
+ * New: Document Conversion can index documents directly into Retrieve and Rank
+ * New: Visual Recognition Re-training
+ * New: Conversation v1: `MessageRequest` now supports entities and intents
+ * New: AlchemyLanguage `typedRelations` entities and intents
+ * New: Speech to Text `keyword_spotting`
+ * Fix: Remove Relationship extraction v1 Beta
+ * Fix: Remove Tone Analyzer v3 Beta
+ * Fix: :fire: update `version_date` for Visual Recognition to be `2016-05-20`
+ * Fix: Remove warning when JDNI can't find credentials
+
 ## Version 3.2.0
 
 _2016-08-02_
