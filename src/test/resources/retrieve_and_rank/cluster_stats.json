@@ -1,0 +1,16 @@
+{
+ "disk_usage": {
+   "used_bytes": 1887,
+   "total_bytes": 34359738368,
+   "used": "1.8428 KB",
+   "total": "32 GB",
+   "percent_used": 5.49189280718565E-6
+ },
+ "memory_usage": {
+   "used_bytes": 1126281216,
+   "total_bytes": 4194304000,
+   "used": "1.0489 GB",
+   "total": "3.9063 GB",
+   "percent_used": 26.85263671875
+ }
+}

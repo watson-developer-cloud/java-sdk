@@ -24,6 +24,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Entity;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
@@ -70,7 +72,12 @@ public class ConversationTest extends WatsonServiceUnitTest {
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
 
-    MessageRequest options = new MessageRequest.Builder().inputText(text).alternateIntents(true).build();
+    MessageRequest options = new MessageRequest.Builder()
+        .inputText(text)
+        .intent(new Intent("turn_off", 0.0))
+        .entity(new Entity("car","ford", null))
+        .alternateIntents(true)
+        .build();
 
     // execute first request
     MessageResponse serviceResponse = service.message(WORKSPACE_ID, options).execute();
@@ -84,7 +91,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals("{\"input\":{\"text\":\"I'd like to get insurance to for my home\"},\"alternate_intents\":true}", request.getBody().readUtf8());
+    assertEquals("{\"alternate_intents\":true,\"entities\":[{\"entity\":\"car\",\"value\":\"ford\"}],\"input\":{\"text\":\"I'd like to get insurance to for my home\"},\"intents\":[{\"confidence\":0.0,\"intent\":\"turn_off\"}]}", request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
   }
 }

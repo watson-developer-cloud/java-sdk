@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexFields;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 
 /**
@@ -36,6 +37,18 @@ public class DocumentConversionIndexDocumentExample {
 
     // ----- Global Values -----
     IndexConfiguration indexConfiguration = new IndexConfiguration("<serviceInstanceId>", "<clusterId>", "<searchCollectionName>");
+
+    // Create an index configuration with the fields object (field mappings, fields to include, fields to exclude)
+    IndexFields fields = new IndexFields.Builder()
+        .mappings("Author", "Created By")
+        .mappings("Date Created", "Created On")
+        .include("SomeMetadataName")
+        .include("id")
+        .include("Created By")
+        .include("Created On")
+        .exclude("Category")
+        .build();
+    IndexConfiguration indexConfigurationWithFields = new IndexConfiguration("<serviceInstanceId>", "<clusterId>", "<searchCollectionName>", fields);
 
     // Create some metadata for indexing
     final Map<String, String> metadata = new HashMap<String, String>();
@@ -132,7 +145,6 @@ public class DocumentConversionIndexDocumentExample {
         .metadata(metadata)
         .mediaType(HttpMediaType.TEXT_HTML)
         .indexConfiguration(indexConfiguration)
-        .dryRun(false)
         .build();
     String indexDocumentWithMediaTypeAndMetadata = service.indexDocument(indexDocumentOptions9).execute();
     System.out.println(indexDocumentWithMediaTypeAndMetadata);
@@ -148,6 +160,18 @@ public class DocumentConversionIndexDocumentExample {
         .build();
     String indexDocumentWithMediaTypeAndMetadataAndConfig = service.indexDocument(indexDocumentOptions10).execute();
     System.out.println(indexDocumentWithMediaTypeAndMetadataAndConfig);
+
+    printHeaderForExample("Index document with provided media type, metadata, convert document config, and fields");
+    IndexDocumentOptions indexDocumentOptions11 = new IndexDocumentOptions.Builder()
+        .document(document)
+        .metadata(metadata)
+        .mediaType(HttpMediaType.TEXT_HTML)
+        .convertDocumentConfig(convertDocumentConfig)
+        .indexConfiguration(indexConfigurationWithFields)
+        .dryRun(false)
+        .build();
+    String indexDocumentWithMediaTypeAndMetadataConfigAndFields = service.indexDocument(indexDocumentOptions11).execute();
+    System.out.println(indexDocumentWithMediaTypeAndMetadataConfigAndFields);
   }
 
   private static void printHeaderForExample(String message) {

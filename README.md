@@ -140,13 +140,13 @@ System.out.println(dialogs);
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>3.2.0</version>
+	<version>3.3.0</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:3.2.0'
+'com.ibm.watson.developer_cloud:java-sdk:3.3.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
@@ -531,7 +531,7 @@ following picture.
 ![Car](https://visual-recognition-demo.mybluemix.net/images/samples/5.jpg)
 
 ```java
-VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
+VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
 service.setApiKey("<api-key>");
 
 System.out.println("Classify an image");
@@ -565,7 +565,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.2.0.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.3.0.jar)
   $ gradle test # run tests
   ```
 
@@ -631,4 +631,4 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/java-sdk/
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.2.0/java-sdk-3.2.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.3.0/java-sdk-3.3.0-jar-with-dependencies.jar

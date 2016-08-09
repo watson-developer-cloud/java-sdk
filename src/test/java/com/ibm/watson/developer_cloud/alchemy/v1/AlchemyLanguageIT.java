@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -63,8 +64,13 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+
+    String apiKey = getProperty("alchemy.alchemy");
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        apiKey == null || apiKey.equals("API_KEY"));
+
     service = new AlchemyLanguage();
-    service.setApiKey(getValidProperty("alchemy.alchemy"));
+    service.setApiKey(apiKey);
     service.setDefaultHeaders(getDefaultHeaders());
     htmlExample =
         getStringFromInputStream(new FileInputStream("src/test/resources/alchemy/example.html"));

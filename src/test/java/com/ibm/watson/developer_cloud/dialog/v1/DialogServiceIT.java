@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import org.apache.commons.lang3.time.DateUtils;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -61,11 +62,17 @@ public class DialogServiceIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    String username = getProperty("dialog.username");
+    String password = getProperty("dialog.password");
+    
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals(PLACEHOLDER));
+
     service = new DialogService();
-    service.setUsernameAndPassword(getValidProperty("dialog.username"), getValidProperty("dialog.password"));
-    service.setEndPoint(getValidProperty("dialog.url"));
+    service.setUsernameAndPassword(username, password);
+    service.setEndPoint(getProperty("dialog.url"));
     service.setDefaultHeaders(getDefaultHeaders());
-    dialogId = getValidProperty("dialog.dialog_id");
+    dialogId = getProperty("dialog.dialog_id");
   }
 
   /**

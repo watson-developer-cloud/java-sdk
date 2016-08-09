@@ -22,13 +22,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions.Builder;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions.Builder;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
@@ -114,8 +115,12 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
-    service.setApiKey(getValidProperty("visual_recognition.v3.api_key"));
+    String apiKey = getProperty("visual_recognition.v3.api_key");
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        apiKey == null || apiKey.equals("API_KEY"));
+    
+    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
+    service.setApiKey(apiKey);
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
@@ -150,7 +155,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateClassifierAndClassifyImage() throws FileNotFoundException, InterruptedException {
-    String classifierName = "integration-test-classifier";
+    String classifierName = "integration-test-java-sdk";
     String carClassifier = "car";
     String baseballClassifier = "baseball";
 
@@ -160,7 +165,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     File imageToClassify = new File("src/test/resources/visual_recognition/car.png");
 
 
-    Builder builder = new CreateClassifierOptions.Builder().classifierName(classifierName);
+    Builder builder = new ClassifierOptions.Builder().classifierName(classifierName);
     builder.addClass(carClassifier, carImages);
     builder.addClass(baseballClassifier, baseballImages);
     builder.negativeExamples(negativeImages);

@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -19,8 +19,11 @@ import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexFields;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -37,6 +40,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
   private File[] files;
   private Map<String, String> metadata;
   private JsonObject convertDocumentConfig;
+  private IndexConfiguration indexConfiguration;
   private Boolean dryRun;
 
   /*
@@ -49,11 +53,15 @@ public class DocumentConversionIT extends WatsonServiceTest {
   public void setUp() throws Exception {
     super.setUp();
     service = new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01);
+    String username = getProperty("document_conversion.username");
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals("SERVICE_USERNAME"));
+    
     service.setUsernameAndPassword(
-        getExistingProperty("document_conversion.username"),
-        getExistingProperty("document_conversion.password")
+        username,
+        getProperty("document_conversion.password")
     );
-    service.setEndPoint(getExistingProperty("document_conversion.url"));
+    service.setEndPoint(getProperty("document_conversion.url"));
     service.setDefaultHeaders(getDefaultHeaders());
     files = new File[] {new File("src/test/resources/document_conversion/word-docx-heading-input.docx"),
         new File("src/test/resources/document_conversion/word-document-heading-input.doc"),
@@ -63,6 +71,16 @@ public class DocumentConversionIT extends WatsonServiceTest {
     metadata.put("SomeMetadataName", "SomeMetadataValue");
     String convertDocumentConfigAsString = "{ \"normalized_html\" : { \"exclude_tags_completely\":[\"a\"] } }";
     convertDocumentConfig = new JsonParser().parse(convertDocumentConfigAsString).getAsJsonObject();
+    IndexFields fields = new IndexFields.Builder()
+        .mappings("Author", "Created By")
+        .mappings("Date Created", "Created On")
+        .include("SomeMetadataName")
+        .include("id")
+        .include("Created By")
+        .include("Created On")
+        .exclude("Category")
+        .build();
+    indexConfiguration = new IndexConfiguration(null, null, null, fields);;
     dryRun = true;
   }
 
@@ -165,6 +183,27 @@ public class DocumentConversionIT extends WatsonServiceTest {
           .metadata(metadata)
           .dryRun(dryRun)
           .convertDocumentConfig(convertDocumentConfig)
+          .build();
+      final String response = service.indexDocument(indexDocumentOptions).execute();
+      Assert.assertNotNull(response);
+      Assert.assertNotEquals(response, "");
+      Assert.assertTrue(response.contains("SomeMetadataName"));
+      Assert.assertTrue(response.contains("SomeMetadataValue"));
+    }
+  }
+
+  /**
+   * Test a dry run of the index document api with document, metadata, convert document config, and index config.
+   */
+  @Test
+  public void testIndexDocumentAndMetadataConvertDocConfigAndIndexConfig() {
+    for (final File file : files) {
+      IndexDocumentOptions indexDocumentOptions = new IndexDocumentOptions.Builder()
+          .document(file)
+          .metadata(metadata)
+          .dryRun(dryRun)
+          .convertDocumentConfig(convertDocumentConfig)
+          .indexConfiguration(indexConfiguration)
           .build();
       final String response = service.indexDocument(indexDocumentOptions).execute();
       Assert.assertNotNull(response);

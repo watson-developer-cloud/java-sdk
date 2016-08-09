@@ -28,7 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
@@ -66,7 +66,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
+    service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
     service.setApiKey(API_KEY);
     service.setEndPoint(getMockWebServerUrl());
   }
@@ -93,13 +93,53 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 +
+    String path = PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 +
         "&api_key=" + API_KEY;
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals(serviceResponse, mockResponse);
   }
 
+  /**
+   * Test update classifier.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testUpdateClassifier() throws IOException, InterruptedException {
+    VisualClassifier mockResponse = loadFixture(FIXTURE_CLASSIFIER, VisualClassifier.class);
+    
+    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
+
+    // execute request
+    File images = new File(IMAGE_FILE);
+    String class1 = "class1"; 
+    String classifierId = "foo123";
+    
+    ClassifierOptions options = new ClassifierOptions.Builder()
+        .classifierName(class1)
+        .addClass(class1, images)
+        .build();
+    
+    VisualClassifier serviceResponse = service.updateClassifier(classifierId, options).execute();
+
+    // first request
+    String path = String.format(PATH_CLASSIFIER, classifierId);
+    RecordedRequest request = server.takeRequest();
+    path += "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key=" + API_KEY;
+    
+    assertEquals(path, request.getPath());
+    assertEquals("POST", request.getMethod());
+    String body = request.getBody().readUtf8();
+
+    String contentDisposition = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
+    assertTrue(body.contains(contentDisposition));
+    assertTrue(!body.contains("Content-Disposition: form-data; name=\"name\""));
+    assertEquals(serviceResponse, mockResponse);
+  }
+
+  
   /**
    * Test create classifier.
    *
@@ -115,7 +155,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // execute request
     File images = new File(IMAGE_FILE);
     String class1 = "class1"; 
-    CreateClassifierOptions options = new CreateClassifierOptions.Builder()
+    ClassifierOptions options = new ClassifierOptions.Builder()
         .classifierName(class1)
         .addClass(class1, images)
         .negativeExamples(images)
@@ -126,7 +166,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
     String path = PATH_CLASSIFIERS + "?" +
-        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + 
+        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + 
         "&api_key=" + API_KEY;
     
     assertEquals(path, request.getPath());
@@ -155,7 +195,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
     String path = String.format(PATH_CLASSIFIER + "?" +
-        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + 
+        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + 
         "&" + "api_key=" + API_KEY, class1);
     
     assertEquals(path, request.getPath());
@@ -185,7 +225,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
     String path = PATH_DETECT_FACES + "?" +
-        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + 
+        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + 
         "&api_key=" + API_KEY;
     
     assertEquals(path, request.getPath());
@@ -215,7 +255,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
       // first request
       RecordedRequest request = server.takeRequest();
       String path = String.format(PATH_CLASSIFIER +  "?" +
-          VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + 
+          VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + 
           "&" + "api_key=" + API_KEY, class1);
       
       assertEquals(path, request.getPath());
@@ -251,7 +291,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
     String path = PATH_CLASSIFIERS + "?" +
-        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 +
+        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 +
         "&verbose=true&api_key=" + API_KEY;
     
     assertEquals(path, request.getPath());
@@ -282,7 +322,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
     String path = PATH_RECOGNIZE_TEXT + "?" +
-        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_19 + 
+        VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + 
         "&api_key=" + API_KEY;
     
     assertEquals(path, request.getPath());

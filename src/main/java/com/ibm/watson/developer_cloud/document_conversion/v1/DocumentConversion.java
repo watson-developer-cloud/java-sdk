@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -17,13 +17,13 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.Map;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.Metadata;
 import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
+import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionTarget;
 import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
@@ -47,6 +47,7 @@ import okhttp3.RequestBody;
  * @see <a href=
  *      "http://www.ibm.com/watson/developercloud/document-conversion.html">
  *      Document Conversion</a>
+ * @api.version_date 2015-12-01
  */
 public class DocumentConversion extends WatsonService {
 
@@ -55,6 +56,7 @@ public class DocumentConversion extends WatsonService {
   private static final String SERVICE_INSTANCE_ID = "service_instance_id";
   private static final String CLUSTER_ID = "cluster_id";
   private static final String SEARCH_COLLECTION = "search_collection";
+  private static final String RETRIEVE_AND_RANK_FIELDS = "fields";
   private static final String RETRIEVE_AND_RANK = "retrieve_and_rank";
   private static final String CONVERT_DOCUMENT = "convert_document";
   private static final String CONVERT_DOCUMENT_PATH = "/v1/" + CONVERT_DOCUMENT;
@@ -267,10 +269,8 @@ public class DocumentConversion extends WatsonService {
       String mediaType = indexDocumentOptions.mediaType();
       JsonObject convertDocumentConfig = indexDocumentOptions.convertDocumentConfig();
       IndexConfiguration indexConfiguration = indexDocumentOptions.indexConfiguration();
-      Metadata metadata = new Metadata();
-      metadata.setMetadata(indexDocumentOptions.metadata());
 
-      if (document == null && documentInputStream == null && metadata.getMetadata() == null)
+      if (document == null && documentInputStream == null && indexDocumentOptions.metadata() == null)
         throw new IllegalArgumentException("The request does not contain a document or metadata. At least one of those is required.");
       if (document != null && documentInputStream != null)
         throw new IllegalArgumentException("Both a document File and InputStream were provided, only one is allowed.");
@@ -286,6 +286,9 @@ public class DocumentConversion extends WatsonService {
         retrieveAndRankConfig.addProperty(SERVICE_INSTANCE_ID, indexConfiguration.getServiceInstanceId());
         retrieveAndRankConfig.addProperty(CLUSTER_ID, indexConfiguration.getClusterId());
         retrieveAndRankConfig.addProperty(SEARCH_COLLECTION, indexConfiguration.getSearchCollectionName());
+      }
+      if (indexConfiguration != null && indexConfiguration.getFields() != null) {
+        retrieveAndRankConfig.add(RETRIEVE_AND_RANK_FIELDS, new JsonParser().parse(indexConfiguration.getFields().toString()));
       }
       config.add(RETRIEVE_AND_RANK, retrieveAndRankConfig);
       if (convertDocumentConfig != null) {
@@ -306,9 +309,10 @@ public class DocumentConversion extends WatsonService {
         multiPartBodyBuilder.addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"file\""),
             RequestBody.create(mType, document));
       }
-      if (metadata.getMetadata() != null) {
+      if (indexDocumentOptions.metadata() != null) {
+        JsonObject metadataJson = metadataToJsonObject(indexDocumentOptions.metadata());
         multiPartBodyBuilder.addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"metadata\""),
-            RequestBody.create(HttpMediaType.JSON, metadata.toString()));
+            RequestBody.create(HttpMediaType.JSON, metadataJson.toString()));
       }
       final RequestBody body = multiPartBodyBuilder.build();
 
@@ -316,6 +320,26 @@ public class DocumentConversion extends WatsonService {
       return createServiceCall(request, ResponseConverterUtils.getString());
     } else
       throw new IllegalArgumentException("The request does not contain a file or metadata. At least one of those is required.");
+  }
+
+  /**
+   * Format the metadata Map into the json object the API expects
+   *
+   * @param metadata the metadata map
+   * @return the json object that 
+   */
+  private JsonObject metadataToJsonObject(Map<String, String> metadata) {
+    JsonObject root = new JsonObject();
+    JsonArray  array = new JsonArray();
+    root.add("metadata", array);
+    
+    for (String key : metadata.keySet()) {
+      JsonObject entry = new JsonObject();
+      entry.addProperty("name", key);
+      entry.addProperty("value", metadata.get(key));
+      array.add(entry);
+    }
+    return root;
   }
 
   /**

@@ -130,7 +130,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     checkApiKey(new TextToSpeech(u, p), key);
     checkApiKey(new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19, u, p), key);
     checkApiKey(new TradeoffAnalytics(u, p), key);
-    checkApiKey(new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19, key), key);
+    checkApiKey(new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20, key), key);
   }
 
   /**
