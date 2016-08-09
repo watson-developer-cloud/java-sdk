@@ -1,0 +1,16 @@
+{
+  "clusters": [
+    {
+      "solr_cluster_id": "sc9e4b0eab_fc66_4439_a83a_a81fc6f1e81f",
+      "cluster_name": "2nd cluster",
+      "cluster_size": "",
+      "solr_cluster_status": "NOT_AVAILABLE"
+    },
+    {
+      "solr_cluster_id": "sc1ca23733_faa8_49ce_b3b6_dc3e193264c6",
+      "cluster_name": "My cluster",
+      "cluster_size": "1",
+      "solr_cluster_status": "READY"
+    }
+  ]
+}
