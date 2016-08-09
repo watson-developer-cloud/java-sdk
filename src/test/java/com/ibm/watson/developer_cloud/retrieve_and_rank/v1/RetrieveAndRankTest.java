@@ -54,16 +54,16 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
   private static final String FIXTURE7 = RESOURCE_PATH + "clusters.json";
   private static final String FIXTURE8 = RESOURCE_PATH + "cluster_stats.json";
 
-  private static final Object SOLR_URL = "/v1/solr_clusters";
-  private static final Object SOLRID_URL = SOLR_URL + "/ANY_CLUSTER_ID";
-  private static final Object SOLRRESIZE_URL = SOLRID_URL + "/cluster_size";
-  private static final Object SOLRCONFIG_URL = SOLRID_URL + "/config";
-  private static final Object SOLRSTATS_URL = SOLRID_URL + "/stats";
-  private static final Object SOLRCONFIGNAME_URL = SOLRCONFIG_URL + "/ANY_CONFIG_NAME";
+  private static final String SOLR_URL = "/v1/solr_clusters";
+  private static final String SOLRID_URL = SOLR_URL + "/ANY_CLUSTER_ID";
+  private static final String SOLRRESIZE_URL = SOLRID_URL + "/cluster_size";
+  private static final String SOLRCONFIG_URL = SOLRID_URL + "/config";
+  private static final String SOLRSTATS_URL = SOLRID_URL + "/stats";
+  private static final String SOLRCONFIGNAME_URL = SOLRCONFIG_URL + "/ANY_CONFIG_NAME";
 
-  private static final Object RANKERS_URL = "/v1/rankers";
-  private static final Object RANKID_URL = RANKERS_URL + "/ANY_RANKER_ID";
-  private static final Object RANK_URL = RANKID_URL + "/rank";
+  private static final String RANKERS_URL = "/v1/rankers";
+  private static final String RANKID_URL = RANKERS_URL + "/ANY_RANKER_ID";
+  private static final String RANK_URL = RANKID_URL + "/rank";
 
   private static final String ANY_RANKER_ID = "ANY_RANKER_ID";
   private static final String ANY_RANKER_NAME = "ANY_RANKER_NAME";
