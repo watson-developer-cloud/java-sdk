@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.util.Map;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -43,12 +44,15 @@ public class ConversationServiceIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    workspaceId = getValidProperty("conversation.v1_experimental.workspace_id");
-    String username = getValidProperty("conversation.v1_experimental.username");
-    String password = getValidProperty("conversation.v1_experimental.password");
+    workspaceId = getProperty("conversation.v1_experimental.workspace_id");
+    String username = getProperty("conversation.v1_experimental.username");
+    String password = getProperty("conversation.v1_experimental.password");
+
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals(PLACEHOLDER));
 
     service = new ConversationService(ConversationService.VERSION_DATE_2016_05_19);
-    service.setEndPoint(getValidProperty("conversation.v1_experimental.url"));
+    service.setEndPoint(getProperty("conversation.v1_experimental.url"));
     service.setUsernameAndPassword(username, password);
     service.setDefaultHeaders(getDefaultHeaders());
   }

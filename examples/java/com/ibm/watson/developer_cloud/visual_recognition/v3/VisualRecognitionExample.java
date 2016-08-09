@@ -17,14 +17,14 @@ import java.io.File;
 
 import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
 
 public class VisualRecognitionExample {
 
   public static void main(String[] args) {
-    VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_19);
+    VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
     service.setApiKey("<api-key>");
 
     System.out.println("Classify an image");
@@ -36,7 +36,7 @@ public class VisualRecognitionExample {
 
     
     System.out.println("Create a classifier with positive and negative images");
-    CreateClassifierOptions createOptions = new CreateClassifierOptions.Builder()
+    ClassifierOptions createOptions = new ClassifierOptions.Builder()
         .classifierName("foo")
         .addClass("car", new File("src/test/resources/visual_recognition/car_positive.zip"))
         .addClass("baseball", new File("src/test/resources/visual_recognition/baseball_positive.zip"))
@@ -53,5 +53,12 @@ public class VisualRecognitionExample {
     result = service.classify(options).execute();
     System.out.println(result);
 
+    System.out.println("Update a classifier with more positive images");
+    ClassifierOptions updateOptions = new ClassifierOptions.Builder()
+        .addClass("car", new File("src/test/resources/visual_recognition/car_positive.zip"))
+        .build();
+    VisualClassifier updatedFoo = service.updateClassifier(foo.getId(), updateOptions).execute();
+    System.out.println(updatedFoo);
+    
   }
 }

@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,10 +59,16 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    
+    String username = getProperty("speech_to_text.username");
+    String password = getProperty("speech_to_text.password");
+    
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals(PLACEHOLDER));
+
     service = new SpeechToText();
-    service.setUsernameAndPassword(getValidProperty("speech_to_text.username"),
-        getValidProperty("speech_to_text.password"));
-    service.setEndPoint(getValidProperty("speech_to_text.url"));
+    service.setUsernameAndPassword(username, password);
+    service.setEndPoint(getProperty("speech_to_text.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

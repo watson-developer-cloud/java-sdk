@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,8 +58,13 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    
+    String apiKey = getProperty("alchemy.alchemy");
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        apiKey == null || apiKey.equals("API_KEY"));
+
     service = new AlchemyVision();
-    service.setApiKey(getValidProperty("alchemy.alchemy"));
+    service.setApiKey(apiKey);
     service.setDefaultHeaders(getDefaultHeaders());
     htmlExample =
         getStringFromInputStream(new FileInputStream("src/test/resources/alchemy/example.html"));
@@ -85,7 +91,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image scene text from image.
    */
-  @Test
+  @Test(timeout=180000)
   public void testGetRankedImageSceneTextFromImage() {
     final File imageFile = new File(IMAGE_COLORADO);
     final ImageSceneText image = service.getImageSceneText(imageFile).execute();

@@ -24,6 +24,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,10 +61,15 @@ public class LanguageTranslationIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    String username = getProperty("language_translation.username");
+    String password = getProperty("language_translation.password");
+    
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals(PLACEHOLDER));
+
     service = new LanguageTranslation();
-    service.setUsernameAndPassword(getValidProperty("language_translation.username"),
-        getValidProperty("language_translation.password"));
-    service.setEndPoint(getValidProperty("language_translation.url"));
+    service.setUsernameAndPassword(username, password);
+    service.setEndPoint(getProperty("language_translation.url"));
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

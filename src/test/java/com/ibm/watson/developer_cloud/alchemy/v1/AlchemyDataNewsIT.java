@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Assert;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,8 +45,12 @@ public class AlchemyDataNewsIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    String apiKey = getProperty("alchemy.alchemy");
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        apiKey == null || apiKey.equals("API_KEY"));
+    
     service = new AlchemyDataNews();
-    service.setApiKey(getValidProperty("alchemy.alchemy"));
+    service.setApiKey(apiKey);
     service.setDefaultHeaders(getDefaultHeaders());
   }
 

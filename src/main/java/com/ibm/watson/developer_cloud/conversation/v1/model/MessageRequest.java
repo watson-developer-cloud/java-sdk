@@ -13,7 +13,9 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
@@ -35,15 +37,12 @@ public class MessageRequest extends GenericModel {
    */
   public static class Builder {
     private static final String TEXT = "text";
-    private Map<String, Object> context;
-    private Map<String, Object> input;
     private Boolean alternateIntents;
-
-    /**
-     * Instantiates a new Builder.
-     */
-    public Builder() {}
-
+    private Map<String, Object> context;
+    private List<Entity> entities;
+    private Map<String, Object> input;
+    private List<Intent> intents;
+    
     /**
      * Instantiates a new builder.
      *
@@ -53,6 +52,22 @@ public class MessageRequest extends GenericModel {
       this.input = new HashMap<String, Object>(messageRequest.input);
       this.context = new HashMap<String, Object>(messageRequest.context);
       this.alternateIntents = messageRequest.alternateIntents;
+    }
+
+    /**
+     * Instantiates a new Builder.
+     */
+    public Builder() {}
+
+    /**
+     * Sets the alternate intents flag. Set to true to return all matching intents
+     *
+     * @param alternateIntents the alternate intents flag
+     * @return a builder object
+     */
+    public Builder alternateIntents(final Boolean alternateIntents) {
+      this.alternateIntents = alternateIntents;
+      return this;
     }
 
     /**
@@ -81,17 +96,6 @@ public class MessageRequest extends GenericModel {
       this.context = context != null ? new HashMap<String, Object>(context) : context;
       return this;
     }
-
-    /**
-     * Sets the alternate intents flag. Set to true to return all matching intents
-     *
-     * @param alternateIntents the alternate intents flag
-     * @return a builder object
-     */
-    public Builder alternateIntents(final Boolean alternateIntents) {
-      this.alternateIntents = alternateIntents;
-      return this;
-    }
     
     /**
      * Sets the input which is to be sent to the message API as a part of the service request.
@@ -111,6 +115,58 @@ public class MessageRequest extends GenericModel {
     }
 
     /**
+     * Adds an entity to the list of entities to be send as part of the request
+     *
+     * @param entity the entity
+     * @return the builder
+     */
+    public Builder entity(Entity entity) {
+      if (entities == null) 
+        this.entities = new ArrayList<Entity>();
+      
+      this.entities.add(entity);
+      return this;
+    }
+    
+    /**
+     * Adds an intent to the list of intents to be send as part of the request
+     *
+     * @param intent the intent
+     * @return the builder
+     */
+    public Builder intent(Intent intent) {
+      if (intents == null) 
+        this.intents = new ArrayList<Intent>();
+      
+      this.intents.add(intent);
+      return this;
+    }
+    
+    /**
+     * Sets the list the entities to be send as part of the request.<br/>
+     * Existing entities will be replaced.
+     *
+     * @param entities the entities
+     * @return the builder
+     */
+    public Builder entities(List<Entity> entities) {
+      this.entities = entities;
+      return this;
+    }
+    
+    /**
+     * Sets the list the intents to be send as part of the request.<br/>
+     * Existing intents will be replaced.
+     * 
+     * @param intents the intents
+     * @return the builder
+     */
+    public Builder intents(List<Intent> intents) {
+      this.intents = intents;
+      return this;
+    }
+    
+    /**
      * Sets the input text which is to be sent to the message API as a part of the service request.
      * 
      * @param text the textual value to be assigned to the 'text' property on the input object.
@@ -124,11 +180,12 @@ public class MessageRequest extends GenericModel {
       return this;
     }
   }
-
-  private Map<String, Object> context;
-  private Map<String, Object> input;
   @SerializedName("alternate_intents")
   private Boolean alternateIntents;
+  private Map<String, Object> context;
+  private List<Entity> entities;
+  private Map<String, Object> input;
+  private List<Intent> intents;
 
   /**
    * Creates a new instance of the MessageRequest for the {@link ConversationService} service.
@@ -140,6 +197,18 @@ public class MessageRequest extends GenericModel {
     this.context = options.context;
     this.input = options.input;
     this.alternateIntents = options.alternateIntents;
+    this.entities = options.entities;
+    this.intents = options.intents;
+  }
+
+  /**
+   * Whether to return more than one intent. Set to true to return all matching intents boolean<br/>
+   * Default: false
+   *
+   * @return the boolean indicating if alternate intents should be returned
+   */
+  public Boolean alternateIntents() {
+    return alternateIntents;
   }
 
   /**
@@ -153,16 +222,6 @@ public class MessageRequest extends GenericModel {
     return context;
   }
 
-  /**
-   * Whether to return more than one intent. Set to true to return all matching intents boolean<br/>
-   * Default: false
-   *
-   * @return the boolean indicating if alternate intents should be returned
-   */
-  public Boolean alternateIntents() {
-    return alternateIntents;
-  }
-
 
   /**
    * Returns a map storing the input which is to be sent to the service as a part of the API
@@ -172,6 +231,24 @@ public class MessageRequest extends GenericModel {
    */
   public Map<String, Object> input() {
     return input;
+  }
+
+  /**
+   * Returns the intent list
+   *
+   * @return the intent list
+   */
+  public List<Intent> intents() {
+    return intents;
+  }
+
+  /**
+   * Returns the entity list.
+   *
+   * @return the entity list
+   */
+  public List<Entity> entities() {
+    return entities;
   }
 
 

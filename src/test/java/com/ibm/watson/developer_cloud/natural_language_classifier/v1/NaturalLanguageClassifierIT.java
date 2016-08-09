@@ -112,12 +112,17 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+    String username = getProperty("natural_language_classifier.username");
+    String password = getProperty("natural_language_classifier.password");
+    
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        username == null || username.equals(PLACEHOLDER));
+    
     service = new NaturalLanguageClassifier();
     service.setDefaultHeaders(getDefaultHeaders());
-    service.setUsernameAndPassword(getValidProperty("natural_language_classifier.username"),
-        getValidProperty("natural_language_classifier.password"));
-    service.setEndPoint(getValidProperty("natural_language_classifier.url"));
-    classifierId = getValidProperty("natural_language_classifier.classifier_id");
+    service.setUsernameAndPassword(username, password);
+    service.setEndPoint(getProperty("natural_language_classifier.url"));
+    classifierId = getProperty("natural_language_classifier.classifier_id");
   }
 
   /**

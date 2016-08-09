@@ -28,7 +28,7 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
@@ -48,7 +48,7 @@ import okhttp3.RequestBody;
  * @version v3
  * @see <a href= "http://www.ibm.com/watson/developercloud/visual-recognition.html"> Visual
  *      Recognition</a>
- * @api.version_date 2016-05-19
+ * @api.version_date 2016-05-20
  */
 public class VisualRecognition extends WatsonService {
 
@@ -73,7 +73,7 @@ public class VisualRecognition extends WatsonService {
   private static final String VERBOSE = "verbose";
 
   /** Version date. */
-  public static final String VERSION_DATE_2016_05_19 = "2016-05-19";
+  public static final String VERSION_DATE_2016_05_20 = "2016-05-20";
 
   private String versionDate;
 
@@ -198,11 +198,12 @@ public class VisualRecognition extends WatsonService {
    *
    * @param options The parameters to create a classifier
    * @return The created {@link VisualClassifier}
-   * @see CreateClassifierOptions
+   * @see ClassifierOptions
    * @see VisualClassifier
    */
-  public ServiceCall<VisualClassifier> createClassifier(CreateClassifierOptions options) {
+  public ServiceCall<VisualClassifier> createClassifier(ClassifierOptions options) {
     Validator.notNull(options, " options cannot be null");
+    validateClassifierOptions(options);
 
     Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
     bodyBuilder.addFormDataPart(PARAM_NAME, options.classifierName());
@@ -221,6 +222,65 @@ public class VisualRecognition extends WatsonService {
     }
 
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_CLASSIFIERS);
+    requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VisualClassifier.class));
+  }
+
+  /**
+   * Validates the {@link ClassifierOptions}
+   *
+   * @param options the options
+   */
+  private void validateClassifierOptions(ClassifierOptions options) {
+    String errorMessage = "To create a classifier, you must supply at least 2 zip files - "
+        + "either 2 positive example sets, or 1 positive and 1 negative set";
+
+    Validator.notNull(options.classifierName(), "'classifierName' cannot be null");
+    Validator.isTrue(!options.classNames().isEmpty(), "There are no classes. " + errorMessage);
+
+    boolean hasExamples =
+        options.classNames().size() > 1 || (options.negativeExamples() != null && options.classNames().size() == 1);
+    Validator.isTrue(hasExamples, errorMessage);
+  }
+
+  /**
+   * Update an existing classifier by adding new classes, or by adding new images to existing
+   * classes. To update the existing classifier, use several compressed (.zip) files, including
+   * files containing positive or negative images (.jpg, or .png). You must supply at least one
+   * compressed file, with additional positive or negative examples.
+   * <br>
+   *
+   * @param classifierId the classifier id
+   * @param options The parameters to create a classifier
+   * @return The created {@link VisualClassifier}
+   * @see ClassifierOptions
+   * @see VisualClassifier
+   */
+  public ServiceCall<VisualClassifier> updateClassifier(String classifierId, ClassifierOptions options) {
+    Validator.notNull(classifierId, "classifierId cannot be null");
+    Validator.notNull(options, " options cannot be null");
+    String errorMessage = "To update a classifier, you must supply at least 1 zip file - "
+        + "either a positive or negative zip file.";
+    Validator.isTrue(!options.classNames().isEmpty() || options.negativeExamples() != null, errorMessage);
+    
+
+    Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+    // Classes
+    for (String className : options.classNames()) {
+      String dataName = className + "_" + PARAM_POSITIVE_EXAMPLES;
+      RequestBody requestBody =
+          RequestBody.create(HttpMediaType.BINARY_FILE, options.positiveExamplesByClassName(className));
+      bodyBuilder.addFormDataPart(dataName, options.positiveExamplesByClassName(className).getName(), requestBody);
+    }
+
+    if (options.negativeExamples() != null) {
+      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.negativeExamples());
+      bodyBuilder.addFormDataPart(PARAM_NEGATIVE_EXAMPLES, options.negativeExamples().getName(), requestBody);
+    }
+
+    RequestBuilder requestBuilder = RequestBuilder.post(String.format(PATH_CLASSIFIER, classifierId));
     requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VisualClassifier.class));
