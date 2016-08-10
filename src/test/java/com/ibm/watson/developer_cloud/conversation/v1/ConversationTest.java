@@ -18,9 +18,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
@@ -94,4 +97,96 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals("{\"alternate_intents\":true,\"entities\":[{\"entity\":\"car\",\"value\":\"ford\"}],\"input\":{\"text\":\"I'd like to get insurance to for my home\"},\"intents\":[{\"confidence\":0.0,\"intent\":\"turn_off\"}]}", request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
   }
+
+  /**
+   * Test send message.  use some different MessageRequest options like context and other public methods
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testSendMessage1() throws IOException, InterruptedException {
+    MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
+    server.enqueue(jsonResponse(mockResponse));
+
+    Map<String, Object> contextTemp = new HashMap<String, Object>();
+    contextTemp.put("name", "Myname");
+    Map<String, Object> inputTemp = new HashMap<String, Object>();
+    inputTemp.put("text", "My text");
+
+    MessageRequest options = new MessageRequest.Builder()
+        .input(inputTemp)
+        .alternateIntents(false)
+        .context(contextTemp)
+        .entities(null)
+        .intents(null)
+        .build();
+
+    // execute first request
+    MessageResponse serviceResponse = service.message(WORKSPACE_ID, options).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2016_07_11);
+    assertEquals(path, request.getPath());
+    assertArrayEquals(new String[] {"Do you want to get a quote?"}, serviceResponse.getText().toArray(new String[0]));
+    assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
+    assertEquals(request.getMethod(), "POST");
+    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
+    assertEquals("{\"alternate_intents\":false,\"context\":{\"name\":\"Myname\"},\"input\":{\"text\":\"My text\"}}", request.getBody().readUtf8());
+    assertEquals(serviceResponse, mockResponse);
+  }
+
+  /**
+   * Negative - Test message with null options
+   * 
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testSendMessageNg1() throws InterruptedException {
+    service.message(WORKSPACE_ID, null).execute();
+  }
+
+  /**
+   * Negative - Test message with null workspace id
+   * 
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testSendMessageNg2() throws InterruptedException {
+    String text = "I'd like to get insurance to for my home";
+
+    MessageRequest options = new MessageRequest.Builder().inputText(text).alternateIntents(true).build();
+
+    service.message(null, options).execute();
+  }
+
+  /**
+   * Negative - Test message with null input text.  BUG?
+   * 
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @Ignore("Bug number 424")
+  @Test(expected = IllegalArgumentException.class)
+  public void testSendMessageNg3() throws InterruptedException {
+    MessageRequest options = new MessageRequest.Builder().inputText(null).alternateIntents(true).build();
+
+    service.message(WORKSPACE_ID, options).execute();
+  }
+
+  /**
+   * Negative - Test constructor with null version date
+   * 
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testConstructNg1() throws InterruptedException {
+    new ConversationService(null);
+  }
+
 }
