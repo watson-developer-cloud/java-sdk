@@ -1,0 +1,32 @@
+{
+  "ranker_id": "1ba90fx17-rank-573",
+  "url": "https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/rankers/1ba90fx17-rank-573",
+  "top_answer": "30965a00-5415-4ef5-8e4a-bb21a7aeab44",
+  "answers": [
+    {
+      "answer_id": "30965a00-5415-4ef5-8e4a-bb21a7aeab44",
+      "score": 180.0,
+      "confidence": 0.2636349925008873
+    },
+    {
+      "answer_id": "30965a00-5415-4ef5-8e4a-bb21a7aeab44",
+      "score": 179.0,
+      "confidence": 0.262185794730098
+    },
+    {
+      "answer_id": "30965a00-5415-4ef5-8e4a-bb21a7aeab44",
+      "score": 178.0,
+      "confidence": 0.25972667610243827
+    },
+    {
+      "answer_id": "30965a00-5415-4ef5-8e4a-bb21a7aeab44",
+      "score": 177.0,
+      "confidence": 0.2585360851733461
+    },
+    {
+      "answer_id": "30965a00-5415-4ef5-8e4a-bb21a7aeab44",
+      "score": 176.0,
+      "confidence": 0.256935122012848
+    }
+  ]
+}
