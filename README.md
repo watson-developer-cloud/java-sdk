@@ -267,19 +267,8 @@ System.out.println(response);
 ```
 
 ### Concept Insights
-Use the [Concept Insights][concept_insights] service to identify words in the text that
-correspond to concepts in a Wikipedia graph.
 
-```java
-ConceptInsights service = new ConceptInsights();
-service.setUsernameAndPassword("<username>", "<password>");
-
-Annotations annotations = service.annotateText(Graph.WIKIPEDIA,
-    "IBM Watson won the Jeopardy television show hosted by Alex Trebek")
-    .execute();
-
-System.out.println(annotations);
-```
+The [Concept Insights][concept_insights] has been deprecated, AlchemyLanguage's concept function can be used as a replacement for most Concept Insights use cases; therefore, we encourage existing Concept Insights service users to migrate to AlchemyLanguage.
 
 ### Dialog
 Returns the dialog list using the [Dialog][dialog] service.
