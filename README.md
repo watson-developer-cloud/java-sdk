@@ -271,15 +271,7 @@ System.out.println(response);
 The [Concept Insights][concept_insights] has been deprecated, AlchemyLanguage's concept function can be used as a replacement for most Concept Insights use cases; therefore, we encourage existing Concept Insights service users to migrate to AlchemyLanguage.
 
 ### Dialog
-Returns the dialog list using the [Dialog][dialog] service.
-
-```java
-DialogService service = new DialogService();
-service.setUsernameAndPassword("<username>", "<password>");
-
-List<Dialog> dialogs = service.getDialogs().execute();
-System.out.println(dialogs);
-```
+The [Dialog service][dialog] was deprecated on August 15, 2016, existing instances of the service will continue to function until August 9, 2017. Users of the Dialog service should migrate their applications to use the Conversation service. See the [migration documentation][dialog_migration] to learn how to migrate your dialogs to the [Conversation service][conversation].
 
 ### Document Conversion
 The [Document Conversion][document_conversion] service allows to convert pdf, word, and html documents into formats useful to other Watson Cognitive services. Target formats include normalized html, plain text, and sets of potential answers for Watson question answering. You can convert documents synchronously one at a time, or asynchronously in batches
@@ -606,6 +598,7 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [concept_insights]: https://www.ibm.com/watson/developercloud/doc/concept-insights/
 [conversation]: https://www.ibm.com/watson/developercloud/doc/conversation/
 [retrieve_and_rank]: http://www.ibm.com/watson/developercloud/doc/retrieve-rank/
+[dialog_migration]: https://www.ibm.com/watson/developercloud/doc/conversation/migration.shtml
 
 [alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage
 [sentiment_analysis]: http://www.alchemyapi.com/products/alchemylanguage/sentiment-analysis

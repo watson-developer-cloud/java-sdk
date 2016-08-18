@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -24,6 +24,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Conversation;
 import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationData;
 import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationDataOptions;
@@ -46,15 +47,14 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- * The IBM Watson Dialog service Dialogs enhances application by providing chitchat for topics
- * outside of a corpus and for giving context to a user's questions. You can create various virtual
- * agent (VA) applications. Users can have natural, free-flowing, and human-like conversations with
- * VAs that answer questions, show personality, decide, provide guidance, and even perform tasks.
+ * The Dialog service was deprecated on August 15, 2016, existing instances of the service will
+ * continue to function until August 9, 2017.
  * 
- * @version v1
- * @see <a href="http://www.ibm.com/watson/developercloud/dialog.html">
- *      Dialog</a>
+ * @deprecated As of August 15, 2016, replaced by {@link ConversationService}
+ * @see <a href="https://www.ibm.com/watson/developercloud/doc/conversation/migration.shtml">
+ *      Migration to Conversation</a>
  */
+@Deprecated
 public class DialogService extends WatsonService {
 
   private static final String CLIENT_ID = "client_id";
@@ -95,6 +95,7 @@ public class DialogService extends WatsonService {
 
   /**
    * Instantiates a new dialog service by username and password.
+   * 
    * @param username the username
    * @param password the password
    */
