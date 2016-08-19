@@ -4,7 +4,6 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![codecov.io](https://codecov.io/github/watson-developer-cloud/java-sdk/coverage.svg?branch=master)](https://codecov.io/github/watson-developer-cloud/java-sdk?branch=master)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1fdb12900d5845459033784aba3a7300)](https://www.codacy.com/app/gattana/java-sdk?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=watson-developer-cloud/java-sdk&amp;utm_campaign=Badge_Grade)
 
 The Java SDK uses the [Watson Developer Cloud][wdc] services, a collection of REST
 APIs and SDKs that use cognitive computing to solve complex problems.
