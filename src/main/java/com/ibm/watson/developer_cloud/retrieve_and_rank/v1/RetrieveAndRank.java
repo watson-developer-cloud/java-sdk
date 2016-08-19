@@ -449,6 +449,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   @Override
   public ServiceCall<SolrClusterSizeResponse> resizeSolrCluster(String SolrClusterId,
       int requestedSize) {
+    Validator.isTrue(requestedSize > 0 && requestedSize < 8, "clusterSize cannot be lower than 0 or greater than 7");
     final Request request = buildResizeRequest(SolrClusterId, requestedSize);
     return createServiceCall(request,
         ResponseConverterUtils.getObject(SolrClusterSizeResponse.class));
