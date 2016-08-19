@@ -45,6 +45,9 @@ public class SpeechModel extends GenericModel {
   /**  Japanese broadband model. */
   public static final SpeechModel JA_JP_BROADBANDMODEL = new SpeechModel("ja-JP_BroadbandModel");
 
+  /**  French broadband model. */
+  public static final SpeechModel FR_FR_BROADBANDMODEL = new SpeechModel("fr-FR_BroadbandModel");
+
   /**  Japanese narrowband model. */
   public static final SpeechModel JA_JP_NARROWBANDMODEL = new SpeechModel("ja-JP_NarrowbandModel");
 
