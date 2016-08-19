@@ -43,7 +43,7 @@ public class RecognizeOptions {
     private Double wordAlternativesThreshold;
     private Boolean wordConfidence;
     private Boolean profanityFilter;
-
+    private Boolean smartFormatting;
 
     private Builder(RecognizeOptions options) {
       this.contentType = options.contentType;
@@ -59,6 +59,7 @@ public class RecognizeOptions {
       this.wordAlternativesThreshold = options.wordAlternativesThreshold;
       this.wordConfidence = options.wordConfidence;
       this.profanityFilter = options.profanityFilter;
+      this.smartFormatting = options.smartFormatting;
     }
 
     /**
@@ -100,11 +101,24 @@ public class RecognizeOptions {
       return this;
     }
 
+    /**
+     * If <code>true</code>, converts dates, times, series of digits and numbers, phone numbers, currency values,
+     * and Internet addresses into more readable, conventional representations in the final
+     * transcript of a recognition request. If <code>false</code> (the default), no formatting is performed.
+     * Applies to US English transcription only.
+     * 
+     * @param smartFormatting Smart formatting
+     * @return the recognize options
+     */
+    public Builder smartFormatting(Boolean smartFormatting) {
+      this.smartFormatting = smartFormatting;
+      return this;
+    }
 
     /**
-     * If true, filters profanity from all output except for keyword results by
-     * replacing inappropriate words with a series of asterisks. Set the parameter to false to
-     * return results with no censoring. Applies to US English transcription only.
+     * If true, filters profanity from all output except for keyword results by replacing
+     * inappropriate words with a series of asterisks. Set the parameter to false to return results
+     * with no censoring. Applies to US English transcription only.
      * 
      * @param profanityFilter the profanity filter
      * @return the recognize options
@@ -285,7 +299,9 @@ public class RecognizeOptions {
   private Double wordAlternativesThreshold;
   @SerializedName("word_confidence")
   private Boolean wordConfidence;
-
+  @SerializedName("smart_formatting")
+  private Boolean smartFormatting;
+  
   private RecognizeOptions(Builder builder) {
     this.contentType = builder.contentType;
     this.continuous = builder.continuous;
@@ -300,6 +316,7 @@ public class RecognizeOptions {
     this.wordAlternativesThreshold = builder.wordAlternativesThreshold;
     this.wordConfidence = builder.wordConfidence;
     this.profanityFilter = builder.profanityFilter;
+    this.smartFormatting = builder.smartFormatting;
   }
 
   /**
@@ -318,6 +335,15 @@ public class RecognizeOptions {
    */
   public Boolean profanityFilter() {
     return profanityFilter;
+  }
+
+  /**
+   * Gets the smart formatting
+   * 
+   * @return the smart formatting
+   */
+  public Boolean smartFormatting() {
+    return smartFormatting;
   }
   
   /**
