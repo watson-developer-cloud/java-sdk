@@ -813,7 +813,6 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
    * @throws FileNotFoundException
    * @throws InterruptedException
    */
-  @Ignore("Bug number 418")
   @Test(expected = IllegalArgumentException.class)
   public void testClusterResizeNg1() throws FileNotFoundException, InterruptedException {
     service.resizeSolrCluster(ANY_CLUSTER_ID, -10).execute();

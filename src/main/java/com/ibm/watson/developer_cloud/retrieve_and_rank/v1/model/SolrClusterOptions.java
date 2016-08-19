@@ -17,6 +17,7 @@ import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.ApiConst
 import static com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.ApiConstants.CLUSTER_SIZE;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * A value type for the JSON body provided when creating a Solr cluster.
@@ -40,6 +41,7 @@ public class SolrClusterOptions {
     if (clusterSize == null) {
       this.clusterSize = FREE_CLUSTER_SIZE;
     } else {
+      Validator.isTrue(clusterSize > 0 && clusterSize < 8, "clusterSize cannot be lower than 0 or greater than 7");
       this.clusterSize = clusterSize.toString();
     }
   }
