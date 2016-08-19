@@ -21,6 +21,7 @@ import java.util.Map;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Object that represents the input and context of a conversation. This is used by the
@@ -173,6 +174,8 @@ public class MessageRequest extends GenericModel {
      * @return a builder object
      */
     public Builder inputText(String text) {
+      Validator.notNull(text, "text cannot be null");
+      
       if (input == null) {
         input = new HashMap<String, Object>();
       }

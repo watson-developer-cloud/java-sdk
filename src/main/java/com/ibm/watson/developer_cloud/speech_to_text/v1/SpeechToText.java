@@ -72,9 +72,11 @@ public class SpeechToText extends WatsonService {
   private static final String WORD_ALTERNATIVES_THRESHOLD = "word_alternatives_threshold";
   private static final String WORD_CONFIDENCE = "word_confidence";
   private static final String PROFANITY_FILTER = "profanity_filter";
+  private static final String SMART_FORMATTING = "smart_formatting";
   
   private static final Type TYPE_LIST_MODELS = new TypeToken<List<SpeechModel>>() {}.getType();
   private static final Type TYPE_SESSION_STATUS = new TypeToken<SpeechSessionStatus>() {}.getType();
+  
   
 
   /**
@@ -111,6 +113,9 @@ public class SpeechToText extends WatsonService {
 
     if (options.continuous() != null)
       requestBuilder.query(CONTINUOUS, options.continuous());
+
+    if (options.smartFormatting() != null)
+      requestBuilder.query(SMART_FORMATTING, options.smartFormatting());
 
     if (options.profanityFilter() != null)
       requestBuilder.query(PROFANITY_FILTER, options.profanityFilter());
