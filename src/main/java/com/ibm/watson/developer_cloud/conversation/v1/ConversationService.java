@@ -13,6 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1;
 
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -82,6 +83,8 @@ public final class ConversationService extends WatsonService {
     builder.query(VERSION_PARAM, this.versionDate);
     if (request != null) {
       builder.bodyJson(GsonSingleton.getGson().toJsonTree(request).getAsJsonObject());
+    } else {
+      builder.bodyJson(new JsonObject());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
   }
