@@ -305,8 +305,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * @return stats about the Solr cluster
    */
   public ServiceCall<SolrClusterStats> getSolrClusterStats(String solrClusterId) {
-    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
-        "solrClusterId cannot be null or empty");
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
 
     final Request request =
         RequestBuilder.get(String.format(PATH_GET_SOLR_CLUSTER, solrClusterId) + "/stats").build();
@@ -321,6 +320,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * @return URL to access Solr
    */
   public String getSolrUrl(String solrClusterId) {
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
     return getEndPoint() + String.format(PATH_SOLR, solrClusterId);
   }
 
@@ -400,6 +400,8 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   @Override
   public ServiceCall<Void> uploadSolrClusterConfigurationDirectory(String solrClusterId, String configName,
       File directory) {
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
+    Validator.isTrue(configName != null && !configName.isEmpty(), "configName cannot be null or empty");
     Validator.notNull(directory, "directory cannot be null");
     Validator.isTrue(directory.exists(), "directory: " + directory.getAbsolutePath() + " not found");
     Validator.isTrue(directory.isDirectory(), "directory is not a directory");
@@ -428,6 +430,12 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   @Override
   public ServiceCall<Void> uploadSolrClusterConfigurationZip(String solrClusterId, String configName,
       File zippedConfig) {
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
+    Validator.notNull(configName, "configName cannot be null");
+    Validator.notNull(zippedConfig, "zippedConfig cannot be null");
+    Validator.isTrue(zippedConfig.exists(), "zippedConfig: " + zippedConfig.getAbsolutePath() + " not found");
+    Validator.isTrue(zippedConfig.isFile(), "directory is not a file");
+    
     final RequestBuilder requestBuilder = createUploadSolrConfigurationRequest(solrClusterId, configName, zippedConfig);
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
   }
@@ -447,9 +455,12 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * (java.lang.String)
    */
   @Override
-  public ServiceCall<SolrClusterSizeResponse> resizeSolrCluster(String SolrClusterId,
+  public ServiceCall<SolrClusterSizeResponse> resizeSolrCluster(String solrClusterId,
       int requestedSize) {
-    final Request request = buildResizeRequest(SolrClusterId, requestedSize);
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
+    Validator.isTrue(requestedSize > 0 && requestedSize < 8, "clusterSize cannot be lower than 0 or greater than 7");
+    
+    final Request request = buildResizeRequest(solrClusterId, requestedSize);
     return createServiceCall(request,
         ResponseConverterUtils.getObject(SolrClusterSizeResponse.class));
   }
@@ -461,8 +472,10 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * getSolrClusterResizeStatus (java.lang.String)
    */
   @Override
-  public ServiceCall<SolrClusterSizeResponse> getSolrClusterResizeStatus(String SolrClusterId) {
-    final Request request = buildGetSizeRequest(SolrClusterId);
+  public ServiceCall<SolrClusterSizeResponse> getSolrClusterResizeStatus(String solrClusterId) {
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
+    
+    final Request request = buildGetSizeRequest(solrClusterId);
     return createServiceCall(request,
         ResponseConverterUtils.getObject(SolrClusterSizeResponse.class));
   }

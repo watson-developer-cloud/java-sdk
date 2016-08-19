@@ -13,7 +13,9 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,7 +23,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
@@ -306,7 +307,7 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test solr URL retrieve.  Does not check for null or empty.  BUG 422?
+   * Test solr URL retrieve.
    * 
    * @throws FileNotFoundException
    * @throws InterruptedException
@@ -314,10 +315,6 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
   @Test
   public void testSolrUrlGet() throws FileNotFoundException, InterruptedException {
     String serviceResponse = service.getSolrUrl(ANY_CLUSTER_ID);
-    assertTrue(serviceResponse.endsWith("/solr"));
-    serviceResponse = service.getSolrUrl("");
-    assertTrue(serviceResponse.endsWith("/solr"));
-    serviceResponse = service.getSolrUrl(null);
     assertTrue(serviceResponse.endsWith("/solr"));
   }
 
@@ -752,9 +749,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
    * @throws FileNotFoundException
    * @throws InterruptedException
    */
-  @Ignore("Bug number 420")
   @Test(expected = IllegalArgumentException.class)
-  public void testUploadClusterConfigNg2() throws FileNotFoundException, InterruptedException {
+  public void testUploadClusterConfigWithConfigNameNull() throws FileNotFoundException, InterruptedException {
     final File configDir = new File(RESOURCE_PATH + "config_dir");
     service.uploadSolrClusterConfigurationDirectory(ANY_CLUSTER_ID, null, configDir).execute();
   }
@@ -766,7 +762,7 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
    * @throws InterruptedException
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testUploadClusterConfigNg3() throws FileNotFoundException, InterruptedException {
+  public void testUploadClusterConfigWithClusterIdNull() throws FileNotFoundException, InterruptedException {
     final File configDir = new File(RESOURCE_PATH + "config_dir");
     service.uploadSolrClusterConfigurationDirectory(null, ANY_CONFIG_NAME, configDir).execute();
   }
@@ -777,7 +773,6 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
    * @throws FileNotFoundException
    * @throws InterruptedException
    */
-  @Ignore("Bug number 419")
   @Test(expected = IllegalArgumentException.class)
   public void testUploadClusterConfigZipNg1() throws FileNotFoundException, InterruptedException {
     service.uploadSolrClusterConfigurationZip(ANY_CLUSTER_ID, ANY_CONFIG_NAME, null).execute();
@@ -813,7 +808,6 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
    * @throws FileNotFoundException
    * @throws InterruptedException
    */
-  @Ignore("Bug number 418")
   @Test(expected = IllegalArgumentException.class)
   public void testClusterResizeNg1() throws FileNotFoundException, InterruptedException {
     service.resizeSolrCluster(ANY_CLUSTER_ID, -10).execute();

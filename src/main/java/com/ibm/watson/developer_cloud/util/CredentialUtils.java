@@ -122,7 +122,7 @@ public final class CredentialUtils {
       Context context = new InitialContext();
       return (String) context.lookup(lookupName);
     } catch (Exception e) {
-      log.info("JNDI " + lookupName + " not found.");
+      log.fine("JNDI " + lookupName + " not found.");
       return null;
     }
   }
