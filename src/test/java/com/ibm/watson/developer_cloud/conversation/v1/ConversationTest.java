@@ -23,7 +23,6 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
@@ -105,7 +104,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testSendMessage1() throws IOException, InterruptedException {
+  public void testSendMessageWithAlternateIntents() throws IOException, InterruptedException {
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
 
@@ -138,25 +137,14 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(serviceResponse, mockResponse);
   }
 
-  /**
-   * Negative - Test message with null options
-   * 
-   * @throws IOException Signals that an I/O exception has occurred.
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testSendMessageNg1() throws InterruptedException {
-    service.message(WORKSPACE_ID, null).execute();
-  }
 
   /**
-   * Negative - Test message with null workspace id
-   * 
-   * @throws IOException Signals that an I/O exception has occurred.
+   * Negative - Test message with null workspace id.
+   *
    * @throws InterruptedException the interrupted exception
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testSendMessageNg2() throws InterruptedException {
+  public void testSendMessageWithNullWorkspaceId() throws InterruptedException {
     String text = "I'd like to get insurance to for my home";
 
     MessageRequest options = new MessageRequest.Builder().inputText(text).alternateIntents(true).build();
@@ -166,26 +154,23 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
   /**
    * Negative - Test message with null input text.  BUG?
-   * 
-   * @throws IOException Signals that an I/O exception has occurred.
+   *
    * @throws InterruptedException the interrupted exception
    */
-  @Ignore("Bug number 424")
   @Test(expected = IllegalArgumentException.class)
-  public void testSendMessageNg3() throws InterruptedException {
+  public void testSendMessageWithInputTextNull() throws InterruptedException {
     MessageRequest options = new MessageRequest.Builder().inputText(null).alternateIntents(true).build();
 
     service.message(WORKSPACE_ID, options).execute();
   }
 
   /**
-   * Negative - Test constructor with null version date
-   * 
-   * @throws IOException Signals that an I/O exception has occurred.
+   * Negative - Test constructor with null version date.
+   *
    * @throws InterruptedException the interrupted exception
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testConstructNg1() throws InterruptedException {
+  public void testConstructorWithNull() throws InterruptedException {
     new ConversationService(null);
   }
 

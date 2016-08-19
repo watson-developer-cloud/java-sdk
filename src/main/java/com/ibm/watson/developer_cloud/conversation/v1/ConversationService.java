@@ -76,13 +76,13 @@ public final class ConversationService extends WatsonService {
    * @return The response for the given message.
    */
   public ServiceCall<MessageResponse> message(String workspaceId, MessageRequest request) {
-    Validator.isTrue(workspaceId != null && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
-    Validator.notNull(request, "'request' cannot be null");
-    Validator.isTrue(request.input() != null && !request.input().isEmpty(), "'request.input' cannot be null or empty");
-
+    Validator.isTrue(workspaceId != null && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");    
+    
     RequestBuilder builder = RequestBuilder.post(String.format(PATH_MESSAGE, workspaceId));
     builder.query(VERSION_PARAM, this.versionDate);
-    builder.bodyJson(GsonSingleton.getGson().toJsonTree(request).getAsJsonObject());
+    if (request != null) {
+      builder.bodyJson(GsonSingleton.getGson().toJsonTree(request).getAsJsonObject());
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
   }
 
