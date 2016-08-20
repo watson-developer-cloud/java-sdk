@@ -1,0 +1,22 @@
+{
+  "recognitions": [
+    {
+      "id": "1",
+      "status": "waiting",
+      "url": "u1",
+      "user_token": "t1"
+    },
+    {
+      "id": "2",
+      "status": "processing",
+      "url": "u2",
+      "user_token": "t2"
+    },
+    {
+      "id": "3",
+      "status": "completed",
+      "url": "u3",
+      "user_token": "t3"
+    }
+  ]
+}

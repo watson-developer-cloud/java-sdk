@@ -26,11 +26,15 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.KeywordsResult;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
@@ -49,6 +53,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private CountDownLatch lock = new CountDownLatch(1);
   private SpeechToText service;
   private SpeechResults asyncResults;
+  
+  /** The expected exception. */
+  @Rule
+  public final ExpectedException expectedException = ExpectedException.none();
 
   /*
    * (non-Javadoc)
@@ -279,5 +287,57 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(wordAlternatives.get(0).getAlternatives());
   }
 
+  /**
+   * Test create recognition job.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testCreateRecognitionJob() throws InterruptedException, FileNotFoundException {
+    File audio = new File("src/test/resources/speech_to_text/sample1.wav");
+    RecognitionJob job = service.createRecognitionJob(audio, null, null).execute();
+    System.out.println(job);
+    try {
+      assertNotNull(job.getId());
+      for (int x = 0; x < 30 && job.getStatus() != RecognitionJob.Status.COMPLETED; x++) {
+        Thread.sleep(3000);
+        job = service.getRecognitionJob(job.getId()).execute();
+        System.out.println(job);
+      }
+      job = service.getRecognitionJob(job.getId()).execute();
+      System.out.println(job);
+      assertEquals(RecognitionJob.Status.COMPLETED, job.getStatus());
 
+      assertNotNull(job.getResults());
+
+    } finally {
+      service.deleteRecognitionJob(job.getId());
+    }
+  }
+
+  /**
+   * Test get recognition job with wrong id.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testGetRecognitionJobWithWrongId() throws InterruptedException, FileNotFoundException {
+    expectedException.expect(NotFoundException.class);
+    expectedException.expectMessage("job not found");
+    service.getRecognitionJob("foo").execute();
+  }
+
+  /**
+   * Test get recognition jobs.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testGetRecognitionJobs() throws InterruptedException, FileNotFoundException {
+    List<RecognitionJob> jobs = service.getRecognitionJobs().execute();
+    assertNotNull(jobs);
+  }
 }
