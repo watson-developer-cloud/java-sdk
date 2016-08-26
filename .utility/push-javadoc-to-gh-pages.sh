@@ -7,7 +7,7 @@ if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && [ "$TRAVIS_PU
   git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/watson-developer-cloud/java-sdk gh-pages > /dev/null
 
   pushd gh-pages
-    # on tagged builds, $TRAVIS_BRANCH is the tag (e.g. v1.2.3), otherwise it's the branch name (e.g. master)
+    # on tagged builds, $TRAVIS_BRANCH is the tag (e.g. watson.developer_cloud.retrieve_and_rank.v1.2.3), otherwise it's the branch name (e.g. master)
     rm -rf docs/$TRAVIS_BRANCH
     mkdir -p docs/$TRAVIS_BRANCH
 

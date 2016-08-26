@@ -404,7 +404,7 @@ System.out.println(transcript);
 #### WebSocket support
 
 Speech to Text supports WebSocket, the url is:  
-  `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`  
+  `wss://stream.watsonplatform.net/speech-to-text/api/watson.developer_cloud.retrieve_and_rank.v1/recognize`
 
   ```java
 SpeechToText service = new SpeechToText();

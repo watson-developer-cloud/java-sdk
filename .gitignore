@@ -9,6 +9,7 @@ build
 gradle
 gradlew
 gradlew.bat
+out
 target
 bin/
 *.iml

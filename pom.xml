@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
+
   <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>parent</artifactId>
   <version>3.3.1-SNAPSHOT</version>
-  <packaging>jar</packaging>
-  <artifactId>java-sdk</artifactId>
-  <name>Watson Developer Cloud Java SDK</name>
+  <packaging>pom</packaging>
+
+  <name>Watson Developer Cloud Java SDK (parent)</name>
   <description>Client library to use the IBM Watson Services and AlchemyAPI</description>
   <url>https://github.com/watson-developer-cloud/java-sdk</url>
   <inceptionYear>2015</inceptionYear>
+
+  <modules>
+    <module>service-core</module>
+    <module>language-translation</module>
+    <module>document_conversion</module>
+    <module>retrieve_and_rank</module>
+    <module>visual_recognition</module>
+    <module>alchemy_vision</module>
+    <module>alchemy_data_news</module>
+    <module>alchemy-language</module>
+    <module>natural-language-classifier</module>
+    <module>personality-insights</module>
+    <module>speech-to-text</module>
+    <module>text-to-speech</module>
+    <module>tone-analyzer</module>
+    <module>tradeoff-analytics</module>
+    <module>dialog</module>
+    <module>conversation</module>
+    <module>watson-service-tests</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <timestamp>${maven.build.timestamp}</timestamp>
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssa</maven.build.timestamp.format>
+  </properties>
+
+  <scm>
+    <connection>SSH</connection>
+    <developerConnection>scm:git:git@github.com:watson-developer-cloud/java-sdk.git</developerConnection>
+    <url>https://github.com/watson-developer-cloud/java-sdk</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/watson-developer-cloud/java-sdk/issues</url>
+  </issueManagement>
+
+  <ciManagement>
+    <system>Travis</system>
+    <url>https://travis-ci.org/watson-developer-cloud/java-sdk</url>
+  </ciManagement>
+
+  <developers>
+    <developer>
+      <id>germanattanasio</id>
+      <name>German Attanasio</name>
+      <email>germanatt@us.ibm.com</email>
+    </developer>
+  </developers>
+
   <licenses>
     <license>
       <name>Apache 2.0</name>
@@ -16,6 +77,10 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
+
+  <!-- Code, which I haven't fucked up. Mostly. -->
+
+  <dependencyManagement>
   <dependencies>
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
@@ -79,13 +144,8 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <developers>
-    <developer>
-      <id>germanattanasio</id>
-      <name>German Attanasio</name>
-      <email>germanatt@us.ibm.com</email>
-    </developer>
-  </developers>
+  </dependencyManagement>
+
   <distributionManagement>
     <!-- Repository for snapshots -->
     <snapshotRepository>
@@ -99,12 +159,7 @@
       <url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
-  <scm>
-    <connection>SSH</connection>
-    <developerConnection>scm:git:git@github.com:watson-developer-cloud/java-sdk.git</developerConnection>
-    <url>https://github.com/watson-developer-cloud/java-sdk</url>
-    <tag>HEAD</tag>
-  </scm>
+
   <build>
     <plugins>
       <plugin>
@@ -229,6 +284,7 @@
       </resource>
     </resources>
   </build>
+
   <profiles>
     <profile>
       <id>java8-disable-animal-sniffer</id>
@@ -335,18 +391,5 @@
       </properties>
     </profile>
   </profiles>
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <timestamp>${maven.build.timestamp}</timestamp>
-    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssa</maven.build.timestamp.format>
-  </properties>
-  <issueManagement>
-    <system>Github</system>
-    <url>https://github.com/watson-developer-cloud/java-sdk/issues</url>
-  </issueManagement>
-  <ciManagement>
-    <system>Travis</system>
-    <url>https://travis-ci.org/watson-developer-cloud/java-sdk</url>
-  </ciManagement>
+
 </project>

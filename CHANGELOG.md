@@ -8,10 +8,10 @@ _2016-08-08_
  * New: Tests are ignored if `config.properties` doesn't have valid credentials
  * New: Document Conversion can index documents directly into Retrieve and Rank
  * New: Visual Recognition Re-training
- * New: Conversation v1: `MessageRequest` now supports entities and intents
+ * New: Conversation watson.developer_cloud.retrieve_and_rank.v1: `MessageRequest` now supports entities and intents
  * New: AlchemyLanguage `typedRelations` entities and intents
  * New: Speech to Text `keyword_spotting`
- * Fix: Remove Relationship extraction v1 Beta
+ * Fix: Remove Relationship extraction watson.developer_cloud.retrieve_and_rank.v1 Beta
  * Fix: Remove Tone Analyzer v3 Beta
  * Fix: :fire: update `version_date` for Visual Recognition to be `2016-05-20`
  * Fix: Remove warning when JDNI can't find credentials
@@ -20,12 +20,12 @@ _2016-08-08_
 
 _2016-08-02_
 
- * New: Conversation v1
+ * New: Conversation watson.developer_cloud.retrieve_and_rank.v1
  * New: Text To Speech now supports `audio/basic`, `audio/i16` and `ogg/vorgis`
  * New: AlchemyLanguage now has a TypedRelation method that extract relationships and entities from text
  * Fix: Speech to Text now returns the voice description when calling `getVoices()`
  * Fix: url from `VCAP_SERVICES` take precedence over the default url
- * Fix: Removed Relationship Extraction v1-beta
+ * Fix: Removed Relationship Extraction watson.developer_cloud.retrieve_and_rank.v1-beta
  * Fix: Removed Tone Analyzer v3-beta
 
 ## Version 3.0.1
@@ -39,7 +39,7 @@ calls and calls more efficiently.
  * New: The `User-Agent` can be customized
  * New: Services added:
    * Visual Recognition v3
-   * Conversation v1-experimental
+   * Conversation watson.developer_cloud.retrieve_and_rank.v1-experimental
    * Tone Analyzer v3
  * New: `profanity_filter` added to Speech to Text
  * New: Introduce reactive API calls (use `rx()`)
