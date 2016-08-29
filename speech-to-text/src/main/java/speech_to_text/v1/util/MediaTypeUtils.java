@@ -13,8 +13,8 @@
  */
 package speech_to_text.v1.util;
 
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+import service_core.http.HttpMediaType;
+import speech_to_text.v1.SpeechToText;
 
 import java.io.File;
 import java.util.HashMap;

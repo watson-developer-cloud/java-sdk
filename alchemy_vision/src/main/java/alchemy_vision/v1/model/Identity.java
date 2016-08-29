@@ -15,8 +15,8 @@ package alchemy_vision.v1.model;
 
 import alchemy_vision.v1.AlchemyVision;
 import service_core.service.model.GenericModel;
-import service_core.service.model.alchemy.DisambiguatedLinks;
-import service_core.service.model.alchemy.KnowledgeGraph;
+import service_core.service.model.DisambiguatedLinks;
+import service_core.service.model.KnowledgeGraph;
 
 /**
  * Identity by the {@link AlchemyVision} service.

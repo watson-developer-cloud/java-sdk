@@ -17,7 +17,7 @@ import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
 import com.google.gson.stream.JsonWriter;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechTimestamp;
+import speech_to_text.v1.model.SpeechTimestamp;
 
 import java.io.IOException;
 

@@ -15,6 +15,8 @@ package alchemy_language.v1.model;
 
 
 import service_core.service.model.AlchemyGenericModel;
+import service_core.service.model.DisambiguatedLinks;
+import service_core.service.model.KnowledgeGraph;
 
 import java.util.List;
 

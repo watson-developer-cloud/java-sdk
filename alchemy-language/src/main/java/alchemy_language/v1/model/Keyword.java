@@ -14,6 +14,8 @@
 
 package alchemy_language.v1.model;
 
+import service_core.service.model.KnowledgeGraph;
+
 /**
  * Keyword returned by the AlchemyLanguage service.
  * 

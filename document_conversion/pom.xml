@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>parent</artifactId>
-        <groupId>com.ibm.watson.developer_cloud</groupId>
+        <groupId>com.ibm.watson.watson.developer_cloud</groupId>
         <version>3.3.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -19,7 +19,7 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
             <artifactId>retrieve_and_rank</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>

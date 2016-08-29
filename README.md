@@ -1,7 +1,7 @@
 
 # Watson Developer Cloud Java SDK
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.watson.developer_cloud/java-sdk)
 [![codecov.io](https://codecov.io/github/watson-developer-cloud/java-sdk/coverage.svg?branch=master)](https://codecov.io/github/watson-developer-cloud/java-sdk?branch=master)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1fdb12900d5845459033784aba3a7300)](https://www.codacy.com/app/gattana/java-sdk?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=watson-developer-cloud/java-sdk&amp;utm_campaign=Badge_Grade)
@@ -138,7 +138,7 @@ System.out.println(dialogs);
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
+	<groupId>com.ibm.watson.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
 	<version>3.3.0</version>
 </dependency>
@@ -146,7 +146,7 @@ System.out.println(dialogs);
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:3.3.0'
+'com.ibm.watson.watson.developer_cloud:java-sdk:3.3.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
@@ -156,7 +156,7 @@ Snapshots of the development version are available in [Sonatype's snapshots repo
 
 Download the jar with dependencies [here][jar].
 
-Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
+Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/watson.developer_cloud).
 
 
 ## Usage
@@ -404,7 +404,7 @@ System.out.println(transcript);
 #### WebSocket support
 
 Speech to Text supports WebSocket, the url is:  
-  `wss://stream.watsonplatform.net/speech-to-text/api/watson.developer_cloud.retrieve_and_rank.v1/recognize`
+  `wss://stream.watsonplatform.net/speech-to-text/api/watson.watson.developer_cloud.retrieve_and_rank.v1/recognize`
 
   ```java
 SpeechToText service = new SpeechToText();
@@ -618,6 +618,6 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [OkHttp]: http://square.github.io/okhttp/
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
-[sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/java-sdk/
+[sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/watson.developer_cloud/java-sdk/
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.3.0/java-sdk-3.3.0-jar-with-dependencies.jar
