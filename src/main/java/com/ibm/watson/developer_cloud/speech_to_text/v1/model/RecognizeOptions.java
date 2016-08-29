@@ -104,6 +104,17 @@ public class RecognizeOptions {
     }
 
     /**
+     * The customization ID to enter for the model.
+     * 
+     * @param customizationId of the model
+     * @return the recognize options
+     */
+    public Builder customizationID(String customizationID){
+        this.customizationID = customizationID;
+        return this;
+    } 
+    
+    /**
      * If <code>true</code>, converts dates, times, series of digits and numbers, phone numbers, currency values,
      * and Internet addresses into more readable, conventional representations in the final
      * transcript of a recognition request. If <code>false</code> (the default), no formatting is performed.
