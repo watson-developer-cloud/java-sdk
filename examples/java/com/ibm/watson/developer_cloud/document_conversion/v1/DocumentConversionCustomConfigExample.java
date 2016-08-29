@@ -19,9 +19,9 @@ import java.io.FileNotFoundException;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
-import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import document_conversion.v1.model.Answers;
+import document_conversion.v1.util.ConversionUtils;
+import service_core.http.HttpMediaType;
 
 public class DocumentConversionCustomConfigExample {
   public static void main(String[] args) {

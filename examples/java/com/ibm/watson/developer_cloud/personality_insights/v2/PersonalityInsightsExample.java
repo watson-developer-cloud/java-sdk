@@ -13,7 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v2;
 
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
+import personality_insights.v2.model.Profile;
 
 public class PersonalityInsightsExample {
 

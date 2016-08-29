@@ -13,8 +13,8 @@
  */
 package com.ibm.watson.developer_cloud.dialog.v1;
 
-import com.ibm.watson.developer_cloud.dialog.v1.model.Dialog;
-import com.ibm.watson.developer_cloud.http.ServiceCallback;
+import dialog.v1.model.Dialog;
+import service_core.http.ServiceCallback;
 import jersey.repackaged.jsr166e.CompletableFuture;
 
 import java.util.List;

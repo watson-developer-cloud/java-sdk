@@ -20,11 +20,11 @@ import java.io.OutputStream;
 import java.io.FileOutputStream;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
+import text_to_speech.v1.model.AudioFormat;
+import text_to_speech.v1.model.CustomTranslation;
+import text_to_speech.v1.model.CustomVoiceModel;
+import text_to_speech.v1.model.Voice;
+import text_to_speech.v1.util.WaveUtils;
 
 public class CustomizationExample {
 
