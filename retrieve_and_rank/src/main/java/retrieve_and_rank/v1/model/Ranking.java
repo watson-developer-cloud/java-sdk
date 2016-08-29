@@ -22,7 +22,7 @@ import service_core.service.model.GenericModel;
 /**
  * {@link Ranking} used by the {@link RetrieveAndRank} class.
  * 
- * @version watson.developer_cloud.retrieve_and_rank.v1
+ * @version watson.watson.developer_cloud.retrieve_and_rank.v1
  */
 public class Ranking extends GenericModel {
 

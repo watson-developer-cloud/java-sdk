@@ -43,7 +43,7 @@ import okhttp3.RequestBody;
  * The IBM Watson Document Conversion service converts provided source documents (HTML, Word, PDF)
  * into JSON Answer Units, Normalized HTML, or Normalized Text.
  *
- * @version watson.developer_cloud.retrieve_and_rank.v1
+ * @version watson.watson.developer_cloud.retrieve_and_rank.v1
  * @see <a href=
  *      "http://www.ibm.com/watson/developercloud/document-conversion.html">
  *      Document Conversion</a>
@@ -59,8 +59,8 @@ public class DocumentConversion extends WatsonService {
   private static final String RETRIEVE_AND_RANK_FIELDS = "fields";
   private static final String RETRIEVE_AND_RANK = "retrieve_and_rank";
   private static final String CONVERT_DOCUMENT = "convert_document";
-  private static final String CONVERT_DOCUMENT_PATH = "/watson.developer_cloud.retrieve_and_rank.v1/" + CONVERT_DOCUMENT;
-  private static final String INDEX_DOCUMENT_PATH = "/watson.developer_cloud.retrieve_and_rank.v1/index_document";
+  private static final String CONVERT_DOCUMENT_PATH = "/watson.watson.developer_cloud.retrieve_and_rank.v1/" + CONVERT_DOCUMENT;
+  private static final String INDEX_DOCUMENT_PATH = "/watson.watson.developer_cloud.retrieve_and_rank.v1/index_document";
   private static final JsonObject EMPTY_CONFIG = new JsonParser().parse("{}").getAsJsonObject();
   private static final String SERVICE_NAME = "document_conversion";
   private static final String URL = "https://gateway.watsonplatform.net/document-conversion/api";

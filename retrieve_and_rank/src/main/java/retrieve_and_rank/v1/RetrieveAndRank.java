@@ -56,7 +56,7 @@ import okhttp3.Response;
  * model based on known relevant results, then leverage this model to provide improved results to
  * their end users based on their question or query.
  * 
- * @version watson.developer_cloud.retrieve_and_rank.v1
+ * @version watson.watson.developer_cloud.retrieve_and_rank.v1
  * @see <a href=
  *      "http://www.ibm.com/watson/developercloud/retrieve-rank.html">
  *      Retrieve and Rank</a>
@@ -66,17 +66,17 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   private static final String ANSWERS = "answers";
   private static final Logger LOG = Logger.getLogger(RetrieveAndRank.class.getName());
   private static final String NAME = "name";
-  private static final String PATH_CREATE_RANKER = "/watson/developer_cloud/retrieve_and_rank/v1/rankers";
-  private static final String PATH_GET_SOLR_CLUSTER = "/watson/developer_cloud/retrieve_and_rank/v1/solr_clusters/%s";
-  private static final String PATH_SOLR = "/watson/developer_cloud/retrieve_and_rank/v1/solr_clusters/%s/solr";
-  private static final String PATH_RANK = "/watson/developer_cloud/retrieve_and_rank/v1/rankers/%s/rank";
-  private static final String PATH_RANKER = "/watson/developer_cloud/retrieve_and_rank/v1/rankers/%s";
-  private static final String PATH_RANKERS = "/watson/developer_cloud/retrieve_and_rank/v1/rankers";
-  private static final String PATH_SOLR_CLUSTERS = "/watson/developer_cloud/retrieve_and_rank/v1/solr_clusters";
-  private static final String PATH_SOLR_CLUSTERS_CONFIG = "/watson/developer_cloud/retrieve_and_rank/v1/solr_clusters/%s/config";
-  private static final String PATH_SOLR_CLUSTERS_CONFIGS = "/watson/developer_cloud/retrieve_and_rank/v1/solr_clusters/%s/config/%s";
+  private static final String PATH_CREATE_RANKER = "/watson/watson.developer_cloud/retrieve_and_rank/v1/rankers";
+  private static final String PATH_GET_SOLR_CLUSTER = "/watson/watson.developer_cloud/retrieve_and_rank/v1/solr_clusters/%s";
+  private static final String PATH_SOLR = "/watson/watson.developer_cloud/retrieve_and_rank/v1/solr_clusters/%s/solr";
+  private static final String PATH_RANK = "/watson/watson.developer_cloud/retrieve_and_rank/v1/rankers/%s/rank";
+  private static final String PATH_RANKER = "/watson/watson.developer_cloud/retrieve_and_rank/v1/rankers/%s";
+  private static final String PATH_RANKERS = "/watson/watson.developer_cloud/retrieve_and_rank/v1/rankers";
+  private static final String PATH_SOLR_CLUSTERS = "/watson/watson.developer_cloud/retrieve_and_rank/v1/solr_clusters";
+  private static final String PATH_SOLR_CLUSTERS_CONFIG = "/watson/watson.developer_cloud/retrieve_and_rank/v1/solr_clusters/%s/config";
+  private static final String PATH_SOLR_CLUSTERS_CONFIGS = "/watson/watson.developer_cloud/retrieve_and_rank/v1/solr_clusters/%s/config/%s";
   private static final String URL = "https://gateway.watsonplatform.net/retrieve-and-rank/api";
-  private static final String PATH_SOLR_CLUSTERS_SIZE = "/watson/developer_cloud/retrieve_and_rank/v1/solr_clusters/%s/cluster_size";
+  private static final String PATH_SOLR_CLUSTERS_SIZE = "/watson/watson.developer_cloud/retrieve_and_rank/v1/solr_clusters/%s/cluster_size";
 
   /**
    * Instantiates a new ranker client.
@@ -147,7 +147,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#createSolrCluster()
+   * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#createSolrCluster()
    */
   @Override
   public ServiceCall<SolrCluster> createSolrCluster() {
@@ -159,8 +159,8 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#createSolrCluster
-   * (com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions)
+   * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#createSolrCluster
+   * (com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions)
    */
   @Override
   public ServiceCall<SolrCluster> createSolrCluster(SolrClusterOptions config) {
@@ -191,7 +191,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#deleteSolrCluster
+   * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#deleteSolrCluster
    * (java.lang.String)
    */
   @Override
@@ -205,7 +205,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   /*
    * (non-Javadoc)
    * 
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
+   * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * deleteSolrClusterConfiguration(java.lang.String, java.lang.String)
    */
   @Override
@@ -243,7 +243,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#getSolrCluster(
+   * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#getSolrCluster(
    * java.lang.String)
    */
   @Override
@@ -258,7 +258,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   /*
    * (non-Javadoc)
    * 
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
+   * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * getSolrClusterConfiguration (java.lang.String, java.lang.String)
    */
   @Override
@@ -275,7 +275,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   /*
    * (non-Javadoc)
    * 
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
+   * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * getSolrClusterConfigurations (java.lang.String)
    */
   @Override
@@ -290,7 +290,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#getSolrClusters()
+   * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#getSolrClusters()
    */
   @Override
   public ServiceCall<SolrClusters> getSolrClusters() {
@@ -394,7 +394,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   /*
    * (non-Javadoc)
    * 
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
+   * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * uploadSolrClusterConfigurationDirectory(java.lang.String, java.lang.String, java.io.File)
    */
   @Override
@@ -422,7 +422,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   /*
    * (non-Javadoc)
    * 
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
+   * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * uploadSolrClusterConfigurationZip(java.lang.String, java.lang.String, java.io.File)
    */
   @Override
@@ -443,7 +443,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * (non-Javadoc)
    *
    * @see
-   * com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#resizeSolrCluster
+   * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#resizeSolrCluster
    * (java.lang.String)
    */
   @Override
@@ -457,7 +457,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
   /*
    * (non-Javadoc)
    *
-   * @see com.ibm.watson.developer_cloud.retrieve_and_rank.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#
+   * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#
    * getSolrClusterResizeStatus (java.lang.String)
    */
   @Override

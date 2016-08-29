@@ -29,15 +29,15 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onTranscription(com.
-   * ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults)
+   * com.ibm.watson.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onTranscription(com.
+   * ibm.watson.watson.developer_cloud.speech_to_text.v1.model.SpeechResults)
    */
   public void onTranscription(SpeechResults speechResults) {};
 
   /*
    * (non-Javadoc)
    * 
-   * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onConnected()
+   * @see com.ibm.watson.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onConnected()
    */
   public void onConnected() {};
 
@@ -45,7 +45,7 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onError(java.lang
+   * com.ibm.watson.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onError(java.lang
    * .Exception)
    */
   public void onError(Exception e) {
@@ -56,7 +56,7 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    * (non-Javadoc)
    * 
    * @see
-   * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onDisconnected()
+   * com.ibm.watson.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onDisconnected()
    */
   public void onDisconnected() {};
 

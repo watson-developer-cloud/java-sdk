@@ -16,6 +16,8 @@ package retrieve_and_rank.v1.model;
 import com.google.gson.annotations.SerializedName;
 import service_core.service.model.GenericModel;
 
+import static retrieve_and_rank.v1.model.ApiConstants.*;
+
 /**
  * Disk Usage Stats.
  */

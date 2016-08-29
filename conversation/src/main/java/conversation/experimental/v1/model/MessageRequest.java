@@ -13,8 +13,8 @@
  */
 package conversation.experimental.v1.model;
 
-import com.ibm.watson.developer_cloud.conversation.v1_experimental.ConversationService;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import conversation.experimental.v1.ConversationService;
+import service_core.service.model.GenericModel;
 
 import java.util.HashMap;
 import java.util.Map;
