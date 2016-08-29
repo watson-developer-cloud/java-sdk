@@ -30,6 +30,7 @@ public class RecognizeOptions {
    * Builder.
    */
   public static class Builder {
+	private String customizationID;
     private String contentType;
     private Boolean continuous;
     private Integer inactivityTimeout;
@@ -46,6 +47,7 @@ public class RecognizeOptions {
     private Boolean smartFormatting;
 
     private Builder(RecognizeOptions options) {
+      this.customizationID = options.customizationID;
       this.contentType = options.contentType;
       this.continuous = options.continuous;
       this.inactivityTimeout = options.inactivityTimeout;
@@ -288,6 +290,9 @@ public class RecognizeOptions {
   private Boolean interimResults;
   private String[] keywords;
 
+  @SerializedName("customization_id")
+  private String customizationID;
+  
   @SerializedName("keywords_threshold")
   private Double keywordsThreshold;
   private Integer maxAlternatives;
@@ -303,6 +308,7 @@ public class RecognizeOptions {
   private Boolean smartFormatting;
   
   private RecognizeOptions(Builder builder) {
+	this.customizationID = builder.customizationID;
     this.contentType = builder.contentType;
     this.continuous = builder.continuous;
     this.inactivityTimeout = builder.inactivityTimeout;
@@ -319,6 +325,15 @@ public class RecognizeOptions {
     this.smartFormatting = builder.smartFormatting;
   }
 
+  /**
+   * Gets the customization id.
+   * 
+   * @return the customization id
+   */
+  public String customizationID() {
+    return customizationID;
+  }
+  
   /**
    * Gets the content type.
    * 

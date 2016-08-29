@@ -54,6 +54,7 @@ import okhttp3.ws.WebSocket;
  */
 public class SpeechToText extends WatsonService {
 
+  private static final String CUSTOM_MODEL = "customization_id";
   private static final String CONTINUOUS = "continuous";
   private static final String INACTIVITY_TIMEOUT = "inactivity_timeout";
   private static final String KEYWORDS = "keywords";
@@ -108,6 +109,9 @@ public class SpeechToText extends WatsonService {
     if (options == null)
       return;
 
+    if (options.customizationID() != null)
+        requestBuilder.query(CUSTOM_MODEL, options.customizationID());
+    
     if (options.wordConfidence() != null)
       requestBuilder.query(WORD_CONFIDENCE, options.wordConfidence());
 
