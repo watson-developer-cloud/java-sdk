@@ -15,10 +15,8 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
 import java.util.Date;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.LongToDateTypeAdapter;
 
 /**
  * A customized voice model, that allows users to specify custom pronunciations
@@ -41,11 +39,9 @@ public class CustomVoiceModel extends GenericModel {
 
   private String owner;
 
-  @JsonAdapter(LongToDateTypeAdapter.class)
   private Date created;
 
   @SerializedName("last_modified")
-  @JsonAdapter(LongToDateTypeAdapter.class)
   private Date lastModified;
 
   /**
