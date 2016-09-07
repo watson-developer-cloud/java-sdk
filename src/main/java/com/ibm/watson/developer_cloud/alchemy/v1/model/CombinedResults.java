@@ -17,12 +17,15 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Dates.ExtractedDate;
 
 /**
  * Combined returned by the {@link AlchemyLanguage} service.
  * 
  */
 public class CombinedResults extends AlchemyLanguageGenericModel {
+
+  private String text;
 
   /** The author. */
   private String author;
@@ -32,6 +35,9 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /** The entities. */
   private List<Entity> entities;
+
+  /** The extracted dates. */
+  List<ExtractedDate> dates;
 
   /** The feeds. */
   private List<Feed> feeds;
@@ -113,6 +119,25 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
    */
   public List<Keyword> getImageKeywords() {
     return imageKeywords;
+  }
+
+  
+  /**
+   * Gets the dates.
+   *
+   * @return the dates
+   */
+  public List<ExtractedDate> getDates() {
+    return dates;
+  }
+
+  /**
+   * Sets the dates.
+   *
+   * @param dates the new dates
+   */
+  public void setDates(List<ExtractedDate> dates) {
+    this.dates = dates;
   }
 
   /**
@@ -275,6 +300,25 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
    */
   public void setTitle(String title) {
     this.title = title;
+  }
+
+
+  /**
+   * Returned if <code>showSourceText</code> is set to 1
+   *
+   * @return the text
+   */
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * Sets the text.
+   *
+   * @param text the new text
+   */
+  public void setText(String text) {
+    this.text = text;
   }
 
 }
