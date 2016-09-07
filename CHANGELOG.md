@@ -1,6 +1,18 @@
 Change Log
 ==========
 
+## Version 3.3.1
+
+_2016-09-07_
+
+ * New: AlchemyLanguage now returns the `sourceText` in the `combined` call.
+ * New: Add french broadband model to Speech to Text
+ * Fix: Add extracted dates to Alchemy Language combined call #436
+ * Fix: Speech to text example close the connection when finish the extracted dates to Alchemy Language combined call #436
+ * Fix: removed deprecated services: Concept Insights and Relationship Extraction.
+ * Fix: Add missing parameter in document conversation. #428
+ * Fix: Add `smart_formatting` to Speech to Text
+
 ## Version 3.3.0
 
 _2016-08-08_
