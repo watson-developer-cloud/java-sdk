@@ -122,7 +122,7 @@ public class DialogServiceIT extends WatsonServiceTest {
 
     ConversationDataOptions options = new ConversationDataOptions.Builder()
         .from(DateUtils.addDays(new Date(), -10))
-        .to(new Date())
+        .to(DateUtils.addDays( new Date(), 1))
         .dialogId(dialogId)
         .offset(0)
         .limit(10).build();
