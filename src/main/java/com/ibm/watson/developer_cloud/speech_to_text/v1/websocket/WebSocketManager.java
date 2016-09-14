@@ -265,10 +265,11 @@ public class WebSocketManager {
    */
   private WebSocketCall createConnection(RecognizeOptions options) {
     String speechModel = options.model() == null ? "" : "?model=" + options.model();
-    Request connectionRequest = new Request.Builder()
-      .url(url + speechModel)
-      .addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token)
-      .build();
+    Request.Builder connectionRequestBuilder = new Request.Builder();
+    connectionRequestBuilder.url(url + speechModel);
+    if (token != null)
+      connectionRequestBuilder.addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token);
+    Request connectionRequest = connectionRequestBuilder.build();
 
     return WebSocketCall.create(client, connectionRequest);
   }
