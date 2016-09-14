@@ -76,8 +76,9 @@ public class SpeechToText extends WatsonService {
   
   private static final Type TYPE_LIST_MODELS = new TypeToken<List<SpeechModel>>() {}.getType();
   private static final Type TYPE_SESSION_STATUS = new TypeToken<SpeechSessionStatus>() {}.getType();
-  
-  
+
+  private boolean skipAuthenticationWasSet = false;
+
 
   /**
    * Instantiates a new Speech to Text service.
@@ -347,20 +348,31 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(options.contentType(), "options.contentType cannot be null");
     Validator.notNull(callback, "callback cannot be null");
 
+    if (skipAuthenticationWasSet) {
+      String url = getEndPoint().replaceFirst("(https|http)", "ws");
+      WebSocketManager wsManager = new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), null);
+      wsManager.recognize(audio, options, callback);
+    }
+    else {
+      getToken().enqueue(new ServiceCallback<String>() {
+        @Override
+        public void onFailure(Exception e) {
+          callback.onError(e);
+        }
 
-    getToken().enqueue(new ServiceCallback<String>() {
-      @Override
-      public void onFailure(Exception e) {
-        callback.onError(e);
-      }
-
-      @Override
-      public void onResponse(String token) {
-        String url = getEndPoint().replaceFirst("(https|http)", "wss");
-        WebSocketManager wsManager = new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), token);
-        wsManager.recognize(audio, options, callback);
-      }
-    });
-
+        @Override
+        public void onResponse(String token) {
+          String url = getEndPoint().replaceFirst("(https|http)", "wss");
+          WebSocketManager wsManager = new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), token);
+          wsManager.recognize(audio, options, callback);
+        }
+      });
+    }
   }
+
+  public void setSkipAuthentication(boolean skipAuthentication) {
+    super.setSkipAuthentication(skipAuthentication);
+    skipAuthenticationWasSet = skipAuthentication;
+  }
+
 }
