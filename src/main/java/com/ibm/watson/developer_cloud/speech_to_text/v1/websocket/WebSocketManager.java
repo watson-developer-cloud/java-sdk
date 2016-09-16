@@ -272,9 +272,12 @@ public class WebSocketManager {
   private WebSocketCall createConnection(RecognizeOptions options) {
     String speechModel = options.model() == null ? "" : "?model=" + options.model();
     Builder builder = new Request.Builder()
-      .url(url + speechModel)
-      .addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token);
+      .url(url + speechModel);
      
+    if (token != null) {
+      builder.addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token);
+    }
+    
     if (defaultHeaders != null) {
       for (String key : defaultHeaders.names()) {
         builder.header(key, defaultHeaders.get(key));
