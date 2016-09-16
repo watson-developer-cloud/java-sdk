@@ -27,9 +27,12 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 
+import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Request.Builder;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
@@ -47,6 +50,7 @@ public class WebSocketManager {
   private final String url;
   private final OkHttpClient client;
   private String token;
+  private Headers defaultHeaders;
 
   private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
   private static final Logger LOG = Logger.getLogger(WebSocketManager.class.getName());
@@ -249,11 +253,13 @@ public class WebSocketManager {
    *
    * @param url the url
    * @param client the client
+   * @param defaultHeaders the default headers
    * @param token the token
    */
-  public WebSocketManager(String url, OkHttpClient client, String token) {
+  public WebSocketManager(String url, OkHttpClient client, Headers defaultHeaders, String token) {
     this.url = url;
     this.client = client;
+    this.defaultHeaders = defaultHeaders;
     this.token = token;
   }
 
@@ -265,12 +271,22 @@ public class WebSocketManager {
    */
   private WebSocketCall createConnection(RecognizeOptions options) {
     String speechModel = options.model() == null ? "" : "?model=" + options.model();
-    Request connectionRequest = new Request.Builder()
+    Builder builder = new Request.Builder()
       .url(url + speechModel)
-      .addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token)
-      .build();
+      .addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token);
+     
+    if (defaultHeaders != null) {
+      for (String key : defaultHeaders.names()) {
+        builder.header(key, defaultHeaders.get(key));
+      }
+      if (defaultHeaders.get(HttpHeaders.USER_AGENT) != null) {
+        String userAgent = RequestUtils.getUserAgent();
+        userAgent += " " + defaultHeaders.get(HttpHeaders.USER_AGENT);
+        builder.header(HttpHeaders.USER_AGENT, userAgent);
+      }
+    }
 
-    return WebSocketCall.create(client, connectionRequest);
+    return WebSocketCall.create(client, builder.build());
   }
 
   /**
