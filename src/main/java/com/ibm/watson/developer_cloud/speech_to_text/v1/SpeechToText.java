@@ -346,21 +346,25 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(options, "options cannot be null");
     Validator.notNull(options.contentType(), "options.contentType cannot be null");
     Validator.notNull(callback, "callback cannot be null");
-
-      
-    getToken().enqueue(new ServiceCallback<String>() {
-      @Override
-      public void onFailure(Exception e) {
-        callback.onError(e);
-      }
-
-      @Override
-      public void onResponse(String token) {
-        String url = getEndPoint().replaceFirst("(https|http)", "wss");
-        WebSocketManager wsManager = new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, token);
-        wsManager.recognize(audio, options, callback);
-      }
-    });
-
+    
+    final String url = getEndPoint().replaceFirst("(https|http)", "wss");
+    
+    if (skipAuthentication) {
+      WebSocketManager wsManager = new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, null);
+      wsManager.recognize(audio, options, callback);
+    } else {
+      getToken().enqueue(new ServiceCallback<String>() {
+        @Override
+        public void onFailure(Exception e) {
+          callback.onError(e);
+        }
+  
+        @Override
+        public void onResponse(String token) {          
+          WebSocketManager wsManager = new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, token);
+          wsManager.recognize(audio, options, callback);
+        }
+      });
+   }
   }
 }
