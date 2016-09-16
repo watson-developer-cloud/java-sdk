@@ -78,7 +78,7 @@ public abstract class WatsonService {
   private String endPoint;
   private final String name;
   protected Headers defaultHeaders = null;
-  private boolean skipAuthentication = false;
+  protected boolean skipAuthentication = false;
 
   /** The Constant MESSAGE_CODE. */
   protected static final String MESSAGE_CODE = "code";
