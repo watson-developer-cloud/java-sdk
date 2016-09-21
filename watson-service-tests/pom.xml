@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>parent</artifactId>
-        <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+        <groupId>com.ibm.watson.developer_cloud</groupId>
         <version>3.3.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -14,42 +14,42 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>alchemy_data_news</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>conversation</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>dialog</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>document_conversion</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>language-translation</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>natural-language-classifier</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>personality-insights</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>retrieve_and_rank</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
@@ -59,22 +59,22 @@
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>text-to-speech</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>tone-analyzer</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>tradeoff-analytics</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>
         <dependency>
-            <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+            <groupId>com.ibm.watson.developer_cloud</groupId>
             <artifactId>visual_recognition</artifactId>
             <version>3.3.1-SNAPSHOT</version>
         </dependency>

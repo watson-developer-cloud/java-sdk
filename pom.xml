@@ -8,7 +8,7 @@
     <version>7</version>
   </parent>
 
-  <groupId>com.ibm.watson.watson.developer_cloud</groupId>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>parent</artifactId>
   <version>3.3.1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -77,8 +77,6 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
-  <!-- Code, which I haven't fucked up. Mostly. -->
 
   <dependencyManagement>
   <dependencies>
