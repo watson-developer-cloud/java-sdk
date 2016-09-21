@@ -15,9 +15,9 @@ package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
 import java.io.File;
 
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranker;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranker.Status;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranking;
+import retrieve_and_rank.v1.model.Ranker;
+import retrieve_and_rank.v1.model.Ranker.Status;
+import retrieve_and_rank.v1.model.Ranking;
 
 /**
  * Example of how to create a {@link Ranking} with {@link RetrieveAndRank}.

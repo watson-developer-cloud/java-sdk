@@ -13,9 +13,9 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster.Status;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
+import retrieve_and_rank.v1.model.SolrCluster;
+import retrieve_and_rank.v1.model.SolrCluster.Status;
+import retrieve_and_rank.v1.model.SolrClusterOptions;
 
 /**
  * Example of how to create a {@link SolrCluster} with {@link RetrieveAndRank}.

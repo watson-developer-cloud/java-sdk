@@ -15,9 +15,9 @@ package com.ibm.watson.developer_cloud.conversation.v1;
 
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
-import com.ibm.watson.developer_cloud.http.ServiceCallback;
+import conversation.v1.model.MessageRequest;
+import conversation.v1.model.MessageResponse;
+import service_core.http.ServiceCallback;
 
 import jersey.repackaged.jsr166e.CompletableFuture;
 

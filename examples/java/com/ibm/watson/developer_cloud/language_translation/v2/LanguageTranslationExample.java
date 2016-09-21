@@ -13,8 +13,8 @@
  */
 package com.ibm.watson.developer_cloud.language_translation.v2;
 
-import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
+import language_translation.v2.model.Language;
+import language_translation.v2.model.TranslationResult;
 
 public class LanguageTranslationExample {
 

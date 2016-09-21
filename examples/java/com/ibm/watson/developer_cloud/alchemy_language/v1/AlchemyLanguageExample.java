@@ -17,10 +17,10 @@ package com.ibm.watson.developer_cloud.alchemy_language.v1;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentSentiment;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.Entities;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelations;
+import alchemy_language.v1.AlchemyLanguage;
+import alchemy_language.v1.model.DocumentSentiment;
+import alchemy_language.v1.model.Entities;
+import alchemy_language.v1.model.TypedRelations;
 
 public class AlchemyLanguageExample {
 

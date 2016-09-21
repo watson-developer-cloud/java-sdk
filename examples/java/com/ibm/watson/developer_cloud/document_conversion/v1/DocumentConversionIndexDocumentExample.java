@@ -21,10 +21,10 @@ import java.util.Map;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexDocumentOptions;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexConfiguration;
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.IndexFields;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import document_conversion.v1.model.IndexDocumentOptions;
+import document_conversion.v1.model.IndexConfiguration;
+import document_conversion.v1.model.IndexFields;
+import service_core.http.HttpMediaType;
 
 /**
  * Example class that shows the index document usage of the Document Conversion service

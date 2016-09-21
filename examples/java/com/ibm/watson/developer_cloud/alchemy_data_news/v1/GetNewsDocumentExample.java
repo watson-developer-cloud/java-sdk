@@ -19,8 +19,8 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.DocumentsResult;
+import alchemy_data_news.v1.AlchemyDataNews;
+import alchemy_data_news.v1.model.DocumentsResult;
 
 
 /**

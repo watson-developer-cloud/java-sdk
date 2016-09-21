@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
+import text_to_speech.v1.model.Voice;
 
 public class TextToSpeechExample {
 
