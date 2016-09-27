@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
@@ -16,6 +16,7 @@ package dialog.v1;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+<<<<<<< HEAD:dialog/src/main/java/dialog/v1/DialogService.java
 import dialog.v1.model.*;
 import service_core.http.HttpMediaType;
 import service_core.http.RequestBuilder;
@@ -26,6 +27,25 @@ import service_core.util.GsonSingleton;
 import service_core.util.ResponseConverterUtils;
 import service_core.util.ResponseUtils;
 import service_core.util.Validator;
+=======
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.ibm.watson.developer_cloud.dialog.v1.model.Conversation;
+import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationData;
+import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationDataOptions;
+import com.ibm.watson.developer_cloud.dialog.v1.model.Dialog;
+import com.ibm.watson.developer_cloud.dialog.v1.model.DialogContent;
+import com.ibm.watson.developer_cloud.dialog.v1.model.NameValue;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ResponseConverter;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
+import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
+import com.ibm.watson.developer_cloud.util.ResponseUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
+
+>>>>>>> 552a4ea12001dd91d55d380e46ba231c34cf474d:src/main/java/com/ibm/watson/developer_cloud/dialog/v1/DialogService.java
 import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -40,15 +60,14 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The IBM Watson Dialog service Dialogs enhances application by providing chitchat for topics
- * outside of a corpus and for giving context to a user's questions. You can create various virtual
- * agent (VA) applications. Users can have natural, free-flowing, and human-like conversations with
- * VAs that answer questions, show personality, decide, provide guidance, and even perform tasks.
+ * The Dialog service was deprecated on August 15, 2016, existing instances of the service will
+ * continue to function until August 9, 2017.
  * 
- * @version v1
- * @see <a href="http://www.ibm.com/watson/developercloud/dialog.html">
- *      Dialog</a>
+ * @deprecated As of August 15, 2016, replaced by {@link ConversationService}
+ * @see <a href="https://www.ibm.com/watson/developercloud/doc/conversation/migration.shtml">
+ *      Migration to Conversation</a>
  */
+@Deprecated
 public class DialogService extends WatsonService {
 
   private static final String CLIENT_ID = "client_id";
@@ -89,6 +108,7 @@ public class DialogService extends WatsonService {
 
   /**
    * Instantiates a new dialog service by username and password.
+   * 
    * @param username the username
    * @param password the password
    */

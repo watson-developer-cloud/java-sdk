@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -55,7 +55,7 @@ import okhttp3.Response;
  * on top of Apache Solr, developers load their data into the service, train a machine learning
  * model based on known relevant results, then leverage this model to provide improved results to
  * their end users based on their question or query.
- * 
+ *
  * @version watson.watson.developer_cloud.retrieve_and_rank.v1
  * @see <a href=
  *      "http://www.ibm.com/watson/developercloud/retrieve-rank.html">
@@ -99,7 +99,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * Creates the Solr configuration path.
-   * 
+   *
    * @param solrClusterId the solr cluster id
    * @param configName the configuration name
    * @return the string
@@ -114,7 +114,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * Sends data to create and train a ranker, and returns information about the new ranker. The
    * status has the value of `Training` when the operation is successful, and might remain at this
    * status for a while.
-   * 
+   *
    * @param name Name of the ranker
    * @param training The file with the training data i.e., the set of (qid, feature values, and
    *        rank) tuples
@@ -145,7 +145,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see
    * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#createSolrCluster()
    */
@@ -157,7 +157,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see
    * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#createSolrCluster
    * (com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions)
@@ -189,7 +189,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see
    * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#deleteSolrCluster
    * (java.lang.String)
@@ -204,7 +204,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * deleteSolrClusterConfiguration(java.lang.String, java.lang.String)
    */
@@ -217,7 +217,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * retrieves the list of rankers for the user.
-   * 
+   *
    * @return the rankers
    */
   public ServiceCall<Rankers> getRankers() {
@@ -227,7 +227,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * Retrieves the status of a ranker.
-   * 
+   *
    * @param rankerID the ranker ID
    * @return Ranker object with the status field set
    * @see Ranker
@@ -241,7 +241,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see
    * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#getSolrCluster(
    * java.lang.String)
@@ -257,7 +257,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * getSolrClusterConfiguration (java.lang.String, java.lang.String)
    */
@@ -274,7 +274,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * getSolrClusterConfigurations (java.lang.String)
    */
@@ -288,7 +288,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see
    * com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.ClusterLifecycleManager#getSolrClusters()
    */
@@ -305,8 +305,7 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * @return stats about the Solr cluster
    */
   public ServiceCall<SolrClusterStats> getSolrClusterStats(String solrClusterId) {
-    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(),
-        "solrClusterId cannot be null or empty");
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
 
     final Request request =
         RequestBuilder.get(String.format(PATH_GET_SOLR_CLUSTER, solrClusterId) + "/stats").build();
@@ -316,17 +315,18 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /**
    * This URL can be used with the SolrJ library to access Solr functionality.
-   * 
+   *
    * @param solrClusterId the ID of the Solr cluster to connect to
    * @return URL to access Solr
    */
   public String getSolrUrl(String solrClusterId) {
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
     return getEndPoint() + String.format(PATH_SOLR, solrClusterId);
   }
 
   /**
    * Gets and returns the ranked answers.
-   * 
+   *
    * @param rankerID The ranker ID
    * @param answers The CSV file that contains the search results that you want to rank.
    * @param topAnswers The number of top answers needed, default is 10
@@ -393,13 +393,15 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * uploadSolrClusterConfigurationDirectory(java.lang.String, java.lang.String, java.io.File)
    */
   @Override
   public ServiceCall<Void> uploadSolrClusterConfigurationDirectory(String solrClusterId, String configName,
       File directory) {
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
+    Validator.isTrue(configName != null && !configName.isEmpty(), "configName cannot be null or empty");
     Validator.notNull(directory, "directory cannot be null");
     Validator.isTrue(directory.exists(), "directory: " + directory.getAbsolutePath() + " not found");
     Validator.isTrue(directory.isDirectory(), "directory is not a directory");
@@ -421,13 +423,19 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ibm.watson.watson.developer_cloud.retrieve_and_rank.watson.watson.developer_cloud.retrieve_and_rank.v1.SolrConfigManager#
    * uploadSolrClusterConfigurationZip(java.lang.String, java.lang.String, java.io.File)
    */
   @Override
   public ServiceCall<Void> uploadSolrClusterConfigurationZip(String solrClusterId, String configName,
       File zippedConfig) {
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
+    Validator.notNull(configName, "configName cannot be null");
+    Validator.notNull(zippedConfig, "zippedConfig cannot be null");
+    Validator.isTrue(zippedConfig.exists(), "zippedConfig: " + zippedConfig.getAbsolutePath() + " not found");
+    Validator.isTrue(zippedConfig.isFile(), "directory is not a file");
+
     final RequestBuilder requestBuilder = createUploadSolrConfigurationRequest(solrClusterId, configName, zippedConfig);
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
   }
@@ -447,9 +455,12 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * (java.lang.String)
    */
   @Override
-  public ServiceCall<SolrClusterSizeResponse> resizeSolrCluster(String SolrClusterId,
+  public ServiceCall<SolrClusterSizeResponse> resizeSolrCluster(String solrClusterId,
       int requestedSize) {
-    final Request request = buildResizeRequest(SolrClusterId, requestedSize);
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
+    Validator.isTrue(requestedSize > 0 && requestedSize < 8, "clusterSize cannot be lower than 0 or greater than 7");
+
+    final Request request = buildResizeRequest(solrClusterId, requestedSize);
     return createServiceCall(request,
         ResponseConverterUtils.getObject(SolrClusterSizeResponse.class));
   }
@@ -461,8 +472,10 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
    * getSolrClusterResizeStatus (java.lang.String)
    */
   @Override
-  public ServiceCall<SolrClusterSizeResponse> getSolrClusterResizeStatus(String SolrClusterId) {
-    final Request request = buildGetSizeRequest(SolrClusterId);
+  public ServiceCall<SolrClusterSizeResponse> getSolrClusterResizeStatus(String solrClusterId) {
+    Validator.isTrue(solrClusterId != null && !solrClusterId.isEmpty(), "solrClusterId cannot be null or empty");
+
+    final Request request = buildGetSizeRequest(solrClusterId);
     return createServiceCall(request,
         ResponseConverterUtils.getObject(SolrClusterSizeResponse.class));
   }

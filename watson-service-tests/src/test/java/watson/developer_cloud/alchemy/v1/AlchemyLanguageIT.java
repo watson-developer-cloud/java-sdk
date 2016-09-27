@@ -71,11 +71,13 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
    * Test comboined.
    */
   @Test
-  public void testComboined() {
+  public void testCombined() {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.techcrunch.com/");
+    params.put("showSourceText", "1");
     final CombinedResults combined = service.getCombinedResults(params).execute();
     Assert.assertNotNull(combined);
+    Assert.assertNotNull(combined.getText());
   }
 
   /**

@@ -13,6 +13,7 @@
  */
 package conversation.v1;
 
+<<<<<<< HEAD:conversation/src/main/java/conversation/v1/ConversationService.java
 import conversation.v1.model.MessageRequest;
 import conversation.v1.model.MessageResponse;
 import service_core.http.RequestBuilder;
@@ -21,6 +22,17 @@ import service_core.service.WatsonService;
 import service_core.util.GsonSingleton;
 import service_core.util.ResponseConverterUtils;
 import service_core.util.Validator;
+=======
+import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.http.RequestBuilder;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
+import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
+import com.ibm.watson.developer_cloud.util.Validator;
+>>>>>>> 552a4ea12001dd91d55d380e46ba231c34cf474d:src/main/java/com/ibm/watson/developer_cloud/conversation/v1/ConversationService.java
 
 /**
  * Thin wrapper around the Conversation Service REST API.
@@ -76,13 +88,15 @@ public final class ConversationService extends WatsonService {
    * @return The response for the given message.
    */
   public ServiceCall<MessageResponse> message(String workspaceId, MessageRequest request) {
-    Validator.isTrue(workspaceId != null && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
-    Validator.notNull(request, "'request' cannot be null");
-    Validator.isTrue(request.input() != null && !request.input().isEmpty(), "'request.input' cannot be null or empty");
-
+    Validator.isTrue(workspaceId != null && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");    
+    
     RequestBuilder builder = RequestBuilder.post(String.format(PATH_MESSAGE, workspaceId));
     builder.query(VERSION_PARAM, this.versionDate);
-    builder.bodyJson(GsonSingleton.getGson().toJsonTree(request).getAsJsonObject());
+    if (request != null) {
+      builder.bodyJson(GsonSingleton.getGson().toJsonTree(request).getAsJsonObject());
+    } else {
+      builder.bodyJson(new JsonObject());
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
   }
 

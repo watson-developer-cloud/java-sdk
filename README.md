@@ -4,7 +4,6 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.watson.developer_cloud/java-sdk)
 [![codecov.io](https://codecov.io/github/watson-developer-cloud/java-sdk/coverage.svg?branch=master)](https://codecov.io/github/watson-developer-cloud/java-sdk?branch=master)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1fdb12900d5845459033784aba3a7300)](https://www.codacy.com/app/gattana/java-sdk?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=watson-developer-cloud/java-sdk&amp;utm_campaign=Badge_Grade)
 
 The Java SDK uses the [Watson Developer Cloud][wdc] services, a collection of REST
 APIs and SDKs that use cognitive computing to solve complex problems.
@@ -140,13 +139,13 @@ System.out.println(dialogs);
 <dependency>
 	<groupId>com.ibm.watson.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>3.3.0</version>
+	<version>3.3.1</version>
 </dependency>
 ```
 ##### Gradle
 
 ```gradle
-'com.ibm.watson.watson.developer_cloud:java-sdk:3.3.0'
+'com.ibm.watson.developer_cloud:java-sdk:3.3.1'
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
@@ -271,15 +270,7 @@ System.out.println(response);
 The [Concept Insights][concept_insights] has been deprecated, AlchemyLanguage's concept function can be used as a replacement for most Concept Insights use cases; therefore, we encourage existing Concept Insights service users to migrate to AlchemyLanguage.
 
 ### Dialog
-Returns the dialog list using the [Dialog][dialog] service.
-
-```java
-DialogService service = new DialogService();
-service.setUsernameAndPassword("<username>", "<password>");
-
-List<Dialog> dialogs = service.getDialogs().execute();
-System.out.println(dialogs);
-```
+The [Dialog service][dialog] was deprecated on August 15, 2016, existing instances of the service will continue to function until August 9, 2017. Users of the Dialog service should migrate their applications to use the Conversation service. See the [migration documentation][dialog_migration] to learn how to migrate your dialogs to the [Conversation service][conversation].
 
 ### Document Conversion
 The [Document Conversion][document_conversion] service allows to convert pdf, word, and html documents into formats useful to other Watson Cognitive services. Target formats include normalized html, plain text, and sets of potential answers for Watson question answering. You can convert documents synchronously one at a time, or asynchronously in batches
@@ -427,6 +418,52 @@ RecognizeOptions options = new RecognizeOptions.Builder()
   // wait 20 seconds for the asynchronous response
   Thread.sleep(20000);
 ```
+#### Microphone example
+Use your microphone to recognize audio for 30 seconds.
+
+```java
+SpeechToText service = new SpeechToText();
+service.setUsernameAndPassword("<username>", "<password>");
+
+// Signed PCM AudioFormat with 16kHz, 16 bit sample size, mono
+int sampleRate = 16000;
+AudioFormat format = new AudioFormat(sampleRate, 16, 1, true, false);
+DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
+
+if (!AudioSystem.isLineSupported(info)) {
+  System.out.println("Line not supported");
+  System.exit(0);
+}
+
+TargetDataLine line = (TargetDataLine) AudioSystem.getLine(info);
+line.open(format);
+line.start();
+
+AudioInputStream audio = new AudioInputStream(line);
+
+RecognizeOptions options = new RecognizeOptions.Builder()
+  .continuous(true)
+  .interimResults(true)
+//.inactivityTimeout(5) // use this to stop listening when the speaker pauses, i.e. for 5s
+  .contentType(HttpMediaType.AUDIO_RAW + "; rate=" + sampleRate)
+  .build();
+
+service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
+  @Override
+  public void onTranscription(SpeechResults speechResults) {
+    System.out.println(speechResults);
+  }
+});
+
+System.out.println("Listening to your voice for the next 30s...");
+Thread.sleep(30 * 1000);
+
+// closing the WebSockets underlying InputStream will close the WebSocket itself.
+line.stop();
+line.close();
+
+System.out.println("Fin.");
+```
 
 ### Text to Speech
 Use the [Text to Speech][text_to_speech] service to get the available voices to synthesize.
@@ -554,7 +591,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.3.0.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.3.1.jar)
   $ gradle test # run tests
   ```
 
@@ -606,6 +643,7 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [concept_insights]: https://www.ibm.com/watson/developercloud/doc/concept-insights/
 [conversation]: https://www.ibm.com/watson/developercloud/doc/conversation/
 [retrieve_and_rank]: http://www.ibm.com/watson/developercloud/doc/retrieve-rank/
+[dialog_migration]: https://www.ibm.com/watson/developercloud/doc/conversation/migration.shtml
 
 [alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage
 [sentiment_analysis]: http://www.alchemyapi.com/products/alchemylanguage/sentiment-analysis
@@ -620,4 +658,4 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/watson.developer_cloud/java-sdk/
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.3.0/java-sdk-3.3.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.3.1/java-sdk-3.3.1-jar-with-dependencies.jar

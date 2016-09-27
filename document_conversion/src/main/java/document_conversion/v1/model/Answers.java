@@ -93,6 +93,47 @@ public class Answers extends GenericModel {
     /** The type of the answer unit. */
     private String type;
 
+    private String direction;
+    
+    @SerializedName("parent_id")
+    private String parentId;
+    
+    /**
+     * Gets the direction.
+     *
+     * @return the direction
+     */
+    public String getDirection() {
+      return direction;
+    }
+
+    /**
+     * Sets the direction.
+     *
+     * @param direction the new direction
+     */
+    public void setDirection(String direction) {
+      this.direction = direction;
+    }
+
+    /**
+     * Gets the parent id.
+     *
+     * @return the parent id
+     */
+    public String getParentId() {
+      return parentId;
+    }
+
+    /**
+     * Sets the parent id.
+     *
+     * @param parentId the new parent id
+     */
+    public void setParentId(String parentId) {
+      this.parentId = parentId;
+    }
+
     /**
      * Gets the list of content for the answer unit.
      * 

@@ -13,22 +13,26 @@
  */
 package watson.developer_cloud.retrieve_and_rank.v1;
 
-import retrieve_and_rank.v1.RetrieveAndRank;
-import watson.developer_cloud.WatsonServiceUnitTest;
-import service_core.http.HttpHeaders;
-import service_core.http.HttpMediaType;
-import retrieve_and_rank.v1.model.*;
-import okhttp3.mockwebserver.RecordedRequest;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.Test;
+
+import com.google.common.net.HttpHeaders;
+
+import okhttp3.mockwebserver.RecordedRequest;
+import okhttp3.mockwebserver.RecordedRequest;
+import watson.developer_cloud.WatsonServiceUnitTest;
 
 /**
  * Retrieve and Rank unit test.
@@ -250,8 +254,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals("GET", request.getMethod());
     assertEquals("", request.getBody().readUtf8());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -271,8 +275,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals("GET", request.getMethod());
     assertEquals("", request.getBody().readUtf8());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -292,12 +296,12 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals("GET", request.getMethod());
     assertEquals("", request.getBody().readUtf8());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
-   * Test solr URL retrieve.  Does not check for null or empty.  BUG 422?
+   * Test solr URL retrieve.
    * 
    * @throws FileNotFoundException
    * @throws InterruptedException
@@ -305,10 +309,6 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
   @Test
   public void testSolrUrlGet() throws FileNotFoundException, InterruptedException {
     String serviceResponse = service.getSolrUrl(ANY_CLUSTER_ID);
-    assertTrue(serviceResponse.endsWith("/solr"));
-    serviceResponse = service.getSolrUrl("");
-    assertTrue(serviceResponse.endsWith("/solr"));
-    serviceResponse = service.getSolrUrl(null);
     assertTrue(serviceResponse.endsWith("/solr"));
   }
 
@@ -330,7 +330,7 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals(SOLRCONFIGNAME_URL, request.getPath());
     assertEquals("POST", request.getMethod());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -351,7 +351,7 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals(SOLRCONFIGNAME_URL, request.getPath());
     assertEquals("POST", request.getMethod());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -373,8 +373,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals("PUT", request.getMethod());
     assertEquals("{\"cluster_size\":2}", request.getBody().readUtf8());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -396,8 +396,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals("GET", request.getMethod());
     assertEquals("", request.getBody().readUtf8());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -417,8 +417,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals("GET", request.getMethod());
     assertEquals("", request.getBody().readUtf8());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -438,8 +438,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals("GET", request.getMethod());
     assertEquals("", request.getBody().readUtf8());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -458,7 +458,7 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals("DELETE", request.getMethod());
     assertEquals("", request.getBody().readUtf8());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -479,8 +479,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals(RANKERS_URL, request.getPath());
     assertEquals("POST", request.getMethod());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -501,8 +501,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals(RANKERS_URL, request.getPath());
     assertEquals("POST", request.getMethod());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -524,8 +524,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals(RANK_URL, request.getPath());
     assertEquals("POST", request.getMethod());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   /**
@@ -548,8 +548,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     assertEquals(RANK_URL, request.getPath());
     assertEquals("POST", request.getMethod());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals(mockResponse, serviceResponse);
-    assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
+    assertArrayEquals(mockResponse, serviceResponse);
+    assertArrayEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
   }
 
   // Negative test cases start here
@@ -743,9 +743,8 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
    * @throws FileNotFoundException
    * @throws InterruptedException
    */
-  @Ignore("Bug number 420")
   @Test(expected = IllegalArgumentException.class)
-  public void testUploadClusterConfigNg2() throws FileNotFoundException, InterruptedException {
+  public void testUploadClusterConfigWithConfigNameNull() throws FileNotFoundException, InterruptedException {
     final File configDir = new File(RESOURCE_PATH + "config_dir");
     service.uploadSolrClusterConfigurationDirectory(ANY_CLUSTER_ID, null, configDir).execute();
   }
@@ -757,7 +756,7 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
    * @throws InterruptedException
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testUploadClusterConfigNg3() throws FileNotFoundException, InterruptedException {
+  public void testUploadClusterConfigWithClusterIdNull() throws FileNotFoundException, InterruptedException {
     final File configDir = new File(RESOURCE_PATH + "config_dir");
     service.uploadSolrClusterConfigurationDirectory(null, ANY_CONFIG_NAME, configDir).execute();
   }
@@ -768,7 +767,6 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
    * @throws FileNotFoundException
    * @throws InterruptedException
    */
-  @Ignore("Bug number 419")
   @Test(expected = IllegalArgumentException.class)
   public void testUploadClusterConfigZipNg1() throws FileNotFoundException, InterruptedException {
     service.uploadSolrClusterConfigurationZip(ANY_CLUSTER_ID, ANY_CONFIG_NAME, null).execute();
@@ -804,7 +802,6 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
    * @throws FileNotFoundException
    * @throws InterruptedException
    */
-  @Ignore("Bug number 418")
   @Test(expected = IllegalArgumentException.class)
   public void testClusterResizeNg1() throws FileNotFoundException, InterruptedException {
     service.resizeSolrCluster(ANY_CLUSTER_ID, -10).execute();

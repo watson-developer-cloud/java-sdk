@@ -21,7 +21,20 @@ import speech_to_text.v1.SpeechToText;
 import speech_to_text.v1.model.RecognizeOptions;
 import speech_to_text.v1.model.SpeechResults;
 import service_core.util.GsonSingleton;
-import okhttp3.*;
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
+
+import okhttp3.Headers;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Request.Builder;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
 import okhttp3.ws.WebSocket;
 import okhttp3.ws.WebSocketCall;
 import okhttp3.ws.WebSocketListener;
@@ -42,6 +55,7 @@ public class WebSocketManager {
   private final String url;
   private final OkHttpClient client;
   private String token;
+  private Headers defaultHeaders;
 
   private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
   private static final Logger LOG = Logger.getLogger(WebSocketManager.class.getName());
@@ -90,7 +104,7 @@ public class WebSocketManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see okhttp3.ws.WebSocketListener#onClose(int, java.lang.String)
      */
     @Override
@@ -101,7 +115,7 @@ public class WebSocketManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see okhttp3.ws.WebSocketListener#onFailure(java.io.IOException, okhttp3.Response)
      */
     @Override
@@ -112,7 +126,7 @@ public class WebSocketManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see okhttp3.ws.WebSocketListener#onMessage(okhttp3.ResponseBody)
      */
     @Override
@@ -163,7 +177,7 @@ public class WebSocketManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see okhttp3.ws.WebSocketListener#onOpen(okhttp3.ws.WebSocket, okhttp3.Response)
      */
     @Override
@@ -179,7 +193,7 @@ public class WebSocketManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see okhttp3.ws.WebSocketListener#onPong(okio.Buffer)
      */
     @Override
@@ -244,11 +258,13 @@ public class WebSocketManager {
    *
    * @param url the url
    * @param client the client
+   * @param defaultHeaders the default headers
    * @param token the token
    */
-  public WebSocketManager(String url, OkHttpClient client, String token) {
+  public WebSocketManager(String url, OkHttpClient client, Headers defaultHeaders, String token) {
     this.url = url;
     this.client = client;
+    this.defaultHeaders = defaultHeaders;
     this.token = token;
   }
 
@@ -260,12 +276,25 @@ public class WebSocketManager {
    */
   private WebSocketCall createConnection(RecognizeOptions options) {
     String speechModel = options.model() == null ? "" : "?model=" + options.model();
-    Request connectionRequest = new Request.Builder()
-      .url(url + speechModel)
-      .addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token)
-      .build();
+    Builder builder = new Request.Builder()
+      .url(url + speechModel);
 
-    return WebSocketCall.create(client, connectionRequest);
+    if (token != null) {
+      builder.addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token);
+    }
+
+    if (defaultHeaders != null) {
+      for (String key : defaultHeaders.names()) {
+        builder.header(key, defaultHeaders.get(key));
+      }
+      if (defaultHeaders.get(HttpHeaders.USER_AGENT) != null) {
+        String userAgent = RequestUtils.getUserAgent();
+        userAgent += " " + defaultHeaders.get(HttpHeaders.USER_AGENT);
+        builder.header(HttpHeaders.USER_AGENT, userAgent);
+      }
+    }
+
+    return WebSocketCall.create(client, builder.build());
   }
 
   /**

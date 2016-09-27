@@ -15,6 +15,7 @@ package retrieve_and_rank.v1.model;
 
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * A value type for the JSON body provided when creating a Solr resize request.
@@ -30,6 +31,7 @@ public class SolrClusterResizeRequest {
    * @param clusterSize the desired cluster size
    */
   public SolrClusterResizeRequest(final int clusterSize) {
+    Validator.isTrue(clusterSize > 0 && clusterSize < 8, "clusterSize cannot be lower than 0 or greater than 7");
     this.clusterSize = clusterSize;
   }
 

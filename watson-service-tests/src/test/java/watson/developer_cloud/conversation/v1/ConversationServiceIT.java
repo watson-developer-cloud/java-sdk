@@ -59,7 +59,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
   /**
    * Test start a conversation without message.
    */
-  @Test(expected=IllegalArgumentException.class)
+  @Test()
   public void testStartAConversationWithoutMessage() {
     service.message(workspaceId, null).execute();
   }

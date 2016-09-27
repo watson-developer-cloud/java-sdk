@@ -77,8 +77,8 @@ public abstract class WatsonService {
   private final OkHttpClient client;
   private String endPoint;
   private final String name;
-  private Headers defaultHeaders = null;
-  private boolean skipAuthentication = false;
+  protected Headers defaultHeaders = null;
+  protected boolean skipAuthentication = false;
 
   /** The Constant MESSAGE_CODE. */
   protected static final String MESSAGE_CODE = "code";

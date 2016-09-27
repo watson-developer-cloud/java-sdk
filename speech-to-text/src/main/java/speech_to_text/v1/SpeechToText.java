@@ -67,9 +67,11 @@ public class SpeechToText extends WatsonService {
   private static final String WORD_ALTERNATIVES_THRESHOLD = "word_alternatives_threshold";
   private static final String WORD_CONFIDENCE = "word_confidence";
   private static final String PROFANITY_FILTER = "profanity_filter";
+  private static final String SMART_FORMATTING = "smart_formatting";
   
   private static final Type TYPE_LIST_MODELS = new TypeToken<List<SpeechModel>>() {}.getType();
   private static final Type TYPE_SESSION_STATUS = new TypeToken<SpeechSessionStatus>() {}.getType();
+  
   
 
   /**
@@ -106,6 +108,9 @@ public class SpeechToText extends WatsonService {
 
     if (options.continuous() != null)
       requestBuilder.query(CONTINUOUS, options.continuous());
+
+    if (options.smartFormatting() != null)
+      requestBuilder.query(SMART_FORMATTING, options.smartFormatting());
 
     if (options.profanityFilter() != null)
       requestBuilder.query(PROFANITY_FILTER, options.profanityFilter());
@@ -336,21 +341,25 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(options, "options cannot be null");
     Validator.notNull(options.contentType(), "options.contentType cannot be null");
     Validator.notNull(callback, "callback cannot be null");
-
-
-    getToken().enqueue(new ServiceCallback<String>() {
-      @Override
-      public void onFailure(Exception e) {
-        callback.onError(e);
-      }
-
-      @Override
-      public void onResponse(String token) {
-        String url = getEndPoint().replaceFirst("(https|http)", "wss");
-        WebSocketManager wsManager = new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), token);
-        wsManager.recognize(audio, options, callback);
-      }
-    });
-
+    
+    final String url = getEndPoint().replaceFirst("(https|http)", "wss");
+    
+    if (skipAuthentication) {
+      WebSocketManager wsManager = new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, null);
+      wsManager.recognize(audio, options, callback);
+    } else {
+      getToken().enqueue(new ServiceCallback<String>() {
+        @Override
+        public void onFailure(Exception e) {
+          callback.onError(e);
+        }
+  
+        @Override
+        public void onResponse(String token) {          
+          WebSocketManager wsManager = new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, token);
+          wsManager.recognize(audio, options, callback);
+        }
+      });
+   }
   }
 }

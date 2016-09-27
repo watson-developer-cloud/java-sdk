@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -13,17 +13,15 @@
  */
 package text_to_speech.v1.model;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import service_core.service.model.GenericModel;
 import service_core.util.LongToDateTypeAdapter;
-
 import java.util.Date;
 
 /**
  * A customized voice model, that allows users to specify custom pronunciations
  * for Waton's Text to Speech API.
- * 
+ *
  * @see <a href=
  *      "http://www.ibm.com/watson/developercloud/doc/text-to-speech/custom-intro.shtml">
  *      Customization</a>
@@ -41,11 +39,9 @@ public class CustomVoiceModel extends GenericModel {
 
   private String owner;
 
-  @JsonAdapter(LongToDateTypeAdapter.class)
   private Date created;
 
   @SerializedName("last_modified")
-  @JsonAdapter(LongToDateTypeAdapter.class)
   private Date lastModified;
 
   /**
@@ -104,7 +100,7 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Returns the language code (e.g. en-us)
-   * 
+   *
    * @return the language code
    */
   public String getLanguage() {
@@ -113,7 +109,7 @@ public class CustomVoiceModel extends GenericModel {
 
   /**
    * Sets the language code (e.g. en-us)
-   * 
+   *
    * @param language
    *          the language code
    */

@@ -10,9 +10,8 @@
 
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>parent</artifactId>
-  <version>3.3.1-SNAPSHOT</version>
+  <version>3.3.2-SNAPSHOT</version>
   <packaging>pom</packaging>
-
   <name>Watson Developer Cloud Java SDK (parent)</name>
   <description>Client library to use the IBM Watson Services and AlchemyAPI</description>
   <url>https://github.com/watson-developer-cloud/java-sdk</url>
@@ -35,7 +34,7 @@
     <module>tradeoff-analytics</module>
     <module>dialog</module>
     <module>conversation</module>
-    <module>watson-service-tests</module>
+    
   </modules>
 
   <properties>
@@ -201,7 +200,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-release-plugin</artifactId>
-        <version>2.5</version>
+        <version>2.5.3</version><!--$NO-MVN-MAN-VER$-->
         <configuration>
           <autoVersionSubmodules>true</autoVersionSubmodules>
           <useReleaseProfile>false</useReleaseProfile>
@@ -390,4 +389,8 @@
     </profile>
   </profiles>
 
+  <organization>
+  	<name>IBM Watson</name>
+  	<url>http://www.ibm.com/watson/</url>
+  </organization>
 </project>

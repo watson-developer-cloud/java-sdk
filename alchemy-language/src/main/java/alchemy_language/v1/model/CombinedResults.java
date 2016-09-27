@@ -1,11 +1,11 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software distributed under the License
  * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
  * or implied. See the License for the specific language governing permissions and limitations under
@@ -17,12 +17,16 @@ import com.google.gson.annotations.SerializedName;
 import alchemy_language.v1.AlchemyLanguage;
 
 import java.util.List;
+import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
+import com.ibm.watson.developer_cloud.alchemy.v1.model.Dates.ExtractedDate;
 
 /**
  * Combined returned by the {@link AlchemyLanguage} service.
- * 
+ *
  */
 public class CombinedResults extends AlchemyLanguageGenericModel {
+
+  private String text;
 
   /** The author. */
   private String author;
@@ -32,6 +36,9 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /** The entities. */
   private List<Entity> entities;
+
+  /** The extracted dates. */
+  List<ExtractedDate> dates;
 
   /** The feeds. */
   private List<Feed> feeds;
@@ -63,7 +70,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the author.
-   * 
+   *
    * @return the author
    */
   public String getAuthor() {
@@ -72,7 +79,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the concepts.
-   * 
+   *
    * @return the concepts
    */
   public List<Concept> getConcepts() {
@@ -81,7 +88,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the entities.
-   * 
+   *
    * @return the entities
    */
   public List<Entity> getEntities() {
@@ -90,7 +97,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the feeds.
-   * 
+   *
    * @return the feeds
    */
   public List<Feed> getFeeds() {
@@ -99,7 +106,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the image.
-   * 
+   *
    * @return the image
    */
   public String getImage() {
@@ -108,16 +115,35 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the image keywords.
-   * 
+   *
    * @return the imageKeywords
    */
   public List<Keyword> getImageKeywords() {
     return imageKeywords;
   }
 
+
+  /**
+   * Gets the dates.
+   *
+   * @return the dates
+   */
+  public List<ExtractedDate> getDates() {
+    return dates;
+  }
+
+  /**
+   * Sets the dates.
+   *
+   * @param dates the new dates
+   */
+  public void setDates(List<ExtractedDate> dates) {
+    this.dates = dates;
+  }
+
   /**
    * Gets the keywords.
-   * 
+   *
    * @return the keywords
    */
   public List<Keyword> getKeywords() {
@@ -126,7 +152,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the publication date.
-   * 
+   *
    * @return the publicationDate
    */
   public PublicationDate getPublicationDate() {
@@ -135,7 +161,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the relations.
-   * 
+   *
    * @return the relations
    */
   public List<SAORelation> getRelations() {
@@ -144,7 +170,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the sentiment.
-   * 
+   *
    * @return the sentiment
    */
   public Sentiment getSentiment() {
@@ -153,7 +179,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the taxonomy.
-   * 
+   *
    * @return the taxonomy
    */
   public List<Taxonomy> getTaxonomy() {
@@ -162,7 +188,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Gets the title.
-   * 
+   *
    * @return the title
    */
   public String getTitle() {
@@ -171,7 +197,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the author.
-   * 
+   *
    * @param author the author to set
    */
   public void setAuthor(String author) {
@@ -180,7 +206,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the concepts.
-   * 
+   *
    * @param concepts the concepts to set
    */
   public void setConcepts(List<Concept> concepts) {
@@ -189,7 +215,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the entities.
-   * 
+   *
    * @param entities the entities to set
    */
   public void setEntities(List<Entity> entities) {
@@ -198,7 +224,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the feeds.
-   * 
+   *
    * @param feeds the feeds to set
    */
   public void setFeeds(List<Feed> feeds) {
@@ -207,7 +233,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the image.
-   * 
+   *
    * @param image the image to set
    */
   public void setImage(String image) {
@@ -216,7 +242,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the image keywords.
-   * 
+   *
    * @param imageKeywords the imageKeywords to set
    */
   public void setImageKeywords(List<Keyword> imageKeywords) {
@@ -225,7 +251,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the keywords.
-   * 
+   *
    * @param keywords the keywords to set
    */
   public void setKeywords(List<Keyword> keywords) {
@@ -234,7 +260,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the publication date.
-   * 
+   *
    * @param publicationDate the publicationDate to set
    */
   public void setPublicationDate(PublicationDate publicationDate) {
@@ -243,7 +269,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the relations.
-   * 
+   *
    * @param relations the relations to set
    */
   public void setRelations(List<SAORelation> relations) {
@@ -252,7 +278,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the sentiment.
-   * 
+   *
    * @param sentiment the sentiment to set
    */
   public void setSentiment(Sentiment sentiment) {
@@ -261,7 +287,7 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the taxonomy.
-   * 
+   *
    * @param taxonomy the taxonomy to set
    */
   public void setTaxonomy(List<Taxonomy> taxonomy) {
@@ -270,11 +296,30 @@ public class CombinedResults extends AlchemyLanguageGenericModel {
 
   /**
    * Sets the title.
-   * 
+   *
    * @param title the title to set
    */
   public void setTitle(String title) {
     this.title = title;
+  }
+
+
+  /**
+   * Returned if <code>showSourceText</code> is set to 1
+   *
+   * @return the text
+   */
+  public String getText() {
+    return text;
+  }
+
+  /**
+   * Sets the text.
+   *
+   * @param text the new text
+   */
+  public void setText(String text) {
+    this.text = text;
   }
 
 }
