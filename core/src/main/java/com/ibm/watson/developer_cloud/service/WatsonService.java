@@ -64,7 +64,7 @@ import okhttp3.Response;
 public abstract class WatsonService {
 
   private static final String URL = "url";
-  private static final String PATH_AUTHORIZATION_V1_TOKEN = "/watson.watson.developer_cloud.retrieve_and_rank.v1/token";
+  private static final String PATH_AUTHORIZATION_V1_TOKEN = "/v1/token";
   private static final String AUTHORIZATION = "authorization";
   private static final String MESSAGE_ERROR_3 = "message";
   private static final String MESSAGE_ERROR_2 = "error_message";

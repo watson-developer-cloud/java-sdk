@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Contains a list of {@link Ranker} objects.
  *
- * @version watson.watson.developer_cloud.retrieve_and_rank.v1
+ * @version v1
  */
 public class Rankers extends GenericModel {
   /** List of rankers. */
