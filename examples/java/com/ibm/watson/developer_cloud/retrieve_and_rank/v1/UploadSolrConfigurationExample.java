@@ -16,7 +16,7 @@ package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 import java.io.File;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
+import retrieve_and_rank.v1.model.SolrCluster;
 
 /**
  * Creates a SolrClusterConfiguration using the {@link RetrieveAndRank} service.

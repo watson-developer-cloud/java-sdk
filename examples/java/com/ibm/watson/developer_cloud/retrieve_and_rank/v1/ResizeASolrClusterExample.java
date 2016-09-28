@@ -13,11 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1;
 
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrCluster.Status;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterOptions;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterSizeResponse;
+import retrieve_and_rank.v1.RetrieveAndRank;
+import retrieve_and_rank.v1.model.SolrCluster;
+import retrieve_and_rank.v1.model.SolrCluster.Status;
+import retrieve_and_rank.v1.model.SolrClusterOptions;
+import retrieve_and_rank.v1.model.SolrClusterSizeResponse;
 
 /**
  * Example of how to create and resize a {@link SolrCluster} with {@link RetrieveAndRank}.

@@ -32,8 +32,11 @@ public class RecognizeUsingWebSocketsExample {
       @Override
       public void onTranscription(SpeechResults speechResults) {
         System.out.println(speechResults);
-        if (speechResults.isFinal())
-          lock.countDown();
+      }
+      
+      @Override
+      public void onDisconnected() {
+        lock.countDown();
       }
     });
 

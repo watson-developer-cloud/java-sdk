@@ -6,12 +6,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
+import language_translation.v2.LanguageTranslation;
+import language_translation.v2.model.Language;
+import language_translation.v2.model.TranslationResult;
+import text_to_speech.v1.model.AudioFormat;
+import text_to_speech.v1.model.Voice;
+import text_to_speech.v1.util.WaveUtils;
 
 public class TranslateAndSynthesizeExample {
 

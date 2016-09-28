@@ -1,24 +1,35 @@
-sudo: false
 language: java
-install: /bin/true
-script: ./.utility/travis.sh
+sudo: false
+
 jdk:
-- oraclejdk8
-- oraclejdk7
+  - oraclejdk8
+  - oraclejdk7
+
+branches:
+  except:
+    - gh-pages
+
 cache:
   directories:
-  - $HOME/.m2/repository
+  - $HOME/.m2
+
 env:
   global:
   - secure: S2KIWOJX35j1FczyV7JRFrFpTftb8Hmkf6C50bJh8E03IbPu7tnX2znPKBbRWcIQndO6qd5dL7+BqtXabByOzd5Slj5/NBdXPcGffsO7B0cpFQS8ngpIMAGReCXQ12PbOiO8CIk2f/20lU3L0kqcP1TaPyZYIlSwkUg98ls8p90=
   - secure: eLv41LVZoRCqQehOM29RLodZ6NZhrIdLWklAkMdLGlFDEiVY5f0shaPLffpUiuv/3pg+CuQk9ffBc72m8lwTsimex9unC/WVsqQJhqQEWJEaPGL0UamV/HqHMeBQEpKiCcKHaBRHFGk7QQJVtiXvVvlbwk7Jks5giUR7+s/Q6iI=
   - secure: l0dde5NSGedD6fny5aMr1ll90FYVd7IKDsZ0Kd1GWnB+iDd3rjDBwz5q6NUwN2LTqw3jWFqmqdEnGUGO3Er0rdfdtPh3K194sTK3XuCZz8GEjFvYAEDRQ59oyK8fhw60c86cWppBQ4gluLKLstm12DLkARTUvJiIsTQTnuc2YGg=
+
 before_install:
 - pip install --user codecov
+
+script:
+  - ./.utility/travis.sh
+  - codecov
+  - mvn javadoc:javadoc
+
 after_success:
-- codecov
-- mvn javadoc:javadoc
 - .utility/push-javadoc-to-gh-pages.sh
 - .utility/deploy_snapshot.sh
+
 notifications:
   email: false

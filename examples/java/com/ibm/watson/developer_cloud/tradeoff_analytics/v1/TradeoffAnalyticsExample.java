@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Dilemma;
-import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Option;
-import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
-import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column;
-import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column.Goal;
-import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.NumericColumn;
+import tradeoff_analytics.v1.model.Dilemma;
+import tradeoff_analytics.v1.model.Option;
+import tradeoff_analytics.v1.model.Problem;
+import tradeoff_analytics.v1.model.column.Column;
+import tradeoff_analytics.v1.model.column.Column.Goal;
+import tradeoff_analytics.v1.model.column.NumericColumn;
 
 public class TradeoffAnalyticsExample {
 

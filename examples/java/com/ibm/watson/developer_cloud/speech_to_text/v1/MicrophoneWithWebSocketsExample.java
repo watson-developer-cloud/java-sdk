@@ -19,10 +19,10 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.DataLine;
 import javax.sound.sampled.TargetDataLine;
 
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
+import service_core.http.HttpMediaType;
+import speech_to_text.v1.model.RecognizeOptions;
+import speech_to_text.v1.model.SpeechResults;
+import speech_to_text.v1.websocket.BaseRecognizeCallback;
 
 /**
  * Recognize microphone input speech continuously using WebSockets.

@@ -13,7 +13,7 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import tone_analyzer.v3.model.ToneAnalysis;
 
 public class ToneAnalyzerExample {
 
