@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3.model;
 
@@ -20,7 +19,7 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 
 /**
  * This class contains the parameters when using {@link ToneAnalyzer#getTone(String, ToneOptions)}.
- * 
+ *
  * @see ToneAnalyzer
  */
 public class ToneOptions {
@@ -41,7 +40,7 @@ public class ToneOptions {
     /**
      * Instantiates a new builder.
      */
-    public Builder() {}
+    public Builder() { }
 
     /**
      * Instantiates a new builder.
@@ -49,9 +48,9 @@ public class ToneOptions {
      * @param options the options
      */
     public Builder(ToneOptions options) {
-      this.isHtml = options.isHtml;
-      this.tones = options.tones;
-      this.includeSentences = options.includeSentences;
+      isHtml = options.isHtml;
+      tones = options.tones;
+      includeSentences = options.includeSentences;
     }
 
     /**
@@ -73,7 +72,7 @@ public class ToneOptions {
      */
     public Builder addTone(Tone tone) {
       if (tones == null) {
-        this.tones = new ArrayList<Tone>();
+        tones = new ArrayList<Tone>();
       }
       if (!tones.contains(tone)) {
         tones.add(tone);
@@ -92,24 +91,24 @@ public class ToneOptions {
   }
 
   private ToneOptions(Builder builder) {
-    this.isHtml = builder.isHtml;
-    this.tones = builder.tones;
-    this.includeSentences = builder.includeSentences;
+    isHtml = builder.isHtml;
+    tones = builder.tones;
+    includeSentences = builder.includeSentences;
   }
 
   /**
    * Gets the html.
-   * 
+   *
    * @return the html
    */
   public Boolean html() {
-    return this.isHtml;
+    return isHtml;
   }
 
 
   /**
    * include sentences.
-   * 
+   *
    * @return the text
    */
   public Boolean includeSentences() {

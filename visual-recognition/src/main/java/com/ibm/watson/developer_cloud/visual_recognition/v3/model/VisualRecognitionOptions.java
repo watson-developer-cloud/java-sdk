@@ -1,15 +1,14 @@
 /*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
@@ -25,8 +24,8 @@ import okhttp3.HttpUrl;
 public class VisualRecognitionOptions {
 
   private VisualRecognitionOptions(Builder builder) {
-    this.imagesFile = builder.imagesFile;
-    this.url = builder.url;
+    imagesFile = builder.imagesFile;
+    url = builder.url;
   }
 
   private File imagesFile;
@@ -42,8 +41,8 @@ public class VisualRecognitionOptions {
 
     private Builder(VisualRecognitionOptions options) {
       this();
-      this.imagesFile = options.imagesFile;
-      this.url = options.url;
+      imagesFile = options.imagesFile;
+      url = options.url;
     }
 
     /**
@@ -79,11 +78,11 @@ public class VisualRecognitionOptions {
     public Builder url(String url) {
       return url(HttpUrl.parse(url));
     }
-    
+
     /**
      * Instantiates a new builder.
      */
-    public Builder() {}
+    public Builder() { }
 
     /**
      * Builds the profile options.
@@ -91,7 +90,7 @@ public class VisualRecognitionOptions {
      * @return the profile options
      */
     public VisualRecognitionOptions build() {
-      Validator.isTrue(url != null || imagesFile != null, "url or imagesFile should be specified");
+      Validator.isTrue((url != null) || (imagesFile != null), "url or imagesFile should be specified");
       return new VisualRecognitionOptions(this);
     }
 

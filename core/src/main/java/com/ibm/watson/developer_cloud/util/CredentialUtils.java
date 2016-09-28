@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.util;
 
@@ -34,7 +33,7 @@ import okhttp3.Credentials;
 public final class CredentialUtils {
   /**
    * A util class to easily store service credentials.
-   * 
+   *
    */
   public static class ServiceCredentials {
     private String password;
@@ -105,10 +104,10 @@ public final class CredentialUtils {
   }
 
   /**
-   * Attempt to get the Base64-encoded API key through JNDI
+   * Attempt to get the Base64-encoded API key through JNDI.
    *
    * This method should always return null on Android due to the javax functions being unsupported
-   * 
+   *
    * @param serviceName Name of the bluemix service
    * @return The encoded API Key
    */
@@ -138,13 +137,14 @@ public final class CredentialUtils {
 
   /**
    * Gets the <b>VCAP_SERVICES</b> environment variable and return it as a {@link JsonObject}.
-   * 
+   *
    * @return the VCAP_SERVICES as a {@link JsonObject}.
    */
   private static JsonObject getVCAPServices() {
     final String envServices = services != null ? services : System.getenv("VCAP_SERVICES");
-    if (envServices == null)
+    if (envServices == null) {
       return null;
+    }
 
     JsonObject vcapServices = null;
 
@@ -159,7 +159,7 @@ public final class CredentialUtils {
 
   /**
    * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists.
-   * 
+   *
    * @param serviceName the service name
    * @return the API key or null if the service cannot be found.
    */
@@ -168,23 +168,25 @@ public final class CredentialUtils {
   }
 
   /**
-   * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists. If plan is specified, then
-   * only credentials for the given plan will be returned.
-   * 
+   * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists. If plan is specified, then only credentials
+   * for the given plan will be returned.
+   *
    * @param serviceName the service name
    * @param plan the service plan: standard, free or experimental
    * @return the API key
    */
   public static String getAPIKey(String serviceName, String plan) {
-    if (serviceName == null || serviceName.isEmpty())
+    if ((serviceName == null) || serviceName.isEmpty()) {
       return null;
+    }
 
     final JsonObject services = getVCAPServices();
-    if (services == null)
+    if (services == null) {
       return getKeyUsingJNDI(serviceName);
+    }
     if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
       final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
-      if (credentials != null && serviceName.equalsIgnoreCase(ALCHEMY_API)) {
+      if ((credentials != null) && serviceName.equalsIgnoreCase(ALCHEMY_API)) {
         return credentials.get(APIKEY).getAsString();
       }
     } else {
@@ -197,11 +199,10 @@ public final class CredentialUtils {
   }
 
   /**
-   * Returns the username and password as defined in the VCAP_SERVICES or null if they do not exist
-   * or are not accessible. This is a utility method for
-   * {@link #getUserNameAndPassword(String, String)}. Invoking this method is identical to calling
-   * <code>getUserNameAndPassword(serviceName, null);</code>
-   * 
+   * Returns the username and password as defined in the VCAP_SERVICES or null if they do not exist or are not
+   * accessible. This is a utility method for {@link #getUserNameAndPassword(String, String)}. Invoking this method is
+   * identical to calling <code>getUserNameAndPassword(serviceName, null);</code>
+   *
    * @param serviceName the name of the service whose credentials are sought
    * @return an object representing the service's credentials
    */
@@ -210,21 +211,23 @@ public final class CredentialUtils {
   }
 
   /**
-   * Returns the username and password as defined in the VCAP_SERVICES or null if they do not exist
-   * or are not accessible. If a plan is provided then only the credentials for that plan (and
-   * service) will be returned. Null will be returned if the plan does not exist.
+   * Returns the username and password as defined in the VCAP_SERVICES or null if they do not exist or are not
+   * accessible. If a plan is provided then only the credentials for that plan (and service) will be returned. Null will
+   * be returned if the plan does not exist.
    *
    * @param serviceName the name of the service whose credentials are sought
    * @param plan the plan name
    * @return an object representing the service's credentials
    */
   public static ServiceCredentials getUserNameAndPassword(String serviceName, String plan) {
-    if (serviceName == null || serviceName.isEmpty())
+    if ((serviceName == null) || serviceName.isEmpty()) {
       return null;
+    }
 
     final JsonObject services = getVCAPServices();
-    if (services == null)
+    if (services == null) {
       return null;
+    }
 
     JsonObject jsonCredentials = getCredentialsObject(services, serviceName, plan);
     if (jsonCredentials != null) {
@@ -236,7 +239,7 @@ public final class CredentialUtils {
       if (jsonCredentials.has(PASSWORD)) {
         password = jsonCredentials.get(PASSWORD).getAsString();
       }
-      if (username != null || password != null) {
+      if ((username != null) || (password != null)) {
         // both will be null in the case of Alchemy API
         return new ServiceCredentials(username, password);
       }
@@ -245,8 +248,8 @@ public final class CredentialUtils {
   }
 
   /**
-   * A helper method to retrieve the appropriate 'credentials' JSON property value from the VCAP_SERVICES
-   * 
+   * A helper method to retrieve the appropriate 'credentials' JSON property value from the VCAP_SERVICES.
+   *
    * @param vcapServices JSON object representing the VCAP_SERVICES
    * @param serviceName the name of the service whose credentials are sought
    * @param plan the name of the plan for which the credentials are sought, e.g. 'standard', 'beta' etc, may be null
@@ -260,7 +263,7 @@ public final class CredentialUtils {
         for (final JsonElement instance : servInstances) {
           final JsonObject service = instance.getAsJsonObject();
           final String instancePlan = service.get(PLAN).getAsString();
-          if (plan == null || plan.equalsIgnoreCase(instancePlan)) {
+          if ((plan == null) || plan.equalsIgnoreCase(instancePlan)) {
             return instance.getAsJsonObject().getAsJsonObject(CREDENTIALS);
           }
         }
@@ -281,31 +284,34 @@ public final class CredentialUtils {
   }
 
   /**
-   * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists. If plan is specified, then
-   * only credentials for the given plan will be returned.
-   * 
+   * Returns the apiKey from the VCAP_SERVICES or null if doesn't exists. If plan is specified, then only credentials
+   * for the given plan will be returned.
+   *
    * @param serviceName the service name
    * @param plan the service plan: standard, free or experimental
    * @return the API key
    */
   public static String getAPIUrl(String serviceName, String plan) {
-    if (serviceName == null || serviceName.isEmpty())
+    if ((serviceName == null) || serviceName.isEmpty()) {
       return null;
+    }
 
     final JsonObject services = getVCAPServices();
-    if (services == null)
+    if (services == null) {
       return null;
+    }
 
     final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
-    if (credentials != null && credentials.has(URL))
+    if ((credentials != null) && credentials.has(URL)) {
       return credentials.get(URL).getAsString();
+    }
 
     return null;
   }
 
   /**
    * Sets the VCAP_SERVICES variable. This is utility variable for testing
-   * 
+   *
    * @param services the VCAP_SERVICES
    */
   public static void setServices(String services) {

@@ -11,11 +11,15 @@
 	<artifactId>speech-to-text</artifactId>
 	<name>Speech to Text</name>
 
-	<dependencies>
+  <dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+    <dependency>
+      <groupId>com.squareup.okhttp3</groupId>
+      <artifactId>okhttp-ws</artifactId>
+    </dependency>
 	</dependencies>
 </project>

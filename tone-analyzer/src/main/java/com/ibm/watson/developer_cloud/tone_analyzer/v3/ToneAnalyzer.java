@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
@@ -26,14 +25,12 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The IBM Watson Tone Analyzer service uses linguistic analysis to detect emotional tones, social
- * propensities, and writing styles in written communication. Then it offers suggestions to help the
- * writer improve their intended language tones.
+ * The IBM Watson Tone Analyzer service uses linguistic analysis to detect emotional tones, social propensities, and
+ * writing styles in written communication. Then it offers suggestions to help the writer improve their intended
+ * language tones.
  *
  * @version v3
- * @see <a href=
- *      "http://www.ibm.com/watson/developercloud/tone-analyzer.html"> Tone
- *      Analyzer</a>
+ * @see <a href= "http://www.ibm.com/watson/developercloud/tone-analyzer.html"> Tone Analyzer</a>
  * @api.version_date 2016-05-19
  */
 public class ToneAnalyzer extends WatsonService {
@@ -54,21 +51,22 @@ public class ToneAnalyzer extends WatsonService {
   /**
    * Instantiates a new tone analyzer.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *        will keep your API calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *        calls from failing when the service introduces breaking changes.
    */
   public ToneAnalyzer(String versionDate) {
     super(SERVICE_NAME);
-    if (getEndPoint() == null || getEndPoint().isEmpty())
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
+    }
     this.versionDate = versionDate;
   }
 
   /**
    * Instantiates a new tone analyzer with username and password.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *        will keep your API calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *        calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */
@@ -78,9 +76,9 @@ public class ToneAnalyzer extends WatsonService {
   }
 
   /**
-   * Analyzes the "tone" of a piece of text. The message is analyzed from several tones (social
-   * tone, emotional tone, writing tone), and for each of them various traits are derived (such as
-   * conscientiousness, agreeableness, openness).
+   * Analyzes the "tone" of a piece of text. The message is analyzed from several tones (social tone, emotional tone,
+   * writing tone), and for each of them various traits are derived (such as conscientiousness, agreeableness,
+   * openness).
    *
    * @param text The text to analyze
    * @param options The {@link ToneOptions} options
@@ -91,7 +89,7 @@ public class ToneAnalyzer extends WatsonService {
 
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_TONE).query(VERSION_DATE, versionDate);
 
-    if (options != null && options.html() != null && options.html()) {
+    if ((options != null) && (options.html() != null) && options.html()) {
       requestBuilder.header(HttpHeaders.CONTENT_TYPE, HttpMediaType.TEXT_HTML);
       requestBuilder.bodyContent(text, HttpMediaType.TEXT_HTML);
     } else {
@@ -100,11 +98,11 @@ public class ToneAnalyzer extends WatsonService {
       requestBuilder.bodyJson(contentJson);
     }
 
-    if (options != null && options.tones() != null) {
+    if ((options != null) && (options.tones() != null)) {
       requestBuilder.query(TONES, RequestUtils.join(options.tones(), ","));
     }
 
-    if (options != null && options.includeSentences() != null) {
+    if ((options != null) && (options.includeSentences() != null)) {
       requestBuilder.query(SENTENCES, options.includeSentences().toString());
     }
 

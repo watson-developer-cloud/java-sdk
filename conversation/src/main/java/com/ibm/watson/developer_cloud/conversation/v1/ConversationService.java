@@ -1,15 +1,14 @@
 /*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.conversation.v1;
 
@@ -27,9 +26,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * Thin wrapper around the Conversation Service REST API.
  *
  * @version v1
- * @see <a href=
- *      "http://www.ibm.com/watson/developercloud/conversation.html">
- *      Conversation</a>
+ * @see <a href= "http://www.ibm.com/watson/developercloud/conversation.html"> Conversation</a>
  * @api.version_date 2016-07-11
  */
 public final class ConversationService extends WatsonService {
@@ -50,16 +47,18 @@ public final class ConversationService extends WatsonService {
    */
   public ConversationService(final String versionDate) {
     super(SERVICE_NAME);
-    if (getEndPoint() == null || getEndPoint().isEmpty())
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
+    }
 
-    Validator.isTrue(versionDate != null && !versionDate.isEmpty(),
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
         "'version cannot be null. Use " + VERSION_DATE_2016_07_11);
     this.versionDate = versionDate;
   }
 
   /**
    * Returns an instance of the Conversation Service using the service's default endpoint (URL), username and password.
+   *
    * @param versionDate Version of the API which is to be invoked by the REST client.
    * @param username the username
    * @param password the password
@@ -77,10 +76,10 @@ public final class ConversationService extends WatsonService {
    * @return The response for the given message.
    */
   public ServiceCall<MessageResponse> message(String workspaceId, MessageRequest request) {
-    Validator.isTrue(workspaceId != null && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");    
-    
+    Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
+
     RequestBuilder builder = RequestBuilder.post(String.format(PATH_MESSAGE, workspaceId));
-    builder.query(VERSION_PARAM, this.versionDate);
+    builder.query(VERSION_PARAM, versionDate);
     if (request != null) {
       builder.bodyJson(GsonSingleton.getGson().toJsonTree(request).getAsJsonObject());
     } else {

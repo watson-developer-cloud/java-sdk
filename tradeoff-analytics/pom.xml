@@ -11,7 +11,7 @@
 	<artifactId>tradeoff-analytics</artifactId>
 	<name>Tradeoff Analytics</name>
 
-	<dependencies>
+  <dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>core</artifactId>

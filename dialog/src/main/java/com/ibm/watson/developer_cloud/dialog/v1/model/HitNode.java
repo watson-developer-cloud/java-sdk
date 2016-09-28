@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.dialog.v1.model;
@@ -35,7 +34,7 @@ public class HitNode extends GenericModel {
 
   /**
    * Gets the details.
-   * 
+   *
    * @return The details
    */
   public String getDetails() {
@@ -44,7 +43,7 @@ public class HitNode extends GenericModel {
 
   /**
    * Gets the label.
-   * 
+   *
    * @return The label
    */
   public String getLabel() {
@@ -53,7 +52,7 @@ public class HitNode extends GenericModel {
 
   /**
    * Gets the node id.
-   * 
+   *
    * @return The nodeId
    */
   public Integer getNodeId() {
@@ -62,7 +61,7 @@ public class HitNode extends GenericModel {
 
   /**
    * Gets the type.
-   * 
+   *
    * @return The type
    */
   public String getType() {
@@ -71,7 +70,7 @@ public class HitNode extends GenericModel {
 
   /**
    * Sets the details.
-   * 
+   *
    * @param details The details
    */
   public void setDetails(final String details) {
@@ -80,7 +79,7 @@ public class HitNode extends GenericModel {
 
   /**
    * Sets the label.
-   * 
+   *
    * @param label The label
    */
   public void setLabel(final String label) {
@@ -89,7 +88,7 @@ public class HitNode extends GenericModel {
 
   /**
    * Sets the node id.
-   * 
+   *
    * @param nodeId The node_id
    */
   public void setNodeId(final Integer nodeId) {
@@ -98,7 +97,7 @@ public class HitNode extends GenericModel {
 
   /**
    * Sets the type.
-   * 
+   *
    * @param type The type
    */
   public void setType(final String type) {

@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.util;
 
@@ -55,11 +54,11 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
   private static final String SIGNIFICANT_GAIN = "significant_gain";
   private static final String SIGNIFICANT_LOSS = "significant_loss";
   private static final String TYPE2 = "type";
-  private final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
+  private static final DateFormat DATE_FORMATTER = new SimpleDateFormat(DATE_FORMAT);
 
   /**
    * Write categorical column.
-   * 
+   *
    * @param catCol the cat col
    * @param writer the writer
    * @throws IOException Signals that an I/O exception has occurred.
@@ -87,7 +86,7 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
 
   /**
    * Write date column.
-   * 
+   *
    * @param dateCol the date col
    * @param writer the writer
    * @throws IOException Signals that an I/O exception has occurred.
@@ -103,7 +102,7 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
 
   /**
    * Write numerical column.
-   * 
+   *
    * @param numCol the num col
    * @param writer the writer
    * @throws IOException Signals that an I/O exception has occurred.
@@ -120,7 +119,7 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.google.gson.TypeAdapter#read(com.google.gson.stream.JsonReader)
    */
   @Override
@@ -269,7 +268,7 @@ public class ColumnTypeAdapter extends TypeAdapter<Column> {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.google.gson.TypeAdapter#write(com.google.gson.stream.JsonWriter, java.lang.Object)
    */
   @Override

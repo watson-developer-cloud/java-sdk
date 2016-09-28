@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.service;
 
@@ -45,11 +44,11 @@ public abstract class AlchemyService extends WatsonService {
   private static final Logger LOG = Logger.getLogger(AlchemyService.class.getName());
 
   /** The Constant ENDPOINT. */
-  protected final static String ENDPOINT = "https://gateway-a.watsonplatform.net/calls";
-  
+  protected static final String ENDPOINT = "https://gateway-a.watsonplatform.net/calls";
+
   /** The Constant JSONP. */
   protected static final String JSONP = "jsonp";
-  
+
   /** The Constant OUTPUT_MODE. */
   protected static final String OUTPUT_MODE = "outputMode";
 
@@ -58,12 +57,14 @@ public abstract class AlchemyService extends WatsonService {
    */
   public AlchemyService() {
     super(SERVICE_NAME);
-    if (getEndPoint() == null || getEndPoint().isEmpty())
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(ENDPOINT);
+    }
   }
 
   /**
    * Instantiates a new alchemy service by apiKey.
+   *
    * @param apiKey The API key
    */
   public AlchemyService(String apiKey) {
@@ -73,13 +74,13 @@ public abstract class AlchemyService extends WatsonService {
 
   /**
    * Adds the Alchemy API key to HTTP request.
-   * 
+   *
    * @param builder the builder
    * @param apiKey the API key token
    */
   private void addApiKeyToRequest(Builder builder, String apiKey) {
     final HttpUrl url = HttpUrl.parse(builder.build().url().toString());
-    if (url.query() == null || url.query().isEmpty()) {
+    if ((url.query() == null) || url.query().isEmpty()) {
       builder.url(builder.build().url() + "?" + apiKey);
     } else {
       builder.url(builder.build().url() + "&" + apiKey);
@@ -88,7 +89,7 @@ public abstract class AlchemyService extends WatsonService {
 
   /**
    * Detect the error code based on the error message.
-   * 
+   *
    * @param errorMessage the error message
    * @return the int
    */
@@ -108,7 +109,7 @@ public abstract class AlchemyService extends WatsonService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see com.ibm.watson.watson.developer_cloud.service.WatsonService#processServiceCall(com.ibm.watson.
    * watson.developer_cloud.service.ResponseConverter, okhttp3.Response)
    */
@@ -116,8 +117,9 @@ public abstract class AlchemyService extends WatsonService {
   protected <T> T processServiceCall(ResponseConverter<T> converter, Response response) {
     final JsonObject error = getErrorMessage(response);
 
-    if (response.isSuccessful() && error == null)
+    if (response.isSuccessful() && (error == null)) {
       return converter.convert(response);
+    }
 
     // There was a Client Error 4xx or a Server Error 5xx
     // Get the error message and create the exception
@@ -148,18 +150,18 @@ public abstract class AlchemyService extends WatsonService {
 
 
   /**
-   * Gets the error message from the {@link Response} by looking at the headers returned by the
-   * Alchemy service <code>X-AlchemyAPI-Status</code> and <code>X-AlchemyAPI-Error-Msg</code>
-   * 
+   * Gets the error message from the {@link Response} by looking at the headers returned by the Alchemy service
+   * <code>X-AlchemyAPI-Status</code> and <code>X-AlchemyAPI-Error-Msg</code>
+   *
    * <pre>
    * {
    *   code: 400
    *   error: 'bad request'
    * }
    * </pre>
-   * 
+   *
    * .
-   * 
+   *
    * @param response the HTTP response
    * @return the error message from the json object, or null if none found
    */
@@ -173,10 +175,10 @@ public abstract class AlchemyService extends WatsonService {
       final JsonObject error = new JsonObject();
       error.addProperty(MESSAGE_ERROR, errorMessage != null ? errorMessage : "Unknown error");
       error.addProperty(MESSAGE_CODE, code);
-      
+
       // #242: Close the request body to prevent a connection leak
       ResponseUtils.getString(response);
-      
+
       return error;
     }
     return null; // no error
@@ -184,18 +186,18 @@ public abstract class AlchemyService extends WatsonService {
 
   /**
    * Returns the first non-null accepted format from the parameter map.
-   * 
+   *
    * @param params the request parameters
    * @param acceptedFormats the accepted formats
    * @return the first accepted format found in the map
    */
   protected String getInputFormat(Map<String, Object> params, String... acceptedFormats) {
     int i = 0;
-    while (i < acceptedFormats.length && params != null && !params.containsKey(acceptedFormats[i])) {
+    while ((i < acceptedFormats.length) && (params != null) && !params.containsKey(acceptedFormats[i])) {
       i++;
     }
 
-    if (params == null || i == acceptedFormats.length) {
+    if ((params == null) || (i == acceptedFormats.length)) {
       throw new IllegalArgumentException(RequestUtils.join(acceptedFormats, ",") + " should be specified");
     }
     return acceptedFormats[i];
@@ -203,9 +205,8 @@ public abstract class AlchemyService extends WatsonService {
 
   /*
    * (non-Javadoc)
-   * 
-   * @see
-   * com.ibm.watson.watson.developer_cloud.service.WatsonService#setAuthentication(okhttp3.Request.Builder)
+   *
+   * @see com.ibm.watson.watson.developer_cloud.service.WatsonService#setAuthentication(okhttp3.Request. Builder)
    */
   @Override
   protected void setAuthentication(Builder builder) {

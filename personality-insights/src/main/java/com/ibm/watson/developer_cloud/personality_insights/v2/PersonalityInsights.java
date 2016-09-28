@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.personality_insights.v2;
 
@@ -26,14 +25,11 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The Watson Personality Insights service uses linguistic analytics to extract a spectrum of
- * cognitive and social characteristics from the text data that a person generates through blogs,
- * tweets, forum posts, and more.
- * 
+ * The Watson Personality Insights service uses linguistic analytics to extract a spectrum of cognitive and social
+ * characteristics from the text data that a person generates through blogs, tweets, forum posts, and more.
+ *
  * @version v2
- * @see <a href=
- *      "http://www.ibm.com/watson/developercloud/personality-insights.html">
- *      Personality Insights</a>
+ * @see <a href= "http://www.ibm.com/watson/developercloud/personality-insights.html"> Personality Insights</a>
  */
 public class PersonalityInsights extends WatsonService {
   private static final String SERVICE_NAME = "personality_insights";
@@ -47,12 +43,14 @@ public class PersonalityInsights extends WatsonService {
    */
   public PersonalityInsights() {
     super(SERVICE_NAME);
-    if (getEndPoint() == null || getEndPoint().isEmpty())
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
+    }
   }
 
   /**
    * Instantiates a new personality insights service by username and password.
+   *
    * @param username the username
    * @param password the password
    */
@@ -63,7 +61,7 @@ public class PersonalityInsights extends WatsonService {
 
   private RequestBuilder buildProfileRequest(ProfileOptions options) {
     Validator.notNull(options, "options cannot be null");
-    Validator.isTrue(options.text() != null || options.contentItems() != null,
+    Validator.isTrue((options.text() != null) || (options.contentItems() != null),
         "text, html or content items need to be specified");
 
     final String contentType = options.contentType();
@@ -80,35 +78,38 @@ public class PersonalityInsights extends WatsonService {
       request.bodyContent(body, contentType);
     }
 
-    if (options.includeRaw() != null)
+    if (options.includeRaw() != null) {
       request.query(INCLUDE_RAW, options.includeRaw());
+    }
 
-    if (options.language() != null)
+    if (options.language() != null) {
       request.header(HttpHeaders.CONTENT_LANGUAGE, options.language());
+    }
 
-    if (options.acceptLanguage() != null)
+    if (options.acceptLanguage() != null) {
       request.header(HttpHeaders.ACCEPT_LANGUAGE, options.acceptLanguage());
+    }
 
     return request;
   }
 
   /**
-   * Accepts text and responds with a {@link Profile} with a tree of characteristics that include
-   * personality, needs, and values. <br>
+   * Accepts text and responds with a {@link Profile} with a tree of characteristics that include personality, needs,
+   * and values. <br>
    * <br>
    * Here is an example of how to get the personality profile given some text:
-   * 
+   *
    * <pre>
    *     PersonalityInsights service = new PersonalityInsights();
    *     service.setUsernameAndPassword("username", "password");
-   * 
+   *
    *     String text = "write the text with at least 100 unique words here..."
    *     Profile profile = service.getProfile(text).execute();
    *     System.out.println(profile);
    * </pre>
-   * 
+   *
    * @param text Text to analyze
-   * 
+   *
    * @return The personality {@link Profile}
    */
   public ServiceCall<Profile> getProfile(final String text) {
@@ -120,24 +121,23 @@ public class PersonalityInsights extends WatsonService {
   }
 
   /**
-   * Returns a {@link Profile} with a tree of characteristics that include personality, needs, and
-   * values. <br>
+   * Returns a {@link Profile} with a tree of characteristics that include personality, needs, and values. <br>
    * <br>
    * Here is an example of how to get the personality profile given some {@link ProfileOptions}:
-   * 
+   *
    * <pre>
    *     PersonalityInsights service = new PersonalityInsights();
    *     service.setUsernameAndPassword("username", "password");
-   * 
+   *
    *     String text = "write the text with at least 100 unique words here..."
    *     ContentItem cItem = new ContentItem().content(text).created(new Date());
    *     ProfileOptions options = new ProfileOptions().contentItems(Arrays.asList(cItem));
-   * 
+   *
    *     Profile profile = service.getProfile(options).execute();
-   * 
+   *
    *     System.out.println(profile);
    * </pre>
-   * 
+   *
    * @param options the {@link ProfileOptions}
    * @return The personality {@link Profile}
    */
@@ -148,7 +148,7 @@ public class PersonalityInsights extends WatsonService {
 
   /**
    * Returns a CSV profile.
-   * 
+   *
    * @param options the {@link ProfileOptions}
    * @param includeHeaders if true returns the CSV headers
    * @return the CSV profile

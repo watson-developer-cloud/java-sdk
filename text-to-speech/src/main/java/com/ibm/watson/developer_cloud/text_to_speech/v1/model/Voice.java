@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
@@ -72,11 +71,9 @@ public class Voice extends GenericModel {
   /** The Constant PT_ISABELA (value is "pt-BR_IsabelaVoice"). */
   public static final Voice PT_ISABELA = new Voice("pt-BR_IsabelaVoice", FEMALE, "pt-BR");
 
-  /**  The List of all predefined Voices. */
-  public static final List<Voice> ALL = Collections.unmodifiableList(Arrays.asList(
-      DE_DIETER, DE_BIRGIT, EN_ALLISON, EN_LISA, EN_MICHAEL, ES_ENRIQUE,
-      ES_LAURA, ES_SOFIA, FR_RENEE, GB_KATE, IT_FRANCESCA, JA_EMI, PT_ISABELA
-  ));
+  /** The List of all predefined Voices. */
+  public static final List<Voice> ALL = Collections.unmodifiableList(Arrays.asList(DE_DIETER, DE_BIRGIT, EN_ALLISON,
+      EN_LISA, EN_MICHAEL, ES_ENRIQUE, ES_LAURA, ES_SOFIA, FR_RENEE, GB_KATE, IT_FRANCESCA, JA_EMI, PT_ISABELA));
 
   private String description;
   private String gender;
@@ -87,11 +84,11 @@ public class Voice extends GenericModel {
   /**
    * Instantiates a new voice.
    */
-  public Voice() {}
+  public Voice() { }
 
   /**
    * Instantiates a new voice.
-   * 
+   *
    * @param name the name
    * @param gender the gender
    * @param language the language
@@ -104,7 +101,7 @@ public class Voice extends GenericModel {
 
   /**
    * Gets the description.
-   * 
+   *
    * @return the description
    */
   public String getDescription() {
@@ -113,7 +110,7 @@ public class Voice extends GenericModel {
 
   /**
    * Gets the gender.
-   * 
+   *
    * @return the gender
    */
   public String getGender() {
@@ -122,7 +119,7 @@ public class Voice extends GenericModel {
 
   /**
    * Gets the language.
-   * 
+   *
    * @return the language
    */
   public String getLanguage() {
@@ -131,7 +128,7 @@ public class Voice extends GenericModel {
 
   /**
    * Gets the name.
-   * 
+   *
    * @return the name
    */
   public String getName() {
@@ -140,7 +137,7 @@ public class Voice extends GenericModel {
 
   /**
    * Gets the url.
-   * 
+   *
    * @return the url
    */
   public String getUrl() {
@@ -149,7 +146,7 @@ public class Voice extends GenericModel {
 
   /**
    * Sets the description.
-   * 
+   *
    * @param description the new description
    */
   public void setDescription(String description) {
@@ -158,7 +155,7 @@ public class Voice extends GenericModel {
 
   /**
    * Sets the gender.
-   * 
+   *
    * @param gender the new gender
    */
   public void setGender(final String gender) {
@@ -167,7 +164,7 @@ public class Voice extends GenericModel {
 
   /**
    * Sets the language.
-   * 
+   *
    * @param language the new language
    */
   public void setLanguage(final String language) {
@@ -176,7 +173,7 @@ public class Voice extends GenericModel {
 
   /**
    * Sets the name.
-   * 
+   *
    * @param name the new name
    */
   public void setName(final String name) {
@@ -185,7 +182,7 @@ public class Voice extends GenericModel {
 
   /**
    * Sets the url.
-   * 
+   *
    * @param url the new url
    */
   public void setUrl(final String url) {

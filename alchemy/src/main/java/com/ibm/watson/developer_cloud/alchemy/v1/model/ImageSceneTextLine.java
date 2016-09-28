@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
@@ -20,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * ImageSceneTextLine returned by {@link AlchemyVision#getImageSceneText(java.io.File)}.
- * 
+ *
  */
 public class ImageSceneTextLine extends GenericModel {
 
@@ -43,7 +42,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Gets the region height.
-     * 
+     *
      * @return The height
      */
     public Integer getHeight() {
@@ -52,7 +51,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Gets the region width.
-     * 
+     *
      * @return The width
      */
     public Integer getWidth() {
@@ -61,7 +60,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Gets the region x.
-     * 
+     *
      * @return The x
      */
     public Integer getX() {
@@ -70,7 +69,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Gets the region y.
-     * 
+     *
      * @return The y
      */
     public Integer getY() {
@@ -79,7 +78,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Sets the region height.
-     * 
+     *
      * @param height The height
      */
     public void setHeight(Integer height) {
@@ -88,7 +87,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Sets the region width.
-     * 
+     *
      * @param width The width
      */
     public void setWidth(Integer width) {
@@ -97,7 +96,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Sets the region x.
-     * 
+     *
      * @param x The x.
      */
     public void setX(Integer x) {
@@ -106,7 +105,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Sets the region y.
-     * 
+     *
      * @param y The y
      */
     public void setY(Integer y) {
@@ -130,7 +129,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Gets the confidence.
-     * 
+     *
      * @return The confidence
      */
     public Double getConfidence() {
@@ -139,7 +138,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Gets the region.
-     * 
+     *
      * @return The region
      */
     public Region getRegion() {
@@ -157,7 +156,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Sets the confidence.
-     * 
+     *
      * @param confidence The confidence
      */
     public void setConfidence(Double confidence) {
@@ -166,7 +165,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Sets the region.
-     * 
+     *
      * @param region The region
      */
     public void setRegion(Region region) {
@@ -175,7 +174,7 @@ public class ImageSceneTextLine extends GenericModel {
 
     /**
      * Sets the text.
-     * 
+     *
      * @param text The text
      */
     public void setText(String text) {
@@ -198,7 +197,7 @@ public class ImageSceneTextLine extends GenericModel {
 
   /**
    * Gets the confidence.
-   * 
+   *
    * @return The confidence
    */
   public Double getConfidence() {
@@ -207,7 +206,7 @@ public class ImageSceneTextLine extends GenericModel {
 
   /**
    * Gets the region.
-   * 
+   *
    * @return The region
    */
   public Region getRegion() {
@@ -225,7 +224,7 @@ public class ImageSceneTextLine extends GenericModel {
 
   /**
    * Gets the words.
-   * 
+   *
    * @return The words
    */
   public List<Word> getWords() {
@@ -234,7 +233,7 @@ public class ImageSceneTextLine extends GenericModel {
 
   /**
    * Sets the confidence.
-   * 
+   *
    * @param confidence The confidence
    */
   public void setConfidence(Double confidence) {
@@ -243,7 +242,7 @@ public class ImageSceneTextLine extends GenericModel {
 
   /**
    * Sets the region.
-   * 
+   *
    * @param region The region
    */
   public void setRegion(Region region) {
@@ -252,7 +251,7 @@ public class ImageSceneTextLine extends GenericModel {
 
   /**
    * Sets the text.
-   * 
+   *
    * @param text The text
    */
   public void setText(String text) {
@@ -261,7 +260,7 @@ public class ImageSceneTextLine extends GenericModel {
 
   /**
    * Sets the words.
-   * 
+   *
    * @param words The words
    */
   public void setWords(List<Word> words) {

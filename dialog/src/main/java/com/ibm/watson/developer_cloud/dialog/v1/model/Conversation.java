@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
@@ -21,8 +20,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Conversation used by the {@link DialogService}.
- * 
- * 
+ *
+ *
  */
 public class Conversation extends GenericModel {
   @SerializedName("client_id")
@@ -36,7 +35,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Gets the client id.
-   * 
+   *
    * @return The clientId
    */
   public Integer getClientId() {
@@ -45,7 +44,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Gets the confidence.
-   * 
+   *
    * @return The confidence
    */
   public Double getConfidence() {
@@ -54,7 +53,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Gets the dialog id.
-   * 
+   *
    * @return the dialogId
    */
   public String getDialogId() {
@@ -63,7 +62,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Gets the id.
-   * 
+   *
    * @return the id
    */
   public Integer getId() {
@@ -72,7 +71,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Gets the input.
-   * 
+   *
    * @return The input
    */
   public String getInput() {
@@ -81,7 +80,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Gets the response.
-   * 
+   *
    * @return The response
    */
   public List<String> getResponse() {
@@ -90,7 +89,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Sets the client id.
-   * 
+   *
    * @param clientId The client_id
    */
   public void setClientId(final int clientId) {
@@ -99,7 +98,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Sets the confidence.
-   * 
+   *
    * @param confidence The confidence
    */
   public void setConfidence(final Double confidence) {
@@ -108,7 +107,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Sets the dialog id.
-   * 
+   *
    * @param dialogId the dialogId to set
    */
   public void setDialogId(String dialogId) {
@@ -117,7 +116,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Sets the id.
-   * 
+   *
    * @param id the new id
    */
   public void setId(final int id) {
@@ -126,7 +125,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Sets the input.
-   * 
+   *
    * @param input The input
    */
   public void setInput(final String input) {
@@ -135,7 +134,7 @@ public class Conversation extends GenericModel {
 
   /**
    * Sets the response.
-   * 
+   *
    * @param response The response
    */
   public void setResponse(final List<String> response) {

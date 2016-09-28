@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1.util;
 
@@ -22,8 +21,7 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
 
 
 /**
- * Utility class to write the data size header in wave(.wav) files synthesized with the
- * {@link TextToSpeech} service
+ * Utility class to write the data size header in wave(.wav) files synthesized with the {@link TextToSpeech} service.
  */
 public final class WaveUtils {
   /** The WAVE meta-data header size. (value is 8) */
@@ -40,8 +38,8 @@ public final class WaveUtils {
   }
 
   /**
-   * Writes an number into an array using 4 bytes
-   * 
+   * Writes an number into an array using 4 bytes.
+   *
    * @param value the number to write
    * @param array the byte array
    * @param offset the offset
@@ -55,7 +53,7 @@ public final class WaveUtils {
   /**
    * Re-writes the data size in the header(bytes 4-8) of the WAVE(.wav) input stream.<br>
    * It needs to be read in order to calculate the size.
-   * 
+   *
    * @param is the input stream
    * @return A new input stream that includes the data header in the header
    * @throws IOException Signals that an I/O exception has occurred.
@@ -75,8 +73,8 @@ public final class WaveUtils {
    *
    * @param is the input stream
    * @return the byte array
-   * @throws IOException If the first byte cannot be read for any reason other than end of file, or
-   *         if the input stream has been closed, or if some other I/O error occurs.
+   * @throws IOException If the first byte cannot be read for any reason other than end of file, or if the input stream
+   *         has been closed, or if some other I/O error occurs.
    */
   public static byte[] toByteArray(InputStream is) throws IOException {
     ByteArrayOutputStream buffer = new ByteArrayOutputStream();

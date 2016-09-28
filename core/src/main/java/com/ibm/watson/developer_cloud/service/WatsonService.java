@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.service;
 
@@ -58,11 +57,9 @@ import okhttp3.Request.Builder;
 import okhttp3.Response;
 
 /**
- * Watson service abstract common functionality of various Watson Services. It handle authentication
- * and default url
- * 
- * @see <a href="http://www.ibm.com/watson/developercloud/"> IBM Watson
- *      Developer Cloud</a>
+ * Watson service abstract common functionality of various Watson Services. It handle authentication and default url
+ *
+ * @see <a href="http://www.ibm.com/watson/developercloud/"> IBM Watson Developer Cloud</a>
  */
 public abstract class WatsonService {
 
@@ -77,7 +74,11 @@ public abstract class WatsonService {
   private final OkHttpClient client;
   private String endPoint;
   private final String name;
+
+  /** The default headers. */
   protected Headers defaultHeaders = null;
+
+  /** The skip authentication. */
   protected boolean skipAuthentication = false;
 
   /** The Constant MESSAGE_CODE. */
@@ -91,15 +92,15 @@ public abstract class WatsonService {
 
   /**
    * Instantiates a new Watson service.
-   * 
+   *
    * @param name the service name
    */
   public WatsonService(String name) {
     this.name = name;
-    this.apiKey = CredentialUtils.getAPIKey(name);
-    this.client = configureHttpClient();
+    apiKey = CredentialUtils.getAPIKey(name);
+    client = configureHttpClient();
     String url = CredentialUtils.getAPIUrl(name);
-    if (url != null && !url.isEmpty()) {
+    if ((url != null) && !url.isEmpty()) {
       // The VCAP_SERVICES will typically contain a url. If present use it.
       setEndPoint(url);
     }
@@ -108,7 +109,7 @@ public abstract class WatsonService {
 
   /**
    * Configures the HTTP client.
-   * 
+   *
    * @return the HTTP client
    */
   protected OkHttpClient configureHttpClient() {
@@ -240,8 +241,8 @@ public abstract class WatsonService {
 
   /**
    * Gets the API key.
-   * 
-   * 
+   *
+   *
    * @return the API key
    */
   protected String getApiKey() {
@@ -250,8 +251,8 @@ public abstract class WatsonService {
 
   /**
    * Gets the API end point.
-   * 
-   * 
+   *
+   *
    * @return the API end point
    */
   public String getEndPoint() {
@@ -260,8 +261,8 @@ public abstract class WatsonService {
 
   /**
    * Gets an authorization token that can be use to authorize API calls.
-   * 
-   * 
+   *
+   *
    * @return the token
    */
   public ServiceCall<String> getToken() {
@@ -273,15 +274,15 @@ public abstract class WatsonService {
   }
 
   /**
-   * Gets the error message from a JSON response
-   * 
+   * Gets the error message from a JSON response.
+   *
    * <pre>
    * {
    *   code: 400
    *   error: 'bad request'
    * }
    * </pre>
-   * 
+   *
    * @param response the HTTP response
    * @return the error message from the JSON object
    */
@@ -306,7 +307,7 @@ public abstract class WatsonService {
 
   /**
    * Gets the name.
-   * 
+   *
    * @return the name
    */
   public String getName() {
@@ -316,7 +317,7 @@ public abstract class WatsonService {
 
   /**
    * Sets the API key.
-   * 
+   *
    * @param apiKey the new API key
    */
   public void setApiKey(String apiKey) {
@@ -330,8 +331,9 @@ public abstract class WatsonService {
    */
   protected void setAuthentication(Builder builder) {
     if (getApiKey() == null) {
-      if (skipAuthentication) // This may be a proxy or some other component where the developer has
+      if (skipAuthentication) {
         return; // chosen to skip authentication with the service
+      }
       throw new IllegalArgumentException("apiKey or username and password were not specified");
     }
     builder.addHeader(HttpHeaders.AUTHORIZATION, apiKey.startsWith(BASIC) ? apiKey : BASIC + apiKey);
@@ -339,11 +341,11 @@ public abstract class WatsonService {
 
   /**
    * Sets the end point.
-   * 
+   *
    * @param endPoint the new end point
    */
   public void setEndPoint(final String endPoint) {
-    if (endPoint != null && !endPoint.isEmpty() && endPoint.endsWith("/")) {
+    if ((endPoint != null) && !endPoint.isEmpty() && endPoint.endsWith("/")) {
       this.endPoint = endPoint.substring(0, endPoint.length() - 1);
     } else {
       this.endPoint = endPoint;
@@ -352,7 +354,7 @@ public abstract class WatsonService {
 
   /**
    * Sets the username and password.
-   * 
+   *
    * @param username the username
    * @param password the password
    */
@@ -362,7 +364,7 @@ public abstract class WatsonService {
 
   /**
    * Set the default headers to be used on every HTTP request.
-   * 
+   *
    * @param headers name value pairs of headers
    */
   public void setDefaultHeaders(Map<String, String> headers) {
@@ -375,18 +377,15 @@ public abstract class WatsonService {
 
   /*
    * (non-Javadoc)
-   * 
+   *
    * @see java.lang.Object#toString()
    */
   @Override
   public String toString() {
-    final StringBuilder builder = new StringBuilder()
-      .append(name)
-      .append(" [");
+    final StringBuilder builder = new StringBuilder().append(name).append(" [");
 
     if (endPoint != null) {
-      builder.append("endPoint=")
-        .append(endPoint);
+      builder.append("endPoint=").append(endPoint);
     }
 
     return builder.append(']').toString();
@@ -402,8 +401,9 @@ public abstract class WatsonService {
    * @return the t
    */
   protected <T> T processServiceCall(final ResponseConverter<T> converter, Response response) {
-    if (response.isSuccessful())
+    if (response.isSuccessful()) {
       return converter.convert(response);
+    }
 
     // There was a Client Error 4xx or a Server Error 5xx
     // Get the error message and create the exception
@@ -426,7 +426,7 @@ public abstract class WatsonService {
         throw new ConflictException(error != null ? error : "", response);
       case HttpStatus.REQUEST_TOO_LONG: // HTTP 413
         throw new RequestTooLargeException(error != null ? error
-            : "Request too large: The request entity is larger than the server is able to process", response);
+            : "Request too large: " + "The request entity is larger than the server is able to process", response);
       case HttpStatus.UNSUPPORTED_MEDIA_TYPE: // HTTP 415
         throw new UnsupportedException(error != null ? error : "Unsupported Media Type", response);
       case HttpStatus.TOO_MANY_REQUESTS: // HTTP 429
@@ -442,7 +442,7 @@ public abstract class WatsonService {
 
   /**
    * Sets the skip authentication.
-   * 
+   *
    * @param skipAuthentication the new skip authentication
    */
   public void setSkipAuthentication(boolean skipAuthentication) {

@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column;
@@ -45,7 +44,7 @@ public abstract class Column extends GenericModel {
 
     /**
      * From string.
-     * 
+     *
      * @param text the text
      * @return the column type, or null if none found
      */
@@ -65,31 +64,21 @@ public abstract class Column extends GenericModel {
 
     /**
      * Instantiates a new column type.
-     * 
+     *
      * @param columnType the column type
      */
     ColumnType(String columnType) {
-      this.type = columnType;
-    }
-
-    /**
-     * Equals.
-     * 
-     * @param otherColumnType the other column type
-     * @return true, if successful
-     */
-    public boolean equals(String otherColumnType) {
-      return type.equals(otherColumnType);
+      type = columnType;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Enum#toString()
      */
     @Override
     public String toString() {
-      return this.type;
+      return type;
     }
   }
 
@@ -106,7 +95,7 @@ public abstract class Column extends GenericModel {
 
     /**
      * From string.
-     * 
+     *
      * @param text the text
      * @return the goal, or null if none found
      */
@@ -126,31 +115,22 @@ public abstract class Column extends GenericModel {
 
     /**
      * Instantiates a new goal.
-     * 
+     *
      * @param goal the goal
      */
     Goal(String goal) {
       this.goal = goal;
     }
 
-    /**
-     * Equals.
-     * 
-     * @param otherGoal the other goal
-     * @return true, if successful
-     */
-    public boolean equals(String otherGoal) {
-      return goal.equals(otherGoal);
-    }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Enum#toString()
      */
     @Override
     public String toString() {
-      return this.goal;
+      return goal;
     }
 
   }
@@ -192,7 +172,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Instantiates a new column.
-   * 
+   *
    * @param type the type
    */
   public Column(ColumnType type) {
@@ -201,7 +181,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the type.
-   * 
+   *
    * @param type The type
    */
   protected void setType(ColumnType type) {
@@ -210,7 +190,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the full name.
-   * 
+   *
    * @param fullName the full name
    * @return the column
    */
@@ -221,7 +201,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Gets the description.
-   * 
+   *
    * @return the description
    */
   public String getDescription() {
@@ -230,7 +210,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Gets the format.
-   * 
+   *
    * @return the format
    */
   public String getFormat() {
@@ -239,7 +219,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Gets the full name.
-   * 
+   *
    * @return The fullName
    */
   public String getFullName() {
@@ -248,7 +228,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Gets the goal.
-   * 
+   *
    * @return The goal
    */
   public Goal getGoal() {
@@ -257,7 +237,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Gets the insignificant loss.
-   * 
+   *
    * @return the insignificant loss
    */
   public Double getInsignificantLoss() {
@@ -266,7 +246,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Gets the key.
-   * 
+   *
    * @return The key
    */
   public String getKey() {
@@ -275,7 +255,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Gets the significant gain.
-   * 
+   *
    * @return the significant gain
    */
   public Double getSignificantGain() {
@@ -284,7 +264,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Gets the significant loss.
-   * 
+   *
    * @return the significant loss
    */
   public Double getSignificantLoss() {
@@ -293,7 +273,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Gets the type.
-   * 
+   *
    * @return The type
    */
   public ColumnType getType() {
@@ -302,7 +282,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the goal.
-   * 
+   *
    * @param goal the goal
    * @return the column
    */
@@ -313,7 +293,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Checks if is objective.
-   * 
+   *
    * @return true, if is objective
    */
   public Boolean isObjective() {
@@ -322,7 +302,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the key.
-   * 
+   *
    * @param key the key
    * @return the column
    */
@@ -333,7 +313,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets is objective.
-   * 
+   *
    * @param objective the is objective
    * @return the column
    */
@@ -344,7 +324,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the description.
-   * 
+   *
    * @param description the new description
    */
   public void setDescription(String description) {
@@ -353,7 +333,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the format.
-   * 
+   *
    * @param format the new format
    */
   public void setFormat(String format) {
@@ -362,7 +342,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the full name.
-   * 
+   *
    * @param fullName The full_name
    */
   public void setFullName(String fullName) {
@@ -371,7 +351,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the goal.
-   * 
+   *
    * @param goal The goal
    */
   public void setGoal(Goal goal) {
@@ -380,7 +360,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the insignificant loss.
-   * 
+   *
    * @param insignificantLoss the new insignificant loss
    */
   public void setInsignificantLoss(Double insignificantLoss) {
@@ -389,7 +369,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the key.
-   * 
+   *
    * @param key The key
    */
   public void setKey(String key) {
@@ -398,7 +378,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the checks if is objective.
-   * 
+   *
    * @param objective The is_objective
    */
   public void setObjective(boolean objective) {
@@ -407,7 +387,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the significant gain.
-   * 
+   *
    * @param significantGain the new significant gain
    */
   public void setSignificantGain(Double significantGain) {
@@ -416,7 +396,7 @@ public abstract class Column extends GenericModel {
 
   /**
    * Sets the significant loss.
-   * 
+   *
    * @param significantLoss the new significant loss
    */
   public void setSignificantLoss(Double significantLoss) {

@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
@@ -41,7 +40,7 @@ public class SpeechSession extends GenericModel {
 
   /**
    * Gets the new session uri.
-   * 
+   *
    * @return The newSessionUri
    */
   public String getNewSessionUri() {
@@ -50,7 +49,7 @@ public class SpeechSession extends GenericModel {
 
   /**
    * Gets the observe result.
-   * 
+   *
    * @return The observeResult
    */
   public String getObserveResult() {
@@ -59,7 +58,7 @@ public class SpeechSession extends GenericModel {
 
   /**
    * Gets the recognize.
-   * 
+   *
    * @return The recognize
    */
   public String getRecognize() {
@@ -68,7 +67,7 @@ public class SpeechSession extends GenericModel {
 
   /**
    * Gets the recognize ws.
-   * 
+   *
    * @return The recognizeWS
    */
   public String getRecognizeWS() {
@@ -77,7 +76,7 @@ public class SpeechSession extends GenericModel {
 
   /**
    * Gets the session id.
-   * 
+   *
    * @return The sessionId
    */
   public String getSessionId() {
@@ -86,7 +85,7 @@ public class SpeechSession extends GenericModel {
 
   /**
    * Sets the new session uri.
-   * 
+   *
    * @param newSessionUri The new_session_uri
    */
   public void setNewSessionUri(final String newSessionUri) {
@@ -95,7 +94,7 @@ public class SpeechSession extends GenericModel {
 
   /**
    * Sets the observe result.
-   * 
+   *
    * @param observeResult The observe_result
    */
   public void setObserveResult(final String observeResult) {
@@ -104,7 +103,7 @@ public class SpeechSession extends GenericModel {
 
   /**
    * Sets the recognize.
-   * 
+   *
    * @param recognize The recognize
    */
   public void setRecognize(final String recognize) {
@@ -113,7 +112,7 @@ public class SpeechSession extends GenericModel {
 
   /**
    * Sets the recognize ws.
-   * 
+   *
    * @param recognizeWS The recognizeWS
    */
   public void setRecognizeWS(final String recognizeWS) {
@@ -122,7 +121,7 @@ public class SpeechSession extends GenericModel {
 
   /**
    * Sets the session id.
-   * 
+   *
    * @param sessionId The session_id
    */
   public void setSessionId(final String sessionId) {

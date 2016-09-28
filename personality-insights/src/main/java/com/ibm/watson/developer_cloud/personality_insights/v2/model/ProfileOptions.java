@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.personality_insights.v2.model;
@@ -25,7 +24,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * Profile Options when using the {@link PersonalityInsights#getProfile(ProfileOptions)} method.
  */
 public class ProfileOptions {
-  
+
   /**
    * Builder.
    */
@@ -38,22 +37,22 @@ public class ProfileOptions {
     private String text;
 
     private Builder(ProfileOptions options) {
-      this.text = options.text;
-      this.contentType = options.contentType;
-      this.contentItems = options.contentItems;
-      this.includeRaw = options.includeRaw;
-      this.acceptLanguage = options.acceptLanguage;
-      this.language = options.language;
+      text = options.text;
+      contentType = options.contentType;
+      contentItems = options.contentItems;
+      includeRaw = options.includeRaw;
+      acceptLanguage = options.acceptLanguage;
+      language = options.language;
     }
 
     /**
      * Instantiates a new builder.
      */
-    public Builder() {}
+    public Builder() { }
 
     /**
      * Accept language.
-     * 
+     *
      * @param acceptLanguage the accept language
      * @return the profile options
      */
@@ -64,16 +63,16 @@ public class ProfileOptions {
 
     /**
      * Adds a content items.
-     * 
+     *
      * @param contentItem the content item
      * @return the profile options
      */
     public Builder addContentItem(ContentItem contentItem) {
-      if (this.contentItems == null) {
-        this.contentItems = new ArrayList<ContentItem>();
-        this.contentType = HttpMediaType.APPLICATION_JSON;
+      if (contentItems == null) {
+        contentItems = new ArrayList<ContentItem>();
+        contentType = HttpMediaType.APPLICATION_JSON;
       }
-      this.contentItems.add(contentItem);
+      contentItems.add(contentItem);
       return this;
     }
 
@@ -88,32 +87,32 @@ public class ProfileOptions {
 
     /**
      * Content items.
-     * 
+     *
      * @param contentItems the content items
      * @return the profile options
      */
     public Builder contentItems(List<ContentItem> contentItems) {
       this.contentItems = contentItems;
-      this.contentType = HttpMediaType.APPLICATION_JSON;
+      contentType = HttpMediaType.APPLICATION_JSON;
       return this;
     }
 
     /**
      * Html.
-     * 
+     *
      * @param html the html
      * @return the profile options
      */
     public Builder html(String html) {
-      this.text = html;
-      this.contentType = HttpMediaType.TEXT_HTML;
+      text = html;
+      contentType = HttpMediaType.TEXT_HTML;
       return this;
     }
 
 
     /**
      * Include raw.
-     * 
+     *
      * @param includeRaw the include raw
      * @return the profile options
      */
@@ -124,7 +123,7 @@ public class ProfileOptions {
 
     /**
      * Language.
-     * 
+     *
      * @param language the language
      * @return the profile options
      */
@@ -135,13 +134,13 @@ public class ProfileOptions {
 
     /**
      * Text.
-     * 
+     *
      * @param text the text
      * @return the profile options
      */
     public Builder text(String text) {
       this.text = text;
-      this.contentType = HttpMediaType.TEXT_PLAIN;
+      contentType = HttpMediaType.TEXT_PLAIN;
       return this;
     }
   }
@@ -152,22 +151,25 @@ public class ProfileOptions {
   private Boolean includeRaw;
   private Language language;
   private String text;
-  private ProfileOptions(Builder builder) {
-    Validator.isTrue((builder.text != null && !builder.text.isEmpty())
-        || (builder.contentItems != null && !builder.contentItems.isEmpty()), "text or contentItems are required");
 
-    this.text = builder.text;
-    this.contentType = builder.contentType;
-    this.contentItems = builder.contentItems;
-    this.includeRaw = builder.includeRaw;
-    this.acceptLanguage = builder.acceptLanguage;
-    this.language = builder.language;
+  private ProfileOptions(Builder builder) {
+    Validator.isTrue(
+        ((builder.text != null) && !builder.text.isEmpty())
+            || ((builder.contentItems != null) && !builder.contentItems.isEmpty()),
+        "text or contentItems are required");
+
+    text = builder.text;
+    contentType = builder.contentType;
+    contentItems = builder.contentItems;
+    includeRaw = builder.includeRaw;
+    acceptLanguage = builder.acceptLanguage;
+    language = builder.language;
   }
 
 
   /**
    * Gets the accept language.
-   * 
+   *
    * @return the acceptLanguage
    */
   public AcceptLanguage acceptLanguage() {
@@ -177,7 +179,7 @@ public class ProfileOptions {
 
   /**
    * Gets the content items.
-   * 
+   *
    * @return the contentItems
    */
   public List<ContentItem> contentItems() {
@@ -187,7 +189,7 @@ public class ProfileOptions {
 
   /**
    * Gets the content type.
-   * 
+   *
    * @return the contentType
    */
   public String contentType() {
@@ -196,7 +198,7 @@ public class ProfileOptions {
 
   /**
    * Gets the include raw.
-   * 
+   *
    * @return the includeRaw
    */
   public Boolean includeRaw() {
@@ -206,7 +208,7 @@ public class ProfileOptions {
 
   /**
    * Gets the language.
-   * 
+   *
    * @return the language
    */
   public Language language() {
@@ -226,13 +228,12 @@ public class ProfileOptions {
 
   /**
    * Gets the text.
-   * 
+   *
    * @return the text
    */
   public String text() {
     return text;
   }
-
 
 
 }

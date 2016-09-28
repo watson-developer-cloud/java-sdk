@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
@@ -43,17 +42,15 @@ import okhttp3.Response;
 
 
 /**
- * The Text to Speech service uses IBM's speech synthesis capabilities to convert text to an audio
- * signal. The audio is streamed back to the client in a {@link InputStream}
- * 
+ * The Text to Speech service uses IBM's speech synthesis capabilities to convert text to an audio signal. The audio is
+ * streamed back to the client in a {@link InputStream}
+ *
  * @version v1
- * @see <a href=
- *      "http://www.ibm.com/watson/developercloud/text-to-speech.html"> Text
- *      to Speech</a>
+ * @see <a href= "http://www.ibm.com/watson/developercloud/text-to-speech.html"> Text to Speech</a>
  */
 public class TextToSpeech extends WatsonService {
 
-  private final static String URL = "https://stream.watsonplatform.net/text-to-speech/api";
+  private static final String URL = "https://stream.watsonplatform.net/text-to-speech/api";
   private static final String PATH_VOICES = "/v1/voices";
   private static final String PATH_VOICE = "/v1/voices/%s";
   private static final String PATH_SYNTHESIZE = "/v1/synthesize";
@@ -74,9 +71,9 @@ public class TextToSpeech extends WatsonService {
   private static final String LANGUAGE = "language";
   private static final String WORDS = "words";
 
-  private static final Type TYPE_GET_VOICES = new TypeToken<List<Voice>>() {}.getType();
-  private static final Type TYPE_VOICE_MODELS = new TypeToken<List<CustomVoiceModel>>() {}.getType();
-  private static final Type TYPE_CUSTOM_TRANSLATIONS = new TypeToken<List<CustomTranslation>>() {}.getType();
+  private static final Type TYPE_GET_VOICES = new TypeToken<List<Voice>>() { }.getType();
+  private static final Type TYPE_VOICE_MODELS = new TypeToken<List<CustomVoiceModel>>() { }.getType();
+  private static final Type TYPE_CUSTOM_TRANSLATIONS = new TypeToken<List<CustomTranslation>>() { }.getType();
   private static final Gson GSON = GsonSingleton.getGson();
 
   /**
@@ -84,12 +81,14 @@ public class TextToSpeech extends WatsonService {
    */
   public TextToSpeech() {
     super(SERVICE_NAME);
-    if (getEndPoint() == null || getEndPoint().isEmpty())
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
+    }
   }
 
   /**
    * Instantiates a new text to speech service by username and password.
+   *
    * @param username the username
    * @param password the password
    */
@@ -100,7 +99,7 @@ public class TextToSpeech extends WatsonService {
 
   /**
    * Gets the voices.
-   * 
+   *
    * @return the list of {@link Voice}
    */
   public ServiceCall<List<Voice>> getVoices() {
@@ -110,10 +109,10 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   *  Gets the voice based on a given name.
+   * Gets the voice based on a given name.
    *
-   *  @param voiceName the voice name
-   *  @return the {@link Voice}
+   * @param voiceName the voice name
+   * @return the {@link Voice}
    */
   public ServiceCall<Voice> getVoice(final String voiceName) {
     Validator.notNull(voiceName, "name can not be null");
@@ -126,25 +125,26 @@ public class TextToSpeech extends WatsonService {
    * Returns the phonetic pronunciation for the <code>word</code> specified.
    *
    * @param word The word for which the pronunciation is requested.
-   * @param voice the voice to obtain the pronunciation for the specified word in the language of
-   *        that voice.
+   * @param voice the voice to obtain the pronunciation for the specified word in the language of that voice.
    * @param phoneme the phoneme set in which to return the pronunciation
    * @return the word pronunciation
    * @see Pronunciation
    */
   public ServiceCall<Pronunciation> getPronunciation(String word, Voice voice, Phoneme phoneme) {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_GET_PRONUNCIATION).query(TEXT, word);
-    if (voice != null)
+    if (voice != null) {
       requestBuilder.query(VOICE, voice.getName());
-    if (phoneme != null)
+    }
+    if (phoneme != null) {
       requestBuilder.query(FORMAT, phoneme);
+    }
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Pronunciation.class));
   }
 
   /**
    * Synthesize text using a voice.
-   * 
+   *
    * @param text the text to synthesize
    * @param voice the voice
    * @return the input stream
@@ -155,7 +155,7 @@ public class TextToSpeech extends WatsonService {
 
   /**
    * Synthesize text using a {@link Voice} and {@link AudioFormat}.
-   * 
+   *
    * @param text the text
    * @param voice the voice
    * @param audioFormat the {@link AudioFormat}
@@ -164,10 +164,10 @@ public class TextToSpeech extends WatsonService {
   public ServiceCall<InputStream> synthesize(final String text, final Voice voice, final AudioFormat audioFormat) {
     return synthesize(text, voice, audioFormat, null);
   }
-  
+
   /**
    * Synthesize text using a {@link Voice} and {@link AudioFormat}.
-   * 
+   *
    * @param text the text
    * @param voice the voice
    * @param audioFormat the {@link AudioFormat}
@@ -176,7 +176,7 @@ public class TextToSpeech extends WatsonService {
    */
   public ServiceCall<InputStream> synthesize(final String text, final Voice voice, final AudioFormat audioFormat,
       String customizationId) {
-    Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
+    Validator.isTrue((text != null) && !text.isEmpty(), "text cannot be null or empty");
     Validator.isTrue(voice != null, "voice cannot be null or empty");
 
     final RequestBuilder request = RequestBuilder.get(PATH_SYNTHESIZE);
@@ -194,24 +194,22 @@ public class TextToSpeech extends WatsonService {
   /**
    * Gets all meta data of the CustomVoiceModels that you own.
    *
-   * @param language
-   *          the language (e.g. "en-us")
+   * @param language the language (e.g. "en-us")
    * @return the VoiceModels
    */
   public ServiceCall<List<CustomVoiceModel>> getCustomVoiceModels(final String language) {
     Validator.notNull(language, "language can not be null");
 
     final Request request = RequestBuilder.get(PATH_CUSTOMIZATIONS).query(LANGUAGE, language).build();
-    ResponseConverter<List<CustomVoiceModel>> converter = ResponseConverterUtils.getGenericObject(TYPE_VOICE_MODELS,
-        CUSTOMIZATIONS);
+    ResponseConverter<List<CustomVoiceModel>> converter =
+        ResponseConverterUtils.getGenericObject(TYPE_VOICE_MODELS, CUSTOMIZATIONS);
     return createServiceCall(request, converter);
   }
 
   /**
    * Gets the meta data of a specific CustomVoiceModel.
    *
-   * @param id
-   *          the customization id of the CustomVoiceModel
+   * @param id the customization id of the CustomVoiceModel
    * @return the VoiceModel
    */
   public ServiceCall<CustomVoiceModel> getCustomVoiceModel(final String id) {
@@ -222,14 +220,12 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Saves a CustomVoiceModel. If the given model has an id, this service will
-   * update an existing model. When no id is set, a new CustomVoiceModel is
-   * created and the id field set.
+   * Saves a CustomVoiceModel. If the given model has an id, this service will update an existing model. When no id is
+   * set, a new CustomVoiceModel is created and the id field set.
    *
-   * @param model
-   *          the model to be saved
-   * @return a reference to the given CustomVoiceModel. If a new
-   *         CustomVoiceModel is created, the id field will be populated.
+   * @param model the model to be saved
+   * @return a reference to the given CustomVoiceModel. If a new CustomVoiceModel is created, the id field will be
+   *         populated.
    */
   public ServiceCall<CustomVoiceModel> saveCustomVoiceModel(final CustomVoiceModel model) {
     final boolean isNew = model.getId() == null;
@@ -243,7 +239,7 @@ public class TextToSpeech extends WatsonService {
       public CustomVoiceModel convert(Response response) {
         CustomVoiceModel newModel = ResponseUtils.getObject(response, CustomVoiceModel.class);
 
-        if (newModel != null && newModel.getId() != null) {
+        if ((newModel != null) && (newModel.getId() != null)) {
           model.setId(newModel.getId());
         }
 
@@ -268,26 +264,24 @@ public class TextToSpeech extends WatsonService {
   /**
    * Gets all customized word translation of the given CustomVoiceModel.
    *
-   * @param model
-   *          the VoiceModel
+   * @param model the VoiceModel
    * @return a list of all CustomTranslations
    */
   public ServiceCall<List<CustomTranslation>> getWords(CustomVoiceModel model) {
     Validator.notNull(model.getId(), "model id can not be null");
 
     final Request request = RequestBuilder.get(String.format(PATH_WORDS, model.getId())).build();
-    final ResponseConverter<List<CustomTranslation>> converter = ResponseConverterUtils
-        .getGenericObject(TYPE_CUSTOM_TRANSLATIONS, WORDS);
+    final ResponseConverter<List<CustomTranslation>> converter =
+        ResponseConverterUtils.getGenericObject(TYPE_CUSTOM_TRANSLATIONS, WORDS);
     return createServiceCall(request, converter);
   }
 
   /**
-   * Saves or updates custom word translations. If no translation with the
-   * given word is existing, a new translation is created. Elsewise, the
-   * existing translation is updated.
+   * Saves or updates custom word translations. If no translation with the given word is existing, a new translation is
+   * created. Elsewise, the existing translation is updated.
    *
-   * @param model          the CustomVoiceModel
-   * @param translations          the translations to be saved or updated
+   * @param model the CustomVoiceModel
+   * @param translations the translations to be saved or updated
    * @return the service call
    */
   public ServiceCall<Void> saveWords(CustomVoiceModel model, CustomTranslation... translations) {
@@ -304,8 +298,8 @@ public class TextToSpeech extends WatsonService {
   /**
    * Deletes a custom word translation.
    *
-   * @param model          the CustomVoiceModel
-   * @param translation          the translation
+   * @param model the CustomVoiceModel
+   * @param translation the translation
    * @return the service call
    */
   public ServiceCall<Void> deleteWord(CustomVoiceModel model, CustomTranslation translation) {
@@ -316,5 +310,5 @@ public class TextToSpeech extends WatsonService {
     final Request request = RequestBuilder.delete(path).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
-  
+
 }

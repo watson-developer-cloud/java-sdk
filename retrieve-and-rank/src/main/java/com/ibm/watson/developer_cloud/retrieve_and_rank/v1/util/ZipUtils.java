@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util;
 
@@ -33,7 +32,7 @@ public final class ZipUtils {
 
   /**
    * Builds the configuration ZIP file.
-   * 
+   *
    * @param configName the configuration name
    * @param parentDir the parent directory
    * @return the file
@@ -68,7 +67,7 @@ public final class ZipUtils {
 
   /**
    * Creates the empty ZIP file.
-   * 
+   *
    * @param prefix file name prefix
    * @return the file
    */
@@ -80,11 +79,10 @@ public final class ZipUtils {
     }
   }
 
-  private static void writeZipEntry(ZipOutputStream out, String name, byte[] data)
-      throws IOException {
+  private static void writeZipEntry(ZipOutputStream out, String name, byte[] data) throws IOException {
     final String cleanedName;
 
-    if (name == null || name.isEmpty() || !name.startsWith("/")) {
+    if ((name == null) || name.isEmpty() || !name.startsWith("/")) {
       cleanedName = name;
     } else {
       cleanedName = name.substring(1);
@@ -96,21 +94,20 @@ public final class ZipUtils {
     out.closeEntry();
   }
 
-  private static void addFilesToZip(final File currentParentDir, final ZipOutputStream out,
-      final File globalParentDir) throws IOException {
+  private static void addFilesToZip(final File currentParentDir, final ZipOutputStream out, final File globalParentDir)
+      throws IOException {
     for (final File child : currentParentDir.listFiles()) {
       if (child.isDirectory()) {
         addFilesToZip(child, out, globalParentDir);
       } else if (child.isFile()) {
-        writeZipEntry(out, globalParentDir.toURI().relativize(child.toURI()).toString(),
-            readBytes(child));
+        writeZipEntry(out, globalParentDir.toURI().relativize(child.toURI()).toString(), readBytes(child));
       }
     }
   }
 
   private static byte[] readBytes(File file) {
     FileInputStream in = null;
-    final byte buffer[] = new byte[(int) file.length()];
+    final byte[] buffer = new byte[(int) file.length()];
     try {
       in = new FileInputStream(file);
       in.read(buffer);

@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model;
@@ -19,16 +18,16 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * {@link RankedAnswer} class used by {@link Ranking}.
- * 
+ *
  * @version watson.watson.developer_cloud.retrieve_and_rank.v1
  */
 public class RankedAnswer extends GenericModel {
 
-  /** The answer id */
+  /** The answer id. */
   @SerializedName("answer_id")
   private String answerID;
 
-  /** The score */
+  /** The score. */
   @SerializedName("score")
   private Double score;
 
@@ -38,7 +37,7 @@ public class RankedAnswer extends GenericModel {
 
   /**
    * Returns the answer ID.
-   * 
+   *
    * @return answerID
    */
   public String getAnswerID() {
@@ -47,7 +46,7 @@ public class RankedAnswer extends GenericModel {
 
   /**
    * Sets the answer ID.
-   * 
+   *
    * @param answerID the new answerID
    */
   public void setAnswerID(String answerID) {
@@ -56,7 +55,7 @@ public class RankedAnswer extends GenericModel {
 
   /**
    * Returns the score of the candidate answer.
-   * 
+   *
    * @return score
    */
   public Double getScore() {
@@ -65,7 +64,7 @@ public class RankedAnswer extends GenericModel {
 
   /**
    * Sets the score of the candidate answer.
-   * 
+   *
    * @param score the score to set
    */
   public void setScore(Double score) {
@@ -73,9 +72,8 @@ public class RankedAnswer extends GenericModel {
   }
 
   /**
-   * Gets the confidence that Watson has in this answer's ranking. Higher values represent higher
-   * confidences.
-   * 
+   * Gets the confidence that Watson has in this answer's ranking. Higher values represent higher confidences.
+   *
    * @return the confidence
    */
   public Double getConfidence() {
@@ -83,9 +81,8 @@ public class RankedAnswer extends GenericModel {
   }
 
   /**
-   * Sets the confidence that Watson has in this answer's ranking Higher values represent higher
-   * confidences.
-   * 
+   * Sets the confidence that Watson has in this answer's ranking Higher values represent higher confidences.
+   *
    * @param confidence the new confidence
    */
   public void setConfidence(Double confidence) {

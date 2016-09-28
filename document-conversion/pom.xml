@@ -11,7 +11,7 @@
 	<artifactId>document-conversion</artifactId>
 	<name>Document Conversion</name>
 
-	<dependencies>
+  <dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>core</artifactId>

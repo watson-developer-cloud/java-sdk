@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
@@ -20,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Subject-Action-Object(SAO) relation returned by the AlchemyLanguage service.
- * 
+ *
  */
 public class SAORelation extends GenericModel {
 
@@ -45,7 +44,7 @@ public class SAORelation extends GenericModel {
 
       /**
        * Gets the negated.
-       * 
+       *
        * @return the negated
        */
       public Integer getNegated() {
@@ -54,7 +53,7 @@ public class SAORelation extends GenericModel {
 
       /**
        * Gets the tense.
-       * 
+       *
        * @return The tense
        */
       public String getTense() {
@@ -63,7 +62,7 @@ public class SAORelation extends GenericModel {
 
       /**
        * Gets the text.
-       * 
+       *
        * @return The text
        */
       public String getText() {
@@ -72,7 +71,7 @@ public class SAORelation extends GenericModel {
 
       /**
        * Sets the negated.
-       * 
+       *
        * @param negated the negated to set
        */
       public void setNegated(Integer negated) {
@@ -81,7 +80,7 @@ public class SAORelation extends GenericModel {
 
       /**
        * Sets the tense.
-       * 
+       *
        * @param tense The tense
        */
       public void setTense(String tense) {
@@ -90,7 +89,7 @@ public class SAORelation extends GenericModel {
 
       /**
        * Sets the text.
-       * 
+       *
        * @param text The text
        */
       public void setText(String text) {
@@ -110,7 +109,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the lemmatized.
-     * 
+     *
      * @return The lemmatized
      */
     public String getLemmatized() {
@@ -119,7 +118,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the text.
-     * 
+     *
      * @return The text
      */
     public String getText() {
@@ -128,7 +127,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the verb.
-     * 
+     *
      * @return The verb
      */
     public Verb getVerb() {
@@ -137,7 +136,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the lemmatized.
-     * 
+     *
      * @param lemmatized The lemmatized
      */
     public void setLemmatized(String lemmatized) {
@@ -146,7 +145,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the text.
-     * 
+     *
      * @param text The text
      */
     public void setText(String text) {
@@ -155,7 +154,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the verb.
-     * 
+     *
      * @param verb The verb
      */
     public void setVerb(Verb verb) {
@@ -185,7 +184,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the entity.
-     * 
+     *
      * @return the entity
      */
     public Entity getEntity() {
@@ -194,7 +193,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the keywords.
-     * 
+     *
      * @return the keywords
      */
     public List<Keyword> getKeywords() {
@@ -203,7 +202,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the sentiment.
-     * 
+     *
      * @return The sentiment
      */
     public Sentiment getSentiment() {
@@ -212,7 +211,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the sentiment from subject.
-     * 
+     *
      * @return the sentimentFromSubject
      */
     public Sentiment getSentimentFromSubject() {
@@ -221,7 +220,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the text.
-     * 
+     *
      * @return The text
      */
     public String getText() {
@@ -230,7 +229,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the entity.
-     * 
+     *
      * @param entity the new entity
      */
     public void setEntity(Entity entity) {
@@ -239,7 +238,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the keywords.
-     * 
+     *
      * @param keywords the keywords to set
      */
     public void setKeywords(List<Keyword> keywords) {
@@ -248,7 +247,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the sentiment.
-     * 
+     *
      * @param sentiment The sentiment
      */
     public void setSentiment(Sentiment sentiment) {
@@ -257,7 +256,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the sentiment from subject.
-     * 
+     *
      * @param sentimentFromSubject the sentimentFromSubject to set
      */
     public void setSentimentFromSubject(Sentiment sentimentFromSubject) {
@@ -266,7 +265,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the text.
-     * 
+     *
      * @param text The text
      */
     public void setText(String text) {
@@ -294,7 +293,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the entity.
-     * 
+     *
      * @return the entity
      */
     public Entity getEntity() {
@@ -303,7 +302,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the keywords.
-     * 
+     *
      * @return the keywords
      */
     public List<Keyword> getKeywords() {
@@ -312,7 +311,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the sentiment.
-     * 
+     *
      * @return the sentiment
      */
     public Sentiment getSentiment() {
@@ -321,7 +320,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Gets the text.
-     * 
+     *
      * @return the text
      */
     public String getText() {
@@ -330,7 +329,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the entity.
-     * 
+     *
      * @param entity the entity to set
      */
     public void setEntity(Entity entity) {
@@ -339,7 +338,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the keywords.
-     * 
+     *
      * @param keywords the keywords to set
      */
     public void setKeywords(List<Keyword> keywords) {
@@ -348,7 +347,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the sentiment.
-     * 
+     *
      * @param sentiment the sentiment to set
      */
     public void setSentiment(Sentiment sentiment) {
@@ -357,7 +356,7 @@ public class SAORelation extends GenericModel {
 
     /**
      * Sets the text.
-     * 
+     *
      * @param text the text to set
      */
     public void setText(String text) {
@@ -380,7 +379,7 @@ public class SAORelation extends GenericModel {
 
   /**
    * Gets the action.
-   * 
+   *
    * @return The action
    */
   public Action getAction() {
@@ -389,7 +388,7 @@ public class SAORelation extends GenericModel {
 
   /**
    * Gets the object.
-   * 
+   *
    * @return The object
    */
   public RelationObject getObject() {
@@ -398,7 +397,7 @@ public class SAORelation extends GenericModel {
 
   /**
    * Gets the sentence.
-   * 
+   *
    * @return The sentence
    */
   public String getSentence() {
@@ -407,7 +406,7 @@ public class SAORelation extends GenericModel {
 
   /**
    * Gets the subject.
-   * 
+   *
    * @return The subject
    */
   public Subject getSubject() {
@@ -416,7 +415,7 @@ public class SAORelation extends GenericModel {
 
   /**
    * Sets the action.
-   * 
+   *
    * @param action The action
    */
   public void setAction(Action action) {
@@ -425,7 +424,7 @@ public class SAORelation extends GenericModel {
 
   /**
    * Sets the object.
-   * 
+   *
    * @param object The object
    */
   public void setObject(RelationObject object) {
@@ -434,7 +433,7 @@ public class SAORelation extends GenericModel {
 
   /**
    * Sets the sentence.
-   * 
+   *
    * @param sentence The sentence
    */
   public void setSentence(String sentence) {
@@ -443,7 +442,7 @@ public class SAORelation extends GenericModel {
 
   /**
    * Sets the subject.
-   * 
+   *
    * @param subject The subject
    */
   public void setSubject(Subject subject) {

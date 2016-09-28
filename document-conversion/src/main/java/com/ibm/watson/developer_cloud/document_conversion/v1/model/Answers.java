@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
@@ -22,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Structure that stores the output of document that is converted into an Answer unit.
- * 
+ *
  * @see DocumentConversion
  */
 public class Answers extends GenericModel {
@@ -46,7 +45,7 @@ public class Answers extends GenericModel {
 
       /**
        * Gets the Internet media type of the answer unit.
-       * 
+       *
        * @return String
        */
       public String getMediaType() {
@@ -55,7 +54,7 @@ public class Answers extends GenericModel {
 
       /**
        * Gets the text of the answer unit.
-       * 
+       *
        * @return String
        */
       public String getText() {
@@ -64,7 +63,7 @@ public class Answers extends GenericModel {
 
       /**
        * Sets the Internet media type of the answer unit.
-       * 
+       *
        * @param mediaType The Internet media type
        */
       public void setMediaType(String mediaType) {
@@ -73,7 +72,7 @@ public class Answers extends GenericModel {
 
       /**
        * Sets the text of the answer unit.
-       * 
+       *
        * @param text The text of the answer unit
        */
       public void setText(String text) {
@@ -94,10 +93,10 @@ public class Answers extends GenericModel {
     private String type;
 
     private String direction;
-    
+
     @SerializedName("parent_id")
     private String parentId;
-    
+
     /**
      * Gets the direction.
      *
@@ -136,7 +135,7 @@ public class Answers extends GenericModel {
 
     /**
      * Gets the list of content for the answer unit.
-     * 
+     *
      * @return List
      */
     public List<Content> getContent() {
@@ -145,7 +144,7 @@ public class Answers extends GenericModel {
 
     /**
      * Gets the id of the answer unit.
-     * 
+     *
      * @return The id of the answer unit
      */
     public String getId() {
@@ -154,7 +153,7 @@ public class Answers extends GenericModel {
 
     /**
      * Gets the title of the answer unit.
-     * 
+     *
      * @return String
      */
     public String getTitle() {
@@ -163,7 +162,7 @@ public class Answers extends GenericModel {
 
     /**
      * Gets the type of the answer unit.
-     * 
+     *
      * @return String
      */
     public String getType() {
@@ -172,7 +171,7 @@ public class Answers extends GenericModel {
 
     /**
      * Sets the list of content for the answer unit.
-     * 
+     *
      * @param content The list of content for the answer unit
      */
     public void setContent(List<Content> content) {
@@ -181,7 +180,7 @@ public class Answers extends GenericModel {
 
     /**
      * Sets the id of the answer unit.
-     * 
+     *
      * @param id The id of the answer unit
      */
     public void setId(String id) {
@@ -190,7 +189,7 @@ public class Answers extends GenericModel {
 
     /**
      * Sets the title of the answer unit.
-     * 
+     *
      * @param title The title of the answer unit
      */
     public void setTitle(String title) {
@@ -199,7 +198,7 @@ public class Answers extends GenericModel {
 
     /**
      * Sets the type of the answer unit.
-     * 
+     *
      * @param type The type of the answer unit
      */
     public void setType(String type) {
@@ -220,7 +219,7 @@ public class Answers extends GenericModel {
 
   /**
    * Gets the list of answer units.
-   * 
+   *
    * @return List
    */
   public List<AnswerUnits> getAnswerUnits() {
@@ -229,7 +228,7 @@ public class Answers extends GenericModel {
 
   /**
    * Gets the source document id.
-   * 
+   *
    * @return String
    */
   public String getSourceDocumentId() {
@@ -238,7 +237,7 @@ public class Answers extends GenericModel {
 
   /**
    * Gets the time stamp of the answer.
-   * 
+   *
    * @return Date
    */
   public Date getTimestamp() {
@@ -247,7 +246,7 @@ public class Answers extends GenericModel {
 
   /**
    * Sets the list of answer units.
-   * 
+   *
    * @param answerUnits The list of answer units
    */
   public void setAnswerUnits(List<AnswerUnits> answerUnits) {
@@ -256,7 +255,7 @@ public class Answers extends GenericModel {
 
   /**
    * Sets the source document id.
-   * 
+   *
    * @param sourceDocumentId The id of the source document
    */
   public void setSourceDocumentId(String sourceDocumentId) {
@@ -265,7 +264,7 @@ public class Answers extends GenericModel {
 
   /**
    * Sets the timestamp of the answwer.
-   * 
+   *
    * @param timestamp the new timestamp
    */
   public void setTimestamp(Date timestamp) {

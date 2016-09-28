@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
@@ -42,7 +41,7 @@ public class Option extends GenericModel {
 
   /**
    * Instantiates a new option.
-   * 
+   *
    * @param key the key
    * @param name the name
    */
@@ -54,7 +53,7 @@ public class Option extends GenericModel {
 
   /**
    * Instantiates a new option.
-   * 
+   *
    * @param key the key
    * @param name the name
    * @param values the values
@@ -70,7 +69,7 @@ public class Option extends GenericModel {
 
   /**
    * Sets the application data.
-   * 
+   *
    * @param appData the app data
    * @return the option
    */
@@ -81,7 +80,7 @@ public class Option extends GenericModel {
 
   /**
    * Sets the HTML description .
-   * 
+   *
    * @param descriptionHtml the HTML description
    * @return the option
    */
@@ -92,7 +91,7 @@ public class Option extends GenericModel {
 
   /**
    * Gets the HTML description.
-   * 
+   *
    * @return The HTML description
    */
   public String getDescriptionHtml() {
@@ -101,7 +100,7 @@ public class Option extends GenericModel {
 
   /**
    * Gets the key.
-   * 
+   *
    * @return The key
    */
   public String getKey() {
@@ -110,7 +109,7 @@ public class Option extends GenericModel {
 
   /**
    * Gets the name.
-   * 
+   *
    * @return The name
    */
   public String getName() {
@@ -119,7 +118,7 @@ public class Option extends GenericModel {
 
   /**
    * Gets the values.
-   * 
+   *
    * @return The values
    */
   public HashMap<String, Object> getValues() {
@@ -128,7 +127,7 @@ public class Option extends GenericModel {
 
   /**
    * Sets the key.
-   * 
+   *
    * @param key the key
    * @return the option
    */
@@ -139,7 +138,7 @@ public class Option extends GenericModel {
 
   /**
    * Sets the name.
-   * 
+   *
    * @param name the name
    * @return the option
    */
@@ -150,7 +149,7 @@ public class Option extends GenericModel {
 
   /**
    * Sets the description html.
-   * 
+   *
    * @param descriptionHtml The description_html
    */
   public void setDescriptionHtml(String descriptionHtml) {
@@ -159,7 +158,7 @@ public class Option extends GenericModel {
 
   /**
    * Sets the key.
-   * 
+   *
    * @param key The key
    */
   public void setKey(String key) {
@@ -168,7 +167,7 @@ public class Option extends GenericModel {
 
   /**
    * Sets the name.
-   * 
+   *
    * @param name The name
    */
   public void setName(String name) {
@@ -177,7 +176,7 @@ public class Option extends GenericModel {
 
   /**
    * Sets the values.
-   * 
+   *
    * @param values The values
    */
   public void setValues(HashMap<String, Object> values) {
@@ -186,7 +185,7 @@ public class Option extends GenericModel {
 
   /**
    * Sets value.
-   * 
+   *
    * @param name the name
    * @param value the value
    * @return the option
@@ -202,7 +201,7 @@ public class Option extends GenericModel {
 
   /**
    * Sets values.
-   * 
+   *
    * @param values the values
    * @return the option
    */

@@ -11,7 +11,7 @@
 	<artifactId>personality-insights</artifactId>
 	<name>Personality Insights</name>
 
-	<dependencies>
+  <dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>core</artifactId>

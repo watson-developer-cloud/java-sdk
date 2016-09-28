@@ -1,15 +1,14 @@
 /*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
@@ -27,10 +26,10 @@ import okhttp3.HttpUrl;
 public class ClassifyImagesOptions {
 
   private ClassifyImagesOptions(Builder builder) {
-    this.imagesFile = builder.imagesFile;
-    this.url = builder.url;
-    this.classifierIds = builder.classifierIds;
-    this.threshold = builder.threshold;
+    imagesFile = builder.imagesFile;
+    url = builder.url;
+    classifierIds = builder.classifierIds;
+    threshold = builder.threshold;
   }
 
   private File imagesFile;
@@ -50,10 +49,10 @@ public class ClassifyImagesOptions {
 
     private Builder(ClassifyImagesOptions options) {
       this();
-      this.imagesFile = options.imagesFile;
-      this.url = options.url;
-      this.classifierIds = new ArrayList<String>(options.classifierIds);
-      this.threshold = options.threshold;
+      imagesFile = options.imagesFile;
+      url = options.url;
+      classifierIds = new ArrayList<String>(options.classifierIds);
+      threshold = options.threshold;
     }
 
     /**
@@ -109,11 +108,11 @@ public class ClassifyImagesOptions {
      * @return the builder
      */
     public Builder classifierIds(String classifierId) {
-      if (this.classifierIds == null) {
-        this.classifierIds = new ArrayList<String>();
+      if (classifierIds == null) {
+        classifierIds = new ArrayList<String>();
       }
-      
-      this.classifierIds.add(classifierId);
+
+      classifierIds.add(classifierId);
       return this;
     }
 
@@ -124,7 +123,7 @@ public class ClassifyImagesOptions {
      * @return the builder
      */
     public Builder threshold(double threshold) {
-      Validator.isTrue(threshold <= 1.0 && threshold >= 0.0, "'threshold' needs to be between 0.0 and 1.0");
+      Validator.isTrue((threshold <= 1.0) && (threshold >= 0.0), "'threshold' needs to be between 0.0 and 1.0");
       this.threshold = threshold;
       return this;
     }
@@ -132,7 +131,7 @@ public class ClassifyImagesOptions {
     /**
      * Instantiates a new builder.
      */
-    public Builder() {}
+    public Builder() { }
 
     /**
      * Builds the profile options.
@@ -140,7 +139,7 @@ public class ClassifyImagesOptions {
      * @return the profile options
      */
     public ClassifyImagesOptions build() {
-      Validator.isTrue(url != null || imagesFile != null, "url or imagesFile should be specified");
+      Validator.isTrue((url != null) || (imagesFile != null), "url or imagesFile should be specified");
       return new ClassifyImagesOptions(this);
     }
 

@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
@@ -20,37 +19,36 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Disambiguated returned by Alchemy services.
- * 
+ *
  */
 public class DisambiguatedLinks extends GenericModel {
 
   /**
-   * The link to the US Census for the disambiguated entity. Note: Provided only for entities that
-   * exist in this linked data-set.
+   * The link to the US Census for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String census;
 
   /**
-   * The cia link to the CIA World Factbook for the disambiguated entity. Note: Provided only for
-   * entities that exist in this linked data-set.
+   * The cia link to the CIA World Factbook for the disambiguated entity. Note: Provided only for entities that exist in
+   * this linked data-set.
    */
   private String ciaFactbook;
 
   /**
-   * The link to CrunchBase for the disambiguated entity. Note: Provided only for entities that
-   * exist in CrunchBase.
+   * The link to CrunchBase for the disambiguated entity. Note: Provided only for entities that exist in CrunchBase.
    */
   private String crunchbase;
 
   /**
-   * The link to DBpedia for the disambiguated entity. Note: Provided only for entities that exist
-   * in this linked data-set.
+   * The link to DBpedia for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String dbpedia;
 
   /**
-   * The link to Freebase for the disambiguated entity. Note: Provided only for entities that exist
-   * in this linked data-set.
+   * The link to Freebase for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String freebase;
 
@@ -58,14 +56,14 @@ public class DisambiguatedLinks extends GenericModel {
   private String geo;
 
   /**
-   * The link to Geonames for the disambiguated entity. Note: Provided only for entities that exist
-   * in this linked data-set.
+   * The link to Geonames for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String geonames;
 
   /**
-   * The music link to MusicBrainz for the disambiguated entity. Note: Provided only for entities
-   * that exist in this linked data-set.
+   * The music link to MusicBrainz for the disambiguated entity. Note: Provided only for entities that exist in this
+   * linked data-set.
    */
   private String musicBrainz;
 
@@ -73,8 +71,8 @@ public class DisambiguatedLinks extends GenericModel {
   private String name;
 
   /**
-   * The link to OpenCyc for the disambiguated entity. Note: Provided only for entities that exist
-   * in this linked data-set.
+   * The link to OpenCyc for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String opencyc;
 
@@ -82,8 +80,8 @@ public class DisambiguatedLinks extends GenericModel {
   private List<String> subType;
 
   /**
-   * The link to UMBEL for the disambiguated entity. Note: Provided only for entities that exist in
-   * this linked data-set.
+   * The link to UMBEL for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String umbel;
 
@@ -91,14 +89,13 @@ public class DisambiguatedLinks extends GenericModel {
   private String website;
 
   /**
-   * The link to YAGO for the disambiguated entity. Note: Provided only for entities that exist in
-   * this linked data-set.
+   * The link to YAGO for the disambiguated entity. Note: Provided only for entities that exist in this linked data-set.
    */
   private String yago;
 
   /**
    * Gets the census.
-   * 
+   *
    * @return the census
    */
   public String getCensus() {
@@ -107,7 +104,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the cia factbook.
-   * 
+   *
    * @return the ciaFactbook
    */
   public String getCiaFactbook() {
@@ -116,7 +113,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the crunchbase.
-   * 
+   *
    * @return the crunchbase
    */
   public String getCrunchbase() {
@@ -125,7 +122,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the dbpedia.
-   * 
+   *
    * @return The dbpedia
    */
   public String getDbpedia() {
@@ -134,7 +131,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the freebase.
-   * 
+   *
    * @return The freebase
    */
   public String getFreebase() {
@@ -143,7 +140,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the geo.
-   * 
+   *
    * @return the geo
    */
   public String getGeo() {
@@ -152,7 +149,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the geonames.
-   * 
+   *
    * @return the geonames
    */
   public String getGeonames() {
@@ -161,7 +158,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the music brainz.
-   * 
+   *
    * @return the musicBrainz
    */
   public String getMusicBrainz() {
@@ -170,7 +167,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the name.
-   * 
+   *
    * @return The name
    */
   public String getName() {
@@ -179,7 +176,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the opencyc.
-   * 
+   *
    * @return the opencyc
    */
   public String getOpencyc() {
@@ -188,7 +185,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the sub type.
-   * 
+   *
    * @return The subType
    */
   public List<String> getSubType() {
@@ -197,7 +194,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the umbel.
-   * 
+   *
    * @return the umbel
    */
   public String getUmbel() {
@@ -206,7 +203,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the website.
-   * 
+   *
    * @return The website
    */
   public String getWebsite() {
@@ -215,7 +212,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Gets the yago.
-   * 
+   *
    * @return the yago
    */
   public String getYago() {
@@ -224,7 +221,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the census.
-   * 
+   *
    * @param census the census to set
    */
   public void setCensus(String census) {
@@ -233,7 +230,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the cia factbook.
-   * 
+   *
    * @param ciaFactbook the ciaFactbook to set
    */
   public void setCiaFactbook(String ciaFactbook) {
@@ -242,7 +239,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the crunchbase.
-   * 
+   *
    * @param crunchbase the crunchbase to set
    */
   public void setCrunchbase(String crunchbase) {
@@ -251,7 +248,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the dbpedia.
-   * 
+   *
    * @param dbpedia The dbpedia
    */
   public void setDbpedia(String dbpedia) {
@@ -260,7 +257,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the freebase.
-   * 
+   *
    * @param freebase The freebase
    */
   public void setFreebase(String freebase) {
@@ -269,7 +266,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the geo.
-   * 
+   *
    * @param geo the geo to set
    */
   public void setGeo(String geo) {
@@ -278,7 +275,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the geonames.
-   * 
+   *
    * @param geonames the geonames to set
    */
   public void setGeonames(String geonames) {
@@ -287,7 +284,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the music brainz.
-   * 
+   *
    * @param musicBrainz the musicBrainz to set
    */
   public void setMusicBrainz(String musicBrainz) {
@@ -296,7 +293,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the name.
-   * 
+   *
    * @param name The name
    */
   public void setName(String name) {
@@ -305,7 +302,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the opencyc.
-   * 
+   *
    * @param opencyc the opencyc to set
    */
   public void setOpencyc(String opencyc) {
@@ -314,7 +311,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the sub type.
-   * 
+   *
    * @param subType The subType
    */
   public void setSubType(List<String> subType) {
@@ -323,7 +320,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the umbel.
-   * 
+   *
    * @param umbel the umbel to set
    */
   public void setUmbel(String umbel) {
@@ -332,7 +329,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the website.
-   * 
+   *
    * @param website The website
    */
   public void setWebsite(String website) {
@@ -341,7 +338,7 @@ public class DisambiguatedLinks extends GenericModel {
 
   /**
    * Sets the yago.
-   * 
+   *
    * @param yago the yago to set
    */
   public void setYago(String yago) {

@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.personality_insights.v2.model;
 
@@ -71,8 +70,8 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Sets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped
-   * from HTML content before it is analyzed. Other MIME types are processed as is.
+   * Sets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped from HTML content
+   * before it is analyzed. Other MIME types are processed as is.
    *
    * @param contentType the new MIME type of the content
    * @return the content item
@@ -126,8 +125,8 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Gets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped
-   * from HTML content before it is analyzed. Other MIME types are processed as is.
+   * Gets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped from HTML content
+   * before it is analyzed. Other MIME types are processed as is.
    *
    * @return the contentType
    */
@@ -164,8 +163,8 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Gets the unique id of the parent content item. Used to identify hierarchical relationships
-   * between posts/replies, messages/replies, etc.
+   * Gets the unique id of the parent content item. Used to identify hierarchical relationships between posts/replies,
+   * messages/replies, etc.
    *
    * @return the parent identifier
    */
@@ -234,8 +233,7 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Sets the language identifier (two-letter ISO 639-1 identifier). Currently only English content
-   * (en) is supported.,
+   * Sets the language identifier (two-letter ISO 639-1 identifier). Currently only English content (en) is supported.,
    *
    * @param language the language charset (two-letter ISO 639-1 identifier)
    * @return the content item
@@ -247,8 +245,8 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Sets the unique id of the parent content item. Used to identify hierarchical relationships
-   * between posts/replies, messages/replies, etc.,
+   * Sets the unique id of the parent content item. Used to identify hierarchical relationships between posts/replies,
+   * messages/replies, etc.,
    *
    * @param parentId the parent identifier
    * @return the content item
@@ -290,8 +288,8 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Sets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped
-   * from HTML content before it is analyzed. Other MIME types are processed as is.
+   * Sets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped from HTML content
+   * before it is analyzed. Other MIME types are processed as is.
    *
    * @param contentType the new MIME type of the content
    */
@@ -329,8 +327,7 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Sets the language identifier (two-letter ISO 639-1 identifier). Currently only English content
-   * (en) is supported.,
+   * Sets the language identifier (two-letter ISO 639-1 identifier). Currently only English content (en) is supported.,
    *
    * @param language the language charset (two-letter ISO 639-1 identifier)
    */
@@ -339,8 +336,8 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Sets the unique id of the parent content item. Used to identify hierarchical relationships
-   * between posts/replies, messages/replies, etc.,
+   * Sets the unique id of the parent content item. Used to identify hierarchical relationships between posts/replies,
+   * messages/replies, etc.,
    *
    * @param parentId the parent identifier
    */
@@ -424,8 +421,8 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Gets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped
-   * from HTML content before it is analyzed. Other MIME types are processed as is.
+   * Gets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped from HTML content
+   * before it is analyzed. Other MIME types are processed as is.
    *
    * @return the contentType
    */
@@ -434,8 +431,8 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Sets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped
-   * from HTML content before it is analyzed. Other MIME types are processed as is.
+   * Sets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped from HTML content
+   * before it is analyzed. Other MIME types are processed as is.
    *
    * @param contentType the new MIME type of the content
    */
@@ -444,8 +441,8 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Gets the unique id of the parent content item. Used to identify hierarchical relationships
-   * between posts/replies, messages/replies, etc.
+   * Gets the unique id of the parent content item. Used to identify hierarchical relationships between posts/replies,
+   * messages/replies, etc.
    *
    * @return the parent identifier
    */
@@ -454,8 +451,8 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Sets the unique id of the parent content item. Used to identify hierarchical relationships
-   * between posts/replies, messages/replies, etc.,
+   * Sets the unique id of the parent content item. Used to identify hierarchical relationships between posts/replies,
+   * messages/replies, etc.,
    *
    * @param parentId the parent identifier
    */

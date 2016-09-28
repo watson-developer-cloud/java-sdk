@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
@@ -18,37 +17,36 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Concept returned by the AlchemyLanguage service.
- * 
+ *
  */
 public class Concept extends GenericModel {
 
   /**
-   * The link to the US Census for the disambiguated entity. Note: Provided only for entities that
-   * exist in this linked data-set.
+   * The link to the US Census for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String census;
 
   /**
-   * The cia link to the CIA World Factbook for the disambiguated entity. Note: Provided only for
-   * entities that exist in this linked data-set.
+   * The cia link to the CIA World Factbook for the disambiguated entity. Note: Provided only for entities that exist in
+   * this linked data-set.
    */
   private String ciaFactbook;
 
   /**
-   * The link to CrunchBase for the disambiguated entity. Note: Provided only for entities that
-   * exist in CrunchBase.
+   * The link to CrunchBase for the disambiguated entity. Note: Provided only for entities that exist in CrunchBase.
    */
   private String crunchbase;
 
   /**
-   * The link to DBpedia for the disambiguated entity. Note: Provided only for entities that exist
-   * in this linked data-set.
+   * The link to DBpedia for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String dbpedia;
 
   /**
-   * The link to Freebase for the disambiguated entity. Note: Provided only for entities that exist
-   * in this linked data-set.
+   * The link to Freebase for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String freebase;
 
@@ -56,14 +54,14 @@ public class Concept extends GenericModel {
   private String geo;
 
   /**
-   * The link to Geonames for the disambiguated entity. Note: Provided only for entities that exist
-   * in this linked data-set.
+   * The link to Geonames for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String geonames;
 
   /**
-   * The link to OpenCyc for the disambiguated entity. Note: Provided only for entities that exist
-   * in this linked data-set.
+   * The link to OpenCyc for the disambiguated entity. Note: Provided only for entities that exist in this linked
+   * data-set.
    */
   private String opencyc;
 
@@ -77,14 +75,13 @@ public class Concept extends GenericModel {
   private String website;
 
   /**
-   * The link to YAGO for the disambiguated entity. Note: Provided only for entities that exist in
-   * this linked data-set.
+   * The link to YAGO for the disambiguated entity. Note: Provided only for entities that exist in this linked data-set.
    */
   private String yago;
 
   /**
    * Gets the census.
-   * 
+   *
    * @return the census
    */
   public String getCensus() {
@@ -93,7 +90,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the cia factbook.
-   * 
+   *
    * @return the ciaFactbook
    */
   public String getCiaFactbook() {
@@ -102,7 +99,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the crunchbase.
-   * 
+   *
    * @return The crunchbase
    */
   public String getCrunchbase() {
@@ -111,7 +108,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the dbpedia.
-   * 
+   *
    * @return The dbpedia
    */
   public String getDbpedia() {
@@ -120,7 +117,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the freebase.
-   * 
+   *
    * @return The freebase
    */
   public String getFreebase() {
@@ -129,7 +126,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the geo.
-   * 
+   *
    * @return the geo
    */
   public String getGeo() {
@@ -138,7 +135,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the geonames.
-   * 
+   *
    * @return the geonames
    */
   public String getGeonames() {
@@ -147,7 +144,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the opencyc.
-   * 
+   *
    * @return The opencyc
    */
   public String getOpencyc() {
@@ -156,7 +153,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the relevance.
-   * 
+   *
    * @return The relevance
    */
   public Double getRelevance() {
@@ -165,7 +162,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the text.
-   * 
+   *
    * @return The text
    */
   public String getText() {
@@ -174,7 +171,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the website.
-   * 
+   *
    * @return The website
    */
   public String getWebsite() {
@@ -183,7 +180,7 @@ public class Concept extends GenericModel {
 
   /**
    * Gets the yago.
-   * 
+   *
    * @return The yago
    */
   public String getYago() {
@@ -192,7 +189,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the census.
-   * 
+   *
    * @param census the census to set
    */
   public void setCensus(String census) {
@@ -201,7 +198,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the cia factbook.
-   * 
+   *
    * @param ciaFactbook the ciaFactbook to set
    */
   public void setCiaFactbook(String ciaFactbook) {
@@ -210,7 +207,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the crunchbase.
-   * 
+   *
    * @param crunchbase The crunchbase
    */
   public void setCrunchbase(String crunchbase) {
@@ -219,7 +216,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the dbpedia.
-   * 
+   *
    * @param dbpedia The dbpedia
    */
   public void setDbpedia(String dbpedia) {
@@ -228,7 +225,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the freebase.
-   * 
+   *
    * @param freebase The freebase
    */
   public void setFreebase(String freebase) {
@@ -237,7 +234,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the geo.
-   * 
+   *
    * @param geo the geo to set
    */
   public void setGeo(String geo) {
@@ -246,7 +243,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the geonames.
-   * 
+   *
    * @param geonames the geonames to set
    */
   public void setGeonames(String geonames) {
@@ -255,7 +252,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the opencyc.
-   * 
+   *
    * @param opencyc The opencyc
    */
   public void setOpencyc(String opencyc) {
@@ -264,7 +261,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the relevance.
-   * 
+   *
    * @param relevance The relevance
    */
   public void setRelevance(Double relevance) {
@@ -273,7 +270,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the text.
-   * 
+   *
    * @param text The text
    */
   public void setText(String text) {
@@ -282,7 +279,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the website.
-   * 
+   *
    * @param website The website
    */
   public void setWebsite(String website) {
@@ -291,7 +288,7 @@ public class Concept extends GenericModel {
 
   /**
    * Sets the yago.
-   * 
+   *
    * @param yago The yago
    */
   public void setYago(String yago) {

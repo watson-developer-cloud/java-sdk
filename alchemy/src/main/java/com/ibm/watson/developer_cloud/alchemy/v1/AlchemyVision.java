@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
@@ -35,10 +34,10 @@ import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.RequestBody;
 
 /**
- * The Alchemy Vision service uses deep learning innovations to understand a picture’s content and
- * context. It sees complex visual scenes in their entirety —without needing any textual clues—
- * leveraging a holistic approach to understanding the multiple objects and surroundings.
- * 
+ * The Alchemy Vision service uses deep learning innovations to understand a picture’s content and context. It sees
+ * complex visual scenes in their entirety —without needing any textual clues— leveraging a holistic approach to
+ * understanding the multiple objects and surroundings.
+ *
  * @version v1
  * @see <a href="http://www.alchemyapi.com/products/alchemyvision"> Alchemy Vision</a>
  */
@@ -61,6 +60,7 @@ public class AlchemyVision extends AlchemyService {
 
   /**
    * Instantiates a new alchemy vision service by apiKey.
+   *
    * @param apiKey the api key
    */
   public AlchemyVision(String apiKey) {
@@ -69,7 +69,7 @@ public class AlchemyVision extends AlchemyService {
 
   /**
    * Executes the request and return the POJO that represent the response.
-   * 
+   *
    * @param <T> The POJO that represents the response object
    * @param params the request parameters
    * @param operation the alchemy operation
@@ -89,11 +89,9 @@ public class AlchemyVision extends AlchemyService {
         params.put(IMAGE_POST_MODE, RAW);
         final File image = (File) params.get(IMAGE);
         if (!image.exists()) {
-          throw new IllegalArgumentException(
-              "The file: " + image.getAbsolutePath() + " does not exist.");
+          throw new IllegalArgumentException("The file: " + image.getAbsolutePath() + " does not exist.");
         } else {
-          requestBuilder
-              .body(RequestBody.create(HttpMediaType.BINARY_FILE, (File) params.get(IMAGE)));
+          requestBuilder.body(RequestBody.create(HttpMediaType.BINARY_FILE, (File) params.get(IMAGE)));
           params.remove(IMAGE);
         }
       }
@@ -131,8 +129,7 @@ public class AlchemyVision extends AlchemyService {
   }
 
   /**
-   * Identifies text in an image specified by URL or in the primary image in a web page specified by
-   * URL.
+   * Identifies text in an image specified by URL or in the primary image in a web page specified by URL.
    *
    * @param url the image URL
    * @return {@link ImageSceneText}
@@ -161,11 +158,13 @@ public class AlchemyVision extends AlchemyService {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
 
-    if (forceShowAll != null)
+    if (forceShowAll != null) {
       params.put(FORCE_SHOW_ALL, forceShowAll ? 1 : 0);
+    }
 
-    if (knowledgeGraph != null)
+    if (knowledgeGraph != null) {
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
+    }
 
     return createServiceCall(params, AlchemyAPI.IMAGE_KEYWORDS, ImageKeywords.class);
 
@@ -174,7 +173,7 @@ public class AlchemyVision extends AlchemyService {
 
   /**
    * Extracts keywords from a URL.
-   * 
+   *
    * @param url the image URL
    * @param forceShowAll Includes lower confidence tags
    * @param knowledgeGraph Include knowledge graph information in the the results.
@@ -186,18 +185,20 @@ public class AlchemyVision extends AlchemyService {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
 
-    if (forceShowAll != null)
+    if (forceShowAll != null) {
       params.put(FORCE_SHOW_ALL, forceShowAll ? 1 : 0);
+    }
 
-    if (knowledgeGraph != null)
+    if (knowledgeGraph != null) {
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
+    }
 
     return createServiceCall(params, AlchemyAPI.IMAGE_KEYWORDS, ImageKeywords.class);
   }
 
   /**
    * Extracts main image link from a URL.
-   * 
+   *
    * @param url the image URL
    * @return {@link ImageLink}
    */
@@ -212,7 +213,7 @@ public class AlchemyVision extends AlchemyService {
 
   /**
    * Extracts the main image link from a HTML page.
-   * 
+   *
    * @param html the HTML
    * @return {@link ImageLink}
    */
@@ -236,17 +237,17 @@ public class AlchemyVision extends AlchemyService {
    * </ul>
    * <br>
    * Here is an example of how to recognize faces in an image:
-   * 
+   *
    * <pre>
    * AlchemyVision service = new AlchemyVision();
    * service.setApiKey(&quot;&lt;api_key&gt;&quot;);
-   * 
+   *
    * File image = new File(&quot;obama.jpg&quot;);
    * ImageFaces faces = service.recognizeFaces(image, true).execute();
-   * 
+   *
    * System.out.println(faces);
    * </pre>
-   * 
+   *
    * @param image the image
    * @param knowledgeGraph provide extra metadata for detected celebrities
    * @return {@link ImageFaces}
@@ -258,8 +259,9 @@ public class AlchemyVision extends AlchemyService {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(IMAGE, image);
 
-    if (knowledgeGraph != null)
+    if (knowledgeGraph != null) {
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
+    }
 
 
     return createServiceCall(params, AlchemyAPI.IMAGE_RECOGNITION, ImageFaces.class);
@@ -276,17 +278,17 @@ public class AlchemyVision extends AlchemyService {
    * </ul>
    * <br>
    * Here is an example of how to recognize faces in an image:
-   * 
+   *
    * <pre>
    * AlchemyVision service = new AlchemyVision();
    * service.setApiKey(&quot;&lt;api_key&gt;&quot;);
-   * 
+   *
    * URL image = new URL(&quot;http://foo.com/the-image.png&quot;);
    * ImageFaces faces = service.recognizeFaces(image, true).execute();
-   * 
+   *
    * System.out.println(faces);
    * </pre>
-   * 
+   *
    * @param url the image URL
    * @param knowledgeGraph provide extra metadata for detected celebrities
    * @return {@link ImageFaces}
@@ -297,8 +299,9 @@ public class AlchemyVision extends AlchemyService {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(URL, url);
 
-    if (knowledgeGraph != null)
+    if (knowledgeGraph != null) {
       params.put(KNOWLEDGE_GRAPH, knowledgeGraph ? 1 : 0);
+    }
 
 
     return createServiceCall(params, AlchemyAPI.IMAGE_RECOGNITION, ImageFaces.class);

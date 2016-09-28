@@ -1,15 +1,14 @@
 /*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.document_conversion.v1.model;
 
@@ -21,7 +20,7 @@ import java.util.Map;
 import com.google.gson.JsonObject;
 
 /**
- * Options when indexing a document
+ * Options when indexing a document.
  */
 public class IndexDocumentOptions {
   /**
@@ -42,19 +41,19 @@ public class IndexDocumentOptions {
      * @param options the options
      */
     private Builder(IndexDocumentOptions options) {
-      this.document = options.document;
-      this.documentInputStream = options.documentInputStream;
-      this.mediaType = options.mediaType;
-      this.metadata = options.metadata;
-      this.conversionConfiguration = options.convertDocumentConfig;
-      this.indexConfiguration = options.indexConfiguration;
-      this.dryRun = options.dryRun;
+      document = options.document;
+      documentInputStream = options.documentInputStream;
+      mediaType = options.mediaType;
+      metadata = options.metadata;
+      conversionConfiguration = options.convertDocumentConfig;
+      indexConfiguration = options.indexConfiguration;
+      dryRun = options.dryRun;
     }
 
     /**
      * Instantiates a new builder.
      */
-    public Builder() {}
+    public Builder() { }
 
     /**
      * Builds the index document options.
@@ -66,18 +65,18 @@ public class IndexDocumentOptions {
     }
 
     /**
-     * Sets the convert document configuration
+     * Sets the convert document configuration.
      *
      * @param convertDocumentConfig Configuration for the convert document phase
      * @return the index document options
      */
     public Builder convertDocumentConfig(JsonObject convertDocumentConfig) {
-      this.conversionConfiguration = convertDocumentConfig;
+      conversionConfiguration = convertDocumentConfig;
       return this;
     }
 
     /**
-     * Sets the document
+     * Sets the document.
      *
      * @param document The document to be converted and indexed
      * @return the index document options
@@ -88,23 +87,23 @@ public class IndexDocumentOptions {
     }
 
     /**
-     * Sets the document as an input stream and its media type
-     * 
+     * Sets the document as an input stream and its media type.
+     *
      * @param document The document to be converted and indexed
      * @param mediaType The media type of the document
      * @return the index document options
      */
     public Builder document(InputStream document, String mediaType) {
-      this.documentInputStream = document;
+      documentInputStream = document;
       this.mediaType = mediaType;
       return this;
     }
 
     /**
-     * Sets the dryRun flag
+     * Sets the dryRun flag.
      *
-     * @param dryRun If true, performs a dry run for testing purposes (document won't be indexed),
-     *        else to index the document
+     * @param dryRun If true, performs a dry run for testing purposes (document won't be indexed), else to index the
+     *        document
      * @return the index document options
      */
     public Builder dryRun(Boolean dryRun) {
@@ -113,10 +112,9 @@ public class IndexDocumentOptions {
     }
 
     /**
-     * Sets the retrieve and rank configuration
+     * Sets the retrieve and rank configuration.
      *
-     * @param indexConfiguration Configuration for the retrieve and rank service for the indexing
-     *        phase
+     * @param indexConfiguration Configuration for the retrieve and rank service for the indexing phase
      * @return the index document options
      */
     public Builder indexConfiguration(IndexConfiguration indexConfiguration) {
@@ -125,7 +123,7 @@ public class IndexDocumentOptions {
     }
 
     /**
-     * Sets the media type
+     * Sets the media type.
      *
      * @param mediaType The media type of the document to be converted and indexed
      * @return the index document options
@@ -137,7 +135,7 @@ public class IndexDocumentOptions {
 
 
     /**
-     * Sets the metadata
+     * Sets the metadata.
      *
      * @param metadata The metadata of the document that will be indexed
      * @return the index document options
@@ -159,17 +157,17 @@ public class IndexDocumentOptions {
   private Map<String, String> metadata;
 
   private IndexDocumentOptions(Builder builder) {
-    this.document = builder.document;
-    this.documentInputStream = builder.documentInputStream;
-    this.mediaType = builder.mediaType;
-    this.metadata = builder.metadata;
-    this.convertDocumentConfig = builder.conversionConfiguration;
-    this.indexConfiguration = builder.indexConfiguration;
-    this.dryRun = builder.dryRun;
+    document = builder.document;
+    documentInputStream = builder.documentInputStream;
+    mediaType = builder.mediaType;
+    metadata = builder.metadata;
+    convertDocumentConfig = builder.conversionConfiguration;
+    indexConfiguration = builder.indexConfiguration;
+    dryRun = builder.dryRun;
   }
 
   /**
-   * Gets the configuration for the convert document phase
+   * Gets the configuration for the convert document phase.
    *
    * @return conversionConfiguration Configuration for the convert document phase
    */
@@ -178,7 +176,7 @@ public class IndexDocumentOptions {
   }
 
   /**
-   * Gets the document
+   * Gets the document.
    *
    * @return document The document to be converted and indexed
    */
@@ -187,17 +185,17 @@ public class IndexDocumentOptions {
   }
 
   /**
-   * Gets the dryRun flag
+   * Gets the dryRun flag.
    *
-   * @return dryRun If true, performs a dry run for testing purposes (document won't be indexed),
-   *         else to index the document
+   * @return dryRun If true, performs a dry run for testing purposes (document won't be indexed), else to index the
+   *         document
    */
   public Boolean dryRun() {
     return dryRun;
   }
 
   /**
-   * Gets the document as an input stream
+   * Gets the document as an input stream.
    *
    * @return InputStream The document to be converted and indexed
    */
@@ -206,17 +204,16 @@ public class IndexDocumentOptions {
   }
 
   /**
-   * Gets configuration for the retrieve and rank service for the indexing phase
+   * Gets configuration for the retrieve and rank service for the indexing phase.
    *
-   * @return indexConfiguration Configuration for the retrieve and rank service for the indexing
-   *         phase
+   * @return indexConfiguration Configuration for the retrieve and rank service for the indexing phase
    */
   public IndexConfiguration indexConfiguration() {
     return indexConfiguration;
   }
 
   /**
-   * Gets the media type
+   * Gets the media type.
    *
    * @return mediaType The media type of the document to be converted and indexed
    */
@@ -225,7 +222,7 @@ public class IndexDocumentOptions {
   }
 
   /**
-   * Gets the metadata
+   * Gets the metadata.
    *
    * @return metadata The metadata of the document that will be indexed
    */

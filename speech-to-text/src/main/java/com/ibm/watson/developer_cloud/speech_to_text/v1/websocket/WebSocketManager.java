@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
@@ -43,8 +42,8 @@ import okio.Buffer;
 
 /**
  * Manages Speech to text recognition over WebSockets.<br>
- * This class is in charge of opening a {@link WebSocket} connection, stream audio to the API and
- * close the connection once the audio was transmitted.
+ * This class is in charge of opening a {@link WebSocket} connection, stream audio to the API and close the connection
+ * once the audio was transmitted.
  */
 public class WebSocketManager {
   private final String url;
@@ -58,8 +57,8 @@ public class WebSocketManager {
 
   /**
    * The listener interface for receiving {@link WebSocket} events. <br>
-   * The class that is interested in processing a event implements this interface. When the event
-   * occurs, that object's appropriate method is invoked.
+   * The class that is interested in processing a event implements this interface. When the event occurs, that object's
+   * appropriate method is invoked.
    *
    * @see SpeechToText
    */
@@ -81,7 +80,7 @@ public class WebSocketManager {
     private WebSocket socket;
     private boolean socketOpen = true;
     private Thread audioThread = null;
-    private int CLOSE_NORMAL = 1000;
+    private static final int CLOSE_NORMAL = 1000;
 
     /**
      * Instantiates a new speech to text web socket listener.
@@ -90,7 +89,7 @@ public class WebSocketManager {
      * @param options the recognize options
      * @param callback the callback
      */
-    public SpeechToTextWebSocketListener(final InputStream stream, final RecognizeOptions options,
+    SpeechToTextWebSocketListener(final InputStream stream, final RecognizeOptions options,
         final RecognizeCallback callback) {
       this.stream = stream;
       this.options = options;
@@ -135,24 +134,27 @@ public class WebSocketManager {
         // Only call onError() if a real error occured. The STT service sends
         // {"error" : "No speech detected for 5s"} for valid timeouts, configured by
         // RecognizeOptions.Builder.inactivityTimeout()
-        if(!error.startsWith(TIMEOUT_PREFIX)) {
+        if (!error.startsWith(TIMEOUT_PREFIX)) {
           callback.onError(new RuntimeException(error));
         }
       } else if (json.has(RESULTS)) {
         callback.onTranscription(GSON.fromJson(message, SpeechResults.class));
       } else if (json.has(STATE)) {
         if (audioThread == null) {
-          // Send the InputStream on a different Thread. Elsewise, interim results cannot be received,
+          // Send the InputStream on a different Thread. Elsewise, interim results cannot be
+          // received,
           // because the Thread that called SpeechToText.recognizeUsingWebSocket is blocked.
           audioThread = new Thread() {
             @Override
             public void run() {
               sendInputSteam(stream);
 
-              // Do not send the stop message, if the socket has been closed already, for example because of
+              // Do not send the stop message, if the socket has been closed already, for example
+              // because of
               // the inactivity timeout.
-              if(socketOpen) {
-                // If the socket is still open after the sending finishes, for example because the user closed
+              if (socketOpen) {
+                // If the socket is still open after the sending finishes, for example because the
+                // user closed
                 // the microphone AudioInputStream, send a stop message.
                 try {
                   socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStopMessage()));
@@ -192,7 +194,7 @@ public class WebSocketManager {
      * @see okhttp3.ws.WebSocketListener#onPong(okio.Buffer)
      */
     @Override
-    public void onPong(Buffer buffer) {}
+    public void onPong(Buffer buffer) { }
 
     /**
      * Send input steam.
@@ -203,14 +205,17 @@ public class WebSocketManager {
       byte[] buffer = new byte[FOUR_KB];
       int read;
       try {
-        // This method uses a blocking while loop to receive all contents of the underlying input stream.
-        // AudioInputStreams, typically used for streaming microphone inputs return 0 only when the stream has been
+        // This method uses a blocking while loop to receive all contents of the underlying input
+        // stream.
+        // AudioInputStreams, typically used for streaming microphone inputs return 0 only when the
+        // stream has been
         // closed. Elsewise AudioInputStream.read() blocks until enough audio frames are read.
-        while ((read = inputStream.read(buffer)) > 0 && socketOpen) {
-          if (read == FOUR_KB)
+        while (((read = inputStream.read(buffer)) > 0) && socketOpen) {
+          if (read == FOUR_KB) {
             socket.sendMessage(RequestBody.create(WebSocket.BINARY, buffer));
-          else
+          } else {
             socket.sendMessage(RequestBody.create(WebSocket.BINARY, Arrays.copyOfRange(buffer, 0, read)));
+          }
         }
       } catch (IOException e) {
         LOG.log(Level.SEVERE, e.getMessage(), e);
@@ -271,8 +276,7 @@ public class WebSocketManager {
    */
   private WebSocketCall createConnection(RecognizeOptions options) {
     String speechModel = options.model() == null ? "" : "?model=" + options.model();
-    Builder builder = new Request.Builder()
-      .url(url + speechModel);
+    Builder builder = new Request.Builder().url(url + speechModel);
 
     if (token != null) {
       builder.addHeader(HttpHeaders.X_WATSON_AUTHORIZATION_TOKEN, token);

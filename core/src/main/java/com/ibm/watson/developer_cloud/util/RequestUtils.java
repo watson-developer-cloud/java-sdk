@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.util;
 
@@ -31,22 +30,21 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
 import okhttp3.Request;
 
 /**
- * Utility functions to use when creating a
- * {@link com.ibm.watson.developer_cloud.http.RequestBuilder }
- * 
+ * Utility functions to use when creating a {@link com.ibm.watson.developer_cloud.http.RequestBuilder }.
+ *
  */
 public final class RequestUtils {
 
   /**
-   * Default end point for relative request. It will be updated by {@link WatsonService} with the
-   * real service end point.
+   * Default end point for relative request. It will be updated by {@link WatsonService} with the real service end
+   * point.
    */
   public static final String DEFAULT_ENDPOINT = "http://do.not.use";
 
   private static final Logger LOG = Logger.getLogger(RequestUtils.class.getName());
 
   private static final String[] properties =
-      new String[] {"java.vendor", "java.version", "os.arch", "os.name", "os.version"};
+      new String[] { "java.vendor", "java.version", "os.arch", "os.name", "os.version" };
   private static String userAgent;
 
   private RequestUtils() {
@@ -79,27 +77,29 @@ public final class RequestUtils {
 
   /**
    * Return a copy of a {@link Map} excluding the given key, or array of keys.
-   * 
+   *
    * @param params the parameters
    * @param toOmit the keys to omit
    * @return the map with the omitted key-value pars, or null if params is null
    */
   public static Map<String, Object> omit(Map<String, Object> params, String... toOmit) {
-    if (params == null)
+    if (params == null) {
       return null;
+    }
 
     final Map<String, Object> ret = new HashMap<String, Object>(params);
 
-    if (toOmit != null)
+    if (toOmit != null) {
       ret.keySet().removeAll(Arrays.asList(toOmit));
+    }
 
     return ret;
   }
 
 
   /**
-   * Return a copy of a {@link Map} with only the specified given key, or array of keys.
-   * If {@code toPick} is empty all keys will remain in the Map.
+   * Return a copy of a {@link Map} with only the specified given key, or array of keys. If {@code toPick} is empty all
+   * keys will remain in the Map.
    *
    * @param params the parameters
    * @param toPick the keys to pick
@@ -107,20 +107,22 @@ public final class RequestUtils {
    */
 
   public static Map<String, Object> pick(Map<String, Object> params, String... toPick) {
-    if (params == null)
+    if (params == null) {
       return null;
+    }
 
     final Map<String, Object> ret = new HashMap<String, Object>(params);
 
-    if (toPick != null && toPick.length > 0)
+    if ((toPick != null) && (toPick.length > 0)) {
       ret.keySet().retainAll(Arrays.asList(toPick));
+    }
 
     return ret;
   }
 
   /**
    * Replace the url end point (schema + host + port) with the given end point.
-   * 
+   *
    * @param url the url to update
    * @param endPoint the end point
    * @return the new url
@@ -132,6 +134,7 @@ public final class RequestUtils {
   /**
    * Creates a String of all elements of an array, separated by a separator.
    *
+   * @param <T> the generic type
    * @param array the array
    * @param separator the separator
    * @return the joined String
@@ -152,10 +155,11 @@ public final class RequestUtils {
     boolean first = true;
 
     for (Object item : iterable) {
-      if (first)
+      if (first) {
         first = false;
-      else
+      } else {
         sb.append(separator);
+      }
 
       sb.append(item.toString());
     }
@@ -180,7 +184,8 @@ public final class RequestUtils {
     Properties properties = new Properties();
 
 
-    // If for whatever reason the input stream is null, IOException will not catch the null pointer and app will crash
+    // If for whatever reason the input stream is null, IOException will not catch the null pointer
+    // and app will crash
     try {
       properties.load(inputStream);
     } catch (IOException e) {
@@ -191,7 +196,7 @@ public final class RequestUtils {
   }
 
   /**
-   * Builds the user agent using System properties
+   * Builds the user agent using System properties.
    *
    * @return the string that represents the user agent
    */

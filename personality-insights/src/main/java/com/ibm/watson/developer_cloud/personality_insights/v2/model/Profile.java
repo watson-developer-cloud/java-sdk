@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.personality_insights.v2.model;
 
@@ -44,9 +43,9 @@ public class Profile extends GenericModel {
 
 
   /**
-   * Gets the unique identifier for which these characteristics were computed, from the "userid"
-   * field of the input {@link ContentItem}.
-   * 
+   * Gets the unique identifier for which these characteristics were computed, from the "userid" field of the input
+   * {@link ContentItem}.
+   *
    * @return the unique identifier
    */
   public String getId() {
@@ -55,7 +54,7 @@ public class Profile extends GenericModel {
 
   /**
    * Gets the processed language.
-   * 
+   *
    * @return the processed language
    */
   public String getProcessedLanguage() {
@@ -63,9 +62,9 @@ public class Profile extends GenericModel {
   }
 
   /**
-   * Gets the source for which these characteristics were computed, from the "sourceid" field of the
-   * input {@link ContentItem}.
-   * 
+   * Gets the source for which these characteristics were computed, from the "sourceid" field of the input
+   * {@link ContentItem}.
+   *
    * @return the source
    */
   public String getSource() {
@@ -74,7 +73,7 @@ public class Profile extends GenericModel {
 
   /**
    * Gets the personality trait tree.
-   * 
+   *
    * @return the personality trait tree
    */
   public Trait getTree() {
@@ -83,7 +82,7 @@ public class Profile extends GenericModel {
 
   /**
    * Gets the number of words found in the input.
-   * 
+   *
    * @return the number of words
    */
   public int getWordCount() {
@@ -91,9 +90,9 @@ public class Profile extends GenericModel {
   }
 
   /**
-   * Gets A message indicating the number of words found and where that value falls in the range of
-   * required/suggested number of words.
-   * 
+   * Gets A message indicating the number of words found and where that value falls in the range of required/suggested
+   * number of words.
+   *
    * @return the word count message
    */
   public String getWordCountMessage() {
@@ -101,9 +100,9 @@ public class Profile extends GenericModel {
   }
 
   /**
-   * Sets the unique identifier for which these characteristics were computed, from the "userid"
-   * field of the input {@link ContentItem}.
-   * 
+   * Sets the unique identifier for which these characteristics were computed, from the "userid" field of the input
+   * {@link ContentItem}.
+   *
    * @param id the unique identifier
    */
   public void setId(String id) {
@@ -112,7 +111,7 @@ public class Profile extends GenericModel {
 
   /**
    * Sets the processed language.
-   * 
+   *
    * @param processedLanguage the new processed language
    */
   public void setProcessedLanguage(String processedLanguage) {
@@ -120,9 +119,9 @@ public class Profile extends GenericModel {
   }
 
   /**
-   * Sets the source for which these characteristics were computed, from the "sourceid" field of the
-   * input {@link ContentItem}.
-   * 
+   * Sets the source for which these characteristics were computed, from the "sourceid" field of the input
+   * {@link ContentItem}.
+   *
    * @param source the source
    */
   public void setSource(String source) {
@@ -131,7 +130,7 @@ public class Profile extends GenericModel {
 
   /**
    * Sets the personality trait tree.
-   * 
+   *
    * @param tree the new personality trait tree
    */
   public void setTree(Trait tree) {
@@ -140,7 +139,7 @@ public class Profile extends GenericModel {
 
   /**
    * Sets the number of words found in the input.
-   * 
+   *
    * @param wordCount the number of words
    */
   public void setWordCount(int wordCount) {
@@ -148,9 +147,9 @@ public class Profile extends GenericModel {
   }
 
   /**
-   * Sets a message indicating the number of words found and where that value falls in the range of
-   * required/suggested number of words.
-   * 
+   * Sets a message indicating the number of words found and where that value falls in the range of required/suggested
+   * number of words.
+   *
    * @param wordCountMessage the new word count message
    */
   public void setWordCountMessage(String wordCountMessage) {

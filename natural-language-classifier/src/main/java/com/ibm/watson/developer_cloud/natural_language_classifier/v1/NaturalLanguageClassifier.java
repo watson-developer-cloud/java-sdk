@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1;
 
@@ -33,16 +32,14 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 
 /**
- * The IBM Watson Natural Language Classifier service applies deep learning techniques to make
- * predictions about the best predefined classes for short sentences or phrases. The classes can
- * trigger a corresponding action in an application, such as directing a request to a location or
- * person, or answering a question. After training, the service returns information for texts that
- * it hasn't seen before. The response includes the name of the top classes and confidence values.
- * 
+ * The IBM Watson Natural Language Classifier service applies deep learning techniques to make predictions about the
+ * best predefined classes for short sentences or phrases. The classes can trigger a corresponding action in an
+ * application, such as directing a request to a location or person, or answering a question. After training, the
+ * service returns information for texts that it hasn't seen before. The response includes the name of the top classes
+ * and confidence values.
+ *
  * @version v1
- * @see <a href=
- *      "http://www.ibm.com/watson/developercloud/nl-classifier.html">
- *      Natural Language Classifier</a>
+ * @see <a href= "http://www.ibm.com/watson/developercloud/nl-classifier.html"> Natural Language Classifier</a>
  */
 public class NaturalLanguageClassifier extends WatsonService {
 
@@ -62,12 +59,14 @@ public class NaturalLanguageClassifier extends WatsonService {
    */
   public NaturalLanguageClassifier() {
     super(SERVICE_NAME);
-    if (getEndPoint() == null || getEndPoint().isEmpty())
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
+    }
   }
 
   /**
    * Instantiates a new natural language service by username and password.
+   *
    * @param username the username
    * @param password the password
    */
@@ -78,14 +77,14 @@ public class NaturalLanguageClassifier extends WatsonService {
 
   /**
    * Returns classification information for a classifier on a phrase.
-   * 
+   *
    * @param classifierId The classifier id
    * @param text The submitted phrase to classify
    * @return the classification of a phrase with a given classifier
    */
   public ServiceCall<Classification> classify(final String classifierId, final String text) {
-    Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
-    Validator.isTrue(text != null && !text.isEmpty(), "text cannot be null or empty");
+    Validator.isTrue((classifierId != null) && !classifierId.isEmpty(), "classifierId cannot be null or empty");
+    Validator.isTrue((text != null) && !text.isEmpty(), "text cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty(TEXT, text);
@@ -95,26 +94,24 @@ public class NaturalLanguageClassifier extends WatsonService {
   }
 
   /**
-   * Sends data to create and train a classifier, and returns information about the new classifier.
-   * The status has the value of `Training` when the operation is successful, and might remain at
-   * this status for a while.
-   * 
+   * Sends data to create and train a classifier, and returns information about the new classifier. The status has the
+   * value of `Training` when the operation is successful, and might remain at this status for a while.
+   *
    * @param name the classifier name
    * @param language IETF primary language for the classifier. for example: 'en'
-   * @param trainingData The set of questions and their "keys" used to adapt a system to a domain
-   *        (the ground truth)
+   * @param trainingData The set of questions and their "keys" used to adapt a system to a domain (the ground truth)
    * @return the classifier
    * @see Classifier
    */
   public ServiceCall<Classifier> createClassifier(final String name, final String language, final File trainingData) {
-    Validator.isTrue(trainingData != null && trainingData.exists(), "trainingData cannot be null or not be found");
-    Validator.isTrue(language != null && !language.isEmpty(), "language cannot be null or empty");
+    Validator.isTrue((trainingData != null) && trainingData.exists(), "trainingData cannot be null or not be found");
+    Validator.isTrue((language != null) && !language.isEmpty(), "language cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
 
     contentJson.addProperty(LANGUAGE, language);
 
-    if (name != null && !name.isEmpty()) {
+    if ((name != null) && !name.isEmpty()) {
       contentJson.addProperty(NAME, name);
     }
 
@@ -135,7 +132,7 @@ public class NaturalLanguageClassifier extends WatsonService {
    * @see Classifier
    */
   public ServiceCall<Void> deleteClassifier(String classifierId) {
-    Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
+    Validator.isTrue((classifierId != null) && !classifierId.isEmpty(), "classifierId cannot be null or empty");
 
     final Request request = RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId)).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
@@ -143,13 +140,13 @@ public class NaturalLanguageClassifier extends WatsonService {
 
   /**
    * Retrieves a classifier.
-   * 
+   *
    * @param classifierId the classifier ID
    * @return the classifier list
    * @see Classifier
    */
   public ServiceCall<Classifier> getClassifier(String classifierId) {
-    Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
+    Validator.isTrue((classifierId != null) && !classifierId.isEmpty(), "classifierId cannot be null or empty");
 
     final Request request = RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId)).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(Classifier.class));
@@ -157,7 +154,7 @@ public class NaturalLanguageClassifier extends WatsonService {
 
   /**
    * Retrieves the list of classifiers for the user.
-   * 
+   *
    * @return the classifier list
    * @see Classifier
    */

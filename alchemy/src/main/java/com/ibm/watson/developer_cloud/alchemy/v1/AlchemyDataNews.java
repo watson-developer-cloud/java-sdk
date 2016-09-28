@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.alchemy.v1;
 
@@ -25,12 +24,11 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * AlchemyData News indexes 250k to 300k English language news and blog articles every day with
- * historical search available for the past 60 days.
- * 
+ * AlchemyData News indexes 250k to 300k English language news and blog articles every day with historical search
+ * available for the past 60 days.
+ *
  * @version v1
- * @see <a href="https://alchemyapi.readme.io/v1.0/docs/rest-api-documentation"> Alchemy Data
- *      News</a>
+ * @see <a href="https://alchemyapi.readme.io/v1.0/docs/rest-api-documentation"> Alchemy Data News</a>
  */
 public class AlchemyDataNews extends AlchemyService {
   private static final String JSON = "json";
@@ -48,8 +46,7 @@ public class AlchemyDataNews extends AlchemyService {
   public static final String RETURN = "return";
 
   /**
-   * The Constant START. the time (in UTC seconds) of the beginning of the query duration. (value is
-   * "start")
+   * The Constant START. the time (in UTC seconds) of the beginning of the query duration. (value is "start")
    */
   public static final String START = "start";
 
@@ -67,6 +64,7 @@ public class AlchemyDataNews extends AlchemyService {
 
   /**
    * Instantiates a new alchemy data news service by apiKey.
+   *
    * @param apiKey the api key
    */
   public AlchemyDataNews(String apiKey) {
@@ -75,7 +73,7 @@ public class AlchemyDataNews extends AlchemyService {
 
   /**
    * Gets the news documents.
-   * 
+   *
    * @param parameters the parameters
    * @return the news documents
    */
@@ -84,7 +82,8 @@ public class AlchemyDataNews extends AlchemyService {
     Validator.notNull(parameters.get(END), "end time cannot be null");
     Validator.notNull(parameters.get(RETURN), "return cannot be null");
 
-    // clone parameters, to prevent errors if the user continues to use the provided Map, or it is immutable
+    // clone parameters, to prevent errors if the user continues to use the provided Map, or it is
+    // immutable
     final Map<String, Object> parametersCopy = new HashMap<String, Object>(parameters);
 
     // Return json
@@ -103,7 +102,7 @@ public class AlchemyDataNews extends AlchemyService {
 
   /**
    * Get a handle on how many documents are relevant for your query.
-   * 
+   *
    * @param start String the time (in UTC seconds) of the beginning of the query duration,
    * @param end String the time (in UTC seconds) of the end of the query duration.
    * @param timeSlice String the duration (in seconds) of each time slice.
@@ -118,9 +117,9 @@ public class AlchemyDataNews extends AlchemyService {
     requestBuilder.query(START, start);
     requestBuilder.query(END, end);
     requestBuilder.query(OUTPUT_MODE, JSON);
-    if (timeSlice != null)
+    if (timeSlice != null) {
       requestBuilder.query(TIME_SLICE, timeSlice);
-
+    }
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VolumeResult.class));
   }
 

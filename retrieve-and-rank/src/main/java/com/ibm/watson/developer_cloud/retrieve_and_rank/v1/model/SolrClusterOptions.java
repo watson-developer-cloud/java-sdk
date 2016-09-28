@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model;
 
@@ -41,7 +40,7 @@ public class SolrClusterOptions {
     if (clusterSize == null) {
       this.clusterSize = FREE_CLUSTER_SIZE;
     } else {
-      Validator.isTrue(clusterSize > 0 && clusterSize < 8, "clusterSize cannot be lower than 0 or greater than 7");
+      Validator.isTrue((clusterSize > 0) && (clusterSize < 8), "clusterSize cannot be lower than 0 or greater than 7");
       this.clusterSize = clusterSize.toString();
     }
   }
@@ -53,12 +52,12 @@ public class SolrClusterOptions {
    */
   public SolrClusterOptions(String clusterName) {
     this.clusterName = clusterName;
-    this.clusterSize = FREE_CLUSTER_SIZE;
+    clusterSize = FREE_CLUSTER_SIZE;
   }
 
   /**
    * Gets the cluster name.
-   * 
+   *
    * @return the cluster name
    */
   public String clusterName() {

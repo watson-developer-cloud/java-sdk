@@ -60,7 +60,8 @@
 		<module>tone-analyzer</module>
 		<module>tradeoff-analytics</module>
 		<module>visual-recognition</module>
-    <module>test</module>
+		<module>tests</module>
+		<module>all</module>
 	</modules>
 
 	<scm>
@@ -178,152 +179,7 @@
 	</distributionManagement>
 
 	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.sonatype.plugins</groupId>
-				<artifactId>nexus-staging-maven-plugin</artifactId>
-				<version>1.6.7</version>
-				<extensions>true</extensions>
-				<configuration>
-					<serverId>nexus-releases</serverId>
-					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-					<autoReleaseAfterClose>true</autoReleaseAfterClose>
-					<stagingProfileId>127ae59093cb28</stagingProfileId>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.5.1</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.6</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.17</version>
-				<configuration>
-					<failsOnError>true</failsOnError>
-					<configLocation>checkstyle.xml</configLocation>
-					<consoleOutput>true</consoleOutput>
-					<excludes>**/CipherSuite.java</excludes>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>checkstyle</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version><!--$NO-MVN-MAN-VER$ -->
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
-					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy</goals>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.eluder.coveralls</groupId>
-				<artifactId>coveralls-maven-plugin</artifactId>
-				<version>3.1.0</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.9</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-failsafe-plugin</artifactId>
-				<version>2.19</version>
-				<configuration>
-					<!-- ForkCount parallelizes the test execution on a per-class basis. -->
-					<forkCount>8</forkCount>
-					<includes>
-						<include>**/*IT.java</include>
-						<!-- This is a simple way to include the unit tests in Cobertura's
-							code coverage. One downside is, that unit tests are now executed twice during
-							the verify phase. -->
-						<include>**/*Test.java</include>
-					</includes>
-				</configuration>
-				<executions>
-					<execution>
-						<id>failsafe-integration-tests</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>integration-test</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.7</version>
-				<configuration>
-					<format>xml</format>
-					<aggregate>true</aggregate>
-					<check />
-					<instrumentation>
-						<excludes>
-							<exclude>**/*/model/*</exclude>
-						</excludes>
-					</instrumentation>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>animal-sniffer-maven-plugin</artifactId>
-				<version>${animal.sniffer.version}</version>
-				<executions>
-					<execution>
-						<phase>test</phase>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<signature>
-						<groupId>org.codehaus.mojo.signature</groupId>
-						<artifactId>java16</artifactId>
-						<version>1.1</version>
-					</signature>
-				</configuration>
-			</plugin>
-		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
+		<!-- This is the parent, so only define pluginManagement, not plugins. -->
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -350,8 +206,121 @@
 						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.5.1</version>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.eluder.coveralls</groupId>
+					<artifactId>coveralls-maven-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>2.9</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<version>2.19</version>
+					<configuration>
+						<!-- ForkCount parallelizes the test execution on a per-class basis. -->
+						<forkCount>8</forkCount>
+						<includes>
+							<include>**/*IT.java</include>
+							<!-- This is a simple way to include the unit tests in Cobertura's 
+								code coverage. One downside is, that unit tests are now executed twice during 
+								the verify phase. -->
+							<include>**/*Test.java</include>
+						</includes>
+					</configuration>
+					<executions>
+						<execution>
+							<id>failsafe-integration-tests</id>
+							<phase>integration-test</phase>
+							<goals>
+								<goal>integration-test</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>cobertura-maven-plugin</artifactId>
+					<version>2.7</version>
+					<configuration>
+						<format>xml</format>
+						<aggregate>true</aggregate>
+						<check />
+						<instrumentation>
+							<excludes>
+								<exclude>**/*/model/*</exclude>
+							</excludes>
+						</instrumentation>
+					</configuration>
+				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.17</version>
+				<configuration>
+					<configLocation>checkstyle.xml</configLocation>
+					<consoleOutput>true</consoleOutput>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.5.3</version><!--$NO-MVN-MAN-VER$ -->
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<useReleaseProfile>false</useReleaseProfile>
+					<releaseProfiles>release</releaseProfiles>
+					<goals>deploy</goals>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>animal-sniffer-maven-plugin</artifactId>
+				<version>${animal.sniffer.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>check</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<signature>
+						<groupId>org.codehaus.mojo.signature</groupId>
+						<artifactId>java16</artifactId>
+						<version>1.1</version>
+					</signature>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
 	</build>
 
 	<profiles>
@@ -386,6 +355,68 @@
 										</tag>
 									</tags>
 									<additionalparam>${javadoc.doclint.none}</additionalparam>
+									<doctitle>IBM Watson API Client Library for Java
+										${project.version}</doctitle>
+									<overview>${basedir}/overview.html</overview>
+									<groups>
+										<group>
+											<title>alchemy</title>
+											<packages>com.ibm.watson.developer_cloud.alchemy.*</packages>
+										</group>
+										<group>
+											<title>conversation</title>
+											<packages>com.ibm.watson.developer_cloud.conversation.*</packages>
+										</group>
+										<group>
+											<title>core</title>
+											<packages>com.ibm.watson.developer_cloud.core.*</packages>
+										</group>
+										<group>
+											<title>dialog</title>
+											<packages>com.ibm.watson.developer_cloud.dialog.*</packages>
+										</group>
+										<group>
+											<title>document-conversion</title>
+											<packages>com.ibm.watson.developer_cloud.document_conversion.*</packages>
+										</group>
+										<group>
+											<title>language-translation</title>
+											<packages>com.ibm.watson.developer_cloud.language_translation.*</packages>
+										</group>
+										<group>
+											<title>natural-language-classifier</title>
+											<packages>com.ibm.watson.developer_cloud.natural_language_classifier.*</packages>
+										</group>
+										<group>
+											<title>personality-insights</title>
+											<packages>com.ibm.watson.developer_cloud.personality_insights.*</packages>
+										</group>
+										<group>
+											<title>retrieve-and-rank</title>
+											<packages>com.ibm.watson.developer_cloud.retrieve_and_rank.*</packages>
+										</group>
+										<group>
+											<title>speech-to-text</title>
+											<packages>com.ibm.watson.developer_cloud.speech_to_text.*</packages>
+										</group>
+										<group>
+											<title>text-to-speech</title>
+											<packages>com.ibm.watson.developer_cloud.text-to-speech.*</packages>
+										</group>
+										<group>
+											<title>tone-analyzer</title>
+											<packages>com.ibm.watson.developer_cloud.tone_analyzer.*</packages>
+										</group>
+										<group>
+											<title>tradeoff-analytics</title>
+											<packages>com.ibm.watson.developer_cloud.tradeoff_analytics.*</packages>
+										</group>
+										<group>
+											<title>visual-recognition</title>
+											<packages>com.ibm.watson.developer_cloud.visual_recognition.*</packages>
+										</group>
+									</groups>
+									<windowtitle>java-sdk ${project.version}</windowtitle>
 								</configuration>
 							</execution>
 						</executions>

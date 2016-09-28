@@ -1,15 +1,14 @@
 /*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3;
 
@@ -41,13 +40,12 @@ import okhttp3.MultipartBody.Builder;
 import okhttp3.RequestBody;
 
 /**
- * Visual Recognition allows you to derive insights from an image based on its visual content. You
- * can organize image libraries, understand an individual image, and create custom classifiers for
- * specific results that are tailored to your needs.
+ * Visual Recognition allows you to derive insights from an image based on its visual content. You can organize image
+ * libraries, understand an individual image, and create custom classifiers for specific results that are tailored to
+ * your needs.
  *
  * @version v3
- * @see <a href= "http://www.ibm.com/watson/developercloud/visual-recognition.html"> Visual
- *      Recognition</a>
+ * @see <a href= "http://www.ibm.com/watson/developercloud/visual-recognition.html"> Visual Recognition</a>
  * @api.version_date 2016-05-20
  */
 public class VisualRecognition extends WatsonService {
@@ -68,7 +66,7 @@ public class VisualRecognition extends WatsonService {
   private static final String PATH_DETECT_FACES = "/v3/detect_faces";
   private static final String PATH_RECOGNIZE_TEXT = "/v3/recognize_text";
   private static final String SERVICE_NAME = "watson_vision_combined";
-  private static final Type TYPE_LIST_CLASSIFIERS = new TypeToken<List<VisualClassifier>>() {}.getType();
+  private static final Type TYPE_LIST_CLASSIFIERS = new TypeToken<List<VisualClassifier>>() { }.getType();
   private static final String URL = "https://gateway-a.watsonplatform.net/visual-recognition/api";
   private static final String VERBOSE = "verbose";
 
@@ -79,14 +77,15 @@ public class VisualRecognition extends WatsonService {
 
   /**
    * Instantiates a new Visual Recognition V3 service.
-   * 
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *        will keep your API calls from failing when the service introduces breaking changes.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *        calls from failing when the service introduces breaking changes.
    */
   public VisualRecognition(String versionDate) {
     super(SERVICE_NAME);
-    if (getEndPoint() == null || getEndPoint().isEmpty())
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
+    }
     Validator.notNull(versionDate, "versionDate cannot be null. Use '2016-05-19'");
     this.versionDate = versionDate;
   }
@@ -94,8 +93,8 @@ public class VisualRecognition extends WatsonService {
   /**
    * Instantiates a new Visual Recognition V3 service with a given API key.
    *
-   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value
-   *        will keep your API calls from failing when the service introduces breaking changes.
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *        calls from failing when the service introduces breaking changes.
    * @param apiKey the api key
    */
   public VisualRecognition(String versionDate, String apiKey) {
@@ -105,13 +104,13 @@ public class VisualRecognition extends WatsonService {
 
   /**
    * Adds the Alchemy API key to HTTP request.
-   * 
+   *
    * @param builder the builder
    * @param apiKey the API key token
    */
   private void addApiKeyToRequest(okhttp3.Request.Builder builder, String apiKey) {
     final HttpUrl url = HttpUrl.parse(builder.build().url().toString());
-    if (url.query() == null || url.query().isEmpty()) {
+    if ((url.query() == null) || url.query().isEmpty()) {
       builder.url(builder.build().url() + "?" + apiKey);
     } else {
       builder.url(builder.build().url() + "&" + apiKey);
@@ -121,11 +120,11 @@ public class VisualRecognition extends WatsonService {
   private JsonObject getParametersAsJson(ClassifyImagesOptions options) {
     JsonObject ret = new JsonObject();
 
-    if (options.url() != null && options.images() == null) {
+    if ((options.url() != null) && (options.images() == null)) {
       ret.addProperty(PARAM_URL, options.url().toString());
     }
 
-    if (options.classifierIds() != null && !options.classifierIds().isEmpty()) {
+    if ((options.classifierIds() != null) && !options.classifierIds().isEmpty()) {
       JsonArray array = new JsonArray();
       for (String cId : options.classifierIds()) {
         array.add(new JsonPrimitive(cId));
@@ -155,9 +154,8 @@ public class VisualRecognition extends WatsonService {
 
   /*
    * (non-Javadoc)
-   * 
-   * @see
-   * com.ibm.watson.watson.developer_cloud.service.WatsonService#setAuthentication(okhttp3.Request.Builder)
+   *
+   * @see com.ibm.watson.watson.developer_cloud.service.WatsonService#setAuthentication(okhttp3.Request. Builder)
    */
   @Override
   protected void setAuthentication(okhttp3.Request.Builder builder) {
@@ -192,9 +190,9 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Train a new classifier on the uploaded image data. Upload a compressed (.zip) file of images
-   * (.jpg, .png, or .gif) with positive examples that show your classifier and another compressed
-   * file with negative examples that are similar to but do NOT show your classifier. <br>
+   * Train a new classifier on the uploaded image data. Upload a compressed (.zip) file of images (.jpg, .png, or .gif)
+   * with positive examples that show your classifier and another compressed file with negative examples that are
+   * similar to but do NOT show your classifier. <br>
    *
    * @param options The parameters to create a classifier
    * @return The created {@link VisualClassifier}
@@ -228,7 +226,7 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Validates the {@link ClassifierOptions}
+   * Validates the {@link ClassifierOptions}.
    *
    * @param options the options
    */
@@ -239,17 +237,15 @@ public class VisualRecognition extends WatsonService {
     Validator.notNull(options.classifierName(), "'classifierName' cannot be null");
     Validator.isTrue(!options.classNames().isEmpty(), "There are no classes. " + errorMessage);
 
-    boolean hasExamples =
-        options.classNames().size() > 1 || (options.negativeExamples() != null && options.classNames().size() == 1);
+    boolean hasExamples = (options.classNames().size() > 1)
+        || ((options.negativeExamples() != null) && (options.classNames().size() == 1));
     Validator.isTrue(hasExamples, errorMessage);
   }
 
   /**
-   * Update an existing classifier by adding new classes, or by adding new images to existing
-   * classes. To update the existing classifier, use several compressed (.zip) files, including
-   * files containing positive or negative images (.jpg, or .png). You must supply at least one
-   * compressed file, with additional positive or negative examples.
-   * <br>
+   * Update an existing classifier by adding new classes, or by adding new images to existing classes. To update the
+   * existing classifier, use several compressed (.zip) files, including files containing positive or negative images
+   * (.jpg, or .png). You must supply at least one compressed file, with additional positive or negative examples. <br>
    *
    * @param classifierId the classifier id
    * @param options The parameters to create a classifier
@@ -260,9 +256,9 @@ public class VisualRecognition extends WatsonService {
   public ServiceCall<VisualClassifier> updateClassifier(String classifierId, ClassifierOptions options) {
     Validator.notNull(classifierId, "classifierId cannot be null");
     Validator.notNull(options, " options cannot be null");
-    String errorMessage = "To update a classifier, you must supply at least 1 zip file - "
-        + "either a positive or negative zip file.";
-    Validator.isTrue(!options.classNames().isEmpty() || options.negativeExamples() != null, errorMessage);
+    String errorMessage =
+        "To update a classifier, you must supply at least 1 zip file - " + "either a positive or negative zip file.";
+    Validator.isTrue(!options.classNames().isEmpty() || (options.negativeExamples() != null), errorMessage);
 
 
     Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
@@ -294,7 +290,7 @@ public class VisualRecognition extends WatsonService {
    * @see VisualClassifier
    */
   public ServiceCall<Void> deleteClassifier(String classifierId) {
-    Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
+    Validator.isTrue((classifierId != null) && !classifierId.isEmpty(), "classifierId cannot be null or empty");
 
     RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId));
     requestBuilder.query(VERSION, versionDate);
@@ -325,15 +321,14 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Retrieve information about a specific classifier. Only user-trained classifiers may be
-   * addressed.
+   * Retrieve information about a specific classifier. Only user-trained classifiers may be addressed.
    *
    * @param classifierId the classifier ID
    * @return the classifier
    * @see VisualClassifier
    */
   public ServiceCall<VisualClassifier> getClassifier(String classifierId) {
-    Validator.isTrue(classifierId != null && !classifierId.isEmpty(), "classifierId cannot be null or empty");
+    Validator.isTrue((classifierId != null) && !classifierId.isEmpty(), "classifierId cannot be null or empty");
 
     RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId));
     requestBuilder.query(VERSION, versionDate);
@@ -380,8 +375,7 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * The Visual Recognition V3 service use an <code>api_key</code> instead of username and password.
-   * <br/>
+   * The Visual Recognition V3 service use an <code>api_key</code> instead of username and password. <br/>
    * Use: {@link VisualRecognition#setApiKey(String)}
    *
    * @param username the username

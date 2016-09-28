@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.alchemy.v1.util;
@@ -30,7 +29,7 @@ import com.google.gson.JsonParser;
 
 /**
  * The Class AlchemyEndPoints.
- * 
+ *
  */
 public final class AlchemyEndPoints {
 
@@ -103,15 +102,15 @@ public final class AlchemyEndPoints {
     TEXT_RAW,
 
     /** The title. */
-    TITLE, 
-    
+    TITLE,
+
     /** The typed. */
     TYPED
   }
 
   private static final String FILE_PATH = "/alchemy_endpoints.json";
   private static final Logger LOG = Logger.getLogger(AlchemyEndPoints.class.getName());
-  private static Map<String, Map<String, String>> OPERATIONS;
+  private static Map<String, Map<String, String>> operationsByEndpoint;
 
   static {
     loadEndPointsFromJsonFile();
@@ -126,7 +125,7 @@ public final class AlchemyEndPoints {
    */
   private static void loadEndPointsFromJsonFile() {
     LOG.log(Level.FINE, "Parsing End Points JSON file ");
-    OPERATIONS = new HashMap<String, Map<String, String>>();
+    operationsByEndpoint = new HashMap<String, Map<String, String>>();
     final JsonParser parser = new JsonParser();
 
     Reader fileReader = null;
@@ -147,7 +146,7 @@ public final class AlchemyEndPoints {
           for (final Map.Entry<String, JsonElement> e : elt.getAsJsonObject().entrySet()) {
             records.put(e.getKey(), e.getValue().getAsString());
           }
-          OPERATIONS.put(object.name(), records);
+          operationsByEndpoint.put(object.name(), records);
         }
       }
     } catch (final JsonParseException e) {
@@ -167,14 +166,15 @@ public final class AlchemyEndPoints {
 
   /**
    * Gets the path based on the operation and input type.
-   * 
+   *
    * @param operation the operation
    * @param inputType the input type
    * @return the string that represent the path based on the operation and input type
    */
   public static String getPath(AlchemyAPI operation, String inputType) {
-    if (OPERATIONS.get(operation.name()) != null && OPERATIONS.get(operation.name()).get(inputType) != null) {
-      return OPERATIONS.get(operation.name()).get(inputType);
+    if ((operationsByEndpoint.get(operation.name()) != null)
+        && (operationsByEndpoint.get(operation.name()).get(inputType) != null)) {
+      return operationsByEndpoint.get(operation.name()).get(inputType);
     } else {
       final String error = "Operation: " + operation + ", inputType: " + inputType + " not found";
       LOG.log(Level.SEVERE, error);

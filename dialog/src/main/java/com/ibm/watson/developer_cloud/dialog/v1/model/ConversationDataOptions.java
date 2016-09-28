@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.dialog.v1.model;
 
@@ -21,7 +20,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * Conversational data options used by the {@link Dialog} service.<br>
  * <br>
  * Here is an example of how to create a {@link ConversationDataOptions}:
- * 
+ *
  * <pre>
  * <code>
  * ConversationDataOptions options = new ConversationDataOptions.Builder()
@@ -44,11 +43,11 @@ public class ConversationDataOptions {
    * @param builder the builder
    */
   private ConversationDataOptions(Builder builder) {
-    this.dialogId = builder.dialogId;
-    this.from = builder.from;
-    this.limit = builder.limit;
-    this.offset = builder.offset;
-    this.to = builder.to;
+    dialogId = builder.dialogId;
+    from = builder.from;
+    limit = builder.limit;
+    offset = builder.offset;
+    to = builder.to;
   }
 
   /**
@@ -71,18 +70,18 @@ public class ConversationDataOptions {
     private Integer offset;
     private Date to;
 
-    
+
     /**
      * Instantiates a new builder.
      */
-    public Builder() {}
+    public Builder() { }
 
     private Builder(ConversationDataOptions options) {
-      this.dialogId = options.dialogId;
-      this.from = options.from;
-      this.limit = options.limit;
-      this.offset = options.offset;
-      this.to = options.to;
+      dialogId = options.dialogId;
+      from = options.from;
+      limit = options.limit;
+      offset = options.offset;
+      to = options.to;
     }
 
     /**

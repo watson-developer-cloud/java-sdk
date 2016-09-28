@@ -1,15 +1,14 @@
 /*
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.dialog.v1;
 
@@ -46,12 +45,12 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
- * The Dialog service was deprecated on August 15, 2016, existing instances of the service will
- * continue to function until August 9, 2017.
- * 
+ * The Dialog service was deprecated on August 15, 2016, existing instances of the service will continue to function
+ * until August 9, 2017.
+ *
+ * @see <a href="https://www.ibm.com/watson/developercloud/doc/conversation/migration.shtml"> Migration to
+ *      Conversation</a>
  * @deprecated As of August 15, 2016, replaced by {@link ConversationService}
- * @see <a href="https://www.ibm.com/watson/developercloud/doc/conversation/migration.shtml">
- *      Migration to Conversation</a>
  */
 @Deprecated
 public class DialogService extends WatsonService {
@@ -69,10 +68,10 @@ public class DialogService extends WatsonService {
   private static final String INPUT = "input";
   private static final String ITEMS = "items";
   private static final String LIMIT = "limit";
-  private static final Type listConversationDataType = new TypeToken<List<ConversationData>>() {}.getType();
-  private static final Type listDialogContentType = new TypeToken<List<DialogContent>>() {}.getType();
-  private static final Type listDialogType = new TypeToken<List<Dialog>>() {}.getType();
-  private static final Type listNameValueType = new TypeToken<List<NameValue>>() {}.getType();
+  private static final Type listConversationDataType = new TypeToken<List<ConversationData>>() { }.getType();
+  private static final Type listDialogContentType = new TypeToken<List<DialogContent>>() { }.getType();
+  private static final Type listDialogType = new TypeToken<List<Dialog>>() { }.getType();
+  private static final Type listNameValueType = new TypeToken<List<NameValue>>() { }.getType();
   private static final String NAME = "name";
   private static final String NAME_VALUES = "name_values";
   private static final String OFFSET = "offset";
@@ -94,7 +93,7 @@ public class DialogService extends WatsonService {
 
   /**
    * Instantiates a new dialog service by username and password.
-   * 
+   *
    * @param username the username
    * @param password the password
    */
@@ -105,7 +104,7 @@ public class DialogService extends WatsonService {
 
   /**
    * Returns a Map from a {@link NameValue} list.
-   * 
+   *
    * @param nameValues the {@link NameValue} list
    * @return the map
    */
@@ -119,7 +118,7 @@ public class DialogService extends WatsonService {
 
   /**
    * Converts the profile map into a {@link NameValue} list.
-   * 
+   *
    * @param profile the profile
    * @return the {@link NameValue} list.
    */
@@ -133,14 +132,14 @@ public class DialogService extends WatsonService {
 
   /**
    * Starts or continue conversations.
-   * 
+   *
    * @param conversation the current conversation
    * @param newMessage the new message
    * @return the {@link Conversation} with the response
    */
   public ServiceCall<Conversation> converse(final Conversation conversation, String newMessage) {
     Validator.notNull(conversation, "conversation cannot be null");
-    Validator.isTrue(conversation.getDialogId() != null && !conversation.getDialogId().isEmpty(),
+    Validator.isTrue((conversation.getDialogId() != null) && !conversation.getDialogId().isEmpty(),
         "conversation.dialogId cannot be null or empty");
 
     final String path = String.format(PATH_DIALOG_CONVERSATION, conversation.getDialogId());
@@ -162,7 +161,7 @@ public class DialogService extends WatsonService {
 
   /**
    * Starts or continue conversations.
-   * 
+   *
    * @param dialogId the dialog identifier
    * @return a new {@link Conversation}
    */
@@ -174,15 +173,15 @@ public class DialogService extends WatsonService {
 
   /**
    * Creates a dialog.
-   * 
+   *
    * @param name The dialog name
    * @param dialogFile The dialog script file
    * @return The created dialog
    * @see Dialog
    */
   public ServiceCall<Dialog> createDialog(final String name, final File dialogFile) {
-    Validator.isTrue(name != null && !name.isEmpty(), "name cannot be null or empty");
-    Validator.isTrue(dialogFile != null && dialogFile.exists(), "dialogFile cannot be null or inexistent");
+    Validator.isTrue((name != null) && !name.isEmpty(), "name cannot be null or empty");
+    Validator.isTrue((dialogFile != null) && dialogFile.exists(), "dialogFile cannot be null or inexistent");
 
     final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
         .addFormDataPart(FILE, dialogFile.getName(), RequestBody.create(HttpMediaType.BINARY_FILE, dialogFile))
@@ -201,7 +200,7 @@ public class DialogService extends WatsonService {
    * @see DialogService
    */
   public ServiceCall<Void> deleteDialog(final String dialogId) {
-    Validator.isTrue(dialogId != null && !dialogId.isEmpty(), "dialogId cannot be null or empty");
+    Validator.isTrue((dialogId != null) && !dialogId.isEmpty(), "dialogId cannot be null or empty");
 
     final Request request = RequestBuilder.delete(String.format(PATH_DIALOG, dialogId)).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
@@ -209,12 +208,12 @@ public class DialogService extends WatsonService {
 
   /**
    * Gets content for nodes.
-   * 
+   *
    * @param dialogId the dialog identifier
    * @return The {@link DialogContent} for nodes
    */
   public ServiceCall<List<DialogContent>> getContent(final String dialogId) {
-    Validator.isTrue(dialogId != null && !dialogId.isEmpty(), "dialogId cannot be null or empty");
+    Validator.isTrue((dialogId != null) && !dialogId.isEmpty(), "dialogId cannot be null or empty");
 
     final Request request = RequestBuilder.get(String.format(PATH_DIALOG_CONTENT, dialogId)).build();
     final ResponseConverter<List<DialogContent>> converter =
@@ -230,14 +229,15 @@ public class DialogService extends WatsonService {
    */
   public ServiceCall<List<ConversationData>> getConversationData(ConversationDataOptions options) {
     Validator.notNull(options, "options cannot be null");
-    Validator.isTrue(options.dialogId() != null && !options.dialogId().isEmpty(),
+    Validator.isTrue((options.dialogId() != null) && !options.dialogId().isEmpty(),
         "options.dialogId cannot be null or empty");
 
     Validator.notNull(options.from(), "options.from cannot be null");
     Validator.notNull(options.to(), "options.to cannot be null");
 
-    if (options.from().after(options.to()))
+    if (options.from().after(options.to())) {
       throw new IllegalArgumentException("options.from is greater than options.to");
+    }
 
     final String fromString = DATE_FORMATTER.format(options.from());
     final String toString = DATE_FORMATTER.format(options.to());
@@ -246,10 +246,12 @@ public class DialogService extends WatsonService {
 
     final RequestBuilder requestBuilder = RequestBuilder.get(path).query(DATE_FROM, fromString, DATE_TO, toString);
 
-    if (options.offset() != null)
+    if (options.offset() != null) {
       requestBuilder.query(OFFSET, options.offset());
-    if (options.limit() != null)
+    }
+    if (options.limit() != null) {
       requestBuilder.query(LIMIT, options.limit());
+    }
 
     final Request request = requestBuilder.build();
     ResponseConverter<List<ConversationData>> converter =
@@ -259,7 +261,7 @@ public class DialogService extends WatsonService {
 
   /**
    * Retrieves the list of Dialogs for the user.
-   * 
+   *
    * @return the {@link Dialog} list
    */
   public ServiceCall<List<Dialog>> getDialogs() {
@@ -271,7 +273,7 @@ public class DialogService extends WatsonService {
 
   /**
    * Returns a list of name-value pars associated with a client id.
-   * 
+   *
    * @param conversation The current conversation
    * @param names the profile variables to return
    * @return the profile
@@ -284,14 +286,14 @@ public class DialogService extends WatsonService {
 
   /**
    * Returns a list of name-value pars associated with a client id.
-   * 
+   *
    * @param dialogId The dialog identifier
    * @param clientId the client id
    * @param names the profile variables to return
    * @return the profile
    */
   public ServiceCall<Map<String, String>> getProfile(String dialogId, Integer clientId, String... names) {
-    Validator.isTrue(dialogId != null && !dialogId.isEmpty(), "dialogId cannot be null or empty");
+    Validator.isTrue((dialogId != null) && !dialogId.isEmpty(), "dialogId cannot be null or empty");
     Validator.notNull(clientId, "clientId cannot be null");
 
     final RequestBuilder requestBuilder =
@@ -322,8 +324,8 @@ public class DialogService extends WatsonService {
    * @see Dialog
    */
   public ServiceCall<Void> updateDialog(final String dialogId, final File dialogFile) {
-    Validator.isTrue(dialogId != null && !dialogId.isEmpty(), "dialogId cannot be null or empty");
-    Validator.isTrue(dialogFile != null && dialogFile.exists(), "dialogFile cannot be null or inexistent");
+    Validator.isTrue((dialogId != null) && !dialogId.isEmpty(), "dialogId cannot be null or empty");
+    Validator.isTrue((dialogFile != null) && dialogFile.exists(), "dialogFile cannot be null or inexistent");
 
     final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
         .addFormDataPart(FILE, dialogFile.getName(), RequestBody.create(HttpMediaType.BINARY_FILE, dialogFile)).build();
@@ -357,12 +359,13 @@ public class DialogService extends WatsonService {
    */
   public ServiceCall<Void> updateProfile(final String dialogId, final Integer clientId,
       final Map<String, String> profile) {
-    Validator.isTrue(dialogId != null && !dialogId.isEmpty(), "dialogId cannot be null or empty");
-    Validator.isTrue(profile != null && !profile.isEmpty(), "profile cannot be null or empty");
+    Validator.isTrue((dialogId != null) && !dialogId.isEmpty(), "dialogId cannot be null or empty");
+    Validator.isTrue((profile != null) && !profile.isEmpty(), "profile cannot be null or empty");
 
     final JsonObject contentJson = new JsonObject();
-    if (clientId != null)
+    if (clientId != null) {
       contentJson.addProperty(CLIENT_ID, clientId);
+    }
 
     contentJson.add(NAME_VALUES, GSON.toJsonTree(toNameValue(profile)));
 

@@ -11,7 +11,7 @@
 	<artifactId>natural-language-classifier</artifactId>
 	<name>Natural Language Classifier</name>
 
-	<dependencies>
+  <dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>core</artifactId>

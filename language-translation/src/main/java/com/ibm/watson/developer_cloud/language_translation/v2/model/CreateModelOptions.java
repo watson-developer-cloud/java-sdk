@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.language_translation.v2.model;
@@ -35,21 +34,21 @@ public class CreateModelOptions {
     private File parallelCorpus;
 
     private Builder(CreateModelOptions options) {
-      this.name = options.name;
-      this.baseModelId = options.baseModelId;
-      this.parallelCorpus = options.parallelCorpus;
-      this.monolingualCorpus = options.monolingualCorpus;
-      this.forcedGlossary = options.forcedGlossary;
+      name = options.name;
+      baseModelId = options.baseModelId;
+      parallelCorpus = options.parallelCorpus;
+      monolingualCorpus = options.monolingualCorpus;
+      forcedGlossary = options.forcedGlossary;
     }
 
     /**
      * Instantiates a new builder.
      */
-    public Builder() {}
+    public Builder() { }
 
     /**
      * Base model id.
-     * 
+     *
      * @param baseModelId the base model id
      * @return the creates the model options
      */
@@ -69,7 +68,7 @@ public class CreateModelOptions {
 
     /**
      * With forced glossary.
-     * 
+     *
      * @param forcedGlossary the forced glossary
      * @return the creates the model options
      */
@@ -80,7 +79,7 @@ public class CreateModelOptions {
 
     /**
      * Sets the monolingual corpus.
-     * 
+     *
      * @param monolingualCorpus the monolingual corpus
      * @return the creates the model options
      */
@@ -91,7 +90,7 @@ public class CreateModelOptions {
 
     /**
      * Sets the name.
-     * 
+     *
      * @param name the name
      * @return the profile options
      */
@@ -102,7 +101,7 @@ public class CreateModelOptions {
 
     /**
      * Sets the parallel corpus.
-     * 
+     *
      * @param parallelCorpus the parallel corpus
      * @return the creates the model options
      */
@@ -119,16 +118,16 @@ public class CreateModelOptions {
   private File parallelCorpus;
 
   private CreateModelOptions(Builder builder) {
-    this.baseModelId = builder.baseModelId;
-    this.forcedGlossary = builder.forcedGlossary;
-    this.parallelCorpus = builder.parallelCorpus;
-    this.name = builder.name;
-    this.monolingualCorpus = builder.monolingualCorpus;
+    baseModelId = builder.baseModelId;
+    forcedGlossary = builder.forcedGlossary;
+    parallelCorpus = builder.parallelCorpus;
+    name = builder.name;
+    monolingualCorpus = builder.monolingualCorpus;
   }
 
   /**
    * Gets the base model id.
-   * 
+   *
    * @return the baseModelId
    */
   public String baseModelId() {
@@ -137,7 +136,7 @@ public class CreateModelOptions {
 
   /**
    * Gets the forced glossary.
-   * 
+   *
    * @return the forcedGlossary
    */
   public File forcedGlossary() {
@@ -146,7 +145,7 @@ public class CreateModelOptions {
 
   /**
    * Gets the monolingual corpus.
-   * 
+   *
    * @return the monolingualCorpus
    */
   public File monolingualCorpus() {
@@ -155,7 +154,7 @@ public class CreateModelOptions {
 
   /**
    * Gets the name.
-   * 
+   *
    * @return the name
    */
   public String name() {
@@ -173,7 +172,7 @@ public class CreateModelOptions {
 
   /**
    * Gets the parallel corpus.
-   * 
+   *
    * @return the parallelCorpus
    */
   public File parallelCorpus() {
@@ -181,5 +180,4 @@ public class CreateModelOptions {
   }
 
 }
-
 

@@ -46,7 +46,7 @@ public class ConversationExample {
       }
 
       @Override
-      public void onFailure(Exception e) {}
+      public void onFailure(Exception e) { }
     });
 
     // rx callback

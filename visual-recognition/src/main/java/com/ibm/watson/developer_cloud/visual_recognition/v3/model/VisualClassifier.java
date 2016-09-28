@@ -1,15 +1,14 @@
 /*
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
@@ -101,28 +100,27 @@ public class VisualClassifier extends GenericModel {
   private Status status;
 
 
-
   /**
    * {@link VisualClassifier} Status.
    */
   public enum Status {
-    
+
     /** available. */
     @SerializedName("ready") AVAILABLE,
-    
+
     /** failed. */
     @SerializedName("failed") FAILED,
-    
+
     /** non existent. */
     @SerializedName("Non Existent") NON_EXISTENT,
-    
+
     /** training. */
     @SerializedName("training") TRAINING,
-    
+
     /** unavailable. */
     @SerializedName("unavailable") UNAVAILABLE
   }
-  
+
   /**
    * Gets the explanation.
    *
@@ -161,7 +159,7 @@ public class VisualClassifier extends GenericModel {
 
   /**
    * Gets the created.
-   * 
+   *
    * @return the created
    */
   public Date getCreated() {
@@ -170,7 +168,7 @@ public class VisualClassifier extends GenericModel {
 
   /**
    * Gets the classifier id.
-   * 
+   *
    * @return the classifier id
    */
   public String getId() {
@@ -179,7 +177,7 @@ public class VisualClassifier extends GenericModel {
 
   /**
    * Gets the name.
-   * 
+   *
    * @return the name
    */
   public String getName() {
@@ -188,7 +186,7 @@ public class VisualClassifier extends GenericModel {
 
   /**
    * Gets the owner.
-   * 
+   *
    * @return the owner
    */
   public String getOwner() {
@@ -197,7 +195,7 @@ public class VisualClassifier extends GenericModel {
 
   /**
    * Sets the created.
-   * 
+   *
    * @param created the created to set
    */
   public void setCreated(Date created) {
@@ -206,7 +204,7 @@ public class VisualClassifier extends GenericModel {
 
   /**
    * Sets the classifier id.
-   * 
+   *
    * @param id the new classifier id
    */
   public void setId(String id) {
@@ -215,7 +213,7 @@ public class VisualClassifier extends GenericModel {
 
   /**
    * Sets the name.
-   * 
+   *
    * @param name the name to set
    */
   public void setName(String name) {
@@ -224,7 +222,7 @@ public class VisualClassifier extends GenericModel {
 
   /**
    * Sets the owner.
-   * 
+   *
    * @param owner the owner to set
    */
   public void setOwner(String owner) {

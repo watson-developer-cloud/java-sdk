@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.personality_insights.v2.model;
 
@@ -36,7 +35,7 @@ public class Trait extends GenericModel {
 
   /**
    * Gets the personality model category. e.g: "values", "needs" or "personality"
-   * 
+   *
    * @return the category
    */
   public String getCategory() {
@@ -45,7 +44,7 @@ public class Trait extends GenericModel {
 
   /**
    * Gets the characteristic children.
-   * 
+   *
    * @return the children
    */
   public List<Trait> getChildren() {
@@ -53,8 +52,8 @@ public class Trait extends GenericModel {
   }
 
   /**
-   * Gets id of the characteristic, globally unique.,
-   * 
+   * Gets id of the characteristic, globally unique.
+   *
    * @return the characteristic identifier
    */
   public String getId() {
@@ -63,7 +62,7 @@ public class Trait extends GenericModel {
 
   /**
    * Gets the user-displayable name of the characteristic.
-   * 
+   *
    * @return the name
    */
   public String getName() {
@@ -71,10 +70,10 @@ public class Trait extends GenericModel {
   }
 
   /**
-   * Gets the normalized value of the characteristic, from 0-1. For example, if the percentage for
-   * Openness is 0.25, you scored in the 25th percentile. You are more open than 24% of the
-   * population and less open than 74% of the population.,
-   * 
+   * Gets the normalized value of the characteristic, from 0-1. For example, if the percentage for Openness is 0.25, you
+   * scored in the 25th percentile. You are more open than 24% of the population and less open than 74% of the
+   * population.,
+   *
    * @return the percentage
    */
   public Double getPercentage() {
@@ -83,7 +82,7 @@ public class Trait extends GenericModel {
 
   /**
    * Gets the raw sampling error.
-   * 
+   *
    * @return the raw sampling error
    */
   public Double getRawSamplingError() {
@@ -92,7 +91,7 @@ public class Trait extends GenericModel {
 
   /**
    * Gets the raw score.
-   * 
+   *
    * @return the raw score
    */
   public Double getRawScore() {
@@ -100,11 +99,10 @@ public class Trait extends GenericModel {
   }
 
   /**
-   * Indicates the sampling error of the percentage, based on the number of words in the input. The
-   * number defines a 95% confidence interval around the percentage. For example, the sampling error
-   * is 4% and percentage is 61%. It is 95% likely that the actual percentage value is between 57%
-   * and 65% if more words are given.
-   * 
+   * Indicates the sampling error of the percentage, based on the number of words in the input. The number defines a 95%
+   * confidence interval around the percentage. For example, the sampling error is 4% and percentage is 61%. It is 95%
+   * likely that the actual percentage value is between 57% and 65% if more words are given.
+   *
    * @return the sampling error
    */
   public Double getSamplingError() {
@@ -113,7 +111,7 @@ public class Trait extends GenericModel {
 
   /**
    * Sets personality model category. e.g: "values", "needs" or "personality"
-   * 
+   *
    * @param category the new category
    */
   public void setCategory(String category) {
@@ -122,7 +120,7 @@ public class Trait extends GenericModel {
 
   /**
    * Sets the characteristic children.
-   * 
+   *
    * @param children the new children
    */
   public void setChildren(List<Trait> children) {
@@ -130,8 +128,8 @@ public class Trait extends GenericModel {
   }
 
   /**
-   * Sets the id of the characteristic, globally unique.,
-   * 
+   * Sets the id of the characteristic, globally unique.
+   *
    * @param id the characteristic identifier
    */
   public void setId(String id) {
@@ -140,7 +138,7 @@ public class Trait extends GenericModel {
 
   /**
    * Sets the user-displayable name of the characteristic.
-   * 
+   *
    * @param name the new name
    */
   public void setName(String name) {
@@ -149,7 +147,7 @@ public class Trait extends GenericModel {
 
   /**
    * Sets the normalized value of the characteristic, from 0-1.
-   * 
+   *
    * @param percentage the new percentage value from 0-1
    */
   public void setPercentage(Double percentage) {
@@ -158,7 +156,7 @@ public class Trait extends GenericModel {
 
   /**
    * Sets the raw sampling error.
-   * 
+   *
    * @param rawSamplingError the new raw sampling error
    */
   public void setRawSamplingError(Double rawSamplingError) {
@@ -167,7 +165,7 @@ public class Trait extends GenericModel {
 
   /**
    * Sets the raw score.
-   * 
+   *
    * @param rawScore the new raw score
    */
   public void setRawScore(Double rawScore) {
@@ -176,7 +174,7 @@ public class Trait extends GenericModel {
 
   /**
    * Sets the sampling error of the percentage based on the number of words in the input.
-   * 
+   *
    * @param samplingError error the new sampling error
    */
   public void setSamplingError(Double samplingError) {

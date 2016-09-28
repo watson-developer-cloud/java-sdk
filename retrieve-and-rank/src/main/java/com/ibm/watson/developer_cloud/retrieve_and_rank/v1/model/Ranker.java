@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model;
 
@@ -21,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * {@link Ranker} class used by {@link RetrieveAndRank}.
- * 
+ *
  * @version watson.watson.developer_cloud.retrieve_and_rank.v1
  */
 public class Ranker extends GenericModel {
@@ -58,7 +57,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Gets the created.
-   * 
+   *
    * @return the created
    */
   public Date getCreated() {
@@ -67,7 +66,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Gets the ranker id.
-   * 
+   *
    * @return the ranker id
    */
   public String getId() {
@@ -76,7 +75,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Gets the name.
-   * 
+   *
    * @return the name
    */
   public String getName() {
@@ -85,7 +84,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Gets the status.
-   * 
+   *
    * @return the status
    */
   public Status getStatus() {
@@ -94,7 +93,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Gets the status description.
-   * 
+   *
    * @return the status description
    */
   public String getStatusDescription() {
@@ -103,7 +102,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Gets the url.
-   * 
+   *
    * @return the url
    */
   public String getUrl() {
@@ -112,7 +111,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Sets the date when the ranker was created.
-   * 
+   *
    * @param created the date to set
    */
   public void setCreated(Date created) {
@@ -121,7 +120,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Sets the ranker id.
-   * 
+   *
    * @param id the new ranker id
    */
   public void setId(String id) {
@@ -130,7 +129,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Sets the name.
-   * 
+   *
    * @param name the name to set
    */
   public void setName(String name) {
@@ -139,7 +138,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Sets the status.
-   * 
+   *
    * @param status the new status
    */
   public void setStatus(Status status) {
@@ -148,7 +147,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Sets the status description.
-   * 
+   *
    * @param statusDescription the new status description
    */
   public void setStatusDescription(String statusDescription) {
@@ -157,7 +156,7 @@ public class Ranker extends GenericModel {
 
   /**
    * Sets the url.
-   * 
+   *
    * @param url the new url
    */
   public void setUrl(String url) {

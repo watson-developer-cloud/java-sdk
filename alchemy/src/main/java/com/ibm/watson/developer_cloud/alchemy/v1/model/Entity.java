@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
@@ -48,7 +47,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Gets the count.
-   * 
+   *
    * @return The count
    */
   public int getCount() {
@@ -57,7 +56,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Gets the disambiguated.
-   * 
+   *
    * @return The disambiguated
    */
   public DisambiguatedLinks getDisambiguated() {
@@ -66,7 +65,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Gets the knowledge graph.
-   * 
+   *
    * @return The knowledgeGraph
    */
   public KnowledgeGraph getKnowledgeGraph() {
@@ -75,7 +74,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Gets the quotations.
-   * 
+   *
    * @return The quotations
    */
   public List<Quotation> getQuotations() {
@@ -84,7 +83,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Gets the relevance.
-   * 
+   *
    * @return The relevance
    */
   public Double getRelevance() {
@@ -93,7 +92,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Gets the sentiment.
-   * 
+   *
    * @return The sentiment
    */
   public Sentiment getSentiment() {
@@ -102,7 +101,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Gets the text.
-   * 
+   *
    * @return The text
    */
   public String getText() {
@@ -111,7 +110,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Gets the type.
-   * 
+   *
    * @return The type
    */
   public String getType() {
@@ -120,7 +119,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Sets the count.
-   * 
+   *
    * @param count The count
    */
   public void setCount(int count) {
@@ -129,7 +128,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Sets the disambiguated.
-   * 
+   *
    * @param disambiguated The disambiguated
    */
   public void setDisambiguated(DisambiguatedLinks disambiguated) {
@@ -138,7 +137,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Sets the knowledge graph.
-   * 
+   *
    * @param knowledgeGraph The knowledgeGraph
    */
   public void setKnowledgeGraph(KnowledgeGraph knowledgeGraph) {
@@ -147,7 +146,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Sets the quotations.
-   * 
+   *
    * @param quotations The quotations
    */
   public void setQuotations(List<Quotation> quotations) {
@@ -156,7 +155,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Sets the relevance.
-   * 
+   *
    * @param relevance The relevance
    */
   public void setRelevance(Double relevance) {
@@ -165,7 +164,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Sets the sentiment.
-   * 
+   *
    * @param sentiment The sentiment
    */
   public void setSentiment(Sentiment sentiment) {
@@ -174,7 +173,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Sets the text.
-   * 
+   *
    * @param text The text
    */
   public void setText(String text) {
@@ -183,7 +182,7 @@ public class Entity extends AlchemyGenericModel {
 
   /**
    * Sets the type.
-   * 
+   *
    * @param type The type
    */
   public void setType(String type) {

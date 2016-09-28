@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
@@ -108,7 +107,7 @@ public class Solution extends GenericModel {
 
   /**
    * Gets the solution ids of those that shadow this solution.
-   * 
+   *
    * @return The highlights
    */
   public List<String> getShadowMe() {
@@ -117,7 +116,7 @@ public class Solution extends GenericModel {
 
   /**
    * Gets the shadows of a solution.
-   * 
+   *
    * @return The shadows
    */
   public List<String> getShadows() {
@@ -126,7 +125,7 @@ public class Solution extends GenericModel {
 
   /**
    * Gets the solution ref.
-   * 
+   *
    * @return the solutionRef
    */
   public String getSolutionRef() {
@@ -136,7 +135,7 @@ public class Solution extends GenericModel {
 
   /**
    * Gets the status.
-   * 
+   *
    * @return The status
    */
   public String getStatus() {
@@ -154,7 +153,7 @@ public class Solution extends GenericModel {
 
   /**
    * Sets the shadow me.
-   * 
+   *
    * @param shadowMe The highlights
    */
   public void setShadowMe(List<String> shadowMe) {
@@ -163,7 +162,7 @@ public class Solution extends GenericModel {
 
   /**
    * Sets the shadows.
-   * 
+   *
    * @param shadows The shadows
    */
   public void setShadows(List<String> shadows) {
@@ -172,7 +171,7 @@ public class Solution extends GenericModel {
 
   /**
    * Sets the solution ref.
-   * 
+   *
    * @param solutionRef the solutionRef to set
    */
   public void setSolutionRef(String solutionRef) {
@@ -181,7 +180,7 @@ public class Solution extends GenericModel {
 
   /**
    * Sets the status.
-   * 
+   *
    * @param status the status to set
    */
   public void setStatus(String status) {

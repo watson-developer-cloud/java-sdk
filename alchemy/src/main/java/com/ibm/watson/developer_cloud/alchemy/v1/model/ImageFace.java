@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.alchemy.v1.model;
 
@@ -18,7 +17,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * ImageFace returned by {@link AlchemyVision#recognizeFaces(java.io.File, Boolean)}.
- * 
+ *
  */
 public class ImageFace extends GenericModel {
 
@@ -35,7 +34,7 @@ public class ImageFace extends GenericModel {
 
     /**
      * Gets the age range.
-     * 
+     *
      * @return The ageRange
      */
     public String getAgeRange() {
@@ -44,7 +43,7 @@ public class ImageFace extends GenericModel {
 
     /**
      * Gets the score.
-     * 
+     *
      * @return The score
      */
     public Double getScore() {
@@ -53,7 +52,7 @@ public class ImageFace extends GenericModel {
 
     /**
      * Sets the age range.
-     * 
+     *
      * @param ageRange The ageRange
      */
     public void setAgeRange(String ageRange) {
@@ -62,7 +61,7 @@ public class ImageFace extends GenericModel {
 
     /**
      * Sets the score.
-     * 
+     *
      * @param score The score
      */
     public void setScore(Double score) {
@@ -83,7 +82,7 @@ public class ImageFace extends GenericModel {
 
     /**
      * Gets the gender.
-     * 
+     *
      * @return The gender
      */
     public String getGender() {
@@ -92,7 +91,7 @@ public class ImageFace extends GenericModel {
 
     /**
      * Gets the score.
-     * 
+     *
      * @return The score
      */
     public Double getScore() {
@@ -101,7 +100,7 @@ public class ImageFace extends GenericModel {
 
     /**
      * Sets the gender.
-     * 
+     *
      * @param gender The gender
      */
     public void setGender(String gender) {
@@ -110,7 +109,7 @@ public class ImageFace extends GenericModel {
 
     /**
      * Sets the score.
-     * 
+     *
      * @param score The score
      */
     public void setScore(Double score) {
@@ -142,7 +141,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Gets the age.
-   * 
+   *
    * @return The age
    */
   public AgeRange getAge() {
@@ -151,7 +150,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Gets the gender.
-   * 
+   *
    * @return The gender
    */
   public Gender getGender() {
@@ -160,7 +159,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Gets the height.
-   * 
+   *
    * @return The height
    */
   public Integer getHeight() {
@@ -169,7 +168,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Gets the identity.
-   * 
+   *
    * @return The identity
    */
   public Identity getIdentity() {
@@ -178,7 +177,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Gets the position x.
-   * 
+   *
    * @return The positionX
    */
   public Integer getPositionX() {
@@ -187,7 +186,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Gets the position y.
-   * 
+   *
    * @return The positionY
    */
   public Integer getPositionY() {
@@ -196,7 +195,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Gets the width.
-   * 
+   *
    * @return The width
    */
   public Integer getWidth() {
@@ -205,7 +204,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Sets the age.
-   * 
+   *
    * @param age The age
    */
   public void setAge(AgeRange age) {
@@ -214,7 +213,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Sets the gender.
-   * 
+   *
    * @param gender The gender
    */
   public void setGender(Gender gender) {
@@ -223,7 +222,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Sets the height.
-   * 
+   *
    * @param height The height
    */
   public void setHeight(Integer height) {
@@ -232,7 +231,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Sets the identity.
-   * 
+   *
    * @param identity The identity
    */
   public void setIdentity(Identity identity) {
@@ -241,7 +240,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Sets the position x.
-   * 
+   *
    * @param positionX The positionX
    */
   public void setPositionX(Integer positionX) {
@@ -250,7 +249,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Sets the position y.
-   * 
+   *
    * @param positionY The positionY
    */
   public void setPositionY(Integer positionY) {
@@ -259,7 +258,7 @@ public class ImageFace extends GenericModel {
 
   /**
    * Sets the width.
-   * 
+   *
    * @param width The width
    */
   public void setWidth(Integer width) {

@@ -1,15 +1,14 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
- * 
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
@@ -21,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Classifier used by the {@link NaturalLanguageClassifier} service.
- * 
+ *
  */
 public class Classifier extends GenericModel {
 
@@ -30,19 +29,19 @@ public class Classifier extends GenericModel {
    * Classifier Status.
    */
   public enum Status {
-    
+
     /** The available. */
     @SerializedName("Available") AVAILABLE,
-    
+
     /** The failed. */
     @SerializedName("Failed") FAILED,
-    
+
     /** The non existent. */
     @SerializedName("Non Existent") NON_EXISTENT,
-    
+
     /** The training. */
     @SerializedName("Training") TRAINING,
-    
+
     /** The unavailable. */
     @SerializedName("Unavailable") UNAVAILABLE
   }
@@ -59,7 +58,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Gets the created.
-   * 
+   *
    * @return the created
    */
   public Date getCreated() {
@@ -68,7 +67,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Gets the classifier id.
-   * 
+   *
    * @return the classifier id
    */
   public String getId() {
@@ -77,7 +76,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Gets the language.
-   * 
+   *
    * @return the language
    */
   public String getLanguage() {
@@ -86,7 +85,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Gets the name.
-   * 
+   *
    * @return the name
    */
   public String getName() {
@@ -95,7 +94,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Gets the status.
-   * 
+   *
    * @return the status
    */
   public Status getStatus() {
@@ -104,7 +103,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Gets the status description.
-   * 
+   *
    * @return the status description
    */
   public String getStatusDescription() {
@@ -113,7 +112,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Gets the url.
-   * 
+   *
    * @return the url
    */
   public String getUrl() {
@@ -122,7 +121,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Sets the created.
-   * 
+   *
    * @param created the created to set
    */
   public void setCreated(Date created) {
@@ -131,7 +130,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Sets the classifier id.
-   * 
+   *
    * @param id the new classifier id
    */
   public void setId(String id) {
@@ -140,7 +139,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Sets the language.
-   * 
+   *
    * @param language the language to set
    */
   public void setLanguage(String language) {
@@ -149,7 +148,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Sets the name.
-   * 
+   *
    * @param name the name to set
    */
   public void setName(String name) {
@@ -158,7 +157,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Sets the status.
-   * 
+   *
    * @param status the new status
    */
   public void setStatus(Status status) {
@@ -167,7 +166,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Sets the status description.
-   * 
+   *
    * @param statusDescription the new status description
    */
   public void setStatusDescription(String statusDescription) {
@@ -176,7 +175,7 @@ public class Classifier extends GenericModel {
 
   /**
    * Sets the url.
-   * 
+   *
    * @param url the new url
    */
   public void setUrl(String url) {
