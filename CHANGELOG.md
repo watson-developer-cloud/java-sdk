@@ -10,7 +10,7 @@ _2016-09-07_
  For example, in order to use Retrieve and Rank in Gradle you need:
 
  ```gradle
- 'com.ibm.watson.developer_cloud:retrieve-and-rank:3.3.1'
+ 'com.ibm.watson.developer_cloud:retrieve-and-rank:3.4.0'
  ```
 
  * New: Move to a maven multi-module project
