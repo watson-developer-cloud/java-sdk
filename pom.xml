@@ -197,46 +197,6 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-failsafe-plugin</artifactId>
-          <version>2.19</version>
-          <configuration>
-            <!-- ForkCount parallelizes the test execution on a per-class basis. -->
-            <forkCount>8</forkCount>
-            <includes>
-              <include>**/*IT.java</include>
-              <!-- This is a simple way to include the unit tests in Cobertura's
-                code coverage. One downside is, that unit tests are now executed twice during
-                the verify phase. -->
-              <include>**/*Test.java</include>
-            </includes>
-          </configuration>
-          <executions>
-            <execution>
-              <id>failsafe-integration-tests</id>
-              <phase>integration-test</phase>
-              <goals>
-                <goal>integration-test</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-        <plugin>
-          <groupId>org.codehaus.mojo</groupId>
-          <artifactId>cobertura-maven-plugin</artifactId>
-          <version>2.7</version>
-          <configuration>
-            <format>xml</format>
-            <aggregate>true</aggregate>
-            <check />
-            <instrumentation>
-              <excludes>
-                <exclude>**/*/model/*</exclude>
-              </excludes>
-            </instrumentation>
-          </configuration>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-release-plugin</artifactId>
           <version>2.5.3</version><!--$NO-MVN-MAN-VER$ -->
           <configuration>
@@ -335,7 +295,46 @@
           </execution>
         </executions>
       </plugin>
-
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>2.19</version>
+        <configuration>
+          <!-- ForkCount parallelizes the test execution on a per-class basis. -->
+          <forkCount>8</forkCount>
+          <includes>
+            <include>**/*IT.java</include>
+            <!-- This is a simple way to include the unit tests in Cobertura's
+              code coverage. One downside is, that unit tests are now executed twice during
+              the verify phase. -->
+            <include>**/*Test.java</include>
+          </includes>
+        </configuration>
+        <executions>
+          <execution>
+            <id>failsafe-integration-tests</id>
+            <phase>integration-test</phase>
+            <goals>
+              <goal>integration-test</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>cobertura-maven-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <format>xml</format>
+          <aggregate>true</aggregate>
+          <check />
+          <instrumentation>
+            <excludes>
+              <exclude>**/*/model/*</exclude>
+            </excludes>
+          </instrumentation>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>animal-sniffer-maven-plugin</artifactId>
