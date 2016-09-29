@@ -25,9 +25,9 @@ before_install:
 
 script:
   - ./.utility/travis.sh
-  - codecov
 
 after_success:
+  - codecov
   - .utility/push-javadoc-to-gh-pages.sh
   - .utility/deploy_snapshot.sh
 
