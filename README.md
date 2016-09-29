@@ -9,8 +9,6 @@ The Java SDK uses the [Watson Developer Cloud][wdc] services, a collection of RE
 APIs and SDKs that use cognitive computing to solve complex problems.
 
 ## Table of Contents
-  * [Reactive API call for v3.0.1](#introduce-reactive-api-call-for-v301)
-  * [Breaking Changes for v3.0](#breaking-changes-for-v30)
   * [Installation](#installation)
     * [Maven](#maven)
     * [Gradle](#gradle)
@@ -34,107 +32,19 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Tone Analyzer](#tone-analyzer)
     * [Tradeoff Analytics](#tradeoff-analytics)
     * [Visual Recognition](#visual-recognition)
+  * [Reactive API call for v3.0.1](#introduce-reactive-api-call-for-v301)
+  * [Breaking Changes for v3.0](#breaking-changes-for-v30)
   * [Android](#android)
   * [Running in Bluemix](#running-in-bluemix)
   * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
   * [License](#license)
   * [Contributing](#contributing)
 
-## Introduce reactive API call for v3.0.1  
-
-To do a reactive call, you need to add `rx()`.  With reactive you can use synchronous or asynchronous calls as you like, and you can combine multiple rest calls more efficiently.
-
-Use callback way
-
-```java
-service.getDialogs().rx().thenApply(new CompletableFuture.Fun<List<Dialog>, Integer>() {
-  @Override
-  public Integer apply(List<Dialog> dialogs) {
-    return dialogs.size();
-  }
-}).thenAccept(new CompletableFuture.Action<Integer>() {
-  @Override
-  public void accept(Integer integer) {
-    System.out.println(integer);
-  }
-});
-```
-
-Use asynchronous callback way
-
-```java
-service.getDialogs().rx().thenApplyAsync(new CompletableFuture.Fun<List<Dialog>, Integer>() {
-  @Override
-  public Integer apply(List<Dialog> dialogs) {
-    return dialogs.size();
-  }
-}).thenAccept(new CompletableFuture.Action<Integer>() {
-  @Override
-  public void accept(Integer size) {
-    System.out.println(size);
-  }
-});
-```
-
-Use synchronous way
-
-```java
-Integer size=service.getDialogs().rx().get().size();
-System.out.println(size);
-```
-
-## Breaking Changes for v3.0
-
-The version 3.0 is a major release focused on simplicity and consistency. Several breaking changes were introduced.
-
-### Synchronous vs. Asynchronous
-
-Before 3.0 all the API calls were synchronous.
-```java
-List<Dialog> dialogs = dialogService.getDialogs();
-System.out.println(dialogs);
-```
-To do a synchronous call, you need to add `execute()`.
-
-```java
-List<Dialog> dialogs = dialogService.getDialogs().execute();
-System.out.println(dialogs);
-```
-To do an asynchronous call, you need to specify a callback.
-
-```java
-service.getDialogs().enqueue(new ServiceCallback<List<Dialog>>() {
-  @Override
-  public void onResponse(List<Dialog> response) {
-    System.out.println(response);
-  }
-
-  @Override
-  public void onFailure(Exception e) {
-  }}
-);
-```
-
-See the [CHANGELOG](CHANGELOG.md) for the release notes.
-
-## Migration
-
-To migrate to 3.0 from a previous version, simply add `.execute()` to the old methods.
-For example if you previously had
-```java
-List<Dialog> dialogs = dialogService.getDialogs();
-System.out.println(dialogs);
-```
-Just add `execute()` on the end, and your code will work exactly the same as before.
-
-```java
-List<Dialog> dialogs = dialogService.getDialogs().execute();
-System.out.println(dialogs);
-```
-
 ## Installation
 
 ##### Maven
+
+All the services:
 ```xml
 <dependency>
 	<groupId>com.ibm.watson.watson.developer_cloud</groupId>
@@ -142,10 +52,31 @@ System.out.println(dialogs);
 	<version>3.3.1</version>
 </dependency>
 ```
+
+Only Retrieve and Rank:
+```xml
+<dependency>
+	<groupId>com.ibm.watson.watson.developer_cloud</groupId>
+	<artifactId>retrieve-and-rank</artifactId>
+	<version>3.3.1</version>
+</dependency>
+```
+
 ##### Gradle
 
+All the services:
 ```gradle
 'com.ibm.watson.developer_cloud:java-sdk:3.3.1'
+```
+
+Only Retrieve and Rank:
+```gradle
+'com.ibm.watson.developer_cloud:retrieve-and-rank:3.3.1'
+```
+
+Only Visual Recognition:
+```gradle
+'com.ibm.watson.developer_cloud:visual-recognition:3.3.1'
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
@@ -566,6 +497,98 @@ ClassifyImagesOptions options = new ClassifyImagesOptions.Builder()
     .build();
 VisualClassification result = service.classify(options).execute();
 System.out.println(result);
+```
+
+## Introduce reactive API call for v3.0.1  
+
+To do a reactive call, you need to add `rx()`.  With reactive you can use synchronous or asynchronous calls as you like, and you can combine multiple rest calls more efficiently.
+
+Use callback way
+
+```java
+service.getDialogs().rx().thenApply(new CompletableFuture.Fun<List<Dialog>, Integer>() {
+  @Override
+  public Integer apply(List<Dialog> dialogs) {
+    return dialogs.size();
+  }
+}).thenAccept(new CompletableFuture.Action<Integer>() {
+  @Override
+  public void accept(Integer integer) {
+    System.out.println(integer);
+  }
+});
+```
+
+Use asynchronous callback way
+
+```java
+service.getDialogs().rx().thenApplyAsync(new CompletableFuture.Fun<List<Dialog>, Integer>() {
+  @Override
+  public Integer apply(List<Dialog> dialogs) {
+    return dialogs.size();
+  }
+}).thenAccept(new CompletableFuture.Action<Integer>() {
+  @Override
+  public void accept(Integer size) {
+    System.out.println(size);
+  }
+});
+```
+
+Use synchronous way
+
+```java
+Integer size=service.getDialogs().rx().get().size();
+System.out.println(size);
+```
+
+## Breaking Changes for v3.0
+
+The version 3.0 is a major release focused on simplicity and consistency. Several breaking changes were introduced.
+
+### Synchronous vs. Asynchronous
+
+Before 3.0 all the API calls were synchronous.
+```java
+List<Dialog> dialogs = dialogService.getDialogs();
+System.out.println(dialogs);
+```
+To do a synchronous call, you need to add `execute()`.
+
+```java
+List<Dialog> dialogs = dialogService.getDialogs().execute();
+System.out.println(dialogs);
+```
+To do an asynchronous call, you need to specify a callback.
+
+```java
+service.getDialogs().enqueue(new ServiceCallback<List<Dialog>>() {
+  @Override
+  public void onResponse(List<Dialog> response) {
+    System.out.println(response);
+  }
+
+  @Override
+  public void onFailure(Exception e) {
+  }}
+);
+```
+
+See the [CHANGELOG](CHANGELOG.md) for the release notes.
+
+## Migration
+
+To migrate to 3.0 from a previous version, simply add `.execute()` to the old methods.
+For example if you previously had
+```java
+List<Dialog> dialogs = dialogService.getDialogs();
+System.out.println(dialogs);
+```
+Just add `execute()` on the end, and your code will work exactly the same as before.
+
+```java
+List<Dialog> dialogs = dialogService.getDialogs().execute();
+System.out.println(dialogs);
 ```
 
 ## Android
