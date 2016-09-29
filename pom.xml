@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
+  <parent>
+    <groupId>org.sonatype.oss</groupId>
+    <artifactId>oss-parent</artifactId>
+    <version>7</version>
+  </parent>
 
-	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>parent</artifactId>
-	<version>3.3.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+  <groupId>com.ibm.watson.developer_cloud</groupId>
+  <artifactId>parent</artifactId>
+  <version>3.3.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
   <name>Watson Developer Cloud Java SDK</name>
   <description>Client library to use the IBM Watson Services and AlchemyAPI</description>
@@ -70,46 +70,6 @@
     <url>https://github.com/watson-developer-cloud/java-sdk</url>
     <tag>HEAD</tag>
   </scm>
-
-		<java.version>1.7</java.version>
-		<!-- Compilation -->
-		<animal.sniffer.version>1.11</animal.sniffer.version>
-		<guava.version>19.0</guava.version>
-		<gson.version>2.6.2</gson.version>
-		<okhttp.version>3.3.1</okhttp.version>
-		<commons.version>3.4</commons.version>
-		<jersey.version>2.22.2</jersey.version>
-		<logback.version>1.1.7</logback.version>
-
-		<!-- Test Dependencies -->
-		<junit.version>4.12</junit.version>
-	</properties>
-
-	<modules>
-		<module>alchemy</module>
-		<module>conversation</module>
-		<module>core</module>
-		<module>dialog</module>
-		<module>document-conversion</module>
-		<module>language-translation</module>
-		<module>natural-language-classifier</module>
-		<module>personality-insights</module>
-		<module>retrieve-and-rank</module>
-		<module>speech-to-text</module>
-		<module>text-to-speech</module>
-		<module>tone-analyzer</module>
-		<module>tradeoff-analytics</module>
-		<module>visual-recognition</module>
-		<module>tests</module>
-		<module>all</module>
-	</modules>
-
-	<scm>
-		<connection>SSH</connection>
-		<developerConnection>scm:git:git@github.com:watson-developer-cloud/java-sdk.git</developerConnection>
-		<url>https://github.com/watson-developer-cloud/java-sdk</url>
-		<tag>HEAD</tag>
-	</scm>
 
   <dependencyManagement>
     <dependencies>
@@ -178,10 +138,10 @@
     </dependencies>
   </dependencyManagement>
 
-	<ciManagement>
-		<system>Travis</system>
-		<url>https://travis-ci.org/watson-developer-cloud/java-sdk</url>
-	</ciManagement>
+  <ciManagement>
+    <system>Travis</system>
+    <url>https://travis-ci.org/watson-developer-cloud/java-sdk</url>
+  </ciManagement>
 
   <build>
     <!-- This is the parent, so only define pluginManagement, not plugins. -->
@@ -204,7 +164,7 @@
                     </goals>
                   </pluginExecutionFilter>
                   <action>
-                    <ignore/>
+                    <ignore />
                   </action>
                 </pluginExecution>
               </pluginExecutions>
@@ -262,7 +222,7 @@
           <configuration>
             <format>xml</format>
             <aggregate>true</aggregate>
-            <check/>
+            <check />
             <instrumentation>
               <excludes>
                 <exclude>**/*/model/*</exclude>
