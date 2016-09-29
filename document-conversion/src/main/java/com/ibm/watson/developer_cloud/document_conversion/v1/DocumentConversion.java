@@ -44,7 +44,6 @@ import okhttp3.RequestBody;
  *
  * @version v1
  * @see <a href= "http://www.ibm.com/watson/developercloud/document-conversion.html"> Document Conversion</a>
- * @api.version_date 2015-12-01
  */
 public class DocumentConversion extends WatsonService {
 

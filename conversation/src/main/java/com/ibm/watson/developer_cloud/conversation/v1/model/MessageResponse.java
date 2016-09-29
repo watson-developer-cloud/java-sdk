@@ -114,10 +114,10 @@ public class MessageResponse extends GenericModel {
    * A convenience method for getting the text property from the output object. This is equivalent to calling:
    *
    * <pre>
-   * List<?> text = null;
-   * Map<String, Object> output = response.getOutput();
+   * List&lt;?&gt; text = null;
+   * Map&lt;String, Object&gt; output = response.getOutput();
    * if (output != null) {
-   *   text = (List<?>) output.get("text");
+   *   text = (List&lt;?&gt;) output.get("text");
    * }
    * </pre>
    *

@@ -28,6 +28,7 @@ import java.util.concurrent.ExecutionException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.junit.Assert;
 import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.Test;
@@ -402,7 +403,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     service.getProfile(sampleText).rx().thenAccept(new CompletableFuture.Action<Profile>() {
       @Override
       public void accept(Profile profile) {
-        assertNotNull(profile);
+        Assert.assertNotNull(profile);
         reactiveSuccess = true;
       }
     });

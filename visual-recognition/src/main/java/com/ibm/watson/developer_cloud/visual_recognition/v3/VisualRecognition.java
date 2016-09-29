@@ -46,7 +46,6 @@ import okhttp3.RequestBody;
  *
  * @version v3
  * @see <a href= "http://www.ibm.com/watson/developercloud/visual-recognition.html"> Visual Recognition</a>
- * @api.version_date 2016-05-20
  */
 public class VisualRecognition extends WatsonService {
 
@@ -375,7 +374,7 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * The Visual Recognition V3 service use an <code>api_key</code> instead of username and password. <br/>
+   * The Visual Recognition V3 service use an <code>api_key</code> instead of username and password. <br>
    * Use: {@link VisualRecognition#setApiKey(String)}
    *
    * @param username the username

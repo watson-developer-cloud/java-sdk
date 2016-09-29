@@ -20,7 +20,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * Document Conversion service.
  *
  * @see DocumentConversion
- * @see RetrieveAndRank
  */
 public class IndexConfiguration extends GenericModel {
 
@@ -56,7 +55,6 @@ public class IndexConfiguration extends GenericModel {
    * @param clusterId The Solr cluster id from the Retrieve and Rank service
    * @param searchCollectionName The Solr search collection name
    *
-   * @see RetrieveAndRank
    */
   public IndexConfiguration(String serviceInstanceId, String clusterId, String searchCollectionName) {
     this(serviceInstanceId, clusterId, searchCollectionName, null);
@@ -71,7 +69,6 @@ public class IndexConfiguration extends GenericModel {
    * @param searchCollectionName The Solr search collection name
    * @param fields The field mapping object to pass to the Retrieve and Rank service
    *
-   * @see RetrieveAndRank
    */
   public IndexConfiguration(String serviceInstanceId, String clusterId, String searchCollectionName,
       IndexFields fields) {
