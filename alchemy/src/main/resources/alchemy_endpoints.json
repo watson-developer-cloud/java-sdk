@@ -1,0 +1,107 @@
+{
+  "ENTITIES": {
+    "url": "/url/URLGetRankedNamedEntities",
+    "text": "/text/TextGetRankedNamedEntities",
+    "html": "/html/HTMLGetRankedNamedEntities"
+  },
+  "KEYWORDS": {
+    "url": "/url/URLGetRankedKeywords",
+    "text": "/text/TextGetRankedKeywords",
+    "html": "/html/HTMLGetRankedKeywords"
+  },
+  "DATES": {
+    "url": "/url/URLExtractDates",
+    "text": "/text/TextExtractDates",
+    "html": "/html/HTMLExtractDates"
+  },
+  "CONCEPTS": {
+    "url": "/url/URLGetRankedConcepts",
+    "text": "/text/TextGetRankedConcepts",
+    "html": "/html/HTMLGetRankedConcepts"
+  },
+  "SENTIMENT": {
+    "url": "/url/URLGetTextSentiment",
+    "text": "/text/TextGetTextSentiment",
+    "html": "/html/HTMLGetTextSentiment"
+  },
+  "EMOTION": {
+    "url": "/url/URLGetEmotion",
+    "text": "/text/TextGetEmotion",
+    "html": "/html/HTMLGetEmotion"
+  },
+  "SENTIMENT_TARGETED": {
+    "url": "/url/URLGetTargetedSentiment",
+    "text": "/text/TextGetTargetedSentiment",
+    "html": "/html/HTMLGetTargetedSentiment"
+  },
+  "RELATIONS": {
+    "url": "/url/URLGetRelations",
+    "text": "/text/TextGetRelations",
+    "html": "/html/HTMLGetRelations"
+  },
+  "LANGUAGE": {
+    "url": "/url/URLGetLanguage",
+    "text": "/text/TextGetLanguage",
+    "html": "/html/HTMLGetLanguage"
+  },
+  "TEXT": {
+    "url": "/url/URLGetText",
+    "html": "/html/HTMLGetText"
+  },
+  "TEXT_RAW": {
+    "url": "/url/URLGetRawText",
+    "html": "/html/HTMLGetRawText"
+  },
+  "AUTHORS": {
+    "url": "/url/URLGetAuthors",
+    "html": "/html/HTMLGetAuthors"
+  },
+  "FEEDS": {
+    "url": "/url/URLGetFeedLinks",
+    "html": "/html/HTMLGetFeedLinks"
+  },
+  "MICROFORMATS": {
+    "url": "/url/URLGetMicroformatData",
+    "html": "/html/HTMLGetMicroformatData"
+  },
+  "TAXONOMY": {
+    "url": "/url/URLGetRankedTaxonomy",
+    "text": "/text/TextGetRankedTaxonomy",
+    "html": "/html/HTMLGetRankedTaxonomy"
+  },
+  "COMBINED": {
+    "url": "/url/URLGetCombinedData",
+    "text": "/text/TextGetCombinedData",
+    "html": "/html/HTMLGetCombinedData"
+  },
+  "PUBLICATION_DATE": {
+    "url": "/url/URLGetPubDate",
+    "html": "/html/HTMLGetPubDate"
+  },
+  "IMAGE_LINK": {
+    "url": "/url/URLGetImage",
+    "html": "/html/HTMLGetImage"
+  },
+  "IMAGE_KEYWORDS": {
+    "url": "/url/URLGetRankedImageKeywords",
+    "image": "/image/ImageGetRankedImageKeywords"
+  },
+  "IMAGE_RECOGNITION": {
+    "url": "/url/URLGetRankedImageFaceTags",
+    "image": "/image/ImageGetRankedImageFaceTags"
+  },
+  "IMAGE_SCENE_TEXT": {
+    "url": "/url/URLGetRankedImageSceneText",
+    "image": "/image/ImageGetRankedImageSceneText"
+  },
+  "TITLE": {
+    "url": "/url/URLGetTitle",
+    "text": "/text/TextGetTitle",
+    "html": "/html/HTMLGetTitle"
+  },
+  "TYPED": {
+    "url": "/url/URLGetTypedRelations",
+    "text": "/text/TextGetTypedRelations",
+    "html": "/html/HTMLGetTypedRelations"
+  }
+}

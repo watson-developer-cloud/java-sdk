@@ -23,9 +23,10 @@ before_install:
 - pip install --user codecov
 
 script:
+  - mvn checkstyle:checkstyle
+  - mvn javadoc:aggregate > /dev/null
   - ./.utility/travis.sh
   - codecov
-  - mvn javadoc:javadoc
 
 after_success:
 - .utility/push-javadoc-to-gh-pages.sh

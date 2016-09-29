@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.common.collect.ImmutableList;
@@ -159,6 +160,15 @@ public class LanguageTranslationIT extends WatsonServiceTest {
     assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslation());
     assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslation());
 
+  }
+
+  @Test
+  @Ignore
+  public void testDeleteAllModels() {
+    List<TranslationModel> models = service.getModels().execute();
+    for (TranslationModel translationModel : models) {
+      service.deleteModel(translationModel.getId());
+    }
   }
 
   private void testTranslationResult(String text, String result, TranslationResult translationResult) {
