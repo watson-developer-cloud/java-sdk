@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.document_conversion.v1;
 
 import java.io.File;
 
-import com.ibm.watson.developer_cloud.document_conversion.v1.model.Answers;
+import document_conversion.v1.model.Answers;
 
 /**
  * Example class that shows the various usage scenario's of the Document Conversion service

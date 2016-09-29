@@ -20,7 +20,7 @@ echo '<!DOCTYPE html>
     <p><a href="http://www.ibm.com/watson/developercloud/">Info</a>
         | <a href="http://www.ibm.com/watson/developercloud/doc/">Documentation</a>
         | <a href="https://github.com/watson-developer-cloud/java-sdk">GitHub</a>
-        | <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.ibm.watson.developer_cloud%22%20a%3A%22java-sdk%22">Maven</a>
+        | <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.ibm.watson.watson.developer_cloud%22%20a%3A%22java-sdk%22">Maven</a>
     </p>
 
     <p>Javadoc by branch/tag:</p>
