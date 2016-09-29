@@ -21,6 +21,7 @@ env:
 
 before_install:
 - pip install --user codecov
+- rm ~/.m2/settings.xml
 
 script:
   - ./.utility/travis.sh
