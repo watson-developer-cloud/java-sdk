@@ -5,10 +5,11 @@
 
 ## Guide to uploading artifacts to the Central Repository
 
-We use sonatype as repository manager, it's used as the input channel for the Central Repository running the Sonatype Open Source Repository Hosting OSSRH service.
+We use Sonatype as repository manager, it's used as the input channel for the Central Repository running the Sonatype Open Source Repository Hosting(OSSRH) service.
 
 ### Prerequisites
-If you are not familiar with sonatype and/or the maven release process please read the following material:  
+
+If you are not familiar with Sonatype and/or the maven release process please read the following material:  
  * Sonatype: http://central.sonatype.org/pages/apache-maven.html
  * Releasing artifacts to Sonatype: http://kirang89.github.io/blog/2013/01/20/uploading-your-jar-to-maven-central/
  * Install GPG and create a public key. More info: http://blog.sonatype.com/2010/01/how-to-generate-pgp-signatures-with-maven/#.VUL_DtNViko

@@ -2,6 +2,7 @@
 
 set -e # enforces the script to fail as soon as one command fails
 
+mvn clean compile
 mvn checkstyle:checkstyle
 mvn javadoc:aggregate > /dev/null
 
