@@ -10,7 +10,7 @@
 
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>parent</artifactId>
-  <version>3.4.0</version>
+  <version>3.4.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Watson Developer Cloud Java SDK</name>
@@ -81,7 +81,7 @@
     <connection>SSH</connection>
     <developerConnection>scm:git:git@github.com:watson-developer-cloud/java-sdk.git</developerConnection>
     <url>https://github.com/watson-developer-cloud/java-sdk</url>
-    <tag>parent-3.4.0</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <dependencyManagement>
