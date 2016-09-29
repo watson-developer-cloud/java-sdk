@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
+import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,11 +79,11 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   }
 
   private void assertToneAnalysis(ToneAnalysis tone) {
-    assertNotNull(tone);
-    assertNotNull(tone.getDocumentTone());
-    assertEquals(3, tone.getDocumentTone().getTones().size());
-    assertNotNull(tone.getSentencesTone());
-    assertEquals(4, tone.getSentencesTone().size());
-    assertEquals("I know the times are difficult!", tone.getSentencesTone().get(0).getText());
+    Assert.assertNotNull(tone);
+    Assert.assertNotNull(tone.getDocumentTone());
+    Assert.assertEquals(3, tone.getDocumentTone().getTones().size());
+    Assert.assertNotNull(tone.getSentencesTone());
+    Assert.assertEquals(4, tone.getSentencesTone().size());
+    Assert.assertEquals("I know the times are difficult!", tone.getSentencesTone().get(0).getText());
   }
 }

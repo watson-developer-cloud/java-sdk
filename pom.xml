@@ -14,22 +14,62 @@
 	<version>3.3.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-	<name>Watson Developer Cloud Java SDK (parent)</name>
-	<description>Client library to use the IBM Watson Services and AlchemyAPI</description>
-	<url>https://github.com/watson-developer-cloud/java-sdk</url>
+  <name>Watson Developer Cloud Java SDK</name>
+  <description>Client library to use the IBM Watson Services and AlchemyAPI</description>
+  <url>https://github.com/watson-developer-cloud/java-sdk</url>
 
-	<inceptionYear>2015</inceptionYear>
+  <inceptionYear>2015</inceptionYear>
 
-	<organization>
-		<name>IBM Watson</name>
-		<url>http://www.ibm.com/watson/</url>
-	</organization>
+  <organization>
+    <name>IBM Watson</name>
+    <url>http://www.ibm.com/watson/</url>
+  </organization>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<timestamp>${maven.build.timestamp}</timestamp>
-		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssa</maven.build.timestamp.format>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <timestamp>${maven.build.timestamp}</timestamp>
+    <maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssa</maven.build.timestamp.format>
+
+    <java.version>1.7</java.version>
+    <!-- Compilation -->
+    <animal.sniffer.version>1.11</animal.sniffer.version>
+    <guava.version>19.0</guava.version>
+    <gson.version>2.6.2</gson.version>
+    <okhttp.version>3.3.1</okhttp.version>
+    <commons.version>3.4</commons.version>
+    <jersey.version>2.22.2</jersey.version>
+    <logback.version>1.1.7</logback.version>
+
+    <!-- Test Dependencies -->
+    <junit.version>4.12</junit.version>
+  </properties>
+
+  <modules>
+    <module>alchemy</module>
+    <module>conversation</module>
+    <module>core</module>
+    <module>dialog</module>
+    <module>document-conversion</module>
+    <module>language-translation</module>
+    <module>natural-language-classifier</module>
+    <module>personality-insights</module>
+    <module>retrieve-and-rank</module>
+    <module>speech-to-text</module>
+    <module>text-to-speech</module>
+    <module>tone-analyzer</module>
+    <module>tradeoff-analytics</module>
+    <module>visual-recognition</module>
+    <module>tests</module>
+    <module>all</module>
+  </modules>
+
+  <scm>
+    <connection>SSH</connection>
+    <developerConnection>scm:git:git@github.com:watson-developer-cloud/java-sdk.git</developerConnection>
+    <url>https://github.com/watson-developer-cloud/java-sdk</url>
+    <tag>HEAD</tag>
+  </scm>
 
 		<java.version>1.7</java.version>
 		<!-- Compilation -->
@@ -71,395 +111,345 @@
 		<tag>HEAD</tag>
 	</scm>
 
-	<issueManagement>
-		<system>Github</system>
-		<url>https://github.com/watson-developer-cloud/java-sdk/issues</url>
-	</issueManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>${okhttp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>logging-interceptor</artifactId>
+        <version>${okhttp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp-ws</artifactId>
+        <version>${okhttp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp-urlconnection</artifactId>
+        <version>${okhttp.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.code.gson</groupId>
+        <artifactId>gson</artifactId>
+        <version>${gson.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.glassfish.jersey.bundles.repackaged</groupId>
+        <artifactId>jersey-jsr166e</artifactId>
+        <version>${jersey.version}</version>
+      </dependency>
+
+      <!-- test dependencies -->
+      <dependency>
+        <groupId>org.apache.commons</groupId>
+        <artifactId>commons-lang3</artifactId>
+        <version>${commons.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>mockwebserver</artifactId>
+        <version>${okhttp.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>ch.qos.logback</groupId>
+        <artifactId>logback-classic</artifactId>
+        <version>${logback.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>${guava.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
 	<ciManagement>
 		<system>Travis</system>
 		<url>https://travis-ci.org/watson-developer-cloud/java-sdk</url>
 	</ciManagement>
 
-	<developers>
-		<developer>
-			<id>germanattanasio</id>
-			<name>German Attanasio</name>
-			<email>germanatt@us.ibm.com</email>
-		</developer>
-	</developers>
+  <build>
+    <!-- This is the parent, so only define pluginManagement, not plugins. -->
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-enforcer-plugin</artifactId>
+                    <versionRange>[1.0.0,)</versionRange>
+                    <goals>
+                      <goal>enforce</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore/>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.5.1</version>
+          <configuration>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.eluder.coveralls</groupId>
+          <artifactId>coveralls-maven-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.9</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>2.19</version>
+          <configuration>
+            <!-- ForkCount parallelizes the test execution on a per-class basis. -->
+            <forkCount>8</forkCount>
+            <includes>
+              <include>**/*IT.java</include>
+              <!-- This is a simple way to include the unit tests in Cobertura's
+                code coverage. One downside is, that unit tests are now executed twice during
+                the verify phase. -->
+              <include>**/*Test.java</include>
+            </includes>
+          </configuration>
+          <executions>
+            <execution>
+              <id>failsafe-integration-tests</id>
+              <phase>integration-test</phase>
+              <goals>
+                <goal>integration-test</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>cobertura-maven-plugin</artifactId>
+          <version>2.7</version>
+          <configuration>
+            <format>xml</format>
+            <aggregate>true</aggregate>
+            <check/>
+            <instrumentation>
+              <excludes>
+                <exclude>**/*/model/*</exclude>
+              </excludes>
+            </instrumentation>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.9.1</version>
+        <configuration>
+          <additionalparam>${javadoc.doclint.none}</additionalparam>
+          <doctitle>Java SDK ${project.version}</doctitle>
+          <overview>${basedir}/overview.html</overview>
+          <groups>
+            <group>
+              <title>Conversation</title>
+              <packages>com.ibm.watson.developer_cloud.conversation.*</packages>
+            </group>
+            <group>
+              <title>Dialog (deprecated)</title>
+              <packages>com.ibm.watson.developer_cloud.dialog.*</packages>
+            </group>
+            <group>
+              <title>Document Conversion</title>
+              <packages>com.ibm.watson.developer_cloud.document_conversion.*</packages>
+            </group>
+            <group>
+              <title>Language Translation</title>
+              <packages>com.ibm.watson.developer_cloud.language_translation.*</packages>
+            </group>
+            <group>
+              <title>Natural Language Classifier</title>
+              <packages>com.ibm.watson.developer_cloud.natural_language_classifier.*</packages>
+            </group>
+            <group>
+              <title>Personality Insights</title>
+              <packages>com.ibm.watson.developer_cloud.personality_insights.*</packages>
+            </group>
+            <group>
+              <title>Retrieve and Rank</title>
+              <packages>com.ibm.watson.developer_cloud.retrieve_and_rank.*</packages>
+            </group>
+            <group>
+              <title>Speech to Text</title>
+              <packages>com.ibm.watson.developer_cloud.speech_to_text.*</packages>
+            </group>
+            <group>
+              <title>Text to Speech</title>
+              <packages>com.ibm.watson.developer_cloud.text_to_speech.*</packages>
+            </group>
+            <group>
+              <title>Tone Analyzer</title>
+              <packages>com.ibm.watson.developer_cloud.tone_analyzer.*</packages>
+            </group>
+            <group>
+              <title>Tradeoff Analytics</title>
+              <packages>com.ibm.watson.developer_cloud.tradeoff_analytics.*</packages>
+            </group>
+            <group>
+              <title>Visual Recognition</title>
+              <packages>com.ibm.watson.developer_cloud.visual_recognition.*</packages>
+            </group>
+            <group>
+              <title>AlchemyLanguage, AlchemyDataNews, and AlchemyVision</title>
+              <packages>com.ibm.watson.developer_cloud.alchemy.*</packages>
+            </group>
+            <group>
+              <title>core</title>
+              <packages>com.ibm.watson.developer_cloud.core.*</packages>
+            </group>
+          </groups>
+          <windowtitle>java-sdk ${project.version}</windowtitle>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>2.17</version>
+        <configuration>
+          <configLocation>checkstyle.xml</configLocation>
+          <consoleOutput>true</consoleOutput>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <!--$NO-MVN-MAN-VER$ -->
+        <configuration>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <useReleaseProfile>false</useReleaseProfile>
+          <releaseProfiles>release</releaseProfiles>
+          <goals>deploy</goals>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <version>${animal.sniffer.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <signature>
+            <groupId>org.codehaus.mojo.signature</groupId>
+            <artifactId>java16</artifactId>
+            <version>1.1</version>
+          </signature>
+        </configuration>
+      </plugin>
+    </plugins>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+      </resource>
+    </resources>
+  </build>
 
-	<licenses>
-		<license>
-			<name>Apache 2.0</name>
-			<url>https://github.com/watson-developer-cloud/java-sdk/raw/master/LICENSE</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>com.squareup.okhttp3</groupId>
-				<artifactId>okhttp</artifactId>
-				<version>${okhttp.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.squareup.okhttp3</groupId>
-				<artifactId>logging-interceptor</artifactId>
-				<version>${okhttp.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.squareup.okhttp3</groupId>
-				<artifactId>okhttp-ws</artifactId>
-				<version>${okhttp.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.squareup.okhttp3</groupId>
-				<artifactId>okhttp-urlconnection</artifactId>
-				<version>${okhttp.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.google.code.gson</groupId>
-				<artifactId>gson</artifactId>
-				<version>${gson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.glassfish.jersey.bundles.repackaged</groupId>
-				<artifactId>jersey-jsr166e</artifactId>
-				<version>${jersey.version}</version>
-			</dependency>
-
-			<!-- test dependencies -->
-			<dependency>
-				<groupId>org.apache.commons</groupId>
-				<artifactId>commons-lang3</artifactId>
-				<version>${commons.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>${junit.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.squareup.okhttp3</groupId>
-				<artifactId>mockwebserver</artifactId>
-				<version>${okhttp.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>ch.qos.logback</groupId>
-				<artifactId>logback-classic</artifactId>
-				<version>${logback.version}</version>
-				<scope>test</scope>
-			</dependency>
-			<dependency>
-				<groupId>com.google.guava</groupId>
-				<artifactId>guava</artifactId>
-				<version>${guava.version}</version>
-				<scope>test</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
-	<distributionManagement>
-		<!-- Repository for snapshots -->
-		<snapshotRepository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</snapshotRepository>
-		<!-- Repository for releases -->
-		<repository>
-			<id>ossrh</id>
-			<name>Nexus Release Repository</name>
-			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
-
-	<build>
-		<!-- This is the parent, so only define pluginManagement, not plugins. -->
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.eclipse.m2e</groupId>
-					<artifactId>lifecycle-mapping</artifactId>
-					<version>1.0.0</version>
-					<configuration>
-						<lifecycleMappingMetadata>
-							<pluginExecutions>
-								<pluginExecution>
-									<pluginExecutionFilter>
-										<groupId>org.apache.maven.plugins</groupId>
-										<artifactId>maven-enforcer-plugin</artifactId>
-										<versionRange>[1.0.0,)</versionRange>
-										<goals>
-											<goal>enforce</goal>
-										</goals>
-									</pluginExecutionFilter>
-									<action>
-										<ignore />
-									</action>
-								</pluginExecution>
-							</pluginExecutions>
-						</lifecycleMappingMetadata>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.5.1</version>
-					<configuration>
-						<source>${java.version}</source>
-						<target>${java.version}</target>
-					</configuration>
-				</plugin>
-				<plugin>
-					<groupId>org.eluder.coveralls</groupId>
-					<artifactId>coveralls-maven-plugin</artifactId>
-					<version>3.1.0</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.9</version>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>2.19</version>
-					<configuration>
-						<!-- ForkCount parallelizes the test execution on a per-class basis. -->
-						<forkCount>8</forkCount>
-						<includes>
-							<include>**/*IT.java</include>
-							<!-- This is a simple way to include the unit tests in Cobertura's 
-								code coverage. One downside is, that unit tests are now executed twice during 
-								the verify phase. -->
-							<include>**/*Test.java</include>
-						</includes>
-					</configuration>
-					<executions>
-						<execution>
-							<id>failsafe-integration-tests</id>
-							<phase>integration-test</phase>
-							<goals>
-								<goal>integration-test</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-				<plugin>
-					<groupId>org.codehaus.mojo</groupId>
-					<artifactId>cobertura-maven-plugin</artifactId>
-					<version>2.7</version>
-					<configuration>
-						<format>xml</format>
-						<aggregate>true</aggregate>
-						<check />
-						<instrumentation>
-							<excludes>
-								<exclude>**/*/model/*</exclude>
-							</excludes>
-						</instrumentation>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.17</version>
-				<configuration>
-					<configLocation>checkstyle.xml</configLocation>
-					<consoleOutput>true</consoleOutput>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5.3</version><!--$NO-MVN-MAN-VER$ -->
-				<configuration>
-					<autoVersionSubmodules>true</autoVersionSubmodules>
-					<useReleaseProfile>false</useReleaseProfile>
-					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy</goals>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>animal-sniffer-maven-plugin</artifactId>
-				<version>${animal.sniffer.version}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>check</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<signature>
-						<groupId>org.codehaus.mojo.signature</groupId>
-						<artifactId>java16</artifactId>
-						<version>1.1</version>
-					</signature>
-				</configuration>
-			</plugin>
-		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-	</build>
-
-	<profiles>
-		<profile>
-			<id>release</id>
-			<build>
-				<resources>
-					<resource>
-						<directory>src/main/resources</directory>
-						<includes>
-							<include>**/*.json</include>
-						</includes>
-					</resource>
-				</resources>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.9.1</version>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-								<configuration>
-									<tags>
-										<tag>
-											<name>version_date</name>
-											<placement>a</placement>
-											<head>Version Date:</head>
-										</tag>
-									</tags>
-									<additionalparam>${javadoc.doclint.none}</additionalparam>
-									<doctitle>IBM Watson API Client Library for Java
-										${project.version}</doctitle>
-									<overview>${basedir}/overview.html</overview>
-									<groups>
-										<group>
-											<title>alchemy</title>
-											<packages>com.ibm.watson.developer_cloud.alchemy.*</packages>
-										</group>
-										<group>
-											<title>conversation</title>
-											<packages>com.ibm.watson.developer_cloud.conversation.*</packages>
-										</group>
-										<group>
-											<title>core</title>
-											<packages>com.ibm.watson.developer_cloud.core.*</packages>
-										</group>
-										<group>
-											<title>dialog</title>
-											<packages>com.ibm.watson.developer_cloud.dialog.*</packages>
-										</group>
-										<group>
-											<title>document-conversion</title>
-											<packages>com.ibm.watson.developer_cloud.document_conversion.*</packages>
-										</group>
-										<group>
-											<title>language-translation</title>
-											<packages>com.ibm.watson.developer_cloud.language_translation.*</packages>
-										</group>
-										<group>
-											<title>natural-language-classifier</title>
-											<packages>com.ibm.watson.developer_cloud.natural_language_classifier.*</packages>
-										</group>
-										<group>
-											<title>personality-insights</title>
-											<packages>com.ibm.watson.developer_cloud.personality_insights.*</packages>
-										</group>
-										<group>
-											<title>retrieve-and-rank</title>
-											<packages>com.ibm.watson.developer_cloud.retrieve_and_rank.*</packages>
-										</group>
-										<group>
-											<title>speech-to-text</title>
-											<packages>com.ibm.watson.developer_cloud.speech_to_text.*</packages>
-										</group>
-										<group>
-											<title>text-to-speech</title>
-											<packages>com.ibm.watson.developer_cloud.text-to-speech.*</packages>
-										</group>
-										<group>
-											<title>tone-analyzer</title>
-											<packages>com.ibm.watson.developer_cloud.tone_analyzer.*</packages>
-										</group>
-										<group>
-											<title>tradeoff-analytics</title>
-											<packages>com.ibm.watson.developer_cloud.tradeoff_analytics.*</packages>
-										</group>
-										<group>
-											<title>visual-recognition</title>
-											<packages>com.ibm.watson.developer_cloud.visual_recognition.*</packages>
-										</group>
-									</groups>
-									<windowtitle>java-sdk ${project.version}</windowtitle>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<version>2.4</version>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar-no-fork</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-		<profile>
-			<id>java8-disable-strict-javadoc</id>
-			<activation>
-				<jdk>[1.8,)</jdk>
-			</activation>
-			<properties>
-				<javadoc.doclint.none>-Xdoclint:none</javadoc.doclint.none>
-			</properties>
-		</profile>
-	</profiles>
+  <profiles>
+    <profile>
+      <id>release</id>
+      <build>
+        <resources>
+          <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+              <include>**/*.json</include>
+            </includes>
+          </resource>
+        </resources>
+        <plugins>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-source-plugin</artifactId>
+            <version>2.4</version>
+            <executions>
+              <execution>
+                <id>attach-sources</id>
+                <goals>
+                  <goal>jar-no-fork</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <version>1.6</version>
+            <executions>
+              <execution>
+                <id>sign-artifacts</id>
+                <phase>verify</phase>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+    <profile>
+      <id>java8-disable-strict-javadoc</id>
+      <activation>
+        <jdk>[1.8,)</jdk>
+      </activation>
+      <properties>
+        <javadoc.doclint.none>-Xdoclint:none</javadoc.doclint.none>
+      </properties>
+    </profile>
+  </profiles>
 
 </project>

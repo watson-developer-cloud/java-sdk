@@ -141,7 +141,7 @@ public class MessageRequest extends GenericModel {
     }
 
     /**
-     * Sets the list the entities to be send as part of the request.<br/>
+     * Sets the list the entities to be send as part of the request.<br>
      * Existing entities will be replaced.
      *
      * @param entities the entities
@@ -153,7 +153,7 @@ public class MessageRequest extends GenericModel {
     }
 
     /**
-     * Sets the list the intents to be send as part of the request.<br/>
+     * Sets the list the intents to be send as part of the request.<br>
      * Existing intents will be replaced.
      *
      * @param intents the intents
@@ -203,7 +203,7 @@ public class MessageRequest extends GenericModel {
   }
 
   /**
-   * Whether to return more than one intent. Set to true to return all matching intents boolean<br/>
+   * Whether to return more than one intent. Set to true to return all matching intents boolean<br>
    * Default: false
    *
    * @return the boolean indicating if alternate intents should be returned
@@ -257,7 +257,7 @@ public class MessageRequest extends GenericModel {
    * is equivalent to calling:
    *
    * <pre>
-   * Map<String, Object> input = request.getInput();
+   * Map&lt;String, Object&gt; input = request.getInput();
    * String text = null;
    * if (input != null) {
    *   text = input.get("text");

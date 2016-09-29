@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * {@link Ranker} class used by {@link RetrieveAndRank}.
  *
- * @version watson.watson.developer_cloud.retrieve_and_rank.v1
+ * @version v1
  */
 public class Ranker extends GenericModel {
   /**
