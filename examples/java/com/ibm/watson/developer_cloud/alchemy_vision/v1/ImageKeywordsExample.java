@@ -16,8 +16,8 @@ package com.ibm.watson.developer_cloud.alchemy_vision.v1;
 
 import java.io.File;
 
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
-import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageKeywords;
+import alchemy_vision.v1.AlchemyVision;
+import alchemy_vision.v1.model.ImageKeywords;
 
 public class ImageKeywordsExample {
 

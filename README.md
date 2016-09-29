@@ -1,16 +1,13 @@
 
 # Watson Developer Cloud Java SDK
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
-[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
-[![codecov.io](https://codecov.io/github/watson-developer-cloud/java-sdk/coverage.svg?branch=master)](https://codecov.io/github/watson-developer-cloud/java-sdk?branch=master)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.watson.developer_cloud/java-sdk)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
 
 The Java SDK uses the [Watson Developer Cloud][wdc] services, a collection of REST
 APIs and SDKs that use cognitive computing to solve complex problems.
 
 ## Table of Contents
-  * [Reactive API call for v3.0.1](#introduce-reactive-api-call-for-v301)
-  * [Breaking Changes for v3.0](#breaking-changes-for-v30)
   * [Installation](#installation)
     * [Maven](#maven)
     * [Gradle](#gradle)
@@ -34,118 +31,51 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Tone Analyzer](#tone-analyzer)
     * [Tradeoff Analytics](#tradeoff-analytics)
     * [Visual Recognition](#visual-recognition)
+  * [Reactive API call for v3.0.1](#introduce-reactive-api-call-for-v301)
+  * [Breaking Changes for v3.0](#breaking-changes-for-v30)
   * [Android](#android)
   * [Running in Bluemix](#running-in-bluemix)
   * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
   * [License](#license)
   * [Contributing](#contributing)
 
-## Introduce reactive API call for v3.0.1  
-
-To do a reactive call, you need to add `rx()`.  With reactive you can use synchronous or asynchronous calls as you like, and you can combine multiple rest calls more efficiently.
-
-Use callback way
-
-```java
-service.getDialogs().rx().thenApply(new CompletableFuture.Fun<List<Dialog>, Integer>() {
-  @Override
-  public Integer apply(List<Dialog> dialogs) {
-    return dialogs.size();
-  }
-}).thenAccept(new CompletableFuture.Action<Integer>() {
-  @Override
-  public void accept(Integer integer) {
-    System.out.println(integer);
-  }
-});
-```
-
-Use asynchronous callback way
-
-```java
-service.getDialogs().rx().thenApplyAsync(new CompletableFuture.Fun<List<Dialog>, Integer>() {
-  @Override
-  public Integer apply(List<Dialog> dialogs) {
-    return dialogs.size();
-  }
-}).thenAccept(new CompletableFuture.Action<Integer>() {
-  @Override
-  public void accept(Integer size) {
-    System.out.println(size);
-  }
-});
-```
-
-Use synchronous way
-
-```java
-Integer size=service.getDialogs().rx().get().size();
-System.out.println(size);
-```
-
-## Breaking Changes for v3.0
-
-The version 3.0 is a major release focused on simplicity and consistency. Several breaking changes were introduced.
-
-### Synchronous vs. Asynchronous
-
-Before 3.0 all the API calls were synchronous.
-```java
-List<Dialog> dialogs = dialogService.getDialogs();
-System.out.println(dialogs);
-```
-To do a synchronous call, you need to add `execute()`.
-
-```java
-List<Dialog> dialogs = dialogService.getDialogs().execute();
-System.out.println(dialogs);
-```
-To do an asynchronous call, you need to specify a callback.
-
-```java
-service.getDialogs().enqueue(new ServiceCallback<List<Dialog>>() {
-  @Override
-  public void onResponse(List<Dialog> response) {
-    System.out.println(response);
-  }
-
-  @Override
-  public void onFailure(Exception e) {
-  }}
-);
-```
-
-See the [CHANGELOG](CHANGELOG.md) for the release notes.
-
-## Migration
-
-To migrate to 3.0 from a previous version, simply add `.execute()` to the old methods.
-For example if you previously had
-```java
-List<Dialog> dialogs = dialogService.getDialogs();
-System.out.println(dialogs);
-```
-Just add `execute()` on the end, and your code will work exactly the same as before.
-
-```java
-List<Dialog> dialogs = dialogService.getDialogs().execute();
-System.out.println(dialogs);
-```
-
 ## Installation
 
 ##### Maven
+
+All the services:
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.developer_cloud</groupId>
+	<groupId>com.ibm.watson.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
 	<version>3.3.1</version>
 </dependency>
 ```
+
+Only Retrieve and Rank:
+```xml
+<dependency>
+	<groupId>com.ibm.watson.watson.developer_cloud</groupId>
+	<artifactId>retrieve-and-rank</artifactId>
+	<version>3.3.1</version>
+</dependency>
+```
+
 ##### Gradle
 
+All the services:
 ```gradle
 'com.ibm.watson.developer_cloud:java-sdk:3.3.1'
+```
+
+Only Retrieve and Rank:
+```gradle
+'com.ibm.watson.developer_cloud:retrieve-and-rank:3.3.1'
+```
+
+Only Visual Recognition:
+```gradle
+'com.ibm.watson.developer_cloud:visual-recognition:3.3.1'
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
@@ -155,7 +85,7 @@ Snapshots of the development version are available in [Sonatype's snapshots repo
 
 Download the jar with dependencies [here][jar].
 
-Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
+Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/watson.developer_cloud).
 
 
 ## Usage
@@ -395,7 +325,7 @@ System.out.println(transcript);
 #### WebSocket support
 
 Speech to Text supports WebSocket, the url is:  
-  `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`  
+  `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
 
   ```java
 SpeechToText service = new SpeechToText();
@@ -568,6 +498,98 @@ VisualClassification result = service.classify(options).execute();
 System.out.println(result);
 ```
 
+## Introduce reactive API call for v3.0.1  
+
+To do a reactive call, you need to add `rx()`.  With reactive you can use synchronous or asynchronous calls as you like, and you can combine multiple rest calls more efficiently.
+
+Use callback way
+
+```java
+service.getDialogs().rx().thenApply(new CompletableFuture.Fun<List<Dialog>, Integer>() {
+  @Override
+  public Integer apply(List<Dialog> dialogs) {
+    return dialogs.size();
+  }
+}).thenAccept(new CompletableFuture.Action<Integer>() {
+  @Override
+  public void accept(Integer integer) {
+    System.out.println(integer);
+  }
+});
+```
+
+Use asynchronous callback way
+
+```java
+service.getDialogs().rx().thenApplyAsync(new CompletableFuture.Fun<List<Dialog>, Integer>() {
+  @Override
+  public Integer apply(List<Dialog> dialogs) {
+    return dialogs.size();
+  }
+}).thenAccept(new CompletableFuture.Action<Integer>() {
+  @Override
+  public void accept(Integer size) {
+    System.out.println(size);
+  }
+});
+```
+
+Use synchronous way
+
+```java
+Integer size=service.getDialogs().rx().get().size();
+System.out.println(size);
+```
+
+## Breaking Changes for v3.0
+
+The version 3.0 is a major release focused on simplicity and consistency. Several breaking changes were introduced.
+
+### Synchronous vs. Asynchronous
+
+Before 3.0 all the API calls were synchronous.
+```java
+List<Dialog> dialogs = dialogService.getDialogs();
+System.out.println(dialogs);
+```
+To do a synchronous call, you need to add `execute()`.
+
+```java
+List<Dialog> dialogs = dialogService.getDialogs().execute();
+System.out.println(dialogs);
+```
+To do an asynchronous call, you need to specify a callback.
+
+```java
+service.getDialogs().enqueue(new ServiceCallback<List<Dialog>>() {
+  @Override
+  public void onResponse(List<Dialog> response) {
+    System.out.println(response);
+  }
+
+  @Override
+  public void onFailure(Exception e) {
+  }}
+);
+```
+
+See the [CHANGELOG](CHANGELOG.md) for the release notes.
+
+## Migration
+
+To migrate to 3.0 from a previous version, simply add `.execute()` to the old methods.
+For example if you previously had
+```java
+List<Dialog> dialogs = dialogService.getDialogs();
+System.out.println(dialogs);
+```
+Just add `execute()` on the end, and your code will work exactly the same as before.
+
+```java
+List<Dialog> dialogs = dialogService.getDialogs().execute();
+System.out.println(dialogs);
+```
+
 ## Android
 The library supports Android 2.3 and above. For Java, the minimum requirement is 1.7.  
 It depends on [OkHttp][] and [gson][].
@@ -656,6 +678,6 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [OkHttp]: http://square.github.io/okhttp/
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
-[sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/java-sdk/
+[sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/watson.developer_cloud/
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.3.1/java-sdk-3.3.1-jar-with-dependencies.jar

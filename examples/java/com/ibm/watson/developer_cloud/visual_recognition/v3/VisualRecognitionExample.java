@@ -15,11 +15,11 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3;
 
 import java.io.File;
 
-import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
+import visual_recognition.v3.VisualRecognition;
+import visual_recognition.v3.model.ClassifyImagesOptions;
+import visual_recognition.v3.model.ClassifierOptions;
+import visual_recognition.v3.model.VisualClassification;
+import visual_recognition.v3.model.VisualClassifier;
 
 public class VisualRecognitionExample {
 
