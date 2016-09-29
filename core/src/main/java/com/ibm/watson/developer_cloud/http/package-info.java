@@ -12,7 +12,7 @@
  */
 
 /**
- * Provides access to the Alchemy Language, Vision and DataNews services.
+ * This package contains interfaces, enumerations and implementations to work with HTTP requests and responses.
  */
-package com.ibm.watson.developer_cloud.alchemy.v1;
+package com.ibm.watson.developer_cloud.http;
 

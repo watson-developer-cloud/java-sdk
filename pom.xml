@@ -13,7 +13,7 @@
   <version>3.3.1-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>Watson Developer Cloud Java SDK (parent)</name>
+  <name>Watson Developer Cloud Java SDK</name>
   <description>Client library to use the IBM Watson Services and AlchemyAPI</description>
   <url>https://github.com/watson-developer-cloud/java-sdk</url>
 
@@ -271,78 +271,70 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-javadoc-plugin</artifactId>
         <version>2.9.1</version>
-        <executions>
-          <execution>
-            <id>attach-javadocs</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <additionalparam>${javadoc.doclint.none}</additionalparam>
-              <doctitle>IBM Watson API Client Library for Java ${project.version}</doctitle>
-              <overview>${basedir}/overview.html</overview>
-              <groups>
-                <group>
-                  <title>alchemy</title>
-                  <packages>com.ibm.watson.developer_cloud.alchemy.*</packages>
-                </group>
-                <group>
-                  <title>conversation</title>
-                  <packages>com.ibm.watson.developer_cloud.conversation.*</packages>
-                </group>
-                <group>
-                  <title>core</title>
-                  <packages>com.ibm.watson.developer_cloud.core.*</packages>
-                </group>
-                <group>
-                  <title>dialog</title>
-                  <packages>com.ibm.watson.developer_cloud.dialog.*</packages>
-                </group>
-                <group>
-                  <title>document-conversion</title>
-                  <packages>com.ibm.watson.developer_cloud.document_conversion.*</packages>
-                </group>
-                <group>
-                  <title>language-translation</title>
-                  <packages>com.ibm.watson.developer_cloud.language_translation.*</packages>
-                </group>
-                <group>
-                  <title>natural-language-classifier</title>
-                  <packages>com.ibm.watson.developer_cloud.natural_language_classifier.*</packages>
-                </group>
-                <group>
-                  <title>personality-insights</title>
-                  <packages>com.ibm.watson.developer_cloud.personality_insights.*</packages>
-                </group>
-                <group>
-                  <title>retrieve-and-rank</title>
-                  <packages>com.ibm.watson.developer_cloud.retrieve_and_rank.*</packages>
-                </group>
-                <group>
-                  <title>speech-to-text</title>
-                  <packages>com.ibm.watson.developer_cloud.speech_to_text.*</packages>
-                </group>
-                <group>
-                  <title>text-to-speech</title>
-                  <packages>com.ibm.watson.developer_cloud.text-to-speech.*</packages>
-                </group>
-                <group>
-                  <title>tone-analyzer</title>
-                  <packages>com.ibm.watson.developer_cloud.tone_analyzer.*</packages>
-                </group>
-                <group>
-                  <title>tradeoff-analytics</title>
-                  <packages>com.ibm.watson.developer_cloud.tradeoff_analytics.*</packages>
-                </group>
-                <group>
-                  <title>visual-recognition</title>
-                  <packages>com.ibm.watson.developer_cloud.visual_recognition.*</packages>
-                </group>
-              </groups>
-              <windowtitle>java-sdk ${project.version}</windowtitle>
-            </configuration>
-          </execution>
-        </executions>
+        <configuration>
+          <additionalparam>${javadoc.doclint.none}</additionalparam>
+          <doctitle>Java SDK ${project.version}</doctitle>
+          <overview>${basedir}/overview.html</overview>
+          <groups>
+            <group>
+              <title>Conversation</title>
+              <packages>com.ibm.watson.developer_cloud.conversation.*</packages>
+            </group>
+            <group>
+              <title>Dialog (deprecated)</title>
+              <packages>com.ibm.watson.developer_cloud.dialog.*</packages>
+            </group>
+            <group>
+              <title>Document Conversion</title>
+              <packages>com.ibm.watson.developer_cloud.document_conversion.*</packages>
+            </group>
+            <group>
+              <title>Language Translation</title>
+              <packages>com.ibm.watson.developer_cloud.language_translation.*</packages>
+            </group>
+            <group>
+              <title>Natural Language Classifier</title>
+              <packages>com.ibm.watson.developer_cloud.natural_language_classifier.*</packages>
+            </group>
+            <group>
+              <title>Personality Insights</title>
+              <packages>com.ibm.watson.developer_cloud.personality_insights.*</packages>
+            </group>
+            <group>
+              <title>Retrieve and Rank</title>
+              <packages>com.ibm.watson.developer_cloud.retrieve_and_rank.*</packages>
+            </group>
+            <group>
+              <title>Speech to Text</title>
+              <packages>com.ibm.watson.developer_cloud.speech_to_text.*</packages>
+            </group>
+            <group>
+              <title>Text to Speech</title>
+              <packages>com.ibm.watson.developer_cloud.text_to_speech.*</packages>
+            </group>
+            <group>
+              <title>Tone Analyzer</title>
+              <packages>com.ibm.watson.developer_cloud.tone_analyzer.*</packages>
+            </group>
+            <group>
+              <title>Tradeoff Analytics</title>
+              <packages>com.ibm.watson.developer_cloud.tradeoff_analytics.*</packages>
+            </group>
+            <group>
+              <title>Visual Recognition</title>
+              <packages>com.ibm.watson.developer_cloud.visual_recognition.*</packages>
+            </group>
+            <group>
+              <title>AlchemyLanguage, AlchemyDataNews, and AlchemyVision</title>
+              <packages>com.ibm.watson.developer_cloud.alchemy.*</packages>
+            </group>
+            <group>
+              <title>core</title>
+              <packages>com.ibm.watson.developer_cloud.core.*</packages>
+            </group>
+          </groups>
+          <windowtitle>java-sdk ${project.version}</windowtitle>
+        </configuration>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
