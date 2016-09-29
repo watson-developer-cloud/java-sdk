@@ -23,6 +23,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.dialog.v1.model.Conversation;
 import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationData;
 import com.ibm.watson.developer_cloud.dialog.v1.model.ConversationDataOptions;
@@ -46,11 +47,8 @@ import okhttp3.Response;
 
 /**
  * The Dialog service was deprecated on August 15, 2016, existing instances of the service will continue to function
- * until August 9, 2017.
+ * until August 9, 2017. Please use {@link ConversationService}
  *
- * @see <a href="https://www.ibm.com/watson/developercloud/doc/conversation/migration.shtml"> Migration to
- *      Conversation</a>
- * @deprecated As of August 15, 2016, replaced by {@link ConversationService}
  */
 @Deprecated
 public class DialogService extends WatsonService {

@@ -49,7 +49,7 @@ public class SolrClusterSizeResponse extends GenericModel {
    * @param clusterId the cluster Id
    * @param currentSize the cluster size
    * @param targetSize size to resize the cluster to
-   * @param message response message from the R&R service
+   * @param message response message from the Retrieve and Rank service
    * @param status The status of the resize process
    */
   public SolrClusterSizeResponse(final String clusterId, final Integer currentSize, final Integer targetSize,
@@ -66,7 +66,7 @@ public class SolrClusterSizeResponse extends GenericModel {
    *
    * @param clusterId the cluster Id
    * @param currentSize the cluster size
-   * @param message response message from the R&R service.
+   * @param message response message from the Retrieve and Rank service.
    */
   public SolrClusterSizeResponse(final String clusterId, final Integer currentSize, final String message) {
     this.clusterId = clusterId;

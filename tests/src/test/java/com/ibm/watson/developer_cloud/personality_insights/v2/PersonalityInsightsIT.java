@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.util.Collections;
 import java.util.Date;
 
+import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
@@ -73,8 +74,8 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   }
 
   private void assertProfile(Profile profile) {
-    assertNotNull(profile);
-    assertNotNull(profile.getTree());
+    Assert.assertNotNull(profile);
+    Assert.assertNotNull(profile.getTree());
   }
 
   /**

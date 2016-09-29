@@ -105,7 +105,7 @@ public final class HttpMediaType {
   public static final String AUDIO_FLAC = "audio/flac";
 
   /**
-   * Field AUDIO_RAW. (value is "audio/l16") <br/>
+   * Field AUDIO_RAW. (value is "audio/l16") <br>
    * When using in Speech to Text a sample rate must be provided
    */
   public static final String AUDIO_RAW = "audio/l16";

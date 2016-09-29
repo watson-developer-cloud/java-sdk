@@ -11,10 +11,10 @@
   <name>Text to Speech</name>
 
   <dependencies>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>core</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-	</dependencies>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>core</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
 </project>
