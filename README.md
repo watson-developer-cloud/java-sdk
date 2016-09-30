@@ -91,7 +91,7 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 
 ## Usage
 
-The examples below assume that you already have service credentials. If not,
+The examples within each service assume that you already have service credentials. If not,
 you will have to create a service in [Bluemix][bluemix].
 
 If you are running your application in Bluemix, you don't need to specify the
