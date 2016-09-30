@@ -46,7 +46,8 @@ public class DateDeserializer implements JsonDeserializer<Date> {
   private final SimpleDateFormat utcWithSecondsDateFormatter = new SimpleDateFormat(DATE_WITH_SECONDS);
 
   private final List<SimpleDateFormat> dateFormatters =
-      Arrays.asList(utcDateFormatter, utcWithoutSecondsDateFormatter, dialogDateFormatter, alchemyDateFormatter, utcWithSecondsDateFormatter);
+      Arrays.asList(utcDateFormatter, utcWithoutSecondsDateFormatter, dialogDateFormatter,
+              alchemyDateFormatter, utcWithSecondsDateFormatter);
 
   private static final Logger LOG = Logger.getLogger(DateDeserializer.class.getName());
 
