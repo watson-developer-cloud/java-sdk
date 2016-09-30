@@ -15,7 +15,6 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.reflect.TypeToken;
@@ -24,6 +23,9 @@ import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionCallback;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
@@ -51,7 +53,9 @@ import okhttp3.ws.WebSocket;
  */
 public class SpeechToText extends WatsonService {
 
+  private static final String CALLBACK_URL = "callback_url";
   private static final String CONTINUOUS = "continuous";
+  private static final String EVENTS = "events";
   private static final String INACTIVITY_TIMEOUT = "inactivity_timeout";
   private static final String KEYWORDS = "keywords";
   private static final String KEYWORDS_THRESHOLD = "keywords_threshold";
@@ -59,21 +63,27 @@ public class SpeechToText extends WatsonService {
   private static final String MODEL = "model";
   private static final String PATH_MODEL = "/v1/models/%s";
   private static final String PATH_MODELS = "/v1/models";
+  private static final String PATH_RECOGNITION = "/v1/recognitions/%s";
+  private static final String PATH_RECOGNITIONS = "/v1/recognitions";
   private static final String PATH_RECOGNIZE = "/v1/recognize";
+  private static final String PATH_REGISTER_CALLBACK = "/v1/register_callback";
   private static final String PATH_SESSION = "/v1/sessions/%s";
   private static final String PATH_SESSION_RECOGNIZE = "/v1/sessions/%s/recognize";
   private static final String PATH_SESSIONS = "/v1/sessions";
+  private static final String PROFANITY_FILTER = "profanity_filter";
+  private static final String RESULTS_TTL = "results_ttl";
   private static final String SERVICE_NAME = "speech_to_text";
+  private static final String SMART_FORMATTING = "smart_formatting";
   private static final String TIMESTAMPS = "timestamps";
-  private static final String URL = "https://stream.watsonplatform.net/speech-to-text/api";
+  private static final String SECRET = "secret";
+  private static final String USER_TOKEN = "user_token";
   private static final String WORD_ALTERNATIVES_THRESHOLD = "word_alternatives_threshold";
   private static final String WORD_CONFIDENCE = "word_confidence";
-  private static final String PROFANITY_FILTER = "profanity_filter";
-  private static final String SMART_FORMATTING = "smart_formatting";
+  private static final String URL = "https://stream.watsonplatform.net/speech-to-text/api";
 
   private static final Type TYPE_LIST_MODELS = new TypeToken<List<SpeechModel>>() { }.getType();
+  private static final Type TYPE_LIST_RECOGNITIONS = new TypeToken<List<RecognitionJob>>() { }.getType();
   private static final Type TYPE_SESSION_STATUS = new TypeToken<SpeechSessionStatus>() { }.getType();
-
 
   /**
    * Instantiates a new Speech to Text service.
@@ -94,6 +104,34 @@ public class SpeechToText extends WatsonService {
   public SpeechToText(String username, String password) {
     this();
     setUsernameAndPassword(username, password);
+  }
+
+  /**
+   * Builds the recognition job request using the {@link RecognitionJobOptions}.
+   *
+   * @param requestBuilder the request builder
+   * @param jobOptions the recognition job options
+   */
+  private void buildRecognitionJobRequest(RequestBuilder requestBuilder, RecognitionJobOptions jobOptions) {
+    if (jobOptions == null) {
+      return;
+    }
+
+    if (jobOptions.userToken() != null) {
+      requestBuilder.query(USER_TOKEN, jobOptions.userToken());
+    }
+
+    if (jobOptions.resultsTtl() != null) {
+      requestBuilder.query(RESULTS_TTL, jobOptions.resultsTtl());
+    }
+
+    if (jobOptions.callbackUrl() != null) {
+      requestBuilder.query(CALLBACK_URL, jobOptions.callbackUrl());
+    }
+
+    if (jobOptions.events() != null) {
+      requestBuilder.query(EVENTS, RequestUtils.join(jobOptions.events(), ","));
+    }
   }
 
   /**
@@ -144,13 +182,42 @@ public class SpeechToText extends WatsonService {
     }
 
     if ((options.keywords() != null) && (options.keywords().length > 0)) {
-      final String keywords = RequestUtils.join(Arrays.asList(options.keywords()), ",");
+      final String keywords = RequestUtils.join(options.keywords(), ",");
       requestBuilder.query(KEYWORDS, RequestUtils.encode(keywords));
     }
 
     if (options.wordAlternativesThreshold() != null) {
       requestBuilder.query(WORD_ALTERNATIVES_THRESHOLD, options.wordAlternativesThreshold());
     }
+  }
+
+  /**
+   * Creates an asynchronous recognition request.
+   *
+   * @param audio the audio
+   * @param recognizeOptions the recognize options
+   * @param recognitionJobOptions the recognition job options
+   * @return the service call
+   */
+  public ServiceCall<RecognitionJob> createRecognitionJob(final File audio, final RecognizeOptions recognizeOptions,
+      final RecognitionJobOptions recognitionJobOptions) {
+    Validator.isTrue((audio != null) && audio.exists(), "audio file is null or does not exist");
+
+    final double fileSize = audio.length() / Math.pow(1024, 2);
+    Validator.isTrue(fileSize < 100.0, "The audio file is greater than 100MB.");
+
+    String contentType = MediaTypeUtils.getMediaTypeFromFile(audio);
+    if ((recognizeOptions != null) && (recognizeOptions.contentType() != null)) {
+      contentType = recognizeOptions.contentType();
+    }
+    Validator.notNull(contentType, "The audio format cannot be recognized");
+
+    final RequestBuilder requestBuilder = RequestBuilder.post(PATH_RECOGNITIONS);
+    buildRecognizeRequest(requestBuilder, recognizeOptions);
+    buildRecognitionJobRequest(requestBuilder, recognitionJobOptions);
+
+    requestBuilder.body(RequestBody.create(MediaType.parse(contentType), audio));
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(RecognitionJob.class));
   }
 
   /**
@@ -200,6 +267,19 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
+   * Delete recognition.
+   *
+   * @param id the id
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteRecognitionJob(String id) {
+    Validator.notNull(id, "id cannot be null");
+
+    Request request = RequestBuilder.delete(String.format(PATH_RECOGNITION, id)).build();
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  }
+
+  /**
    * Deletes a {@link SpeechSession}.
    *
    * @param session the speech session to delete
@@ -234,6 +314,34 @@ public class SpeechToText extends WatsonService {
     Request request = RequestBuilder.get(PATH_MODELS).build();
     ResponseConverter<List<SpeechModel>> converter =
         ResponseConverterUtils.getGenericObject(TYPE_LIST_MODELS, "models");
+    return createServiceCall(request, converter);
+  }
+
+  /**
+   * Gets the recognition.
+   *
+   * @param id the id
+   * @return the recognition
+   */
+  public ServiceCall<RecognitionJob> getRecognitionJob(String id) {
+    Validator.notNull(id, "id cannot be null");
+
+    Request request = RequestBuilder.get(String.format(PATH_RECOGNITION, id)).build();
+    return createServiceCall(request, ResponseConverterUtils.getObject(RecognitionJob.class));
+  }
+
+
+  /**
+   * Returns the status and id of all outstanding jobs. If a job was created with a callback URL and a user token, the
+   * method also returns the user token for the job.
+   *
+   * @return the recognitions
+   */
+  public ServiceCall<List<RecognitionJob>> getRecognitionJobs() {
+    Request request = RequestBuilder.get(PATH_RECOGNITIONS).build();
+
+    ResponseConverter<List<RecognitionJob>> converter =
+        ResponseConverterUtils.getGenericObject(TYPE_LIST_RECOGNITIONS, "recognitions");
     return createServiceCall(request, converter);
   }
 
@@ -358,26 +466,46 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(options.contentType(), "options.contentType cannot be null");
     Validator.notNull(callback, "callback cannot be null");
 
-    final String url = getEndPoint().replaceFirst("(https|http)", "wss");
 
-    if (skipAuthentication) {
-      WebSocketManager wsManager =
-          new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, null);
-      wsManager.recognize(audio, options, callback);
-    } else {
-      getToken().enqueue(new ServiceCallback<String>() {
-        @Override
-        public void onFailure(Exception e) {
-          callback.onError(e);
-        }
+    getToken().enqueue(new ServiceCallback<String>() {
+      @Override
+      public void onFailure(Exception e) {
+        callback.onError(e);
+      }
 
-        @Override
-        public void onResponse(String token) {
-          WebSocketManager wsManager =
-              new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, token);
-          wsManager.recognize(audio, options, callback);
-        }
-      });
+      @Override
+      public void onResponse(String token) {
+        String url = getEndPoint().replaceFirst("(https|http)", "wss");
+        WebSocketManager wsManager =
+            new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, token);
+        wsManager.recognize(audio, options, callback);
+      }
+    });
+  }
+
+  /**
+   * Registers a callback URL with the service for use with subsequent asynchronous recognition requests. The service
+   * attempts to register, or white-list, the callback URL. To be registered successfully, the callback URL must respond
+   * to a <code>GET</code> request from the service, after which the service responds with response code 201 to the
+   * original registration request. <br/>
+   * If you specify a <code>secret</code> with the request, the service uses it as a key to calculate an
+   * <code>HMAC-SHA1</code> signature of a random challenge string in its response to the request. The signature
+   * provides authentication and data integrity for HTTP communications.
+   *
+   * @param callbackUrl the callback url
+   * @param secret the secret
+   * @return the service call
+   */
+  public ServiceCall<RecognitionCallback> registerCallback(String callbackUrl, String secret) {
+    Validator.notNull(callbackUrl, "callbackUrl cannot be null");
+
+    RequestBuilder requestBuilder = RequestBuilder.post(PATH_REGISTER_CALLBACK);
+    requestBuilder.query(CALLBACK_URL, callbackUrl);
+
+    if (secret != null) {
+      requestBuilder.query(SECRET, secret);
     }
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(RecognitionCallback.class));
   }
 }
