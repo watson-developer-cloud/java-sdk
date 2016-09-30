@@ -10,7 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.language_translation.v2;
+package com.ibm.watson.developer_cloud.language_translator.v2;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
@@ -25,12 +25,12 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.CreateModelOptions;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiableLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.Language;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationModel;
-import com.ibm.watson.developer_cloud.language_translation.v2.model.TranslationResult;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.CreateModelOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiableLanguage;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiedLanguage;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.Language;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModel;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -44,10 +44,9 @@ import okhttp3.RequestBody;
  * which text is written.
  *
  * @version v2
- * @see <a href= "http://www.ibm.com/watson/developercloud/language-translation.html"> Language translation</a>
- * @deprecated
+ * @see <a href= "http://www.ibm.com/watson/developercloud/language-translator.html"> Language translator</a>
  */
-public class LanguageTranslation extends WatsonService {
+public class LanguageTranslator extends WatsonService {
 
   private static final String LANGUAGES = "languages";
   private static final String MODELS = "models";
@@ -66,7 +65,7 @@ public class LanguageTranslation extends WatsonService {
   private static final String SOURCE = "source";
   private static final String TARGET = "target";
   private static final String TEXT = "text";
-  private static final String URL = "https://gateway.watsonplatform.net/language-translation/api";
+  private static final String URL = "https://gateway.watsonplatform.net/language-translator/api";
   private static final String PATH_MODEL = "/v2/models/%s";
   private static final Type TYPE_LIST_TRANSLATION_MODEL = new TypeToken<List<TranslationModel>>() { }.getType();
   private static final Type TYPE_LIST_IDENTIFIABLE_LANGUAGE = new TypeToken<List<IdentifiableLanguage>>() { }.getType();
@@ -74,9 +73,8 @@ public class LanguageTranslation extends WatsonService {
 
   /**
    * Instantiates a new Language Translator service.
-   * @deprecated
    */
-  public LanguageTranslation() {
+  public LanguageTranslator() {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
@@ -84,12 +82,12 @@ public class LanguageTranslation extends WatsonService {
   }
 
   /**
-   * Instantiates a new language translation service by username and password.
+   * Instantiates a new language translator service by username and password.
    *
    * @param username the username
    * @param password the password
    */
-  public LanguageTranslation(String username, String password) {
+  public LanguageTranslator(String username, String password) {
     this();
     setUsernameAndPassword(username, password);
   }
