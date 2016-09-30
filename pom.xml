@@ -51,6 +51,7 @@
     <module>dialog</module>
     <module>document-conversion</module>
     <module>language-translation</module>
+    <module>language-translator</module>
     <module>natural-language-classifier</module>
     <module>personality-insights</module>
     <module>retrieve-and-rank</module>
@@ -240,8 +241,12 @@
               <packages>com.ibm.watson.developer_cloud.document_conversion.*</packages>
             </group>
             <group>
-              <title>Language Translation</title>
+              <title>Language Translation (deprecated)</title>
               <packages>com.ibm.watson.developer_cloud.language_translation.*</packages>
+            </group>
+            <group>
+              <title>Language Translator</title>
+              <packages>com.ibm.watson.developer_cloud.language_translator.*</packages>
             </group>
             <group>
               <title>Natural Language Classifier</title>

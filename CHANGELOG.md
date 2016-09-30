@@ -1,9 +1,16 @@
 Change Log
 ==========
 
+## Version 3.4.1
+
+_2016-09-30_
+
+ * New: Add Language Translator
+
+
 ## Version 3.4.0
 
-_2016-09-07_
+_2016-09-29_
 
  The SDK 3.4.0 is the first step into moving from one maven module into a multi-module project.
  This change will allow users to specify the service they want to use skipping the other services.
