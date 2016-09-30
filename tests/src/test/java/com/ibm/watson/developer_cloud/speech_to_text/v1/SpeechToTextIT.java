@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -25,11 +25,15 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.KeywordsResult;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
@@ -40,7 +44,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 
 /**
- * The Class SpeechToTextIT.
+ * Speech to text Integration tests.
  */
 public class SpeechToTextIT extends WatsonServiceTest {
 
@@ -49,10 +53,14 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private SpeechToText service;
   private SpeechResults asyncResults;
 
+  /** The expected exception. */
+  @Rule
+  public final ExpectedException expectedException = ExpectedException.none();
+
   /*
    * (non-Javadoc)
    *
-   * @see com.ibm.watson.watson.developer_cloud.WatsonServiceTest#setUp()
+   * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
   @Before
@@ -63,7 +71,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     String password = getProperty("speech_to_text.password");
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+        username == null || username.equals(PLACEHOLDER));
 
     service = new SpeechToText();
     service.setUsernameAndPassword(username, password);
@@ -168,8 +176,14 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testRecognizeFileStringRecognizeOptions() {
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
     String contentType = HttpMediaType.AUDIO_WAV;
-    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).timestamps(true).wordConfidence(true)
-        .model(EN_BROADBAND16K).contentType(contentType).profanityFilter(false).build();
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .continuous(true)
+        .timestamps(true)
+        .wordConfidence(true)
+        .model(EN_BROADBAND16K)
+        .contentType(contentType)
+        .profanityFilter(false)
+        .build();
     SpeechResults results = service.recognize(audio, options).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTimestamps());
@@ -184,9 +198,14 @@ public class SpeechToTextIT extends WatsonServiceTest {
     final String keyword1 = "rain";
     final String keyword2 = "tornadoes";
 
-    final RecognizeOptions options = new RecognizeOptions.Builder().contentType("audio/wav")
-        .model(SpeechModel.EN_US_BROADBANDMODEL.getName()).continuous(true).inactivityTimeout(500)
-        .keywords(new String[] { keyword1, keyword2 }).keywordsThreshold(0.7).build();
+    final RecognizeOptions options = new RecognizeOptions.Builder()
+        .contentType("audio/wav")
+        .model(SpeechModel.EN_US_BROADBANDMODEL.getName())
+        .continuous(true)
+        .inactivityTimeout(500)
+        .keywords(keyword1, keyword2)
+        .keywordsThreshold(0.7)
+        .build();
 
     final File audio = new File("src/test/resources/speech_to_text/sample1.wav");
     final SpeechResults results = service.recognize(audio, options).execute();
@@ -220,9 +239,16 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
-    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
-        .inactivityTimeout(40).timestamps(true).maxAlternatives(2).wordAlternativesThreshold(0.5).model(EN_BROADBAND16K)
-        .contentType(HttpMediaType.AUDIO_WAV).build();
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .continuous(true)
+        .interimResults(true)
+        .inactivityTimeout(40)
+        .timestamps(true)
+        .maxAlternatives(2)
+        .wordAlternativesThreshold(0.5)
+        .model(EN_BROADBAND16K)
+        .contentType(HttpMediaType.AUDIO_WAV)
+        .build();
     FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/sample1.wav");
 
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
@@ -246,7 +272,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
       @Override
       public void onTranscription(SpeechResults speechResults) {
-        if ((speechResults != null) && speechResults.isFinal()) {
+        if (speechResults != null && speechResults.isFinal()) {
           asyncResults = speechResults;
         }
       }
@@ -256,11 +282,60 @@ public class SpeechToTextIT extends WatsonServiceTest {
     lock.await(2, TimeUnit.MINUTES);
     assertNotNull(asyncResults);
 
-    List<SpeechWordAlternatives> wordAlternatives =
-        asyncResults.getResults().get(asyncResults.getResultIndex()).getWordAlternatives();
-    assertTrue((wordAlternatives != null) && !wordAlternatives.isEmpty());
+    List<SpeechWordAlternatives> wordAlternatives = asyncResults.getResults()
+        .get(asyncResults.getResultIndex()).getWordAlternatives();
+    assertTrue(wordAlternatives != null && !wordAlternatives.isEmpty());
     assertNotNull(wordAlternatives.get(0).getAlternatives());
   }
 
+  /**
+   * Test create recognition job.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testCreateRecognitionJob() throws InterruptedException, FileNotFoundException {
+    File audio = new File("src/test/resources/speech_to_text/sample1.wav");
+    RecognitionJob job = service.createRecognitionJob(audio, null, null).execute();
+    try {
+      assertNotNull(job.getId());
+      for (int x = 0; x < 30 && job.getStatus() != RecognitionJob.Status.COMPLETED; x++) {
+        Thread.sleep(3000);
+        job = service.getRecognitionJob(job.getId()).execute();
+      }
+      job = service.getRecognitionJob(job.getId()).execute();
+      assertEquals(RecognitionJob.Status.COMPLETED, job.getStatus());
 
+      assertNotNull(job.getResults());
+
+    } finally {
+      service.deleteRecognitionJob(job.getId());
+    }
+  }
+
+  /**
+   * Test get recognition job with wrong id.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testGetRecognitionJobWithWrongId() throws InterruptedException, FileNotFoundException {
+    expectedException.expect(NotFoundException.class);
+    expectedException.expectMessage("job not found");
+    service.getRecognitionJob("foo").execute();
+  }
+
+  /**
+   * Test get recognition jobs.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testGetRecognitionJobs() throws InterruptedException, FileNotFoundException {
+    List<RecognitionJob> jobs = service.getRecognitionJobs().execute();
+    assertNotNull(jobs);
+  }
 }

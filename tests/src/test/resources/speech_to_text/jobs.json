@@ -1,0 +1,28 @@
+{
+  "recognitions": [{
+    "id": "1",
+    "status": "waiting",
+    "url": "u1",
+    "user_token": "t1"
+  }, {
+    "id": "2d0ef860-872e-11e6-90d3-5f28bc58ceb2",
+    "status": "processing",
+    "created": "2016-09-30T16:51:47.558",
+    "url": "https://stream.watsonplatform.net/speech-to-text/api/v1/recognitions/2d0ef860-872e-11e6-90d3-5f28bc58ceb2"
+  }, {
+    "id": "2d0ef860-872e-11e6-90d3-5f28bc58ceb2",
+    "results": [{
+      "result_index": 0,
+      "results": [{
+        "final": true,
+        "alternatives": [{
+          "confidence": 0.994,
+          "transcript": "thunderstorms could produce large hail isolated tornadoes and heavy rain "
+        }]
+      }]
+    }],
+    "status": "completed",
+    "created": "2016-09-30T16:51:47.558",
+    "updated": "2016-09-30T16:51:54.129"
+  }]
+}
