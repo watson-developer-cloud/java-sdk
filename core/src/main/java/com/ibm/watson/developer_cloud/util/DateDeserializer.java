@@ -36,15 +36,18 @@ public class DateDeserializer implements JsonDeserializer<Date> {
   /** The Constant DATE_UTC. */
   protected static final String DATE_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS";
   private static final String DATE_WITHOUT_SECONDS = "yyyy-MM-dd'T'HH:mm:ssZ";
+  private static final String DATE_WITH_SECONDS = "yyyy-MM-dd'T'HH:mm:ss";
 
   // SimpleDateFormat is NOT thread safe - they require private visibility and synchronized access
   private final SimpleDateFormat alchemyDateFormatter = new SimpleDateFormat(DATE_FROM_ALCHEMY);
   private final SimpleDateFormat dialogDateFormatter = new SimpleDateFormat(DATE_FROM_DIALOG);
   private final SimpleDateFormat utcDateFormatter = new SimpleDateFormat(DATE_UTC);
   private final SimpleDateFormat utcWithoutSecondsDateFormatter = new SimpleDateFormat(DATE_WITHOUT_SECONDS);
+  private final SimpleDateFormat utcWithSecondsDateFormatter = new SimpleDateFormat(DATE_WITH_SECONDS);
 
   private final List<SimpleDateFormat> dateFormatters =
-      Arrays.asList(utcDateFormatter, utcWithoutSecondsDateFormatter, dialogDateFormatter, alchemyDateFormatter);
+      Arrays.asList(utcDateFormatter, utcWithoutSecondsDateFormatter, dialogDateFormatter,
+              alchemyDateFormatter, utcWithSecondsDateFormatter);
 
   private static final Logger LOG = Logger.getLogger(DateDeserializer.class.getName());
 
