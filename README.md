@@ -23,6 +23,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Dialog](#dialog)
     * [Document Conversion](#document-conversion)
     * [Language Translation](#language-translation)
+    * [Language Translator](#language-translator)
     * [Natural Language Classifier](#natural-language-classifier)
     * [Personality Insights](#personality-insights)
     * [Retrieve and Rank](#retrieve-and-rank)
@@ -217,8 +218,12 @@ System.out.println(htmlToAnswers);
 ```
 
 ### Language Translation
+Language Translation was renamed to Language Translator.  
+No code changes are required.
+
+### Language Translator
 Select a domain, then identify or select the language of text, and then translate the text from one supported language to another.  
-Example: Translate 'hello' from English to Spanish using the [Language Translator][language_translation] service.
+Example: Translate 'hello' from English to Spanish using the [Language Translator][language_translator] service.
 
 ```java
 LanguageTranslator service = new LanguageTranslation();
@@ -655,7 +660,7 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 [personality_insights]: http://www.ibm.com/watson/developercloud/doc/personality-insights/
 [document_conversion]: http://www.ibm.com/watson/developercloud/doc/document-conversion/
-[language_translation]: http://www.ibm.com/watson/developercloud/doc/language-translation/
+[language_translator]: http://www.ibm.com/watson/developercloud/doc/language-translator/
 [visual_recognition]: http://www.ibm.com/watson/developercloud/doc/visual-recognition/
 [tradeoff_analytics]: http://www.ibm.com/watson/developercloud/doc/tradeoff-analytics/
 [text_to_speech]: http://www.ibm.com/watson/developercloud/doc/text-to-speech/

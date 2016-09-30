@@ -11,7 +11,7 @@
  * specific language governing permissions and limitations under the License.
  */
 /**
- * Language Translation v1. (deprecated, please use Language Translator)
+ * Language Translator v1.
  */
-package com.ibm.watson.developer_cloud.language_translation.v2;
+package com.ibm.watson.developer_cloud.language_translator.v2;
 
