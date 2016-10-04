@@ -283,6 +283,6 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [OkHttp]: http://square.github.io/okhttp/
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
-[sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/watson.developer_cloud/
+[sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.4.0/java-sdk-3.4.0-jar-with-dependencies.jar
