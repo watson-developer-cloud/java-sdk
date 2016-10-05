@@ -47,7 +47,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 All the services:
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.watson.developer_cloud</groupId>
+	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
 	<version>3.4.0</version>
 </dependency>
@@ -56,7 +56,7 @@ All the services:
 Only Retrieve and Rank:
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.watson.developer_cloud</groupId>
+	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>retrieve-and-rank</artifactId>
 	<version>3.4.0</version>
 </dependency>
@@ -86,7 +86,7 @@ Snapshots of the development version are available in [Sonatype's snapshots repo
 
 Download the jar with dependencies [here][jar].
 
-Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/watson.developer_cloud).
+Now, you are ready to see some [examples](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/java/com/ibm/watson/developer_cloud).
 
 
 ## Usage
