@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -43,6 +43,7 @@ public class RecognizeOptions {
     private Boolean wordConfidence;
     private Boolean profanityFilter;
     private Boolean smartFormatting;
+    private String customizationId;
 
     private Builder(RecognizeOptions options) {
       contentType = options.contentType;
@@ -59,6 +60,7 @@ public class RecognizeOptions {
       wordConfidence = options.wordConfidence;
       profanityFilter = options.profanityFilter;
       smartFormatting = options.smartFormatting;
+      customizationId = options.customizationId;
     }
 
     /**
@@ -159,6 +161,17 @@ public class RecognizeOptions {
      */
     public Builder interimResults(Boolean interimResults) {
       this.interimResults = interimResults;
+      return this;
+    }
+
+    /**
+     * Specifies the customization id(GUID).
+     *
+     * @param customizationId the customization id
+     * @return the recognize options
+     */
+    public Builder customizationId(String customizationId) {
+      this.customizationId = customizationId;
       return this;
     }
 
@@ -298,6 +311,8 @@ public class RecognizeOptions {
   private Boolean wordConfidence;
   @SerializedName("smart_formatting")
   private Boolean smartFormatting;
+  @SerializedName("customization_id")
+  private String customizationId;
 
   private RecognizeOptions(Builder builder) {
     contentType = builder.contentType;
@@ -314,6 +329,16 @@ public class RecognizeOptions {
     wordConfidence = builder.wordConfidence;
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
+    customizationId = builder.customizationId;
+  }
+
+  /**
+   * Gets the customization Id.
+   *
+   * @return the customization id.
+   */
+  public String customizationId() {
+    return customizationId;
   }
 
   /**
