@@ -192,14 +192,15 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.AUDIO_WAV).setBody(buffer));
 
-    final InputStream in = service.synthesize(text, Voice.EN_LISA, AudioFormat.WAV).execute();
+    final InputStream in =
+        service.synthesize(text, Voice.EN_LISA, new AudioFormat(HttpMediaType.AUDIO_PCM + "; rate=16000")).execute();
     final RecordedRequest request = server.takeRequest();
     final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
 
     assertEquals(SYNTHESIZE_PATH, requestUrl.encodedPath());
     assertEquals(text, requestUrl.queryParameter("text"));
     assertEquals(Voice.EN_LISA.getName(), requestUrl.queryParameter("voice"));
-    assertEquals(HttpMediaType.AUDIO_WAV, requestUrl.queryParameter("accept"));
+    assertEquals(HttpMediaType.AUDIO_PCM + "; rate=16000", requestUrl.queryParameter("accept"));
     assertNotNull(in);
 
     writeInputStreamToOutputStream(in, new FileOutputStream("target/output.wav"));
