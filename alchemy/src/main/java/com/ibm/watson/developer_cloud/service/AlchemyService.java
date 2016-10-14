@@ -110,7 +110,7 @@ public abstract class AlchemyService extends WatsonService {
   /*
    * (non-Javadoc)
    *
-   * @see com.ibm.watson.watson.developer_cloud.service.WatsonService#processServiceCall(com.ibm.watson.
+   * @see com.ibm.watson.developer_cloud.service.WatsonService#processServiceCall(com.ibm.watson.
    * watson.developer_cloud.service.ResponseConverter, okhttp3.Response)
    */
   @Override
@@ -206,7 +206,7 @@ public abstract class AlchemyService extends WatsonService {
   /*
    * (non-Javadoc)
    *
-   * @see com.ibm.watson.watson.developer_cloud.service.WatsonService#setAuthentication(okhttp3.Request. Builder)
+   * @see com.ibm.watson.developer_cloud.service.WatsonService#setAuthentication(okhttp3.Request. Builder)
    */
   @Override
   protected void setAuthentication(Builder builder) {
