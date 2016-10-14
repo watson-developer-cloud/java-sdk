@@ -76,7 +76,7 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
   /*
    * (non-Javadoc)
    *
-   * @see com.ibm.watson.watson.developer_cloud.RetrieveAndRankTest#setUp()
+   * @see com.ibm.watson.developer_cloud.RetrieveAndRankTest#setUp()
    */
   @Override
   @Before
