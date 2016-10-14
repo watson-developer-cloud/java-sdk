@@ -60,7 +60,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   /*
    * (non-Javadoc)
    *
-   * @see com.ibm.watson.watson.developer_cloud.WatsonServiceUnitTest#setUp()
+   * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
    */
   @Override
   @Before

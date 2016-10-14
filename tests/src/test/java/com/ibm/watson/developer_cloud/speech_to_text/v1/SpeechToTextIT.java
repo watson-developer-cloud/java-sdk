@@ -25,6 +25,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -32,6 +33,8 @@ import org.junit.rules.ExpectedException;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Customization;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.KeywordsResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
@@ -41,6 +44,8 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSessionStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordAlternatives;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 
 /**
@@ -52,6 +57,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private CountDownLatch lock = new CountDownLatch(1);
   private SpeechToText service;
   private SpeechResults asyncResults;
+  private String customizationId;
 
   /** The expected exception. */
   @Rule
@@ -66,6 +72,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
+
+    this.customizationId = getProperty("speech_to_text.customization_id");
 
     String username = getProperty("speech_to_text.username");
     String password = getProperty("speech_to_text.password");
@@ -176,14 +184,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testRecognizeFileStringRecognizeOptions() {
     File audio = new File("src/test/resources/speech_to_text/sample1.wav");
     String contentType = HttpMediaType.AUDIO_WAV;
-    RecognizeOptions options = new RecognizeOptions.Builder()
-        .continuous(true)
-        .timestamps(true)
-        .wordConfidence(true)
-        .model(EN_BROADBAND16K)
-        .contentType(contentType)
-        .profanityFilter(false)
-        .build();
+    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).timestamps(true).wordConfidence(true)
+        .model(EN_BROADBAND16K).contentType(contentType).profanityFilter(false).build();
     SpeechResults results = service.recognize(audio, options).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTimestamps());
@@ -198,14 +200,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     final String keyword1 = "rain";
     final String keyword2 = "tornadoes";
 
-    final RecognizeOptions options = new RecognizeOptions.Builder()
-        .contentType("audio/wav")
-        .model(SpeechModel.EN_US_BROADBANDMODEL.getName())
-        .continuous(true)
-        .inactivityTimeout(500)
-        .keywords(keyword1, keyword2)
-        .keywordsThreshold(0.7)
-        .build();
+    final RecognizeOptions options =
+        new RecognizeOptions.Builder().contentType("audio/wav").model(SpeechModel.EN_US_BROADBANDMODEL.getName())
+            .continuous(true).inactivityTimeout(500).keywords(keyword1, keyword2).keywordsThreshold(0.7).build();
 
     final File audio = new File("src/test/resources/speech_to_text/sample1.wav");
     final SpeechResults results = service.recognize(audio, options).execute();
@@ -239,16 +236,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
-    RecognizeOptions options = new RecognizeOptions.Builder()
-        .continuous(true)
-        .interimResults(true)
-        .inactivityTimeout(40)
-        .timestamps(true)
-        .maxAlternatives(2)
-        .wordAlternativesThreshold(0.5)
-        .model(EN_BROADBAND16K)
-        .contentType(HttpMediaType.AUDIO_WAV)
-        .build();
+    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
+        .inactivityTimeout(40).timestamps(true).maxAlternatives(2).wordAlternativesThreshold(0.5).model(EN_BROADBAND16K)
+        .contentType(HttpMediaType.AUDIO_WAV).build();
     FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/sample1.wav");
 
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
@@ -282,8 +272,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
     lock.await(2, TimeUnit.MINUTES);
     assertNotNull(asyncResults);
 
-    List<SpeechWordAlternatives> wordAlternatives = asyncResults.getResults()
-        .get(asyncResults.getResultIndex()).getWordAlternatives();
+    List<SpeechWordAlternatives> wordAlternatives =
+        asyncResults.getResults().get(asyncResults.getResultIndex()).getWordAlternatives();
     assertTrue(wordAlternatives != null && !wordAlternatives.isEmpty());
     assertNotNull(wordAlternatives.get(0).getAlternatives());
   }
@@ -321,7 +311,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * @throws FileNotFoundException the file not found exception
    */
   @Test
-  public void testGetRecognitionJobWithWrongId() throws InterruptedException, FileNotFoundException {
+  public void testGetRecognitionJobWithWrongId() {
     expectedException.expect(NotFoundException.class);
     expectedException.expectMessage("job not found");
     service.getRecognitionJob("foo").execute();
@@ -334,8 +324,97 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * @throws FileNotFoundException the file not found exception
    */
   @Test
-  public void testGetRecognitionJobs() throws InterruptedException, FileNotFoundException {
+  public void testGetRecognitionJobs() {
     List<RecognitionJob> jobs = service.getRecognitionJobs().execute();
     assertNotNull(jobs);
   }
+
+  @Test
+  @Ignore
+  public void testCreateCustomization() throws InterruptedException {
+    Customization customization =
+        service.createCustomization("my-customization-integration-test", SpeechModel.EN_US_BROADBANDMODEL,
+            "This customization is being use in the SDKs as part of the integration tests").execute();
+
+    try {
+      assertNotNull(customization.getId());
+      for (int x = 0; x < 30 && customization.getStatus() != Customization.Status.AVAILABLE; x++) {
+        Thread.sleep(3000);
+        customization = service.getCustomization(customization.getId()).execute();
+      }
+      customization = service.getCustomization(customization.getId()).execute();
+      assertEquals(Customization.Status.AVAILABLE, customization.getStatus());
+    } finally {
+      service.deleteCustomization(customization.getId());
+    }
+  }
+
+  /**
+   * Test get customizations.
+   */
+  @Test
+  public void testGetCustomizations() {
+    List<Customization> customizations = service.getCustomizations(null).execute();
+    assertNotNull(customizations);
+    assertTrue(!customizations.isEmpty());
+  }
+
+  /**
+   * Test get corpora.
+   *
+   */
+  @Test
+  public void testGetCorpora() {
+    List<Corpus> result = service.getCorpora(customizationId).execute();
+    assertNotNull(result);
+  }
+
+
+  /**
+   * Test add text to corpus.
+   *
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testAddTextToCorpus() {
+    service.addTextToCustomizationCorpus(customizationId, "foo3", null, null).execute();
+  }
+
+  /**
+   * Test get words.
+   */
+  @Test
+  public void testGetWords() {
+    List<Word> result = service.getWords(customizationId, Type.ALL).execute();
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+  }
+
+  /**
+   * Test get word.
+   */
+  public void testGetWord() {
+    Word result = service.getWord(customizationId, "string").execute();
+    assertNotNull(result);
+  }
+
+  /**
+   * Test add words.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testAddWords() throws FileNotFoundException {
+    service.resetCustomization(customizationId).execute();
+
+    Word newWord = loadFixture("src/test/resources/speech_to_text/word.json", Word.class);
+    newWord.setWord("foo1");
+    try {
+      service.addWords(customizationId, newWord).execute();
+    } finally {
+      service.deleteWord(customizationId, newWord.getWord());
+    }
+
+    service.trainCustomization(customizationId, null);
+  }
+
 }
