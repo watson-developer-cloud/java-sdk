@@ -30,6 +30,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public final class ConversationService extends WatsonService {
 
+  /** The Constant VERSION_DATE_2016-09-20. */
+  public static final String VERSION_DATE_2016_09_20 = "2016-09-20";
   /** The Constant VERSION_DATE_2016-07-11. */
   public static final String VERSION_DATE_2016_07_11 = "2016-07-11";
   private static final String URL = "https://gateway.watsonplatform.net/conversation/api";
@@ -51,7 +53,7 @@ public final class ConversationService extends WatsonService {
     }
 
     Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2016_07_11);
+        "'version cannot be null. Use " + VERSION_DATE_2016_09_20);
     this.versionDate = versionDate;
   }
 
