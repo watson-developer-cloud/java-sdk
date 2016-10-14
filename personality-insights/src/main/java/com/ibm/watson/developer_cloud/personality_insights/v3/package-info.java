@@ -11,7 +11,7 @@
  * specific language governing permissions and limitations under the License.
  */
 /**
- * Personality Insights v2.
+ * Personality Insights v3.
  */
-package com.ibm.watson.developer_cloud.personality_insights.v2;
+package com.ibm.watson.developer_cloud.personality_insights.v3;
 
