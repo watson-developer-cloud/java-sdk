@@ -154,7 +154,7 @@ public class VisualRecognition extends WatsonService {
   /*
    * (non-Javadoc)
    *
-   * @see com.ibm.watson.watson.developer_cloud.service.WatsonService#setAuthentication(okhttp3.Request. Builder)
+   * @see com.ibm.watson.developer_cloud.service.WatsonService#setAuthentication(okhttp3.Request. Builder)
    */
   @Override
   protected void setAuthentication(okhttp3.Request.Builder builder) {

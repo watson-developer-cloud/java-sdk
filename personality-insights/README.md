@@ -5,7 +5,7 @@
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.watson.developer_cloud</groupId>
+	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>personality-insights</artifactId>
 	<version>3.4.0</version>
 </dependency>
@@ -21,7 +21,7 @@ Use linguistic analytics to infer personality and social characteristics, includ
 Example: Analyze text and get a personality profile using the [Personality Insights][personality_insights] service.
 
 ```java
-PersonalityInsights service = new PersonalityInsights();
+PersonalityInsights service = new PersonalityInsights("2016-10-19");
 service.setUsernameAndPassword("<username>", "<password>");
 
 // Demo content from Moby Dick by Hermann Melville (Chapter 1)
