@@ -18,28 +18,28 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
 /**
  * Audio format supported by the {@link TextToSpeech} service.
  */
-public enum AudioFormat {
+public class AudioFormat {
 
   /** FLAC format (value is "audio/flac"). */
-  FLAC(HttpMediaType.AUDIO_FLAC),
+  public static final AudioFormat FLAC = new AudioFormat(HttpMediaType.AUDIO_FLAC);
 
   /** OGG format (value is "audio/ogg; codecs=opus"). */
-  OGG(HttpMediaType.AUDIO_OGG),
+  public static final AudioFormat OGG = new AudioFormat(HttpMediaType.AUDIO_OGG);
 
   /** OGG_VORBIS format (value is "audio/ogg; codecs=vorbis"). */
-  OGG_VORBIS(HttpMediaType.AUDIO_OGG_VORBIS),
+  public static final AudioFormat OGG_VORBIS = new AudioFormat(HttpMediaType.AUDIO_OGG_VORBIS);
 
   /** WAV format (value is "audio/wav"). */
-  WAV(HttpMediaType.AUDIO_WAV),
+  public static final AudioFormat WAV = new AudioFormat(HttpMediaType.AUDIO_WAV);
 
   /** Linear 16-bit Pulse-Code Modulation (PCM) format (value is "audio/l16"). */
-  PCM(HttpMediaType.AUDIO_PCM),
+  public static final AudioFormat PCM = new AudioFormat(HttpMediaType.AUDIO_PCM);
 
   /**
    * BASIC format, single-channel audio encoded using 8-bit u-law (or mu-law) data sampled at 8 KHz (value is
    * "audio/basic").
    */
-  BASIC(HttpMediaType.AUDIO_BASIC);
+  public static final AudioFormat BASIC = new AudioFormat(HttpMediaType.AUDIO_BASIC);
 
   private String mediaType;
 
@@ -48,7 +48,7 @@ public enum AudioFormat {
    *
    * @param mediaType the media type
    */
-  AudioFormat(String mediaType) {
+  public AudioFormat(String mediaType) {
     this.mediaType = mediaType;
   }
 

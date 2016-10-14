@@ -46,7 +46,7 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   /*
    * (non-Javadoc)
    *
-   * @see com.ibm.watson.watson.developer_cloud.WatsonServiceTest#setUp()
+   * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
   @Before

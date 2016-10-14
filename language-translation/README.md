@@ -6,7 +6,7 @@ Formerly called Language Translation. No code changes are required to migrate.
 ##### Maven
 ```xml
 <dependency>
-	<groupId>com.ibm.watson.watson.developer_cloud</groupId>
+	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>language-translator</artifactId>
 	<version>3.4.0</version>
 </dependency>
