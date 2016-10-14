@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 
@@ -20,15 +21,27 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
  * service of the recognition status and, optionally, the results automatically.
  */
 public class RecognitionCallback extends GenericModel {
-  private String status;
+  private Status status;
   private String url;
+
+  /**
+   * Register Callback Status.
+   */
+  public enum Status {
+
+    /** failed. */
+    @SerializedName("created") CREATED,
+
+    /** processing. */
+    @SerializedName("already created") ALREADY_CREATED
+  }
 
   /**
    * Gets the status.
    *
    * @return the status
    */
-  public String getStatus() {
+  public Status getStatus() {
     return status;
   }
 
@@ -37,7 +50,7 @@ public class RecognitionCallback extends GenericModel {
    *
    * @param status the new status
    */
-  public void setStatus(String status) {
+  public void setStatus(Status status) {
     this.status = status;
   }
 
