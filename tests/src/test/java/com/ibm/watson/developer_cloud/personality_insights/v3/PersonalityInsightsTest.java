@@ -10,7 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.personality_insights.v2;
+package com.ibm.watson.developer_cloud.personality_insights.v3;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,22 +23,22 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.Content;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.ContentItem;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.Language;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
-import com.ibm.watson.developer_cloud.personality_insights.v2.model.ProfileOptions;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.Content;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.ContentItem;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.Language;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.ProfileOptions;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
 /**
- * The Class PersonalityInsightsTest.
+ * PersonalityInsights Unit Test v3.
  *
  */
 public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
   private static final String RESOURCE = "src/test/resources/personality_insights/";
-  private static final String PROFILE_PATH = "/v2/profile";
+  private static final String PROFILE_PATH = "/v3/profile";
   private String text;
   private PersonalityInsights service;
   private Profile profile;
@@ -60,13 +60,13 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   /*
    * (non-Javadoc)
    *
-   * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
+   * @see com.ibm.watson.watson.developer_cloud.WatsonServiceUnitTest#setUp()
    */
   @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new PersonalityInsights();
+    service = new PersonalityInsights(PersonalityInsights.VERSION_DATE_2016_10_19);
     service.setEndPoint(getMockWebServerUrl());
     service.setApiKey("");
   }
@@ -86,7 +86,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     final Profile profile = service.getProfile(options).execute();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PROFILE_PATH, request.getPath());
+    assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
     assertEquals("POST", request.getMethod());
     assertNotNull(profile);
     assertEquals(this.profile, profile);
@@ -105,7 +105,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     final Profile profile = service.getProfile(options).execute();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PROFILE_PATH, request.getPath());
+    assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals("en", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
     assertEquals(HttpMediaType.TEXT.toString(), request.getHeader(HttpHeaders.CONTENT_TYPE));
@@ -121,13 +121,18 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetProfileWithSpanishText() throws InterruptedException {
-    final ProfileOptions options = new ProfileOptions.Builder().text(text).language(Language.SPANISH).build();
+    final ProfileOptions options = new ProfileOptions.Builder()
+        .text(text)
+        .language(Language.SPANISH)
+        .consumptionPreferences(true)
+        .rawScores(true)
+        .build();
 
     server.enqueue(jsonResponse(profile));
     final Profile profile = service.getProfile(options).execute();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(PROFILE_PATH, request.getPath());
+    assertEquals(PROFILE_PATH + "?version=2016-10-19&raw_scores=true&consumption_preferences=true", request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals("es", request.getHeader(HttpHeaders.CONTENT_LANGUAGE));
     assertEquals(HttpMediaType.TEXT.toString(), request.getHeader(HttpHeaders.CONTENT_TYPE));
