@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+## Version 3.5.0
+
+_2016-10-14_
+
+* New: Personality Insights v3
+* New: Speech to Text Customizations
+* New: Conversation version date 2016-09-19
+* Fix: Calling `synthesize` in Text to Speech now accepts a `rate`  for PCM. #454
+* Fix: READMEs now point to the right maven dependency. #459
+
 ## Version 3.4.1
 
 _2016-09-30_
