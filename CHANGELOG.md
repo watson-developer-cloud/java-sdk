@@ -1,6 +1,39 @@
 Change Log
 ==========
 
+## Version 3.5.0
+
+_2016-10-14_
+
+* New: Personality Insights v3
+* New: Speech to Text Customizations
+* New: Conversation version date 2016-09-19
+* Fix: Calling `synthesize` in Text to Speech now accepts a `rate`  for PCM. #454
+* Fix: READMEs now point to the right maven dependency. #459
+
+## Version 3.4.1
+
+_2016-09-30_
+
+ * New: Add Language Translator
+
+
+## Version 3.4.0
+
+_2016-09-29_
+
+ The SDK 3.4.0 is the first step into moving from one maven module into a multi-module project.
+ This change will allow users to specify the service they want to use skipping the other services.
+ For example, in order to use Retrieve and Rank in Gradle you need:
+
+ ```gradle
+ 'com.ibm.watson.developer_cloud:retrieve-and-rank:3.4.0'
+ ```
+
+ * New: Move to a maven multi-module project
+ * Fix: Send default headers in WebSocket connections #422
+ * Fix: Skip token creation if `skipAuthentication=true` #440
+
 ## Version 3.3.1
 
 _2016-09-07_

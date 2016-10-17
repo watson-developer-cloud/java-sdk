@@ -13,7 +13,7 @@ Before that, please search for similar issues. It's possible somebody has encoun
 If you want to contribute to the repository, here's a quick guide:
   1. Fork the repository
   2. develop and test your code changes, maven: `mvn test` or gradle: `gradle test`.
-    * Respect the original code [style guide][styleguide].
+    * Run `checkstyle`: `mvn checkstyle:checkstyle`. 🏁
     * Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
     * Check for unnecessary whitespace with git diff --check before committing.
   3. Make the test pass
@@ -51,7 +51,7 @@ By making a contribution to this project, I certify that:
 
 ## Emoji Cheatsheet
 
-When creating creating commits or updating the CHANGELOG, please **start** the commit message or update with one of the following applicable Emoji. Emoji should not be used at the start of issue or pull request titles.
+When creating creating commits or updating the `CHANGELOG`, please **start** the commit message or update with one of the following applicable Emoji. Emoji should not be used at the start of issue or pull request titles.
 
 * :new: `:new:` when adding new functionality
 * :bug: `:bug:` when fixing a bug
@@ -73,6 +73,5 @@ When creating creating commits or updating the CHANGELOG, please **start** the c
 
 [dw]: https://developer.ibm.com/answers/questions/ask/?topics=watson
 [stackoverflow]: http://stackoverflow.com/questions/ask?tags=ibm-watson
-[styleguide]: https://google.github.io/styleguide/javaguide.html
 [Maven]: https://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
 [Gradle]: https://docs.gradle.org/current/userguide/installation.html
