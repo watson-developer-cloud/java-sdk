@@ -32,7 +32,11 @@ public class AudioFormat {
   /** WAV format (value is "audio/wav"). */
   public static final AudioFormat WAV = new AudioFormat(HttpMediaType.AUDIO_WAV);
 
-  /** Linear 16-bit Pulse-Code Modulation (PCM) format (value is "audio/l16"). */
+  /**
+   * Linear 16-bit Pulse-Code Modulation (PCM) format (value is "audio/l16").
+   * This format must have a sampling rate set before use, see {@link #getPCM()}.
+   */
+  @Deprecated
   public static final AudioFormat PCM = new AudioFormat(HttpMediaType.AUDIO_PCM);
 
   /**
@@ -40,6 +44,15 @@ public class AudioFormat {
    * "audio/basic").
    */
   public static final AudioFormat BASIC = new AudioFormat(HttpMediaType.AUDIO_BASIC);
+
+  /**
+   * Linear 16-bit Pulse-Code Modulation (PCM) format (value is "audio/l16").
+   *
+   * @param rate The sampling rate, in Hz.
+   */
+  public static AudioFormat getPCM(int rate) {
+      return new AudioFormat(HttpMediaType.createAudioRaw(rate));
+  }
 
   private String mediaType;
 
