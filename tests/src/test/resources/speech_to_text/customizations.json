@@ -1,0 +1,43 @@
+{
+  "customizations": [{
+    "customization_id": "b8d095f0-8fe1-11e6-a73a-0da9193a4475",
+    "created": "2016-10-11T18:37:11.247",
+    "language": "en-US",
+    "owner": "8a6f5bb1-5b2d-4a20-85a9-eaa421d25c88",
+    "name": "sdk-customization-test",
+    "description": "Customization model used to test the SDKs",
+    "base_model_name": "en-US_BroadbandModel",
+    "status": "pending",
+    "progress": 0
+}, {
+    "customization_id": "20ca5290-8fe2-11e6-9b09-6f4eec3a410e",
+    "created": "2016-10-11T18:40:05.689",
+    "language": "en-US",
+    "owner": "8a6f5bb1-5b2d-4a20-85a9-eaa421d25c88",
+    "name": "my-customization-integration-test",
+    "description": "This customization is being use in the SDKs as part of the integration tests",
+    "base_model_name": "en-US_BroadbandModel",
+    "status": "pending",
+    "progress": 0
+}, {
+    "customization_id": "c3dede50-8fe3-11e6-be92-bb627d4684b9",
+    "created": "2016-10-11T18:51:48.789",
+    "language": "en-US",
+    "owner": "8a6f5bb1-5b2d-4a20-85a9-eaa421d25c88",
+    "name": "my-customization-integration-test",
+    "description": "This customization is being use in the SDKs as part of the integration tests",
+    "base_model_name": "en-US_BroadbandModel",
+    "status": "pending",
+    "progress": 0
+}, {
+    "customization_id": "47c1a830-8fe7-11e6-bae7-1583ef8b8b73",
+    "created": "2016-10-11T19:16:58.547",
+    "language": "en-US",
+    "owner": "8a6f5bb1-5b2d-4a20-85a9-eaa421d25c88",
+    "name": "sdk-customization-test",
+    "description": "Customization model used to test the SDKs",
+    "base_model_name": "en-US_BroadbandModel",
+    "status": "pending",
+    "progress": 0
+}]
+}
