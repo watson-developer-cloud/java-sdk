@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 package com.ibm.watson.developer_cloud.conversation.v1;
-		 
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,49 +28,55 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.conversation.v1.ToneDetection;
 
 /**
- * Example of how to call the {@link ConversationService#message(String, MessageRequest)} method
+ * Example of how to call the
+ * {@link ConversationService#message(String, MessageRequest)} method
  * synchronous, asynchronous, and using react.
+ * 
  * @version v1
  */
 public class ConversationToneAnalyzerIntegrationExample {
-	
+
   public static void main(String[] args) throws Exception {
-    
-	// instantiate the conversation service  
-	ConversationService conversationService = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
+
+    // instantiate the conversation service
+    ConversationService conversationService = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
     conversationService.setUsernameAndPassword("<username>", "<password>");
-    
+
     // instantiate the tone analyzer service
     ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
     toneService.setUsernameAndPassword("<username>", "<password>");
-    
+
     // workspace id
     String workspaceId = "<workspace-id>";
-    
-    // maintain history in the context variable - will add a history variable to each of the emotion, social
+
+    // maintain history in the context variable - will add a history variable to
+    // each of the emotion, social
     // and language tones
     Boolean maintainHistory = false;
 
     /**
-     * Input for the conversation service: 
-     * 	input (String): an input string (the user's conversation turn) and
-     *  context (Map<String,Object>: any context that needs to be maintained - either added by the client app or passed in the
-     *  response from the conversation service on the previous conversation turn.
+     * Input for the conversation service: input (String): an input string (the
+     * user's conversation turn) and context (Map<String,Object>: any context
+     * that needs to be maintained - either added by the client app or passed in
+     * the response from the conversation service on the previous conversation
+     * turn.
      */
     String input = "I am happy";
-    Map<String,Object> context = new HashMap<String,Object>();
+    Map<String, Object> context = new HashMap<String, Object>();
 
     // UPDATE CONTEXT HERE IF CONTINUING AN ONGOING CONVERSATION
-    // set local context variable to the context from the last response from the Conversation Service 
-    // (see the getContext() method of the MessageResponse class in com.ibm.watson.developer_cloud.conversation.v1.model)
+    // set local context variable to the context from the last response from the
+    // Conversation Service
+    // (see the getContext() method of the MessageResponse class in
+    // com.ibm.watson.developer_cloud.conversation.v1.model)
 
     // async call to Tone Analyzer
     toneService.getTone(input, null).enqueue(new ServiceCallback<ToneAnalysis>() {
       @Override
       public void onResponse(ToneAnalysis toneResponsePayload) {
 
-    	// update context with the tone data returned by the Tone Analyzer
-    	ToneDetection.updateUserTone(context, toneResponsePayload, maintainHistory); 
+        // update context with the tone data returned by the Tone Analyzer
+        ToneDetection.updateUserTone(context, toneResponsePayload, maintainHistory);
 
         // call Conversation Service with the input and tone-aware context
         MessageRequest newMessage = new MessageRequest.Builder().inputText(input).context(context).build();
@@ -81,12 +87,14 @@ public class ConversationToneAnalyzerIntegrationExample {
           }
 
           @Override
-          public void onFailure(Exception e) {}
+          public void onFailure(Exception e) {
+          }
         });
       }
 
       @Override
-      public void onFailure(Exception e) {}
+      public void onFailure(Exception e) {
+      }
     });
   }
 }
