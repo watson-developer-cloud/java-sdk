@@ -62,7 +62,6 @@ import okhttp3.ws.WebSocket;
  */
 public class SpeechToText extends WatsonService {
 
-  private static final String WORDS = "words";
   private static final String ALLOW_OVERRIDE = "allow_override";
   private static final String CALLBACK_URL = "callback_url";
   private static final String CONTINUOUS = "continuous";
@@ -83,8 +82,9 @@ public class SpeechToText extends WatsonService {
   private static final String USER_TOKEN = "user_token";
   private static final String WORD_ALTERNATIVES_THRESHOLD = "word_alternatives_threshold";
   private static final String WORD_CONFIDENCE = "word_confidence";
-  private static final String WORD_TYPE_TO_ADD = "word_type_to_add";
   private static final String WORD_TYPE = "word_type";
+  private static final String WORD_TYPE_TO_ADD = "word_type_to_add";
+  private static final String WORDS = "words";
 
   private static final String PATH_CORPORA = "/v1/customizations/%s/corpora";
   private static final String PATH_CORPUS = "/v1/customizations/%s/corpora/%s";
@@ -102,20 +102,18 @@ public class SpeechToText extends WatsonService {
   private static final String PATH_SESSIONS = "/v1/sessions";
   private static final String PATH_TRAIN = "/v1/customizations/%s/train";
   private static final String PATH_UPGRADE = "/v1/customizations/%s/upgrade";
-  private static final String PATH_WORDS = "/v1/customizations/%s/words";
   private static final String PATH_WORD = "/v1/customizations/%s/words/%s";
+  private static final String PATH_WORDS = "/v1/customizations/%s/words";
 
   private static final Type TYPE_CORPORA = new TypeToken<List<Corpus>>() { }.getType();
-  private static final Type TYPE_WORDS = new TypeToken<List<Word>>() { }.getType();
   private static final Type TYPE_LIST_CUSTOMIZATION = new TypeToken<List<Customization>>() { }.getType();
   private static final Type TYPE_LIST_MODELS = new TypeToken<List<SpeechModel>>() { }.getType();
   private static final Type TYPE_LIST_RECOGNITIONS = new TypeToken<List<RecognitionJob>>() { }.getType();
   private static final Type TYPE_SESSION_STATUS = new TypeToken<SpeechSessionStatus>() { }.getType();
+  private static final Type TYPE_WORDS = new TypeToken<List<Word>>() { }.getType();
 
   private static final String URL = "https://stream.watsonplatform.net/speech-to-text/api";
-
   private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
-
   /**
    * Instantiates a new Speech to Text service.
    */
@@ -227,26 +225,18 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates the customization.
+   * Upgrades a custom language model to the latest release level of the Speech to Text service. The method bases the
+   * upgrade on the latest trained data stored for the custom model. <br/>
+   * <strong>Note: This method is not currently implemented. It will be added for a future release of the API. </strong>
    *
-   * @param name The customization name
-   * @param baseModel The name of the language model that is to be customized by the new model. e.g:
-   *        'en-US_BroadbandModel'.
-   * @param description the customization description
+   * @param customizationId the customization id
    * @return the service call
    */
-  public ServiceCall<Customization> createCustomization(String name, SpeechModel baseModel, String description) {
-    Validator.notNull(name, "name cannot be null");
-    Validator.notNull(baseModel, "baseModel cannot be null");
-
-    RequestBuilder requestBuilder = RequestBuilder.post(PATH_CUSTOMIZATIONS);
-
-    Customization newCustomization = new Customization();
-    newCustomization.setBaseModelName(baseModel.getName());
-    newCustomization.setDescription(description);
-    newCustomization.setName(name);
-    requestBuilder.bodyContent(GSON.toJson(newCustomization), HttpMediaType.APPLICATION_JSON);
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Customization.class));
+  @SuppressWarnings("unused")
+  private ServiceCall<Void> upgradeCustomization(String customizationId) {
+    Validator.notNull(customizationId, "customizationId cannot be null");
+    RequestBuilder requestBuilder = RequestBuilder.post(String.format(PATH_UPGRADE, customizationId));
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
@@ -281,6 +271,80 @@ public class SpeechToText extends WatsonService {
 
     requestBuilder.body(RequestBody.create(HttpMediaType.TEXT, trainingData));
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Add/Updates a custom word to a custom language model. The service automatically populates the words resource for a custom model
+   * with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to add
+   * additional words or to modify existing words in the words resource. Adding or modifying a custom word does not
+   * affect the custom model until you train the model for the new data by using
+   * {@link SpeechToText#trainCustomization(String, Boolean)}.
+   *
+   * @param customizationId The GUID of the custom language model to which a word is to be added. You must make the
+   *        request with the service credentials of the model's owner.
+   * @param word the word to add/update
+   * @return the service call
+   */
+  public ServiceCall<Void> addWord(String customizationId, Word word) {
+    Validator.notNull(customizationId, "customizationId cannot be null");
+    Validator.notNull(word, "word cannot be null");
+    Validator.notNull(word.getWord(), "word.word cannot be null");
+
+    RequestBuilder requestBuilder = RequestBuilder.put(String.format(PATH_WORD, customizationId, word.getWord()));
+    requestBuilder.bodyContent(GSON.toJson(word), HttpMediaType.APPLICATION_JSON);
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
+
+  }
+
+  /**
+   * Adds one or more custom words to a custom language model. The service automatically populates the words resource
+   * for a custom model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this
+   * method to add additional words or to modify existing words in the words resource. Adding or modifying custom words
+   * does not affect the custom model until you train the model for the new data by using
+   * {@link SpeechToText#trainCustomization(String, Boolean)}.
+   *
+   * @param customizationId The GUID of the custom language model to which words are to be added. You must make the
+   *        request with the service credentials of the model's owner.
+   * @param words the list of words to be added.
+   * @return the service call
+   */
+  public ServiceCall<Void> addWords(String customizationId, Word... words) {
+    Validator.notNull(customizationId, "customizationId cannot be null");
+    Validator.notNull(words, "words cannot be null");
+    Validator.isTrue(words.length > 0, "words cannot be empty");
+
+    RequestBuilder requestBuilder = RequestBuilder.post(String.format(PATH_WORDS, customizationId));
+
+    Map<String, Object> wordsAsMap = new HashMap<String, Object>();
+    wordsAsMap.put(WORDS, words);
+
+    requestBuilder.bodyContent(GSON.toJson(wordsAsMap), HttpMediaType.APPLICATION_JSON);
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Creates the customization.
+   *
+   * @param name The customization name
+   * @param baseModel The name of the language model that is to be customized by the new model. e.g:
+   *        'en-US_BroadbandModel'.
+   * @param description the customization description
+   * @return the service call with the GUID which identifies the created custom model.
+   */
+  public ServiceCall<Customization> createCustomization(String name, SpeechModel baseModel, String description) {
+    Validator.notNull(name, "name cannot be null");
+    Validator.notNull(baseModel, "baseModel cannot be null");
+
+    RequestBuilder requestBuilder = RequestBuilder.post(PATH_CUSTOMIZATIONS);
+
+    Customization newCustomization = new Customization();
+    newCustomization.setBaseModelName(baseModel.getName());
+    newCustomization.setDescription(description);
+    newCustomization.setName(name);
+    requestBuilder.bodyContent(GSON.toJson(newCustomization), HttpMediaType.APPLICATION_JSON);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Customization.class));
   }
 
   /**
@@ -358,24 +422,12 @@ public class SpeechToText extends WatsonService {
     return createServiceCall(request.build(), ResponseConverterUtils.getObject(SpeechSession.class));
   }
 
-  /**
-   * Delete customization.
-   *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
-   * @return the service call
-   */
-  public ServiceCall<Void> deleteCustomization(String customizationId) {
-    Validator.notNull(customizationId, "customizationId cannot be null");
-    RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_CUSTOMIZATION, customizationId));
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
-  }
 
   /**
    * Delete customization corpus.
    *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
+   * @param customizationId The GUID of the custom language model from which the corpus is to be deleted. You must make
+   *        the request with the service credentials of the model's owner.
    * @param corpusName the corpus name
    * @return the service call
    */
@@ -383,6 +435,19 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(customizationId, "customizationId cannot be null");
     Validator.notNull(corpusName, "corpusName cannot be null");
     RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_CORPUS, customizationId, corpusName));
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Delete customization.
+   *
+   * @param customizationId The GUID of the custom language model being deleted. You must make the request with the
+   *        service credentials of the model's owner.
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteCustomization(String customizationId) {
+    Validator.notNull(customizationId, "customizationId cannot be null");
+    RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_CUSTOMIZATION, customizationId));
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -399,7 +464,6 @@ public class SpeechToText extends WatsonService {
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
-
   /**
    * Deletes a {@link SpeechSession}.
    *
@@ -414,22 +478,27 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Gets the customization information.
+   * Deletes a custom word from a custom language model. You can remove any word that you added to the custom model's
+   * words resource via any means. However, if the word also exists in the service's base vocabulary, the service
+   * removes only the custom pronunciation for the word; the word remains in the base vocabulary.
    *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
-   * @return the customization
+   * @param customizationId The GUID of the custom language model from which the word is being deleted. You must make
+   *        the request with the service credentials of the model's owner.
+   * @param wordName the word name
+   * @return the service call
    */
-  public ServiceCall<Customization> getCustomization(String customizationId) {
+  public ServiceCall<Void> deleteWord(String customizationId, String wordName) {
     Validator.notNull(customizationId, "customizationId cannot be null");
-    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_CUSTOMIZATION, customizationId));
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Customization.class));
+    Validator.notNull(wordName, "words cannot be null");
+
+    RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_WORD, customizationId, wordName));
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
    * Gets the customization corpus list.
    *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
+   * @param customizationId The GUID of the custom language model whose corpora is being queried. You must make the
    *        request with the service credentials of the model's owner.
    * @return the list of customization corpora
    */
@@ -442,7 +511,20 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Gets the customizations.
+   * Gets the customization information.
+   *
+   * @param customizationId The GUID of the custom language model being queried. You must make the request with the
+   *        service credentials of the model's owner.
+   * @return the customization
+   */
+  public ServiceCall<Customization> getCustomization(String customizationId) {
+    Validator.notNull(customizationId, "customizationId cannot be null");
+    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_CUSTOMIZATION, customizationId));
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Customization.class));
+  }
+
+  /**
+   * Gets all the customizations belonging to the user.
    *
    * @param language The language for which custom models are to be returned.
    * @return the customizations
@@ -527,6 +609,41 @@ public class SpeechToText extends WatsonService {
     ResponseConverter<SpeechSessionStatus> converter =
         ResponseConverterUtils.getGenericObject(TYPE_SESSION_STATUS, "session");
     return createServiceCall(request, converter);
+  }
+
+  /**
+   * Gets information about a word from a custom language model.
+   *
+   * @param customizationId The GUID of the custom language model containing the word being queried. You must make the
+   *        request with the service credentials of the model's owner.
+   * @param wordName the word name
+   * @return the words
+   */
+  public ServiceCall<Word> getWord(String customizationId, String wordName) {
+    Validator.notNull(customizationId, "customizationId cannot be null");
+    Validator.notNull(wordName, "wordName cannot be null");
+
+    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_WORD, customizationId, wordName));
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Word.class));
+  }
+
+  /**
+   * Gets information about all the words from a custom language model.
+   *
+   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
+   *        request with the service credentials of the model's owner.
+   * @param type the word type. Possible values are: ALL, USER or CORPORA.
+   * @return the words
+   */
+  public ServiceCall<List<Word>> getWords(String customizationId, Word.Type type) {
+    Validator.notNull(customizationId, "customizationId cannot be null");
+    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_WORDS, customizationId));
+    if (type != null) {
+      requestBuilder.query(WORD_TYPE, type.toString().toLowerCase());
+    }
+
+    ResponseConverter<List<Word>> converter = ResponseConverterUtils.getGenericObject(TYPE_WORDS, WORDS);
+    return createServiceCall(requestBuilder.build(), converter);
   }
 
   /**
@@ -680,8 +797,8 @@ public class SpeechToText extends WatsonService {
    * initializes the model to its state when it was first created. Metadata such as the name and language of the model
    * are preserved.
    *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
+   * @param customizationId The GUID of the custom language model being reset. You must make the request with the
+   *        service credentials of the model's owner.
    * @return the service call
    */
   public ServiceCall<Void> resetCustomization(String customizationId) {
@@ -709,8 +826,8 @@ public class SpeechToText extends WatsonService {
    * fix.</li>
    * </ul>
    *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
+   * @param customizationId The GUID of the custom language model being trained. You must make the request with the
+   *        service credentials of the model's owner.
    * @param wordTypeToAdd the word type to add
    * @return the service call
    */
@@ -721,124 +838,5 @@ public class SpeechToText extends WatsonService {
       requestBuilder.query(WORD_TYPE_TO_ADD, wordTypeToAdd.toString().toLowerCase());
     }
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Upgrades a custom language model to the latest release level of the Speech to Text service. The method bases the
-   * upgrade on the latest trained data stored for the custom model. <br/>
-   * <strong>Note: This method is not currently implemented. It will be added for a future release of the API. </strong>
-   *
-   * @param customizationId the customization id
-   * @return the service call
-   */
-  @SuppressWarnings("unused")
-  private ServiceCall<Void> upgradeCustomization(String customizationId) {
-    Validator.notNull(customizationId, "customizationId cannot be null");
-    RequestBuilder requestBuilder = RequestBuilder.post(String.format(PATH_UPGRADE, customizationId));
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Gets information a custom word from a custom language model.
-   *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
-   * @param wordName the word name
-   * @return the words
-   */
-  public ServiceCall<Word> getWord(String customizationId, String wordName) {
-    Validator.notNull(customizationId, "customizationId cannot be null");
-    Validator.notNull(wordName, "wordName cannot be null");
-
-    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_WORD, customizationId, wordName));
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Word.class));
-  }
-
-  /**
-   * Gets information about all the custom words from a custom language model.
-   *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
-   * @param type the word type. Possible values are: ALL, USER or CORPORA.
-   * @return the words
-   */
-  public ServiceCall<List<Word>> getWords(String customizationId, Word.Type type) {
-    Validator.notNull(customizationId, "customizationId cannot be null");
-    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_WORDS, customizationId));
-    if (type != null) {
-      requestBuilder.query(WORD_TYPE, type.toString().toLowerCase());
-    }
-
-    ResponseConverter<List<Word>> converter = ResponseConverterUtils.getGenericObject(TYPE_WORDS, WORDS);
-    return createServiceCall(requestBuilder.build(), converter);
-  }
-
-  /**
-   * Adds one or more custom words to a custom language model. The service populates the words resource for a custom
-   * model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to add
-   * additional words or to modify existing words in the words resource. Adding or modifying custom words does not
-   * affect the custom model until you train the model for the new data by using
-   * {@link SpeechToText#trainCustomization(String, Boolean)}.
-   *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
-   * @param words the list of words to be added.
-   * @return the service call
-   */
-  public ServiceCall<Void> addWords(String customizationId, Word... words) {
-    Validator.notNull(customizationId, "customizationId cannot be null");
-    Validator.notNull(words, "words cannot be null");
-    Validator.isTrue(words.length > 0, "words cannot be empty");
-
-    RequestBuilder requestBuilder = RequestBuilder.post(String.format(PATH_WORDS, customizationId));
-
-    Map<String, Object> wordsAsMap = new HashMap<String, Object>();
-    wordsAsMap.put(WORDS, words);
-
-    requestBuilder.bodyContent(GSON.toJson(wordsAsMap), HttpMediaType.APPLICATION_JSON);
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Deletes a custom word from a custom language model. You can remove any word that you added to the custom model's
-   * words resource via any means. However, if the word also exists in the service's base vocabulary, the service
-   * removes only the custom pronunciation for the word; the word remains in the base vocabulary.
-   *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
-   * @param wordName the word name
-   * @return the service call
-   */
-  public ServiceCall<Void> deleteWord(String customizationId, String wordName) {
-    Validator.notNull(customizationId, "customizationId cannot be null");
-    Validator.notNull(wordName, "words cannot be null");
-
-    RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_WORD, customizationId, wordName));
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Add/Updates a custom word to a custom language model. The service populates the words resource for a custom model
-   * with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to add
-   * additional words or to modify existing words in the words resource. Adding or modifying a custom word does not
-   * affect the custom model until you train the model for the new data by using
-   * {@link SpeechToText#trainCustomization(String, Boolean)}.
-   *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
-   * @param word the word to add/update
-   * @return the service call
-   */
-  public ServiceCall<Void> addWord(String customizationId, Word word) {
-    Validator.notNull(customizationId, "customizationId cannot be null");
-    Validator.notNull(word, "word cannot be null");
-    Validator.notNull(word.getWord(), "word.word cannot be null");
-
-    RequestBuilder requestBuilder = RequestBuilder.put(String.format(PATH_WORD, customizationId, word.getWord()));
-    requestBuilder.bodyContent(GSON.toJson(word), HttpMediaType.APPLICATION_JSON);
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
-
   }
 }
