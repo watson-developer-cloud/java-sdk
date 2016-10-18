@@ -3,13 +3,15 @@ Change Log
 
 ## Version 3.5.0
 
-_2016-10-14_
+_2016-10-19_
 
 * New: Personality Insights v3
 * New: Speech to Text Customizations
 * New: Conversation version date 2016-09-19
 * Fix: Calling `synthesize` in Text to Speech now accepts a `rate`  for PCM. #454
-* Fix: READMEs now point to the right maven dependency. #459
+* Fix: READMEs now point to the right maven dependency #459
+* Fix: AlchemyLanguage now has anchor dates for combine calls
+* Fix: Retrieve and Rank `topAnswer` bug #456
 
 ## Version 3.4.1
 
