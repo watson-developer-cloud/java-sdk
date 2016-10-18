@@ -114,6 +114,7 @@ public class SpeechToText extends WatsonService {
 
   private static final String URL = "https://stream.watsonplatform.net/speech-to-text/api";
   private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
+
   /**
    * Instantiates a new Speech to Text service.
    */
@@ -274,9 +275,9 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Add/Updates a custom word to a custom language model. The service automatically populates the words resource for a custom model
-   * with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to add
-   * additional words or to modify existing words in the words resource. Adding or modifying a custom word does not
+   * Add/Updates a custom word to a custom language model. The service automatically populates the words resource for a
+   * custom model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to
+   * add additional words or to modify existing words in the words resource. Adding or modifying a custom word does not
    * affect the custom model until you train the model for the new data by using
    * {@link SpeechToText#trainCustomization(String, Boolean)}.
    *
