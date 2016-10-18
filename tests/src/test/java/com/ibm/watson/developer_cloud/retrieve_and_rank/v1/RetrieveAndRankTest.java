@@ -509,8 +509,10 @@ public class RetrieveAndRankTest extends WatsonServiceUnitTest {
     Ranking serviceResponse = service.rank(ANY_RANKER_ID, rankFile, numToRank).execute();
     RecordedRequest request = server.takeRequest();
 
+    String body = request.getBody().readUtf8();
     assertEquals(RANK_URL, request.getPath());
     assertEquals("POST", request.getMethod());
+    assertTrue(body.contains("Content-Disposition: form-data; name=\"answers\""));
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertEquals(mockResponse, serviceResponse);
     assertEquals(request.getHeader(HttpHeaders.ACCEPT), HttpMediaType.APPLICATION_JSON);
