@@ -40,7 +40,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   private static final String IMAGE_COLORADO = "src/test/resources/alchemy/colorado.jpg";
   private static final String IMAGE_COLORADO_URL = "https://raw.githubusercontent.com/watson-developer-cloud/"
       + "doc-tutorial-downloads/master/visual-recognition/colorado.jpg";
-  private static final String BABY_IMAGE = "https://visual-recognition-demo.mybluemix.net/images/samples/1.jpg";
+  private static final String VR_IMAGE = "https://visual-recognition-demo.mybluemix.net/images/samples/3.jpg";
 
   /** The html example. */
   private String htmlExample;
@@ -160,7 +160,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
    */
   @Test
   public void testGetRankedImageKeywordsFromURL() {
-    final ImageKeywords image = service.getImageKeywords(HttpUrl.parse(BABY_IMAGE).url(), true, true).execute();
+    final ImageKeywords image = service.getImageKeywords(HttpUrl.parse(VR_IMAGE).url(), true, true).execute();
 
     Assert.assertNotNull(image);
   }
@@ -181,7 +181,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeFacesFromURL() {
-    final ImageFaces image = service.recognizeFaces(HttpUrl.parse(BABY_IMAGE).url(), false).execute();
+    final ImageFaces image = service.recognizeFaces(HttpUrl.parse(VR_IMAGE).url(), false).execute();
 
     Assert.assertNotNull(image);
   }
