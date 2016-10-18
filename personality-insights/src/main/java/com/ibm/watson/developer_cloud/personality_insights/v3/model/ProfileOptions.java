@@ -164,7 +164,7 @@ public class ProfileOptions {
   private Boolean rawScores;
   private Language language;
   private String text;
-  public Boolean consumptionPreferences;
+  private Boolean consumptionPreferences;
 
   private ProfileOptions(Builder builder) {
     Validator.isTrue(

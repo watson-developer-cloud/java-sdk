@@ -10,7 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.personality_insights.v2;
+package com.ibm.watson.developer_cloud.personality_insights.v3;
 
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
 
