@@ -334,15 +334,18 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty(ANSWERS, ((topAnswers != null) && (topAnswers > 0)) ? topAnswers : 10);
 
-    final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_data\""),
-            RequestBody.create(HttpMediaType.BINARY_FILE, answers))
-        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_metadata\""),
-            RequestBody.create(HttpMediaType.TEXT, contentJson.toString()))
-        .build();
+    okhttp3.MultipartBody.Builder builder =  new MultipartBody.Builder()
+        .setType(MultipartBody.FORM)
+        .addPart(Headers.of(
+            HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_data\""),
+            RequestBody.create(HttpMediaType.BINARY_FILE, answers)
+        );
+
+    if (topAnswers != null)
+      builder.addFormDataPart(ANSWERS, topAnswers.toString());
 
     final String path = String.format(PATH_RANK, rankerID);
-    final Request request = RequestBuilder.post(path).body(body).build();
+    final Request request = RequestBuilder.post(path).body(builder.build()).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(Ranking.class));
   }
 
