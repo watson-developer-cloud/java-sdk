@@ -403,8 +403,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * @throws FileNotFoundException the file not found exception
    */
   @Test
+  @Ignore
   public void testAddWords() throws FileNotFoundException {
-    service.resetCustomization(customizationId).execute();
 
     Word newWord = loadFixture("src/test/resources/speech_to_text/word.json", Word.class);
     newWord.setWord("foo1");
