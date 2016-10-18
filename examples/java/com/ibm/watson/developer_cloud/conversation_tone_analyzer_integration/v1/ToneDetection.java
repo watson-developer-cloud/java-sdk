@@ -1,19 +1,16 @@
 /**
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1;
+package com.ibm.watson.developer_cloud.conversation_tone_analyzer_integration.v1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,14 +21,16 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneCategory;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneScore;
 
+/**
+ * ToneDetection.
+ */
 public class ToneDetection {
 
   /**
-   * Thresholds for identifying meaningful tones returned by the Watson Tone
-   * Analyzer. Current values are based on the recommendations made by the
-   * Watson Tone Analyzer at
-   * https://www.ibm.com/watson/developercloud/doc/tone-analyzer/understanding-tone.shtml
-   * These thresholds can be adjusted to client/domain requirements.
+   * Thresholds for identifying meaningful tones returned by the Watson Tone Analyzer. Current values are based on the
+   * recommendations made by the Watson Tone Analyzer at
+   * https://www.ibm.com/watson/developercloud/doc/tone-analyzer/understanding-tone.shtml These thresholds can be
+   * adjusted to client/domain requirements.
    */
   private static final Double PRIMARY_EMOTION_SCORE_THRESHOLD = 0.5;
   private static final Double LANGUAGE_HIGH_SCORE_THRESHOLD = 0.75;
@@ -40,24 +39,28 @@ public class ToneDetection {
   private static final Double SOCIAL_LOW_SCORE_THRESHOLD = 0.25;
 
   /**
-   * Labels for the tone categories returned by the Watson Tone Analyzer
+   * Instantiates a new tone detection.
+   */
+  private ToneDetection() { }
+
+  /**
+   * Labels for the tone categories returned by the Watson Tone Analyzer.
    */
   private static final String EMOTION_TONE_LABEL = "emotion_tone";
   private static final String LANGUAGE_TONE_LABEL = "language_tone";
   private static final String SOCIAL_TONE_LABEL = "social_tone";
 
   /**
-   * updateUserTone processes the Tone Analyzer payload to pull out the emotion,
-   * language and social tones, and identify the meaningful tones (i.e., those
-   * tones that meet the specified thresholds). The conversationPayload json
-   * object is updated to include these tones.
-   * 
-   * @param conversationPayload
-   *          json object returned by the Watson Conversation Service
-   * @param toneAnalyzerPayload
-   *          json object returned by the Watson Tone Analyzer Service
-   * @returns conversationPayload where the user object has been updated with
-   *          tone information from the toneAnalyzerPayload
+   * updateUserTone processes the Tone Analyzer payload to pull out the emotion, language and social tones, and identify
+   * the meaningful tones (i.e., those tones that meet the specified thresholds). The conversationPayload json object is
+   * updated to include these tones.
+   *
+   * @param context the context
+   * @param toneAnalyzerPayload json object returned by the Watson Tone Analyzer Service
+   * @param maintainHistory the maintain history
+   * @return the map
+   * @returns conversationPayload where the user object has been updated with tone information from the
+   *          toneAnalyzerPayload
    */
   public static Map<String, Object> updateUserTone(Map<String, Object> context, ToneAnalysis toneAnalyzerPayload,
       Boolean maintainHistory) {
@@ -100,13 +103,12 @@ public class ToneDetection {
   }
 
   /**
-   * initUser initializes a user containing tone data (from the Watson Tone
-   * Analyzer)
-   * 
-   * @returns user with the emotion, language and social tones. The current tone
-   *          identifies the tone for a specific conversation turn, and the
-   *          history provides the conversation for all tones up to the current
-   *          tone for a conversation instance with a user.
+   * initUser initializes a user containing tone data (from the Watson Tone Analyzer).
+   *
+   * @return the map
+   * @returns user with the emotion, language and social tones. The current tone identifies the tone for a specific
+   *          conversation turn, and the history provides the conversation for all tones up to the current tone for a
+   *          conversation instance with a user.
    */
   public static Map<String, Object> initUser() {
 
@@ -132,16 +134,12 @@ public class ToneDetection {
   }
 
   /**
-   * updateEmotionTone updates the user emotion tone with the primary emotion -
-   * the emotion tone that has a score greater than or equal to the
-   * EMOTION_SCORE_THRESHOLD; otherwise primary emotion will be 'neutral'
-   * 
-   * @param user
-   *          a json object representing user information (tone) to be used in
-   *          conversing with the Conversation Service
-   * @param emotionTone
-   *          a json object containing the emotion tones in the payload returned
-   *          by the Tone Analyzer
+   * updateEmotionTone updates the user emotion tone with the primary emotion - the emotion tone that has a score
+   * greater than or equal to the EMOTION_SCORE_THRESHOLD; otherwise primary emotion will be 'neutral'.
+   *
+   * @param user a json object representing user information (tone) to be used in conversing with the Conversation
+   *        Service
+   * @param emotionTone a json object containing the emotion tones in the payload returned by the Tone Analyzer
    */
   @SuppressWarnings("unchecked")
   private static void updateEmotionTone(Map<String, Object> user, List<ToneScore> emotionTone,
@@ -184,16 +182,13 @@ public class ToneDetection {
   }
 
   /**
-   * updateLanguageTone updates the user with the language tones interpreted
-   * based on the specified thresholds
-   * 
-   * @param user
-   *          a json object representing user information (tone) to be used in
-   *          conversing with the Conversation Service
-   * @param languageTone
-   *          a json object containing the language tones in the payload
-   *          returned by the Tone Analyzer
+   * updateLanguageTone updates the user with the language tones interpreted based on the specified thresholds.
+   *
+   * @param user a json object representing user information (tone) to be used in conversing with the Conversation
+   *        Service
+   * @param languageTone a json object containing the language tones in the payload returned by the Tone Analyzer
    */
+  @SuppressWarnings("unchecked")
   private static void updateLanguageTone(Map<String, Object> user, List<ToneScore> languageTone,
       Boolean maintainHistory) {
 
@@ -219,7 +214,6 @@ public class ToneDetection {
     }
 
     // update user language tone
-    @SuppressWarnings("unchecked")
     Map<String, Object> language = (Map<String, Object>) ((Map<String, Object>) user.get("tone")).get("language");
 
     // the current language pulled from tone
@@ -237,16 +231,14 @@ public class ToneDetection {
   }
 
   /**
-   * updateSocialTone updates the user with the social tones interpreted based
-   * on the specified thresholds
-   * 
-   * @param user
-   *          a json object representing user information (tone) to be used in
-   *          conversing with the Conversation Service
-   * @param socialTone
-   *          a json object containing the social tones in the payload returned
-   *          by the Tone Analyzer
+   * updateSocialTone updates the user with the social tones interpreted based on the specified thresholds.
+   *
+   * @param user a json object representing user information (tone) to be used in conversing with the Conversation
+   *        Service
+   * @param socialTone a json object containing the social tones in the payload returned by the Tone Analyzer
+   * @param maintainHistory the maintain history
    */
+  @SuppressWarnings("unchecked")
   public static void updateSocialTone(Map<String, Object> user, List<ToneScore> socialTone, Boolean maintainHistory) {
 
     List<String> currentSocial = new ArrayList<String>();
