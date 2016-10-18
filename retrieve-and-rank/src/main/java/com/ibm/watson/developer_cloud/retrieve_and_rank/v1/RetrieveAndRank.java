@@ -331,18 +331,15 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     Validator.notNull(answers, "answers file cannot be null");
     Validator.isTrue(answers.exists(), "answers file: " + answers.getAbsolutePath() + " not found");
 
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty(ANSWERS, ((topAnswers != null) && (topAnswers > 0)) ? topAnswers : 10);
-
-    okhttp3.MultipartBody.Builder builder =  new MultipartBody.Builder()
+    final okhttp3.MultipartBody.Builder builder = new MultipartBody.Builder()
         .setType(MultipartBody.FORM)
         .addPart(Headers.of(
             HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_data\""),
-            RequestBody.create(HttpMediaType.BINARY_FILE, answers)
-        );
+            RequestBody.create(HttpMediaType.BINARY_FILE, answers));
 
-    if (topAnswers != null)
+    if (topAnswers != null) {
       builder.addFormDataPart(ANSWERS, topAnswers.toString());
+    }
 
     final String path = String.format(PATH_RANK, rankerID);
     final Request request = RequestBuilder.post(path).body(builder.build()).build();
@@ -361,9 +358,6 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
     Validator.isTrue((rankerID != null) && !rankerID.isEmpty(), "rankerID cannot be null or empty");
     Validator.notNull(answers, "answers file cannot be null");
 
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty(ANSWERS, ((topAnswers != null) && (topAnswers > 0)) ? topAnswers : 10);
-
     final ByteArrayOutputStream answersBuffer = new ByteArrayOutputStream();
     int bytesRead;
     final byte[] data = new byte[10000];
@@ -375,15 +369,18 @@ public class RetrieveAndRank extends WatsonService implements ClusterLifecycleMa
       throw new RuntimeException("Error reading search results input", e);
     }
 
-    final RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_data\""),
-            RequestBody.create(HttpMediaType.BINARY_FILE, answersBuffer.toByteArray()))
-        .addPart(Headers.of(HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_metadata\""),
-            RequestBody.create(HttpMediaType.TEXT, contentJson.toString()))
-        .build();
+    final okhttp3.MultipartBody.Builder builder = new MultipartBody.Builder()
+        .setType(MultipartBody.FORM)
+        .addPart(Headers.of(
+            HttpHeaders.CONTENT_DISPOSITION, "form-data; name=\"answer_data\""),
+            RequestBody.create(HttpMediaType.BINARY_FILE, answersBuffer.toByteArray()));
+
+    if (topAnswers != null) {
+      builder.addFormDataPart(ANSWERS, topAnswers.toString());
+    }
 
     final String path = String.format(PATH_RANK, rankerID);
-    final Request request = RequestBuilder.post(path).body(body).build();
+    final Request request = RequestBuilder.post(path).body(builder.build()).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(Ranking.class));
   }
 
