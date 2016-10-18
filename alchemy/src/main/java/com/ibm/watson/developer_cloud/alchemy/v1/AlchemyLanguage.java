@@ -269,7 +269,14 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Microformats}
    */
   public ServiceCall<CombinedResults> getCombinedResults(Map<String, Object> params) {
-    return createServiceCall(params, AlchemyAPI.COMBINED, CombinedResults.class, TEXT, HTML, URL);
+    Map<String, Object> paramsCopy = new HashMap<String, Object>(params);
+
+    if (params.containsKey(ANCHOR_DATE) && (params.get(ANCHOR_DATE) instanceof Date)) {
+      String anchorDate = formatDate((Date) params.get(ANCHOR_DATE));
+      paramsCopy.put(ANCHOR_DATE, anchorDate);
+    }
+
+    return createServiceCall(paramsCopy, AlchemyAPI.COMBINED, CombinedResults.class, TEXT, HTML, URL);
   }
 
   /**
@@ -401,15 +408,23 @@ public class AlchemyLanguage extends AlchemyService {
    * @return {@link Dates}
    */
   public ServiceCall<Dates> getDates(final Map<String, Object> params) {
-    // clone params, to prevent errors if the user continues to use the provided Map, or it is
-    // immutable
     Map<String, Object> paramsCopy = new HashMap<String, Object>(params);
 
     if (params.containsKey(ANCHOR_DATE) && (params.get(ANCHOR_DATE) instanceof Date)) {
-      String anchorDate = anchorDateFormat.format(params.get(ANCHOR_DATE));
+      String anchorDate = formatDate((Date) params.get(ANCHOR_DATE));
       paramsCopy.put(ANCHOR_DATE, anchorDate);
     }
 
     return createServiceCall(paramsCopy, AlchemyAPI.DATES, Dates.class, TEXT, HTML, URL);
+  }
+
+  /**
+   * Format date.
+   *
+   * @param anchorDate the anchor date
+   * @return the formatted date as string
+   */
+  private synchronized String formatDate(final Date anchorDate) {
+    return anchorDateFormat.format(anchorDate);
   }
 }

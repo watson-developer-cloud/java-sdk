@@ -58,7 +58,6 @@ public class DateDeserializer implements JsonDeserializer<Date> {
    * com.google.gson.JsonDeserializationContext)
    */
   @Override
-  // DateSerializer.deserialize() is NOT thread safe because of the underlying SimpleDateFormats.
   public synchronized Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context)
       throws JsonParseException {
 
