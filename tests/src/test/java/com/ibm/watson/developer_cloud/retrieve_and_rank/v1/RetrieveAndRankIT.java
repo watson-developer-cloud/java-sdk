@@ -140,6 +140,23 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
 
   }
 
+  @Test
+  public void testRankResults() throws IOException {
+    final File testFile = new File(RESOURCE_PATH + "ranker_test.csv");
+    final int numToRank = 5;
+
+    Ranking ranking = service.rank(rankerId, testFile, numToRank).execute();
+    assertTrue(!ranking.getAnswers().isEmpty());
+
+    final FileInputStream testInputStream = new FileInputStream(testFile);
+    try {
+      ranking = service.rank(rankerId, testInputStream, numToRank).execute();
+      assertTrue(!ranking.getAnswers().isEmpty());
+    } finally {
+      testInputStream.close();
+    }
+  }
+
   /**
    * Test create and delete solr cluster.
    */
