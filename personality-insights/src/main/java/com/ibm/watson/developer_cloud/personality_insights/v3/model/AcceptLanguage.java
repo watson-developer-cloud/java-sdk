@@ -20,17 +20,17 @@ import com.google.gson.annotations.SerializedName;
  */
 public enum AcceptLanguage {
 
-  /** english. */
-  @SerializedName("en") ENGLISH("en"),
-
-  /** spanish. */
-  @SerializedName("es") SPANISH("es"),
-
-  /** arabic. */
   @SerializedName("ar") ARABIC("ar"),
-
-  /** japanese. */
-  @SerializedName("ja") JAPANESE("ja");
+  @SerializedName("en") ENGLISH("en"),
+  @SerializedName("es") SPANISH("es"),
+  @SerializedName("ja") JAPANESE("ja"),
+  @SerializedName("pt-br") BRAZILIAN_PORTUGUESE("pt-br"),
+  @SerializedName("fr") FRENCH("fr"),
+  @SerializedName("de") GERMAN("de"),
+  @SerializedName("it") ITALIAN("it"),
+  @SerializedName("ko") KOREAN("ko"),
+  @SerializedName("zh-cn") SIMPLIFIED_CHINESE("zh-cn"),
+  @SerializedName("zh-tw") TRADITIONAL_CHINESE("zh-tw");
 
   private final String text;
 
