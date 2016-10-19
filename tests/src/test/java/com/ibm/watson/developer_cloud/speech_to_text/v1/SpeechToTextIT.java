@@ -46,6 +46,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordAlternat
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 
 /**
@@ -384,7 +385,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testGetWords() {
-    List<Word> result = service.getWords(customizationId, Type.ALL).execute();
+    List<WordData> result = service.getWords(customizationId, Type.ALL).execute();
     assertNotNull(result);
     assertTrue(!result.isEmpty());
   }

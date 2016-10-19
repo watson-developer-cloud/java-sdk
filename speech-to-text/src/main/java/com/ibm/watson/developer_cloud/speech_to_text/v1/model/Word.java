@@ -29,11 +29,8 @@ public class Word extends GenericModel {
 
   @SerializedName("display_as")
   private String displayAs;
-  private String error;
   @SerializedName("sounds_like")
   private List<String> soundsLike;
-
-  private List<String> source;
   private String word;
 
   /**
@@ -46,31 +43,12 @@ public class Word extends GenericModel {
   }
 
   /**
-   * Gets the error. <br />
-   * If the service discovered a problem with the custom word's definition.
-   *
-   * @return The error
-   */
-  public String getError() {
-    return error;
-  }
-
-  /**
    * Gets the sounds like. An array of pronunciations for the custom word
    *
    * @return The soundsLike
    */
   public List<String> getSoundsLike() {
     return soundsLike;
-  }
-
-  /**
-   * Gets the array of sources that describes how the word was added to the custom model's words resource.
-   *
-   * @return The source
-   */
-  public List<String> getSource() {
-    return source;
   }
 
   /**
@@ -92,30 +70,12 @@ public class Word extends GenericModel {
   }
 
   /**
-   * Sets the error.
-   *
-   * @param error The error
-   */
-  public void setError(String error) {
-    this.error = error;
-  }
-
-  /**
    * Sets the sounds like. An array of pronunciations for the custom word.
    *
    * @param soundsLike The sounds_like
    */
   public void setSoundsLike(List<String> soundsLike) {
     this.soundsLike = soundsLike;
-  }
-
-  /**
-   * Sets the array of sources that describes how the word was added to the custom model's words resource.
-   *
-   * @param source The source
-   */
-  public void setSource(List<String> source) {
-    this.source = source;
   }
 
   /**
