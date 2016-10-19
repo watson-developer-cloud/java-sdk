@@ -81,7 +81,7 @@ public class Profile extends GenericModel {
   private List<Trait> personality;
   private List<Trait> needs;
   private List<Trait> values;
-  private List<Trait> behavior;
+  private List<Behavior> behavior;
 
   @SerializedName("consumption_preferences")
   private List<ConsumptionPreferences> consumptionPreferences;
@@ -103,7 +103,7 @@ public class Profile extends GenericModel {
    *
    * @return the behavior
    */
-  public List<Trait> getBehavior() {
+  public List<Behavior> getBehavior() {
     return behavior;
   }
 
@@ -112,9 +112,9 @@ public class Profile extends GenericModel {
    * The results include information about the distribution of the content over the days of the week and the hours of
    * the day.
    *
-   * @param behavior the new behavior
+   * @param behavior the new behaviors
    */
-  public void setBehavior(List<Trait> behavior) {
+  public void setBehavior(List<Behavior> behavior) {
     this.behavior = behavior;
   }
 
