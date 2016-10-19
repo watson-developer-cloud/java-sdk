@@ -39,6 +39,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSessionStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.WebSocketManager;
@@ -65,7 +66,7 @@ public class SpeechToText extends WatsonService {
   private static final String ALLOW_OVERRIDE = "allow_override";
   private static final String CALLBACK_URL = "callback_url";
   private static final String CONTINUOUS = "continuous";
-  private static final String CUSTOMIZATION_ID = "custormization_id";
+  private static final String CUSTOMIZATION_ID = "customization_id";
   private static final String EVENTS = "events";
   private static final String INACTIVITY_TIMEOUT = "inactivity_timeout";
   private static final String KEYWORDS = "keywords";
@@ -620,12 +621,12 @@ public class SpeechToText extends WatsonService {
    * @param wordName the word name
    * @return the words
    */
-  public ServiceCall<Word> getWord(String customizationId, String wordName) {
+  public ServiceCall<WordData> getWord(String customizationId, String wordName) {
     Validator.notNull(customizationId, "customizationId cannot be null");
     Validator.notNull(wordName, "wordName cannot be null");
 
     RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_WORD, customizationId, wordName));
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Word.class));
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(WordData.class));
   }
 
   /**
@@ -636,14 +637,14 @@ public class SpeechToText extends WatsonService {
    * @param type the word type. Possible values are: ALL, USER or CORPORA.
    * @return the words
    */
-  public ServiceCall<List<Word>> getWords(String customizationId, Word.Type type) {
+  public ServiceCall<List<WordData>> getWords(String customizationId, Word.Type type) {
     Validator.notNull(customizationId, "customizationId cannot be null");
     RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_WORDS, customizationId));
     if (type != null) {
       requestBuilder.query(WORD_TYPE, type.toString().toLowerCase());
     }
 
-    ResponseConverter<List<Word>> converter = ResponseConverterUtils.getGenericObject(TYPE_WORDS, WORDS);
+    ResponseConverter<List<WordData>> converter = ResponseConverterUtils.getGenericObject(TYPE_WORDS, WORDS);
     return createServiceCall(requestBuilder.build(), converter);
   }
 

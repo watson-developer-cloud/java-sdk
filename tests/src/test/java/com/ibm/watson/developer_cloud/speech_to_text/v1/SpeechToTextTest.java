@@ -41,8 +41,10 @@ import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Customization;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Customization.WordTypeToAdd;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions.Builder;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechAlternative;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
@@ -50,7 +52,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Customization.WordTypeToAdd;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.TestUtils;
@@ -257,6 +259,30 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     assertEquals(PATH_RECOGNIZE, request.getPath());
     assertEquals(HttpMediaType.AUDIO_WAV, request.getHeader(CONTENT_TYPE));
+  }
+
+  /**
+   * Test recognize with customization.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testRecognizeWithCustomization() throws FileNotFoundException, InterruptedException {
+    String id = "foo";
+    String recString =
+        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/recognition.json"));
+    JsonObject recognition = new JsonParser().parse(recString).getAsJsonObject();
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(recString));
+
+    RecognizeOptions options = new RecognizeOptions.Builder().customizationId(id).build();
+    SpeechResults result = service.recognize(SAMPLE_WAV, options).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(PATH_RECOGNIZE + "?customization_id=" + id, request.getPath());
+    assertEquals(recognition, GSON.toJsonTree(result));
   }
 
   /**
@@ -583,7 +609,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(wordsAsStr));
 
-    List<Word> result = service.getWords(id, Type.ALL).execute();
+    List<WordData> result = service.getWords(id, Type.ALL).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
