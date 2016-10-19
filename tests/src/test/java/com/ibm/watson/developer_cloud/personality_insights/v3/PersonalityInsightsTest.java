@@ -93,7 +93,20 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test get profile with english text.
+   * Test load a content from a file.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testLoadAContentFromAFile() throws InterruptedException, FileNotFoundException {
+    final Content content = loadFixture(RESOURCE + "/v3-contentItems.json", Content.class);
+    assertNotNull(content);
+  }
+
+
+  /**
+   * Test get profile with English text.
    *
    * @throws InterruptedException the interrupted exception
    */
