@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -23,8 +24,14 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
  */
 public class Word extends GenericModel {
 
+  /**
+   * The Enum Type.
+   */
   public enum Type {
-    ALL, CORPORA, USER
+    /** The all. */
+    ALL, /** The corpora. */
+    CORPORA, /** The user. */
+    USER
   }
 
   @SerializedName("display_as")
@@ -32,6 +39,25 @@ public class Word extends GenericModel {
   @SerializedName("sounds_like")
   private List<String> soundsLike;
   private String word;
+
+  /**
+   * Instantiates a new word.
+   */
+  public Word() { }
+
+  /**
+   * Instantiates a new word.
+   *
+   * @param word the spelling of the word is used to train the model.
+   * @param displayAs the spelling of the custom word that the service uses to display the word in a transcript.
+   * @param soundsLike An array of pronunciations for the custom word.
+   */
+  public Word(String word, String displayAs, String... soundsLike) {
+    this();
+    this.word = word;
+    this.displayAs = displayAs;
+    this.soundsLike = Arrays.asList(soundsLike);
+  }
 
   /**
    * Gets the spelling of the custom word that the service uses to display the word in a transcript.
@@ -52,7 +78,7 @@ public class Word extends GenericModel {
   }
 
   /**
-   * Gets the word.
+   * Gets the spelling of the word is used to train the model.
    *
    * @return The word
    */
