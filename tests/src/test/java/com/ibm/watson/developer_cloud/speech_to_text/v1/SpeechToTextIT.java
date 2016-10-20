@@ -47,6 +47,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus.Status;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 
 /**
@@ -55,6 +56,9 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeC
 public class SpeechToTextIT extends WatsonServiceTest {
 
   private static final String EN_BROADBAND16K = "en-US_BroadbandModel";
+  private static final String SPEECH_RESOURCE = "src/test/resources/speech_to_text/%s";
+  private static final String SAMPLE_WAV = String.format(SPEECH_RESOURCE, "sample1.wav");
+
   private CountDownLatch lock = new CountDownLatch(1);
   private SpeechToText service;
   private SpeechResults asyncResults;
@@ -173,7 +177,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeFileString() {
-    File audio = new File("src/test/resources/speech_to_text/sample1.wav");
+    File audio = new File(SAMPLE_WAV);
     SpeechResults results = service.recognize(audio).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
   }
@@ -183,7 +187,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeFileStringRecognizeOptions() {
-    File audio = new File("src/test/resources/speech_to_text/sample1.wav");
+    File audio = new File(SAMPLE_WAV);
     String contentType = HttpMediaType.AUDIO_WAV;
     RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).timestamps(true).wordConfidence(true)
         .model(EN_BROADBAND16K).contentType(contentType).profanityFilter(false).build();
@@ -205,7 +209,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         new RecognizeOptions.Builder().contentType("audio/wav").model(SpeechModel.EN_US_BROADBANDMODEL.getName())
             .continuous(true).inactivityTimeout(500).keywords(keyword1, keyword2).keywordsThreshold(0.7).build();
 
-    final File audio = new File("src/test/resources/speech_to_text/sample1.wav");
+    final File audio = new File(SAMPLE_WAV);
     final SpeechResults results = service.recognize(audio, options).execute();
     final Transcript transcript = results.getResults().get(0);
 
@@ -240,7 +244,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
         .inactivityTimeout(40).timestamps(true).maxAlternatives(2).wordAlternativesThreshold(0.5).model(EN_BROADBAND16K)
         .contentType(HttpMediaType.AUDIO_WAV).build();
-    FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/sample1.wav");
+    FileInputStream audio = new FileInputStream(SAMPLE_WAV);
 
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
 
@@ -287,7 +291,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateRecognitionJob() throws InterruptedException, FileNotFoundException {
-    File audio = new File("src/test/resources/speech_to_text/sample1.wav");
+    File audio = new File(SAMPLE_WAV);
     RecognitionJob job = service.createRecognitionJob(audio, null, null).execute();
     try {
       assertNotNull(job.getId());
@@ -418,4 +422,64 @@ public class SpeechToTextIT extends WatsonServiceTest {
     service.trainCustomization(customizationId, null);
   }
 
+  /**
+   * Test customization.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  @Ignore
+  public void testCustomization() throws InterruptedException {
+    // 1 create customization
+    Customization myCustomization =
+        service.createCustomization("IEEE-test", SpeechModel.EN_US_BROADBANDMODEL, null).execute();
+    String id = myCustomization.getId();
+
+    // 2 Add a corpus file to the model:
+    service
+        .addTextToCustomizationCorpus(id, "corpus-1", false, new File("src/test/resources/speech_to_text/corpus1.txt"))
+        .execute();
+
+    // 3 Get corpora
+    List<Corpus> corpora = service.getCorpora(id).execute();
+
+    // There is only one corpus so far so choose it
+    Corpus corpus = corpora.get(0);
+
+    for (int x = 0; x < 30 && corpus.getStatus() != Status.ANALYZED; x++) {
+      corpus = service.getCorpora(id).execute().get(0);
+      Thread.sleep(5000);
+    }
+
+    // Now add some user words to the custom model
+    service.addWord(id, new Word("IEEE", "IEEE", "I. triple E.")).execute();
+    service.addWord(id, new Word("hhonors", "IEEE", "H. honors", "Hilton honors")).execute();
+
+    // Display all words in the words resource (coming from OOVs from the corpus add and the new words just added)
+    List<WordData> result = service.getWords(id, Word.Type.ALL).execute();
+    for (WordData word : result) {
+      System.out.println(word);
+    }
+
+    // Now start training of the model
+    service.trainCustomization(id, Customization.WordTypeToAdd.ALL).execute();
+
+    for (int x = 0; x < 30 && myCustomization.getStatus() != Customization.Status.AVAILABLE; x++) {
+      myCustomization = service.getCustomization(id).execute();
+      Thread.sleep(10000);
+    }
+
+    File audio = new File(SAMPLE_WAV);
+    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true)
+        .model(SpeechModel.EN_US_BROADBANDMODEL.getName()).customizationId(id).build();
+
+    // First decode WITHOUT the custom model
+    SpeechResults transcript = service.recognize(audio).execute();
+    System.out.println(transcript);
+
+    // Now decode with the custom model
+    transcript = service.recognize(audio, options).execute();
+
+    System.out.println(transcript);
+  }
 }

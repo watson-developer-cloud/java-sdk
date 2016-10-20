@@ -111,7 +111,7 @@ public class SpeechToText extends WatsonService {
   private static final Type TYPE_LIST_MODELS = new TypeToken<List<SpeechModel>>() { }.getType();
   private static final Type TYPE_LIST_RECOGNITIONS = new TypeToken<List<RecognitionJob>>() { }.getType();
   private static final Type TYPE_SESSION_STATUS = new TypeToken<SpeechSessionStatus>() { }.getType();
-  private static final Type TYPE_WORDS = new TypeToken<List<Word>>() { }.getType();
+  private static final Type TYPE_WORDS = new TypeToken<List<WordData>>() { }.getType();
 
   private static final String URL = "https://stream.watsonplatform.net/speech-to-text/api";
   private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
