@@ -25,8 +25,9 @@ public interface ServiceCall<T> {
    * Synchronous request.
    *
    * @return the generic type
+   * @throws RuntimeException the exception from HTTP request
    */
-  T execute();
+  T execute() throws RuntimeException;
 
   /**
    * Asynchronous requests, in this case, you receive a callback when the data has been received.
