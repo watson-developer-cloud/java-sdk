@@ -30,7 +30,7 @@ public class SolrClusterResizeRequest {
    * @param clusterSize the desired cluster size
    */
   public SolrClusterResizeRequest(final int clusterSize) {
-    Validator.isTrue((clusterSize > 0) && (clusterSize < 8), "clusterSize cannot be lower than 0 or greater than 7");
+    Validator.isTrue((clusterSize > 0), "clusterSize cannot be lower than 0");
     this.clusterSize = clusterSize;
   }
 

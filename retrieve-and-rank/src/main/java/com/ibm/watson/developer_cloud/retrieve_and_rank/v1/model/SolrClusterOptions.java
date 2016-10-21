@@ -40,7 +40,7 @@ public class SolrClusterOptions {
     if (clusterSize == null) {
       this.clusterSize = FREE_CLUSTER_SIZE;
     } else {
-      Validator.isTrue((clusterSize > 0) && (clusterSize < 8), "clusterSize cannot be lower than 0 or greater than 7");
+      Validator.isTrue((clusterSize > 0), "clusterSize cannot be lower than 0");
       this.clusterSize = clusterSize.toString();
     }
   }
