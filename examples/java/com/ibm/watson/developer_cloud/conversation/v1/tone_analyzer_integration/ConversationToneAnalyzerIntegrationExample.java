@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -10,7 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.conversation_tone_analyzer_integration.v1;
+package com.ibm.watson.developer_cloud.conversation.v1.tone_analyzer_integration;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,8 +25,6 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 /**
  * Example of how to call the {@link ConversationService#message(String, MessageRequest)} method synchronous,
  * asynchronous, and using react.
- *
- * @version v1
  */
 public class ConversationToneAnalyzerIntegrationExample {
 
