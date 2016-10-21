@@ -1,0 +1,23 @@
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = "com.ibm.watson.developer_cloud.conversation_tone_analyzer_integration.v1.ToneConversationIntegrationV1"
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    baseName = 'conversation_tone_analyzer_integration'
+    version =  '0.1.0'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile "com.ibm.watson.developer_cloud:java-sdk:3.4.0"
+    compile "commons-io:commons-io:2.4"
+    testCompile "junit:junit:4.12"
+}
