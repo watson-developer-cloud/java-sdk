@@ -25,7 +25,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.junit.Assume;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -34,6 +33,7 @@ import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus.Status;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Customization;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.KeywordsResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
@@ -47,7 +47,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus.Status;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 
 /**
@@ -334,26 +333,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(jobs);
   }
 
-  @Test
-  @Ignore
-  public void testCreateCustomization() throws InterruptedException {
-    Customization customization =
-        service.createCustomization("my-customization-integration-test", SpeechModel.EN_US_BROADBANDMODEL,
-            "This customization is being use in the SDKs as part of the integration tests").execute();
-
-    try {
-      assertNotNull(customization.getId());
-      for (int x = 0; x < 30 && customization.getStatus() != Customization.Status.AVAILABLE; x++) {
-        Thread.sleep(3000);
-        customization = service.getCustomization(customization.getId()).execute();
-      }
-      customization = service.getCustomization(customization.getId()).execute();
-      assertEquals(Customization.Status.AVAILABLE, customization.getStatus());
-    } finally {
-      service.deleteCustomization(customization.getId());
-    }
-  }
-
   /**
    * Test get customizations.
    */
@@ -403,83 +382,49 @@ public class SpeechToTextIT extends WatsonServiceTest {
   }
 
   /**
-   * Test add words.
-   *
-   * @throws FileNotFoundException the file not found exception
-   */
-  @Test
-  @Ignore
-  public void testAddWords() throws FileNotFoundException {
-
-    Word newWord = loadFixture("src/test/resources/speech_to_text/word.json", Word.class);
-    newWord.setWord("foo1");
-    try {
-      service.addWords(customizationId, newWord).execute();
-    } finally {
-      service.deleteWord(customizationId, newWord.getWord());
-    }
-
-    service.trainCustomization(customizationId, null);
-  }
-
-  /**
    * Test customization.
    *
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  @Ignore
   public void testCustomization() throws InterruptedException {
-    // 1 create customization
+    // create customization
     Customization myCustomization =
-        service.createCustomization("IEEE-test", SpeechModel.EN_US_BROADBANDMODEL, null).execute();
+        service.createCustomization("IEEE-java-sdk-permanent", SpeechModel.EN_US_BROADBANDMODEL, null).execute();
     String id = myCustomization.getId();
 
-    // 2 Add a corpus file to the model:
-    service
-        .addTextToCustomizationCorpus(id, "corpus-1", false, new File("src/test/resources/speech_to_text/corpus1.txt"))
-        .execute();
+    try {
+      // Add a corpus file to the model:
+      service
+          .addTextToCustomizationCorpus(id, "corpus-1", false, new File(String.format(SPEECH_RESOURCE, "corpus1.txt")))
+          .execute();
 
-    // 3 Get corpora
-    List<Corpus> corpora = service.getCorpora(id).execute();
+      // Get corpora
+      List<Corpus> corpora = service.getCorpora(id).execute();
 
-    // There is only one corpus so far so choose it
-    Corpus corpus = corpora.get(0);
+      assertNotNull(corpora);
+      assertTrue(corpora.size() == 1);
 
-    for (int x = 0; x < 30 && corpus.getStatus() != Status.ANALYZED; x++) {
-      corpus = service.getCorpora(id).execute().get(0);
-      Thread.sleep(5000);
+      // There is only one corpus so far so choose it
+      Corpus corpus = corpora.get(0);
+
+      for (int x = 0; x < 30 && corpus.getStatus() != Status.ANALYZED; x++) {
+        corpus = service.getCorpora(id).execute().get(0);
+        Thread.sleep(5000);
+      }
+
+      assertTrue(corpus.getStatus() == Status.ANALYZED);
+
+      // Now add some user words to the custom model
+      service.addWord(id, new Word("IEEE", "IEEE", "I. triple E.")).execute();
+      service.addWord(id, new Word("hhonors", "IEEE", "H. honors", "Hilton honors")).execute();
+
+      // Display all words in the words resource (coming from OOVs from the corpus add and the new words just added)
+      List<WordData> words = service.getWords(id, Word.Type.ALL).execute();
+      assertNotNull(words);
+
+    } finally {
+      service.deleteCustomization(id);
     }
-
-    // Now add some user words to the custom model
-    service.addWord(id, new Word("IEEE", "IEEE", "I. triple E.")).execute();
-    service.addWord(id, new Word("hhonors", "IEEE", "H. honors", "Hilton honors")).execute();
-
-    // Display all words in the words resource (coming from OOVs from the corpus add and the new words just added)
-    List<WordData> result = service.getWords(id, Word.Type.ALL).execute();
-    for (WordData word : result) {
-      System.out.println(word);
-    }
-
-    // Now start training of the model
-    service.trainCustomization(id, Customization.WordTypeToAdd.ALL).execute();
-
-    for (int x = 0; x < 30 && myCustomization.getStatus() != Customization.Status.AVAILABLE; x++) {
-      myCustomization = service.getCustomization(id).execute();
-      Thread.sleep(10000);
-    }
-
-    File audio = new File(SAMPLE_WAV);
-    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true)
-        .model(SpeechModel.EN_US_BROADBANDMODEL.getName()).customizationId(id).build();
-
-    // First decode WITHOUT the custom model
-    SpeechResults transcript = service.recognize(audio).execute();
-    System.out.println(transcript);
-
-    // Now decode with the custom model
-    transcript = service.recognize(audio, options).execute();
-
-    System.out.println(transcript);
   }
 }
