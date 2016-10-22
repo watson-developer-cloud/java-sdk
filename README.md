@@ -285,4 +285,4 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/parent-3.5.0/java-sdk-3.5.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.5.0/java-sdk-3.5.0-jar-with-dependencies.jar
