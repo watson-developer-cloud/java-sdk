@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
@@ -23,18 +24,40 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
  */
 public class Word extends GenericModel {
 
+  /**
+   * The Enum Type.
+   */
   public enum Type {
-    ALL, CORPORA, USER
+    /** The all. */
+    ALL, /** The corpora. */
+    CORPORA, /** The user. */
+    USER
   }
 
   @SerializedName("display_as")
   private String displayAs;
-  private String error;
   @SerializedName("sounds_like")
   private List<String> soundsLike;
-
-  private List<String> source;
   private String word;
+
+  /**
+   * Instantiates a new word.
+   */
+  public Word() { }
+
+  /**
+   * Instantiates a new word.
+   *
+   * @param word the spelling of the word is used to train the model.
+   * @param displayAs the spelling of the custom word that the service uses to display the word in a transcript.
+   * @param soundsLike An array of pronunciations for the custom word.
+   */
+  public Word(String word, String displayAs, String... soundsLike) {
+    this();
+    this.word = word;
+    this.displayAs = displayAs;
+    this.soundsLike = Arrays.asList(soundsLike);
+  }
 
   /**
    * Gets the spelling of the custom word that the service uses to display the word in a transcript.
@@ -43,16 +66,6 @@ public class Word extends GenericModel {
    */
   public String getDisplayAs() {
     return displayAs;
-  }
-
-  /**
-   * Gets the error. <br />
-   * If the service discovered a problem with the custom word's definition.
-   *
-   * @return The error
-   */
-  public String getError() {
-    return error;
   }
 
   /**
@@ -65,16 +78,7 @@ public class Word extends GenericModel {
   }
 
   /**
-   * Gets the array of sources that describes how the word was added to the custom model's words resource.
-   *
-   * @return The source
-   */
-  public List<String> getSource() {
-    return source;
-  }
-
-  /**
-   * Gets the word.
+   * Gets the spelling of the word is used to train the model.
    *
    * @return The word
    */
@@ -92,30 +96,12 @@ public class Word extends GenericModel {
   }
 
   /**
-   * Sets the error.
-   *
-   * @param error The error
-   */
-  public void setError(String error) {
-    this.error = error;
-  }
-
-  /**
    * Sets the sounds like. An array of pronunciations for the custom word.
    *
    * @param soundsLike The sounds_like
    */
   public void setSoundsLike(List<String> soundsLike) {
     this.soundsLike = soundsLike;
-  }
-
-  /**
-   * Sets the array of sources that describes how the word was added to the custom model's words resource.
-   *
-   * @param source The source
-   */
-  public void setSource(List<String> source) {
-    this.source = source;
   }
 
   /**

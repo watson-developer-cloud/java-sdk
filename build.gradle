@@ -7,7 +7,7 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 group = 'com.ibm.watson.developercloud'
 archivesBaseName = 'watson-developer-cloud'
-version = '3.3.4'
+version = '3.5.0'
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
 
