@@ -121,16 +121,6 @@ public class ContentItem extends GenericModel {
     this.created = created;
   }
 
-
-  /**
-   * Indicates whether this content item is a forwarded/copied version of another content item.
-   *
-   * @param forward set true if the content is a forwarded/copied version of another content item.
-   */
-  public void setForward(boolean forward) {
-    this.forward = forward;
-  }
-
   /**
    * Sets the unique identifier for this content item.
    *
@@ -147,25 +137,6 @@ public class ContentItem extends GenericModel {
    */
   public void setLanguage(String language) {
     this.language = language;
-  }
-
-  /**
-   * Sets the unique id of the parent content item. Used to identify hierarchical relationships between posts/replies,
-   * messages/replies, etc.,
-   *
-   * @param parentId the parent identifier
-   */
-  public void setParentid(String parentId) {
-    this.parentId = parentId;
-  }
-
-  /**
-   * Indicates whether this content item is a reply to another content item.
-   *
-   * @param reply true if is a reply
-   */
-  public void setReply(boolean reply) {
-    this.reply = reply;
   }
 
   /**
@@ -218,18 +189,18 @@ public class ContentItem extends GenericModel {
   }
 
   /**
-   * Sets the forward.
+   * Indicates whether this content item is a forwarded/copied version of another content item.
    *
-   * @param forward the new forward
+   * @param forward set true if the content is a forwarded/copied version of another content item.
    */
   public void setForward(Boolean forward) {
     this.forward = forward;
   }
 
   /**
-   * Sets the reply.
+   * Indicates whether this content item is a reply to another content item.
    *
-   * @param reply the new reply
+   * @param reply true if is a reply
    */
   public void setReply(Boolean reply) {
     this.reply = reply;

@@ -28,13 +28,13 @@ public class Corpus extends GenericModel {
    */
   public enum Status {
 
-    /** The analyzer. */
-    @SerializedName("analyzed") ANALYZER,
+    /** The corpus has been successfully analyzed. */
+    @SerializedName("analyzed") ANALYZED,
 
-    /** The being processed. */
+    /** The corpus is being processed. */
     @SerializedName("being_processed") BEING_PROCESSED,
 
-    /** The undetermined. */
+    /** The corpus analysis has encountered a problem. */
     @SerializedName("undetermined") UNDETERMINED
   }
 
