@@ -23,7 +23,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile "com.ibm.watson.developer_cloud:java-sdk:3.4.0"
+    compile "com.ibm.watson.developer_cloud:java-sdk:3.5.0"
     compile "commons-io:commons-io:2.4"
     testCompile "junit:junit:4.12"
 }
