@@ -32,5 +32,5 @@ On Mac or Linux:
 [bluemix_conversation_service]: https://console.ng.bluemix.net/catalog/services/conversation/
 [bluemix_tone_analyzer_service]: https://console.ng.bluemix.net/catalog/services/tone-analyzer/
 [conversation_simple_workspace]: https://github.com/watson-developer-cloud/conversation-simple#workspace
-[tone_conversation_integration_example]: TBA
-[tone_conversation_integration_example_tone_detection]: TBA 
+[tone_conversation_integration_example]: https://github.com/aprilwebster/java-sdk/blob/master/examples/java/com/ibm/watson/developer_cloud/conversation_tone_analyzer_integration/src/main/java/com/ibm/watson/developer_cloud/conversation_tone_analyzer_integration/v1/ToneConversationIntegrationV1.java
+[tone_conversation_integration_example_tone_detection]: https://github.com/aprilwebster/java-sdk/blob/master/examples/java/com/ibm/watson/developer_cloud/conversation_tone_analyzer_integration/src/main/java/com/ibm/watson/developer_cloud/conversation_tone_analyzer_integration/v1/ToneDetection.java 
