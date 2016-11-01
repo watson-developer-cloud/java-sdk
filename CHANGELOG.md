@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+## Version 3.5.1
+
+_2016-11-01_
+
+* Fix: Remove limitation when creating a Solr cluster
+
+
 ## Version 3.5.0
 
 _2016-10-19_
