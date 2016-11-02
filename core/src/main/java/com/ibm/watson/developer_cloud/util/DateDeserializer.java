@@ -82,12 +82,12 @@ public class DateDeserializer implements JsonDeserializer<Date> {
     Matcher foundMatch = isJustNumber.matcher(dateAsString);
     if (foundMatch.find()) {
       Long timeAsLong = Long.parseLong(dateAsString);
-      Long msCheck = 1000000000000L;
+      Long msCheck = 100000000000L;
 
       // are we ms or seconds maybe?
-      if (timeAsLong > msCheck) {
-        // assuming milliseconds
-        timeAsLong = timeAsLong / 1000;
+      if (timeAsLong < msCheck) {
+        // assuming in seconds
+        timeAsLong = timeAsLong * 1000;
       }
       return new Date(timeAsLong);
     }
