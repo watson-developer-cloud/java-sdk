@@ -10,7 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package watson.developer_cloud.http;
+package com.ibm.watson.developer_cloud.http;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -19,8 +19,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import com.ibm.watson.developer_cloud.http.NameValue;
 
 /**
  * The Class NameValueTest.
