@@ -81,15 +81,15 @@ public class DateDeserializer implements JsonDeserializer<Date> {
     Pattern isJustNumber = Pattern.compile("^\\d+$");
     Matcher foundMatch = isJustNumber.matcher(dateAsString);
     if (foundMatch.find()) {
-      Long time_t = Long.parseLong(dateAsString);
+      Long timeAsLong = Long.parseLong(dateAsString);
       Long msCheck = 1000000000000L;
 
       // are we ms or seconds maybe?
-      if (time_t > msCheck) {
+      if (timeAsLong > msCheck) {
         // assuming milliseconds
-        time_t = time_t / 1000;
+        timeAsLong = timeAsLong / 1000;
       }
-      return new Date(time_t);
+      return new Date(timeAsLong);
     }
 
     LOG.log(Level.SEVERE, "Error parsing: " + dateAsString, e);
