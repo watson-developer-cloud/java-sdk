@@ -54,19 +54,19 @@ public class ToneConversationIntegrationV1 {
     );
 
     // workspace id
-    String workspaceId = props.getProperty("WORKSPACE_ID", "<workspace_id>");
+    final String workspaceId = props.getProperty("WORKSPACE_ID", "<workspace_id>");
 
     // maintain history in the context variable - will add a history variable to
     // each of the emotion, social and language tones
-    Boolean maintainHistory = false;
+    final Boolean maintainHistory = false;
 
     /**
      * Input for the conversation service: input (String): an input string (the user's conversation turn) and context
      * (Map<String,Object>: any context that needs to be maintained - either added by the client app or passed in the
      * response from the conversation service on the previous conversation turn.
      */
-    String input = "I am happy";
-    Map<String, Object> context = new HashMap<String, Object>();
+    final String input = "I am happy";
+    final Map<String, Object> context = new HashMap<String, Object>();
 
     // UPDATE CONTEXT HERE IF CONTINUING AN ONGOING CONVERSATION
     // set local context variable to the context from the last response from the
