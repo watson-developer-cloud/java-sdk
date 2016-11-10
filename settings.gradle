@@ -1,1 +1,4 @@
 rootProject.name = 'watson-developer-cloud'
+include 'core','natural-language-classifier', 'alchemy', 'conversation', 'dialog', 'document-conversion',
+        'language-translation', 'language-translator', 'personality-insights', 'retrieve-and-rank', 'speech-to-text',
+        'text-to-speech', 'tone-analyzer', 'tradeoff-analytics', 'visual-recognition', 'tests'
