@@ -1,49 +1,69 @@
+plugins {
+    id 'ru.vyarus.animalsniffer' version '1.2.0'
+}
 apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-group = 'com.ibm.watson.developercloud'
-archivesBaseName = 'watson-developer-cloud'
-version = '3.5.1'
+import org.apache.tools.ant.filters.*
+
+archivesBaseName = 'java-sdk'
+
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
 
-subprojects {
+
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmmss')
+    return formattedDate
+}
+
+allprojects {
+    apply plugin: 'ru.vyarus.animalsniffer'
     apply plugin: 'java'
+    apply plugin: 'maven'
     apply plugin: 'checkstyle'
+
+    version = '3.5.2-SNAPSHOT'
     group = 'com.ibm.watson.developercloud'
-    version = '3.5.1'
-
-    repositories {
-        mavenCentral()
-    }
-
-    dependencies {
-
-        testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version:'3.3.1'
-        testCompile group: 'ch.qos.logback', name: 'logback-classic', version:'1.1.7'
-        testCompile group: 'com.google.guava', name: 'guava', version:'19.0'
-        testCompile group: 'junit', name: 'junit-dep', version:'4.11'
-    }
-
-    checkstyle {
-        configFile = rootProject.file('checkstyle.xml')
-    }
 
     task sourcesJar(type: Jar) {
         classifier = 'sources'
         from sourceSets.main.allSource
     }
 
+    repositories {
+        mavenCentral()
+    }
+
     artifacts {
         archives sourcesJar
     }
 
+    checkstyle {
+        configFile = rootProject.file('checkstyle.xml')
+    }
 
+    dependencies {
+        signature 'org.codehaus.mojo.signature:java17:1.0@signature'
+    }
+
+    processResources {
+        filter ReplaceTokens, tokens: [
+                "pom.version": project.version,
+                "build.date": getDate()
+        ]
+    }
+
+    uploadArchives {
+        repositories.mavenDeployer {
+            repository(url: "http://oss.sonatype.org/service/local/staging/deploy/maven2/")
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots")
+        }
+    }
 }
+
 
 configure(subprojects - project(':core')) {
     dependencies {
@@ -102,21 +122,29 @@ project(':tests') {
         testCompile project(':tone-analyzer')
         testCompile project(':tradeoff-analytics')
         testCompile project(':visual-recognition')
+
+        testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version:'3.3.1'
+        testCompile group: 'ch.qos.logback', name: 'logback-classic', version:'1.1.7'
+        testCompile group: 'com.google.guava', name: 'guava', version:'19.0'
+        testCompile group: 'junit', name: 'junit-dep', version:'4.11'
     }
 }
 
-//task explodedDist(type: Copy) {
-//    into "$buildDir/libs"
-//    subprojects {
-//        from tasks.withType(Jar)
-//    }
-//}
-//task allJar(type: Jar) {
-//    destinationDir = file("$buildDir/libs")
-//    def sourceProjects = subprojects.findAll { it.plugins.hasPlugin('java')}
-//    from sourceProjects.collect { it.sourceSets.main.output }
-//}
-//
-//artifacts {
-//    archives allJar
-//}
+configure(rootProject) {
+    dependencies {
+        compile project(':natural-language-classifier')
+        compile project(':alchemy')
+        compile project(':conversation')
+        compile project(':dialog')
+        compile project(':document-conversion')
+        compile project(':language-translation')
+        compile project(':language-translator')
+        compile project(':personality-insights')
+        compile project(':retrieve-and-rank')
+        compile project(':speech-to-text')
+        compile project(':text-to-speech')
+        compile project(':tone-analyzer')
+        compile project(':tradeoff-analytics')
+        compile project(':visual-recognition')
+    }
+}
