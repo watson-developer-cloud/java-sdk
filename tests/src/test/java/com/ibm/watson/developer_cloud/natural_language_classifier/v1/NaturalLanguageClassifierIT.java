@@ -38,121 +38,121 @@ import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NaturalLanguageClassifierIT extends WatsonServiceTest {
 
-	/** The classifier id. */
-	private static String classifierId = null;
-	private String preCreatedClassifierId;
+  /** The classifier id. */
+  private static String classifierId = null;
+  private String preCreatedClassifierId;
 
-	/** The service. */
-	private NaturalLanguageClassifier service;
+  /** The service. */
+  private NaturalLanguageClassifier service;
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
-	 */
-	@Override
-	@Before
-	public void setUp() throws Exception {
-		super.setUp();
-		String username = getProperty("natural_language_classifier.username");
-		String password = getProperty("natural_language_classifier.password");
+  /*
+   * (non-Javadoc)
+   *
+   * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
+   */
+  @Override
+  @Before
+  public void setUp() throws Exception {
+    super.setUp();
+    String username = getProperty("natural_language_classifier.username");
+    String password = getProperty("natural_language_classifier.password");
 
-		Assume.assumeFalse("config.properties doesn't have valid credentials.",
-				(username == null) || username.equals(PLACEHOLDER));
+    Assume.assumeFalse("config.properties doesn't have valid credentials.",
+        (username == null) || username.equals(PLACEHOLDER));
 
-		service = new NaturalLanguageClassifier();
-		service.setDefaultHeaders(getDefaultHeaders());
-		service.setUsernameAndPassword(username, password);
-		service.setEndPoint(getProperty("natural_language_classifier.url"));
+    service = new NaturalLanguageClassifier();
+    service.setDefaultHeaders(getDefaultHeaders());
+    service.setUsernameAndPassword(username, password);
+    service.setEndPoint(getProperty("natural_language_classifier.url"));
 
-		preCreatedClassifierId = getProperty("natural_language_classifier.classifier_id");
-	}
+    preCreatedClassifierId = getProperty("natural_language_classifier.classifier_id");
+  }
 
-	/**
-	 * Creates the classifier.
-	 *
-	 * @throws Exception the exception
-	 */
-	@Test
-	public void Acreate() throws Exception {
-		final File trainingData = new File("src/test/resources/natural_language_classifier/weather_data_train.csv");
-		final String classifierName = "devexp-available";
+  /**
+   * Creates the classifier.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void Acreate() throws Exception {
+    final File trainingData = new File("src/test/resources/natural_language_classifier/weather_data_train.csv");
+    final String classifierName = "devexp-available";
 
-		Classifier classifier = service.createClassifier(classifierName, "en", trainingData).execute();
+    Classifier classifier = service.createClassifier(classifierName, "en", trainingData).execute();
 
-		try {
-			assertNotNull(classifier);
-			assertEquals(Status.TRAINING, classifier.getStatus());
-			assertEquals(classifierName, classifier.getName());
-		} finally {
-			classifierId = classifier.getId();
-		}
+    try {
+      assertNotNull(classifier);
+      assertEquals(Status.TRAINING, classifier.getStatus());
+      assertEquals(classifierName, classifier.getName());
+    } finally {
+      classifierId = classifier.getId();
+    }
 
-	}
+  }
 
-	/**
-	 * Test get classifier.
-	 */
-	@Test
-	public void BgetClassifier() {
-		final Classifier classifier;
+  /**
+   * Test get classifier.
+   */
+  @Test
+  public void BgetClassifier() {
+    final Classifier classifier;
 
-		try {
-			classifier = service.getClassifier(classifierId).execute();
-		} catch (NotFoundException e) {
-			// #324: Classifiers may be empty, because of other tests interfering.
-			// The build should not fail here, because this is out of our control.
-			throw new AssumptionViolatedException(e.getMessage(), e);
-		}
-		assertNotNull(classifier);
-		assertEquals(classifierId, classifier.getId());
-		assertEquals(Classifier.Status.TRAINING, classifier.getStatus());
-	}
+    try {
+      classifier = service.getClassifier(classifierId).execute();
+    } catch (NotFoundException e) {
+      // #324: Classifiers may be empty, because of other tests interfering.
+      // The build should not fail here, because this is out of our control.
+      throw new AssumptionViolatedException(e.getMessage(), e);
+    }
+    assertNotNull(classifier);
+    assertEquals(classifierId, classifier.getId());
+    assertEquals(Classifier.Status.TRAINING, classifier.getStatus());
+  }
 
-	/**
-	 * Test get classifiers.
-	 */
-	@Test
-	public void CgetClassifiers() {
-		final Classifiers classifiers = service.getClassifiers().execute();
-		assertNotNull(classifiers);
+  /**
+   * Test get classifiers.
+   */
+  @Test
+  public void CgetClassifiers() {
+    final Classifiers classifiers = service.getClassifiers().execute();
+    assertNotNull(classifiers);
 
-		// #324: Classifiers may be empty, because of other tests interfering.
-		// The build should not fail here, because this is out of our control.
-		Assume.assumeFalse(classifiers.getClassifiers().isEmpty());
-	}
+    // #324: Classifiers may be empty, because of other tests interfering.
+    // The build should not fail here, because this is out of our control.
+    Assume.assumeFalse(classifiers.getClassifiers().isEmpty());
+  }
 
-	/**
-	 * Test classify.  Use the pre created classifier to avoid waiting for availability
-	 */
-	@Test
-	public void Dclassify() {
-		Classification classification = null;
+  /**
+   * Test classify. Use the pre created classifier to avoid waiting for availability
+   */
+  @Test
+  public void Dclassify() {
+    Classification classification = null;
 
-		try {
-			classification = service.classify(preCreatedClassifierId, "is it hot outside?").execute();
-		} catch (NotFoundException e) {
-			// #324: Classifiers may be empty, because of other tests interfering.
-			// The build should not fail here, because this is out of our control.
-			throw new AssumptionViolatedException(e.getMessage(), e);
-		} 
+    try {
+      classification = service.classify(preCreatedClassifierId, "is it hot outside?").execute();
+    } catch (NotFoundException e) {
+      // #324: Classifiers may be empty, because of other tests interfering.
+      // The build should not fail here, because this is out of our control.
+      throw new AssumptionViolatedException(e.getMessage(), e);
+    }
 
-		assertNotNull(classification);
-		assertEquals("temperature", classification.getTopClass());
-	}
+    assertNotNull(classification);
+    assertEquals("temperature", classification.getTopClass());
+  }
 
-	/**
-	 * Test delete classifier.  Do not delete the pre created classifier.  We need it for classify
-	 */
-	@Test
-	public void Edelete() {
-		List<Classifier> classifiers = service.getClassifiers().execute().getClassifiers();
+  /**
+   * Test delete classifier. Do not delete the pre created classifier. We need it for classify
+   */
+  @Test
+  public void Edelete() {
+    List<Classifier> classifiers = service.getClassifiers().execute().getClassifiers();
 
-		for (Classifier classifier : classifiers) {
-			if (!classifier.getId().equals(preCreatedClassifierId)) {
-				service.deleteClassifier(classifier.getId()).execute();
-			}
-		}
-	}
+    for (Classifier classifier : classifiers) {
+      if (!classifier.getId().equals(preCreatedClassifierId)) {
+        service.deleteClassifier(classifier.getId()).execute();
+      }
+    }
+  }
 
 }
