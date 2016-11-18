@@ -48,12 +48,18 @@ allprojects {
     from sourceSets.main.allSource
   }
 
+  task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+  }
+
   repositories {
     mavenCentral()
   }
 
   artifacts {
     archives sourcesJar
+    archives javadocJar
   }
 
   checkstyle {
