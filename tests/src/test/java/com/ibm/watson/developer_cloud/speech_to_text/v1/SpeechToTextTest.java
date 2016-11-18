@@ -29,7 +29,6 @@ import java.util.Map;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
@@ -537,7 +536,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    * @throws FileNotFoundException the file not found exception
    */
   @Test
-  @Ignore
   public void testGetCorpora() throws InterruptedException, FileNotFoundException {
     String id = "foo";
     String corporaAsString =
@@ -603,7 +601,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    * @throws FileNotFoundException the file not found exception
    */
   @Test
-  @Ignore
   public void testGetWords() throws InterruptedException, FileNotFoundException {
     String id = "foo";
     String wordsAsStr = getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/words.json"));
