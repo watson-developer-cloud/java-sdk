@@ -1,38 +1,178 @@
+plugins {
+  id 'ru.vyarus.animalsniffer' version '1.2.0'
+  id 'net.saliman.cobertura' version '2.3.2'
+}
 apply plugin: 'java'
-apply plugin: 'maven'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
-group = 'com.ibm.watson.developercloud'
-archivesBaseName = 'watson-developer-cloud'
-version = '3.5.1'
+import org.apache.tools.ant.filters.*
+
+archivesBaseName = 'java-sdk'
+
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
 
-repositories {
-    mavenCentral()
-}
-dependencies {
-    compile group: 'com.squareup.okhttp3', name: 'okhttp', version:'3.3.1'
-    compile group: 'com.squareup.okhttp3', name: 'okhttp-ws', version:'3.3.1'
-    compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version:'3.3.1'
-    compile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version:'3.3.1'
-    compile group: 'com.google.code.gson', name: 'gson', version:'2.6.2'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
-    compile group: 'org.glassfish.jersey.bundles.repackaged', name: 'jersey-jsr166e', version:'2.22.2'
-    testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version:'3.3.1'
-    testCompile group: 'ch.qos.logback', name: 'logback-classic', version:'1.1.7'
-    testCompile group: 'com.google.guava', name: 'guava', version:'19.0'
-    testCompile group: 'junit', name: 'junit-dep', version:'4.11'
+task docs(type: Javadoc) {
+  destinationDir = file("$buildDir/docs/all")
 }
 
-task sourcesJar(type: Jar) {
+
+def getDate() {
+  def date = new Date()
+  def formattedDate = date.format('yyyyMMddHHmmss')
+  return formattedDate
+}
+
+subprojects {
+  afterEvaluate {
+    if (plugins.hasPlugin(JavaPlugin)) {
+      rootProject.tasks.docs {
+        source += files(sourceSets.collect { srcSet -> srcSet.allJava })
+        classpath += files(sourceSets*.compileClasspath)
+      }
+    }
+  }
+}
+
+allprojects {
+  apply plugin: 'ru.vyarus.animalsniffer'
+  apply plugin: 'net.saliman.cobertura'
+  apply plugin: 'java'
+  apply plugin: 'maven'
+  apply plugin: 'checkstyle'
+
+  version = '3.5.2-SNAPSHOT'
+  group = 'com.ibm.watson.developercloud'
+
+  task sourcesJar(type: Jar) {
     classifier = 'sources'
     from sourceSets.main.allSource
+  }
+
+  repositories {
+    mavenCentral()
+  }
+
+  artifacts {
+    archives sourcesJar
+  }
+
+  checkstyle {
+    configFile = rootProject.file('checkstyle.xml')
+  }
+
+  dependencies {
+    testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.3.1'
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+    testCompile group: 'com.google.guava', name: 'guava', version: '19.0'
+    testCompile group: 'junit', name: 'junit-dep', version: '4.11'
+    signature 'org.codehaus.mojo.signature:java17:1.0@signature'
+  }
+
+  processResources {
+    filter ReplaceTokens, tokens: [
+            "pom.version": project.version,
+            "build.date" : getDate()
+    ]
+  }
+
+  uploadArchives {
+    repositories.mavenDeployer {
+      repository(url: "http://oss.sonatype.org/service/local/staging/deploy/maven2/")
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots")
+    }
+  }
+
+  cobertura {
+    coverageFormats = ['html', 'xml']
+    coverageIgnoreTrivial = true
+    coverageIgnores = ['org.slf4j.Logger.*']
+    coverageReportDir = new File("$buildDir/reports/cobertura")
+  }
 }
 
-artifacts {
-    archives sourcesJar
+
+configure(subprojects - project(':core')) {
+  dependencies {
+    compile project(':core')
+    testCompile project(path: ':core', configuration: 'tests')
+  }
+}
+
+project(':core') {
+
+  task testJar(type: Jar) {
+    classifier = 'tests'
+    from sourceSets.test.output
+  }
+
+  configurations {
+    tests
+  }
+
+  artifacts {
+    tests testJar
+  }
+
+  dependencies {
+    compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.3.1'
+    compile group: 'com.squareup.okhttp3', name: 'okhttp-ws', version: '3.3.1'
+    compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.3.1'
+    compile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '3.3.1'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.6.2'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+    compile group: 'org.glassfish.jersey.bundles.repackaged', name: 'jersey-jsr166e', version: '2.22.2'
+
+  }
+}
+
+project(':dialog') {
+  dependencies {
+    compile project(':core')
+    compile project(':conversation')
+  }
+}
+
+project(':tests') {
+  dependencies {
+    testCompile project(':core')
+    testCompile project(':natural-language-classifier')
+    testCompile project(':alchemy')
+    testCompile project(':conversation')
+    testCompile project(':dialog')
+    testCompile project(':document-conversion')
+    testCompile project(':language-translation')
+    testCompile project(':language-translator')
+    testCompile project(':personality-insights')
+    testCompile project(':retrieve-and-rank')
+    testCompile project(':speech-to-text')
+    testCompile project(':text-to-speech')
+    testCompile project(':tone-analyzer')
+    testCompile project(':tradeoff-analytics')
+    testCompile project(':visual-recognition')
+
+    testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.3.1'
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+    testCompile group: 'com.google.guava', name: 'guava', version: '19.0'
+    testCompile group: 'junit', name: 'junit-dep', version: '4.11'
+  }
+}
+
+configure(rootProject) {
+  dependencies {
+    compile project(':natural-language-classifier')
+    compile project(':alchemy')
+    compile project(':conversation')
+    compile project(':dialog')
+    compile project(':document-conversion')
+    compile project(':language-translation')
+    compile project(':language-translator')
+    compile project(':personality-insights')
+    compile project(':retrieve-and-rank')
+    compile project(':speech-to-text')
+    compile project(':text-to-speech')
+    compile project(':tone-analyzer')
+    compile project(':tradeoff-analytics')
+    compile project(':visual-recognition')
+  }
 }

@@ -311,8 +311,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
   /**
    * Test get recognition job with wrong id.
    *
-   * @throws InterruptedException the interrupted exception
-   * @throws FileNotFoundException the file not found exception
    */
   @Test
   public void testGetRecognitionJobWithWrongId() {
@@ -324,8 +322,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
   /**
    * Test get recognition jobs.
    *
-   * @throws InterruptedException the interrupted exception
-   * @throws FileNotFoundException the file not found exception
    */
   @Test
   public void testGetRecognitionJobs() {
