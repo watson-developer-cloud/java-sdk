@@ -1,5 +1,6 @@
 plugins {
     id 'ru.vyarus.animalsniffer' version '1.2.0'
+    id 'net.saliman.cobertura' version '2.3.2'
 }
 apply plugin: 'java'
 
@@ -23,7 +24,7 @@ def getDate() {
 
 subprojects {
     afterEvaluate {
-        if(plugins.hasPlugin(JavaPlugin)) {
+        if (plugins.hasPlugin(JavaPlugin)) {
             rootProject.tasks.docs {
                 source += files(sourceSets.collect { srcSet -> srcSet.allJava })
                 classpath += files(sourceSets*.compileClasspath)
@@ -34,6 +35,7 @@ subprojects {
 
 allprojects {
     apply plugin: 'ru.vyarus.animalsniffer'
+    apply plugin: 'net.saliman.cobertura'
     apply plugin: 'java'
     apply plugin: 'maven'
     apply plugin: 'checkstyle'
@@ -59,13 +61,17 @@ allprojects {
     }
 
     dependencies {
+        testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.3.1'
+        testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+        testCompile group: 'com.google.guava', name: 'guava', version: '19.0'
+        testCompile group: 'junit', name: 'junit-dep', version: '4.11'
         signature 'org.codehaus.mojo.signature:java17:1.0@signature'
     }
 
     processResources {
         filter ReplaceTokens, tokens: [
                 "pom.version": project.version,
-                "build.date": getDate()
+                "build.date" : getDate()
         ]
     }
 
@@ -75,6 +81,13 @@ allprojects {
 
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots")
         }
+    }
+
+    cobertura {
+        coverageFormats = ['html', 'xml']
+        coverageIgnoreTrivial = true
+        coverageIgnores = ['org.slf4j.Logger.*']
+        coverageReportDir = new File("$buildDir/reports/cobertura")
     }
 }
 
@@ -102,13 +115,14 @@ project(':core') {
     }
 
     dependencies {
-        compile group: 'com.squareup.okhttp3', name: 'okhttp', version:'3.3.1'
-        compile group: 'com.squareup.okhttp3', name: 'okhttp-ws', version:'3.3.1'
-        compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version:'3.3.1'
-        compile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version:'3.3.1'
-        compile group: 'com.google.code.gson', name: 'gson', version:'2.6.2'
-        compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
-        compile group: 'org.glassfish.jersey.bundles.repackaged', name: 'jersey-jsr166e', version:'2.22.2'
+        compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.3.1'
+        compile group: 'com.squareup.okhttp3', name: 'okhttp-ws', version: '3.3.1'
+        compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.3.1'
+        compile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '3.3.1'
+        compile group: 'com.google.code.gson', name: 'gson', version: '2.6.2'
+        compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
+        compile group: 'org.glassfish.jersey.bundles.repackaged', name: 'jersey-jsr166e', version: '2.22.2'
+
     }
 }
 
@@ -137,10 +151,10 @@ project(':tests') {
         testCompile project(':tradeoff-analytics')
         testCompile project(':visual-recognition')
 
-        testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version:'3.3.1'
-        testCompile group: 'ch.qos.logback', name: 'logback-classic', version:'1.1.7'
-        testCompile group: 'com.google.guava', name: 'guava', version:'19.0'
-        testCompile group: 'junit', name: 'junit-dep', version:'4.11'
+        testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.3.1'
+        testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+        testCompile group: 'com.google.guava', name: 'guava', version: '19.0'
+        testCompile group: 'junit', name: 'junit-dep', version: '4.11'
     }
 }
 
