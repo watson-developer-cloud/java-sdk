@@ -10,12 +10,26 @@ archivesBaseName = 'java-sdk'
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
 
+task docs(type: Javadoc) {
+    destinationDir = file("$buildDir/docs/all")
+}
 
 
 def getDate() {
     def date = new Date()
     def formattedDate = date.format('yyyyMMddHHmmss')
     return formattedDate
+}
+
+subprojects {
+    afterEvaluate {
+        if(plugins.hasPlugin(JavaPlugin)) {
+            rootProject.tasks.docs {
+                source += files(sourceSets.collect { srcSet -> srcSet.allJava })
+                classpath += files(sourceSets*.compileClasspath)
+            }
+        }
+    }
 }
 
 allprojects {
