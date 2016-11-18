@@ -22,6 +22,8 @@ import org.junit.Assume;
 import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.FixMethodOrder;
+import org.junit.runners.MethodSorters;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.natural_language_classifier.v1.model.Classification;
@@ -33,73 +35,15 @@ import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 /**
  * The Class NaturalLanguageClassifierTest.
  */
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NaturalLanguageClassifierIT extends WatsonServiceTest {
 
   /** The classifier id. */
-  private String classifierId;
+  private static String classifierId = null;
+  private String preCreatedClassifierId;
 
   /** The service. */
   private NaturalLanguageClassifier service;
-
-  /**
-   * Creates the classifier.
-   *
-   * @throws Exception the exception
-   */
-  @Test
-  public void createAndGetStatusForClassifier() throws Exception {
-    final File trainingData = new File("src/test/resources/natural_language_classifier/weather_data_train.csv");
-
-    final String name = "itest-example";
-    Classifier classifier = service.createClassifier(name, "en", trainingData).execute();
-
-    try {
-      assertNotNull(classifier);
-      assertEquals(Status.TRAINING, classifier.getStatus());
-      assertEquals(name, classifier.getName());
-
-      Thread.sleep(2000L);
-      classifier = service.getClassifier(classifier.getId()).execute();
-
-      assertNotNull(classifier);
-      assertEquals(name, classifier.getName());
-    } finally {
-      service.deleteClassifier(classifier.getId());
-    }
-
-  }
-
-  /**
-   * Test delete all classifiers.
-   */
-  @Test
-  public void testDeleteAllClassifiers() {
-    List<Classifier> classifiers = service.getClassifiers().execute().getClassifiers();
-    for (Classifier classifier : classifiers) {
-      if (!classifier.getId().equals(classifierId)) {
-        service.deleteClassifier(classifier.getId()).execute();
-      }
-    }
-  }
-
-  /**
-   * Test classify.
-   */
-  @Test
-  public void testClassify() {
-    final Classification classification;
-
-    try {
-      classification = service.classify(classifierId, "is it hot outside?").execute();
-    } catch (NotFoundException e) {
-      // #324: Classifiers may be empty, because of other tests interfering.
-      // The build should not fail here, because this is out of our control.
-      throw new AssumptionViolatedException(e.getMessage(), e);
-    }
-
-    assertNotNull(classification);
-    assertEquals("temperature", classification.getTopClass());
-  }
 
   /*
    * (non-Javadoc)
@@ -120,14 +64,37 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     service.setDefaultHeaders(getDefaultHeaders());
     service.setUsernameAndPassword(username, password);
     service.setEndPoint(getProperty("natural_language_classifier.url"));
-    classifierId = getProperty("natural_language_classifier.classifier_id");
+
+    preCreatedClassifierId = getProperty("natural_language_classifier.classifier_id");
+  }
+
+  /**
+   * Creates the classifier.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void Acreate() throws Exception {
+    final File trainingData = new File("src/test/resources/natural_language_classifier/weather_data_train.csv");
+    final String classifierName = "devexp-available";
+
+    Classifier classifier = service.createClassifier(classifierName, "en", trainingData).execute();
+
+    try {
+      assertNotNull(classifier);
+      assertEquals(Status.TRAINING, classifier.getStatus());
+      assertEquals(classifierName, classifier.getName());
+    } finally {
+      classifierId = classifier.getId();
+    }
+
   }
 
   /**
    * Test get classifier.
    */
   @Test
-  public void testGetClassifier() {
+  public void BgetClassifier() {
     final Classifier classifier;
 
     try {
@@ -139,13 +106,14 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     }
     assertNotNull(classifier);
     assertEquals(classifierId, classifier.getId());
+    assertEquals(Classifier.Status.TRAINING, classifier.getStatus());
   }
 
   /**
    * Test get classifiers.
    */
   @Test
-  public void testGetClassifiers() {
+  public void CgetClassifiers() {
     final Classifiers classifiers = service.getClassifiers().execute();
     assertNotNull(classifiers);
 
@@ -153,4 +121,38 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
     // The build should not fail here, because this is out of our control.
     Assume.assumeFalse(classifiers.getClassifiers().isEmpty());
   }
+
+  /**
+   * Test classify. Use the pre created classifier to avoid waiting for availability
+   */
+  @Test
+  public void Dclassify() {
+    Classification classification = null;
+
+    try {
+      classification = service.classify(preCreatedClassifierId, "is it hot outside?").execute();
+    } catch (NotFoundException e) {
+      // #324: Classifiers may be empty, because of other tests interfering.
+      // The build should not fail here, because this is out of our control.
+      throw new AssumptionViolatedException(e.getMessage(), e);
+    }
+
+    assertNotNull(classification);
+    assertEquals("temperature", classification.getTopClass());
+  }
+
+  /**
+   * Test delete classifier. Do not delete the pre created classifier. We need it for classify
+   */
+  @Test
+  public void Edelete() {
+    List<Classifier> classifiers = service.getClassifiers().execute().getClassifiers();
+
+    for (Classifier classifier : classifiers) {
+      if (!classifier.getId().equals(preCreatedClassifierId)) {
+        service.deleteClassifier(classifier.getId()).execute();
+      }
+    }
+  }
+
 }
