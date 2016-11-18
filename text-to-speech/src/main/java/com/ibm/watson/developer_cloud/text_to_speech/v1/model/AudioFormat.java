@@ -34,7 +34,7 @@ public class AudioFormat {
 
   /**
    * Linear 16-bit Pulse-Code Modulation (PCM) format (value is "audio/l16").
-   * This format must have a sampling rate set before use, see {@link #getPCM()}.
+   * This format must have a sampling rate set before use, see {@link #getPCM(int)}.
    */
   @Deprecated
   public static final AudioFormat PCM = new AudioFormat(HttpMediaType.AUDIO_PCM);
