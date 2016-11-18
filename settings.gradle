@@ -1,1 +1,36 @@
-rootProject.name = 'watson-developer-cloud'
+rootProject.name = 'java-sdk'
+include ':alchemy'
+include ':conversation'
+include ':core'
+include ':dialog'
+include ':document-conversion'
+include ':language-translation'
+include ':language-translator'
+include ':natural-language-classifier'
+include ':personality-insights'
+include ':retrieve-and-rank'
+include ':speech-to-text'
+include ':text-to-speech'
+include ':tone-analyzer'
+include ':tradeoff-analytics'
+include ':visual-recognition'
+include ':tests'
+include ':java-sdk'
+
+project(':alchemy').projectDir = "$rootDir/alchemy" as File
+project(':conversation').projectDir = "$rootDir/conversation" as File
+project(':core').projectDir = "$rootDir/core" as File
+project(':dialog').projectDir = "$rootDir/dialog" as File
+project(':document-conversion').projectDir = "$rootDir/document-conversion" as File
+project(':language-translation').projectDir = "$rootDir/language-translation" as File
+project(':language-translator').projectDir = "$rootDir/language-translator" as File
+project(':natural-language-classifier').projectDir = "$rootDir/natural-language-classifier" as File
+project(':personality-insights').projectDir = "$rootDir/personality-insights" as File
+project(':retrieve-and-rank').projectDir = "$rootDir/retrieve-and-rank" as File
+project(':speech-to-text').projectDir = "$rootDir/speech-to-text" as File
+project(':text-to-speech').projectDir = "$rootDir/text-to-speech" as File
+project(':tone-analyzer').projectDir = "$rootDir/tone-analyzer" as File
+project(':tradeoff-analytics').projectDir = "$rootDir/tradeoff-analytics" as File
+project(':visual-recognition').projectDir = "$rootDir/visual-recognition" as File
+project(':tests').projectDir = "$rootDir/tests" as File
+project(':java-sdk').projectDir = "$rootDir/all" as File
