@@ -83,9 +83,12 @@ allprojects {
 
   uploadArchives {
     repositories.mavenDeployer {
-      repository(url: "http://oss.sonatype.org/service/local/staging/deploy/maven2/")
-
-      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots")
+      repository(url: "http://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
+      }
+      snapshotRepository(url: "file:/Users/martinhrvn/repo/snapshots"){
+        authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
+      }
     }
   }
 
