@@ -115,19 +115,38 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
   }
 
   /**
+   * Test create classifier.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testCreateClassifier() throws InterruptedException {
+    server.enqueue(jsonResponse(classifier));
+    final Classifier response = service.createClassifier(classifierId, "en",
+        new File("src/test/resources/natural_language_classifier/weather_data_train.csv")).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(CLASSIFIERS_PATH, request.getPath());
+    assertEquals(classifier, response);
+  }
+
+  /**
+   * Test delete classifier.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testDeleteClassifier() throws InterruptedException {
+    service.deleteClassifier(classifierId);
+  }
+
+  // START NEGATIVE TESTS
+  /**
    * Test null classifier.
    */
   @Test(expected = IllegalArgumentException.class)
   public void testNullClassifier() {
     service.classify("", "test");
-  }
-
-  /**
-   * Test null delete classifier.
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testNullDeleteClassifier() {
-    service.deleteClassifier("");
   }
 
   /**
@@ -138,6 +157,13 @@ public class NaturalLanguageClassifierTest extends WatsonServiceUnitTest {
     service.classify(classifierId, null);
   }
 
+  /**
+   * Test null delete classifier.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testNullDeleteClassifier() {
+    service.deleteClassifier("");
+  }
 
   /**
    * Test null training data file.
