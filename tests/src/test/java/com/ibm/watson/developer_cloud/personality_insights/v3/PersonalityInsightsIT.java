@@ -61,7 +61,6 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   /**
    * Gets the profile with text.
    *
-   * @return the profile with text
    * @throws Exception the exception
    */
   @Test
@@ -98,7 +97,6 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   /**
    * Gets the profile from a single content item.
    *
-   * @return the profile with a single content item
    * @throws Exception the exception
    */
   @Test
@@ -123,7 +121,6 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   /**
    * Gets the profile from a list of content items.
    *
-   * @return the profile with content items
    * @throws Exception the exception
    */
   @Test
