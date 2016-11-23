@@ -27,15 +27,19 @@ public class ClassifyImagesOptions {
 
   private ClassifyImagesOptions(Builder builder) {
     imagesFile = builder.imagesFile;
+    imagesBinary = builder.imagesBinary;
     url = builder.url;
     classifierIds = builder.classifierIds;
     threshold = builder.threshold;
+    imageName = builder.imageName;
   }
 
   private File imagesFile;
+  private byte[] imagesBinary;
   private HttpUrl url;
   private List<String> classifierIds;
   private Double threshold;
+  private String imageName = "placeholder.png";
 
   /**
    * Classify Images Request Builder.
@@ -45,11 +49,14 @@ public class ClassifyImagesOptions {
     private HttpUrl url;
     private List<String> classifierIds;
     private Double threshold;
+    private byte[] imagesBinary;
+    private String imageName = "placeholder.png";
 
 
     private Builder(ClassifyImagesOptions options) {
       this();
       imagesFile = options.imagesFile;
+      imagesBinary = options.imagesBinary;
       url = options.url;
       classifierIds = new ArrayList<String>(options.classifierIds);
       threshold = options.threshold;
@@ -64,6 +71,19 @@ public class ClassifyImagesOptions {
     public Builder images(File imagesFile) {
       Validator.notNull(imagesFile, "'imagesFile' cannot be null");
       this.imagesFile = imagesFile;
+      return this;
+    }
+
+    /**
+     * Sets the images.
+     *
+     * @param imagesBinary the images bytes
+     * @return the builder
+     */
+    public Builder images(byte[] imagesBinary, String imageName) {
+      Validator.notNull(imagesBinary, "'imagesBinary' cannot be null");
+      this.imagesBinary = imagesBinary;
+      this.imageName = imageName;
       return this;
     }
 
@@ -133,14 +153,15 @@ public class ClassifyImagesOptions {
      */
     public Builder() { }
 
-    /**
-     * Builds the profile options.
-     *
-     * @return the profile options
-     */
-    public ClassifyImagesOptions build() {
-      Validator.isTrue((url != null) || (imagesFile != null), "url or imagesFile should be specified");
-      return new ClassifyImagesOptions(this);
+  /**
+   * Builds the profile options.
+   *
+   * @return the profile options
+   */
+  public ClassifyImagesOptions build() {
+    Validator.isTrue((url != null) || (imagesFile != null || imagesBinary != null),
+    "url or imagesFile or imagesBinary should be specified");
+    return new ClassifyImagesOptions(this);
     }
 
   }
@@ -152,6 +173,19 @@ public class ClassifyImagesOptions {
    */
   public File images() {
     return imagesFile;
+  }
+
+  /**
+   * Returns the images binary.
+   *
+   * @return the images binary
+   */
+  public byte[] imagesBinary() {
+    return imagesBinary;
+  }
+
+  public String imageName() {
+    return imageName;
   }
 
   /**
