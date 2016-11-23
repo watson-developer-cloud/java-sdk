@@ -19,6 +19,9 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.junit.Assume;
@@ -45,6 +48,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String IMAGE_FACE_FILE = "src/test/resources/visual_recognition/faces.zip";
   private static final String IMAGE_FACE_URL = "https://watson-test-resources.mybluemix.net/resources/obama.jpg";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
+  private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
   private static final String IMAGE_TEXT_FILE = "src/test/resources/visual_recognition/open.png";
   private static final String IMAGE_TEXT_URL = "https://watson-test-resources.mybluemix.net/resources/open.png";
   private static final String IMAGE_URL = "https://watson-test-resources.mybluemix.net/resources/car.png";
@@ -144,6 +148,18 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     ClassifyImagesOptions options = new ClassifyImagesOptions.Builder().url(IMAGE_URL).build();
     VisualClassification result = service.classify(options).execute();
     assertClassifyImage(result, options);
+  }
+  
+  /**
+   * Test classify images from bytes or stream.
+   */
+  @Test
+  public void testClassifyImagesFromBytes()throws IOException {
+	File images = new File(SINGLE_IMAGE_FILE);
+	byte[] fileBytes = Files.readAllBytes(Paths.get(images.getPath()));
+	ClassifyImagesOptions options = new ClassifyImagesOptions.Builder().images(fileBytes,"car.png").build();
+	VisualClassification result = service.classify(options).execute();
+	assertClassifyImage(result, options);
   }
 
   /**

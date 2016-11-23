@@ -17,6 +17,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String FIXTURE_FACES = "src/test/resources/visual_recognition/detected_faces.json";
   private static final String FIXTURE_TEXT = "src/test/resources/visual_recognition/detected_text.json";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
+  private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
   private static final String PATH_CLASSIFY = "/v3/classify";
   private static final String VERSION_DATE = "version";
   private static final String PATH_CLASSIFIERS = "/v3/classifiers";
@@ -99,6 +102,35 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals(serviceResponse, mockResponse);
   }
 
+  
+  /**
+   * Test classify with bytes or stream.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testClassifyWithBytes() throws IOException, InterruptedException {
+    VisualClassification mockResponse = loadFixture(FIXTURE_CLASSIFICATION, VisualClassification.class);
+    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
+
+    // execute request
+    File images = new File(SINGLE_IMAGE_FILE);
+    
+    byte[] fileBytes = Files.readAllBytes(Paths.get(images.getPath()));
+	
+    ClassifyImagesOptions options = new ClassifyImagesOptions.Builder().images(fileBytes,"car.png").classifierIds("car").build();
+    VisualClassification serviceResponse = service.classify(options).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+
+    String path =
+        PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key=" + API_KEY;
+    assertEquals(path, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertEquals(serviceResponse, mockResponse);
+  }
   /**
    * Test update classifier.
    *
