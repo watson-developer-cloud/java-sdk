@@ -153,14 +153,15 @@ public class ClassifyImagesOptions {
      */
     public Builder() { }
 
-    /**
-     * Builds the profile options.
-     *
-     * @return the profile options
-     */
-    public ClassifyImagesOptions build() {
-      Validator.isTrue((url != null) || (imagesFile != null || imagesBinary != null), "url or imagesFile or imagesBinary should be specified");
-      return new ClassifyImagesOptions(this);
+  /**
+   * Builds the profile options.
+   *
+   * @return the profile options
+   */
+  public ClassifyImagesOptions build() {
+    Validator.isTrue((url != null) || (imagesFile != null || imagesBinary != null),
+    "url or imagesFile or imagesBinary should be specified");
+    return new ClassifyImagesOptions(this);
     }
 
   }
@@ -173,7 +174,7 @@ public class ClassifyImagesOptions {
   public File images() {
     return imagesFile;
   }
-  
+
   /**
    * Returns the images binary.
    *
@@ -182,7 +183,7 @@ public class ClassifyImagesOptions {
   public byte[] imagesBinary() {
     return imagesBinary;
   }
-  
+
   public String imageName() {
     return imageName;
   }

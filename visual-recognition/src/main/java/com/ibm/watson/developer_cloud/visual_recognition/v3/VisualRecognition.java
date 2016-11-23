@@ -180,12 +180,12 @@ public class VisualRecognition extends WatsonService {
       RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.images());
       bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.images().getName(), requestBody);
     }
-    
+
     if (options.imagesBinary() != null) {
-    	RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imagesBinary());
-    	bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.imageName(), requestBody);
+      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imagesBinary());
+      bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.imageName(), requestBody);
     }
-    
+
     bodyBuilder.addFormDataPart(PARAM_PARAMETERS, getParametersAsJson(options).toString());
 
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_CLASSIFY);
