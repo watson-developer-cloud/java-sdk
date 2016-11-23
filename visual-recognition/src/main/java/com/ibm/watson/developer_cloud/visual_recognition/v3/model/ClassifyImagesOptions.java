@@ -39,7 +39,7 @@ public class ClassifyImagesOptions {
   private HttpUrl url;
   private List<String> classifierIds;
   private Double threshold;
-  private String imageName="placeholder.png";
+  private String imageName = "placeholder.png";
 
   /**
    * Classify Images Request Builder.
@@ -50,7 +50,7 @@ public class ClassifyImagesOptions {
     private List<String> classifierIds;
     private Double threshold;
     private byte[] imagesBinary;
-    private String imageName="placeholder.png";
+    private String imageName = "placeholder.png";
 
 
     private Builder(ClassifyImagesOptions options) {
@@ -73,7 +73,7 @@ public class ClassifyImagesOptions {
       this.imagesFile = imagesFile;
       return this;
     }
-    
+
     /**
      * Sets the images.
      *
@@ -159,7 +159,7 @@ public class ClassifyImagesOptions {
      * @return the profile options
      */
     public ClassifyImagesOptions build() {
-      Validator.isTrue((url != null) || (imagesFile != null || imagesBinary!=null), "url or imagesFile or imagesBinary should be specified");
+      Validator.isTrue((url != null) || (imagesFile != null || imagesBinary != null), "url or imagesFile or imagesBinary should be specified");
       return new ClassifyImagesOptions(this);
     }
 
@@ -184,7 +184,7 @@ public class ClassifyImagesOptions {
   }
   
   public String imageName() {
-	  return imageName;
+    return imageName;
   }
 
   /**
