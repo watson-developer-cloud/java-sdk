@@ -22,9 +22,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * Results obtained during a speech recognition.
  */
 public class SpeechResults extends GenericModel {
+
   @SerializedName("result_index")
   private int resultIndex;
   private List<Transcript> results;
+
+  public List<SpeakerLabel> getSpeaker_labels() {
+    return speaker_labels;
+  }
+
+  public void setSpeaker_labels(List<SpeakerLabel> speaker_labels) {
+    this.speaker_labels = speaker_labels;
+  }
+
+  private List<SpeakerLabel> speaker_labels;
+
 
   /**
    * Gets the result index.

@@ -44,6 +44,7 @@ public class RecognizeOptions {
     private Boolean profanityFilter;
     private Boolean smartFormatting;
     private String customizationId;
+    private Boolean speakerLabels;
 
     private Builder(RecognizeOptions options) {
       contentType = options.contentType;
@@ -61,6 +62,7 @@ public class RecognizeOptions {
       profanityFilter = options.profanityFilter;
       smartFormatting = options.smartFormatting;
       customizationId = options.customizationId;
+      speakerLabels = options.speakerLabels;
     }
 
     /**
@@ -113,6 +115,17 @@ public class RecognizeOptions {
      */
     public Builder smartFormatting(Boolean smartFormatting) {
       this.smartFormatting = smartFormatting;
+      return this;
+    }
+
+    /**
+     * If <code>true</code>, adds speaker labels to the transcript
+     *
+     * @param  Speaker Labels or "diarization"
+     * @return the recognize options
+     */
+    public Builder speakerLabels(Boolean speakerLabels) {
+      this.speakerLabels = speakerLabels;
       return this;
     }
 
@@ -313,6 +326,8 @@ public class RecognizeOptions {
   private Boolean smartFormatting;
   @SerializedName("customization_id")
   private String customizationId;
+  @SerializedName("diarization")
+  private Boolean speakerLabels;
 
   private RecognizeOptions(Builder builder) {
     contentType = builder.contentType;
@@ -330,6 +345,7 @@ public class RecognizeOptions {
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
     customizationId = builder.customizationId;
+    speakerLabels = builder.speakerLabels;
   }
 
   /**
@@ -367,6 +383,13 @@ public class RecognizeOptions {
   public Boolean smartFormatting() {
     return smartFormatting;
   }
+
+  /**
+   * Gets the smart formatting.
+   *
+   * @return the smart formatting
+   */
+  public Boolean speakerLabels() { return speakerLabels; }
 
   /**
    * Gets the continuous.
