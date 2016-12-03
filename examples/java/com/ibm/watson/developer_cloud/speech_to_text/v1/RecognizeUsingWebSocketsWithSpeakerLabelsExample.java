@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.*;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
@@ -51,6 +54,16 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
     }
   }
 
+  static class Utterance {
+    private int speaker;
+    private String transcript = "";
+
+    public Utterance(int speaker, String transcript) {
+      this.speaker = speaker;
+      this.transcript = transcript;
+    }
+  }
+
   static class RecoTokens {
     Map<Double, RecoToken> recoTokenMap = new LinkedHashMap<>();
 
@@ -67,9 +80,9 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
             }
           }
         }
-      if (speechResults.getSpeaker_labels() != null)
-        for (int i = 0; i < speechResults.getSpeaker_labels().size(); i++) {
-          add(speechResults.getSpeaker_labels().get(i));
+      if (speechResults.getSpeakerLabels() != null)
+        for (int i = 0; i < speechResults.getSpeakerLabels().size(); i++) {
+          add(speechResults.getSpeakerLabels().get(i));
         }
 
     }
@@ -93,35 +106,37 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
       else
         recoToken.updateFrom(speakerLabel);
 
-      if (speakerLabel.isFfinal()) {
-        markTokensBeforeAsFinal(speakerLabel);
-        reportFinal();
+      if (speakerLabel.isFinal()) {
+        markTokensBeforeAsFinal(speakerLabel.getFrom());
+        report();
         cleanFinal();
       }
     }
 
-    private void markTokensBeforeAsFinal(SpeakerLabel speakerLabel) {
+    private void markTokensBeforeAsFinal(Double from) {
       Map<Double, RecoToken> recoTokenMap = new LinkedHashMap<>();
 
       for (RecoToken rt: recoTokenMap.values()) {
-        if (rt.startTime <= speakerLabel.getFrom())
+        if (rt.startTime <= from)
           rt.spLabelIsFinal = true;
       }
     }
 
-    private void reportFinal() {
-      int currentSpeaker = -1;
-      String currentTranscript = "";
+    public void report() {
+      List<Utterance> uttterances = new ArrayList<Utterance>();
+      Utterance currentUtterance = new Utterance(0, "");
 
       for (RecoToken rt: recoTokenMap.values()) {
-        if (currentSpeaker != rt.speaker) {
-          System.out.println(currentTranscript);
-          currentSpeaker = rt.speaker;
-          currentTranscript = "";
-          currentTranscript = "Speaker " + currentSpeaker + " ";
+        if (currentUtterance.speaker != rt.speaker) {
+          uttterances.add(currentUtterance);
+          currentUtterance = new Utterance(rt.speaker, "");
         }
-        currentTranscript = currentTranscript + rt.word + " ";
+        currentUtterance.transcript = currentUtterance.transcript + rt.word + " ";
       }
+      uttterances.add(currentUtterance);
+      Gson gson = new GsonBuilder().setPrettyPrinting().create();
+      String json = gson.toJson(uttterances);
+      System.out.println(json);
     }
 
     private void cleanFinal() {
@@ -133,49 +148,10 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
       }
     }
 
-
-    public String toString() {
-      return recoTokenMap.toString();
-    }
   }
 
 
   private static CountDownLatch lock = new CountDownLatch(1);
-
-  public static void main1(String[] args) throws FileNotFoundException, InterruptedException {
-    SpeechToText service = new SpeechToText();
-    //service.setUsernameAndPassword("<username>", "<password>");
-    // staging
-    //https://stream-s.watsonplatform.net/speech-to-text/api
-    //var username = 'c9122908-2741-4610-93b9-f33a731ba920';
-    //var password = '74jxojn8LV9i';
-    String URL = "https://stream-s.watsonplatform.net/speech-to-text/api";
-    service.setUsernameAndPassword("c9122908-2741-4610-93b9-f33a731ba920", "74jxojn8LV9i");
-    service.setEndPoint(URL);
-
-    FileInputStream audio = new FileInputStream("/Users/afaisman/dev/data/8khz/voicemaill_20s_8khz.wav");
-
-    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true).speakerLabels(true)
-            .model("en-US_NarrowbandModel")
-        .contentType(HttpMediaType.AUDIO_WAV).build();
-
-    final RecoTokens recoTokens = new RecoTokens();
-    service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
-      @Override
-      public void onTranscription(SpeechResults speechResults) {
-        for (Transcript t: speechResults.getResults())
-       //   recoTokens.add(speechResults);
-          System.out.println(speechResults);
-      }
-
-      @Override
-      public void onDisconnected() {
-        lock.countDown();
-      }
-    });
-
-    lock.await(1, TimeUnit.MINUTES);
-  }
 
   public static void main(String[] args) throws FileNotFoundException, InterruptedException {
     SpeechToText service = new SpeechToText();
@@ -184,7 +160,8 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
     service.setUsernameAndPassword("c9122908-2741-4610-93b9-f33a731ba920", "74jxojn8LV9i");
     service.setEndPoint(URL);
 
-    FileInputStream audio = new FileInputStream("/Users/afaisman/dev/data/8khz/Us_English_Narrowband_Sample_1.wav");
+    //FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/twospeakers.wav");
+    FileInputStream audio = new FileInputStream("/Users/afaisman/dev/data/twospeakers.wav");
 
     RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
             .speakerLabels(true)

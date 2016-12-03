@@ -7,14 +7,14 @@ import com.google.gson.annotations.SerializedName;
  */
 public class SpeakerLabel {
 
-  private double from;
-  private double to;
+  private Double from;
+  private Double to;
   private int speaker;
 
   @SerializedName("final")
-  private boolean ffinal;
+  private boolean _final;
 
-  public double getFrom() {
+  public Double getFrom() {
     return from;
   }
 
@@ -38,12 +38,12 @@ public class SpeakerLabel {
     this.speaker = speaker;
   }
 
-  public boolean isFfinal() {
-    return ffinal;
+  public boolean isFinal() {
+    return _final;
   }
 
-  public void setFfinal(boolean ffinal) {
-    this.ffinal = ffinal;
+  public void setFinal(boolean ffinal) {
+    this._final = ffinal;
   }
 
 }

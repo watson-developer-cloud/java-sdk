@@ -27,15 +27,17 @@ public class SpeechResults extends GenericModel {
   private int resultIndex;
   private List<Transcript> results;
 
-  public List<SpeakerLabel> getSpeaker_labels() {
-    return speaker_labels;
+  @SerializedName("speaker_labels")
+  private List<SpeakerLabel> speakerLabels;
+
+  public List<SpeakerLabel> getSpeakerLabels() {
+    return speakerLabels;
   }
 
-  public void setSpeaker_labels(List<SpeakerLabel> speaker_labels) {
-    this.speaker_labels = speaker_labels;
+  public void setSpeaker_labels(List<SpeakerLabel> speakerLabels) {
+    this.speakerLabels = speakerLabels;
   }
 
-  private List<SpeakerLabel> speaker_labels;
 
 
   /**

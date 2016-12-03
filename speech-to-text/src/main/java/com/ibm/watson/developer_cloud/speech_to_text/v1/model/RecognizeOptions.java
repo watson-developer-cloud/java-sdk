@@ -385,9 +385,9 @@ public class RecognizeOptions {
   }
 
   /**
-   * Gets the smart formatting.
+   * Gets the speakerLabels.
    *
-   * @return the smart formatting
+   * @return the speakerLabels
    */
   public Boolean speakerLabels() { return speakerLabels; }
 
