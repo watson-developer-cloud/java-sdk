@@ -25,9 +25,6 @@ import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-/**
- * Recognize using WebSockets a sample wav file and print the transcript into the console output.
- */
 public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
   static class RecoToken {
     private double startTime;
@@ -153,19 +150,30 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
 
   private static CountDownLatch lock = new CountDownLatch(1);
 
+  /*
+  Notes:
+  - At this point (Dec 2016) the speaker labeling feature us supported only with en-US_NarrowbandModel.
+
+  - The flow of this example is defined by the way the speaker labelling feature works. When it turned on,
+  some of the SpeechResults instances arriving in onTranscription message, contain the  List<SpeakerLabel> speakerLabels in parallel with  the regular List<Transcript> results
+  SpeakerLabel class conains the timing information, and a boolen flag is final. The stream of speaker labels looks like non-final, non-final, ..., not-final, final.
+  Non-final labels can owerwrite each other, when the labeling algorithm "changes it's mind" about some of the previuous speaker labels. Arrival of a final speaker
+  label means that the algorithm made its mid about the previous speech fragment and that the previously collected labels won't to be changed in future.
+
+  In this example the arrival of final is the moment when the code prints the collected results. The results collected in a hashmap where the timing is used as key.
+
+  - Accuracy. The speaker labeling algorythms can make mistakes depending on the noise, speakers,manner of peach etc. However it can be very useful im many situations.
+  For example, you can use it to annotate a meeting, a long phone call or a presidential debate and use the annotation to navigate quickly to the  part of the audio when
+  a given speaker was talking.
+   */
+
   public static void main(String[] args) throws FileNotFoundException, InterruptedException {
     SpeechToText service = new SpeechToText();
-
-    String URL = "https://stream-s.watsonplatform.net/speech-to-text/api";
-    service.setUsernameAndPassword("c9122908-2741-4610-93b9-f33a731ba920", "74jxojn8LV9i");
-    service.setEndPoint(URL);
-
-    //FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/twospeakers.wav");
-    FileInputStream audio = new FileInputStream("/Users/afaisman/dev/data/twospeakers.wav");
+    service.setUsernameAndPassword("<username>", "<password>");
+    FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/twospeakers.wav");
 
     RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
-            .speakerLabels(true)
-            .model("en-US_NarrowbandModel")
+            .speakerLabels(true).model("en-US_NarrowbandModel")
             .contentType(HttpMediaType.AUDIO_WAV).build();
 
     final RecoTokens recoTokens = new RecoTokens();
