@@ -119,7 +119,7 @@ public class RecognizeOptions {
     }
 
     /**
-     * If <code>true</code>, adds speaker labels to the transcript
+     * If <code>true</code>, adds speaker labels to the transcript.
      *
      * @param  Speaker Labels or "diarization"
      * @return the recognize options
@@ -389,7 +389,9 @@ public class RecognizeOptions {
    *
    * @return the speakerLabels
    */
-  public Boolean speakerLabels() { return speakerLabels; }
+  public Boolean speakerLabels() {
+    return speakerLabels;
+  }
 
   /**
    * Gets the continuous.

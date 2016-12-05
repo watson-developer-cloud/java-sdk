@@ -34,7 +34,7 @@ public class SpeechResults extends GenericModel {
     return speakerLabels;
   }
 
-  public void setSpeaker_labels(List<SpeakerLabel> speakerLabels) {
+  public void setSpeakerLabels(List<SpeakerLabel> speakerLabels) {
     this.speakerLabels = speakerLabels;
   }
 

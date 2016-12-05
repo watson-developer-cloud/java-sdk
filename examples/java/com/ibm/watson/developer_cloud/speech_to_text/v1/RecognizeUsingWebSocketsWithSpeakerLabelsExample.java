@@ -21,7 +21,11 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeC
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -29,7 +33,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
   static class RecoToken {
     private double startTime;
     private double endTime;
-    private int speaker;
+    private Integer speaker;
     private String word;
     private boolean spLabelIsFinal;
 
@@ -52,7 +56,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
   }
 
   static class Utterance {
-    private int speaker;
+    private Integer speaker;
     private String transcript = "";
 
     public Utterance(int speaker, String transcript) {
@@ -169,8 +173,15 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
 
   public static void main(String[] args) throws FileNotFoundException, InterruptedException {
     SpeechToText service = new SpeechToText();
-    service.setUsernameAndPassword("<username>", "<password>");
     FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/twospeakers.wav");
+
+    // begin - remove when the speaker labeling is released
+    service.setUsernameAndPassword("<username>", "<password>");
+    service.setUsernameAndPassword("c9122908-2741-4610-93b9-f33a731ba920", "74jxojn8LV9i");
+    String URL = "https://stream-s.watsonplatform.net/speech-to-text/api";
+    service.setEndPoint(URL);
+    //FileInputStream audio = new FileInputStream("/Users/afaisman/dev/data/twospeakers.wav");
+    // end - remove when the speaker labeling is released
 
     RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
             .speakerLabels(true).model("en-US_NarrowbandModel")

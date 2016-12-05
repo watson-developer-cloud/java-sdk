@@ -12,7 +12,7 @@ public class SpeakerLabel {
   private int speaker;
 
   @SerializedName("final")
-  private boolean _final;
+  private boolean ffinal;
 
   public Double getFrom() {
     return from;
@@ -39,11 +39,11 @@ public class SpeakerLabel {
   }
 
   public boolean isFinal() {
-    return _final;
+    return ffinal;
   }
 
   public void setFinal(boolean ffinal) {
-    this._final = ffinal;
+    this.ffinal = ffinal;
   }
 
 }
