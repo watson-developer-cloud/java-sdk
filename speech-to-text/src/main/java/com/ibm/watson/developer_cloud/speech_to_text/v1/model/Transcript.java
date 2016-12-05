@@ -48,7 +48,7 @@ public class Transcript extends GenericModel {
   /**
    * Checks if is final.
    *
-   * @return The _final
+   * @return The ffinal
    */
   public boolean isFinal() {
     return ffinal;
