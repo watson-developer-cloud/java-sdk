@@ -14,8 +14,6 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -28,28 +26,16 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeC
  * Recognize using WebSockets a sample wav file and print the transcript into the console output.
  */
 public class RecognizeUsingWebSocketsExample {
-  class RecoToken {
-    Map<String, Object> values = new HashMap<>();
-  }
-
   private static CountDownLatch lock = new CountDownLatch(1);
 
   public static void main(String[] args) throws FileNotFoundException, InterruptedException {
     SpeechToText service = new SpeechToText();
-    //service.setUsernameAndPassword("<username>", "<password>");
-    // staging
-    //https://stream-s.watsonplatform.net/speech-to-text/api
-    //var username = 'c9122908-2741-4610-93b9-f33a731ba920';
-    //var password = '74jxojn8LV9i';
-    String URL = "https://stream-s.watsonplatform.net/speech-to-text/api";
-    service.setUsernameAndPassword("c9122908-2741-4610-93b9-f33a731ba920", "74jxojn8LV9i");
-    service.setEndPoint(URL);
+    service.setUsernameAndPassword("<username>", "<password>");
 
-    FileInputStream audio = new FileInputStream("/Users/afaisman/dev/data/8khz/voicemaill_20s_8khz.wav");
+    FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/sample1.wav");
 
-    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true).speakerLabels(true)
-            .model("en-US_NarrowbandModel")
-        .contentType(HttpMediaType.AUDIO_WAV).build();
+    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
+            .contentType(HttpMediaType.AUDIO_WAV).build();
 
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
       @Override

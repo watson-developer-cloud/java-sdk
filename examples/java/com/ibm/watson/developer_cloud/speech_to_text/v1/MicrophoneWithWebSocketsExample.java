@@ -36,19 +36,10 @@ public class MicrophoneWithWebSocketsExample {
    */
   public static void main(final String[] args) throws Exception {
     SpeechToText service = new SpeechToText();
-    //service.setUsernameAndPassword("<username>", "<password>");
-    service.setUsernameAndPassword("cb98bc57-530f-4481-8a5b-cd1e330a6734", "DwOBwg5Cy7tk");
-
-    // staging
-    //https://stream-s.watsonplatform.net/speech-to-text/api
-    //var username = 'c9122908-2741-4610-93b9-f33a731ba920';
-    //var password = '74jxojn8LV9i';
-    String URL = "https://stream-s.watsonplatform.net/speech-to-text/api";
-    service.setUsernameAndPassword("c9122908-2741-4610-93b9-f33a731ba920", "74jxojn8LV9i");
-    service.setEndPoint(URL);
+    service.setUsernameAndPassword("<username>", "<password>");
 
     // Signed PCM AudioFormat with 16kHz, 16 bit sample size, mono
-    int sampleRate = 8000;
+    int sampleRate = 16000;
     AudioFormat format = new AudioFormat(sampleRate, 16, 1, true, false);
     DataLine.Info info = new DataLine.Info(TargetDataLine.class, format);
 
@@ -64,15 +55,9 @@ public class MicrophoneWithWebSocketsExample {
     AudioInputStream audio = new AudioInputStream(line);
 
     RecognizeOptions options =
-        new RecognizeOptions.Builder().
-                continuous(true).
-                interimResults(true).
-                timestamps(true).
-                wordConfidence(true).
-                speakerLabels(true).
-                model("en-US_NarrowbandModel")
-            // .inactivityTimeout(5) // use this to stop listening when the speaker pauses, i.e. for 5s
-            .contentType(HttpMediaType.AUDIO_RAW + "; rate=" + sampleRate).build();
+            new RecognizeOptions.Builder().continuous(true).interimResults(true).timestamps(true).wordConfidence(true)
+                    // .inactivityTimeout(5) // use this to stop listening when the speaker pauses, i.e. for 5s
+                    .contentType(HttpMediaType.AUDIO_RAW + "; rate=" + sampleRate).build();
 
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
       @Override
