@@ -65,20 +65,20 @@ public class ConversationToneAnalyzerIntegrationExample {
       @Override
       public void onResponse(ToneAnalysis toneResponsePayload) {
 
-//        // update context with the tone data returned by the Tone Analyzer
-//        ToneDetection.updateUserTone(context, toneResponsePayload, maintainHistory);
-//
-//        // call Conversation Service with the input and tone-aware context
-//        MessageRequest newMessage = new MessageRequest.Builder().inputText(input).context(context).build();
-//        conversationService.message(workspaceId, newMessage).enqueue(new ServiceCallback<MessageResponse>() {
-//          @Override
-//          public void onResponse(MessageResponse response) {
-//            System.out.println(response);
-//          }
-//
-//          @Override
-//          public void onFailure(Exception e) { }
-//        });
+        // update context with the tone data returned by the Tone Analyzer
+        ToneDetection.updateUserTone(context, toneResponsePayload, maintainHistory);
+
+        // call Conversation Service with the input and tone-aware context
+        MessageRequest newMessage = new MessageRequest.Builder().inputText(input).context(context).build();
+        conversationService.message(workspaceId, newMessage).enqueue(new ServiceCallback<MessageResponse>() {
+          @Override
+          public void onResponse(MessageResponse response) {
+            System.out.println(response);
+          }
+
+          @Override
+          public void onFailure(Exception e) { }
+        });
       }
 
       @Override
