@@ -83,6 +83,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final String PATH_WORD = "/v1/customizations/%s/words/%s";
 
   private static final File SAMPLE_WAV = new File("src/test/resources/speech_to_text/sample1.wav");
+  private static final File TWO_SPEAKERS_WAV = new File("src/test/resources/speech_to_text/twospeakers.wav");
 
   private SpeechToText service;
   private SpeechSession session;
@@ -258,6 +259,30 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     assertEquals(PATH_RECOGNIZE, request.getPath());
     assertEquals(HttpMediaType.AUDIO_WAV, request.getHeader(CONTENT_TYPE));
+  }
+
+
+  /**
+   * Test recognize.
+   *
+   * @throws URISyntaxException the URI syntax exception
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testRecognizeWithSpeakerLabels() throws URISyntaxException, InterruptedException {
+
+    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
+            .speakerLabels(true).model("en-US_NarrowbandModel")
+            .contentType(HttpMediaType.AUDIO_WAV).build();
+
+    // begin - remove when the speaker labeling is released
+    String URL = "https://stream-s.watsonplatform.net/speech-to-text/api";
+    service.setUsernameAndPassword("<>", "<>");
+    service.setEndPoint(URL);
+    // end - remove when the speaker labeling is released
+
+    final SpeechResults result = service.recognize(TWO_SPEAKERS_WAV, options).execute();
+    assertNotNull(result.getSpeakerLabels());
   }
 
   /**
