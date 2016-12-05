@@ -79,6 +79,7 @@ public class SpeechToText extends WatsonService {
   private static final String SECRET = "secret";
   private static final String SERVICE_NAME = "speech_to_text";
   private static final String SMART_FORMATTING = "smart_formatting";
+  private static final String SPEAKER_LABELS = "speaker_labels";
   private static final String TIMESTAMPS = "timestamps";
   private static final String USER_TOKEN = "user_token";
   private static final String WORD_ALTERNATIVES_THRESHOLD = "word_alternatives_threshold";
@@ -188,6 +189,10 @@ public class SpeechToText extends WatsonService {
       requestBuilder.query(SMART_FORMATTING, options.smartFormatting());
     }
 
+    if (options.speakerLabels() != null) {
+      requestBuilder.query(SPEAKER_LABELS, options.speakerLabels());
+    }
+
     if (options.profanityFilter() != null) {
       requestBuilder.query(PROFANITY_FILTER, options.profanityFilter());
     }
@@ -222,6 +227,9 @@ public class SpeechToText extends WatsonService {
     }
     if (options.customizationId() != null) {
       requestBuilder.query(CUSTOMIZATION_ID, options.customizationId());
+    }
+    if (options.speakerLabels() != null) {
+      requestBuilder.query(SPEAKER_LABELS, options.speakerLabels());
     }
 
   }
