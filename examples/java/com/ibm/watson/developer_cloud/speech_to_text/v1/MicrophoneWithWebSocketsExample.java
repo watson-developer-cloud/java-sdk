@@ -55,9 +55,9 @@ public class MicrophoneWithWebSocketsExample {
     AudioInputStream audio = new AudioInputStream(line);
 
     RecognizeOptions options =
-            new RecognizeOptions.Builder().continuous(true).interimResults(true).timestamps(true).wordConfidence(true)
-                    // .inactivityTimeout(5) // use this to stop listening when the speaker pauses, i.e. for 5s
-                    .contentType(HttpMediaType.AUDIO_RAW + "; rate=" + sampleRate).build();
+        new RecognizeOptions.Builder().continuous(true).interimResults(true).timestamps(true).wordConfidence(true)
+            // .inactivityTimeout(5) // use this to stop listening when the speaker pauses, i.e. for 5s
+            .contentType(HttpMediaType.AUDIO_RAW + "; rate=" + sampleRate).build();
 
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
       @Override
