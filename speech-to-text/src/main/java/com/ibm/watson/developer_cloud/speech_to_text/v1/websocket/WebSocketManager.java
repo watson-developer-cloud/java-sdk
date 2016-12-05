@@ -72,6 +72,8 @@ public class WebSocketManager {
     private static final int FOUR_KB = 4096;
     private static final String ERROR = "error";
     private static final String RESULTS = "results";
+    private static final String SPEAKER_LABELS = "speaker_labels";
+
     private static final String TIMEOUT_PREFIX = "No speech detected for";
 
     private final InputStream stream;
@@ -137,7 +139,7 @@ public class WebSocketManager {
         if (!error.startsWith(TIMEOUT_PREFIX)) {
           callback.onError(new RuntimeException(error));
         }
-      } else if (json.has(RESULTS)) {
+      } else if (json.has(RESULTS) || json.has(SPEAKER_LABELS)) {
         callback.onTranscription(GSON.fromJson(message, SpeechResults.class));
       } else if (json.has(STATE)) {
         if (audioThread == null) {
