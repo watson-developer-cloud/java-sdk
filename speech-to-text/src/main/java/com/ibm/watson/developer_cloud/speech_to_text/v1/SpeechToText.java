@@ -225,13 +225,10 @@ public class SpeechToText extends WatsonService {
     if (options.wordAlternativesThreshold() != null) {
       requestBuilder.query(WORD_ALTERNATIVES_THRESHOLD, options.wordAlternativesThreshold());
     }
+
     if (options.customizationId() != null) {
       requestBuilder.query(CUSTOMIZATION_ID, options.customizationId());
     }
-    if (options.speakerLabels() != null) {
-      requestBuilder.query(SPEAKER_LABELS, options.speakerLabels());
-    }
-
   }
 
   /**

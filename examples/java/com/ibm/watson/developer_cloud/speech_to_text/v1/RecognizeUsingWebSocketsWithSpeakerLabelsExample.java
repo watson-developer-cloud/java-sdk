@@ -12,12 +12,16 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.*;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeakerLabel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechAlternative;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechTimestamp;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,44 +34,93 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
-  static class RecoToken {
-    private double startTime;
-    private double endTime;
+
+  public class RecoToken {
+    private Double startTime;
+    private Double endTime;
     private Integer speaker;
     private String word;
-    private boolean spLabelIsFinal;
+    private Boolean spLabelIsFinal;
 
+    /**
+     * Instantiates a new reco token.
+     *
+     * @param speechTimestamp the speech timestamp
+     */
     RecoToken(SpeechTimestamp speechTimestamp) {
       startTime = speechTimestamp.getStartTime();
       endTime = speechTimestamp.getEndTime();
       word = speechTimestamp.getWord();
     }
+
+    /**
+     * Instantiates a new reco token.
+     *
+     * @param speakerLabel the speaker label
+     */
     RecoToken(SpeakerLabel speakerLabel) {
       startTime = speakerLabel.getFrom();
       endTime = speakerLabel.getTo();
       speaker = speakerLabel.getSpeaker();
     }
+
+    /**
+     * Update from.
+     *
+     * @param speechTimestamp the speech timestamp
+     */
     void updateFrom(SpeechTimestamp speechTimestamp) {
       word = speechTimestamp.getWord();
     }
+
+    /**
+     * Update from.
+     *
+     * @param speakerLabel the speaker label
+     */
     void updateFrom(SpeakerLabel speakerLabel) {
       speaker = speakerLabel.getSpeaker();
     }
   }
 
-  static class Utterance {
+  /**
+   * The Class Utterance.
+   */
+  public class Utterance {
     private Integer speaker;
     private String transcript = "";
 
-    public Utterance(int speaker, String transcript) {
+    /**
+     * Instantiates a new utterance.
+     *
+     * @param speaker the speaker
+     * @param transcript the transcript
+     */
+    public Utterance(final Integer speaker, final String transcript) {
       this.speaker = speaker;
       this.transcript = transcript;
     }
   }
 
-  static class RecoTokens {
-    Map<Double, RecoToken> recoTokenMap = new LinkedHashMap<>();
+  /**
+   * The Class RecoTokens.
+   */
+  public class RecoTokens {
 
+    private Map<Double, RecoToken> recoTokenMap;
+
+    /**
+     * Instantiates a new reco tokens.
+     */
+    public RecoTokens() {
+      recoTokenMap = new LinkedHashMap<Double, RecoToken>();
+    }
+
+    /**
+     * Adds the.
+     *
+     * @param speechResults the speech results
+     */
     public void add(SpeechResults speechResults) {
       if (speechResults.getResults() != null)
         for (int i = 0; i < speechResults.getResults().size(); i++) {
@@ -88,24 +141,34 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
 
     }
 
+    /**
+     * Adds the.
+     *
+     * @param speechTimestamp the speech timestamp
+     */
     public void add(SpeechTimestamp speechTimestamp) {
       RecoToken recoToken = recoTokenMap.get(speechTimestamp.getStartTime());
       if (recoToken == null) {
         recoToken = new RecoToken(speechTimestamp);
         recoTokenMap.put(speechTimestamp.getStartTime(), recoToken);
-      }
-      else
+      } else {
         recoToken.updateFrom(speechTimestamp);
+      }
     }
 
+    /**
+     * Adds the.
+     *
+     * @param speakerLabel the speaker label
+     */
     public void add(SpeakerLabel speakerLabel) {
       RecoToken recoToken = recoTokenMap.get(speakerLabel.getFrom());
       if (recoToken == null) {
         recoToken = new RecoToken(speakerLabel);
         recoTokenMap.put(speakerLabel.getFrom(), recoToken);
-      }
-      else
+      } else {
         recoToken.updateFrom(speakerLabel);
+      }
 
       if (speakerLabel.isFinal()) {
         markTokensBeforeAsFinal(speakerLabel.getFrom());
@@ -117,17 +180,20 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
     private void markTokensBeforeAsFinal(Double from) {
       Map<Double, RecoToken> recoTokenMap = new LinkedHashMap<>();
 
-      for (RecoToken rt: recoTokenMap.values()) {
+      for (RecoToken rt : recoTokenMap.values()) {
         if (rt.startTime <= from)
           rt.spLabelIsFinal = true;
       }
     }
 
+    /**
+     * Report.
+     */
     public void report() {
       List<Utterance> uttterances = new ArrayList<Utterance>();
       Utterance currentUtterance = new Utterance(0, "");
 
-      for (RecoToken rt: recoTokenMap.values()) {
+      for (RecoToken rt : recoTokenMap.values()) {
         if (currentUtterance.speaker != rt.speaker) {
           uttterances.add(currentUtterance);
           currentUtterance = new Utterance(rt.speaker, "");
@@ -135,15 +201,15 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
         currentUtterance.transcript = currentUtterance.transcript + rt.word + " ";
       }
       uttterances.add(currentUtterance);
-      Gson gson = new GsonBuilder().setPrettyPrinting().create();
-      String json = gson.toJson(uttterances);
-      System.out.println(json);
+
+      String result = GsonSingleton.getGson().toJson(uttterances);
+      System.out.println(result);
     }
 
     private void cleanFinal() {
-      Set<Map.Entry<Double,RecoToken>> set = recoTokenMap.entrySet();
-      for(Map.Entry<Double, RecoToken> e : set){
-        if(e.getValue().spLabelIsFinal){
+      Set<Map.Entry<Double, RecoToken>> set = recoTokenMap.entrySet();
+      for (Map.Entry<Double, RecoToken> e : set) {
+        if (e.getValue().spLabelIsFinal) {
           recoTokenMap.remove(e.getKey());
         }
       }
@@ -154,38 +220,21 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
 
   private static CountDownLatch lock = new CountDownLatch(1);
 
-  /*
-  Notes:
-  - At this point (Dec 2016) the speaker labeling feature us supported only with en-US_NarrowbandModel.
-
-  - The flow of this example is defined by the way the speaker labelling feature works. When it turned on,
-  some of the SpeechResults instances arriving in onTranscription message, contain the  List<SpeakerLabel> speakerLabels in parallel with  the regular List<Transcript> results
-  SpeakerLabel class conains the timing information, and a boolen flag is final. The stream of speaker labels looks like non-final, non-final, ..., not-final, final.
-  Non-final labels can owerwrite each other, when the labeling algorithm "changes it's mind" about some of the previuous speaker labels. Arrival of a final speaker
-  label means that the algorithm made its mid about the previous speech fragment and that the previously collected labels won't to be changed in future.
-
-  In this example the arrival of final is the moment when the code prints the collected results. The results collected in a hashmap where the timing is used as key.
-
-  - Accuracy. The speaker labeling algorythms can make mistakes depending on the noise, speakers,manner of peach etc. However it can be very useful im many situations.
-  For example, you can use it to annotate a meeting, a long phone call or a presidential debate and use the annotation to navigate quickly to the  part of the audio when
-  a given speaker was talking.
+  /**
+   * The main method.
+   *
+   * @param args the arguments
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
    */
-
   public static void main(String[] args) throws FileNotFoundException, InterruptedException {
-    SpeechToText service = new SpeechToText();
     FileInputStream audio = new FileInputStream("src/test/resources/speech_to_text/twospeakers.wav");
 
+    SpeechToText service = new SpeechToText();
     service.setUsernameAndPassword("<username>", "<password>");
 
-    // begin - remove when the speaker labeling is released
-    String URL = "https://stream-s.watsonplatform.net/speech-to-text/api";
-    service.setEndPoint(URL);
-    //FileInputStream audio = new FileInputStream("/Users/afaisman/dev/data/twospeakers.wav");
-    // end - remove when the speaker labeling is released
-
-    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
-            .speakerLabels(true).model("en-US_NarrowbandModel")
-            .contentType(HttpMediaType.AUDIO_WAV).build();
+    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true).speakerLabels(true)
+        .model(SpeechModel.EN_US_NARROWBANDMODEL.getName()).contentType(HttpMediaType.AUDIO_WAV).build();
 
     final RecoTokens recoTokens = new RecoTokens();
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {

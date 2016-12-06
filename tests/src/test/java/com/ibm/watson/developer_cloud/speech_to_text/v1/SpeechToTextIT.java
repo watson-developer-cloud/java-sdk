@@ -57,6 +57,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private static final String EN_BROADBAND16K = "en-US_BroadbandModel";
   private static final String SPEECH_RESOURCE = "src/test/resources/speech_to_text/%s";
   private static final String SAMPLE_WAV = String.format(SPEECH_RESOURCE, "sample1.wav");
+  private static final String TWO_SPEAKERS_WAV = String.format(SPEECH_RESOURCE, "twospeakers.wav");
 
   private CountDownLatch lock = new CountDownLatch(1);
   private SpeechToText service;
@@ -179,6 +180,25 @@ public class SpeechToTextIT extends WatsonServiceTest {
     File audio = new File(SAMPLE_WAV);
     SpeechResults results = service.recognize(audio).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
+  }
+
+  /**
+   * Test recognize multiple speakers.
+   */
+  @Test
+  public void testRecognizeMultipleSpeakers() {
+    File audio = new File(TWO_SPEAKERS_WAV);
+    RecognizeOptions options = new RecognizeOptions.Builder()
+      .continuous(true)
+      .interimResults(true)
+      .speakerLabels(true)
+      .model(SpeechModel.EN_US_NARROWBANDMODEL.getName())
+      .contentType(HttpMediaType.AUDIO_WAV)
+      .build();
+
+    SpeechResults results = service.recognize(audio, options).execute();
+    assertNotNull(results.getSpeakerLabels());
+    assertTrue(results.getSpeakerLabels().size() > 0);
   }
 
   /**

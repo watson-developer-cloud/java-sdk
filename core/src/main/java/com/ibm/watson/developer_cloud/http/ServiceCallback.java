@@ -24,7 +24,7 @@ public interface ServiceCallback<T> {
    *
    * @param response the response
    */
-  void onResponse(final T response);
+  void onResponse(T response);
 
   /**
    * Called if there is an error during the request.
