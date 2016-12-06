@@ -83,7 +83,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final String PATH_WORD = "/v1/customizations/%s/words/%s";
 
   private static final File SAMPLE_WAV = new File("src/test/resources/speech_to_text/sample1.wav");
-  private static final File TWO_SPEAKERS_WAV = new File("src/test/resources/speech_to_text/twospeakers.wav");
 
   private SpeechToText service;
   private SpeechSession session;
@@ -263,26 +262,30 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
 
   /**
-   * Test recognize.
+   * Test diarization.
    *
    * @throws URISyntaxException the URI syntax exception
    * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
    */
   @Test
-  public void testRecognizeWithSpeakerLabels() throws URISyntaxException, InterruptedException {
+  public void testRecognizeWithSpeakerLabels() throws URISyntaxException, InterruptedException, FileNotFoundException {
+    FileInputStream jsonFile = new FileInputStream("src/test/resources/speech_to_text/diarization.json");
+    String diarizationStr = getStringFromInputStream(jsonFile);
+    JsonObject diarization = new JsonParser().parse(diarizationStr).getAsJsonObject();
 
-    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
-            .speakerLabels(true).model("en-US_NarrowbandModel")
-            .contentType(HttpMediaType.AUDIO_WAV).build();
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(diarizationStr));
 
-    // begin - remove when the speaker labeling is released
-    String URL = "https://stream-s.watsonplatform.net/speech-to-text/api";
-    service.setUsernameAndPassword("<>", "<>");
-    service.setEndPoint(URL);
-    // end - remove when the speaker labeling is released
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .speakerLabels(true)
+        .build();
 
-    final SpeechResults result = service.recognize(TWO_SPEAKERS_WAV, options).execute();
-    assertNotNull(result.getSpeakerLabels());
+    SpeechResults result = service.recognize(SAMPLE_WAV, options).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(PATH_RECOGNIZE + "?speaker_labels=true", request.getPath());
+    assertEquals(diarization, GSON.toJsonTree(result));
   }
 
   /**
