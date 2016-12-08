@@ -36,6 +36,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Breaking Changes for v3.0](#breaking-changes-for-v30)
   * [Android](#android)
   * [Running in Bluemix](#running-in-bluemix)
+  * [Default Headers](#default-headers)
   * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
   * [License](#license)
   * [Contributing](#contributing)
@@ -227,6 +228,22 @@ If you have more than one plan, you can use `BluemixUtils` to get the service cr
 PersonalityInsights service = new PersonalityInsights();
 String apiKey = BluemixUtils.getAPIKey(service.getName(), BluemixUtils.PLAN_STANDARD);
 service.setApiKey(apiKey);
+```
+
+## Default Headers
+Default headers can be specified at any time by using the `setDefaultHeaders(Map<String, String> headers)` method.
+
+The example below sends the `X-Watson-Learning-Opt-Out` header in every request preventing Watson from using the payload to improve the service.
+
+```java
+PersonalityInsights service = new PersonalityInsights();
+
+Map<String, String> headers = new HashMap<String, String>();
+headers.put(HttpHeaders.X_WATSON_LEARNING_OPT_OUT, 1);
+
+service.setDefaultHeaders(headers);
+
+// All the api calls from now on will send the default headers
 ```
 
 ## Build + Test
