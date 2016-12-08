@@ -8,6 +8,7 @@ _2016-12-08_
 * New: Added Speaker Labeling (diarization) added
 * New: Added Conversation + Tone Analyzer example
 * New: Added byte array support to classify an in memory image
+* Fix: Text to Speech: `getPronunciation()` and `getVoice` now accept a `customizationId` parameter.
 
 ## Version 3.5.1
 
