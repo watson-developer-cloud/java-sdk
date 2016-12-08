@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>alchemy</artifactId>
-	<version>3.5.1</version>
+	<version>3.5.2</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:alchemy:3.5.1'
+'com.ibm.watson.developer_cloud:alchemy:3.5.2'
 ```
 
 ## Alchemy Language
