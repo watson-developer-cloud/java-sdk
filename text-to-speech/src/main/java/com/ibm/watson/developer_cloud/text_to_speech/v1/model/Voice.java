@@ -56,6 +56,9 @@ public class Voice extends GenericModel {
   /** The Constant ES_SOFIA (value is "es-US_SofiaVoice"). */
   public static final Voice ES_SOFIA = new Voice("es-US_SofiaVoice", FEMALE, "es-US");
 
+  /** The Constant LA_SOFIA (value is "es-LA_SofiaVoice"). */
+  public static final Voice LA_SOFIA = new Voice("es-LA_SofiaVoice", FEMALE, "es-LA");
+
   /** The Constant FR_RENEE (value is "fr-FR_ReneeVoice"). */
   public static final Voice FR_RENEE = new Voice("fr-FR_ReneeVoice", FEMALE, "fr-FR");
 
