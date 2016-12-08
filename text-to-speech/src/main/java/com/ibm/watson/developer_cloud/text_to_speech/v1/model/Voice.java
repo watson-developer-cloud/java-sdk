@@ -16,6 +16,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
 
@@ -24,15 +25,62 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
  */
 public class Voice extends GenericModel {
 
-  private static final String MALE = "male";
+  /**
+   * Describes the additional service features supported with the voice.
+   */
+  public class SupportedFeatures {
+    @SerializedName("custom_pronunciation")
+    private Boolean customPronunciation;
+    @SerializedName("voice_transformation")
+    private Boolean voiceTransformation;
+
+    /**
+     * Gets the custom pronunciation.
+     *
+     * @return the custom pronunciation
+     */
+    public Boolean getCustomPronunciation() {
+      return customPronunciation;
+    }
+
+    /**
+     * Gets the voice transformation.
+     *
+     * @return the voice transformation
+     */
+    public Boolean getVoiceTransformation() {
+      return voiceTransformation;
+    }
+
+    /**
+     * Sets the custom pronunciation.
+     *
+     * @param customPronunciation the new custom pronunciation
+     */
+    public void setCustomPronunciation(Boolean customPronunciation) {
+      this.customPronunciation = customPronunciation;
+    }
+
+    /**
+     * Sets the voice transformation.
+     *
+     * @param voiceTransformation the new voice transformation
+     */
+    public void setVoiceTransformation(Boolean voiceTransformation) {
+      this.voiceTransformation = voiceTransformation;
+    }
+
+  }
 
   private static final String FEMALE = "female";
 
-  /** The Constant DE_DIETER (value is "de-DE_DieterVoice"). */
-  public static final Voice DE_DIETER = new Voice("de-DE_DieterVoice", MALE, "de-DE");
+  private static final String MALE = "male";
 
   /** The Constant DE_BIRGIT (value is "de-DE_BirgitVoice"). */
   public static final Voice DE_BIRGIT = new Voice("de-DE_BirgitVoice", FEMALE, "de-DE");
+
+  /** The Constant DE_DIETER (value is "de-DE_DieterVoice"). */
+  public static final Voice DE_DIETER = new Voice("de-DE_DieterVoice", MALE, "de-DE");
 
   /** Deprecated. Use DE_BIRGIT instead. */
   @Deprecated
@@ -56,9 +104,6 @@ public class Voice extends GenericModel {
   /** The Constant ES_SOFIA (value is "es-US_SofiaVoice"). */
   public static final Voice ES_SOFIA = new Voice("es-US_SofiaVoice", FEMALE, "es-US");
 
-  /** The Constant LA_SOFIA (value is "es-LA_SofiaVoice"). */
-  public static final Voice LA_SOFIA = new Voice("es-LA_SofiaVoice", FEMALE, "es-LA");
-
   /** The Constant FR_RENEE (value is "fr-FR_ReneeVoice"). */
   public static final Voice FR_RENEE = new Voice("fr-FR_ReneeVoice", FEMALE, "fr-FR");
 
@@ -71,17 +116,41 @@ public class Voice extends GenericModel {
   /** The Constant JA_EMI (value is "ja-JP_EmiVoice"). */
   public static final Voice JA_EMI = new Voice("ja-JP_EmiVoice", FEMALE, "ja-JP");
 
+  /** The Constant LA_SOFIA (value is "es-LA_SofiaVoice"). */
+  public static final Voice LA_SOFIA = new Voice("es-LA_SofiaVoice", FEMALE, "es-LA");
+
   /** The Constant PT_ISABELA (value is "pt-BR_IsabelaVoice"). */
   public static final Voice PT_ISABELA = new Voice("pt-BR_IsabelaVoice", FEMALE, "pt-BR");
 
   /** The List of all predefined Voices. */
   public static final List<Voice> ALL = Collections.unmodifiableList(Arrays.asList(DE_DIETER, DE_BIRGIT, EN_ALLISON,
-      EN_LISA, EN_MICHAEL, ES_ENRIQUE, ES_LAURA, ES_SOFIA, FR_RENEE, GB_KATE, IT_FRANCESCA, JA_EMI, PT_ISABELA));
+      EN_LISA, EN_MICHAEL, ES_ENRIQUE, ES_LAURA, ES_SOFIA, LA_SOFIA, FR_RENEE, GB_KATE,
+      IT_FRANCESCA, JA_EMI, PT_ISABELA));
 
+
+  /**
+   * Gets the Voice by its name (e.g. en-US_AllisonVoice).
+   *
+   * @param name the Voice name
+   * @return the Voice, or null if no matching Voice was found
+   */
+  public static Voice getByName(String name) {
+    for (Voice voice : ALL) {
+      if (voice.getName().equals(name)) {
+        return voice;
+      }
+    }
+
+    return null;
+  }
   private String description;
   private String gender;
   private String language;
   private String name;
+
+  @SerializedName("supported_features")
+  private SupportedFeatures supportedFeatures;
+
   private String url;
 
   /**
@@ -139,6 +208,15 @@ public class Voice extends GenericModel {
   }
 
   /**
+   * Gets the supported features.
+   *
+   * @return the supported features
+   */
+  public SupportedFeatures getSupportedFeatures() {
+    return supportedFeatures;
+  }
+
+  /**
    * Gets the url.
    *
    * @return the url
@@ -184,27 +262,20 @@ public class Voice extends GenericModel {
   }
 
   /**
+   * Sets the supported features.
+   *
+   * @param supportedFeatures the new supported features
+   */
+  public void setSupportedFeatures(SupportedFeatures supportedFeatures) {
+    this.supportedFeatures = supportedFeatures;
+  }
+
+  /**
    * Sets the url.
    *
    * @param url the new url
    */
   public void setUrl(final String url) {
     this.url = url;
-  }
-
-  /**
-   * Gets the Voice by its name (e.g. en-US_AllisonVoice).
-   *
-   * @param name the Voice name
-   * @return the Voice, or null if no matching Voice was found
-   */
-  public static Voice getByName(String name) {
-    for (Voice voice : ALL) {
-      if (voice.getName().equals(name)) {
-        return voice;
-      }
-    }
-
-    return null;
   }
 }
