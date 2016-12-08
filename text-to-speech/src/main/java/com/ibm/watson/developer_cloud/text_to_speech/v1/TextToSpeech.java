@@ -98,7 +98,8 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Gets the voices.
+   * Lists information about all available voices. To see information about a specific voice, use the
+   * {@link TextToSpeech#getVoice(String,String)} method.
    *
    * @return the list of {@link Voice}
    */
@@ -109,16 +110,34 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Gets the voice based on a given name.
+   * Lists information about the voice specified with the voice path parameter.
    *
    * @param voiceName the voice name
    * @return the {@link Voice}
    */
   public ServiceCall<Voice> getVoice(final String voiceName) {
+    return getVoice(voiceName, null);
+  }
+
+  /**
+   * Lists information about the voice specified with the voice path parameter.
+   * Specify the <code>customizationId</code> parameter to obtain information
+   * for that custom voice model of the specified voice.
+   *
+   * @param voiceName the voice name
+   * @param customizationId the customization id
+   * @return the {@link Voice}
+   */
+  public ServiceCall<Voice> getVoice(final String voiceName, String customizationId) {
     Validator.notNull(voiceName, "name can not be null");
 
-    Request request = RequestBuilder.get(String.format(PATH_VOICE, voiceName)).build();
-    return createServiceCall(request, ResponseConverterUtils.getObject(Voice.class));
+    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_VOICE, voiceName));
+
+    if (customizationId != null) {
+      requestBuilder.query(CUSTOMIZATION_ID, customizationId);
+    }
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Voice.class));
   }
 
   /**
@@ -131,12 +150,32 @@ public class TextToSpeech extends WatsonService {
    * @see Pronunciation
    */
   public ServiceCall<Pronunciation> getPronunciation(String word, Voice voice, Phoneme phoneme) {
+    return getPronunciation(word, voice, phoneme, null);
+  }
+
+  /**
+   * Returns the phonetic pronunciation for the <code>word</code> specified.
+   *
+   * @param word The word for which the pronunciation is requested.
+   * @param voice the voice to obtain the pronunciation for the specified word in the language of that voice.
+   * @param phoneme the phoneme set in which to return the pronunciation
+   * @param customizationId the customization id
+   * @return the word pronunciation
+   * @see Pronunciation
+   */
+  public ServiceCall<Pronunciation> getPronunciation(String word, Voice voice, Phoneme phoneme,
+      String customizationId) {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_GET_PRONUNCIATION).query(TEXT, word);
     if (voice != null) {
       requestBuilder.query(VOICE, voice.getName());
     }
+
     if (phoneme != null) {
       requestBuilder.query(FORMAT, phoneme);
+    }
+
+    if (customizationId != null) {
+      requestBuilder.query(CUSTOMIZATION_ID, customizationId);
     }
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Pronunciation.class));
