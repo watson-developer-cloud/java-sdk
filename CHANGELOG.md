@@ -1,6 +1,14 @@
 Change Log
 ==========
 
+## Version 3.5.2
+
+_2016-12-08_
+
+* New: Added Speaker Labeling (diarization) added
+* New: Added Conversation + Tone Analyzer example
+* New: Added byte array support to classify an in memory image
+
 ## Version 3.5.1
 
 _2016-11-01_
