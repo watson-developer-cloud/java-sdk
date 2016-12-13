@@ -49,6 +49,7 @@
     <module>conversation</module>
     <module>core</module>
     <module>dialog</module>
+    <module>discovery</module>
     <module>document-conversion</module>
     <module>language-translation</module>
     <module>language-translator</module>
