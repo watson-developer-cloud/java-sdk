@@ -13,39 +13,53 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager.*;
+
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
- * Aggregation types
+ * Base class for all {@link AggregationType}s
  *
  */
-public enum Aggregation {
-    TERM("term"),
-    HISTOGRAM("histogram"),
-    MAX("max"),
-    MIN("min"),
-    AVERAGE("average"),
-    SUM("sum");
+@JsonAdapter(AggregationAdapterFactory.class)
+public abstract class Aggregation extends GenericModel {
+    @SerializedName(AGGREGATION_ID)
+    private String id;
+    @SerializedName(TYPE)
+    private String type;
+    @SerializedName(FIELD)
+    private String field;
+    @SerializedName(LOGIC)
+    private Logic logic;
 
-    private final String name;
-
-    Aggregation(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
 
-    public static Aggregation valueOfIgnoreCase(String value) throws IllegalArgumentException {
-        for (Aggregation aggregation : values()) {
-            if (aggregation.getName().equalsIgnoreCase(value)) {
-                return aggregation;
-            }
-        }
-        throw new IllegalArgumentException(value + " is not a valid Aggregation");
+    public String getType() {
+        return type;
     }
 
-    @Override
-    public String toString() {
-        return name;
+    public String getField() {
+        return field;
+    }
+
+    public Logic getLogic() {
+        return logic;
+    }
+
+    public void setLogic(Logic logic) {
+        this.logic = logic;
+    }
+
+    public enum Logic {
+        AND,
+        OR
     }
 }

@@ -25,19 +25,19 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * Adapts the abstract {@link QueryAggregation} to its concrete implementations
+ * Adapts the abstract {@link Aggregation} to its concrete implementations
  *
  */
-public class QueryAggregationAdapterFactory implements TypeAdapterFactory {
+public class AggregationAdapterFactory implements TypeAdapterFactory {
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
-        if (typeToken.getRawType() != QueryAggregation.class) {
+        if (typeToken.getRawType() != Aggregation.class) {
             return null;
         }
         return (TypeAdapter<T>) new QueryAggregationTypeAdapter(gson);
     }
 
-    private class QueryAggregationTypeAdapter extends TypeAdapter<QueryAggregation> {
+    private class QueryAggregationTypeAdapter extends TypeAdapter<Aggregation> {
         private final Gson gson;
         private final TypeAdapter<JsonElement> jsonElementTypeAdapter;
 
@@ -47,7 +47,7 @@ public class QueryAggregationAdapterFactory implements TypeAdapterFactory {
         }
 
         @Override
-        public void write(JsonWriter out, QueryAggregation value) throws IOException {
+        public void write(JsonWriter out, Aggregation value) throws IOException {
             JsonElement tree = null;
             if (value instanceof Term) {
                 //order of keys not guaranteed
@@ -66,7 +66,7 @@ public class QueryAggregationAdapterFactory implements TypeAdapterFactory {
         }
 
         @Override
-        public QueryAggregation read(JsonReader in) throws IOException {
+        public Aggregation read(JsonReader in) throws IOException {
             JsonElement tree = jsonElementTypeAdapter.read(in);
 
             if (tree.isJsonObject()) {
@@ -74,7 +74,7 @@ public class QueryAggregationAdapterFactory implements TypeAdapterFactory {
                 JsonElement typeElement = object.get(QueryManager.TYPE);
                 if (typeElement.isJsonPrimitive()) {
                     try {
-                        Aggregation type = Aggregation.valueOfIgnoreCase(typeElement.getAsString());
+                        AggregationType type = AggregationType.valueOfIgnoreCase(typeElement.getAsString());
                         switch (type) {
                         case TERM:
                             return gson.fromJson(tree, Term.class);

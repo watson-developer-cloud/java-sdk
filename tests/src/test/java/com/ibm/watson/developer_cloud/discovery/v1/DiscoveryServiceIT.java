@@ -58,7 +58,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironm
 import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.environment.UpdateEnvironmentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.environment.UpdateEnvironmentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.Aggregation;
+import com.ibm.watson.developer_cloud.discovery.v1.model.query.AggregationType;
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.Calculation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.Histogram;
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.Operator;
@@ -513,7 +513,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
         QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
         StringBuilder sb = new StringBuilder();
-        sb.append(Aggregation.TERM);
+        sb.append(AggregationType.TERM);
         sb.append(Operator.OPENING_GROUPING);
         sb.append("field");
         sb.append(Operator.CLOSING_GROUPING);
@@ -529,12 +529,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
         QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
         StringBuilder sb = new StringBuilder();
-        sb.append(Aggregation.TERM);
+        sb.append(AggregationType.TERM);
         sb.append(Operator.OPENING_GROUPING);
         sb.append("field");
         sb.append(Operator.CLOSING_GROUPING);
         sb.append(Operator.NEST_AGGREGATION);
-        sb.append(Aggregation.TERM);
+        sb.append(AggregationType.TERM);
         sb.append(Operator.OPENING_GROUPING);
         sb.append("field");
         sb.append(Operator.CLOSING_GROUPING);
@@ -551,7 +551,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
         QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionName);
         StringBuilder sb = new StringBuilder();
-        sb.append(Aggregation.HISTOGRAM);
+        sb.append(AggregationType.HISTOGRAM);
         sb.append(Operator.OPENING_GROUPING);
         sb.append("field");
         sb.append(Operator.AND);
@@ -571,7 +571,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
         QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionName);
         StringBuilder sb = new StringBuilder();
-        sb.append(Aggregation.MAX);
+        sb.append(AggregationType.MAX);
         sb.append(Operator.OPENING_GROUPING);
         sb.append("field");
         sb.append(Operator.CLOSING_GROUPING);
@@ -579,7 +579,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         queryBuilder.aggregation(aggregation);
         QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
         Calculation max = (Calculation) queryResponse.getAggregations().get(0);
-        assertEquals(Aggregation.MAX.getName(), max.getType());
+        assertEquals(AggregationType.MAX.getName(), max.getType());
         assertEquals(new Double(9), max.getValue());
     }
 
@@ -589,7 +589,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
         QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionName);
         StringBuilder sb = new StringBuilder();
-        sb.append(Aggregation.MIN);
+        sb.append(AggregationType.MIN);
         sb.append(Operator.OPENING_GROUPING);
         sb.append("field");
         sb.append(Operator.CLOSING_GROUPING);
@@ -597,7 +597,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         queryBuilder.aggregation(aggregation);
         QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
         Calculation min = (Calculation) queryResponse.getAggregations().get(0);
-        assertEquals(Aggregation.MIN.getName(), min.getType());
+        assertEquals(AggregationType.MIN.getName(), min.getType());
         assertEquals(new Double(0), min.getValue());
     }
 
@@ -607,7 +607,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
         QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionName);
         StringBuilder sb = new StringBuilder();
-        sb.append(Aggregation.SUM);
+        sb.append(AggregationType.SUM);
         sb.append(Operator.OPENING_GROUPING);
         sb.append("field");
         sb.append(Operator.CLOSING_GROUPING);
@@ -615,7 +615,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         queryBuilder.aggregation(aggregation);
         QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
         Calculation sum = (Calculation) queryResponse.getAggregations().get(0);
-        assertEquals(Aggregation.SUM.getName(), sum.getType());
+        assertEquals(AggregationType.SUM.getName(), sum.getType());
         assertEquals(new Double(45), sum.getValue());
     }
 
@@ -625,7 +625,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
         QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionName);
         StringBuilder sb = new StringBuilder();
-        sb.append(Aggregation.AVERAGE);
+        sb.append(AggregationType.AVERAGE);
         sb.append(Operator.OPENING_GROUPING);
         sb.append("field");
         sb.append(Operator.CLOSING_GROUPING);
@@ -633,7 +633,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         queryBuilder.aggregation(aggregation);
         QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
         Calculation avg = (Calculation) queryResponse.getAggregations().get(0);
-        assertEquals(Aggregation.AVERAGE.getName(), avg.getType());
+        assertEquals(AggregationType.AVERAGE.getName(), avg.getType());
         assertEquals(new Double(4.5), avg.getValue());
     }
 

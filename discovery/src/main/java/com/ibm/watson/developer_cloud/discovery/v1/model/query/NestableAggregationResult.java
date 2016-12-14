@@ -13,20 +13,25 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager.*;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.List;
 
 /**
+ * Results contained within a Nestable Aggregation
+ *
+ * @see NestableAggregation
  */
 public class NestableAggregationResult extends GenericModel {
-    @SerializedName(QueryManager.KEY)
+    @SerializedName(KEY)
     private String key;
-    @SerializedName(QueryManager.MATCHING_RESULTS)
+    @SerializedName(MATCHING_RESULTS)
     private Long matchingResults;
-    @SerializedName(QueryManager.AGGREGATIONS)
-    private List<QueryAggregation> aggregations;
+    @SerializedName(AGGREGATIONS)
+    private List<Aggregation> aggregations;
 
     public String getKey() {
         return key;
@@ -36,7 +41,7 @@ public class NestableAggregationResult extends GenericModel {
         return matchingResults;
     }
 
-    public List<QueryAggregation> getAggregations() {
+    public List<Aggregation> getAggregations() {
         return aggregations;
     }
 }

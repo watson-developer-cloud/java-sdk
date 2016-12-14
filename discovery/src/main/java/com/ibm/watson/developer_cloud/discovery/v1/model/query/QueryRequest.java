@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
+ * A query that will retrieve back documents from the Discovery service
  */
 public class QueryRequest extends GenericModel {
     private final String environmentId;

@@ -13,6 +13,8 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager.*;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
@@ -21,8 +23,8 @@ import java.util.List;
  * Handles aggregations that can use the {@link Operator#NEST_AGGREGATION}
  *
  */
-public abstract class NestableAggregation extends QueryAggregation {
-    @SerializedName(QueryManager.RESULTS)
+public abstract class NestableAggregation extends Aggregation {
+    @SerializedName(RESULTS)
     private List<NestableAggregationResult> results;
 
     public List<NestableAggregationResult> getResults() {
