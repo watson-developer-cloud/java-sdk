@@ -105,7 +105,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
         //create an environment to use for the duration of the tests
         String environmentName = "watson_developer_cloud_test_environment";
-        CreateEnvironmentRequest.Builder builder = new CreateEnvironmentRequest.Builder(environmentName);
+        CreateEnvironmentRequest.Builder builder = new CreateEnvironmentRequest.Builder(environmentName,
+                CreateEnvironmentRequest.Size.FREE);
         environmentId = discovery.createEnvironment(builder.build()).execute().getEnvironmentId();
         uniqueName = UUID.randomUUID().toString();
     }
@@ -184,7 +185,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     @Ignore("Environment creation/deletion is expensive")
     public void create_environment_is_successful() {
         String environmentName = uniqueName + "-environment";
-        CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder(environmentName).build();
+        CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder(environmentName,
+                CreateEnvironmentRequest.Size.FREE).build();
         CreateEnvironmentResponse createResponse = createEnvironment(createRequest);
 
         assertEquals(environmentName, createResponse.getName());
@@ -194,7 +196,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     @Ignore("Environment creation/deletion is expensive")
     public void delete_environment_is_successful() {
         String environmentName = uniqueName + "-environment";
-        CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder(environmentName).build();
+        CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder(environmentName,
+                CreateEnvironmentRequest.Size.FREE).build();
         CreateEnvironmentResponse createResponse = createEnvironment(createRequest);
 
         DeleteEnvironmentRequest deleteRequest = new DeleteEnvironmentRequest.Builder(createResponse.getEnvironmentId())
@@ -208,7 +211,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     @Ignore("Environment creation/deletion is expensive")
     public void update_environment_is_successful() {
         String environmentName = uniqueName + "-environment";
-        CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder(environmentName).build();
+        CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder(environmentName,
+                CreateEnvironmentRequest.Size.FREE).build();
         CreateEnvironmentResponse createResponse = createEnvironment(createRequest);
 
         String randomDescription = UUID.randomUUID().toString() + " appbuilder tests";
@@ -374,7 +378,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
                 createCollectionResponse.getCollectionId());
         builder.inputStream(documentStream, HttpMediaType.APPLICATION_JSON);
 
-
         CreateDocumentResponse createResponse = discovery.createDocument(builder.build()).execute();
         assertFalse(createResponse.getDocumentId().isEmpty());
         assertNull(createResponse.getNotices());
@@ -399,7 +402,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         CreateDocumentResponse createDocumentResponse = createTestDocument(collectionId);
 
         //TODO need to poll for document to be accepted
-        GetDocumentRequest getRequest = new GetDocumentRequest.Builder(environmentId, collectionId, createDocumentResponse.getDocumentId()).build();
+        GetDocumentRequest getRequest = new GetDocumentRequest.Builder(environmentId, collectionId,
+                createDocumentResponse.getDocumentId()).build();
         GetDocumentResponse getResponse = discovery.getDocument(getRequest).execute();
 
         assertEquals("available", getResponse.getStatus());
@@ -419,7 +423,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         UpdateDocumentResponse updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
         //TODO need to poll for document to be accepted
-        GetDocumentRequest getRequest = new GetDocumentRequest.Builder(environmentId, collectionId, updateResponse.getDocumentId()).build();
+        GetDocumentRequest getRequest = new GetDocumentRequest.Builder(environmentId, collectionId,
+                updateResponse.getDocumentId()).build();
         GetDocumentResponse getResponse = discovery.getDocument(getRequest).execute();
 
         assertEquals("available", getResponse.getStatus());
@@ -472,7 +477,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         fieldNames.add("field");
         queryBuilder.returnFields(fieldNames);
         QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-        String[] expected = new String[]{"id", "score", "field"};
+        String[] expected = new String[] { "id", "score", "field" };
         assertArrayEquals(expected, queryResponse.getResults().get(0).keySet().toArray());
     }
 
