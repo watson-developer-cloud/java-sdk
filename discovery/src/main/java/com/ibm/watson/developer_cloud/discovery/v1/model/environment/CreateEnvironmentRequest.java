@@ -72,9 +72,9 @@ public class CreateEnvironmentRequest extends GenericModel {
 
     public enum Size {
         FREE(0),   //free plan
-        SMALL(1),  //standard plan
-        MEDIUM(2), //standard plan
-        LARGE(3);  //standard plan
+        ONE(1),    //standard plan
+        TWO(2),    //standard plan
+        THREE(3);  //standard plan
 
         private final int size;
 
