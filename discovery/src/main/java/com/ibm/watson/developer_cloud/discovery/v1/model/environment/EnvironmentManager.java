@@ -16,6 +16,9 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 
 /**
+ * Interface defining the constants and methods associated with Environments
+ *
+ * @see Environment
  */
 public interface EnvironmentManager {
     String ENVIRONMENTS = "environments";
@@ -29,6 +32,16 @@ public interface EnvironmentManager {
     String STATUS = "status";
     String READ_ONLY = "read_only";
     String INDEX_CAPACITY = "index_capacity";
+
+    //Disk & Memory Usage
+    String DISK_USAGE = "disk_usage";
+    String MEMORY_USAGE = "memory_usage";
+    String USED_BYTES = "used_bytes";
+    String TOTAL_BYTES = "total_bytes";
+    String USED = "used";
+    String TOTAL = "total";
+    String PERCENT_USED = "percent_used";
+
     //only on creation request
     String SIZE = "size";
 

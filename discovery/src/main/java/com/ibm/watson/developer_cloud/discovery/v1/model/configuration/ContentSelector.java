@@ -13,15 +13,20 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.List;
 
 /**
+ * ContentSelector allows you to define an xPath to retrieve content from an XML document
+ *
+ * @see Html
  */
 public class ContentSelector extends GenericModel {
-    @SerializedName(ConfigurationManager.XPATHS)
+    @SerializedName(XPATHS)
     private List<String> xpaths;
 
     public List<String> getXpaths() {

@@ -13,21 +13,29 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.List;
 
 /**
+ * Conversions define the steps associated with various filetypes
+ *
+ * @see Pdf
+ * @see Word
+ * @see Html
+ * @see NormalizationOperation (Json)
  */
 public class Conversions extends GenericModel {
-    @SerializedName(ConfigurationManager.PDF)
+    @SerializedName(PDF)
     private Pdf pdf;
-    @SerializedName(ConfigurationManager.WORD)
+    @SerializedName(WORD)
     private Word word;
-    @SerializedName(ConfigurationManager.HTML)
+    @SerializedName(HTML)
     private Html html;
-    @SerializedName(ConfigurationManager.JSON)
+    @SerializedName(JSON)
     private List<NormalizationOperation> json;
 
     public Pdf getPdf() {

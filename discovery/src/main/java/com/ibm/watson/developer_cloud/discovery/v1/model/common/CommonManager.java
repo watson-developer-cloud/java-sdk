@@ -14,17 +14,9 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.common;
 
 /**
+ * Interface containing constants common across multiple managers
  */
 public interface CommonManager {
-    //Disk & Memory Usage
-    String DISK_USAGE = "disk_usage";
-    String MEMORY_USAGE = "memory_usage";
-    String USED_BYTES = "used_bytes";
-    String TOTAL_BYTES = "total_bytes";
-    String USED = "used";
-    String TOTAL = "total";
-    String PERCENT_USED = "percent_used";
-
     //Notices (Warnings & Errors)
     String NOTICES = "notices";
     String NOTICE_ID = "notice_id";

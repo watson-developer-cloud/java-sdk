@@ -21,6 +21,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.Date;
 
 /**
+ * Container where Collections and Configurations are stored.
+ * An Environment gives information about the memory and storage space allocated
  */
 public class Environment extends GenericModel {
     @SerializedName(ID)

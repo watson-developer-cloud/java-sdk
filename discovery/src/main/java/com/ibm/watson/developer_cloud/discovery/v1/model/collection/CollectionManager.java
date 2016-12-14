@@ -19,6 +19,9 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCol
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.Field;
 
 /**
+ * Interface defining the constants and methods associated with Collections
+ *
+ * @see Collection
  */
 public interface CollectionManager {
     String COLLECTIONS = "collections";
@@ -38,8 +41,6 @@ public interface CollectionManager {
     String AVAILABLE = "available";
     String PROCESSING = "processing";
     String FAILED = "failed";
-
-    //TODO are we going to have the Disk & Memory Usage here? should reuse from Environments
 
     //Fields
     String FIELDS = "fields";

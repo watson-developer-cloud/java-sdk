@@ -11,14 +11,15 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.ibm.watson.developer_cloud.discovery.v1.model.common;
+package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.common.CommonManager.*;
+import static com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager.*;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
+ * MemoryUsage contains information about the RAM used
  */
 public class MemoryUsage extends GenericModel {
     @SerializedName(USED_BYTES)

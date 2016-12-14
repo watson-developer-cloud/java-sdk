@@ -21,6 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.Date;
 
 /**
+ * A Collection holds the documents that have been ingested and allows querying against it
  */
 public class Collection extends GenericModel {
     @SerializedName(ID)

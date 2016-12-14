@@ -13,18 +13,21 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
+ * Configuration options for a JSON document
  */
 public class NormalizationOperation extends GenericModel {
     //TODO make this an enum
-    @SerializedName(ConfigurationManager.OPERATION)
+    @SerializedName(OPERATION)
     private String operation;
-    @SerializedName(ConfigurationManager.SOURCE_FIELD)
+    @SerializedName(SOURCE_FIELD)
     private String sourceField;
-    @SerializedName(ConfigurationManager.DESTINATION_FIELD)
+    @SerializedName(DESTINATION_FIELD)
     private String destinationField;
 
     public String getOperation() {

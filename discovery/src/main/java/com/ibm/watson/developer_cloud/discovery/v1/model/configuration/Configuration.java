@@ -13,33 +13,42 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
+
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.discovery.v1.model.document.Document;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.Date;
 import java.util.List;
 
 /**
+ * A Configuration is used to define how a {@link Document} will be ingested.
+ * It contains various settings for different file types and various steps of the ingestion process.
+ *
+ * The three basic steps are Conversions, Enrichments, and Normalizations
+ *
+ * @see Conversions
+ * @see Enrichment
+ * @see NormalizationOperation
  */
 public class Configuration extends GenericModel {
-    @SerializedName(ConfigurationManager.ID)
+    @SerializedName(ID)
     private String configurationId;
-    @SerializedName(ConfigurationManager.NAME)
+    @SerializedName(NAME)
     private String name;
-    @SerializedName(ConfigurationManager.DESCRIPTION)
+    @SerializedName(DESCRIPTION)
     private String description;
-    @SerializedName(ConfigurationManager.CREATED)
+    @SerializedName(CREATED)
     private Date created;
-    @SerializedName(ConfigurationManager.UPDATED)
+    @SerializedName(UPDATED)
     private Date updated;
-    @SerializedName(ConfigurationManager.CONVERSIONS)
+    @SerializedName(CONVERSIONS)
     private Conversions conversions;
-    @SerializedName(ConfigurationManager.ENRICHMENTS)
+    @SerializedName(ENRICHMENTS)
     private List<Enrichment> enrichments;
-    @SerializedName(ConfigurationManager.NORMALIZATIONS)
+    @SerializedName(NORMALIZATIONS)
     private List<NormalizationOperation> normalizations;
-    @SerializedName(ConfigurationManager.FIELDS)
-    private List<FieldTypeMapping> fields;
 
     public String getConfigurationId() {
         return configurationId;

@@ -13,25 +13,28 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.Map;
 
 /**
+ * An Enrichment contains configuration pertaining to which fields Watson should extract metadata from
  */
 public class Enrichment extends GenericModel {
-    @SerializedName(ConfigurationManager.DESCRIPTION)
+    @SerializedName(DESCRIPTION)
     private String description;
-    @SerializedName(ConfigurationManager.DESTINATION_FIELD)
+    @SerializedName(DESTINATION_FIELD)
     private String destinationField;
-    @SerializedName(ConfigurationManager.SOURCE_FIELD)
+    @SerializedName(SOURCE_FIELD)
     private String sourceField;
-    @SerializedName(ConfigurationManager.OVERWRITE)
+    @SerializedName(OVERWRITE)
     private boolean overwrite;
-    @SerializedName(ConfigurationManager.ENRICHMENT)
+    @SerializedName(ENRICHMENT)
     private String enrichment;
-    @SerializedName(ConfigurationManager.OPTIONS)
+    @SerializedName(OPTIONS)
     private Map<String, Object> options;
 
     public String getDescription() {

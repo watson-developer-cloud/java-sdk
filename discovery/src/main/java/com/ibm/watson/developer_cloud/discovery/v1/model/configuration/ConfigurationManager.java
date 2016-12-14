@@ -16,6 +16,9 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 
 /**
+ * Interface defining the constants and methods associated with Configurations
+ *
+ * @see Configuration
  */
 public interface ConfigurationManager {
     String CONFIGURATIONS = "configurations";
@@ -30,7 +33,6 @@ public interface ConfigurationManager {
     String CONVERSIONS = "conversions";
     String ENRICHMENTS = "enrichments";
     String NORMALIZATIONS = "normalizations";
-    String FIELDS = "fields";
 
     //Conversion Types
     String PDF = "pdf";

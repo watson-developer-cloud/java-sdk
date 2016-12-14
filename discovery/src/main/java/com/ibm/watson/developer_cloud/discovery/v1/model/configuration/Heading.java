@@ -21,14 +21,18 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.List;
 
 /**
+ * Heading settings in a PDF or Word document
+ *
+ * @see Pdf
+ * @see Word
  */
 public class Heading extends GenericModel {
     @SerializedName(FONT_SETTINGS)
-    private List<FontSettings> fontSettings;
+    private List<FontSetting> fontSettings;
     @SerializedName(FONT_STYLES)
     private FontStyles fontStyles;
 
-    public List<FontSettings> getFontSettings() {
+    public List<FontSetting> getFontSettings() {
         return fontSettings;
     }
 

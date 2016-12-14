@@ -21,6 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.List;
 
 /**
+ * Configuration options for an HTML document
  */
 public class Html extends GenericModel {
     @SerializedName(EXCLUDE_TAGS_COMPLETELY)

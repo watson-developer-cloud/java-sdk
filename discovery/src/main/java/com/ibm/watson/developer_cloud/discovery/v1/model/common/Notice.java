@@ -19,6 +19,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
+ * Notice is a warning or error on a Document or Configuration deletion
  */
 public class Notice extends GenericModel {
     @SerializedName(NOTICE_ID)
