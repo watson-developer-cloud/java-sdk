@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 import static com.ibm.watson.developer_cloud.discovery.v1.model.collection.CollectionManager.*;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.Date;
@@ -28,9 +29,8 @@ public class Collection extends GenericModel {
     private String collectionId;
     @SerializedName(NAME)
     private String name;
-    //TODO make this an enum
     @SerializedName(STATUS)
-    private String status;
+    private Status status;
     @SerializedName(CollectionManager.CREATED)
     private Date created;
     @SerializedName(UPDATED)
@@ -52,7 +52,7 @@ public class Collection extends GenericModel {
         return name;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 

@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 import static com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager.*;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.Date;
@@ -36,7 +37,7 @@ public class Environment extends GenericModel {
     @SerializedName(UPDATED)
     private Date updated;
     @SerializedName(STATUS)
-    private String status;
+    private Status status;
     @SerializedName(READ_ONLY)
     private Boolean readOnly;
     @SerializedName(INDEX_CAPACITY)
@@ -62,7 +63,7 @@ public class Environment extends GenericModel {
         return updated;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 

@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.CommonManager;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Notice;
+import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.List;
@@ -28,9 +29,8 @@ import java.util.List;
 public class DeleteConfigurationResponse extends GenericModel {
     @SerializedName(ConfigurationManager.ID)
     private String configurationId;
-    //TODO make an enum
     @SerializedName(ConfigurationManager.STATUS)
-    private String status;
+    private Status status;
     @SerializedName(CommonManager.NOTICES)
     private List<Notice> notices;
 
@@ -38,7 +38,7 @@ public class DeleteConfigurationResponse extends GenericModel {
         return configurationId;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 

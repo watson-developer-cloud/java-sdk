@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.document;
 import static com.ibm.watson.developer_cloud.discovery.v1.model.document.DocumentManager.*;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -26,13 +27,13 @@ public class DeleteDocumentResponse extends GenericModel {
     @SerializedName(ID)
     private String documentId;
     @SerializedName(STATUS)
-    private String status;
+    private Status status;
 
     public String getDocumentId() {
         return documentId;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 }
