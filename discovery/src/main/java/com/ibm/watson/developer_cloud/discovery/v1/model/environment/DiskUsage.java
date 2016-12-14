@@ -11,23 +11,26 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.ibm.watson.developer_cloud.discovery.v1.model.common;
+package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
+
+import static com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager.*;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
+ * DiskUsage contains storage information for the Environment
  */
 public class DiskUsage extends GenericModel {
-    @SerializedName(CommonManager.USED_BYTES)
+    @SerializedName(USED_BYTES)
     private Long usedBytes;
-    @SerializedName(CommonManager.TOTAL_BYTES)
+    @SerializedName(TOTAL_BYTES)
     private Long totalBytes;
-    @SerializedName(CommonManager.USED)
+    @SerializedName(USED)
     private String used;
-    @SerializedName(CommonManager.TOTAL)
+    @SerializedName(TOTAL)
     private String total;
-    @SerializedName(CommonManager.PERCENT_USED)
+    @SerializedName(PERCENT_USED)
     private Double percentUsed;
 
     public Double getPercentUsed() {

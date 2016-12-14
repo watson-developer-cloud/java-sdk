@@ -13,13 +13,16 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
+ * Configuration options for a PDF document
  */
 public class Pdf extends GenericModel {
-    @SerializedName(ConfigurationManager.HEADING)
+    @SerializedName(HEADING)
     private Heading heading;
 
     public Heading getHeading() {

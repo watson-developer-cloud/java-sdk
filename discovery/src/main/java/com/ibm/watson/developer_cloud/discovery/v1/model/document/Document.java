@@ -13,29 +13,36 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.document;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.document.DocumentManager.*;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.CommonManager;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Notice;
+import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.Date;
 import java.util.List;
 
 /**
+ * A Document contains the processing status and notices, if any, for a document in the index.
+ * It does not return the document itself.
+ *
+ * @see QueryManager to see how to fetch the actual document content.
  */
 public class Document extends GenericModel {
-    @SerializedName(DocumentManager.ID)
+    @SerializedName(ID)
     private String documentId;
-    @SerializedName(DocumentManager.CONFIGURATION_ID)
+    @SerializedName(CONFIGURATION_ID)
     private String configurationId;
-    @SerializedName(DocumentManager.CREATED)
+    @SerializedName(CREATED)
     private Date created;
-    @SerializedName(DocumentManager.UPDATED)
+    @SerializedName(UPDATED)
     private Date updated;
     //TODO make an enum
-    @SerializedName(DocumentManager.STATUS)
+    @SerializedName(STATUS)
     private String status;
-    @SerializedName(DocumentManager.STATUS_DESCRIPTION)
+    @SerializedName(STATUS_DESCRIPTION)
     private String statusDescription;
     @SerializedName(CommonManager.NOTICES)
     private List<Notice> notices;

@@ -16,6 +16,9 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.document;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 
 /**
+ * Interface defining the constants and methods associated with Environments
+ *
+ * @see Document
  */
 public interface DocumentManager {
     //Document
