@@ -13,6 +13,8 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
+import static com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager.*;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
@@ -21,14 +23,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * A response containing the documents and aggregations from the QueryRequest
+ *
+ * @see QueryRequest
  */
 public class QueryResponse extends GenericModel {
-    @SerializedName(QueryManager.MATCHING_RESULTS)
+    @SerializedName(MATCHING_RESULTS)
     private Long matchingResults;
-    @SerializedName(QueryManager.RESULTS)
+    @SerializedName(RESULTS)
     private List<Map<String, Object>> results;
-    @SerializedName(QueryManager.AGGREGATIONS)
-    private List<QueryAggregation> aggregations;
+    @SerializedName(AGGREGATIONS)
+    private List<Aggregation> aggregations;
 
     public QueryResponse() {
         this.matchingResults = 0L;
@@ -43,7 +48,7 @@ public class QueryResponse extends GenericModel {
         return results;
     }
 
-    public List<QueryAggregation> getAggregations() {
+    public List<Aggregation> getAggregations() {
         return aggregations;
     }
 }
