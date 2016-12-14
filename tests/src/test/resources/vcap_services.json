@@ -35,6 +35,18 @@
          }
       }
    ],
+   "discovery": [
+      {
+         "name": "discovery",
+         "label": "discovery",
+         "plan": "experimental",
+         "credentials": {
+            "url": "https://gateway.watsonplatform.net/discovery-experimental/api",
+            "username": "not-a-username",
+            "password": "not-a-password"
+         }
+      }
+   ],
    "document_conversion": [
       {
          "name": "document_conversion_experimental_docs",
