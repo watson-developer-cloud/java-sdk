@@ -13,8 +13,6 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -26,21 +24,21 @@ import java.util.Date;
  * An Environment gives information about the memory and storage space allocated
  */
 public class Environment extends GenericModel {
-    @SerializedName(ID)
+    @SerializedName(EnvironmentManager.ID)
     private String environmentId;
-    @SerializedName(NAME)
+    @SerializedName(EnvironmentManager.NAME)
     private String name;
-    @SerializedName(DESCRIPTION)
+    @SerializedName(EnvironmentManager.DESCRIPTION)
     private String description;
-    @SerializedName(CREATED)
+    @SerializedName(EnvironmentManager.CREATED)
     private Date created;
-    @SerializedName(UPDATED)
+    @SerializedName(EnvironmentManager.UPDATED)
     private Date updated;
-    @SerializedName(STATUS)
+    @SerializedName(EnvironmentManager.STATUS)
     private Status status;
-    @SerializedName(READ_ONLY)
+    @SerializedName(EnvironmentManager.READ_ONLY)
     private Boolean readOnly;
-    @SerializedName(INDEX_CAPACITY)
+    @SerializedName(EnvironmentManager.INDEX_CAPACITY)
     private IndexCapacity indexCapacity;
 
     public String getEnvironmentId() {

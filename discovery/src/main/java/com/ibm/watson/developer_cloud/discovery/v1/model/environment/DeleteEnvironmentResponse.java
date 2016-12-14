@@ -13,20 +13,17 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Response from a {@link DeleteEnvironmentRequest}
- *
+ * Response from a {@link DeleteEnvironmentRequest}.
  */
 public class DeleteEnvironmentResponse extends GenericModel {
-    @SerializedName(ID)
+    @SerializedName(EnvironmentManager.ID)
     private String environmentId;
-    @SerializedName(STATUS)
+    @SerializedName(EnvironmentManager.STATUS)
     private Status status;
 
     public String getEnvironmentId() {

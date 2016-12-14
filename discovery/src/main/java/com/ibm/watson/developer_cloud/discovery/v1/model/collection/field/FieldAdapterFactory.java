@@ -24,8 +24,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * Override default enum handling for poorly formed JSON field types schema
- *
+ * Override default enum handling for poorly formed JSON field types schema.
  */
 public class FieldAdapterFactory implements TypeAdapterFactory {
     @Override
@@ -53,7 +52,7 @@ public class FieldAdapterFactory implements TypeAdapterFactory {
             String fieldName = null;
             Field.Type type = Field.Type.UNKNOWN;
             in.beginObject();
-            while(in.hasNext()) {
+            while (in.hasNext()) {
                 String name = in.nextName();
                 if (name.equals("field")) {
                     fieldName = in.nextString();

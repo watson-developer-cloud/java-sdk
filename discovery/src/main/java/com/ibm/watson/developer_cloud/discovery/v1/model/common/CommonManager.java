@@ -14,7 +14,7 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.common;
 
 /**
- * Interface containing constants common across multiple managers
+ * Interface containing constants common across multiple managers.
  */
 public interface CommonManager {
     //Notices (Warnings & Errors)

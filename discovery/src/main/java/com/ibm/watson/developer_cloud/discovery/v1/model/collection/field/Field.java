@@ -19,6 +19,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CollectionMa
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
+ * Field contains name and type of an indexed field.
  */
 @JsonAdapter(FieldAdapterFactory.class)
 public class Field extends GenericModel {
@@ -37,24 +38,24 @@ public class Field extends GenericModel {
     }
 
     public Type getType() {
-        if(type == null) {
+        if (type == null) {
             type = Type.UNKNOWN;
         }
         return type;
     }
 
     public enum Type {
-        @SerializedName("nested") NESTED,
-        @SerializedName("string") STRING,
-        @SerializedName("date") DATE,
-        @SerializedName("long") LONG,
-        @SerializedName("integer") INTEGER,
-        @SerializedName("short") SHORT,
-        @SerializedName("byte") BYTE,
-        @SerializedName("double") DOUBLE,
-        @SerializedName("float") FLOAT,
-        @SerializedName("boolean") BOOLEAN,
-        @SerializedName("binary") BINARY,
+        @SerializedName("nested")NESTED,
+        @SerializedName("string")STRING,
+        @SerializedName("date")DATE,
+        @SerializedName("long")LONG,
+        @SerializedName("integer")INTEGER,
+        @SerializedName("short")SHORT,
+        @SerializedName("byte")BYTE,
+        @SerializedName("double")DOUBLE,
+        @SerializedName("float")FLOAT,
+        @SerializedName("boolean")BOOLEAN,
+        @SerializedName("binary")BINARY,
         UNKNOWN
     }
 }

@@ -13,17 +13,15 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager.*;
-
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.EagerNumberAdapterFactory;
 
 /**
- * Aggregation that makes a histogram
+ * Aggregation that makes a histogram.
  */
 public class Histogram extends NestableAggregation {
-    @SerializedName(INTERVAL)
+    @SerializedName(QueryManager.INTERVAL)
     @JsonAdapter(EagerNumberAdapterFactory.class)
     private Number interval;
 

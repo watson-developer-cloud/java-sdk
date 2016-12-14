@@ -16,7 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 
 /**
- * Interface defining the constants and methods associated with Environments
+ * Interface defining the constants and methods associated with Environments.
  *
  * @see Environment
  */

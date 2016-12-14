@@ -14,8 +14,7 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
 /**
- * Response from {@link GetConfigurationRequest}
- *
+ * Response from {@link GetConfigurationRequest}.
  */
 public class GetConfigurationResponse extends Configuration {
 }

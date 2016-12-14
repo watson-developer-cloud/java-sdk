@@ -16,8 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request to get a {@link Collection}
- *
+ * Request to get a {@link Collection}.
  */
 public class GetCollectionRequest extends GenericModel {
     private final String environmentId;

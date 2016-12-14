@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCol
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.Field;
 
 /**
- * Interface defining the constants and methods associated with Collections
+ * Interface defining the constants and methods associated with Collections.
  *
  * @see Collection
  */
@@ -56,7 +56,7 @@ public interface CollectionManager {
     ServiceCall<GetCollectionsResponse> getCollections(GetCollectionsRequest getRequest);
 
     /**
-     * Gets a {@link Collection}
+     * Gets a {@link Collection}.
      *
      * @param getRequest options for getting the {@link Collection}
      * @return a {@link GetCollectionResponse} containing the result of {@link GetCollectionRequest}
@@ -64,7 +64,7 @@ public interface CollectionManager {
     ServiceCall<GetCollectionResponse> getCollection(GetCollectionRequest getRequest);
 
     /**
-     * Creates a {@link Collection}
+     * Creates a {@link Collection}.
      *
      * @param createRequest options for creating a {@link Collection}
      * @return a {@link CreateCollectionResponse} containing the result of {@link CreateCollectionRequest}
@@ -72,7 +72,7 @@ public interface CollectionManager {
     ServiceCall<CreateCollectionResponse> createCollection(CreateCollectionRequest createRequest);
 
     /**
-     * Deletes a {@link Collection}
+     * Deletes a {@link Collection}.
      *
      * @param deleteRequest options for deleting a {@link Collection}
      * @return a {@link DeleteCollectionResponse} containing the result of {@link DeleteCollectionRequest}
@@ -80,7 +80,7 @@ public interface CollectionManager {
     ServiceCall<DeleteCollectionResponse> deleteCollection(DeleteCollectionRequest deleteRequest);
 
     /**
-     * Gets a list of unique {@link Field}s from a {@link Collection}
+     * Gets a list of unique {@link Field}s from a {@link Collection}.
      *
      * @param getRequest options for getting a unique fields from a {@link Collection}
      * @return a {@link GetCollectionFieldsResponse} containing the result of {@link GetCollectionFieldsRequest}

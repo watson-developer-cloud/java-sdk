@@ -13,19 +13,18 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.collection.CollectionManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
+ * Shows the document counts in the collection.
  */
 public class DocumentCounts extends GenericModel {
-    @SerializedName(AVAILABLE)
+    @SerializedName(CollectionManager.AVAILABLE)
     private Long available;
-    @SerializedName(PROCESSING)
+    @SerializedName(CollectionManager.PROCESSING)
     private Long processing;
-    @SerializedName(FAILED)
+    @SerializedName(CollectionManager.FAILED)
     private Long failed;
 
     public Long getAvailable() {

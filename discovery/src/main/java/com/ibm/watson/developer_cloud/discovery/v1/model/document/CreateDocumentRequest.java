@@ -22,8 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * Request to create a {@link Document}
- *
+ * Request to create a {@link Document}.
  */
 public class CreateDocumentRequest extends GenericModel {
     private final String environmentId;

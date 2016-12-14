@@ -13,20 +13,14 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager.*;
-
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request to update an {@link Environment}
- *
+ * Request to update an {@link Environment}.
  */
 public class UpdateEnvironmentRequest extends GenericModel {
-    private transient final String environmentId;
-    @SerializedName(NAME)
+    private final String environmentId;
     private final String name;
-    @SerializedName(DESCRIPTION)
     private final String description;
 
     private UpdateEnvironmentRequest(Builder builder) {

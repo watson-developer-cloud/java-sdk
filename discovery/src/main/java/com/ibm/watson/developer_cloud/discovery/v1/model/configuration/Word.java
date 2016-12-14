@@ -13,16 +13,14 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Configuration options for a Microsoft Word document
+ * Configuration options for a Microsoft Word document.
  */
 public class Word extends GenericModel {
-    @SerializedName(HEADING)
+    @SerializedName(ConfigurationManager.HEADING)
     private Heading heading;
 
     public Heading getHeading() {

@@ -13,19 +13,16 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.List;
 
 /**
- * Response from a {@link GetEnvironmentsRequest}
- *
+ * Response from a {@link GetEnvironmentsRequest}.
  */
 public class GetEnvironmentsResponse extends GenericModel {
-    @SerializedName(ENVIRONMENTS)
+    @SerializedName(EnvironmentManager.ENVIRONMENTS)
     private List<Environment> environments;
 
     public List<Environment> getEnvironments() {

@@ -84,7 +84,6 @@ import java.util.regex.Pattern;
 
 /**
  * Discovery service API for CRUD operations for indexing and searching data.
- *
  */
 public class Discovery extends WatsonService implements EnvironmentManager, ConfigurationManager, CollectionManager,
         DocumentManager, QueryManager {
@@ -139,7 +138,7 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
     }
 
     /**
-     * Utility method to replace unsupported characters in a field name
+     * Utility method to replace unsupported characters in a field name.
      *
      * @param fieldName the field name to escape
      * @return a clean field name
@@ -149,7 +148,7 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
     }
 
     /**
-     * Utility method to escape control characters in a value for querying
+     * Utility method to escape control characters in a value for querying.
      *
      * @param value the value that potentially contains control characters
      * @return a value with control characters escaped
@@ -160,7 +159,7 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
     }
 
     /**
-     * Ping the service
+     * Ping the service.
      *
      * @return true if the service is reachable
      * @throws RuntimeException if the service is unreachable

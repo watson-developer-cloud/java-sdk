@@ -14,7 +14,7 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
 /**
- * Aggregation on unique values of a field
+ * Aggregation on unique values of a field.
  */
 public class Term extends NestableAggregation {
 

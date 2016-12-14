@@ -13,28 +13,26 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.List;
 
 /**
- * Configuration options for an HTML document
+ * Configuration options for an HTML document.
  */
 public class Html extends GenericModel {
-    @SerializedName(EXCLUDE_TAGS_COMPLETELY)
+    @SerializedName(ConfigurationManager.EXCLUDE_TAGS_COMPLETELY)
     private List<String> excludeTagsCompletely;
-    @SerializedName(EXCLUDE_TAGS_KEEP_CONTENT)
+    @SerializedName(ConfigurationManager.EXCLUDE_TAGS_KEEP_CONTENT)
     private List<String> excludeTagsKeepContent;
-    @SerializedName(KEEP_CONTENT)
+    @SerializedName(ConfigurationManager.KEEP_CONTENT)
     private ContentSelector keepContent;
-    @SerializedName(EXCLUDE_CONTENT)
+    @SerializedName(ConfigurationManager.EXCLUDE_CONTENT)
     private ContentSelector excludeContent;
-    @SerializedName(KEEP_TAG_ATTRIBUTES)
+    @SerializedName(ConfigurationManager.KEEP_TAG_ATTRIBUTES)
     private List<String> keepTagAttributes;
-    @SerializedName(EXCLUDE_TAG_ATTRIBUTES)
+    @SerializedName(ConfigurationManager.EXCLUDE_TAG_ATTRIBUTES)
     private List<String> excludeTagAttributes;
 
     public List<String> getExcludeTagsCompletely() {

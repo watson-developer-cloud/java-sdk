@@ -13,8 +13,6 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.Document;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -33,21 +31,21 @@ import java.util.List;
  * @see NormalizationOperation
  */
 public class Configuration extends GenericModel {
-    @SerializedName(ID)
+    @SerializedName(ConfigurationManager.ID)
     private String configurationId;
-    @SerializedName(NAME)
+    @SerializedName(ConfigurationManager.NAME)
     private String name;
-    @SerializedName(DESCRIPTION)
+    @SerializedName(ConfigurationManager.DESCRIPTION)
     private String description;
-    @SerializedName(CREATED)
+    @SerializedName(ConfigurationManager.CREATED)
     private Date created;
-    @SerializedName(UPDATED)
+    @SerializedName(ConfigurationManager.UPDATED)
     private Date updated;
-    @SerializedName(CONVERSIONS)
+    @SerializedName(ConfigurationManager.CONVERSIONS)
     private Conversions conversions;
-    @SerializedName(ENRICHMENTS)
+    @SerializedName(ConfigurationManager.ENRICHMENTS)
     private List<Enrichment> enrichments;
-    @SerializedName(NORMALIZATIONS)
+    @SerializedName(ConfigurationManager.NORMALIZATIONS)
     private List<NormalizationOperation> normalizations;
 
     public String getConfigurationId() {

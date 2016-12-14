@@ -13,20 +13,18 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.List;
 
 /**
- * Contains basic styles for a font
+ * Contains basic styles for a font.
  */
 public class FontStyles extends GenericModel {
-    @SerializedName(LEVEL)
+    @SerializedName(ConfigurationManager.LEVEL)
     private Number level;
-    @SerializedName(NAMES)
+    @SerializedName(ConfigurationManager.NAMES)
     private List<String> names;
 
     public Number getLevel() {

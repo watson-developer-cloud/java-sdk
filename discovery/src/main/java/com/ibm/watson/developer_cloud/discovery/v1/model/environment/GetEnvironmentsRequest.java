@@ -16,8 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request to get a list of {@link Environment}s
- *
+ * Request to get a list of {@link Environment}s.
  */
 public class GetEnvironmentsRequest extends GenericModel {
     private final String name;

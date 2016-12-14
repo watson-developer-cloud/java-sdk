@@ -13,23 +13,16 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager.*;
-
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request to create an {@link Environment}
+ * Request to create an {@link Environment}.
  *
  * A JSON object where you define an environment name and an environment description.
- *
  */
 public class CreateEnvironmentRequest extends GenericModel {
-    @SerializedName(NAME)
     private final String name;
-    @SerializedName(SIZE)
     private final Size size;
-    @SerializedName(DESCRIPTION)
     private final String description;
 
     private CreateEnvironmentRequest(Builder builder) {

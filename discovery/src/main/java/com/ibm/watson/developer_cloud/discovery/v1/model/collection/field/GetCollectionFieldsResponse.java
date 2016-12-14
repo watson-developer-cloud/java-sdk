@@ -20,8 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.List;
 
 /**
- * Response from {@link GetCollectionFieldsRequest}
- *
+ * Response from {@link GetCollectionFieldsRequest}.
  */
 public class GetCollectionFieldsResponse extends GenericModel {
     @SerializedName(CollectionManager.FIELDS)

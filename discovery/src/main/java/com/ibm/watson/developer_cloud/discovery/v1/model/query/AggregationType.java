@@ -14,8 +14,7 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
 /**
- * Aggregation types
- *
+ * Aggregation types.
  */
 public enum AggregationType {
     TERM("term"),
