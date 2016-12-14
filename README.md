@@ -21,6 +21,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Concept Insights](alchemy)
     * [Conversation](conversation)
     * [Dialog](dialog)
+    * [Discovery](discovery)
     * [Document Conversion](document-conversion)
     * [Language Translation](language-translation)
     * [Language Translator](language-translator)
