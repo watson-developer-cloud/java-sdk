@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author apturgeo
  */
 public class Document extends GenericModel {
     @SerializedName(DocumentManager.ID)

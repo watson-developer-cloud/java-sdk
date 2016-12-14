@@ -21,7 +21,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Request to update an {@link Environment}
  *
- * @author apturgeo
  */
 public class UpdateEnvironmentRequest extends GenericModel {
     private transient final String environmentId;

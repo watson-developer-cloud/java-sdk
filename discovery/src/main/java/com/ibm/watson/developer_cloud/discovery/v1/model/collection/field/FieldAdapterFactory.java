@@ -26,7 +26,6 @@ import java.io.IOException;
 /**
  * Override default enum handling for poorly formed JSON field types schema
  *
- * @author apturgeo
  */
 public class FieldAdapterFactory implements TypeAdapterFactory {
     @Override

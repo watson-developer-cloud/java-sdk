@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * @author apturgeo
  */
 public class Calculation extends QueryAggregation {
     @SerializedName(QueryManager.VALUE)

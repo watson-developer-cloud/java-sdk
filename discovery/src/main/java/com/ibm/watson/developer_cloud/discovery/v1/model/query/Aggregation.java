@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 /**
  * Aggregation types
  *
- * @author apturgeo
  */
 public enum Aggregation {
     TERM("term"),

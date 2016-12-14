@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * @author apturgeo
  */
 public class QueryRequest extends GenericModel {
     private final String environmentId;

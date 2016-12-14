@@ -29,7 +29,6 @@ import java.text.ParseException;
 /**
  * Override the default {@link LazilyParsedNumber} for parsing {@link Number}s
  *
- * @author apturgeo
  */
 public class EagerNumberAdapterFactory implements TypeAdapterFactory {
     @Override

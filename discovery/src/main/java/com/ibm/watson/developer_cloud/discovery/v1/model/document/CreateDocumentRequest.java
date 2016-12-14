@@ -24,7 +24,6 @@ import java.io.InputStream;
 /**
  * Request to create a {@link Document}
  *
- * @author apturgeo
  */
 public class CreateDocumentRequest extends GenericModel {
     private final String environmentId;

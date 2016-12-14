@@ -85,7 +85,6 @@ import java.util.regex.Pattern;
 /**
  * Discovery service API for CRUD operations for indexing and searching data.
  *
- * @author apturgeo
  */
 public class Discovery extends WatsonService implements EnvironmentManager, ConfigurationManager, CollectionManager,
         DocumentManager, QueryManager {

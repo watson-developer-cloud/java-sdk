@@ -14,7 +14,6 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.common;
 
 /**
- * @author apturgeo
  */
 public interface CommonManager {
     //Disk & Memory Usage

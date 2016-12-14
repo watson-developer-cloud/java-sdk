@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 /**
  * Response from {@link CreateCollectionRequest}
  *
- * @author apturgeo
  */
 public class CreateCollectionResponse extends Collection {
 }

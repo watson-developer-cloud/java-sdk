@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 
 /**
- * @author apturgeo
  */
 public interface ConfigurationManager {
     String CONFIGURATIONS = "configurations";

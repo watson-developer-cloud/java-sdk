@@ -20,7 +20,6 @@ import java.util.List;
 /**
  * Handles aggregations that can use the {@link Operator#NEST_AGGREGATION}
  *
- * @author apturgeo
  */
 public abstract class NestableAggregation extends QueryAggregation {
     @SerializedName(QueryManager.RESULTS)

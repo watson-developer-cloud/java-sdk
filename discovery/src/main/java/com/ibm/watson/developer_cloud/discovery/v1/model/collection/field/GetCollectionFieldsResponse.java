@@ -22,7 +22,6 @@ import java.util.List;
 /**
  * Response from {@link GetCollectionFieldsRequest}
  *
- * @author apturgeo
  */
 public class GetCollectionFieldsResponse extends GenericModel {
     @SerializedName(CollectionManager.FIELDS)

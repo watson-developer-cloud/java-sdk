@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 /**
  * Response from a {@link GetEnvironmentRequest}
  *
- * @author apturgeo
  */
 public class GetEnvironmentResponse extends Environment {
 }

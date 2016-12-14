@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CollectionMa
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * @author apturgeo
  */
 @JsonAdapter(FieldAdapterFactory.class)
 public class Field extends GenericModel {

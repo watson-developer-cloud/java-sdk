@@ -21,7 +21,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.Date;
 
 /**
- * @author apturgeo
  */
 public class Environment extends GenericModel {
     @SerializedName(ID)

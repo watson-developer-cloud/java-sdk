@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.collection.Collection;
 /**
  * Request to get a list of {@link Field}s from a {@link Collection}
  *
- * @author apturgeo
  */
 public class GetCollectionFieldsRequest extends GenericModel {
     private final String environmentId;

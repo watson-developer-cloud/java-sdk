@@ -24,7 +24,6 @@ import java.io.InputStream;
 /**
  * Request to update a {@link Document}
  *
- * @author apturgeo
  */
 public class UpdateDocumentRequest extends GenericModel {
     private final String environmentId;

@@ -24,7 +24,6 @@ import java.util.List;
  * Response from a {@link DeleteConfigurationRequest}
  * The response contains a {@link Notice} if the configuration was referenced by at least one collection.
  *
- * @author apturgeo
  */
 public class DeleteConfigurationResponse extends GenericModel {
     @SerializedName(ConfigurationManager.ID)
