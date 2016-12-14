@@ -77,7 +77,7 @@ public class Document extends GenericModel {
     public enum Status {
         @SerializedName("available")
         AVAILABLE,
-        @SerializedName("available_with_notices")
+        @SerializedName("available with notices")
         AVAILABLE_WITH_NOTICES,
         @SerializedName("failed")
         FAILED
