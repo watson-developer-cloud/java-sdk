@@ -21,7 +21,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Response from {@link DeleteDocumentRequest}
  *
- * @author apturgeo
  */
 public class DeleteDocumentResponse extends GenericModel {
     @SerializedName(ID)

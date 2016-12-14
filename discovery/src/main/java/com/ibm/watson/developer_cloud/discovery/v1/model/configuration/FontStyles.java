@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.List;
 
 /**
- * @author apturgeo
  */
 public class FontStyles extends GenericModel {
     @SerializedName(ConfigurationManager.LEVEL)

@@ -18,7 +18,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Request to get a list of {@link Collection}s
  *
- * @author apturgeo
  */
 public class GetCollectionsRequest extends GenericModel {
     private final String environmentId;

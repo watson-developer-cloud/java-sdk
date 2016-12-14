@@ -23,7 +23,6 @@ import java.util.List;
 /**
  * Response from {@link GetConfigurationsRequest}
  *
- * @author apturgeo
  */
 public class GetConfigurationsResponse extends GenericModel {
     @SerializedName(CONFIGURATIONS)

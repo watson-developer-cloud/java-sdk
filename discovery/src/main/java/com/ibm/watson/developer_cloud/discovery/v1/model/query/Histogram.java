@@ -18,7 +18,6 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.EagerNumberAdapterFactory;
 
 /**
- * @author apturgeo
  */
 public class Histogram extends NestableAggregation {
     @SerializedName(QueryManager.INTERVAL)

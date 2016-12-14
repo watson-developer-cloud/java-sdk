@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.Map;
 
 /**
- * @author apturgeo
  */
 public class Enrichment extends GenericModel {
     @SerializedName(ConfigurationManager.DESCRIPTION)

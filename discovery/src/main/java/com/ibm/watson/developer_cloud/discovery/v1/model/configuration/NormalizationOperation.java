@@ -17,7 +17,6 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * @author apturgeo
  */
 public class NormalizationOperation extends GenericModel {
     //TODO make this an enum

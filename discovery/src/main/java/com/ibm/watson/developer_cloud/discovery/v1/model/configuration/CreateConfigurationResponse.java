@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 /**
  * Response from {@link CreateConfigurationRequest}
  *
- * @author apturgeo
  */
 public class CreateConfigurationResponse extends Configuration {
 }

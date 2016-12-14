@@ -23,7 +23,6 @@ import java.util.List;
 /**
  * Response from a {@link GetEnvironmentsRequest}
  *
- * @author apturgeo
  */
 public class GetEnvironmentsResponse extends GenericModel {
     @SerializedName(ENVIRONMENTS)

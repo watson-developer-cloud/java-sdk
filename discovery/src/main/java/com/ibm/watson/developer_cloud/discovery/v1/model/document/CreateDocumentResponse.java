@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.document;
 /**
  * Response from {@link CreateDocumentRequest}
  *
- * @author apturgeo
  */
 public class CreateDocumentResponse extends Document {
 }

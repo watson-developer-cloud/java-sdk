@@ -20,7 +20,6 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.common.MemoryUsage;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * @author apturgeo
  */
 public class IndexCapacity extends GenericModel {
     @SerializedName(CommonManager.DISK_USAGE)

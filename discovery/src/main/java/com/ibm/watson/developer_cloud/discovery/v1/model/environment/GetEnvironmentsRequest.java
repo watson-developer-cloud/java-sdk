@@ -18,7 +18,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Request to get a list of {@link Environment}s
  *
- * @author apturgeo
  */
 public class GetEnvironmentsRequest extends GenericModel {
     private final String name;

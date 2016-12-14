@@ -27,7 +27,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * This makes it easier to use newer configuration files with older versions of the API and the service.
  * It also makes it possible for the tooling to add additional metadata and information to the configuration.
  *
- * @author apturgeo
  */
 public class CreateConfigurationRequest extends GenericModel {
     private final String environmentId;

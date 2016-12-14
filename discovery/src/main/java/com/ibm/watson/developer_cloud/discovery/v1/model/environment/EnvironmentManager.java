@@ -16,7 +16,6 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 
 /**
- * @author apturgeo
  */
 public interface EnvironmentManager {
     String ENVIRONMENTS = "environments";

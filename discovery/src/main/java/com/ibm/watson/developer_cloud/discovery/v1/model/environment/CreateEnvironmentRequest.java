@@ -23,7 +23,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  *
  * A JSON object where you define an environment name and an environment description.
  *
- * @author apturgeo
  */
 public class CreateEnvironmentRequest extends GenericModel {
     @SerializedName(NAME)

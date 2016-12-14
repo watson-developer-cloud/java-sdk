@@ -14,7 +14,6 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
 /**
- * @author apturgeo
  */
 public class Term extends NestableAggregation {
 

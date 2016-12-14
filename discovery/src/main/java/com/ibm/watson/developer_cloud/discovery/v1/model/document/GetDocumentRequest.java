@@ -18,7 +18,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Request to get a {@link Document}
  *
- * @author apturgeo
  */
 public class GetDocumentRequest extends GenericModel {
     private final String environmentId;

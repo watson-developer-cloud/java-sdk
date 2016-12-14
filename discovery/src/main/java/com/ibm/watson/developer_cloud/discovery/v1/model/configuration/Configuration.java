@@ -20,7 +20,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author apturgeo
  */
 public class Configuration extends GenericModel {
     @SerializedName(ConfigurationManager.ID)

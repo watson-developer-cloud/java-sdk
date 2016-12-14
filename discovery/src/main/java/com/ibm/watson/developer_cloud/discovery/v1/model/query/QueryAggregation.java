@@ -20,7 +20,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Base class for all {@link Aggregation}s
  *
- * @author apturgeo
  */
 @JsonAdapter(QueryAggregationAdapterFactory.class)
 public abstract class QueryAggregation extends GenericModel {

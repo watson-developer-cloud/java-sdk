@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCol
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.Field;
 
 /**
- * @author apturgeo
  */
 public interface CollectionManager {
     String COLLECTIONS = "collections";

@@ -18,7 +18,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Request to update a {@link Configuration}
  *
- * @author apturgeo
  */
 public class UpdateConfigurationRequest extends GenericModel {
     private final String environmentId;

@@ -18,7 +18,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Request to delete a {@link Collection}
  *
- * @author apturgeo
  */
 public class DeleteCollectionRequest extends GenericModel {
     private final String environmentId;

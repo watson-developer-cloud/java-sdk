@@ -27,7 +27,6 @@ import java.io.IOException;
 /**
  * Adapts the abstract {@link QueryAggregation} to its concrete implementations
  *
- * @author apturgeo
  */
 public class QueryAggregationAdapterFactory implements TypeAdapterFactory {
     @Override

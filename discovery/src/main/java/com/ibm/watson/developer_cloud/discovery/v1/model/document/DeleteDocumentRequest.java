@@ -18,7 +18,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * Request to delete a {@link Document}
  *
- * @author apturgeo
  */
 public class DeleteDocumentRequest extends GenericModel {
     private final String environmentId;
