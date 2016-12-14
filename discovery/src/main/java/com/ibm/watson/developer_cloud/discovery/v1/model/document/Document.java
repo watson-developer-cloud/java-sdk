@@ -39,9 +39,8 @@ public class Document extends GenericModel {
     private Date created;
     @SerializedName(UPDATED)
     private Date updated;
-    //TODO make an enum
     @SerializedName(STATUS)
-    private String status;
+    private Status status;
     @SerializedName(STATUS_DESCRIPTION)
     private String statusDescription;
     @SerializedName(CommonManager.NOTICES)
@@ -63,7 +62,7 @@ public class Document extends GenericModel {
         return updated;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
@@ -73,5 +72,14 @@ public class Document extends GenericModel {
 
     public List<Notice> getNotices() {
         return notices;
+    }
+
+    public enum Status {
+        @SerializedName("available")
+        AVAILABLE,
+        @SerializedName("available_with_notices")
+        AVAILABLE_WITH_NOTICES,
+        @SerializedName("failed")
+        FAILED
     }
 }

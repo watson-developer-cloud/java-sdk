@@ -26,6 +26,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectio
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.CreateConfigurationRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.CreateConfigurationResponse;
@@ -41,6 +42,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.document.CreateDocument
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.CreateDocumentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.DeleteDocumentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.DeleteDocumentResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.document.Document;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.GetDocumentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.GetDocumentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.UpdateDocumentRequest;
@@ -328,7 +330,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
                 createResponse.getCollectionId()).build();
         DeleteCollectionResponse deleteResponse = deleteCollection(deleteRequest);
 
-        assertEquals("deleted", deleteResponse.getStatus());
+        assertEquals(Status.DELETED, deleteResponse.getStatus());
     }
 
     @Test
@@ -392,7 +394,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         DeleteDocumentRequest deleteRequest = new DeleteDocumentRequest.Builder(environmentId, collectionId,
                 createDocumentResponse.getDocumentId()).build();
         DeleteDocumentResponse deleteResponse = discovery.deleteDocument(deleteRequest).execute();
-        assertEquals("deleted", deleteResponse.getStatus());
+        assertEquals(Status.DELETED, deleteResponse.getStatus());
     }
 
     @Test
@@ -406,7 +408,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
                 createDocumentResponse.getDocumentId()).build();
         GetDocumentResponse getResponse = discovery.getDocument(getRequest).execute();
 
-        assertEquals("available", getResponse.getStatus());
+        assertEquals(Document.Status.AVAILABLE, getResponse.getStatus());
     }
 
     @Test
@@ -427,7 +429,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
                 updateResponse.getDocumentId()).build();
         GetDocumentResponse getResponse = discovery.getDocument(getRequest).execute();
 
-        assertEquals("available", getResponse.getStatus());
+        assertEquals(Document.Status.AVAILABLE, getResponse.getStatus());
     }
 
     @Test

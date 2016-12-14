@@ -11,29 +11,20 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
-
-import static com.ibm.watson.developer_cloud.discovery.v1.model.collection.CollectionManager.*;
+package com.ibm.watson.developer_cloud.discovery.v1.model.common;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Response from {@link DeleteCollectionRequest}
+ * Common status enumeration used for Environments, Configurations, Collections, and Documents
  *
+ * "deleted" is only used on delete requests
  */
-public class DeleteCollectionResponse extends GenericModel {
-    @SerializedName(ID)
-    private String collectionId;
-    @SerializedName(STATUS)
-    private Status status;
-
-    public String getCollectionId() {
-        return collectionId;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
+public enum Status {
+    @SerializedName("active")
+    ACTIVE,
+    @SerializedName("pending")
+    PENDING,
+    @SerializedName("deleted")
+    DELETED
 }
