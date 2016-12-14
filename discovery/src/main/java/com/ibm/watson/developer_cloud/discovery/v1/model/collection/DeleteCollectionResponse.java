@@ -13,20 +13,17 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.collection.CollectionManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Response from {@link DeleteCollectionRequest}
- *
+ * Response from {@link DeleteCollectionRequest}.
  */
 public class DeleteCollectionResponse extends GenericModel {
-    @SerializedName(ID)
+    @SerializedName(CollectionManager.ID)
     private String collectionId;
-    @SerializedName(STATUS)
+    @SerializedName(CollectionManager.STATUS)
     private Status status;
 
     public String getCollectionId() {

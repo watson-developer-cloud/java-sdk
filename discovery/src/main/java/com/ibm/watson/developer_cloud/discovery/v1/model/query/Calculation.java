@@ -13,15 +13,13 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager.*;
-
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Aggregation that performs a calculation
+ * Aggregation that performs a calculation.
  */
 public class Calculation extends Aggregation {
-    @SerializedName(VALUE)
+    @SerializedName(QueryManager.VALUE)
     private Double value;
 
     public Double getValue() {

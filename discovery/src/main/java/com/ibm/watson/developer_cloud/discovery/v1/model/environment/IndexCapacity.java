@@ -13,20 +13,18 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Index capacity lists out disk and memory usage of the Environment
+ * Index capacity lists out disk and memory usage of the Environment.
  *
  * @see Environment
  */
 public class IndexCapacity extends GenericModel {
-    @SerializedName(DISK_USAGE)
+    @SerializedName(EnvironmentManager.DISK_USAGE)
     private DiskUsage diskUsage;
-    @SerializedName(MEMORY_USAGE)
+    @SerializedName(EnvironmentManager.MEMORY_USAGE)
     private MemoryUsage memoryUsage;
 
     public DiskUsage getDiskUsage() {

@@ -13,8 +13,6 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.document;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.document.DocumentManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.CommonManager;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Notice;
@@ -31,17 +29,17 @@ import java.util.List;
  * @see QueryManager to see how to fetch the actual document content.
  */
 public class Document extends GenericModel {
-    @SerializedName(ID)
+    @SerializedName(DocumentManager.ID)
     private String documentId;
-    @SerializedName(CONFIGURATION_ID)
+    @SerializedName(DocumentManager.CONFIGURATION_ID)
     private String configurationId;
-    @SerializedName(CREATED)
+    @SerializedName(DocumentManager.CREATED)
     private Date created;
-    @SerializedName(UPDATED)
+    @SerializedName(DocumentManager.UPDATED)
     private Date updated;
-    @SerializedName(STATUS)
+    @SerializedName(DocumentManager.STATUS)
     private Status status;
-    @SerializedName(STATUS_DESCRIPTION)
+    @SerializedName(DocumentManager.STATUS_DESCRIPTION)
     private String statusDescription;
     @SerializedName(CommonManager.NOTICES)
     private List<Notice> notices;

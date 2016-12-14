@@ -13,27 +13,25 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.common;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.common.CommonManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Notice is a warning or error on a Document or Configuration deletion
+ * Notice is a warning or error on a Document or Configuration deletion.
  */
 public class Notice extends GenericModel {
-    @SerializedName(NOTICE_ID)
+    @SerializedName(CommonManager.NOTICE_ID)
     private String noticeId;
     //Only exists in Configuration Deletion
-    @SerializedName(CREATED)
+    @SerializedName(CommonManager.CREATED)
     private String created;
     //TODO make an enum
-    @SerializedName(SEVERITY)
+    @SerializedName(CommonManager.SEVERITY)
     private String severity;
     //Only exists in Document Get
-    @SerializedName(STEP)
+    @SerializedName(CommonManager.STEP)
     private String step;
-    @SerializedName(DESCRIPTION)
+    @SerializedName(CommonManager.DESCRIPTION)
     private String description;
 
     public String getNoticeId() {

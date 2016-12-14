@@ -13,8 +13,6 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.collection.CollectionManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -22,26 +20,26 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.Date;
 
 /**
- * A Collection holds the documents that have been ingested and allows querying against it
+ * A Collection holds the documents that have been ingested and allows querying against it.
  */
 public class Collection extends GenericModel {
-    @SerializedName(ID)
+    @SerializedName(CollectionManager.ID)
     private String collectionId;
-    @SerializedName(NAME)
+    @SerializedName(CollectionManager.NAME)
     private String name;
-    @SerializedName(STATUS)
+    @SerializedName(CollectionManager.STATUS)
     private Status status;
     @SerializedName(CollectionManager.CREATED)
     private Date created;
-    @SerializedName(UPDATED)
+    @SerializedName(CollectionManager.UPDATED)
     private Date updated;
     @SerializedName(CollectionManager.DESCRIPTION)
     private String description;
-    @SerializedName(CONFIGURATION_ID)
+    @SerializedName(CollectionManager.CONFIGURATION_ID)
     private String configurationId;
-    @SerializedName(LANGUAGE)
+    @SerializedName(CollectionManager.LANGUAGE)
     private String language;
-    @SerializedName(DOCUMENT_COUNTS)
+    @SerializedName(CollectionManager.DOCUMENT_COUNTS)
     private DocumentCounts documentCounts;
 
     public String getCollectionId() {

@@ -16,8 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.document;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request to delete a {@link Document}
- *
+ * Request to delete a {@link Document}.
  */
 public class DeleteDocumentRequest extends GenericModel {
     private final String environmentId;

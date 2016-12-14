@@ -13,23 +13,21 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.List;
 
 /**
- * Heading settings in a PDF or Word document
+ * Heading settings in a PDF or Word document.
  *
  * @see Pdf
  * @see Word
  */
 public class Heading extends GenericModel {
-    @SerializedName(FONT_SETTINGS)
+    @SerializedName(ConfigurationManager.FONT_SETTINGS)
     private List<FontSetting> fontSettings;
-    @SerializedName(FONT_STYLES)
+    @SerializedName(ConfigurationManager.FONT_STYLES)
     private FontStyles fontStyles;
 
     public List<FontSetting> getFontSettings() {

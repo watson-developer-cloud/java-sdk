@@ -25,8 +25,7 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 
 /**
- * Adapts the abstract {@link Aggregation} to its concrete implementations
- *
+ * Adapts the abstract {@link Aggregation} to its concrete implementations.
  */
 public class AggregationAdapterFactory implements TypeAdapterFactory {
     @Override
@@ -41,7 +40,7 @@ public class AggregationAdapterFactory implements TypeAdapterFactory {
         private final Gson gson;
         private final TypeAdapter<JsonElement> jsonElementTypeAdapter;
 
-        public QueryAggregationTypeAdapter(Gson gson) {
+        QueryAggregationTypeAdapter(Gson gson) {
             this.gson = gson;
             this.jsonElementTypeAdapter = gson.getAdapter(JsonElement.class);
         }

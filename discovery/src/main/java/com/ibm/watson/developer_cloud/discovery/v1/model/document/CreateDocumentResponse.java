@@ -14,8 +14,7 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.document;
 
 /**
- * Response from {@link CreateDocumentRequest}
- *
+ * Response from {@link CreateDocumentRequest}.
  */
 public class CreateDocumentResponse extends Document {
 }

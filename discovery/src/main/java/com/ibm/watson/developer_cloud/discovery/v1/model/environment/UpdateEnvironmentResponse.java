@@ -14,8 +14,7 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 
 /**
- * Response from a {@link UpdateEnvironmentRequest}
- *
+ * Response from a {@link UpdateEnvironmentRequest}.
  */
 public class UpdateEnvironmentResponse extends Environment {
 }

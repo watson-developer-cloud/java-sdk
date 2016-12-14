@@ -14,8 +14,7 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
 /**
- * Query Language Operator Syntax
- *
+ * Query Language Operator Syntax.
  */
 public enum Operator {
     FIELD_SEPARATOR("."),

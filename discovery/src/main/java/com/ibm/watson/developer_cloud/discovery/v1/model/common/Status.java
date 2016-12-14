@@ -16,7 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.common;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Common status enumeration used for Environments, Configurations, Collections, and Documents
+ * Common status enumeration used for Environments, Configurations, Collections, and Documents.
  *
  * "deleted" is only used on delete requests
  */

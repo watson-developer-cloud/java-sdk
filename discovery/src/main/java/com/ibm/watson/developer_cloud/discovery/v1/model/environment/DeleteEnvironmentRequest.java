@@ -16,8 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request to delete an {@link Environment}
- *
+ * Request to delete an {@link Environment}.
  */
 public class DeleteEnvironmentRequest extends GenericModel {
     private final String environmentId;

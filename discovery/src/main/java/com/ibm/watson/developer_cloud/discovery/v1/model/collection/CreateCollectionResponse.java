@@ -14,8 +14,7 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 
 /**
- * Response from {@link CreateCollectionRequest}
- *
+ * Response from {@link CreateCollectionRequest}.
  */
 public class CreateCollectionResponse extends Collection {
 }

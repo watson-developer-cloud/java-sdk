@@ -13,26 +13,24 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Contains basic settings for a font
+ * Contains basic settings for a font.
  */
 public class FontSetting extends GenericModel {
-    @SerializedName(LEVEL)
+    @SerializedName(ConfigurationManager.LEVEL)
     private Number level;
-    @SerializedName(MIN_SIZE)
+    @SerializedName(ConfigurationManager.MIN_SIZE)
     private Number minSize;
-    @SerializedName(MAX_SIZE)
+    @SerializedName(ConfigurationManager.MAX_SIZE)
     private Number maxSize;
-    @SerializedName(BOLD)
+    @SerializedName(ConfigurationManager.BOLD)
     private boolean bold;
-    @SerializedName(ITALIC)
+    @SerializedName(ConfigurationManager.ITALIC)
     private boolean italic;
-    @SerializedName(FONT_NAME)
+    @SerializedName(ConfigurationManager.FONT_NAME)
     private String fontName;
 
     public Number getLevel() {

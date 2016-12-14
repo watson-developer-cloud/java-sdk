@@ -13,22 +13,16 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request to create a {@link Collection}
- *
+ * Request to create a {@link Collection}.
  */
 public class CreateCollectionRequest extends GenericModel {
-    private final transient String environmentId;
-    @SerializedName(CollectionManager.NAME)
+    private final String environmentId;
     private final String name;
-    @SerializedName(CollectionManager.DESCRIPTION)
     private final String description;
-    @SerializedName(CollectionManager.CONFIGURATION_ID)
     private final String configurationId;
-    @SerializedName(CollectionManager.LANGUAGE)
     private final String language;
 
     private CreateCollectionRequest(Builder builder) {

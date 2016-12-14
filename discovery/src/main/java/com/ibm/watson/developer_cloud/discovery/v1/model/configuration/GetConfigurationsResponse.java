@@ -13,19 +13,16 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import java.util.List;
 
 /**
- * Response from {@link GetConfigurationsRequest}
- *
+ * Response from {@link GetConfigurationsRequest}.
  */
 public class GetConfigurationsResponse extends GenericModel {
-    @SerializedName(CONFIGURATIONS)
+    @SerializedName(ConfigurationManager.CONFIGURATIONS)
     private List<Configuration> configurations;
 
     public List<Configuration> getConfigurations() {

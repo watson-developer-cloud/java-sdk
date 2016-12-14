@@ -13,25 +13,22 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager.*;
-
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Base class for all {@link AggregationType}s
- *
+ * Base class for all {@link AggregationType}s.
  */
 @JsonAdapter(AggregationAdapterFactory.class)
 public abstract class Aggregation extends GenericModel {
-    @SerializedName(AGGREGATION_ID)
+    @SerializedName(QueryManager.AGGREGATION_ID)
     private String id;
-    @SerializedName(TYPE)
+    @SerializedName(QueryManager.TYPE)
     private String type;
-    @SerializedName(FIELD)
+    @SerializedName(QueryManager.FIELD)
     private String field;
-    @SerializedName(LOGIC)
+    @SerializedName(QueryManager.LOGIC)
     private Logic logic;
 
     public void setId(String id) {

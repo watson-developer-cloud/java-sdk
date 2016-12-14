@@ -27,8 +27,7 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 
 /**
- * Override the default {@link LazilyParsedNumber} for parsing {@link Number}s
- *
+ * Override the default {@link LazilyParsedNumber} for parsing {@link Number}s.
  */
 public class EagerNumberAdapterFactory implements TypeAdapterFactory {
     @Override

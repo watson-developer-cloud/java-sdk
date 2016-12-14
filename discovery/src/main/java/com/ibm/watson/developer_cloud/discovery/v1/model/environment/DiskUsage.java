@@ -13,24 +13,22 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 
-import static com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager.*;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DiskUsage contains storage information for the Environment
+ * DiskUsage contains storage information for the Environment.
  */
 public class DiskUsage extends GenericModel {
-    @SerializedName(USED_BYTES)
+    @SerializedName(EnvironmentManager.USED_BYTES)
     private Long usedBytes;
-    @SerializedName(TOTAL_BYTES)
+    @SerializedName(EnvironmentManager.TOTAL_BYTES)
     private Long totalBytes;
-    @SerializedName(USED)
+    @SerializedName(EnvironmentManager.USED)
     private String used;
-    @SerializedName(TOTAL)
+    @SerializedName(EnvironmentManager.TOTAL)
     private String total;
-    @SerializedName(PERCENT_USED)
+    @SerializedName(EnvironmentManager.PERCENT_USED)
     private Double percentUsed;
 
     public Double getPercentUsed() {

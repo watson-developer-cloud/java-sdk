@@ -22,8 +22,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 /**
- * Request to update a {@link Document}
- *
+ * Request to update a {@link Document}.
  */
 public class UpdateDocumentRequest extends GenericModel {
     private final String environmentId;

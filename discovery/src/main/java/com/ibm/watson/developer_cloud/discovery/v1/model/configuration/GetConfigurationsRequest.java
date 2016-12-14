@@ -16,8 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Request to get a list of {@link Configuration}s
- *
+ * Request to get a list of {@link Configuration}s.
  */
 public class GetConfigurationsRequest extends GenericModel {
     private final String environmentId;

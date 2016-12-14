@@ -22,9 +22,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import java.util.List;
 
 /**
- * Response from a {@link DeleteConfigurationRequest}
+ * Response from a {@link DeleteConfigurationRequest}.
  * The response contains a {@link Notice} if the configuration was referenced by at least one collection.
- *
  */
 public class DeleteConfigurationResponse extends GenericModel {
     @SerializedName(ConfigurationManager.ID)

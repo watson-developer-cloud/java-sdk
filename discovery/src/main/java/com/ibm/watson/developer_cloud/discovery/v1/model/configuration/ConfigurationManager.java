@@ -16,7 +16,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 
 /**
- * Interface defining the constants and methods associated with Configurations
+ * Interface defining the constants and methods associated with Configurations.
  *
  * @see Configuration
  */
@@ -95,7 +95,7 @@ public interface ConfigurationManager {
     ServiceCall<GetConfigurationsResponse> getConfigurations(GetConfigurationsRequest getRequest);
 
     /**
-     * Gets configuration details
+     * Gets configuration details.
      *
      * @param getRequest options for getting the configuration
      * @return a {@link GetConfigurationResponse} containing result of the {@link GetConfigurationRequest}
@@ -103,7 +103,7 @@ public interface ConfigurationManager {
     ServiceCall<GetConfigurationResponse> getConfiguration(GetConfigurationRequest getRequest);
 
     /**
-     * Creates a configuration
+     * Creates a configuration.
      *
      * @param createRequest options for creating the configuration
      * @return a {@link CreateConfigurationResponse} containing the result of the {@link CreateConfigurationRequest}
@@ -126,11 +126,11 @@ public interface ConfigurationManager {
      * Replaces an existing configuration.
      * - Completely replaces the original configuration that was here before.
      * - The 'configuration_id', 'updated', and 'created' fields accepted in the request,
-     *      but they are ignored (an error is not generated). It is also acceptable for users to submit an
-     *      updated config with none of the three properties.
+     * but they are ignored (an error is not generated). It is also acceptable for users to submit an
+     * updated config with none of the three properties.
      * - Documents are processed with a snapshot of the configuration as it was at the time the document
-     *      was submitted to be ingested. This means that already submitted documents will not see any updates
-     *      made to the configuration.
+     * was submitted to be ingested. This means that already submitted documents will not see any updates
+     * made to the configuration.
      *
      * @param updateRequest options for updating the configuration
      * @return a {@link UpdateConfigurationResponse} containing the result of the {@link UpdateConfigurationRequest}
