@@ -77,6 +77,8 @@ public class Document extends GenericModel {
         AVAILABLE,
         @SerializedName("available with notices")
         AVAILABLE_WITH_NOTICES,
+        @SerializedName("processing")
+        PROCESSING,
         @SerializedName("failed")
         FAILED
     }
