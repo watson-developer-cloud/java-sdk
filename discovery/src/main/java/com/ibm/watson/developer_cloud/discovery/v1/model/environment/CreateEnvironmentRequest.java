@@ -28,11 +28,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class CreateEnvironmentRequest extends GenericModel {
     @SerializedName(NAME)
     private final String name;
+    @SerializedName(SIZE)
+    private final Size size;
     @SerializedName(DESCRIPTION)
     private final String description;
 
     private CreateEnvironmentRequest(Builder builder) {
         this.name = builder.name;
+        this.size = builder.size;
         this.description = builder.description;
     }
 
@@ -44,12 +47,18 @@ public class CreateEnvironmentRequest extends GenericModel {
         return description;
     }
 
+    public Size getSize() {
+        return size;
+    }
+
     public static class Builder {
         private final String name;
+        private final Size size;
         private String description;
 
-        public Builder(String name) {
+        public Builder(String name, Size size) {
             this.name = name;
+            this.size = size;
         }
 
         public Builder description(String description) {
@@ -59,6 +68,23 @@ public class CreateEnvironmentRequest extends GenericModel {
 
         public CreateEnvironmentRequest build() {
             return new CreateEnvironmentRequest(this);
+        }
+    }
+
+    public enum Size {
+        FREE(0),   //free plan
+        SMALL(1),  //standard plan
+        MEDIUM(2), //standard plan
+        LARGE(3);  //standard plan
+
+        private final int size;
+
+        Size(int size) {
+            this.size = size;
+        }
+
+        public int getSize() {
+            return size;
         }
     }
 }

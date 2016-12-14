@@ -30,6 +30,8 @@ public interface EnvironmentManager {
     String STATUS = "status";
     String READ_ONLY = "read_only";
     String INDEX_CAPACITY = "index_capacity";
+    //only on creation request
+    String SIZE = "size";
 
     /**
      * Lists existing environments. Optional query param of name can be used to search for environments by name.
