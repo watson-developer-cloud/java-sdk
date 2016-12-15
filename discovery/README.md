@@ -24,7 +24,12 @@ Discovery service = new Discovery("2016-12-15");
 service.setEndpoint("https://gateway.watsonplatform.net/discovery/api/");
 service.setUsernameAndPassword("<username>", "<password>");
 
-//TODO add service
+//Build an empty query on an existing environment/collection
+String environmentId = "<environmentId>";
+String collectionId = "<collectionId";
+QueryRequest queryRequest = new QueryRequest.Builder(environmentId, collectionId).build();
+
+QueryResponse queryResponse = discovery.query(queryRequest).execute();
 ```
 
 [discovery]: http://www.ibm.com/watson/developercloud/doc/discovery/
