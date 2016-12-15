@@ -90,7 +90,6 @@ import java.util.concurrent.TimeUnit;
 /**
  * Integration tests for {@link Discovery}
  *
- * @author apturgeo
  */
 public class DiscoveryServiceIT extends WatsonServiceTest {
     private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
