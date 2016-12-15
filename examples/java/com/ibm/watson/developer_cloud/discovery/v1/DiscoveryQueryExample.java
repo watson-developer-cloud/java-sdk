@@ -50,7 +50,7 @@ public class DiscoveryQueryExample {
     private static final String DEFAULT_CONFIG_NAME = "Default Configuration";
 
     public static void main(String[] args) {
-        Discovery discovery = new Discovery("2016-12-01");
+        Discovery discovery = new Discovery("2016-12-15");
         discovery.setEndPoint("https://gateway.watsonplatform.net/discovery/api");
         discovery.setUsernameAndPassword("<username>", "<password");
         String environmentId = null;
