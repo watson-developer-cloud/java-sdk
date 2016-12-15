@@ -3,7 +3,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>com.ibm.watson.developer_cloud</groupId>
-    <version>3.5.3</version>
+    <version>3.5.4-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
