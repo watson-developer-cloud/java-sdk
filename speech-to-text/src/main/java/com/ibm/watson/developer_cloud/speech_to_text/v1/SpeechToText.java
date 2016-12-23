@@ -233,7 +233,7 @@ public class SpeechToText extends WatsonService {
 
   /**
    * Upgrades a custom language model to the latest release level of the Speech to Text service. The method bases the
-   * upgrade on the latest trained data stored for the custom model. <br/>
+   * upgrade on the latest trained data stored for the custom model.
    * <strong>Note: This method is not currently implemented. It will be added for a future release of the API. </strong>
    *
    * @param customizationId the customization id
@@ -285,7 +285,7 @@ public class SpeechToText extends WatsonService {
    * custom model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to
    * add additional words or to modify existing words in the words resource. Adding or modifying a custom word does not
    * affect the custom model until you train the model for the new data by using
-   * {@link SpeechToText#trainCustomization(String, Boolean)}.
+   * {@link SpeechToText#trainCustomization(String, WordTypeToAdd)}.
    *
    * @param customizationId The GUID of the custom language model to which a word is to be added. You must make the
    *        request with the service credentials of the model's owner.
@@ -309,7 +309,7 @@ public class SpeechToText extends WatsonService {
    * for a custom model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this
    * method to add additional words or to modify existing words in the words resource. Adding or modifying custom words
    * does not affect the custom model until you train the model for the new data by using
-   * {@link SpeechToText#trainCustomization(String, Boolean)}.
+   * {@link SpeechToText#trainCustomization(String, WordTypeToAdd)}.
    *
    * @param customizationId The GUID of the custom language model to which words are to be added. You must make the
    *        request with the service credentials of the model's owner.
@@ -777,7 +777,7 @@ public class SpeechToText extends WatsonService {
    * Registers a callback URL with the service for use with subsequent asynchronous recognition requests. The service
    * attempts to register, or white-list, the callback URL. To be registered successfully, the callback URL must respond
    * to a <code>GET</code> request from the service, after which the service responds with response code 201 to the
-   * original registration request. <br/>
+   * original registration request. <br>
    * If you specify a <code>secret</code> with the request, the service uses it as a key to calculate an
    * <code>HMAC-SHA1</code> signature of a random challenge string in its response to the request. The signature
    * provides authentication and data integrity for HTTP communications.
@@ -818,12 +818,12 @@ public class SpeechToText extends WatsonService {
    * Initiates the training of a custom language model with new corpora, words, or both. After adding training data to
    * the custom model with the corpora or words methods, use this method to begin the actual training of the model on
    * the new data. You can specify whether the custom model is to be trained with all words from its words resources or
-   * only with words that were added or modified by the user.<br/>
-   * <br/>
+   * only with words that were added or modified by the user.<br>
+   * <br>
    * This method is asynchronous and can take on the order of minutes to complete depending on the amount of data on
    * which the service is being trained and the current load on the service. You can monitor the status of the training
-   * by using the {@link SpeechToText#getCustomization(String)} method to poll the model's status.<br/>
-   * <br/>
+   * by using the {@link SpeechToText#getCustomization(String)} method to poll the model's status.<br>
+   * <br>
    * Training can fail to start for the following reasons:
    * <ul>
    * <li>No training data (corpora or words) have been added to the custom model.</li>

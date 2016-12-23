@@ -11,7 +11,7 @@ if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && [ "$TRAVIS_PU
     rm -rf docs/$TRAVIS_BRANCH
     mkdir -p docs/$TRAVIS_BRANCH
 
-    cp -rf ../target/site/apidocs/* docs/$TRAVIS_BRANCH
+    cp -rf ../build/docs/all/* docs/$TRAVIS_BRANCH
     ../.utility/generate_index_html.sh > index.html
 
 	# update the latest/ symlink
