@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+apply plugin: 'com.novoda.bintray-release'
+
+publish {
+  userOrg = 'milbuild'
+  groupId = 'com.ibm.watson.developer_cloud'
+  artifactId = 'android-sdk'
+  publishVersion = '0.2.1'
+  desc = 'A utility library for use with the Watson Java SDK'
+  website = 'https://github.com/watson-developer-cloud/android-sdk'
+}
+
+android {
+  compileSdkVersion 23
+  buildToolsVersion "23.0.2"
+
+  defaultConfig {
+    minSdkVersion 8
+    targetSdkVersion 23
+    versionCode 1
+    versionName "1.0"
+
+    ndk {
+      moduleName "libspeex"
+      moduleName "libOpusDecode"
+    }
+  }
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+  }
+
+  lintOptions {
+    abortOnError false
+  }
+}
+
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+  testCompile 'junit:junit:4.12'
+  compile 'com.android.support:appcompat-v7:23.2.1'
+  compile ('net.java.dev.jna:jna:4.2.2') {
+    transitive=true
+  }
+}
