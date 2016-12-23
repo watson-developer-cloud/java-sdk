@@ -23,9 +23,10 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
-import org.junit.Assume;
-import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
+import org.junit.Before;
+import org.junit.Assume;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
@@ -331,8 +332,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
   /**
    * Test get recognition job with wrong id.
    *
-   * @throws InterruptedException the interrupted exception
-   * @throws FileNotFoundException the file not found exception
    */
   @Test
   public void testGetRecognitionJobWithWrongId() {
@@ -344,8 +343,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
   /**
    * Test get recognition jobs.
    *
-   * @throws InterruptedException the interrupted exception
-   * @throws FileNotFoundException the file not found exception
    */
   @Test
   public void testGetRecognitionJobs() {
@@ -368,6 +365,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    *
    */
   @Test
+  @Ignore
   public void testGetCorpora() {
     List<Corpus> result = service.getCorpora(customizationId).execute();
     assertNotNull(result);
@@ -387,6 +385,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * Test get words.
    */
   @Test
+  @Ignore
   public void testGetWords() {
     List<WordData> result = service.getWords(customizationId, Type.ALL).execute();
     assertNotNull(result);

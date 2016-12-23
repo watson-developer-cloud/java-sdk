@@ -203,7 +203,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     assertEquals(HttpMediaType.AUDIO_PCM + "; rate=16000", requestUrl.queryParameter("accept"));
     assertNotNull(in);
 
-    writeInputStreamToOutputStream(in, new FileOutputStream("target/output.wav"));
+    writeInputStreamToOutputStream(in, new FileOutputStream("build/output.wav"));
   }
 
 
