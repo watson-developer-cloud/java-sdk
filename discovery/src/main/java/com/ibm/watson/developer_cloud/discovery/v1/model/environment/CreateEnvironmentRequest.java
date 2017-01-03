@@ -13,6 +13,7 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.environment;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -64,9 +65,13 @@ public class CreateEnvironmentRequest extends GenericModel {
     }
 
     public enum Size {
+        @SerializedName("0")
         FREE(0),   //free plan
+        @SerializedName("1")
         ONE(1),    //standard plan
+        @SerializedName("2")
         TWO(2),    //standard plan
+        @SerializedName("3")
         THREE(3);  //standard plan
 
         private final int size;

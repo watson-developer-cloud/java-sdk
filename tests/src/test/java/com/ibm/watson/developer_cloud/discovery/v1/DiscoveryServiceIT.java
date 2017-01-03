@@ -132,6 +132,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
                     .build();
             CreateEnvironmentResponse createResponse = discovery.createEnvironment(createRequest).execute();
             environmentId = createResponse.getEnvironmentId();
+            WaitFor.Condition environmentReady = new EnvironmentReady(discovery, environmentId);
+            WaitFor.waitFor(environmentReady, 30, TimeUnit.SECONDS, 500);
         }
     }
 
@@ -224,7 +226,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
 
     @Test
-    @Ignore("Environment creation/deletion is expensive")
+    @Ignore("Only 1 BYOD environment allowed per service instance, so we cannot create more")
     public void create_environment_is_successful() {
         String environmentName = uniqueName + "-environment";
         CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder(environmentName,
@@ -235,7 +237,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
 
     @Test
-    @Ignore("Environment creation/deletion is expensive")
+    @Ignore("Only 1 BYOD environment allowed per service instance, so do not delete it")
     public void delete_environment_is_successful() {
         String environmentName = uniqueName + "-environment";
         CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder(environmentName,
@@ -250,7 +252,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
 
     @Test
-    @Ignore("Environment creation/deletion is expensive")
+    @Ignore("Only 1 BYOD environment allowed per service instance, so we cannot create more")
     public void update_environment_is_successful() {
         String environmentName = uniqueName + "-environment";
         CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder(environmentName,
@@ -820,6 +822,23 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
             return GsonSingleton.getGson().fromJson(new FileReader(DISCOVERY_TEST_CONFIG_FILE), Configuration.class);
         } catch (FileNotFoundException e) {
             return null;
+        }
+    }
+
+    private static class EnvironmentReady implements WaitFor.Condition {
+        private final Discovery discovery;
+        private final String environmentId;
+
+        public EnvironmentReady(Discovery discovery, String environmentId) {
+            this.discovery = discovery;
+            this.environmentId = environmentId;
+        }
+
+        @Override
+        public boolean isSatisfied() {
+            GetEnvironmentRequest getRequest = new GetEnvironmentRequest.Builder(environmentId).build();
+            Status status = discovery.getEnvironment(getRequest).execute().getStatus();
+            return status.equals(Status.ACTIVE);
         }
     }
 
