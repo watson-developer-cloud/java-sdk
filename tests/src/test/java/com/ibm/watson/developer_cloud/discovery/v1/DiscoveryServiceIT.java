@@ -15,6 +15,8 @@ package com.ibm.watson.developer_cloud.discovery.v1;
 
 import static org.junit.Assert.*;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionResponse;
@@ -43,6 +45,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.document.CreateDocument
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.DeleteDocumentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.DeleteDocumentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.Document;
+import com.ibm.watson.developer_cloud.discovery.v1.model.document.DocumentManager;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.GetDocumentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.GetDocumentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.UpdateDocumentRequest;
@@ -423,6 +426,32 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     }
 
     @Test
+    public void create_document_with_metadata_is_successful() {
+        CreateCollectionResponse createCollectionResponse = createTestCollection();
+        String collectionId = createCollectionResponse.getCollectionId();
+
+        String myDocumentJson = "{\"field\":\"value\"}";
+        InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
+
+        JsonObject myMetadata = new JsonObject();
+        myMetadata.add("foo", new JsonPrimitive("bar"));
+
+        CreateDocumentRequest.Builder builder = new CreateDocumentRequest.Builder(environmentId, collectionId);
+        builder.inputStream(documentStream, HttpMediaType.APPLICATION_JSON);
+        builder.metadata(myMetadata);
+
+        CreateDocumentResponse createResponse = discovery.createDocument(builder.build()).execute();
+
+        WaitFor.Condition documentAccepted = new DocumentAccepted(environmentId, collectionId, createResponse.getDocumentId());
+        WaitFor.waitFor(documentAccepted, 5, TimeUnit.SECONDS, 500);
+
+        QueryRequest queryRequest = new QueryRequest.Builder(environmentId, collectionId).build();
+        QueryResponse queryResponse = discovery.query(queryRequest).execute();
+
+        assertTrue(queryResponse.getResults().get(0).containsKey(DocumentManager.METADATA));
+    }
+
+    @Test
     public void delete_document_is_successful() {
         CreateCollectionResponse createCollectionResponse = createTestCollection();
         String collectionId = createCollectionResponse.getCollectionId();
@@ -465,6 +494,34 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         GetDocumentResponse getResponse = discovery.getDocument(getRequest).execute();
 
         assertEquals(Document.Status.AVAILABLE, getResponse.getStatus());
+    }
+
+    @Test
+    @Ignore("Pending implementation of 'processing' after document update")
+    public void update_document_with_metadata_is_successful() {
+        CreateCollectionResponse createCollectionResponse = createTestCollection();
+        String collectionId = createCollectionResponse.getCollectionId();
+        CreateDocumentResponse createDocumentResponse = createTestDocument(collectionId);
+
+        String myDocumentJson = "{\"field\":\"value2\"}";
+        InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
+
+        JsonObject myMetadata = new JsonObject();
+        myMetadata.add("foo", new JsonPrimitive("bar"));
+
+        UpdateDocumentRequest.Builder updateBuilder = new UpdateDocumentRequest.Builder(environmentId, collectionId,
+                createDocumentResponse.getDocumentId());
+        updateBuilder.inputStream(documentStream, HttpMediaType.APPLICATION_JSON);
+        updateBuilder.metadata(myMetadata);
+        UpdateDocumentResponse updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
+
+        WaitFor.Condition documentAccepted = new DocumentAccepted(environmentId, collectionId, updateResponse.getDocumentId());
+        WaitFor.waitFor(documentAccepted, 5, TimeUnit.SECONDS, 500);
+
+        QueryRequest queryRequest = new QueryRequest.Builder(environmentId, collectionId).build();
+        QueryResponse queryResponse = discovery.query(queryRequest).execute();
+
+        assertTrue(queryResponse.getResults().get(0).containsKey(DocumentManager.METADATA));
     }
 
     @Test

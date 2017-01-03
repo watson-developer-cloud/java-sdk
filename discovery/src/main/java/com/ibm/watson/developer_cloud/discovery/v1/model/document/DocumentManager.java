@@ -29,6 +29,7 @@ public interface DocumentManager {
     String STATUS = "status";
     String STATUS_DESCRIPTION = "status_description";
     String FILE = "file";
+    String METADATA = "metadata";
 
     /**
      * Gets a {@link Document}.
