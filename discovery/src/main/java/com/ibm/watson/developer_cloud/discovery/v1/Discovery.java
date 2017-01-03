@@ -357,6 +357,9 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
         multipartBuilder.setType(MultipartBody.FORM);
         multipartBuilder.addFormDataPart(FILE, FILENAME, file);
+        if (createRequest.getMetadata() != null) {
+            multipartBuilder.addFormDataPart(METADATA, createRequest.getMetadata().toString());
+        }
         builder.body(multipartBuilder.build());
         final Request request = createVersionedRequest(builder);
         return createServiceCall(request, ResponseConverterUtils.getObject(CreateDocumentResponse.class));
@@ -392,6 +395,9 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
         multipartBuilder.setType(MultipartBody.FORM);
         multipartBuilder.addFormDataPart(FILE, FILENAME, file);
+        if (updateRequest.getMetadata() != null) {
+            multipartBuilder.addFormDataPart(METADATA, updateRequest.getMetadata().toString());
+        }
         builder.body(multipartBuilder.build());
         final Request request = createVersionedRequest(builder);
         return createServiceCall(request, ResponseConverterUtils.getObject(UpdateDocumentResponse.class));
