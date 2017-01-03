@@ -190,6 +190,7 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
     @Override
     public ServiceCall<CreateEnvironmentResponse> createEnvironment(CreateEnvironmentRequest createRequest) {
         Validator.notEmpty(createRequest.getName(), EnvironmentManager.NAME + " cannot be empty");
+        Validator.notNull(createRequest.getSize(), EnvironmentManager.SIZE + " cannot be null");
         RequestBuilder builder = RequestBuilder.post(String.format(PATH_ENVIRONMENTS));
         builder.bodyJson(GsonSingleton.getGson().toJsonTree(createRequest).getAsJsonObject());
         final Request request = createVersionedRequest(builder);
