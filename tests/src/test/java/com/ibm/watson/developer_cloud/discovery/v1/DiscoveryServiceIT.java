@@ -74,6 +74,7 @@ import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.WaitFor;
 import org.junit.After;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
@@ -114,6 +115,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         discovery.setEndPoint(url);
         discovery.setUsernameAndPassword(username, password);
 
+        Assume.assumeFalse("config.properties doesn't have valid credentials.",
+            (username == null) || username.equals(PLACEHOLDER));
+        
         GetEnvironmentsRequest getRequest = new GetEnvironmentsRequest.Builder().build();
         GetEnvironmentsResponse getResponse = discovery.getEnvironments(getRequest).execute();
         for (Environment environment : getResponse.getEnvironments()) {
@@ -813,6 +817,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     private String setupTestDocuments() {
         CreateCollectionResponse createCollectionResponse = createTestCollection();
         String collectionId = createCollectionResponse.getCollectionId();
+        @SuppressWarnings("unused")
         List<CreateDocumentResponse> createDocumentResponses = createTestDocuments(collectionId, 10);
         return collectionId;
     }
