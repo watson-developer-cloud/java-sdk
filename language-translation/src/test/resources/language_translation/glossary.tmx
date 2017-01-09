@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<tmx version="1.4">
+  <header adminlang="en" 
+     creationtool="Swordfish Translation Editor" 
+     creationtoolversion="1.0" 
+     datatype="tbx" 
+     o-tmf="unknown" 
+     segtype="block" 
+     srclang="en"/>
+  <body>
+    <tu origin="tbx" tuid="1108600011738">
+      <tuv xml:lang="en">
+        <prop type="administrativeStatus">admittedTerm-admn-sts</prop>
+        <prop type="termType">entryTerm</prop>
+        <prop type="usageNote">Colloquial use term</prop>
+        <note>Informal salutation</note>
+        <seg>Hello</seg>
+      </tuv>
+      <tuv xml:lang="es">
+        <prop type="administrativeStatus">admittedTerm-admn-sts</prop>
+        <prop type="termType">entryTerm</prop>
+        <prop type="usageNote">Termino de uso coloquial</prop>
+        <note>Saludo informal</note>
+        <seg>Hola</seg>
+      </tuv>
+    </tu>
+  </body>
+</tmx>

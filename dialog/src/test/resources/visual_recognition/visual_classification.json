@@ -1,0 +1,42 @@
+{
+  "images_processed": 2,
+  "images": [
+    {
+      "classifiers": [
+        {
+          "classifier_id": "default",
+          "name": "default",
+          "classes": [
+            {
+              "class": "car",
+              "score": 0.973403,
+              "type_hierarchy": "/vehicles/car"
+            },
+            {
+              "class": "vehicle",
+              "score": 0.549834,
+              "type_hierarchy": "/vehicles"
+            }
+          ]
+        }
+      ],
+      "image": "test.zip/0.jpg"
+    },
+    {
+      "classifiers": [
+        {
+          "classifier_id": "default",
+          "name": "default",
+          "classes": [
+            {
+              "class": "car",
+              "score": 0.845535,
+              "type_hierarchy": "/vehicles/car"
+            }
+          ]
+        }
+      ],
+      "image": "test.zip/1.jpg"
+    }
+  ]
+}

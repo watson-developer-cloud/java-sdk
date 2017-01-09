@@ -1,21 +1,6 @@
 rootProject.name = 'java-sdk'
-include ':alchemy'
-include ':android-utils'
-include ':conversation'
-include ':core'
-include ':dialog'
-include ':document-conversion'
-include ':language-translation'
-include ':language-translator'
-include ':natural-language-classifier'
-include ':personality-insights'
-include ':retrieve-and-rank'
-include ':speech-to-text'
-include ':text-to-speech'
-include ':tone-analyzer'
-include ':tradeoff-analytics'
-include ':visual-recognition'
-include ':tests'
-include ':java-sdk'
+include ':alchemy', ':conversation', ':core', ':dialog', ':document-conversion', ':language-translation',
+        ':language-translator', ':natural-language-classifier', ':personality-insights', ':retrieve-and-rank',
+        ':speech-to-text', ':text-to-speech', ':tone-analyzer', ':tradeoff-analytics', ':visual-recognition', ':java-sdk'
 
 project(':java-sdk').projectDir = "$rootDir/all" as File

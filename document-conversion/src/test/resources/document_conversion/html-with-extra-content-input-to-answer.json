@@ -1,0 +1,36 @@
+{
+  "source_document_id":"",
+  "timestamp":"2015-09-01T16:05:30.058-0400",
+  "answer_units":[
+    {
+      "id":"9a67c98c-ec0b-43c0-9572-d58d0ee63f12",
+      "type":"intro",
+      "title":"no-title",
+      "content":[
+        {
+          "media_type":"text/html",
+          "text":"This is text inside font tag! <center><h1>Sample HTML Formats </h1></center><center><h1><img border=\"0\" height=\"39\" width=\"334\"></img></h1></center>"
+        },
+        {
+          "media_type":"text/plain",
+          "text":"This is text inside font tag! Sample HTML Formats "
+        }
+      ]
+    },
+    {
+      "id":"fd36f12d-a327-4e66-b1c1-882a7d972fc9",
+      "type":"regular",
+      "title":"TEXT",
+      "content":[
+        {
+          "media_type":"text/html",
+          "text":"<b>This is a sample of text typed with no tags: </b>HTML file <br></br>This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting <div id=\"maincontent\">This is main content </div><div id=\"content\">This is content <p></p><div id=\"adv\">This is advertisement </div><p><a href=\"#top\" class=\"gototop\">Go to top </a>This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting </p>This is text inside font tag! </div><p><a name=\"PRE\"></a>This is text inside font tag! <a href=\"#top\" class=\"gototop\">Go to top </a></p><div id=\"footer\">This is footer </div>"
+        },
+        {
+          "media_type":"text/plain",
+          "text":"This is a sample of text typed with no tags: HTML file This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is main content This is content This is advertisement Go to top This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is text inside font tag! This is text inside font tag! Go to top This is footer "
+        }
+      ]
+    }
+  ]
+}

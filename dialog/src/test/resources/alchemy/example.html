@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+
+<title>Personality Insights Service Documentation | Watson Developer Cloud</title>
+
+<link rel="stylesheet" href="./example_files/normalize.css">
+<link rel="stylesheet" href="./example_files/fontface.css">
+<link rel="stylesheet" href="./example_files/foundation-grid.css">
+<link rel="stylesheet" href="./example_files/style.css">
+<link rel="stylesheet" href="./example_files/prism.css">
+
+<!-- coremetrics -->
+<meta content="WATSONDEVELOPERCLOUD" name="IBM.WTMSite">
+<meta name="IBM.WTMCategory" scheme="IBM_WTMCategory" content="DOCS">
+<script src="./example_files/9905.js" async="" type="text/javascript"></script><script async="" src="./example_files/analytics.js"></script><script src="./example_files/3041370630.js"></script><script src="./example_files/analytics(1).js"></script><script src="./example_files/utag.js" type="text/javascript" async=""></script><script src="./example_files/ida_production.js" type="text/javascript"></script><script type="text/javascript" src="./example_files/eluminate.js"></script>
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<script language="javascript" type="text/javascript" src="./example_files/50200000.js"></script><script type="text/javascript" async="" charset="utf-8" src="./example_files/utag.694.js" id="utag_ibm.main_694"></script><script type="text/javascript" async="" charset="utf-8" src="./example_files/utag.699.js" id="utag_ibm.main_699"></script><script type="text/javascript" async="" charset="utf-8" src="./example_files/utag.752.js" id="utag_ibm.main_752"></script><script type="text/javascript" async="" charset="utf-8" src="./example_files/utag.763.js" id="utag_ibm.main_763"></script><script type="text/javascript" async="" charset="utf-8" src="./example_files/utag.797.js" id="utag_ibm.main_797"></script><script language="javascript" type="text/javascript" src="./example_files/rules_50200000.js"></script><script language="javascript" type="text/javascript" src="./example_files/dispatcher-v3.js"></script><style>@-webkit-keyframes popxujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe {50% {-webkit-transform:scale(1.2);}100% {-webkit-transform:scale(1);}}@keyframes popxujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe {50% {-webkit-transform:scale(1.2);transform:scale(1.2);}100% {-webkit-transform:scale(1);transform:scale(1);}}#xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;border:solid 2px #fff !important;box-sizing:content-box !important;color:#fff !important;display:block !important;height:auto !important;margin:0 !important;opacity:0.9 !important;padding:7px 10px !important;position:fixed !important;visibility:visible !important;width:auto !important;z-index:2147483647 !important;-webkit-border-radius:5px !important;-webkit-box-shadow:0px 0px 20px #000 !important;-webkit-box-sizing:content-box !important;}.xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe-blocked{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;color:#AAA !important;display:inline !important;text-decoration:line-through !important;}#xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe br{display:block !important;padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;}#xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe span{background:transparent !important;padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;}#xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe div{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;border:0 !important;margin:0 !important;padding:0 !important;width:auto !important;letter-spacing:normal !important;font:13px Arial,Helvetica !important;text-align:left !important;text-shadow:none !important;text-transform:none !important;word-spacing:normal !important;}#xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe a{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;font-weight:normal !important;background:none !important;text-decoration:underline !important;color:#fff !important;}a#xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe-gear{padding:0;margin:0;font:13px Arial,Helvetica;text-transform:none;font-size: 100%;vertical-align:baseline;line-height:normal;color:#fff;position:static;text-decoration:none !important;position:absolute !important;display:none !important;font-size:20px !important;width:20px !important;height:20px !important;line-height:20px !important;text-align:center !important;background-color:rgba(255,255,255,.8) !important;background-image:url(chrome-extension://mlomiejdfkolichcflejclcbmpeaniij/data/images/gear.svg) !important;background-size:16px 16px !important;background-position:center center !important;background-repeat:no-repeat !important;text-decoration:none !important;}a#xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe-gear:hover{-webkit-animation-name:popxujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe !important;animation-name:popxujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe !important;-webkit-animation-duration:0.3s !important;animation-duration:0.3s !important;}#xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe:hover #xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe-gear{text-decoration:none !important;display:inline-block !important;}@media print{#xujdajlkbehxpuouglxrhpctvetkipbinvbwtwkxrbe{display:none !important;}}</style><script src="./example_files/yahoo-min.js" type="text/javascript"></script><script src="./example_files/cp-v3.js" type="text/javascript"></script><script src="./example_files/json-min.js" type="text/javascript"></script></head>
+
+<body>
+<img src="https://visual-recognition-demo.mybluemix.net/images/samples/3.jpg" alt="IBM Watson Developer Cloud" width="500" height="500">
+<section id="header" class="clearfix">
+	<p><a href="https://www.ibm.com/watson/developercloud/" id="landing-link"><img src="./example_files/WatsonDevCloud-logo.svg" alt="IBM Watson Developer Cloud" width="260" height="19"></a></p>
+	<ul id="navlinks">
+		<li><a href="https://developer.ibm.com/watson/" target="_blank">Community</a></li>
+		<li><a href="https://www.ibm.com/watson/developercloud/content-marketplace.html" target="">Content Marketplace</a></li>
+		<li><a href="https://www.ibm.com/watson/developercloud/gallery.html" target="">App Gallery</a></li>
+		<li><a href="https://www.ibm.com/watson/developercloud/doc/" target="">Docs</a></li>
+		<li><a href="https://www.ibm.com/watson/developercloud/services-catalog.html" target="">Services</a></li>
+	</ul>
+</section>
+
+<section class="nav">
+<div class="fixed-nav">
+<img alt="baby" src="http://visual-recognition-demo.mybluemix.net/images/4068.jpg">
+<p><a href="https://www.ibm.com/watson/developercloud/personality-insights.html">Personality Insights</a></p>
+<hr>
+<nav>
+  <ul>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/index.shtml">Getting started</a></li>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/overview.shtml">Overview</a></li>
+    <li class=""><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/usecases.shtml#usecases">Use cases</a>
+      <ul>
+	<li class=""><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/usecases.shtml#ucMarketing">Targeted marketing</a></li>
+	<li class=""><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/usecases.shtml#ucAcquisition">Customer acquisition</a></li>
+	<li class=""><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/usecases.shtml#ucCare">Customer care</a></li>
+	<li class=""><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/usecases.shtml#ucConnections">Personal connections</a></li>
+	<li class="active"><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/usecases.shtml#ucResume">Resume writing</a></li>
+      </ul>
+    </li>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/sample.shtml">Sample application</a></li>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/output.shtml">Input and output</a></li>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/models.shtml">Personality models</a></li>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/applied.shtml">The service in action</a></li>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/guidance.shtml">Usage guidance</a></li>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/science.shtml">Science behind the service</a></li>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/references.shtml">Research references</a></li>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/faq.shtml">FAQ</a></li>
+    <li><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/upgrade.shtml">Updates for July 2015</a></li>
+    <li><a href="https://www.ibm.com/watson/developercloud/apis#!/personality-insights">API explorer</a></li>
+	<li><a href="https://www.ibm.com/watson/developercloud/personality-insights/api/v2/">API reference</a></li>
+  </ul>
+</nav>
+</div>
+
+<div class="row">
+<section class="columns large-11 body">
+<span class="anchor" id="usecases"></span>
+<h1>Use cases for the Personality Insights service</h1>
+
+  <p>
+    The Personality Insights service lends itself to an almost limitless
+    number of potential applications. By leveraging the Big Five personality
+    characteristics, Needs, and Values, businesses and individuals alike
+    can make more informed and more insightful decisions, and make more
+    effective use of limited resources.
+  </p>
+
+  <p>
+    Businesses can market to the most receptive target audience, they
+    can acquire and retain more customers, and they can develop services
+    that connect individuals and groups more effectively. Individuals can
+    optimize how they market themselves to potential employers.
+  </p>
+
+  <p>
+    The following sections suggest just a few of the potential applications
+    of the Personality Insights service. Use this information to kickstart
+    your own applications or to develop your own innovative ideas.
+  </p>
+
+<span class="anchor" id="ucMarketing"></span>
+<section class="bodySection">
+<h2>Targeted marketing</h2>
+
+  <p>
+    Imagine an in-store retail experience that involves an interactive kiosk.
+    Customers log in to the kiosk with a social media handle such as a Twitter
+    ID. The kiosk quickly presents a set of personalized product and service
+    offerings based on the customers' personality characteristics, needs, and
+    values. The products and services include marketing campaigns, coupons,
+    trial offers, and recommendations that are suited to each individual
+    customer. The results match the right offerings to the most receptive
+    customers, improving both the effectiveness of the offers and customer
+    satisfaction.
+  </p>
+
+  <p>
+    With the Personality Insights service, businesses can make this idea
+    a reality. By leveraging a combination of enterprise and social media
+    data, businesses can apply analytics to develop deeper portraits of
+    individual customers. They can use the results for better-quality lead
+    generation, finer-grained customer segmentation, and focused marketing
+    that is both more relevant and more personal.
+  </p>
+
+  <p>
+    By using the Personality Insights service with other IBM offerings, such
+    as Unica and BigInsights Social Data Accelerator (SDA), enterprises
+    can derive insights from a vast pool of transactional and social media
+    data. These insights can help businesses to
+  </p>
+
+  <ul class="bullets">
+    <li>
+      <p>
+	Extract early, near real-time signals of customers' purchase
+	intentions to identify quality leads.
+      </p>
+    </li>
+    <li>
+      <p>
+	Derive customer portraits that include intrinsic psychological
+	preferences, which can dictate customers' economic decisions.
+      </p>
+    </li>
+    <li>
+      <p>
+	Create hyper-personalized marketing plans based on customers'
+	intrinsic and behavioral preferences to improve conversion rates.
+      </p>
+    </li>
+    <li>
+      <p>
+	Find and engage the right target audience at the right time to
+	launch effective marketing campaigns.
+      </p>
+    </li>
+  </ul>
+
+  <p>
+    Based on social media data, businesses can dynamically identify and
+    engage with high-value customers from among millions of loyalty program
+    members to
+  </p>
+
+  <ul class="bullets">
+    <li>
+      <p>
+	Dynamically improve customer satisfaction and actively manage brand
+	reputation by delivering the personalized products and services that
+	customers need, when they need them.
+      </p>
+    </li>
+    <li>
+      <p>
+	Take advantage of business opportunities to test new offerings by
+	making product trials available to customers who are more likely to
+	value them.
+      </p>
+    </li>
+  </ul>
+
+</section>
+
+<span class="anchor" id="ucAcquisition"></span>
+<section class="bodySection">
+<h2>Customer acquisition</h2>
+
+  <p>
+    Personality portraits that are generated by the Personality Insights
+    service can help businesses strengthen existing customer relationships
+    and identify new customers. For example, people whose personalities evince
+    a greater tendency for orderliness, self-discipline, and cautiousness and
+    less immoderation are more likely than the random population to redeem
+    coupons. Similarly, people's propensity to purchase specific kinds of
+    products correlates with their personality characteristics. For example,
+    shoppers whose personalities tend toward openness and conscientiousness
+    are more likely to purchase organic milk, fruits, and vegetables.
+  </p>
+  <p></p>
+
+  <p>
+    Retailers benefit from sending coupons to people whose social media
+    content exhibits the intersection of these personality characteristics,
+    whether they are existing or potential customers. By not sending coupons
+    to those customers who do not redeem them, businesses save direct marketing
+    costs. They also avoid flooding customers with coupons that they do not
+    want and will discard, a pattern that can eventually lead customers to
+    discard coupons from the retailer altogether.
+  </p>
+
+  <p>
+    Combining personality portraits with life events inferred from social
+    media and with existing enterprise demographic data can yield meaningful
+    insights into the consumption patterns and preferences of individual
+    customers. For instance, families with a newborn are likely to begin
+    purchasing diapers. Retailers can use the Personality Insights service
+    to infer whether such families are more likely to prefer cloth or
+    disposable diapers, and they can send the families coupons that match
+    that inference. By combining personality characteristics and life events
+    in this way, retailers can leverage the added insight to increase customer
+    response and to generate new customers.
+    <!--
+    Sending coupons for such products to customers whose personality
+    characteristics and life situations make them more likely to use
+    them can increase customer response and generate new customers.
+    -->
+  </p>
+
+  <p>
+    Businesses can also analyze large groups of customers based on their
+    publicly available social media content and behavior to capitalize
+    on targeted revenue-generating opportunities. The Personality Insights
+    service can help businesses improve the success of future marketing
+    campaigns by understanding which messages or products appeal to which
+    customer segments. A business would first cluster customers with known
+    behavior in terms of personality characteristics. It would then derive
+    mapping rules from personality to behavior based on segmentation
+    knowledge gleaned from the clusters.
+  </p>
+
+</section>
+
+<span class="anchor" id="ucCare"></span>
+<section class="bodySection">
+<h2>Customer care</h2>
+
+  <p>
+    Over the course of the customer engagement lifecycle, enterprises can
+    use the Personality Insights service to build better, more lasting
+    relationships with their customers. By better understanding customers
+    and responding to them as individuals, businesses can
+  </p>
+
+  <ul class="bullets">
+    <li>
+      <p>
+	Recommend and guide customers' actions through personalized
+	exchanges across different channels such as online chats, social
+	media engagements, and email communications. Enhanced understanding
+	can lead to improved interactions with customers, which in turn can
+	improve brand reputation, increase customer retention, and encourage
+	up- and cross-sales opportunities.
+      </p>
+    </li>
+    <li>
+      <p>
+	Use customers' personality characteristics to determine which
+	interaction medium to use, what web page to display, and what video
+	to share.
+      </p>
+    </li>
+    <li>
+      <p>
+	Present agents with information about a client who contacts the
+	business. This information can let the agent give the client a more
+	personalized experience by providing hints about how to talk to the
+	client.
+      </p>
+    </li>
+  </ul>
+
+  <p>
+    Consider a traveler who uses an online travel service to obtain
+    recommendations for places to visit or dine. The travel service
+    can examine the traveler's personality characteristics and suggest
+    personalized site-seeing locations and restaurants that suit the
+    traveler's personality. The service can go even further by working
+    with local merchants to offer personalized coupons that match the
+    traveler's interests.
+  </p>
+
+</section>
+
+<span class="anchor" id="ucConnections"></span>
+<section class="bodySection">
+<h2>Personal connections</h2>
+
+  <p>
+    The Personality Insights service can match individuals and groups.
+    Possible permutations can encourage individual-to-individual,
+    individual-to-group, group-to-individual, and group-to-group connections
+    by matching personality characteristics in the following domains:
+  </p>
+
+  <ul class="bullets">
+    <li>
+      <p>
+	Personal dating via individual-to-individual matching.
+      </p>
+    </li>
+    <!--
+    <li>
+      <p>
+	Healthcare provider to patient. A cognitive-care use case developed
+	by the IBM Australia team improves the satisfaction level of such
+	interactions by matching patients with doctors who have a compatible
+	personality.
+      </p>
+    </li>
+    -->
+    <li>
+      <p>
+	Travel agent to traveler by offering suitable vacation packages to
+	appropriate travelers.
+      </p>
+    </li>
+    <li>
+      <p>
+	Customer care agent to caller by matching call-center agents to
+	callers.
+      </p>
+    </li>
+    <li>
+      <p>
+	Investment broker to investor by matching brokers to investors with
+	whom they are likely to connect.
+      </p>
+    </li>
+  </ul>
+
+  <p>
+    Suppose that a client contacts a brokerage firm to learn which investment
+    funds to pursue. This scenario suggests a matching use case that leverages
+    the client's personality characteristics to better satisfy the client's
+    needs. By using the Personality Insights service, the firm can match the
+    client to a broker who matches the client's personality and can suggest
+    investment options that suit the client's preferences and inclinations.
+    Moreover, the broker who is assigned to the client can use the service
+    to prepare an individualized message for the client.
+  </p>
+
+</section>
+
+<span class="anchor" id="ucResume"></span>
+<section class="bodySection">
+<h2>Resume writing</h2>
+
+  <p>
+    A recent graduate needs to write a resume that is optimized for industries
+    that match the graduate's degree and interests. An application from a
+    recent Watson Hackathon suggests developing optimal industry-specific
+    resumes from excellent past examples. The application can use Watson
+    services to determine the characteristics of optimal baseline resumes
+    for maximum resonance with each industry.
+  </p>
+
+  <p>
+    After creating a resume, the graduate uses the application to learn how
+    well the resume compares with the optimal baseline. The application uses
+    the Personality Insights service to analyze the resume. It highlights
+    potential issues and suggests changes to better align the personality
+    characteristics and values that are disclosed by the resume with those
+    of the baseline.
+  </p>
+
+  <p>
+    In addition, the application could leverage the Message Resonance service
+    to suggest wording that better resonates with terminology from the
+    baseline. By applying the Concept Expansion service, the tool could
+    also suggest other industries the candidate might not have considered,
+    expanding the candidate's potential employment options.
+  </p>
+
+</section>
+
+<div class="footer-nav">
+  <table class="footer-nav">
+    <tbody><tr>
+      <td class="footer-nav fend" style="color:#003f69">&#8592;&nbsp;<a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/overview.shtml">Overview of the service</a></td>
+      <td class="footer-nav fmid">&#8593; <a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/index.shtml">parent</a> &#8593;</td>
+      <td class="footer-nav fend"><a href="https://www.ibm.com/watson/developercloud/doc/personality-insights/sample.shtml">Understanding the sample application</a>&nbsp;&#8594;</td>
+    </tr>
+  </tbody></table>
+</div>
+
+</section>
+</div>
+
+<script src="./example_files/prism.min.js"></script>
+<script src="./example_files/jquery-2.1.4.min.js"></script>
+<script src="./example_files/bootstrap.scrollspy-modified.js"></script>
+<script src="./example_files/doc.js"></script>
+
+<script type="text/javascript">
+	// checks tries to pull out the "base url" (the part before doc/) and then insert the analytics js file with the correct base url
+	(function(win, doc, base, script, prevScript){
+		var base = window.location.href.match(/(.*\/)doc\//);
+		if (base) {
+			script = doc.createElement('script');
+			script.src = base[1] + 'js/analytics.js';
+			prevScript = doc.getElementsByTagName('script')[0];
+			prevScript.parentNode.insertBefore(script, prevScript);
+		}
+	})(window, document);
+</script>
+</body>
+</html>
