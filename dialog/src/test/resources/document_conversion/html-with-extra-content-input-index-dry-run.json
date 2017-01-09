@@ -1,0 +1,26 @@
+{
+  "converted_document" : {
+    "media_type_detected" : "text/html",
+    "metadata" : [ ],
+    "answer_units" : [ {
+      "id" : "0588503a-8db7-4572-a1bb-01e25c2c5c9f",
+      "type" : "body",
+      "title" : "no-title",
+      "direction" : "ltr",
+      "content" : [ {
+        "media_type" : "text/html",
+        "text" : "This is text inside font tag! <center><h1>Sample HTML Formats</h1></center> <center><h1><img border=\"0\" height=\"39\" width=\"334\"></img></h1></center> <h2 start=\"2\">TEXT</h2> <b>This is a sample of text typed with no tags:</b> HTML file <br></br> This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting <div id=\"maincontent\">This is main content</div> <div id=\"content\">This is content <p></p> <div id=\"adv\">This is advertisement</div> <p><a class=\"gototop\" href=\"#top\">Go to top</a> This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting</p> This is text inside font tag!</div> <p><a name=\"PRE\"></a> This is text inside font tag! <a class=\"gototop\" href=\"#top\">Go to top</a></p> <div id=\"footer\">This is footer</div>"
+      }, {
+        "media_type" : "text/plain",
+        "text" : "This is text inside font tag! Sample HTML Formats TEXT This is a sample of text typed with no tags: HTML file This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is main content This is content This is advertisement Go to top This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is text inside font tag! This is text inside font tag! Go to top This is footer"
+      } ]
+    } ]
+  },
+  "solr_document" : {
+    "SomeMetadataName" : "SomeMetadataValue",
+    "body" : "This is text inside font tag! Sample HTML Formats TEXT This is a sample of text typed with no tags: HTML file This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is main content This is content This is advertisement Go to top This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is text inside font tag! This is text inside font tag! Go to top This is footer",
+    "contentHtml" : "This is text inside font tag! <center><h1>Sample HTML Formats</h1></center> <center><h1><img border=\"0\" height=\"39\" width=\"334\"></img></h1></center> <h2 start=\"2\">TEXT</h2> <b>This is a sample of text typed with no tags:</b> HTML file <br></br> This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting <div id=\"maincontent\">This is main content</div> <div id=\"content\">This is content <p></p> <div id=\"adv\">This is advertisement</div> <p><a class=\"gototop\" href=\"#top\">Go to top</a> This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting This is a sample of text typed in with no special formatting. This is a sample of text typed in with no special formatting</p> This is text inside font tag!</div> <p><a name=\"PRE\"></a> This is text inside font tag! <a class=\"gototop\" href=\"#top\">Go to top</a></p> <div id=\"footer\">This is footer</div>",
+    "id" : "123",
+    "title" : "no-title"
+  }
+}
