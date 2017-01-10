@@ -1,0 +1,7 @@
+{
+  "recognize": "https://stream.watsonplatform.net/speech-to-text/api/v1/sessions/8c02aa700a498cfa4a82fc8586365ab4/recognize",
+  "recognizeWS": "wss://stream.watsonplatform.net/speech-to-text/api/v1/sessions/8c02aa700a498cfa4a82fc8586365ab4/recognize",
+  "observe_result": "https://stream.watsonplatform.net/speech-to-text/api/v1/sessions/8c02aa700a498cfa4a82fc8586365ab4/observe_result",
+  "session_id": "8c02aa700a498cfa4a82fc8586365ab4",
+  "new_session_uri": "https://stream.watsonplatform.net/speech-to-text/api/v1/sessions/8c02aa700a498cfa4a82fc8586365ab4"
+}
