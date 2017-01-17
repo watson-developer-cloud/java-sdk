@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+## Version 3.5.3
+
+_2016-12-15_
+
+* New: Added Discovery v1
+
 ## Version 3.5.2
 
 _2016-12-08_

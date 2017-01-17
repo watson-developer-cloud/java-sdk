@@ -10,7 +10,7 @@
 
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>parent</artifactId>
-  <version>3.5.3-SNAPSHOT</version>
+  <version>3.5.4-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>Watson Developer Cloud Java SDK</name>
@@ -49,6 +49,7 @@
     <module>conversation</module>
     <module>core</module>
     <module>dialog</module>
+    <module>discovery</module>
     <module>document-conversion</module>
     <module>language-translation</module>
     <module>language-translator</module>

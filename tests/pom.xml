@@ -3,7 +3,7 @@
   <parent>
     <artifactId>parent</artifactId>
     <groupId>com.ibm.watson.developer_cloud</groupId>
-    <version>3.5.3-SNAPSHOT</version>
+    <version>3.5.4-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -23,6 +23,11 @@
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>dialog</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>discovery</artifactId>
       <version>${project.version}</version>
     </dependency>
     <dependency>
