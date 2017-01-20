@@ -43,7 +43,7 @@ checkstyle {
 dependencies {
     compile project(':core')
 
-    testCompile project(':core')
+    testCompile project(path: ':core', configuration: 'tests')
     testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.3.1'
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
     testCompile group: 'com.google.guava', name: 'guava', version: '19.0'

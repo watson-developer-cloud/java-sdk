@@ -6,13 +6,11 @@ import org.apache.tools.ant.filters.*
 
 archivesBaseName = 'java-sdk'
 
-
 description = 'Client library to use the IBM Watson and Alchemy Services'
 
 task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
 }
-
 
 subprojects {
   afterEvaluate {

@@ -43,7 +43,7 @@ checkstyle {
 dependencies {
     compile project(':core')
 
-    testCompile project(':core')
+    testCompile project(path: ':core', configuration: 'tests')
     testCompile project(':document-conversion')
     testCompile project(':speech-to-text')
     testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.3.1'
