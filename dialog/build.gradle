@@ -63,7 +63,7 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.4'
     compile group: 'org.glassfish.jersey.bundles.repackaged', name: 'jersey-jsr166e', version: '2.22.2'
 
-    testCompile project(':core')
+    testCompile project(path: ':core', configuration: 'tests')
     testCompile project(':alchemy')
     testCompile project(':document-conversion')
     testCompile project(':language-translation')
