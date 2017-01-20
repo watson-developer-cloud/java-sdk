@@ -12,6 +12,10 @@ task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
 }
 
+checkstyle {
+  ignoreFailures = true
+}
+
 subprojects {
   afterEvaluate {
     if (plugins.hasPlugin(JavaPlugin)) {
