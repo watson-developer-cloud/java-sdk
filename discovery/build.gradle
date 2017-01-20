@@ -38,6 +38,7 @@ artifacts {
 
 checkstyle {
     configFile = rootProject.file('checkstyle.xml')
+    ignoreFailures = true
 }
 
 dependencies {
