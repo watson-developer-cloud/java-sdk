@@ -15,3 +15,4 @@ bin/
 .config.properties
 .checkstyle
 .gradletasknamecache
+docs
