@@ -14,7 +14,7 @@ task docs(type: Javadoc) {
 }
 
 subprojects {
-    checkstyle {
+    checkstyleTest {
       ignoreFailures = true
     }
   afterEvaluate {
