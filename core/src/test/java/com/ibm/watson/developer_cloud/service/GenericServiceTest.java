@@ -343,7 +343,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
       throw new AssumptionViolatedException(e.getMessage(), e);
     }
 
-    assertTrue("Illegal user agent version: " + userAgent, userAgent.startsWith(prefix + version));
+    assertTrue("Illegal user agent version: " + userAgent +" version: " + version, userAgent.startsWith(prefix + version));
   }
 
   /**
