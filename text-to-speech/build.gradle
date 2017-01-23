@@ -14,7 +14,7 @@ apply plugin: 'net.saliman.cobertura'
 apply plugin: 'maven'
 apply plugin: 'checkstyle'
 
-version = '3.5.2-SNAPSHOT'
+version = '3.5.4-SNAPSHOT'
 group = 'com.ibm.watson.developercloud'
 
 task sourcesJar(type: Jar) {
