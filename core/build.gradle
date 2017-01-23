@@ -36,8 +36,13 @@ artifacts {
     archives javadocJar
 }
 
+checkstyleTest {
+    ignoreFailures = true
+}
+
 checkstyle {
     configFile = rootProject.file('checkstyle.xml')
+    ignoreFailures = true
 }
 
   task testJar(type: Jar) {
