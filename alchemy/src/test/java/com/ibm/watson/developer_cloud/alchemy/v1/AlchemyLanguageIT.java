@@ -397,12 +397,14 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
    * Test Get testGetRawText.
    */
   @Test
-  public void testRawText() {
+  @Ignore
+  public void testRawText() throws Exception {
     final Map<String, Object> params = new HashMap<String, Object>();
     params.put(AlchemyLanguage.URL, "http://www.test.com/");
     params.put(AlchemyLanguage.RAW, true);
     final DocumentText text = service.getText(params).execute();
     Assert.assertNotNull(text);
+    throw new Exception();
   }
 
   /**
