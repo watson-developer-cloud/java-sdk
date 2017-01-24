@@ -6,6 +6,14 @@ com.ibm.watson.developer_cloud.conversation.v1
 com.ibm.watson.developer_cloud.conversation.v1.model
 com.ibm.watson.developer_cloud.dialog.v1
 com.ibm.watson.developer_cloud.dialog.v1.model
+com.ibm.watson.developer_cloud.discovery.v1
+com.ibm.watson.developer_cloud.discovery.v1.model.collection
+com.ibm.watson.developer_cloud.discovery.v1.model.collection.field
+com.ibm.watson.developer_cloud.discovery.v1.model.common
+com.ibm.watson.developer_cloud.discovery.v1.model.configuration
+com.ibm.watson.developer_cloud.discovery.v1.model.document
+com.ibm.watson.developer_cloud.discovery.v1.model.environment
+com.ibm.watson.developer_cloud.discovery.v1.model.query
 com.ibm.watson.developer_cloud.document_conversion.v1
 com.ibm.watson.developer_cloud.document_conversion.v1.model
 com.ibm.watson.developer_cloud.document_conversion.v1.util
