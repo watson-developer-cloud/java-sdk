@@ -1,0 +1,161 @@
+{
+  "status": "OK",
+  "usage": "...",
+  "totalTransactions": "1",
+  "result": {
+    "docs": [
+      {
+        "id": "NDg0MzM4MjQwNXwxNDU4MTkxMDQx",
+        "source": {
+          "enriched": {
+            "url": {
+              "publicationDate": {
+                "confident": "no",
+                "date": "20160316T202100"
+              },
+              "title": "Winning numbers drawn in 'Play 4 Evening' game | Miami Herald"
+            }
+          }
+        },
+        "timestamp": 1458191041
+      },
+      {
+        "id": "NDYyMjUwMzE2MHwxNDU4MTkxMDQw",
+        "source": {
+          "enriched": {
+            "url": {
+              "publicationDate": {
+                "confident": "yes",
+                "date": "20160317T050400"
+              },
+              "title": "Won’t act if students hold Osama event: Princeton University President"
+            }
+          }
+        },
+        "timestamp": 1458191040
+      },
+      {
+        "id": "NDg0MzQxNTUwNnwxNDU4MTkxMDQw",
+        "source": {
+          "enriched": {
+            "url": {
+              "publicationDate": {
+                "confident": "no",
+                "date": "20151021T000000"
+              },
+              "title": "Nike brings 'Back to the Future' power shoelaces to the masses"
+            }
+          }
+        },
+        "timestamp": 1458191040
+      },
+      {
+        "id": "NDg0MzQwNTM2NnwxNDU4MTkxMDQw",
+        "source": {
+          "enriched": {
+            "url": {
+              "publicationDate": {
+                "confident": "no",
+                "date": "20160316T225900"
+              },
+              "title": "Diego Boneta Hangs With Devon Windsor at Pink Nation's Spring Break Beach Party | diego boneta pink spring break beach 20 - Photo"
+            }
+          }
+        },
+        "timestamp": 1458191040
+      },
+      {
+        "id": "NDg0MzM2NjQxMnwxNDU4MTkxMDM4",
+        "source": {
+          "enriched": {
+            "url": {
+              "publicationDate": {
+                "confident": "no",
+                "date": "20150829T145200"
+              },
+              "title": "Install a Gigaware adaptor USB to Eternet on Mac Book Air - Forums"
+            }
+          }
+        },
+        "timestamp": 1458191038
+      },
+      {
+        "id": "NDg0MzM2MTU5M3wxNDU4MTkxMDM4",
+        "source": {
+          "enriched": {
+            "url": {
+              "publicationDate": {
+                "confident": "no",
+                "date": "20060908T000000"
+              },
+              "title": "Instant Photo Publisher"
+            }
+          }
+        },
+        "timestamp": 1458191038
+      },
+      {
+        "id": "NDg0MzMxNTY5MnwxNDU4MTkxMDM2",
+        "source": {
+          "enriched": {
+            "url": {
+              "publicationDate": {
+                "confident": "no",
+                "date": "20160317T000000"
+              },
+              "title": "To gay groups, St. Patrick's parade ends an era of exclusion"
+            }
+          }
+        },
+        "timestamp": 1458191036
+      },
+      {
+        "id": "NDg0NzExNjc1MnwxNDU4MTkxMDM1",
+        "source": {
+          "enriched": {
+            "url": {
+              "publicationDate": {
+                "confident": "no",
+                "date": "20160316T000000"
+              },
+              "title": "China Will Do Anything to Avoid Hard Landing: Chan"
+            }
+          }
+        },
+        "timestamp": 1458191035
+      },
+      {
+        "id": "NDg0MzMyOTU4MHwxNDU4MTkxMDM1",
+        "source": {
+          "enriched": {
+            "url": {
+              "publicationDate": {
+                "confident": "no",
+                "date": "20160316T000000"
+              },
+              "title": "Subway safety shutdown makes for a very long day in capital"
+            }
+          }
+        },
+        "timestamp": 1458191035
+      },
+      {
+        "id": "NDg0MzI4NzE5OHwxNDU4MTkxMDM1",
+        "source": {
+          "enriched": {
+            "url": {
+              "publicationDate": {
+                "confident": "no",
+                "date": "20120912T141500"
+              },
+              "title": "The Smartest Half-Life Mod Of 2011 Is Making A Run For Steam"
+            }
+          }
+        },
+        "timestamp": 1458191035
+      }
+    ],
+    "next": "MjgyNjM1ODY0MzQ3NDMzMTQ5fE5EWXlNalV3TXpFMk1Id3hORFU0TVRreE1EUXd8MTY4MTM2MTA0NzcyMDM1MDM4OXx8MjM2NjE4ODk3Mzc2MzI5NTg5OHx8NDkzNjIzOTMxMzI2NjkwNDY2Nnx8NTIwNTczNTY1NjQ4NTgzNzAwOXx8NjI1MDc3NzY0MzUxNzEzNDE5MHx8MTA3NDk4NjkxNTYwNzU2OTk1MTR8fDExNDUyNDExODI5NjI0ODI2OTExfE5EZzBOekV4TmpjMU1ud3hORFU0TVRreE1ETTF8MTI0NzYwMTY3MTg3NDk0MjMxNTB8fDEzNzM5MjY4NTcyMjE5MzA1NjcxfE5EZzBNekk0TnpFNU9Id3hORFU0TVRreE1ETTF8MTUxMjQ4NzIxNDQ3NTgxNDc4MjF8fDE3Mzc5MzIyNDA3MDE5NjQ4NTIxfA",
+    "status": "OK"
+  }
+}

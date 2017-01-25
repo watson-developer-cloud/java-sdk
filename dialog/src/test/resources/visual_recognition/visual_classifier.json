@@ -1,0 +1,14 @@
+{
+  "classifier_id": "foo",
+  "name": "Foo",
+  "owner": "IBM",
+  "status": "ready",
+  "explanation": "Working as expected",
+  "classes": [
+    {
+      "class": "Bar",
+      "class": "Buu",
+      "class": "Boo"
+    }
+  ]
+}

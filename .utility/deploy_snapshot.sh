@@ -14,7 +14,7 @@ if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && \
    [ "$TRAVIS_BRANCH" == "master" ]; then
   echo "Publishing Maven snapshot..."
 
-  mvn clean source:jar javadoc:jar deploy --settings=".utility/settings.xml" -DskipTests=true
-
+  #mvn clean source:jar javadoc:jar deploy --settings=".utility/settings.xml" -DskipTests=true
+  ./gradle uploadArchives
   echo "Maven snapshot published."
 fi

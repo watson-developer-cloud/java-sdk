@@ -1,0 +1,119 @@
+{
+  "images_processed": 8,
+  "images": [
+    {
+      "faces": [
+        {
+          "face_location": {
+            "width": 150,
+            "height": 152,
+            "left": 62,
+            "top": 27
+          },
+          "age": {
+            "max": 24,
+            "min": 18,
+            "score": 0.492498
+          },
+          "gender": {
+            "gender": "MALE",
+            "score": 0.989013
+          }
+        }
+      ],
+      "image": "faces.zip/images_002.jpeg"
+    },
+    {
+      "faces": [],
+      "image": "faces.zip/__MACOSX/._images_002.jpeg"
+    },
+    {
+      "faces": [
+        {
+          "face_location": {
+            "width": 94,
+            "height": 108,
+            "left": 79,
+            "top": 51
+          },
+          "age": {
+            "max": 34,
+            "min": 25,
+            "score": 0.385153
+          },
+          "gender": {
+            "gender": "MALE",
+            "score": 0.993307
+          },
+          "identity": {
+            "name": "Tiger Woods",
+            "score": 0.989013,
+            "type_hierarchy": "/animals/tigers/tiger woods"
+          }
+        }
+      ],
+      "image": "faces.zip/images_004.jpeg"
+    },
+    {
+      "faces": [],
+      "image": "faces.zip/__MACOSX/._images_004.jpeg"
+    },
+    {
+      "faces": [
+        {
+          "face_location": {
+            "width": 137,
+            "height": 155,
+            "left": 34,
+            "top": 70
+          },
+          "age": {
+            "max": 44,
+            "min": 35,
+            "score": 0.382728
+          },
+          "gender": {
+            "gender": "MALE",
+            "score": 0.993307
+          },
+          "identity": {
+            "name": "Tiger Woods",
+            "score": 0.993307,
+            "type_hierarchy": "/animals/tigers/tiger woods"
+          }
+        }
+      ],
+      "image": "faces.zip/images_007.jpeg"
+    },
+    {
+      "faces": [],
+      "image": "faces.zip/__MACOSX/._images_007.jpeg"
+    },
+    {
+      "faces": [
+        {
+          "face_location": {
+            "width": 21,
+            "height": 23,
+            "left": 23,
+            "top": 85
+          },
+          "age": {
+            "max": 24,
+            "min": 18,
+            "score": 0.502411
+          },
+          "gender": {
+            "gender": "FEMALE",
+            "score": 0.622459
+          }
+        }
+      ],
+      "image": "faces.zip/images_019.jpeg"
+    },
+    {
+      "faces": [],
+      "image": "faces.zip/__MACOSX/._images_019.jpeg"
+    }
+  ]
+}

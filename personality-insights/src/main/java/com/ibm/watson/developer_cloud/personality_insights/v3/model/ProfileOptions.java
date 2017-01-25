@@ -55,7 +55,7 @@ public class ProfileOptions {
     /**
      * Include consumption preference information.
      *
-     * @param acceptLanguage the accept language
+     * @param consumptionPreferences consumtion preferences
      * @return the profile options
      */
     public Builder consumptionPreferences(Boolean consumptionPreferences) {
@@ -126,7 +126,7 @@ public class ProfileOptions {
     /**
      * Raw scores.
      *
-     * @param rawScores the raw scores
+     * @param includeRaw include the raw scores
      * @return the profile options
      */
     public Builder rawScores(boolean includeRaw) {

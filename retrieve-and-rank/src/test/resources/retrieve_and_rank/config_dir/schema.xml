@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- BEGIN_COPYRIGHT
+
+Copyright 2015 IBM Corp. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+END_COPYRIGHT -->
+<schema name="simple" version="1.5">
+<fields>
+   <!-- required -->
+   <field name="_version_" type="long" indexed="true" stored="true"/>
+
+   <field name="id" type="string" indexed="true" stored="true" required="true" />
+
+   <dynamicField name="*_s"  type="string"  indexed="true"  stored="true" />
+   <dynamicField name="*_ms"  type="string"  indexed="true"  stored="true" multiValued="true" />
+   <dynamicField name="*_t"  type="string"  indexed="true"  stored="true" />
+   <dynamicField name="*_i"  type="int"    indexed="true"  stored="true"/>
+   <dynamicField name="*_mi"  type="int"    indexed="true"  stored="true"  multiValued="true"/>
+   <dynamicField name="*_l"  type="long"   indexed="true"  stored="true"/>
+   <dynamicField name="*_b"  type="boolean" indexed="true" stored="true"/>
+   <dynamicField name="*_f"  type="float"  indexed="true"  stored="true"/>
+   <dynamicField name="*_d"  type="double" indexed="true"  stored="true"/>
+ </fields>
+
+ <uniqueKey>id</uniqueKey>
+
+  <types>
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+    <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="uuid" class="solr.UUIDField" indexed="true" />
+  </types>
+</schema>
