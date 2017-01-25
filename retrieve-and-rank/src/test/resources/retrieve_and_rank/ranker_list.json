@@ -1,0 +1,10 @@
+{
+  "rankers":[
+    {
+      "ranker_id":"1ba90fx17-rank-564",
+      "url":"https://gateway.watsonplatform.net/retrieve-and-rank/api/v1/rankers/1ba90fx17-rank-564",
+      "name":"LoadStress",
+      "created":"2016-08-02T14:29:45.297Z"
+    }
+    ]
+}

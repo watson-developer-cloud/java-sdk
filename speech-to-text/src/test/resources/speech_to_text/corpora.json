@@ -1,0 +1,11 @@
+{
+  "corpora": [
+    {
+      "name": "word1",
+      "total_words": 1,
+      "out_of_vocabulary_words": 2,
+      "status": "analyzed",
+      "error": "batman"
+    }
+  ]
+}

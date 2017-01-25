@@ -1,0 +1,13 @@
+{
+  "model_id": "ar-en",
+  "source": "ar",
+  "target": "en",
+  "base_model_id": "",
+  "domain": "news",
+  "customizable": true,
+  "default_model": true,
+  "owner": "",
+  "status": "available",
+  "name": "",
+  "train_log": null
+}

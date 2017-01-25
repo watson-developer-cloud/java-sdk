@@ -1,0 +1,11 @@
+{
+  "owner": "8a6f5bb1-5b2d-4a20-85a9-eaa421d25c88",
+  "base_model_name": "en-US_BroadbandModel",
+  "customization_id": "47c1a830-8fe7-11e6-bae7-1583ef8b8b73",
+  "created": "2016-10-11T19:16:58.547Z",
+  "name": "sdk-customization-test",
+  "description": "Customization model used to test the SDKs",
+  "progress": 0,
+  "language": "en-US",
+  "status": "pending"
+}
