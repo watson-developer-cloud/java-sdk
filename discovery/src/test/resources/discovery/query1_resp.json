@@ -1,0 +1,533 @@
+{
+  "matching_results": 4,
+  "results": [
+    {
+      "id": "4f70a05d-6ef2-4a46-be87-380724995af8",
+      "score": 1,
+      "extracted_metadata": {
+        "title": "Celgene and IBM Watson Health Forge Collaboration Designed to Transform Patient Safety Monitoring"
+      },
+      "html": "<?xml version='1.0' encoding='UTF-8' standalone='yes'?><html>\n<head>\n    <meta content=\"text/html; charset=UTF-8\" http-equiv=\"Content-Type\"/><title>Celgene and IBM Watson Health Forge Collaboration Designed to Transform Patient Safety Monitoring</title></head>\n<body>\n\n\n\n<p>Published: Tue, 01 Nov 2016 08:32:23 GMT</p>\n<p>Celgene Corporation and IBM Watson Health today announced a collaboration to co-develop IBM Watson for Patient Safety, a new offering that aims to enhance pharmacovigilance methods used to collect, assess, monitor, and report adverse drug reactions. The new offering will run on the Watson Health Cloud.</p>\n<p>URL: http://www.ibm.com/press/us/en/pressrelease/50927.wss</p>\n\n\n</body></html>",
+      "text": "Celgene and IBM Watson Health Forge Collaboration Designed to Transform Patient Safety Monitoring\n\nPublished: Tue, 01 Nov 2016 08:32:23 GMT\n\nCelgene Corporation and IBM Watson Health today announced a collaboration to co-develop IBM Watson for Patient Safety, a new offering that aims to enhance pharmacovigilance methods used to collect, assess, monitor, and report adverse drug reactions. The new offering will run on the Watson Health Cloud.\n\nURL: http://www.ibm.com/press/us/en/pressrelease/50927.wss",
+      "enriched_text": {
+        "status": "OK",
+        "language": "english",
+        "docSentiment": {
+          "type": "positive",
+          "score": 0.349018,
+          "mixed": true
+        },
+        "concepts": [
+          {
+            "text": "Adverse drug reaction",
+            "relevance": 0.97198,
+            "knowledgeGraph": {
+              "typeHierarchy": "/adverse events/adverse drug reaction"
+            },
+            "dbpedia": "http://dbpedia.org/resource/Adverse_drug_reaction",
+            "freebase": "http://rdf.freebase.com/ns/m.04p93k"
+          },
+          {
+            "text": "Pharmacovigilance",
+            "relevance": 0.57362,
+            "knowledgeGraph": {
+              "typeHierarchy": "/directors/pharmacovigilance"
+            },
+            "dbpedia": "http://dbpedia.org/resource/Pharmacovigilance",
+            "freebase": "http://rdf.freebase.com/ns/m.04lmfb"
+          },
+          {
+            "text": "Thomas J. Watson",
+            "relevance": 0.507165,
+            "knowledgeGraph": {
+              "typeHierarchy": "/people/thomas j. watson"
+            },
+            "dbpedia": "http://dbpedia.org/resource/Thomas_J._Watson",
+            "freebase": "http://rdf.freebase.com/ns/m.07qkt",
+            "yago": "http://yago-knowledge.org/resource/Thomas_J._Watson"
+          },
+          {
+            "text": "Illness",
+            "relevance": 0.497042,
+            "knowledgeGraph": {
+              "typeHierarchy": "/issues/conditions/circumstances/illness"
+            },
+            "dbpedia": "http://dbpedia.org/resource/Illness",
+            "freebase": "http://rdf.freebase.com/ns/m.01jwdy"
+          },
+          {
+            "text": "Lotus Software",
+            "relevance": 0.482834,
+            "knowledgeGraph": {
+              "typeHierarchy": "/products/materials/software/lotus software"
+            },
+            "website": "http://www.ibm.com/software/lotus",
+            "dbpedia": "http://dbpedia.org/resource/Lotus_Software",
+            "freebase": "http://rdf.freebase.com/ns/m.0q4jd",
+            "opencyc": "http://sw.opencyc.org/concept/Mx4rvViJIZwpEbGdrcN5Y29ycA",
+            "yago": "http://yago-knowledge.org/resource/Lotus_Software"
+          },
+          {
+            "text": "Pharmacology",
+            "relevance": 0.441008,
+            "knowledgeGraph": {
+              "typeHierarchy": "/fields/pharmacology"
+            },
+            "dbpedia": "http://dbpedia.org/resource/Pharmacology",
+            "freebase": "http://rdf.freebase.com/ns/m.062p_",
+            "opencyc": "http://sw.opencyc.org/concept/Mx4rwQFiYJwpEbGdrcN5Y29ycA"
+          },
+          {
+            "text": "Thomas J. Watson Research Center",
+            "relevance": 0.4094,
+            "knowledgeGraph": {
+              "typeHierarchy": "/organizations/research centers/thomas j. watson research center"
+            },
+            "dbpedia": "http://dbpedia.org/resource/Thomas_J._Watson_Research_Center",
+            "freebase": "http://rdf.freebase.com/ns/m.04zkt5",
+            "yago": "http://yago-knowledge.org/resource/Thomas_J._Watson_Research_Center"
+          }
+        ],
+        "entities": [
+          {
+            "type": "Company",
+            "relevance": 0.939431,
+            "knowledgeGraph": {
+              "typeHierarchy": "/organizations/companies/ibm/ibm watson health"
+            },
+            "sentiment": {
+              "type": "positive",
+              "score": 0.394824,
+              "mixed": false
+            },
+            "count": 1,
+            "text": "IBM Watson Health"
+          },
+          {
+            "type": "Facility",
+            "relevance": 0.936844,
+            "knowledgeGraph": {
+              "typeHierarchy": "/people/watson health forge"
+            },
+            "sentiment": {
+              "type": "positive",
+              "score": 0.450045,
+              "mixed": false
+            },
+            "count": 1,
+            "text": "Watson Health Forge"
+          },
+          {
+            "type": "Facility",
+            "relevance": 0.900379,
+            "knowledgeGraph": {
+              "typeHierarchy": "/people/watson health cloud"
+            },
+            "sentiment": {
+              "type": "positive",
+              "score": 0.793685,
+              "mixed": false
+            },
+            "count": 1,
+            "text": "Watson Health Cloud"
+          },
+          {
+            "type": "Company",
+            "relevance": 0.847945,
+            "knowledgeGraph": {
+              "typeHierarchy": "/organizations/companies/ibm/ibm watson"
+            },
+            "sentiment": {
+              "type": "positive",
+              "score": 0.394824,
+              "mixed": false
+            },
+            "count": 1,
+            "text": "IBM Watson"
+          },
+          {
+            "type": "JobTitle",
+            "relevance": 0.688245,
+            "knowledgeGraph": {
+              "typeHierarchy": "/issues/patient safety/transform patient safety monitoring"
+            },
+            "sentiment": {
+              "type": "positive",
+              "score": 0.450045,
+              "mixed": false
+            },
+            "count": 1,
+            "text": "Transform Patient Safety Monitoring"
+          },
+          {
+            "type": "Company",
+            "relevance": 0.514877,
+            "knowledgeGraph": {
+              "typeHierarchy": "/organizations/companies/ibm"
+            },
+            "sentiment": {
+              "type": "positive",
+              "score": 0.450045,
+              "mixed": false
+            },
+            "count": 1,
+            "text": "IBM",
+            "disambiguated": {
+              "subType": [
+                "SoftwareLicense",
+                "OperatingSystemDeveloper",
+                "ProcessorManufacturer",
+                "SoftwareDeveloper",
+                "CompanyFounder",
+                "ProgrammingLanguageDesigner",
+                "ProgrammingLanguageDeveloper"
+              ],
+              "name": "IBM",
+              "website": "http://www.ibm.com/",
+              "dbpedia": "http://dbpedia.org/resource/IBM",
+              "freebase": "http://rdf.freebase.com/ns/m.03sc8",
+              "opencyc": "http://sw.opencyc.org/concept/Mx4rvViMoJwpEbGdrcN5Y29ycA",
+              "yago": "http://yago-knowledge.org/resource/IBM",
+              "crunchbase": "http://www.crunchbase.com/company/ibm"
+            }
+          },
+          {
+            "type": "Company",
+            "relevance": 0.332536,
+            "knowledgeGraph": {
+              "typeHierarchy": "/companies/organizations/celgene corporation"
+            },
+            "sentiment": {
+              "type": "positive",
+              "score": 0.394824,
+              "mixed": false
+            },
+            "count": 1,
+            "text": "Celgene Corporation",
+            "disambiguated": {
+              "subType": [
+                "VentureFundedCompany"
+              ],
+              "name": "Celgene",
+              "website": "http://www.celgene.com/",
+              "dbpedia": "http://dbpedia.org/resource/Celgene",
+              "freebase": "http://rdf.freebase.com/ns/m.0898kv",
+              "opencyc": "http://sw.opencyc.org/concept/Mx4rvZdBy5wpEbGdrcN5Y29ycA",
+              "yago": "http://yago-knowledge.org/resource/Celgene"
+            }
+          },
+          {
+            "type": "Person",
+            "relevance": 0.307186,
+            "knowledgeGraph": {
+              "typeHierarchy": "/companies/organizations/celgene"
+            },
+            "sentiment": {
+              "type": "positive",
+              "score": 0.450045,
+              "mixed": false
+            },
+            "count": 1,
+            "text": "Celgene"
+          }
+        ],
+        "relations": [
+          {
+            "sentence": " Celgene Corporation and IBM Watson Health today announced a collaboration to co-develop IBM Watson for Patient Safety, a new offering that aims to enhance pharmacovigilance methods used to collect, assess, monitor, and report adverse drug reactions.",
+            "subject": {
+              "text": "Celgene Corporation and IBM Watson Health today",
+              "entities": [
+                {
+                  "type": "Company",
+                  "text": "Celgene Corporation",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/companies/organizations/celgene corporation"
+                  },
+                  "disambiguated": {
+                    "subType": [
+                      "Organization",
+                      "Company",
+                      "VentureFundedCompany"
+                    ],
+                    "name": "Celgene",
+                    "website": "http://www.celgene.com/",
+                    "dbpedia": "http://dbpedia.org/resource/Celgene",
+                    "freebase": "http://rdf.freebase.com/ns/m.0898kv",
+                    "opencyc": "http://sw.opencyc.org/concept/Mx4rvZdBy5wpEbGdrcN5Y29ycA",
+                    "yago": "http://yago-knowledge.org/resource/Celgene"
+                  }
+                },
+                {
+                  "type": "Company",
+                  "text": "IBM Watson Health",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/organizations/companies/ibm/ibm watson health"
+                  }
+                }
+              ],
+              "keywords": [
+                {
+                  "text": "IBM Watson Health",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/organizations/companies/ibm/ibm watson health"
+                  }
+                },
+                {
+                  "text": "Celgene Corporation",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/companies/organizations/celgene corporation"
+                  }
+                }
+              ]
+            },
+            "action": {
+              "text": "announced",
+              "lemmatized": "announce",
+              "verb": {
+                "text": "announce",
+                "tense": "past"
+              }
+            },
+            "object": {
+              "text": "a collaboration to co-develop IBM Watson for Patient Safety, a new offering that aims to enhance pharmacovigilance methods used to collect, assess, monitor, and report adverse drug reactions",
+              "sentiment": {
+                "type": "positive",
+                "score": 0.576836,
+                "mixed": false
+              },
+              "entities": [
+                {
+                  "type": "Company",
+                  "text": "IBM Watson",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/organizations/companies/ibm/ibm watson"
+                  }
+                }
+              ],
+              "keywords": [
+                {
+                  "text": "adverse drug reactions",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/adverse events/adverse drug reactions"
+                  }
+                },
+                {
+                  "text": "pharmacovigilance methods",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/tools/resources/materials/methods/pharmacovigilance methods"
+                  }
+                },
+                {
+                  "text": "IBM Watson",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/organizations/companies/ibm/ibm watson"
+                  }
+                },
+                {
+                  "text": "Patient Safety",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/issues/patient safety"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "sentence": " Celgene Corporation and IBM Watson Health today announced a collaboration to co-develop IBM Watson for Patient Safety, a new offering that aims to enhance pharmacovigilance methods used to collect, assess, monitor, and report adverse drug reactions.",
+            "subject": {
+              "text": "a new offering",
+              "sentiment": {
+                "type": "positive",
+                "score": 0.639534,
+                "mixed": false
+              },
+              "keywords": [
+                {
+                  "text": "new offering"
+                }
+              ]
+            },
+            "action": {
+              "text": "aims",
+              "lemmatized": "aim",
+              "verb": {
+                "text": "aim",
+                "tense": "present"
+              }
+            },
+            "object": {
+              "text": "to enhance pharmacovigilance methods used to collect",
+              "keywords": [
+                {
+                  "text": "pharmacovigilance methods",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/tools/resources/materials/methods/pharmacovigilance methods"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "sentence": " The new offering will run on the Watson Health Cloud.",
+            "subject": {
+              "text": "The new offering",
+              "sentiment": {
+                "type": "positive",
+                "score": 0.451284,
+                "mixed": false
+              },
+              "keywords": [
+                {
+                  "text": "new offering"
+                }
+              ]
+            },
+            "action": {
+              "text": "will run",
+              "lemmatized": "will run",
+              "verb": {
+                "text": "run",
+                "tense": "future"
+              }
+            },
+            "location": {
+              "text": "on the Watson Health Cloud",
+              "entities": [
+                {
+                  "type": "Facility",
+                  "text": "Watson Health Cloud",
+                  "knowledgeGraph": {
+                    "typeHierarchy": "/people/watson health cloud"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "taxonomy": [
+          {
+            "label": "/health and fitness",
+            "score": 0.613225,
+            "confident": false
+          },
+          {
+            "label": "/business and industrial/company/bankruptcy",
+            "score": 0.413686,
+            "confident": false
+          },
+          {
+            "confident": false,
+            "label": "/technology and computing",
+            "score": 0.325571
+          }
+        ],
+        "keywords": [
+          {
+            "knowledgeGraph": {
+              "typeHierarchy": "/organizations/companies/ibm/ibm watson health"
+            },
+            "relevance": 0.944488,
+            "sentiment": {
+              "score": 0.422434,
+              "type": "positive",
+              "mixed": false
+            },
+            "text": "IBM Watson Health"
+          },
+          {
+            "knowledgeGraph": {
+              "typeHierarchy": "/people/watson health forge"
+            },
+            "relevance": 0.666311,
+            "sentiment": {
+              "score": 0.450045,
+              "type": "positive",
+              "mixed": false
+            },
+            "text": "Watson Health Forge"
+          },
+          {
+            "knowledgeGraph": {
+              "typeHierarchy": "/people/watson health cloud"
+            },
+            "relevance": 0.531944,
+            "sentiment": {
+              "score": 0.793685,
+              "type": "positive",
+              "mixed": false
+            },
+            "text": "Watson Health Cloud"
+          },
+          {
+            "knowledgeGraph": {
+              "typeHierarchy": "/issues/patient safety/transform patient safety"
+            },
+            "relevance": 0.47957,
+            "sentiment": {
+              "score": 0.450045,
+              "type": "positive",
+              "mixed": false
+            },
+            "text": "Transform Patient Safety"
+          },
+          {
+            "knowledgeGraph": {
+              "typeHierarchy": "/adverse events/adverse drug reactions"
+            },
+            "relevance": 0.445181,
+            "sentiment": {
+              "type": "neutral",
+              "mixed": false
+            },
+            "text": "adverse drug reactions"
+          },
+          {
+            "relevance": 0.400895,
+            "sentiment": {
+              "score": 0.644874,
+              "type": "positive",
+              "mixed": false
+            },
+            "text": "new offering"
+          },
+          {
+            "knowledgeGraph": {
+              "typeHierarchy": "/activities/services/applications/collaboration/collaboration designed"
+            },
+            "relevance": 0.301433,
+            "sentiment": {
+              "score": 0.450045,
+              "type": "positive",
+              "mixed": false
+            },
+            "text": "Collaboration Designed"
+          },
+          {
+            "knowledgeGraph": {
+              "typeHierarchy": "/tools/resources/materials/methods/pharmacovigilance methods"
+            },
+            "relevance": 0.27876,
+            "sentiment": {
+              "score": 0.496064,
+              "type": "positive",
+              "mixed": false
+            },
+            "text": "pharmacovigilance methods"
+          },
+          {
+            "knowledgeGraph": {
+              "typeHierarchy": "/companies/organizations/celgene corporation"
+            },
+            "relevance": 0.220786,
+            "sentiment": {
+              "score": 0.394824,
+              "type": "positive",
+              "mixed": false
+            },
+            "text": "Celgene Corporation"
+          }
+        ]
+      }
+    }
+  ]
+}
