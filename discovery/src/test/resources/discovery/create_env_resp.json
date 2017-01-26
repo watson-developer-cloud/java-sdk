@@ -1,0 +1,25 @@
+{
+  "environment_id": "9e21069a-8bc1-475e-a1d3-2121c49ef060",
+  "name": "my_environment",
+  "description": "My Discovery environment",
+  "created": "2016-12-14T17:32:41.593Z",
+  "updated": "2016-12-14T17:32:41.593Z",
+  "status": "pending",
+  "read_only": false,
+  "index_capacity": {
+    "disk_usage": {
+      "used_bytes": 0,
+      "total_bytes": 1073741824,
+      "used": "0 KB",
+      "total": "1024 MB",
+      "percent_used": 0
+    },
+    "memory_usage": {
+      "used_bytes": 0,
+      "total_bytes": 0,
+      "used": "0 KB",
+      "total": "0 KB",
+      "percent_used": 0
+    }
+  }
+}

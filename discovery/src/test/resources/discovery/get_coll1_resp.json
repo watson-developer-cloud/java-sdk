@@ -1,0 +1,14 @@
+{
+  "collection_id": "44e29a9a-47e3-4acd-874b-c7cbe04043f1",
+  "name": "test_collection",
+  "created": "2016-12-14T18:42:25.324Z",
+  "updated": "2016-12-14T18:42:25.324Z",
+  "status": "available",
+  "configuration_id": "e8b9d793-b163-452a-9373-bce07efb510b",
+  "language": "en_us",
+  "document_counts": {
+    "available": 1000,
+    "processing": 20,
+    "failed": 180
+  }
+}
