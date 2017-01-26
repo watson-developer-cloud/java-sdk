@@ -1,0 +1,15 @@
+{
+  "document_id": "8691f0dd-7181-45b7-81de-5cb16206b3a1",
+  "configuration_id": "e8b9d793-b163-452a-9373-bce07efb510b",
+  "created": "2016-11-02T18:42:25.324Z",
+  "updated": "2016-11-03T09:02:41.585Z",
+  "status": "pending",
+  "notices": [
+    {
+      "notice_id": "index_342",
+      "severity": "warning",
+      "step": "indexing",
+      "description": "DANGER, WILL ROBINSON!"
+    }
+  ]
+}
