@@ -149,17 +149,19 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     VisualClassification result = service.classify(options).execute();
     assertClassifyImage(result, options);
   }
-  
+
   /**
    * Test classify images from bytes or stream.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
-  public void testClassifyImagesFromBytes()throws IOException {
-	File images = new File(SINGLE_IMAGE_FILE);
-	byte[] fileBytes = Files.readAllBytes(Paths.get(images.getPath()));
-	ClassifyImagesOptions options = new ClassifyImagesOptions.Builder().images(fileBytes,"car.png").build();
-	VisualClassification result = service.classify(options).execute();
-	assertClassifyImage(result, options);
+  public void testClassifyImagesFromBytes() throws IOException {
+    File images = new File(SINGLE_IMAGE_FILE);
+    byte[] fileBytes = Files.readAllBytes(Paths.get(images.getPath()));
+    ClassifyImagesOptions options = new ClassifyImagesOptions.Builder().images(fileBytes, "car.png").build();
+    VisualClassification result = service.classify(options).execute();
+    assertClassifyImage(result, options);
   }
 
   /**

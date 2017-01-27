@@ -78,6 +78,7 @@ public class ClassifyImagesOptions {
      * Sets the images.
      *
      * @param imagesBinary the images bytes
+     * @param imageName the image name
      * @return the builder
      */
     public Builder images(byte[] imagesBinary, String imageName) {

@@ -36,8 +36,7 @@ public interface SolrConfigManager {
    * @param zippedConfig the ZIP file to upload.
    * @return the service call
    */
-  ServiceCall<Void> uploadSolrClusterConfigurationZip(final String solrClusterId, final String configName,
-      final File zippedConfig);
+  ServiceCall<Void> uploadSolrClusterConfigurationZip(String solrClusterId, String configName, File zippedConfig);
 
   /**
    * Deletes a configuration namespace in ZooKeeper.
@@ -46,7 +45,7 @@ public interface SolrConfigManager {
    * @param configurationName the name of the configuration in ZooKeeper.
    * @return the service call
    */
-  ServiceCall<Void> deleteSolrClusterConfiguration(final String solrClusterId, final String configurationName);
+  ServiceCall<Void> deleteSolrClusterConfiguration(String solrClusterId, String configurationName);
 
   /**
    * Gets the configuration from ZooKeeper.
@@ -55,7 +54,7 @@ public interface SolrConfigManager {
    * @param configurationName the name of the configuration in ZooKeeper
    * @return an InputStream containing the zipped configuration if it exists in ZooKeeper or null if it is not found
    */
-  ServiceCall<InputStream> getSolrClusterConfiguration(final String solrClusterId, final String configurationName);
+  ServiceCall<InputStream> getSolrClusterConfiguration(String solrClusterId, String configurationName);
 
   /**
    * Uploads a configuration {@link File} to ZooKeeper's namespace, including schema.xml, solrconfig.xml, and all other
@@ -72,8 +71,8 @@ public interface SolrConfigManager {
    * @return the service call
    * @throws IllegalArgumentException if configDirectory is not a directory
    */
-  ServiceCall<Void> uploadSolrClusterConfigurationDirectory(final String solrClusterId, final String configName,
-      final File configDirectory);
+  ServiceCall<Void> uploadSolrClusterConfigurationDirectory(String solrClusterId, String configName,
+      File configDirectory);
 
   /**
    * Lists the configuration sets in ZooKeeper.
@@ -81,5 +80,5 @@ public interface SolrConfigManager {
    * @param solrClusterId the solr cluster id
    * @return a list of the names of the configuration sets
    */
-  ServiceCall<SolrConfigs> getSolrClusterConfigurations(final String solrClusterId);
+  ServiceCall<SolrConfigs> getSolrClusterConfigurations(String solrClusterId);
 }

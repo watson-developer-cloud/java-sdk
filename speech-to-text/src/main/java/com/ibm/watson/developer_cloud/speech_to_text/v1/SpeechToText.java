@@ -284,8 +284,7 @@ public class SpeechToText extends WatsonService {
    * Add/Updates a custom word to a custom language model. The service automatically populates the words resource for a
    * custom model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to
    * add additional words or to modify existing words in the words resource. Adding or modifying a custom word does not
-   * affect the custom model until you train the model for the new data by using
-   * {@link SpeechToText#trainCustomization(String, WordTypeToAdd)}.
+   * affect the custom model until you train the model for the new data.
    *
    * @param customizationId The GUID of the custom language model to which a word is to be added. You must make the
    *        request with the service credentials of the model's owner.
@@ -308,8 +307,7 @@ public class SpeechToText extends WatsonService {
    * Adds one or more custom words to a custom language model. The service automatically populates the words resource
    * for a custom model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this
    * method to add additional words or to modify existing words in the words resource. Adding or modifying custom words
-   * does not affect the custom model until you train the model for the new data by using
-   * {@link SpeechToText#trainCustomization(String, WordTypeToAdd)}.
+   * does not affect the custom model until you train the model for the new data.
    *
    * @param customizationId The GUID of the custom language model to which words are to be added. You must make the
    *        request with the service credentials of the model's owner.
