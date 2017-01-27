@@ -10,18 +10,14 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.service;
+package com.ibm.watson.developer_cloud.personality_insights.v3.utils;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -36,22 +32,10 @@ import org.w3c.dom.Document;
 
 import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyDataNews;
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyLanguage;
-import com.ibm.watson.developer_cloud.alchemy.v1.AlchemyVision;
-import com.ibm.watson.developer_cloud.alchemy.v1.util.AlchemyEndPoints;
-import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
-import com.ibm.watson.developer_cloud.dialog.v1.DialogService;
-import com.ibm.watson.developer_cloud.document_conversion.v1.DocumentConversion;
-import com.ibm.watson.developer_cloud.document_conversion.v1.util.ConversionUtils;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.language_translation.v2.LanguageTranslation;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.personality_insights.v2.PersonalityInsights;
 import com.ibm.watson.developer_cloud.personality_insights.v2.model.Profile;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.RetrieveAndRank;
-import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util.ZipUtils;
+import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.ConflictException;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
@@ -62,18 +46,6 @@ import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableExcept
 import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.TextToSpeech;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
-import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
-import com.ibm.watson.developer_cloud.util.CredentialUtils;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
-import com.ibm.watson.developer_cloud.util.ResponseUtils;
-import com.ibm.watson.developer_cloud.util.Validator;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 
 import jersey.repackaged.jsr166e.CompletableFuture;
 import okhttp3.Credentials;
@@ -111,51 +83,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
     final String p = "p-a-s-s";
     final String key = Credentials.basic(u, p);
 
-    checkApiKey(new AlchemyDataNews(key), key);
-    checkApiKey(new AlchemyLanguage(key), key);
-    checkApiKey(new AlchemyVision(key), key);
-    checkApiKey(new ConversationService(ConversationService.VERSION_DATE_2016_07_11, u, p), key);
-    checkApiKey(new DialogService(u, p), key);
-    checkApiKey(new DocumentConversion(DocumentConversion.VERSION_DATE_2015_12_01, u, p), key);
-    checkApiKey(new LanguageTranslation(u, p), key);
-    checkApiKey(new NaturalLanguageClassifier(u, p), key);
     checkApiKey(new PersonalityInsights(u, p), key);
-    checkApiKey(new RetrieveAndRank(u, p), key);
-    checkApiKey(new SpeechToText(u, p), key);
-    checkApiKey(new TextToSpeech(u, p), key);
-    checkApiKey(new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19, u, p), key);
-    checkApiKey(new TradeoffAnalytics(u, p), key);
-    checkApiKey(new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20, key), key);
-  }
-
-  /**
-   * Tests Utility classes and their private constructors.
-   *
-   * @throws NoSuchMethodException the no such method exception
-   */
-  @Test
-  public void testUtilityClasses() throws NoSuchMethodException {
-    final List<Class<?>> utilityClasses = Arrays.asList(AlchemyEndPoints.class, ConversionUtils.class, ZipUtils.class,
-        MediaTypeUtils.class, WaveUtils.class, CredentialUtils.class, GsonSingleton.class, RequestUtils.class,
-        ResponseUtils.class, Validator.class, HttpMediaType.class);
-
-    for (Class<?> cls : utilityClasses) {
-      assertTrue("Utility class " + cls.getName() + " should be final.", Modifier.isFinal(cls.getModifiers()));
-      assertEquals("Utility class " + cls.getName() + " should have one private constructor.", 1,
-          cls.getDeclaredConstructors().length);
-
-      final Constructor<?> constructor = cls.getDeclaredConstructor();
-      assertTrue("Utility class " + cls.getName() + " should have one private constructor.",
-          Modifier.isPrivate(constructor.getModifiers()));
-
-      constructor.setAccessible(true);
-
-      try {
-        constructor.newInstance();
-      } catch (Exception e) {
-        // receiving an exception, e.g. UnsupportedOperationException, is fine here!
-      }
-    }
   }
 
   /**
@@ -343,7 +271,8 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
       throw new AssumptionViolatedException(e.getMessage(), e);
     }
 
-    assertTrue("Illegal user agent version: " + userAgent +" version: " + version, userAgent.startsWith(prefix + version));
+    assertTrue("Illegal user agent version: " + userAgent + " version: " + version,
+        userAgent.startsWith(prefix + version));
   }
 
   /**
@@ -369,7 +298,7 @@ public class GenericServiceTest extends WatsonServiceUnitTest {
   @Test
   public void testNoAuthentication() {
     try {
-      new SpeechToText().getModels();
+      new PersonalityInsights().getProfile("test");
       throw new AssumptionViolatedException("createServiceCall() did not throw an IllegalArgumentException, "
           + "even though no authentication has been specified.");
     } catch (IllegalArgumentException e) {
