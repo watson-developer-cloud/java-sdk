@@ -23,28 +23,19 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
  */
 public class Word {
 
-  private String word;
-  private Location location;
-  private Double score;
   @SerializedName("line_number")
   private Integer lineNumber;
+  private Location location;
+  private Double score;
+  private String word;
 
   /**
-   * Gets the word.
+   * Gets the line number.
    *
-   * @return the word
+   * @return the line number
    */
-  public String getWord() {
-    return word;
-  }
-
-  /**
-   * Sets the word.
-   *
-   * @param word the new word
-   */
-  public void setWord(String word) {
-    this.word = word;
+  public Integer getLineNumber() {
+    return lineNumber;
   }
 
   /**
@@ -57,21 +48,39 @@ public class Word {
   }
 
   /**
-   * Sets the location.
-   *
-   * @param location the new location
-   */
-  public void setLocation(Location location) {
-    this.location = location;
-  }
-
-  /**
    * Gets the score.
    *
    * @return the score
    */
   public Double getScore() {
     return score;
+  }
+
+  /**
+   * Gets the word.
+   *
+   * @return the word
+   */
+  public String getWord() {
+    return word;
+  }
+
+  /**
+   * Sets the line number.
+   *
+   * @param lineNumber the new line number
+   */
+  public void setLineNumber(Integer lineNumber) {
+    this.lineNumber = lineNumber;
+  }
+
+  /**
+   * Sets the location.
+   *
+   * @param location the new location
+   */
+  public void setLocation(Location location) {
+    this.location = location;
   }
 
   /**
@@ -84,20 +93,11 @@ public class Word {
   }
 
   /**
-   * Gets the line number.
+   * Sets the word.
    *
-   * @return the line number
+   * @param word the new word
    */
-  public Integer getLineNumber() {
-    return lineNumber;
-  }
-
-  /**
-   * Sets the line number.
-   *
-   * @param lineNumber the new line number
-   */
-  public void setLineNumber(Integer lineNumber) {
-    this.lineNumber = lineNumber;
+  public void setWord(String word) {
+    this.word = word;
   }
 }

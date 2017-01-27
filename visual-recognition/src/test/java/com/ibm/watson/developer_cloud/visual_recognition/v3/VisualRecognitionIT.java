@@ -24,14 +24,17 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.AddImageToCollectionOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions.Builder;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Collection;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
@@ -274,5 +277,48 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     RecognizedText recognizedText = service.recognizeText(options).execute();
     assertRecognizedText(recognizedText, options);
   }
+
+
+  /**
+   * Test get collections text from url.
+   */
+  @Test
+  public void testGetCollections() {
+    Assert.assertNotNull(service.getCollections().execute());
+    Assert.assertTrue(!service.getCollections().execute().isEmpty());
+  }
+
+
+  /**
+   * Test that creates, add images and delete a collection.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testCollections() throws InterruptedException {
+    Collection collection = service.createCollection("it-java-sdk").execute();
+    try {
+      for (int x = 0; (x < 30)
+          && (service.getCollection(collection.getId()).execute().getStatus() != Collection.Status.AVAILABLE);
+          x++) {
+        Thread.sleep(5000);
+      }
+      Assert.assertEquals(collection.getStatus(), Collection.Status.AVAILABLE);
+
+      AddImageToCollectionOptions options = new AddImageToCollectionOptions.Builder()
+          .collectionId(collection.getId())
+          .images(new File(SINGLE_IMAGE_FILE))
+          .build();
+
+      Assert.assertEquals((int) collection.getImages(), 0);
+      service.addImageToCollection(options).execute();
+      collection = service.getCollection(collection.getId()).execute();
+      Assert.assertEquals((int) collection.getImages(), 1);
+
+    } finally {
+      service.deleteCollection(collection.getId());
+    }
+  }
+
 
 }

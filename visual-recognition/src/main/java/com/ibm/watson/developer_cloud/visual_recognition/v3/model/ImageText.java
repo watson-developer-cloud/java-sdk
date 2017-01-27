@@ -38,21 +38,21 @@ public class ImageText extends ImageProcessed {
   }
 
   /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(String text) {
-    this.text = text;
-  }
-
-  /**
    * Gets the words.
    *
    * @return the words
    */
   public List<Word> getWords() {
     return words;
+  }
+
+  /**
+   * Sets the text.
+   *
+   * @param text the new text
+   */
+  public void setText(String text) {
+    this.text = text;
   }
 
   /**
