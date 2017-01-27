@@ -1,0 +1,12 @@
+{
+  "configuration_id": "448e3545-51ca-4530-a03b-6ff282ceac2e",
+  "status": "deleted",
+  "notices": [
+    {
+      "notice_id": "configuration_in_use",
+      "created": "2016-09-28T12:34:00.000Z",
+      "severity": "warning",
+      "description": "The configuration was deleted, but it is referenced by one or more collections."
+    }
+  ]
+}
