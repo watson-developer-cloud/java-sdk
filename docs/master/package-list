@@ -28,6 +28,7 @@ com.ibm.watson.developer_cloud.personality_insights.v2
 com.ibm.watson.developer_cloud.personality_insights.v2.model
 com.ibm.watson.developer_cloud.personality_insights.v3
 com.ibm.watson.developer_cloud.personality_insights.v3.model
+com.ibm.watson.developer_cloud.personality_insights.v3.utils
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util
