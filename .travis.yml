@@ -1,14 +1,17 @@
 language: java
 sudo: false
 jdk:
-- oraclejdk8
-- oraclejdk7
+  - oraclejdk8
+  - oraclejdk7
+
 branches:
   except:
   - gh-pages
+
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
 cache:
   directories:
     - $HOME/.m2
@@ -21,17 +24,17 @@ env:
   - secure: l0dde5NSGedD6fny5aMr1ll90FYVd7IKDsZ0Kd1GWnB+iDd3rjDBwz5q6NUwN2LTqw3jWFqmqdEnGUGO3Er0rdfdtPh3K194sTK3XuCZz8GEjFvYAEDRQ59oyK8fhw60c86cWppBQ4gluLKLstm12DLkARTUvJiIsTQTnuc2YGg=
 
 before_install:
-  - sed -i.bak -e 's|https://nexus.codehaus.org/snapshots/|https://oss.sonatype.org/content/repositories/codehaus-snapshots/|g'
-  ~/.m2/settings.xml
-before_script:
-  - chmod +x gradlew
+  - sed -i.bak -e 's|https://nexus.codehaus.org/snapshots/|https://oss.sonatype.org/content/repositories/codehaus-snapshots/|g' ~/.m2/settings.xml
+
 script:
   - ./gradlew install -x check
   - ./gradlew docs > /dev/null # build the javadoc
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_a973fe4f8e79_key -iv $encrypted_a973fe4f8e79_iv -in .config.properties.enc -out core/src/test/resources/.config.properties -d || true'
   - ./gradlew check
+
 after_success:
   - .utility/push-javadoc-to-gh-pages.sh
   - .utility/deploy_snapshot.sh
+
 notifications:
   email: false
