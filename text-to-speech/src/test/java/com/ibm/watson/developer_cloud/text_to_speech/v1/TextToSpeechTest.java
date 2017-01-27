@@ -187,7 +187,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   @SuppressWarnings("resource")
   @Test
   public void testSynthesize() throws IOException, InterruptedException {
-    final File audio = new File("src/test/resources/speech_to_text/sample1.wav");
+    final File audio = new File("src/test/resources/text_to_speech/sample1.wav");
     final Buffer buffer = new Buffer().write(Files.toByteArray(audio));
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.AUDIO_WAV).setBody(buffer));
