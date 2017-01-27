@@ -13,6 +13,7 @@ apply plugin: 'ru.vyarus.animalsniffer'
 apply plugin: 'net.saliman.cobertura'
 apply plugin: 'maven'
 apply plugin: 'checkstyle'
+apply plugin: 'eclipse'
 
 version = '3.5.4-SNAPSHOT'
 group = 'com.ibm.watson.developercloud'
@@ -73,21 +74,6 @@ dependencies {
     testCompile group: 'junit', name: 'junit-dep', version: '4.11'
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
 
-    // All project dependencies below are required for service/GenericServiceTest.java
-    // if this test is moved, or no longer needed, these dependencies can be removed
-    testCompile project(':alchemy')
-    testCompile project(':conversation')
-    testCompile project(':dialog')
-    testCompile project(':document-conversion')
-    testCompile project(':language-translation')
-    testCompile project(':natural-language-classifier')
-    testCompile project(':personality-insights')
-    testCompile project(':retrieve-and-rank')
-    testCompile project(':speech-to-text')
-    testCompile project(':text-to-speech')
-    testCompile project(':tone-analyzer')
-    testCompile project(':tradeoff-analytics')
-    testCompile project(':visual-recognition')
 }
 
 processResources {
