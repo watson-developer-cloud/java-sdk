@@ -1,6 +1,5 @@
 plugins {
     id 'ru.vyarus.animalsniffer' version '1.2.0'
-    id 'net.saliman.cobertura' version '2.3.2'
 }
 
 defaultTasks 'clean'
@@ -10,7 +9,6 @@ import org.apache.tools.ant.filters.*
 
 apply plugin: 'java'
 apply plugin: 'ru.vyarus.animalsniffer'
-apply plugin: 'net.saliman.cobertura'
 apply plugin: 'maven'
 apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
@@ -101,11 +99,4 @@ uploadArchives {
             authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
         }
     }
-}
-
-cobertura {
-    coverageFormats = ['html', 'xml']
-    coverageIgnoreTrivial = true
-    coverageIgnores = ['org.slf4j.Logger.*']
-    coverageReportDir = new File("$buildDir/reports/cobertura")
 }

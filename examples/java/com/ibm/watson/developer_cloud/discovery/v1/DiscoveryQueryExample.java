@@ -44,7 +44,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 /**
- * End-to-end example for querying Discovery
+ * End-to-end example for querying Discovery.
  */
 public class DiscoveryQueryExample {
     private static final String DEFAULT_CONFIG_NAME = "Default Configuration";
