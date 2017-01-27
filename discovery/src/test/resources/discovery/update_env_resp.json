@@ -1,0 +1,25 @@
+{
+  "environment_id": "9e21069a-8bc1-475e-a1d3-2121c49ef060",
+  "name": "Andrea_environment",
+  "description": "Dev environment for Andrea",
+  "created": "2016-12-13T17:42:23.067Z",
+  "created": "2016-12-13T17:42:23.067Z",
+  "updated": "2016-12-14T08:22:05.231Z",
+  "status": "available",
+  "index_capacity": {
+    "disk_usage": {
+      "used_bytes": 0,
+      "total_bytes": 1073741824,
+      "used": "0 KB",
+      "total": "1024 MB",
+      "percent_used": 0
+    },
+    "memory_usage": {
+      "used_bytes": 139035968,
+      "total_bytes": 518979584,
+      "used": "132.6 MB",
+      "total": "494.94 MB",
+      "percent_used": 26.79
+    }
+  }
+}

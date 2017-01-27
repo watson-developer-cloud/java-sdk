@@ -1,0 +1,20 @@
+{
+  "fields": [
+    {
+      "field": "warnings",
+      "type": "nested"
+    },
+    {
+      "field": "warnings.properties.description",
+      "type": "string"
+    },
+    {
+      "field": "warnings.properties.phase",
+      "type": "string"
+    },
+    {
+      "field": "warnings.properties.warning_id",
+      "type": "string"
+    }
+  ]
+}
