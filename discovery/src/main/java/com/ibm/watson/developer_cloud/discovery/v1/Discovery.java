@@ -182,6 +182,7 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
     @Override
     public ServiceCall<GetEnvironmentResponse> getEnvironment(GetEnvironmentRequest getRequest) {
         Validator.notEmpty(getRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
+        Validator.notNull(getRequest, "Environment request cannot be null");
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_ENVIRONMENT, getRequest.getEnvironmentId()));
         final Request request = createVersionedRequest(builder);
         return createServiceCall(request, ResponseConverterUtils.getObject(GetEnvironmentResponse.class));
@@ -200,6 +201,7 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
     @Override
     public ServiceCall<DeleteEnvironmentResponse> deleteEnvironment(DeleteEnvironmentRequest deleteRequest) {
         Validator.notEmpty(deleteRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
+        Validator.notNull(deleteRequest, "Environment request cannot be null");
         RequestBuilder builder = RequestBuilder
                 .delete(String.format(PATH_ENVIRONMENT, deleteRequest.getEnvironmentId()));
         final Request request = createVersionedRequest(builder);
@@ -210,6 +212,7 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
     public ServiceCall<UpdateEnvironmentResponse> updateEnvironment(UpdateEnvironmentRequest updateRequest) {
         Validator.notEmpty(updateRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
         Validator.notEmpty(updateRequest.getName(), EnvironmentManager.NAME + " cannot be empty");
+        Validator.notNull(updateRequest, "Environment request cannot be null");
         RequestBuilder builder = RequestBuilder.put(String.format(PATH_ENVIRONMENT, updateRequest.getEnvironmentId()));
         builder.bodyJson(GsonSingleton.getGson().toJsonTree(updateRequest).getAsJsonObject());
         final Request request = createVersionedRequest(builder);
