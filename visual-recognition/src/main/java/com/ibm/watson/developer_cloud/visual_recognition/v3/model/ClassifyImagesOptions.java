@@ -25,32 +25,16 @@ import okhttp3.HttpUrl;
  */
 public class ClassifyImagesOptions {
 
-  private ClassifyImagesOptions(Builder builder) {
-    imagesFile = builder.imagesFile;
-    imagesBinary = builder.imagesBinary;
-    url = builder.url;
-    classifierIds = builder.classifierIds;
-    threshold = builder.threshold;
-    imageName = builder.imageName;
-  }
-
-  private File imagesFile;
-  private byte[] imagesBinary;
-  private HttpUrl url;
-  private List<String> classifierIds;
-  private Double threshold;
-  private String imageName = "placeholder.png";
-
   /**
    * Classify Images Request Builder.
    */
   public static class Builder {
-    private File imagesFile;
-    private HttpUrl url;
     private List<String> classifierIds;
-    private Double threshold;
-    private byte[] imagesBinary;
     private String imageName = "placeholder.png";
+    private byte[] imagesBinary;
+    private File imagesFile;
+    private Double threshold;
+    private HttpUrl url;
 
 
     private Builder(ClassifyImagesOptions options) {
@@ -63,53 +47,20 @@ public class ClassifyImagesOptions {
     }
 
     /**
-     * Sets the images.
-     *
-     * @param imagesFile the images file
-     * @return the builder
+     * Instantiates a new builder.
      */
-    public Builder images(File imagesFile) {
-      Validator.notNull(imagesFile, "'imagesFile' cannot be null");
-      this.imagesFile = imagesFile;
-      return this;
-    }
+    public Builder() { }
 
     /**
-     * Sets the images.
+     * Builds the profile options.
      *
-     * @param imagesBinary the images bytes
-     * @param imageName the image name
-     * @return the builder
+     * @return the profile options
      */
-    public Builder images(byte[] imagesBinary, String imageName) {
-      Validator.notNull(imagesBinary, "'imagesBinary' cannot be null");
-      this.imagesBinary = imagesBinary;
-      this.imageName = imageName;
-      return this;
-    }
-
-    /**
-     * Sets the image url.
-     *
-     * @param url the url
-     * @return the builder
-     */
-    public Builder url(HttpUrl url) {
-      Validator.notNull(url, "'url' cannot be null");
-      this.url = url;
-      return this;
-    }
-
-    /**
-     * Sets the image url.
-     *
-     * @param url the url
-     * @return the builder
-     */
-    public Builder url(String url) {
-      return url(HttpUrl.parse(url));
-    }
-
+    public ClassifyImagesOptions build() {
+      Validator.isTrue((url != null) || (imagesFile != null || imagesBinary != null),
+      "url or imagesFile or imagesBinary should be specified");
+      return new ClassifyImagesOptions(this);
+      }
 
     /**
      * Classifier ids.
@@ -137,6 +88,33 @@ public class ClassifyImagesOptions {
       return this;
     }
 
+
+    /**
+     * Sets the images.
+     *
+     * @param imagesBinary the images bytes
+     * @param imageName the image name
+     * @return the builder
+     */
+    public Builder images(byte[] imagesBinary, String imageName) {
+      Validator.notNull(imagesBinary, "'imagesBinary' cannot be null");
+      this.imagesBinary = imagesBinary;
+      this.imageName = imageName;
+      return this;
+    }
+
+    /**
+     * Sets the images.
+     *
+     * @param imagesFile the images file
+     * @return the builder
+     */
+    public Builder images(File imagesFile) {
+      Validator.notNull(imagesFile, "'imagesFile' cannot be null");
+      this.imagesFile = imagesFile;
+      return this;
+    }
+
     /**
      * Threshold.
      *
@@ -150,21 +128,61 @@ public class ClassifyImagesOptions {
     }
 
     /**
-     * Instantiates a new builder.
+     * Sets the image url.
+     *
+     * @param url the url
+     * @return the builder
      */
-    public Builder() { }
-
-  /**
-   * Builds the profile options.
-   *
-   * @return the profile options
-   */
-  public ClassifyImagesOptions build() {
-    Validator.isTrue((url != null) || (imagesFile != null || imagesBinary != null),
-    "url or imagesFile or imagesBinary should be specified");
-    return new ClassifyImagesOptions(this);
+    public Builder url(HttpUrl url) {
+      Validator.notNull(url, "'url' cannot be null");
+      this.url = url;
+      return this;
     }
 
+  /**
+   * Sets the image url.
+   *
+   * @param url the url
+   * @return the builder
+   */
+  public Builder url(String url) {
+    return url(HttpUrl.parse(url));
+  }
+
+  }
+
+  private List<String> classifierIds;
+  private String imageName = "placeholder.png";
+  private byte[] imagesBinary;
+  private File imagesFile;
+  private Double threshold;
+  private HttpUrl url;
+
+  private ClassifyImagesOptions(Builder builder) {
+    imagesFile = builder.imagesFile;
+    imagesBinary = builder.imagesBinary;
+    url = builder.url;
+    classifierIds = builder.classifierIds;
+    threshold = builder.threshold;
+    imageName = builder.imageName;
+  }
+
+  /**
+   * Returns the classifier ids.
+   *
+   * @return the classifier ids
+   */
+  public List<String> classifierIds() {
+    return classifierIds;
+  }
+
+  /**
+   * Image name.
+   *
+   * @return the string
+   */
+  public String imageName() {
+    return imageName;
   }
 
   /**
@@ -185,17 +203,13 @@ public class ClassifyImagesOptions {
     return imagesBinary;
   }
 
-  public String imageName() {
-    return imageName;
-  }
-
   /**
-   * Returns the {@link HttpUrl}.
+   * Creates a new Builder using the current values.
    *
-   * @return the image url
+   * @return the builder
    */
-  public HttpUrl url() {
-    return url;
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
@@ -207,22 +221,13 @@ public class ClassifyImagesOptions {
     return threshold;
   }
 
-  /**
-   * Returns the classifier ids.
-   *
-   * @return the classifier ids
-   */
-  public List<String> classifierIds() {
-    return classifierIds;
-  }
-
 
   /**
-   * Creates a new Builder using the current values.
+   * Returns the {@link HttpUrl}.
    *
-   * @return the builder
+   * @return the image url
    */
-  public Builder newBuilder() {
-    return new Builder(this);
+  public HttpUrl url() {
+    return url;
   }
 }

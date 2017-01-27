@@ -23,47 +23,20 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
  */
 public class ImageProcessed {
 
-  @SerializedName("source_url")
-  private String sourceUrl;
+  private ImageProcessingError error;
+  private String image;
   @SerializedName("resolved_url")
   private String resolvedUrl;
-  private String image;
-  private ImageProcessingError error;
+  @SerializedName("source_url")
+  private String sourceUrl;
 
   /**
-   * Gets the source url.
+   * Gets the error.
    *
-   * @return The sourceUrl
+   * @return The error
    */
-  public String getSourceUrl() {
-    return sourceUrl;
-  }
-
-  /**
-   * Sets the source url.
-   *
-   * @param sourceUrl The source_url
-   */
-  public void setSourceUrl(String sourceUrl) {
-    this.sourceUrl = sourceUrl;
-  }
-
-  /**
-   * Gets the resolved url.
-   *
-   * @return The resolvedUrl
-   */
-  public String getResolvedUrl() {
-    return resolvedUrl;
-  }
-
-  /**
-   * Sets the resolved url.
-   *
-   * @param resolvedUrl The resolved_url
-   */
-  public void setResolvedUrl(String resolvedUrl) {
-    this.resolvedUrl = resolvedUrl;
+  public ImageProcessingError getError() {
+    return error;
   }
 
   /**
@@ -76,21 +49,21 @@ public class ImageProcessed {
   }
 
   /**
-   * Sets the image.
+   * Gets the resolved url.
    *
-   * @param image The image
+   * @return The resolvedUrl
    */
-  public void setImage(String image) {
-    this.image = image;
+  public String getResolvedUrl() {
+    return resolvedUrl;
   }
 
   /**
-   * Gets the error.
+   * Gets the source url.
    *
-   * @return The error
+   * @return The sourceUrl
    */
-  public ImageProcessingError getError() {
-    return error;
+  public String getSourceUrl() {
+    return sourceUrl;
   }
 
   /**
@@ -100,6 +73,33 @@ public class ImageProcessed {
    */
   public void setError(ImageProcessingError error) {
     this.error = error;
+  }
+
+  /**
+   * Sets the image.
+   *
+   * @param image The image
+   */
+  public void setImage(String image) {
+    this.image = image;
+  }
+
+  /**
+   * Sets the resolved url.
+   *
+   * @param resolvedUrl The resolved_url
+   */
+  public void setResolvedUrl(String resolvedUrl) {
+    this.resolvedUrl = resolvedUrl;
+  }
+
+  /**
+   * Sets the source url.
+   *
+   * @param sourceUrl The source_url
+   */
+  public void setSourceUrl(String sourceUrl) {
+    this.sourceUrl = sourceUrl;
   }
 
 }
