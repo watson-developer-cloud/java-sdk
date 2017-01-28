@@ -567,7 +567,13 @@ public class VisualRecognition extends WatsonService {
   public ServiceCall<Collection> createCollection(String name) {
     Validator.isTrue((name != null) && !name.isEmpty(), "collectionId cannot be null or empty");
 
+    RequestBody body = new MultipartBody.Builder()
+        .setType(MultipartBody.FORM)
+        .addFormDataPart(PARAM_NAME, name)
+        .build();
+    
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_COLLECTIONS);
+    requestBuilder.body(body);
     requestBuilder.query(VERSION, versionDate);
     requestBuilder.query(PARAM_NAME, name);
 

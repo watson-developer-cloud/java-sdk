@@ -29,13 +29,10 @@ public class Collection extends GenericModel {
   public enum Status {
 
     /** The collection is available to add images. */
-    @SerializedName("ready") AVAILABLE,
+    @SerializedName("available") AVAILABLE,
 
     /** The collection training failed. */
     @SerializedName("failed") FAILED,
-
-    /** The collection does no exist. */
-    @SerializedName("Non Existent") NON_EXISTENT,
 
     /** The collection is being created or trained. */
     @SerializedName("unavailable") UNAVAILABLE

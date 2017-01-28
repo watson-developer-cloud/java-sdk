@@ -135,7 +135,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
         testInputStream.close();
       }
     } finally {
-      service.deleteRanker(ranker.getId());
+      service.deleteRanker(ranker.getId()).execute();
     }
 
   }
@@ -169,7 +169,7 @@ public class RetrieveAndRankIT extends WatsonServiceTest {
     try {
       assertTrue(service.getSolrClusters().execute().getSolrClusters().contains(expectedSolrCluster));
     } finally {
-      service.deleteSolrCluster(solrCluster.getId());
+      service.deleteSolrCluster(solrCluster.getId()).execute();
       assertFalse(service.getSolrClusters().execute().getSolrClusters().contains(expectedSolrCluster));
     }
   }
