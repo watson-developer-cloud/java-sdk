@@ -170,7 +170,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   public void testDeleteAllModels() {
     List<TranslationModel> models = service.getModels().execute();
     for (TranslationModel translationModel : models) {
-      service.deleteModel(translationModel.getId());
+      service.deleteModel(translationModel.getId()).execute();
     }
   }
 

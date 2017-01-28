@@ -69,7 +69,7 @@ public class FindSimilarImagesOptions {
      * @param imageFile the image file
      * @return the builder
      */
-    public Builder images(File imageFile) {
+    public Builder image(File imageFile) {
       Validator.notNull(imageFile, "'imageFile' cannot be null");
       this.imageFile = imageFile;
       return this;
