@@ -49,6 +49,7 @@ public class AudioFormat {
    * Linear 16-bit Pulse-Code Modulation (PCM) format (value is "audio/l16").
    *
    * @param rate The sampling rate, in Hz.
+   * @return AudioFormat  returns a new audio format with the given audio rate.g
    */
   public static AudioFormat getPCM(int rate) {
       return new AudioFormat(HttpMediaType.createAudioRaw(rate));
