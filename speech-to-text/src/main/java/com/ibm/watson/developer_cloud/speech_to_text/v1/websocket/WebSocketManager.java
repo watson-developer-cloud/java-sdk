@@ -149,7 +149,7 @@ public class WebSocketManager {
           audioThread = new Thread() {
             @Override
             public void run() {
-              sendInputSteam(stream);
+              sendInputStream(stream);
 
               // Do not send the stop message, if the socket has been closed already, for example
               // because of
@@ -199,11 +199,11 @@ public class WebSocketManager {
     public void onPong(Buffer buffer) { }
 
     /**
-     * Send input steam.
+     * Send input stream.
      *
      * @param inputStream the input stream
      */
-    private void sendInputSteam(InputStream inputStream) {
+    private void sendInputStream(InputStream inputStream) {
       byte[] buffer = new byte[FOUR_KB];
       int read;
       try {
