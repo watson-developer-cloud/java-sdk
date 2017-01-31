@@ -26,6 +26,8 @@ public class Resolution extends GenericModel {
   private ResolutionMap map;
 
   private List<Solution> solutions;
+  
+  private PreferableSolutions preferable_solutions;
 
   /**
    * Gets the map.
@@ -43,6 +45,15 @@ public class Resolution extends GenericModel {
    */
   public List<Solution> getSolutions() {
     return solutions;
+  }
+  
+  /**
+   * Gets the preferable solutions.
+   *
+   * @return The preferable solutions
+   */
+  public PreferableSolutions getPreferableSolutions() {
+    return preferable_solutions;
   }
 
   /**
@@ -63,4 +74,13 @@ public class Resolution extends GenericModel {
     this.solutions = solutions;
   }
 
+  /**
+   * Sets the preferable solutions.
+   *
+   * @param solutions The preferable solutions
+   */
+  public void setPreferableSolutions(PreferableSolutions solutions) {
+    this.preferable_solutions = solutions;
+  }
+  
 }
