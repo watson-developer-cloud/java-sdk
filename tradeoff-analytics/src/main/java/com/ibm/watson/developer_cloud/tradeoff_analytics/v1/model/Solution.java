@@ -104,6 +104,9 @@ public class Solution extends GenericModel {
 
   @SerializedName("status_cause")
   private StatusCause statusCause;
+  
+  @SerializedName("excluded_by")
+  private List<DominatingOption> excludedBy;
 
   /**
    * Gets the solution ids of those that shadow this solution.
@@ -152,6 +155,15 @@ public class Solution extends GenericModel {
   }
 
   /**
+   * Gets the the list of options excluding this option.
+   *
+   * @return the list of excluding options
+   */
+  public List<DominatingOption> getExcludedBy() {
+    return excludedBy;
+  }
+  
+  /**
    * Sets the shadow me.
    *
    * @param shadowMe The highlights
@@ -194,5 +206,14 @@ public class Solution extends GenericModel {
    */
   public void setStatusCause(StatusCause statusCause) {
     this.statusCause = statusCause;
+  }
+  
+  /**
+   * Sets the list of excluding options.
+   *
+   * @param excludingOptions the list of excluding options
+   */
+  public void setExcludedBy(List<DominatingOption> excludingOptions) {
+    this.excludedBy = excludingOptions;
   }
 }
