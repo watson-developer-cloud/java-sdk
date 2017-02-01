@@ -381,7 +381,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Negative Test for get collection 
    *
-   * @expected IllegalArgumentException signals an error occurred
    */
   @Test(expected = IllegalArgumentException.class)
   public void testGetCollectionNeg() {
@@ -447,7 +446,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Negative Test for delete collection 
    *
-   * @expected IllegalArgumentException signals an error occurred
    */
   @Test(expected = IllegalArgumentException.class)
   public void testDeleteCollectionNeg() {
@@ -482,7 +480,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Negative Test for create collection 
    *
-   * @expected IllegalArgumentException signals an error occurred
    */
   @Test(expected = IllegalArgumentException.class)
   public void testCreateCollectionNeg() {
@@ -520,7 +517,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Negative Test for get image
    *
-   * @expected IllegalArgumentException signals an error occurred
    */
   @Test(expected = IllegalArgumentException.class)
   public void testGetImageNeg() {
@@ -564,7 +560,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Negative Test for get images
    *
-   * @expected IllegalArgumentException signals an error occurred
    */
   @Test(expected = IllegalArgumentException.class)
   public void testGetImagesNeg() {
@@ -604,7 +599,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   /**
    * Negative Test for create image
    *
-   * @expected IllegalArgumentException signals an error occurred
    */
   @Test(expected = IllegalArgumentException.class)
   public void testCreateImageNeg1() {
