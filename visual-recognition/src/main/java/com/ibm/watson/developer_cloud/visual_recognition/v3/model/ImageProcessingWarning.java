@@ -20,28 +20,10 @@ import com.google.gson.annotations.SerializedName;
  */
 public class ImageProcessingWarning {
 
-  @SerializedName("warning_id")
-  private String warningId;
   @SerializedName("description")
   private String description;
-
-  /**
-   * Gets the warning id.
-   *
-   * @return the warning id
-   */
-  public String getWarningId() {
-    return warningId;
-  }
-
-  /**
-   * Sets the warning id.
-   *
-   * @param warningId the new warning id
-   */
-  public void setWarningId(String warningId) {
-    this.warningId = warningId;
-  }
+  @SerializedName("warning_id")
+  private String warningId;
 
   /**
    * Gets the description.
@@ -53,12 +35,30 @@ public class ImageProcessingWarning {
   }
 
   /**
+   * Gets the warning id.
+   *
+   * @return the warning id
+   */
+  public String getWarningId() {
+    return warningId;
+  }
+
+  /**
    * Sets the description.
    *
    * @param description the new description
    */
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  /**
+   * Sets the warning id.
+   *
+   * @param warningId the new warning id
+   */
+  public void setWarningId(String warningId) {
+    this.warningId = warningId;
   }
 
 }
