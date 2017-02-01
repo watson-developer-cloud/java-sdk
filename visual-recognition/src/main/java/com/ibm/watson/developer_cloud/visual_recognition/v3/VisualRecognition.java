@@ -24,11 +24,16 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.AddImageToCollectionOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Collection;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CollectionImage;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.FindSimilarImagesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
@@ -59,18 +64,35 @@ public class VisualRecognition extends WatsonService {
   private static final String PARAM_URL = "url";
   private static final String PARAM_CLASSIFIER_IDS = "classifier_ids";
   private static final String PARAM_THRESHOLD = "threshold";
+  private static final String PARAM_COLLECTIONS = "collections";
+  private static final String PARAM_IMAGE_FILE = "image_file";
+  private static final String PARAM_IMAGES = "images";
+  private static final String PARAM_SIMILAR_IMAGES = "similar_images";
+  private static final String PARAM_LIMIT = "limit";
+  private static final String PARAM_METADATA = "metadata";
+
   private static final String PATH_CLASSIFIER = "/v3/classifiers/%s";
   private static final String PATH_CLASSIFIERS = "/v3/classifiers";
   private static final String PATH_CLASSIFY = "/v3/classify";
   private static final String PATH_DETECT_FACES = "/v3/detect_faces";
   private static final String PATH_RECOGNIZE_TEXT = "/v3/recognize_text";
-  private static final String SERVICE_NAME = "watson_vision_combined";
+  private static final String PATH_COLLECTION = "/v3/collections/%s";
+  private static final String PATH_COLLECTIONS = "/v3/collections";
+  private static final String PATH_COLLECTION_IMAGES = "/v3/collections/%s/images";
+  private static final String PATH_COLLECTION_IMAGE = "/v3/collections/%s/images/%s";
+  private static final String PATH_FIND_SIMILAR_IMAGES = "/v3/collections/%s/find_similar";
+
+  private static final Type TYPE_LIST_IMAGES = new TypeToken<List<CollectionImage>>() { }.getType();
+  private static final Type TYPE_LIST_COLLECTIONS = new TypeToken<List<Collection>>() { }.getType();
   private static final Type TYPE_LIST_CLASSIFIERS = new TypeToken<List<VisualClassifier>>() { }.getType();
+
+  private static final String SERVICE_NAME = "watson_vision_combined";
   private static final String URL = "https://gateway-a.watsonplatform.net/visual-recognition/api";
   private static final String VERBOSE = "verbose";
 
   /** Version date. */
   public static final String VERSION_DATE_2016_05_20 = "2016-05-20";
+
 
   private String versionDate;
 
@@ -390,5 +412,171 @@ public class VisualRecognition extends WatsonService {
   @Deprecated
   public void setUsernameAndPassword(String username, String password) {
     throw new IllegalArgumentException("This service requires an api_key. Use the setApiKey() method instead");
+  }
+
+  /**
+   * Gets the collections.
+   *
+   * @return the collections
+   */
+  public ServiceCall<List<Collection>> getCollections() {
+    RequestBuilder requestBuilder = RequestBuilder.get(PATH_COLLECTIONS).query(VERSION, versionDate);
+    ResponseConverter<List<Collection>> converter =
+        ResponseConverterUtils.getGenericObject(TYPE_LIST_COLLECTIONS, PARAM_COLLECTIONS);
+    return createServiceCall(requestBuilder.build(), converter);
+  }
+
+  /**
+   * Gets the collection information.
+   *
+   * @param collectionId the collection id
+   * @return the collection
+   */
+  public ServiceCall<Collection> getCollection(String collectionId) {
+    Validator.isTrue((collectionId != null) && !collectionId.isEmpty(), "collectionId cannot be null or empty");
+
+    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_COLLECTION, collectionId));
+    requestBuilder.query(VERSION, versionDate);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
+
+  /**
+   * Deletes a collection.
+   *
+   * @param collectionId the collection id
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteCollection(String collectionId) {
+    Validator.isTrue((collectionId != null) && !collectionId.isEmpty(), "collectionId cannot be null or empty");
+
+    RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_COLLECTION, collectionId));
+    requestBuilder.query(VERSION, versionDate);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Deletes a collection.
+   *
+   * @param collectionId the collection id
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteCollectionImage(String collectionId, String imageId) {
+    Validator.isTrue((collectionId != null) && !collectionId.isEmpty(), "collectionId cannot be null or empty");
+    Validator.isTrue((imageId != null) && !imageId.isEmpty(), "imageId cannot be null or empty");
+
+    RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_COLLECTION_IMAGE, collectionId, imageId));
+    requestBuilder.query(VERSION, versionDate);
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Adds the image to collection.
+   *
+   * @param options the options
+   * @return the service call
+   */
+  public ServiceCall<Void> addImageToCollection(AddImageToCollectionOptions options) {
+    Validator.notNull(options, " options cannot be null");
+
+    Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+    RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.image());
+    bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.image().getName(), requestBody);
+
+    if (options.metadata() != null && !options.metadata().isEmpty()) {
+      String metadata = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(options.metadata());
+      bodyBuilder.addFormDataPart(PARAM_METADATA, metadata);
+    }
+
+    RequestBuilder requestBuilder = RequestBuilder.post(String.format(PATH_COLLECTION_IMAGES, options.collectionId()));
+    requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Gets the collection images.
+   *
+   * @param collectionId the collection id
+   * @return the collection images
+   */
+  public ServiceCall<List<CollectionImage>> getCollectionImages(String collectionId) {
+    Validator.isTrue((collectionId != null) && !collectionId.isEmpty(), "collectionId cannot be null or empty");
+
+    RequestBuilder requestBuilder = RequestBuilder
+        .get(String.format(PATH_COLLECTION_IMAGES, collectionId))
+        .query(VERSION, versionDate);
+
+    ResponseConverter<List<CollectionImage>> converter =
+        ResponseConverterUtils.getGenericObject(TYPE_LIST_IMAGES, PARAM_IMAGES);
+    return createServiceCall(requestBuilder.build(), converter);
+  }
+
+  /**
+   * Gets the collection image.
+   *
+   * @param collectionId the collection id
+   * @param imageId the imageId
+   * @return the collection image
+   */
+  public ServiceCall<CollectionImage> getCollectionImage(String collectionId, String imageId) {
+    Validator.isTrue((collectionId != null) && !collectionId.isEmpty(), "collectionId cannot be null or empty");
+    Validator.isTrue((imageId != null) && !imageId.isEmpty(), "imageId cannot be null or empty");
+
+    RequestBuilder requestBuilder = RequestBuilder
+        .get(String.format(PATH_COLLECTION_IMAGE, collectionId, imageId))
+        .query(VERSION, versionDate);
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(CollectionImage.class));
+  }
+
+  /**
+   * Find similar images.
+   *
+   * @param options the options
+   * @return the service call
+   */
+  public ServiceCall<List<CollectionImage>> findSimilarImages(FindSimilarImagesOptions options) {
+    Validator.notNull(options, "'options' cannot be null");
+
+    Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
+
+    RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.image());
+    bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.image().getName(), requestBody);
+
+    RequestBuilder requestBuilder =
+        RequestBuilder.post(String.format(PATH_FIND_SIMILAR_IMAGES, options.collectionId()));
+    requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
+
+    if (options.limit() != null) {
+      requestBuilder.query(PARAM_LIMIT, options.limit());
+    }
+
+    ResponseConverter<List<CollectionImage>> converter =
+        ResponseConverterUtils.getGenericObject(TYPE_LIST_IMAGES, PARAM_SIMILAR_IMAGES);
+
+    return createServiceCall(requestBuilder.build(), converter);
+  }
+
+  /**
+   * Creates a collection.
+   *
+   * @param name the collection name
+   * @return the service call
+   */
+  public ServiceCall<Collection> createCollection(String name) {
+    Validator.isTrue((name != null) && !name.isEmpty(), "collectionId cannot be null or empty");
+
+    RequestBody body = new MultipartBody.Builder()
+        .setType(MultipartBody.FORM)
+        .addFormDataPart(PARAM_NAME, name)
+        .build();
+    
+    RequestBuilder requestBuilder = RequestBuilder.post(PATH_COLLECTIONS);
+    requestBuilder.body(body);
+    requestBuilder.query(VERSION, versionDate);
+    requestBuilder.query(PARAM_NAME, name);
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Collection.class));
   }
 }

@@ -443,7 +443,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       assertNotNull(words);
 
     } finally {
-      service.deleteCustomization(id);
+      service.deleteCustomization(id).execute();
     }
   }
 }

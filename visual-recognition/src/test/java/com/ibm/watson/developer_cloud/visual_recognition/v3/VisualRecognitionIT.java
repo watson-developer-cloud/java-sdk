@@ -24,15 +24,20 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.AddImageToCollectionOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions.Builder;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Collection;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CollectionImage;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.FindSimilarImagesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
@@ -202,7 +207,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       VisualClassification classification = service.classify(options).execute();
       assertNotNull(classification);
     } finally {
-      service.deleteClassifier(newClass.getId());
+      service.deleteClassifier(newClass.getId()).execute();
     }
   }
 
@@ -274,5 +279,62 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     RecognizedText recognizedText = service.recognizeText(options).execute();
     assertRecognizedText(recognizedText, options);
   }
+
+
+  /**
+   * Test get collections text from url.
+   */
+  @Test
+  public void testGetCollections() {
+    Assert.assertNotNull(service.getCollections().execute());
+    Assert.assertTrue(!service.getCollections().execute().isEmpty());
+  }
+
+  /**
+   * Test that creates, add images and delete a collection.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testCollections() throws InterruptedException {
+    Collection collection = service.createCollection("it-java-sdk").execute();
+    try {
+      for (int x = 0; (x < 30) && (collection.getStatus() != Collection.Status.AVAILABLE); x++) {
+        Thread.sleep(5000);
+        collection = service.getCollection(collection.getId()).execute();
+      }
+      Assert.assertEquals(collection.getStatus(), Collection.Status.AVAILABLE);
+
+      AddImageToCollectionOptions options = new AddImageToCollectionOptions.Builder()
+          .collectionId(collection.getId())
+          .images(new File(SINGLE_IMAGE_FILE))
+          .metadata("key1", "value1")
+          .build();
+
+      Assert.assertEquals((int) collection.getImages(), 0);
+      service.addImageToCollection(options).execute();
+      collection = service.getCollection(collection.getId()).execute();
+      Assert.assertEquals((int) collection.getImages(), 1);
+      List<CollectionImage> images = service.getCollectionImages(collection.getId()).execute();
+      Assert.assertNotNull(images);
+      CollectionImage image = service.getCollectionImage(collection.getId(), images.get(0).getImageId()).execute();
+      Assert.assertNotNull(image);
+
+      File fileImage = new File(SINGLE_IMAGE_FILE);
+      FindSimilarImagesOptions findImageOptions = new FindSimilarImagesOptions.Builder()
+          .collectionId(collection.getId())
+          .image(fileImage )
+          .build();
+
+      List<CollectionImage> similarImages = service.findSimilarImages(findImageOptions).execute();
+      Assert.assertNotNull(similarImages);
+      Assert.assertTrue(!similarImages.isEmpty());
+
+
+    } finally {
+      service.deleteCollection(collection.getId()).execute();
+    }
+  }
+
 
 }

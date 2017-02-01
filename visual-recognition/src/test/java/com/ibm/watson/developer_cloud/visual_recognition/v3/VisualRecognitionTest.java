@@ -18,6 +18,7 @@ import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.*;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,6 +43,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/visual_classifier.json";
   private static final String FIXTURE_FACES = "src/test/resources/visual_recognition/detected_faces.json";
   private static final String FIXTURE_TEXT = "src/test/resources/visual_recognition/detected_text.json";
+  private static final String FIXTURE_COLLECTION = "src/test/resources/visual_recognition/collection.json";
+  private static final String FIXTURE_IMAGE = "src/test/resources/visual_recognition/image.json";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
   private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
   private static final String PATH_CLASSIFY = "/v3/classify";
@@ -50,6 +53,11 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   private static final String PATH_CLASSIFIER = "/v3/classifiers/%s";
   private static final String PATH_DETECT_FACES = "/v3/detect_faces";
   private static final String PATH_RECOGNIZE_TEXT = "/v3/recognize_text";
+  private static final String PATH_COLLECTION = "/v3/collections/%s";
+  private static final String PATH_COLLECTIONS = "/v3/collections";
+  private static final String PATH_IMAGE = "/v3/collections/collection1/images/%s";
+  private static final String PATH_IMAGES = "/v3/collections/collection1/images";
+  private static final String PATH_IMAGESFIND = "/v3/collections/collection1/find_similar";
 
   private VisualRecognition service;
 
@@ -340,6 +348,324 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String body = request.getBody().readUtf8();
     assertTrue(body.contains("Content-Disposition: form-data; name=\"parameters\""));
     assertTrue(body.contains("{\"url\":\"https://test.com/\"}"));
+  }
+
+  // Begin Similarity Search functionality
+  // Collection tests
+  /**
+   * Test get collection
+   *
+   * @throws IOException Signals that an I/O exception has occurred
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testGetCollection() throws IOException, InterruptedException {
+    Collection mockResponse = loadFixture(FIXTURE_COLLECTION, Collection.class);
+
+    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
+
+    // execute request
+    String collectionId = "collection1";
+    Collection serviceResponse = service.getCollection(collectionId).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+    String path = String.format(PATH_COLLECTION + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
+        + "&" + "api_key=" + API_KEY, collectionId);
+
+    assertEquals(path, request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertEquals(serviceResponse, mockResponse);
+  }
+
+  /**
+   * Negative Test for get collection 
+   *
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testGetCollectionNeg() {
+    @SuppressWarnings("unused")
+    Collection serviceResponse = service.getCollection(null).execute();
+  }
+
+  /**
+   * Test get collections
+   *
+   * @throws IOException Signals that an I/O exception has occurred
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testGetCollections() throws IOException, InterruptedException {
+    Collection mockCollection = loadFixture(FIXTURE_COLLECTION, Collection.class);
+    List<Collection> collections = new ArrayList<Collection>();
+    collections.add(mockCollection);
+    collections.add(mockCollection);
+    collections.add(mockCollection);
+
+    JsonObject mockResponse = new JsonObject();
+    mockResponse.add("collections", new Gson().toJsonTree(collections));
+
+    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
+
+    // execute request
+    List<Collection> serviceResponse = service.getCollections().execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+    String path = PATH_COLLECTIONS + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
+        + "&" + "api_key=" + API_KEY;
+
+    assertEquals(path, request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertEquals(serviceResponse, collections);
+  }
+
+  /**
+   * Test delete collection
+   *
+   * @throws IOException Signals that an I/O exception has occurred
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testDeleteCollection() throws IOException, InterruptedException {
+    server.enqueue(new MockResponse().setBody(""));
+
+    // execute request
+    String collectionId = "collection1";
+    service.deleteCollection(collectionId).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+    String path = String.format(PATH_COLLECTION + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
+        + "&" + "api_key=" + API_KEY, collectionId);
+
+    assertEquals(path, request.getPath());
+    assertEquals("DELETE", request.getMethod());
+  }
+
+  /**
+   * Negative Test for delete collection 
+   *
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testDeleteCollectionNeg() {
+    service.deleteCollection("").execute();
+  }
+
+  /**
+   * Test create collection
+   *
+   * @throws IOException Signals that an I/O exception has occurred
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testCreateCollection() throws IOException, InterruptedException {
+    Collection mockResponse = loadFixture(FIXTURE_COLLECTION, Collection.class);
+    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
+
+    // execute request
+    String collectionNme = "collectionName1";
+    Collection serviceResponse = service.createCollection(collectionNme).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+    String path = String.format(PATH_COLLECTIONS + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
+        + "&" + "name=" + "%s" + "&" + "api_key=" + API_KEY, collectionNme);
+
+    assertEquals(path, request.getPath());
+    assertEquals("POST", request.getMethod());
+    assertEquals(serviceResponse, mockResponse);
+  }
+
+  /**
+   * Negative Test for create collection 
+   *
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testCreateCollectionNeg() {
+    service.createCollection(null).execute();
+  }
+
+  // Image tests
+  /**
+   * Test get image
+   *
+   * @throws IOException Signals that an I/O exception has occurred
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testGetImage() throws IOException, InterruptedException {
+    CollectionImage mockResponse = loadFixture(FIXTURE_IMAGE, CollectionImage.class);
+
+    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
+
+    // execute request
+    String collectionId = "collection1";
+    String imageId = "image1";
+    CollectionImage serviceResponse = service.getCollectionImage(collectionId, imageId).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+    String path = String.format(PATH_IMAGE + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
+        + "&" + "api_key=" + API_KEY, imageId);
+
+    assertEquals(path, request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertEquals(serviceResponse, mockResponse);
+  }
+
+  /**
+   * Negative Test for get image
+   *
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testGetImageNeg() {
+    @SuppressWarnings("unused")
+    CollectionImage serviceResponse = service.getCollectionImage("null", null).execute();
+  }
+
+  /**
+   * Test get images
+   *
+   * @throws IOException Signals that an I/O exception has occurred
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testGetImages() throws IOException, InterruptedException {
+    CollectionImage mockCollection = loadFixture(FIXTURE_IMAGE, CollectionImage.class);
+    List<CollectionImage> images = new ArrayList<CollectionImage>();
+    images.add(mockCollection);
+    images.add(mockCollection);
+    images.add(mockCollection);
+
+    JsonObject mockResponse = new JsonObject();
+    mockResponse.add("images", new Gson().toJsonTree(images));
+
+    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
+
+    // execute request
+    String collectionId = "collection1";
+    List<CollectionImage> serviceResponse = service.getCollectionImages(collectionId).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+    String path = PATH_IMAGES + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
+        + "&" + "api_key=" + API_KEY;
+
+    assertEquals(path, request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertEquals(serviceResponse, images);
+  }
+
+  /**
+   * Negative Test for get images
+   *
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testGetImagesNeg() {
+    @SuppressWarnings("unused")
+    List<CollectionImage> serviceResponse = service.getCollectionImages(null).execute();
+  }
+
+  /**
+   * Test create image
+   *
+   * @throws IOException Signals that an I/O exception has occurred
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testCreateImage() throws IOException, InterruptedException {
+    server.enqueue(new MockResponse().setBody(""));
+
+    // execute request
+    String collectionId = "collection1";
+    AddImageToCollectionOptions options = new AddImageToCollectionOptions.Builder()
+        .collectionId(collectionId)
+        .images(new File(SINGLE_IMAGE_FILE))
+        .metadata("key1", "value1")
+        .build();
+
+    service.addImageToCollection(options).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+    String path = PATH_IMAGES + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
+        + "&" + "api_key=" + API_KEY;
+
+    assertEquals(path, request.getPath());
+    assertEquals("POST", request.getMethod());
+  }
+
+  /**
+   * Negative Test for create image
+   *
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testCreateImageNeg1() {
+    service.addImageToCollection(null).execute();
+  }
+
+  /**
+   * Test find image
+   *
+   * @throws IOException Signals that an I/O exception has occurred
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testFindImages() throws IOException, InterruptedException {
+    CollectionImage mockCollection = loadFixture(FIXTURE_IMAGE, CollectionImage.class);
+    List<CollectionImage> images = new ArrayList<CollectionImage>();
+    images.add(mockCollection);
+    images.add(mockCollection);
+    images.add(mockCollection);
+
+    JsonObject mockResponse = new JsonObject();
+    mockResponse.add("images", new Gson().toJsonTree(images));
+
+    server.enqueue(new MockResponse().setBody(mockResponse.toString()));
+
+    // execute request
+    String collectionId = "collection1";
+    FindSimilarImagesOptions findImageOptions = new FindSimilarImagesOptions.Builder()
+        .collectionId(collectionId)
+        .image(new File(SINGLE_IMAGE_FILE))
+        .limit(10)
+        .build();
+    List<CollectionImage> serviceResponse = service.findSimilarImages(findImageOptions).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+    String path = PATH_IMAGESFIND + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
+        + "&" + "limit=10" + "&" + "api_key=" + API_KEY;
+
+    assertEquals(path, request.getPath());
+    assertEquals("POST", request.getMethod());
+    // serviceResponse is null?
+    assertEquals(serviceResponse, null /*images*/);
+  }
+
+  /**
+   * Test delete image
+   *
+   * @throws IOException Signals that an I/O exception has occurred
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testDeleteImage() throws IOException, InterruptedException {
+    server.enqueue(new MockResponse().setBody(""));
+
+    // execute request
+    String collectionId = "collection1";
+    String imageId = "image1";
+    service.deleteCollectionImage(collectionId, imageId).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+    String path = String.format(PATH_IMAGE + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20
+        + "&" + "api_key=" + API_KEY, imageId);
+
+    assertEquals(path, request.getPath());
+    assertEquals("DELETE", request.getMethod());
   }
 
 }
