@@ -571,7 +571,7 @@ public class VisualRecognition extends WatsonService {
         .setType(MultipartBody.FORM)
         .addFormDataPart(PARAM_NAME, name)
         .build();
-    
+
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_COLLECTIONS);
     requestBuilder.body(body);
     requestBuilder.query(VERSION, versionDate);

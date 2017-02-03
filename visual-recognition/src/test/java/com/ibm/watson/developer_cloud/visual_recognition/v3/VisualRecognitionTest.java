@@ -15,7 +15,18 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.*;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.AddImageToCollectionOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Collection;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CollectionImage;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.FindSimilarImagesOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognitionOptions;
+
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -118,7 +129,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     byte[] fileBytes = Files.readAllBytes(Paths.get(images.getPath()));
 
-    ClassifyImagesOptions options = new ClassifyImagesOptions.Builder().images(fileBytes,"car.png").classifierIds("car").build();
+    ClassifyImagesOptions options =
+        new ClassifyImagesOptions.Builder().images(fileBytes, "car.png").classifierIds("car").build();
     VisualClassification serviceResponse = service.classify(options).execute();
 
     // first request
@@ -353,9 +365,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   // Begin Similarity Search functionality
   // Collection tests
   /**
-   * Test get collection
+   * Test get collection.
    *
-   * @throws IOException Signals that an I/O exception has occurred
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -379,7 +391,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Negative Test for get collection 
+   * Negative Test for get collection.
    *
    */
   @Test(expected = IllegalArgumentException.class)
@@ -389,9 +401,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test get collections
+   * Test get collections.
    *
-   * @throws IOException Signals that an I/O exception has occurred
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -421,9 +433,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test delete collection
+   * Test delete collection.
    *
-   * @throws IOException Signals that an I/O exception has occurred
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -444,7 +456,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Negative Test for delete collection 
+   * Negative Test for delete collection.
    *
    */
   @Test(expected = IllegalArgumentException.class)
@@ -453,9 +465,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test create collection
+   * Test create collection.
    *
-   * @throws IOException Signals that an I/O exception has occurred
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -478,7 +490,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Negative Test for create collection 
+   * Negative Test for create collection.
    *
    */
   @Test(expected = IllegalArgumentException.class)
@@ -488,9 +500,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   // Image tests
   /**
-   * Test get image
+   * Test get image.
    *
-   * @throws IOException Signals that an I/O exception has occurred
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -515,7 +527,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Negative Test for get image
+   * Negative Test for get image.
    *
    */
   @Test(expected = IllegalArgumentException.class)
@@ -525,9 +537,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test get images
+   * Test get images.
    *
-   * @throws IOException Signals that an I/O exception has occurred
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test
@@ -558,7 +570,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Negative Test for get images
+   * Negative Test for get images.
    *
    */
   @Test(expected = IllegalArgumentException.class)
@@ -568,7 +580,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test create image
+   * Test create image.
    *
    * @throws IOException Signals that an I/O exception has occurred
    * @throws InterruptedException the interrupted exception
@@ -597,7 +609,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Negative Test for create image
+   * Negative Test for create image.
    *
    */
   @Test(expected = IllegalArgumentException.class)
@@ -606,7 +618,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test find image
+   * Test find image.
    *
    * @throws IOException Signals that an I/O exception has occurred
    * @throws InterruptedException the interrupted exception
@@ -645,9 +657,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test delete image
+   * Test delete image.
    *
-   * @throws IOException Signals that an I/O exception has occurred
+   * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
    */
   @Test

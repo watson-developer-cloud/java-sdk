@@ -11,6 +11,7 @@ apply plugin: 'java'
 apply plugin: 'ru.vyarus.animalsniffer'
 apply plugin: 'maven'
 apply plugin: 'checkstyle'
+apply plugin: 'eclipse'
 
 version = '3.5.4-SNAPSHOT'
 group = 'com.ibm.watson.developercloud'
