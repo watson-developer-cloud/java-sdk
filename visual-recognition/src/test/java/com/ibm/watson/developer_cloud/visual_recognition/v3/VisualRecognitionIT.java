@@ -323,7 +323,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       File fileImage = new File(SINGLE_IMAGE_FILE);
       FindSimilarImagesOptions findImageOptions = new FindSimilarImagesOptions.Builder()
           .collectionId(collection.getId())
-          .image(fileImage )
+          .image(fileImage)
           .build();
 
       List<CollectionImage> similarImages = service.findSimilarImages(findImageOptions).execute();
