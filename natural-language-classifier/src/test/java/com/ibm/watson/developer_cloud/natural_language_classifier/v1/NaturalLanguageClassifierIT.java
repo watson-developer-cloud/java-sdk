@@ -74,7 +74,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    * @throws Exception the exception
    */
   @Test
-  public void Acreate() throws Exception {
+  public void aCreate() throws Exception {
     final File trainingData = new File("src/test/resources/natural_language_classifier/weather_data_train.csv");
     final String classifierName = "devexp-available";
 
@@ -94,7 +94,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    * Test get classifier.
    */
   @Test
-  public void BgetClassifier() {
+  public void bGetClassifier() {
     final Classifier classifier;
 
     try {
@@ -113,7 +113,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    * Test get classifiers.
    */
   @Test
-  public void CgetClassifiers() {
+  public void cGetClassifiers() {
     final Classifiers classifiers = service.getClassifiers().execute();
     assertNotNull(classifiers);
 
@@ -126,7 +126,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    * Test classify. Use the pre created classifier to avoid waiting for availability
    */
   @Test
-  public void Dclassify() {
+  public void dClassify() {
     Classification classification = null;
 
     try {
@@ -145,7 +145,7 @@ public class NaturalLanguageClassifierIT extends WatsonServiceTest {
    * Test delete classifier. Do not delete the pre created classifier. We need it for classify
    */
   @Test
-  public void Edelete() {
+  public void eDelete() {
     List<Classifier> classifiers = service.getClassifiers().execute().getClassifiers();
 
     for (Classifier classifier : classifiers) {
