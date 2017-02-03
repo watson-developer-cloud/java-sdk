@@ -13,8 +13,6 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1;
 
-import static org.junit.Assert.*;
-
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -73,6 +71,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -81,7 +81,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Unit tests for {@link Discovery}
+ * Unit tests for {@link Discovery}.
  *
  */
 public class DiscoveryServiceTest extends WatsonServiceUnitTest {
@@ -95,11 +95,18 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private static final String CONF2_PATH = "/v1/environments/mock_envid/configurations/mock_confid?version=2016-12-16";
   private static final String COLL1_PATH = "/v1/environments/mock_envid/collections?version=2016-12-16";
   private static final String COLL2_PATH = "/v1/environments/mock_envid/collections/mock_collid?version=2016-12-16";
-  private static final String COLL3_PATH = "/v1/environments/mock_envid/collections/mock_collid/fields?version=2016-12-16";
-  private static final String DOCS1_PATH = "/v1/environments/mock_envid/collections/mock_collid/documents?version=2016-12-16";
-  private static final String DOCS2_PATH = "/v1/environments/mock_envid/collections/mock_collid/documents/mock_docid?version=2016-12-16";
-  private static final String Q1_PATH = "/v1/environments/mock_envid/collections/mock_collid/query?filter=field:1&query=field:1&count=5&offset=5&return=field&version=2016-12-16";
-  private static final String Q2_PATH = "/v1/environments/mock_envid/collections/mock_collid/query?aggregation=term(field)&count=10&offset=0&version=2016-12-16";
+  private static final String COLL3_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/fields?version=2016-12-16";
+  private static final String DOCS1_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/documents?version=2016-12-16";
+  private static final String DOCS2_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/documents/mock_docid?version=2016-12-16";
+  private static final String Q1_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/query?filter=field:1&query=field:1"
+          + "&count=5&offset=5&return=field&version=2016-12-16";
+  private static final String Q2_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/query?aggregation=term(field)"
+          + "&count=10&offset=0&version=2016-12-16";
 
   private String environmentId;
   private String environmentName;
@@ -110,26 +117,26 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private String collectionId;
   private String documentId;
 
-  private GetEnvironmentResponse env_resp;
-  private GetEnvironmentsResponse envs_resp;
-  private CreateEnvironmentResponse create_env_resp;
-  private DeleteEnvironmentResponse delete_env_resp;
-  private UpdateEnvironmentResponse update_env_resp;
-  private CreateConfigurationResponse create_conf_resp;
-  private GetConfigurationsResponse get_confs_resp;
-  private GetConfigurationResponse get_conf_resp;
-  private DeleteConfigurationResponse delete_conf_resp;
-  private UpdateConfigurationResponse update_conf_resp;
-  private CreateCollectionResponse create_coll_resp;
-  private GetCollectionsResponse get_colls_resp;
-  private GetCollectionResponse get_coll_resp;
-  private DeleteCollectionResponse delete_coll_resp;
-  private GetCollectionFieldsResponse listfields_coll_resp;
-  private CreateDocumentResponse create_doc_resp;
-  private UpdateDocumentResponse update_doc_resp;
-  private GetDocumentResponse get_doc_resp;
-  private DeleteDocumentResponse delete_doc_resp;
-  private QueryResponse query_resp;
+  private GetEnvironmentResponse envResp;
+  private GetEnvironmentsResponse envsResp;
+  private CreateEnvironmentResponse createEnvResp;
+  private DeleteEnvironmentResponse deleteEnvResp;
+  private UpdateEnvironmentResponse updateEnvResp;
+  private CreateConfigurationResponse createConfResp;
+  private GetConfigurationsResponse getConfsResp;
+  private GetConfigurationResponse getConfResp;
+  private DeleteConfigurationResponse deleteConfResp;
+  private UpdateConfigurationResponse updateConfResp;
+  private CreateCollectionResponse createCollResp;
+  private GetCollectionsResponse getCollsResp;
+  private GetCollectionResponse getCollResp;
+  private DeleteCollectionResponse deleteCollResp;
+  private GetCollectionFieldsResponse listfieldsCollResp;
+  private CreateDocumentResponse createDocResp;
+  private UpdateDocumentResponse updateDocResp;
+  private GetDocumentResponse getDocResp;
+  private DeleteDocumentResponse deleteDocResp;
+  private QueryResponse queryResp;
 
   @BeforeClass
   public static void setupClass() {
@@ -138,7 +145,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    discoveryService = new Discovery("2016-12-16");  
+    discoveryService = new Discovery("2016-12-16");
     discoveryService.setApiKey("");
     discoveryService.setEndPoint(getMockWebServerUrl());
 
@@ -151,29 +158,29 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     collectionId = "mock_collid";
     documentId = "mock_docid";
 
-    env_resp = loadFixture(RESOURCE + "get_env_resp.json", GetEnvironmentResponse.class);
-    envs_resp = loadFixture(RESOURCE + "get_envs_resp.json", GetEnvironmentsResponse.class);
-    create_env_resp = loadFixture(RESOURCE + "create_env_resp.json", CreateEnvironmentResponse.class);
-    delete_env_resp = loadFixture(RESOURCE + "delete_env_resp.json", DeleteEnvironmentResponse.class);
-    update_env_resp = loadFixture(RESOURCE + "update_env_resp.json", UpdateEnvironmentResponse.class);
+    envResp = loadFixture(RESOURCE + "get_env_resp.json", GetEnvironmentResponse.class);
+    envsResp = loadFixture(RESOURCE + "get_envs_resp.json", GetEnvironmentsResponse.class);
+    createEnvResp = loadFixture(RESOURCE + "create_env_resp.json", CreateEnvironmentResponse.class);
+    deleteEnvResp = loadFixture(RESOURCE + "delete_env_resp.json", DeleteEnvironmentResponse.class);
+    updateEnvResp = loadFixture(RESOURCE + "update_env_resp.json", UpdateEnvironmentResponse.class);
     // issue with the create_conf json which was copied from the API documentation.  Use create_env for now  bug #528
-    create_conf_resp = loadFixture(RESOURCE + "create_env_resp.json", CreateConfigurationResponse.class);
-    get_confs_resp = loadFixture(RESOURCE + "get_confs_resp.json", GetConfigurationsResponse.class);
+    createConfResp = loadFixture(RESOURCE + "create_env_resp.json", CreateConfigurationResponse.class);
+    getConfsResp = loadFixture(RESOURCE + "get_confs_resp.json", GetConfigurationsResponse.class);
     // #528 - should be get_conf_resp
-    get_conf_resp = loadFixture(RESOURCE + "get_confs_resp.json", GetConfigurationResponse.class);
-    delete_conf_resp = loadFixture(RESOURCE + "delete_conf_resp.json", DeleteConfigurationResponse.class);
+    getConfResp = loadFixture(RESOURCE + "get_confs_resp.json", GetConfigurationResponse.class);
+    deleteConfResp = loadFixture(RESOURCE + "delete_conf_resp.json", DeleteConfigurationResponse.class);
     // #528 - should be update_conf_resp
-    update_conf_resp = loadFixture(RESOURCE + "delete_conf_resp.json", UpdateConfigurationResponse.class);
-    create_coll_resp = loadFixture(RESOURCE + "create_coll_resp.json", CreateCollectionResponse.class);
-    get_colls_resp = loadFixture(RESOURCE + "get_coll_resp.json", GetCollectionsResponse.class);
-    get_coll_resp = loadFixture(RESOURCE + "get_coll1_resp.json", GetCollectionResponse.class);
-    delete_coll_resp = loadFixture(RESOURCE + "delete_coll_resp.json", DeleteCollectionResponse.class);
-    listfields_coll_resp = loadFixture(RESOURCE + "listfields_coll_resp.json", GetCollectionFieldsResponse.class);
-    create_doc_resp = loadFixture(RESOURCE + "create_doc_resp.json", CreateDocumentResponse.class);
-    update_doc_resp = loadFixture(RESOURCE + "update_doc_resp.json", UpdateDocumentResponse.class);
-    get_doc_resp = loadFixture(RESOURCE + "get_doc_resp.json", GetDocumentResponse.class);
-    delete_doc_resp = loadFixture(RESOURCE + "delete_doc_resp.json", DeleteDocumentResponse.class);
-    query_resp = loadFixture(RESOURCE + "query1_resp.json", QueryResponse.class);
+    updateConfResp = loadFixture(RESOURCE + "delete_conf_resp.json", UpdateConfigurationResponse.class);
+    createCollResp = loadFixture(RESOURCE + "create_coll_resp.json", CreateCollectionResponse.class);
+    getCollsResp = loadFixture(RESOURCE + "get_coll_resp.json", GetCollectionsResponse.class);
+    getCollResp = loadFixture(RESOURCE + "get_coll1_resp.json", GetCollectionResponse.class);
+    deleteCollResp = loadFixture(RESOURCE + "delete_coll_resp.json", DeleteCollectionResponse.class);
+    listfieldsCollResp = loadFixture(RESOURCE + "listfields_coll_resp.json", GetCollectionFieldsResponse.class);
+    createDocResp = loadFixture(RESOURCE + "create_doc_resp.json", CreateDocumentResponse.class);
+    updateDocResp = loadFixture(RESOURCE + "update_doc_resp.json", UpdateDocumentResponse.class);
+    getDocResp = loadFixture(RESOURCE + "get_doc_resp.json", GetDocumentResponse.class);
+    deleteDocResp = loadFixture(RESOURCE + "delete_doc_resp.json", DeleteDocumentResponse.class);
+    queryResp = loadFixture(RESOURCE + "query1_resp.json", QueryResponse.class);
   }
 
   @After
@@ -182,236 +189,244 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   // Environment tests
   @Test
-  public void get_environment_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(env_resp));
+  public void getEnvironmentIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(envResp));
     GetEnvironmentRequest getRequest = new GetEnvironmentRequest.Builder(environmentId).build();
     GetEnvironmentResponse response = discoveryService.getEnvironment(getRequest).execute();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(ENV1_PATH, request.getPath()); 
+    assertEquals(ENV1_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(env_resp, response);
+    assertEquals(envResp, response);
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void get_environment_fails1() {
+  public void getEnvironmentFails1() {
     GetEnvironmentRequest getRequest = new GetEnvironmentRequest.Builder("").build();
     @SuppressWarnings("unused")
     GetEnvironmentResponse response = discoveryService.getEnvironment(getRequest).execute();
   }
 
   @Test(expected = NullPointerException.class)
-  public void get_environment_fails2() {
+  public void getEnvironmentFails2() {
     @SuppressWarnings("unused")
     GetEnvironmentResponse response = discoveryService.getEnvironment(null).execute();
   }
 
   @Test
-  public void get_environments_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(envs_resp));
+  public void getEnvironmentsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(envsResp));
     GetEnvironmentsRequest getRequest = new GetEnvironmentsRequest.Builder().build();
     GetEnvironmentsResponse response = discoveryService.getEnvironments(getRequest).execute();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(ENV2_PATH, request.getPath()); 
+    assertEquals(ENV2_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(envs_resp, response);
+    assertEquals(envsResp, response);
   }
 
   @Test(expected = NullPointerException.class)
-  public void get_environments_fails() {
+  public void getEnvironmentsFails() {
     @SuppressWarnings("unused")
     GetEnvironmentsResponse response = discoveryService.getEnvironments(null).execute();
   }
 
   @Test
-  public void create_environment_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(create_env_resp));
-    CreateEnvironmentRequest.Builder createRequestBuilder = new CreateEnvironmentRequest.Builder(environmentName, CreateEnvironmentRequest.Size.THREE);
+  public void createEnvironmentIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createEnvResp));
+    CreateEnvironmentRequest.Builder createRequestBuilder =
+        new CreateEnvironmentRequest.Builder(environmentName, CreateEnvironmentRequest.Size.THREE);
     createRequestBuilder.description(environmentDesc);
     CreateEnvironmentResponse response = discoveryService.createEnvironment(createRequestBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(ENV2_PATH, request.getPath()); 
+    assertEquals(ENV2_PATH, request.getPath());
     assertEquals(POST, request.getMethod());
-    assertEquals(create_env_resp, response);
+    assertEquals(createEnvResp, response);
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void create_environment_fails() {
-    CreateEnvironmentRequest.Builder createRequestBuilder = new CreateEnvironmentRequest.Builder(null, CreateEnvironmentRequest.Size.FREE);
+  public void createEnvironmentFails() {
+    CreateEnvironmentRequest.Builder createRequestBuilder =
+        new CreateEnvironmentRequest.Builder(null, CreateEnvironmentRequest.Size.FREE);
     createRequestBuilder.description(null);
     @SuppressWarnings("unused")
     CreateEnvironmentResponse response = discoveryService.createEnvironment(createRequestBuilder.build()).execute();
   }
 
   @Test
-  public void delete_environment_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(delete_env_resp));
+  public void deleteEnvironmentIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(deleteEnvResp));
     DeleteEnvironmentRequest deleteRequest = new DeleteEnvironmentRequest.Builder(environmentId).build();
     DeleteEnvironmentResponse response = discoveryService.deleteEnvironment(deleteRequest).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(ENV1_PATH, request.getPath()); 
+    assertEquals(ENV1_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
-    assertEquals(delete_env_resp, response);
+    assertEquals(deleteEnvResp, response);
   }
 
   @Test(expected = NullPointerException.class)
-  public void delete_environment_fails() {
+  public void deleteEnvironmentFails() {
     @SuppressWarnings("unused")
     DeleteEnvironmentResponse response = discoveryService.deleteEnvironment(null).execute();
   }
 
   @Test
-  public void update_environment_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(update_env_resp));
-    UpdateEnvironmentRequest.Builder updateBuilder = new UpdateEnvironmentRequest.Builder(environmentId, environmentName);
+  public void updateEnvironmentIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(updateEnvResp));
+    UpdateEnvironmentRequest.Builder updateBuilder =
+        new UpdateEnvironmentRequest.Builder(environmentId, environmentName);
     updateBuilder.description(environmentDesc);
     UpdateEnvironmentResponse response = discoveryService.updateEnvironment(updateBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(ENV1_PATH, request.getPath()); 
+    assertEquals(ENV1_PATH, request.getPath());
     assertEquals(PUT, request.getMethod());
-    assertEquals(update_env_resp, response);
+    assertEquals(updateEnvResp, response);
   }
 
   // Configuration tests
   @Test
-  public void create_configuration_is_successful() throws JsonSyntaxException, JsonIOException, FileNotFoundException, InterruptedException {
-    server.enqueue(jsonResponse(create_conf_resp));
+  public void createConfigurationIsSuccessful() throws JsonSyntaxException, JsonIOException,
+  FileNotFoundException, InterruptedException {
+    server.enqueue(jsonResponse(createConfResp));
     CreateConfigurationRequest.Builder createBuilder = new CreateConfigurationRequest.Builder(environmentId);
-    Configuration configuration = GsonSingleton.getGson().fromJson(new FileReader(DISCOVERY_TEST_CONFIG_FILE), Configuration.class);
+    Configuration configuration =
+        GsonSingleton.getGson().fromJson(new FileReader(DISCOVERY_TEST_CONFIG_FILE), Configuration.class);
     configuration.setName(uniqueConfigName);
     createBuilder.configuration(configuration);
     CreateConfigurationResponse response = discoveryService.createConfiguration(createBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(CONF1_PATH, request.getPath()); 
+    assertEquals(CONF1_PATH, request.getPath());
     assertEquals(POST, request.getMethod());
-    assertEquals(create_conf_resp, response);
+    assertEquals(createConfResp, response);
   }
 
   @Test
-  public void get_configuration_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(get_conf_resp));
+  public void getConfigurationIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(getConfResp));
     GetConfigurationRequest getRequest = new GetConfigurationRequest.Builder(environmentId, configurationId).build();
     GetConfigurationResponse response = discoveryService.getConfiguration(getRequest).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(CONF2_PATH, request.getPath()); 
+    assertEquals(CONF2_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(get_conf_resp, response);
+    assertEquals(getConfResp, response);
   }
 
   @Test
-  public void get_configurations_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(get_confs_resp));
+  public void getConfigurationsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(getConfsResp));
     GetConfigurationsRequest getRequest = new GetConfigurationsRequest.Builder(environmentId).build();
     GetConfigurationsResponse response = discoveryService.getConfigurations(getRequest).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(CONF1_PATH, request.getPath()); 
+    assertEquals(CONF1_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(get_confs_resp, response);
+    assertEquals(getConfsResp, response);
   }
 
   @Test
-  public void delete_configuration_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(delete_conf_resp));
-    DeleteConfigurationRequest deleteRequest = new DeleteConfigurationRequest.Builder(environmentId, configurationId).build();
+  public void deleteConfigurationIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(deleteConfResp));
+    DeleteConfigurationRequest deleteRequest =
+        new DeleteConfigurationRequest.Builder(environmentId, configurationId).build();
     DeleteConfigurationResponse response = discoveryService.deleteConfiguration(deleteRequest).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(CONF2_PATH, request.getPath()); 
+    assertEquals(CONF2_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
-    assertEquals(delete_conf_resp, response);
+    assertEquals(deleteConfResp, response);
   }
 
   @Test
-  public void update_configuration_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(update_conf_resp));
-    UpdateConfigurationRequest.Builder updateBuilder = new UpdateConfigurationRequest.Builder(environmentId, configurationId);
+  public void updateConfigurationIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(updateConfResp));
+    UpdateConfigurationRequest.Builder updateBuilder =
+        new UpdateConfigurationRequest.Builder(environmentId, configurationId);
 
-    Configuration new_conf = new Configuration();
-    new_conf.setName("newName");
-    updateBuilder.configuration(new_conf);
+    Configuration newConf = new Configuration();
+    newConf.setName("newName");
+    updateBuilder.configuration(newConf);
 
     UpdateConfigurationResponse response = discoveryService.updateConfiguration(updateBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(CONF2_PATH, request.getPath()); 
+    assertEquals(CONF2_PATH, request.getPath());
     assertEquals(PUT, request.getMethod());
-    assertEquals(update_conf_resp, response);
+    assertEquals(updateConfResp, response);
   }
 
   // Collection tests
   @Test
-  public void create_collection_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(create_coll_resp));
-    CreateCollectionRequest.Builder createCollectionBuilder = new CreateCollectionRequest.Builder(environmentId, configurationId, uniqueCollectionName);
+  public void createCollectionIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createCollResp));
+    CreateCollectionRequest.Builder createCollectionBuilder =
+        new CreateCollectionRequest.Builder(environmentId, configurationId, uniqueCollectionName);
     CreateCollectionResponse response = discoveryService.createCollection(createCollectionBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(COLL1_PATH, request.getPath()); 
+    assertEquals(COLL1_PATH, request.getPath());
     assertEquals(POST, request.getMethod());
-    assertEquals(create_coll_resp, response);
+    assertEquals(createCollResp, response);
   }
 
   @Test
-  public void get_collections_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(get_colls_resp));
+  public void getCollectionsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(getCollsResp));
     GetCollectionsRequest getRequest = new GetCollectionsRequest.Builder(environmentId).build();
     GetCollectionsResponse response = discoveryService.getCollections(getRequest).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(COLL1_PATH, request.getPath()); 
+    assertEquals(COLL1_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(get_colls_resp, response);
+    assertEquals(getCollsResp, response);
   }
 
   @Test
-  public void get_collection_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(get_coll_resp));
+  public void getCollectionIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(getCollResp));
     GetCollectionRequest getRequest = new GetCollectionRequest.Builder(environmentId, collectionId).build();
     GetCollectionResponse response = discoveryService.getCollection(getRequest).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(COLL2_PATH, request.getPath()); 
+    assertEquals(COLL2_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(get_coll_resp, response);
+    assertEquals(getCollResp, response);
   }
 
   // no updateCollection yet?
 
   @Test
-  public void listfields_collection_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(listfields_coll_resp));
+  public void listfieldsCollectionIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(listfieldsCollResp));
     GetCollectionFieldsRequest getRequest = new GetCollectionFieldsRequest.Builder(environmentId, collectionId).build();
     GetCollectionFieldsResponse response = discoveryService.getCollectionFields(getRequest).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(COLL3_PATH, request.getPath()); 
+    assertEquals(COLL3_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(listfields_coll_resp, response);
+    assertEquals(listfieldsCollResp, response);
   }
 
   @Test
-  public void delete_collection_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(delete_coll_resp));
+  public void deleteCollectionIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(deleteCollResp));
     DeleteCollectionRequest deleteRequest = new DeleteCollectionRequest.Builder(environmentId, collectionId).build();
     DeleteCollectionResponse response = discoveryService.deleteCollection(deleteRequest).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(COLL2_PATH, request.getPath()); 
+    assertEquals(COLL2_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
-    assertEquals(delete_coll_resp, response);
+    assertEquals(deleteCollResp, response);
   }
 
   // Document tests
   @Test
-  public void create_document_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(create_doc_resp));
+  public void createDocumentIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createDocResp));
     String myDocumentJson = "{\"field\":\"value\"}";
     JsonObject myMetadata = new JsonObject();
     myMetadata.add("foo", new JsonPrimitive("bar"));
@@ -423,15 +438,16 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     CreateDocumentResponse response = discoveryService.createDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(DOCS1_PATH, request.getPath()); 
+    assertEquals(DOCS1_PATH, request.getPath());
     assertEquals(POST, request.getMethod());
-    assertEquals(create_doc_resp, response);
+    assertEquals(createDocResp, response);
   }
 
   @Test
-  public void update_document_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(update_doc_resp));
-    UpdateDocumentRequest.Builder updateBuilder = new UpdateDocumentRequest.Builder(environmentId, collectionId, documentId);
+  public void updateDocumentIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(updateDocResp));
+    UpdateDocumentRequest.Builder updateBuilder =
+        new UpdateDocumentRequest.Builder(environmentId, collectionId, documentId);
     String myDocumentJson = "{\"field\":\"value2\"}";
     JsonObject myMetadata = new JsonObject();
     myMetadata.add("foo", new JsonPrimitive("bar"));
@@ -442,39 +458,40 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     UpdateDocumentResponse response = discoveryService.updateDocument(updateBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(DOCS2_PATH, request.getPath()); 
+    assertEquals(DOCS2_PATH, request.getPath());
     assertEquals(POST, request.getMethod());
-    assertEquals(update_doc_resp, response);
+    assertEquals(updateDocResp, response);
   }
 
   @Test
-  public void get_document_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(get_doc_resp));
+  public void getDocumentIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(getDocResp));
     GetDocumentRequest getRequest = new GetDocumentRequest.Builder(environmentId, collectionId, documentId).build();
     GetDocumentResponse response = discoveryService.getDocument(getRequest).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(DOCS2_PATH, request.getPath()); 
+    assertEquals(DOCS2_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(get_doc_resp, response);
+    assertEquals(getDocResp, response);
   }
 
   @Test
-  public void delete_document_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(delete_doc_resp));
-    DeleteDocumentRequest deleteRequest = new DeleteDocumentRequest.Builder(environmentId, collectionId, documentId).build();
+  public void deleteDocumentIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(deleteDocResp));
+    DeleteDocumentRequest deleteRequest =
+        new DeleteDocumentRequest.Builder(environmentId, collectionId, documentId).build();
     DeleteDocumentResponse response = discoveryService.deleteDocument(deleteRequest).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(DOCS2_PATH, request.getPath()); 
+    assertEquals(DOCS2_PATH, request.getPath());
     assertEquals(DELETE, request.getMethod());
-    assertEquals(delete_doc_resp, response);
+    assertEquals(deleteDocResp, response);
   }
 
   // Query tests
   @Test
-  public void query_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(query_resp));
+  public void queryIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(queryResp));
     QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
     queryBuilder.count(5);
     queryBuilder.offset(5);
@@ -486,14 +503,14 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     QueryResponse response  = discoveryService.query(queryBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(Q1_PATH, request.getPath()); 
+    assertEquals(Q1_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(query_resp, response);
+    assertEquals(queryResp, response);
   }
 
   @Test
-  public void query_with_aggregation_term_is_successful() throws InterruptedException {
-    server.enqueue(jsonResponse(query_resp));
+  public void queryWithAggregationTermIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(queryResp));
     QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
     StringBuilder sb = new StringBuilder();
     sb.append(AggregationType.TERM);
@@ -505,9 +522,9 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     QueryResponse response = discoveryService.query(queryBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
-    assertEquals(Q2_PATH, request.getPath()); 
+    assertEquals(Q2_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(query_resp, response);
+    assertEquals(queryResp, response);
   }
 
 }

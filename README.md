@@ -257,6 +257,7 @@ Gradle:
   $ cd java-sdk
   $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.5.3.jar)
   $ gradle test # run tests
+  $ gradle check # performs quality checks on source files and generates reports
   ```
 
 
