@@ -16,7 +16,7 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
-import okhttp3.ws.WebSocket;
+import okhttp3.WebSocket;
 
 
 /**
