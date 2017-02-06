@@ -520,9 +520,10 @@ public class SpeechToText extends WatsonService {
    *
    * @param customizationId The GUID of the custom language model whose corpus is to be returned. You must make the
    *        request with the service credentials of the model's owner.
-   * @param corpusName the name of the corpus that is to be returned.
-   * @return the customization corpus.
+   * @param corpusName The name of the corpus that is to be returned.
+   * @return The customization corpus.
    */
+
   public ServiceCall<Corpus> getCorpus(String customizationId, String corpusName) {
     Validator.notNull(customizationId, "customizationId cannot be null");
     Validator.notNull(corpusName, "corpusName cannot be null");
