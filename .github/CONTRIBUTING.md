@@ -12,8 +12,9 @@ Before that, please search for similar issues. It's possible somebody has encoun
 
 If you want to contribute to the repository, here's a quick guide:
   1. Fork the repository
-  2. develop and test your code changes, maven: `mvn test` or gradle: `gradle test`.
-    * Run `checkstyle`: `mvn checkstyle:checkstyle`. 🏁
+  1. Create a `.config.properties` similar to [`config.properties`](https://github.com/watson-developer-cloud/java-sdk/blob/master/core/src/test/resources/config.properties).
+  2. develop and test your code changes, gradle: `gradle test`.
+    * Run `checkstyle`: `gradle checkstyle`. 🏁
     * Create minimal diffs - disable on save actions like reformat source code or organize imports. If you feel the source code should be reformatted create a separate PR for this change.
     * Check for unnecessary whitespace with git diff --check before committing.
   3. Make the test pass
