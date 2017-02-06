@@ -64,6 +64,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private SpeechToText service;
   private SpeechResults asyncResults;
   private String customizationId;
+  private String corpusName = "foo3";
 
   /** The expected exception. */
   @Rule
@@ -371,6 +372,16 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(result);
   }
 
+  /**
+   * Test get corpus.
+   *
+   */
+  @Test
+  @Ignore
+  public void testGetCorpus() {
+    Corpus result = service.getCorpus(customizationId, corpusName).execute();
+    assertNotNull(result);
+  }
 
   /**
    * Test add text to corpus.
@@ -378,7 +389,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testAddTextToCorpus() {
-    service.addTextToCustomizationCorpus(customizationId, "foo3", null, null).execute();
+    service.addTextToCustomizationCorpus(customizationId, corpusName, null, null).execute();
   }
 
   /**
