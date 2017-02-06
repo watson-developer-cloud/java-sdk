@@ -15,13 +15,16 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * An option that excluded some other option. The list contains explanation at which objectives this option
  * was better than the other option and by how much.
  */
 public class DominatingOption {
 
-  private String solution_ref;
+  @SerializedName("solution_ref")
+  private String solutionRef;
   private List<ObjectiveDominationData> objectives;
 
   /**
@@ -30,7 +33,7 @@ public class DominatingOption {
    * @return the key
    */
   public String getSolutionKey() {
-    return solution_ref;
+    return solutionRef;
   }
 
   /**
@@ -49,7 +52,7 @@ public class DominatingOption {
    * @param key the solution key
    */
   public void setSolutionKey(String key) {
-    this.solution_ref = key;
+    this.solutionRef = key;
   }
 
   /**
@@ -58,7 +61,7 @@ public class DominatingOption {
    *
    * @param objectives the list of objectives
    */
-  public void setScore(List<ObjectiveDominationData> objectives) {
+  public void setObjectives(List<ObjectiveDominationData> objectives) {
     this.objectives = objectives;
   }
 }

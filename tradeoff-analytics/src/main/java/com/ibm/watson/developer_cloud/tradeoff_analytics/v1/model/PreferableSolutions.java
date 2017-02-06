@@ -15,12 +15,15 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Preferable solutions.
  */
 public class PreferableSolutions {
 
-  private List<String> solution_refs;
+  @SerializedName("solution_refs")
+  private List<String> solutionRefs;
   private Double score;
 
   /**
@@ -29,7 +32,7 @@ public class PreferableSolutions {
    * @return the keys
    */
   public List<String> getSolutionKeys() {
-    return solution_refs;
+    return solutionRefs;
   }
 
   /**
@@ -47,7 +50,7 @@ public class PreferableSolutions {
    * @param keys the solution keys
    */
   public void setSolutionKeys(List<String> keys) {
-    this.solution_refs = keys;
+    this.solutionRefs = keys;
   }
 
   /**

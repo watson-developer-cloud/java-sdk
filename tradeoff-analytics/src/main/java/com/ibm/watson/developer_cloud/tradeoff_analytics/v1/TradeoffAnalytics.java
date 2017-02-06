@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
@@ -120,8 +123,8 @@ public class TradeoffAnalytics extends WatsonService {
    *
    * @param problem the decision problem
    * @param generateVisualization if true the Dilemma contains information to generate visualization
-   * @param findPreferableOptions if true the Dilemma contains a subset of optimal options that have the strongest
-   * set of values - according to the chosen objectives.
+   * @param findPreferableOptions if true the Dilemma includes a refined subset of best candidate options
+   * that will most likely satisfy the greatest number of users.
    * @return the decision problem
    */
   
@@ -135,26 +138,21 @@ public class TradeoffAnalytics extends WatsonService {
 
     final RequestBuilder requestBuilder =
         RequestBuilder.post(PATH_DILEMMAS).bodyContent(contentJson, HttpMediaType.APPLICATION_JSON);
-
+    
+    List<String> queryParams = new ArrayList<>();
     if (generateVisualization != null)
     {
-    	if (findPreferableOptions != null)
-    	{
-    		requestBuilder.query(GENERATE_VISUALIZATION, generateVisualization, FIND_PREFERABLE_OPTIONS, findPreferableOptions);
-    	}
-    	else
-    	{
-    		requestBuilder.query(GENERATE_VISUALIZATION, generateVisualization);
-    	}
+    	queryParams.add(GENERATE_VISUALIZATION);
+        queryParams.add(generateVisualization.toString());
     }
-    else
+    if (findPreferableOptions != null)
     {
-    	if (findPreferableOptions != null)
-    	{
-    		requestBuilder.query(FIND_PREFERABLE_OPTIONS, findPreferableOptions);
-    	}
+    	queryParams.add(FIND_PREFERABLE_OPTIONS);
+        queryParams.add(findPreferableOptions.toString());
     }
-
+    
+    requestBuilder.query(queryParams.toArray());
+  
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Dilemma.class));
   }
 }
