@@ -32,13 +32,10 @@ import okhttp3.Headers;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
-import okhttp3.RequestBody;
 import okhttp3.Response;
-import okhttp3.ResponseBody;
-import okhttp3.ws.WebSocket;
-import okhttp3.ws.WebSocketCall;
-import okhttp3.ws.WebSocketListener;
-import okio.Buffer;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
+import okio.ByteString;
 
 /**
  * Manages Speech to text recognition over WebSockets.<br>
@@ -62,7 +59,7 @@ public class WebSocketManager {
    *
    * @see SpeechToText
    */
-  private class SpeechToTextWebSocketListener implements WebSocketListener {
+  private class SpeechToTextWebSocketListener extends WebSocketListener {
 
     private static final String STATE = "state";
     private static final String MODEL = "model";
@@ -101,10 +98,10 @@ public class WebSocketManager {
     /*
      * (non-Javadoc)
      *
-     * @see okhttp3.ws.WebSocketListener#onClose(int, java.lang.String)
+     * @see okhttp3.WebSocketListener#onClosing(okhttp3.WebSocket, int, java.lang.String)
      */
     @Override
-    public void onClose(int code, String reason) {
+    public void onClosing(WebSocket webSocket, int code, String reason) {
       socketOpen = false;
       callback.onDisconnected();
     }
@@ -112,23 +109,25 @@ public class WebSocketManager {
     /*
      * (non-Javadoc)
      *
-     * @see okhttp3.ws.WebSocketListener#onFailure(java.io.IOException, okhttp3.Response)
+     * @see okhttp3.WebSocketListener#onFailure(okhttp3.WebSocket, java.lang.Throwable, okhttp3.Response)
      */
     @Override
-    public void onFailure(IOException e, Response response) {
+    public void onFailure(WebSocket webSocket, Throwable t, Response response) {
       socketOpen = false;
-      callback.onError(e);
+      if (t instanceof Exception) {
+        callback.onError((Exception) t);
+      } else {
+        callback.onError(new Exception(t));
+      }
     }
 
     /*
      * (non-Javadoc)
      *
-     * @see okhttp3.ws.WebSocketListener#onMessage(okhttp3.ResponseBody)
+     * @see okhttp3.WebSocketListener#onMessage(okhttp3.WebSocket, java.lang.String)
      */
     @Override
-    public void onMessage(ResponseBody response) throws IOException {
-      String message = response.string();
-
+    public void onMessage(WebSocket webSocket, String message) {
       JsonObject json = new JsonParser().parse(message).getAsJsonObject();
       if (json.has(ERROR)) {
         String error = json.get(ERROR).getAsString();
@@ -158,10 +157,8 @@ public class WebSocketManager {
                 // If the socket is still open after the sending finishes, for example because the
                 // user closed
                 // the microphone AudioInputStream, send a stop message.
-                try {
-                  socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStopMessage()));
-                } catch (IOException e) {
-                  LOG.log(Level.SEVERE, e.getMessage(), e);
+                if (!socket.send(buildStopMessage())) {
+                  LOG.log(Level.SEVERE, "Stop message discarded because WebSocket is unavailable");
                 }
               }
             }
@@ -177,26 +174,16 @@ public class WebSocketManager {
     /*
      * (non-Javadoc)
      *
-     * @see okhttp3.ws.WebSocketListener#onOpen(okhttp3.ws.WebSocket, okhttp3.Response)
+     * @see okhttp3.WebSocketListener#onOpen(okhttp3.WebSocket, okhttp3.Response)
      */
     @Override
     public void onOpen(WebSocket socket, Response response) {
       callback.onConnected();
       this.socket = socket;
-      try {
-        socket.sendMessage(RequestBody.create(WebSocket.TEXT, buildStartMessage(options)));
-      } catch (IOException e) {
-        callback.onError(e);
+      if (!socket.send(buildStartMessage(options))) {
+        callback.onError(new IOException("WebSocket unavailable"));
       }
     }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see okhttp3.ws.WebSocketListener#onPong(okio.Buffer)
-     */
-    @Override
-    public void onPong(Buffer buffer) { }
 
     /**
      * Send input stream.
@@ -214,9 +201,9 @@ public class WebSocketManager {
         // closed. Elsewise AudioInputStream.read() blocks until enough audio frames are read.
         while (((read = inputStream.read(buffer)) > 0) && socketOpen) {
           if (read == FOUR_KB) {
-            socket.sendMessage(RequestBody.create(WebSocket.BINARY, buffer));
+            socket.send(ByteString.of(buffer));
           } else {
-            socket.sendMessage(RequestBody.create(WebSocket.BINARY, Arrays.copyOfRange(buffer, 0, read)));
+            socket.send(ByteString.of(Arrays.copyOfRange(buffer, 0, read)));
           }
         }
       } catch (IOException e) {
@@ -271,12 +258,12 @@ public class WebSocketManager {
   }
 
   /**
-   * Creates a connection.
+   * Prepares the WebSocket request (URL, headers).
    *
    * @param options the recognize options
-   * @return the web socket call
+   * @return the configured request
    */
-  private WebSocketCall createConnection(RecognizeOptions options) {
+  private Request prepareRequest(RecognizeOptions options) {
     String speechModel = options.model() == null ? "" : "?model=" + options.model();
     Builder builder = new Request.Builder().url(url + speechModel);
 
@@ -295,7 +282,7 @@ public class WebSocketManager {
       }
     }
 
-    return WebSocketCall.create(client, builder.build());
+    return builder.build();
   }
 
   /**
@@ -306,7 +293,7 @@ public class WebSocketManager {
    * @param delegate the delegate
    */
   public void recognize(final InputStream stream, final RecognizeOptions options, RecognizeCallback delegate) {
-    createConnection(options).enqueue(new SpeechToTextWebSocketListener(stream, options, delegate));
+    client.newWebSocket(prepareRequest(options), new SpeechToTextWebSocketListener(stream, options, delegate));
   }
 
 }
