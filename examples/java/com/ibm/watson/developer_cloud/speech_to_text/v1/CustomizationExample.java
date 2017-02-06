@@ -63,6 +63,9 @@ public class CustomizationExample {
         Thread.sleep(5000);
       }
 
+      // Get corpus
+      Corpus corpus = service.getCorpus(id, "corpus-1").execute();
+
       // Now add some user words to the custom model
       service.addWord(id, new Word("IEEE", "IEEE", "I. triple E.")).execute();
       service.addWord(id, new Word("hhonors", "IEEE", "H. honors", "Hilton honors")).execute();
