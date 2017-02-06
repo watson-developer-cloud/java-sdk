@@ -371,6 +371,16 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(result);
   }
 
+  /**
+   * Test get corpus.
+   *
+   */
+  @Test
+  @Ignore
+  public void testGetCorpus() {
+    Corpus result = service.getCorpus(customizationId, "foo3").execute();
+    assertNotNull(result);
+  }
 
   /**
    * Test add text to corpus.
@@ -378,7 +388,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testAddTextToCorpus() {
-    service.addTextToCustomizationCorpus(customizationId, "foo3", null, null).execute();
+      service.addTextToCustomizationCorpus(customizationId, "foo3", null, null).execute();
   }
 
   /**
