@@ -74,7 +74,7 @@ public class ObjectiveDominationData {
    *
    * @param text the text
    */
-  public void settext(String text) {
+  public void setText(String text) {
     this.text = text;
   }
 }

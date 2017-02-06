@@ -15,6 +15,7 @@ package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
 import java.util.List;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.TradeoffAnalytics;
 
@@ -27,7 +28,8 @@ public class Resolution extends GenericModel {
 
   private List<Solution> solutions;
   
-  private PreferableSolutions preferable_solutions;
+  @SerializedName("preferable_solutions")
+  private PreferableSolutions preferableSolutions;
 
   /**
    * Gets the map.
@@ -53,7 +55,7 @@ public class Resolution extends GenericModel {
    * @return The preferable solutions
    */
   public PreferableSolutions getPreferableSolutions() {
-    return preferable_solutions;
+    return preferableSolutions;
   }
 
   /**
@@ -80,7 +82,7 @@ public class Resolution extends GenericModel {
    * @param solutions The preferable solutions
    */
   public void setPreferableSolutions(PreferableSolutions solutions) {
-    this.preferable_solutions = solutions;
+    this.preferableSolutions = solutions;
   }
   
 }
