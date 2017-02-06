@@ -29,7 +29,7 @@ import jersey.repackaged.jsr166e.CompletableFuture;
 public class ConversationExample {
 
   public static void main(String[] args) throws Exception {
-    ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
+    ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_02_03);
     service.setUsernameAndPassword("<username>", "<password>");
 
     // sync
