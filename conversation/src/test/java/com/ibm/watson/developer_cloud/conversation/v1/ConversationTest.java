@@ -54,7 +54,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new ConversationService(ConversationService.VERSION_DATE_2016_09_20);
+    service = new ConversationService(ConversationService.VERSION_DATE_2017_02_03);
     service.setApiKey(EMPTY);
     service.setEndPoint(getMockWebServerUrl());
 
