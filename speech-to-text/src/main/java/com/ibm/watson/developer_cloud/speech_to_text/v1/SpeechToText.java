@@ -51,7 +51,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.ws.WebSocket;
+import okhttp3.WebSocket;
 
 /**
  * The Speech to Text service uses IBM's speech recognition capabilities to convert English speech into text. The
