@@ -82,7 +82,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2016_09_20);
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[] { "Do you want to get a quote?" }, serviceResponse.getText().toArray(new String[0]));
     assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
@@ -119,7 +119,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2016_09_20);
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[] { "Do you want to get a quote?" }, serviceResponse.getText().toArray(new String[0]));
     assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
