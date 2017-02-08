@@ -1,6 +1,10 @@
 Change Log
 ==========
 
+## Version 3.5.4-SNAPSHOT
+
+* Change: Update OkHttp to v3.6.0
+
 ## Version 3.5.3
 
 _2016-12-15_
