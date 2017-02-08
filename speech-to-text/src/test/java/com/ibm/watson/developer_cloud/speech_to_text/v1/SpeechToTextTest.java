@@ -22,11 +22,21 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
+import okhttp3.WebSocket;
+import okhttp3.internal.ws.WebSocketRecorder;
+import okio.ByteString;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -751,4 +761,94 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(GSON.toJson(newWord), request.getBody().readUtf8());
   }
 
+  @Test
+  public void testClosingInputStreamClosesWebSocket() throws Exception {
+    TestRecognizeCallback callback = new TestRecognizeCallback();
+    WebSocketRecorder webSocketRecorder = new WebSocketRecorder("server");
+    RecognizeOptions options = new RecognizeOptions.Builder()
+            .contentType(HttpMediaType.AUDIO_RAW + "; rate=44000").build();
+    PipedOutputStream outputStream = new PipedOutputStream();
+    InputStream inputStream = new PipedInputStream(outputStream);
+
+    server.enqueue(new MockResponse().setBody("token"));
+    server.enqueue(new MockResponse().withWebSocketUpgrade(webSocketRecorder));
+
+    service.recognizeUsingWebSocket(inputStream, options, callback);
+
+    WebSocket serverSocket = webSocketRecorder.assertOpen();
+    serverSocket.send("{\"state\": {}}");
+
+    outputStream.write(ByteString.encodeUtf8("test").toByteArray());
+    outputStream.close();
+
+    webSocketRecorder.assertTextMessage("{\"content-type\":\"audio/l16; rate=44000\",\"action\":\"start\"}");
+    webSocketRecorder.assertBinaryMessage(ByteString.encodeUtf8("test"));
+    webSocketRecorder.assertTextMessage("{\"action\":\"stop\"}");
+    webSocketRecorder.assertExhausted();
+
+    serverSocket.close(1000, null);
+
+    callback.assertConnected();
+    callback.assertDisconnected();
+    callback.assertNoErrors();
+  }
+
+  private static class TestRecognizeCallback implements RecognizeCallback {
+
+    private final BlockingQueue<SpeechResults> speechResults = new LinkedBlockingQueue<>();
+
+    private final BlockingQueue<Exception> errors = new LinkedBlockingQueue<>();
+
+    private final BlockingQueue<Object> onDisconnectedCalls = new LinkedBlockingQueue<>();
+
+    private final BlockingQueue<Object> onConnectedCalls = new LinkedBlockingQueue<>();
+
+    @Override
+    public void onTranscription(SpeechResults speechResults) {
+      this.speechResults.add(speechResults);
+    }
+
+    @Override
+    public void onConnected() {
+      this.onConnectedCalls.add(new Object());
+    }
+
+    @Override
+    public void onError(Exception e) {
+      this.errors.add(e);
+    }
+
+    @Override
+    public void onDisconnected() {
+      this.onDisconnectedCalls.add(new Object());
+    }
+
+    void assertConnected() {
+      try {
+        Object connectedEvent = this.onConnectedCalls.poll(10, TimeUnit.SECONDS);
+        if (connectedEvent == null) {
+          throw new AssertionError("Timed out waiting for connect.");
+        }
+      } catch (InterruptedException e) {
+        throw new AssertionError(e);
+      }
+    }
+
+    void assertDisconnected() {
+      try {
+        Object disconnectedEvent = this.onDisconnectedCalls.poll(10, TimeUnit.SECONDS);
+        if (disconnectedEvent == null) {
+          throw new AssertionError("Timed out waiting for disconnect.");
+        }
+      } catch (InterruptedException e) {
+        throw new AssertionError(e);
+      }
+    }
+
+    void assertNoErrors() {
+      if (this.errors.size() > 0) {
+        throw new AssertionError("There were " + this.errors.size() + " errors");
+      }
+    }
+  }
 }
