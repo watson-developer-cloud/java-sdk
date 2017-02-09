@@ -779,7 +779,7 @@ public class SpeechToText extends WatsonService {
 
       @Override
       public void onResponse(String token) {
-        String url = getEndPoint().replaceFirst("(https|http)", "wss");
+        String url = getEndPoint().replace("http://", "ws://").replace("https://", "wss://");
         WebSocketManager wsManager =
             new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, token);
         wsManager.recognize(audio, options, callback);
