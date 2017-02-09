@@ -19,8 +19,18 @@ import java.util.List;
  */
 public class WordData extends Word {
 
+  private Integer count;
   private String error;
   private List<String> source;
+
+  /**
+   * Gets the count for the number of sources from which the word has been added to the model's words resource.
+   *
+   * @return The count
+   */
+  public Integer getCount() {
+    return count;
+  }
 
   /**
    * Gets the error. If the service discovered a problem with the custom word's definition.
@@ -56,6 +66,15 @@ public class WordData extends Word {
    */
   public void setSource(List<String> source) {
     this.source = source;
+  }
+
+  /**
+   * Sets the count.
+   *
+   * @param count The count
+   */
+  public void setCount(Integer count) {
+    this.count = count;
   }
 
 }
