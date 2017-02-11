@@ -382,9 +382,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
-   * that each request is processed with the same speech-to-text engine. Use the cookie that is returned from this
-   * operation in the Set-Cookie header for each request that uses this session. The session expires after 15 minutes of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
+   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @return the {@link SpeechSession}
@@ -395,9 +394,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
-   * that each request is processed with the same speech-to-text engine. Use the cookie that is returned from this
-   * operation in the Set-Cookie header for each request that uses this session. The session expires after 15 minutes of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
+   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @param model the model
@@ -409,9 +407,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
-   * that each request is processed with the same speech-to-text engine. Use the cookie that is returned from this
-   * operation in the Set-Cookie header for each request that uses this session. The session expires after 15 minutes of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
+   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @param model the model
