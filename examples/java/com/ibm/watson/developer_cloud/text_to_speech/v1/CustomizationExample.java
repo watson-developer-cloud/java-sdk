@@ -33,13 +33,13 @@ public class CustomizationExample {
     // create custom voice model.
     CustomVoiceModel model = new CustomVoiceModel();
     model.setName("my model");
-    model.setLanguage("en-us");
+    model.setLanguage("en-US");
     model.setDescription("the model for testing");
     CustomVoiceModel customVoiceModel = service.saveCustomVoiceModel(model).execute();
     System.out.println(customVoiceModel);
 
     // list custom voice models
-    List<CustomVoiceModel> customVoiceModels = service.getCustomVoiceModels("en-us").execute();
+    List<CustomVoiceModel> customVoiceModels = service.getCustomVoiceModels("en-US").execute();
     System.out.println(customVoiceModels);
 
     // create custom word translations
@@ -50,6 +50,10 @@ public class CustomizationExample {
     // get custom word translations
     List<CustomTranslation> words = service.getWords(customVoiceModel).execute();
     System.out.println(words);
+
+    // get custom word translation
+    CustomTranslation translation = service.getWord(customVoiceModel, "hodor").execute();
+    System.out.println(translation);
 
     // synthesize with custom voice model
     String text = "plz hodor";
