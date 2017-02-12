@@ -79,12 +79,31 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test get voice models.
+   * Test get voice models for null language.
    *
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testGetVoiceModels() throws InterruptedException {
+  public void testGetVoiceModelsNull() throws InterruptedException {
+    final List<CustomVoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
+    server.enqueue(jsonResponse(ImmutableMap.of(CUSTOMIZATIONS, expected)));
+
+    final List<CustomVoiceModel> result = service.getCustomVoiceModels(null).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(VOICE_MODELS_PATH, request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertFalse(result.isEmpty());
+    assertEquals(expected, result);
+  }
+
+  /**
+   * Test get voice models for a language.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testGetVoiceModelsLanguage() throws InterruptedException {
     final List<CustomVoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
     server.enqueue(jsonResponse(ImmutableMap.of(CUSTOMIZATIONS, expected)));
 
