@@ -38,8 +38,12 @@ public class CustomizationExample {
     CustomVoiceModel customVoiceModel = service.saveCustomVoiceModel(model).execute();
     System.out.println(customVoiceModel);
 
-    // list custom voice models
+    // list custom voice models for US English.
     List<CustomVoiceModel> customVoiceModels = service.getCustomVoiceModels("en-US").execute();
+    System.out.println(customVoiceModels);
+
+    // list custom voice models regardless of language.
+    customVoiceModels = service.getCustomVoiceModels(null).execute();
     System.out.println(customVoiceModels);
 
     // create custom word translations

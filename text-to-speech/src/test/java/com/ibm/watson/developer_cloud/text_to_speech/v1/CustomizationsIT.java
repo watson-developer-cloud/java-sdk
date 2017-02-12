@@ -173,6 +173,7 @@ public class CustomizationsIT extends WatsonServiceTest {
   @Test
   public void testGetModels() {
     service.getCustomVoiceModels(instantiateVoiceModel().getLanguage());
+    service.getCustomVoiceModels(null);
   }
 
   /**

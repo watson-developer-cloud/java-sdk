@@ -237,9 +237,14 @@ public class TextToSpeech extends WatsonService {
    * @return the VoiceModels
    */
   public ServiceCall<List<CustomVoiceModel>> getCustomVoiceModels(final String language) {
-    Validator.notNull(language, "language cannot be null");
 
-    final Request request = RequestBuilder.get(PATH_CUSTOMIZATIONS).query(LANGUAGE, language).build();
+    final Request request;
+    if (language != null) {
+        request = RequestBuilder.get(PATH_CUSTOMIZATIONS).query(LANGUAGE, language).build();
+    } else {
+        request = RequestBuilder.get(PATH_CUSTOMIZATIONS).build();
+    }
+
     ResponseConverter<List<CustomVoiceModel>> converter =
         ResponseConverterUtils.getGenericObject(TYPE_VOICE_MODELS, CUSTOMIZATIONS);
     return createServiceCall(request, converter);
