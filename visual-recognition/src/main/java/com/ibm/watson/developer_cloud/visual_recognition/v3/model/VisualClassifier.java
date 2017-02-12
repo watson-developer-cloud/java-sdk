@@ -25,82 +25,6 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
 public class VisualClassifier extends GenericModel {
 
   /**
-   * Classifier.
-   */
-  public class VisualClass {
-    @SerializedName("class")
-    private String name;
-    private Double score;
-    @SerializedName("type_hierarchy")
-    private String typeHierarchy;
-
-    /**
-     * Gets the name.
-     *
-     * @return the name
-     */
-    public String getName() {
-      return name;
-    }
-
-    /**
-     * Sets the name.
-     *
-     * @param name the new name
-     */
-    public void setName(String name) {
-      this.name = name;
-    }
-
-    /**
-     * Gets the score.
-     *
-     * @return the score
-     */
-    public Double getScore() {
-      return score;
-    }
-
-    /**
-     * Sets the score.
-     *
-     * @param score the new score
-     */
-    public void setScore(Double score) {
-      this.score = score;
-    }
-
-    /**
-     * Gets the type hierarchy.
-     *
-     * @return the type hierarchy
-     */
-    public String getTypeHierarchy() {
-      return typeHierarchy;
-    }
-
-    /**
-     * Sets the type hierarchy.
-     *
-     * @param typeHierarchy the new type hierarchy
-     */
-    public void setTypeHierarchy(String typeHierarchy) {
-      this.typeHierarchy = typeHierarchy;
-    }
-  }
-
-  @SerializedName("classifier_id")
-  private String id;
-  private String name;
-  private List<VisualClass> classes;
-
-  private String owner;
-  private Date created;
-  private String explanation;
-  private Status status;
-
-
-  /**
    * {@link VisualClassifier} Status.
    */
   public enum Status {
@@ -122,39 +46,88 @@ public class VisualClassifier extends GenericModel {
   }
 
   /**
-   * Gets the explanation.
-   *
-   * @return the explanation
+   * Classifier.
    */
-  public String getExplanation() {
-    return explanation;
+  public class VisualClass {
+    @SerializedName("class")
+    private String name;
+    private Double score;
+    @SerializedName("type_hierarchy")
+    private String typeHierarchy;
+
+    /**
+     * Gets the name.
+     *
+     * @return the name
+     */
+    public String getName() {
+      return name;
+    }
+
+    /**
+     * Gets the score.
+     *
+     * @return the score
+     */
+    public Double getScore() {
+      return score;
+    }
+
+    /**
+     * Gets the type hierarchy.
+     *
+     * @return the type hierarchy
+     */
+    public String getTypeHierarchy() {
+      return typeHierarchy;
+    }
+
+    /**
+     * Sets the name.
+     *
+     * @param name the new name
+     */
+    public void setName(String name) {
+      this.name = name;
+    }
+
+    /**
+     * Sets the score.
+     *
+     * @param score the new score
+     */
+    public void setScore(Double score) {
+      this.score = score;
+    }
+
+    /**
+     * Sets the type hierarchy.
+     *
+     * @param typeHierarchy the new type hierarchy
+     */
+    public void setTypeHierarchy(String typeHierarchy) {
+      this.typeHierarchy = typeHierarchy;
+    }
   }
+  private List<VisualClass> classes;
+  private Date created;
+
+  private String explanation;
+  @SerializedName("classifier_id")
+  private String id;
+  private String name;
+  private String owner;
+
+
+  private Status status;
 
   /**
-   * Gets the status.
+   * Gets the classes.
    *
-   * @return the status
+   * @return the classes
    */
-  public Status getStatus() {
-    return status;
-  }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(Status status) {
-    this.status = status;
-  }
-
-  /**
-   * Sets the explanation.
-   *
-   * @param explanation the new explanation
-   */
-  public void setExplanation(String explanation) {
-    this.explanation = explanation;
+  public List<VisualClass> getClasses() {
+    return classes;
   }
 
   /**
@@ -164,6 +137,15 @@ public class VisualClassifier extends GenericModel {
    */
   public Date getCreated() {
     return created;
+  }
+
+  /**
+   * Gets the explanation.
+   *
+   * @return the explanation
+   */
+  public String getExplanation() {
+    return explanation;
   }
 
   /**
@@ -194,12 +176,39 @@ public class VisualClassifier extends GenericModel {
   }
 
   /**
+   * Gets the status.
+   *
+   * @return the status
+   */
+  public Status getStatus() {
+    return status;
+  }
+
+  /**
+   * Sets the classes.
+   *
+   * @param classes the new classes
+   */
+  public void setClasses(List<VisualClass> classes) {
+    this.classes = classes;
+  }
+
+  /**
    * Sets the created.
    *
    * @param created the created to set
    */
   public void setCreated(Date created) {
     this.created = created;
+  }
+
+  /**
+   * Sets the explanation.
+   *
+   * @param explanation the new explanation
+   */
+  public void setExplanation(String explanation) {
+    this.explanation = explanation;
   }
 
   /**
@@ -230,20 +239,11 @@ public class VisualClassifier extends GenericModel {
   }
 
   /**
-   * Gets the classes.
+   * Sets the status.
    *
-   * @return the classes
+   * @param status the new status
    */
-  public List<VisualClass> getClasses() {
-    return classes;
-  }
-
-  /**
-   * Sets the classes.
-   *
-   * @param classes the new classes
-   */
-  public void setClasses(List<VisualClass> classes) {
-    this.classes = classes;
+  public void setStatus(Status status) {
+    this.status = status;
   }
 }

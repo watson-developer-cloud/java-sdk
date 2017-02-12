@@ -30,8 +30,8 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
  */
 public class CustomizationExample {
 
-  private static final String AUDIO_FILE = "tests/src/test/resources/speech_to_text/cap047.wav";
-  private static final String CORPUS_FILE = "tests/src/test/resources/speech_to_text/corpus1.txt";
+  private static final String AUDIO_FILE = "speech-to-text/src/test/resources/speech_to_text/cap047.wav";
+  private static final String CORPUS_FILE = "speech-to-text/src/test/resources/speech_to_text/corpus1.txt";
 
   /**
    * The main method.
@@ -62,6 +62,9 @@ public class CustomizationExample {
         corpus = service.getCorpora(id).execute().get(0);
         Thread.sleep(5000);
       }
+
+      // Get corpus
+      Corpus corpus = service.getCorpus(id, "corpus-1").execute();
 
       // Now add some user words to the custom model
       service.addWord(id, new Word("IEEE", "IEEE", "I. triple E.")).execute();

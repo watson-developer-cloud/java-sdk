@@ -44,6 +44,8 @@ public class PersonalityInsights extends WatsonService {
 
   /**
    * Instantiates a new Personality Insights service.
+   *
+   * @param versionDate the version date
    */
   public PersonalityInsights(final String versionDate) {
     super(SERVICE_NAME);

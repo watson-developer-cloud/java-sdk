@@ -249,7 +249,7 @@ service.setDefaultHeaders(headers);
 
 ## Build + Test
 
-To build and test the project you can use [Gradle][] (version 1.x): or [Apache Maven][apache_maven].
+To build and test the project you can use [Gradle][] (version 1.x).
 
 Gradle:
 
@@ -257,14 +257,9 @@ Gradle:
   $ cd java-sdk
   $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.5.3.jar)
   $ gradle test # run tests
+  $ gradle check # performs quality checks on source files and generates reports
   ```
 
-or Maven:
-
-  ```sh
-  $ cd java-sdk
-  $ mvn install
-  ```
 
 ## Working with Eclipse and Intellij IDEA
 
@@ -275,14 +270,6 @@ easily create project files with gradle:
   $ gradle idea     # Intellij IDEA
   $ gradle eclipse  # Eclipse
   ```
-
-or maven:
-
-  ```sh
-  $ mvn idea:idea # Intellij IDEA
-  $ mvn eclipse:eclipse # Eclipse
-  ```
-
 
 ## Open Source @ IBM
 Find more open source projects on the [IBM Github Page](http://ibm.github.io/)

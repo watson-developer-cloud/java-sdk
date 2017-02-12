@@ -23,14 +23,6 @@ import okhttp3.HttpUrl;
  */
 public class VisualRecognitionOptions {
 
-  private VisualRecognitionOptions(Builder builder) {
-    imagesFile = builder.imagesFile;
-    url = builder.url;
-  }
-
-  private File imagesFile;
-  private HttpUrl url;
-
   /**
    * Visual Recognition Request Builder.
    */
@@ -43,6 +35,21 @@ public class VisualRecognitionOptions {
       this();
       imagesFile = options.imagesFile;
       url = options.url;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() { }
+
+    /**
+     * Builds the profile options.
+     *
+     * @return the profile options
+     */
+    public VisualRecognitionOptions build() {
+      Validator.isTrue((url != null) || (imagesFile != null), "url or imagesFile should be specified");
+      return new VisualRecognitionOptions(this);
     }
 
     /**
@@ -79,21 +86,14 @@ public class VisualRecognitionOptions {
       return url(HttpUrl.parse(url));
     }
 
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() { }
+  }
 
-    /**
-     * Builds the profile options.
-     *
-     * @return the profile options
-     */
-    public VisualRecognitionOptions build() {
-      Validator.isTrue((url != null) || (imagesFile != null), "url or imagesFile should be specified");
-      return new VisualRecognitionOptions(this);
-    }
+  private File imagesFile;
+  private HttpUrl url;
 
+  private VisualRecognitionOptions(Builder builder) {
+    imagesFile = builder.imagesFile;
+    url = builder.url;
   }
 
   /**
@@ -106,20 +106,20 @@ public class VisualRecognitionOptions {
   }
 
   /**
-   * Returns the {@link HttpUrl}.
-   *
-   * @return the sets the
-   */
-  public HttpUrl url() {
-    return url;
-  }
-
-  /**
    * Creates a new Builder using the current values.
    *
    * @return the builder
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Returns the {@link HttpUrl}.
+   *
+   * @return the sets the
+   */
+  public HttpUrl url() {
+    return url;
   }
 }

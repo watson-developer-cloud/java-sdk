@@ -51,7 +51,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.ws.WebSocket;
+import okhttp3.WebSocket;
 
 /**
  * The Speech to Text service uses IBM's speech recognition capabilities to convert English speech into text. The
@@ -233,7 +233,7 @@ public class SpeechToText extends WatsonService {
 
   /**
    * Upgrades a custom language model to the latest release level of the Speech to Text service. The method bases the
-   * upgrade on the latest trained data stored for the custom model. <br/>
+   * upgrade on the latest trained data stored for the custom model.
    * <strong>Note: This method is not currently implemented. It will be added for a future release of the API. </strong>
    *
    * @param customizationId the customization id
@@ -284,8 +284,7 @@ public class SpeechToText extends WatsonService {
    * Add/Updates a custom word to a custom language model. The service automatically populates the words resource for a
    * custom model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this method to
    * add additional words or to modify existing words in the words resource. Adding or modifying a custom word does not
-   * affect the custom model until you train the model for the new data by using
-   * {@link SpeechToText#trainCustomization(String, Boolean)}.
+   * affect the custom model until you train the model for the new data.
    *
    * @param customizationId The GUID of the custom language model to which a word is to be added. You must make the
    *        request with the service credentials of the model's owner.
@@ -308,8 +307,7 @@ public class SpeechToText extends WatsonService {
    * Adds one or more custom words to a custom language model. The service automatically populates the words resource
    * for a custom model with out-of-vocabulary (OOV) words found in each corpus added to the model. You can use this
    * method to add additional words or to modify existing words in the words resource. Adding or modifying custom words
-   * does not affect the custom model until you train the model for the new data by using
-   * {@link SpeechToText#trainCustomization(String, Boolean)}.
+   * does not affect the custom model until you train the model for the new data.
    *
    * @param customizationId The GUID of the custom language model to which words are to be added. You must make the
    *        request with the service credentials of the model's owner.
@@ -515,6 +513,22 @@ public class SpeechToText extends WatsonService {
     ResponseConverter<List<Corpus>> converter = ResponseConverterUtils.getGenericObject(TYPE_CORPORA, "corpora");
 
     return createServiceCall(requestBuilder.build(), converter);
+  }
+
+  /**
+   * Gets the specified corpus for the customization.
+   *
+   * @param customizationId The GUID of the custom language model whose corpus is to be returned. You must make the
+   *        request with the service credentials of the model's owner.
+   * @param corpusName The name of the corpus that is to be returned.
+   * @return The customization corpus.
+   */
+
+  public ServiceCall<Corpus> getCorpus(String customizationId, String corpusName) {
+    Validator.notNull(customizationId, "customizationId cannot be null");
+    Validator.notNull(corpusName, "corpusName cannot be null");
+    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_CORPUS, customizationId, corpusName));
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Corpus.class));
   }
 
   /**
@@ -765,7 +779,7 @@ public class SpeechToText extends WatsonService {
 
       @Override
       public void onResponse(String token) {
-        String url = getEndPoint().replaceFirst("(https|http)", "wss");
+        String url = getEndPoint().replace("http://", "ws://").replace("https://", "wss://");
         WebSocketManager wsManager =
             new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, token);
         wsManager.recognize(audio, options, callback);
@@ -777,7 +791,7 @@ public class SpeechToText extends WatsonService {
    * Registers a callback URL with the service for use with subsequent asynchronous recognition requests. The service
    * attempts to register, or white-list, the callback URL. To be registered successfully, the callback URL must respond
    * to a <code>GET</code> request from the service, after which the service responds with response code 201 to the
-   * original registration request. <br/>
+   * original registration request. <br>
    * If you specify a <code>secret</code> with the request, the service uses it as a key to calculate an
    * <code>HMAC-SHA1</code> signature of a random challenge string in its response to the request. The signature
    * provides authentication and data integrity for HTTP communications.
@@ -818,12 +832,12 @@ public class SpeechToText extends WatsonService {
    * Initiates the training of a custom language model with new corpora, words, or both. After adding training data to
    * the custom model with the corpora or words methods, use this method to begin the actual training of the model on
    * the new data. You can specify whether the custom model is to be trained with all words from its words resources or
-   * only with words that were added or modified by the user.<br/>
-   * <br/>
+   * only with words that were added or modified by the user.<br>
+   * <br>
    * This method is asynchronous and can take on the order of minutes to complete depending on the amount of data on
    * which the service is being trained and the current load on the service. You can monitor the status of the training
-   * by using the {@link SpeechToText#getCustomization(String)} method to poll the model's status.<br/>
-   * <br/>
+   * by using the {@link SpeechToText#getCustomization(String)} method to poll the model's status.<br>
+   * <br>
    * Training can fail to start for the following reasons:
    * <ul>
    * <li>No training data (corpora or words) have been added to the custom model.</li>

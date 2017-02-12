@@ -1,0 +1,18 @@
+{
+  "configurations": [
+    {
+      "configuration_id": "210081cb-796f-463d-ab88-a07595f452a9",
+      "name": "default-config",
+      "description": "This is a test configuration.",
+      "created": "2016-11-01T17:47:30.678Z",
+      "updated": "2016-11-01T17:47:30.678Z"
+    },
+    {
+      "configuration_id": "448e3545-51ca-4530-a03b-6ff282ceac2e",
+      "name": "democonfig",
+      "description": "this is a demo configuration",
+      "created": "2016-12-14T18:42:25.324Z",
+      "updated": "2016-12-14T18:42:25.324Z"
+    }
+  ]
+}
