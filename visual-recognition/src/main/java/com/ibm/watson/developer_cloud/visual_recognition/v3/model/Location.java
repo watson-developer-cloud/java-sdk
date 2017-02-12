@@ -17,28 +17,10 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
  * Location within an image.
  */
 public class Location {
-  private Integer width;
   private Integer height;
   private Integer left;
   private Integer top;
-
-  /**
-   * Gets the width.
-   *
-   * @return the width
-   */
-  public Integer getWidth() {
-    return width;
-  }
-
-  /**
-   * Sets the width.
-   *
-   * @param width the new width
-   */
-  public void setWidth(Integer width) {
-    this.width = width;
-  }
+  private Integer width;
 
   /**
    * Gets the height.
@@ -47,15 +29,6 @@ public class Location {
    */
   public Integer getHeight() {
     return height;
-  }
-
-  /**
-   * Sets the height.
-   *
-   * @param height the new height
-   */
-  public void setHeight(Integer height) {
-    this.height = height;
   }
 
   /**
@@ -68,15 +41,6 @@ public class Location {
   }
 
   /**
-   * Sets the left.
-   *
-   * @param left the new left
-   */
-  public void setLeft(Integer left) {
-    this.left = left;
-  }
-
-  /**
    * Gets the top.
    *
    * @return the top
@@ -86,12 +50,48 @@ public class Location {
   }
 
   /**
+   * Gets the width.
+   *
+   * @return the width
+   */
+  public Integer getWidth() {
+    return width;
+  }
+
+  /**
+   * Sets the height.
+   *
+   * @param height the new height
+   */
+  public void setHeight(Integer height) {
+    this.height = height;
+  }
+
+  /**
+   * Sets the left.
+   *
+   * @param left the new left
+   */
+  public void setLeft(Integer left) {
+    this.left = left;
+  }
+
+  /**
    * Sets the top.
    *
    * @param top the new top
    */
   public void setTop(Integer top) {
     this.top = top;
+  }
+
+  /**
+   * Sets the width.
+   *
+   * @param width the new width
+   */
+  public void setWidth(Integer width) {
+    this.width = width;
   }
 
 }

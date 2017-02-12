@@ -1,0 +1,24 @@
+{
+  "environment_id": "448e3545-51ca-4530-a03b-6ff282ceac2e",
+  "name": "my_environment",
+  "description": "My environment",
+  "created": "2016-12-14T17:32:41.593Z",
+  "updated": "2016-12-14T17:32:41.593Z",
+  "status": "available",
+  "index_capacity": {
+    "disk_usage": {
+      "used_bytes": 0,
+      "total_bytes": 1073741824,
+      "used": "0 KB",
+      "total": "1024 MB",
+      "percent_used": 0
+    },
+    "memory_usage": {
+      "used_bytes": 140266264,
+      "total_bytes": 518979584,
+      "used": "133.77 MB",
+      "total": "494.94 MB",
+      "percent_used": 27.03
+    }
+  }
+}

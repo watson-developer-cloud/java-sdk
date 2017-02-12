@@ -121,7 +121,7 @@ public class RecognizeOptions {
     /**
      * If <code>true</code>, adds speaker labels to the transcript.
      *
-     * @param  Speaker Labels or "diarization"
+     * @param  speakerLabels Labels or "diarization"
      * @return the recognize options
      */
     public Builder speakerLabels(Boolean speakerLabels) {
