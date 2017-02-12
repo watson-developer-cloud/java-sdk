@@ -207,7 +207,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Sets the language.
    *
-   * @param name The language
+   * @param language The language
    */
   public void setLanguage(final String language) {
     this.language = language;
@@ -225,7 +225,7 @@ public class SpeechModel extends GenericModel {
   /**
    * Sets the url.
    *
-   * @param name The url.
+   * @param url The url.
    */
   public void setUrl(final String url) {
       this.url = url;
