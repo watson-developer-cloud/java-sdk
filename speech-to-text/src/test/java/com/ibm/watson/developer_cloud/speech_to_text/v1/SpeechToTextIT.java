@@ -143,8 +143,13 @@ public class SpeechToTextIT extends WatsonServiceTest {
     SpeechModel model = service.getModel(EN_BROADBAND16K).execute();
     assertNotNull(model);
     assertNotNull(model.getName());
+    assertNotNull(model.getLanguage());
     assertNotNull(model.getRate());
+    assertNotNull(model.getUrl());
     assertNotNull(model.getDescription());
+    assertNotNull(model.getSessions());
+    assertNotNull(model.getSupportedFeatures().getCustomLanguageModel());
+    assertNotNull(model.getSupportedFeatures().getSpeakerLabels());
   }
 
   /**
