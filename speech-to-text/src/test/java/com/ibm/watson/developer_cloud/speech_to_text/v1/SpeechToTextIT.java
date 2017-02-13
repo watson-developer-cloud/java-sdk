@@ -47,6 +47,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordAlternat
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Sort;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 
@@ -397,12 +398,67 @@ public class SpeechToTextIT extends WatsonServiceTest {
   }
 
   /**
-   * Test get words.
+   * Test get words two-parameter version with no type.
    */
   @Test
   @Ignore
-  public void testGetWords() {
-    List<WordData> result = service.getWords(customizationId, Type.ALL).execute();
+  public void testGetWordsTwo() {
+    List<WordData> result = service.getWords(customizationId, null).execute();
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+  }
+
+  /**
+   * Test get words two-parameter version with type corpus.
+   */
+  @Test
+  @Ignore
+  public void testGetWordsTwoType() {
+    List<WordData> result = service.getWords(customizationId, Type.CORPORA).execute();
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+  }
+
+  /**
+   * Test get words three-parameter version with no type and no sort.
+   */
+  @Test
+  @Ignore
+  public void testGetWordsThree() {
+      List<WordData> result = service.getWords(customizationId, null, null).execute();
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+  }
+
+  /**
+   * Test get words three-parameter version with type all and no sort.
+   */
+  @Test
+  @Ignore
+  public void testGetWordsThreeType() {
+      List<WordData> result = service.getWords(customizationId, Type.ALL, null).execute();
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+  }
+
+  /**
+   * Test get words three-parameter version with no type and sort plus alpha.
+   */
+  @Test
+  @Ignore
+  public void testGetWordsThreeSort() {
+    List<WordData> result = service.getWords(customizationId, null, Sort.PLUS_ALPHA).execute();
+    assertNotNull(result);
+    assertTrue(!result.isEmpty());
+  }
+
+  /**
+   * Test get words three-parameter version with type all and sort minus count.
+   */
+  @Test
+  @Ignore
+  public void testGetWordsThreeTypeSort() {
+      List<WordData> result = service.getWords(customizationId, Type.ALL, Sort.MINUS_COUNT).execute();
     assertNotNull(result);
     assertTrue(!result.isEmpty());
   }
