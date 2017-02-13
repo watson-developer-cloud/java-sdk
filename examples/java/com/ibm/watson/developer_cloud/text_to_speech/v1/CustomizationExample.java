@@ -63,6 +63,13 @@ public class CustomizationExample {
     String text = "plz hodor";
     InputStream in = service.synthesize(text, Voice.EN_MICHAEL, AudioFormat.WAV, customVoiceModel.getId()).execute();
     writeToFile(WaveUtils.reWriteWaveHeader(in), new File("output.wav"));
+
+    // delete custom words with object and string
+    service.deleteWord(customVoiceModel, customTranslation1);
+    service.deleteWord(customVoiceModel, customTranslation2.getWord());
+
+    // delete custom voice model
+    service.deleteCustomVoiceModel(customVoiceModel);
   }
 
   private static void writeToFile(InputStream in, File file) {
@@ -79,4 +86,5 @@ public class CustomizationExample {
       e.printStackTrace();
     }
   }
+
 }

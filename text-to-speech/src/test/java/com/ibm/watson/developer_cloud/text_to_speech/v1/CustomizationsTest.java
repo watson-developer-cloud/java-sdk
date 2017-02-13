@@ -257,12 +257,12 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test delete word.
+   * Test delete word with object.
    *
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testDeleteWord() throws InterruptedException {
+  public void testDeleteWordObject() throws InterruptedException {
     final CustomVoiceModel model = instantiateVoiceModel();
     final CustomTranslation expected = instantiateWords().get(0);
 
@@ -271,6 +271,24 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(String.format(WORDS_PATH, model.getId()) + "/" + expected.getWord(), request.getPath());
+    assertEquals("DELETE", request.getMethod());
+  }
+
+  /**
+   * Test delete word with string.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testDeleteWordString() throws InterruptedException {
+    final CustomVoiceModel model = instantiateVoiceModel();
+    final String expected = instantiateWords().get(0).getWord();
+
+    server.enqueue(new MockResponse().setResponseCode(204));
+    service.deleteWord(model, expected).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(String.format(WORDS_PATH, model.getId()) + "/" + expected, request.getPath());
     assertEquals("DELETE", request.getMethod());
   }
 
