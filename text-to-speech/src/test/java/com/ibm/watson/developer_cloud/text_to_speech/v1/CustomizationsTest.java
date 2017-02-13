@@ -44,6 +44,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   private static final String ID = "customization_id";
   private static final String CUSTOMIZATIONS = "customizations";
   private static final String WORDS = "words";
+  private static final String TRANSLATION = "translation";
 
   /** The service. */
   private TextToSpeech service;
@@ -78,12 +79,31 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test get voice models.
+   * Test get voice models for null language.
    *
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testGetVoiceModels() throws InterruptedException {
+  public void testGetVoiceModelsNull() throws InterruptedException {
+    final List<CustomVoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
+    server.enqueue(jsonResponse(ImmutableMap.of(CUSTOMIZATIONS, expected)));
+
+    final List<CustomVoiceModel> result = service.getCustomVoiceModels(null).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(VOICE_MODELS_PATH, request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertFalse(result.isEmpty());
+    assertEquals(expected, result);
+  }
+
+  /**
+   * Test get voice models for a language.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testGetVoiceModelsLanguage() throws InterruptedException {
     final List<CustomVoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
     server.enqueue(jsonResponse(ImmutableMap.of(CUSTOMIZATIONS, expected)));
 
@@ -192,6 +212,26 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   }
 
   /**
+   * Test get word.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testGetWord() throws InterruptedException {
+    final CustomVoiceModel model = instantiateVoiceModel();
+    final CustomTranslation expected = instantiateWords().get(0);
+
+    server.enqueue(jsonResponse(ImmutableMap.of(TRANSLATION, expected.getTranslation())));
+    final CustomTranslation result =
+        service.getWord(model, expected.getWord()).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(String.format(WORDS_PATH, model.getId()) + "/" + expected.getWord(), request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertEquals(expected.getTranslation(), result.getTranslation());
+  }
+
+  /**
    * Test add word.
    *
    * @throws InterruptedException the interrupted exception
@@ -217,12 +257,12 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test delete word.
+   * Test delete word with object.
    *
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testDeleteWord() throws InterruptedException {
+  public void testDeleteWordObject() throws InterruptedException {
     final CustomVoiceModel model = instantiateVoiceModel();
     final CustomTranslation expected = instantiateWords().get(0);
 
@@ -231,6 +271,24 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(String.format(WORDS_PATH, model.getId()) + "/" + expected.getWord(), request.getPath());
+    assertEquals("DELETE", request.getMethod());
+  }
+
+  /**
+   * Test delete word with string.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testDeleteWordString() throws InterruptedException {
+    final CustomVoiceModel model = instantiateVoiceModel();
+    final String expected = instantiateWords().get(0).getWord();
+
+    server.enqueue(new MockResponse().setResponseCode(204));
+    service.deleteWord(model, expected).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(String.format(WORDS_PATH, model.getId()) + "/" + expected, request.getPath());
     assertEquals("DELETE", request.getMethod());
   }
 

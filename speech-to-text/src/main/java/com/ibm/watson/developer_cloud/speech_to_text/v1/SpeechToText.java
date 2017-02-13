@@ -85,8 +85,15 @@ public class SpeechToText extends WatsonService {
   private static final String WORD_ALTERNATIVES_THRESHOLD = "word_alternatives_threshold";
   private static final String WORD_CONFIDENCE = "word_confidence";
   private static final String WORD_TYPE = "word_type";
+  private static final String WORD_SORT = "sort";
   private static final String WORD_TYPE_TO_ADD = "word_type_to_add";
   private static final String WORDS = "words";
+  private static final String WORD_SORT_ALPHA = "alphabetical";
+  private static final String WORD_SORT_PLUS_ALPHA = "+alphabetical";
+  private static final String WORD_SORT_MINUS_ALPHA = "-alphabetical";
+  private static final String WORD_SORT_COUNT = "count";
+  private static final String WORD_SORT_PLUS_COUNT = "+count";
+  private static final String WORD_SORT_MINUS_COUNT = "-count";
 
   private static final String PATH_CORPORA = "/v1/customizations/%s/corpora";
   private static final String PATH_CORPUS = "/v1/customizations/%s/corpora/%s";
@@ -382,9 +389,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
-   * that each request is processed with the same speech-to-text engine. Use the cookie that is returned from this
-   * operation in the Set-Cookie header for each request that uses this session. The session expires after 15 minutes of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
+   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @return the {@link SpeechSession}
@@ -395,9 +401,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
-   * that each request is processed with the same speech-to-text engine. Use the cookie that is returned from this
-   * operation in the Set-Cookie header for each request that uses this session. The session expires after 15 minutes of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
+   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @param model the model
@@ -409,9 +414,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
-   * that each request is processed with the same speech-to-text engine. Use the cookie that is returned from this
-   * operation in the Set-Cookie header for each request that uses this session. The session expires after 15 minutes of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
+   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @param model the model
@@ -657,10 +661,55 @@ public class SpeechToText extends WatsonService {
    * @return the words
    */
   public ServiceCall<List<WordData>> getWords(String customizationId, Word.Type type) {
+    return getWords(customizationId, type, null);
+  }
+
+  /**
+   * Gets information about all the words from a custom language model.
+   *
+   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
+   *        request with the service credentials of the model's owner.
+   * @param type the word type. Possible values are: ALL, USER or CORPORA. The default is ALL.
+   * @param sort the sort order of the results. Possible values are: ALPHA, PLUS_ALPHA, MINUS_ALPHA, COUNT, PLUS_COUNT,
+   *        and MINUS_COUNT. The default is ALPHA/PLUS_ALPHA.
+   * @return the words
+   */
+    public ServiceCall<List<WordData>> getWords(String customizationId, Word.Type type, Word.Sort sort) {
     Validator.notNull(customizationId, "customizationId cannot be null");
     RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_WORDS, customizationId));
+
     if (type != null) {
       requestBuilder.query(WORD_TYPE, type.toString().toLowerCase());
+    }
+
+    /*
+     * The Word.Sort enumerated type cannot match the service arguments
+     * directly, so we need to convert to one of the required values.
+     * Although they do the same thing now, We keep ALPHA and PLUS_ALPHA
+     * separate in case the service defaults ever change; the same is true
+     * of COUNT and MINUS_COUNT.
+     */
+    if (sort != null) {
+        switch (sort) {
+        case ALPHA:
+            requestBuilder.query(WORD_SORT, WORD_SORT_ALPHA);
+            break;
+        case PLUS_ALPHA:
+            requestBuilder.query(WORD_SORT, WORD_SORT_PLUS_ALPHA);
+            break;
+        case MINUS_ALPHA:
+            requestBuilder.query(WORD_SORT, WORD_SORT_MINUS_ALPHA);
+            break;
+        case COUNT:
+            requestBuilder.query(WORD_SORT, WORD_SORT_COUNT);
+            break;
+        case PLUS_COUNT:
+            requestBuilder.query(WORD_SORT, WORD_SORT_PLUS_COUNT);
+            break;
+        case MINUS_COUNT:
+            requestBuilder.query(WORD_SORT, WORD_SORT_MINUS_COUNT);
+            break;
+        }
     }
 
     ResponseConverter<List<WordData>> converter = ResponseConverterUtils.getGenericObject(TYPE_WORDS, WORDS);
