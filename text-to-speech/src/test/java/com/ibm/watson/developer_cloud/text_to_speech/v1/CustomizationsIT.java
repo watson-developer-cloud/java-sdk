@@ -258,15 +258,30 @@ public class CustomizationsIT extends WatsonServiceTest {
   }
 
   /**
-   * Test remove word.
+   * Test remove word with object.
    */
   @Test
-  public void testRemoveWord() {
+  public void testRemoveWordObject() {
     model = createVoiceModel();
     final CustomTranslation expected = instantiateCustomTranslations().get(0);
 
     service.saveWords(model, expected).execute();
     service.deleteWord(model, expected).execute();
+
+    final List<CustomTranslation> results = service.getWords(model).execute();
+    assertEquals(0, results.size());
+  }
+
+  /**
+   * Test remove word with string.
+   */
+  @Test
+  public void testRemoveWordString() {
+    model = createVoiceModel();
+    final CustomTranslation expected = instantiateCustomTranslations().get(0);
+
+    service.saveWords(model, expected).execute();
+    service.deleteWord(model, expected.getWord()).execute();
 
     final List<CustomTranslation> results = service.getWords(model).execute();
     assertEquals(0, results.size());

@@ -354,10 +354,10 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Deletes a custom word translation.
+   * Deletes a custom word based on a translation object.
    *
    * @param model the CustomVoiceModel
-   * @param translation the translation
+   * @param translation the translation object
    * @return the service call
    */
   public ServiceCall<Void> deleteWord(CustomVoiceModel model, CustomTranslation translation) {
@@ -365,6 +365,22 @@ public class TextToSpeech extends WatsonService {
     Validator.notEmpty(translation.getWord(), "word must not be empty");
 
     final String path = String.format(PATH_WORD, model.getId(), RequestUtils.encode(translation.getWord()));
+    final Request request = RequestBuilder.delete(path).build();
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Deletes a custom word based on a string.
+   *
+   * @param model the CustomVoiceModel
+   * @param word the word
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteWord(CustomVoiceModel model, String word) {
+    Validator.notEmpty(model.getId(), "model id must not be empty");
+    Validator.notNull(word, "word cannot be null");
+
+    final String path = String.format(PATH_WORD, model.getId(), word);
     final Request request = RequestBuilder.delete(path).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
