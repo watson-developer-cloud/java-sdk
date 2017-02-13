@@ -61,6 +61,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Sort;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
@@ -666,11 +667,77 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(wordsAsStr));
 
+    List<WordData> result = service.getWords(id, null).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("GET", request.getMethod());
+    assertEquals(String.format(PATH_WORDS, id), request.getPath());
+    assertEquals(words.get("words"), GSON.toJsonTree(result));
+  }
+
+  /**
+   * Test get words with word type all.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testGetWordsType() throws InterruptedException, FileNotFoundException {
+    String id = "foo";
+    String wordsAsStr = getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/words.json"));
+    JsonObject words = new JsonParser().parse(wordsAsStr).getAsJsonObject();
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(wordsAsStr));
+
     List<WordData> result = service.getWords(id, Type.ALL).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("GET", request.getMethod());
     assertEquals(String.format(PATH_WORDS, id) + "?word_type=all", request.getPath());
+    assertEquals(words.get("words"), GSON.toJsonTree(result));
+  }
+
+  /**
+   * Test get words with sort order alphabetical.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testGetWordsSort() throws InterruptedException, FileNotFoundException {
+    String id = "foo";
+    String wordsAsStr = getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/words.json"));
+    JsonObject words = new JsonParser().parse(wordsAsStr).getAsJsonObject();
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(wordsAsStr));
+
+    List<WordData> result = service.getWords(id, null, Sort.ALPHA).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("GET", request.getMethod());
+    assertEquals(String.format(PATH_WORDS, id) + "?sort=alphabetical", request.getPath());
+    assertEquals(words.get("words"), GSON.toJsonTree(result));
+  }
+
+  /**
+   * Test get words with word type all and sort order alphabetical.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testGetWordsTypeSort() throws InterruptedException, FileNotFoundException {
+    String id = "foo";
+    String wordsAsStr = getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/words.json"));
+    JsonObject words = new JsonParser().parse(wordsAsStr).getAsJsonObject();
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(wordsAsStr));
+
+    List<WordData> result = service.getWords(id, Type.ALL, Sort.ALPHA).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("GET", request.getMethod());
+    assertEquals(String.format(PATH_WORDS, id) + "?word_type=all&sort=alphabetical", request.getPath());
     assertEquals(words.get("words"), GSON.toJsonTree(result));
   }
 
