@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-
 import java.io.File;
 import java.util.List;
 
@@ -41,7 +40,7 @@ public class CustomizationExample {
    */
   public static void main(String[] args) throws InterruptedException {
     SpeechToText service = new SpeechToText();
-    service.setUsernameAndPassword("0c8dafce-3cf2-46d8-9116-408e35a35fe2", "MaiEL4fS1zlJ");
+    service.setUsernameAndPassword("<username>", "<password>");
 
     // Create customization
     Customization myCustomization =
@@ -52,29 +51,34 @@ public class CustomizationExample {
       // Add a corpus file to the model:
       service.addTextToCustomizationCorpus(id, "corpus-1", false, new File(CORPUS_FILE)).execute();
 
-      // Get corpora
-      List<Corpus> corpora = service.getCorpora(id).execute();
-
-      // There is only one corpus so far so choose it
-      Corpus corpus = corpora.get(0);
-
-      for (int x = 0; x < 30 && corpus.getStatus() != Status.ANALYZED; x++) {
-        corpus = service.getCorpora(id).execute().get(0);
+      // Get corpus status
+      for (int x = 0; x < 30 && (service.getCorpus(id, "corpus-1").execute()).getStatus() != Status.ANALYZED; x++) {
         Thread.sleep(5000);
       }
 
-      // Get corpus
+      // Get all corpora
+      List<Corpus> corpora = service.getCorpora(id).execute();
+      System.out.println(corpora);
+
+      // Get specific corpus
       Corpus corpus = service.getCorpus(id, "corpus-1").execute();
+      System.out.println(corpus);
 
       // Now add some user words to the custom model
       service.addWord(id, new Word("IEEE", "IEEE", "I. triple E.")).execute();
       service.addWord(id, new Word("hhonors", "IEEE", "H. honors", "Hilton honors")).execute();
 
-      // Display all words in the words resource (coming from OOVs from the corpus add and the new words just added)
+      // Display all words in the words resource (OOVs from the corpus and
+      // new words just added) in ascending alphabetical order
       List<WordData> result = service.getWords(id, Word.Type.ALL).execute();
-      for (WordData word : result) {
-        System.out.println(word);
-      }
+      System.out.println("\nASCENDING ALPHABETICAL ORDER:");
+      System.out.println(result);
+
+      // Then display all words in the words resource in descending order
+      // by count
+      result = service.getWords(id, Word.Type.ALL, Word.Sort.MINUS_COUNT).execute();
+      System.out.println("\nDESCENDING ORDER BY COUNT:");
+      System.out.println(result);
 
       // Now start training of the model
       service.trainCustomization(id, Customization.WordTypeToAdd.ALL).execute();
