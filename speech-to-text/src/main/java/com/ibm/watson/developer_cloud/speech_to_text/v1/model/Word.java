@@ -28,10 +28,23 @@ public class Word extends GenericModel {
    * The Enum Type.
    */
   public enum Type {
-    /** The all. */
+    /** The default is ALL. */
     ALL, /** The corpora. */
     CORPORA, /** The user. */
     USER
+  }
+
+  /**
+   * The Enum Sort.
+   */
+  public enum Sort {
+    /** The default is ALPHA. */
+    ALPHA, /** Lexicographically (in ascending order). */
+    PLUS_ALPHA, /** Lexicographically in ascending order. */
+    MINUS_ALPHA, /** Lexicographically in descending order. */
+    COUNT, /** By count (in descending order). */
+    PLUS_COUNT, /** By count in ascending order. */
+    MINUS_COUNT /** By count in descending order. */
   }
 
   @SerializedName("display_as")
