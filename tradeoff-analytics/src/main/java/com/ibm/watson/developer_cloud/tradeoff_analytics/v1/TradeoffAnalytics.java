@@ -80,8 +80,7 @@ public class TradeoffAnalytics extends WatsonService {
    * @return the dilemma
    */
   public ServiceCall<Dilemma> dilemmas(final Problem problem) {
-	  
-	  return dilemmas(problem, null, null);
+	return dilemmas(problem, null, null);
   }
 
   /**
@@ -104,7 +103,7 @@ public class TradeoffAnalytics extends WatsonService {
    */
   public ServiceCall<Dilemma> dilemmas(final Problem problem, final Boolean generateVisualization) {
 	
-	  return dilemmas(problem, generateVisualization, null);
+	return dilemmas(problem, generateVisualization, null);
   }
   
   /**
@@ -140,15 +139,13 @@ public class TradeoffAnalytics extends WatsonService {
         RequestBuilder.post(PATH_DILEMMAS).bodyContent(contentJson, HttpMediaType.APPLICATION_JSON);
     
     List<String> queryParams = new ArrayList<>();
-    if (generateVisualization != null)
-    {
-    	queryParams.add(GENERATE_VISUALIZATION);
-        queryParams.add(generateVisualization.toString());
+    if (generateVisualization != null) {
+      queryParams.add(GENERATE_VISUALIZATION);
+      queryParams.add(generateVisualization.toString());
     }
-    if (findPreferableOptions != null)
-    {
-    	queryParams.add(FIND_PREFERABLE_OPTIONS);
-        queryParams.add(findPreferableOptions.toString());
+    if (findPreferableOptions != null) {
+      queryParams.add(FIND_PREFERABLE_OPTIONS);
+      queryParams.add(findPreferableOptions.toString());
     }
     
     requestBuilder.query(queryParams.toArray());
