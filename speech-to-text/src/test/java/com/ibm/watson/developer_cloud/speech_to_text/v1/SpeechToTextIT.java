@@ -480,7 +480,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testCustomization() throws InterruptedException {
     // create customization
     Customization myCustomization =
-        service.createCustomization("IEEE-java-sdk-permanent", SpeechModel.EN_US_BROADBANDMODEL, null).execute();
+        service.createCustomization("IEEE-java-sdk-temporary", SpeechModel.EN_US_BROADBANDMODEL, "Temporary custom model for testing the Java SDK").execute();
     String id = myCustomization.getId();
 
     try {
