@@ -44,6 +44,7 @@ public class CustomizationsIT extends WatsonServiceTest {
 
   private static final String MODEL_NAME = "test model";
   private static final String MODEL_LANGUAGE = "en-US";
+  private static final String MODEL_LANGUAGE_JAPANESE = "ja-JP";
   private static final String MODEL_DESCRIPTION = "a simple model for testing purposes";
 
   private CustomVoiceModel model;
@@ -76,17 +77,34 @@ public class CustomizationsIT extends WatsonServiceTest {
     return model;
   }
 
+  private CustomVoiceModel instantiateVoiceModelJapanese() {
+    final CustomVoiceModel model = new CustomVoiceModel();
+    model.setName(MODEL_NAME);
+    model.setDescription(MODEL_DESCRIPTION);
+    model.setLanguage(MODEL_LANGUAGE_JAPANESE);
+
+    return model;
+  }
+
   private List<CustomTranslation> instantiateCustomTranslations() {
     return ImmutableList.of(new CustomTranslation("hodor", "hold the door"),
-        /*
-         * The following IPA entry is causing a test failure:
-           new CustomTranslation("trinitroglycerin", "try<phoneme alphabet=\"ipa\" ph=\"nˈaɪtɹəglɪsəɹɨn\"></phoneme>"),
-        */
+      /** The following IPA entry is causing a test failure:
+       *  new CustomTranslation("trinitroglycerin", "try<phoneme alphabet=\"ipa\" ph=\"nˈaɪtɹəglɪsəɹɨn\"></phoneme>"),
+       */
         new CustomTranslation("shocking", "<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>"));
+  }
+
+  private List<CustomTranslation> instantiateCustomTranslationsJapanese() {
+    return ImmutableList.of(new CustomTranslation("hodor", "hold the door", CustomTranslation.PartOfSpeech.JOSI),
+        new CustomTranslation("clodor", "Close the door", CustomTranslation.PartOfSpeech.HOKA));
   }
 
   private CustomVoiceModel createVoiceModel() {
     return service.saveCustomVoiceModel(instantiateVoiceModel()).execute();
+  }
+
+  private CustomVoiceModel createVoiceModelJapanese() {
+    return service.saveCustomVoiceModel(instantiateVoiceModelJapanese()).execute();
   }
 
   private void assertModelsEqual(CustomVoiceModel a, CustomVoiceModel b) {
@@ -216,7 +234,7 @@ public class CustomizationsIT extends WatsonServiceTest {
   }
 
   /**
-   * Test add words.
+   * Test add words and get words.
    */
   @Test
   public void testAddWords() {
@@ -230,12 +248,12 @@ public class CustomizationsIT extends WatsonServiceTest {
   }
 
   /**
-   * Test get words.
+   * Test add words and get words for Japanese.
    */
   @Test
-  public void testGetWords() {
-    model = createVoiceModel();
-    final List<CustomTranslation> expected = instantiateCustomTranslations();
+  public void testAddWordsJapanese() {
+    model = createVoiceModelJapanese();
+    final List<CustomTranslation> expected = instantiateCustomTranslationsJapanese();
 
     service.saveWords(model, expected.toArray(new CustomTranslation[] { })).execute();
 
@@ -255,6 +273,21 @@ public class CustomizationsIT extends WatsonServiceTest {
 
     final CustomTranslation word = service.getWord(model, expected.get(0).getWord()).execute();
     assertEquals(expected.get(0).getTranslation(), word.getTranslation());
+  }
+
+  /**
+   * Test get word for Japanese.
+   */
+  @Test
+  public void testGetWordJapanese() {
+    model = createVoiceModelJapanese();
+    final List<CustomTranslation> expected = instantiateCustomTranslationsJapanese();
+
+    service.saveWords(model, expected.toArray(new CustomTranslation[] { })).execute();
+
+    final CustomTranslation word = service.getWord(model, expected.get(0).getWord()).execute();
+    assertEquals(expected.get(0).getTranslation(), word.getTranslation());
+    assertEquals(expected.get(0).getPartOfSpeech(), word.getPartOfSpeech());
   }
 
   /**
