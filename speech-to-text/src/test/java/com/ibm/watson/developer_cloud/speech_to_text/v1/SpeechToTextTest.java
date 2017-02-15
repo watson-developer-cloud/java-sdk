@@ -632,25 +632,25 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test add text to corpus.
+   * Test add corpus.
    *
    * @throws InterruptedException the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
-  public void testAddTextToCorpus() throws InterruptedException, FileNotFoundException {
+  public void testAddCorpus() throws InterruptedException, FileNotFoundException {
     String id = "foo";
-    String corpus = "cName";
-    File trainingData = new File("src/test/resources/speech_to_text/corpus-text.txt");
+    String corpusName = "cName";
+    File corpusFile = new File("src/test/resources/speech_to_text/corpus-text.txt");
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
 
-    service.addTextToCustomizationCorpus(id, corpus, true, trainingData).execute();
+    service.addCorpus(id, corpusName, corpusFile, true).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
-    assertEquals(String.format(PATH_CORPUS, id, corpus) + "?allow_override=true", request.getPath());
-    assertEquals(trainingData.length(), request.getBodySize());
+    assertEquals(String.format(PATH_CORPUS, id, corpusName) + "?allow_overwrite=true", request.getPath());
+    assertEquals(corpusFile.length(), request.getBodySize());
   }
 
   /**
