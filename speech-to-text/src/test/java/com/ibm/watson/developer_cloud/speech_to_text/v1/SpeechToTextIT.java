@@ -389,12 +389,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
   }
 
   /**
-   * Test add text to corpus.
+   * Test add corpus with expected failure.
    *
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testAddTextToCorpus() {
-      service.addTextToCustomizationCorpus(customizationId, "foo3", null, null).execute();
+  public void testAddCorpusFail() {
+      service.addCorpus(customizationId, "foo3", null, null).execute();
   }
 
   /**
@@ -484,26 +484,33 @@ public class SpeechToTextIT extends WatsonServiceTest {
     String id = myCustomization.getId();
 
     try {
-      // Add a corpus file to the model:
-      service
-          .addTextToCustomizationCorpus(id, "corpus-1", false, new File(String.format(SPEECH_RESOURCE, "corpus1.txt")))
+      // Add a corpus file to the model
+      service.addCorpus(id, "corpus-1", new File(String.format(SPEECH_RESOURCE, "corpus1.txt")), false)
           .execute();
+
+      // Get corpus status
+      for (int x = 0; x < 30 && service.getCorpus(id, "corpus-1").execute().getStatus() != Status.ANALYZED; x++) {
+        Thread.sleep(5000);
+      }
+
+      assertTrue(service.getCorpus(id, "corpus-1").execute().getStatus() == Status.ANALYZED);
+
+      // Add the corpus file to the model again and allow overwrite
+      service.addCorpus(id, "corpus-1", new File(String.format(SPEECH_RESOURCE, "corpus1.txt")), true)
+          .execute();
+
+      // Get corpus status
+      for (int x = 0; x < 30 && service.getCorpus(id, "corpus-1").execute().getStatus() != Status.ANALYZED; x++) {
+        Thread.sleep(5000);
+      }
+
+      assertTrue(service.getCorpus(id, "corpus-1").execute().getStatus() == Status.ANALYZED);
 
       // Get corpora
       List<Corpus> corpora = service.getCorpora(id).execute();
 
       assertNotNull(corpora);
       assertTrue(corpora.size() == 1);
-
-      // There is only one corpus so far so choose it
-      Corpus corpus = corpora.get(0);
-
-      for (int x = 0; x < 30 && corpus.getStatus() != Status.ANALYZED; x++) {
-        corpus = service.getCorpora(id).execute().get(0);
-        Thread.sleep(5000);
-      }
-
-      assertTrue(corpus.getStatus() == Status.ANALYZED);
 
       // Now add some user words to the custom model
       service.addWord(id, new Word("IEEE", "IEEE", "I. triple E.")).execute();
