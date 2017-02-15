@@ -49,7 +49,7 @@ public class CustomizationExample {
 
     try {
       // Add a corpus file to the model:
-      service.addTextToCustomizationCorpus(id, "corpus-1", false, new File(CORPUS_FILE)).execute();
+        service.addCorpus(id, "corpus-1", new File(CORPUS_FILE), false).execute();
 
       // Get corpus status
       for (int x = 0; x < 30 && (service.getCorpus(id, "corpus-1").execute()).getStatus() != Status.ANALYZED; x++) {
