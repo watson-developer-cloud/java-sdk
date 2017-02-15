@@ -272,7 +272,7 @@ public class SpeechToText extends WatsonService {
    * @param trainingData A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if
    *        it contains non-ASCII characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters.
    * @return the service call
-   * @deprecated use {@link #addCorpus()} instead.
+   * @deprecated use {@link #addCorpus(String, String, File, Boolean)} instead.
    */
   @Deprecated
   public ServiceCall<Void> addTextToCustomizationCorpus(String customizationId, String corpusName,
