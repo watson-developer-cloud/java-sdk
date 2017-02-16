@@ -707,33 +707,8 @@ public class SpeechToText extends WatsonService {
     if (type != null) {
       requestBuilder.query(WORD_TYPE, type.toString().toLowerCase());
     }
-
-    /**
-     * The Word.Sort enumerated type cannot match the service arguments directly, so we need to convert
-     * to one of the required values. Although they do the same thing now, We keep ALPHA and PLUS_ALPHA
-     * separate in case the service defaults ever change; the same is true of COUNT and MINUS_COUNT.
-     */
     if (sort != null) {
-        switch (sort) {
-        case ALPHA:
-            requestBuilder.query(WORD_SORT, WORD_SORT_ALPHA);
-            break;
-        case PLUS_ALPHA:
-            requestBuilder.query(WORD_SORT, WORD_SORT_PLUS_ALPHA);
-            break;
-        case MINUS_ALPHA:
-            requestBuilder.query(WORD_SORT, WORD_SORT_MINUS_ALPHA);
-            break;
-        case COUNT:
-            requestBuilder.query(WORD_SORT, WORD_SORT_COUNT);
-            break;
-        case PLUS_COUNT:
-            requestBuilder.query(WORD_SORT, WORD_SORT_PLUS_COUNT);
-            break;
-        case MINUS_COUNT:
-            requestBuilder.query(WORD_SORT, WORD_SORT_MINUS_COUNT);
-            break;
-        }
+      requestBuilder.query(WORD_SORT, sort.getSort());
     }
 
     ResponseConverter<List<WordData>> converter = ResponseConverterUtils.getGenericObject(TYPE_WORDS, WORDS);
