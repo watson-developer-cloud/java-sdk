@@ -25,26 +25,46 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 public class Word extends GenericModel {
 
   /**
-   * The Enum Type.
+   * The Enum Type to specify the type of words to be listed. The default is ALL.
    */
   public enum Type {
-    /** The default is ALL. */
-    ALL, /** The corpora. */
-    CORPORA, /** The user. */
-    USER
+    ALL, /** The corpora and user words. */
+    CORPORA, /** The corpora words. */
+    USER /** The user words. */
   }
 
   /**
-   * The Enum Sort.
+   * The Enum Sort to specify how words are to be sorted when listed. The default is ALPHA.
    */
   public enum Sort {
-    /** The default is ALPHA. */
-    ALPHA, /** Lexicographically (in ascending order). */
-    PLUS_ALPHA, /** Lexicographically in ascending order. */
-    MINUS_ALPHA, /** Lexicographically in descending order. */
-    COUNT, /** By count (in descending order). */
-    PLUS_COUNT, /** By count in ascending order. */
-    MINUS_COUNT /** By count in descending order. */
+
+    /** Lexicographically (in ascending order). */
+    ALPHA("alphabetical"),
+
+    /** Lexicographically in ascending order. */
+    PLUS_ALPHA("+alphabetical"),
+
+    /** Lexicographically in descending order. */
+    MINUS_ALPHA("-alphabetical"),
+
+    /** By count (in descending order). */
+    COUNT("count"),
+
+    /** By count in ascending order. */
+    PLUS_COUNT("+count"),
+
+    /** By count in descending order. */
+    MINUS_COUNT("-count");
+
+    private String sort;
+
+    private Sort(String s) {
+      sort = s;
+    }
+
+    public String getSort() {
+      return sort;
+    }
   }
 
   @SerializedName("display_as")
