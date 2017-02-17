@@ -153,6 +153,20 @@ public class CustomizationsIT extends WatsonServiceTest {
   }
 
   /**
+   * Test get voice with customization.
+   */
+  @Test
+  public void testGetVoiceCustomization() {
+    model = createVoiceModel();
+    final CustomVoiceModel model2 = service.getCustomVoiceModel(model.getId()).execute();
+    final Voice voice = service.getVoice("en-US_AllisonVoice", model.getId()).execute();
+
+    assertNotNull(voice);
+    assertNotNull(model);
+    assertEquals(voice.getCustomVoiceModel(), model2);
+  }
+
+  /**
    * Test update voice model.
    */
   @Test

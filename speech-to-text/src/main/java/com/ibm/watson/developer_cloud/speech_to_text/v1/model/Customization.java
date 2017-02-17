@@ -33,11 +33,10 @@ public class Customization extends GenericModel {
    * </ul>
    */
   public enum WordTypeToAdd {
-
-    /** The all. */
-    ALL, /** The user. */
-    USER
+    ALL, /** The corpora and user words. */
+    USER /** The user words. */
   }
+
   /**
    * Customization Status.
    */
