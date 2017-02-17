@@ -69,7 +69,6 @@ public class Voice extends GenericModel {
     public void setVoiceTransformation(Boolean voiceTransformation) {
       this.voiceTransformation = voiceTransformation;
     }
-
   }
 
   private static final String FEMALE = "female";
@@ -147,11 +146,13 @@ public class Voice extends GenericModel {
   private String gender;
   private String language;
   private String name;
+  private String url;
 
   @SerializedName("supported_features")
   private SupportedFeatures supportedFeatures;
 
-  private String url;
+  @SerializedName("customization")
+  private CustomVoiceModel customVoiceModel;
 
   /**
    * Instantiates a new voice.
@@ -208,6 +209,15 @@ public class Voice extends GenericModel {
   }
 
   /**
+   * Gets the url.
+   *
+   * @return the url
+   */
+  public String getUrl() {
+    return url;
+  }
+
+  /**
    * Gets the supported features.
    *
    * @return the supported features
@@ -217,12 +227,12 @@ public class Voice extends GenericModel {
   }
 
   /**
-   * Gets the url.
+   * Gets the custom voice model if present.
    *
-   * @return the url
+   * @return the custom voice model
    */
-  public String getUrl() {
-    return url;
+  public CustomVoiceModel getCustomVoiceModel() {
+    return customVoiceModel;
   }
 
   /**
@@ -262,6 +272,15 @@ public class Voice extends GenericModel {
   }
 
   /**
+   * Sets the url.
+   *
+   * @param url the new url
+   */
+  public void setUrl(final String url) {
+    this.url = url;
+  }
+
+  /**
    * Sets the supported features.
    *
    * @param supportedFeatures the new supported features
@@ -271,11 +290,12 @@ public class Voice extends GenericModel {
   }
 
   /**
-   * Sets the url.
+   * Sets the custom voice model if present.
    *
-   * @param url the new url
+   * @param customVoiceModel the new custom voice model
    */
-  public void setUrl(final String url) {
-    this.url = url;
+  public void setCustomVoiceModel(CustomVoiceModel customVoiceModel) {
+    this.customVoiceModel = customVoiceModel;
   }
+
 }
