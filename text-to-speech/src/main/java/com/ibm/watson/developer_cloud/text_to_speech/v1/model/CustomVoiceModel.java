@@ -95,7 +95,7 @@ public class CustomVoiceModel extends GenericModel {
   }
 
   /**
-   * Returns the language code (e.g. en-us)
+   * Returns the language code (for example, en-us)
    *
    * @return the language code
    */
@@ -104,7 +104,7 @@ public class CustomVoiceModel extends GenericModel {
   }
 
   /**
-   * Sets the language code (e.g. en-us)
+   * Sets the language code (for example, en-us)
    *
    * @param language the language code
    */

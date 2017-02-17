@@ -25,6 +25,7 @@ import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -34,6 +35,7 @@ import okhttp3.mockwebserver.RecordedRequest;
  */
 public class CustomizationsTest extends WatsonServiceUnitTest {
 
+  private static final String VOICES_PATH = "/v1/voices";
   private static final String VOICE_MODELS_PATH = "/v1/customizations";
   private static final String WORDS_PATH = VOICE_MODELS_PATH + "/%s/words";
 
@@ -74,8 +76,36 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     return model;
   }
 
+  private static Voice instantiateVoice() {
+    final Voice voice = new Voice();
+    voice.setName("en-US_TestMaleVoice");
+    voice.setGender("male");
+    voice.setLanguage("en-US");
+    voice.setDescription("TestMale");
+    voice.setUrl("http://ibm.watson.com/text-to-speech/voices/en-US_TestMaleVoice");
+    voice.setCustomVoiceModel(instantiateVoiceModel());
+
+    return voice;
+  }
+
   private static List<CustomTranslation> instantiateWords() {
     return ImmutableList.of(new CustomTranslation("hodor", "hold the door"));
+  }
+
+  /**
+   * Test get voice with custom voice model.
+   */
+  @Test
+  public void testGetVoiceCustomization() throws InterruptedException {
+    final Voice expected = instantiateVoice();
+    server.enqueue(jsonResponse(expected));
+
+    final Voice result = service.getVoice(expected.getName(), expected.getCustomVoiceModel().getId()).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(VOICES_PATH + "/" + expected.getName() + "?customization_id=" + expected.getCustomVoiceModel().getId(), request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertEquals(expected, result);
   }
 
   /**
