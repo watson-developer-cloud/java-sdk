@@ -1,4 +1,8 @@
 {
   "status": "waiting",
-  "id": "foo"
+  "id": "foo",
+  "warnings": [
+    "string"
+  ]
+
 }
