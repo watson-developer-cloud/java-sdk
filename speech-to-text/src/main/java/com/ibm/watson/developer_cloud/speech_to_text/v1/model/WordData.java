@@ -13,6 +13,9 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import java.util.List;
+import java.util.Map;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Represents a {@link Word} with error and source.
@@ -20,8 +23,10 @@ import java.util.List;
 public class WordData extends Word {
 
   private Integer count;
-  private String error;
   private List<String> source;
+
+  @SerializedName("error")
+  private List<Map> errors;
 
   /**
    * Gets the count for the number of sources from which the word has been added to the model's words resource.
@@ -30,15 +35,6 @@ public class WordData extends Word {
    */
   public Integer getCount() {
     return count;
-  }
-
-  /**
-   * Gets the error. If the service discovered a problem with the custom word's definition.
-   *
-   * @return The error
-   */
-  public String getError() {
-    return error;
   }
 
   /**
@@ -51,12 +47,12 @@ public class WordData extends Word {
   }
 
   /**
-   * Sets the error.
+   * Gets the errors if present.
    *
-   * @param error The error
+   * @return The errors
    */
-  public void setError(String error) {
-    this.error = error;
+  public List<Map> getErrors() {
+    return errors;
   }
 
   /**
@@ -75,6 +71,15 @@ public class WordData extends Word {
    */
   public void setCount(Integer count) {
     this.count = count;
+  }
+
+  /**
+   * Sets the errors if present.
+   *
+   * @param errors The errors
+   */
+  public void setErrors(List<Map> errors) {
+    this.errors = errors;
   }
 
 }
