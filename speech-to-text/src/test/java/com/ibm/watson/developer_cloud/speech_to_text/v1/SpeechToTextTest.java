@@ -388,8 +388,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     String id = "foo";
     RecognitionJob job = loadFixture("src/test/resources/speech_to_text/job.json", RecognitionJob.class);
 
-    server
-        .enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(job)));
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(job)));
 
     RecognitionJob result = service.getRecognitionJob(id).execute();
     final RecordedRequest request = server.takeRequest();
@@ -410,8 +409,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     String id = "foo";
     RecognitionJob job = loadFixture("src/test/resources/speech_to_text/job.json", RecognitionJob.class);
 
-    server
-        .enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(job)));
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(job)));
 
     RecognitionJob result = service.getRecognitionJob(id).execute();
     final RecordedRequest request = server.takeRequest();
