@@ -55,9 +55,9 @@ public class RecognitionJob extends GenericModel {
   private List<String> warnings;
 
   /**
-   * Gets the id.
+   * Gets the job id.
    *
-   * @return the id
+   * @return the job id
    */
   public String getId() {
     return id;
@@ -75,7 +75,7 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the created date.
    *
-   * @return the created
+   * @return the created date
    */
   public Date getCreated() {
     return created;
@@ -84,7 +84,7 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the updated date.
    *
-   * @return the updated
+   * @return the updated date
    */
   public Date getUpdated() {
     return updated;
@@ -93,7 +93,7 @@ public class RecognitionJob extends GenericModel {
   /**
    * Gets the callback url.
    *
-   * @return the url
+   * @return the callback url
    */
   public String getUrl() {
     return url;
@@ -192,7 +192,7 @@ public class RecognitionJob extends GenericModel {
   /**
    * Sets the warnings if present.
    *
-   * @params warnings the new warnings.
+   * @param warnings the new warnings
    */
   public void setWarnings(List<String> warnings) {
     this.warnings = warnings;
