@@ -7,5 +7,7 @@
   "source": [
     "string"
   ],
-  "error": "string"
+  "error": [
+    {"string": "string"}
+  ]
 }
