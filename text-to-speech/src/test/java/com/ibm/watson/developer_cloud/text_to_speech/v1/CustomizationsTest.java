@@ -94,6 +94,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   /**
    * Test get voice with custom voice model.
+   *
+   * @throws InterruptedException the interrupted exception
    */
   @Test
   public void testGetVoiceCustomization() throws InterruptedException {
