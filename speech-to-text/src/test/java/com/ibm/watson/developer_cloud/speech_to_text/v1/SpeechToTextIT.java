@@ -38,6 +38,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus.Status;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Customization;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.KeywordsResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
@@ -330,6 +331,32 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
       assertNotNull(job.getResults());
 
+    } finally {
+      service.deleteRecognitionJob(job.getId());
+    }
+  }
+
+  /**
+   * Test create recognition job with a warning message.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testCreateRecognitionJobWarning() throws InterruptedException, FileNotFoundException {
+    File audio = new File(SAMPLE_WAV);
+    RecognitionJobOptions jobOptions = new RecognitionJobOptions.Builder().userToken("job").build();
+    RecognitionJob job = service.createRecognitionJob(audio, null, jobOptions).execute();
+    try {
+      assertNotNull(job.getId());
+      assertNotNull(job.getWarnings());
+      for (int x = 0; x < 30 && job.getStatus() != RecognitionJob.Status.COMPLETED; x++) {
+        Thread.sleep(3000);
+        job = service.getRecognitionJob(job.getId()).execute();
+      }
+      job = service.getRecognitionJob(job.getId()).execute();
+      assertEquals(RecognitionJob.Status.COMPLETED, job.getStatus());
+      assertNotNull(job.getResults());
     } finally {
       service.deleteRecognitionJob(job.getId());
     }
