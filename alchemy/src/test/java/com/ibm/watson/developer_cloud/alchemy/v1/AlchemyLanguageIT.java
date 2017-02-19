@@ -395,6 +395,8 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
 
   /**
    * Test Get testGetRawText.
+   *
+   * @throws Exception
    */
   @Test
   @Ignore
