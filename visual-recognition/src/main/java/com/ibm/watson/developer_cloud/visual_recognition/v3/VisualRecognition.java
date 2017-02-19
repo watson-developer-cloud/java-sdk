@@ -458,6 +458,7 @@ public class VisualRecognition extends WatsonService {
    * Deletes a collection.
    *
    * @param collectionId the collection id
+   * @param imageId the image id
    * @return the service call
    */
   public ServiceCall<Void> deleteCollectionImage(String collectionId, String imageId) {
