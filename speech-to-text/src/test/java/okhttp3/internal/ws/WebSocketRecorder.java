@@ -40,7 +40,11 @@ public final class WebSocketRecorder extends WebSocketListener {
         this.name = name;
     }
 
-    /** Sets a delegate for handling the next callback to this listener. Cleared after invoked. */
+    /**
+     * Sets a delegate for handling the next callback to this listener. Cleared after invoked.
+     *
+     * @param delegate the delegate to be set
+     */
     public void setNextEventDelegate(WebSocketListener delegate) {
         this.delegate = delegate;
     }
@@ -216,7 +220,11 @@ public final class WebSocketRecorder extends WebSocketListener {
         assertEquals(message, failure.t.getMessage());
     }
 
-    /** Expose this recorder as a frame callback and shim in "ping" events. */
+    /**
+     * Expose this recorder as a frame callback and shim in "ping" events.
+     *
+     * @return the frame callback for the WebSocket reader
+     */
     public WebSocketReader.FrameCallback asFrameCallback() {
         return new WebSocketReader.FrameCallback() {
             @Override public void onReadMessage(String text) throws IOException {
