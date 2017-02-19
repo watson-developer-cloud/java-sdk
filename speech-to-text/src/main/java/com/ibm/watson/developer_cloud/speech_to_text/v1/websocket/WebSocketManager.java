@@ -70,6 +70,7 @@ public class WebSocketManager {
     private static final String ERROR = "error";
     private static final String RESULTS = "results";
     private static final String SPEAKER_LABELS = "speaker_labels";
+    private static final String CUSTOMIZATION_ID = "customization_id";
 
     private static final String TIMEOUT_PREFIX = "No speech detected for";
 
@@ -226,6 +227,7 @@ public class WebSocketManager {
     private String buildStartMessage(RecognizeOptions options) {
       JsonObject startMessage = new JsonParser().parse(new Gson().toJson(options)).getAsJsonObject();
       startMessage.remove(MODEL);
+      startMessage.remove(CUSTOMIZATION_ID);
       startMessage.addProperty(ACTION, START);
       return startMessage.toString();
     }
@@ -265,6 +267,9 @@ public class WebSocketManager {
    */
   private Request prepareRequest(RecognizeOptions options) {
     String speechModel = options.model() == null ? "" : "?model=" + options.model();
+    if (options.customizationId() != null) {
+      speechModel += "&customization_id=" + options.customizationId();
+    }
     Builder builder = new Request.Builder().url(url + speechModel);
 
     if (token != null) {
