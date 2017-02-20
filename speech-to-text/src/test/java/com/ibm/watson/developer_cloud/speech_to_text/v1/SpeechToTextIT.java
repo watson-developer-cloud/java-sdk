@@ -542,6 +542,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
       // Now add some user words to the custom model
       service.addWord(id, new Word("IEEE", "IEEE", "I. triple E.")).execute();
       service.addWord(id, new Word("hhonors", "IEEE", "H. honors", "Hilton honors")).execute();
+      service.addWord(id, new Word("aaa", "aaa", "aaa", "bbb")).execute();
+      service.addWord(id, new Word("bbb", null, "aaa", "bbb")).execute();
+      service.addWord(id, new Word("ccc", "ccc")).execute();
+      service.addWord(id, new Word("ddd")).execute();
+      service.addWord(id, new Word("eee", null, (String[]) null)).execute();
 
       // Display all words in the words resource (coming from OOVs from the corpus add and the new words just added)
       List<WordData> words = service.getWords(id, Word.Type.ALL).execute();
