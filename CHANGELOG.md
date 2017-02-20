@@ -3,48 +3,61 @@ Change Log
 
 ## Version 3.5.4-SNAPSHOT
 
-* Change: Update OkHttp to v3.6.0
+ * Change: Update OkHttp to v3.6.0
+ * New: Speech to Text: Add addCorpus() method, deprecate addTextToCustomizationCorpus() method
+ * New: Speech to Text: Add getCorpus() method
+ * New: Speech to Text: Add sort parameter to getWords() method
+ * New: Speech to Text: Add SupportedFeatures for SpeechModel object
+ * New: Speech to Text: Add and fix constructors for Word object
+ * New: Speech to Text: Add count to WordData object
+ * New: Speech to Text: Add confidence to SpeakerLabel object
+ * New: Speech to Text: Add warnings to RecognitionJob object
+ * Fix: Speech to Text: Enable customization_id for recognizeUsingWebSocket() method
+ * Fix: Speech to Text: Fix allowOverwrite parameter of addTextToCustomizationCorpus() method
+ * Fix: Speech to Text: Fix error field for WordData object
+ * New: Text to Speech: Add getWord() method
+ * New: Text to Speech: Add deleteWord() method with String argument
+ * New: Text to Speech: Add part_of_speech to CustomTranslation object
+ * Fix: Text to Speech: Enable customization results for getVoice() method
 
 ## Version 3.5.3
 
 _2016-12-15_
 
-* New: Added Discovery v1
+ * New: Added Discovery v1
 
 ## Version 3.5.2
 
 _2016-12-08_
 
-* New: Added Speaker Labeling (diarization) added
-* New: Added Conversation + Tone Analyzer example
-* New: Added byte array support to classify an in memory image
-* Fix: Text to Speech: `getPronunciation()` and `getVoice` now accept a `customizationId` parameter.
+ * New: Added Speaker Labeling (diarization) added
+ * New: Added Conversation + Tone Analyzer example
+ * New: Added byte array support to classify an in memory image
+ * Fix: Text to Speech: `getPronunciation()` and `getVoice` now accept a `customizationId` parameter.
 
 ## Version 3.5.1
 
 _2016-11-01_
 
-* Fix: Remove limitation when creating a Solr cluster
-
+ * Fix: Remove limitation when creating a Solr cluster
 
 ## Version 3.5.0
 
 _2016-10-19_
 
-* New: Personality Insights v3
-* New: Speech to Text Customizations
-* New: Conversation version date 2016-09-19
-* Fix: Calling `synthesize` in Text to Speech now accepts a `rate`  for PCM. #454
-* Fix: READMEs now point to the right maven dependency #459
-* Fix: AlchemyLanguage now has anchor dates for combine calls
-* Fix: Retrieve and Rank `topAnswer` bug #456
+ * New: Personality Insights v3
+ * New: Speech to Text Customizations
+ * New: Conversation version date 2016-09-19
+ * Fix: Calling `synthesize` in Text to Speech now accepts a `rate`  for PCM. #454
+ * Fix: READMEs now point to the right maven dependency #459
+ * Fix: AlchemyLanguage now has anchor dates for combine calls
+ * Fix: Retrieve and Rank `topAnswer` bug #456
 
 ## Version 3.4.1
 
 _2016-09-30_
 
  * New: Add Language Translator
-
 
 ## Version 3.4.0
 
@@ -128,7 +141,6 @@ calls and calls more efficiently.
  * Fix: Added missing fields in AlchemyDataNews
  * Fix: SSL certificate issues when running in Bluemix and using the IBM JDK
 
-
 ## Version 3.0.0-RC1
 
 _2016-04-22_
@@ -141,7 +153,6 @@ immutability and chained builders.
  * Fix: Websockets issues during a recognition using Speech to Text
  * New: Automatic snapshot deployments to Sonatype
  * New: Chained builders for Speech to text and Tradeoff Analytics
-
 
 ## Version 2.10.0
 
