@@ -133,15 +133,21 @@ public class WebSocketManager {
       if (json.has(ERROR)) {
         String error = json.get(ERROR).getAsString();
 
-        // Only call onError() if a real error occured. The STT service sends
+        // Only call onError() if a real error occurred. The STT service sends
         // {"error" : "No speech detected for 5s"} for valid timeouts, configured by
         // RecognizeOptions.Builder.inactivityTimeout()
         if (!error.startsWith(TIMEOUT_PREFIX)) {
           callback.onError(new RuntimeException(error));
+        } else {
+          // notify that the service timeouts because of inactivity
+          callback.onInactivityTimeout(new RuntimeException(error));
         }
       } else if (json.has(RESULTS) || json.has(SPEAKER_LABELS)) {
         callback.onTranscription(GSON.fromJson(message, SpeechResults.class));
       } else if (json.has(STATE)) {
+        // notify that the service is ready to receive audio
+        callback.onListening();
+
         if (audioThread == null) {
           // Send the InputStream on a different Thread. Elsewise, interim results cannot be
           // received,
