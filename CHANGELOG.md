@@ -19,6 +19,9 @@ Change Log
  * New: Text to Speech: Add deleteWord() method with String argument
  * New: Text to Speech: Add part_of_speech to CustomTranslation object
  * Fix: Text to Speech: Enable customization results for getVoice() method
+ * New: Tradeoff Analytics: Add findPreferableOptions parameter to dilemmas() method
+ * New: Tradeoff Analytics: Add PreferableSolutions object to Resolution object
+ * New: Tradeoff Analytics: Add DominatingOption object to Solution object
 
 ## Version 3.5.3
 
