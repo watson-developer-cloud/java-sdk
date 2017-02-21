@@ -20,27 +20,9 @@ import com.google.gson.annotations.SerializedName;
  */
 public class ImageProcessingError {
 
+  private String description;
   @SerializedName("error_id")
   private String errorId;
-  private String description;
-
-  /**
-   * Gets the error id.
-   *
-   * @return The error identifier
-   */
-  public String getErrorId() {
-    return errorId;
-  }
-
-  /**
-   * Sets the error id.
-   *
-   * @param errorId The error identifier
-   */
-  public void setErrorId(String errorId) {
-    this.errorId = errorId;
-  }
 
   /**
    * Gets the description.
@@ -52,12 +34,30 @@ public class ImageProcessingError {
   }
 
   /**
+   * Gets the error id.
+   *
+   * @return The error identifier
+   */
+  public String getErrorId() {
+    return errorId;
+  }
+
+  /**
    * Sets the description.
    *
    * @param description The description
    */
   public void setDescription(String description) {
     this.description = description;
+  }
+
+  /**
+   * Sets the error id.
+   *
+   * @param errorId The error identifier
+   */
+  public void setErrorId(String errorId) {
+    this.errorId = errorId;
   }
 
 }

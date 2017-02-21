@@ -25,6 +25,7 @@ import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomTranslation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -34,6 +35,7 @@ import okhttp3.mockwebserver.RecordedRequest;
  */
 public class CustomizationsTest extends WatsonServiceUnitTest {
 
+  private static final String VOICES_PATH = "/v1/voices";
   private static final String VOICE_MODELS_PATH = "/v1/customizations";
   private static final String WORDS_PATH = VOICE_MODELS_PATH + "/%s/words";
 
@@ -44,6 +46,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   private static final String ID = "customization_id";
   private static final String CUSTOMIZATIONS = "customizations";
   private static final String WORDS = "words";
+  private static final String TRANSLATION = "translation";
 
   /** The service. */
   private TextToSpeech service;
@@ -73,17 +76,66 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     return model;
   }
 
+  private static Voice instantiateVoice() {
+    final Voice voice = new Voice();
+    voice.setName("en-US_TestMaleVoice");
+    voice.setGender("male");
+    voice.setLanguage("en-US");
+    voice.setDescription("TestMale");
+    voice.setUrl("http://ibm.watson.com/text-to-speech/voices/en-US_TestMaleVoice");
+    voice.setCustomVoiceModel(instantiateVoiceModel());
+
+    return voice;
+  }
+
   private static List<CustomTranslation> instantiateWords() {
     return ImmutableList.of(new CustomTranslation("hodor", "hold the door"));
   }
 
   /**
-   * Test get voice models.
+   * Test get voice with custom voice model.
    *
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testGetVoiceModels() throws InterruptedException {
+  public void testGetVoiceCustomization() throws InterruptedException {
+    final Voice expected = instantiateVoice();
+    server.enqueue(jsonResponse(expected));
+
+    final Voice result = service.getVoice(expected.getName(), expected.getCustomVoiceModel().getId()).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(VOICES_PATH + "/" + expected.getName() + "?customization_id=" + expected.getCustomVoiceModel().getId(), request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertEquals(expected, result);
+  }
+
+  /**
+   * Test get voice models for null language.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testGetVoiceModelsNull() throws InterruptedException {
+    final List<CustomVoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
+    server.enqueue(jsonResponse(ImmutableMap.of(CUSTOMIZATIONS, expected)));
+
+    final List<CustomVoiceModel> result = service.getCustomVoiceModels(null).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(VOICE_MODELS_PATH, request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertFalse(result.isEmpty());
+    assertEquals(expected, result);
+  }
+
+  /**
+   * Test get voice models for a language.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testGetVoiceModelsLanguage() throws InterruptedException {
     final List<CustomVoiceModel> expected = ImmutableList.of(instantiateVoiceModel());
     server.enqueue(jsonResponse(ImmutableMap.of(CUSTOMIZATIONS, expected)));
 
@@ -192,6 +244,26 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   }
 
   /**
+   * Test get word.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testGetWord() throws InterruptedException {
+    final CustomVoiceModel model = instantiateVoiceModel();
+    final CustomTranslation expected = instantiateWords().get(0);
+
+    server.enqueue(jsonResponse(ImmutableMap.of(TRANSLATION, expected.getTranslation())));
+    final CustomTranslation result =
+        service.getWord(model, expected.getWord()).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(String.format(WORDS_PATH, model.getId()) + "/" + expected.getWord(), request.getPath());
+    assertEquals("GET", request.getMethod());
+    assertEquals(expected.getTranslation(), result.getTranslation());
+  }
+
+  /**
    * Test add word.
    *
    * @throws InterruptedException the interrupted exception
@@ -217,12 +289,12 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test delete word.
+   * Test delete word with object.
    *
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testDeleteWord() throws InterruptedException {
+  public void testDeleteWordObject() throws InterruptedException {
     final CustomVoiceModel model = instantiateVoiceModel();
     final CustomTranslation expected = instantiateWords().get(0);
 
@@ -231,6 +303,24 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(String.format(WORDS_PATH, model.getId()) + "/" + expected.getWord(), request.getPath());
+    assertEquals("DELETE", request.getMethod());
+  }
+
+  /**
+   * Test delete word with string.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testDeleteWordString() throws InterruptedException {
+    final CustomVoiceModel model = instantiateVoiceModel();
+    final String expected = instantiateWords().get(0).getWord();
+
+    server.enqueue(new MockResponse().setResponseCode(204));
+    service.deleteWord(model, expected).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(String.format(WORDS_PATH, model.getId()) + "/" + expected, request.getPath());
     assertEquals("DELETE", request.getMethod());
   }
 

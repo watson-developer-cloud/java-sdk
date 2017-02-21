@@ -13,12 +13,62 @@
 
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Speech model.
  */
 public class SpeechModel extends GenericModel {
+
+  /**
+   * Describes the additional service features supported with the speech
+   * model.
+   */
+  public class SupportedFeatures {
+    @SerializedName("custom_language_model")
+    private Boolean customLanguageModel;
+    @SerializedName("speaker_labels")
+    private Boolean speakerLabels;
+
+    /**
+     * Gets the custom language model attribute.
+     *
+     * @return the custom language model atribute.
+     */
+      public Boolean getCustomLanguageModel() {
+      return customLanguageModel;
+    }
+
+    /**
+     * Gets the speaker labels attribute.
+     *
+     * @return the speaker labels attribute.
+     */
+    public Boolean getSpeakerLabels() {
+      return speakerLabels;
+    }
+
+    /**
+     * Sets the custom language model attribute.
+     *
+     * @param customLanguageModel the new custom language model attribute
+     * value.
+     */
+    public void setCustomLanguageModel(final Boolean customLanguageModel) {
+      this.customLanguageModel = customLanguageModel;
+    }
+
+    /**
+     * Sets the speaker labels attribute.
+     *
+     * @param speakerLabels the new speaker labels attribute value.
+     */
+    public void setSpeakerLabels(final Boolean speakerLabels) {
+      this.speakerLabels = speakerLabels;
+    }
+
+  }
 
   /** Modern Standard Arabic broadband model. */
   public static final SpeechModel AR_AR_BROADBANDMODEL = new SpeechModel("ar-AR_BroadbandModel");
@@ -63,12 +113,14 @@ public class SpeechModel extends GenericModel {
   public static final SpeechModel ZH_CN_NARROWBANDMODEL = new SpeechModel("zh-CN_NarrowbandModel");
 
   private String name;
-
+  private String language;
   private int rate;
-
+  private String url;
+  private String description;
   private String sessions;
 
-  private String description;
+  @SerializedName("supported_features")
+  private SupportedFeatures supportedFeatures;
 
   /**
    * Instantiates a new speech model.
@@ -90,6 +142,15 @@ public class SpeechModel extends GenericModel {
   }
 
   /**
+   * Gets the language.
+   *
+   * @return The language
+   */
+  public String getLanguage() {
+    return language;
+  }
+
+  /**
    * Gets the rate.
    *
    * @return The rate
@@ -99,12 +160,12 @@ public class SpeechModel extends GenericModel {
   }
 
   /**
-   * Gets the sessions.
+   * Gets the url.
    *
-   * @return the sessions
+   * @return The url
    */
-  public String getSessions() {
-    return sessions;
+  public String getUrl() {
+    return url;
   }
 
   /**
@@ -117,12 +178,39 @@ public class SpeechModel extends GenericModel {
   }
 
   /**
+   * Gets the sessions.
+   *
+   * @return the sessions
+   */
+  public String getSessions() {
+    return sessions;
+  }
+
+  /**
+   * Gets the supported features.
+   *
+   * @return the supported features
+   */
+  public SupportedFeatures getSupportedFeatures() {
+    return supportedFeatures;
+  }
+
+  /**
    * Sets the name.
    *
    * @param name The name
    */
   public void setName(final String name) {
     this.name = name;
+  }
+
+  /**
+   * Sets the language.
+   *
+   * @param language The language
+   */
+  public void setLanguage(final String language) {
+    this.language = language;
   }
 
   /**
@@ -135,11 +223,20 @@ public class SpeechModel extends GenericModel {
   }
 
   /**
+   * Sets the url.
+   *
+   * @param url The url.
+   */
+  public void setUrl(final String url) {
+      this.url = url;
+  }
+
+  /**
    * Sets the description.
    *
    * @param description The description
    */
-  public void setDescription(String description) {
+  public void setDescription(final String description) {
     this.description = description;
   }
 
@@ -150,6 +247,15 @@ public class SpeechModel extends GenericModel {
    */
   public void setSessions(final String sessions) {
     this.sessions = sessions;
+  }
+
+  /**
+   * Sets the supported features.
+   *
+   * @param supportedFeatures the new supported features
+   */
+  public void setSupportedFeatures(final SupportedFeatures supportedFeatures) {
+    this.supportedFeatures = supportedFeatures;
   }
 
 }

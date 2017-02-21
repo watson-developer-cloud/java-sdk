@@ -201,7 +201,6 @@ public class RecognizeOptions {
       return this;
     }
 
-
     /**
      * Specifies a minimum level of confidence that the service must have to report a matching keyword in the input
      * audio. Specify a probability value between 0 and 1 inclusive. A match must have at least the specified confidence
@@ -288,7 +287,6 @@ public class RecognizeOptions {
       return this;
     }
 
-
     /**
      * If true, confidence measure per word is returned if available.
      *
@@ -303,30 +301,38 @@ public class RecognizeOptions {
 
   @SerializedName("content-type")
   private String contentType;
-
   private Boolean continuous;
-
+  @SerializedName("inactivity_timeout")
   private Integer inactivityTimeout;
+
   @SerializedName("interim_results")
   private Boolean interimResults;
   private String[] keywords;
 
   @SerializedName("keywords_threshold")
   private Double keywordsThreshold;
+  @SerializedName("max_alternatives")
   private Integer maxAlternatives;
+  @SerializedName("profanity_filter")
   private Boolean profanityFilter;
   private String model;
+  @SerializedName("session_id")
   private String sessionId;
   private Boolean timestamps;
+
   @SerializedName("word_alternatives_threshold")
   private Double wordAlternativesThreshold;
+
   @SerializedName("word_confidence")
   private Boolean wordConfidence;
+
   @SerializedName("smart_formatting")
   private Boolean smartFormatting;
+
   @SerializedName("customization_id")
   private String customizationId;
-  @SerializedName("diarization")
+
+  @SerializedName("speaker_labels")
   private Boolean speakerLabels;
 
   private RecognizeOptions(Builder builder) {

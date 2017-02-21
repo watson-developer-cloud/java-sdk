@@ -28,10 +28,19 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
  */
 public class VisualRecognitionGenericModel<T extends ImageProcessed> extends GenericModel {
 
+  private List<T> images;
   @SerializedName("images_processed")
   private Integer imagesProcessed;
-  private List<T> images;
   private List<ImageProcessingWarning> warnings;
+
+  /**
+   * Gets the images.
+   *
+   * @return The images
+   */
+  public List<T> getImages() {
+    return images;
+  }
 
   /**
    * Gets the images processed.
@@ -43,21 +52,12 @@ public class VisualRecognitionGenericModel<T extends ImageProcessed> extends Gen
   }
 
   /**
-   * Sets the images processed.
+   * Gets the warnings.
    *
-   * @param imagesProcessed The images_processed
+   * @return The warnings
    */
-  public void setImagesProcessed(Integer imagesProcessed) {
-    this.imagesProcessed = imagesProcessed;
-  }
-
-  /**
-   * Gets the images.
-   *
-   * @return The images
-   */
-  public List<T> getImages() {
-    return images;
+  public List<ImageProcessingWarning> getWarnings() {
+    return warnings;
   }
 
   /**
@@ -70,12 +70,12 @@ public class VisualRecognitionGenericModel<T extends ImageProcessed> extends Gen
   }
 
   /**
-   * Gets the warnings.
+   * Sets the images processed.
    *
-   * @return The warnings
+   * @param imagesProcessed The images_processed
    */
-  public List<ImageProcessingWarning> getWarnings() {
-    return warnings;
+  public void setImagesProcessed(Integer imagesProcessed) {
+    this.imagesProcessed = imagesProcessed;
   }
 
   /**

@@ -43,68 +43,24 @@ public class RecognitionJob extends GenericModel {
   }
 
   private String id;
-  private List<SpeechResults> results;
   private Status status;
   private Date created;
   private Date updated;
-
-  /**
-   * Gets the updated date.
-   *
-   * @return the updated
-   */
-  public Date getUpdated() {
-    return updated;
-  }
-
-  /**
-   * Sets the updated date.
-   *
-   * @param updated the new updated
-   */
-  public void setUpdated(Date updated) {
-    this.updated = updated;
-  }
-
   private String url;
 
   @SerializedName("user_token")
   private String userToken;
 
+  private List<SpeechResults> results;
+  private List<String> warnings;
+
   /**
-   * Gets the id.
+   * Gets the job id.
    *
-   * @return the id
+   * @return the job id
    */
   public String getId() {
     return id;
-  }
-
-  /**
-   * Gets the created date.
-   *
-   * @return the created
-   */
-  public Date getCreated() {
-    return created;
-  }
-
-  /**
-   * Sets the created date.
-   *
-   * @param created the new created
-   */
-  public void setCreated(Date created) {
-    this.created = created;
-  }
-
-  /**
-   * Gets the recognition results.
-   *
-   * @return the results
-   */
-  public List<SpeechResults> getResults() {
-    return results;
   }
 
   /**
@@ -117,9 +73,27 @@ public class RecognitionJob extends GenericModel {
   }
 
   /**
-   * Gets the url.
+   * Gets the created date.
    *
-   * @return the url
+   * @return the created date
+   */
+  public Date getCreated() {
+    return created;
+  }
+
+  /**
+   * Gets the updated date.
+   *
+   * @return the updated date
+   */
+  public Date getUpdated() {
+    return updated;
+  }
+
+  /**
+   * Gets the callback url.
+   *
+   * @return the callback url
    */
   public String getUrl() {
     return url;
@@ -135,6 +109,24 @@ public class RecognitionJob extends GenericModel {
   }
 
   /**
+   * Gets the recognition results.
+   *
+   * @return the results
+   */
+  public List<SpeechResults> getResults() {
+    return results;
+  }
+
+  /**
+   * Gets the warnings if present.
+   *
+   * @return the warnings
+   */
+  public List<String> getWarnings() {
+    return warnings;
+  }
+
+  /**
    * Sets the id.
    *
    * @param id the new id
@@ -144,21 +136,30 @@ public class RecognitionJob extends GenericModel {
   }
 
   /**
-   * Sets the recognition results.
-   *
-   * @param results the new results
-   */
-  public void setResults(List<SpeechResults> results) {
-    this.results = results;
-  }
-
-  /**
    * Sets the status.
    *
    * @param status the new status
    */
   public void setStatus(Status status) {
     this.status = status;
+  }
+
+  /**
+   * Sets the created date.
+   *
+   * @param created the new created
+   */
+  public void setCreated(Date created) {
+    this.created = created;
+  }
+
+  /**
+   * Sets the updated date.
+   *
+   * @param updated the new updated
+   */
+  public void setUpdated(Date updated) {
+    this.updated = updated;
   }
 
   /**
@@ -177,5 +178,23 @@ public class RecognitionJob extends GenericModel {
    */
   public void setUserToken(String userToken) {
     this.userToken = userToken;
+  }
+
+  /**
+   * Sets the recognition results.
+   *
+   * @param results the new results
+   */
+  public void setResults(List<SpeechResults> results) {
+    this.results = results;
+  }
+
+  /**
+   * Sets the warnings if present.
+   *
+   * @param warnings the new warnings
+   */
+  public void setWarnings(List<String> warnings) {
+    this.warnings = warnings;
   }
 }
