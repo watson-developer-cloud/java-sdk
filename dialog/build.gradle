@@ -10,6 +10,7 @@ import org.apache.tools.ant.filters.*
 apply plugin: 'java'
 apply plugin: 'ru.vyarus.animalsniffer'
 apply plugin: 'maven'
+apply plugin: 'signing'
 apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 
@@ -34,6 +35,11 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
+
+signing {
+    sign configurations.archives
+}
+
 checkstyleTest {
     ignoreFailures = true
 }
