@@ -14,6 +14,16 @@ task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
 }
 
+task copyJars(type: Copy) {
+  from subprojects.collect { it.tasks.withType(Jar) }
+  into "$buildDir/allJars"
+}
+
+task signJars(type: Copy) {
+  from subprojects.collect { it.tasks.withType(Sign) }
+  into "$buildDir/allJars"
+}
+
 subprojects {
 
   checkstyleTest {
