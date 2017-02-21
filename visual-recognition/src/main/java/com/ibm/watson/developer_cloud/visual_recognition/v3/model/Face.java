@@ -199,12 +199,12 @@ public class Face {
 
   }
 
-  @SerializedName("face_location")
-  private Location location;
-
   private Age age;
+
   private Gender gender;
   private Identity identity;
+  @SerializedName("face_location")
+  private Location location;
 
   /**
    * Gets the age.
@@ -213,15 +213,6 @@ public class Face {
    */
   public Age getAge() {
     return age;
-  }
-
-  /**
-   * Gets the location.
-   *
-   * @return The location
-   */
-  public Location getLocation() {
-    return location;
   }
 
   /**
@@ -243,21 +234,21 @@ public class Face {
   }
 
   /**
+   * Gets the location.
+   *
+   * @return The location
+   */
+  public Location getLocation() {
+    return location;
+  }
+
+  /**
    * Sets the age.
    *
    * @param age The age
    */
   public void setAge(Age age) {
     this.age = age;
-  }
-
-  /**
-   * Sets the location.
-   *
-   * @param location the new location
-   */
-  public void setLocation(Location location) {
-    this.location = location;
   }
 
   /**
@@ -276,6 +267,15 @@ public class Face {
    */
   public void setIdentity(Identity identity) {
     this.identity = identity;
+  }
+
+  /**
+   * Sets the location.
+   *
+   * @param location the new location
+   */
+  public void setLocation(Location location) {
+    this.location = location;
   }
 
 }

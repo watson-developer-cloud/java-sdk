@@ -32,4 +32,4 @@ TranslationResult translationResult = service.translate(
 System.out.println(translationResult);
 ```
 
-[language_translator]: http://www.ibm.com/watson/developercloud/doc/language-translator/
+[language_translator]: http://www.ibm.com/watson/developercloud/doc/language-translator/index.html

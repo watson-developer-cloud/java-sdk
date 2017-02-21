@@ -25,44 +25,102 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 public class Word extends GenericModel {
 
   /**
-   * The Enum Type.
+   * The Enum Type to specify the type of words to be listed. The default is ALL.
    */
   public enum Type {
-    /** The all. */
-    ALL, /** The corpora. */
-    CORPORA, /** The user. */
-    USER
+    ALL, /** The corpora and user words. */
+    CORPORA, /** The corpora words. */
+    USER /** The user words. */
   }
+
+  /**
+   * The Enum Sort to specify how words are to be sorted when listed. The default is ALPHA.
+   */
+  public enum Sort {
+
+    /** Lexicographically (in ascending order). */
+    ALPHA("alphabetical"),
+
+    /** Lexicographically in ascending order. */
+    PLUS_ALPHA("+alphabetical"),
+
+    /** Lexicographically in descending order. */
+    MINUS_ALPHA("-alphabetical"),
+
+    /** By count (in descending order). */
+    COUNT("count"),
+
+    /** By count in ascending order. */
+    PLUS_COUNT("+count"),
+
+    /** By count in descending order. */
+    MINUS_COUNT("-count");
+
+    private String sort;
+
+    private Sort(String s) {
+      sort = s;
+    }
+
+    public String getSort() {
+      return sort;
+    }
+  }
+
+  private String word;
 
   @SerializedName("display_as")
   private String displayAs;
+
   @SerializedName("sounds_like")
   private List<String> soundsLike;
-  private String word;
 
   /**
-   * Instantiates a new word.
+   * Instantiates a new empty word.
    */
   public Word() { }
 
   /**
-   * Instantiates a new word.
+   * Instantiates a new word with a word name.
    *
-   * @param word the spelling of the word is used to train the model.
-   * @param displayAs the spelling of the custom word that the service uses to display the word in a transcript.
+   * @param word The spelling of the custom word that the service uses to train the model.
+   */
+  public Word(String word) {
+    this(word, null, (String[]) null);
+  }
+
+  /**
+   * Instantiates a new word with a word name and a display-as value.
+   *
+   * @param word The spelling of the custom word that the service uses to train the model.
+   * @param displayAs The spelling of the custom word that the service uses to display the word in a transcript.
+   */
+  public Word(String word, String displayAs) {
+    this(word, displayAs, (String[]) null);
+  }
+
+  /**
+   * Instantiates a new word with a word name, a display-as value, and one or more sounds-like values.
+   *
+   * @param word The spelling of the custom word that the service uses to train the model.
+   * @param displayAs The spelling of the custom word that the service uses to display the word in a transcript.
    * @param soundsLike An array of pronunciations for the custom word.
    */
   public Word(String word, String displayAs, String... soundsLike) {
-    this();
     this.word = word;
+    if (displayAs != null) {
+      this.displayAs = displayAs;
+    }
     this.displayAs = displayAs;
-    this.soundsLike = Arrays.asList(soundsLike);
+    if (soundsLike != null) {
+      this.soundsLike = Arrays.asList(soundsLike);
+    }
   }
 
   /**
    * Gets the spelling of the custom word that the service uses to display the word in a transcript.
    *
-   * @return The displayAs
+   * @return The display_as
    */
   public String getDisplayAs() {
     return displayAs;
@@ -71,7 +129,7 @@ public class Word extends GenericModel {
   /**
    * Gets the sounds like. An array of pronunciations for the custom word
    *
-   * @return The soundsLike
+   * @return The sounds_like
    */
   public List<String> getSoundsLike() {
     return soundsLike;

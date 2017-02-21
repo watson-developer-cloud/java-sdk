@@ -26,17 +26,13 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.VisualRecognition;
  */
 public class ClassifierOptions {
 
-  private File negativeExamples;
-  private Map<String, File> positiveExamplesByName;
-  private String classifierName;
-
   /**
    * Create Classifier Options Builder.
    */
   public static class Builder {
+    private String classifierName;
     private File negativeExamples;
     private Map<String, File> positiveExamplesByName;
-    private String classifierName;
 
     private Builder(ClassifierOptions options) {
       this();
@@ -70,17 +66,6 @@ public class ClassifierOptions {
 
 
     /**
-     * Sets the negative examples.
-     *
-     * @param negativeExamples the negative examples
-     * @return the builder
-     */
-    public Builder negativeExamples(File negativeExamples) {
-      this.negativeExamples = negativeExamples;
-      return this;
-    }
-
-    /**
      * Builds a <code>CreateClassifierOptions</code>.
      *
      * @return the creates the classifier options
@@ -101,42 +86,27 @@ public class ClassifierOptions {
       return this;
     }
 
+    /**
+     * Sets the negative examples.
+     *
+     * @param negativeExamples the negative examples
+     * @return the builder
+     */
+    public Builder negativeExamples(File negativeExamples) {
+      this.negativeExamples = negativeExamples;
+      return this;
+    }
+
   }
+  private String classifierName;
+  private File negativeExamples;
+
+  private Map<String, File> positiveExamplesByName;
 
   private ClassifierOptions(Builder builder) {
     classifierName = builder.classifierName;
     negativeExamples = builder.negativeExamples;
     positiveExamplesByName = builder.positiveExamplesByName;
-  }
-
-
-  /**
-   * Gets the content items.
-   *
-   * @return the contentItems
-   */
-  public Set<String> classNames() {
-    return positiveExamplesByName.keySet();
-  }
-
-  /**
-   * Gets the positive examples by class name.
-   *
-   * @param className the class name
-   * @return the classes
-   */
-  public File positiveExamplesByClassName(String className) {
-    return positiveExamplesByName.get(className);
-  }
-
-
-  /**
-   * New builder.
-   *
-   * @return the builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
   }
 
 
@@ -150,12 +120,42 @@ public class ClassifierOptions {
   }
 
   /**
+   * Gets the content items.
+   *
+   * @return the contentItems
+   */
+  public Set<String> classNames() {
+    return positiveExamplesByName.keySet();
+  }
+
+
+  /**
    * Gets the negative examples.
    *
    * @return the negative examples
    */
   public File negativeExamples() {
     return negativeExamples;
+  }
+
+
+  /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
+   * Gets the positive examples by class name.
+   *
+   * @param className the class name
+   * @return the classes
+   */
+  public File positiveExamplesByClassName(String className) {
+    return positiveExamplesByName.get(className);
   }
 
 }

@@ -51,7 +51,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.ws.WebSocket;
+import okhttp3.WebSocket;
 
 /**
  * The Speech to Text service uses IBM's speech recognition capabilities to convert English speech into text. The
@@ -63,7 +63,7 @@ import okhttp3.ws.WebSocket;
  */
 public class SpeechToText extends WatsonService {
 
-  private static final String ALLOW_OVERRIDE = "allow_override";
+  private static final String ALLOW_OVERWRITE = "allow_overwrite";
   private static final String CALLBACK_URL = "callback_url";
   private static final String CONTINUOUS = "continuous";
   private static final String CUSTOMIZATION_ID = "customization_id";
@@ -85,6 +85,7 @@ public class SpeechToText extends WatsonService {
   private static final String WORD_ALTERNATIVES_THRESHOLD = "word_alternatives_threshold";
   private static final String WORD_CONFIDENCE = "word_confidence";
   private static final String WORD_TYPE = "word_type";
+  private static final String WORD_SORT = "sort";
   private static final String WORD_TYPE_TO_ADD = "word_type_to_add";
   private static final String WORDS = "words";
 
@@ -258,25 +259,52 @@ public class SpeechToText extends WatsonService {
    *        request with the service credentials of the model's owner.
    * @param corpusName The name of the corpus that is to be added. The name cannot contain spaces and cannot be the
    *        string user, which is reserved by the service to denote custom words added or modified by the user.
-   * @param allowOverride Indicates whether the specified corpus is to overwrite an existing corpus with the same name.
+   * @param allowOverwrite Indicates whether the specified corpus is to overwrite an existing corpus with the same name.
    *        If a corpus with the same name already exists, the request fails unless allow_overwrite is set to true; by
    *        default, the parameter is false. The parameter has no effect if a corpus with the same name does not already
-   *        exist. query.
+   *        exist.
    * @param trainingData A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if
    *        it contains non-ASCII characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters.
    * @return the service call
+   * @deprecated use {@link #addCorpus(String, String, File, Boolean)} instead.
    */
+  @Deprecated
   public ServiceCall<Void> addTextToCustomizationCorpus(String customizationId, String corpusName,
-      Boolean allowOverride, File trainingData) {
+      Boolean allowOverwrite, File trainingData) {
+      return addCorpus(customizationId, corpusName, trainingData, allowOverwrite);
+  }
+
+  /**
+   * Adds a single corpus text file of new training data to the custom language model. Use multiple requests to submit
+   * multiple corpus text files. Only the owner of a custom model can use this method to add a corpus to the model.
+   * Submit a plain text file that contains sample sentences from the domain of interest to enable the service to
+   * extract words in context. The more sentences you add that represent the context in which speakers use words from
+   * the domain, the better the service's recognition accuracy. Adding a corpus does not affect the custom model until
+   * you train the model for the new data by using the POST /v1/customizations/{customization_id}/train method.
+   *
+   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
+   *        request with the service credentials of the model's owner.
+   * @param corpusName The name of the corpus that is to be added. The name cannot contain spaces and cannot be the
+   *        string user, which is reserved by the service to denote custom words added or modified by the user.
+   * @param corpusFile A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if
+   *        it contains non-ASCII characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters.
+   * @param allowOverwrite Indicates whether the specified corpus is to overwrite an existing corpus with the same name.
+   *        If a corpus with the same name already exists, the request fails unless allow_overwrite is set to true; by
+   *        default, the parameter is false. The parameter has no effect if a corpus with the same name does not already
+   *        exist.
+   * @return the service call
+   */
+  public ServiceCall<Void> addCorpus(String customizationId, String corpusName,
+      File corpusFile, Boolean allowOverwrite) {
     Validator.notNull(customizationId, "customizationId cannot be null");
     Validator.notNull(corpusName, "corpusName cannot be null");
-    Validator.isTrue((trainingData != null) && trainingData.exists(), "trainingData file is null or does not exist");
+    Validator.isTrue((corpusFile != null) && corpusFile.exists(), "corpusFile is null or does not exist");
     RequestBuilder requestBuilder = RequestBuilder.post(String.format(PATH_CORPUS, customizationId, corpusName));
-    if (allowOverride != null) {
-      requestBuilder.query(ALLOW_OVERRIDE, allowOverride);
+    if (allowOverwrite != null) {
+      requestBuilder.query(ALLOW_OVERWRITE, allowOverwrite);
     }
 
-    requestBuilder.body(RequestBody.create(HttpMediaType.TEXT, trainingData));
+    requestBuilder.body(RequestBody.create(HttpMediaType.TEXT, corpusFile));
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -382,9 +410,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
-   * that each request is processed with the same speech-to-text engine. Use the cookie that is returned from this
-   * operation in the Set-Cookie header for each request that uses this session. The session expires after 15 minutes of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
+   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @return the {@link SpeechSession}
@@ -395,9 +422,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
-   * that each request is processed with the same speech-to-text engine. Use the cookie that is returned from this
-   * operation in the Set-Cookie header for each request that uses this session. The session expires after 15 minutes of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
+   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @param model the model
@@ -409,9 +435,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
-   * that each request is processed with the same speech-to-text engine. Use the cookie that is returned from this
-   * operation in the Set-Cookie header for each request that uses this session. The session expires after 15 minutes of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
+   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @param model the model
@@ -426,7 +451,6 @@ public class SpeechToText extends WatsonService {
 
     return createServiceCall(request.build(), ResponseConverterUtils.getObject(SpeechSession.class));
   }
-
 
   /**
    * Delete customization corpus.
@@ -513,6 +537,22 @@ public class SpeechToText extends WatsonService {
     ResponseConverter<List<Corpus>> converter = ResponseConverterUtils.getGenericObject(TYPE_CORPORA, "corpora");
 
     return createServiceCall(requestBuilder.build(), converter);
+  }
+
+  /**
+   * Gets the specified corpus for the customization.
+   *
+   * @param customizationId The GUID of the custom language model whose corpus is to be returned. You must make the
+   *        request with the service credentials of the model's owner.
+   * @param corpusName The name of the corpus that is to be returned.
+   * @return The customization corpus.
+   */
+
+  public ServiceCall<Corpus> getCorpus(String customizationId, String corpusName) {
+    Validator.notNull(customizationId, "customizationId cannot be null");
+    Validator.notNull(corpusName, "corpusName cannot be null");
+    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_CORPUS, customizationId, corpusName));
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Corpus.class));
   }
 
   /**
@@ -641,10 +681,28 @@ public class SpeechToText extends WatsonService {
    * @return the words
    */
   public ServiceCall<List<WordData>> getWords(String customizationId, Word.Type type) {
+    return getWords(customizationId, type, null);
+  }
+
+  /**
+   * Gets information about all the words from a custom language model.
+   *
+   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
+   *        request with the service credentials of the model's owner.
+   * @param type the word type. Possible values are: ALL, USER or CORPORA. The default is ALL.
+   * @param sort the sort order of the results. Possible values are: ALPHA, PLUS_ALPHA, MINUS_ALPHA, COUNT, PLUS_COUNT,
+   *        and MINUS_COUNT. The default is ALPHA/PLUS_ALPHA.
+   * @return the words
+   */
+    public ServiceCall<List<WordData>> getWords(String customizationId, Word.Type type, Word.Sort sort) {
     Validator.notNull(customizationId, "customizationId cannot be null");
     RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_WORDS, customizationId));
+
     if (type != null) {
       requestBuilder.query(WORD_TYPE, type.toString().toLowerCase());
+    }
+    if (sort != null) {
+      requestBuilder.query(WORD_SORT, sort.getSort());
     }
 
     ResponseConverter<List<WordData>> converter = ResponseConverterUtils.getGenericObject(TYPE_WORDS, WORDS);
@@ -763,7 +821,7 @@ public class SpeechToText extends WatsonService {
 
       @Override
       public void onResponse(String token) {
-        String url = getEndPoint().replaceFirst("(https|http)", "wss");
+        String url = getEndPoint().replace("http://", "ws://").replace("https://", "wss://");
         WebSocketManager wsManager =
             new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, token);
         wsManager.recognize(audio, options, callback);

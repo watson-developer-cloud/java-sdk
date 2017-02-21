@@ -9,6 +9,7 @@ public class SpeakerLabel {
 
   private Double from;
   private Double to;
+  private Double confidence;
   private int speaker;
 
   @SerializedName("final")
@@ -28,6 +29,14 @@ public class SpeakerLabel {
 
   public void setTo(Double to) {
     this.to = to;
+  }
+
+  public Double getConfidence() {
+    return confidence;
+  }
+
+  public void setConfidence(Double confidence) {
+    this.confidence = confidence;
   }
 
   public int getSpeaker() {

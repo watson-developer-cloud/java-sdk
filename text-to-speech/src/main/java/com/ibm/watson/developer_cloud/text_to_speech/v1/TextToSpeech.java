@@ -129,7 +129,7 @@ public class TextToSpeech extends WatsonService {
    * @return the {@link Voice}
    */
   public ServiceCall<Voice> getVoice(final String voiceName, String customizationId) {
-    Validator.notNull(voiceName, "name can not be null");
+    Validator.notNull(voiceName, "name cannot be null");
 
     RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_VOICE, voiceName));
 
@@ -237,9 +237,14 @@ public class TextToSpeech extends WatsonService {
    * @return the VoiceModels
    */
   public ServiceCall<List<CustomVoiceModel>> getCustomVoiceModels(final String language) {
-    Validator.notNull(language, "language can not be null");
 
-    final Request request = RequestBuilder.get(PATH_CUSTOMIZATIONS).query(LANGUAGE, language).build();
+    final Request request;
+    if (language != null) {
+        request = RequestBuilder.get(PATH_CUSTOMIZATIONS).query(LANGUAGE, language).build();
+    } else {
+        request = RequestBuilder.get(PATH_CUSTOMIZATIONS).build();
+    }
+
     ResponseConverter<List<CustomVoiceModel>> converter =
         ResponseConverterUtils.getGenericObject(TYPE_VOICE_MODELS, CUSTOMIZATIONS);
     return createServiceCall(request, converter);
@@ -252,7 +257,7 @@ public class TextToSpeech extends WatsonService {
    * @return the VoiceModel
    */
   public ServiceCall<CustomVoiceModel> getCustomVoiceModel(final String id) {
-    Validator.notNull(id, "id can not be null");
+    Validator.notNull(id, "id cannot be null");
 
     final Request request = RequestBuilder.get(String.format(PATH_CUSTOMIZATION, id)).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(CustomVoiceModel.class));
@@ -290,7 +295,7 @@ public class TextToSpeech extends WatsonService {
   /**
    * Deletes the given CustomVoiceModel (requires a valid id to be set).
    *
-   * @param model the model
+   * @param model the CustomVoiceModel
    * @return the service call
    */
   public ServiceCall<Void> deleteCustomVoiceModel(CustomVoiceModel model) {
@@ -301,18 +306,33 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Gets all customized word translation of the given CustomVoiceModel.
+   * Gets all custom word translation for the given CustomVoiceModel.
    *
-   * @param model the VoiceModel
+   * @param model the CustomVoiceModel
    * @return a list of all CustomTranslations
    */
   public ServiceCall<List<CustomTranslation>> getWords(CustomVoiceModel model) {
-    Validator.notNull(model.getId(), "model id can not be null");
+    Validator.notNull(model.getId(), "model id cannot be null");
 
     final Request request = RequestBuilder.get(String.format(PATH_WORDS, model.getId())).build();
     final ResponseConverter<List<CustomTranslation>> converter =
         ResponseConverterUtils.getGenericObject(TYPE_CUSTOM_TRANSLATIONS, WORDS);
     return createServiceCall(request, converter);
+  }
+
+  /**
+   * Gets a custom word translation for the given CustomVoiceModel.
+   *
+   * @param model the CustomVoiceModel
+   * @param word a word from the CustomVoiceModel
+   * @return the translation of the word
+   */
+    public ServiceCall<CustomTranslation> getWord(CustomVoiceModel model, String word) {
+    Validator.notNull(model.getId(), "model id cannot be null");
+    Validator.notNull(word, "word cannot be null");
+
+    final Request request = RequestBuilder.get(String.format(PATH_WORD, model.getId(), word)).build();
+    return createServiceCall(request, ResponseConverterUtils.getObject(CustomTranslation.class));
   }
 
   /**
@@ -330,15 +350,14 @@ public class TextToSpeech extends WatsonService {
     final String path = String.format(PATH_WORDS, model.getId());
     final RequestBody body = RequestBody.create(HttpMediaType.JSON, json);
     final Request request = RequestBuilder.post(path).body(body).build();
-
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
   /**
-   * Deletes a custom word translation.
+   * Deletes a custom word based on a translation object.
    *
    * @param model the CustomVoiceModel
-   * @param translation the translation
+   * @param translation the translation object
    * @return the service call
    */
   public ServiceCall<Void> deleteWord(CustomVoiceModel model, CustomTranslation translation) {
@@ -346,6 +365,22 @@ public class TextToSpeech extends WatsonService {
     Validator.notEmpty(translation.getWord(), "word must not be empty");
 
     final String path = String.format(PATH_WORD, model.getId(), RequestUtils.encode(translation.getWord()));
+    final Request request = RequestBuilder.delete(path).build();
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Deletes a custom word based on a string.
+   *
+   * @param model the CustomVoiceModel
+   * @param word the word
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteWord(CustomVoiceModel model, String word) {
+    Validator.notEmpty(model.getId(), "model id must not be empty");
+    Validator.notNull(word, "word cannot be null");
+
+    final String path = String.format(PATH_WORD, model.getId(), word);
     final Request request = RequestBuilder.delete(path).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
   }

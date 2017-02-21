@@ -38,8 +38,6 @@ public class SpeechResults extends GenericModel {
     this.speakerLabels = speakerLabels;
   }
 
-
-
   /**
    * Gets the result index.
    *
