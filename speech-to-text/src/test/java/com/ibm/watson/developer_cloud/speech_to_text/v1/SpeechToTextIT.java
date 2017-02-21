@@ -66,7 +66,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private CountDownLatch lock = new CountDownLatch(1);
   private SpeechToText service;
   private SpeechResults asyncResults;
-  private Boolean inactivityTimeout;
+  private Boolean inactivityTimeoutOccurred;
   private String customizationId;
 
   /** The expected exception. */
@@ -348,12 +348,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
       
       @Override
       public void onInactivityTimeout(RuntimeException runtimeException) {
-        inactivityTimeout = true;
+        inactivityTimeoutOccurred = true;
       }
     });
 
     lock.await(2, TimeUnit.MINUTES);
-    assertTrue(inactivityTimeout);
+    assertTrue(inactivityTimeoutOccurred);
   }
 
   
