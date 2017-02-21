@@ -302,6 +302,7 @@ public class RecognizeOptions {
   @SerializedName("content-type")
   private String contentType;
   private Boolean continuous;
+  @SerializedName("inactivity_timeout")
   private Integer inactivityTimeout;
 
   @SerializedName("interim_results")
@@ -310,9 +311,12 @@ public class RecognizeOptions {
 
   @SerializedName("keywords_threshold")
   private Double keywordsThreshold;
+  @SerializedName("max_alternatives")
   private Integer maxAlternatives;
+  @SerializedName("profanity_filter")
   private Boolean profanityFilter;
   private String model;
+  @SerializedName("session_id")
   private String sessionId;
   private Boolean timestamps;
 

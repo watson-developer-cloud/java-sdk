@@ -88,12 +88,6 @@ public class SpeechToText extends WatsonService {
   private static final String WORD_SORT = "sort";
   private static final String WORD_TYPE_TO_ADD = "word_type_to_add";
   private static final String WORDS = "words";
-  private static final String WORD_SORT_ALPHA = "alphabetical";
-  private static final String WORD_SORT_PLUS_ALPHA = "+alphabetical";
-  private static final String WORD_SORT_MINUS_ALPHA = "-alphabetical";
-  private static final String WORD_SORT_COUNT = "count";
-  private static final String WORD_SORT_PLUS_COUNT = "+count";
-  private static final String WORD_SORT_MINUS_COUNT = "-count";
 
   private static final String PATH_CORPORA = "/v1/customizations/%s/corpora";
   private static final String PATH_CORPUS = "/v1/customizations/%s/corpora/%s";

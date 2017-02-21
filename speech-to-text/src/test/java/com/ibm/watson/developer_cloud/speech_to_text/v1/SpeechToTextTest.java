@@ -915,5 +915,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         throw new AssertionError("There were " + this.errors.size() + " errors");
       }
     }
+
+    @Override
+    public void onInactivityTimeout(RuntimeException runtimeException) { }
+
+    @Override
+    public void onListening() { }
   }
 }

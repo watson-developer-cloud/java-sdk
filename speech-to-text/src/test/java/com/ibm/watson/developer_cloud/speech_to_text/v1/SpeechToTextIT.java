@@ -61,10 +61,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private static final String SPEECH_RESOURCE = "src/test/resources/speech_to_text/%s";
   private static final String SAMPLE_WAV = String.format(SPEECH_RESOURCE, "sample1.wav");
   private static final String TWO_SPEAKERS_WAV = String.format(SPEECH_RESOURCE, "twospeakers.wav");
+  private static final String SAMPLE_WAV_WITH_PAUSE = String.format(SPEECH_RESOURCE, "sound-with-pause.wav");
 
   private CountDownLatch lock = new CountDownLatch(1);
   private SpeechToText service;
   private SpeechResults asyncResults;
+  private Boolean inactivityTimeoutOccurred;
   private String customizationId;
 
   /** The expected exception. */
@@ -310,6 +312,51 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(wordAlternatives.get(0).getAlternatives());
   }
 
+  
+  /**
+   * Test the inactivity timeout parameter for WebSockets
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testInactivityTimeoutWithWebSocket() throws FileNotFoundException, InterruptedException {
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .continuous(true)
+        .interimResults(true)
+        .inactivityTimeout(3)
+        .timestamps(true)
+        .maxAlternatives(2)
+        .wordAlternativesThreshold(0.5)
+        .model(EN_BROADBAND16K)
+        .contentType(HttpMediaType.AUDIO_WAV)
+        .build();
+    
+    FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
+    service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
+
+      @Override
+      public void onDisconnected() {
+        lock.countDown();
+      }
+
+      @Override
+      public void onError(Exception e) {
+        e.printStackTrace();
+        lock.countDown();
+      }
+      
+      @Override
+      public void onInactivityTimeout(RuntimeException runtimeException) {
+        inactivityTimeoutOccurred = true;
+      }
+    });
+
+    lock.await(2, TimeUnit.MINUTES);
+    assertTrue(inactivityTimeoutOccurred);
+  }
+
+  
   /**
    * Test create recognition job.
    *
