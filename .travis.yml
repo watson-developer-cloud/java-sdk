@@ -23,6 +23,8 @@ env:
   - secure: eLv41LVZoRCqQehOM29RLodZ6NZhrIdLWklAkMdLGlFDEiVY5f0shaPLffpUiuv/3pg+CuQk9ffBc72m8lwTsimex9unC/WVsqQJhqQEWJEaPGL0UamV/HqHMeBQEpKiCcKHaBRHFGk7QQJVtiXvVvlbwk7Jks5giUR7+s/Q6iI=
   - secure: l0dde5NSGedD6fny5aMr1ll90FYVd7IKDsZ0Kd1GWnB+iDd3rjDBwz5q6NUwN2LTqw3jWFqmqdEnGUGO3Er0rdfdtPh3K194sTK3XuCZz8GEjFvYAEDRQ59oyK8fhw60c86cWppBQ4gluLKLstm12DLkARTUvJiIsTQTnuc2YGg=
 
+install: true
+
 before_install:
   - sed -i.bak -e 's|https://nexus.codehaus.org/snapshots/|https://oss.sonatype.org/content/repositories/codehaus-snapshots/|g' ~/.m2/settings.xml
 
