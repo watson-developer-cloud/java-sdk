@@ -10,6 +10,7 @@ import org.apache.tools.ant.filters.*
 apply plugin: 'java'
 apply plugin: 'ru.vyarus.animalsniffer'
 apply plugin: 'maven'
+apply plugin: 'signing'
 apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 
@@ -33,6 +34,22 @@ repositories {
 artifacts {
     archives sourcesJar
     archives javadocJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+signArchives {
+    onlyIf { Task task ->
+        def shouldExec = false
+        for (myArg in project.gradle.startParameter.taskRequests[0].args) {
+            if (myArg.toLowerCase().contains("signjars") || myArg.toLowerCase().contains("uploadarchives")) {
+                shouldExec = true
+            }
+        }
+        return shouldExec
+    }
 }
 
 checkstyle {
