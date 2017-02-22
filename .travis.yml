@@ -35,6 +35,12 @@ script:
   - ./gradlew test
   - ./gradlew codeCoverageReport
   - ./gradlew docs > /dev/null # build the javadoc
+deploy:
+  provider: script
+  script: .utility/deploy.sh
+  on:
+    branch: master
+    java: 'oraclejdk7'
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
