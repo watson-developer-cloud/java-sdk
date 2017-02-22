@@ -40,6 +40,18 @@ signing {
     sign configurations.archives
 }
 
+signArchives {
+    onlyIf { Task task ->
+        def shouldExec = false
+        for (myArg in project.gradle.startParameter.taskRequests[0].args) {
+            if (myArg.toLowerCase().contains("signjars") || myArg.toLowerCase().contains("uploadarchives")) {
+                shouldExec = true
+            }
+        }
+        return shouldExec
+    }
+}
+
 checkstyle {
     configFile = rootProject.file('checkstyle.xml')
 }
