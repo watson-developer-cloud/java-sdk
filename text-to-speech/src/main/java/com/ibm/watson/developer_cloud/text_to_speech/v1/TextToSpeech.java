@@ -40,7 +40,6 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-
 /**
  * The Text to Speech service uses IBM's speech synthesis capabilities to convert text to an audio signal. The audio is
  * streamed back to the client in a {@link InputStream}
@@ -274,6 +273,26 @@ public class TextToSpeech extends WatsonService {
   public ServiceCall<CustomVoiceModel> saveCustomVoiceModel(final CustomVoiceModel model) {
     final boolean isNew = model.getId() == null;
     final String path = isNew ? PATH_CUSTOMIZATIONS : String.format(PATH_CUSTOMIZATION, model.getId());
+
+    // For update, a specified language cannot differ from existing model.
+    if (!isNew && model.getLanguage() != null) {
+      final Request request = RequestBuilder.get(path).build();
+      createServiceCall(request, new ResponseConverter<CustomVoiceModel>() {
+
+        // The existing model can be null for unit test.
+        @Override
+        public CustomVoiceModel convert(Response response) {
+          CustomVoiceModel existing = ResponseUtils.getObject(response, CustomVoiceModel.class);
+
+          if (existing != null) {
+            Validator.isTrue(model.getLanguage().equals(existing.getLanguage()),
+                             "cannot change language of existing model");
+          }
+
+          return null;
+        }
+      }).execute();
+    }
 
     final RequestBody body = RequestBody.create(HttpMediaType.JSON, model.toString());
     final Request request = RequestBuilder.post(path).body(body).build();
