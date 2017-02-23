@@ -38,6 +38,7 @@ script:
 deploy:
   provider: script
   script: .utility/deploy.sh
+  skip_cleanup: true
   on:
     branch: master
     jdk: 'oraclejdk7'
@@ -45,6 +46,7 @@ deploy:
 deploy:
   provider: script
   script: .utility/push-javadoc-to-gh-pages.sh
+  skip_cleanup: true
   on:
     branch: master
     jdk: 'oraclejdk7'
