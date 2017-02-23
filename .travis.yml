@@ -40,14 +40,14 @@ deploy:
   script: .utility/deploy.sh
   on:
     branch: master
-    java: 'oraclejdk7'
+    jdk: 'oraclejdk7'
 
 deploy:
   provider: script
   script: .utility/push-javadoc-to-gh-pages.sh
   on:
     branch: master
-    java: 'oraclejdk7'
+    jdk: 'oraclejdk7'
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
