@@ -14,62 +14,72 @@ task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
 }
 
-allprojects {
-  apply plugin: 'java' // *Compatibility has no effect before the 'java' plug-in is applied
-  apply plugin: 'jacoco'
-  
-  sourceCompatibility = JavaVersion.VERSION_1_7
-  targetCompatibility = JavaVersion.VERSION_1_7
-  
-  repositories {
-    mavenCentral()
-  }
+task copyJars(type: Copy) {
+  from subprojects.collect { it.tasks.withType(Jar) }
+  into "$buildDir/allJars"
 }
 
-subprojects {
+task signJars(type: Copy) {
+  from subprojects.collect { it.tasks.withType(Sign) }
+  into "$buildDir/allJars"
 
-  checkstyleTest {
-    ignoreFailures = true
+  allprojects {
+    apply plugin: 'java' // *Compatibility has no effect before the 'java' plug-in is applied
+    apply plugin: 'jacoco'
+
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+
+    repositories {
+      mavenCentral()
+    }
   }
 
-  afterEvaluate {
-    if (plugins.hasPlugin(JavaPlugin)) {
-      rootProject.tasks.docs {
-        source += files(sourceSets.collect { srcSet -> srcSet.allJava })
-        classpath += files(sourceSets*.compileClasspath)
+  subprojects {
+
+    checkstyleTest {
+      ignoreFailures = true
+    }
+
+    afterEvaluate {
+      if (plugins.hasPlugin(JavaPlugin)) {
+        rootProject.tasks.docs {
+          source += files(sourceSets.collect { srcSet -> srcSet.allJava })
+          classpath += files(sourceSets*.compileClasspath)
+        }
       }
     }
   }
-}
 
-task codeCoverageReport(type: JacocoReport) {
-  // Gather execution data from all sub projects
-  // (change this if you e.g. want to calculate unit test/integration test coverage separately)
-  executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+  task codeCoverageReport(type: JacocoReport) {
+    // Gather execution data from all sub projects
+    // (change this if you e.g. want to calculate unit test/integration test coverage separately)
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
 
-  // Add all relevant source sets from the sub projects 
-  subprojects.each {
-    sourceSets it.sourceSets.main
+    // Add all relevant source sets from the sub projects
+    subprojects.each {
+      sourceSets it.sourceSets.main
+    }
+
+    reports {
+      xml.enabled true
+      xml.destination "${buildDir}/reports/jacoco/report.xml"
+      html.enabled true
+      html.destination "${buildDir}/reports/jacoco"
+      csv.enabled false
+    }
   }
-
-  reports {
-    xml.enabled true
-    xml.destination "${buildDir}/reports/jacoco/report.xml"
-    html.enabled true
-    html.destination "${buildDir}/reports/jacoco"
-    csv.enabled false
-  }
-}
 
 // always run the tests before generating the report
-codeCoverageReport.dependsOn {
-  subprojects*.test
-  testReport
-}
+  codeCoverageReport.dependsOn {
+    subprojects*.test
+    testReport
+  }
 
-task testReport(type: TestReport) {
-  destinationDir = file("$buildDir/reports/allTests")
-    
-  // Include the results from the `test` task in all subprojects
-  reportOn subprojects*.test
+  task testReport(type: TestReport) {
+    destinationDir = file("$buildDir/reports/allTests")
+
+    // Include the results from the `test` task in all subprojects
+    reportOn subprojects*.test
+  }
 }
