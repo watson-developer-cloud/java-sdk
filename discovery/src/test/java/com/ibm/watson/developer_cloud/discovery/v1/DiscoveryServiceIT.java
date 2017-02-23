@@ -101,6 +101,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class DiscoveryServiceIT extends WatsonServiceTest {
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
+  private static final String DISCOVERY1_TEST_CONFIG_FILE = "src/test/resources/discovery/issue517.json";
   private static String environmentId;
   private Discovery discovery;
   private String uniqueName;
@@ -288,7 +289,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void createConfigurationIsSuccessful() {
     String uniqueConfigName = uniqueName + "-config";
     CreateConfigurationRequest.Builder createBuilder = new CreateConfigurationRequest.Builder(environmentId);
-    Configuration configuration = getTestConfiguration();
+    Configuration configuration = getTestConfiguration(DISCOVERY_TEST_CONFIG_FILE);
     configuration.setName(uniqueConfigName);
     createBuilder.configuration(configuration);
     CreateConfigurationResponse createResponse = createConfiguration(createBuilder.build());
@@ -742,6 +743,25 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(new Double(4.5), avg.getValue());
   }
 
+  @Test
+  public void issueNumber517() {
+    String uniqueConfigName = uniqueName + "-config";
+    CreateConfigurationRequest.Builder createBuilder = new CreateConfigurationRequest.Builder(environmentId);
+    Configuration configuration =  getTestConfiguration(DISCOVERY1_TEST_CONFIG_FILE);
+
+    configuration.setName(uniqueConfigName);
+    createBuilder.configuration(configuration);
+    CreateConfigurationResponse createResponse = createConfiguration(createBuilder.build());
+
+    GetConfigurationRequest getRequest =
+        new GetConfigurationRequest.Builder(environmentId, createResponse.getConfigurationId()).build();
+    GetConfigurationResponse getResponse = discovery.getConfiguration(getRequest).execute();
+    // System.out.println(getResponse);
+
+    // returned config should have some json data
+    assertEquals(1, getResponse.getConversions().getJson().size());
+  }
+
   private CreateEnvironmentResponse createEnvironment(CreateEnvironmentRequest createRequest) {
     CreateEnvironmentResponse createResponse = discovery.createEnvironment(createRequest).execute();
     return createResponse;
@@ -767,7 +787,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   private CreateConfigurationResponse createTestConfig() {
     String uniqueConfigName = uniqueName + "-config";
     CreateConfigurationRequest.Builder createBuilder = new CreateConfigurationRequest.Builder(environmentId);
-    Configuration configuration = getTestConfiguration();
+    Configuration configuration = getTestConfiguration(DISCOVERY_TEST_CONFIG_FILE);
     configuration.setName(uniqueConfigName);
     createBuilder.configuration(configuration);
     return createConfiguration(createBuilder.build());
@@ -829,9 +849,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     return collectionId;
   }
 
-  public static Configuration getTestConfiguration() {
+  public static Configuration getTestConfiguration(String jsonFile) {
     try {
-      return GsonSingleton.getGson().fromJson(new FileReader(DISCOVERY_TEST_CONFIG_FILE), Configuration.class);
+      return GsonSingleton.getGson().fromJson(new FileReader(jsonFile), Configuration.class);
     } catch (FileNotFoundException e) {
       return null;
     }
