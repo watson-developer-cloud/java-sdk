@@ -38,7 +38,7 @@ public interface ConfigurationManager {
     String PDF = "pdf";
     String WORD = "word";
     String HTML = "html";
-    String JSON = "json";
+    String JSON = "json_normalizations";
 
     //Conversion -> PDF/Word
     String HEADING = "heading";
