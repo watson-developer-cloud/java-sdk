@@ -756,7 +756,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     GetConfigurationRequest getRequest =
         new GetConfigurationRequest.Builder(environmentId, createResponse.getConfigurationId()).build();
     GetConfigurationResponse getResponse = discovery.getConfiguration(getRequest).execute();
-    // System.out.println(getResponse);
 
     // returned config should have some json data
     assertEquals(1, getResponse.getConversions().getJson().size());
