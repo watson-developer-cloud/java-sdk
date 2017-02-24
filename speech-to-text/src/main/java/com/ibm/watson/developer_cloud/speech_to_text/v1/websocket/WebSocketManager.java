@@ -147,7 +147,21 @@ public class WebSocketManager {
       } else if (json.has(STATE)) {
         // notify that the service is ready to receive audio
         callback.onListening();
+      }
+    }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see okhttp3.WebSocketListener#onOpen(okhttp3.WebSocket, okhttp3.Response)
+     */
+    @Override
+    public void onOpen(final WebSocket socket, Response response) {
+      callback.onConnected();
+      this.socket = socket;
+      if (!socket.send(buildStartMessage(options))) {
+        callback.onError(new IOException("WebSocket unavailable"));
+      } else {
         if (audioThread == null) {
           // Send the InputStream on a different Thread. Elsewise, interim results cannot be
           // received,
@@ -175,20 +189,6 @@ public class WebSocketManager {
         } else {
           socket.close(CLOSE_NORMAL, "Transcription completed");
         }
-      }
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see okhttp3.WebSocketListener#onOpen(okhttp3.WebSocket, okhttp3.Response)
-     */
-    @Override
-    public void onOpen(WebSocket socket, Response response) {
-      callback.onConnected();
-      this.socket = socket;
-      if (!socket.send(buildStartMessage(options))) {
-        callback.onError(new IOException("WebSocket unavailable"));
       }
     }
 
@@ -273,7 +273,7 @@ public class WebSocketManager {
    */
   private Request prepareRequest(RecognizeOptions options) {
     String speechModel = options.model() == null ? "" : "?model=" + options.model();
-    if (options.customizationId() != null) {
+    if (options.customizationId() != null && !options.customizationId().isEmpty()) {
       speechModel += "&customization_id=" + options.customizationId();
     }
     Builder builder = new Request.Builder().url(url + speechModel);

@@ -38,19 +38,25 @@ script:
 deploy:
   provider: script
   script: .utility/deploy.sh
+  skip_cleanup: true
   on:
     branch: master
-    java: 'oraclejdk7'
+    jdk: 'oraclejdk7'
+    repo: watson-developer-cloud/java-sdk
 
 deploy:
   provider: script
   script: .utility/push-javadoc-to-gh-pages.sh
+  skip_cleanup: true
   on:
     branch: master
-    java: 'oraclejdk7'
+    jdk: 'oraclejdk7'
+    repo: watson-developer-cloud/java-sdk
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
 
 notifications:
-  email: true
+  email:
+    on_success: change
+    on_failure: always
