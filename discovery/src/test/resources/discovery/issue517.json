@@ -1,0 +1,12 @@
+{
+  "name": "my_config",
+  "conversions": {
+    "json_normalizations": [
+      {
+        "operation": "copy",
+        "source_field": "some_field",
+        "destination_field": "other_field"
+      }
+    ]
+  }
+}
