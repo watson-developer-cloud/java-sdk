@@ -39,6 +39,7 @@ deploy:
   provider: script
   script: .utility/deploy.sh
   on:
+    branch: blake-snapshot
     java: 'oraclejdk7'
 
 after_success:
