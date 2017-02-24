@@ -39,7 +39,6 @@ deploy:
   provider: script
   script: .utility/deploy.sh
   on:
-    branch: master
     java: 'oraclejdk7'
 
 after_success:
