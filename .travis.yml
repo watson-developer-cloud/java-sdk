@@ -45,7 +45,6 @@ deploy:
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - .utility/push-javadoc-to-gh-pages.sh
-  - .utility/deploy.sh
 
 notifications:
   email: false
