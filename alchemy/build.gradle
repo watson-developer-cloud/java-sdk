@@ -15,7 +15,7 @@ apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 
 version = '3.5.5-SNAPSHOT'
-group = 'com.ibm.watson.developercloud'
+group = 'com.ibm.watson.developer_cloud'
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
