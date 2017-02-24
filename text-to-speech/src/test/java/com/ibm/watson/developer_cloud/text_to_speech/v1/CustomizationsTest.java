@@ -40,7 +40,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   private static final String WORDS_PATH = VOICE_MODELS_PATH + "/%s/words";
 
   private static final String MODEL_NAME = "test model";
-  private static final String MODEL_LANGUAGE = "en-us";
+  private static final String MODEL_LANGUAGE = "en-US";
+  private static final String MODEL_LANGUAGE_JAPANESE = "ja-JP";
   private static final String MODEL_DESCRIPTION = "a simple model for testing purposes";
 
   private static final String ID = "customization_id";
@@ -196,15 +197,28 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testUpdateVoiceModel() throws InterruptedException {
+    // Create the custom voice model so that we can update it.
     final CustomVoiceModel expected = instantiateVoiceModel();
+    server.enqueue(jsonResponse(ImmutableMap.of(ID, expected.getId())));
 
-    server.enqueue(new MockResponse().setResponseCode(201));
-    final CustomVoiceModel result = service.saveCustomVoiceModel(expected).execute();
+    final CustomVoiceModel newModel = new CustomVoiceModel();
+    newModel.setName(expected.getName());
+    newModel.setLanguage(expected.getLanguage());
+    newModel.setDescription(expected.getDescription());
+
+    final CustomVoiceModel result = service.saveCustomVoiceModel(newModel).execute();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(VOICE_MODELS_PATH + "/" + expected.getId(), request.getPath());
+    // Update the custom voice model.
+    server.enqueue(new MockResponse().setResponseCode(201));
+    server.enqueue(jsonResponse(ImmutableMap.of(ID, expected.getId())));
+
+    final CustomVoiceModel updateResult = service.saveCustomVoiceModel(result).execute();
+    final RecordedRequest updateRequest = server.takeRequest();
+
+    assertEquals(VOICE_MODELS_PATH + "/" + expected.getId(), updateRequest.getPath());
     assertEquals("POST", request.getMethod());
-    assertEquals(expected, result);
+    assertEquals(result, updateResult);
   }
 
   /**
