@@ -166,7 +166,6 @@ public class SpeechToText extends WatsonService {
       requestBuilder.query(EVENTS, RequestUtils.join(jobOptions.events(), ","));
     }
   }
-  /* testing if deployment happens with changes */
 
   /**
    * Builds the recognize request using the {@link RecognizeOptions}.

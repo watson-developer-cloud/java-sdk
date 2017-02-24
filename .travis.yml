@@ -35,16 +35,10 @@ script:
   - ./gradlew codeCoverageReport
   - ./gradlew docs > /dev/null # build the javadoc
 
-deploy:
-  provider: script
-  script: .utility/deploy.sh
-  on:
-    branch: blake-snapshot
-    java: 'oraclejdk7'
-
 after_success:
   - bash <(curl -s https://codecov.io/bash)
   - .utility/push-javadoc-to-gh-pages.sh
+  - .utility/deploy.sh
 
 notifications:
   email: false
