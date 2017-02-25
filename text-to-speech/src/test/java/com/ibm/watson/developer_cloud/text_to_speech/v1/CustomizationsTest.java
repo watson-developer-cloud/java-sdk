@@ -14,6 +14,8 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
 
@@ -75,6 +77,17 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     model.setName(MODEL_NAME);
     model.setDescription(MODEL_DESCRIPTION);
     model.setLanguage(MODEL_LANGUAGE);
+
+    return model;
+  }
+
+  private static CustomVoiceModel instantiateVoiceModelWords() {
+    CustomVoiceModel model = new CustomVoiceModel();
+    model.setId("cafebabe-1234-5678-9abc-def012345678");
+    model.setName(MODEL_NAME);
+    model.setDescription(MODEL_DESCRIPTION);
+    model.setLanguage(MODEL_LANGUAGE);
+    model.setCustomTranslations(instantiateWords());
 
     return model;
   }
@@ -162,7 +175,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetVoiceModel() throws InterruptedException {
-    final CustomVoiceModel expected = instantiateVoiceModel();
+    final CustomVoiceModel expected = instantiateVoiceModelWords();
 
     // Test with customization ID
     server.enqueue(jsonResponse(expected));
@@ -173,6 +186,8 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     assertEquals(String.format(VOICE_MODEL_PATH, expected.getId()), request.getPath());
     assertEquals("GET", request.getMethod());
     assertEquals(expected, result);
+    assertNotNull(expected.getCustomTranslations());
+    assertEquals(expected.getCustomTranslations(), result.getCustomTranslations());
 
     // Test with model object
     server.enqueue(jsonResponse(expected));
@@ -183,6 +198,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     assertEquals(String.format(VOICE_MODEL_PATH, expected.getId()), request.getPath());
     assertEquals("GET", request.getMethod());
     assertEquals(expected, result);
+    assertEquals(expected.getCustomTranslations(), result.getCustomTranslations());
   }
 
   /**
@@ -206,12 +222,15 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     // Compare expected with actual results.
     server.enqueue(jsonResponse(expected));
 
-    final CustomVoiceModel detailsResult = service.getCustomVoiceModel(expected.getId()).execute();
-    final RecordedRequest detailsRequest = server.takeRequest();
+    final CustomVoiceModel getResult = service.getCustomVoiceModel(expected.getId()).execute();
+    final RecordedRequest getRequest = server.takeRequest();
 
-    assertEquals(String.format(VOICE_MODEL_PATH, expected.getId()), detailsRequest.getPath());
-    assertEquals("GET", detailsRequest.getMethod());
-    assertEquals(expected, detailsResult);
+    assertEquals(String.format(VOICE_MODEL_PATH, expected.getId()), getRequest.getPath());
+    assertEquals("GET", getRequest.getMethod());
+    assertEquals(expected, getResult);
+    assertNull(expected.getCustomTranslations());
+    assertEquals(expected.getCustomTranslations(), getResult.getCustomTranslations());
+
   }
 
   /**
@@ -231,9 +250,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
     // Update the custom voice model.
     server.enqueue(new MockResponse().setResponseCode(201));
-    //    server.enqueue(jsonResponse(ImmutableMap.of(ID, expected.getId())));
-
-    service.updateCustomVoiceModel(expected, expected.getName(), expected.getDescription()).execute();
+    service.updateCustomVoiceModel(expected).execute();
     final RecordedRequest updateRequest = server.takeRequest();
 
     assertEquals(String.format(VOICE_MODEL_PATH, expected.getId()), updateRequest.getPath());
@@ -242,12 +259,50 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     // Compare expected with actual results.
     server.enqueue(jsonResponse(expected));
 
-    final CustomVoiceModel detailsResult = service.getCustomVoiceModel(expected.getId()).execute();
-    final RecordedRequest detailsRequest = server.takeRequest();
+    final CustomVoiceModel getResult = service.getCustomVoiceModel(expected.getId()).execute();
+    final RecordedRequest getRequest = server.takeRequest();
 
-    assertEquals(String.format(VOICE_MODEL_PATH, expected.getId()), detailsRequest.getPath());
-    assertEquals("GET", detailsRequest.getMethod());
-    assertEquals(expected, detailsResult);
+    assertEquals(String.format(VOICE_MODEL_PATH, expected.getId()), getRequest.getPath());
+    assertEquals("GET", getRequest.getMethod());
+    assertEquals(expected, getResult);
+    assertNull(expected.getCustomTranslations());
+    assertEquals(expected.getCustomTranslations(), getResult.getCustomTranslations());
+  }
+
+  /**
+   * Test update voice model with new words.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testUpdateVoiceModelWords() throws InterruptedException {
+    // Create the custom voice model.
+    final CustomVoiceModel expected = instantiateVoiceModelWords();
+    server.enqueue(jsonResponse(ImmutableMap.of(ID, expected.getId())));
+
+    final CustomVoiceModel result = service.createCustomVoiceModel(expected.getId(), expected.getName(), expected.getDescription()).execute();
+    final RecordedRequest request = server.takeRequest();
+    assertEquals(expected.getId(), result.getId());
+
+    // Update the custom voice model with new words.
+    server.enqueue(new MockResponse().setResponseCode(201));
+    service.updateCustomVoiceModel(expected).execute();
+    final RecordedRequest updateRequest = server.takeRequest();
+
+    assertEquals(String.format(VOICE_MODEL_PATH, expected.getId()), updateRequest.getPath());
+    assertEquals("POST", request.getMethod());
+
+    // Compare expected with actual results.
+    server.enqueue(jsonResponse(expected));
+
+    final CustomVoiceModel getResult = service.getCustomVoiceModel(expected.getId()).execute();
+    final RecordedRequest getRequest = server.takeRequest();
+
+    assertEquals(String.format(VOICE_MODEL_PATH, expected.getId()), getRequest.getPath());
+    assertEquals("GET", getRequest.getMethod());
+    assertEquals(expected, getResult);
+    assertNotNull(expected.getCustomTranslations());
+    assertEquals(expected.getCustomTranslations(), getResult.getCustomTranslations());
   }
 
   /**
