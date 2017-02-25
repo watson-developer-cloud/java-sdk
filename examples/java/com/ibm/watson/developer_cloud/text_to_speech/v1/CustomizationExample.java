@@ -39,7 +39,9 @@ public class CustomizationExample {
     System.out.println(customVoiceModels);
 
     // update custom voice model.
-    service.updateCustomVoiceModel(customVoiceModel, null, "the updated model for testing").execute();
+    customVoiceModel.setName("my updated model");
+    customVoiceModel.setDescription("the updated model for testing");
+    service.updateCustomVoiceModel(customVoiceModel).execute();
 
     // list custom voice models regardless of language.
     customVoiceModels = service.getCustomVoiceModels(null).execute();

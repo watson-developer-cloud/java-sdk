@@ -88,10 +88,11 @@ public class CustomizationsIT extends WatsonServiceTest {
 
   private List<CustomTranslation> instantiateCustomTranslations() {
     return ImmutableList.of(new CustomTranslation("hodor", "hold the door"),
+      new CustomTranslation("shocking", "<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>")
       /** The following IPA entry is causing a test failure:
        *  new CustomTranslation("trinitroglycerin", "try<phoneme alphabet=\"ipa\" ph=\"nˈaɪtɹəglɪsəɹɨn\"></phoneme>"),
        */
-        new CustomTranslation("shocking", "<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>"));
+    );
   }
 
   private List<CustomTranslation> instantiateCustomTranslationsJapanese() {
@@ -138,6 +139,16 @@ public class CustomizationsIT extends WatsonServiceTest {
   }
 
   /**
+   * Test create voice model for Japanese.
+   */
+  @Test
+  public void testCreateVoiceModelJapanese() {
+    model = createVoiceModelJapanese();
+
+    assertNotNull(model.getId());
+  }
+
+  /**
    * Test get voice model.
    */
   @Test
@@ -176,25 +187,54 @@ public class CustomizationsIT extends WatsonServiceTest {
     final CustomVoiceModel model2 = service.getCustomVoiceModel(model.getId()).execute();
     final Voice voice = service.getVoice("en-US_AllisonVoice", model.getId()).execute();
 
-    assertNotNull(voice);
     assertNotNull(model);
-    assertEquals(voice.getCustomVoiceModel(), model2);
+    assertNotNull(model2);
+    assertNotNull(voice);
+    assertEquals(model2.getId(), voice.getCustomVoiceModel().getId());
+    assertEquals(model2.getName(), voice.getCustomVoiceModel().getName());
+    assertEquals(model2.getDescription(), voice.getCustomVoiceModel().getDescription());
+    assertEquals(model2.getLanguage(), voice.getCustomVoiceModel().getLanguage());
+    assertEquals(model2.getOwner(), voice.getCustomVoiceModel().getOwner());
+    assertEquals(model2.getCreated(), voice.getCustomVoiceModel().getCreated());
+    assertEquals(model2.getLastModified(), voice.getCustomVoiceModel().getLastModified());
   }
 
   /**
-   * Test update voice model.
+   * Test update voice model with new name and ignored language change.
    */
   @Test
   public void testUpdateVoiceModel() {
     final String newName = "new test";
+    final String newLanguage = "pt-BR";
 
     model = createVoiceModel();
     model = service.getCustomVoiceModel(model).execute();
-    service.updateCustomVoiceModel(model, newName, null).execute();
     model.setName(newName);
+    model.setLanguage(newLanguage); // ignored on update
+    service.updateCustomVoiceModel(model).execute();
+
+    final CustomVoiceModel model2 = service.getCustomVoiceModel(model).execute();
+    assertModelsEqual(model, model2); // comparison at service
+    assertEquals(model.getLanguage(), "pt-BR"); // local value
+    assertEquals(model2.getLanguage(), MODEL_LANGUAGE); // value at service
+  }
+
+  /**
+   * Test update voice model with new name and new custom translations.
+   */
+  @Test
+  public void testUpdateVoiceModelWords() {
+    final String newName = "new test";
+
+    model = createVoiceModel();
+    model = service.getCustomVoiceModel(model).execute();
+    model.setName(newName);
+    model.setCustomTranslations(instantiateCustomTranslations());
+    service.updateCustomVoiceModel(model).execute();
 
     final CustomVoiceModel model2 = service.getCustomVoiceModel(model).execute();
     assertModelsEqual(model, model2);
+    assertEquals(model.getCustomTranslations(), model2.getCustomTranslations());
   }
 
   /**

@@ -281,7 +281,7 @@ public class TextToSpeech extends WatsonService {
    * @param model the custom voice model object to be saved
    * @return a reference to the given CustomVoiceModel. If a new model is created, the id field is populated.
    * @deprecated use {@link #createCustomVoiceModel(String, String, String)} and
-   * {@link #updateCustomVoiceModel(CustomVoiceModel, String, String)} instead.
+   * {@link #updateCustomVoiceModel(CustomVoiceModel)} instead.
    */
   public ServiceCall<CustomVoiceModel> saveCustomVoiceModel(final CustomVoiceModel model) {
     final boolean isNew = model.getId() == null;
@@ -325,11 +325,11 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Creates a new CustomVoiceModel with the specified parameter values.
+   * Creates a new CustomVoiceModel with the specified name, description, and language.
    *
    * @param name the name of the new model
    * @param language the language of the new model (the default is "en-US")
-   * @param description a description of the new model
+   * @param description a description of the new model (the default is no description)
    * @return a CustomVoiceModel that contains the id of the new model
    */
   public ServiceCall<CustomVoiceModel> createCustomVoiceModel(final String name, final String language,
@@ -351,24 +351,15 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Updates an existing CustomVoiceModel with the specified parameter values.
+   * Updates an existing CustomVoiceModel with new name, new description, and new custom word translations. If no
+   * translation with a given word exists, a new translation is created. Otherwise, the existing translation is updated.
    *
-   * @param model the custom voice model object to be updated
-   * @param name a new name for the model
-   * @param description a new description for the model
+   * @param model the custom voice model object to be updated with new name, description, and words
    * @return the service call
    */
-  public ServiceCall<Void> updateCustomVoiceModel(final CustomVoiceModel model, final String name,
-      final String description) {
+  public ServiceCall<Void> updateCustomVoiceModel(final CustomVoiceModel model) {
     Validator.notNull(model, "model cannot be null");
     Validator.notEmpty(model.getId(), "model id must not be empty");
-
-    if (name != null) {
-        model.setName(name);
-    }
-    if (description != null) {
-        model.setDescription(description);
-    }
 
     final String path = String.format(PATH_CUSTOMIZATION, model.getId());
     final RequestBody body = RequestBody.create(HttpMediaType.JSON, model.toString());
@@ -447,7 +438,7 @@ public class TextToSpeech extends WatsonService {
    * exists, a new translation is created. Otherwise, the existing translation is updated.
    *
    * @param model the custom voice model object for which words are to be added or updated
-   * @param translations the translations to be added or updated
+   * @param translations the custom translations to be added or updated
    * @return the service call
    */
   public ServiceCall<Void> addWords(final CustomVoiceModel model, final CustomTranslation... translations) {

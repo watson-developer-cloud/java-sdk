@@ -20,6 +20,7 @@ Change Log
  * New: Text to Speech: Add getWord() method
  * New: Text to Speech: Add getCustomVoiceModel() method with CustomVoiceModel argument
  * New: Text to Speech: Add deleteWord() method with String argument
+ * New: Text to Speech: Add words to CustomVoiceModel object
  * New: Text to Speech: Add part_of_speech to CustomTranslation object
  * Fix: Text to Speech: Enable customization results for getVoice() method
  * New: Tradeoff Analytics: Add findPreferableOptions parameter to dilemmas() method
