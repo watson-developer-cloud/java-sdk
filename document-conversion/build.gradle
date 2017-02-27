@@ -14,7 +14,7 @@ apply plugin: 'signing'
 apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 
-version = '3.5.5-SNAPSHOT'
+version = '3.5.4-SNAPSHOT'
 group = 'com.ibm.watson.developer_cloud'
 
 task sourcesJar(type: Jar) {
