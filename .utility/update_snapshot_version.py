@@ -1,5 +1,10 @@
 from sys import argv
 from tempfile import mkstemp
+from shutil import move
+from os import remove, close
+
+print("Make sure you're in the root directory when running the script.")
+print("The command you ran should have been `python .utility/update_snapshot_version.py`.\n")
 
 services = ["alchemy", "conversation", "dialog", "discovery", \
             "document-conversion", "language-translation", "language-translator",\
@@ -34,7 +39,7 @@ def replace(file_path, pattern, subst):
                 new_file.write(line.replace(pattern, subst))
                 if pattern in line:
                     found = True
-   if found:
+    if found:
         # If pattern found, replace old file with the temp file that includes the
         # substitued word.
         print "Updating version to %s for service: %s\n" %(subst, file_path)
