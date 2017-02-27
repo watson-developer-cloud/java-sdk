@@ -13,12 +13,13 @@
 package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * A customized voice model, that allows users to specify custom pronunciations for Waton's Text to Speech API.
+ * A customized voice model that allows users to specify custom pronunciations for Waton's Text to Speech API.
  *
  * @see <a href= "http://www.ibm.com/watson/developercloud/doc/text-to-speech/custom-intro.shtml"> Customization</a>
  */
@@ -28,17 +29,16 @@ public class CustomVoiceModel extends GenericModel {
   private String id;
 
   private String name;
-
   private String description;
-
   private String language;
-
   private String owner;
-
   private Date created;
 
   @SerializedName("last_modified")
   private Date lastModified;
+
+  @SerializedName("words")
+  private List<CustomTranslation> customTranslations;
 
   /**
    * Returns the id.
@@ -137,6 +137,24 @@ public class CustomVoiceModel extends GenericModel {
    */
   public Date getLastModified() {
     return lastModified;
+  }
+
+  /**
+   * Returns the custom translations for a custom voice model.
+   *
+   * @return the list of custom translations for the model
+   */
+  public List<CustomTranslation> getCustomTranslations() {
+    return customTranslations;
+  }
+
+  /**
+   * Sets the custom translations for a custom voice model.
+   *
+   * @param customTranslations the list of custom translations for the model
+   */
+  public void setCustomTranslations(List<CustomTranslation> customTranslations) {
+    this.customTranslations = customTranslations;
   }
 
 }
