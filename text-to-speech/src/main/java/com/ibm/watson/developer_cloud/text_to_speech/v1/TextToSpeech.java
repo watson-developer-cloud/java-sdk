@@ -31,7 +31,6 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Phoneme;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -127,7 +126,7 @@ public class TextToSpeech extends WatsonService {
    * @param customizationId the customization id
    * @return the {@link Voice}
    */
-  public ServiceCall<Voice> getVoice(final String voiceName, String customizationId) {
+  public ServiceCall<Voice> getVoice(final String voiceName, final String customizationId) {
     Validator.notNull(voiceName, "name cannot be null");
 
     RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_VOICE, voiceName));
@@ -148,7 +147,7 @@ public class TextToSpeech extends WatsonService {
    * @return the word pronunciation
    * @see Pronunciation
    */
-  public ServiceCall<Pronunciation> getPronunciation(String word, Voice voice, Phoneme phoneme) {
+  public ServiceCall<Pronunciation> getPronunciation(final String word, final Voice voice, final Phoneme phoneme) {
     return getPronunciation(word, voice, phoneme, null);
   }
 
@@ -162,8 +161,8 @@ public class TextToSpeech extends WatsonService {
    * @return the word pronunciation
    * @see Pronunciation
    */
-  public ServiceCall<Pronunciation> getPronunciation(String word, Voice voice, Phoneme phoneme,
-      String customizationId) {
+  public ServiceCall<Pronunciation> getPronunciation(final String word, final Voice voice, final Phoneme phoneme,
+      final String customizationId) {
     final RequestBuilder requestBuilder = RequestBuilder.get(PATH_GET_PRONUNCIATION).query(TEXT, word);
     if (voice != null) {
       requestBuilder.query(VOICE, voice.getName());
@@ -250,25 +249,39 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Gets the meta data of a specific CustomVoiceModel.
+   * Gets the metadata for a CustomVoiceModel specified by object.
    *
-   * @param id the customization id of the CustomVoiceModel
-   * @return the VoiceModel
+   * @param model the custom voice model object to be queried
+   * @return the CustomVoiceModel with full metadata
    */
-  public ServiceCall<CustomVoiceModel> getCustomVoiceModel(final String id) {
-    Validator.notNull(id, "id cannot be null");
+  public ServiceCall<CustomVoiceModel> getCustomVoiceModel(final CustomVoiceModel model) {
+    Validator.notNull(model, "model cannot be null");
+    Validator.notEmpty(model.getId(), "model id must not be empty");
 
-    final Request request = RequestBuilder.get(String.format(PATH_CUSTOMIZATION, id)).build();
+    return getCustomVoiceModel(model.getId());
+  }
+
+  /**
+   * Gets the metadata for a CustomVoiceModel specified by customization id.
+   *
+   * @param customizationId the id of the custom voice model to be queried
+   * @return the CustomVoiceModel with full metadata
+   */
+  public ServiceCall<CustomVoiceModel> getCustomVoiceModel(final String customizationId) {
+    Validator.notNull(customizationId, "customization id cannot be null");
+
+    final Request request = RequestBuilder.get(String.format(PATH_CUSTOMIZATION, customizationId)).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(CustomVoiceModel.class));
   }
 
   /**
-   * Saves a CustomVoiceModel. If the given model has an id, this service will update an existing model. When no id is
-   * set, a new CustomVoiceModel is created and the id field set.
+   * Saves a CustomVoiceModel. If the given model has an id, the service updates an existing model. If no id is set,
+   * a new CustomVoiceModel is created and the id field set. You cannot specify a new language for an existing model.
    *
-   * @param model the model to be saved
-   * @return a reference to the given CustomVoiceModel. If a new CustomVoiceModel is created, the id field will be
-   *         populated.
+   * @param model the custom voice model object to be saved
+   * @return a reference to the given CustomVoiceModel. If a new model is created, the id field is populated.
+   * @deprecated use {@link #createCustomVoiceModel(String, String, String)} and
+   * {@link #updateCustomVoiceModel(CustomVoiceModel)} instead.
    */
   public ServiceCall<CustomVoiceModel> saveCustomVoiceModel(final CustomVoiceModel model) {
     final boolean isNew = model.getId() == null;
@@ -312,12 +325,56 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Deletes the given CustomVoiceModel (requires a valid id to be set).
+   * Creates a new CustomVoiceModel with the specified name, description, and language.
    *
-   * @param model the CustomVoiceModel
+   * @param name the name of the new model
+   * @param language the language of the new model (the default is "en-US")
+   * @param description a description of the new model (the default is no description)
+   * @return a CustomVoiceModel that contains the id of the new model
+   */
+  public ServiceCall<CustomVoiceModel> createCustomVoiceModel(final String name, final String language,
+      final String description) {
+    Validator.notNull(name, "name cannot be null");
+
+    CustomVoiceModel model = new CustomVoiceModel();
+    model.setName(name);
+    if (language != null) {
+        model.setLanguage(language);
+    }
+    if (description != null) {
+        model.setDescription(description);
+    }
+
+    final RequestBody body = RequestBody.create(HttpMediaType.JSON, model.toString());
+    final Request request = RequestBuilder.post(PATH_CUSTOMIZATIONS).body(body).build();
+    return createServiceCall(request, ResponseConverterUtils.getObject(CustomVoiceModel.class));
+  }
+
+  /**
+   * Updates an existing CustomVoiceModel with new name, new description, and new custom word translations. If no
+   * translation with a given word exists, a new translation is created. Otherwise, the existing translation is updated.
+   *
+   * @param model the custom voice model object to be updated with new name, description, and words
    * @return the service call
    */
-  public ServiceCall<Void> deleteCustomVoiceModel(CustomVoiceModel model) {
+  public ServiceCall<Void> updateCustomVoiceModel(final CustomVoiceModel model) {
+    Validator.notNull(model, "model cannot be null");
+    Validator.notEmpty(model.getId(), "model id must not be empty");
+
+    final String path = String.format(PATH_CUSTOMIZATION, model.getId());
+    final RequestBody body = RequestBody.create(HttpMediaType.JSON, model.toString());
+    final Request request = RequestBuilder.post(path).body(body).build();
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Deletes the given CustomVoiceModel.
+   *
+   * @param model the custom voice model object to be deleted
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteCustomVoiceModel(final CustomVoiceModel model) {
+    Validator.notNull(model, "model cannot be null");
     Validator.notEmpty(model.getId(), "model id must not be empty");
 
     final Request request = RequestBuilder.delete(String.format(PATH_CUSTOMIZATION, model.getId())).build();
@@ -327,10 +384,10 @@ public class TextToSpeech extends WatsonService {
   /**
    * Gets all custom word translation for the given CustomVoiceModel.
    *
-   * @param model the CustomVoiceModel
-   * @return a list of all CustomTranslations
+   * @param model the custom voice model object from which words are to be listed
+   * @return a list of all CustomTranslations for the model
    */
-  public ServiceCall<List<CustomTranslation>> getWords(CustomVoiceModel model) {
+  public ServiceCall<List<CustomTranslation>> getWords(final CustomVoiceModel model) {
     Validator.notNull(model.getId(), "model id cannot be null");
 
     final Request request = RequestBuilder.get(String.format(PATH_WORDS, model.getId())).build();
@@ -342,12 +399,13 @@ public class TextToSpeech extends WatsonService {
   /**
    * Gets a custom word translation for the given CustomVoiceModel.
    *
-   * @param model the CustomVoiceModel
+   * @param model the custom voice model object from which a word is to be listed
    * @param word a word from the CustomVoiceModel
    * @return the translation of the word
    */
-    public ServiceCall<CustomTranslation> getWord(CustomVoiceModel model, String word) {
-    Validator.notNull(model.getId(), "model id cannot be null");
+    public ServiceCall<CustomTranslation> getWord(final CustomVoiceModel model, final String word) {
+    Validator.notNull(model, "model cannot be null");
+    Validator.notEmpty(model.getId(), "model id must not be empty");
     Validator.notNull(word, "word cannot be null");
 
     final Request request = RequestBuilder.get(String.format(PATH_WORD, model.getId(), word)).build();
@@ -355,14 +413,17 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Saves or updates custom word translations. If no translation with the given word is existing, a new translation is
-   * created. Elsewise, the existing translation is updated.
+   * Saves or updates custom word translations for a CustomVoiceModel. If no translation with a given word exists,
+   * a new translation is created. Otherwise, the existing translation is updated.
    *
-   * @param model the CustomVoiceModel
+   * @param model the custom voice model object to which words are to be saved
    * @param translations the translations to be saved or updated
    * @return the service call
+   * @deprecated use {@link #addWords(CustomVoiceModel, CustomTranslation...)} and
+   * {@link #addWord(CustomVoiceModel, CustomTranslation)} instead.
    */
-  public ServiceCall<Void> saveWords(CustomVoiceModel model, CustomTranslation... translations) {
+  public ServiceCall<Void> saveWords(final CustomVoiceModel model, final CustomTranslation... translations) {
+    Validator.notNull(model, "model cannot be null");
     Validator.notEmpty(model.getId(), "model id must not be empty");
 
     final String json = GSON.toJson(Collections.singletonMap("words", translations));
@@ -373,29 +434,70 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Deletes a custom word based on a translation object.
+   * Adds or updates one or more custom word translations for a CustomVoiceModel. If no translation with a given word
+   * exists, a new translation is created. Otherwise, the existing translation is updated.
    *
-   * @param model the CustomVoiceModel
-   * @param translation the translation object
+   * @param model the custom voice model object for which words are to be added or updated
+   * @param translations the custom translations to be added or updated
    * @return the service call
    */
-  public ServiceCall<Void> deleteWord(CustomVoiceModel model, CustomTranslation translation) {
+  public ServiceCall<Void> addWords(final CustomVoiceModel model, final CustomTranslation... translations) {
+    Validator.notNull(model, "model cannot be null");
     Validator.notEmpty(model.getId(), "model id must not be empty");
-    Validator.notEmpty(translation.getWord(), "word must not be empty");
+    Validator.notNull(translations, "translations cannot be null");
 
-    final String path = String.format(PATH_WORD, model.getId(), RequestUtils.encode(translation.getWord()));
-    final Request request = RequestBuilder.delete(path).build();
+    final String json = GSON.toJson(Collections.singletonMap("words", translations));
+    final String path = String.format(PATH_WORDS, model.getId());
+    final RequestBody body = RequestBody.create(HttpMediaType.JSON, json);
+    final Request request = RequestBuilder.post(path).body(body).build();
     return createServiceCall(request, ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Adds or updates a single custom word translation for a CustomVoiceModel. If no translation with the given word
+   * exists, a new translation is created. Otherwise, the existing translation is updated.
+   *
+   * @param model the custom voice model object for which a word is to be added or updated
+   * @param translation the translation to be added or updated
+   * @return the service call
+   */
+  public ServiceCall<Void> addWord(final CustomVoiceModel model, final CustomTranslation translation) {
+    Validator.notNull(model, "model cannot be null");
+    Validator.notEmpty(model.getId(), "model id must not be empty");
+    Validator.notNull(translation, "translation cannot be null");
+    Validator.notEmpty(translation.getWord(), "translation word cannot be empty");
+
+    final String path = String.format(PATH_WORD, model.getId(), translation.getWord());
+    final RequestBody body = RequestBody.create(HttpMediaType.JSON, translation.toString());
+    final Request request = RequestBuilder.put(path).body(body).build();
+    return createServiceCall(request, ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Deletes a custom word based on a translation object.
+   *
+   * @param model the custom voice model object from which a word is to be deleted
+   * @param translation the translation object to be deleted
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteWord(final CustomVoiceModel model, final CustomTranslation translation) {
+    Validator.notNull(model, "model cannot be null");
+    Validator.notEmpty(model.getId(), "model id must not be empty");
+    Validator.notNull(translation, "translation cannot be null");
+    Validator.notEmpty(translation.getWord(), "translation word must not be empty");
+
+    return deleteWord(model, translation.getWord());
   }
 
   /**
    * Deletes a custom word based on a string.
    *
-   * @param model the CustomVoiceModel
-   * @param word the word
+   * @param model the custom voice model object from which a word is to be deleted
+   * @param word the word to be deleted
    * @return the service call
    */
-  public ServiceCall<Void> deleteWord(CustomVoiceModel model, String word) {
+  public ServiceCall<Void> deleteWord(final CustomVoiceModel model, final String word) {
+    Validator.notNull(model, "model cannot be null");
     Validator.notEmpty(model.getId(), "model id must not be empty");
     Validator.notNull(word, "word cannot be null");
 
