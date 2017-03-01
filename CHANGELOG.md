@@ -15,8 +15,12 @@ Change Log
  * Fix: Speech to Text: Enable customization_id for recognizeUsingWebSocket() method
  * Fix: Speech to Text: Fix allowOverwrite parameter of addTextToCustomizationCorpus() method
  * Fix: Speech to Text: Fix error field for WordData object
+ * New: Text to Speech: Add createCustomVoiceModel() and updateCustomVoiceModel() methods, deprecate saveCustomVoiceModel() method
+ * New: Text to Speech: Add addWords() and addWord() methods, deprecate saveWords() method
  * New: Text to Speech: Add getWord() method
+ * New: Text to Speech: Add getCustomVoiceModel() method with CustomVoiceModel argument
  * New: Text to Speech: Add deleteWord() method with String argument
+ * New: Text to Speech: Add words to CustomVoiceModel object
  * New: Text to Speech: Add part_of_speech to CustomTranslation object
  * Fix: Text to Speech: Enable customization results for getVoice() method
  * New: Tradeoff Analytics: Add findPreferableOptions parameter to dilemmas() method
