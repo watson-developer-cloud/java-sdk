@@ -16,3 +16,4 @@ bin/
 .checkstyle
 .gradletasknamecache
 docs
+/conversation/nbproject/private/
