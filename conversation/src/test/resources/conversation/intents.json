@@ -1,0 +1,28 @@
+{
+  "intents":
+  [
+    {
+      "intent":"hello",
+      "created":"2017-02-02T21:04:26.049Z",
+      "updated":"2017-02-02T21:04:26.049Z",
+      "examples":
+      [
+        {
+          "text":"good morning",
+          "created":"2017-02-02T21:04:26.049Z",
+          "updated":"2017-02-02T21:04:26.049Z"
+        },
+        {
+          "text":"hello",
+          "created":"2017-02-02T21:04:26.049Z",
+          "updated":"2017-02-02T21:04:26.049Z"
+        }
+      ],
+      "description":"A short description for testing."
+    }
+  ],
+  "pagination":
+  {
+    "refresh_url":"/v1/workspaces/9978a49e-ea89-4493-b33d-82298d3db20d/intents?version=2017-02-03&export=true"
+  }
+}

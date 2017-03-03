@@ -10,7 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1.model;
+package com.ibm.watson.developer_cloud.conversation.v1.model.message;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,9 +39,9 @@ public class MessageRequest extends GenericModel {
     private static final String TEXT = "text";
     private Boolean alternateIntents;
     private Map<String, Object> context;
-    private List<Entity> entities;
+    private List<MessageEntity> entities;
     private Map<String, Object> input;
-    private List<Intent> intents;
+    private List<MessageIntent> intents;
 
     /**
      * Instantiates a new builder.
@@ -116,9 +116,9 @@ public class MessageRequest extends GenericModel {
      * @param entity the entity
      * @return the builder
      */
-    public Builder entity(Entity entity) {
+    public Builder entity(MessageEntity entity) {
       if (entities == null) {
-        entities = new ArrayList<Entity>();
+        entities = new ArrayList<MessageEntity>();
       }
 
       entities.add(entity);
@@ -131,9 +131,9 @@ public class MessageRequest extends GenericModel {
      * @param intent the intent
      * @return the builder
      */
-    public Builder intent(Intent intent) {
+    public Builder intent(MessageIntent intent) {
       if (intents == null) {
-        intents = new ArrayList<Intent>();
+        intents = new ArrayList<MessageIntent>();
       }
 
       intents.add(intent);
@@ -147,7 +147,7 @@ public class MessageRequest extends GenericModel {
      * @param entities the entities
      * @return the builder
      */
-    public Builder entities(List<Entity> entities) {
+    public Builder entities(List<MessageEntity> entities) {
       this.entities = entities;
       return this;
     }
@@ -159,7 +159,7 @@ public class MessageRequest extends GenericModel {
      * @param intents the intents
      * @return the builder
      */
-    public Builder intents(List<Intent> intents) {
+    public Builder intents(List<MessageIntent> intents) {
       this.intents = intents;
       return this;
     }
@@ -184,9 +184,9 @@ public class MessageRequest extends GenericModel {
   @SerializedName("alternate_intents")
   private Boolean alternateIntents;
   private Map<String, Object> context;
-  private List<Entity> entities;
+  private List<MessageEntity> entities;
   private Map<String, Object> input;
-  private List<Intent> intents;
+  private List<MessageIntent> intents;
 
   /**
    * Creates a new instance of the MessageRequest for the {@link ConversationService} service. Clients must use the
@@ -238,7 +238,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the intent list
    */
-  public List<Intent> intents() {
+  public List<MessageIntent> intents() {
     return intents;
   }
 
@@ -247,7 +247,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the entity list
    */
-  public List<Entity> entities() {
+  public List<MessageEntity> entities() {
     return entities;
   }
 

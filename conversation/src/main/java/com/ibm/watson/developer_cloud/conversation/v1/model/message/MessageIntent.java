@@ -10,14 +10,14 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1.model;
+package com.ibm.watson.developer_cloud.conversation.v1.model.message;
 
 /**
  * A class representing an Intent as detected by the service. The intent is the 'intent' of the user utterance, e.g.
  * "pay_bill", "check_balance" etc.. The intent is accompanied by a confidence score ranging between 0.0 and 1.0, with
  * 1.0 being the most confident.
  */
-public class Intent {
+public class MessageIntent {
 
   /**
    * Instantiates a new intent.
@@ -25,7 +25,7 @@ public class Intent {
    * @param intent the intent
    * @param confidence the confidence
    */
-  public Intent(String intent, Double confidence) {
+  public MessageIntent(String intent, Double confidence) {
     super();
     this.confidence = confidence;
     this.intent = intent;
