@@ -1,3 +1,6 @@
+plugins {
+  id 'net.researchgate.release' version '2.4.0'
+}
 
 apply from: 'utils.gradle'
 apply plugin: 'java'
