@@ -10,6 +10,7 @@ apply plugin: 'eclipse'
 import org.apache.tools.ant.filters.*
 
 archivesBaseName = 'java-sdk'
+name = 'java-sdk'
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
 
@@ -88,7 +89,7 @@ task testReport(type: TestReport) {
 }
 
 release {
-  tagTemplate = '$archivesBaseName-$version'
+  tagTemplate = '$name-$version'
 }
 
 task(startmessage) << {
