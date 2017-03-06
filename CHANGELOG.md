@@ -1,31 +1,34 @@
 Change Log
 ==========
 
-## Version 3.5.4-SNAPSHOT
+## Version 3.6.0
 
+_2017-03-07_
+
+ * New: Automatic releases
  * Change: Update OkHttp to v3.6.0
- * New: Speech to Text: Add addCorpus() method, deprecate addTextToCustomizationCorpus() method
- * New: Speech to Text: Add getCorpus() method
- * New: Speech to Text: Add sort parameter to getWords() method
- * New: Speech to Text: Add SupportedFeatures for SpeechModel object
- * New: Speech to Text: Add and fix constructors for Word object
- * New: Speech to Text: Add count to WordData object
- * New: Speech to Text: Add confidence to SpeakerLabel object
- * New: Speech to Text: Add warnings to RecognitionJob object
- * Fix: Speech to Text: Enable customization_id for recognizeUsingWebSocket() method
- * Fix: Speech to Text: Fix allowOverwrite parameter of addTextToCustomizationCorpus() method
- * Fix: Speech to Text: Fix error field for WordData object
- * New: Text to Speech: Add createCustomVoiceModel() and updateCustomVoiceModel() methods, deprecate saveCustomVoiceModel() method
- * New: Text to Speech: Add addWords() and addWord() methods, deprecate saveWords() method
- * New: Text to Speech: Add getWord() method
- * New: Text to Speech: Add getCustomVoiceModel() method with CustomVoiceModel argument
- * New: Text to Speech: Add deleteWord() method with String argument
- * New: Text to Speech: Add words to CustomVoiceModel object
- * New: Text to Speech: Add part_of_speech to CustomTranslation object
- * Fix: Text to Speech: Enable customization results for getVoice() method
- * New: Tradeoff Analytics: Add findPreferableOptions parameter to dilemmas() method
- * New: Tradeoff Analytics: Add PreferableSolutions object to Resolution object
- * New: Tradeoff Analytics: Add DominatingOption object to Solution object
+ * New: Speech to Text: Add `addCorpus()` method, deprecate `addTextToCustomizationCorpus()` method
+ * New: Speech to Text: Add `getCorpus()` method
+ * New: Speech to Text: Add sort parameter to `getWords()` method
+ * New: Speech to Text: Add `SupportedFeatures` for `SpeechModel` object
+ * New: Speech to Text: Add and fix constructors for `Word` object
+ * New: Speech to Text: Add `count` to `WordData` object
+ * New: Speech to Text: Add `confidence` to `SpeakerLabel` object
+ * New: Speech to Text: Add `warnings` to `RecognitionJob` object
+ * Fix: Speech to Text: Enable `customization_id` for `recognizeUsingWebSocket()` method
+ * Fix: Speech to Text: Fix allowOverwrite parameter of `addTextToCustomizationCorpus()` method
+ * Fix: Speech to Text: Fix error field for `WordData` object
+ * New: Text to Speech: Add `createCustomVoiceModel()` and `updateCustomVoiceModel()` methods, deprecate `saveCustomVoiceModel()` method
+ * New: Text to Speech: Add `addWords()` and `addWord()` methods, deprecate `saveWords()` method
+ * New: Text to Speech: Add `getWord()` method
+ * New: Text to Speech: Add `getCustomVoiceModel()` method with CustomVoiceModel argument
+ * New: Text to Speech: Add `deleteWord()` method with String argument
+ * New: Text to Speech: Add `words` to `CustomVoiceModel` object
+ * New: Text to Speech: Add `part_of_speech` to `CustomTranslation` object
+ * Fix: Text to Speech: Enable customization results for `getVoice()` method
+ * New: Tradeoff Analytics: Add findPreferableOptions parameter to `dilemmas()` method
+ * New: Tradeoff Analytics: Add `PreferableSolutions` object to `Resolution` object
+ * New: Tradeoff Analytics: Add `DominatingOption` object to `Solution` object
 
 ## Version 3.5.3
 
