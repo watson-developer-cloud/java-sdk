@@ -10,7 +10,6 @@ apply plugin: 'eclipse'
 import org.apache.tools.ant.filters.*
 
 archivesBaseName = 'java-sdk'
-name = 'java-sdk'
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
 
