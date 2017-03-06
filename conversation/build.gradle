@@ -14,9 +14,6 @@ apply plugin: 'signing'
 apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 
-version = '3.6.0-SNAPSHOT'
-group = 'com.ibm.watson.developer_cloud'
-
 task javadocJar(type: Jar) {
     classifier = 'javadoc'
     from javadoc
