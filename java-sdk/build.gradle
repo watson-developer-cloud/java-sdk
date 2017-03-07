@@ -58,20 +58,37 @@ checkstyle {
     ignoreFailures = true
 }
 
-  task testJar(type: Jar) {
+task testJar(type: Jar) {
     classifier = 'tests'
     from sourceSets.test.output
-  }
+}
 
-  configurations {
+configurations {
     tests
-  }
+}
 
-  artifacts {
+artifacts {
     tests testJar
-  }
+}
 
 dependencies {
+    compile project(':alchemy')
+    compile project(':conversation')
+    compile project(':core')
+    compile project(':dialog')
+    compile project(':discovery')
+    compile project(':document-conversion')
+    compile project(':language-translation')
+    compile project(':language-translator')
+    compile project(':natural-language-classifier')
+    compile project(':personality-insights')
+    compile project(':retrieve-and-rank')
+    compile project(':speech-to-text')
+    compile project(':text-to-speech')
+    compile project(':tone-analyzer')
+    compile project(':tradeoff-analytics')
+    compile project(':visual-recognition')
+
     compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '3.6.0'
     compile group: 'com.squareup.okhttp3', name: 'logging-interceptor', version: '3.6.0'
     compile group: 'com.squareup.okhttp3', name: 'okhttp-urlconnection', version: '3.6.0'
@@ -106,10 +123,10 @@ uploadArchives {
                 authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
             }
             pom.project {
-                name 'core'
+                name 'Watson Developer Cloud Java SDK'
                 packaging 'jar'
                 // optionally artifactId can be defined here
-                description 'Client library to use the IBM Watson Services'
+                description 'Client library to use the IBM Watson Services and AlchemyAPI'
                 url 'https://www.ibm.com/watson/developercloud'
 
                 scm {
