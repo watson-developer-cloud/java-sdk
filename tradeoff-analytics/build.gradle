@@ -83,11 +83,11 @@ uploadArchives {
                 authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
             }
             pom.project {
-                name 'Watson Developer Cloud Java SDK'
+                name 'tradeoff-analytics'
                 packaging 'jar'
                 // optionally artifactId can be defined here
-                description 'Client library to use the IBM Watson Services and AlchemyAPI'
-                url 'http://www.example.com/example-application'
+                description 'Client library to use the IBM Watson Tradeoff Analytics Service'
+                url 'https://www.ibm.com/watson/developercloud/tradeoff-analytics.html'
 
                 scm {
                     connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
