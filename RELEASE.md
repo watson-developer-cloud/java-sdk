@@ -17,16 +17,14 @@ If you are not familiar with Sonatype and/or the maven release process please re
 
 ### Release steps
 
-  1. Make sure that `pom.xml` and `build.gradle` have the same version number. In the `pom.xml` file the version should ends with -SNAPSHOT
+  1. The version number is the same across all modules. Update this in `gradle.properties`
 
-  2. With the SCM connection configured correctly you can perform a release deployment to OSSRH (Staging) with:
+  2. Update `CHANGELOG.md`
 
-    `mvn release:clean release:prepare`
+  3. Update `README.md` to include the new version number
+
+  2. Perform a release deployment to OSSRH (Staging) with:
+
+    `gradle release`
 
     You will have to answer prompts for versions and tags. That will tag and commit a new version into your repository automatically.
-
-  3. Deploy to maven central:
-
-    `mvn release:perform`
-
-    This execution will deploy to OSSRH and release to the Central Repository in one go.
