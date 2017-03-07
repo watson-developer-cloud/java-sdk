@@ -12,20 +12,44 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
+import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.EmotionScores;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DocumentEmotionResults
+ * An object containing the emotion results of a document.
  */
 public class DocumentEmotionResults extends GenericModel {
 
+  /** An object containing the emotion results of a document. */
+  private EmotionScores emotion;
 
   /**
    * Instantiates a new `DocumentEmotionResults`
+   *
+   * @param emotion An object containing the emotion results of a document.
    */
-  public DocumentEmotionResults() {
+  public DocumentEmotionResults(final EmotionScores emotion) {
+    this.emotion = emotion;
+  }
+
+  /**
+   * Gets the emotion.
+   *
+   * @return the emotion
+   */
+  public EmotionScores getEmotion() {
+    return emotion;
+  }
+
+  /**
+   * Sets the emotion.
+   *
+   * @param emotion the new emotion
+   */
+  public void setEmotion(final EmotionScores emotion) {
+    this.emotion = emotion;
   }
 
 }

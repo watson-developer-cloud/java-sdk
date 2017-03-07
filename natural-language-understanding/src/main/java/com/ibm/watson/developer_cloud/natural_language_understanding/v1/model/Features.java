@@ -13,12 +13,10 @@
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.CategoriesOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ConceptsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.EmotionOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.EntitiesOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.KeywordsOptions;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.MetadataOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.RelationsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SemanticRolesOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SentimentOptions;
@@ -40,7 +38,7 @@ public class Features extends GenericModel {
   /** Whether or not to return the keywords in the analyzed text. */
   private KeywordsOptions keywords;
   /** Whether or not the author, publication date, and title of the analyzed text should be returned. This parameter is only available for URL and HTML input. */
-  private MetadataOptions metadata;
+  private Map<String, Object> metadata;
   /** Whether or not to return the relationships between detected entities in the analyzed text. */
   private RelationsOptions relations;
   /** Whether or not to return the subject-action-object relations from the analyzed text. */
@@ -49,7 +47,7 @@ public class Features extends GenericModel {
   /** Whether or not to return the overall sentiment of the analyzed text. */
   private SentimentOptions sentiment;
   /** Whether or not to return the high level category the content is categorized as (i.e. news, art). */
-  private CategoriesOptions categories;
+  private Map<String, Object> categories;
 
   /**
    * Instantiates a new `Features`
@@ -64,7 +62,7 @@ public class Features extends GenericModel {
    * @param sentiment Whether or not to return the overall sentiment of the analyzed text.
    * @param categories Whether or not to return the high level category the content is categorized as (i.e. news, art).
    */
-  public Features(final ConceptsOptions concepts, final EmotionOptions emotion, final EntitiesOptions entities, final KeywordsOptions keywords, final MetadataOptions metadata, final RelationsOptions relations, final SemanticRolesOptions semanticRoles, final SentimentOptions sentiment, final CategoriesOptions categories) {
+  public Features(final ConceptsOptions concepts, final EmotionOptions emotion, final EntitiesOptions entities, final KeywordsOptions keywords, final Map<String, Object> metadata, final RelationsOptions relations, final SemanticRolesOptions semanticRoles, final SentimentOptions sentiment, final Map<String, Object> categories) {
     this.concepts = concepts;
     this.emotion = emotion;
     this.entities = entities;
@@ -117,7 +115,7 @@ public class Features extends GenericModel {
    *
    * @return the metadata
    */
-  public MetadataOptions getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 
@@ -153,7 +151,7 @@ public class Features extends GenericModel {
    *
    * @return the categories
    */
-  public CategoriesOptions getCategories() {
+  public Map<String, Object> getCategories() {
     return categories;
   }
 
@@ -198,7 +196,7 @@ public class Features extends GenericModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final MetadataOptions metadata) {
+  public void setMetadata(final Map<String, Object> metadata) {
     this.metadata = metadata;
   }
 
@@ -234,7 +232,7 @@ public class Features extends GenericModel {
    *
    * @param categories the new categories
    */
-  public void setCategories(final CategoriesOptions categories) {
+  public void setCategories(final Map<String, Object> categories) {
     this.categories = categories;
   }
 
