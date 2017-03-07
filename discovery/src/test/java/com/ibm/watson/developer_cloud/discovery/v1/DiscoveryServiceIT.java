@@ -36,6 +36,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfig
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationsRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.NormalizationOperation;
+import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.NormalizationOperation.Operation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.UpdateConfigurationRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.UpdateConfigurationResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.CreateDocumentRequest;
@@ -89,6 +91,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,6 +105,7 @@ import java.util.concurrent.TimeUnit;
 public class DiscoveryServiceIT extends WatsonServiceTest {
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String DISCOVERY1_TEST_CONFIG_FILE = "src/test/resources/discovery/issue517.json";
+  private static final String DISCOVERY2_TEST_CONFIG_FILE = "src/test/resources/discovery/issue518.json";
   private static String environmentId;
   private Discovery discovery;
   private String uniqueName;
@@ -759,6 +763,29 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     // returned config should have some json data
     assertEquals(1, getResponse.getConversions().getJson().size());
+  }
+
+  @Test
+  public void issueNumber518() {
+    String[] operations = new String[] { "MOVE", "COPY", "MERGE", "REMOVE", "REMOVE_NULLS" };
+
+    String uniqueConfigName = uniqueName + "-config";
+    CreateConfigurationRequest.Builder createBuilder = new CreateConfigurationRequest.Builder(environmentId);
+    Configuration configuration =  getTestConfiguration(DISCOVERY2_TEST_CONFIG_FILE);
+
+    configuration.setName(uniqueConfigName);
+    createBuilder.configuration(configuration);
+    CreateConfigurationResponse createResponse = createConfiguration(createBuilder.build());
+
+    GetConfigurationRequest getRequest =
+        new GetConfigurationRequest.Builder(environmentId, createResponse.getConfigurationId()).build();
+    GetConfigurationResponse getResponse = discovery.getConfiguration(getRequest).execute();
+
+    // verify getResponse deserializes the operations appropriately
+    for (NormalizationOperation normalization : getResponse.getNormalizations()) {
+      Operation operation = normalization.getOperation();
+      assertEquals(true, Arrays.asList(operations).contains(operation.name()));
+    }
   }
 
   private CreateEnvironmentResponse createEnvironment(CreateEnvironmentRequest createRequest) {

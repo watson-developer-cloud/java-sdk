@@ -31,25 +31,29 @@ public class CustomizationExample {
     TextToSpeech service = new TextToSpeech("<username>", "<password>");
 
     // create custom voice model.
-    CustomVoiceModel model = new CustomVoiceModel();
-    model.setName("my model");
-    model.setLanguage("en-US");
-    model.setDescription("the model for testing");
-    CustomVoiceModel customVoiceModel = service.saveCustomVoiceModel(model).execute();
+    CustomVoiceModel customVoiceModel = service.createCustomVoiceModel("my model", "en-US", "the model for testing").execute();
     System.out.println(customVoiceModel);
 
     // list custom voice models for US English.
     List<CustomVoiceModel> customVoiceModels = service.getCustomVoiceModels("en-US").execute();
     System.out.println(customVoiceModels);
 
+    // update custom voice model.
+    customVoiceModel.setName("my updated model");
+    customVoiceModel.setDescription("the updated model for testing");
+    service.updateCustomVoiceModel(customVoiceModel).execute();
+
     // list custom voice models regardless of language.
     customVoiceModels = service.getCustomVoiceModels(null).execute();
     System.out.println(customVoiceModels);
 
-    // create custom word translations
+    // create multiple custom word translations
     CustomTranslation customTranslation1 = new CustomTranslation("hodor", "hold the door");
     CustomTranslation customTranslation2 = new CustomTranslation("plz", "please");
-    service.saveWords(customVoiceModel, customTranslation1, customTranslation2).execute();
+    service.addWords(customVoiceModel, customTranslation1, customTranslation2).execute();
+
+    // create a single custom word translation
+    service.addWord(customVoiceModel, new CustomTranslation("nat", "and that")).execute();
 
     // get custom word translations
     List<CustomTranslation> words = service.getWords(customVoiceModel).execute();
@@ -69,7 +73,11 @@ public class CustomizationExample {
     service.deleteWord(customVoiceModel, customTranslation2.getWord());
 
     // delete custom voice model
-    service.deleteCustomVoiceModel(customVoiceModel);
+    service.deleteCustomVoiceModel(customVoiceModel).execute();
+
+    // list custom voice models regardless of language.
+    customVoiceModels = service.getCustomVoiceModels(null).execute();
+    System.out.println(customVoiceModels);
   }
 
   private static void writeToFile(InputStream in, File file) {

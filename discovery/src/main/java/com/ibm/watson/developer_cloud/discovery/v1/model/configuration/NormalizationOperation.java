@@ -20,16 +20,27 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * Configuration options for a JSON document.
  */
 public class NormalizationOperation extends GenericModel {
-    //TODO make this an enum
     @SerializedName(ConfigurationManager.OPERATION)
-    private String operation;
+    private Operation operation;
     @SerializedName(ConfigurationManager.SOURCE_FIELD)
     private String sourceField;
     @SerializedName(ConfigurationManager.DESTINATION_FIELD)
     private String destinationField;
 
-    public String getOperation() {
+    public Operation getOperation() {
+        if (operation == null) {
+            operation = Operation.UNKNOWN;
+        }
         return operation;
+    }
+
+    public enum Operation {
+        @SerializedName("copy")COPY,
+        @SerializedName("move")MOVE,
+        @SerializedName("merge")MERGE,
+        @SerializedName("remove")REMOVE,
+        @SerializedName("remove_nulls")REMOVE_NULLS,
+        UNKNOWN
     }
 
     public String getSourceField() {

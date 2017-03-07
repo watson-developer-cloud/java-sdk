@@ -88,10 +88,11 @@ public class CustomizationsIT extends WatsonServiceTest {
 
   private List<CustomTranslation> instantiateCustomTranslations() {
     return ImmutableList.of(new CustomTranslation("hodor", "hold the door"),
+      new CustomTranslation("shocking", "<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>")
       /** The following IPA entry is causing a test failure:
        *  new CustomTranslation("trinitroglycerin", "try<phoneme alphabet=\"ipa\" ph=\"nˈaɪtɹəglɪsəɹɨn\"></phoneme>"),
        */
-        new CustomTranslation("shocking", "<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>"));
+    );
   }
 
   private List<CustomTranslation> instantiateCustomTranslationsJapanese() {
@@ -100,17 +101,17 @@ public class CustomizationsIT extends WatsonServiceTest {
   }
 
   private CustomVoiceModel createVoiceModel() {
-    return service.saveCustomVoiceModel(instantiateVoiceModel()).execute();
+    return service.createCustomVoiceModel(MODEL_NAME, MODEL_LANGUAGE, MODEL_DESCRIPTION).execute();
   }
 
   private CustomVoiceModel createVoiceModelJapanese() {
-    return service.saveCustomVoiceModel(instantiateVoiceModelJapanese()).execute();
+    return service.createCustomVoiceModel(MODEL_NAME, MODEL_LANGUAGE_JAPANESE, MODEL_DESCRIPTION).execute();
   }
 
   private void assertModelsEqual(CustomVoiceModel a, CustomVoiceModel b) {
     assertEquals(a.getId(), b.getId());
-    assertEquals(a.getName(), b.getName());
-    assertEquals(a.getDescription(), b.getDescription());
+    assertEquals((service.getCustomVoiceModel(a.getId()).execute()).getName(), b.getName());
+    assertEquals((service.getCustomVoiceModel(a.getId()).execute()).getLanguage(), b.getLanguage());
   }
 
   /**
@@ -138,12 +139,37 @@ public class CustomizationsIT extends WatsonServiceTest {
   }
 
   /**
+   * Test create voice model for Japanese.
+   */
+  @Test
+  public void testCreateVoiceModelJapanese() {
+    model = createVoiceModelJapanese();
+
+    assertNotNull(model.getId());
+  }
+
+  /**
    * Test get voice model.
    */
   @Test
-  public void testGetVoiceModel() {
+  public void testGetVoiceModelString() {
     model = createVoiceModel();
     final CustomVoiceModel model2 = service.getCustomVoiceModel(model.getId()).execute();
+
+    assertNotNull(model2);
+    assertModelsEqual(model, model2);
+    assertNotNull(model2.getOwner());
+    assertNotNull(model2.getCreated());
+    assertNotNull(model2.getLastModified());
+  }
+
+  /**
+   * Test get voice model.
+   */
+  @Test
+  public void testGetVoiceModelObject() {
+    model = createVoiceModel();
+    final CustomVoiceModel model2 = service.getCustomVoiceModel(model).execute();
 
     assertNotNull(model2);
     assertModelsEqual(model, model2);
@@ -161,30 +187,60 @@ public class CustomizationsIT extends WatsonServiceTest {
     final CustomVoiceModel model2 = service.getCustomVoiceModel(model.getId()).execute();
     final Voice voice = service.getVoice("en-US_AllisonVoice", model.getId()).execute();
 
-    assertNotNull(voice);
     assertNotNull(model);
-    assertEquals(voice.getCustomVoiceModel(), model2);
+    assertNotNull(model2);
+    assertNotNull(voice);
+    assertEquals(model2.getId(), voice.getCustomVoiceModel().getId());
+    assertEquals(model2.getName(), voice.getCustomVoiceModel().getName());
+    assertEquals(model2.getDescription(), voice.getCustomVoiceModel().getDescription());
+    assertEquals(model2.getLanguage(), voice.getCustomVoiceModel().getLanguage());
+    assertEquals(model2.getOwner(), voice.getCustomVoiceModel().getOwner());
+    assertEquals(model2.getCreated(), voice.getCustomVoiceModel().getCreated());
+    assertEquals(model2.getLastModified(), voice.getCustomVoiceModel().getLastModified());
   }
 
   /**
-   * Test update voice model.
+   * Test update voice model with new name and ignored language change.
    */
   @Test
   public void testUpdateVoiceModel() {
     final String newName = "new test";
+    final String newLanguage = "pt-BR";
 
     model = createVoiceModel();
-    model = service.getCustomVoiceModel(model.getId()).execute();
+    model = service.getCustomVoiceModel(model).execute();
     model.setName(newName);
-    service.saveCustomVoiceModel(model).execute();
+    model.setLanguage(newLanguage); // ignored on update
+    service.updateCustomVoiceModel(model).execute();
 
-    final CustomVoiceModel model2 = service.getCustomVoiceModel(model.getId()).execute();
+    final CustomVoiceModel model2 = service.getCustomVoiceModel(model).execute();
+    assertModelsEqual(model, model2); // comparison at service
+    assertEquals(model.getLanguage(), "pt-BR"); // local value
+    assertEquals(model2.getLanguage(), MODEL_LANGUAGE); // value at service
+  }
+
+  /**
+   * Test update voice model with new name and new custom translations.
+   */
+  @Test
+  public void testUpdateVoiceModelWords() {
+    final String newName = "new test";
+
+    model = createVoiceModel();
+    model = service.getCustomVoiceModel(model).execute();
+    model.setName(newName);
+    model.setCustomTranslations(instantiateCustomTranslations());
+    service.updateCustomVoiceModel(model).execute();
+
+    final CustomVoiceModel model2 = service.getCustomVoiceModel(model).execute();
     assertModelsEqual(model, model2);
+    assertEquals(model.getCustomTranslations(), model2.getCustomTranslations());
   }
 
   /**
    * Test update voice model with failure for language change.
-   */
+   * COMMENTED because the saveWords() method is deprecated.
+   *
   @Test
   public void testUpdateVoiceModelFailure() {
     final String newName = "new test";
@@ -199,6 +255,7 @@ public class CustomizationsIT extends WatsonServiceTest {
       // Expected failure.
     }
   }
+   */
 
   /**
    * Test delete voice model.
@@ -254,7 +311,7 @@ public class CustomizationsIT extends WatsonServiceTest {
     model = createVoiceModel();
     final CustomTranslation expected = instantiateCustomTranslations().get(0);
 
-    service.saveWords(model, expected).execute();
+    service.addWord(model, expected).execute();
 
     final List<CustomTranslation> results = service.getWords(model).execute();
     assertEquals(1, results.size());
@@ -273,7 +330,7 @@ public class CustomizationsIT extends WatsonServiceTest {
     model = createVoiceModel();
     final List<CustomTranslation> expected = instantiateCustomTranslations();
 
-    service.saveWords(model, expected.toArray(new CustomTranslation[] { })).execute();
+    service.addWords(model, expected.toArray(new CustomTranslation[] { })).execute();
 
     final List<CustomTranslation> words = service.getWords(model).execute();
     assertEquals(expected.size(), words.size());
@@ -287,7 +344,7 @@ public class CustomizationsIT extends WatsonServiceTest {
     model = createVoiceModelJapanese();
     final List<CustomTranslation> expected = instantiateCustomTranslationsJapanese();
 
-    service.saveWords(model, expected.toArray(new CustomTranslation[] { })).execute();
+    service.addWords(model, expected.toArray(new CustomTranslation[] { })).execute();
 
     final List<CustomTranslation> words = service.getWords(model).execute();
     assertEquals(expected.size(), words.size());
@@ -301,7 +358,7 @@ public class CustomizationsIT extends WatsonServiceTest {
     model = createVoiceModel();
     final List<CustomTranslation> expected = instantiateCustomTranslations();
 
-    service.saveWords(model, expected.toArray(new CustomTranslation[] { })).execute();
+    service.addWords(model, expected.toArray(new CustomTranslation[] { })).execute();
 
     final CustomTranslation word = service.getWord(model, expected.get(0).getWord()).execute();
     assertEquals(expected.get(0).getTranslation(), word.getTranslation());
@@ -315,7 +372,7 @@ public class CustomizationsIT extends WatsonServiceTest {
     model = createVoiceModelJapanese();
     final List<CustomTranslation> expected = instantiateCustomTranslationsJapanese();
 
-    service.saveWords(model, expected.toArray(new CustomTranslation[] { })).execute();
+    service.addWords(model, expected.toArray(new CustomTranslation[] { })).execute();
 
     final CustomTranslation word = service.getWord(model, expected.get(0).getWord()).execute();
     assertEquals(expected.get(0).getTranslation(), word.getTranslation());
@@ -330,7 +387,7 @@ public class CustomizationsIT extends WatsonServiceTest {
     model = createVoiceModel();
     final CustomTranslation expected = instantiateCustomTranslations().get(0);
 
-    service.saveWords(model, expected).execute();
+    service.addWord(model, expected).execute();
     service.deleteWord(model, expected).execute();
 
     final List<CustomTranslation> results = service.getWords(model).execute();
@@ -345,7 +402,7 @@ public class CustomizationsIT extends WatsonServiceTest {
     model = createVoiceModel();
     final CustomTranslation expected = instantiateCustomTranslations().get(0);
 
-    service.saveWords(model, expected).execute();
+    service.addWord(model, expected).execute();
     service.deleteWord(model, expected.getWord()).execute();
 
     final List<CustomTranslation> results = service.getWords(model).execute();
@@ -362,7 +419,7 @@ public class CustomizationsIT extends WatsonServiceTest {
     model = createVoiceModel();
     final CustomTranslation expected = instantiateCustomTranslations().get(0);
 
-    service.saveWords(model, expected).execute();
+    service.addWords(model, expected).execute();
     final InputStream stream1 = service.synthesize(expected.getWord(), Voice.EN_MICHAEL, AudioFormat.WAV).execute();
     final InputStream stream2 =
         service.synthesize(expected.getWord(), Voice.EN_MICHAEL, AudioFormat.WAV, model.getId()).execute();
