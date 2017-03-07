@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
-import java.math.BigDecimal;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -23,15 +22,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class EmotionScores extends GenericModel {
 
   /** Anger score from 0 to 1. A higher score means that the text is more likely to convey anger. */
-  private BigDecimal anger;
+  private Long anger;
   /** Disgust score from 0 to 1. A higher score means that the text is more likely to convey disgust. */
-  private BigDecimal disgust;
+  private Long disgust;
   /** Fear score from 0 to 1. A higher score means that the text is more likely to convey fear. */
-  private BigDecimal fear;
+  private Long fear;
   /** Joy score from 0 to 1. A higher score means that the text is more likely to convey joy. */
-  private BigDecimal joy;
+  private Long joy;
   /** Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness. */
-  private BigDecimal sadness;
+  private Long sadness;
 
   /**
    * Instantiates a new `EmotionScores`
@@ -42,7 +41,7 @@ public class EmotionScores extends GenericModel {
    * @param joy Joy score from 0 to 1. A higher score means that the text is more likely to convey joy.
    * @param sadness Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness.
    */
-  public EmotionScores(final BigDecimal anger, final BigDecimal disgust, final BigDecimal fear, final BigDecimal joy, final BigDecimal sadness) {
+  public EmotionScores(final Long anger, final Long disgust, final Long fear, final Long joy, final Long sadness) {
     this.anger = anger;
     this.disgust = disgust;
     this.fear = fear;
@@ -55,7 +54,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the anger
    */
-  public BigDecimal getAnger() {
+  public Long getAnger() {
     return anger;
   }
 
@@ -64,7 +63,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the disgust
    */
-  public BigDecimal getDisgust() {
+  public Long getDisgust() {
     return disgust;
   }
 
@@ -73,7 +72,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the fear
    */
-  public BigDecimal getFear() {
+  public Long getFear() {
     return fear;
   }
 
@@ -82,7 +81,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the joy
    */
-  public BigDecimal getJoy() {
+  public Long getJoy() {
     return joy;
   }
 
@@ -91,7 +90,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the sadness
    */
-  public BigDecimal getSadness() {
+  public Long getSadness() {
     return sadness;
   }
 
@@ -100,7 +99,7 @@ public class EmotionScores extends GenericModel {
    *
    * @param anger the new anger
    */
-  public void setAnger(final BigDecimal anger) {
+  public void setAnger(final Long anger) {
     this.anger = anger;
   }
 
@@ -109,7 +108,7 @@ public class EmotionScores extends GenericModel {
    *
    * @param disgust the new disgust
    */
-  public void setDisgust(final BigDecimal disgust) {
+  public void setDisgust(final Long disgust) {
     this.disgust = disgust;
   }
 
@@ -118,7 +117,7 @@ public class EmotionScores extends GenericModel {
    *
    * @param fear the new fear
    */
-  public void setFear(final BigDecimal fear) {
+  public void setFear(final Long fear) {
     this.fear = fear;
   }
 
@@ -127,7 +126,7 @@ public class EmotionScores extends GenericModel {
    *
    * @param joy the new joy
    */
-  public void setJoy(final BigDecimal joy) {
+  public void setJoy(final Long joy) {
     this.joy = joy;
   }
 
@@ -136,7 +135,7 @@ public class EmotionScores extends GenericModel {
    *
    * @param sadness the new sadness
    */
-  public void setSadness(final BigDecimal sadness) {
+  public void setSadness(final Long sadness) {
     this.sadness = sadness;
   }
 

@@ -24,17 +24,34 @@ public class TargetedEmotionResults extends GenericModel {
 
   /** Targeted text. */
   private String text;
-  private EmotionScores emotion;
+  /** Anger score from 0 to 1. A higher score means that the text is more likely to convey anger. */
+  private Long anger;
+  /** Disgust score from 0 to 1. A higher score means that the text is more likely to convey disgust. */
+  private Long disgust;
+  /** Fear score from 0 to 1. A higher score means that the text is more likely to convey fear. */
+  private Long fear;
+  /** Joy score from 0 to 1. A higher score means that the text is more likely to convey joy. */
+  private Long joy;
+  /** Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness. */
+  private Long sadness;
 
   /**
    * Instantiates a new `TargetedEmotionResults`
    *
    * @param text Targeted text.
-   * @param emotion 
+   * @param anger Anger score from 0 to 1. A higher score means that the text is more likely to convey anger.
+   * @param disgust Disgust score from 0 to 1. A higher score means that the text is more likely to convey disgust.
+   * @param fear Fear score from 0 to 1. A higher score means that the text is more likely to convey fear.
+   * @param joy Joy score from 0 to 1. A higher score means that the text is more likely to convey joy.
+   * @param sadness Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness.
    */
-  public TargetedEmotionResults(final String text, final EmotionScores emotion) {
+  public TargetedEmotionResults(final String text, final Long anger, final Long disgust, final Long fear, final Long joy, final Long sadness) {
     this.text = text;
-    this.emotion = emotion;
+    this.anger = anger;
+    this.disgust = disgust;
+    this.fear = fear;
+    this.joy = joy;
+    this.sadness = sadness;
   }
 
   /**
@@ -47,12 +64,48 @@ public class TargetedEmotionResults extends GenericModel {
   }
 
   /**
-   * Gets the emotion.
+   * Gets the anger.
    *
-   * @return the emotion
+   * @return the anger
    */
-  public EmotionScores getEmotion() {
-    return emotion;
+  public Long getAnger() {
+    return anger;
+  }
+
+  /**
+   * Gets the disgust.
+   *
+   * @return the disgust
+   */
+  public Long getDisgust() {
+    return disgust;
+  }
+
+  /**
+   * Gets the fear.
+   *
+   * @return the fear
+   */
+  public Long getFear() {
+    return fear;
+  }
+
+  /**
+   * Gets the joy.
+   *
+   * @return the joy
+   */
+  public Long getJoy() {
+    return joy;
+  }
+
+  /**
+   * Gets the sadness.
+   *
+   * @return the sadness
+   */
+  public Long getSadness() {
+    return sadness;
   }
 
   /**
@@ -65,12 +118,48 @@ public class TargetedEmotionResults extends GenericModel {
   }
 
   /**
-   * Sets the emotion.
+   * Sets the anger.
    *
-   * @param emotion the new emotion
+   * @param anger the new anger
    */
-  public void setEmotion(final EmotionScores emotion) {
-    this.emotion = emotion;
+  public void setAnger(final Long anger) {
+    this.anger = anger;
+  }
+
+  /**
+   * Sets the disgust.
+   *
+   * @param disgust the new disgust
+   */
+  public void setDisgust(final Long disgust) {
+    this.disgust = disgust;
+  }
+
+  /**
+   * Sets the fear.
+   *
+   * @param fear the new fear
+   */
+  public void setFear(final Long fear) {
+    this.fear = fear;
+  }
+
+  /**
+   * Sets the joy.
+   *
+   * @param joy the new joy
+   */
+  public void setJoy(final Long joy) {
+    this.joy = joy;
+  }
+
+  /**
+   * Sets the sadness.
+   *
+   * @param sadness the new sadness
+   */
+  public void setSadness(final Long sadness) {
+    this.sadness = sadness;
   }
 
 }

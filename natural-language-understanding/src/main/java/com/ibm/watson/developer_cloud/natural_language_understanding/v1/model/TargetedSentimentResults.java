@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
-import java.math.BigDecimal;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -25,7 +24,7 @@ public class TargetedSentimentResults extends GenericModel {
   /** Targeted text. */
   private String text;
   /** Sentiment score from -1 (negative) to 1 (positive). */
-  private BigDecimal score;
+  private Long score;
 
   /**
    * Instantiates a new `TargetedSentimentResults`
@@ -33,7 +32,7 @@ public class TargetedSentimentResults extends GenericModel {
    * @param text Targeted text.
    * @param score Sentiment score from -1 (negative) to 1 (positive).
    */
-  public TargetedSentimentResults(final String text, final BigDecimal score) {
+  public TargetedSentimentResults(final String text, final Long score) {
     this.text = text;
     this.score = score;
   }
@@ -52,7 +51,7 @@ public class TargetedSentimentResults extends GenericModel {
    *
    * @return the score
    */
-  public BigDecimal getScore() {
+  public Long getScore() {
     return score;
   }
 
@@ -70,7 +69,7 @@ public class TargetedSentimentResults extends GenericModel {
    *
    * @param score the new score
    */
-  public void setScore(final BigDecimal score) {
+  public void setScore(final Long score) {
     this.score = score;
   }
 

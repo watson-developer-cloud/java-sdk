@@ -13,7 +13,6 @@
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.RelationArgument;
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
@@ -25,7 +24,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class RelationsResult extends GenericModel {
 
   /** Confidence score for the relation. Higher values indicate greater confidence. */
-  private BigDecimal score;
+  private Long score;
   /** The sentence that contains the relation. */
   private String sentence;
   /** The type of the relation. */
@@ -41,7 +40,7 @@ public class RelationsResult extends GenericModel {
    * @param type The type of the relation.
    * @param arguments The extracted relation objects from the text.
    */
-  public RelationsResult(final BigDecimal score, final String sentence, final String type, final List<RelationArgument> arguments) {
+  public RelationsResult(final Long score, final String sentence, final String type, final List<RelationArgument> arguments) {
     this.score = score;
     this.sentence = sentence;
     this.type = type;
@@ -62,7 +61,7 @@ public class RelationsResult extends GenericModel {
    *
    * @return the score
    */
-  public BigDecimal getScore() {
+  public Long getScore() {
     return score;
   }
 
@@ -98,7 +97,7 @@ public class RelationsResult extends GenericModel {
    *
    * @param score the new score
    */
-  public void setScore(final BigDecimal score) {
+  public void setScore(final Long score) {
     this.score = score;
   }
 
