@@ -23,7 +23,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class ConceptsResult extends GenericModel {
 
   /** Name of the concept. */
-  private String name;
+  private String text;
   /** Relevance score between 0 and 1. Higher scores indicate greater relevance. */
   private Long relevance;
   @SerializedName("dbpedia_resource")
@@ -32,23 +32,23 @@ public class ConceptsResult extends GenericModel {
   /**
    * Instantiates a new `ConceptsResult`
    *
-   * @param name Name of the concept.
+   * @param text Name of the concept.
    * @param relevance Relevance score between 0 and 1. Higher scores indicate greater relevance.
    * @param dbpediaResource 
    */
-  public ConceptsResult(final String name, final Long relevance, final String dbpediaResource) {
-    this.name = name;
+  public ConceptsResult(final String text, final Long relevance, final String dbpediaResource) {
+    this.text = text;
     this.relevance = relevance;
     this.dbpediaResource = dbpediaResource;
   }
 
   /**
-   * Gets the name.
+   * Gets the text.
    *
-   * @return the name
+   * @return the text
    */
-  public String getName() {
-    return name;
+  public String getText() {
+    return text;
   }
 
   /**
@@ -70,12 +70,12 @@ public class ConceptsResult extends GenericModel {
   }
 
   /**
-   * Sets the name.
+   * Sets the text.
    *
-   * @param name the new name
+   * @param text the new text
    */
-  public void setName(final String name) {
-    this.name = name;
+  public void setText(final String text) {
+    this.text = text;
   }
 
   /**
