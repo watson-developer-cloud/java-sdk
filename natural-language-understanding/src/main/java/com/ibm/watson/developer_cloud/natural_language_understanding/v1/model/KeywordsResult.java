@@ -14,18 +14,17 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.EmotionScores;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.FeatureSentimentResults;
-import java.math.BigDecimal;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * he most important keywords in the content, organized by relevance.
+ * The most important keywords in the content, organized by relevance.
  */
 public class KeywordsResult extends GenericModel {
 
   /** Relevance score from 0 to 1. Higher values indicate greater relevance. */
-  private BigDecimal relevance;
+  private Long relevance;
   /** The keyword text. */
   private String text;
   /** Emotion analysis results for the keyword, enabled with the \&quot;emotion\&quot; option. */
@@ -41,7 +40,7 @@ public class KeywordsResult extends GenericModel {
    * @param emotion Emotion analysis results for the keyword, enabled with the \&quot;emotion\&quot; option.
    * @param sentiment Sentiment analysis results for the keyword, enabled with the \&quot;sentiment\&quot; option.
    */
-  public KeywordsResult(final BigDecimal relevance, final String text, final EmotionScores emotion, final FeatureSentimentResults sentiment) {
+  public KeywordsResult(final Long relevance, final String text, final EmotionScores emotion, final FeatureSentimentResults sentiment) {
     this.relevance = relevance;
     this.text = text;
     this.emotion = emotion;
@@ -53,7 +52,7 @@ public class KeywordsResult extends GenericModel {
    *
    * @return the relevance
    */
-  public BigDecimal getRelevance() {
+  public Long getRelevance() {
     return relevance;
   }
 
@@ -89,7 +88,7 @@ public class KeywordsResult extends GenericModel {
    *
    * @param relevance the new relevance
    */
-  public void setRelevance(final BigDecimal relevance) {
+  public void setRelevance(final Long relevance) {
     this.relevance = relevance;
   }
 

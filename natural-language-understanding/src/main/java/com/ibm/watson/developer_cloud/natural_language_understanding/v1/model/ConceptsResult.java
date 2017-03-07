@@ -13,7 +13,6 @@
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import java.math.BigDecimal;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -24,32 +23,32 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class ConceptsResult extends GenericModel {
 
   /** Name of the concept. */
-  private String text;
+  private String name;
   /** Relevance score between 0 and 1. Higher scores indicate greater relevance. */
-  private BigDecimal relevance;
+  private Long relevance;
   @SerializedName("dbpedia_resource")
   private String dbpediaResource;
 
   /**
    * Instantiates a new `ConceptsResult`
    *
-   * @param text Name of the concept.
+   * @param name Name of the concept.
    * @param relevance Relevance score between 0 and 1. Higher scores indicate greater relevance.
    * @param dbpediaResource 
    */
-  public ConceptsResult(final String text, final BigDecimal relevance, final String dbpediaResource) {
-    this.text = text;
+  public ConceptsResult(final String name, final Long relevance, final String dbpediaResource) {
+    this.name = name;
     this.relevance = relevance;
     this.dbpediaResource = dbpediaResource;
   }
 
   /**
-   * Gets the text.
+   * Gets the name.
    *
-   * @return the text
+   * @return the name
    */
-  public String getText() {
-    return text;
+  public String getName() {
+    return name;
   }
 
   /**
@@ -57,7 +56,7 @@ public class ConceptsResult extends GenericModel {
    *
    * @return the relevance
    */
-  public BigDecimal getRelevance() {
+  public Long getRelevance() {
     return relevance;
   }
 
@@ -71,12 +70,12 @@ public class ConceptsResult extends GenericModel {
   }
 
   /**
-   * Sets the text.
+   * Sets the name.
    *
-   * @param text the new text
+   * @param name the new name
    */
-  public void setText(final String text) {
-    this.text = text;
+  public void setName(final String name) {
+    this.name = name;
   }
 
   /**
@@ -84,7 +83,7 @@ public class ConceptsResult extends GenericModel {
    *
    * @param relevance the new relevance
    */
-  public void setRelevance(final BigDecimal relevance) {
+  public void setRelevance(final Long relevance) {
     this.relevance = relevance;
   }
 

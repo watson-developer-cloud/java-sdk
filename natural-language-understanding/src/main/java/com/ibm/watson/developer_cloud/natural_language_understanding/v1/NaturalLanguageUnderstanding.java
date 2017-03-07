@@ -35,7 +35,7 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Li
 */
 public class NaturalLanguageUnderstanding extends WatsonService {
 
-  private static final String SERVICE_NAME = "tone_analyzer";
+  private static final String SERVICE_NAME = "natural_language_understanding";
   private static final String URL = "https://gateway.watsonplatform.net/natural-language-understanding/api";
 
   private String versionDate;
@@ -75,17 +75,20 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    *
    * Analyzes text, HTML, or a public webpage with one or more text analysis features.
    *
-   * @param parameters: A `Parameters` object containing request parameters. The `features` object and one of the `text`, `html`, or `url` attributes are required.
+   * @param parameters: An object containing request parameters. The `features` object and one of the `text`, `html`, or `url` attributes are required.
    * @return the {@link AnalysisResults} with the response
    */
   public ServiceCall<AnalysisResults> analyze(
     Parameters parameters)
   {
-    Validator.notNull(parameters, "parameters cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/analyze");
     builder.query("version", versionDate);
 
-    builder.bodyJson(GsonSingleton.getGson().toJsonTree(parameters).getAsJsonObject());
+    if (parameters != null) {
+        builder.bodyJson(GsonSingleton.getGson().toJsonTree(parameters).getAsJsonObject());
+    } else {
+        builder.bodyJson(new JsonObject());
+    }
 
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AnalysisResults.class));
   }
