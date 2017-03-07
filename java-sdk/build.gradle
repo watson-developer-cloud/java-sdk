@@ -1,5 +1,6 @@
 plugins {
     id 'ru.vyarus.animalsniffer' version '1.2.0'
+    id 'com.github.johnrengelman.shadow' version '1.2.4'
 }
 
 defaultTasks 'clean'
@@ -13,6 +14,12 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
+
+project.tasks.assemble.dependsOn project.tasks.shadowJar
+
+shadowJar {
+   classifier = 'jar-with-dependencies'
+}
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
@@ -31,6 +38,7 @@ repositories {
 artifacts {
     archives sourcesJar
     archives javadocJar
+    archives shadowJar
 }
 
 signing {
