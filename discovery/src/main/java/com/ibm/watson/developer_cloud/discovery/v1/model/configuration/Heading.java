@@ -28,13 +28,13 @@ public class Heading extends GenericModel {
     @SerializedName(ConfigurationManager.FONT_SETTINGS)
     private List<FontSetting> fontSettings;
     @SerializedName(ConfigurationManager.FONT_STYLES)
-    private FontStyles fontStyles;
+    private List<FontStyles> fontStyles;
 
     public List<FontSetting> getFontSettings() {
         return fontSettings;
     }
 
-    public FontStyles getFontStyles() {
+    public List<FontStyles> getFontStyles() {
         return fontStyles;
     }
 }
