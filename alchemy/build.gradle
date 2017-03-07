@@ -83,10 +83,10 @@ uploadArchives {
                 authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
             }
             pom.project {
-                name 'Alchemy'
+                name 'alchemy'
                 packaging 'jar'
                 // optionally artifactId can be defined here
-                description 'Client library to use the IBM Watson Services and AlchemyAPI'
+                description 'Client library to use the IBM Watson Alchemy Service'
                 url 'https://www.ibm.com/watson/developercloud/alchemy-language.html'
 
                 scm {

@@ -83,10 +83,10 @@ uploadArchives {
                 authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
             }
             pom.project {
-                name 'Watson Developer Cloud Java SDK'
+                name 'speech-to-text'
                 packaging 'jar'
                 // optionally artifactId can be defined here
-                description 'Client library to use the IBM Watson Services and AlchemyAPI'
+                description 'Client library to use the IBM Watson Speech to Text Service'
                 url 'http://www.example.com/example-application'
 
                 scm {

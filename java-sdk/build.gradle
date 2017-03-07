@@ -127,7 +127,7 @@ uploadArchives {
                 packaging 'jar'
                 // optionally artifactId can be defined here
                 description 'Client library to use the IBM Watson Services and AlchemyAPI'
-                url 'http://www.example.com/example-application'
+                url 'https://www.ibm.com/watson/developercloud'
 
                 scm {
                     connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
