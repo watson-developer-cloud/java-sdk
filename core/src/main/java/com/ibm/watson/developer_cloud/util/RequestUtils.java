@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -183,12 +182,9 @@ public final class RequestUtils {
     InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("version.properties");
     Properties properties = new Properties();
 
-
-    // If for whatever reason the input stream is null, IOException will not catch the null pointer
-    // and app will crash
     try {
       properties.load(inputStream);
-    } catch (IOException e) {
+    } catch (Exception e) {
       LOG.log(Level.WARNING, "Could not load version.properties", e);
     }
 
