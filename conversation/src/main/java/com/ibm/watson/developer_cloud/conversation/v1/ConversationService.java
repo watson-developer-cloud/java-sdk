@@ -51,6 +51,8 @@ public final class ConversationService extends WatsonService {
     private static final String PATH_WORKSPACES = "/v1/workspaces";
     private static final String PATH_WORKSPACE = "/v1/workspaces/%s";
     private static final String VERSION_PARAM = "version";
+    private static final String EXPORT_PARAM = "export";
+    
     private final String versionDate;
 
     /**
@@ -163,16 +165,27 @@ public final class ConversationService extends WatsonService {
      * Retrieves the intent list to the service.
      *
      * @param workspaceId the workspace id
+     * @param export Whether to include all element content in the returned data. If export=false, the returned data includes only information about the element itself. If export=true, all content, including subelements, is included.
      * @return The list of intents for a given workspace.
      */
-    public ServiceCall<IntentListResponse> getIntents(String workspaceId) {
+    public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_INTENTS, workspaceId));
         builder.query(VERSION_PARAM, versionDate);
+        builder.query(EXPORT_PARAM, export);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentListResponse.class));
     }
-
+    
+    /**
+     * Retrieves the intent list to the service (without sub-elements).
+     *
+     * @param workspaceId the workspace id
+     * @return The list of intents for a given workspace.
+     */
+    public ServiceCall<IntentListResponse> getIntents(String workspaceId) {
+        return getIntents(workspaceId, false);
+    }
     /**
      * Retrieves a specific intent for the service through a
      * {@link WorkspaceRequest}.
