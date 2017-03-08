@@ -224,15 +224,29 @@ public final class ConversationService extends WatsonService {
      * Retrieves a specific intent for the service.
      *
      * @param workspaceId the workspace id
+     * @param intentId the intent id
+     * @param export Whether to include all element content in the returned data. If export=false, the returned data includes only information about the element itself. If export=true, all content, including subelements, is included.
      * @return The intent for a given workspace.
      */
-    public ServiceCall<IntentResponse> getIntent(String workspaceId, String intentId) {
+    public ServiceCall<IntentResponse> getIntent(String workspaceId, String intentId, boolean export) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
         Validator.isTrue((intentId != null) && !intentId.isEmpty(), "'intentId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_INTENT, workspaceId, intentId));
         builder.query(VERSION_PARAM, versionDate);
+        builder.query(EXPORT_PARAM, export);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentResponse.class));
+    }
+    
+    /**
+     * Retrieves a specific intent for the service without its sub-elements.
+     *
+     * @param workspaceId the workspace id
+     * @param intentId the intent id
+      * @return The intent for a given workspace.
+     */
+    public ServiceCall<IntentResponse> getIntent(String workspaceId, String intentId) {
+    	return getIntent(workspaceId, intentId, false);
     }
 
     /**
