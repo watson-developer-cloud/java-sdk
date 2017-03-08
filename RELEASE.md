@@ -17,13 +17,11 @@ If you are not familiar with Sonatype and/or the maven release process please re
 
 ### Release steps
 
-  1. The version number is the same across all modules. Update this in `gradle.properties`
+  1. Update `CHANGELOG.md`
 
-  2. Update `CHANGELOG.md`
+  2. Update `README.md` to include the new version number
 
-  3. Update `README.md` to include the new version number
-
-  2. Perform a release deployment to OSSRH (Staging) with:
+  3. Perform a release deployment to OSSRH (Staging) with:
 
     `gradle release`
 
