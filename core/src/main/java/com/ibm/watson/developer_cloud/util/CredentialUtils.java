@@ -112,7 +112,7 @@ public final class CredentialUtils {
    * @return The encoded API Key
    */
   private static String getKeyUsingJNDI(String serviceName) {
-    if (!isClassAvailable("javax.naming.Context")) {
+    if (!isClassAvailable("javax.naming.Context") || !isClassAvailable("javax.naming.InitialContext")) {
       log.info("JNDI string lookups is not available.");
       return null;
     }
