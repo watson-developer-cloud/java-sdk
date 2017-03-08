@@ -81,11 +81,14 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   public ServiceCall<AnalysisResults> analyze(
     Parameters parameters)
   {
-    Validator.notNull(parameters, "parameters cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/analyze");
     builder.query("version", versionDate);
 
-    builder.bodyJson(GsonSingleton.getGson().toJsonTree(parameters).getAsJsonObject());
+    if (parameters != null) {
+        builder.bodyJson(GsonSingleton.getGson().toJsonTree(parameters).getAsJsonObject());
+    } else {
+        builder.bodyJson(new JsonObject());
+    }
 
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AnalysisResults.class));
   }
