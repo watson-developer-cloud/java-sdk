@@ -26,7 +26,7 @@ public class EntitiesResult extends GenericModel {
   /** Entity type. */
   private String type;
   /** Relevance score from 0 to 1. Higher values indicate greater relevance. */
-  private Long relevance;
+  private Double relevance;
   /** How many times the entity was mentioned in the text. */
   private Integer count;
   /** The name of the entity. */
@@ -46,7 +46,7 @@ public class EntitiesResult extends GenericModel {
    * @param emotion Emotion analysis results for the entity, enabled with the \&quot;emotion\&quot; option.
    * @param sentiment Sentiment analysis results for the entity, enabled with the \&quot;sentiment\&quot; option.
    */
-  public EntitiesResult(final String type, final Long relevance, final Integer count, final String text, final EmotionScores emotion, final FeatureSentimentResults sentiment) {
+  public EntitiesResult(final String type, final Double relevance, final Integer count, final String text, final EmotionScores emotion, final FeatureSentimentResults sentiment) {
     this.type = type;
     this.relevance = relevance;
     this.count = count;
@@ -69,7 +69,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @return the relevance
    */
-  public Long getRelevance() {
+  public Double getRelevance() {
     return relevance;
   }
 
@@ -123,7 +123,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @param relevance the new relevance
    */
-  public void setRelevance(final Long relevance) {
+  public void setRelevance(final Double relevance) {
     this.relevance = relevance;
   }
 

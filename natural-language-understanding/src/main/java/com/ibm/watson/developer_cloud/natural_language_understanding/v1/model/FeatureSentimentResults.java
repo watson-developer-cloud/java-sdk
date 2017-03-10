@@ -22,14 +22,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class FeatureSentimentResults extends GenericModel {
 
   /** Sentiment score from -1 (negative) to 1 (positive). */
-  private Long score;
+  private Double score;
 
   /**
    * Instantiates a new `FeatureSentimentResults`
    *
    * @param score Sentiment score from -1 (negative) to 1 (positive).
    */
-  public FeatureSentimentResults(final Long score) {
+  public FeatureSentimentResults(final Double score) {
     this.score = score;
   }
 
@@ -38,7 +38,7 @@ public class FeatureSentimentResults extends GenericModel {
    *
    * @return the score
    */
-  public Long getScore() {
+  public Double getScore() {
     return score;
   }
 
@@ -47,7 +47,7 @@ public class FeatureSentimentResults extends GenericModel {
    *
    * @param score the new score
    */
-  public void setScore(final Long score) {
+  public void setScore(final Double score) {
     this.score = score;
   }
 

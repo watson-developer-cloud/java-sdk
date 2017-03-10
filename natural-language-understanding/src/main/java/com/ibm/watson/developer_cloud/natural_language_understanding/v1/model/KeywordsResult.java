@@ -24,7 +24,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class KeywordsResult extends GenericModel {
 
   /** Relevance score from 0 to 1. Higher values indicate greater relevance. */
-  private Long relevance;
+  private Double relevance;
   /** The keyword text. */
   private String text;
   /** Emotion analysis results for the keyword, enabled with the \&quot;emotion\&quot; option. */
@@ -40,7 +40,7 @@ public class KeywordsResult extends GenericModel {
    * @param emotion Emotion analysis results for the keyword, enabled with the \&quot;emotion\&quot; option.
    * @param sentiment Sentiment analysis results for the keyword, enabled with the \&quot;sentiment\&quot; option.
    */
-  public KeywordsResult(final Long relevance, final String text, final EmotionScores emotion, final FeatureSentimentResults sentiment) {
+  public KeywordsResult(final Double relevance, final String text, final EmotionScores emotion, final FeatureSentimentResults sentiment) {
     this.relevance = relevance;
     this.text = text;
     this.emotion = emotion;
@@ -52,7 +52,7 @@ public class KeywordsResult extends GenericModel {
    *
    * @return the relevance
    */
-  public Long getRelevance() {
+  public Double getRelevance() {
     return relevance;
   }
 
@@ -88,7 +88,7 @@ public class KeywordsResult extends GenericModel {
    *
    * @param relevance the new relevance
    */
-  public void setRelevance(final Long relevance) {
+  public void setRelevance(final Double relevance) {
     this.relevance = relevance;
   }
 
