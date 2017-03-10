@@ -12,11 +12,15 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1;
 
+import static java.util.Arrays.asList;
+import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assume;
@@ -68,12 +72,12 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   @Test
   public void analyzeHtmlIsSuccessful() throws Exception {
     String testHtmlFileName = "src/test/resources/natural_language_understanding/testArticle.html";
-    String htmlExample = getStringFromInputStream(new FileInputStream(testHtmlFileName));
+    String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
 
     ConceptsOptions concepts = new ConceptsOptions();
     concepts.setLimit(5);
     Features features = new Features.Builder().concepts(concepts).build();
-    Parameters parameters = new Parameters.Builder().html(htmlExample).features(features).build();
+    Parameters parameters = new Parameters.Builder().html(html).features(features).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -123,6 +127,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     } catch (Exception e) {
     }
   }
+
   /**
    * Analyze given test input text for concepts.
    */
@@ -143,6 +148,65 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       assertNotNull(concept.getText());
       assertNotNull(concept.getDbpediaResource());
       assertNotNull(concept.getRelevance());
+    }
+  }
+
+  /**
+   * Analyze test HTML for concepts.
+   */
+  @Test
+  public void analyzeHtmlForConceptsIsSuccessful() throws Exception {
+    String testHtmlFileName = "src/test/resources/natural_language_understanding/testArticle.html";
+    String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
+
+    ConceptsOptions concepts = new ConceptsOptions();
+    Features features = new Features.Builder().concepts(concepts).build();
+    Parameters parameters = new Parameters.Builder().html(html).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    try {
+      assertNotNull(results);
+      assertNotNull(results.getAnalyzedText());
+      assertNotNull(results.getConcepts());
+      for (ConceptsResult concept: results.getConcepts()) {
+        assertNotNull(concept.getText());
+        assertNotNull(concept.getDbpediaResource());
+        assertNotNull(concept.getRelevance());
+      }
+    } catch (Exception e) {
+    }
+  }
+
+  /**
+   * Analyze input text for emotions without targets
+   */
+  @Test
+  public void analyzeTextForEmotionsWithoutTargetsIsSuccessful() throws Exception {
+    String text = "But I believe this thinking is wrong. I believe the road of true democracy remains the better path. I believe that in the 21st century, economies can only grow to a certain point until they need to open up -- because entrepreneurs need to access information in order to invent; young people need a global education in order to thrive; independent media needs to check the abuses of power.";
+
+    EmotionOptions emotion = new EmotionOptions();
+    Features features = new Features.Builder().emotion(emotion).build();
+    Parameters parameters = new Parameters.Builder().text(text).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    try {
+      assertNotNull(results);
+      assertNotNull(results.getAnalyzedText());
+      assertNotNull(results.getEmotion());
+      assertNotNull(results.getEmotion().getDocument());
+      assertNotNull(results.getEmotion().getDocument().getEmotion());
+
+      EmotionScores scores = results.getEmotion().getDocument().getEmotion();
+      assertNotNull(scores.getAnger());
+      assertNotNull(scores.getDisgust());
+      assertNotNull(scores.getFear());
+      assertNotNull(scores.getJoy());
+      assertNotNull(scores.getSadness());
+
+      assertNull(results.getEmotion().getTargets());
+    } catch (Exception e) {
     }
   }
 
