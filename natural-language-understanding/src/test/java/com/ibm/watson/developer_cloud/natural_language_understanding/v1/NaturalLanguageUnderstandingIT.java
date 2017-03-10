@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 import org.junit.Assume;
@@ -59,12 +60,74 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     service.setEndPoint(getProperty("natural_language_understanding.url"));
   }
 
+  // MARK: - Positive tests
+
+  /**
+   * Default test for HTML input.
+   */
+  @Test
+  public void analyzeHtmlIsSuccessful() throws Exception {
+    String testHtmlFileName = "src/test/resources/natural_language_understanding/testArticle.html";
+    String htmlExample = getStringFromInputStream(new FileInputStream(testHtmlFileName));
+
+    ConceptsOptions concepts = new ConceptsOptions();
+    concepts.setLimit(5);
+    Features features = new Features.Builder().concepts(concepts).build();
+    Parameters parameters = new Parameters.Builder().html(htmlExample).features(features).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    try {
+      assertNotNull(results);
+    } catch (Exception e) {
+    }
+  }
+
+  /**
+   * Default test for text input.
+   */
+  @Test
+  public void analyzeTextIsSuccessful() throws Exception {
+    String text = "In 2009, Elliot Turner launched AlchemyAPI to process the written word, with all of its quirks and nuances, and got immediate traction.";
+
+    ConceptsOptions concepts = new ConceptsOptions();
+    concepts.setLimit(5);
+    Features features = new Features.Builder().concepts(concepts).build();
+    Parameters parameters = new Parameters.Builder().text(text).features(features).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    try {
+      assertNotNull(results);
+    } catch (Exception e) {
+    }
+  }
+
+  /**
+   * Default test for URL input.
+   */
+  @Test
+  public void analyzeUrlIsSuccessful() throws Exception {
+    String url = "http://www.politico.com/story/2016/07/dnc-2016-obama-prepared-remarks-226345";
+
+    ConceptsOptions concepts = new ConceptsOptions();
+    concepts.setLimit(5);
+    Features features = new Features.Builder().concepts(concepts).build();
+    Parameters parameters = new Parameters.Builder().url(url).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    try {
+      assertNotNull(results);
+      assertNotNull(results.getAnalyzedText());
+    } catch (Exception e) {
+    }
+  }
   /**
    * Analyze given test input text for concepts.
    */
   @Test
   public void analyzeTextForConceptsIsSuccessful() throws Exception {
-
     String text = "In remote corners of the world, citizens are demanding respect for the dignity of all people no matter their gender, or race, or religion, or disability, or sexual orientation, and those who deny others dignity are subject to public reproach. An explosion of social media has given ordinary people more ways to express themselves, and has raised people's expectations for those of us in power. Indeed, our international order has been so successful that we take it as a given that great powers no longer fight world wars; that the end of the Cold War lifted the shadow of nuclear Armageddon; that the battlefields of Europe have been replaced by peaceful union; that China and India remain on a path of remarkable growth.";
     ConceptsOptions concepts = new ConceptsOptions();
     concepts.setLimit(5);
