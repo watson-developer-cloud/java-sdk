@@ -60,12 +60,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   }
 
   /**
-   * .
-   *
-   * @throws Exception the exception
+   * Analyze given test input text for concepts.
    */
   @Test
-  public void aCreate() throws Exception {
+  public void analyzeTextForConceptsIsSuccessful() throws Exception {
 
     String text = "In remote corners of the world, citizens are demanding respect for the dignity of all people no matter their gender, or race, or religion, or disability, or sexual orientation, and those who deny others dignity are subject to public reproach. An explosion of social media has given ordinary people more ways to express themselves, and has raised people's expectations for those of us in power. Indeed, our international order has been so successful that we take it as a given that great powers no longer fight world wars; that the end of the Cold War lifted the shadow of nuclear Armageddon; that the battlefields of Europe have been replaced by peaceful union; that China and India remain on a path of remarkable growth.";
     ConceptsOptions concepts = new ConceptsOptions();
@@ -78,7 +76,11 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     assertNotNull(results);
     assertNotNull(results.getAnalyzedText());
     assertNotNull(results.getConcepts());
-
+    for (ConceptsResult concept: results.getConcepts()) {
+      assertNotNull(concept.getText());
+      assertNotNull(concept.getDbpediaResource());
+      assertNotNull(concept.getRelevance());
+    }
   }
 
 }
