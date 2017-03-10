@@ -25,7 +25,7 @@ public class ConceptsResult extends GenericModel {
   /** Name of the concept. */
   private String text;
   /** Relevance score between 0 and 1. Higher scores indicate greater relevance. */
-  private Long relevance;
+  private Double relevance;
   @SerializedName("dbpedia_resource")
   private String dbpediaResource;
 
@@ -36,7 +36,7 @@ public class ConceptsResult extends GenericModel {
    * @param relevance Relevance score between 0 and 1. Higher scores indicate greater relevance.
    * @param dbpediaResource 
    */
-  public ConceptsResult(final String text, final Long relevance, final String dbpediaResource) {
+  public ConceptsResult(final String text, final Double relevance, final String dbpediaResource) {
     this.text = text;
     this.relevance = relevance;
     this.dbpediaResource = dbpediaResource;
@@ -56,7 +56,7 @@ public class ConceptsResult extends GenericModel {
    *
    * @return the relevance
    */
-  public Long getRelevance() {
+  public Double getRelevance() {
     return relevance;
   }
 
@@ -83,7 +83,7 @@ public class ConceptsResult extends GenericModel {
    *
    * @param relevance the new relevance
    */
-  public void setRelevance(final Long relevance) {
+  public void setRelevance(final Double relevance) {
     this.relevance = relevance;
   }
 

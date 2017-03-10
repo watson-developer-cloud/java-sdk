@@ -22,14 +22,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class DocumentSentimentResults extends GenericModel {
 
   /** Sentiment score from -1 (negative) to 1 (positive). */
-  private Long score;
+  private Double score;
 
   /**
    * Instantiates a new `DocumentSentimentResults`
    *
    * @param score Sentiment score from -1 (negative) to 1 (positive).
    */
-  public DocumentSentimentResults(final Long score) {
+  public DocumentSentimentResults(final Double score) {
     this.score = score;
   }
 
@@ -38,7 +38,7 @@ public class DocumentSentimentResults extends GenericModel {
    *
    * @return the score
    */
-  public Long getScore() {
+  public Double getScore() {
     return score;
   }
 
@@ -47,7 +47,7 @@ public class DocumentSentimentResults extends GenericModel {
    *
    * @param score the new score
    */
-  public void setScore(final Long score) {
+  public void setScore(final Double score) {
     this.score = score;
   }
 

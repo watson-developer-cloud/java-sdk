@@ -22,8 +22,8 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Parameters;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
+import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Parameters;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.InlineResponse200;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ListModelsResults;
 

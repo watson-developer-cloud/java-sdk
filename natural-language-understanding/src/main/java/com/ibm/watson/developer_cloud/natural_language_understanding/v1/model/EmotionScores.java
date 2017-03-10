@@ -22,15 +22,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class EmotionScores extends GenericModel {
 
   /** Anger score from 0 to 1. A higher score means that the text is more likely to convey anger. */
-  private Long anger;
+  private Double anger;
   /** Disgust score from 0 to 1. A higher score means that the text is more likely to convey disgust. */
-  private Long disgust;
+  private Double disgust;
   /** Fear score from 0 to 1. A higher score means that the text is more likely to convey fear. */
-  private Long fear;
+  private Double fear;
   /** Joy score from 0 to 1. A higher score means that the text is more likely to convey joy. */
-  private Long joy;
+  private Double joy;
   /** Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness. */
-  private Long sadness;
+  private Double sadness;
 
   /**
    * Instantiates a new `EmotionScores`
@@ -41,7 +41,7 @@ public class EmotionScores extends GenericModel {
    * @param joy Joy score from 0 to 1. A higher score means that the text is more likely to convey joy.
    * @param sadness Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness.
    */
-  public EmotionScores(final Long anger, final Long disgust, final Long fear, final Long joy, final Long sadness) {
+  public EmotionScores(final Double anger, final Double disgust, final Double fear, final Double joy, final Double sadness) {
     this.anger = anger;
     this.disgust = disgust;
     this.fear = fear;
@@ -54,7 +54,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the anger
    */
-  public Long getAnger() {
+  public Double getAnger() {
     return anger;
   }
 
@@ -63,7 +63,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the disgust
    */
-  public Long getDisgust() {
+  public Double getDisgust() {
     return disgust;
   }
 
@@ -72,7 +72,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the fear
    */
-  public Long getFear() {
+  public Double getFear() {
     return fear;
   }
 
@@ -81,7 +81,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the joy
    */
-  public Long getJoy() {
+  public Double getJoy() {
     return joy;
   }
 
@@ -90,7 +90,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the sadness
    */
-  public Long getSadness() {
+  public Double getSadness() {
     return sadness;
   }
 
@@ -99,7 +99,7 @@ public class EmotionScores extends GenericModel {
    *
    * @param anger the new anger
    */
-  public void setAnger(final Long anger) {
+  public void setAnger(final Double anger) {
     this.anger = anger;
   }
 
@@ -108,7 +108,7 @@ public class EmotionScores extends GenericModel {
    *
    * @param disgust the new disgust
    */
-  public void setDisgust(final Long disgust) {
+  public void setDisgust(final Double disgust) {
     this.disgust = disgust;
   }
 
@@ -117,7 +117,7 @@ public class EmotionScores extends GenericModel {
    *
    * @param fear the new fear
    */
-  public void setFear(final Long fear) {
+  public void setFear(final Double fear) {
     this.fear = fear;
   }
 
@@ -126,7 +126,7 @@ public class EmotionScores extends GenericModel {
    *
    * @param joy the new joy
    */
-  public void setJoy(final Long joy) {
+  public void setJoy(final Double joy) {
     this.joy = joy;
   }
 
@@ -135,7 +135,7 @@ public class EmotionScores extends GenericModel {
    *
    * @param sadness the new sadness
    */
-  public void setSadness(final Long sadness) {
+  public void setSadness(final Double sadness) {
     this.sadness = sadness;
   }
 

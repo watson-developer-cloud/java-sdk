@@ -24,7 +24,7 @@ public class CategoriesResult extends GenericModel {
   /** The path to the category through the taxonomy hierarchy. */
   private String label;
   /** Confidence score for the category classification. Higher values indicate greater confidence. */
-  private Long score;
+  private Double score;
 
   /**
    * Instantiates a new `CategoriesResult`
@@ -32,7 +32,7 @@ public class CategoriesResult extends GenericModel {
    * @param label The path to the category through the taxonomy hierarchy.
    * @param score Confidence score for the category classification. Higher values indicate greater confidence.
    */
-  public CategoriesResult(final String label, final Long score) {
+  public CategoriesResult(final String label, final Double score) {
     this.label = label;
     this.score = score;
   }
@@ -51,7 +51,7 @@ public class CategoriesResult extends GenericModel {
    *
    * @return the score
    */
-  public Long getScore() {
+  public Double getScore() {
     return score;
   }
 
@@ -69,7 +69,7 @@ public class CategoriesResult extends GenericModel {
    *
    * @param score the new score
    */
-  public void setScore(final Long score) {
+  public void setScore(final Double score) {
     this.score = score;
   }
 

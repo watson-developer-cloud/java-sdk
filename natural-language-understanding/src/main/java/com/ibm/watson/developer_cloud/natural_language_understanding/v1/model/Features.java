@@ -20,6 +20,7 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Ke
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.RelationsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SemanticRolesOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SentimentOptions;
+import java.util.Map;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;

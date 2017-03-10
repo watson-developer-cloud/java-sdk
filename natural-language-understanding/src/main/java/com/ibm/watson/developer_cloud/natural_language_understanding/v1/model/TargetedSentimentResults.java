@@ -24,7 +24,7 @@ public class TargetedSentimentResults extends GenericModel {
   /** Targeted text. */
   private String text;
   /** Sentiment score from -1 (negative) to 1 (positive). */
-  private Long score;
+  private Double score;
 
   /**
    * Instantiates a new `TargetedSentimentResults`
@@ -32,7 +32,7 @@ public class TargetedSentimentResults extends GenericModel {
    * @param text Targeted text.
    * @param score Sentiment score from -1 (negative) to 1 (positive).
    */
-  public TargetedSentimentResults(final String text, final Long score) {
+  public TargetedSentimentResults(final String text, final Double score) {
     this.text = text;
     this.score = score;
   }
@@ -51,7 +51,7 @@ public class TargetedSentimentResults extends GenericModel {
    *
    * @return the score
    */
-  public Long getScore() {
+  public Double getScore() {
     return score;
   }
 
@@ -69,7 +69,7 @@ public class TargetedSentimentResults extends GenericModel {
    *
    * @param score the new score
    */
-  public void setScore(final Long score) {
+  public void setScore(final Double score) {
     this.score = score;
   }
 
