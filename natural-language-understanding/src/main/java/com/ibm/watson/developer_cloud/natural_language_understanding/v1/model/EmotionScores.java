@@ -33,23 +33,6 @@ public class EmotionScores extends GenericModel {
   private Double sadness;
 
   /**
-   * Instantiates a new `EmotionScores`
-   *
-   * @param anger Anger score from 0 to 1. A higher score means that the text is more likely to convey anger.
-   * @param disgust Disgust score from 0 to 1. A higher score means that the text is more likely to convey disgust.
-   * @param fear Fear score from 0 to 1. A higher score means that the text is more likely to convey fear.
-   * @param joy Joy score from 0 to 1. A higher score means that the text is more likely to convey joy.
-   * @param sadness Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness.
-   */
-  public EmotionScores(final Double anger, final Double disgust, final Double fear, final Double joy, final Double sadness) {
-    this.anger = anger;
-    this.disgust = disgust;
-    this.fear = fear;
-    this.joy = joy;
-    this.sadness = sadness;
-  }
-
-  /**
    * Gets the anger.
    *
    * @return the anger

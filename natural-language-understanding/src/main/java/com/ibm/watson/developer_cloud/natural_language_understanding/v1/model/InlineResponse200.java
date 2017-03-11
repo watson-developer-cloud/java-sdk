@@ -25,15 +25,6 @@ public class InlineResponse200 extends GenericModel {
   private String deleted;
 
   /**
-   * Instantiates a new `InlineResponse200`
-   *
-   * @param deleted model_id of the deleted model.
-   */
-  public InlineResponse200(final String deleted) {
-    this.deleted = deleted;
-  }
-
-  /**
    * Gets the deleted.
    *
    * @return the deleted

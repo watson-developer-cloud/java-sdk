@@ -33,21 +33,6 @@ public class Model extends GenericModel {
   private String description;
 
   /**
-   * Instantiates a new `Model`
-   *
-   * @param status Shows as available if the model is ready for use.
-   * @param modelID Unique model ID.
-   * @param language ISO 639-1 code indicating the language of the model.
-   * @param description Model description.
-   */
-  public Model(final String status, final String modelID, final String language, final String description) {
-    this.status = status;
-    this.modelID = modelID;
-    this.language = language;
-    this.description = description;
-  }
-
-  /**
    * Gets the status.
    *
    * @return the status

@@ -27,17 +27,6 @@ public class SemanticRolesEntity extends GenericModel {
   private String text;
 
   /**
-   * Instantiates a new `SemanticRolesEntity`
-   *
-   * @param type Entity type.
-   * @param text The entity text.
-   */
-  public SemanticRolesEntity(final String type, final String text) {
-    this.type = type;
-    this.text = text;
-  }
-
-  /**
    * Gets the type.
    *
    * @return the type

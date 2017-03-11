@@ -27,17 +27,6 @@ public class RelationEntity extends GenericModel {
   private String type;
 
   /**
-   * Instantiates a new `RelationEntity`
-   *
-   * @param text Text that corresponds to the entity.
-   * @param type Entity type.
-   */
-  public RelationEntity(final String text, final String type) {
-    this.text = text;
-    this.type = type;
-  }
-
-  /**
    * Gets the text.
    *
    * @return the text

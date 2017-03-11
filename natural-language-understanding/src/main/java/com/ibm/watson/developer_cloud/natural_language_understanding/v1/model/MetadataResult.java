@@ -33,26 +33,13 @@ public class MetadataResult extends GenericModel {
   private String title;
 
   /**
-   * Instantiates a new `MetadataResult`
+   * Adds the authors.
    *
-   * @param authors The authors of the document.
-   * @param publicationDate The publication date in the format ISO 8601.
-   * @param title The title of the document.
+   * @param authors the new authors
    */
-  public MetadataResult(final List<Author> authors, final String publicationDate, final String title) {
-    this.authors = authors;
-    this.publicationDate = publicationDate;
-    this.title = title;
+  public void addauthors(Author authors) {
+    this.authors.add(authors);
   }
-
-    /**
-    * Adds the authors.
-    *
-    * @param authors the new authors
-    */
-    public void addauthors(Author authors) {
-      this.authors.add(authors);
-    }
 
   /**
    * Gets the authors.

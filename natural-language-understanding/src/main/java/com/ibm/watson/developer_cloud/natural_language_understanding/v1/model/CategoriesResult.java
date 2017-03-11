@@ -27,17 +27,6 @@ public class CategoriesResult extends GenericModel {
   private Double score;
 
   /**
-   * Instantiates a new `CategoriesResult`
-   *
-   * @param label The path to the category through the taxonomy hierarchy.
-   * @param score Confidence score for the category classification. Higher values indicate greater confidence.
-   */
-  public CategoriesResult(final String label, final Double score) {
-    this.label = label;
-    this.score = score;
-  }
-
-  /**
    * Gets the label.
    *
    * @return the label

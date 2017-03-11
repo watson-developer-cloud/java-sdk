@@ -30,19 +30,6 @@ public class ConceptsResult extends GenericModel {
   private String dbpediaResource;
 
   /**
-   * Instantiates a new `ConceptsResult`
-   *
-   * @param text Name of the concept.
-   * @param relevance Relevance score between 0 and 1. Higher scores indicate greater relevance.
-   * @param dbpediaResource 
-   */
-  public ConceptsResult(final String text, final Double relevance, final String dbpediaResource) {
-    this.text = text;
-    this.relevance = relevance;
-    this.dbpediaResource = dbpediaResource;
-  }
-
-  /**
    * Gets the text.
    *
    * @return the text

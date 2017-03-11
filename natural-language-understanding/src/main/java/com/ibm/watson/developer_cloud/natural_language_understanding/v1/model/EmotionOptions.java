@@ -28,24 +28,13 @@ public class EmotionOptions extends GenericModel {
   private List<String> targets;
 
   /**
-   * Instantiates a new `EmotionOptions`
+   * Adds the targets.
    *
-   * @param document Set this to false to hide document-level emotion results.
-   * @param targets Emotion results will be returned for each target string that is found in the document.
+   * @param targets the new targets
    */
-  public EmotionOptions(final Boolean document, final List<String> targets) {
-    this.document = document;
-    this.targets = targets;
+  public void addtargets(String targets) {
+    this.targets.add(targets);
   }
-
-    /**
-    * Adds the targets.
-    *
-    * @param targets the new targets
-    */
-    public void addtargets(String targets) {
-      this.targets.add(targets);
-    }
 
   /**
    * Gets the document.

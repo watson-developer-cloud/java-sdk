@@ -26,15 +26,6 @@ public class DocumentEmotionResults extends GenericModel {
   private EmotionScores emotion;
 
   /**
-   * Instantiates a new `DocumentEmotionResults`
-   *
-   * @param emotion An object containing the emotion results for the document.
-   */
-  public DocumentEmotionResults(final EmotionScores emotion) {
-    this.emotion = emotion;
-  }
-
-  /**
    * Gets the emotion.
    *
    * @return the emotion

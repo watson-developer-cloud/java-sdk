@@ -28,24 +28,13 @@ public class RelationArgument extends GenericModel {
   private String text;
 
   /**
-   * Instantiates a new `RelationArgument`
+   * Adds the entities.
    *
-   * @param entities 
-   * @param text Text that corresponds to the argument.
+   * @param entities the new entities
    */
-  public RelationArgument(final List<RelationEntity> entities, final String text) {
-    this.entities = entities;
-    this.text = text;
+  public void addentities(RelationEntity entities) {
+    this.entities.add(entities);
   }
-
-    /**
-    * Adds the entities.
-    *
-    * @param entities the new entities
-    */
-    public void addentities(RelationEntity entities) {
-      this.entities.add(entities);
-    }
 
   /**
    * Gets the entities.

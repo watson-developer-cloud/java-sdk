@@ -28,24 +28,13 @@ public class SemanticRolesObject extends GenericModel {
   private List<SemanticRolesKeyword> keywords;
 
   /**
-   * Instantiates a new `SemanticRolesObject`
+   * Adds the keywords.
    *
-   * @param text Object text.
-   * @param keywords 
+   * @param keywords the new keywords
    */
-  public SemanticRolesObject(final String text, final List<SemanticRolesKeyword> keywords) {
-    this.text = text;
-    this.keywords = keywords;
+  public void addkeywords(SemanticRolesKeyword keywords) {
+    this.keywords.add(keywords);
   }
-
-    /**
-    * Adds the keywords.
-    *
-    * @param keywords the new keywords
-    */
-    public void addkeywords(SemanticRolesKeyword keywords) {
-      this.keywords.add(keywords);
-    }
 
   /**
    * Gets the text.

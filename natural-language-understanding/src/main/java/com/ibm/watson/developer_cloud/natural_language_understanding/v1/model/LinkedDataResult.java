@@ -27,17 +27,6 @@ public class LinkedDataResult extends GenericModel {
   private String link;
 
   /**
-   * Instantiates a new `LinkedDataResult`
-   *
-   * @param source Name of the Linked Data source.
-   * @param link URL to the Linked Data page.
-   */
-  public LinkedDataResult(final String source, final String link) {
-    this.source = source;
-    this.link = link;
-  }
-
-  /**
    * Gets the source.
    *
    * @return the source

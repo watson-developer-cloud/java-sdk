@@ -33,21 +33,6 @@ public class KeywordsResult extends GenericModel {
   private FeatureSentimentResults sentiment;
 
   /**
-   * Instantiates a new `KeywordsResult`
-   *
-   * @param relevance Relevance score from 0 to 1. Higher values indicate greater relevance.
-   * @param text The keyword text.
-   * @param emotion Emotion analysis results for the keyword, enabled with the \&quot;emotion\&quot; option.
-   * @param sentiment Sentiment analysis results for the keyword, enabled with the \&quot;sentiment\&quot; option.
-   */
-  public KeywordsResult(final Double relevance, final String text, final EmotionScores emotion, final FeatureSentimentResults sentiment) {
-    this.relevance = relevance;
-    this.text = text;
-    this.emotion = emotion;
-    this.sentiment = sentiment;
-  }
-
-  /**
    * Gets the relevance.
    *
    * @return the relevance

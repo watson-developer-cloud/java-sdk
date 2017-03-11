@@ -30,24 +30,13 @@ public class SentimentResult extends GenericModel {
   private List<TargetedSentimentResults> targets;
 
   /**
-   * Instantiates a new `SentimentResult`
+   * Adds the targets.
    *
-   * @param document The document level sentiment.
-   * @param targets The targeted sentiment to analyze.
+   * @param targets the new targets
    */
-  public SentimentResult(final DocumentSentimentResults document, final List<TargetedSentimentResults> targets) {
-    this.document = document;
-    this.targets = targets;
+  public void addtargets(TargetedSentimentResults targets) {
+    this.targets.add(targets);
   }
-
-    /**
-    * Adds the targets.
-    *
-    * @param targets the new targets
-    */
-    public void addtargets(TargetedSentimentResults targets) {
-      this.targets.add(targets);
-    }
 
   /**
    * Gets the document.

@@ -25,15 +25,6 @@ public class DocumentSentimentResults extends GenericModel {
   private Double score;
 
   /**
-   * Instantiates a new `DocumentSentimentResults`
-   *
-   * @param score Sentiment score from -1 (negative) to 1 (positive).
-   */
-  public DocumentSentimentResults(final Double score) {
-    this.score = score;
-  }
-
-  /**
    * Gets the score.
    *
    * @return the score

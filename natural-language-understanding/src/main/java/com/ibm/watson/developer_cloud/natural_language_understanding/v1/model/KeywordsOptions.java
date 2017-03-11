@@ -29,19 +29,6 @@ public class KeywordsOptions extends GenericModel {
   private Boolean emotion;
 
   /**
-   * Instantiates a new `KeywordsOptions`
-   *
-   * @param limit Maximum number of keywords to return.
-   * @param sentiment Set this to true to return sentiment information for detected keywords.
-   * @param emotion Set this to true to analyze emotion for detected keywords.
-   */
-  public KeywordsOptions(final Integer limit, final Boolean sentiment, final Boolean emotion) {
-    this.limit = limit;
-    this.sentiment = sentiment;
-    this.emotion = emotion;
-  }
-
-  /**
    * Gets the limit.
    *
    * @return the limit

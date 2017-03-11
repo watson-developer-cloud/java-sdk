@@ -14,6 +14,7 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Features;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -45,28 +46,156 @@ public class Parameters extends GenericModel {
   private String language;
 
   /**
-   * Instantiates a new `Parameters`
-   *
-   * @param text The plain text to analyze.
-   * @param html The HTML file to analyze.
-   * @param url The web page to analyze.
-   * @param features Specific features to analyze the document for.
-   * @param clean Remove website elements, such as links, ads, etc.
-   * @param xpath XPath query for targeting nodes in HTML.
-   * @param fallbackToRaw Whether to use raw HTML content if text cleaning fails.
-   * @param returnAnalyzedText Whether or not to return the analyzed text.
-   * @param language ISO 639-1 code indicating the language to use in the analysis.
+   * Builder.
    */
-  public Parameters(final String text, final String html, final String url, final Features features, final Boolean clean, final String xpath, final Boolean fallbackToRaw, final Boolean returnAnalyzedText, final String language) {
-    this.text = text;
-    this.html = html;
-    this.url = url;
-    this.features = features;
-    this.clean = clean;
-    this.xpath = xpath;
-    this.fallbackToRaw = fallbackToRaw;
-    this.returnAnalyzedText = returnAnalyzedText;
-    this.language = language;
+  public static class Builder {
+    private String text;
+    private String html;
+    private String url;
+    private Features features;
+    private Boolean clean;
+    private String xpath;
+    private Boolean fallbackToRaw;
+    private Boolean returnAnalyzedText;
+    private String language;
+
+    private Builder(Parameters parameters) {
+      text = parameters.text;
+      html = parameters.html;
+      url = parameters.url;
+      features = parameters.features;
+      clean = parameters.clean;
+      xpath = parameters.xpath;
+      fallbackToRaw = parameters.fallbackToRaw;
+      returnAnalyzedText = parameters.returnAnalyzedText;
+      language = parameters.language;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() { }
+
+    /**
+     * Builds the Parameters.
+     *
+     * @return the parameters
+     */
+    public Parameters build() {
+      return new Parameters(this);
+    }
+
+    /**
+     * Add the text.
+     *
+     * @param text the text
+     * @return a Parameters Builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Add the html.
+     *
+     * @param html the html
+     * @return a Parameters Builder
+     */
+    public Builder html(String html) {
+      this.html = html;
+      return this;
+    }
+
+    /**
+     * Add the url.
+     *
+     * @param url the url
+     * @return a Parameters Builder
+     */
+    public Builder url(String url) {
+      this.url = url;
+      return this;
+    }
+
+    /**
+     * Add the features.
+     *
+     * @param features the features
+     * @return a Parameters Builder
+     */
+    public Builder features(Features features) {
+      this.features = features;
+      return this;
+    }
+
+    /**
+     * Add the clean.
+     *
+     * @param clean the clean
+     * @return a Parameters Builder
+     */
+    public Builder clean(Boolean clean) {
+      this.clean = clean;
+      return this;
+    }
+
+    /**
+     * Add the xpath.
+     *
+     * @param xpath the xpath
+     * @return a Parameters Builder
+     */
+    public Builder xpath(String xpath) {
+      this.xpath = xpath;
+      return this;
+    }
+
+    /**
+     * Add the fallbackToRaw.
+     *
+     * @param fallbackToRaw the fallbackToRaw
+     * @return a Parameters Builder
+     */
+    public Builder fallbackToRaw(Boolean fallbackToRaw) {
+      this.fallbackToRaw = fallbackToRaw;
+      return this;
+    }
+
+    /**
+     * Add the returnAnalyzedText.
+     *
+     * @param returnAnalyzedText the returnAnalyzedText
+     * @return a Parameters Builder
+     */
+    public Builder returnAnalyzedText(Boolean returnAnalyzedText) {
+      this.returnAnalyzedText = returnAnalyzedText;
+      return this;
+    }
+
+    /**
+     * Add the language.
+     *
+     * @param language the language
+     * @return a Parameters Builder
+     */
+    public Builder language(String language) {
+      this.language = language;
+      return this;
+    }
+  }
+
+  private Parameters(Builder builder) {
+    Validator.notNull(builder.features, "features cannot be null");
+    text = builder.text;
+    html = builder.html;
+    url = builder.url;
+    features = builder.features;
+    clean = builder.clean;
+    xpath = builder.xpath;
+    fallbackToRaw = builder.fallbackToRaw;
+    returnAnalyzedText = builder.returnAnalyzedText;
+    language = builder.language;
   }
 
   /**
