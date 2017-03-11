@@ -17,7 +17,7 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * RelationArgument
+ * RelationArgument.
  */
 public class RelationArgument extends GenericModel {
 
