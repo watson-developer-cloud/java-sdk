@@ -351,4 +351,46 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       assertNotNull(result.getScore());
     }
   }
+
+  /**
+   * Analyze input text for sentiment without targets
+   */
+  @Test
+  public void analyzeTextForSentimentWithoutTargetsIsSuccessful() throws Exception {
+    SentimentOptions options = new SentimentOptions();
+    options.setDocument(true);
+    Features features = new Features.Builder().sentiment(options).build();
+    Parameters parameters = new Parameters.Builder().text(this.text).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    assertNotNull(results);
+    assertEquals(results.getAnalyzedText(), text);
+    assertEquals(results.getLanguage(), "en");
+    assertNotNull(results.getSentiment());
+    assertNotNull(results.getSentiment().getDocument());
+    assertNotNull(results.getSentiment().getDocument().getScore());
+    assertNull(results.getSentiment().getTargets());
+  }
+
+  /**
+   * Analyze input text for categories
+   */
+  @Test
+  public void analyzeTextForCategoriesIsSuccessful() throws Exception {
+    Map<String, Object> options = new HashMap<>();
+    Features features = new Features.Builder().categories(options).build();
+    Parameters parameters = new Parameters.Builder().text(this.text).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    assertNotNull(results);
+    assertEquals(results.getAnalyzedText(), text);
+    assertEquals(results.getLanguage(), "en");
+    assertNotNull(results.getCategories());
+    for (CategoriesResult result: results.getCategories()) {
+      assertNotNull(result.getLabel());
+      assertNotNull(result.getScore());
+    }
+  }
 }
