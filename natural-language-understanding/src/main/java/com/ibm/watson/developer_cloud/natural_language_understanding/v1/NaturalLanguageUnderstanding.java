@@ -145,7 +145,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
     String modelID)
   {
     Validator.notNull(modelID, "modelID cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/models/%s",modelID));
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/models/%s", modelID));
     builder.query("version", versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(InlineResponse200.class));
   }

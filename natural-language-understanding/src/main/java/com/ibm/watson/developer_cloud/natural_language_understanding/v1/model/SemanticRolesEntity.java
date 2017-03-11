@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * SemanticRolesEntity
+ * SemanticRolesEntity.
  */
 public class SemanticRolesEntity extends GenericModel {
 

@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * InlineResponse200
+ * InlineResponse200.
  */
 public class InlineResponse200 extends GenericModel {
 
