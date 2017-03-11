@@ -25,15 +25,6 @@ public class ConceptsOptions extends GenericModel {
   private Integer limit;
 
   /**
-   * Instantiates a new `ConceptsOptions`
-   *
-   * @param limit Maximum number of concepts to return.
-   */
-  public ConceptsOptions(final Integer limit) {
-    this.limit = limit;
-  }
-
-  /**
    * Gets the limit.
    *
    * @return the limit

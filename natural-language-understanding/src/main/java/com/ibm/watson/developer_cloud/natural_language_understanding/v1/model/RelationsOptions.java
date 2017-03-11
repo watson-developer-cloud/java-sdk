@@ -25,15 +25,6 @@ public class RelationsOptions extends GenericModel {
   private String model;
 
   /**
-   * Instantiates a new `RelationsOptions`
-   *
-   * @param model Enter a custom model ID to override the default model.
-   */
-  public RelationsOptions(final String model) {
-    this.model = model;
-  }
-
-  /**
    * Gets the model.
    *
    * @return the model

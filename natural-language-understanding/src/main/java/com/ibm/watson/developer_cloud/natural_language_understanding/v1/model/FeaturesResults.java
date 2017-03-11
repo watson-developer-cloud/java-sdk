@@ -53,83 +53,58 @@ public class FeaturesResults extends GenericModel {
   private SentimentResult sentiment;
 
   /**
-   * Instantiates a new `FeaturesResults`
+   * Adds the concepts.
    *
-   * @param concepts The general concepts referenced or alluded to in the specified content.
-   * @param entities The important entities in the specified content.
-   * @param keywords The important keywords in content organized by relevance.
-   * @param categories The hierarchical 5-level taxonomy the content is categorized into.
-   * @param emotion The anger, disgust, fear, joy, or sadness conveyed by the content.
-   * @param metadata The metadata holds author information, publication date and the title of the text/HTML content.
-   * @param relations The relationships between entities in the content.
-   * @param semanticRoles The subjects of actions and the objects the actions act upon.
-   * @param sentiment The sentiment of the content.
+   * @param concepts the new concepts
    */
-  public FeaturesResults(final List<ConceptsResult> concepts, final List<EntitiesResult> entities, final List<KeywordsResult> keywords, final List<CategoriesResult> categories, final EmotionResult emotion, final MetadataResult metadata, final List<RelationsResult> relations, final List<SemanticRolesResult> semanticRoles, final SentimentResult sentiment) {
-    this.concepts = concepts;
-    this.entities = entities;
-    this.keywords = keywords;
-    this.categories = categories;
-    this.emotion = emotion;
-    this.metadata = metadata;
-    this.relations = relations;
-    this.semanticRoles = semanticRoles;
-    this.sentiment = sentiment;
+  public void addconcepts(ConceptsResult concepts) {
+    this.concepts.add(concepts);
   }
 
-    /**
-    * Adds the concepts.
-    *
-    * @param concepts the new concepts
-    */
-    public void addconcepts(ConceptsResult concepts) {
-      this.concepts.add(concepts);
-    }
+  /**
+   * Adds the entities.
+   *
+   * @param entities the new entities
+   */
+  public void addentities(EntitiesResult entities) {
+    this.entities.add(entities);
+  }
 
-    /**
-    * Adds the entities.
-    *
-    * @param entities the new entities
-    */
-    public void addentities(EntitiesResult entities) {
-      this.entities.add(entities);
-    }
+  /**
+   * Adds the keywords.
+   *
+   * @param keywords the new keywords
+   */
+  public void addkeywords(KeywordsResult keywords) {
+    this.keywords.add(keywords);
+  }
 
-    /**
-    * Adds the keywords.
-    *
-    * @param keywords the new keywords
-    */
-    public void addkeywords(KeywordsResult keywords) {
-      this.keywords.add(keywords);
-    }
+  /**
+   * Adds the categories.
+   *
+   * @param categories the new categories
+   */
+  public void addcategories(CategoriesResult categories) {
+    this.categories.add(categories);
+  }
 
-    /**
-    * Adds the categories.
-    *
-    * @param categories the new categories
-    */
-    public void addcategories(CategoriesResult categories) {
-      this.categories.add(categories);
-    }
+  /**
+   * Adds the relations.
+   *
+   * @param relations the new relations
+   */
+  public void addrelations(RelationsResult relations) {
+    this.relations.add(relations);
+  }
 
-    /**
-    * Adds the relations.
-    *
-    * @param relations the new relations
-    */
-    public void addrelations(RelationsResult relations) {
-      this.relations.add(relations);
-    }
-
-    /**
-    * Adds the semanticRoles.
-    *
-    * @param semanticRoles the new semanticRoles
-    */
-    public void addsemanticRoles(SemanticRolesResult semanticRoles) {
-      this.semanticRoles.add(semanticRoles);
-    }
+  /**
+   * Adds the semanticRoles.
+   *
+   * @param semanticRoles the new semanticRoles
+   */
+  public void addsemanticRoles(SemanticRolesResult semanticRoles) {
+    this.semanticRoles.add(semanticRoles);
+  }
 
   /**
    * Gets the concepts.

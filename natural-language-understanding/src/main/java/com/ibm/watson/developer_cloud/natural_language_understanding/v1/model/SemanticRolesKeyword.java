@@ -25,15 +25,6 @@ public class SemanticRolesKeyword extends GenericModel {
   private String text;
 
   /**
-   * Instantiates a new `SemanticRolesKeyword`
-   *
-   * @param text The keyword text.
-   */
-  public SemanticRolesKeyword(final String text) {
-    this.text = text;
-  }
-
-  /**
    * Gets the text.
    *
    * @return the text

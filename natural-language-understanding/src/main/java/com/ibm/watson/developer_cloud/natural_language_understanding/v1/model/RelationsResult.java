@@ -33,28 +33,13 @@ public class RelationsResult extends GenericModel {
   private List<RelationArgument> arguments;
 
   /**
-   * Instantiates a new `RelationsResult`
+   * Adds the arguments.
    *
-   * @param score Confidence score for the relation. Higher values indicate greater confidence.
-   * @param sentence The sentence that contains the relation.
-   * @param type The type of the relation.
-   * @param arguments The extracted relation objects from the text.
+   * @param arguments the new arguments
    */
-  public RelationsResult(final Double score, final String sentence, final String type, final List<RelationArgument> arguments) {
-    this.score = score;
-    this.sentence = sentence;
-    this.type = type;
-    this.arguments = arguments;
+  public void addarguments(RelationArgument arguments) {
+    this.arguments.add(arguments);
   }
-
-    /**
-    * Adds the arguments.
-    *
-    * @param arguments the new arguments
-    */
-    public void addarguments(RelationArgument arguments) {
-      this.arguments.add(arguments);
-    }
 
   /**
    * Gets the score.

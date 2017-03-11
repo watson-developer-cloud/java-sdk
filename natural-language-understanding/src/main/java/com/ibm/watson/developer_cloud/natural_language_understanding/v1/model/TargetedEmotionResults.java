@@ -28,17 +28,6 @@ public class TargetedEmotionResults extends GenericModel {
   private EmotionScores emotion;
 
   /**
-   * Instantiates a new `TargetedEmotionResults`
-   *
-   * @param text Targeted text.
-   * @param emotion An object containing the emotion results for the target.
-   */
-  public TargetedEmotionResults(final String text, final EmotionScores emotion) {
-    this.text = text;
-    this.emotion = emotion;
-  }
-
-  /**
    * Gets the text.
    *
    * @return the text

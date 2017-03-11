@@ -29,19 +29,6 @@ public class SemanticRolesOptions extends GenericModel {
   private Boolean entities;
 
   /**
-   * Instantiates a new `SemanticRolesOptions`
-   *
-   * @param limit Maximum number of semantic_roles results to return.
-   * @param keywords Set this to true to return keyword information for subjects and objects.
-   * @param entities Set this to true to return entity information for subjects and objects.
-   */
-  public SemanticRolesOptions(final Integer limit, final Boolean keywords, final Boolean entities) {
-    this.limit = limit;
-    this.keywords = keywords;
-    this.entities = entities;
-  }
-
-  /**
    * Gets the limit.
    *
    * @return the limit

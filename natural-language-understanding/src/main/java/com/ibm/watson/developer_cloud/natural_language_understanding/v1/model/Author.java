@@ -25,15 +25,6 @@ public class Author extends GenericModel {
   private String name;
 
   /**
-   * Instantiates a new `Author`
-   *
-   * @param name Name of the author.
-   */
-  public Author(final String name) {
-    this.name = name;
-  }
-
-  /**
    * Gets the name.
    *
    * @return the name

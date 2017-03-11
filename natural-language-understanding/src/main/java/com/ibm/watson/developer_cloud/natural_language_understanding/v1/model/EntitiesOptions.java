@@ -31,21 +31,6 @@ public class EntitiesOptions extends GenericModel {
   private Boolean emotion;
 
   /**
-   * Instantiates a new `EntitiesOptions`
-   *
-   * @param limit Maximum number of entities to return.
-   * @param model Enter a custom model ID to override the standard entity detection model.
-   * @param sentiment Set this to true to return sentiment information for detected entities.
-   * @param emotion Set this to true to analyze emotion for detected keywords.
-   */
-  public EntitiesOptions(final Integer limit, final String model, final Boolean sentiment, final Boolean emotion) {
-    this.limit = limit;
-    this.model = model;
-    this.sentiment = sentiment;
-    this.emotion = emotion;
-  }
-
-  /**
    * Gets the limit.
    *
    * @return the limit

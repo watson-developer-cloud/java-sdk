@@ -34,21 +34,6 @@ public class SemanticRolesResult extends GenericModel {
   private SemanticRolesObject object;
 
   /**
-   * Instantiates a new `SemanticRolesResult`
-   *
-   * @param sentence Sentence from the source that contains the subject, action, and object.
-   * @param subject The extracted subject from the sentence.
-   * @param action The extracted action from the sentence.
-   * @param object The extracted object from the sentence.
-   */
-  public SemanticRolesResult(final String sentence, final SemanticRolesSubject subject, final SemanticRolesAction action, final SemanticRolesObject object) {
-    this.sentence = sentence;
-    this.subject = subject;
-    this.action = action;
-    this.object = object;
-  }
-
-  /**
    * Gets the sentence.
    *
    * @return the sentence

@@ -30,35 +30,22 @@ public class SemanticRolesSubject extends GenericModel {
   private List<SemanticRolesKeyword> keywords;
 
   /**
-   * Instantiates a new `SemanticRolesSubject`
+   * Adds the entities.
    *
-   * @param text Text that corresponds to the subject role.
-   * @param entities 
-   * @param keywords 
+   * @param entities the new entities
    */
-  public SemanticRolesSubject(final String text, final List<SemanticRolesEntity> entities, final List<SemanticRolesKeyword> keywords) {
-    this.text = text;
-    this.entities = entities;
-    this.keywords = keywords;
+  public void addentities(SemanticRolesEntity entities) {
+    this.entities.add(entities);
   }
 
-    /**
-    * Adds the entities.
-    *
-    * @param entities the new entities
-    */
-    public void addentities(SemanticRolesEntity entities) {
-      this.entities.add(entities);
-    }
-
-    /**
-    * Adds the keywords.
-    *
-    * @param keywords the new keywords
-    */
-    public void addkeywords(SemanticRolesKeyword keywords) {
-      this.keywords.add(keywords);
-    }
+  /**
+   * Adds the keywords.
+   *
+   * @param keywords the new keywords
+   */
+  public void addkeywords(SemanticRolesKeyword keywords) {
+    this.keywords.add(keywords);
+  }
 
   /**
    * Gets the text.

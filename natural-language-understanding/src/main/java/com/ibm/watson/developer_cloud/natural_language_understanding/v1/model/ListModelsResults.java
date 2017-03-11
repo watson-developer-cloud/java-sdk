@@ -26,22 +26,13 @@ public class ListModelsResults extends GenericModel {
   private List<Model> models;
 
   /**
-   * Instantiates a new `ListModelsResults`
+   * Adds the models.
    *
-   * @param models 
+   * @param models the new models
    */
-  public ListModelsResults(final List<Model> models) {
-    this.models = models;
+  public void addmodels(Model models) {
+    this.models.add(models);
   }
-
-    /**
-    * Adds the models.
-    *
-    * @param models the new models
-    */
-    public void addmodels(Model models) {
-      this.models.add(models);
-    }
 
   /**
    * Gets the models.

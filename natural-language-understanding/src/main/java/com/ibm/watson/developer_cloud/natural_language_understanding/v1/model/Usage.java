@@ -25,15 +25,6 @@ public class Usage extends GenericModel {
   private Integer features;
 
   /**
-   * Instantiates a new `Usage`
-   *
-   * @param features Number of features used in the API call.
-   */
-  public Usage(final Integer features) {
-    this.features = features;
-  }
-
-  /**
    * Gets the features.
    *
    * @return the features

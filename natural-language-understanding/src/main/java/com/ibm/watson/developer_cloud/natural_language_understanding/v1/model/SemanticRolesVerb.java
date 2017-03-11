@@ -27,17 +27,6 @@ public class SemanticRolesVerb extends GenericModel {
   private String tense;
 
   /**
-   * Instantiates a new `SemanticRolesVerb`
-   *
-   * @param text The keyword text.
-   * @param tense Verb tense.
-   */
-  public SemanticRolesVerb(final String text, final String tense) {
-    this.text = text;
-    this.tense = tense;
-  }
-
-  /**
    * Gets the text.
    *
    * @return the text

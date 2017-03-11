@@ -51,28 +51,155 @@ public class Features extends GenericModel {
   private Map<String, Object> categories;
 
   /**
-   * Instantiates a new `Features`
-   *
-   * @param concepts Whether or not to return the concepts that are mentioned in the analyzed text.
-   * @param emotion Whether or not to extract the emotions implied in the analyzed text.
-   * @param entities Whether or not to extract detected entity objects from the analyzed text.
-   * @param keywords Whether or not to return the keywords in the analyzed text.
-   * @param metadata Whether or not the author, publication date, and title of the analyzed text should be returned. This parameter is only available for URL and HTML input.
-   * @param relations Whether or not to return the relationships between detected entities in the analyzed text.
-   * @param semanticRoles Whether or not to return the subject-action-object relations from the analyzed text.
-   * @param sentiment Whether or not to return the overall sentiment of the analyzed text.
-   * @param categories Whether or not to return the high level category the content is categorized as (i.e. news, art).
+   * Builder.
    */
-  public Features(final ConceptsOptions concepts, final EmotionOptions emotion, final EntitiesOptions entities, final KeywordsOptions keywords, final Map<String, Object> metadata, final RelationsOptions relations, final SemanticRolesOptions semanticRoles, final SentimentOptions sentiment, final Map<String, Object> categories) {
-    this.concepts = concepts;
-    this.emotion = emotion;
-    this.entities = entities;
-    this.keywords = keywords;
-    this.metadata = metadata;
-    this.relations = relations;
-    this.semanticRoles = semanticRoles;
-    this.sentiment = sentiment;
-    this.categories = categories;
+  public static class Builder {
+    private ConceptsOptions concepts;
+    private EmotionOptions emotion;
+    private EntitiesOptions entities;
+    private KeywordsOptions keywords;
+    private Map<String, Object> metadata;
+    private RelationsOptions relations;
+    private SemanticRolesOptions semanticRoles;
+    private SentimentOptions sentiment;
+    private Map<String, Object> categories;
+
+    private Builder(Features features) {
+      concepts = features.concepts;
+      emotion = features.emotion;
+      entities = features.entities;
+      keywords = features.keywords;
+      metadata = features.metadata;
+      relations = features.relations;
+      semanticRoles = features.semanticRoles;
+      sentiment = features.sentiment;
+      categories = features.categories;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() { }
+
+    /**
+     * Builds the Features.
+     *
+     * @return the features
+     */
+    public Features build() {
+      return new Features(this);
+    }
+
+    /**
+     * Add the concepts.
+     *
+     * @param concepts the concepts
+     * @return a Features Builder
+     */
+    public Builder concepts(ConceptsOptions concepts) {
+      this.concepts = concepts;
+      return this;
+    }
+
+    /**
+     * Add the emotion.
+     *
+     * @param emotion the emotion
+     * @return a Features Builder
+     */
+    public Builder emotion(EmotionOptions emotion) {
+      this.emotion = emotion;
+      return this;
+    }
+
+    /**
+     * Add the entities.
+     *
+     * @param entities the entities
+     * @return a Features Builder
+     */
+    public Builder entities(EntitiesOptions entities) {
+      this.entities = entities;
+      return this;
+    }
+
+    /**
+     * Add the keywords.
+     *
+     * @param keywords the keywords
+     * @return a Features Builder
+     */
+    public Builder keywords(KeywordsOptions keywords) {
+      this.keywords = keywords;
+      return this;
+    }
+
+    /**
+     * Add the metadata.
+     *
+     * @param metadata the metadata
+     * @return a Features Builder
+     */
+    public Builder metadata(Map<String, Object> metadata) {
+      this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Add the relations.
+     *
+     * @param relations the relations
+     * @return a Features Builder
+     */
+    public Builder relations(RelationsOptions relations) {
+      this.relations = relations;
+      return this;
+    }
+
+    /**
+     * Add the semanticRoles.
+     *
+     * @param semanticRoles the semanticRoles
+     * @return a Features Builder
+     */
+    public Builder semanticRoles(SemanticRolesOptions semanticRoles) {
+      this.semanticRoles = semanticRoles;
+      return this;
+    }
+
+    /**
+     * Add the sentiment.
+     *
+     * @param sentiment the sentiment
+     * @return a Features Builder
+     */
+    public Builder sentiment(SentimentOptions sentiment) {
+      this.sentiment = sentiment;
+      return this;
+    }
+
+    /**
+     * Add the categories.
+     *
+     * @param categories the categories
+     * @return a Features Builder
+     */
+    public Builder categories(Map<String, Object> categories) {
+      this.categories = categories;
+      return this;
+    }
+  }
+
+  private Features(Builder builder) {
+    concepts = builder.concepts;
+    emotion = builder.emotion;
+    entities = builder.entities;
+    keywords = builder.keywords;
+    metadata = builder.metadata;
+    relations = builder.relations;
+    semanticRoles = builder.semanticRoles;
+    sentiment = builder.sentiment;
+    categories = builder.categories;
   }
 
   /**

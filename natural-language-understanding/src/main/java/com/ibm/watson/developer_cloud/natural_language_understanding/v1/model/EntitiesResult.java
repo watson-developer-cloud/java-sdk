@@ -37,25 +37,6 @@ public class EntitiesResult extends GenericModel {
   private FeatureSentimentResults sentiment;
 
   /**
-   * Instantiates a new `EntitiesResult`
-   *
-   * @param type Entity type.
-   * @param relevance Relevance score from 0 to 1. Higher values indicate greater relevance.
-   * @param count How many times the entity was mentioned in the text.
-   * @param text The name of the entity.
-   * @param emotion Emotion analysis results for the entity, enabled with the \&quot;emotion\&quot; option.
-   * @param sentiment Sentiment analysis results for the entity, enabled with the \&quot;sentiment\&quot; option.
-   */
-  public EntitiesResult(final String type, final Double relevance, final Integer count, final String text, final EmotionScores emotion, final FeatureSentimentResults sentiment) {
-    this.type = type;
-    this.relevance = relevance;
-    this.count = count;
-    this.text = text;
-    this.emotion = emotion;
-    this.sentiment = sentiment;
-  }
-
-  /**
    * Gets the type.
    *
    * @return the type

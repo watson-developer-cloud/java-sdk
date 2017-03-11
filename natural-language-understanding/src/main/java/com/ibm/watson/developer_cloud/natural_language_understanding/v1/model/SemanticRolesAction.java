@@ -29,19 +29,6 @@ public class SemanticRolesAction extends GenericModel {
   private SemanticRolesVerb verb;
 
   /**
-   * Instantiates a new `SemanticRolesAction`
-   *
-   * @param text Analyzed text that corresponds to the action.
-   * @param normalized normalized version of the action.
-   * @param verb 
-   */
-  public SemanticRolesAction(final String text, final String normalized, final SemanticRolesVerb verb) {
-    this.text = text;
-    this.normalized = normalized;
-    this.verb = verb;
-  }
-
-  /**
    * Gets the text.
    *
    * @return the text
