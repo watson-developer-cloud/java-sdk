@@ -12,11 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SemanticRolesEntity;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SemanticRolesKeyword;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**

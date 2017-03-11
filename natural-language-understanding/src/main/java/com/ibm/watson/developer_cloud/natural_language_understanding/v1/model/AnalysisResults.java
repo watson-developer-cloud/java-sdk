@@ -13,20 +13,8 @@
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.CategoriesResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ConceptsResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.EmotionResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.EntitiesResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.FeaturesResults;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.KeywordsResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.MetadataResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.RelationsResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SemanticRolesResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SentimentResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Usage;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.NaturalLanguageUnderstanding;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
