@@ -16,12 +16,11 @@ import static java.util.Arrays.asList;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import org.junit.Assume;
 import org.junit.AssumptionViolatedException;
@@ -81,10 +80,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     AnalysisResults results = service.analyze(parameters).execute();
 
-    try {
-      assertNotNull(results);
-    } catch (Exception e) {
-    }
+    assertNotNull(results);
   }
 
   /**
@@ -101,10 +97,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     AnalysisResults results = service.analyze(parameters).execute();
 
-    try {
-      assertNotNull(results);
-    } catch (Exception e) {
-    }
+    assertNotNull(results);
   }
 
   /**
@@ -121,11 +114,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     AnalysisResults results = service.analyze(parameters).execute();
 
-    try {
-      assertNotNull(results);
-      assertNotNull(results.getAnalyzedText());
-    } catch (Exception e) {
-    }
+    assertNotNull(results);
+    assertNotNull(results.getAnalyzedText());
   }
 
   /**
@@ -165,16 +155,13 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     AnalysisResults results = service.analyze(parameters).execute();
 
-    try {
-      assertNotNull(results);
-      assertNotNull(results.getAnalyzedText());
-      assertNotNull(results.getConcepts());
-      for (ConceptsResult concept: results.getConcepts()) {
-        assertNotNull(concept.getText());
-        assertNotNull(concept.getDbpediaResource());
-        assertNotNull(concept.getRelevance());
-      }
-    } catch (Exception e) {
+    assertNotNull(results);
+    assertNotNull(results.getAnalyzedText());
+    assertNotNull(results.getConcepts());
+    for (ConceptsResult concept : results.getConcepts()) {
+      assertNotNull(concept.getText());
+      assertNotNull(concept.getDbpediaResource());
+      assertNotNull(concept.getRelevance());
     }
   }
 
@@ -191,23 +178,101 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     AnalysisResults results = service.analyze(parameters).execute();
 
-    try {
-      assertNotNull(results);
-      assertNotNull(results.getAnalyzedText());
-      assertNotNull(results.getEmotion());
-      assertNotNull(results.getEmotion().getDocument());
-      assertNotNull(results.getEmotion().getDocument().getEmotion());
+    assertNotNull(results);
+    assertNotNull(results.getAnalyzedText());
+    assertNotNull(results.getEmotion());
+    assertNotNull(results.getEmotion().getDocument());
+    assertNotNull(results.getEmotion().getDocument().getEmotion());
 
-      EmotionScores scores = results.getEmotion().getDocument().getEmotion();
-      assertNotNull(scores.getAnger());
-      assertNotNull(scores.getDisgust());
-      assertNotNull(scores.getFear());
-      assertNotNull(scores.getJoy());
-      assertNotNull(scores.getSadness());
+    EmotionScores scores = results.getEmotion().getDocument().getEmotion();
+    assertNotNull(scores.getAnger());
+    assertNotNull(scores.getDisgust());
+    assertNotNull(scores.getFear());
+    assertNotNull(scores.getJoy());
+    assertNotNull(scores.getSadness());
 
-      assertNull(results.getEmotion().getTargets());
-    } catch (Exception e) {
+    assertNull(results.getEmotion().getTargets());
+  }
+
+  /**
+   * Analyze input text for entities
+   */
+  @Test
+  public void analyzeTextForEntitiesIsSuccessful() throws Exception {
+    String text = "In 2009, Elliot Turner launched AlchemyAPI to process the written word, with all of its quirks and nuances, and got immediate traction.";
+    EntitiesOptions entities = new EntitiesOptions();
+    entities.setLimit(2);
+    entities.setSentiment(true);
+    Features features = new Features.Builder().entities(entities).build();
+    Parameters parameters = new Parameters.Builder().text(text).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    assertNotNull(results);
+    assertEquals(results.getAnalyzedText(), text);
+    assertNotNull(results.getEntities());
+    assertTrue(results.getEntities().size() == 2);
+
+    for (EntitiesResult result : results.getEntities()) {
+      assertNotNull(result.getCount());
+      assertNotNull(result.getRelevance());
+      assertNotNull(result.getText());
+      assertNotNull(result.getType());
+      assertNotNull(result.getSentiment());
     }
   }
 
+  /**
+   * Analyze input text for keywords
+   */
+  @Test
+  public void analyzeTextForKeywordsIsSuccessful() throws Exception {
+    String text = "In 2009, Elliot Turner launched AlchemyAPI to process the written word, with all of its quirks and nuances, and got immediate traction.";
+    KeywordsOptions keywords = new KeywordsOptions();
+    keywords.setSentiment(true);
+    Features features = new Features.Builder().keywords(keywords).build();
+    Parameters parameters = new Parameters.Builder().text(text).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    assertNotNull(results);
+    assertEquals(results.getAnalyzedText(), text);
+    assertNotNull(results.getKeywords());
+
+    for (KeywordsResult result : results.getKeywords()) {
+      assertNotNull(result.getRelevance());
+      assertNotNull(result.getText());
+      assertNotNull(result.getSentiment());
+    }
+  }
+
+  /**
+   * Analyze html input for metadata
+   */
+  @Test
+  public void analyzeHtmlForMetadataIsSuccessful() throws Exception {
+    String testHtmlFileName = "src/test/resources/natural_language_understanding/testArticle.html";
+    String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
+    String fileTitle = "This 5,000-year-old recipe for beer actually sounds pretty tasty";
+    String fileDate = "2016-05-23T20:13:00";
+    String fileAuthor = "Annalee Newitz";
+    Map<String, Object> metadata = new HashMap<>();
+    Features features = new Features.Builder().metadata(metadata).build();
+    Parameters parameters = new Parameters.Builder().html(html).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    assertNotNull(results);
+    assertEquals(results.getLanguage(), "en");
+    assertNotNull(results.getMetadata());
+    MetadataResult result = results.getMetadata();
+    assertNotNull(result.getTitle());
+    assertEquals(result.getTitle(), fileTitle);
+    assertNotNull(result.getPublicationDate());
+    assertEquals(result.getPublicationDate(), fileDate);
+    assertNotNull(result.getAuthors());
+    List<Author> authors = result.getAuthors();
+    assertEquals(authors.size(), 1);
+    assertEquals(authors.get(0).getName(), fileAuthor);
+  }
 }
