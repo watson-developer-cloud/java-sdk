@@ -12,18 +12,15 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1;
 
-import static java.util.Arrays.asList;
 import static junit.framework.TestCase.assertNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.util.*;
 
 import org.junit.Assume;
-import org.junit.AssumptionViolatedException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.FixMethodOrder;
@@ -31,7 +28,6 @@ import org.junit.runners.MethodSorters;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.*;
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 
 /**
  * The Class NaturalLanguageunderstandingTest.
@@ -39,8 +35,15 @@ import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
-  /** The service. */
+  /**
+   * The service.
+   */
   private NaturalLanguageUnderstanding service;
+
+  /**
+   * Test data
+   */
+  private String text = "In 2009, Elliot Turner launched AlchemyAPI to process the written word, with all of its quirks and nuances, and got immediate traction.";
 
   /*
    * (non-Javadoc)
@@ -55,7 +58,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String password = getProperty("natural_language_understanding.password");
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+            (username == null) || username.equals(PLACEHOLDER));
 
     service = new NaturalLanguageUnderstanding(NaturalLanguageUnderstanding.VERSION_DATE_2017_02_27);
     service.setDefaultHeaders(getDefaultHeaders());
@@ -227,11 +230,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForKeywordsIsSuccessful() throws Exception {
-    String text = "In 2009, Elliot Turner launched AlchemyAPI to process the written word, with all of its quirks and nuances, and got immediate traction.";
     KeywordsOptions keywords = new KeywordsOptions();
     keywords.setSentiment(true);
     Features features = new Features.Builder().keywords(keywords).build();
-    Parameters parameters = new Parameters.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    Parameters parameters = new Parameters.Builder().text(this.text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -274,5 +276,79 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     List<Author> authors = result.getAuthors();
     assertEquals(authors.size(), 1);
     assertEquals(authors.get(0).getName(), fileAuthor);
+  }
+
+  /**
+   * Analyze input text for relations
+   */
+  @Test
+  public void analyzeTextForRelationsIsSuccessful() throws Exception {
+    Features features = new Features.Builder().relations(new RelationsOptions()).build();
+    Parameters parameters = new Parameters.Builder().text(this.text).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    assertNotNull(results);
+    assertEquals(results.getAnalyzedText(), text);
+    assertEquals(results.getLanguage(), "en");
+    assertNotNull(results.getRelations());
+  }
+
+  /**
+   * Analyze input text for semantic roles
+   */
+  @Test
+  public void analyzeTextForSemanticRolesIsSuccessful() throws Exception {
+    SemanticRolesOptions options = new SemanticRolesOptions();
+    options.setLimit(7);
+    options.setKeywords(true);
+    options.setEntities(true);
+    Features features = new Features.Builder().semanticRoles(options).build();
+    Parameters parameters = new Parameters.Builder().text(this.text).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    assertNotNull(results);
+    assertEquals(results.getAnalyzedText(), text);
+    assertEquals(results.getLanguage(), "en");
+    assertNotNull(results.getSemanticRoles());
+    for (SemanticRolesResult result : results.getSemanticRoles()) {
+      assertEquals(result.getSentence(), this.text);
+      if (result.getSubject() != null) {
+        assertNotNull(result.getSubject().getText());
+      }
+      if (result.getAction() != null) {
+        assertNotNull(result.getAction().getText());
+      }
+      if (result.getObject() != null) {
+        assertNotNull(result.getObject().getText());
+      }
+    }
+  }
+
+  /**
+   * Analyze input text for sentiment with targets
+   */
+  @Test
+  public void analyzeTextForSentimentWithTargetsIsSuccessful() throws Exception {
+    SentimentOptions options = new SentimentOptions();
+    options.setDocument(true);
+    options.setTargets(Arrays.asList("Elliot Turner", "traction"));
+    Features features = new Features.Builder().sentiment(options).build();
+    Parameters parameters = new Parameters.Builder().text(this.text).features(features).returnAnalyzedText(true).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    assertNotNull(results);
+    assertEquals(results.getAnalyzedText(), text);
+    assertEquals(results.getLanguage(), "en");
+    assertNotNull(results.getSentiment());
+    assertNotNull(results.getSentiment().getDocument());
+    assertNotNull(results.getSentiment().getDocument().getScore());
+    assertNotNull(results.getSentiment().getTargets());
+    for (TargetedSentimentResults result: results.getSentiment().getTargets()) {
+      assertNotNull(result.getText());
+      assertNotNull(result.getScore());
+    }
   }
 }
