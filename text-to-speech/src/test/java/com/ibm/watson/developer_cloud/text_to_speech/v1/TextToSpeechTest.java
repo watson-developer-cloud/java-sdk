@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
 
@@ -196,9 +198,10 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
         service.synthesize(text, Voice.EN_LISA, new AudioFormat(HttpMediaType.AUDIO_PCM + "; rate=16000")).execute();
     final RecordedRequest request = server.takeRequest();
     final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
+    String encodedText = URLEncoder.encode(text, "UTF-8");
 
     assertEquals(SYNTHESIZE_PATH, requestUrl.encodedPath());
-    assertEquals(text, requestUrl.queryParameter("text"));
+    assertEquals(encodedText, requestUrl.queryParameter("text"));
     assertEquals(Voice.EN_LISA.getName(), requestUrl.queryParameter("voice"));
     assertEquals(HttpMediaType.AUDIO_PCM + "; rate=16000", requestUrl.queryParameter("accept"));
     assertNotNull(in);
