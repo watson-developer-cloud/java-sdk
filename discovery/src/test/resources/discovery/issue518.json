@@ -1,0 +1,79 @@
+{
+  "configuration_id": "448e3545-51ca-4530-a03b-6ff282ceac2e",
+  "name": "IBM News",
+  "created": "2015-08-24T18:42:25.324Z",
+  "updated": "2015-08-24T18:42:25.324Z",
+  "description": "A configuration useful for ingesting IBM press releases.",
+  "conversions": {
+    "html": {
+      "exclude_tags_keep_content": [
+        "span"
+      ],
+      "exclude_content": {
+        "xpaths": [
+          "/home"
+        ]
+      }
+    },
+    "json_normalizations": [
+      {
+        "operation": "move",
+        "source_field": "extracted_metadata.title",
+        "destination_field": "metadata.title"
+      },
+      {
+        "operation": "move",
+        "source_field": "extracted_metadata.author",
+        "destination_field": "metadata.author"
+      },
+      {
+        "operation": "remove",
+        "source_field": "extracted_metadata"
+      }
+    ]
+  },
+  "enrichments": [
+    {
+      "source_field": "text",
+      "destination_field": "alchemy_enriched_text",
+      "enrichment": "alchemy_language",
+      "options": {
+        "extract": "keyword",
+        "showSourceText": 1
+      }
+    },
+    {
+      "source_field": "alchemy_enriched_text.text",
+      "destination_field": "sire_enriched_text",
+      "enrichment": "alchemy_language",
+      "options": {
+        "extract": "typed-rels",
+        "model": "ie-en-news"
+      }
+    }
+  ],
+  "normalizations": [
+    {
+      "operation": "move",
+      "source_field": "metadata.title",
+      "destination_field": "title"
+    },
+    {
+      "operation": "copy",
+      "source_field": "metadata.author",
+      "destination_field": "author"
+    },
+    {
+      "operation": "merge",
+      "source_field": "alchemy_enriched_text.language",
+      "destination_field": "language"
+    },
+    {
+      "operation": "remove",
+      "source_field": "html"
+    },
+    {
+      "operation": "remove_nulls"
+    }
+  ]
+}
