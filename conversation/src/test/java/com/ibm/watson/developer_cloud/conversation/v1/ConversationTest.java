@@ -24,6 +24,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageEntity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageIntent;
@@ -59,6 +60,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     private static final String PATH_WORKSPACE = "/v1/workspaces/" + WORKSPACE_ID;
     private static final String EMPTY = "";
     private static final String VERSION = "version";
+    private static final String EXPORT = "export";
 
     // Test Values
     private static final String TEST_INTENT = "hello";
@@ -163,13 +165,14 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         assertEquals(request.getMethod(), "POST");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        assertEquals(
-                "{\"name\":\"".concat(TEST_WORKSPACE_NAME).concat("\",\"created\":\"").concat(TEST_INTENT_CREATED)
-                        .concat("\",\"updated\":\"").concat(TEST_INTENT_UPDATED).concat("\",\"language\":\"")
-                        .concat(TEST_INTENT_DESCRIPTION).concat("\",\"metadata\":\"").concat(TEST_WORKSPACE_LANGUAGE)
-                        .concat("\",\"description\":\"").concat(TEST_WORKSPACE_WORKSPACE_ID)
-                        .concat("\",\"metadata\":\"").concat(TEST_WORKSPACE_METADATA).concat("\"}"),
-                request.getBody().readUtf8());
+        HashMap<String, Object> actual = new Gson().fromJson(request.getBody().readUtf8(), HashMap.class);
+        assertEquals(TEST_WORKSPACE_NAME, actual.get("name"));
+        assertEquals(TEST_WORKSPACE_CREATED, actual.get("created"));
+        assertEquals(TEST_WORKSPACE_UPDATED, actual.get("updated"));
+        assertEquals(TEST_WORKSPACE_LANGUAGE, actual.get("language"));
+        assertEquals(TEST_WORKSPACE_DESCRIPTION, actual.get("description"));
+        assertEquals(TEST_WORKSPACE_WORKSPACE_ID, actual.get("workspace_id"));
+        assertEquals(TEST_WORKSPACE_METADATA, actual.get("metadata"));
         assertEquals(serviceResponse, mockResponse);
     }
 
@@ -258,13 +261,15 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         assertEquals(request.getMethod(), "PUT");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        assertEquals(
-                "{\"name\":\"".concat(TEST_WORKSPACE_NAME).concat("\",\"created\":\"").concat(TEST_INTENT_CREATED)
-                        .concat("\",\"updated\":\"").concat(TEST_INTENT_UPDATED).concat("\",\"language\":\"")
-                        .concat(TEST_INTENT_DESCRIPTION).concat("\",\"metadata\":\"").concat(TEST_WORKSPACE_LANGUAGE)
-                        .concat("\",\"description\":\"").concat(TEST_WORKSPACE_WORKSPACE_ID)
-                        .concat("\",\"metadata\":\"").concat(TEST_WORKSPACE_METADATA).concat("\"}"),
-                request.getBody().readUtf8());
+        
+        HashMap<String, Object> actual = new Gson().fromJson(request.getBody().readUtf8(), HashMap.class);
+        assertEquals(TEST_WORKSPACE_NAME, actual.get("name"));
+        assertEquals(TEST_WORKSPACE_CREATED, actual.get("created"));
+        assertEquals(TEST_WORKSPACE_UPDATED, actual.get("updated"));
+        assertEquals(TEST_WORKSPACE_LANGUAGE, actual.get("language"));
+        assertEquals(TEST_WORKSPACE_DESCRIPTION, actual.get("description"));
+        assertEquals(TEST_WORKSPACE_WORKSPACE_ID, actual.get("workspace_id"));
+        assertEquals(TEST_WORKSPACE_METADATA, actual.get("metadata"));
         assertEquals(serviceResponse, mockResponse);
     }
 
@@ -285,7 +290,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         // first request
         RecordedRequest request = server.takeRequest();
 
-        String path = StringUtils.join(PATH_INTENTS, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
+        String path = StringUtils.join(PATH_INTENTS, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03, "&", EXPORT, "=", "false");
         assertEquals(path, request.getPath());
 
         assertNotNull(serviceResponse.getIntents());
@@ -392,7 +397,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         IntentResponse serviceResponse = service.getIntent(WORKSPACE_ID, INTENT_ID).execute();
         RecordedRequest request = server.takeRequest();
 
-        String path = StringUtils.join(PATH_INTENT, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
+        String path = StringUtils.join(PATH_INTENT, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03, "&", EXPORT, "=", "false");
         assertEquals(path, request.getPath());
 
         assertEquals(TEST_INTENT, serviceResponse.getIntent());
