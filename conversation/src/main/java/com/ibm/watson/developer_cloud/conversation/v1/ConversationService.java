@@ -52,7 +52,7 @@ public final class ConversationService extends WatsonService {
     private static final String PATH_WORKSPACE = "/v1/workspaces/%s";
     private static final String VERSION_PARAM = "version";
     private static final String EXPORT_PARAM = "export";
-    
+
     private final String versionDate;
 
     /**
@@ -99,11 +99,10 @@ public final class ConversationService extends WatsonService {
     }
 
     /**
-     * Retrieves a specific intent for the service through a
-     * {@link IntentRequest}.
+     * Creates a Workspace in Conversation service.
      *
-     * @param workspaceId the workspace id
-     * @return The intent for a given workspace.
+     * @param payload the workspace
+     * @return a request to create the workspace.
      */
     public ServiceCall<WorkspaceResponse> createWorkspace(WorkspaceRequest payload) {
         RequestBuilder builder = RequestBuilder.post(String.format(PATH_WORKSPACES));
@@ -120,6 +119,7 @@ public final class ConversationService extends WatsonService {
      * Deletes a specific intent for the service.
      *
      * @param workspaceId the workspace id
+     * @return an empty service call
      */
     public ServiceCall<Void> deleteWorkspace(String workspaceId) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
@@ -146,6 +146,7 @@ public final class ConversationService extends WatsonService {
      * Update a specific intent for the service through a {@link IntentRequest}.
      *
      * @param workspaceId the workspace id
+     * @param payload the new data
      * @return The intent for a given workspace.
      */
     public ServiceCall<WorkspaceResponse> updateWorkspace(String workspaceId, WorkspaceRequest payload) {
@@ -165,7 +166,9 @@ public final class ConversationService extends WatsonService {
      * Retrieves the intent list to the service.
      *
      * @param workspaceId the workspace id
-     * @param export Whether to include all element content in the returned data. If export=false, the returned data includes only information about the element itself. If export=true, all content, including subelements, is included.
+     * @param export Whether to include all element content in the returned data.
+     * If export=false, the returned data includes only information about the element itself.
+     * If export=true, all content, including subelements, is included.
      * @return The list of intents for a given workspace.
      */
     public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export) {
@@ -176,7 +179,7 @@ public final class ConversationService extends WatsonService {
         builder.query(EXPORT_PARAM, export);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentListResponse.class));
     }
-    
+
     /**
      * Retrieves the intent list to the service (without sub-elements).
      *
@@ -191,6 +194,7 @@ public final class ConversationService extends WatsonService {
      * {@link WorkspaceRequest}.
      *
      * @param workspaceId the workspace id
+     * @param payload the new data
      * @return The intent for a given workspace.
      */
     public ServiceCall<IntentResponse> createIntent(String workspaceId, IntentRequest payload) {
@@ -210,6 +214,8 @@ public final class ConversationService extends WatsonService {
      * Deletes a specific intent for the service.
      *
      * @param workspaceId the workspace id
+     * @param intentId the intent id
+     * @return an empty service call
      */
     public ServiceCall<Void> deleteIntent(String workspaceId, String intentId) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
@@ -225,7 +231,9 @@ public final class ConversationService extends WatsonService {
      *
      * @param workspaceId the workspace id
      * @param intentId the intent id
-     * @param export Whether to include all element content in the returned data. If export=false, the returned data includes only information about the element itself. If export=true, all content, including subelements, is included.
+     * @param export Whether to include all element content in the returned data.
+     * If export=false, the returned data includes only information about the element itself.
+     * If export=true, all content, including subelements, is included.
      * @return The intent for a given workspace.
      */
     public ServiceCall<IntentResponse> getIntent(String workspaceId, String intentId, boolean export) {
@@ -237,7 +245,7 @@ public final class ConversationService extends WatsonService {
         builder.query(EXPORT_PARAM, export);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentResponse.class));
     }
-    
+
     /**
      * Retrieves a specific intent for the service without its sub-elements.
      *
@@ -246,7 +254,7 @@ public final class ConversationService extends WatsonService {
       * @return The intent for a given workspace.
      */
     public ServiceCall<IntentResponse> getIntent(String workspaceId, String intentId) {
-    	return getIntent(workspaceId, intentId, false);
+        return getIntent(workspaceId, intentId, false);
     }
 
     /**
@@ -254,6 +262,8 @@ public final class ConversationService extends WatsonService {
      * {@link WorkspaceRequest}.
      *
      * @param workspaceId the workspace id
+     * @param intentId the intent id
+     * @param payload the new data
      * @return The intent for a given workspace.
      */
     public ServiceCall<IntentResponse> updateIntent(String workspaceId, String intentId, IntentRequest payload) {

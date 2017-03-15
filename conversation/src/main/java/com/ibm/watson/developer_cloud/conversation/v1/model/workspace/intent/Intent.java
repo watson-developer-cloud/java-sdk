@@ -24,11 +24,11 @@ public class Intent {
     /**
      * Instantiates a new intent.
      *
-     * @param intent
-     * @param created
-     * @param updated
-     * @param description
-     * @param examples
+     * @param intent name
+     * @param created created time-stamp
+     * @param updated last updated time-stamp
+     * @param description intent description
+     * @param examples list of utterances
      */
     public Intent(String intent, String created, String updated, String description,
             ArrayList<IntentExample> examples) {
@@ -52,10 +52,10 @@ public class Intent {
     /**
      * Sets the name of the intent.
      *
-     * @param the name of the intent
+     * @param name the name of the intent
      */
-    public void setIntent(String intent) {
-        this.intent = intent;
+    public void setIntent(String name) {
+        this.intent = name;
     }
 
     /**
@@ -70,7 +70,7 @@ public class Intent {
     /**
      * Sets the time stamp for the intent creation.
      *
-     * @param the time stamp for the intent creation
+     * @param created the time stamp for the intent creation
      */
     public void setCreated(String created) {
         this.created = created;
@@ -88,7 +88,7 @@ public class Intent {
     /**
      * Sets the time stamp for the intent's last update.
      *
-     * @param the time stamp for the intent's last update
+     * @param updated the time stamp for the intent's last update
      */
     public void setUpdated(String updated) {
         this.updated = updated;
@@ -106,7 +106,7 @@ public class Intent {
     /**
      * Sets the intent's description.
      *
-     * @param the intent's description
+     * @param description the intent's description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -124,7 +124,7 @@ public class Intent {
     /**
      * Sets the list of intent's example.
      *
-     * @param the list of {@link IntentExample}
+     * @param examples the list of {@link IntentExample}
      */
     public void setExamples(ArrayList<IntentExample> examples) {
         this.examples = examples;

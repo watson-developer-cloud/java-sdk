@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The response payload from the Conversation service's intents API call
- * {@link ConversationService#createIntent(String, MessageRequest)}.
+ * {@link ConversationService#createIntent(String, IntentRequest)}.
  * {@link ConversationService#getIntent(String, String)}.
  * {@link ConversationService#updateIntent(String, String, IntentRequest)}.
  *
@@ -81,7 +81,7 @@ public class IntentResponse extends GenericModel {
   /**
    * Sets the intent name.
    *
-   * @param string of the intent name.
+   * @param intent string of the intent name.
    */
   public void setIntent(String intent) {
     this.intent = intent;
@@ -90,7 +90,7 @@ public class IntentResponse extends GenericModel {
   /**
    * Sets the time of intent creation as determined by the service.
    *
-   * @param string of the creation time stamp
+   * @param created string of the creation time stamp
    */
   public void setCreated(String created) {
     this.created = created;
@@ -99,7 +99,7 @@ public class IntentResponse extends GenericModel {
   /**
    * Sets a list of entities as detected by the service.
    *
-   * @param string of the update time stamp
+   * @param updated string of the update time stamp
    */
   public void setUpdated(String updated) {
     this.updated = updated;
@@ -108,7 +108,7 @@ public class IntentResponse extends GenericModel {
   /**
    * Sets the description.
    *
-   * @param string of the description
+   * @param description string of the description
    */
   public void setDescription(String description) {
     this.description = description;
@@ -117,9 +117,9 @@ public class IntentResponse extends GenericModel {
   /**
    * Sets the list of examples.
    *
-   * @param an array of {@link IntentRequest}
+   * @param examples a list of {@link IntentRequest}
    */
-  public ArrayList<IntentExample> setExamples() {
-    return examples;
+  public void setExamples(ArrayList<IntentExample> examples) {
+    this.examples = examples;
   }
 }

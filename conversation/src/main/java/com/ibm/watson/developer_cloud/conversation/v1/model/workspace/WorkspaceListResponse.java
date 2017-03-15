@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The response payload from the Conversation service's workspace list API call
- * {@link ConversationService#getworkspaces(String)}.
+ * {@link ConversationService#getWorkspaces()}.
  *
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">
  *      http://www.ibm.com/ watson/developercloud/conversation.html</a>
@@ -33,7 +33,7 @@ public class WorkspaceListResponse extends GenericModel {
     /**
      * Returns a list of workspaces.
      *
-     * @return an array of {@link workspace}.
+     * @return an array of {@link Workspace}.
      */
     public ArrayList<Workspace> getworkspaces() {
         return workspaces;
@@ -42,7 +42,7 @@ public class WorkspaceListResponse extends GenericModel {
     /**
      * Sets a list of workspaces.
      *
-     * @param set the array of {@link workspace} of workspaces on a workspace.
+     * @param workspaces set the array of {@link Workspace} of workspaces on a workspace.
      */
     public void setworkspaces(ArrayList<Workspace> workspaces) {
         this.workspaces = workspaces;
@@ -60,7 +60,7 @@ public class WorkspaceListResponse extends GenericModel {
     /**
      * Sets the {@link Pagination} options for the list.
      *
-     * @param set the Pagination options for the workspace list.
+     * @param pagination set the Pagination options for the workspace list.
      */
     public void setPagination(Pagination pagination) {
         this.pagination = pagination;
