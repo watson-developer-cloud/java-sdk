@@ -261,7 +261,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         assertEquals(request.getMethod(), "PUT");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        
+
         HashMap<String, Object> actual = new Gson().fromJson(request.getBody().readUtf8(), HashMap.class);
         assertEquals(TEST_WORKSPACE_NAME, actual.get("name"));
         assertEquals(TEST_WORKSPACE_CREATED, actual.get("created"));
@@ -290,7 +290,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
         // first request
         RecordedRequest request = server.takeRequest();
 
-        String path = StringUtils.join(PATH_INTENTS, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03, "&", EXPORT, "=", "false");
+        String path = StringUtils.join(PATH_INTENTS, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03,
+                "&", EXPORT, "=", "false");
         assertEquals(path, request.getPath());
 
         assertNotNull(serviceResponse.getIntents());
@@ -397,7 +398,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
         IntentResponse serviceResponse = service.getIntent(WORKSPACE_ID, INTENT_ID).execute();
         RecordedRequest request = server.takeRequest();
 
-        String path = StringUtils.join(PATH_INTENT, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03, "&", EXPORT, "=", "false");
+        String path = StringUtils.join(PATH_INTENT, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03,
+            "&", EXPORT, "=", "false");
         assertEquals(path, request.getPath());
 
         assertEquals(TEST_INTENT, serviceResponse.getIntent());
