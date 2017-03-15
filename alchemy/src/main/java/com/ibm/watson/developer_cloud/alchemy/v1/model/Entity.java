@@ -44,6 +44,7 @@ public class Entity extends AlchemyGenericModel {
   /** The type. */
   private String type;
 
+  private Emotions emotions;
 
   /**
    * Gets the count.
@@ -118,6 +119,15 @@ public class Entity extends AlchemyGenericModel {
   }
 
   /**
+   * Gets the emotions.
+   *
+   * @return The emotions
+   */
+  public Emotions getEmotions() {
+    return emotions;
+  }
+
+  /**
    * Sets the count.
    *
    * @param count The count
@@ -187,5 +197,14 @@ public class Entity extends AlchemyGenericModel {
    */
   public void setType(String type) {
     this.type = type;
+  }
+
+  /**
+   * Sets the emotions.
+   *
+   * @param emotions The count
+   */
+  public void setEmotions(Emotions emotions) {
+    this.emotions = emotions;
   }
 }
