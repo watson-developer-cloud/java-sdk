@@ -202,7 +202,7 @@ public class Entity extends AlchemyGenericModel {
   /**
    * Sets the emotions.
    *
-   * @param emotions The count
+   * @param emotions The emotions
    */
   public void setEmotions(DocumentEmotion emotions) {
     this.emotions = emotions;
