@@ -44,7 +44,7 @@ public class Entity extends AlchemyGenericModel {
   /** The type. */
   private String type;
 
-  private Emotions emotions;
+  private DocumentEmotion emotions;
 
   /**
    * Gets the count.
@@ -123,7 +123,7 @@ public class Entity extends AlchemyGenericModel {
    *
    * @return The emotions
    */
-  public Emotions getEmotions() {
+  public DocumentEmotion getEmotions() {
     return emotions;
   }
 
@@ -204,7 +204,7 @@ public class Entity extends AlchemyGenericModel {
    *
    * @param emotions The count
    */
-  public void setEmotions(Emotions emotions) {
+  public void setEmotions(DocumentEmotion emotions) {
     this.emotions = emotions;
   }
 }
