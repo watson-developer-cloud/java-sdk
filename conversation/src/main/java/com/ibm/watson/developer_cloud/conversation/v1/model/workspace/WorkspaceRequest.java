@@ -78,7 +78,7 @@ public class WorkspaceRequest extends GenericModel {
         /**
          * Sets the workspace name.
          *
-         * @param the workspace name
+         * @param name the workspace name
          * @return a builder object
          */
         public Builder setName(final String name) {
@@ -90,7 +90,7 @@ public class WorkspaceRequest extends GenericModel {
          * Sets the description used to elaborate on the purpose and usage of a
          * given workspace.
          *
-         * @param string representing the description
+         * @param description string representing the description
          * @return a builder object
          */
         public Builder setDescription(final String description) {
@@ -101,7 +101,7 @@ public class WorkspaceRequest extends GenericModel {
         /**
          * Sets the language setting for the workspace.
          *
-         * @param string representing the language
+         * @param language string representing the language
          * @return a builder object
          */
         public Builder setLanguage(final String language) {
@@ -112,7 +112,7 @@ public class WorkspaceRequest extends GenericModel {
         /**
          * Sets the metadata associated with a workspace.
          *
-         * @param string representing the description
+         * @param metadata string representing the description
          * @return a builder object
          */
         public Builder setMetadata(Object metadata) {
@@ -123,7 +123,7 @@ public class WorkspaceRequest extends GenericModel {
         /**
          * Sets the time that an workspace is created.
          *
-         * @param string representing a time stamp for time of creation
+         * @param created string representing a time stamp for time of creation
          * @return a builder object
          */
         public Builder setCreated(final String created) {
@@ -134,7 +134,7 @@ public class WorkspaceRequest extends GenericModel {
         /**
          * Sets the time that an workspace is created.
          *
-         * @param string representing a time stamp for time of last creation
+         * @param updated string representing a time stamp for time of last creation
          * @return a builder object
          */
         public Builder setUpdated(final String updated) {
@@ -145,7 +145,7 @@ public class WorkspaceRequest extends GenericModel {
         /**
          * Sets workspace id for the workspace.
          *
-         * @param string unique id for a workspace
+         * @param workspaceID string unique id for a workspace
          * @return a builder object
          */
         public Builder setWorkspaceID(final String workspaceID) {

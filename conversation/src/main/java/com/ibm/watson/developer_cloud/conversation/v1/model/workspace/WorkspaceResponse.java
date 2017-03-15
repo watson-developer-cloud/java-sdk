@@ -19,9 +19,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The response payload from the Conversation service's workspaces API call
- * {@link ConversationService#createWorkspace(String, MessageRequest)}.
- * {@link ConversationService#getWorkspace(String, String)}.
- * {@link ConversationService#updateWorkspace(String, String, WorkspaceRequest)}
+ * {@link ConversationService#createWorkspace(WorkspaceRequest)}.
+ * {@link ConversationService#getWorkspace(String)}.
+ * {@link ConversationService#updateWorkspace(String, WorkspaceRequest)}
  * .
  *
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">

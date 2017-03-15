@@ -23,9 +23,9 @@ public class IntentExample {
     /**
      * Instantiates a new intent example.
      *
-     * @param entity the entity
-     * @param value the value
-     * @param location the location
+     * @param text the utterance
+     * @param created creation time-stamp
+     * @param updated last update time-stamp
      */
     public IntentExample(String text, String created, String updated) {
         super();
@@ -47,7 +47,7 @@ public class IntentExample {
     /**
      * Sets the text for an intent examples.
      *
-     * @param a string representing example
+     * @param text a string representing example
      */
     public void setText(String text) {
         this.text = text;
@@ -65,7 +65,7 @@ public class IntentExample {
     /**
      * Sets the time stamp for when the example was created.
      *
-     * @param a string representing the time stamp of example creation
+     * @param created a string representing the time stamp of example creation
      */
     public void setCreated(String created) {
         this.created = created;
@@ -83,7 +83,7 @@ public class IntentExample {
     /**
      * Sets the time stamp for when the example was last updated.
      *
-     * @param a string representing the time stamp of example's last update
+     * @param updated a string representing the time stamp of example's last update
      */
     public void setUpdated(String updated) {
         this.updated = updated;

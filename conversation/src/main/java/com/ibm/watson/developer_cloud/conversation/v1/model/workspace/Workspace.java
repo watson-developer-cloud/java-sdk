@@ -30,13 +30,13 @@ public class Workspace {
     /**
      * Instantiates a new workspace.
      *
-     * @param name
-     * @param description
-     * @param language
-     * @param metadata
-     * @param created
-     * @param updated
-     * @param workspaceID
+     * @param name workspace name
+     * @param description workspace description
+     * @param language language
+     * @param metadata metadata
+     * @param created creation time-stamp
+     * @param updated last update time-stamp
+     * @param workspaceID workspace identifier
      */
     public Workspace(String name, String description, String language, Object metadata, String created, String updated,
             String workspaceID) {
@@ -62,7 +62,7 @@ public class Workspace {
     /**
      * Sets the name of the workspace.
      *
-     * @param the name of the workspace
+     * @param name the name of the workspace
      */
     public void setName(String name) {
         this.name = name;
@@ -80,7 +80,7 @@ public class Workspace {
     /**
      * Sets the workspace's description.
      *
-     * @param the workspace's description
+     * @param description the workspace's description
      */
     public void setDescription(String description) {
         this.description = description;
@@ -98,7 +98,7 @@ public class Workspace {
     /**
      * Sets the workspace's language.
      *
-     * @param the workspace's language
+     * @param language the workspace's language
      */
     public void setLanguage(String language) {
         this.language = language;
@@ -116,7 +116,7 @@ public class Workspace {
     /**
      * Sets the workspace's metadata.
      *
-     * @param the workspace's metadata
+     * @param metadata the workspace's metadata
      */
     public void setMetadata(Object metadata) {
         this.metadata = metadata;
@@ -134,7 +134,7 @@ public class Workspace {
     /**
      * Sets the time stamp for the workspace creation.
      *
-     * @param the time stamp for the workspace creation
+     * @param created the time stamp for the workspace creation
      */
     public void setCreated(String created) {
         this.created = created;
@@ -152,7 +152,7 @@ public class Workspace {
     /**
      * Sets the time stamp for the intent's last update.
      *
-     * @param the time stamp for the intent's last update
+     * @param updated the time stamp for the intent's last update
      */
     public void setUpdated(String updated) {
         this.updated = updated;
@@ -170,7 +170,7 @@ public class Workspace {
     /**
      * Sets the workspace ID.
      *
-     * @param the workspace ID
+     * @param workspaceID the workspace ID
      */
     public void setWorkspaceID(String workspaceID) {
         this.workspaceID = workspaceID;

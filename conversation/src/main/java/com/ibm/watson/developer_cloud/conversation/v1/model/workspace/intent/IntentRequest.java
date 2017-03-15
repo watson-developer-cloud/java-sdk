@@ -82,7 +82,7 @@ public class IntentRequest extends GenericModel {
         /**
          * Sets the time that an intent is created.
          *
-         * @param string representing a time stamp for time of creation
+         * @param created string representing a time stamp for time of creation
          * @return a builder object
          */
         public Builder setCreated(final String created) {
@@ -93,7 +93,7 @@ public class IntentRequest extends GenericModel {
         /**
          * Sets the time that an intent is created.
          *
-         * @param string representing a time stamp for time of last creation
+         * @param updated string representing a time stamp for time of last creation
          * @return a builder object
          */
         public Builder setUpdated(String updated) {
@@ -105,7 +105,7 @@ public class IntentRequest extends GenericModel {
          * Sets the description used to elaborate on the purpose and usage of a
          * given intent.
          *
-         * @param string representing the description
+         * @param description string representing the description
          * @return a builder object
          */
         public Builder setDescription(String description) {

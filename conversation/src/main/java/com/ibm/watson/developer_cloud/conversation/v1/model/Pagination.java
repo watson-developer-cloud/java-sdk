@@ -31,10 +31,10 @@ public class Pagination {
     /**
      * Instantiates a new intent.
      *
-     * @param refreshURL
-     * @param nextURL
-     * @param total
-     * @param matched
+     * @param refreshURL url to get this data again
+     * @param nextURL url to get the next page
+     * @param total number of available items
+     * @param matched number of items that match the current criteria
      */
     public Pagination(String refreshURL, String nextURL, int total, int matched) {
         this.refreshURL = refreshURL;
@@ -56,7 +56,7 @@ public class Pagination {
     /**
      * Sets the refresh URL provided by the system.
      *
-     * @param string for the refresh URL
+     * @param refreshURL string for the refresh URL
      */
     public void setRefreshURL(String refreshURL) {
         this.refreshURL = refreshURL;
@@ -75,7 +75,7 @@ public class Pagination {
     /**
      * Sets the next URL provided by the system.
      *
-     * @param string for the next URL
+     * @param nextURL string for the next URL
      */
     public void setNextURL(String nextURL) {
         this.nextURL = nextURL;
@@ -91,9 +91,9 @@ public class Pagination {
     }
 
     /**
-     * Sets the next URL provided by the system.
+     * Sets the total number of items available in the current list.
      *
-     * @param string for the next URL
+     * @param total the number of items available in the current list.
      */
     public void setTotal(int total) {
         this.total = total;
@@ -109,9 +109,9 @@ public class Pagination {
     }
 
     /**
-     * Sets the total number of items that match the current criteria.
+     * Sets matched the total number of items that match the current criteria.
      *
-     * @param int for the matched
+     * @param matched int for the matched
      */
     public void setMatched(int matched) {
         this.matched = matched;
