@@ -163,14 +163,11 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     createEnvResp = loadFixture(RESOURCE + "create_env_resp.json", CreateEnvironmentResponse.class);
     deleteEnvResp = loadFixture(RESOURCE + "delete_env_resp.json", DeleteEnvironmentResponse.class);
     updateEnvResp = loadFixture(RESOURCE + "update_env_resp.json", UpdateEnvironmentResponse.class);
-    // issue with the create_conf json which was copied from the API documentation.  Use create_env for now  bug #528
-    createConfResp = loadFixture(RESOURCE + "create_env_resp.json", CreateConfigurationResponse.class);
+    createConfResp = loadFixture(RESOURCE + "create_conf_resp.json", CreateConfigurationResponse.class);
     getConfsResp = loadFixture(RESOURCE + "get_confs_resp.json", GetConfigurationsResponse.class);
-    // #528 - should be get_conf_resp
-    getConfResp = loadFixture(RESOURCE + "get_confs_resp.json", GetConfigurationResponse.class);
+    getConfResp = loadFixture(RESOURCE + "get_conf_resp.json", GetConfigurationResponse.class);
     deleteConfResp = loadFixture(RESOURCE + "delete_conf_resp.json", DeleteConfigurationResponse.class);
-    // #528 - should be update_conf_resp
-    updateConfResp = loadFixture(RESOURCE + "delete_conf_resp.json", UpdateConfigurationResponse.class);
+    updateConfResp = loadFixture(RESOURCE + "update_conf_resp.json", UpdateConfigurationResponse.class);
     createCollResp = loadFixture(RESOURCE + "create_coll_resp.json", CreateCollectionResponse.class);
     getCollsResp = loadFixture(RESOURCE + "get_coll_resp.json", GetCollectionsResponse.class);
     getCollResp = loadFixture(RESOURCE + "get_coll1_resp.json", GetCollectionResponse.class);

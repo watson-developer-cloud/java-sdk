@@ -1,3 +1,6 @@
+plugins {
+  id 'net.researchgate.release' version '2.4.0'
+}
 
 apply from: 'utils.gradle'
 apply plugin: 'java'
@@ -6,7 +9,7 @@ apply plugin: 'eclipse'
 
 import org.apache.tools.ant.filters.*
 
-archivesBaseName = 'java-sdk'
+archivesBaseName = 'parent'
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
 
@@ -23,6 +26,7 @@ task signJars(type: Copy) {
   from subprojects.collect { it.tasks.withType(Sign) }
   into "$buildDir/allJars"
 }
+
 allprojects {
   apply plugin: 'java' // *Compatibility has no effect before the 'java' plug-in is applied
   apply plugin: 'jacoco'
@@ -82,3 +86,18 @@ task testReport(type: TestReport) {
   // Include the results from the `test` task in all subprojects
   reportOn subprojects*.test
 }
+
+release {
+  tagTemplate = 'java-sdk-$version'
+}
+
+task(startmessage) << {
+    println 'starting build'
+}
+
+task(printversion) << {
+    println project.version
+}
+
+beforeReleaseBuild.dependsOn startmessage
+afterReleaseBuild.dependsOn printversion
