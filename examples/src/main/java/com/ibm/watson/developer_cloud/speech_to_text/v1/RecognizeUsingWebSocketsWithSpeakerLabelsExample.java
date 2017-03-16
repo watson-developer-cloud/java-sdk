@@ -35,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
 
-  public class RecoToken {
+  public static class RecoToken {
     private Double startTime;
     private Double endTime;
     private Integer speaker;
@@ -86,7 +86,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
   /**
    * The Class Utterance.
    */
-  public class Utterance {
+  public static class Utterance {
     private Integer speaker;
     private String transcript = "";
 
@@ -105,7 +105,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
   /**
    * The Class RecoTokens.
    */
-  public class RecoTokens {
+  public static class RecoTokens {
 
     private Map<Double, RecoToken> recoTokenMap;
 
@@ -236,7 +236,7 @@ public class RecognizeUsingWebSocketsWithSpeakerLabelsExample {
     RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true).speakerLabels(true)
         .model(SpeechModel.EN_US_NARROWBANDMODEL.getName()).contentType(HttpMediaType.AUDIO_WAV).build();
 
-    final RecoTokens recoTokens = new RecoTokens();
+    RecoTokens recoTokens = new RecoTokens();
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
       @Override
       public void onTranscription(SpeechResults speechResults) {
