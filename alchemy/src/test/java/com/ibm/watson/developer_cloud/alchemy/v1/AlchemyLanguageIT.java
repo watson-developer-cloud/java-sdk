@@ -91,7 +91,7 @@ public class AlchemyLanguageIT extends WatsonServiceTest {
   }
 
   /**
-   * Test comboined.
+   * Test combined.
    */
   @Test
   public void testCombined() {
