@@ -41,7 +41,7 @@ signArchives {
     onlyIf { Task task ->
         def shouldExec = false
         for (myArg in project.gradle.startParameter.taskRequests[0].args) {
-            if (myArg.toLowerCase().contains("signjars") || myArg.toLowerCase().contains("uploadarchives")) {
+            if (myArg.toLowerCase().contains('signjars') || myArg.toLowerCase().contains('uploadarchives')) {
                 shouldExec = true
             }
         }

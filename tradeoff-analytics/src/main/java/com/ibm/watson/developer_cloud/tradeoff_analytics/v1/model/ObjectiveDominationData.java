@@ -12,9 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * How much one option is better than another for a particular objective.
  */

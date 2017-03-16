@@ -77,15 +77,6 @@ public class CustomizationsIT extends WatsonServiceTest {
     return model;
   }
 
-  private CustomVoiceModel instantiateVoiceModelJapanese() {
-    final CustomVoiceModel model = new CustomVoiceModel();
-    model.setName(MODEL_NAME);
-    model.setDescription(MODEL_DESCRIPTION);
-    model.setLanguage(MODEL_LANGUAGE_JAPANESE);
-
-    return model;
-  }
-
   private List<CustomTranslation> instantiateCustomTranslations() {
     return ImmutableList.of(new CustomTranslation("hodor", "hold the door"),
       new CustomTranslation("shocking", "<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>")

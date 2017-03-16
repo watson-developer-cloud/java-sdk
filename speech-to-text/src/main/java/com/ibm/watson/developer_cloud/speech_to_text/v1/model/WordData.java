@@ -26,7 +26,7 @@ public class WordData extends Word {
   private List<String> source;
 
   @SerializedName("error")
-  private List<Map> errors;
+  private List<Map<String, String>> errors;
 
   /**
    * Gets the count for the number of sources from which the word has been added to the model's words resource.
@@ -51,7 +51,7 @@ public class WordData extends Word {
    *
    * @return The errors
    */
-  public List<Map> getErrors() {
+  public List<Map<String, String>> getErrors() {
     return errors;
   }
 
@@ -78,7 +78,7 @@ public class WordData extends Word {
    *
    * @param errors The errors
    */
-  public void setErrors(List<Map> errors) {
+  public void setErrors(List<Map<String, String>> errors) {
     this.errors = errors;
   }
 

@@ -48,7 +48,6 @@ public class FieldAdapterFactory implements TypeAdapterFactory {
 
         @Override
         public Field read(JsonReader in) throws IOException {
-            Field field = null;
             String fieldName = null;
             Field.Type type = Field.Type.UNKNOWN;
             in.beginObject();
