@@ -13,8 +13,6 @@
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import java.util.Map;
-
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -30,8 +28,11 @@ public class Features extends GenericModel {
   private EntitiesOptions entities;
   /** Whether or not to return the keywords in the analyzed text. */
   private KeywordsOptions keywords;
-  /** Whether or not the author, publication date, and title of the analyzed text should be returned. This parameter is only available for URL and HTML input. */
-  private Map<String, Object> metadata;
+  /**
+   * Whether or not the author, publication date, and title of the analyzed
+   * text should be returned. This parameter is only available for URL and HTML input.
+   */
+  private MetadataOptions metadata;
   /** Whether or not to return the relationships between detected entities in the analyzed text. */
   private RelationsOptions relations;
   /** Whether or not to return the subject-action-object relations from the analyzed text. */
@@ -40,7 +41,7 @@ public class Features extends GenericModel {
   /** Whether or not to return the overall sentiment of the analyzed text. */
   private SentimentOptions sentiment;
   /** Whether or not to return the high level category the content is categorized as (i.e. news, art). */
-  private Map<String, Object> categories;
+  private CategoriesOptions categories;
 
   /**
    * Builder.
@@ -50,11 +51,11 @@ public class Features extends GenericModel {
     private EmotionOptions emotion;
     private EntitiesOptions entities;
     private KeywordsOptions keywords;
-    private Map<String, Object> metadata;
+    private MetadataOptions metadata;
     private RelationsOptions relations;
     private SemanticRolesOptions semanticRoles;
     private SentimentOptions sentiment;
-    private Map<String, Object> categories;
+    private CategoriesOptions categories;
 
     private Builder(Features features) {
       concepts = features.concepts;
@@ -132,7 +133,7 @@ public class Features extends GenericModel {
      * @param metadata the metadata
      * @return a Features Builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(MetadataOptions metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -176,7 +177,7 @@ public class Features extends GenericModel {
      * @param categories the categories
      * @return a Features Builder
      */
-    public Builder categories(Map<String, Object> categories) {
+    public Builder categories(CategoriesOptions categories) {
       this.categories = categories;
       return this;
     }
@@ -199,7 +200,7 @@ public class Features extends GenericModel {
    *
    * @return the concepts
    */
-  public ConceptsOptions getConcepts() {
+  public ConceptsOptions concepts() {
     return concepts;
   }
 
@@ -208,7 +209,7 @@ public class Features extends GenericModel {
    *
    * @return the emotion
    */
-  public EmotionOptions getEmotion() {
+  public EmotionOptions emotion() {
     return emotion;
   }
 
@@ -217,7 +218,7 @@ public class Features extends GenericModel {
    *
    * @return the entities
    */
-  public EntitiesOptions getEntities() {
+  public EntitiesOptions entities() {
     return entities;
   }
 
@@ -226,7 +227,7 @@ public class Features extends GenericModel {
    *
    * @return the keywords
    */
-  public KeywordsOptions getKeywords() {
+  public KeywordsOptions keywords() {
     return keywords;
   }
 
@@ -235,7 +236,7 @@ public class Features extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
+  public MetadataOptions metadata() {
     return metadata;
   }
 
@@ -244,7 +245,7 @@ public class Features extends GenericModel {
    *
    * @return the relations
    */
-  public RelationsOptions getRelations() {
+  public RelationsOptions relations() {
     return relations;
   }
 
@@ -253,7 +254,7 @@ public class Features extends GenericModel {
    *
    * @return the semanticRoles
    */
-  public SemanticRolesOptions getSemanticRoles() {
+  public SemanticRolesOptions semanticRoles() {
     return semanticRoles;
   }
 
@@ -262,7 +263,7 @@ public class Features extends GenericModel {
    *
    * @return the sentiment
    */
-  public SentimentOptions getSentiment() {
+  public SentimentOptions sentiment() {
     return sentiment;
   }
 
@@ -271,89 +272,17 @@ public class Features extends GenericModel {
    *
    * @return the categories
    */
-  public Map<String, Object> getCategories() {
+  public CategoriesOptions categories() {
     return categories;
   }
 
-  /**
-   * Sets the concepts.
-   *
-   * @param concepts the new concepts
-   */
-  public void setConcepts(final ConceptsOptions concepts) {
-    this.concepts = concepts;
-  }
 
   /**
-   * Sets the emotion.
+   * New builder.
    *
-   * @param emotion the new emotion
+   * @return the builder
    */
-  public void setEmotion(final EmotionOptions emotion) {
-    this.emotion = emotion;
+  public Builder newBuilder() {
+    return new Builder(this);
   }
-
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(final EntitiesOptions entities) {
-    this.entities = entities;
-  }
-
-  /**
-   * Sets the keywords.
-   *
-   * @param keywords the new keywords
-   */
-  public void setKeywords(final KeywordsOptions keywords) {
-    this.keywords = keywords;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map<String, Object> metadata) {
-    this.metadata = metadata;
-  }
-
-  /**
-   * Sets the relations.
-   *
-   * @param relations the new relations
-   */
-  public void setRelations(final RelationsOptions relations) {
-    this.relations = relations;
-  }
-
-  /**
-   * Sets the semanticRoles.
-   *
-   * @param semanticRoles the new semanticRoles
-   */
-  public void setSemanticRoles(final SemanticRolesOptions semanticRoles) {
-    this.semanticRoles = semanticRoles;
-  }
-
-  /**
-   * Sets the sentiment.
-   *
-   * @param sentiment the new sentiment
-   */
-  public void setSentiment(final SentimentOptions sentiment) {
-    this.sentiment = sentiment;
-  }
-
-  /**
-   * Sets the categories.
-   *
-   * @param categories the new categories
-   */
-  public void setCategories(final Map<String, Object> categories) {
-    this.categories = categories;
-  }
-
 }

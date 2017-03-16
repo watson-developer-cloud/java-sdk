@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -13,14 +13,13 @@
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.util.Validator;
-
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * An object containing request parameters.
  */
-public class Parameters extends GenericModel {
+public class AnalyzeOptions extends GenericModel {
 
   /** The plain text to analyze. */
   private String text;
@@ -57,7 +56,7 @@ public class Parameters extends GenericModel {
     private Boolean returnAnalyzedText;
     private String language;
 
-    private Builder(Parameters parameters) {
+    private Builder(AnalyzeOptions parameters) {
       text = parameters.text;
       html = parameters.html;
       url = parameters.url;
@@ -79,8 +78,8 @@ public class Parameters extends GenericModel {
      *
      * @return the parameters
      */
-    public Parameters build() {
-      return new Parameters(this);
+    public AnalyzeOptions build() {
+      return new AnalyzeOptions(this);
     }
 
     /**
@@ -183,8 +182,15 @@ public class Parameters extends GenericModel {
     }
   }
 
-  private Parameters(Builder builder) {
+  private AnalyzeOptions(Builder builder) {
     Validator.notNull(builder.features, "features cannot be null");
+    Validator.notNull(builder.text != null && (builder.url != null || builder.html != null),
+       "Only text, html or url can be specified");
+    Validator.notNull(builder.url != null && (builder.text != null || builder.html != null),
+        "Only text, html or url can be specified");
+    Validator.notNull(builder.html != null && (builder.url != null || builder.text != null),
+        "Only text, html or url can be specified");
+
     text = builder.text;
     html = builder.html;
     url = builder.url;
@@ -201,7 +207,7 @@ public class Parameters extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -210,7 +216,7 @@ public class Parameters extends GenericModel {
    *
    * @return the html
    */
-  public String getHtml() {
+  public String html() {
     return html;
   }
 
@@ -219,7 +225,7 @@ public class Parameters extends GenericModel {
    *
    * @return the url
    */
-  public String getUrl() {
+  public String url() {
     return url;
   }
 
@@ -228,7 +234,7 @@ public class Parameters extends GenericModel {
    *
    * @return the features
    */
-  public Features getFeatures() {
+  public Features features() {
     return features;
   }
 
@@ -237,7 +243,7 @@ public class Parameters extends GenericModel {
    *
    * @return the clean
    */
-  public Boolean isClean() {
+  public Boolean clean() {
     return clean;
   }
 
@@ -246,7 +252,7 @@ public class Parameters extends GenericModel {
    *
    * @return the xpath
    */
-  public String getXpath() {
+  public String xpath() {
     return xpath;
   }
 
@@ -255,7 +261,7 @@ public class Parameters extends GenericModel {
    *
    * @return the fallbackToRaw
    */
-  public Boolean isFallbackToRaw() {
+  public Boolean fallbackToRaw() {
     return fallbackToRaw;
   }
 
@@ -264,7 +270,7 @@ public class Parameters extends GenericModel {
    *
    * @return the returnAnalyzedText
    */
-  public Boolean isReturnAnalyzedText() {
+  public Boolean returnAnalyzedText() {
     return returnAnalyzedText;
   }
 
@@ -273,89 +279,16 @@ public class Parameters extends GenericModel {
    *
    * @return the language
    */
-  public String getLanguage() {
+  public String language() {
     return language;
   }
 
   /**
-   * Sets the text.
+   * New builder.
    *
-   * @param text the new text
+   * @return the builder
    */
-  public void setText(final String text) {
-    this.text = text;
+  public Builder newBuilder() {
+    return new Builder(this);
   }
-
-  /**
-   * Sets the html.
-   *
-   * @param html the new html
-   */
-  public void setHtml(final String html) {
-    this.html = html;
-  }
-
-  /**
-   * Sets the url.
-   *
-   * @param url the new url
-   */
-  public void setUrl(final String url) {
-    this.url = url;
-  }
-
-  /**
-   * Sets the features.
-   *
-   * @param features the new features
-   */
-  public void setFeatures(final Features features) {
-    this.features = features;
-  }
-
-  /**
-   * Sets the clean.
-   *
-   * @param clean the new clean
-   */
-  public void setClean(final Boolean clean) {
-    this.clean = clean;
-  }
-
-  /**
-   * Sets the xpath.
-   *
-   * @param xpath the new xpath
-   */
-  public void setXpath(final String xpath) {
-    this.xpath = xpath;
-  }
-
-  /**
-   * Sets the fallbackToRaw.
-   *
-   * @param fallbackToRaw the new fallbackToRaw
-   */
-  public void setFallbackToRaw(final Boolean fallbackToRaw) {
-    this.fallbackToRaw = fallbackToRaw;
-  }
-
-  /**
-   * Sets the returnAnalyzedText.
-   *
-   * @param returnAnalyzedText the new returnAnalyzedText
-   */
-  public void setReturnAnalyzedText(final Boolean returnAnalyzedText) {
-    this.returnAnalyzedText = returnAnalyzedText;
-  }
-
-  /**
-   * Sets the language.
-   *
-   * @param language the new language
-   */
-  public void setLanguage(final String language) {
-    this.language = language;
-  }
-
 }
