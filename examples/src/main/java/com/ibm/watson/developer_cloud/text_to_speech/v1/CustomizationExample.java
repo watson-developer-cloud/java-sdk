@@ -31,7 +31,8 @@ public class CustomizationExample {
     TextToSpeech service = new TextToSpeech("<username>", "<password>");
 
     // create custom voice model.
-    CustomVoiceModel customVoiceModel = service.createCustomVoiceModel("my model", "en-US", "the model for testing").execute();
+    CustomVoiceModel customVoiceModel = service.createCustomVoiceModel("my model", "en-US", "the model for testing")
+      .execute();
     System.out.println(customVoiceModel);
 
     // list custom voice models for US English.
