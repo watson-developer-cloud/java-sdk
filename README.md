@@ -14,6 +14,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Usage](#usage)
   * [Getting the Service Credentials](#getting-the-service-credentials)
   * [Questions](#questions)
+  * [Android](android-utils)
   * IBM Watson Services
     * [Alchemy Language](alchemy)
     * [Alchemy Vision](alchemy)
@@ -26,6 +27,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Language Translation](language-translation)
     * [Language Translator](language-translator)
     * [Natural Language Classifier](natural-language-classifier)
+    * [Natural Language Understanding](natural-language-understanding)
     * [Personality Insights](personality-insights)
     * [Retrieve and Rank](retrieve-and-rank)
     * [Speech to Text](speech-to-text)
