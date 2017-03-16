@@ -10,7 +10,7 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1.model;
+package com.ibm.watson.developer_cloud.conversation.v1.model.message;
 
 import java.util.List;
 import java.util.Map;
@@ -30,8 +30,8 @@ public class MessageResponse extends GenericModel {
   private static final String TEXT = "text";
 
   private Map<String, Object> context;
-  private List<Entity> entities;
-  private List<Intent> intents;
+  private List<MessageEntity> entities;
+  private List<MessageIntent> intents;
   private Map<String, Object> output;
   private Map<String, Object> input;
 
@@ -50,18 +50,18 @@ public class MessageResponse extends GenericModel {
   /**
    * Returns the list of entities as detected by the service.
    *
-   * @return an array of {@link Entity} objects
+   * @return an array of {@link MessageEntity} objects
    */
-  public List<Entity> getEntities() {
+  public List<MessageEntity> getEntities() {
     return entities;
   }
 
   /**
    * Returns the list of intents as detected by the service.
    *
-   * @return an array of {@link Intent} objects.
+   * @return an array of {@link MessageIntent} objects.
    */
-  public List<Intent> getIntents() {
+  public List<MessageIntent> getIntents() {
     return intents;
   }
 
@@ -88,7 +88,7 @@ public class MessageResponse extends GenericModel {
    *
    * @param entities an array of entities
    */
-  public void setEntities(List<Entity> entities) {
+  public void setEntities(List<MessageEntity> entities) {
     this.entities = entities;
   }
 
@@ -97,7 +97,7 @@ public class MessageResponse extends GenericModel {
    *
    * @param intents an array of intents
    */
-  public void setIntents(List<Intent> intents) {
+  public void setIntents(List<MessageIntent> intents) {
     this.intents = intents;
   }
 

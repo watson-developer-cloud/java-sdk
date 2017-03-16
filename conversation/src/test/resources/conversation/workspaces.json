@@ -1,0 +1,40 @@
+{
+  "workspaces": [
+    {
+      "name": "Car_Dashboard",
+      "created": "2016-07-13T12:26:55.781Z",
+      "updated": "2016-11-29T21:46:38.969Z",
+      "language": "en",
+      "metadata": {
+        "runtime_version": "2017-02-03"
+      },
+      "description": "Cognitive Car workspace which allows multi-turn conversations to perform tasks in the car.",
+      "workspace_id": "0a0c06c1-8e31-4655-9067-58fcac5134fc"
+    },
+    {
+      "name": "testing",
+      "created": "2016-09-01T21:20:26.514Z",
+      "updated": "2016-11-29T21:46:38.969Z",
+      "language": "en",
+      "metadata": {
+        "runtime_version": "2017-02-03"
+      },
+      "description": null,
+      "workspace_id": "e42c8e5c-eb34-4b65-99f0-59f9329b66ec"
+    },
+    {
+      "name": "workspace-example",
+      "created": "2016-07-11T17:06:57.089Z",
+      "updated": "2016-11-29T21:46:38.969Z",
+      "language": "en",
+      "metadata": {
+        "runtime_version": "2017-02-03"
+      },
+      "description": "Example workspace to try out the service",
+      "workspace_id": "293b58fc-3c5b-4ac5-a8f4-8d52c393d875"
+    }
+  ],
+  "pagination": {
+    "refresh_url": "/v1/workspaces?version=2017-02-03"
+  }
+}

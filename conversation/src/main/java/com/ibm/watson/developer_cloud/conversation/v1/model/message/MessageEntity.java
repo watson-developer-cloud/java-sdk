@@ -10,14 +10,14 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1.model;
+package com.ibm.watson.developer_cloud.conversation.v1.model.message;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An class used to describe the entity payload object.
+ * A class used to describe the entity payload object.
  */
-public class Entity extends GenericModel {
+public class MessageEntity extends GenericModel {
 
   /**
    * Instantiates a new entity.
@@ -26,7 +26,7 @@ public class Entity extends GenericModel {
    * @param value the value
    * @param location the location
    */
-  public Entity(String entity, String value, Integer[] location) {
+  public MessageEntity(String entity, String value, Integer[] location) {
     super();
     this.entity = entity;
     this.value = value;
