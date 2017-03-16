@@ -15,29 +15,8 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * InlineResponse200.
+ * The Authors, Publication Date, and Title of the document. Supports URL and HTML input types.
  */
-public class InlineResponse200 extends GenericModel {
-
-  /** model_id of the deleted model. */
-  private String deleted;
-
-  /**
-   * Gets the deleted.
-   *
-   * @return the deleted
-   */
-  public String getDeleted() {
-    return deleted;
-  }
-
-  /**
-   * Sets the deleted.
-   *
-   * @param deleted the new deleted
-   */
-  public void setDeleted(final String deleted) {
-    this.deleted = deleted;
-  }
+public class MetadataOptions extends GenericModel {
 
 }
