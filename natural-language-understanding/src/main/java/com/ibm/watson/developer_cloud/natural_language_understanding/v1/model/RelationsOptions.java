@@ -23,21 +23,61 @@ public class RelationsOptions extends GenericModel {
   private String model;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String model;
+
+    private Builder(RelationsOptions relationsOptions) {
+      model = relationsOptions.model;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() { }
+
+    /**
+     * Builds the RelationsOptions.
+     *
+     * @return the relationsOptions
+     */
+    public RelationsOptions build() {
+      return new RelationsOptions(this);
+    }
+
+    /**
+     * Add the model.
+     *
+     * @param model the model
+     * @return a RelationsOptions Builder
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
+  }
+
+  private RelationsOptions(Builder builder) {
+    model = builder.model;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the model.
    *
    * @return the model
    */
-  public String getModel() {
+  public String model() {
     return model;
-  }
-
-  /**
-   * Sets the model.
-   *
-   * @param model the new model
-   */
-  public void setModel(final String model) {
-    this.model = model;
   }
 
 }

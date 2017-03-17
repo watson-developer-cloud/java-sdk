@@ -23,21 +23,61 @@ public class ConceptsOptions extends GenericModel {
   private Integer limit;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Integer limit;
+
+    private Builder(ConceptsOptions conceptsOptions) {
+      limit = conceptsOptions.limit;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() { }
+
+    /**
+     * Builds the ConceptsOptions.
+     *
+     * @return the conceptsOptions
+     */
+    public ConceptsOptions build() {
+      return new ConceptsOptions(this);
+    }
+
+    /**
+     * Add the limit.
+     *
+     * @param limit the limit
+     * @return a ConceptsOptions Builder
+     */
+    public Builder limit(Integer limit) {
+      this.limit = limit;
+      return this;
+    }
+  }
+
+  private ConceptsOptions(Builder builder) {
+    limit = builder.limit;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the limit.
    *
    * @return the limit
    */
-  public Integer getLimit() {
+  public Integer limit() {
     return limit;
-  }
-
-  /**
-   * Sets the limit.
-   *
-   * @param limit the new limit
-   */
-  public void setLimit(final Integer limit) {
-    this.limit = limit;
   }
 
 }
