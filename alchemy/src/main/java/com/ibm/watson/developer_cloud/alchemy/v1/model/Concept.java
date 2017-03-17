@@ -79,6 +79,28 @@ public class Concept extends GenericModel {
    */
   private String yago;
 
+
+  /** The knowledge graph. */
+  private KnowledgeGraph knowledgeGraph;
+  
+  /**
+   * Gets the knowledge graph.
+   *
+   * @return the knowledge graph
+   */
+  public KnowledgeGraph getKnowledgeGraph() {
+    return knowledgeGraph;
+  }
+
+  /**
+   * Sets the knowledge graph.
+   *
+   * @param knowledgeGraph the new knowledge graph
+   */
+  public void setKnowledgeGraph(KnowledgeGraph knowledgeGraph) {
+    this.knowledgeGraph = knowledgeGraph;
+  }
+
   /**
    * Gets the census.
    *
