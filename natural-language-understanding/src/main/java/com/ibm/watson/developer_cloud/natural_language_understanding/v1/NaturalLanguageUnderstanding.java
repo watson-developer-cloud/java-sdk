@@ -112,7 +112,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    */
   public ServiceCall<AnalysisResults> analyze(AnalyzeOptions parameters) {
     RequestBuilder builder = RequestBuilder.post("/v1/analyze");
-    builder.query("version", versionDate);
+    builder.query(VERSION, versionDate);
 
     if (parameters != null) {
       builder.bodyJson(GsonSingleton.getGson().toJsonTree(parameters).getAsJsonObject());
