@@ -29,7 +29,7 @@ public class LinkedDataResult extends GenericModel {
    *
    * @return the source
    */
-  public String getSource() {
+  public String source() {
     return source;
   }
 
@@ -38,7 +38,7 @@ public class LinkedDataResult extends GenericModel {
    *
    * @return the link
    */
-  public String getLink() {
+  public String link() {
     return link;
   }
 

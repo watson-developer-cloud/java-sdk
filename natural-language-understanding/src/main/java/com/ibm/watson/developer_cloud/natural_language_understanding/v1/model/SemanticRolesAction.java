@@ -30,7 +30,7 @@ public class SemanticRolesAction extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -39,7 +39,7 @@ public class SemanticRolesAction extends GenericModel {
    *
    * @return the normalized
    */
-  public String getNormalized() {
+  public String normalized() {
     return normalized;
   }
 
@@ -48,7 +48,7 @@ public class SemanticRolesAction extends GenericModel {
    *
    * @return the verb
    */
-  public SemanticRolesVerb getVerb() {
+  public SemanticRolesVerb verb() {
     return verb;
   }
 

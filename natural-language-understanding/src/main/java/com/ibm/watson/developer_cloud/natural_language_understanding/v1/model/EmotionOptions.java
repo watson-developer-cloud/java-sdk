@@ -27,12 +27,66 @@ public class EmotionOptions extends GenericModel {
   private List<String> targets;
 
   /**
-   * Adds the targets.
-   *
-   * @param targets the new targets
+   * Builder.
    */
-  public void addtargets(String targets) {
-    this.targets.add(targets);
+  public static class Builder {
+    private Boolean document;
+    private List<String> targets;
+
+    private Builder(EmotionOptions emotionOptions) {
+      document = emotionOptions.document;
+      targets = emotionOptions.targets;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() { }
+
+    /**
+     * Builds the EmotionOptions.
+     *
+     * @return the emotionOptions
+     */
+    public EmotionOptions build() {
+      return new EmotionOptions(this);
+    }
+
+    /**
+     * Add the document.
+     *
+     * @param document the document
+     * @return a EmotionOptions Builder
+     */
+    public Builder document(Boolean document) {
+      this.document = document;
+      return this;
+    }
+
+    /**
+     * Add the targets.
+     *
+     * @param targets the targets
+     * @return a EmotionOptions Builder
+     */
+    public Builder targets(List<String> targets) {
+      this.targets = targets;
+      return this;
+    }
+  }
+
+  private EmotionOptions(Builder builder) {
+    document = builder.document;
+    targets = builder.targets;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
@@ -40,7 +94,7 @@ public class EmotionOptions extends GenericModel {
    *
    * @return the document
    */
-  public Boolean isDocument() {
+  public Boolean document() {
     return document;
   }
 
@@ -49,26 +103,8 @@ public class EmotionOptions extends GenericModel {
    *
    * @return the targets
    */
-  public List<String> getTargets() {
+  public List<String> targets() {
     return targets;
-  }
-
-  /**
-   * Sets the document.
-   *
-   * @param document the new document
-   */
-  public void setDocument(final Boolean document) {
-    this.document = document;
-  }
-
-  /**
-   * Sets the targets.
-   *
-   * @param targets the new targets
-   */
-  public void setTargets(final List<String> targets) {
-    this.targets = targets;
   }
 
 }

@@ -33,7 +33,7 @@ public class ConceptsResult extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -42,7 +42,7 @@ public class ConceptsResult extends GenericModel {
    *
    * @return the relevance
    */
-  public Double getRelevance() {
+  public Double relevance() {
     return relevance;
   }
 
@@ -51,7 +51,7 @@ public class ConceptsResult extends GenericModel {
    *
    * @return the dbpediaResource
    */
-  public String getDbpediaResource() {
+  public String dbpediaResource() {
     return dbpediaResource;
   }
 

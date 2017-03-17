@@ -29,7 +29,7 @@ public class SemanticRolesEntity extends GenericModel {
    *
    * @return the type
    */
-  public String getType() {
+  public String type() {
     return type;
   }
 
@@ -38,7 +38,7 @@ public class SemanticRolesEntity extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 

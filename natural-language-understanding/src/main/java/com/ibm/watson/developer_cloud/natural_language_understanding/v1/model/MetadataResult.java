@@ -31,20 +31,11 @@ public class MetadataResult extends GenericModel {
   private String title;
 
   /**
-   * Adds the authors.
-   *
-   * @param authors the new authors
-   */
-  public void addauthors(Author authors) {
-    this.authors.add(authors);
-  }
-
-  /**
    * Gets the authors.
    *
    * @return the authors
    */
-  public List<Author> getAuthors() {
+  public List<Author> authors() {
     return authors;
   }
 
@@ -53,7 +44,7 @@ public class MetadataResult extends GenericModel {
    *
    * @return the publicationDate
    */
-  public String getPublicationDate() {
+  public String publicationDate() {
     return publicationDate;
   }
 
@@ -62,8 +53,17 @@ public class MetadataResult extends GenericModel {
    *
    * @return the title
    */
-  public String getTitle() {
+  public String title() {
     return title;
+  }
+
+  /**
+   * Adds the authors.
+   *
+   * @param authors the new authors
+   */
+  public void addauthors(Author authors) {
+    this.authors.add(authors);
   }
 
   /**

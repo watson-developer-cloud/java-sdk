@@ -17,7 +17,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * .
+ * Model.
  */
 public class Model extends GenericModel {
 
@@ -25,7 +25,7 @@ public class Model extends GenericModel {
   private String status;
   /** Unique model ID. */
   @SerializedName("model_id")
-  private String modelID;
+  private String modelId;
   /** ISO 639-1 code indicating the language of the model. */
   private String language;
   /** Model description. */
@@ -36,17 +36,17 @@ public class Model extends GenericModel {
    *
    * @return the status
    */
-  public String getStatus() {
+  public String status() {
     return status;
   }
 
   /**
-   * Gets the modelID.
+   * Gets the modelId.
    *
-   * @return the modelID
+   * @return the modelId
    */
-  public String getModelID() {
-    return modelID;
+  public String modelId() {
+    return modelId;
   }
 
   /**
@@ -54,7 +54,7 @@ public class Model extends GenericModel {
    *
    * @return the language
    */
-  public String getLanguage() {
+  public String language() {
     return language;
   }
 
@@ -63,7 +63,7 @@ public class Model extends GenericModel {
    *
    * @return the description
    */
-  public String getDescription() {
+  public String description() {
     return description;
   }
 
@@ -77,12 +77,12 @@ public class Model extends GenericModel {
   }
 
   /**
-   * Sets the modelID.
+   * Sets the modelId.
    *
-   * @param modelID the new modelID
+   * @param modelId the new modelId
    */
-  public void setModelID(final String modelID) {
-    this.modelID = modelID;
+  public void setModelId(final String modelId) {
+    this.modelId = modelId;
   }
 
   /**

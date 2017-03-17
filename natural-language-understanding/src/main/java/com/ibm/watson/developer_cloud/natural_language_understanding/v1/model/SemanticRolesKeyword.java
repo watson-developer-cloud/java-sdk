@@ -27,7 +27,7 @@ public class SemanticRolesKeyword extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 

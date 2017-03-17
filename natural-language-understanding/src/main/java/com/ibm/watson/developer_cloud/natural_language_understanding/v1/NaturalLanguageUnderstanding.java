@@ -25,47 +25,43 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.In
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ListModelsResults;
 
 /**
- * Analyze various features of text content at scale. Provide text, raw HTML, or a public URL, and
- * IBM Watson Natural Language Understanding will give you results for the features you request. The
- * service cleans HTML content before analysis by default, so the results can ignore most
- * advertisements and other unwanted content.
+ * Analyze various features of text content at scale. Provide text, raw HTML, or a public URL, and IBM Watson Natural
+ * Language Understanding will give you results for the features you request. The service cleans HTML content before
+ * analysis by default, so the results can ignore most advertisements and other unwanted content.
  *
  * ### Concepts
- * Identify general concepts that are referenced or alluded to in your content. Concepts that are
- * detected typically have an associated link to a DBpedia resource.
+ * Identify general concepts that are referenced or alluded to in your content. Concepts that are detected typically
+ * have an associated link to a DBpedia resource.
  *
  * ### Entities
- * Detect important people, places, geopolitical entities and other types of entities in your
- * content. Entity detection recognizes consecutive coreferences of each entity. For example,
- * analysis of the following text would count "Barack Obama" and "He" as the same entity:
+ * Detect important people, places, geopolitical entities and other types of entities in your content. Entity detection
+ * recognizes consecutive coreferences of each entity. For example, analysis of the following text would count "Barack
+ * Obama" and "He" as the same entity:
  *
  * "Barack Obama was the 44th President of the United States. He took office in January 2009."
  *
  * ### Keywords
- * Determine the most important keywords in your content. Keyword phrases are organized by relevance
- * in the results.
+ * Determine the most important keywords in your content. Keyword phrases are organized by relevance in the results.
  *
  * ### Categories
- * Categorize your content into a hierarchical 5-level taxonomy. For example, "Leonardo DiCaprio won
- * an Oscar" returns "/art and entertainment/movies and tv/movies" as the most confident
- * classification.
+ * Categorize your content into a hierarchical 5-level taxonomy. For example, "Leonardo DiCaprio won an Oscar" returns
+ * "/art and entertainment/movies and tv/movies" as the most confident classification.
  *
  * ### Sentiment
- * Determine whether your content conveys postive or negative sentiment. Sentiment information can
- * be returned for detected entities, keywords, or user-specified target phrases found in the text.
+ * Determine whether your content conveys postive or negative sentiment. Sentiment information can be returned for
+ * detected entities, keywords, or user-specified target phrases found in the text.
  *
  * ### Emotion
- * Detect anger, disgust, fear, joy, or sadness that is conveyed by your content. Emotion
- * information can be returned for detected entities, keywords, or user-specified target phrases
- * found in the text.
+ * Detect anger, disgust, fear, joy, or sadness that is conveyed by your content. Emotion information can be returned
+ * for detected entities, keywords, or user-specified target phrases found in the text.
  *
  * ### Relations
- * Recognize when two entities are related, and identify the type of relation.  For example, you can
- * identify an "awardedTo" relation between an award and its recipient.
+ * Recognize when two entities are related, and identify the type of relation.  For example, you can identify an
+ * "awardedTo" relation between an award and its recipient.
  *
  * ### Semantic Roles
- * Parse sentences into subject-action-object form, and identify entities and keywords that are
- * subjects or objects of an action.
+ * Parse sentences into subject-action-object form, and identify entities and keywords that are subjects or objects of
+ * an action.
  *
  * ### Metadata
  * Get author information, publication date, and the title of your text/HTML content.
@@ -94,6 +90,10 @@ public class NaturalLanguageUnderstanding extends WatsonService {
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
     }
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
+        "'version cannot be null. Use " + VERSION_DATE_2017_02_27);
+
     this.versionDate = versionDate;
   }
 
@@ -122,12 +122,12 @@ public class NaturalLanguageUnderstanding extends WatsonService {
     Parameters parameters)
   {
     RequestBuilder builder = RequestBuilder.post("/v1/analyze");
-    builder.query("version", versionDate);
+    builder.query(VERSION, versionDate);
 
     if (parameters != null) {
-        builder.bodyJson(GsonSingleton.getGson().toJsonTree(parameters).getAsJsonObject());
+      builder.bodyJson(GsonSingleton.getGson().toJsonTree(parameters).getAsJsonObject());
     } else {
-        builder.bodyJson(new JsonObject());
+      builder.bodyJson(new JsonObject());
     }
 
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AnalysisResults.class));
@@ -138,15 +138,15 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    *
    * Deletes a custom model.
    *
-   * @param modelID: model_id of the model to delete
+   * @param modelId: model_id of the model to delete
    * @return the {@link InlineResponse200} with the response
    */
   public ServiceCall<InlineResponse200> deleteModel(
-    String modelID)
+    String modelId)
   {
-    Validator.notNull(modelID, "modelID cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/models/%s", modelID));
-    builder.query("version", versionDate);
+    Validator.notNull(modelId, "modelId cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/models/%s", modelId));
+    builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(InlineResponse200.class));
   }
 
@@ -160,7 +160,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   public ServiceCall<ListModelsResults> getModels()
   {
     RequestBuilder builder = RequestBuilder.get("/v1/models");
-    builder.query("version", versionDate);
+    builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListModelsResults.class));
   }
 

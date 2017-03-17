@@ -29,7 +29,7 @@ public class RelationEntity extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -38,7 +38,7 @@ public class RelationEntity extends GenericModel {
    *
    * @return the type
    */
-  public String getType() {
+  public String type() {
     return type;
   }
 

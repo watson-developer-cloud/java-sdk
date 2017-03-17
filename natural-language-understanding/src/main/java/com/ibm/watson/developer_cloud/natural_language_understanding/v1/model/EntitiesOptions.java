@@ -29,11 +29,102 @@ public class EntitiesOptions extends GenericModel {
   private Boolean emotion;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Integer limit;
+    private String model;
+    private Boolean sentiment;
+    private Boolean emotion;
+
+    private Builder(EntitiesOptions entitiesOptions) {
+      limit = entitiesOptions.limit;
+      model = entitiesOptions.model;
+      sentiment = entitiesOptions.sentiment;
+      emotion = entitiesOptions.emotion;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() { }
+
+    /**
+     * Builds the EntitiesOptions.
+     *
+     * @return the entitiesOptions
+     */
+    public EntitiesOptions build() {
+      return new EntitiesOptions(this);
+    }
+
+    /**
+     * Add the limit.
+     *
+     * @param limit the limit
+     * @return a EntitiesOptions Builder
+     */
+    public Builder limit(Integer limit) {
+      this.limit = limit;
+      return this;
+    }
+
+    /**
+     * Add the model.
+     *
+     * @param model the model
+     * @return a EntitiesOptions Builder
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
+
+    /**
+     * Add the sentiment.
+     *
+     * @param sentiment the sentiment
+     * @return a EntitiesOptions Builder
+     */
+    public Builder sentiment(Boolean sentiment) {
+      this.sentiment = sentiment;
+      return this;
+    }
+
+    /**
+     * Add the emotion.
+     *
+     * @param emotion the emotion
+     * @return a EntitiesOptions Builder
+     */
+    public Builder emotion(Boolean emotion) {
+      this.emotion = emotion;
+      return this;
+    }
+  }
+
+  private EntitiesOptions(Builder builder) {
+    limit = builder.limit;
+    model = builder.model;
+    sentiment = builder.sentiment;
+    emotion = builder.emotion;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the limit.
    *
    * @return the limit
    */
-  public Integer getLimit() {
+  public Integer limit() {
     return limit;
   }
 
@@ -42,7 +133,7 @@ public class EntitiesOptions extends GenericModel {
    *
    * @return the model
    */
-  public String getModel() {
+  public String model() {
     return model;
   }
 
@@ -51,7 +142,7 @@ public class EntitiesOptions extends GenericModel {
    *
    * @return the sentiment
    */
-  public Boolean isSentiment() {
+  public Boolean sentiment() {
     return sentiment;
   }
 
@@ -60,44 +151,8 @@ public class EntitiesOptions extends GenericModel {
    *
    * @return the emotion
    */
-  public Boolean isEmotion() {
+  public Boolean emotion() {
     return emotion;
-  }
-
-  /**
-   * Sets the limit.
-   *
-   * @param limit the new limit
-   */
-  public void setLimit(final Integer limit) {
-    this.limit = limit;
-  }
-
-  /**
-   * Sets the model.
-   *
-   * @param model the new model
-   */
-  public void setModel(final String model) {
-    this.model = model;
-  }
-
-  /**
-   * Sets the sentiment.
-   *
-   * @param sentiment the new sentiment
-   */
-  public void setSentiment(final Boolean sentiment) {
-    this.sentiment = sentiment;
-  }
-
-  /**
-   * Sets the emotion.
-   *
-   * @param emotion the new emotion
-   */
-  public void setEmotion(final Boolean emotion) {
-    this.emotion = emotion;
   }
 
 }

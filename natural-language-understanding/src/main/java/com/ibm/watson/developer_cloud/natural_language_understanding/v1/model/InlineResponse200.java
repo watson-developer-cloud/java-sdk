@@ -27,7 +27,7 @@ public class InlineResponse200 extends GenericModel {
    *
    * @return the deleted
    */
-  public String getDeleted() {
+  public String deleted() {
     return deleted;
   }
 

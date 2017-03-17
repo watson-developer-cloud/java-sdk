@@ -33,7 +33,7 @@ public class SemanticRolesResult extends GenericModel {
    *
    * @return the sentence
    */
-  public String getSentence() {
+  public String sentence() {
     return sentence;
   }
 
@@ -42,7 +42,7 @@ public class SemanticRolesResult extends GenericModel {
    *
    * @return the subject
    */
-  public SemanticRolesSubject getSubject() {
+  public SemanticRolesSubject subject() {
     return subject;
   }
 
@@ -51,7 +51,7 @@ public class SemanticRolesResult extends GenericModel {
    *
    * @return the action
    */
-  public SemanticRolesAction getAction() {
+  public SemanticRolesAction action() {
     return action;
   }
 
@@ -60,7 +60,7 @@ public class SemanticRolesResult extends GenericModel {
    *
    * @return the object
    */
-  public SemanticRolesObject getObject() {
+  public SemanticRolesObject object() {
     return object;
   }
 

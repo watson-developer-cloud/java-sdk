@@ -27,6 +27,33 @@ public class SemanticRolesSubject extends GenericModel {
   private List<SemanticRolesKeyword> keywords;
 
   /**
+   * Gets the text.
+   *
+   * @return the text
+   */
+  public String text() {
+    return text;
+  }
+
+  /**
+   * Gets the entities.
+   *
+   * @return the entities
+   */
+  public List<SemanticRolesEntity> entities() {
+    return entities;
+  }
+
+  /**
+   * Gets the keywords.
+   *
+   * @return the keywords
+   */
+  public List<SemanticRolesKeyword> keywords() {
+    return keywords;
+  }
+
+  /**
    * Adds the entities.
    *
    * @param entities the new entities
@@ -42,33 +69,6 @@ public class SemanticRolesSubject extends GenericModel {
    */
   public void addkeywords(SemanticRolesKeyword keywords) {
     this.keywords.add(keywords);
-  }
-
-  /**
-   * Gets the text.
-   *
-   * @return the text
-   */
-  public String getText() {
-    return text;
-  }
-
-  /**
-   * Gets the entities.
-   *
-   * @return the entities
-   */
-  public List<SemanticRolesEntity> getEntities() {
-    return entities;
-  }
-
-  /**
-   * Gets the keywords.
-   *
-   * @return the keywords
-   */
-  public List<SemanticRolesKeyword> getKeywords() {
-    return keywords;
   }
 
   /**

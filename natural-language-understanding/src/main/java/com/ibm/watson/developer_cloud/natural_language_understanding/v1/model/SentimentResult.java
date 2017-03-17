@@ -27,20 +27,11 @@ public class SentimentResult extends GenericModel {
   private List<TargetedSentimentResults> targets;
 
   /**
-   * Adds the targets.
-   *
-   * @param targets the new targets
-   */
-  public void addtargets(TargetedSentimentResults targets) {
-    this.targets.add(targets);
-  }
-
-  /**
    * Gets the document.
    *
    * @return the document
    */
-  public DocumentSentimentResults getDocument() {
+  public DocumentSentimentResults document() {
     return document;
   }
 
@@ -49,8 +40,17 @@ public class SentimentResult extends GenericModel {
    *
    * @return the targets
    */
-  public List<TargetedSentimentResults> getTargets() {
+  public List<TargetedSentimentResults> targets() {
     return targets;
+  }
+
+  /**
+   * Adds the targets.
+   *
+   * @param targets the new targets
+   */
+  public void addtargets(TargetedSentimentResults targets) {
+    this.targets.add(targets);
   }
 
   /**

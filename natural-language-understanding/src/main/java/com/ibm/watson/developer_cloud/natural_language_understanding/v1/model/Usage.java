@@ -27,7 +27,7 @@ public class Usage extends GenericModel {
    *
    * @return the features
    */
-  public Integer getFeatures() {
+  public Integer features() {
     return features;
   }
 

@@ -19,6 +19,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.FileInputStream;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.junit.Assume;
@@ -29,9 +31,9 @@ import org.junit.runners.MethodSorters;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalyzeOptions;
+import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Parameters;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Author;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.CategoriesOptions;
+//import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.CategoriesOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.CategoriesResult;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ConceptsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ConceptsResult;
@@ -42,7 +44,7 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.En
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Features;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.KeywordsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.KeywordsResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.MetadataOptions;
+//import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.MetadataOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.MetadataResult;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.RelationsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SemanticRolesOptions;
@@ -89,10 +91,9 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String testHtmlFileName = "src/test/resources/natural_language_understanding/testArticle.html";
     String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
 
-    ConceptsOptions concepts = new ConceptsOptions();
-    concepts.setLimit(5);
+    ConceptsOptions concepts = new  ConceptsOptions.Builder().limit(5).build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).build();
+    Parameters parameters = new Parameters.Builder().html(html).features(features).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -104,10 +105,9 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextIsSuccessful() throws Exception {
-    ConceptsOptions concepts = new ConceptsOptions();
-    concepts.setLimit(5);
+    ConceptsOptions concepts = new ConceptsOptions.Builder().limit(5).build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
+    Parameters parameters = new Parameters.Builder()
         .text(text)
         .features(features)
         .build();
@@ -124,11 +124,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   public void analyzeUrlIsSuccessful() throws Exception {
     String url = "http://www.politico.com/story/2016/07/dnc-2016-obama-prepared-remarks-226345";
 
-    ConceptsOptions concepts = new ConceptsOptions();
-    concepts.setLimit(5);
+    ConceptsOptions concepts = new ConceptsOptions.Builder().limit(5).build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder()
+    Parameters parameters =
+        new Parameters.Builder()
         .url(url)
         .features(features)
         .returnAnalyzedText(true)
@@ -137,7 +136,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertNotNull(results.getAnalyzedText());
+    assertNotNull(results.analyzedText());
   }
 
   /**
@@ -155,10 +154,9 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         + " that the battlefields of Europe have been replaced by peaceful union; that China and India"
         + " remain on a path of remarkable growth.";
 
-    ConceptsOptions concepts = new ConceptsOptions();
-    concepts.setLimit(5);
+    ConceptsOptions concepts = new ConceptsOptions.Builder().limit(5).build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
+    Parameters parameters = new Parameters.Builder()
         .text(text)
         .features(features)
         .returnAnalyzedText(true)
@@ -167,12 +165,12 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertNotNull(results.getAnalyzedText());
-    assertNotNull(results.getConcepts());
-    for (ConceptsResult concept : results.getConcepts()) {
-      assertNotNull(concept.getText());
-      assertNotNull(concept.getDbpediaResource());
-      assertNotNull(concept.getRelevance());
+    assertNotNull(results.analyzedText());
+    assertNotNull(results.concepts());
+    for (ConceptsResult concept : results.concepts()) {
+      assertNotNull(concept.text());
+      assertNotNull(concept.dbpediaResource());
+      assertNotNull(concept.relevance());
     }
   }
 
@@ -184,20 +182,20 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String testHtmlFileName = "src/test/resources/natural_language_understanding/testArticle.html";
     String html = getStringFromInputStream(new FileInputStream(testHtmlFileName));
 
-    ConceptsOptions concepts = new ConceptsOptions();
+    ConceptsOptions concepts = new ConceptsOptions.Builder().build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().html(html).features(features).returnAnalyzedText(true).build();
+    Parameters parameters =
+        new Parameters.Builder().html(html).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertNotNull(results.getAnalyzedText());
-    assertNotNull(results.getConcepts());
-    for (ConceptsResult concept : results.getConcepts()) {
-      assertNotNull(concept.getText());
-      assertNotNull(concept.getDbpediaResource());
-      assertNotNull(concept.getRelevance());
+    assertNotNull(results.analyzedText());
+    assertNotNull(results.concepts());
+    for (ConceptsResult concept : results.concepts()) {
+      assertNotNull(concept.text());
+      assertNotNull(concept.dbpediaResource());
+      assertNotNull(concept.relevance());
     }
   }
 
@@ -211,27 +209,27 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         + " -- because entrepreneurs need to access information in order to invent; young people need a global"
         + " education in order to thrive; independent media needs to check the abuses of power.";
 
-    EmotionOptions emotion = new EmotionOptions();
+    EmotionOptions emotion = new EmotionOptions.Builder().build();
     Features features = new Features.Builder().emotion(emotion).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    Parameters parameters =
+        new Parameters.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertNotNull(results.getAnalyzedText());
-    assertNotNull(results.getEmotion());
-    assertNotNull(results.getEmotion().getDocument());
-    assertNotNull(results.getEmotion().getDocument().getEmotion());
+    assertNotNull(results.analyzedText());
+    assertNotNull(results.emotion());
+    assertNotNull(results.emotion().document());
+    assertNotNull(results.emotion().document().emotion());
 
-    EmotionScores scores = results.getEmotion().getDocument().getEmotion();
-    assertNotNull(scores.getAnger());
-    assertNotNull(scores.getDisgust());
-    assertNotNull(scores.getFear());
-    assertNotNull(scores.getJoy());
-    assertNotNull(scores.getSadness());
+    EmotionScores scores = results.emotion().document().emotion();
+    assertNotNull(scores.anger());
+    assertNotNull(scores.disgust());
+    assertNotNull(scores.fear());
+    assertNotNull(scores.joy());
+    assertNotNull(scores.sadness());
 
-    assertNull(results.getEmotion().getTargets());
+    assertNull(results.emotion().targets());
   }
 
   /**
@@ -243,14 +241,12 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         "In 2009, Elliot Turner launched AlchemyAPI to process the written word, with all of its quirks and nuances,"
         + " and got immediate traction.";
 
-    EntitiesOptions entities = new EntitiesOptions();
-    entities.setLimit(2);
-    entities.setSentiment(true);
+    EntitiesOptions entities = new EntitiesOptions.Builder().limit(2).sentiment(true).build();
     Features features = new Features.Builder()
         .entities(entities)
         .build();
 
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
+    Parameters parameters = new Parameters.Builder()
         .text(text)
         .features(features)
         .returnAnalyzedText(true)
@@ -259,16 +255,16 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertEquals(results.getAnalyzedText(), text);
-    assertNotNull(results.getEntities());
-    assertTrue(results.getEntities().size() == 2);
+    assertEquals(results.analyzedText(), text);
+    assertNotNull(results.entities());
+    assertTrue(results.entities().size() == 2);
 
-    for (EntitiesResult result : results.getEntities()) {
-      assertNotNull(result.getCount());
-      assertNotNull(result.getRelevance());
-      assertNotNull(result.getText());
-      assertNotNull(result.getType());
-      assertNotNull(result.getSentiment());
+    for (EntitiesResult result : results.entities()) {
+      assertNotNull(result.count());
+      assertNotNull(result.relevance());
+      assertNotNull(result.text());
+      assertNotNull(result.type());
+      assertNotNull(result.sentiment());
     }
   }
 
@@ -277,11 +273,10 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForKeywordsIsSuccessful() throws Exception {
-    KeywordsOptions keywords = new KeywordsOptions();
-    keywords.setSentiment(true);
+    KeywordsOptions keywords = new KeywordsOptions.Builder().sentiment(true).build();
     Features features = new Features.Builder().keywords(keywords).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder()
+    Parameters parameters =
+        new Parameters.Builder()
         .text(text)
         .features(features)
         .returnAnalyzedText(true)
@@ -290,13 +285,13 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertEquals(results.getAnalyzedText(), text);
-    assertNotNull(results.getKeywords());
+    assertEquals(results.analyzedText(), text);
+    assertNotNull(results.keywords());
 
-    for (KeywordsResult result : results.getKeywords()) {
-      assertNotNull(result.getRelevance());
-      assertNotNull(result.getText());
-      assertNotNull(result.getSentiment());
+    for (KeywordsResult result : results.keywords()) {
+      assertNotNull(result.relevance());
+      assertNotNull(result.text());
+      assertNotNull(result.sentiment());
     }
   }
 
@@ -311,9 +306,9 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     String fileDate = "2016-05-23T20:13:00";
     String fileAuthor = "Annalee Newitz";
     Features features = new Features.Builder()
-        .metadata(new MetadataOptions())
+        .metadata(new LinkedHashMap<String,Object>())
         .build();
-    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
+    Parameters parameters = new Parameters.Builder()
         .html(html)
         .features(features)
         .returnAnalyzedText(true)
@@ -322,17 +317,17 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertEquals(results.getLanguage(), "en");
-    assertNotNull(results.getMetadata());
-    MetadataResult result = results.getMetadata();
-    assertNotNull(result.getTitle());
-    assertEquals(result.getTitle(), fileTitle);
-    assertNotNull(result.getPublicationDate());
-    assertEquals(result.getPublicationDate(), fileDate);
-    assertNotNull(result.getAuthors());
-    List<Author> authors = result.getAuthors();
+    assertEquals(results.language(), "en");
+    assertNotNull(results.metadata());
+    MetadataResult result = results.metadata();
+    assertNotNull(result.title());
+    assertEquals(result.title(), fileTitle);
+    assertNotNull(result.publicationDate());
+    assertEquals(result.publicationDate(), fileDate);
+    assertNotNull(result.authors());
+    List<Author> authors = result.authors();
     assertEquals(authors.size(), 1);
-    assertEquals(authors.get(0).getName(), fileAuthor);
+    assertEquals(authors.get(0).name(), fileAuthor);
   }
 
   /**
@@ -340,16 +335,16 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForRelationsIsSuccessful() throws Exception {
-    Features features = new Features.Builder().relations(new RelationsOptions()).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    Features features = new Features.Builder().relations(new RelationsOptions.Builder().build()).build();
+    Parameters parameters =
+        new Parameters.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertEquals(results.getAnalyzedText(), text);
-    assertEquals(results.getLanguage(), "en");
-    assertNotNull(results.getRelations());
+    assertEquals(results.analyzedText(), text);
+    assertEquals(results.language(), "en");
+    assertNotNull(results.relations());
   }
 
   /**
@@ -357,30 +352,28 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForSemanticRolesIsSuccessful() throws Exception {
-    SemanticRolesOptions options = new SemanticRolesOptions();
-    options.setLimit(7);
-    options.setKeywords(true);
-    options.setEntities(true);
+    SemanticRolesOptions options = new SemanticRolesOptions.Builder().limit(7).keywords(true).entities(true)
+            .build();
     Features features = new Features.Builder().semanticRoles(options).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    Parameters parameters =
+        new Parameters.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertEquals(results.getAnalyzedText(), text);
-    assertEquals(results.getLanguage(), "en");
-    assertNotNull(results.getSemanticRoles());
-    for (SemanticRolesResult result : results.getSemanticRoles()) {
-      assertEquals(result.getSentence(), text);
-      if (result.getSubject() != null) {
-        assertNotNull(result.getSubject().getText());
+    assertEquals(results.analyzedText(), text);
+    assertEquals(results.language(), "en");
+    assertNotNull(results.semanticRoles());
+    for (SemanticRolesResult result : results.semanticRoles()) {
+      assertEquals(result.sentence(), text);
+      if (result.subject() != null) {
+        assertNotNull(result.subject().text());
       }
-      if (result.getAction() != null) {
-        assertNotNull(result.getAction().getText());
+      if (result.action() != null) {
+        assertNotNull(result.action().text());
       }
-      if (result.getObject() != null) {
-        assertNotNull(result.getObject().getText());
+      if (result.object() != null) {
+        assertNotNull(result.object().text());
       }
     }
   }
@@ -390,25 +383,25 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForSentimentWithTargetsIsSuccessful() throws Exception {
-    SentimentOptions options = new SentimentOptions();
-    options.setDocument(true);
-    options.setTargets(Arrays.asList("Elliot Turner", "traction"));
+    SentimentOptions options = new SentimentOptions.Builder().document(true)
+            .targets(Arrays.asList("Elliot Turner", "traction"))
+            .build();
     Features features = new Features.Builder().sentiment(options).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    Parameters parameters =
+        new Parameters.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertEquals(results.getAnalyzedText(), text);
-    assertEquals(results.getLanguage(), "en");
-    assertNotNull(results.getSentiment());
-    assertNotNull(results.getSentiment().getDocument());
-    assertNotNull(results.getSentiment().getDocument().getScore());
-    assertNotNull(results.getSentiment().getTargets());
-    for (TargetedSentimentResults result : results.getSentiment().getTargets()) {
-      assertNotNull(result.getText());
-      assertNotNull(result.getScore());
+    assertEquals(results.analyzedText(), text);
+    assertEquals(results.language(), "en");
+    assertNotNull(results.sentiment());
+    assertNotNull(results.sentiment().document());
+    assertNotNull(results.sentiment().document().score());
+    assertNotNull(results.sentiment().targets());
+    for (TargetedSentimentResults result : results.sentiment().targets()) {
+      assertNotNull(result.text());
+      assertNotNull(result.score());
     }
   }
 
@@ -417,21 +410,20 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForSentimentWithoutTargetsIsSuccessful() throws Exception {
-    SentimentOptions options = new SentimentOptions();
-    options.setDocument(true);
+    SentimentOptions options = new SentimentOptions.Builder().document(true).build();
     Features features = new Features.Builder().sentiment(options).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    Parameters parameters =
+        new Parameters.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertEquals(results.getAnalyzedText(), text);
-    assertEquals(results.getLanguage(), "en");
-    assertNotNull(results.getSentiment());
-    assertNotNull(results.getSentiment().getDocument());
-    assertNotNull(results.getSentiment().getDocument().getScore());
-    assertNull(results.getSentiment().getTargets());
+    assertEquals(results.analyzedText(), text);
+    assertEquals(results.language(), "en");
+    assertNotNull(results.sentiment());
+    assertNotNull(results.sentiment().document());
+    assertNotNull(results.sentiment().document().score());
+    assertNull(results.sentiment().targets());
   }
 
   /**
@@ -439,19 +431,19 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForCategoriesIsSuccessful() throws Exception {
-    Features features = new Features.Builder().categories(new CategoriesOptions()).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    Features features = new Features.Builder().categories(new LinkedHashMap<String,Object>()).build();
+    Parameters parameters =
+        new Parameters.Builder().text(text).features(features).returnAnalyzedText(true).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
     assertNotNull(results);
-    assertEquals(results.getAnalyzedText(), text);
-    assertEquals(results.getLanguage(), "en");
-    assertNotNull(results.getCategories());
-    for (CategoriesResult result : results.getCategories()) {
-      assertNotNull(result.getLabel());
-      assertNotNull(result.getScore());
+    assertEquals(results.analyzedText(), text);
+    assertEquals(results.language(), "en");
+    assertNotNull(results.categories());
+    for (CategoriesResult result : results.categories()) {
+      assertNotNull(result.label());
+      assertNotNull(result.score());
     }
   }
 }

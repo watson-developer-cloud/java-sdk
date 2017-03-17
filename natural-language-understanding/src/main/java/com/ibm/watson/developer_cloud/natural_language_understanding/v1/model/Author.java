@@ -27,7 +27,7 @@ public class Author extends GenericModel {
    *
    * @return the name
    */
-  public String getName() {
+  public String name() {
     return name;
   }
 

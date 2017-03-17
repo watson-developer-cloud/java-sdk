@@ -27,7 +27,7 @@ public class DocumentEmotionResults extends GenericModel {
    *
    * @return the emotion
    */
-  public EmotionScores getEmotion() {
+  public EmotionScores emotion() {
     return emotion;
   }
 

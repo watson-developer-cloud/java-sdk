@@ -27,7 +27,7 @@ public class FeatureSentimentResults extends GenericModel {
    *
    * @return the score
    */
-  public Double getScore() {
+  public Double score() {
     return score;
   }
 

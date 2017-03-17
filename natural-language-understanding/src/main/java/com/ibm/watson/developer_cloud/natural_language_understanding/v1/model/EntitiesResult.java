@@ -37,7 +37,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @return the type
    */
-  public String getType() {
+  public String type() {
     return type;
   }
 
@@ -46,7 +46,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @return the relevance
    */
-  public Double getRelevance() {
+  public Double relevance() {
     return relevance;
   }
 
@@ -55,7 +55,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @return the count
    */
-  public Integer getCount() {
+  public Integer count() {
     return count;
   }
 
@@ -64,7 +64,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -73,7 +73,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @return the emotion
    */
-  public EmotionScores getEmotion() {
+  public EmotionScores emotion() {
     return emotion;
   }
 
@@ -82,7 +82,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @return the sentiment
    */
-  public FeatureSentimentResults getSentiment() {
+  public FeatureSentimentResults sentiment() {
     return sentiment;
   }
 

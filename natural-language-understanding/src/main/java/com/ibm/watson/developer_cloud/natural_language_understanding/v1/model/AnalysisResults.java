@@ -53,6 +53,123 @@ public class AnalysisResults extends GenericModel {
   private SentimentResult sentiment;
 
   /**
+   * Gets the language.
+   *
+   * @return the language
+   */
+  public String language() {
+    return language;
+  }
+
+  /**
+   * Gets the analyzedText.
+   *
+   * @return the analyzedText
+   */
+  public String analyzedText() {
+    return analyzedText;
+  }
+
+  /**
+   * Gets the retrievedUrl.
+   *
+   * @return the retrievedUrl
+   */
+  public String retrievedUrl() {
+    return retrievedUrl;
+  }
+
+  /**
+   * Gets the usage.
+   *
+   * @return the usage
+   */
+  public Usage usage() {
+    return usage;
+  }
+
+  /**
+   * Gets the concepts.
+   *
+   * @return the concepts
+   */
+  public List<ConceptsResult> concepts() {
+    return concepts;
+  }
+
+  /**
+   * Gets the entities.
+   *
+   * @return the entities
+   */
+  public List<EntitiesResult> entities() {
+    return entities;
+  }
+
+  /**
+   * Gets the keywords.
+   *
+   * @return the keywords
+   */
+  public List<KeywordsResult> keywords() {
+    return keywords;
+  }
+
+  /**
+   * Gets the categories.
+   *
+   * @return the categories
+   */
+  public List<CategoriesResult> categories() {
+    return categories;
+  }
+
+  /**
+   * Gets the emotion.
+   *
+   * @return the emotion
+   */
+  public EmotionResult emotion() {
+    return emotion;
+  }
+
+  /**
+   * Gets the metadata.
+   *
+   * @return the metadata
+   */
+  public MetadataResult metadata() {
+    return metadata;
+  }
+
+  /**
+   * Gets the relations.
+   *
+   * @return the relations
+   */
+  public List<RelationsResult> relations() {
+    return relations;
+  }
+
+  /**
+   * Gets the semanticRoles.
+   *
+   * @return the semanticRoles
+   */
+  public List<SemanticRolesResult> semanticRoles() {
+    return semanticRoles;
+  }
+
+  /**
+   * Gets the sentiment.
+   *
+   * @return the sentiment
+   */
+  public SentimentResult sentiment() {
+    return sentiment;
+  }
+
+  /**
    * Adds the concepts.
    *
    * @param concepts the new concepts
@@ -104,123 +221,6 @@ public class AnalysisResults extends GenericModel {
    */
   public void addsemanticRoles(SemanticRolesResult semanticRoles) {
     this.semanticRoles.add(semanticRoles);
-  }
-
-  /**
-   * Gets the language.
-   *
-   * @return the language
-   */
-  public String getLanguage() {
-    return language;
-  }
-
-  /**
-   * Gets the analyzedText.
-   *
-   * @return the analyzedText
-   */
-  public String getAnalyzedText() {
-    return analyzedText;
-  }
-
-  /**
-   * Gets the retrievedUrl.
-   *
-   * @return the retrievedUrl
-   */
-  public String getRetrievedUrl() {
-    return retrievedUrl;
-  }
-
-  /**
-   * Gets the usage.
-   *
-   * @return the usage
-   */
-  public Usage getUsage() {
-    return usage;
-  }
-
-  /**
-   * Gets the concepts.
-   *
-   * @return the concepts
-   */
-  public List<ConceptsResult> getConcepts() {
-    return concepts;
-  }
-
-  /**
-   * Gets the entities.
-   *
-   * @return the entities
-   */
-  public List<EntitiesResult> getEntities() {
-    return entities;
-  }
-
-  /**
-   * Gets the keywords.
-   *
-   * @return the keywords
-   */
-  public List<KeywordsResult> getKeywords() {
-    return keywords;
-  }
-
-  /**
-   * Gets the categories.
-   *
-   * @return the categories
-   */
-  public List<CategoriesResult> getCategories() {
-    return categories;
-  }
-
-  /**
-   * Gets the emotion.
-   *
-   * @return the emotion
-   */
-  public EmotionResult getEmotion() {
-    return emotion;
-  }
-
-  /**
-   * Gets the metadata.
-   *
-   * @return the metadata
-   */
-  public MetadataResult getMetadata() {
-    return metadata;
-  }
-
-  /**
-   * Gets the relations.
-   *
-   * @return the relations
-   */
-  public List<RelationsResult> getRelations() {
-    return relations;
-  }
-
-  /**
-   * Gets the semanticRoles.
-   *
-   * @return the semanticRoles
-   */
-  public List<SemanticRolesResult> getSemanticRoles() {
-    return semanticRoles;
-  }
-
-  /**
-   * Gets the sentiment.
-   *
-   * @return the sentiment
-   */
-  public SentimentResult getSentiment() {
-    return sentiment;
   }
 
   /**

@@ -29,7 +29,7 @@ public class SemanticRolesVerb extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -38,7 +38,7 @@ public class SemanticRolesVerb extends GenericModel {
    *
    * @return the tense
    */
-  public String getTense() {
+  public String tense() {
     return tense;
   }
 

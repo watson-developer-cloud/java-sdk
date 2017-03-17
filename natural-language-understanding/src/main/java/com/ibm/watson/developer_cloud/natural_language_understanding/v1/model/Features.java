@@ -195,11 +195,20 @@ public class Features extends GenericModel {
   }
 
   /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the concepts.
    *
    * @return the concepts
    */
-  public ConceptsOptions getConcepts() {
+  public ConceptsOptions concepts() {
     return concepts;
   }
 
@@ -208,7 +217,7 @@ public class Features extends GenericModel {
    *
    * @return the emotion
    */
-  public EmotionOptions getEmotion() {
+  public EmotionOptions emotion() {
     return emotion;
   }
 
@@ -217,7 +226,7 @@ public class Features extends GenericModel {
    *
    * @return the entities
    */
-  public EntitiesOptions getEntities() {
+  public EntitiesOptions entities() {
     return entities;
   }
 
@@ -226,7 +235,7 @@ public class Features extends GenericModel {
    *
    * @return the keywords
    */
-  public KeywordsOptions getKeywords() {
+  public KeywordsOptions keywords() {
     return keywords;
   }
 
@@ -235,7 +244,7 @@ public class Features extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
+  public Map<String, Object> metadata() {
     return metadata;
   }
 
@@ -244,7 +253,7 @@ public class Features extends GenericModel {
    *
    * @return the relations
    */
-  public RelationsOptions getRelations() {
+  public RelationsOptions relations() {
     return relations;
   }
 
@@ -253,7 +262,7 @@ public class Features extends GenericModel {
    *
    * @return the semanticRoles
    */
-  public SemanticRolesOptions getSemanticRoles() {
+  public SemanticRolesOptions semanticRoles() {
     return semanticRoles;
   }
 
@@ -262,7 +271,7 @@ public class Features extends GenericModel {
    *
    * @return the sentiment
    */
-  public SentimentOptions getSentiment() {
+  public SentimentOptions sentiment() {
     return sentiment;
   }
 
@@ -271,89 +280,8 @@ public class Features extends GenericModel {
    *
    * @return the categories
    */
-  public Map<String, Object> getCategories() {
+  public Map<String, Object> categories() {
     return categories;
-  }
-
-  /**
-   * Sets the concepts.
-   *
-   * @param concepts the new concepts
-   */
-  public void setConcepts(final ConceptsOptions concepts) {
-    this.concepts = concepts;
-  }
-
-  /**
-   * Sets the emotion.
-   *
-   * @param emotion the new emotion
-   */
-  public void setEmotion(final EmotionOptions emotion) {
-    this.emotion = emotion;
-  }
-
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(final EntitiesOptions entities) {
-    this.entities = entities;
-  }
-
-  /**
-   * Sets the keywords.
-   *
-   * @param keywords the new keywords
-   */
-  public void setKeywords(final KeywordsOptions keywords) {
-    this.keywords = keywords;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map<String, Object> metadata) {
-    this.metadata = metadata;
-  }
-
-  /**
-   * Sets the relations.
-   *
-   * @param relations the new relations
-   */
-  public void setRelations(final RelationsOptions relations) {
-    this.relations = relations;
-  }
-
-  /**
-   * Sets the semanticRoles.
-   *
-   * @param semanticRoles the new semanticRoles
-   */
-  public void setSemanticRoles(final SemanticRolesOptions semanticRoles) {
-    this.semanticRoles = semanticRoles;
-  }
-
-  /**
-   * Sets the sentiment.
-   *
-   * @param sentiment the new sentiment
-   */
-  public void setSentiment(final SentimentOptions sentiment) {
-    this.sentiment = sentiment;
-  }
-
-  /**
-   * Sets the categories.
-   *
-   * @param categories the new categories
-   */
-  public void setCategories(final Map<String, Object> categories) {
-    this.categories = categories;
   }
 
 }

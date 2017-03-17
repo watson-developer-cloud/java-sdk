@@ -33,7 +33,7 @@ public class KeywordsResult extends GenericModel {
    *
    * @return the relevance
    */
-  public Double getRelevance() {
+  public Double relevance() {
     return relevance;
   }
 
@@ -42,7 +42,7 @@ public class KeywordsResult extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -51,7 +51,7 @@ public class KeywordsResult extends GenericModel {
    *
    * @return the emotion
    */
-  public EmotionScores getEmotion() {
+  public EmotionScores emotion() {
     return emotion;
   }
 
@@ -60,7 +60,7 @@ public class KeywordsResult extends GenericModel {
    *
    * @return the sentiment
    */
-  public FeatureSentimentResults getSentiment() {
+  public FeatureSentimentResults sentiment() {
     return sentiment;
   }
 

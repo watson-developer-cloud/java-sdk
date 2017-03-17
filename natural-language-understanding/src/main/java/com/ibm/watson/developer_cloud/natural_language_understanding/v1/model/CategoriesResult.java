@@ -29,7 +29,7 @@ public class CategoriesResult extends GenericModel {
    *
    * @return the label
    */
-  public String getLabel() {
+  public String label() {
     return label;
   }
 
@@ -38,7 +38,7 @@ public class CategoriesResult extends GenericModel {
    *
    * @return the score
    */
-  public Double getScore() {
+  public Double score() {
     return score;
   }
 

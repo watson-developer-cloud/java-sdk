@@ -29,7 +29,7 @@ public class TargetedSentimentResults extends GenericModel {
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -38,7 +38,7 @@ public class TargetedSentimentResults extends GenericModel {
    *
    * @return the score
    */
-  public Double getScore() {
+  public Double score() {
     return score;
   }
 

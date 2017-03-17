@@ -35,7 +35,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the anger
    */
-  public Double getAnger() {
+  public Double anger() {
     return anger;
   }
 
@@ -44,7 +44,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the disgust
    */
-  public Double getDisgust() {
+  public Double disgust() {
     return disgust;
   }
 
@@ -53,7 +53,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the fear
    */
-  public Double getFear() {
+  public Double fear() {
     return fear;
   }
 
@@ -62,7 +62,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the joy
    */
-  public Double getJoy() {
+  public Double joy() {
     return joy;
   }
 
@@ -71,7 +71,7 @@ public class EmotionScores extends GenericModel {
    *
    * @return the sadness
    */
-  public Double getSadness() {
+  public Double sadness() {
     return sadness;
   }
 

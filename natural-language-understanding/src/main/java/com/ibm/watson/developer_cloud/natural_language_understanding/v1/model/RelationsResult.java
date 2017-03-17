@@ -31,20 +31,11 @@ public class RelationsResult extends GenericModel {
   private List<RelationArgument> arguments;
 
   /**
-   * Adds the arguments.
-   *
-   * @param arguments the new arguments
-   */
-  public void addarguments(RelationArgument arguments) {
-    this.arguments.add(arguments);
-  }
-
-  /**
    * Gets the score.
    *
    * @return the score
    */
-  public Double getScore() {
+  public Double score() {
     return score;
   }
 
@@ -53,7 +44,7 @@ public class RelationsResult extends GenericModel {
    *
    * @return the sentence
    */
-  public String getSentence() {
+  public String sentence() {
     return sentence;
   }
 
@@ -62,7 +53,7 @@ public class RelationsResult extends GenericModel {
    *
    * @return the type
    */
-  public String getType() {
+  public String type() {
     return type;
   }
 
@@ -71,8 +62,17 @@ public class RelationsResult extends GenericModel {
    *
    * @return the arguments
    */
-  public List<RelationArgument> getArguments() {
+  public List<RelationArgument> arguments() {
     return arguments;
+  }
+
+  /**
+   * Adds the arguments.
+   *
+   * @param arguments the new arguments
+   */
+  public void addarguments(RelationArgument arguments) {
+    this.arguments.add(arguments);
   }
 
   /**

@@ -24,21 +24,21 @@ public class ListModelsResults extends GenericModel {
   private List<Model> models;
 
   /**
+   * Gets the models.
+   *
+   * @return the models
+   */
+  public List<Model> models() {
+    return models;
+  }
+
+  /**
    * Adds the models.
    *
    * @param models the new models
    */
   public void addmodels(Model models) {
     this.models.add(models);
-  }
-
-  /**
-   * Gets the models.
-   *
-   * @return the models
-   */
-  public List<Model> getModels() {
-    return models;
   }
 
   /**

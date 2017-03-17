@@ -27,20 +27,11 @@ public class EmotionResult extends GenericModel {
   private List<TargetedEmotionResults> targets;
 
   /**
-   * Adds the targets.
-   *
-   * @param targets the new targets
-   */
-  public void addtargets(TargetedEmotionResults targets) {
-    this.targets.add(targets);
-  }
-
-  /**
    * Gets the document.
    *
    * @return the document
    */
-  public DocumentEmotionResults getDocument() {
+  public DocumentEmotionResults document() {
     return document;
   }
 
@@ -49,8 +40,17 @@ public class EmotionResult extends GenericModel {
    *
    * @return the targets
    */
-  public List<TargetedEmotionResults> getTargets() {
+  public List<TargetedEmotionResults> targets() {
     return targets;
+  }
+
+  /**
+   * Adds the targets.
+   *
+   * @param targets the new targets
+   */
+  public void addtargets(TargetedEmotionResults targets) {
+    this.targets.add(targets);
   }
 
   /**
