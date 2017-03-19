@@ -26,10 +26,10 @@ import org.junit.Test;
 
 import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageEntity;
-import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageIntent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Entity;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceResponse;
@@ -482,8 +482,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
         MessageResponse mockResponse = loadFixture(MESSAGES_FIXTURE, MessageResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-        MessageRequest options = new MessageRequest.Builder().inputText(text).intent(new MessageIntent("turn_off", 0.0))
-                .entity(new MessageEntity("car", "ford", null)).alternateIntents(true).build();
+        MessageRequest options = new MessageRequest.Builder().inputText(text).intent(new Intent("turn_off", 0.0))
+                .entity(new Entity("car", "ford", null)).alternateIntents(true).build();
 
         // execute first request
         MessageResponse serviceResponse = service.message(WORKSPACE_ID, options).execute();
