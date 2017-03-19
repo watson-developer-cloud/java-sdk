@@ -13,8 +13,8 @@
 package com.ibm.watson.developer_cloud.conversation.v1;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceResponse;

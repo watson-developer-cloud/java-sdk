@@ -21,9 +21,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageIntent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.message.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 
 /**
  * Integration test for the {@link ConversationService}.
@@ -77,7 +77,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
           new MessageRequest.Builder().inputText(message).alternateIntents(true).context(context).build();
 
       if (message.equals("yes")) {
-        request = request.newBuilder().intent(new MessageIntent("off_topic", 1.0)).build();
+        request = request.newBuilder().intent(new Intent("off_topic", 1.0)).build();
       }
       MessageResponse response = service.message(workspaceId, request).execute();
 
