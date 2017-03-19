@@ -15,6 +15,7 @@ package com.ibm.watson.developer_cloud.conversation.v1;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MultipleRecordsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceResponse;
@@ -43,15 +44,19 @@ public final class ConversationService extends WatsonService {
     public static final String VERSION_DATE_2016_09_20 = "2016-09-20";
     /** The Constant VERSION_DATE_2016-07-11. */
     public static final String VERSION_DATE_2016_07_11 = "2016-07-11";
-    private static final String URL = "https://gateway.watsonplatform.net/conversation/api";
-    private static final String SERVICE_NAME = "conversation";
-    private static final String PATH_MESSAGE = "/v1/workspaces/%s/message";
-    private static final String PATH_INTENTS = "/v1/workspaces/%s/intents";
-    private static final String PATH_INTENT = "/v1/workspaces/%s/intents/%s";
-    private static final String PATH_WORKSPACES = "/v1/workspaces";
-    private static final String PATH_WORKSPACE = "/v1/workspaces/%s";
-    private static final String VERSION_PARAM = "version";
-    private static final String EXPORT_PARAM = "export";
+    public static final String URL = "https://gateway.watsonplatform.net/conversation/api";
+    public static final String SERVICE_NAME = "conversation";
+    public static final String PATH_MESSAGE = "/v1/workspaces/%s/message";
+    public static final String PATH_INTENTS = "/v1/workspaces/%s/intents";
+    public static final String PATH_INTENT = "/v1/workspaces/%s/intents/%s";
+    public static final String PATH_WORKSPACES = "/v1/workspaces";
+    public static final String PATH_WORKSPACE = "/v1/workspaces/%s";
+    public static final String VERSION_PARAM = "version";
+    public static final String EXPORT_PARAM = "export";
+    public static final String CURSOR_PARAM = "cursor";
+    public static final String INCLUDE_COUNT_PARAM = "include_count";
+    public static final String SORT_PARAM = "sort";
+    public static final String PAGE_LIMIT_PARAM = "page_limit";
 
     private final String versionDate;
 
@@ -89,10 +94,22 @@ public final class ConversationService extends WatsonService {
 
     /**
      * Retrieves the workspace list to the service.
+     * @param options instructions how to return the list. see {@link MultipleRecordsOptions}
+     * @return The list of workspaces.
+     */
+    public ServiceCall<WorkspaceListResponse> listWorkspaces(MultipleRecordsOptions options) {
+        RequestBuilder builder = RequestBuilder.get(String.format(PATH_WORKSPACES));
+        builder.query(VERSION_PARAM, versionDate);
+        buildMultiRecordsOptions(options, builder);
+        return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceListResponse.class));
+    }
+    
+    /**
+     * Retrieves the workspace list to the service.
      *
      * @return The list of workspaces.
      */
-    public ServiceCall<WorkspaceListResponse> getWorkspaces() {
+    public ServiceCall<WorkspaceListResponse> listWorkspaces() {
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_WORKSPACES));
         builder.query(VERSION_PARAM, versionDate);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceListResponse.class));
@@ -169,26 +186,44 @@ public final class ConversationService extends WatsonService {
      * @param export Whether to include all element content in the returned data.
      * If export=false, the returned data includes only information about the element itself.
      * If export=true, all content, including subelements, is included.
+     * @param options see  {@link MultipleRecordsOptions}
      * @return The list of intents for a given workspace.
      */
-    public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export) {
+    public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export, MultipleRecordsOptions options) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_INTENTS, workspaceId));
         builder.query(VERSION_PARAM, versionDate);
-        builder.query(EXPORT_PARAM, export);
+        if(export)
+        	builder.query(EXPORT_PARAM, export);
+        buildMultiRecordsOptions(options, builder);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentListResponse.class));
     }
 
+	private void buildMultiRecordsOptions(MultipleRecordsOptions options, RequestBuilder builder) {
+		if(options==null)
+			return;
+    	if(options.getCursor()!=null)
+    		builder.query(CURSOR_PARAM, options.getCursor());
+		if(options.getIncludeCount())
+    		builder.query(INCLUDE_COUNT_PARAM, options.getIncludeCount());
+		if(options.getPageLimit()!=0)
+    		builder.query(PAGE_LIMIT_PARAM, options.getPageLimit());
+    	if(options.getSort()!=null)
+    		builder.query(SORT_PARAM, options.getSort());
+	}
+
     /**
-     * Retrieves the intent list to the service (without sub-elements).
+     * Retrieves the intent list to the service (without sub-elements, with default page size and default sort order).
      *
      * @param workspaceId the workspace id
      * @return The list of intents for a given workspace.
      */
     public ServiceCall<IntentListResponse> getIntents(String workspaceId) {
-        return getIntents(workspaceId, false);
+        return getIntents(workspaceId, false, null);
     }
+    
+    
     /**
      * Retrieves a specific intent for the service through a
      * {@link WorkspaceRequest}.
