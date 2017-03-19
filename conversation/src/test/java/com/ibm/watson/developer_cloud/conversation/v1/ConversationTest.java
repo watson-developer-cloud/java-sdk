@@ -12,24 +12,28 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Entity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.JsonConstants;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MultipleRecordsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceResponse;
@@ -106,7 +110,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         server.enqueue(jsonResponse(mockResponse));
 
         // Execute get intent list
-        WorkspaceListResponse serviceResponse = service.getWorkspaces().execute();
+        WorkspaceListResponse serviceResponse = service.listWorkspaces().execute();
 
         // first request
         RecordedRequest request = server.takeRequest();
@@ -274,6 +278,36 @@ public class ConversationTest extends WatsonServiceUnitTest {
     }
 
     /**
+     * Test get intent list with records options.
+     *
+     * @throws IOException Signals that an I/O exception has occurred.
+     * @throws InterruptedException the interrupted exception
+     */
+    @Test
+    public void testGetIntentsWOptions() throws IOException, InterruptedException {
+        IntentListResponse mockResponse = loadFixture(INTENTS_FIXTURE, IntentListResponse.class);
+        server.enqueue(jsonResponse(mockResponse));
+
+        // Execute get intent list
+        MultipleRecordsOptions ops = new MultipleRecordsOptions();
+        ops.setCursor("c1");
+        ops.setIncludeCount(true);
+        ops.setPageLimit(50);
+        ops.setSort("id");
+        IntentListResponse serviceResponse = service.getIntents(WORKSPACE_ID, true, ops).execute();
+
+        // first request
+        RecordedRequest request = server.takeRequest();
+
+        String path = request.getPath();
+        String qStr = path.substring(path.indexOf("?")+1);
+		List<String> parts = Arrays.asList(qStr.split("&"));
+		assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.CURSOR_PARAM, "c1")));
+		assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.INCLUDE_COUNT_PARAM, "true")));
+		assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.PAGE_LIMIT_PARAM, "50")));
+		assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.SORT_PARAM, "id")));
+    }
+    /**
      * Test get intent list.
      *
      * @throws IOException Signals that an I/O exception has occurred.
@@ -290,8 +324,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         // first request
         RecordedRequest request = server.takeRequest();
 
-        String path = StringUtils.join(PATH_INTENTS, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03,
-                "&", EXPORT, "=", "false");
+        String path = StringUtils.join(PATH_INTENTS, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
         assertEquals(path, request.getPath());
 
         assertNotNull(serviceResponse.getIntents());

@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The response payload from the Conversation service's workspace list API call
- * {@link ConversationService#getWorkspaces()}.
+ * {@link ConversationService#listWorkspaces()}.
  *
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">
  *      http://www.ibm.com/ watson/developercloud/conversation.html</a>
