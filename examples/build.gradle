@@ -33,5 +33,5 @@ checkstyle {
 }
 
 dependencies {
-    compile group: 'com.ibm.watson.developer_cloud', name: 'java-sdk', version: '3.6.0'
+    compile group: 'com.ibm.watson.developer_cloud', name: 'java-sdk', version: '3.7.0'
 }
