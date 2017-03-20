@@ -83,6 +83,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Default test for HTML input.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeHtmlIsSuccessful() throws Exception {
@@ -103,6 +105,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Default test for text input.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeTextIsSuccessful() throws Exception {
@@ -122,6 +126,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Default test for URL input.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeUrlIsSuccessful() throws Exception {
@@ -146,6 +152,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze given test input text for concepts.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeTextForConceptsIsSuccessful() throws Exception {
@@ -183,6 +191,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze test HTML for concepts.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeHtmlForConceptsIsSuccessful() throws Exception {
@@ -209,6 +219,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze input text for emotions without targets.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeTextForEmotionsWithoutTargetsIsSuccessful() throws Exception {
@@ -242,6 +254,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze input text for entities.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeTextForEntitiesIsSuccessful() throws Exception {
@@ -253,7 +267,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .limit(2)
         .sentiment(true)
         .build();
-    
+
     Features features = new Features.Builder()
         .entities(entities)
         .build();
@@ -282,6 +296,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze input text for keywords.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeTextForKeywordsIsSuccessful() throws Exception {
@@ -311,6 +327,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze html input for metadata.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeHtmlForMetadataIsSuccessful() throws Exception {
@@ -346,6 +364,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze input text for relations.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeTextForRelationsIsSuccessful() throws Exception {
@@ -363,6 +383,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze input text for semantic roles.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeTextForSemanticRolesIsSuccessful() throws Exception {
@@ -398,6 +420,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze input text for sentiment with targets.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeTextForSentimentWithTargetsIsSuccessful() throws Exception {
@@ -426,6 +450,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze input text for sentiment without targets.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeTextForSentimentWithoutTargetsIsSuccessful() throws Exception {
@@ -449,6 +475,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /**
    * Analyze input text for categories.
+   *
+   * @throws Exception the exception
    */
   @Test
   public void analyzeTextForCategoriesIsSuccessful() throws Exception {
