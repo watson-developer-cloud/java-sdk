@@ -1,6 +1,3 @@
-// Top-level build file where you can add configuration options common to all sub-projects/modules.
-apply plugin: 'eclipse'
-
 buildscript {
   repositories {
     jcenter()
@@ -15,8 +12,129 @@ buildscript {
   }
 }
 
-allprojects {
-  repositories {
-    jcenter()
-  }
+plugins {
+    id 'ru.vyarus.animalsniffer' version '1.2.0'
+}
+
+defaultTasks 'clean'
+
+apply from: '../utils.gradle'
+import org.apache.tools.ant.filters.*
+
+apply plugin: 'java'
+apply plugin: 'ru.vyarus.animalsniffer'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'eclipse'
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+repositories {
+    mavenCentral()
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+signArchives {
+    onlyIf { Task task ->
+        def shouldExec = false
+        for (myArg in project.gradle.startParameter.taskRequests[0].args) {
+            if (myArg.toLowerCase().contains('signjars') || myArg.toLowerCase().contains('uploadarchives')) {
+                shouldExec = true
+            }
+        }
+        return shouldExec
+    }
+}
+
+
+dependencies {
+    compile project(':alchemy')
+    compile project(':conversation')
+    compile project(':core')
+    compile project(':dialog')
+    compile project(':discovery')
+    compile project(':document-conversion')
+    compile project(':language-translation')
+    compile project(':language-translator')
+    compile project(':natural-language-classifier')
+    compile project(':natural-language-understanding')
+    compile project(':personality-insights')
+    compile project(':retrieve-and-rank')
+    compile project(':speech-to-text')
+    compile project(':text-to-speech')
+    compile project(':tone-analyzer')
+    compile project(':tradeoff-analytics')
+    compile project(':visual-recognition')
+    
+    testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.6.0'
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+    testCompile group: 'com.google.guava', name: 'guava', version: '19.0'
+    testCompile group: 'junit', name: 'junit-dep', version: '4.11'
+    signature 'org.codehaus.mojo.signature:java17:1.0@signature'
+}
+
+processResources {
+    filter ReplaceTokens, tokens: [
+            "pom.version": project.version,
+            "build.date" : getDate()
+    ]
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "http://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
+            }
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/"){
+                authentication(userName: System.env.CI_DEPLOY_USERNAME, password: System.env.CI_DEPLOY_PASSWORD)
+            }
+            pom.project {
+                name 'android-utils'
+                packaging 'jar'
+                // optionally artifactId can be defined here
+                description 'Android Client library to use the IBM Watson services'
+                url 'https://www.ibm.com/watson/developercloud/speech-to-text.html'
+
+                scm {
+                    connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
+                    developerConnection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
+                    url 'https://github.com/watson-developer-cloud/java-sdk'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'german'
+                        name 'German Attanasio'
+                        email 'germanatt@us.ibm.com'
+                    }
+                }
+            }
+        }
+    }
 }

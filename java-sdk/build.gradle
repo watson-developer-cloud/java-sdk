@@ -49,7 +49,7 @@ signArchives {
     onlyIf { Task task ->
         def shouldExec = false
         for (myArg in project.gradle.startParameter.taskRequests[0].args) {
-            if (myArg.toLowerCase().contains("signjars") || myArg.toLowerCase().contains("uploadarchives")) {
+            if (myArg.toLowerCase().contains('signjars') || myArg.toLowerCase().contains('uploadarchives')) {
                 shouldExec = true
             }
         }
@@ -89,6 +89,7 @@ dependencies {
     compile project(':language-translation')
     compile project(':language-translator')
     compile project(':natural-language-classifier')
+    compile project(':natural-language-understanding')
     compile project(':personality-insights')
     compile project(':retrieve-and-rank')
     compile project(':speech-to-text')
