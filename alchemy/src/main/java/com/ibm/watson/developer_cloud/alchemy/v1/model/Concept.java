@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -78,6 +78,28 @@ public class Concept extends GenericModel {
    * The link to YAGO for the disambiguated entity. Note: Provided only for entities that exist in this linked data-set.
    */
   private String yago;
+
+
+  /** The knowledge graph. */
+  private KnowledgeGraph knowledgeGraph;
+  
+  /**
+   * Gets the knowledge graph.
+   *
+   * @return the knowledge graph
+   */
+  public KnowledgeGraph getKnowledgeGraph() {
+    return knowledgeGraph;
+  }
+
+  /**
+   * Sets the knowledge graph.
+   *
+   * @param knowledgeGraph the new knowledge graph
+   */
+  public void setKnowledgeGraph(KnowledgeGraph knowledgeGraph) {
+    this.knowledgeGraph = knowledgeGraph;
+  }
 
   /**
    * Gets the census.
