@@ -3,10 +3,9 @@ Change Log
 
 ## Version 3.7.0
 
-_2017-03-16_
+_2017-03-19_
 
  * New: Added Natural Language Understanding
- * Fix: IBM JDK Cipher suite [#610](https://github.com/watson-developer-cloud/java-sdk/issues/610).
  * Fix: Text-to-Speech failed with combine of special characters, e.g Spanish + ";" bug text-to-speech #602
  * Fix: Alchemy Language - CombinedResults missing Emotion #545
 
