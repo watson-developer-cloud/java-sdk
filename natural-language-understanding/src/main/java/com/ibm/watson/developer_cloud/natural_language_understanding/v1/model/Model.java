@@ -24,7 +24,7 @@ public class Model extends GenericModel {
   private String status;
   /** Unique model ID. */
   @SerializedName("model_id")
-  private String modelID;
+  private String modelId;
   /** ISO 639-1 code indicating the language of the model. */
   private String language;
   /** Model description. */
@@ -40,12 +40,12 @@ public class Model extends GenericModel {
   }
 
   /**
-   * Gets the modelID.
+   * Gets the modelId.
    *
-   * @return the modelID
+   * @return the modelId
    */
-  public String getModelID() {
-    return modelID;
+  public String getModelId() {
+    return modelId;
   }
 
   /**
@@ -76,12 +76,12 @@ public class Model extends GenericModel {
   }
 
   /**
-   * Sets the modelID.
+   * Sets the modelId.
    *
-   * @param modelID the new modelID
+   * @param modelId the new modelId
    */
-  public void setModelID(final String modelID) {
-    this.modelID = modelID;
+  public void setModelId(final String modelId) {
+    this.modelId = modelId;
   }
 
   /**
