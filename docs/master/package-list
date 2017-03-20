@@ -24,6 +24,8 @@ com.ibm.watson.developer_cloud.language_translator.v2
 com.ibm.watson.developer_cloud.language_translator.v2.model
 com.ibm.watson.developer_cloud.natural_language_classifier.v1
 com.ibm.watson.developer_cloud.natural_language_classifier.v1.model
+com.ibm.watson.developer_cloud.natural_language_understanding.v1
+com.ibm.watson.developer_cloud.natural_language_understanding.v1.model
 com.ibm.watson.developer_cloud.personality_insights.v2
 com.ibm.watson.developer_cloud.personality_insights.v2.model
 com.ibm.watson.developer_cloud.personality_insights.v3
