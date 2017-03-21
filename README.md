@@ -14,6 +14,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Usage](#usage)
   * [Getting the Service Credentials](#getting-the-service-credentials)
   * [Questions](#questions)
+  * [Android](android-utils)
   * IBM Watson Services
     * [Alchemy Language](alchemy)
     * [Alchemy Vision](alchemy)
@@ -26,6 +27,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
     * [Language Translation](language-translation)
     * [Language Translator](language-translator)
     * [Natural Language Classifier](natural-language-classifier)
+    * [Natural Language Understanding](natural-language-understanding)
     * [Personality Insights](personality-insights)
     * [Retrieve and Rank](retrieve-and-rank)
     * [Speech to Text](speech-to-text)
@@ -51,7 +53,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>3.6.0</version>
+	<version>3.7.0</version>
 </dependency>
 ```
 
@@ -60,7 +62,7 @@ Only Retrieve and Rank:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>retrieve-and-rank</artifactId>
-	<version>3.6.0</version>
+	<version>3.7.0</version>
 </dependency>
 ```
 
@@ -68,17 +70,17 @@ Only Retrieve and Rank:
 
 All the services:
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:3.6.0'
+'com.ibm.watson.developer_cloud:java-sdk:3.7.0'
 ```
 
 Only Retrieve and Rank:
 ```gradle
-'com.ibm.watson.developer_cloud:retrieve-and-rank:3.6.0'
+'com.ibm.watson.developer_cloud:retrieve-and-rank:3.7.0'
 ```
 
 Only Visual Recognition:
 ```gradle
-'com.ibm.watson.developer_cloud:visual-recognition:3.6.0'
+'com.ibm.watson.developer_cloud:visual-recognition:3.7.0'
 ```
 
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
@@ -255,7 +257,7 @@ Gradle:
 
   ```sh
   $ cd java-sdk
-  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.6.0.jar)
+  $ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.7.0.jar)
   $ gradle test # run tests
   $ gradle check # performs quality checks on source files and generates reports
   $ gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
@@ -292,4 +294,4 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.6.0/java-sdk-3.6.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.7.0/java-sdk-3.7.0-jar-with-dependencies.jar

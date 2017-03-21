@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,7 +26,7 @@ public class WordData extends Word {
   private List<String> source;
 
   @SerializedName("error")
-  private List<Map> errors;
+  private List<Map<String, String>> errors;
 
   /**
    * Gets the count for the number of sources from which the word has been added to the model's words resource.
@@ -51,7 +51,7 @@ public class WordData extends Word {
    *
    * @return The errors
    */
-  public List<Map> getErrors() {
+  public List<Map<String, String>> getErrors() {
     return errors;
   }
 
@@ -78,7 +78,7 @@ public class WordData extends Word {
    *
    * @param errors The errors
    */
-  public void setErrors(List<Map> errors) {
+  public void setErrors(List<Map<String, String>> errors) {
     this.errors = errors;
   }
 
