@@ -1,16 +1,7 @@
-buildscript {
-  repositories { jcenter() }
-
-  dependencies {
-    classpath 'com.netflix.nebula:gradle-aggregate-javadocs-plugin:2.2.+'
-  }
-}
-
 plugins {
   id 'net.researchgate.release' version '2.4.0'
 }
 
-apply plugin: 'nebula-aggregate-javadocs'
 apply from: 'utils.gradle'
 apply plugin: 'java'
 apply plugin: 'checkstyle'
@@ -28,11 +19,6 @@ javadoc {
 
 task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
-  exclude {
-//    subprojects.each {
-//      '**/src/test/**'
-//    }
-  }
 }
 
 task copyJars(type: Copy) {
@@ -59,10 +45,6 @@ allprojects {
 
 subprojects {
 
-    rootProject.tasks.docs {
-      exclude 'alchemy/src/test/**'
-    }
-
   checkstyleTest {
     ignoreFailures = true
   }
@@ -70,7 +52,7 @@ subprojects {
   afterEvaluate {
     if (plugins.hasPlugin(JavaPlugin)) {
       rootProject.tasks.docs {
-        source += files(sourceSets.collect { srcSet -> srcSet.allJava })
+        source += files(sourceSets.main.allJava)
         classpath += files(sourceSets*.compileClasspath)
       }
     }
