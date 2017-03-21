@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -11,9 +11,6 @@
  * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model;
-
-import java.util.List;
-import java.util.Map;
 
 /**
  * How much one option is better than another for a particular objective.

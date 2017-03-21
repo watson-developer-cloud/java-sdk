@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -45,7 +45,6 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   private static final String MODEL_NAME = "test model";
   private static final String MODEL_LANGUAGE = "en-US";
-  private static final String MODEL_LANGUAGE_JAPANESE = "ja-JP";
   private static final String MODEL_DESCRIPTION = "a simple model for testing purposes";
 
   private static final String ID = "customization_id";
