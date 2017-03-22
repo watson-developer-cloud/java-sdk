@@ -41,7 +41,7 @@ signArchives {
     onlyIf { Task task ->
         def shouldExec = false
         for (myArg in project.gradle.startParameter.taskRequests[0].args) {
-            if (myArg.toLowerCase().contains("signjars") || myArg.toLowerCase().contains("uploadarchives")) {
+            if (myArg.toLowerCase().contains('signjars') || myArg.toLowerCase().contains('uploadarchives')) {
                 shouldExec = true
             }
         }
@@ -87,7 +87,7 @@ uploadArchives {
                 packaging 'jar'
                 // optionally artifactId can be defined here
                 description 'Client library to use the IBM Watson Speech to Text Service'
-                url 'http://www.example.com/example-application'
+                url 'https://www.ibm.com/watson/developercloud/speech-to-text.html'
 
                 scm {
                     connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
