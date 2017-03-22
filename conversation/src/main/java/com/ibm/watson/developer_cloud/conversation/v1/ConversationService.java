@@ -20,10 +20,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceE
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateIntent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.Intent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentExportResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentResponse;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
@@ -235,7 +234,7 @@ public final class ConversationService extends WatsonService {
      * @param payload the new data
      * @return The intent for a given workspace.
      */
-    public ServiceCall<IntentResponse> createIntent(String workspaceId, Intent payload) {
+    public ServiceCall<IntentResponse> createIntent(String workspaceId, CreateIntent payload) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.post(String.format(PATH_INTENTS, workspaceId));
@@ -304,7 +303,7 @@ public final class ConversationService extends WatsonService {
      * @param payload the new data
      * @return The intent for a given workspace.
      */
-    public ServiceCall<IntentResponse> updateIntent(String workspaceId, String intentId, Intent payload) {
+    public ServiceCall<IntentResponse> updateIntent(String workspaceId, String intentId, CreateIntent payload) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
         Validator.isTrue((intentId != null) && !intentId.isEmpty(), "'intentId' cannot be null or empty");
 
