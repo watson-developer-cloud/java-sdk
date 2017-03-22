@@ -27,7 +27,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class WorkspaceListResponse extends GenericModel {
 
-    private List<Workspace> workspaces;
+    private List<WorkspaceResponse> workspaces;
     private Pagination pagination;
 
     /**
@@ -35,17 +35,8 @@ public class WorkspaceListResponse extends GenericModel {
      *
      * @return an array of {@link Workspace}.
      */
-    public List<Workspace> getworkspaces() {
+    public List<WorkspaceResponse> getworkspaces() {
         return workspaces;
-    }
-
-    /**
-     * Sets a list of workspaces.
-     *
-     * @param workspaces set the array of {@link Workspace} of workspaces on a workspace.
-     */
-    public void setworkspaces(List<Workspace> workspaces) {
-        this.workspaces = workspaces;
     }
 
     /**
@@ -57,12 +48,4 @@ public class WorkspaceListResponse extends GenericModel {
         return pagination;
     }
 
-    /**
-     * Sets the {@link Pagination} options for the list.
-     *
-     * @param pagination set the Pagination options for the workspace list.
-     */
-    public void setPagination(Pagination pagination) {
-        this.pagination = pagination;
-    }
 }

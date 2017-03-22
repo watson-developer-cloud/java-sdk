@@ -27,89 +27,28 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">
  *      http://www.ibm.com/ watson/developercloud/conversation.html</a>
  */
-public class WorkspaceResponse extends GenericModel {
-
-    private String name;
-    private String description;
-    private String language;
-    private Object metadata;
+public class WorkspaceResponse extends Workspace {
+	
+	private WorkspaceStatus status;
+	
     private String created;
+    
     private String updated;
 
     @SerializedName(JsonConstants.WORKSPACE_ID)
     private String workspaceID;
 
     /**
-     * @return the name
-     */
-    public String getName() {
-        return name;
-    }
-    /**
-     * @param name the name to set
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-    /**
-     * @return the description
-     */
-    public String getDescription() {
-        return description;
-    }
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-    /**
-     * @return the language
-     */
-    public String getLanguage() {
-        return language;
-    }
-    /**
-     * @param language the language to set
-     */
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-    /**
-     * @return the metadata
-     */
-    public Object getMetadata() {
-        return metadata;
-    }
-    /**
-     * @param metadata the metadata to set
-     */
-    public void setMetadata(Object metadata) {
-        this.metadata = metadata;
-    }
-    /**
-     * @return the created
+     * @return The timestamp for creation of the workspace.
      */
     public String getCreated() {
         return created;
     }
     /**
-     * @param created the created to set
-     */
-    public void setCreated(String created) {
-        this.created = created;
-    }
-    /**
-     * @return the updated
+     * @return The timestamp for the last update to the workspace.
      */
     public String getUpdated() {
         return updated;
-    }
-    /**
-     * @param updated the updated to set
-     */
-    public void setUpdated(String updated) {
-        this.updated = updated;
     }
     /**
      * @return the workspaceID
@@ -117,11 +56,11 @@ public class WorkspaceResponse extends GenericModel {
     public String getWorkspaceID() {
         return workspaceID;
     }
-    /**
-     * @param workspaceID the workspaceID to set
-     */
-    public void setWorkspaceID(String workspaceID) {
-        this.workspaceID = workspaceID;
-    }
+	/**
+	 * @return The current status of the workspace
+	 */
+	public WorkspaceStatus getStatus() {
+		return status;
+	}
 
 }
