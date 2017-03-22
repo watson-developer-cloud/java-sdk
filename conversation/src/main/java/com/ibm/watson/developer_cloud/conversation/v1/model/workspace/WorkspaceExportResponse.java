@@ -3,8 +3,6 @@ package com.ibm.watson.developer_cloud.conversation.v1.model.workspace;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
-import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest.Builder;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.entity.CreateEntity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateExample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateIntent;

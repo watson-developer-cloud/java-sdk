@@ -21,7 +21,6 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.entity.Cre
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateExample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateIntent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.nodes.CreateDialogNode;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Object that represents the workspace of a conversation workspace. This is
