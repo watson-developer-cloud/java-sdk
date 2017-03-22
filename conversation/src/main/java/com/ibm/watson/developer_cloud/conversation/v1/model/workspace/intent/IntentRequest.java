@@ -129,6 +129,22 @@ public class IntentRequest extends GenericModel {
             examples.add(example);
             return this;
         }
+        
+        /**
+         * Adds examples {@link IntentExample} to the list of examples to be
+         * send as part of the request.
+         *
+         * @param examples examples to add
+         * @return the builder
+         */
+        public Builder addExamples(List<IntentExample> examples) {
+            if (this.examples == null) {
+            	this.examples = new ArrayList<IntentExample>();
+            }
+
+            this.examples.addAll(examples);
+            return this;
+        }
     }
 
     private String intent;

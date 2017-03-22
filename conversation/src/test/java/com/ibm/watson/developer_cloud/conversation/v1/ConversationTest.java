@@ -42,7 +42,6 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.Int
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentResponse;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
-
 import okhttp3.mockwebserver.RecordedRequest;
 
 /**
@@ -358,41 +357,58 @@ public class ConversationTest extends WatsonServiceUnitTest {
         IntentResponse mockResponse = loadFixture(INTENT_FIXTURE, IntentResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-        IntentRequest options = new IntentRequest.Builder().setCreated(TEST_INTENT_CREATED)
-                .setUpdated(TEST_INTENT_UPDATED).setDescription(TEST_INTENT_DESCRIPTION).setIntent(TEST_INTENT)
-                .addExample(new IntentExample(TEST_INTENT_EXAMPLE_TEXT, TEST_INTENT_EXAMPLE_CREATED,
-                        TEST_INTENT_EXAMPLE_UPDATED))
+        IntentExample example = new IntentExample(TEST_INTENT_EXAMPLE_TEXT, TEST_INTENT_EXAMPLE_CREATED, TEST_INTENT_EXAMPLE_UPDATED);
+        IntentExample example2 = new IntentExample("aaa");
+        IntentExample example3 = new IntentExample("bbb");
+        
+		IntentRequest intReq = new IntentRequest.Builder()
+				.setCreated(TEST_INTENT_CREATED)
+                .setUpdated(TEST_INTENT_UPDATED)
+                .setDescription(TEST_INTENT_DESCRIPTION)
+                .setIntent(TEST_INTENT)
+                .addExample(example)
+                .addExamples(Arrays.asList(example2, example3))
                 .build();
-
-        IntentResponse serviceResponse = service.createIntent(WORKSPACE_ID, options).execute();
+	     
+		IntentResponse response = service.createIntent(WORKSPACE_ID, intReq).execute();
         RecordedRequest request = server.takeRequest();
 
+        //assert request
         String path = StringUtils.join(PATH_INTENTS, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
         assertEquals(path, request.getPath());
 
-        assertEquals(TEST_INTENT, serviceResponse.getIntent());
-        assertEquals(TEST_INTENT_CREATED, serviceResponse.getCreated());
-        assertEquals(TEST_INTENT_UPDATED, serviceResponse.getUpdated());
-        assertEquals(TEST_INTENT_DESCRIPTION, serviceResponse.getDescription());
-
-        assertNotNull(serviceResponse.getExamples());
-        assertNotNull(serviceResponse.getExamples().get(0));
-        assertNotNull(serviceResponse.getExamples().get(0).getText());
-        assertEquals(TEST_INTENT_EXAMPLE_TEXT, serviceResponse.getExamples().get(0).getText());
-        assertNotNull(serviceResponse.getExamples().get(0).getCreated());
-        assertEquals(TEST_INTENT_EXAMPLE_CREATED, serviceResponse.getExamples().get(0).getCreated());
-        assertNotNull(serviceResponse.getExamples().get(0).getUpdated());
-        assertEquals(TEST_INTENT_EXAMPLE_UPDATED, serviceResponse.getExamples().get(0).getUpdated());
-
         assertEquals(request.getMethod(), "POST");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        assertEquals("{\"intent\":\"".concat(TEST_INTENT).concat("\",\"created\":\"").concat(TEST_INTENT_CREATED)
-                .concat("\",\"updated\":\"").concat(TEST_INTENT_UPDATED).concat("\",\"description\":\"")
-                .concat(TEST_INTENT_DESCRIPTION).concat("\",\"examples\":[{\"text\":\"")
-                .concat(TEST_INTENT_EXAMPLE_TEXT).concat("\",\"created\":\"").concat(TEST_INTENT_EXAMPLE_CREATED)
-                .concat("\",\"updated\":\"").concat(TEST_INTENT_EXAMPLE_CREATED).concat("\"}]}"),
-                request.getBody().readUtf8());
-        assertEquals(serviceResponse, mockResponse);
+        
+        IntentRequest actPayload = new Gson().fromJson(request.getBody().readUtf8(), IntentRequest.class);
+        assertEquals(TEST_INTENT, actPayload.getIntent());
+        assertEquals(TEST_INTENT_CREATED, actPayload.getCreated());
+        assertEquals(TEST_INTENT_UPDATED, actPayload.getUpdated());
+        assertEquals(TEST_INTENT_DESCRIPTION, actPayload.getDescription());
+        assertEquals(3, actPayload.getExamples().size());
+        IntentExample actEx0 = actPayload.getExamples().get(0);
+		assertEquals(TEST_INTENT_EXAMPLE_TEXT, actEx0.getText());
+		assertEquals(TEST_INTENT_EXAMPLE_CREATED, actEx0.getCreated());
+		assertEquals(TEST_INTENT_EXAMPLE_UPDATED, actEx0.getUpdated());
+		assertEquals("aaa", actPayload.getExamples().get(1).getText());
+		assertEquals("bbb", actPayload.getExamples().get(2).getText());  
+
+        //assert response
+        assertEquals(TEST_INTENT, response.getIntent());
+        assertEquals(TEST_INTENT_CREATED, response.getCreated());
+        assertEquals(TEST_INTENT_UPDATED, response.getUpdated());
+        assertEquals(TEST_INTENT_DESCRIPTION, response.getDescription());
+
+        List<IntentExample> examples = response.getExamples();
+		assertEquals(3, examples.size());
+        IntentExample example0 = examples.get(0);
+        assertEquals(TEST_INTENT_EXAMPLE_TEXT, example0.getText());
+        assertEquals(TEST_INTENT_EXAMPLE_CREATED, example0.getCreated());
+        assertEquals(TEST_INTENT_EXAMPLE_UPDATED, example0.getUpdated());
+        assertEquals("aaa", examples.get(1).getText());
+        assertEquals("bbb", examples.get(2).getText());
+
+        assertEquals(response, mockResponse);
     }
 
     /**
@@ -441,13 +457,11 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertEquals(TEST_INTENT_DESCRIPTION, serviceResponse.getDescription());
 
         assertNotNull(serviceResponse.getExamples());
-        assertNotNull(serviceResponse.getExamples().get(0));
-        assertNotNull(serviceResponse.getExamples().get(0).getText());
-        assertEquals(TEST_INTENT_EXAMPLE_TEXT, serviceResponse.getExamples().get(0).getText());
-        assertNotNull(serviceResponse.getExamples().get(0).getCreated());
-        assertEquals(TEST_INTENT_EXAMPLE_CREATED, serviceResponse.getExamples().get(0).getCreated());
-        assertNotNull(serviceResponse.getExamples().get(0).getUpdated());
-        assertEquals(TEST_INTENT_EXAMPLE_UPDATED, serviceResponse.getExamples().get(0).getUpdated());
+        IntentExample example0 = serviceResponse.getExamples().get(0);
+		assertNotNull(example0);
+        assertEquals(TEST_INTENT_EXAMPLE_TEXT, example0.getText());
+        assertEquals(TEST_INTENT_EXAMPLE_CREATED, example0.getCreated());
+        assertEquals(TEST_INTENT_EXAMPLE_UPDATED, example0.getUpdated());
 
         assertEquals(request.getMethod(), "GET");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
