@@ -27,24 +27,24 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class IntentListResponse extends GenericModel {
 
-    private List<Intent> intents;
+    private List<IntentExportResponse> intents;
     private Pagination pagination;
 
     /**
      * Returns a list of intents attached to a given workspace.
      *
-     * @return an array of {@link Intent} the provided examples that can trigger an intent.
+     * @return an array of {@link IntentExportResponse} the provided examples that can trigger an intent.
      */
-    public List<Intent> getIntents() {
+    public List<IntentExportResponse> getIntents() {
         return intents;
     }
 
     /**
      * Sets a list of intents attached to a given workspace.
      *
-     * @param intents the array of {@link Intent} of intents on a workspace.
+     * @param intents the array of {@link IntentExportResponse} of intents on a workspace.
      */
-    public void setIntents(List<Intent> intents) {
+    public void setIntents(List<IntentExportResponse> intents) {
         this.intents = intents;
     }
 

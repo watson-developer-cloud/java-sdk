@@ -14,19 +14,16 @@ package com.ibm.watson.developer_cloud.conversation.v1.model.workspace;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.conversation.v1.model.JsonConstants;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-public class Workspace {
+public class Workspace extends GenericModel{
 
     private String name;
     private String description;
     private String language;
     private Object metadata;
-    private String created;
-    private String updated;
 
-    @SerializedName(JsonConstants.WORKSPACE_ID)
-    private String workspaceID;
-
+    public Workspace(){}
     /**
      * Instantiates a new workspace.
      *
@@ -34,20 +31,12 @@ public class Workspace {
      * @param description workspace description
      * @param language language
      * @param metadata metadata
-     * @param created creation time-stamp
-     * @param updated last update time-stamp
-     * @param workspaceID workspace identifier
      */
-    public Workspace(String name, String description, String language, Object metadata, String created, String updated,
-            String workspaceID) {
-        super();
+    public Workspace(String name, String description, String language, Object metadata) {
         this.name = name;
         this.description = description;
         this.language = language;
         this.metadata = metadata;
-        this.created = created;
-        this.updated = updated;
-        this.workspaceID = workspaceID;
     }
 
     /**
@@ -120,59 +109,5 @@ public class Workspace {
      */
     public void setMetadata(Object metadata) {
         this.metadata = metadata;
-    }
-
-    /**
-     * Returns the time stamp for the workspace creation.
-     *
-     * @return the time stamp for the workspace creation
-     */
-    public String getCreated() {
-        return created;
-    }
-
-    /**
-     * Sets the time stamp for the workspace creation.
-     *
-     * @param created the time stamp for the workspace creation
-     */
-    public void setCreated(String created) {
-        this.created = created;
-    }
-
-    /**
-     * Returns the time stamp for the intent's last update.
-     *
-     * @return the time stamp for the intent's last update
-     */
-    public String getUpdated() {
-        return updated;
-    }
-
-    /**
-     * Sets the time stamp for the intent's last update.
-     *
-     * @param updated the time stamp for the intent's last update
-     */
-    public void setUpdated(String updated) {
-        this.updated = updated;
-    }
-
-    /**
-     * Returns the workspace ID.
-     *
-     * @return the workspace ID
-     */
-    public String getWorkspaceID() {
-        return workspaceID;
-    }
-
-    /**
-     * Sets the workspace ID.
-     *
-     * @param workspaceID the workspace ID
-     */
-    public void setWorkspaceID(String workspaceID) {
-        this.workspaceID = workspaceID;
     }
 }

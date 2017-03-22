@@ -12,35 +12,20 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 
-import java.util.List;
-
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The response payload from the Conversation service's intents API call
- * {@link ConversationService#createIntent(String, IntentRequest)}.
+ * {@link ConversationService#createIntent(String, CreateIntent)}.
  * {@link ConversationService#getIntent(String, String)}.
- * {@link ConversationService#updateIntent(String, String, IntentRequest)}.
+ * {@link ConversationService#updateIntent(String, String, CreateIntent)}.
  *
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html"> http://www.ibm.com/
  *      watson/developercloud/conversation.html</a>
  */
-public class IntentResponse extends GenericModel {
-    private String intent;
-    private String created;
-    private String updated;
-    private String description;
-    private List<IntentExample> examples;
-
-  /**
-   * Returns the intent name as returned by the service.
-   *
-   * @return a string representing intent name
-   */
-  public String getIntent() {
-    return intent;
-  }
+public class IntentResponse extends Intent {
+	protected String created;
+    protected String updated;
 
   /**
    * Returns the time stamp that the intent was created.
@@ -60,66 +45,5 @@ public class IntentResponse extends GenericModel {
     return updated;
   }
 
-  /**
-   * Returns an explanation of the intent.
-   *
-   * @return a string representing the description.
-   */
-  public String getDescription() {
-    return description;
-  }
 
-  /**
-   * Returns a list of examples that can be used to trigger an intent.
-   *
-   * @return an array of {@link IntentRequest} the provided examples that can trigger an intent.
-   */
-  public List<IntentExample> getExamples() {
-    return examples;
-  }
-
-  /**
-   * Sets the intent name.
-   *
-   * @param intent string of the intent name.
-   */
-  public void setIntent(String intent) {
-    this.intent = intent;
-  }
-
-  /**
-   * Sets the time of intent creation as determined by the service.
-   *
-   * @param created string of the creation time stamp
-   */
-  public void setCreated(String created) {
-    this.created = created;
-  }
-
-  /**
-   * Sets a list of entities as detected by the service.
-   *
-   * @param updated string of the update time stamp
-   */
-  public void setUpdated(String updated) {
-    this.updated = updated;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description string of the description
-   */
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the list of examples.
-   *
-   * @param examples a list of {@link IntentRequest}
-   */
-  public void setExamples(List<IntentExample> examples) {
-    this.examples = examples;
-  }
 }

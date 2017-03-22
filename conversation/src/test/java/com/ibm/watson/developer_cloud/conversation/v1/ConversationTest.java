@@ -32,13 +32,14 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MultipleRecordsOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.CreateExample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentExample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentListResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateExample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateIntent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentResponse;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -68,8 +69,6 @@ public class ConversationTest extends WatsonServiceUnitTest {
     private static final String TEST_INTENT = "hello";
     private static final String TEST_INTENT_DESCRIPTION = "Test Description";
     private static final String TEST_INTENT_EXAMPLE_TEXT = "good morning";
-    private static final String TEST_INTENT_EXAMPLE_CREATED = "2017-02-02T21:04:26.049Z";
-    private static final String TEST_INTENT_EXAMPLE_UPDATED = "2017-02-02T21:04:26.049Z";
 
     private static final String TEST_WORKSPACE_NAME = "API test";
     private static final String TEST_WORKSPACE_CREATED = "2017-01-31T18:02:19.070Z";
@@ -91,7 +90,6 @@ public class ConversationTest extends WatsonServiceUnitTest {
         service = new ConversationService(ConversationService.VERSION_DATE_2017_02_03);
         service.setApiKey(EMPTY);
         service.setEndPoint(getMockWebServerUrl());
-
     }
 
     /**
@@ -204,7 +202,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
      */
     @Test
     public void testGetWorkspace() throws IOException, InterruptedException {
-        WorkspaceResponse mockResponse = loadFixture(WORKSPACE_FIXTURE, WorkspaceResponse.class);
+        WorkspaceResponse mockResponse = loadFixture(WORKSPACE_FIXTURE, WorkspaceExportResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
         WorkspaceResponse serviceResponse = service.getWorkspace(WORKSPACE_ID).execute();
@@ -323,14 +321,15 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         assertNotNull(serviceResponse.getIntents());
         assertEquals(1, serviceResponse.getIntents().size());
-        assertEquals("hello", serviceResponse.getIntents().get(0).getIntent());
-        assertEquals("2017-02-02T21:04:26.049Z", serviceResponse.getIntents().get(0).getCreated());
-        assertEquals("2017-02-02T21:04:26.049Z", serviceResponse.getIntents().get(0).getUpdated());
-        assertEquals("A short description for testing.", serviceResponse.getIntents().get(0).getDescription());
-        assertEquals(2, serviceResponse.getIntents().get(0).getExamples().size());
-        assertEquals("good morning", serviceResponse.getIntents().get(0).getExamples().get(0).getText());
-        assertEquals("2017-02-02T21:04:26.049Z", serviceResponse.getIntents().get(0).getExamples().get(0).getCreated());
-        assertEquals("2017-02-02T21:04:26.049Z", serviceResponse.getIntents().get(0).getExamples().get(0).getUpdated());
+        IntentExportResponse intent0 = serviceResponse.getIntents().get(0);
+		assertEquals("hello", intent0.getIntent());
+        assertEquals("2017-02-02T21:04:26.049Z", intent0.getCreated());
+        assertEquals("2017-02-02T21:04:26.049Z", intent0.getUpdated());
+        assertEquals("A short description for testing.", intent0.getDescription());
+        assertEquals(2, intent0.getExamples().size());
+        assertEquals("good morning", intent0.getExamples().get(0).getText());
+        assertEquals("2017-02-02T21:04:26.049Z", intent0.getExamples().get(0).getCreated());
+        assertEquals("2017-02-02T21:04:26.049Z", intent0.getExamples().get(0).getUpdated());
 
         assertNotNull(serviceResponse.getPagination());
         assertEquals("/v1/workspaces/9978a49e-ea89-4493-b33d-82298d3db20d/intents?version=2017-02-03&export=true",
@@ -356,7 +355,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         CreateExample example2 = new CreateExample("aaa");
         CreateExample example3 = new CreateExample("bbb");
         
-		IntentRequest intReq = new IntentRequest.Builder()
+		com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.Intent intReq = new CreateIntent.Builder()
                 .setDescription(TEST_INTENT_DESCRIPTION)
                 .setIntent(TEST_INTENT)
                 .addExample(example)
@@ -373,7 +372,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertEquals(request.getMethod(), "POST");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
         
-        IntentRequest actPayload = new Gson().fromJson(request.getBody().readUtf8(), IntentRequest.class);
+        CreateIntent actPayload = new Gson().fromJson(request.getBody().readUtf8(), CreateIntent.class);
         assertEquals(TEST_INTENT, actPayload.getIntent());
         assertEquals(TEST_INTENT_DESCRIPTION, actPayload.getDescription());
         assertEquals(3, actPayload.getExamples().size());
@@ -387,15 +386,6 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertNotNull(response.getCreated());
         assertNotNull(response.getUpdated());
         assertEquals(TEST_INTENT_DESCRIPTION, response.getDescription());
-
-        List<IntentExample> examples = response.getExamples();
-		assertEquals(3, examples.size());
-        IntentExample example0 = examples.get(0);
-        assertEquals(TEST_INTENT_EXAMPLE_TEXT, example0.getText());
-        assertEquals(TEST_INTENT_EXAMPLE_CREATED, example0.getCreated());
-        assertEquals(TEST_INTENT_EXAMPLE_UPDATED, example0.getUpdated());
-        assertEquals("aaa", examples.get(1).getText());
-        assertEquals("bbb", examples.get(2).getText());
 
         assertEquals(response, mockResponse);
     }
@@ -430,7 +420,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
      */
     @Test
     public void testGetIntent() throws IOException, InterruptedException {
-        IntentResponse mockResponse = loadFixture(INTENT_FIXTURE, IntentResponse.class);
+        IntentResponse mockResponse = loadFixture(INTENT_FIXTURE, IntentExportResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
         IntentResponse serviceResponse = service.getIntent(WORKSPACE_ID, INTENT_ID).execute();
@@ -444,13 +434,6 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertNotNull(serviceResponse.getCreated());
         assertNotNull(serviceResponse.getUpdated());
         assertEquals(TEST_INTENT_DESCRIPTION, serviceResponse.getDescription());
-
-        assertNotNull(serviceResponse.getExamples());
-        IntentExample example0 = serviceResponse.getExamples().get(0);
-		assertNotNull(example0);
-        assertEquals(TEST_INTENT_EXAMPLE_TEXT, example0.getText());
-        assertEquals(TEST_INTENT_EXAMPLE_CREATED, example0.getCreated());
-        assertEquals(TEST_INTENT_EXAMPLE_UPDATED, example0.getUpdated());
 
         assertEquals(request.getMethod(), "GET");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
@@ -468,7 +451,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         IntentResponse mockResponse = loadFixture(INTENT_FIXTURE, IntentResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-        IntentRequest options = new IntentRequest.Builder()
+        com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.Intent options = new CreateIntent.Builder()
                 .setDescription(TEST_INTENT_DESCRIPTION)
                 .setIntent(TEST_INTENT)
                 .addExample(new CreateExample(TEST_INTENT_EXAMPLE_TEXT))
@@ -485,21 +468,13 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertNotNull(serviceResponse.getUpdated());
         assertEquals(TEST_INTENT_DESCRIPTION, serviceResponse.getDescription());
 
-        assertNotNull(serviceResponse.getExamples());
-        assertNotNull(serviceResponse.getExamples().get(0));
-        assertNotNull(serviceResponse.getExamples().get(0).getText());
-        assertEquals(TEST_INTENT_EXAMPLE_TEXT, serviceResponse.getExamples().get(0).getText());
-        assertNotNull(serviceResponse.getExamples().get(0).getCreated());
-        assertEquals(TEST_INTENT_EXAMPLE_CREATED, serviceResponse.getExamples().get(0).getCreated());
-        assertNotNull(serviceResponse.getExamples().get(0).getUpdated());
-        assertEquals(TEST_INTENT_EXAMPLE_UPDATED, serviceResponse.getExamples().get(0).getUpdated());
-
         assertEquals(request.getMethod(), "PUT");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        assertEquals("{\"intent\":\"".concat(TEST_INTENT).concat("\",\"description\":\"")
-                .concat(TEST_INTENT_DESCRIPTION).concat("\",\"examples\":[{\"text\":\"")
-                .concat(TEST_INTENT_EXAMPLE_TEXT).concat("\"}]}"),
-                request.getBody().readUtf8());
+        IntentExportResponse fromJson = new Gson().fromJson(request.getBody().readUtf8(), IntentExportResponse.class);
+        
+        assertEquals(TEST_INTENT, fromJson.getIntent());
+        assertEquals(TEST_INTENT_DESCRIPTION, fromJson.getDescription());
+        assertEquals(TEST_INTENT_EXAMPLE_TEXT, fromJson.getExamples().get(0).getText());
         assertEquals(serviceResponse, mockResponse);
     }
 

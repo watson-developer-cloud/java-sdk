@@ -16,11 +16,14 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MultipleRecordsOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentListResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateIntent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.Intent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentResponse;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
@@ -151,16 +154,16 @@ public final class ConversationService extends WatsonService {
      * @param workspaceId the workspace id
      * @return The intent for a given workspace.
      */
-    public ServiceCall<WorkspaceResponse> getWorkspace(String workspaceId) {
+    public ServiceCall<WorkspaceExportResponse> getWorkspace(String workspaceId) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_WORKSPACE, workspaceId));
         builder.query(VERSION_PARAM, versionDate);
-        return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceResponse.class));
+        return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceExportResponse.class));
     }
 
     /**
-     * Update a specific intent for the service through a {@link IntentRequest}.
+     * Update a specific intent for the service through a {@link CreateIntent}.
      *
      * @param workspaceId the workspace id
      * @param payload the new data
@@ -226,13 +229,13 @@ public final class ConversationService extends WatsonService {
     
     /**
      * Retrieves a specific intent for the service through a
-     * {@link IntentRequest}.
+     * {@link CreateIntent}.
      *
      * @param workspaceId the workspace id
      * @param payload the new data
      * @return The intent for a given workspace.
      */
-    public ServiceCall<IntentResponse> createIntent(String workspaceId, IntentRequest payload) {
+    public ServiceCall<IntentResponse> createIntent(String workspaceId, Intent payload) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.post(String.format(PATH_INTENTS, workspaceId));
@@ -271,14 +274,14 @@ public final class ConversationService extends WatsonService {
      * If export=true, all content, including subelements, is included.
      * @return The intent for a given workspace.
      */
-    public ServiceCall<IntentResponse> getIntent(String workspaceId, String intentId, boolean export) {
+    public ServiceCall<IntentExportResponse> getIntent(String workspaceId, String intentId, boolean export) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
         Validator.isTrue((intentId != null) && !intentId.isEmpty(), "'intentId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_INTENT, workspaceId, intentId));
         builder.query(VERSION_PARAM, versionDate);
         builder.query(EXPORT_PARAM, export);
-        return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentResponse.class));
+        return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentExportResponse.class));
     }
 
     /**
@@ -288,20 +291,20 @@ public final class ConversationService extends WatsonService {
      * @param intentId the intent id
       * @return The intent for a given workspace.
      */
-    public ServiceCall<IntentResponse> getIntent(String workspaceId, String intentId) {
+    public ServiceCall<IntentExportResponse> getIntent(String workspaceId, String intentId) {
         return getIntent(workspaceId, intentId, false);
     }
 
     /**
      * Update a specific intent for the service through a
-     * {@link IntentRequest}.
+     * {@link CreateIntent}.
      *
      * @param workspaceId the workspace id
      * @param intentId the intent id
      * @param payload the new data
      * @return The intent for a given workspace.
      */
-    public ServiceCall<IntentResponse> updateIntent(String workspaceId, String intentId, IntentRequest payload) {
+    public ServiceCall<IntentResponse> updateIntent(String workspaceId, String intentId, Intent payload) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
         Validator.isTrue((intentId != null) && !intentId.isEmpty(), "'intentId' cannot be null or empty");
 
