@@ -355,7 +355,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         CreateExample example2 = new CreateExample("aaa");
         CreateExample example3 = new CreateExample("bbb");
         
-		com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.Intent intReq = new CreateIntent.Builder()
+		CreateIntent intReq = new CreateIntent.Builder()
                 .setDescription(TEST_INTENT_DESCRIPTION)
                 .setIntent(TEST_INTENT)
                 .addExample(example)
@@ -451,7 +451,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         IntentResponse mockResponse = loadFixture(INTENT_FIXTURE, IntentResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-        com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.Intent options = new CreateIntent.Builder()
+         CreateIntent options = new CreateIntent.Builder()
                 .setDescription(TEST_INTENT_DESCRIPTION)
                 .setIntent(TEST_INTENT)
                 .addExample(new CreateExample(TEST_INTENT_EXAMPLE_TEXT))

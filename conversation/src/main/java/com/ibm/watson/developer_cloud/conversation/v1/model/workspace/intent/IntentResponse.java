@@ -17,7 +17,6 @@ import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 /**
  * The response payload from the Conversation service's intents API call
  * {@link ConversationService#createIntent(String, CreateIntent)}.
- * {@link ConversationService#getIntent(String, String)}.
  * {@link ConversationService#updateIntent(String, String, CreateIntent)}.
  *
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html"> http://www.ibm.com/
