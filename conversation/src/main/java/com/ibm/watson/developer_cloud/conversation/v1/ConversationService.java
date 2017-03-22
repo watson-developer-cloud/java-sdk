@@ -226,7 +226,7 @@ public final class ConversationService extends WatsonService {
     
     /**
      * Retrieves a specific intent for the service through a
-     * {@link WorkspaceRequest}.
+     * {@link IntentRequest}.
      *
      * @param workspaceId the workspace id
      * @param payload the new data
@@ -294,7 +294,7 @@ public final class ConversationService extends WatsonService {
 
     /**
      * Update a specific intent for the service through a
-     * {@link WorkspaceRequest}.
+     * {@link IntentRequest}.
      *
      * @param workspaceId the workspace id
      * @param intentId the intent id

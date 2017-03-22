@@ -12,9 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
-import com.ibm.watson.developer_cloud.conversation.v1.model.JsonConstants;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -38,11 +36,6 @@ public class WorkspaceRequest extends GenericModel {
         private String description;
         private String language;
         private Object metadata;
-        private String created;
-        private String updated;
-
-        @SerializedName(JsonConstants.WORKSPACE_ID)
-        private String workspaceID;
 
         /**
          * Instantiates a new builder.
@@ -54,9 +47,6 @@ public class WorkspaceRequest extends GenericModel {
             this.description = workspaceRequest.description;
             this.language = workspaceRequest.language;
             this.metadata = workspaceRequest.metadata;
-            this.created = workspaceRequest.created;
-            this.updated = workspaceRequest.updated;
-            this.workspaceID = workspaceRequest.workspaceID;
         }
 
         /**
@@ -120,49 +110,14 @@ public class WorkspaceRequest extends GenericModel {
             return this;
         }
 
-        /**
-         * Sets the time that an workspace is created.
-         *
-         * @param created string representing a time stamp for time of creation
-         * @return a builder object
-         */
-        public Builder setCreated(final String created) {
-            this.created = created;
-            return this;
-        }
 
-        /**
-         * Sets the time that an workspace is created.
-         *
-         * @param updated string representing a time stamp for time of last creation
-         * @return a builder object
-         */
-        public Builder setUpdated(final String updated) {
-            this.updated = updated;
-            return this;
-        }
-
-        /**
-         * Sets workspace id for the workspace.
-         *
-         * @param workspaceID string unique id for a workspace
-         * @return a builder object
-         */
-        public Builder setWorkspaceID(final String workspaceID) {
-            this.workspaceID = workspaceID;
-            return this;
-        }
     }
 
     private String name;
     private String description;
     private String language;
     private Object metadata;
-    private String created;
-    private String updated;
 
-    @SerializedName(JsonConstants.WORKSPACE_ID)
-    private String workspaceID;
 
     /**
      * Creates a new instance of the WorkspaceRequest for the
@@ -177,9 +132,6 @@ public class WorkspaceRequest extends GenericModel {
         description = options.description;
         language = options.language;
         metadata = options.metadata;
-        created = options.created;
-        updated = options.updated;
-        workspaceID = options.workspaceID;
     }
 
     /**
@@ -218,32 +170,6 @@ public class WorkspaceRequest extends GenericModel {
         return metadata;
     }
 
-    /**
-     * Returns a time stamp for workspace creation.
-     *
-     * @return a time stamp for workspace creation
-     */
-    public String getCreated() {
-        return created;
-    }
-
-    /**
-     * Returns a time stamp for last update.
-     *
-     * @return a time stamp for last update
-     */
-    public String getUpdated() {
-        return updated;
-    }
-
-    /**
-     * Identifier of the workspace.
-     *
-     * @return the identifier of the workspace
-     */
-    public String getWorkspace() {
-        return workspaceID;
-    }
 
     /**
      * New builder.
