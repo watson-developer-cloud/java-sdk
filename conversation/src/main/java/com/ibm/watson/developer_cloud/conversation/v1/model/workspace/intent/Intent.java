@@ -12,14 +12,14 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Intent {
     private String intent;
     private String created;
     private String updated;
     private String description;
-    private ArrayList<IntentExample> examples;
+    private List<IntentExample> examples;
 
     /**
      * Instantiates a new intent.
@@ -31,7 +31,7 @@ public class Intent {
      * @param examples list of utterances
      */
     public Intent(String intent, String created, String updated, String description,
-            ArrayList<IntentExample> examples) {
+            List<IntentExample> examples) {
         super();
         this.intent = intent;
         this.created = created;
@@ -117,7 +117,7 @@ public class Intent {
      *
      * @return the list of {@link IntentExample}
      */
-    public ArrayList<IntentExample> getExamples() {
+    public List<IntentExample> getExamples() {
         return examples;
     }
 
@@ -126,7 +126,7 @@ public class Intent {
      *
      * @param examples the list of {@link IntentExample}
      */
-    public void setExamples(ArrayList<IntentExample> examples) {
+    public void setExamples(List<IntentExample> examples) {
         this.examples = examples;
     }
 }

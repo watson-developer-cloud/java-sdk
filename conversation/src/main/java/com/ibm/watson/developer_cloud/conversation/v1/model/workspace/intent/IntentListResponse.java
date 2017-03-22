@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Pagination;
@@ -27,7 +27,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class IntentListResponse extends GenericModel {
 
-    private ArrayList<Intent> intents;
+    private List<Intent> intents;
     private Pagination pagination;
 
     /**
@@ -35,7 +35,7 @@ public class IntentListResponse extends GenericModel {
      *
      * @return an array of {@link Intent} the provided examples that can trigger an intent.
      */
-    public ArrayList<Intent> getIntents() {
+    public List<Intent> getIntents() {
         return intents;
     }
 
@@ -44,7 +44,7 @@ public class IntentListResponse extends GenericModel {
      *
      * @param intents the array of {@link Intent} of intents on a workspace.
      */
-    public void setIntents(ArrayList<Intent> intents) {
+    public void setIntents(List<Intent> intents) {
         this.intents = intents;
     }
 

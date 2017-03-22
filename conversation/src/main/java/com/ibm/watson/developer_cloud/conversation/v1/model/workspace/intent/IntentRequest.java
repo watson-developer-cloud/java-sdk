@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -37,7 +38,7 @@ public class IntentRequest extends GenericModel {
         private String created;
         private String updated;
         private String description;
-        private ArrayList<IntentExample> examples;
+        private List<IntentExample> examples;
 
         /**
          * Instantiates a new builder.
@@ -134,7 +135,7 @@ public class IntentRequest extends GenericModel {
     private String created;
     private String updated;
     private String description;
-    private ArrayList<IntentExample> examples;
+    private List<IntentExample> examples;
 
     /**
      * Creates a new instance of the IntentRequest for the
@@ -194,7 +195,7 @@ public class IntentRequest extends GenericModel {
      *
      * @return the examples list
      */
-    public ArrayList<IntentExample> getExamples() {
+    public List<IntentExample> getExamples() {
         return examples;
     }
 
