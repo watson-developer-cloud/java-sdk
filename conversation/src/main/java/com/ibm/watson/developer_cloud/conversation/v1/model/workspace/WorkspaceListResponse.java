@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Pagination;
@@ -27,7 +27,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class WorkspaceListResponse extends GenericModel {
 
-    private ArrayList<Workspace> workspaces;
+    private List<Workspace> workspaces;
     private Pagination pagination;
 
     /**
@@ -35,7 +35,7 @@ public class WorkspaceListResponse extends GenericModel {
      *
      * @return an array of {@link Workspace}.
      */
-    public ArrayList<Workspace> getworkspaces() {
+    public List<Workspace> getworkspaces() {
         return workspaces;
     }
 
@@ -44,7 +44,7 @@ public class WorkspaceListResponse extends GenericModel {
      *
      * @param workspaces set the array of {@link Workspace} of workspaces on a workspace.
      */
-    public void setworkspaces(ArrayList<Workspace> workspaces) {
+    public void setworkspaces(List<Workspace> workspaces) {
         this.workspaces = workspaces;
     }
 

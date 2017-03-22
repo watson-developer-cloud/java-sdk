@@ -12,7 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -31,7 +31,7 @@ public class IntentResponse extends GenericModel {
     private String created;
     private String updated;
     private String description;
-    private ArrayList<IntentExample> examples;
+    private List<IntentExample> examples;
 
   /**
    * Returns the intent name as returned by the service.
@@ -74,7 +74,7 @@ public class IntentResponse extends GenericModel {
    *
    * @return an array of {@link IntentRequest} the provided examples that can trigger an intent.
    */
-  public ArrayList<IntentExample> getExamples() {
+  public List<IntentExample> getExamples() {
     return examples;
   }
 
@@ -119,7 +119,7 @@ public class IntentResponse extends GenericModel {
    *
    * @param examples a list of {@link IntentRequest}
    */
-  public void setExamples(ArrayList<IntentExample> examples) {
+  public void setExamples(List<IntentExample> examples) {
     this.examples = examples;
   }
 }
