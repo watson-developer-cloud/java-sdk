@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,10 +30,7 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomVoiceModel;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Phoneme;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
-import com.ibm.watson.developer_cloud.util.ResponseUtils;
-import com.ibm.watson.developer_cloud.util.Validator;
+import com.ibm.watson.developer_cloud.util.*;
 
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -215,9 +212,10 @@ public class TextToSpeech extends WatsonService {
       String customizationId) {
     Validator.isTrue((text != null) && !text.isEmpty(), "text cannot be null or empty");
     Validator.isTrue(voice != null, "voice cannot be null or empty");
+    String encodedText = RequestUtils.encode(text);
 
     final RequestBuilder request = RequestBuilder.get(PATH_SYNTHESIZE);
-    request.query(TEXT, text);
+    request.query(TEXT, encodedText);
     request.query(VOICE, voice.getName());
     request.query(ACCEPT, audioFormat != null ? audioFormat : AudioFormat.WAV);
 

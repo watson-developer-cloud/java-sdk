@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -44,6 +44,7 @@ public class Entity extends AlchemyGenericModel {
   /** The type. */
   private String type;
 
+  private DocumentEmotion emotions;
 
   /**
    * Gets the count.
@@ -118,6 +119,15 @@ public class Entity extends AlchemyGenericModel {
   }
 
   /**
+   * Gets the emotions.
+   *
+   * @return The emotions
+   */
+  public DocumentEmotion getEmotions() {
+    return emotions;
+  }
+
+  /**
    * Sets the count.
    *
    * @param count The count
@@ -187,5 +197,14 @@ public class Entity extends AlchemyGenericModel {
    */
   public void setType(String type) {
     this.type = type;
+  }
+
+  /**
+   * Sets the emotions.
+   *
+   * @param emotions The emotions
+   */
+  public void setEmotions(DocumentEmotion emotions) {
+    this.emotions = emotions;
   }
 }

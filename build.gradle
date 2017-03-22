@@ -13,6 +13,10 @@ archivesBaseName = 'parent'
 
 description = 'Client library to use the IBM Watson and Alchemy Services'
 
+javadoc {
+  source = 'src/main/java'
+}
+
 task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
 }
