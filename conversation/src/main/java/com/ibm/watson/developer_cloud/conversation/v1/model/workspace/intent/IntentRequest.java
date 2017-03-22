@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.CreateExample;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -35,10 +36,8 @@ public class IntentRequest extends GenericModel {
      */
     public static class Builder {
         private String intent;
-        private String created;
-        private String updated;
         private String description;
-        private List<IntentExample> examples;
+        private List<CreateExample> examples;
 
         /**
          * Instantiates a new builder.
@@ -47,8 +46,6 @@ public class IntentRequest extends GenericModel {
          */
         private Builder(IntentRequest intentRequest) {
             this.intent = intentRequest.intent;
-            this.created = intentRequest.created;
-            this.updated = intentRequest.updated;
             this.description = intentRequest.description;
             this.examples = intentRequest.examples;
         }
@@ -80,27 +77,6 @@ public class IntentRequest extends GenericModel {
             return this;
         }
 
-        /**
-         * Sets the time that an intent is created.
-         *
-         * @param created string representing a time stamp for time of creation
-         * @return a builder object
-         */
-        public Builder setCreated(final String created) {
-            this.created = created;
-            return this;
-        }
-
-        /**
-         * Sets the time that an intent is created.
-         *
-         * @param updated string representing a time stamp for time of last creation
-         * @return a builder object
-         */
-        public Builder setUpdated(String updated) {
-            this.updated = updated;
-            return this;
-        }
 
         /**
          * Sets the description used to elaborate on the purpose and usage of a
@@ -121,9 +97,9 @@ public class IntentRequest extends GenericModel {
          * @param example the example
          * @return the builder
          */
-        public Builder addExample(IntentExample example) {
+        public Builder addExample(CreateExample example) {
             if (examples == null) {
-                examples = new ArrayList<IntentExample>();
+                examples = new ArrayList<CreateExample>();
             }
 
             examples.add(example);
@@ -137,9 +113,9 @@ public class IntentRequest extends GenericModel {
          * @param examples examples to add
          * @return the builder
          */
-        public Builder addExamples(List<IntentExample> examples) {
+        public Builder addExamples(List<CreateExample> examples) {
             if (this.examples == null) {
-            	this.examples = new ArrayList<IntentExample>();
+            	this.examples = new ArrayList<CreateExample>();
             }
 
             this.examples.addAll(examples);
@@ -148,10 +124,8 @@ public class IntentRequest extends GenericModel {
     }
 
     private String intent;
-    private String created;
-    private String updated;
     private String description;
-    private List<IntentExample> examples;
+    private List<CreateExample> examples;
 
     /**
      * Creates a new instance of the IntentRequest for the
@@ -163,8 +137,6 @@ public class IntentRequest extends GenericModel {
      */
     private IntentRequest(Builder options) {
         intent = options.intent;
-        created = options.created;
-        updated = options.updated;
         description = options.description;
         examples = options.examples;
     }
@@ -176,24 +148,6 @@ public class IntentRequest extends GenericModel {
      */
     public String getIntent() {
         return intent;
-    }
-
-    /**
-     * Returns a time stamp for intent creation.
-     *
-     * @return a time stamp for intent creation
-     */
-    public String getCreated() {
-        return created;
-    }
-
-    /**
-     * Returns a time stamp for last update.
-     *
-     * @return a time stamp for last update
-     */
-    public String getUpdated() {
-        return updated;
     }
 
     /**
@@ -211,7 +165,7 @@ public class IntentRequest extends GenericModel {
      *
      * @return the examples list
      */
-    public List<IntentExample> getExamples() {
+    public List<CreateExample> getExamples() {
         return examples;
     }
 

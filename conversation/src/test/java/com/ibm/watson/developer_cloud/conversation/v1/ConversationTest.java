@@ -25,15 +25,14 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.collect.Lists;
 import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Entity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.JsonConstants;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MultipleRecordsOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.CreateExample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceResponse;
@@ -67,8 +66,6 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
     // Test Values
     private static final String TEST_INTENT = "hello";
-    private static final String TEST_INTENT_CREATED = "2017-02-02T21:04:26.049Z";
-    private static final String TEST_INTENT_UPDATED = "2017-02-02T21:04:26.049Z";
     private static final String TEST_INTENT_DESCRIPTION = "Test Description";
     private static final String TEST_INTENT_EXAMPLE_TEXT = "good morning";
     private static final String TEST_INTENT_EXAMPLE_CREATED = "2017-02-02T21:04:26.049Z";
@@ -355,13 +352,11 @@ public class ConversationTest extends WatsonServiceUnitTest {
         IntentResponse mockResponse = loadFixture(INTENT_FIXTURE, IntentResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-        IntentExample example = new IntentExample(TEST_INTENT_EXAMPLE_TEXT, TEST_INTENT_EXAMPLE_CREATED, TEST_INTENT_EXAMPLE_UPDATED);
-        IntentExample example2 = new IntentExample("aaa");
-        IntentExample example3 = new IntentExample("bbb");
+        CreateExample example = new CreateExample(TEST_INTENT_EXAMPLE_TEXT);
+        CreateExample example2 = new CreateExample("aaa");
+        CreateExample example3 = new CreateExample("bbb");
         
 		IntentRequest intReq = new IntentRequest.Builder()
-				.setCreated(TEST_INTENT_CREATED)
-                .setUpdated(TEST_INTENT_UPDATED)
                 .setDescription(TEST_INTENT_DESCRIPTION)
                 .setIntent(TEST_INTENT)
                 .addExample(example)
@@ -380,21 +375,17 @@ public class ConversationTest extends WatsonServiceUnitTest {
         
         IntentRequest actPayload = new Gson().fromJson(request.getBody().readUtf8(), IntentRequest.class);
         assertEquals(TEST_INTENT, actPayload.getIntent());
-        assertEquals(TEST_INTENT_CREATED, actPayload.getCreated());
-        assertEquals(TEST_INTENT_UPDATED, actPayload.getUpdated());
         assertEquals(TEST_INTENT_DESCRIPTION, actPayload.getDescription());
         assertEquals(3, actPayload.getExamples().size());
-        IntentExample actEx0 = actPayload.getExamples().get(0);
+        CreateExample actEx0 = actPayload.getExamples().get(0);
 		assertEquals(TEST_INTENT_EXAMPLE_TEXT, actEx0.getText());
-		assertEquals(TEST_INTENT_EXAMPLE_CREATED, actEx0.getCreated());
-		assertEquals(TEST_INTENT_EXAMPLE_UPDATED, actEx0.getUpdated());
 		assertEquals("aaa", actPayload.getExamples().get(1).getText());
 		assertEquals("bbb", actPayload.getExamples().get(2).getText());  
 
         //assert response
         assertEquals(TEST_INTENT, response.getIntent());
-        assertEquals(TEST_INTENT_CREATED, response.getCreated());
-        assertEquals(TEST_INTENT_UPDATED, response.getUpdated());
+        assertNotNull(response.getCreated());
+        assertNotNull(response.getUpdated());
         assertEquals(TEST_INTENT_DESCRIPTION, response.getDescription());
 
         List<IntentExample> examples = response.getExamples();
@@ -450,8 +441,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertEquals(path, request.getPath());
 
         assertEquals(TEST_INTENT, serviceResponse.getIntent());
-        assertEquals(TEST_INTENT_CREATED, serviceResponse.getCreated());
-        assertEquals(TEST_INTENT_UPDATED, serviceResponse.getUpdated());
+        assertNotNull(serviceResponse.getCreated());
+        assertNotNull(serviceResponse.getUpdated());
         assertEquals(TEST_INTENT_DESCRIPTION, serviceResponse.getDescription());
 
         assertNotNull(serviceResponse.getExamples());
@@ -477,10 +468,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
         IntentResponse mockResponse = loadFixture(INTENT_FIXTURE, IntentResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-        IntentRequest options = new IntentRequest.Builder().setCreated(TEST_INTENT_CREATED)
-                .setUpdated(TEST_INTENT_UPDATED).setDescription(TEST_INTENT_DESCRIPTION).setIntent(TEST_INTENT)
-                .addExample(new IntentExample(TEST_INTENT_EXAMPLE_TEXT, TEST_INTENT_EXAMPLE_CREATED,
-                        TEST_INTENT_EXAMPLE_UPDATED))
+        IntentRequest options = new IntentRequest.Builder()
+                .setDescription(TEST_INTENT_DESCRIPTION)
+                .setIntent(TEST_INTENT)
+                .addExample(new CreateExample(TEST_INTENT_EXAMPLE_TEXT))
                 .build();
 
         IntentResponse serviceResponse = service.updateIntent(WORKSPACE_ID, INTENT_ID, options).execute();
@@ -490,8 +481,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertEquals(path, request.getPath());
 
         assertEquals(TEST_INTENT, serviceResponse.getIntent());
-        assertEquals(TEST_INTENT_CREATED, serviceResponse.getCreated());
-        assertEquals(TEST_INTENT_UPDATED, serviceResponse.getUpdated());
+        assertNotNull(serviceResponse.getCreated());
+        assertNotNull(serviceResponse.getUpdated());
         assertEquals(TEST_INTENT_DESCRIPTION, serviceResponse.getDescription());
 
         assertNotNull(serviceResponse.getExamples());
@@ -505,11 +496,9 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         assertEquals(request.getMethod(), "PUT");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        assertEquals("{\"intent\":\"".concat(TEST_INTENT).concat("\",\"created\":\"").concat(TEST_INTENT_CREATED)
-                .concat("\",\"updated\":\"").concat(TEST_INTENT_UPDATED).concat("\",\"description\":\"")
+        assertEquals("{\"intent\":\"".concat(TEST_INTENT).concat("\",\"description\":\"")
                 .concat(TEST_INTENT_DESCRIPTION).concat("\",\"examples\":[{\"text\":\"")
-                .concat(TEST_INTENT_EXAMPLE_TEXT).concat("\",\"created\":\"").concat(TEST_INTENT_EXAMPLE_CREATED)
-                .concat("\",\"updated\":\"").concat(TEST_INTENT_EXAMPLE_CREATED).concat("\"}]}"),
+                .concat(TEST_INTENT_EXAMPLE_TEXT).concat("\"}]}"),
                 request.getBody().readUtf8());
         assertEquals(serviceResponse, mockResponse);
     }
