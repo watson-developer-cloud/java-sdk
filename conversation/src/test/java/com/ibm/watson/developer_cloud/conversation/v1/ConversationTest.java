@@ -146,10 +146,12 @@ public class ConversationTest extends WatsonServiceUnitTest {
         WorkspaceResponse mockResponse = loadFixture(WORKSPACE_FIXTURE, WorkspaceResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-        WorkspaceRequest options = new WorkspaceRequest.Builder().setCreated(TEST_WORKSPACE_CREATED)
-                .setUpdated(TEST_WORKSPACE_UPDATED).setDescription(TEST_WORKSPACE_DESCRIPTION)
-                .setName(TEST_WORKSPACE_NAME).setLanguage(TEST_WORKSPACE_LANGUAGE).setMetadata(TEST_WORKSPACE_METADATA)
-                .setWorkspaceID(TEST_WORKSPACE_WORKSPACE_ID).build();
+        WorkspaceRequest options = new WorkspaceRequest.Builder()
+        		.setDescription(TEST_WORKSPACE_DESCRIPTION)
+                .setName(TEST_WORKSPACE_NAME)
+                .setLanguage(TEST_WORKSPACE_LANGUAGE)
+                .setMetadata(TEST_WORKSPACE_METADATA)
+                .build();
 
         WorkspaceResponse serviceResponse = service.createWorkspace(options).execute();
         RecordedRequest request = server.takeRequest();
@@ -170,11 +172,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
         HashMap<String, Object> actual = new Gson().fromJson(request.getBody().readUtf8(), HashMap.class);
         assertEquals(TEST_WORKSPACE_NAME, actual.get("name"));
-        assertEquals(TEST_WORKSPACE_CREATED, actual.get("created"));
-        assertEquals(TEST_WORKSPACE_UPDATED, actual.get("updated"));
         assertEquals(TEST_WORKSPACE_LANGUAGE, actual.get("language"));
         assertEquals(TEST_WORKSPACE_DESCRIPTION, actual.get("description"));
-        assertEquals(TEST_WORKSPACE_WORKSPACE_ID, actual.get("workspace_id"));
         assertEquals(TEST_WORKSPACE_METADATA, actual.get("metadata"));
         assertEquals(serviceResponse, mockResponse);
     }
@@ -242,10 +241,12 @@ public class ConversationTest extends WatsonServiceUnitTest {
         WorkspaceResponse mockResponse = loadFixture(WORKSPACE_FIXTURE, WorkspaceResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-        WorkspaceRequest options = new WorkspaceRequest.Builder().setCreated(TEST_WORKSPACE_CREATED)
-                .setUpdated(TEST_WORKSPACE_UPDATED).setDescription(TEST_WORKSPACE_DESCRIPTION)
-                .setName(TEST_WORKSPACE_NAME).setLanguage(TEST_WORKSPACE_LANGUAGE).setMetadata(TEST_WORKSPACE_METADATA)
-                .setWorkspaceID(TEST_WORKSPACE_WORKSPACE_ID).build();
+        WorkspaceRequest options = new WorkspaceRequest.Builder()
+                .setDescription(TEST_WORKSPACE_DESCRIPTION)
+                .setName(TEST_WORKSPACE_NAME)
+                .setLanguage(TEST_WORKSPACE_LANGUAGE)
+                .setMetadata(TEST_WORKSPACE_METADATA)
+                .build();
 
         WorkspaceResponse serviceResponse = service.updateWorkspace(WORKSPACE_ID, options).execute();
         RecordedRequest request = server.takeRequest();
@@ -267,11 +268,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         HashMap<String, Object> actual = new Gson().fromJson(request.getBody().readUtf8(), HashMap.class);
         assertEquals(TEST_WORKSPACE_NAME, actual.get("name"));
-        assertEquals(TEST_WORKSPACE_CREATED, actual.get("created"));
-        assertEquals(TEST_WORKSPACE_UPDATED, actual.get("updated"));
         assertEquals(TEST_WORKSPACE_LANGUAGE, actual.get("language"));
         assertEquals(TEST_WORKSPACE_DESCRIPTION, actual.get("description"));
-        assertEquals(TEST_WORKSPACE_WORKSPACE_ID, actual.get("workspace_id"));
         assertEquals(TEST_WORKSPACE_METADATA, actual.get("metadata"));
         assertEquals(serviceResponse, mockResponse);
     }
