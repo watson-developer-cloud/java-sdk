@@ -40,15 +40,6 @@ public class IntentListResponse extends GenericModel {
     }
 
     /**
-     * Sets a list of intents attached to a given workspace.
-     *
-     * @param intents the array of {@link IntentExportResponse} of intents on a workspace.
-     */
-    public void setIntents(List<IntentExportResponse> intents) {
-        this.intents = intents;
-    }
-
-    /**
      * Returns this pagination options for a given list of intents.
      *
      * @return a {@link Pagination} object for the list.
@@ -57,12 +48,4 @@ public class IntentListResponse extends GenericModel {
         return pagination;
     }
 
-    /**
-     * Sets the {@link Pagination} options for the list.
-     *
-     * @param pagination set the Pagination optiosn for the intent list.
-     */
-    public void setPagination(Pagination pagination) {
-        this.pagination = pagination;
-    }
 }
