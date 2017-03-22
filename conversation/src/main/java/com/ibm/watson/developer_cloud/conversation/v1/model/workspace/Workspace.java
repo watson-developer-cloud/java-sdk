@@ -12,8 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.conversation.v1.model.JsonConstants;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 public class Workspace extends GenericModel{

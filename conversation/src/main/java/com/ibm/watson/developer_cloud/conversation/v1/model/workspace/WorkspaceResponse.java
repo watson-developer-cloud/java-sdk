@@ -15,7 +15,6 @@ package com.ibm.watson.developer_cloud.conversation.v1.model.workspace;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1.model.JsonConstants;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The response payload from the Conversation service's workspaces API call
