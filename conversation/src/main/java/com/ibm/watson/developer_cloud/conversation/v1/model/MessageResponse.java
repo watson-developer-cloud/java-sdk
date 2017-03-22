@@ -75,42 +75,6 @@ public class MessageResponse extends GenericModel {
   }
 
   /**
-   * Sets the context as determined by the service.
-   *
-   * @param context a map of key value pairs
-   */
-  public void setContext(Map<String, Object> context) {
-    this.context = context;
-  }
-
-  /**
-   * Sets a list of entities as detected by the service.
-   *
-   * @param entities an array of entities
-   */
-  public void setEntities(List<Entity> entities) {
-    this.entities = entities;
-  }
-
-  /**
-   * Sets a list of intents as detected by the service.
-   *
-   * @param intents an array of intents
-   */
-  public void setIntents(List<Intent> intents) {
-    this.intents = intents;
-  }
-
-  /**
-   * Sets the output as returned by the service.
-   *
-   * @param output a map of outputs as defined by the conversation designer
-   */
-  public void setOutput(Map<String, Object> output) {
-    this.output = output;
-  }
-
-  /**
    * A convenience method for getting the text property from the output object. This is equivalent to calling:
    *
    * <pre>
@@ -158,14 +122,6 @@ public class MessageResponse extends GenericModel {
     return input;
   }
 
-  /**
-   * Sets the input.
-   *
-   * @param input the input
-   */
-  public void setInput(Map<String, Object> input) {
-    this.input = input;
-  }
 
   /**
    * Gets the input text.

@@ -27,7 +27,6 @@ public class Entity extends GenericModel {
    * @param location the location
    */
   public Entity(String entity, String value, Integer[] location) {
-    super();
     this.entity = entity;
     this.value = value;
     this.location = location;
@@ -67,31 +66,6 @@ public class Entity extends GenericModel {
     return value;
   }
 
-  /**
-   * Sets the entity detected by the system for the given input.
-   *
-   * @param entity the new entity
-   */
-  public void setEntity(String entity) {
-    this.entity = entity;
-  }
 
-  /**
-   * Sets the location of the entity detected by the system (i.e. starting index and end index).
-   *
-   * @param location an array of <code>Integers</code> representing a start and end index
-   */
-  public void setLocation(Integer... location) {
-    this.location = (location == null) ? null : location.clone();
-  }
-
-  /**
-   * Sets the value of the entity as detected by the system.
-   *
-   * @param value the new value
-   */
-  public void setValue(String value) {
-    this.value = value;
-  }
 }
 

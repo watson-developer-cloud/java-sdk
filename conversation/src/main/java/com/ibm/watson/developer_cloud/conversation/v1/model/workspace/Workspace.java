@@ -46,14 +46,6 @@ public class Workspace extends GenericModel{
         return name;
     }
 
-    /**
-     * Sets the name of the workspace.
-     *
-     * @param name the name of the workspace
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
 
     /**
      * Returns the workspace's description.
@@ -65,15 +57,6 @@ public class Workspace extends GenericModel{
     }
 
     /**
-     * Sets the workspace's description.
-     *
-     * @param description the workspace's description
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
      * Returns the workspace's language.
      *
      * @return the workspace's language
@@ -82,15 +65,7 @@ public class Workspace extends GenericModel{
         return language;
     }
 
-    /**
-     * Sets the workspace's language.
-     *
-     * @param language the workspace's language
-     */
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
+ 
     /**
      * Returns the workspace's metadata.
      *
@@ -100,12 +75,4 @@ public class Workspace extends GenericModel{
         return metadata;
     }
 
-    /**
-     * Sets the workspace's metadata.
-     *
-     * @param metadata the workspace's metadata
-     */
-    public void setMetadata(Object metadata) {
-        this.metadata = metadata;
-    }
 }

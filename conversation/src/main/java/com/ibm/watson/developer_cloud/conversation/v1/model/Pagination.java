@@ -54,15 +54,6 @@ public class Pagination {
     }
 
     /**
-     * Sets the refresh URL provided by the system.
-     *
-     * @param refreshURL string for the refresh URL
-     */
-    public void setRefreshURL(String refreshURL) {
-        this.refreshURL = refreshURL;
-    }
-
-    /**
      * Returns the URL that can be used to obtain the next items available for a
      * given list.
      *
@@ -70,15 +61,6 @@ public class Pagination {
      */
     public String getNextURL() {
         return nextURL;
-    }
-
-    /**
-     * Sets the next URL provided by the system.
-     *
-     * @param nextURL string for the next URL
-     */
-    public void setNextURL(String nextURL) {
-        this.nextURL = nextURL;
     }
 
     /**
@@ -90,14 +72,6 @@ public class Pagination {
         return total;
     }
 
-    /**
-     * Sets the total number of items available in the current list.
-     *
-     * @param total the number of items available in the current list.
-     */
-    public void setTotal(int total) {
-        this.total = total;
-    }
 
     /**
      * Returns the total number of items that match the current criteria.
@@ -106,14 +80,5 @@ public class Pagination {
      */
     public int getMatched() {
         return matched;
-    }
-
-    /**
-     * Sets matched the total number of items that match the current criteria.
-     *
-     * @param matched int for the matched
-     */
-    public void setMatched(int matched) {
-        this.matched = matched;
     }
 }
