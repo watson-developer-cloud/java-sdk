@@ -24,11 +24,19 @@ public class IntentExample {
      * Instantiates a new intent example.
      *
      * @param text the utterance
+     */
+    public IntentExample(String text) {
+        this.text = text;
+    }
+    
+    /**
+     * Instantiates a new intent example.
+     *
+     * @param text the utterance
      * @param created creation time-stamp
      * @param updated last update time-stamp
      */
     public IntentExample(String text, String created, String updated) {
-        super();
         this.text = text;
         this.created = created;
         this.updated = updated;
