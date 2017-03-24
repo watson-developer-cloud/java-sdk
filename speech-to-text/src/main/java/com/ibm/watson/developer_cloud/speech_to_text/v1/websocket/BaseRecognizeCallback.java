@@ -61,7 +61,8 @@ public class BaseRecognizeCallback implements RecognizeCallback {
   public void onDisconnected() { };
 
   /* (non-Javadoc)
-   * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onInactivityTimeout(java.lang.RuntimeException)
+   * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket
+   * .RecognizeCallback#onInactivityTimeout(java.lang.RuntimeException)
    */
   @Override
   public void onInactivityTimeout(RuntimeException runtimeException) { };

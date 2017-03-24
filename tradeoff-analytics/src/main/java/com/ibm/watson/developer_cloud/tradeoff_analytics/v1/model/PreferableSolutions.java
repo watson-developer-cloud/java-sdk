@@ -42,7 +42,7 @@ public class PreferableSolutions {
   public Double getScore() {
     return score;
   }
-  
+
   /**
    * Sets the solution keys.
    *
