@@ -104,7 +104,7 @@ public class Solution extends GenericModel {
 
   @SerializedName("status_cause")
   private StatusCause statusCause;
-  
+
   @SerializedName("excluded_by")
   private List<DominatingOption> excludedBy;
 
@@ -162,7 +162,7 @@ public class Solution extends GenericModel {
   public List<DominatingOption> getExcludedBy() {
     return excludedBy;
   }
-  
+
   /**
    * Sets the shadow me.
    *
@@ -207,7 +207,7 @@ public class Solution extends GenericModel {
   public void setStatusCause(StatusCause statusCause) {
     this.statusCause = statusCause;
   }
-  
+
   /**
    * Sets the list of excluding options.
    *
