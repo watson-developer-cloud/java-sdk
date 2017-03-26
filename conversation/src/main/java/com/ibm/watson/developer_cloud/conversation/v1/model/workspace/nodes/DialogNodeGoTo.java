@@ -4,15 +4,12 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.conversation.v1.model.JsonConstants;
 
 public class DialogNodeGoTo {
-	
-//	The ID of the dialog node to go to.
+
 	@SerializedName("dialog_node")
 	private String dialogNode;
 	
-//	Where in the target node focus is to be passed to.
 	private String selector;
 	
-//	Reserved for future use.
 	@SerializedName("return")
 	private boolean isReturn;
 
