@@ -1,156 +1,159 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.nodes;
 
+import com.google.gson.annotations.SerializedName;
+
 public class CreateDialogNode {
-	private String dialog_node;
-//	The dialog node ID.
+	
+	@SerializedName("dialog_node")
+	private String dialogNode;
 	
 	private String description;
-//	The description of the dialog node.
 	
 	private String conditions;
-//	The condition that will trigger the dialog node.
 	
 	private String parent;
-//	The ID of the parent dialog node.
 	
-	private String previous_sibling ;
-//	The ID of the previous sibling dialog node.
+	@SerializedName("previous_sibling")
+	private String previousSibling ;
 	
 	private DialogNodeOutput output	;
-//	The output from the dialog node.
 	
 	private Object context;
-//	The context for the dialog node.
 	
 	private Object metadata;
-//	The metadata for the dialog node.
 	
-	private DialogNodeGoTo go_to;
-//	The location to go to when the dialog node is triggered.
+	@SerializedName("goTo")
+	private DialogNodeGoTo goTo;
 
-	/**
-	 * @return the dialog_node
-	 */
-	public String getDialog_node() {
-		return dialog_node;
+	public CreateDialogNode() {}
+	
+	public CreateDialogNode(String dialogNode) {
+		this.dialogNode = dialogNode;
 	}
 
 	/**
-	 * @param dialog_node the dialog_node to set
+	 * @return The dialog node ID.
 	 */
-	public void setDialog_node(String dialog_node) {
-		this.dialog_node = dialog_node;
+	public String getDialogNode() {
+		return dialogNode;
 	}
 
 	/**
-	 * @return the description
+	 * @param dialog_node The dialog node ID.
+	 */
+	public void setDialogNode(String dialog_node) {
+		this.dialogNode = dialog_node;
+	}
+
+	/**
+	 * @return The description of the dialog node.
 	 */
 	public String getDescription() {
 		return description;
 	}
 
 	/**
-	 * @param description the description to set
+	 * @param description The description of the dialog node.
 	 */
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
 	/**
-	 * @return the conditions
+	 * @return The condition that will trigger the dialog node.
 	 */
 	public String getConditions() {
 		return conditions;
 	}
 
 	/**
-	 * @param conditions the conditions to set
+	 * @param conditions The condition that will trigger the dialog node.
 	 */
 	public void setConditions(String conditions) {
 		this.conditions = conditions;
 	}
 
 	/**
-	 * @return the parent
+	 * @return The ID of the parent dialog node.
 	 */
 	public String getParent() {
 		return parent;
 	}
 
 	/**
-	 * @param parent the parent to set
+	 * @param parent The ID of the parent dialog node.
 	 */
 	public void setParent(String parent) {
 		this.parent = parent;
 	}
 
 	/**
-	 * @return the previous_sibling
+	 * @return The ID of the previous sibling dialog node.
 	 */
-	public String getPrevious_sibling() {
-		return previous_sibling;
+	public String getPreviousSibling() {
+		return previousSibling;
 	}
 
 	/**
-	 * @param previous_sibling the previous_sibling to set
+	 * @param previousSibling The ID of the previous sibling dialog node.
 	 */
-	public void setPrevious_sibling(String previous_sibling) {
-		this.previous_sibling = previous_sibling;
+	public void setPreviousSibling(String previousSibling) {
+		this.previousSibling = previousSibling;
 	}
 
 	/**
-	 * @return the output
+	 * @return The output from the dialog node.
 	 */
 	public DialogNodeOutput getOutput() {
 		return output;
 	}
 
 	/**
-	 * @param output the output to set
+	 * @param output The output from the dialog node.
 	 */
 	public void setOutput(DialogNodeOutput output) {
 		this.output = output;
 	}
 
 	/**
-	 * @return the context
+	 * @return The context for the dialog node.
 	 */
 	public Object getContext() {
 		return context;
 	}
 
 	/**
-	 * @param context the context to set
+	 * @param context The context for the dialog node.
 	 */
 	public void setContext(Object context) {
 		this.context = context;
 	}
 
 	/**
-	 * @return the metadata
+	 * @return The metadata for the dialog node.
 	 */
 	public Object getMetadata() {
 		return metadata;
 	}
 
 	/**
-	 * @param metadata the metadata to set
+	 * @param metadata The metadata for the dialog node.
 	 */
 	public void setMetadata(Object metadata) {
 		this.metadata = metadata;
 	}
 
 	/**
-	 * @return the go_to
+	 * @return The location to go to when the dialog node is triggered.
 	 */
-	public DialogNodeGoTo getGo_to() {
-		return go_to;
+	public DialogNodeGoTo getGoTo() {
+		return goTo;
 	}
 
 	/**
-	 * @param go_to the go_to to set
+	 * @param goTo The location to go to when the dialog node is triggered.
 	 */
-	public void setGo_to(DialogNodeGoTo go_to) {
-		this.go_to = go_to;
+	public void setGoTo(DialogNodeGoTo goTo) {
+		this.goTo = goTo;
 	}
 }

@@ -189,10 +189,10 @@ public class WorkspaceRequest extends Workspace {
          * @return the builder
          */
         public Builder addEntities(List<CreateEntity> entities){
-        	if(entities==null){
-        		entities = new ArrayList<CreateEntity>();
+        	if(this.entities==null){
+        		this.entities = new ArrayList<CreateEntity>();
         	}
-        	entities.addAll(entities);
+        	this.entities.addAll(entities);
             return this;
         }
         
@@ -215,10 +215,10 @@ public class WorkspaceRequest extends Workspace {
          * @return the builder
          */
         public Builder addIntents(List<CreateIntent> intents){
-        	if(intents==null){
-        		intents = new ArrayList<CreateIntent>();
+        	if(this.intents==null){
+        		this.intents = new ArrayList<CreateIntent>();
         	}
-        	intents.addAll(intents);
+        	this.intents.addAll(intents);
             return this;        	
         }
     }
