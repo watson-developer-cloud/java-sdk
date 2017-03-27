@@ -171,7 +171,7 @@ public final class ConversationService extends WatsonService {
     public ServiceCall<WorkspaceResponse> updateWorkspace(String workspaceId, WorkspaceRequest payload) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
-        RequestBuilder builder = RequestBuilder.put(String.format(PATH_WORKSPACE, workspaceId));
+        RequestBuilder builder = RequestBuilder.post(String.format(PATH_WORKSPACE, workspaceId));
         if (payload != null) {
             builder.bodyJson(GsonSingleton.getGson().toJsonTree(payload).getAsJsonObject());
         } else {
