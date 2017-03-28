@@ -19,53 +19,55 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Entity extends GenericModel {
 
-  /**
-   * Instantiates a new entity.
-   *
-   * @param entity the entity
-   * @param value the value
-   * @param location the location
-   */
-  public Entity(String entity, String value, Integer[] location) {
-    this.entity = entity;
-    this.value = value;
-    this.location = location;
-  }
+    /**
+     * Instantiates a new entity.
+     *
+     * @param entity
+     *            the entity
+     * @param value
+     *            the value
+     * @param location
+     *            the location
+     */
+    public Entity(String entity, String value, Integer[] location) {
+        this.entity = entity;
+        this.value = value;
+        this.location = location;
+    }
 
-  private String entity;
-  private Integer[] location;
-  private String value;
+    private String entity;
+    private Integer[] location;
+    private String value;
 
-  /**
-   * Returns the name of the entity. e.g. "I'd like to get a pepperoni pizza", entity in this case would likely be
-   * "topping" (depending on how the system has been trained). The {@link #getValue()} of the input would be
-   * "pepperoni".
-   *
-   * @return the name of an entity
-   */
-  public String getEntity() {
-    return entity;
-  }
+    /**
+     * Returns the name of the entity. e.g. "I'd like to get a pepperoni pizza",
+     * entity in this case would likely be "topping" (depending on how the
+     * system has been trained). The {@link #getValue()} of the input would be
+     * "pepperoni".
+     *
+     * @return the name of an entity
+     */
+    public String getEntity() {
+        return entity;
+    }
 
-  /**
-   * Returns the location of the entity within the input string, the array will have two values: a start index and end
-   * index.
-   *
-   * @return an array of locations (start and end)
-   */
-  public Integer[] getLocation() {
-    return (location == null) ? null : location.clone();
-  }
+    /**
+     * Returns the location of the entity within the input string, the array
+     * will have two values: a start index and end index.
+     *
+     * @return an array of locations (start and end)
+     */
+    public Integer[] getLocation() {
+        return (location == null) ? null : location.clone();
+    }
 
-  /**
-   * Returns the detected value of the entity.
-   *
-   * @return a string representing the entity value
-   */
-  public String getValue() {
-    return value;
-  }
-
+    /**
+     * Returns the detected value of the entity.
+     *
+     * @return a string representing the entity value
+     */
+    public String getValue() {
+        return value;
+    }
 
 }
-

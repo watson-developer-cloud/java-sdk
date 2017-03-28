@@ -24,9 +24,8 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.nodes.Crea
 
 /**
  * Object that represents the workspace of a conversation workspace. This is
- * used by the
- * {@link ConversationService#createWorkspace(WorkspaceRequest)} method
- * {@link ConversationService#updateWorkspace(String, WorkspaceRequest)}
+ * used by the {@link ConversationService#createWorkspace(WorkspaceRequest)}
+ * method {@link ConversationService#updateWorkspace(String, WorkspaceRequest)}
  * method
  *
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">
@@ -35,7 +34,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.nodes.Crea
  */
 public class WorkspaceRequest extends Workspace {
 
-	protected WorkspaceRequest(){}
+    protected WorkspaceRequest() {
+    }
+
     /**
      * The Class Builder.
      */
@@ -48,21 +49,22 @@ public class WorkspaceRequest extends Workspace {
         private List<CreateDialogNode> dialogNodes;
         private List<CreateEntity> entities;
         private List<CreateIntent> intents;
-        
-        public Builder() {}
+
+        public Builder() {
+        }
 
         public Builder(WorkspaceRequest workspaceRequest) {
-			name = workspaceRequest.getName();
-			description = workspaceRequest.getDescription();
-			language = workspaceRequest.getLanguage();
-			metadata = workspaceRequest.getMetadata();
-			counterExamples = workspaceRequest.getCounterExamples();
-			dialogNodes = workspaceRequest.getDialogNodes();
-			entities = workspaceRequest.getEntities();
-			intents = workspaceRequest.getIntents();
-		}
+            name = workspaceRequest.getName();
+            description = workspaceRequest.getDescription();
+            language = workspaceRequest.getLanguage();
+            metadata = workspaceRequest.getMetadata();
+            counterExamples = workspaceRequest.getCounterExamples();
+            dialogNodes = workspaceRequest.getDialogNodes();
+            entities = workspaceRequest.getEntities();
+            intents = workspaceRequest.getIntents();
+        }
 
-		/**
+        /**
          * Generates a new {@link WorkspaceRequest} object. It will contain the
          * parameters set in the builder.
          *
@@ -75,7 +77,8 @@ public class WorkspaceRequest extends Workspace {
         /**
          * Sets the workspace name.
          *
-         * @param name the workspace name
+         * @param name
+         *            the workspace name
          * @return a builder object
          */
         public Builder setName(final String name) {
@@ -87,7 +90,8 @@ public class WorkspaceRequest extends Workspace {
          * Sets the description used to elaborate on the purpose and usage of a
          * given workspace.
          *
-         * @param description string representing the description
+         * @param description
+         *            string representing the description
          * @return a builder object
          */
         public Builder setDescription(final String description) {
@@ -98,7 +102,8 @@ public class WorkspaceRequest extends Workspace {
         /**
          * Sets the language setting for the workspace.
          *
-         * @param language string representing the language
+         * @param language
+         *            string representing the language
          * @return a builder object
          */
         public Builder setLanguage(final String language) {
@@ -109,7 +114,8 @@ public class WorkspaceRequest extends Workspace {
         /**
          * Sets the metadata associated with a workspace.
          *
-         * @param metadata string representing the description
+         * @param metadata
+         *            string representing the description
          * @return a builder object
          */
         public Builder setMetadata(Object metadata) {
@@ -118,129 +124,139 @@ public class WorkspaceRequest extends Workspace {
         }
 
         /**
-         * 
-         * @param example input text that have been marked as irrelevant input.
+         * adds a counter example to the workspace.
+         * @param example
+         *            input text that have been marked as irrelevant input.
          * @return the builder
          */
-        public Builder addCounterExample(CreateExample example){
-        	if(counterExamples==null){
-        		counterExamples = new ArrayList<CreateExample>();
-        	}
-        	counterExamples.add(example);
+        public Builder addCounterExample(CreateExample example) {
+            if (counterExamples == null) {
+                counterExamples = new ArrayList<CreateExample>();
+            }
+            counterExamples.add(example);
             return this;
         }
-        
+
         /**
-         * 
-         * @param examples An array of CreateExample objects defining input examples that have been marked as irrelevant input.
-         * @return  the builder
-         */        
-        public Builder addCounterExamples(List<CreateExample> examples){
-        	if(counterExamples==null){
-        		counterExamples = new ArrayList<CreateExample>();
-        	}
-        	counterExamples.addAll(examples);
+         * adds counter examples to the workspace.
+         * @param examples
+         *            An array of CreateExample objects defining input examples
+         *            that have been marked as irrelevant input.
+         * @return the builder
+         */
+        public Builder addCounterExamples(List<CreateExample> examples) {
+            if (counterExamples == null) {
+                counterExamples = new ArrayList<CreateExample>();
+            }
+            counterExamples.addAll(examples);
             return this;
         }
-        
+
         /**
-         * 
-         * @param node a node in the workspace dialog.
+         * adds a dialog node to the workspace.
+         * @param node
+         *            a node in the workspace dialog.
          * @return the builder
          */
-        public Builder addDialogNode(CreateDialogNode node){
-        	if(dialogNodes==null){
-        		dialogNodes = new ArrayList<CreateDialogNode>();
-        	}
-        	dialogNodes.add(node);
+        public Builder addDialogNode(CreateDialogNode node) {
+            if (dialogNodes == null) {
+                dialogNodes = new ArrayList<CreateDialogNode>();
+            }
+            dialogNodes.add(node);
             return this;
         }
-        
-        
+
         /**
-         * 
-         * @param nodes An array of CreateDialogNode objects defining the nodes in the workspace dialog.
+         * adds dialog nodes to the workspace.
+         * @param nodes
+         *            An array of CreateDialogNode objects defining the nodes in
+         *            the workspace dialog.
          * @return the builder
          */
-        public Builder addDialogNodes(List<CreateDialogNode> nodes){
-        	if(dialogNodes==null){
-        		dialogNodes = new ArrayList<CreateDialogNode>();
-        	}
-        	dialogNodes.addAll(nodes);
+        public Builder addDialogNodes(List<CreateDialogNode> nodes) {
+            if (dialogNodes == null) {
+                dialogNodes = new ArrayList<CreateDialogNode>();
+            }
+            dialogNodes.addAll(nodes);
             return this;
         }
-        
+
         /**
-         * 
-         * @param entity defines an entity for the workspace.
+         * adds an entity to the workspace.
+         * @param entity
+         *            defines an entity for the workspace.
          * @return the builder
          */
-        public Builder addEntity(CreateEntity entity){
-        	if(entities==null){
-        		entities = new ArrayList<CreateEntity>();
-        	}
-        	entities.add(entity);
+        public Builder addEntity(CreateEntity entity) {
+            if (entities == null) {
+                entities = new ArrayList<CreateEntity>();
+            }
+            entities.add(entity);
             return this;
         }
-        
+
         /**
-         * 
-         * @param entities An array of CreateEntity objects defining the entities for the workspace.
+         * adds entities to the workspace.
+         * @param entities
+         *            An array of CreateEntity objects defining the entities for
+         *            the workspace.
          * @return the builder
          */
-        public Builder addEntities(List<CreateEntity> entities){
-        	if(this.entities==null){
-        		this.entities = new ArrayList<CreateEntity>();
-        	}
-        	this.entities.addAll(entities);
+        public Builder addEntities(List<CreateEntity> entities) {
+            if (this.entities == null) {
+                this.entities = new ArrayList<CreateEntity>();
+            }
+            this.entities.addAll(entities);
             return this;
         }
-        
+
         /**
-         * 
-         * @param intent defines an intent for the workspace.
+         * adds an intent to the workspace.
+         * @param intent
+         *            defines an intent for the workspace.
          * @return the builder
          */
-        public Builder addIntent(CreateIntent intent){
-        	if(intents==null){
-        		intents = new ArrayList<CreateIntent>();
-        	}
-        	intents.add(intent);
-            return this;        	
+        public Builder addIntent(CreateIntent intent) {
+            if (intents == null) {
+                intents = new ArrayList<CreateIntent>();
+            }
+            intents.add(intent);
+            return this;
         }
-        
+
         /**
-         * 
-         * @param intents An array of CreateIntent objects defining the intents for the workspace.
+         * adds intents to the workspace.
+         * @param intents
+         *            An array of CreateIntent objects defining the intents for
+         *            the workspace.
          * @return the builder
          */
-        public Builder addIntents(List<CreateIntent> intents){
-        	if(this.intents==null){
-        		this.intents = new ArrayList<CreateIntent>();
-        	}
-        	this.intents.addAll(intents);
-            return this;        	
+        public Builder addIntents(List<CreateIntent> intents) {
+            if (this.intents == null) {
+                this.intents = new ArrayList<CreateIntent>();
+            }
+            this.intents.addAll(intents);
+            return this;
         }
     }
 
-    
     @SerializedName("counterexamples")
     private List<CreateExample> counterExamples;
-    
+
     @SerializedName("dialog_nodes")
     private List<CreateDialogNode> dialogNodes;
-    
+
     private List<CreateEntity> entities;
-    
+
     private List<CreateIntent> intents;
-    
 
     /**
      * Creates a new instance of the WorkspaceRequest for the
      * {@link ConversationService} service. Clients must use the {@link Builder}
      * class to construct new instances of the class.
      *
-     * @param options a builder configured with the various parameters for the
+     * @param options
+     *            a builder configured with the various parameters for the
      *            request
      */
     private WorkspaceRequest(Builder options) {
@@ -252,37 +268,39 @@ public class WorkspaceRequest extends Workspace {
     }
 
     /**
-     * 
-     * @return An array of CreateExample objects defining input examples that have been marked as irrelevant input.
+     * list of counter examples to create/update.
+     * @return An array of CreateExample objects defining input examples that
+     *         have been marked as irrelevant input.
      */
-    public List<CreateExample> getCounterExamples(){
-    	return counterExamples;
+    public List<CreateExample> getCounterExamples() {
+        return counterExamples;
     }
-    
+
     /**
-     * 
-     * @return An array of CreateDialogNode objects defining the nodes in the workspace dialog.
+     * list of dialog nodes to create/update.
+     * @return An array of CreateDialogNode objects defining the nodes in the
+     *         workspace dialog.
      */
-    public List<CreateDialogNode> getDialogNodes(){
-    	return dialogNodes;
+    public List<CreateDialogNode> getDialogNodes() {
+        return dialogNodes;
     }
-    
-    
+
     /**
-     * 
-     * @return An array of CreateEntity objects defining the entities for the workspace.
+     * list of entities to create/update.
+     * @return An array of CreateEntity objects defining the entities for the
+     *         workspace.
      */
-    public List<CreateEntity> getEntities(){
-    	return entities;
+    public List<CreateEntity> getEntities() {
+        return entities;
     }
-    
-    
+
     /**
-     * 
-     * @return An array of CreateIntent objects defining the intents for the workspace.
+     * lists of intent to create/update.
+     * @return An array of CreateIntent objects defining the intents for the
+     *         workspace.
      */
-    public List<CreateIntent> getIntents(){
-    	return intents;
+    public List<CreateIntent> getIntents() {
+        return intents;
     }
 
     /**

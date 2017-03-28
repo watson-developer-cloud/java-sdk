@@ -14,21 +14,27 @@ package com.ibm.watson.developer_cloud.conversation.v1.model.workspace;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-public class Workspace extends GenericModel{
+public class Workspace extends GenericModel {
 
     private String name;
     private String description;
     private String language;
     private Object metadata;
 
-    public Workspace(){}
+    public Workspace() {
+    }
+
     /**
      * Instantiates a new workspace.
      *
-     * @param name workspace name
-     * @param description workspace description
-     * @param language language
-     * @param metadata metadata
+     * @param name
+     *            workspace name
+     * @param description
+     *            workspace description
+     * @param language
+     *            language
+     * @param metadata
+     *            metadata
      */
     public Workspace(String name, String description, String language, Object metadata) {
         this.name = name;
@@ -45,7 +51,6 @@ public class Workspace extends GenericModel{
     public String getName() {
         return name;
     }
-
 
     /**
      * Returns the workspace's description.
@@ -65,7 +70,6 @@ public class Workspace extends GenericModel{
         return language;
     }
 
- 
     /**
      * Returns the workspace's metadata.
      *

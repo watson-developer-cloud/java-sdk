@@ -31,10 +31,14 @@ public class Pagination {
     /**
      * Instantiates a new intent.
      *
-     * @param refreshURL url to get this data again
-     * @param nextURL url to get the next page
-     * @param total number of available items
-     * @param matched number of items that match the current criteria
+     * @param refreshURL
+     *            url to get this data again
+     * @param nextURL
+     *            url to get the next page
+     * @param total
+     *            number of available items
+     * @param matched
+     *            number of items that match the current criteria
      */
     public Pagination(String refreshURL, String nextURL, int total, int matched) {
         this.refreshURL = refreshURL;
@@ -71,7 +75,6 @@ public class Pagination {
     public int getTotal() {
         return total;
     }
-
 
     /**
      * Returns the total number of items that match the current criteria.

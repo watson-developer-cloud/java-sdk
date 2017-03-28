@@ -66,8 +66,8 @@ public final class ConversationService extends WatsonService {
      * Returns an instance of the Conversation Service using the service's
      * default endpoint (URL).
      *
-     * @param versionDate Version of the API which is to be invoked by the REST
-     *            client.
+     * @param versionDate
+     *            Version of the API which is to be invoked by the REST client.
      */
     public ConversationService(final String versionDate) {
         super(SERVICE_NAME);
@@ -84,10 +84,12 @@ public final class ConversationService extends WatsonService {
      * Returns an instance of the Conversation Service using the service's
      * default endpoint (URL), username and password.
      *
-     * @param versionDate Version of the API which is to be invoked by the REST
-     *            client.
-     * @param username the username
-     * @param password the password
+     * @param versionDate
+     *            Version of the API which is to be invoked by the REST client.
+     * @param username
+     *            the username
+     * @param password
+     *            the password
      */
     public ConversationService(final String versionDate, String username, String password) {
         this(versionDate);
@@ -96,7 +98,9 @@ public final class ConversationService extends WatsonService {
 
     /**
      * Retrieves the workspace list to the service.
-     * @param options instructions how to return the list. see {@link MultipleRecordsOptions}
+     * @param options
+     *            instructions how to return the list. see
+     *            {@link MultipleRecordsOptions}
      * @return The list of workspaces.
      */
     public ServiceCall<WorkspaceListResponse> listWorkspaces(MultipleRecordsOptions options) {
@@ -105,7 +109,7 @@ public final class ConversationService extends WatsonService {
         buildMultiRecordsOptions(options, builder);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceListResponse.class));
     }
-    
+
     /**
      * Retrieves the workspace list to the service.
      *
@@ -120,7 +124,8 @@ public final class ConversationService extends WatsonService {
     /**
      * Creates a Workspace in Conversation service.
      *
-     * @param payload the workspace
+     * @param payload
+     *            the workspace
      * @return a request to create the workspace.
      */
     public ServiceCall<WorkspaceResponse> createWorkspace(WorkspaceRequest payload) {
@@ -137,7 +142,8 @@ public final class ConversationService extends WatsonService {
     /**
      * Deletes a specific intent for the service.
      *
-     * @param workspaceId the workspace id
+     * @param workspaceId
+     *            the workspace id
      * @return an empty service call
      */
     public ServiceCall<Void> deleteWorkspace(String workspaceId) {
@@ -150,7 +156,8 @@ public final class ConversationService extends WatsonService {
     /**
      * Retrieves a specific intent for the service.
      *
-     * @param workspaceId the workspace id
+     * @param workspaceId
+     *            the workspace id
      * @return The intent for a given workspace.
      */
     public ServiceCall<WorkspaceExportResponse> getWorkspace(String workspaceId) {
@@ -164,8 +171,10 @@ public final class ConversationService extends WatsonService {
     /**
      * Update a specific intent for the service through a {@link CreateIntent}.
      *
-     * @param workspaceId the workspace id
-     * @param payload the new data
+     * @param workspaceId
+     *            the workspace id
+     * @param payload
+     *            the new data
      * @return The intent for a given workspace.
      */
     public ServiceCall<WorkspaceResponse> updateWorkspace(String workspaceId, WorkspaceRequest payload) {
@@ -184,54 +193,62 @@ public final class ConversationService extends WatsonService {
     /**
      * Retrieves the intent list to the service.
      *
-     * @param workspaceId the workspace id
-     * @param export Whether to include all element content in the returned data.
-     * If export=false, the returned data includes only information about the element itself.
-     * If export=true, all content, including subelements, is included.
-     * @param options see  {@link MultipleRecordsOptions}
+     * @param workspaceId
+     *            the workspace id
+     * @param export
+     *            Whether to include all element content in the returned data.
+     *            If export=false, the returned data includes only information
+     *            about the element itself. If export=true, all content,
+     *            including subelements, is included.
+     * @param options
+     *            see {@link MultipleRecordsOptions}
      * @return The list of intents for a given workspace.
      */
-    public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export, MultipleRecordsOptions options) {
+    public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export,
+            MultipleRecordsOptions options) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_INTENTS, workspaceId));
         builder.query(VERSION_PARAM, versionDate);
-        if(export)
-        	builder.query(EXPORT_PARAM, export);
+        if (export)
+            builder.query(EXPORT_PARAM, export);
         buildMultiRecordsOptions(options, builder);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentListResponse.class));
     }
 
-	private void buildMultiRecordsOptions(MultipleRecordsOptions options, RequestBuilder builder) {
-		if(options==null)
-			return;
-    	if(options.getCursor()!=null)
-    		builder.query(CURSOR_PARAM, options.getCursor());
-		if(options.getIncludeCount())
-    		builder.query(INCLUDE_COUNT_PARAM, options.getIncludeCount());
-		if(options.getPageLimit()!=0)
-    		builder.query(PAGE_LIMIT_PARAM, options.getPageLimit());
-    	if(options.getSort()!=null)
-    		builder.query(SORT_PARAM, options.getSort());
-	}
+    private void buildMultiRecordsOptions(MultipleRecordsOptions options, RequestBuilder builder) {
+        if (options == null)
+            return;
+        if (options.getCursor() != null)
+            builder.query(CURSOR_PARAM, options.getCursor());
+        if (options.getIncludeCount())
+            builder.query(INCLUDE_COUNT_PARAM, options.getIncludeCount());
+        if (options.getPageLimit() != 0)
+            builder.query(PAGE_LIMIT_PARAM, options.getPageLimit());
+        if (options.getSort() != null)
+            builder.query(SORT_PARAM, options.getSort());
+    }
 
     /**
-     * Retrieves the intent list to the service (without sub-elements, with default page size and default sort order).
+     * Retrieves the intent list to the service (without sub-elements, with
+     * default page size and default sort order).
      *
-     * @param workspaceId the workspace id
+     * @param workspaceId
+     *            the workspace id
      * @return The list of intents for a given workspace.
      */
     public ServiceCall<IntentListResponse> getIntents(String workspaceId) {
         return getIntents(workspaceId, false, null);
     }
-    
-    
+
     /**
      * Retrieves a specific intent for the service through a
      * {@link CreateIntent}.
      *
-     * @param workspaceId the workspace id
-     * @param payload the new data
+     * @param workspaceId
+     *            the workspace id
+     * @param payload
+     *            the new data
      * @return The intent for a given workspace.
      */
     public ServiceCall<IntentResponse> createIntent(String workspaceId, CreateIntent payload) {
@@ -250,8 +267,10 @@ public final class ConversationService extends WatsonService {
     /**
      * Deletes a specific intent for the service.
      *
-     * @param workspaceId the workspace id
-     * @param intentId the intent id
+     * @param workspaceId
+     *            the workspace id
+     * @param intentId
+     *            the intent id
      * @return an empty service call
      */
     public ServiceCall<Void> deleteIntent(String workspaceId, String intentId) {
@@ -266,11 +285,15 @@ public final class ConversationService extends WatsonService {
     /**
      * Retrieves a specific intent for the service.
      *
-     * @param workspaceId the workspace id
-     * @param intentId the intent id
-     * @param export Whether to include all element content in the returned data.
-     * If export=false, the returned data includes only information about the element itself.
-     * If export=true, all content, including subelements, is included.
+     * @param workspaceId
+     *            the workspace id
+     * @param intentId
+     *            the intent id
+     * @param export
+     *            Whether to include all element content in the returned data.
+     *            If export=false, the returned data includes only information
+     *            about the element itself. If export=true, all content,
+     *            including subelements, is included.
      * @return The intent for a given workspace.
      */
     public ServiceCall<IntentExportResponse> getIntent(String workspaceId, String intentId, boolean export) {
@@ -286,21 +309,25 @@ public final class ConversationService extends WatsonService {
     /**
      * Retrieves a specific intent for the service without its sub-elements.
      *
-     * @param workspaceId the workspace id
-     * @param intentId the intent id
-      * @return The intent for a given workspace.
+     * @param workspaceId
+     *            the workspace id
+     * @param intentId
+     *            the intent id
+     * @return The intent for a given workspace.
      */
     public ServiceCall<IntentExportResponse> getIntent(String workspaceId, String intentId) {
         return getIntent(workspaceId, intentId, false);
     }
 
     /**
-     * Update a specific intent for the service through a
-     * {@link CreateIntent}.
+     * Update a specific intent for the service through a {@link CreateIntent}.
      *
-     * @param workspaceId the workspace id
-     * @param intentId the intent id
-     * @param payload the new data
+     * @param workspaceId
+     *            the workspace id
+     * @param intentId
+     *            the intent id
+     * @param payload
+     *            the new data
      * @return The intent for a given workspace.
      */
     public ServiceCall<IntentResponse> updateIntent(String workspaceId, String intentId, CreateIntent payload) {
@@ -320,8 +347,10 @@ public final class ConversationService extends WatsonService {
     /**
      * Sends a message to the service through a {@link MessageRequest}.
      *
-     * @param workspaceId the workspace id
-     * @param request the request
+     * @param workspaceId
+     *            the workspace id
+     * @param request
+     *            the request
      * @return The response for the given message.
      */
     public ServiceCall<MessageResponse> message(String workspaceId, MessageRequest request) {

@@ -21,30 +21,29 @@ import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
  * {@link ConversationService#createIntent(String, CreateIntent)}.
  * {@link ConversationService#updateIntent(String, String, CreateIntent)}.
  *
- * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html"> http://www.ibm.com/
- *      watson/developercloud/conversation.html</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">
+ *      http://www.ibm.com/ watson/developercloud/conversation.html</a>
  */
 public class IntentResponse extends Intent {
-	protected Date created;
+    protected Date created;
     protected Date updated;
 
-  /**
-   * Returns the time stamp that the intent was created.
-   *
-   * @return creation a date
-   */
-  public Date getCreated() {
-    return created;
-  }
+    /**
+     * Returns the time stamp that the intent was created.
+     *
+     * @return creation a date
+     */
+    public Date getCreated() {
+        return created;
+    }
 
-  /**
-   * Returns the time stamp that the intent was last updated.
-   *
-   * @return last updated date
-   */
-  public Date getUpdated() {
-    return updated;
-  }
-
+    /**
+     * Returns the time stamp that the intent was last updated.
+     *
+     * @return last updated date
+     */
+    public Date getUpdated() {
+        return updated;
+    }
 
 }

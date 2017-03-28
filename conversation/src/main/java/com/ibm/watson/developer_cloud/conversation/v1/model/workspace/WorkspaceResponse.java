@@ -22,18 +22,17 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.JsonConstants;
  * The response payload from the Conversation service's workspaces API call
  * {@link ConversationService#createWorkspace(WorkspaceRequest)}.
  * {@link ConversationService#getWorkspace(String)}.
- * {@link ConversationService#updateWorkspace(String, WorkspaceRequest)}
- * .
+ * {@link ConversationService#updateWorkspace(String, WorkspaceRequest)} .
  *
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">
  *      http://www.ibm.com/ watson/developercloud/conversation.html</a>
  */
 public class WorkspaceResponse extends Workspace {
-	
-	private WorkspaceStatus status;
-	
+
+    private WorkspaceStatus status;
+
     private Date created;
-    
+
     private Date updated;
 
     @SerializedName(JsonConstants.WORKSPACE_ID)
@@ -45,23 +44,26 @@ public class WorkspaceResponse extends Workspace {
     public Date getCreated() {
         return created;
     }
+
     /**
      * @return The timestamp for the last update to the workspace.
      */
     public Date getUpdated() {
         return updated;
     }
+
     /**
      * @return the workspaceID
      */
     public String getWorkspaceID() {
         return workspaceID;
     }
-	/**
-	 * @return The current status of the workspace
-	 */
-	public WorkspaceStatus getStatus() {
-		return status;
-	}
+
+    /**
+     * @return The current status of the workspace
+     */
+    public WorkspaceStatus getStatus() {
+        return status;
+    }
 
 }

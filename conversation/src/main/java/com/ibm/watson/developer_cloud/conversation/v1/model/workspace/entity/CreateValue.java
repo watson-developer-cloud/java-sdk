@@ -4,53 +4,55 @@ import java.util.List;
 
 public class CreateValue {
 
-	private String value;
-	
-	private Object metadata;
-	
-	private List<String> synonyms;
+    private String value;
 
-	/**
-	 * @return The text of the entity value.
-	 */
-	public String getValue() {
-		return value;
-	}
+    private Object metadata;
 
-	/**
-	 * @param value The text of the entity value.
-	 */
-	public void setValue(String value) {
-		this.value = value;
-	}
+    private List<String> synonyms;
 
-	/**
-	 * @return Any metadata related to the entity value.
-	 */
-	public Object getMetadata() {
-		return metadata;
-	}
+    /**
+     * @return The text of the entity value.
+     */
+    public String getValue() {
+        return value;
+    }
 
-	/**
-	 * @param metadata Any metadata related to the entity value.
-	 */
-	public void setMetadata(Object metadata) {
-		this.metadata = metadata;
-	}
+    /**
+     * @param value
+     *            The text of the entity value.
+     */
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	/**
-	 * @return An array containing any synonyms for the entity value.
-	 */
-	public List<String> getSynonyms() {
-		return synonyms;
-	}
+    /**
+     * @return Any metadata related to the entity value.
+     */
+    public Object getMetadata() {
+        return metadata;
+    }
 
-	/**
-	 * @param synonyms An array containing any synonyms for the entity value.
-	 */
-	public void setSynonyms(List<String> synonyms) {
-		this.synonyms = synonyms;
-	}
-	
-	
+    /**
+     * @param metadata
+     *            Any metadata related to the entity value.
+     */
+    public void setMetadata(Object metadata) {
+        this.metadata = metadata;
+    }
+
+    /**
+     * @return An array containing any synonyms for the entity value.
+     */
+    public List<String> getSynonyms() {
+        return synonyms;
+    }
+
+    /**
+     * @param synonyms
+     *            An array containing any synonyms for the entity value.
+     */
+    public void setSynonyms(List<String> synonyms) {
+        this.synonyms = synonyms;
+    }
+
 }

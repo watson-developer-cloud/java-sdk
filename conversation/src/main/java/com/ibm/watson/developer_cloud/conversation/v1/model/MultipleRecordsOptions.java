@@ -16,78 +16,85 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 public class MultipleRecordsOptions extends GenericModel {
-	
-	
-	@SerializedName(JsonConstants.PAGE_LIMIT)
-	private int pageLimit;
-	
-	@SerializedName(JsonConstants.INCLUDE_COUNT)
-	private boolean includeCount;
 
-	@SerializedName(JsonConstants.SORT)
-	private String sort;
+    @SerializedName(JsonConstants.PAGE_LIMIT)
+    private int pageLimit;
 
-	@SerializedName(JsonConstants.CURSOR)
-	private String cursor;
+    @SerializedName(JsonConstants.INCLUDE_COUNT)
+    private boolean includeCount;
 
-	/**
-	 * @return the number of records to return in each page of results. 
-	 */
-	public int getPageLimit() {
-		return pageLimit;
-	}
+    @SerializedName(JsonConstants.SORT)
+    private String sort;
 
-	/**
-	 * @param pageLimit the number of records to return in each page of results. 
-	 * The default page limit is 100.
-	 */
-	public void setPageLimit(int pageLimit) {
-		this.pageLimit = pageLimit;
-	}
+    @SerializedName(JsonConstants.CURSOR)
+    private String cursor;
 
-	/**
-	 * @return Whether to include information about the number of records returned.
-	 */
-	public boolean getIncludeCount() {
-		return includeCount;
-	}
+    /**
+     * @return the number of records to return in each page of results.
+     */
+    public int getPageLimit() {
+        return pageLimit;
+    }
 
-	/**
-	 * @param includeCount Whether to include information about the number of records returned.
-	 */
-	public void setIncludeCount(boolean includeCount) {
-		this.includeCount = includeCount;
-	}
+    /**
+     * @param pageLimit
+     *            the number of records to return in each page of results. The
+     *            default page limit is 100.
+     */
+    public void setPageLimit(int pageLimit) {
+        this.pageLimit = pageLimit;
+    }
 
-	/**
-	 * @return the sort attribute by which returned results will be sorted. 
-	 */
-	public String getSort() {
-		return sort;
-	}
+    /**
+     * @return Whether to include information about the number of records
+     *         returned.
+     */
+    public boolean getIncludeCount() {
+        return includeCount;
+    }
 
-	/**
-	 * @param sort the sort attribute by which returned results will be sorted. 
-	 * To reverse the sort order, prefix the value with a minus sign (-). 
-	 * Supported values are depends on the returned entity type. 
-	 * For example: text, modified, and example_id.
-	 */
-	public void setSort(String sort) {
-		this.sort = sort;
-	}
+    /**
+     * @param includeCount
+     *            Whether to include information about the number of records
+     *            returned.
+     */
+    public void setIncludeCount(boolean includeCount) {
+        this.includeCount = includeCount;
+    }
 
-	/**
-	 * @return A token identifying the last value from the previous page of results.
-	 */
-	public String getCursor() {
-		return cursor;
-	}
+    /**
+     * @return the sort attribute by which returned results will be sorted.
+     */
+    public String getSort() {
+        return sort;
+    }
 
-	/**
-	 * @param cursor A token identifying the last value from the previous page of results.
-	 */
-	public void setCursor(String cursor) {
-		this.cursor = cursor;
-	}
+    /**
+     * @param sort
+     *            the sort attribute by which returned results will be sorted.
+     *            To reverse the sort order, prefix the value with a minus sign
+     *            (-). Supported values are depends on the returned entity type.
+     *            For example: text, modified, and example_id.
+     */
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
+    /**
+     * @return A token identifying the last value from the previous page of
+     *         results.
+     */
+    public String getCursor() {
+        return cursor;
+    }
+
+    /**
+     * @param cursor
+     *            A token identifying the last value from the previous page of
+     *            results.
+     */
+    public void setCursor(String cursor) {
+        this.cursor = cursor;
+    }
 
 }
