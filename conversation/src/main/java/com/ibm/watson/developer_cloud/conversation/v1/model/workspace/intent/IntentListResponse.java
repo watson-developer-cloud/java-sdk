@@ -22,8 +22,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  * The response payload from the Conversation service's intent list API call
  * {@link ConversationService#getIntents(String)}.
  *
- * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html"> http://www.ibm.com/
- *      watson/developercloud/conversation.html</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">
+ *      http://www.ibm.com/ watson/developercloud/conversation.html</a>
  */
 public class IntentListResponse extends GenericModel {
 
@@ -33,7 +33,8 @@ public class IntentListResponse extends GenericModel {
     /**
      * Returns a list of intents attached to a given workspace.
      *
-     * @return an array of {@link IntentExportResponse} the provided examples that can trigger an intent.
+     * @return an array of {@link IntentExportResponse} the provided examples
+     *         that can trigger an intent.
      */
     public List<IntentExportResponse> getIntents() {
         return intents;

@@ -15,18 +15,23 @@ package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 import java.util.Date;
 import java.util.List;
 
-public class IntentExportResponse extends IntentResponse{
-	
-	private List<ExampleResponse> examples;
-    
+public class IntentExportResponse extends IntentResponse {
+
+    private List<ExampleResponse> examples;
+
     /**
      * Instantiates a new intent.
      *
-     * @param intent name
-     * @param created created time-stamp
-     * @param updated last updated time-stamp
-     * @param description intent description
-     * @param examples list of utterances
+     * @param intent
+     *            name
+     * @param created
+     *            created time-stamp
+     * @param updated
+     *            last updated time-stamp
+     * @param description
+     *            intent description
+     * @param examples
+     *            list of utterances
      */
     public IntentExportResponse(String intent, Date created, Date updated, String description,
             List<ExampleResponse> examples) {

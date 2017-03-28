@@ -13,47 +13,53 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 /**
- * A class representing an Intent as detected by the service. The intent is the 'intent' of the user utterance, e.g.
- * "pay_bill", "check_balance" etc.. The intent is accompanied by a confidence score ranging between 0.0 and 1.0, with
+ * A class representing an Intent as detected by the service. The intent is the
+ * 'intent' of the user utterance, e.g. "pay_bill", "check_balance" etc.. The
+ * intent is accompanied by a confidence score ranging between 0.0 and 1.0, with
  * 1.0 being the most confident.
  */
 public class Intent {
 
-  /**
-   * Instantiates a new intent.
-   *
-   * @param intent the intent
-   * @param confidence the confidence
-   */
-  public Intent(String intent, Double confidence) {
-    this.confidence = confidence;
-    this.intent = intent;
-  }
+    /**
+     * Instantiates a new intent.
+     *
+     * @param intent
+     *            the intent
+     * @param confidence
+     *            the confidence
+     */
+    public Intent(String intent, Double confidence) {
+        this.confidence = confidence;
+        this.intent = intent;
+    }
 
-  private Double confidence;
-  private String intent;
+    private Double confidence;
+    private String intent;
 
-  /**
-   * Returns the confidence associated with the intent. When the service parses/analyzes the user input it tries to
-   * determine the 'intent' of what the user said. The service will be trained to expect n different intents and the
-   * service tries to match the input with one of the intents. The confidence is the value assigned by the system to the
-   * returned intent. High confidence scores (close to 1.0) imply that the system is very confident that the user meant
-   * the returned intent. Low confidence scores indicate that the system is not confident in its response.
-   *
-   * @return a float representing system confidence
-   */
-  public Double getConfidence() {
-    return confidence;
-  }
+    /**
+     * Returns the confidence associated with the intent. When the service
+     * parses/analyzes the user input it tries to determine the 'intent' of what
+     * the user said. The service will be trained to expect n different intents
+     * and the service tries to match the input with one of the intents. The
+     * confidence is the value assigned by the system to the returned intent.
+     * High confidence scores (close to 1.0) imply that the system is very
+     * confident that the user meant the returned intent. Low confidence scores
+     * indicate that the system is not confident in its response.
+     *
+     * @return a float representing system confidence
+     */
+    public Double getConfidence() {
+        return confidence;
+    }
 
-  /**
-   * Returns the name of the intent that the system detected in the user input.
-   *
-   * @return a string representing an intent name
-   */
-  public String getIntent() {
-    return intent;
-  }
-
+    /**
+     * Returns the name of the intent that the system detected in the user
+     * input.
+     *
+     * @return a string representing an intent name
+     */
+    public String getIntent() {
+        return intent;
+    }
 
 }

@@ -21,8 +21,9 @@ public final class JsonConstants {
     public static final String WORKSPACE_ID = "workspace_id";
     public static final String PAGE_LIMIT = "page_limit";
     public static final String INCLUDE_COUNT = "include_count";
-	public static final String SORT = "sort";
-	public static final String CURSOR = "cursor";
+    public static final String SORT = "sort";
+    public static final String CURSOR = "cursor";
 
-    private JsonConstants() { }
+    private JsonConstants() {
+    }
 }

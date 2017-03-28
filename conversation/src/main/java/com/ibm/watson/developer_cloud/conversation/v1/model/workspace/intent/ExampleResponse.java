@@ -17,8 +17,8 @@ import java.util.Date;
 /**
  * An class used to describe the intent example payload object.
  */
-public class ExampleResponse extends CreateExample{
-	
+public class ExampleResponse extends CreateExample {
+
     protected Date created;
     protected Date updated;
 
@@ -30,7 +30,6 @@ public class ExampleResponse extends CreateExample{
     public Date getCreated() {
         return created;
     }
-
 
     /**
      * Returns the time stamp for when the example was last updated.

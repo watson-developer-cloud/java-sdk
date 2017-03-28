@@ -10,43 +10,47 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.nodes.Crea
 
 public class WorkspaceExportResponse extends WorkspaceResponse {
 
-	@SerializedName("counterexamples")
-	private List<CreateExample> counterExamples;
-	@SerializedName("dialog_nodes")
-	private List<CreateDialogNode> dialogNodes;
-	private List<CreateEntity> entities;
-	private List<CreateIntent> intents;
+    @SerializedName("counterexamples")
+    private List<CreateExample> counterExamples;
+    @SerializedName("dialog_nodes")
+    private List<CreateDialogNode> dialogNodes;
+    private List<CreateEntity> entities;
+    private List<CreateIntent> intents;
 
-	/**
-	 * 
-	 * @return An array of CreateExample objects defining input examples that have been marked as irrelevant input.
-	 */
-	public List<CreateExample> getCounterExamples(){
-		return counterExamples;
-	}
+    /**
+     * lists the workspace counter examples.
+     * @return An array of CreateExample objects defining input examples that
+     *         have been marked as irrelevant input.
+     */
+    public List<CreateExample> getCounterExamples() {
+        return counterExamples;
+    }
 
-	/**
-	 * 
-	 * @return An array of CreateDialogNode objects defining the nodes in the workspace dialog.
-	 */
-	public List<CreateDialogNode> getDialogNodes(){
-		return dialogNodes;
-	}
+    /**
+     * lists the workspace root nodes.
+     * @return An array of CreateDialogNode objects defining the nodes in the
+     *         workspace dialog.
+     */
+    public List<CreateDialogNode> getDialogNodes() {
+        return dialogNodes;
+    }
 
-	/**
-	 * 
-	 * @return An array of CreateEntity objects defining the entities for the workspace.
-	 */
-	public List<CreateEntity> getEntities(){
-		return entities;
-	}
+    /**
+     * lists the workspace entities.
+     * @return An array of CreateEntity objects defining the entities for the
+     *         workspace.
+     */
+    public List<CreateEntity> getEntities() {
+        return entities;
+    }
 
-	/**
-	 * 
-	 * @return An array of CreateIntent objects defining the intents for the workspace.
-	 */
-	public List<CreateIntent> getIntents(){
-		return intents;
-	}
+    /**
+     * lists the workspace intents.
+     * @return An array of CreateIntent objects defining the intents for the
+     *         workspace.
+     */
+    public List<CreateIntent> getIntents() {
+        return intents;
+    }
 
 }
