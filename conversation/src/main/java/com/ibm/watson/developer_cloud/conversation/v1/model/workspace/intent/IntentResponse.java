@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 
+import java.util.Date;
+
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 
 /**
@@ -23,24 +25,24 @@ import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
  *      watson/developercloud/conversation.html</a>
  */
 public class IntentResponse extends Intent {
-	protected String created;
-    protected String updated;
+	protected Date created;
+    protected Date updated;
 
   /**
    * Returns the time stamp that the intent was created.
    *
-   * @return a string representation of a date
+   * @return creation a date
    */
-  public String getCreated() {
+  public Date getCreated() {
     return created;
   }
 
   /**
    * Returns the time stamp that the intent was last updated.
    *
-   * @return a string representation of a date
+   * @return last updated date
    */
-  public String getUpdated() {
+  public Date getUpdated() {
     return updated;
   }
 

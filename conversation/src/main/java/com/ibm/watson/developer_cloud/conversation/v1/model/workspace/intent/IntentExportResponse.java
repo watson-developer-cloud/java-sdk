@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 
+import java.util.Date;
 import java.util.List;
 
 public class IntentExportResponse extends IntentResponse{
@@ -27,7 +28,7 @@ public class IntentExportResponse extends IntentResponse{
      * @param description intent description
      * @param examples list of utterances
      */
-    public IntentExportResponse(String intent, String created, String updated, String description,
+    public IntentExportResponse(String intent, Date created, Date updated, String description,
             List<ExampleResponse> examples) {
         this.intent = intent;
         this.created = created;
