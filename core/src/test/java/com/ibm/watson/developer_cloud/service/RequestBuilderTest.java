@@ -239,8 +239,8 @@ public class RequestBuilderTest {
    */
   @Test
   public void testSpecialCharacterQuery() {
-//    final Request request = RequestBuilder.get(url).query("ä&ö", "ö=ü").build();
-//    assertEquals(url + "?%C3%A4%26%C3%B6=%C3%B6%3D%C3%BC", request.url().toString());
+    final Request request = RequestBuilder.get(url).query("ä&ö", "ö=ü").build();
+    assertEquals(url + "?%C3%A4%26%C3%B6=%C3%B6%3D%C3%BC", request.url().toString());
   }
 
 }
