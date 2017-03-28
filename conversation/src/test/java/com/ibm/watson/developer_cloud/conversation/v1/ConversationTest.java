@@ -34,7 +34,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.Entity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MultipleRecordsOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.RecordsInstructions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
@@ -409,7 +409,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         server.enqueue(jsonResponse(mockResponse));
 
         // Execute get intent list
-        MultipleRecordsOptions ops = new MultipleRecordsOptions();
+        RecordsInstructions ops = new RecordsInstructions();
         ops.setCursor("c1");
         ops.setIncludeCount(true);
         ops.setPageLimit(50);

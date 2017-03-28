@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.conversation.v1;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MultipleRecordsOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.RecordsInstructions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
@@ -100,10 +100,10 @@ public final class ConversationService extends WatsonService {
      * Retrieves the workspace list to the service.
      * @param options
      *            instructions how to return the list. see
-     *            {@link MultipleRecordsOptions}
+     *            {@link RecordsInstructions}
      * @return The list of workspaces.
      */
-    public ServiceCall<WorkspaceListResponse> listWorkspaces(MultipleRecordsOptions options) {
+    public ServiceCall<WorkspaceListResponse> listWorkspaces(RecordsInstructions options) {
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_WORKSPACES));
         builder.query(VERSION_PARAM, versionDate);
         buildMultiRecordsOptions(options, builder);
@@ -201,11 +201,11 @@ public final class ConversationService extends WatsonService {
      *            about the element itself. If export=true, all content,
      *            including subelements, is included.
      * @param options
-     *            see {@link MultipleRecordsOptions}
+     *            see {@link RecordsInstructions}
      * @return The list of intents for a given workspace.
      */
     public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export,
-            MultipleRecordsOptions options) {
+            RecordsInstructions options) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_INTENTS, workspaceId));
@@ -216,7 +216,7 @@ public final class ConversationService extends WatsonService {
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentListResponse.class));
     }
 
-    private void buildMultiRecordsOptions(MultipleRecordsOptions options, RequestBuilder builder) {
+    private void buildMultiRecordsOptions(RecordsInstructions options, RequestBuilder builder) {
         if (options == null)
             return;
         if (options.getCursor() != null)
