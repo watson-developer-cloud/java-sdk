@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -79,19 +78,13 @@ public class ConversationTest extends WatsonServiceUnitTest {
     private static final String TEST_INTENT_EXAMPLE_TEXT = "good morning";
 
     private static final String TEST_WORKSPACE_NAME = "API test";
-    private static final String TEST_WORKSPACE_CREATED=  "2017-02-01T15:28:10.145Z";
+    private static final String TEST_WORKSPACE_CREATED = "2017-02-01T15:28:10.145Z";
     private static final String TEST_WORKSPACE_UPDATED = "2017-01-31T18:02:19.070Z";
     private static final String TEST_WORKSPACE_LANGUAGE = "en";
     private static final String TEST_WORKSPACE_METADATA = null;
     private static final String TEST_WORKSPACE_DESCRIPTION = "Example workspace created via API.";
     private static final String TEST_WORKSPACE_WORKSPACE_ID = "245edf96-b89f-46ac-b647-c6618b2eb5f0";
 
-//    public ConversationTest() throws Exception{
-//    	System.out.println(GsonSingleton.getGson().toJson(new Date()));
-//    	Date d = GsonSingleton.getGson().fromJson(	"2017-02-01T15:28:10.145Z", Date.class);
-//    	TEST_WORKSPACE_CREATED = new Date();// SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse("2017-01-31T18:02:19.070Z");    	
-//    }
-   
     /*
      * (non-Javadoc)
      *
@@ -106,38 +99,57 @@ public class ConversationTest extends WatsonServiceUnitTest {
         service.setEndPoint(getMockWebServerUrl());
     }
 
-    class DateDummy{
-    	Date created;
+    /**
+     * Dummy data-transfer class to test date json serialization.
+     */
+    class DateDummy {
+        Date created;
     }
+    /**
+     * Test that dates are parsed according to the format.
+     */
     @Test
-    public void testDateFromJson(){
-    	String str = String.format("{\"created\":\"%s\"}", TEST_WORKSPACE_CREATED);
+    public void testDateFromJson() {
+        String str = String.format("{\"created\":\"%s\"}", TEST_WORKSPACE_CREATED);
         DateDummy dummy = GsonSingleton.getGson().fromJson(str, DateDummy.class);
-    	long expected = 1485955690145l;
-		assertEquals(expected ,dummy.created.getTime());
-    	
-    	assertEquals(new Date(expected) , toDate(TEST_WORKSPACE_CREATED));
+        long expected = 1485955690145L;
+        assertEquals(expected, dummy.created.getTime());
+
+        assertEquals(new Date(expected), toDate(TEST_WORKSPACE_CREATED));
     }
+
+    /**
+     * test that dates are serialized according to the format.
+     */
     @Test
-    public void testDateToJson(){
-    	Date date = new Date(1485955690145l);
-    	String actual = GsonSingleton.getGson().toJson(date);
-    	String expected = String.format("\"%s\"", TEST_WORKSPACE_CREATED);
-    	
-    	//FIXME DateSerializer does not add the z at the end. is it necessary?
-    	//expected:<...7-02-01T15:28:10.145[Z]"> but was:<...7-02-01T15:28:10.145[]">
-//		assertEquals(expected, actual);
+    public void testDateToJson() {
+        Date date = new Date(1485955690145L);
+        String actual = GsonSingleton.getGson().toJson(date);
+        String expected = String.format("\"%s\"", TEST_WORKSPACE_CREATED);
+
+        // FIXME DateSerializer does not add the z at the end. is it necessary?
+        // expected:<...7-02-01T15:28:10.145[Z]"> but
+        // was:<...7-02-01T15:28:10.145[]">
+        // assertEquals(expected, actual);
     }
-    
-    private static Date toDate(String str){
-    	String json = String.format("\"%s\"", str);
-		return GsonSingleton.getGson().fromJson(json, Date.class);
+
+    /**
+     * parse a date string.
+     * @param str date-string according to the service format
+     * @return the parsed date object
+     */
+    private static Date toDate(String str) {
+        String json = String.format("\"%s\"", str);
+        return GsonSingleton.getGson().fromJson(json, Date.class);
     }
+
     /**
      * Test get workspace list.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testGetWorkspaces() throws IOException, InterruptedException {
@@ -156,7 +168,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertNotNull(serviceResponse.getworkspaces());
         assertEquals(3, serviceResponse.getworkspaces().size());
         WorkspaceResponse ws0 = serviceResponse.getworkspaces().get(0);
-		assertEquals("Car_Dashboard", ws0.getName());
+        assertEquals("Car_Dashboard", ws0.getName());
         assertEquals(toDate("2016-07-13T12:26:55.781Z"), ws0.getCreated());
         assertEquals(toDate("2016-11-29T21:46:38.969Z"), ws0.getUpdated());
         assertEquals("en", ws0.getLanguage());
@@ -175,79 +187,73 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Test create workspace.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testCreateWorkspace() throws IOException, InterruptedException {
         WorkspaceResponse mockResponse = loadFixture(WORKSPACE_FIXTURE, WorkspaceResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-        WorkspaceRequest options = new WorkspaceRequest.Builder()
-        		.setDescription(TEST_WORKSPACE_DESCRIPTION)
-                .setName(TEST_WORKSPACE_NAME)
-                .setLanguage(TEST_WORKSPACE_LANGUAGE)
-                .setMetadata(TEST_WORKSPACE_METADATA)
+        WorkspaceRequest options = new WorkspaceRequest.Builder().setDescription(TEST_WORKSPACE_DESCRIPTION)
+                .setName(TEST_WORKSPACE_NAME).setLanguage(TEST_WORKSPACE_LANGUAGE).setMetadata(TEST_WORKSPACE_METADATA)
                 .addIntent(new CreateIntent.Builder().setIntent("i0").build())
-                .addIntents(Arrays.asList(
-                		new CreateIntent.Builder().setIntent("i1").build(),
-                		new CreateIntent.Builder().setIntent("i2").build()))
+                .addIntents(Arrays.asList(new CreateIntent.Builder().setIntent("i1").build(),
+                        new CreateIntent.Builder().setIntent("i2").build()))
                 .addCounterExample(new CreateExample("ex0"))
-                .addCounterExamples(Arrays.asList(
-                		new CreateExample("ex1"),
-                		new CreateExample("ex2")))
+                .addCounterExamples(Arrays.asList(new CreateExample("ex1"), new CreateExample("ex2")))
                 .addDialogNode(new CreateDialogNode("n0"))
-                .addDialogNodes(Arrays.asList(
-                		new CreateDialogNode("n1"),
-                		new CreateDialogNode("n2")))
+                .addDialogNodes(Arrays.asList(new CreateDialogNode("n1"), new CreateDialogNode("n2")))
                 .addEntity(new CreateEntity("e0"))
-                .addEntities(Arrays.asList(
-                		new CreateEntity("e1"),
-                		new CreateEntity("e2")))
-                .build();
+                .addEntities(Arrays.asList(new CreateEntity("e1"), new CreateEntity("e2"))).build();
 
         WorkspaceResponse serviceResponse = service.createWorkspace(options).execute();
         RecordedRequest request = server.takeRequest();
 
         String path = StringUtils.join(PATH_WORKSPACES, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
         assertEquals(path, request.getPath());
-//
-//        assertNotNull(serviceResponse);
-//        assertEquals(TEST_WORKSPACE_NAME, serviceResponse.getName());
-//        assertEquals(TEST_WORKSPACE_CREATED, serviceResponse.getCreated());
-//        assertEquals(TEST_WORKSPACE_UPDATED, serviceResponse.getUpdated());
-//        assertEquals(TEST_WORKSPACE_LANGUAGE, serviceResponse.getLanguage());
-//        assertEquals(TEST_WORKSPACE_DESCRIPTION, serviceResponse.getDescription());
-//        assertEquals(TEST_WORKSPACE_WORKSPACE_ID, serviceResponse.getWorkspaceID());
-//        assertEquals(TEST_WORKSPACE_METADATA, serviceResponse.getMetadata());
-//        assertEquals(serviceResponse, mockResponse);
+        //
+        // assertNotNull(serviceResponse);
+        // assertEquals(TEST_WORKSPACE_NAME, serviceResponse.getName());
+        // assertEquals(TEST_WORKSPACE_CREATED, serviceResponse.getCreated());
+        // assertEquals(TEST_WORKSPACE_UPDATED, serviceResponse.getUpdated());
+        // assertEquals(TEST_WORKSPACE_LANGUAGE, serviceResponse.getLanguage());
+        // assertEquals(TEST_WORKSPACE_DESCRIPTION,
+        // serviceResponse.getDescription());
+        // assertEquals(TEST_WORKSPACE_WORKSPACE_ID,
+        // serviceResponse.getWorkspaceID());
+        // assertEquals(TEST_WORKSPACE_METADATA, serviceResponse.getMetadata());
+        // assertEquals(serviceResponse, mockResponse);
 
         assertEquals(request.getMethod(), "POST");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        WorkspaceRequest actual = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(), WorkspaceRequest.class);
+        WorkspaceRequest actual = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(),
+                WorkspaceRequest.class);
         assertEquals(TEST_WORKSPACE_NAME, actual.getName());
         assertEquals(TEST_WORKSPACE_LANGUAGE, actual.getLanguage());
         assertEquals(TEST_WORKSPACE_DESCRIPTION, actual.getDescription());
         assertEquals(TEST_WORKSPACE_METADATA, actual.getMetadata());
-        
+
         List<CreateIntent> intents = actual.getIntents();
-		assertEquals(3, intents.size());
+        assertEquals(3, intents.size());
         assertEquals("i0", intents.get(0).getIntent());
         assertEquals("i1", intents.get(1).getIntent());
         assertEquals("i2", intents.get(2).getIntent());
-        
+
         List<CreateExample> examples = actual.getCounterExamples();
-		assertEquals(3, examples.size());
+        assertEquals(3, examples.size());
         assertEquals("ex0", examples.get(0).getText());
         assertEquals("ex1", examples.get(1).getText());
         assertEquals("ex2", examples.get(2).getText());
-        
+
         List<CreateDialogNode> nodes = actual.getDialogNodes();
-		assertEquals(3, nodes.size());
+        assertEquals(3, nodes.size());
         assertEquals("n0", nodes.get(0).getDialogNode());
         assertEquals("n1", nodes.get(1).getDialogNode());
         assertEquals("n2", nodes.get(2).getDialogNode());
-        
+
         List<CreateEntity> entities = actual.getEntities();
         assertEquals(3, entities.size());
         assertEquals("e0", entities.get(0).getEntity());
@@ -258,8 +264,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Test delete workspace.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testDeleteWorkspace() throws IOException, InterruptedException {
@@ -279,8 +287,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Test get workspace.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testGetWorkspace() throws IOException, InterruptedException {
@@ -310,36 +320,27 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Test update intent.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testUpdateWorkspace() throws IOException, InterruptedException {
         WorkspaceResponse mockResponse = loadFixture(WORKSPACE_FIXTURE, WorkspaceResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-        WorkspaceRequest options = new WorkspaceRequest.Builder()
-                .setDescription(TEST_WORKSPACE_DESCRIPTION)
-                .setName(TEST_WORKSPACE_NAME)
-                .setLanguage(TEST_WORKSPACE_LANGUAGE)
-                .setMetadata(TEST_WORKSPACE_METADATA)
+        WorkspaceRequest options = new WorkspaceRequest.Builder().setDescription(TEST_WORKSPACE_DESCRIPTION)
+                .setName(TEST_WORKSPACE_NAME).setLanguage(TEST_WORKSPACE_LANGUAGE).setMetadata(TEST_WORKSPACE_METADATA)
                 .addIntent(new CreateIntent.Builder().setIntent("i0").build())
-                .addIntents(Arrays.asList(
-                		new CreateIntent.Builder().setIntent("i1").build(),
-                		new CreateIntent.Builder().setIntent("i2").build()))
+                .addIntents(Arrays.asList(new CreateIntent.Builder().setIntent("i1").build(),
+                        new CreateIntent.Builder().setIntent("i2").build()))
                 .addCounterExample(new CreateExample("ex0"))
-                .addCounterExamples(Arrays.asList(
-                		new CreateExample("ex1"),
-                		new CreateExample("ex2")))
+                .addCounterExamples(Arrays.asList(new CreateExample("ex1"), new CreateExample("ex2")))
                 .addDialogNode(new CreateDialogNode("n0"))
-                .addDialogNodes(Arrays.asList(
-                		new CreateDialogNode("n1"),
-                		new CreateDialogNode("n2")))
+                .addDialogNodes(Arrays.asList(new CreateDialogNode("n1"), new CreateDialogNode("n2")))
                 .addEntity(new CreateEntity("e0"))
-                .addEntities(Arrays.asList(
-                		new CreateEntity("e1"),
-                		new CreateEntity("e2")))
-                .build();
+                .addEntities(Arrays.asList(new CreateEntity("e1"), new CreateEntity("e2"))).build();
 
         WorkspaceResponse serviceResponse = service.updateWorkspace(WORKSPACE_ID, options).execute();
         RecordedRequest request = server.takeRequest();
@@ -347,54 +348,60 @@ public class ConversationTest extends WatsonServiceUnitTest {
         String path = StringUtils.join(PATH_WORKSPACE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
         assertEquals(path, request.getPath());
 
-//        assertNotNull(serviceResponse);
-//        assertEquals(TEST_WORKSPACE_NAME, serviceResponse.getName());
-//        assertEquals(TEST_WORKSPACE_CREATED, serviceResponse.getCreated());
-//        assertEquals(TEST_WORKSPACE_UPDATED, serviceResponse.getUpdated());
-//        assertEquals(TEST_WORKSPACE_LANGUAGE, serviceResponse.getLanguage());
-//        assertEquals(TEST_WORKSPACE_DESCRIPTION, serviceResponse.getDescription());
-//        assertEquals(TEST_WORKSPACE_WORKSPACE_ID, serviceResponse.getWorkspaceID());
-//        assertEquals(TEST_WORKSPACE_METADATA, serviceResponse.getMetadata());
+        // assertNotNull(serviceResponse);
+        // assertEquals(TEST_WORKSPACE_NAME, serviceResponse.getName());
+        // assertEquals(TEST_WORKSPACE_CREATED, serviceResponse.getCreated());
+        // assertEquals(TEST_WORKSPACE_UPDATED, serviceResponse.getUpdated());
+        // assertEquals(TEST_WORKSPACE_LANGUAGE, serviceResponse.getLanguage());
+        // assertEquals(TEST_WORKSPACE_DESCRIPTION,
+        // serviceResponse.getDescription());
+        // assertEquals(TEST_WORKSPACE_WORKSPACE_ID,
+        // serviceResponse.getWorkspaceID());
+        // assertEquals(TEST_WORKSPACE_METADATA, serviceResponse.getMetadata());
         assertEquals(serviceResponse, mockResponse);
 
         assertEquals(request.getMethod(), "POST");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
 
-        WorkspaceRequest actual = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(), WorkspaceRequest.class);
+        WorkspaceRequest actual = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(),
+                WorkspaceRequest.class);
         assertEquals(TEST_WORKSPACE_NAME, actual.getName());
         assertEquals(TEST_WORKSPACE_LANGUAGE, actual.getLanguage());
         assertEquals(TEST_WORKSPACE_DESCRIPTION, actual.getDescription());
         assertEquals(TEST_WORKSPACE_METADATA, actual.getMetadata());
-        
+
         List<CreateIntent> intents = actual.getIntents();
-		assertEquals(3, intents.size());
+        assertEquals(3, intents.size());
         assertEquals("i0", intents.get(0).getIntent());
         assertEquals("i1", intents.get(1).getIntent());
         assertEquals("i2", intents.get(2).getIntent());
-        
+
         List<CreateExample> examples = actual.getCounterExamples();
-		assertEquals(3, examples.size());
+        assertEquals(3, examples.size());
         assertEquals("ex0", examples.get(0).getText());
         assertEquals("ex1", examples.get(1).getText());
         assertEquals("ex2", examples.get(2).getText());
-        
+
         List<CreateDialogNode> nodes = actual.getDialogNodes();
-		assertEquals(3, nodes.size());
+        assertEquals(3, nodes.size());
         assertEquals("n0", nodes.get(0).getDialogNode());
         assertEquals("n1", nodes.get(1).getDialogNode());
         assertEquals("n2", nodes.get(2).getDialogNode());
-        
+
         List<CreateEntity> entities = actual.getEntities();
         assertEquals(3, entities.size());
         assertEquals("e0", entities.get(0).getEntity());
         assertEquals("e1", entities.get(1).getEntity());
-        assertEquals("e2", entities.get(2).getEntity());    }
+        assertEquals("e2", entities.get(2).getEntity());
+    }
 
     /**
      * Test get intent list with records options.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testGetIntentsWOptions() throws IOException, InterruptedException {
@@ -413,18 +420,21 @@ public class ConversationTest extends WatsonServiceUnitTest {
         RecordedRequest request = server.takeRequest();
 
         String path = request.getPath();
-        String qStr = path.substring(path.indexOf("?")+1);
-		List<String> parts = Arrays.asList(qStr.split("&"));
-		assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.CURSOR_PARAM, "c1")));
-		assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.INCLUDE_COUNT_PARAM, "true")));
-		assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.PAGE_LIMIT_PARAM, "50")));
-		assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.SORT_PARAM, "id")));
+        String qStr = path.substring(path.indexOf("?") + 1);
+        List<String> parts = Arrays.asList(qStr.split("&"));
+        assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.CURSOR_PARAM, "c1")));
+        assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.INCLUDE_COUNT_PARAM, "true")));
+        assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.PAGE_LIMIT_PARAM, "50")));
+        assertTrue(parts.contains(MessageFormat.format("{0}={1}", ConversationService.SORT_PARAM, "id")));
     }
+
     /**
      * Test get intent list.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testGetIntents() throws IOException, InterruptedException {
@@ -443,7 +453,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertNotNull(serviceResponse.getIntents());
         assertEquals(1, serviceResponse.getIntents().size());
         IntentExportResponse intent0 = serviceResponse.getIntents().get(0);
-		assertEquals("hello", intent0.getIntent());
+        assertEquals("hello", intent0.getIntent());
         assertEquals(toDate("2017-02-02T21:04:26.049Z"), intent0.getCreated());
         assertEquals(toDate("2017-02-02T21:04:26.049Z"), intent0.getUpdated());
         assertEquals("A short description for testing.", intent0.getDescription());
@@ -464,8 +474,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Test create intent.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testCreateIntent() throws IOException, InterruptedException {
@@ -475,34 +487,30 @@ public class ConversationTest extends WatsonServiceUnitTest {
         CreateExample example = new CreateExample(TEST_INTENT_EXAMPLE_TEXT);
         CreateExample example2 = new CreateExample("aaa");
         CreateExample example3 = new CreateExample("bbb");
-        
-		CreateIntent intReq = new CreateIntent.Builder()
-                .setDescription(TEST_INTENT_DESCRIPTION)
-                .setIntent(TEST_INTENT)
-                .addExample(example)
-                .addExamples(Arrays.asList(example2, example3))
-                .build();
-	     
-		IntentResponse response = service.createIntent(WORKSPACE_ID, intReq).execute();
+
+        CreateIntent intReq = new CreateIntent.Builder().setDescription(TEST_INTENT_DESCRIPTION).setIntent(TEST_INTENT)
+                .addExample(example).addExamples(Arrays.asList(example2, example3)).build();
+
+        IntentResponse response = service.createIntent(WORKSPACE_ID, intReq).execute();
         RecordedRequest request = server.takeRequest();
 
-        //assert request
+        // assert request
         String path = StringUtils.join(PATH_INTENTS, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
         assertEquals(path, request.getPath());
 
         assertEquals(request.getMethod(), "POST");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        
+
         CreateIntent actPayload = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(), CreateIntent.class);
         assertEquals(TEST_INTENT, actPayload.getIntent());
         assertEquals(TEST_INTENT_DESCRIPTION, actPayload.getDescription());
         assertEquals(3, actPayload.getExamples().size());
         CreateExample actEx0 = actPayload.getExamples().get(0);
-		assertEquals(TEST_INTENT_EXAMPLE_TEXT, actEx0.getText());
-		assertEquals("aaa", actPayload.getExamples().get(1).getText());
-		assertEquals("bbb", actPayload.getExamples().get(2).getText());  
+        assertEquals(TEST_INTENT_EXAMPLE_TEXT, actEx0.getText());
+        assertEquals("aaa", actPayload.getExamples().get(1).getText());
+        assertEquals("bbb", actPayload.getExamples().get(2).getText());
 
-        //assert response
+        // assert response
         assertEquals(TEST_INTENT, response.getIntent());
         assertNotNull(response.getCreated());
         assertNotNull(response.getUpdated());
@@ -514,8 +522,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Test delete intent.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testDeleteIntent() throws IOException, InterruptedException {
@@ -536,8 +546,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Test get intent.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testGetIntent() throws IOException, InterruptedException {
@@ -547,8 +559,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
         IntentResponse serviceResponse = service.getIntent(WORKSPACE_ID, INTENT_ID).execute();
         RecordedRequest request = server.takeRequest();
 
-        String path = StringUtils.join(PATH_INTENT, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03,
-            "&", EXPORT, "=", "false");
+        String path = StringUtils.join(PATH_INTENT, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03, "&",
+                EXPORT, "=", "false");
         assertEquals(path, request.getPath());
 
         assertEquals(TEST_INTENT, serviceResponse.getIntent());
@@ -564,19 +576,18 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Test update intent.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testUpdateIntent() throws IOException, InterruptedException {
         IntentResponse mockResponse = loadFixture(INTENT_FIXTURE, IntentResponse.class);
         server.enqueue(jsonResponse(mockResponse));
 
-         CreateIntent options = new CreateIntent.Builder()
-                .setDescription(TEST_INTENT_DESCRIPTION)
-                .setIntent(TEST_INTENT)
-                .addExample(new CreateExample(TEST_INTENT_EXAMPLE_TEXT))
-                .build();
+        CreateIntent options = new CreateIntent.Builder().setDescription(TEST_INTENT_DESCRIPTION).setIntent(TEST_INTENT)
+                .addExample(new CreateExample(TEST_INTENT_EXAMPLE_TEXT)).build();
 
         IntentResponse serviceResponse = service.updateIntent(WORKSPACE_ID, INTENT_ID, options).execute();
         RecordedRequest request = server.takeRequest();
@@ -591,8 +602,9 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         assertEquals(request.getMethod(), "PUT");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        IntentExportResponse fromJson = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(), IntentExportResponse.class);
-        
+        IntentExportResponse fromJson = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(),
+                IntentExportResponse.class);
+
         assertEquals(TEST_INTENT, fromJson.getIntent());
         assertEquals(TEST_INTENT_DESCRIPTION, fromJson.getDescription());
         assertEquals(TEST_INTENT_EXAMPLE_TEXT, fromJson.getExamples().get(0).getText());
@@ -602,8 +614,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Test send message.
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testSendMessage() throws IOException, InterruptedException {
@@ -623,7 +637,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
         assertEquals(path, request.getPath());
-        assertArrayEquals(new String[]{"Do you want to get a quote?"},
+        assertArrayEquals(new String[] { "Do you want to get a quote?" },
                 serviceResponse.getText().toArray(new String[0]));
         assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
         assertEquals(request.getMethod(), "POST");
@@ -638,8 +652,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
      * Test send message. use some different MessageRequest options like context
      * and other public methods
      *
-     * @throws IOException Signals that an I/O exception has occurred.
-     * @throws InterruptedException the interrupted exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test
     public void testSendMessageWithAlternateIntents() throws IOException, InterruptedException {
@@ -662,7 +678,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
         assertEquals(path, request.getPath());
-        assertArrayEquals(new String[]{"Do you want to get a quote?"},
+        assertArrayEquals(new String[] { "Do you want to get a quote?" },
                 serviceResponse.getText().toArray(new String[0]));
         assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
         assertEquals(request.getMethod(), "POST");
@@ -676,7 +692,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Negative - Test message with null workspace id.
      *
-     * @throws InterruptedException the interrupted exception
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test(expected = IllegalArgumentException.class)
     public void testSendMessageWithNullWorkspaceId() throws InterruptedException {
@@ -690,7 +707,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Negative - Test message with null input text. BUG?
      *
-     * @throws InterruptedException the interrupted exception
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test(expected = IllegalArgumentException.class)
     public void testSendMessageWithInputTextNull() throws InterruptedException {
@@ -702,7 +720,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
     /**
      * Negative - Test constructor with null version date.
      *
-     * @throws InterruptedException the interrupted exception
+     * @throws InterruptedException
+     *             the interrupted exception
      */
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorWithNull() throws InterruptedException {
