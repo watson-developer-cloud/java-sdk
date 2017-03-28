@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-public class MultipleRecordsOptions extends GenericModel {
+public class RecordsInstructions extends GenericModel {
 
     @SerializedName(JsonConstants.PAGE_LIMIT)
     private int pageLimit;
