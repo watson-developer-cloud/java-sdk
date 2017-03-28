@@ -12,20 +12,22 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 
+import java.util.Date;
+
 /**
  * An class used to describe the intent example payload object.
  */
 public class ExampleResponse extends CreateExample{
 	
-    protected String created;
-    protected String updated;
+    protected Date created;
+    protected Date updated;
 
     /**
      * Returns the time stamp for when the example was created.
      *
-     * @return a string representing the time stamp of example creation
+     * @return a time stamp of example creation
      */
-    public String getCreated() {
+    public Date getCreated() {
         return created;
     }
 
@@ -33,9 +35,9 @@ public class ExampleResponse extends CreateExample{
     /**
      * Returns the time stamp for when the example was last updated.
      *
-     * @return a string representing the time stamp of example's last update
+     * @return a time stamp of example's last update
      */
-    public String getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
 
