@@ -12,11 +12,16 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +30,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Entity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
@@ -37,13 +41,15 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceL
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.entity.CreateEntity;
-import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentExportResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateExample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateIntent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentExportResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentListResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.nodes.CreateDialogNode;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
 import okhttp3.mockwebserver.RecordedRequest;
 
 /**
@@ -73,13 +79,19 @@ public class ConversationTest extends WatsonServiceUnitTest {
     private static final String TEST_INTENT_EXAMPLE_TEXT = "good morning";
 
     private static final String TEST_WORKSPACE_NAME = "API test";
-    private static final String TEST_WORKSPACE_CREATED = "2017-01-31T18:02:19.070Z";
+    private static final String TEST_WORKSPACE_CREATED=  "2017-02-01T15:28:10.145Z";
     private static final String TEST_WORKSPACE_UPDATED = "2017-01-31T18:02:19.070Z";
     private static final String TEST_WORKSPACE_LANGUAGE = "en";
     private static final String TEST_WORKSPACE_METADATA = null;
     private static final String TEST_WORKSPACE_DESCRIPTION = "Example workspace created via API.";
     private static final String TEST_WORKSPACE_WORKSPACE_ID = "245edf96-b89f-46ac-b647-c6618b2eb5f0";
 
+//    public ConversationTest() throws Exception{
+//    	System.out.println(GsonSingleton.getGson().toJson(new Date()));
+//    	Date d = GsonSingleton.getGson().fromJson(	"2017-02-01T15:28:10.145Z", Date.class);
+//    	TEST_WORKSPACE_CREATED = new Date();// SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ").parse("2017-01-31T18:02:19.070Z");    	
+//    }
+   
     /*
      * (non-Javadoc)
      *
@@ -94,6 +106,30 @@ public class ConversationTest extends WatsonServiceUnitTest {
         service.setEndPoint(getMockWebServerUrl());
     }
 
+    class DateDummy{
+    	Date created;
+    }
+    @Test
+    public void testDateFromJson(){
+    	String str = String.format("{\"created\":\"%s\"}", TEST_WORKSPACE_CREATED);
+        DateDummy dummy = GsonSingleton.getGson().fromJson(str, DateDummy.class);
+    	long expected = 1485955690145l;
+		assertEquals(expected ,dummy.created.getTime());
+    	
+    	assertEquals(new Date(expected) , toDate(TEST_WORKSPACE_CREATED));
+    }
+    @Test
+    public void testDateToJson(){
+    	Date date = new Date(1485955690145l);
+    	String actual = GsonSingleton.getGson().toJson(date);
+    	String expected = String.format("\"%s\"", TEST_WORKSPACE_CREATED);
+		assertEquals(expected, actual);
+    }
+    
+    private static Date toDate(String str){
+    	String json = String.format("\"%s\"", str);
+		return GsonSingleton.getGson().fromJson(json, Date.class);
+    }
     /**
      * Test get workspace list.
      *
@@ -116,13 +152,14 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         assertNotNull(serviceResponse.getworkspaces());
         assertEquals(3, serviceResponse.getworkspaces().size());
-        assertEquals("Car_Dashboard", serviceResponse.getworkspaces().get(0).getName());
-        assertEquals("2016-07-13T12:26:55.781Z", serviceResponse.getworkspaces().get(0).getCreated());
-        assertEquals("2016-11-29T21:46:38.969Z", serviceResponse.getworkspaces().get(0).getUpdated());
-        assertEquals("en", serviceResponse.getworkspaces().get(0).getLanguage());
+        WorkspaceResponse ws0 = serviceResponse.getworkspaces().get(0);
+		assertEquals("Car_Dashboard", ws0.getName());
+        assertEquals(toDate("2016-07-13T12:26:55.781Z"), ws0.getCreated());
+        assertEquals(toDate("2016-11-29T21:46:38.969Z"), ws0.getUpdated());
+        assertEquals("en", ws0.getLanguage());
         assertEquals("Cognitive Car workspace which allows multi-turn conversations to perform tasks in the car.",
-                serviceResponse.getworkspaces().get(0).getDescription());
-        assertEquals("0a0c06c1-8e31-4655-9067-58fcac5134fc", serviceResponse.getworkspaces().get(0).getWorkspaceID());
+                ws0.getDescription());
+        assertEquals("0a0c06c1-8e31-4655-9067-58fcac5134fc", ws0.getWorkspaceID());
 
         assertNotNull(serviceResponse.getPagination());
         assertEquals("/v1/workspaces?version=2017-02-03", serviceResponse.getPagination().getRefreshURL());
@@ -184,7 +221,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         assertEquals(request.getMethod(), "POST");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        WorkspaceRequest actual = new Gson().fromJson(request.getBody().readUtf8(), WorkspaceRequest.class);
+        WorkspaceRequest actual = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(), WorkspaceRequest.class);
         assertEquals(TEST_WORKSPACE_NAME, actual.getName());
         assertEquals(TEST_WORKSPACE_LANGUAGE, actual.getLanguage());
         assertEquals(TEST_WORKSPACE_DESCRIPTION, actual.getDescription());
@@ -255,8 +292,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         assertNotNull(serviceResponse);
         assertEquals(TEST_WORKSPACE_NAME, serviceResponse.getName());
-        assertEquals(TEST_WORKSPACE_CREATED, serviceResponse.getCreated());
-        assertEquals(TEST_WORKSPACE_UPDATED, serviceResponse.getUpdated());
+        assertEquals(toDate(TEST_WORKSPACE_CREATED), serviceResponse.getCreated());
+        assertEquals(toDate(TEST_WORKSPACE_UPDATED), serviceResponse.getUpdated());
         assertEquals(TEST_WORKSPACE_LANGUAGE, serviceResponse.getLanguage());
         assertEquals(TEST_WORKSPACE_DESCRIPTION, serviceResponse.getDescription());
         assertEquals(TEST_WORKSPACE_WORKSPACE_ID, serviceResponse.getWorkspaceID());
@@ -317,10 +354,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
 //        assertEquals(TEST_WORKSPACE_METADATA, serviceResponse.getMetadata());
         assertEquals(serviceResponse, mockResponse);
 
-        assertEquals(request.getMethod(), "PUT");
+        assertEquals(request.getMethod(), "POST");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
 
-        WorkspaceRequest actual = new Gson().fromJson(request.getBody().readUtf8(), WorkspaceRequest.class);
+        WorkspaceRequest actual = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(), WorkspaceRequest.class);
         assertEquals(TEST_WORKSPACE_NAME, actual.getName());
         assertEquals(TEST_WORKSPACE_LANGUAGE, actual.getLanguage());
         assertEquals(TEST_WORKSPACE_DESCRIPTION, actual.getDescription());
@@ -453,7 +490,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertEquals(request.getMethod(), "POST");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
         
-        CreateIntent actPayload = new Gson().fromJson(request.getBody().readUtf8(), CreateIntent.class);
+        CreateIntent actPayload = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(), CreateIntent.class);
         assertEquals(TEST_INTENT, actPayload.getIntent());
         assertEquals(TEST_INTENT_DESCRIPTION, actPayload.getDescription());
         assertEquals(3, actPayload.getExamples().size());
@@ -551,7 +588,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
         assertEquals(request.getMethod(), "PUT");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-        IntentExportResponse fromJson = new Gson().fromJson(request.getBody().readUtf8(), IntentExportResponse.class);
+        IntentExportResponse fromJson = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(), IntentExportResponse.class);
         
         assertEquals(TEST_INTENT, fromJson.getIntent());
         assertEquals(TEST_INTENT_DESCRIPTION, fromJson.getDescription());

@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model.workspace;
 
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
 import com.ibm.watson.developer_cloud.conversation.v1.model.JsonConstants;
@@ -30,9 +32,9 @@ public class WorkspaceResponse extends Workspace {
 	
 	private WorkspaceStatus status;
 	
-    private String created;
+    private Date created;
     
-    private String updated;
+    private Date updated;
 
     @SerializedName(JsonConstants.WORKSPACE_ID)
     private String workspaceID;
@@ -40,13 +42,13 @@ public class WorkspaceResponse extends Workspace {
     /**
      * @return The timestamp for creation of the workspace.
      */
-    public String getCreated() {
+    public Date getCreated() {
         return created;
     }
     /**
      * @return The timestamp for the last update to the workspace.
      */
-    public String getUpdated() {
+    public Date getUpdated() {
         return updated;
     }
     /**
