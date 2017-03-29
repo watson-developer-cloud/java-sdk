@@ -98,15 +98,16 @@ public final class ConversationService extends WatsonService {
 
     /**
      * Retrieves the workspace list to the service.
-     * @param options
+     * 
+     * @param insrtuctions
      *            instructions how to return the list. see
      *            {@link RecordsInstructions}
      * @return The list of workspaces.
      */
-    public ServiceCall<WorkspaceListResponse> listWorkspaces(RecordsInstructions options) {
+    public ServiceCall<WorkspaceListResponse> listWorkspaces(RecordsInstructions insrtuctions) {
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_WORKSPACES));
         builder.query(VERSION_PARAM, versionDate);
-        buildMultiRecordsOptions(options, builder);
+        buildRecordsInstructions(insrtuctions, builder);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceListResponse.class));
     }
 
@@ -158,14 +159,32 @@ public final class ConversationService extends WatsonService {
      *
      * @param workspaceId
      *            the workspace id
+     * @param export
+     *            true if the returned information should contain also export
+     *            data ((entities, intents, counterexamples, and dialog nodes).
      * @return The intent for a given workspace.
      */
-    public ServiceCall<WorkspaceExportResponse> getWorkspace(String workspaceId) {
+    public ServiceCall<WorkspaceExportResponse> getWorkspace(String workspaceId, boolean export) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_WORKSPACE, workspaceId));
         builder.query(VERSION_PARAM, versionDate);
+        if (export) {
+            builder.query(EXPORT_PARAM, export);
+        }
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceExportResponse.class));
+    }
+
+    /**
+     * Retrieves a specific intent for the service.
+     *
+     * @param workspaceId
+     *            the workspace id
+     * @return The workspace without export data (entities, intents,
+     *         counterexamples, and dialog nodes).
+     */
+    public ServiceCall<WorkspaceExportResponse> getWorkspace(String workspaceId) {
+        return getWorkspace(workspaceId, false);
     }
 
     /**
@@ -200,33 +219,32 @@ public final class ConversationService extends WatsonService {
      *            If export=false, the returned data includes only information
      *            about the element itself. If export=true, all content,
      *            including subelements, is included.
-     * @param options
+     * @param insrtuctions
      *            see {@link RecordsInstructions}
      * @return The list of intents for a given workspace.
      */
-    public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export,
-            RecordsInstructions options) {
+    public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export, RecordsInstructions insrtuctions) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_INTENTS, workspaceId));
         builder.query(VERSION_PARAM, versionDate);
         if (export)
             builder.query(EXPORT_PARAM, export);
-        buildMultiRecordsOptions(options, builder);
+        buildRecordsInstructions(insrtuctions, builder);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentListResponse.class));
     }
 
-    private void buildMultiRecordsOptions(RecordsInstructions options, RequestBuilder builder) {
-        if (options == null)
+    private void buildRecordsInstructions(RecordsInstructions insrtuctions, RequestBuilder builder) {
+        if (insrtuctions == null)
             return;
-        if (options.getCursor() != null)
-            builder.query(CURSOR_PARAM, options.getCursor());
-        if (options.getIncludeCount())
-            builder.query(INCLUDE_COUNT_PARAM, options.getIncludeCount());
-        if (options.getPageLimit() != 0)
-            builder.query(PAGE_LIMIT_PARAM, options.getPageLimit());
-        if (options.getSort() != null)
-            builder.query(SORT_PARAM, options.getSort());
+        if (insrtuctions.getCursor() != null)
+            builder.query(CURSOR_PARAM, insrtuctions.getCursor());
+        if (insrtuctions.getIncludeCount())
+            builder.query(INCLUDE_COUNT_PARAM, insrtuctions.getIncludeCount());
+        if (insrtuctions.getPageLimit() != 0)
+            builder.query(PAGE_LIMIT_PARAM, insrtuctions.getPageLimit());
+        if (insrtuctions.getSort() != null)
+            builder.query(SORT_PARAM, insrtuctions.getSort());
     }
 
     /**
@@ -302,7 +320,9 @@ public final class ConversationService extends WatsonService {
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_INTENT, workspaceId, intentId));
         builder.query(VERSION_PARAM, versionDate);
-        builder.query(EXPORT_PARAM, export);
+        if(export){
+            builder.query(EXPORT_PARAM, export);
+        }
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentExportResponse.class));
     }
 
