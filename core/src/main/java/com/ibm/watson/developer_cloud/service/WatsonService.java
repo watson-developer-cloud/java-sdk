@@ -40,6 +40,7 @@ import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
 import com.ibm.watson.developer_cloud.util.CredentialUtils;
+import com.ibm.watson.developer_cloud.util.HttpLogging;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
@@ -124,6 +125,7 @@ public abstract class WatsonService {
     builder.writeTimeout(60, TimeUnit.SECONDS);
     builder.readTimeout(90, TimeUnit.SECONDS);
 
+    builder.addNetworkInterceptor(HttpLogging.getLoggingInterceptor());
     return builder.build();
   }
 
