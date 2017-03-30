@@ -49,9 +49,6 @@ signArchives {
     }
 }
 
-checkstyleTest {
-    ignoreFailures = true
-}
 checkstyle {
     configFile = rootProject.file('checkstyle.xml')
 }
