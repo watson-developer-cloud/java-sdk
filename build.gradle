@@ -45,6 +45,10 @@ allprojects {
 
 subprojects {
 
+  checkstyleTest {
+    ignoreFailures = false
+  }
+
   afterEvaluate {
     if (plugins.hasPlugin(JavaPlugin)) {
       rootProject.tasks.docs {
