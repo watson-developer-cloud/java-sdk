@@ -38,7 +38,7 @@ public class ObjectiveDominationData {
   public Double getDifference() {
     return difference;
   }
-  
+
   /**
    * Gets the textual explanation of the difference.
    *
@@ -47,7 +47,7 @@ public class ObjectiveDominationData {
   public String getText() {
     return text;
   }
-  
+
   /**
    * Sets the objective key.
    *
@@ -65,7 +65,7 @@ public class ObjectiveDominationData {
   public void setDifference(Double difference) {
     this.difference = difference;
   }
-  
+
   /**
    * Sets the textual explanation.
    *

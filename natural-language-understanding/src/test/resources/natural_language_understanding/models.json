@@ -1,0 +1,16 @@
+{
+  "models": [
+    {
+      "status": "available",
+      "model_id": "en-news",
+      "language": "en",
+      "description": "English relationship extraction"
+    },
+    {
+      "status": "available",
+      "model_id": "MODEL_ID",
+      "language": "en",
+      "description": "My custom model deployed from Watson Knowledge Studio"
+    }
+  ]
+}

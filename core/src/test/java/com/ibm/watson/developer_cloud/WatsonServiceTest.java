@@ -150,7 +150,8 @@ public abstract class WatsonServiceTest {
         (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
     root.setLevel(ch.qos.logback.classic.Level.OFF);
     try {
-      FileInputStream configFile = new FileInputStream("src/test/resources/logging.properties");
+      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      InputStream configFile = classLoader.getResourceAsStream("logging.properties");
       LogManager.getLogManager().readConfiguration(configFile);
     } catch (IOException ex) {
       System.out.println("WARNING: Could not open configuration file");
