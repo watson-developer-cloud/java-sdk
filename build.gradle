@@ -34,6 +34,7 @@ task signJars(type: Copy) {
 allprojects {
   apply plugin: 'java' // *Compatibility has no effect before the 'java' plug-in is applied
   apply plugin: 'jacoco'
+  apply plugin: 'maven'
 
   sourceCompatibility = JavaVersion.VERSION_1_7
   targetCompatibility = JavaVersion.VERSION_1_7
