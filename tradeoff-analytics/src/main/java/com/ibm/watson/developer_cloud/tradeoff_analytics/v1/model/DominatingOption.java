@@ -44,7 +44,7 @@ public class DominatingOption {
   public List<ObjectiveDominationData> getObjectives() {
     return objectives;
   }
-  
+
   /**
    * Sets the solution key.
    *

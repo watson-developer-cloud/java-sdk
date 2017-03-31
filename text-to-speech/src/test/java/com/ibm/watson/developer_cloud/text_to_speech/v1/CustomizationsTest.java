@@ -14,8 +14,8 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 import java.util.List;
 
@@ -124,7 +124,9 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final Voice result = service.getVoice(expected.getName(), expected.getCustomVoiceModel().getId()).execute();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(VOICES_PATH + "/" + expected.getName() + "?customization_id=" + expected.getCustomVoiceModel().getId(), request.getPath());
+    assertEquals(VOICES_PATH + "/" + expected.getName() + "?customization_id=" + expected.getCustomVoiceModel().getId(),
+      request.getPath()
+    );
     assertEquals("GET", request.getMethod());
     assertEquals(expected, result);
   }
@@ -211,7 +213,9 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final CustomVoiceModel expected = instantiateVoiceModel();
     server.enqueue(jsonResponse(ImmutableMap.of(ID, expected.getId())));
 
-    final CustomVoiceModel result = service.createCustomVoiceModel(expected.getName(), expected.getLanguage(), expected.getDescription()).execute();
+    final CustomVoiceModel result = service.createCustomVoiceModel(expected.getName(),
+      expected.getLanguage(), expected.getDescription())
+    .execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(VOICE_MODELS_PATH, request.getPath());
@@ -243,7 +247,10 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final CustomVoiceModel expected = instantiateVoiceModel();
     server.enqueue(jsonResponse(ImmutableMap.of(ID, expected.getId())));
 
-    final CustomVoiceModel result = service.createCustomVoiceModel(expected.getId(), expected.getName(), expected.getDescription()).execute();
+    final CustomVoiceModel result = service.createCustomVoiceModel(
+      expected.getId(), expected.getName(), expected.getDescription())
+      .execute();
+
     final RecordedRequest request = server.takeRequest();
     assertEquals(expected.getId(), result.getId());
 
@@ -279,7 +286,9 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
     final CustomVoiceModel expected = instantiateVoiceModelWords();
     server.enqueue(jsonResponse(ImmutableMap.of(ID, expected.getId())));
 
-    final CustomVoiceModel result = service.createCustomVoiceModel(expected.getId(), expected.getName(), expected.getDescription()).execute();
+    final CustomVoiceModel result = service.createCustomVoiceModel(expected.getId(),
+      expected.getName(), expected.getDescription())
+      .execute();
     final RecordedRequest request = server.takeRequest();
     assertEquals(expected.getId(), result.getId());
 

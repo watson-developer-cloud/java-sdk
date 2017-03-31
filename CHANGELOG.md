@@ -1,6 +1,25 @@
 Change Log
 ==========
 
+## Version 3.7.1
+
+_2017-03-31_
+
+
+ * Fix: Enable all cipher suites		cf58894 74cae1b
+ * Fix: `afterEvaluate` source for docs task			0f93ec3
+ * Fix: Disable HTML escaping, #532		c6497ed
+ * Fix: CheckStyle		d5ccc68 9a7654b 9a7654b
+ * Fix: Examples link in README.md 	430f3a6 by @rborer
+
+ * Doc: Exclude tests from javadoc generation 60e80de
+ * Doc: Update HTTP logging information #496		85e2424
+
+ * New: Add aggregate Javadocs plugin			b6d1123
+ * New: Add tradeoff analytics test case for #306		9f40779
+ * New: Adds an HTTPLogging interceptor #496		620d8d9
+ * New: Unit tests for Natural Language Understanding 5e89f3a
+
 ## Version 3.7.0
 
 _2017-03-19_

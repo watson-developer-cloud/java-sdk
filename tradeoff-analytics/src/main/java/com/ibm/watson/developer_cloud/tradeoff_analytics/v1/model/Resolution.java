@@ -27,7 +27,7 @@ public class Resolution extends GenericModel {
   private ResolutionMap map;
 
   private List<Solution> solutions;
-  
+
   @SerializedName("preferable_solutions")
   private PreferableSolutions preferableSolutions;
 
@@ -48,7 +48,7 @@ public class Resolution extends GenericModel {
   public List<Solution> getSolutions() {
     return solutions;
   }
-  
+
   /**
    * Gets the preferable solutions.
    *
@@ -84,5 +84,5 @@ public class Resolution extends GenericModel {
   public void setPreferableSolutions(PreferableSolutions solutions) {
     this.preferableSolutions = solutions;
   }
-  
+
 }

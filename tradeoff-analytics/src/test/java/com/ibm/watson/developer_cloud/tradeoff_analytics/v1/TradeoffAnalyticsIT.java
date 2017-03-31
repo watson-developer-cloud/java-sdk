@@ -30,6 +30,7 @@ import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.Problem;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.CategoricalColumn;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.Column.Goal;
+import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.DateColumn;
 import com.ibm.watson.developer_cloud.tradeoff_analytics.v1.model.column.NumericColumn;
 
 /**
@@ -192,4 +193,99 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
     Dilemma dilemma = service.dilemmas(problem).execute();
     assertNotNull(dilemma);
   }
+
+  /**
+   * Test for data columns.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void testForDataColumns() throws Exception {
+
+    // Define the objectives.
+    String price = "price";
+    String weight = "weight";
+    String brand = "brand";
+    String rDate = "rDate";
+
+    List<String> categories = new ArrayList<String>();
+    categories.add("Apple");
+    categories.add("HTC");
+    categories.add("Samsung");
+
+    List<String> preferences = new ArrayList<String>();
+    preferences.add("Samsung");
+    preferences.add("Apple");
+    preferences.add("HTC");
+
+    NumericColumn priceColumn = new NumericColumn();
+    priceColumn.key(price);
+    priceColumn.goal(Goal.MIN);
+    priceColumn.objective(true);
+    priceColumn.fullName("Price");
+    priceColumn.range(0, 400);
+    priceColumn.setFormat("number:2");
+
+    NumericColumn weightColumn = new NumericColumn();
+    weightColumn.key(weight);
+    weightColumn.goal(Goal.MIN);
+    weightColumn.objective(true);
+    weightColumn.fullName("Weight");
+    weightColumn.setFormat("number:0");
+
+    CategoricalColumn brandColumn = new CategoricalColumn();
+    brandColumn.key(brand);
+    brandColumn.goal(Goal.MIN);
+    brandColumn.objective(true);
+    brandColumn.fullName("Brand");
+    brandColumn.setRange(categories);
+    brandColumn.setPreference(preferences);
+
+    DateColumn rDateColumn = new DateColumn();
+    rDateColumn.key(rDate);
+    rDateColumn.goal(Goal.MAX);
+    rDateColumn.fullName("Release Date");
+    rDateColumn.setFormat("date: 'MMM dd, yyyy'");
+
+    List<Column> columns = new ArrayList<Column>();
+    columns.add(priceColumn);
+    columns.add(weightColumn);
+    columns.add(brandColumn);
+    columns.add(rDateColumn);
+
+    Problem problem = new Problem("phones");
+    problem.setColumns(columns);
+
+    // Define the options.
+    List<Option> options = new ArrayList<Option>();
+    problem.setOptions(options);
+
+    HashMap<String, Object> galaxySpecs = new HashMap<String, Object>();
+    galaxySpecs.put(price, 249);
+    galaxySpecs.put(weight, 130);
+    galaxySpecs.put(brand, "Samsung");
+    galaxySpecs.put(rDate, "2013-04-29T00:00:00Z");
+    options.add(new Option("1", "Samsung Galaxy S4").values(galaxySpecs));
+
+    HashMap<String, Object> iphoneSpecs = new HashMap<String, Object>();
+    iphoneSpecs.put(price, 449);
+    iphoneSpecs.put(weight, 112);
+    iphoneSpecs.put(brand, "Apple");
+    iphoneSpecs.put(rDate, "2012-09-21T00:00:00Z");
+    options.add(new Option("2", "Apple iPhone 5").values(iphoneSpecs));
+
+    HashMap<String, Object> oneSpecs = new HashMap<String, Object>();
+    oneSpecs.put(price, 299);
+    oneSpecs.put(weight, 143);
+    oneSpecs.put(brand, "HTC");
+    oneSpecs.put(rDate, "2013-03-01T00:00:00Z");
+    options.add(new Option("3", "HTC One").values(oneSpecs));
+
+    // Call the service and get the resolution
+    Dilemma dilemma = service.dilemmas(problem, false).execute();
+    assertNotNull(dilemma);
+    assertNotNull(dilemma.getProblem());
+    assertNotNull(dilemma.getResolution());
+  }
+
 }
