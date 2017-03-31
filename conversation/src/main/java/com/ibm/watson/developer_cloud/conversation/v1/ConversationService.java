@@ -99,15 +99,15 @@ public final class ConversationService extends WatsonService {
     /**
      * Retrieves the workspace list to the service.
      * 
-     * @param insrtuctions
+     * @param instructions
      *            instructions how to return the list. see
      *            {@link RecordsInstructions}
      * @return The list of workspaces.
      */
-    public ServiceCall<WorkspaceListResponse> listWorkspaces(RecordsInstructions insrtuctions) {
+    public ServiceCall<WorkspaceListResponse> listWorkspaces(RecordsInstructions instructions) {
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_WORKSPACES));
         builder.query(VERSION_PARAM, versionDate);
-        buildRecordsInstructions(insrtuctions, builder);
+        buildRecordsInstructions(instructions, builder);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceListResponse.class));
     }
 
@@ -219,32 +219,32 @@ public final class ConversationService extends WatsonService {
      *            If export=false, the returned data includes only information
      *            about the element itself. If export=true, all content,
      *            including subelements, is included.
-     * @param insrtuctions
+     * @param instructions
      *            see {@link RecordsInstructions}
      * @return The list of intents for a given workspace.
      */
-    public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export, RecordsInstructions insrtuctions) {
+    public ServiceCall<IntentListResponse> getIntents(String workspaceId, boolean export, RecordsInstructions instructions) {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
 
         RequestBuilder builder = RequestBuilder.get(String.format(PATH_INTENTS, workspaceId));
         builder.query(VERSION_PARAM, versionDate);
         if (export)
             builder.query(EXPORT_PARAM, export);
-        buildRecordsInstructions(insrtuctions, builder);
+        buildRecordsInstructions(instructions, builder);
         return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentListResponse.class));
     }
 
-    private void buildRecordsInstructions(RecordsInstructions insrtuctions, RequestBuilder builder) {
-        if (insrtuctions == null)
+    private void buildRecordsInstructions(RecordsInstructions instructions, RequestBuilder builder) {
+        if (instructions == null)
             return;
-        if (insrtuctions.getCursor() != null)
-            builder.query(CURSOR_PARAM, insrtuctions.getCursor());
-        if (insrtuctions.getIncludeCount())
-            builder.query(INCLUDE_COUNT_PARAM, insrtuctions.getIncludeCount());
-        if (insrtuctions.getPageLimit() != 0)
-            builder.query(PAGE_LIMIT_PARAM, insrtuctions.getPageLimit());
-        if (insrtuctions.getSort() != null)
-            builder.query(SORT_PARAM, insrtuctions.getSort());
+        if (instructions.getCursor() != null)
+            builder.query(CURSOR_PARAM, instructions.getCursor());
+        if (instructions.getIncludeCount())
+            builder.query(INCLUDE_COUNT_PARAM, instructions.getIncludeCount());
+        if (instructions.getPageLimit() != 0)
+            builder.query(PAGE_LIMIT_PARAM, instructions.getPageLimit());
+        if (instructions.getSort() != null)
+            builder.query(SORT_PARAM, instructions.getSort());
     }
 
     /**
