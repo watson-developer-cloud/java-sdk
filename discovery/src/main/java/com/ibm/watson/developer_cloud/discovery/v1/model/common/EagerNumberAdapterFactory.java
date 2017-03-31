@@ -30,6 +30,7 @@ import java.text.ParseException;
  * Override the default {@link LazilyParsedNumber} for parsing {@link Number}s.
  */
 public class EagerNumberAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
         if (!Number.class.isAssignableFrom(typeToken.getRawType())) {
