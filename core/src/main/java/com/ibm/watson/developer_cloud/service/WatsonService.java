@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.service;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -133,7 +133,7 @@ public abstract class WatsonService {
         .allEnabledCipherSuites()
         .build();
 
-    builder.connectionSpecs(Collections.singletonList(spec));
+    builder.connectionSpecs(Arrays.asList(spec, ConnectionSpec.CLEARTEXT));
     
     return builder.build();
   }
