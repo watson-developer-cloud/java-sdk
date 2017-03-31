@@ -44,7 +44,7 @@ public final class GsonSingleton {
     if (prettyPrint) {
       builder.setPrettyPrinting();
     }
-
+    builder.disableHtmlEscaping();
     return builder.create();
   }
 
