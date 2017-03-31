@@ -14,8 +14,6 @@ package com.ibm.watson.developer_cloud.util;
 
 import java.util.logging.Logger;
 
-import com.ibm.watson.developer_cloud.service.WatsonService;
-
 import okhttp3.logging.HttpLoggingInterceptor;
 import okhttp3.logging.HttpLoggingInterceptor.Level;
 
@@ -27,7 +25,7 @@ import okhttp3.logging.HttpLoggingInterceptor.Level;
  * ALL.
  */
 public class HttpLogging {
-  private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
+  private static final Logger LOG = Logger.getLogger(HttpLogging.class.getName());
 
   private HttpLogging() { }
 

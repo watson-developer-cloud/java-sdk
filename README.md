@@ -259,10 +259,8 @@ java.util.logging.ConsoleHandler.level=FINE
 java.util.logging.ConsoleHandler.formatter=java.util.logging.SimpleFormatter
 java.util.logging.SimpleFormatter.format=%1$tb %1$td, %1$tY %1$tl:%1$tM:%1$tS %1$Tp %2$s %4$s: %5$s%n
 .level=SEVERE
-okhttp3.level=FINE
-okhttp3.mockwebserver.level=WARNING
-com.ibm.watson.level=FINE
-com.ibm.watson.developer_cloud.util.level=SEVERE
+# HTTP Logging - Basic
+com.ibm.watson.developer_cloud.util.HttpLogging.level=INFO
 ```
 
 The configuration above will log only the URL and query parameters for each request.
