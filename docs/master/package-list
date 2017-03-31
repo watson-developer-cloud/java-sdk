@@ -1,4 +1,3 @@
-com.ibm.watson.developer_cloud
 com.ibm.watson.developer_cloud.alchemy.v1
 com.ibm.watson.developer_cloud.alchemy.v1.model
 com.ibm.watson.developer_cloud.alchemy.v1.util
@@ -30,7 +29,6 @@ com.ibm.watson.developer_cloud.personality_insights.v2
 com.ibm.watson.developer_cloud.personality_insights.v2.model
 com.ibm.watson.developer_cloud.personality_insights.v3
 com.ibm.watson.developer_cloud.personality_insights.v3.model
-com.ibm.watson.developer_cloud.personality_insights.v3.utils
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model
 com.ibm.watson.developer_cloud.retrieve_and_rank.v1.util
@@ -53,4 +51,3 @@ com.ibm.watson.developer_cloud.tradeoff_analytics.v1.util
 com.ibm.watson.developer_cloud.util
 com.ibm.watson.developer_cloud.visual_recognition.v3
 com.ibm.watson.developer_cloud.visual_recognition.v3.model
-okhttp3.internal.ws
