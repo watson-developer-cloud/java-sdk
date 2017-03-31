@@ -27,6 +27,7 @@ import java.io.IOException;
  * Override default enum handling for poorly formed JSON field types schema.
  */
 public class FieldAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
         if (!Field.class.isAssignableFrom(typeToken.getRawType())) {
