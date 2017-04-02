@@ -53,7 +53,7 @@ subprojects {
   afterEvaluate {
     if (plugins.hasPlugin(JavaPlugin)) {
       rootProject.tasks.docs {
-        source += files(sourceSets.collect { srcSet -> srcSet.allJava })
+        source += files(sourceSets.main.allJava)
         classpath += files(sourceSets*.compileClasspath)
       }
     }

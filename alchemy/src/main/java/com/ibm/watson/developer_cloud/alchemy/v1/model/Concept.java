@@ -82,7 +82,7 @@ public class Concept extends GenericModel {
 
   /** The knowledge graph. */
   private KnowledgeGraph knowledgeGraph;
-  
+
   /**
    * Gets the knowledge graph.
    *

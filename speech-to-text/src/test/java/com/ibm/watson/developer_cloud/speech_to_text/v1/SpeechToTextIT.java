@@ -312,9 +312,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(wordAlternatives.get(0).getAlternatives());
   }
 
-  
+
   /**
-   * Test the inactivity timeout parameter for WebSockets
+   * Test the inactivity timeout parameter for WebSockets.
    *
    * @throws FileNotFoundException the file not found exception
    * @throws InterruptedException the interrupted exception
@@ -331,7 +331,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .model(EN_BROADBAND16K)
         .contentType(HttpMediaType.AUDIO_WAV)
         .build();
-    
+
     FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
 
@@ -345,7 +345,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         e.printStackTrace();
         lock.countDown();
       }
-      
+
       @Override
       public void onInactivityTimeout(RuntimeException runtimeException) {
         inactivityTimeoutOccurred = true;
@@ -356,7 +356,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertTrue(inactivityTimeoutOccurred);
   }
 
-  
+
   /**
    * Test create recognition job.
    *
@@ -553,8 +553,10 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Test
   public void testCustomization() throws InterruptedException {
     // create customization
-    Customization myCustomization =
-        service.createCustomization("java-sdk-temporary", SpeechModel.EN_US_BROADBANDMODEL, "Temporary custom model for testing the Java SDK").execute();
+    Customization myCustomization = service.createCustomization("java-sdk-temporary",
+        SpeechModel.EN_US_BROADBANDMODEL,
+        "Temporary custom model for testing the Java SDK")
+      .execute();
     String id = myCustomization.getId();
 
     try {

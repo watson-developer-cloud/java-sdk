@@ -28,6 +28,7 @@ import java.io.IOException;
  * Adapts the abstract {@link Aggregation} to its concrete implementations.
  */
 public class AggregationAdapterFactory implements TypeAdapterFactory {
+    @SuppressWarnings("unchecked")
     @Override
     public <T> TypeAdapter<T> create(Gson gson, TypeToken<T> typeToken) {
         if (typeToken.getRawType() != Aggregation.class) {
