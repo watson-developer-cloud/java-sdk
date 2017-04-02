@@ -62,4 +62,21 @@ public class Intent {
         return intent;
     }
 
+    /**
+     * Sets the system confidence in the intent.
+     *
+     * @param confidence a float between 0.0 and 1.0
+     */
+    public void setConfidence(Double confidence) {
+      this.confidence = confidence;
+    }
+
+    /**
+     * Sets the name of the intent the system understood the user to have 'said'.
+     *
+     * @param intent a string representing one of the trained intents
+     */
+    public void setIntent(String intent) {
+      this.intent = intent;
+    }
 }
