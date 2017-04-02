@@ -31,6 +31,7 @@ public class CreateDocumentRequest extends GenericModel {
     private JsonObject metadata;
     private InputStream file;
     private String mediaType;
+    private String fileName;
     //TODO add configuration
 
     protected CreateDocumentRequest(Builder builder) {
@@ -40,6 +41,7 @@ public class CreateDocumentRequest extends GenericModel {
         this.metadata = builder.metadata;
         this.file = builder.file;
         this.mediaType = builder.mediaType;
+        this.fileName = builder.fileName;
     }
 
     public String getEnvironmentId() {
@@ -66,6 +68,10 @@ public class CreateDocumentRequest extends GenericModel {
         return mediaType;
     }
 
+    public String getFileName() {
+        return fileName;
+    }
+
     public static class Builder {
         private final String environmentId;
         private final String collectionId;
@@ -73,10 +79,12 @@ public class CreateDocumentRequest extends GenericModel {
         private JsonObject metadata;
         private InputStream file;
         private String mediaType;
+        private String fileName;
 
         public Builder(String environmentId, String collectionId) {
             this.environmentId = environmentId;
             this.collectionId = collectionId;
+            this.fileName = this.fileName == null || this.fileName.isEmpty() ? "file_name_not_provided" : this.fileName;
         }
 
         public Builder configurationId(String configurationId) {
@@ -89,9 +97,44 @@ public class CreateDocumentRequest extends GenericModel {
             return this;
         }
 
+        /**
+         * @deprecated
+         * Use instead file(InputStream content, String mediaType)
+         *
+         * @param file An input stream of bytes
+         * @param mediaType The media type
+         * @return A document builder
+         */
+        @Deprecated
         public Builder inputStream(InputStream file, String mediaType) {
             this.file = file;
             this.mediaType = mediaType;
+            return this;
+        }
+
+        public Builder file(InputStream content) {
+            this.file = content;
+            return this;
+        }
+
+        public Builder file(InputStream content, String mediaType) {
+            this.file = content;
+            this.mediaType = mediaType;
+            return this;
+        }
+
+        /**
+         * Create a document builder with an input stream, file name, and media type.
+         *
+         * @param content An input stream of bytes
+         * @param fileName The file name
+         * @param mediaType The media type. If the media type is unknown then use null or empty string.
+         * @return A document builder
+         */
+        public Builder file(InputStream content, String fileName, String mediaType) {
+            this.file = content;
+            this.mediaType = mediaType;
+            this.fileName = fileName;
             return this;
         }
 
@@ -100,6 +143,19 @@ public class CreateDocumentRequest extends GenericModel {
             try {
                 file = new FileInputStream(inputFile);
                 this.mediaType = mediaType;
+                this.fileName = inputFile.getName();
+            } catch (FileNotFoundException e) {
+                file = null;
+            }
+            this.file = file;
+            return this;
+        }
+
+        public Builder file(File inputFile) {
+            InputStream file;
+            try {
+                file = new FileInputStream(inputFile);
+                this.fileName = inputFile.getName();
             } catch (FileNotFoundException e) {
                 file = null;
             }
