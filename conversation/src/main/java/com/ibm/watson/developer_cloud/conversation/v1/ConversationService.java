@@ -117,9 +117,7 @@ public final class ConversationService extends WatsonService {
      * @return The list of workspaces.
      */
     public ServiceCall<WorkspaceListResponse> listWorkspaces() {
-        RequestBuilder builder = RequestBuilder.get(String.format(PATH_WORKSPACES));
-        builder.query(VERSION_PARAM, versionDate);
-        return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceListResponse.class));
+        return listWorkspaces(null);
     }
 
     /**
@@ -354,7 +352,7 @@ public final class ConversationService extends WatsonService {
         Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");
         Validator.isTrue((intentId != null) && !intentId.isEmpty(), "'intentId' cannot be null or empty");
 
-        RequestBuilder builder = RequestBuilder.put(String.format(PATH_INTENT, workspaceId, intentId));
+        RequestBuilder builder = RequestBuilder.post(String.format(PATH_INTENT, workspaceId, intentId));
         if (payload != null) {
             builder.bodyJson(GsonSingleton.getGson().toJsonTree(payload).getAsJsonObject());
         } else {

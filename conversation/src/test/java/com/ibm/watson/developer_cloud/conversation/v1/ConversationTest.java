@@ -129,9 +129,14 @@ public class ConversationTest extends WatsonServiceUnitTest {
      */
     @Test
     public void testDateFromJson() {
-        String str = String.format("{\"created\":\"%s\"}", TEST_WORKSPACE_CREATED);
-        DateDummy dummy = GsonSingleton.getGson().fromJson(str, DateDummy.class);
-        long expected = 1485955690145L;
+        String json = "\"2017-02-01T15:28:10.145Z\"";
+        Date actual = GsonSingleton.getGson().fromJson(json, Date.class);
+        Date expected = new Date(1485955690145L);
+        assertEquals(expected, actual);
+        
+//        String str = String.format("{\"created\":\"%s\"}", TEST_WORKSPACE_CREATED);
+//        DateDummy dummy = GsonSingleton.getGson().fromJson(str, DateDummy.class);
+//        long expected = 1485955690145L;
         //FIXME
 //        the test parses a date string in this format: `2017-02-01T15:28:10.145Z` and `assertEqulas()` with a expected milliseconds since 1970.
 //        the `Z` symbol indicates the date is in UTC. hence, the value should be the same - no matter the machine timezone.
@@ -686,7 +691,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
         assertNotNull(serviceResponse.getUpdated());
         assertEquals(TEST_INTENT_DESCRIPTION, serviceResponse.getDescription());
 
-        assertEquals(request.getMethod(), "PUT");
+        assertEquals(request.getMethod(), "POST");
         assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
         IntentExportResponse fromJson = GsonSingleton.getGson().fromJson(request.getBody().readUtf8(),
                 IntentExportResponse.class);
