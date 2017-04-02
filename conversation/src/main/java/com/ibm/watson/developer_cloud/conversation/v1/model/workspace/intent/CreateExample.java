@@ -2,7 +2,6 @@ package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 
 /**
  * a request to create an example.
- * 
  * @author davidbo
  *
  */
@@ -18,7 +17,6 @@ public class CreateExample {
 
   /**
    * a request to create an example.
-   * 
    * @param text
    *          The text of a user input example.
    */
@@ -35,7 +33,6 @@ public class CreateExample {
 
   /**
    * Set the example text.
-   * 
    * @param text
    *          The text of a user input example.
    */

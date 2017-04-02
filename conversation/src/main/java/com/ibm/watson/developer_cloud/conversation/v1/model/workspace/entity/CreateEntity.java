@@ -23,7 +23,6 @@ public class CreateEntity {
 
   /**
    * Constructs a new entity.
-   * 
    * @param entity
    *          the entity name
    */
@@ -95,7 +94,6 @@ public class CreateEntity {
 
   /**
    * Reserved for future use.
-   * 
    * @return the openList
    */
   public boolean isOpenList() {
@@ -104,7 +102,6 @@ public class CreateEntity {
 
   /**
    * Reserved for future use.
-   * 
    * @param openList
    *          the openList to set. Reserved for future use.
    */

@@ -125,7 +125,6 @@ public class WorkspaceRequest extends Workspace {
 
     /**
      * adds a counter example to the workspace.
-     * 
      * @param example
      *          input text that have been marked as irrelevant input.
      * @return the builder
@@ -140,7 +139,6 @@ public class WorkspaceRequest extends Workspace {
 
     /**
      * adds counter examples to the workspace.
-     * 
      * @param examples
      *          An array of CreateExample objects defining input examples that
      *          have been marked as irrelevant input.
@@ -156,7 +154,6 @@ public class WorkspaceRequest extends Workspace {
 
     /**
      * adds a dialog node to the workspace.
-     * 
      * @param node
      *          a node in the workspace dialog.
      * @return the builder
@@ -171,7 +168,6 @@ public class WorkspaceRequest extends Workspace {
 
     /**
      * adds dialog nodes to the workspace.
-     * 
      * @param nodes
      *          An array of CreateDialogNode objects defining the nodes in the
      *          workspace dialog.
@@ -187,7 +183,6 @@ public class WorkspaceRequest extends Workspace {
 
     /**
      * adds an entity to the workspace.
-     * 
      * @param entity
      *          defines an entity for the workspace.
      * @return the builder
@@ -202,7 +197,6 @@ public class WorkspaceRequest extends Workspace {
 
     /**
      * adds entities to the workspace.
-     * 
      * @param entities
      *          An array of CreateEntity objects defining the entities for the
      *          workspace.
@@ -218,7 +212,6 @@ public class WorkspaceRequest extends Workspace {
 
     /**
      * adds an intent to the workspace.
-     * 
      * @param intent
      *          defines an intent for the workspace.
      * @return the builder
@@ -233,7 +226,6 @@ public class WorkspaceRequest extends Workspace {
 
     /**
      * adds intents to the workspace.
-     * 
      * @param intents
      *          An array of CreateIntent objects defining the intents for the
      *          workspace.
@@ -276,7 +268,6 @@ public class WorkspaceRequest extends Workspace {
 
   /**
    * list of counter examples to create/update.
-   * 
    * @return An array of CreateExample objects defining input examples that have
    *         been marked as irrelevant input.
    */
@@ -286,7 +277,6 @@ public class WorkspaceRequest extends Workspace {
 
   /**
    * list of dialog nodes to create/update.
-   * 
    * @return An array of CreateDialogNode objects defining the nodes in the
    *         workspace dialog.
    */
@@ -296,7 +286,6 @@ public class WorkspaceRequest extends Workspace {
 
   /**
    * list of entities to create/update.
-   * 
    * @return An array of CreateEntity objects defining the entities for the
    *         workspace.
    */
@@ -306,7 +295,6 @@ public class WorkspaceRequest extends Workspace {
 
   /**
    * lists of intent to create/update.
-   * 
    * @return An array of CreateIntent objects defining the intents for the
    *         workspace.
    */

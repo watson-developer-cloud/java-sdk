@@ -19,7 +19,6 @@ public class WorkspaceExportResponse extends WorkspaceResponse {
 
   /**
    * lists the workspace counter examples.
-   * 
    * @return An array of CreateExample objects defining input examples that have
    *         been marked as irrelevant input.
    */
@@ -29,7 +28,6 @@ public class WorkspaceExportResponse extends WorkspaceResponse {
 
   /**
    * lists the workspace root nodes.
-   * 
    * @return An array of CreateDialogNode objects defining the nodes in the
    *         workspace dialog.
    */
@@ -39,7 +37,6 @@ public class WorkspaceExportResponse extends WorkspaceResponse {
 
   /**
    * lists the workspace entities.
-   * 
    * @return An array of CreateEntity objects defining the entities for the
    *         workspace.
    */
@@ -49,7 +46,6 @@ public class WorkspaceExportResponse extends WorkspaceResponse {
 
   /**
    * lists the workspace intents.
-   * 
    * @return An array of CreateIntent objects defining the intents for the
    *         workspace.
    */

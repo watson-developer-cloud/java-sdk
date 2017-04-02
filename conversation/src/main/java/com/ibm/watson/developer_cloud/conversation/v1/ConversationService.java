@@ -98,7 +98,6 @@ public final class ConversationService extends WatsonService {
 
   /**
    * Retrieves the workspace list to the service.
-   * 
    * @param instructions
    *          instructions how to return the list. see
    *          {@link RecordsInstructions}
@@ -383,5 +382,4 @@ public final class ConversationService extends WatsonService {
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(MessageResponse.class));
   }
-
 }
