@@ -19,69 +19,69 @@ import com.google.gson.annotations.SerializedName;
  */
 public class Pagination {
 
-    @SerializedName(JsonConstants.REFRESH_URL)
-    private String refreshURL;
+  @SerializedName(JsonConstants.REFRESH_URL)
+  private String refreshURL;
 
-    @SerializedName(JsonConstants.NEXT_URL)
-    private String nextURL;
+  @SerializedName(JsonConstants.NEXT_URL)
+  private String nextURL;
 
-    private int total;
-    private int matched;
+  private int total;
+  private int matched;
 
-    /**
-     * Instantiates a new intent.
-     *
-     * @param refreshURL
-     *            url to get this data again
-     * @param nextURL
-     *            url to get the next page
-     * @param total
-     *            number of available items
-     * @param matched
-     *            number of items that match the current criteria
-     */
-    public Pagination(String refreshURL, String nextURL, int total, int matched) {
-        this.refreshURL = refreshURL;
-        this.nextURL = nextURL;
-        this.total = total;
-        this.matched = matched;
-    }
+  /**
+   * Instantiates a new intent.
+   *
+   * @param refreshURL
+   *          url to get this data again
+   * @param nextURL
+   *          url to get the next page
+   * @param total
+   *          number of available items
+   * @param matched
+   *          number of items that match the current criteria
+   */
+  public Pagination(String refreshURL, String nextURL, int total, int matched) {
+    this.refreshURL = refreshURL;
+    this.nextURL = nextURL;
+    this.total = total;
+    this.matched = matched;
+  }
 
-    /**
-     * Returns the URL that can be used to obtain any updates to the list that
-     * have been made.
-     *
-     * @return a string for the URL
-     */
-    public String getRefreshURL() {
-        return refreshURL;
-    }
+  /**
+   * Returns the URL that can be used to obtain any updates to the list that
+   * have been made.
+   *
+   * @return a string for the URL
+   */
+  public String getRefreshURL() {
+    return refreshURL;
+  }
 
-    /**
-     * Returns the URL that can be used to obtain the next items available for a
-     * given list.
-     *
-     * @return a string for the URL
-     */
-    public String getNextURL() {
-        return nextURL;
-    }
+  /**
+   * Returns the URL that can be used to obtain the next items available for a
+   * given list.
+   *
+   * @return a string for the URL
+   */
+  public String getNextURL() {
+    return nextURL;
+  }
 
-    /**
-     * Returns the total number of items available in the current list.
-     *
-     * @return an int for the total
-     */
-    public int getTotal() {
-        return total;
-    }
+  /**
+   * Returns the total number of items available in the current list.
+   *
+   * @return an int for the total
+   */
+  public int getTotal() {
+    return total;
+  }
 
-    /**
-     * Returns the total number of items that match the current criteria.
-     *
-     * @return an int for the matched
-     */
-    public int getMatched() {
-        return matched;
-    }
+  /**
+   * Returns the total number of items that match the current criteria.
+   *
+   * @return an int for the matched
+   */
+  public int getMatched() {
+    return matched;
+  }
 }

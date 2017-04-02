@@ -28,138 +28,137 @@ import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
  */
 public class CreateIntent extends Intent {
 
-    protected CreateIntent() {
-    }
+  protected CreateIntent() {
+  }
+
+  /**
+   * The Class Builder.
+   */
+  public static class Builder {
+    private String intent;
+    private String description;
+    private List<CreateExample> examples;
 
     /**
-     * The Class Builder.
-     */
-    public static class Builder {
-        private String intent;
-        private String description;
-        private List<CreateExample> examples;
-
-        /**
-         * Instantiates a new builder.
-         *
-         * @param intentRequest
-         *            the intent request
-         */
-        private Builder(CreateIntent intentRequest) {
-            this.intent = intentRequest.intent;
-            this.description = intentRequest.description;
-            this.examples = intentRequest.examples;
-        }
-
-        /**
-         * Instantiates a new Builder.
-         */
-        public Builder() {
-        }
-
-        /**
-         * Generates a new {@link CreateIntent} object. It will contain the
-         * parameters set in the builder.
-         *
-         * @return a {@link CreateIntent} instance
-         */
-        public CreateIntent build() {
-            return new CreateIntent(this);
-        }
-
-        /**
-         * Sets the intent name.
-         *
-         * @param intent
-         *            the intent name
-         * @return a builder object
-         */
-        public Builder setIntent(final String intent) {
-            this.intent = intent;
-            return this;
-        }
-
-        /**
-         * Sets the description used to elaborate on the purpose and usage of a
-         * given intent.
-         *
-         * @param description
-         *            string representing the description
-         * @return a builder object
-         */
-        public Builder setDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        /**
-         * Adds an example {@link ExampleResponse} to the list of examples to be
-         * send as part of the request.
-         *
-         * @param example
-         *            the example
-         * @return the builder
-         */
-        public Builder addExample(CreateExample example) {
-            if (examples == null) {
-                examples = new ArrayList<CreateExample>();
-            }
-
-            examples.add(example);
-            return this;
-        }
-
-        /**
-         * Adds examples {@link ExampleResponse} to the list of examples to be
-         * send as part of the request.
-         *
-         * @param examples
-         *            examples to add
-         * @return the builder
-         */
-        public Builder addExamples(List<CreateExample> examples) {
-            if (this.examples == null) {
-                this.examples = new ArrayList<CreateExample>();
-            }
-
-            this.examples.addAll(examples);
-            return this;
-        }
-    }
-
-    protected List<CreateExample> examples;
-
-    /**
-     * Creates a new instance of the IntentRequest for the
-     * {@link ConversationService} service. Clients must use the {@link Builder}
-     * class to construct new instances of the class.
+     * Instantiates a new builder.
      *
-     * @param options
-     *            a builder configured with the various parameters for the
-     *            request
+     * @param intentRequest
+     *          the intent request
      */
-    private CreateIntent(Builder options) {
-        intent = options.intent;
-        description = options.description;
-        examples = options.examples;
+    private Builder(CreateIntent intentRequest) {
+      this.intent = intentRequest.intent;
+      this.description = intentRequest.description;
+      this.examples = intentRequest.examples;
     }
 
     /**
-     * Returns an optional list of examples that could be used to trigger an
-     * intent.
-     *
-     * @return the examples list
+     * Instantiates a new Builder.
      */
-    public List<? extends CreateExample> getExamples() {
-        return examples;
+    public Builder() {
     }
 
     /**
-     * New builder.
+     * Generates a new {@link CreateIntent} object. It will contain the
+     * parameters set in the builder.
      *
+     * @return a {@link CreateIntent} instance
+     */
+    public CreateIntent build() {
+      return new CreateIntent(this);
+    }
+
+    /**
+     * Sets the intent name.
+     *
+     * @param intent
+     *          the intent name
+     * @return a builder object
+     */
+    public Builder setIntent(final String intent) {
+      this.intent = intent;
+      return this;
+    }
+
+    /**
+     * Sets the description used to elaborate on the purpose and usage of a
+     * given intent.
+     *
+     * @param description
+     *          string representing the description
+     * @return a builder object
+     */
+    public Builder setDescription(String description) {
+      this.description = description;
+      return this;
+    }
+
+    /**
+     * Adds an example {@link ExampleResponse} to the list of examples to be
+     * send as part of the request.
+     *
+     * @param example
+     *          the example
      * @return the builder
      */
-    public Builder newBuilder() {
-        return new Builder(this);
+    public Builder addExample(CreateExample example) {
+      if (examples == null) {
+        examples = new ArrayList<CreateExample>();
+      }
+
+      examples.add(example);
+      return this;
     }
+
+    /**
+     * Adds examples {@link ExampleResponse} to the list of examples to be send
+     * as part of the request.
+     *
+     * @param examples
+     *          examples to add
+     * @return the builder
+     */
+    public Builder addExamples(List<CreateExample> examples) {
+      if (this.examples == null) {
+        this.examples = new ArrayList<CreateExample>();
+      }
+
+      this.examples.addAll(examples);
+      return this;
+    }
+  }
+
+  protected List<CreateExample> examples;
+
+  /**
+   * Creates a new instance of the IntentRequest for the
+   * {@link ConversationService} service. Clients must use the {@link Builder}
+   * class to construct new instances of the class.
+   *
+   * @param options
+   *          a builder configured with the various parameters for the request
+   */
+  private CreateIntent(Builder options) {
+    intent = options.intent;
+    description = options.description;
+    examples = options.examples;
+  }
+
+  /**
+   * Returns an optional list of examples that could be used to trigger an
+   * intent.
+   *
+   * @return the examples list
+   */
+  public List<? extends CreateExample> getExamples() {
+    return examples;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return the builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
 }

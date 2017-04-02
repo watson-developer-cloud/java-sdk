@@ -17,84 +17,84 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 public class RecordsInstructions extends GenericModel {
 
-    @SerializedName(JsonConstants.PAGE_LIMIT)
-    private int pageLimit;
+  @SerializedName(JsonConstants.PAGE_LIMIT)
+  private int pageLimit;
 
-    @SerializedName(JsonConstants.INCLUDE_COUNT)
-    private boolean includeCount;
+  @SerializedName(JsonConstants.INCLUDE_COUNT)
+  private boolean includeCount;
 
-    @SerializedName(JsonConstants.SORT)
-    private String sort;
+  @SerializedName(JsonConstants.SORT)
+  private String sort;
 
-    @SerializedName(JsonConstants.CURSOR)
-    private String cursor;
+  @SerializedName(JsonConstants.CURSOR)
+  private String cursor;
 
-    /**
-     * @return the number of records to return in each page of results.
-     */
-    public int getPageLimit() {
-        return pageLimit;
-    }
+  /**
+   * @return the number of records to return in each page of results.
+   */
+  public int getPageLimit() {
+    return pageLimit;
+  }
 
-    /**
-     * @param pageLimit
-     *            the number of records to return in each page of results. The
-     *            default page limit is 100.
-     */
-    public void setPageLimit(int pageLimit) {
-        this.pageLimit = pageLimit;
-    }
+  /**
+   * @param pageLimit
+   *          the number of records to return in each page of results. The
+   *          default page limit is 100.
+   */
+  public void setPageLimit(int pageLimit) {
+    this.pageLimit = pageLimit;
+  }
 
-    /**
-     * @return Whether to include information about the number of records
-     *         returned.
-     */
-    public boolean getIncludeCount() {
-        return includeCount;
-    }
+  /**
+   * @return Whether to include information about the number of records
+   *         returned.
+   */
+  public boolean getIncludeCount() {
+    return includeCount;
+  }
 
-    /**
-     * @param includeCount
-     *            Whether to include information about the number of records
-     *            returned.
-     */
-    public void setIncludeCount(boolean includeCount) {
-        this.includeCount = includeCount;
-    }
+  /**
+   * @param includeCount
+   *          Whether to include information about the number of records
+   *          returned.
+   */
+  public void setIncludeCount(boolean includeCount) {
+    this.includeCount = includeCount;
+  }
 
-    /**
-     * @return the sort attribute by which returned results will be sorted.
-     */
-    public String getSort() {
-        return sort;
-    }
+  /**
+   * @return the sort attribute by which returned results will be sorted.
+   */
+  public String getSort() {
+    return sort;
+  }
 
-    /**
-     * @param sort
-     *            the sort attribute by which returned results will be sorted.
-     *            To reverse the sort order, prefix the value with a minus sign
-     *            (-). Supported values are depends on the returned entity type.
-     *            For example: text, modified, and example_id.
-     */
-    public void setSort(String sort) {
-        this.sort = sort;
-    }
+  /**
+   * @param sort
+   *          the sort attribute by which returned results will be sorted. To
+   *          reverse the sort order, prefix the value with a minus sign (-).
+   *          Supported values are depends on the returned entity type. For
+   *          example: text, modified, and example_id.
+   */
+  public void setSort(String sort) {
+    this.sort = sort;
+  }
 
-    /**
-     * @return A token identifying the last value from the previous page of
-     *         results.
-     */
-    public String getCursor() {
-        return cursor;
-    }
+  /**
+   * @return A token identifying the last value from the previous page of
+   *         results.
+   */
+  public String getCursor() {
+    return cursor;
+  }
 
-    /**
-     * @param cursor
-     *            A token identifying the last value from the previous page of
-     *            results.
-     */
-    public void setCursor(String cursor) {
-        this.cursor = cursor;
-    }
+  /**
+   * @param cursor
+   *          A token identifying the last value from the previous page of
+   *          results.
+   */
+  public void setCursor(String cursor) {
+    this.cursor = cursor;
+  }
 
 }

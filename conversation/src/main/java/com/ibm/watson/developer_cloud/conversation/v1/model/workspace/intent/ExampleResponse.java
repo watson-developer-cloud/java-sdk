@@ -19,25 +19,25 @@ import java.util.Date;
  */
 public class ExampleResponse extends CreateExample {
 
-    protected Date created;
-    protected Date updated;
+  protected Date created;
+  protected Date updated;
 
-    /**
-     * Returns the time stamp for when the example was created.
-     *
-     * @return a time stamp of example creation
-     */
-    public Date getCreated() {
-        return created;
-    }
+  /**
+   * Returns the time stamp for when the example was created.
+   *
+   * @return a time stamp of example creation
+   */
+  public Date getCreated() {
+    return created;
+  }
 
-    /**
-     * Returns the time stamp for when the example was last updated.
-     *
-     * @return a time stamp of example's last update
-     */
-    public Date getUpdated() {
-        return updated;
-    }
+  /**
+   * Returns the time stamp for when the example was last updated.
+   *
+   * @return a time stamp of example's last update
+   */
+  public Date getUpdated() {
+    return updated;
+  }
 
 }

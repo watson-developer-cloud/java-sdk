@@ -16,14 +16,14 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
  * A class used to hold constants used for the key values of the json objects.
  */
 public final class JsonConstants {
-    public static final String REFRESH_URL = "refresh_url";
-    public static final String NEXT_URL = "next_url";
-    public static final String WORKSPACE_ID = "workspace_id";
-    public static final String PAGE_LIMIT = "page_limit";
-    public static final String INCLUDE_COUNT = "include_count";
-    public static final String SORT = "sort";
-    public static final String CURSOR = "cursor";
+  public static final String REFRESH_URL = "refresh_url";
+  public static final String NEXT_URL = "next_url";
+  public static final String WORKSPACE_ID = "workspace_id";
+  public static final String PAGE_LIMIT = "page_limit";
+  public static final String INCLUDE_COUNT = "include_count";
+  public static final String SORT = "sort";
+  public static final String CURSOR = "cursor";
 
-    private JsonConstants() {
-    }
+  private JsonConstants() {
+  }
 }

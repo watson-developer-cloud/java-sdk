@@ -27,25 +27,25 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class WorkspaceListResponse extends GenericModel {
 
-    private List<WorkspaceResponse> workspaces;
-    private Pagination pagination;
+  private List<WorkspaceResponse> workspaces;
+  private Pagination pagination;
 
-    /**
-     * Returns a list of workspaces.
-     *
-     * @return an array of {@link Workspace}.
-     */
-    public List<WorkspaceResponse> getworkspaces() {
-        return workspaces;
-    }
+  /**
+   * Returns a list of workspaces.
+   *
+   * @return an array of {@link Workspace}.
+   */
+  public List<WorkspaceResponse> getworkspaces() {
+    return workspaces;
+  }
 
-    /**
-     * Returns this pagination options for a given list of workspaces.
-     *
-     * @return a {@link Pagination} object for the list.
-     */
-    public Pagination getPagination() {
-        return pagination;
-    }
+  /**
+   * Returns this pagination options for a given list of workspaces.
+   *
+   * @return a {@link Pagination} object for the list.
+   */
+  public Pagination getPagination() {
+    return pagination;
+  }
 
 }

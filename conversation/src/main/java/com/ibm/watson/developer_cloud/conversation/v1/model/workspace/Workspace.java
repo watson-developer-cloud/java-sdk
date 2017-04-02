@@ -16,67 +16,67 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 public class Workspace extends GenericModel {
 
-    private String name;
-    private String description;
-    private String language;
-    private Object metadata;
+  private String name;
+  private String description;
+  private String language;
+  private Object metadata;
 
-    public Workspace() {
-    }
+  public Workspace() {
+  }
 
-    /**
-     * Instantiates a new workspace.
-     *
-     * @param name
-     *            workspace name
-     * @param description
-     *            workspace description
-     * @param language
-     *            language
-     * @param metadata
-     *            metadata
-     */
-    public Workspace(String name, String description, String language, Object metadata) {
-        this.name = name;
-        this.description = description;
-        this.language = language;
-        this.metadata = metadata;
-    }
+  /**
+   * Instantiates a new workspace.
+   *
+   * @param name
+   *          workspace name
+   * @param description
+   *          workspace description
+   * @param language
+   *          language
+   * @param metadata
+   *          metadata
+   */
+  public Workspace(String name, String description, String language, Object metadata) {
+    this.name = name;
+    this.description = description;
+    this.language = language;
+    this.metadata = metadata;
+  }
 
-    /**
-     * Returns the name of the workspace.
-     *
-     * @return the name of the workspace
-     */
-    public String getName() {
-        return name;
-    }
+  /**
+   * Returns the name of the workspace.
+   *
+   * @return the name of the workspace
+   */
+  public String getName() {
+    return name;
+  }
 
-    /**
-     * Returns the workspace's description.
-     *
-     * @return the workspace's description
-     */
-    public String getDescription() {
-        return description;
-    }
+  /**
+   * Returns the workspace's description.
+   *
+   * @return the workspace's description
+   */
+  public String getDescription() {
+    return description;
+  }
 
-    /**
-     * Returns the workspace's language.
-     *
-     * @return the workspace's language
-     */
-    public String getLanguage() {
-        return language;
-    }
+  /**
+   * Returns the workspace's language.
+   *
+   * @return the workspace's language
+   */
+  public String getLanguage() {
+    return language;
+  }
 
-    /**
-     * Returns the workspace's metadata.
-     *
-     * @return the workspace's metadata
-     */
-    public Object getMetadata() {
-        return metadata;
-    }
+  /**
+   * Returns the workspace's metadata.
+   *
+   * @return the workspace's metadata
+   */
+  public Object getMetadata() {
+    return metadata;
+  }
 
 }

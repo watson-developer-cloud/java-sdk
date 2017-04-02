@@ -17,38 +17,38 @@ import java.util.List;
 
 public class IntentExportResponse extends IntentResponse {
 
-    private List<ExampleResponse> examples;
+  private List<ExampleResponse> examples;
 
-    /**
-     * Instantiates a new intent.
-     *
-     * @param intent
-     *            name
-     * @param created
-     *            created time-stamp
-     * @param updated
-     *            last updated time-stamp
-     * @param description
-     *            intent description
-     * @param examples
-     *            list of utterances
-     */
-    public IntentExportResponse(String intent, Date created, Date updated, String description,
-            List<ExampleResponse> examples) {
-        this.intent = intent;
-        this.created = created;
-        this.updated = updated;
-        this.description = description;
-        this.examples = examples;
-    }
+  /**
+   * Instantiates a new intent.
+   *
+   * @param intent
+   *          name
+   * @param created
+   *          created time-stamp
+   * @param updated
+   *          last updated time-stamp
+   * @param description
+   *          intent description
+   * @param examples
+   *          list of utterances
+   */
+  public IntentExportResponse(String intent, Date created, Date updated, String description,
+      List<ExampleResponse> examples) {
+    this.intent = intent;
+    this.created = created;
+    this.updated = updated;
+    this.description = description;
+    this.examples = examples;
+  }
 
-    /**
-     * Returns an optional list of examples that could be used to trigger an
-     * intent.
-     *
-     * @return the examples list
-     */
-    public List<ExampleResponse> getExamples() {
-        return examples;
-    }
+  /**
+   * Returns an optional list of examples that could be used to trigger an
+   * intent.
+   *
+   * @return the examples list
+   */
+  public List<ExampleResponse> getExamples() {
+    return examples;
+  }
 }
