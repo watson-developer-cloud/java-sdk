@@ -23,8 +23,8 @@ import com.ibm.watson.developer_cloud.util.RequestUtils;
  * The response payload from the Conversation service's message API call
  * {@link ConversationService#message(String, MessageRequest)}.
  *
- * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">
- *      http://www.ibm.com/ watson/developercloud/conversation.html</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html"> http://www.ibm.com/
+ *      watson/developercloud/conversation.html</a>
  */
 public class MessageResponse extends GenericModel {
   private static final String TEXT = "text";
@@ -35,11 +35,11 @@ public class MessageResponse extends GenericModel {
   private Map<String, Object> output;
   private Map<String, Object> input;
 
+
   /**
-   * Returns the context as returned by the service. At each step in the chat
-   * flow the conversation designer has the ability to add information to the
-   * chat context. The context is a map of key value pairs, with the values
-   * being any valid JSON objects/primitives.
+   * Returns the context as returned by the service. At each step in the chat flow the conversation designer has the
+   * ability to add information to the chat context. The context is a map of key value pairs, with the values being any
+   * valid JSON objects/primitives.
    *
    * @return a map representing context/state
    */
@@ -68,8 +68,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Returns the output as returned by the service, may be null.
    *
-   * @return a map of objects representing the response from the Dialog portion
-   *         of the service.
+   * @return a map of objects representing the response from the Dialog portion of the service.
    */
   public Map<String, Object> getOutput() {
     return output;
@@ -78,8 +77,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Sets the context as determined by the service.
    *
-   * @param context
-   *          a map of key value pairs
+   * @param context a map of key value pairs
    */
   public void setContext(Map<String, Object> context) {
     this.context = context;
@@ -88,8 +86,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Sets a list of entities as detected by the service.
    *
-   * @param entities
-   *          an array of entities
+   * @param entities an array of entities
    */
   public void setEntities(List<Entity> entities) {
     this.entities = entities;
@@ -98,8 +95,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Sets a list of intents as detected by the service.
    *
-   * @param intents
-   *          an array of intents
+   * @param intents an array of intents
    */
   public void setIntents(List<Intent> intents) {
     this.intents = intents;
@@ -108,16 +104,14 @@ public class MessageResponse extends GenericModel {
   /**
    * Sets the output as returned by the service.
    *
-   * @param output
-   *          a map of outputs as defined by the conversation designer
+   * @param output a map of outputs as defined by the conversation designer
    */
   public void setOutput(Map<String, Object> output) {
     this.output = output;
   }
 
   /**
-   * A convenience method for getting the text property from the output object.
-   * This is equivalent to calling:
+   * A convenience method for getting the text property from the output object. This is equivalent to calling:
    *
    * <pre>
    * List&lt;?&gt; text = null;
@@ -127,8 +121,7 @@ public class MessageResponse extends GenericModel {
    * }
    * </pre>
    *
-   * @return an array of strings which is to be displayed/returned to the end
-   *         user
+   * @return an array of strings which is to be displayed/returned to the end user
    */
   @SuppressWarnings("unchecked")
   public List<String> getText() {
@@ -142,14 +135,11 @@ public class MessageResponse extends GenericModel {
   }
 
   /**
-   * A convenience method for getting the text property from the output object.
-   * The text property is an array of strings. This convenience class
-   * concatenates the array, separating each entry with the separator string.
+   * A convenience method for getting the text property from the output object. The text property is an array of
+   * strings. This convenience class concatenates the array, separating each entry with the separator string.
    *
-   * @param separator
-   *          the separator
-   * @return a concatenation of the strings in the output array, with each
-   *         string separated by the separator string
+   * @param separator the separator
+   * @return a concatenation of the strings in the output array, with each string separated by the separator string
    */
   public String getTextConcatenated(String separator) {
     List<String> outputText = getText();
@@ -171,8 +161,7 @@ public class MessageResponse extends GenericModel {
   /**
    * Sets the input.
    *
-   * @param input
-   *          the input
+   * @param input the input
    */
   public void setInput(Map<String, Object> input) {
     this.input = input;
