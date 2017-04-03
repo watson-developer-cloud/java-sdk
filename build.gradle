@@ -17,6 +17,10 @@ javadoc {
   source = 'src/main/java'
 }
 
+checkstyle {
+  ignoreFailures = false
+}
+
 task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
 }
