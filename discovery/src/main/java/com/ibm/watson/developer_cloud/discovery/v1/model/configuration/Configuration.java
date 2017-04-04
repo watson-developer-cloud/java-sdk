@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class Configuration extends GenericModel {
     @SerializedName(ConfigurationManager.ID)
-    private String configurationId;
+    private String configuration_id;
     @SerializedName(ConfigurationManager.NAME)
     private String name;
     @SerializedName(ConfigurationManager.DESCRIPTION)
@@ -49,7 +49,7 @@ public class Configuration extends GenericModel {
     private List<NormalizationOperation> normalizations;
 
     public String getConfigurationId() {
-        return configurationId;
+        return configuration_id;
     }
 
     public String getName() {
