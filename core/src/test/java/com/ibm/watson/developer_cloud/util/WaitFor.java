@@ -21,7 +21,9 @@ import java.util.concurrent.TimeUnit;
 
 public class WaitFor {
 
-  private WaitFor() {}
+  private WaitFor() {
+
+  }
 
   /**
    * Static method used to wait for a specific condition to be satisfied.
