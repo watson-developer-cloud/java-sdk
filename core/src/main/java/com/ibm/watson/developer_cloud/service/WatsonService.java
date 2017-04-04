@@ -134,7 +134,7 @@ public abstract class WatsonService {
         .build();
 
     builder.connectionSpecs(Arrays.asList(spec, ConnectionSpec.CLEARTEXT));
-    
+
     return builder.build();
   }
 
