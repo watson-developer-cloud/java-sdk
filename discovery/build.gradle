@@ -50,12 +50,12 @@ signArchives {
 }
 
 checkstyleTest {
-    ignoreFailures = true
+    ignoreFailures = false
 }
 
 checkstyle {
     configFile = rootProject.file('checkstyle.xml')
-    ignoreFailures = true
+    ignoreFailures = false
 }
 
 dependencies {

@@ -356,7 +356,6 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
         }
         Validator.notNull(createRequest.getFile(), "Document " + FILE + " cannot be null");
         MediaType mediaType = supportedMediaTypes.get(createRequest.getMediaType());
-        Validator.notNull(mediaType, String.format("Media Type '%s' not supported", createRequest.getMediaType()));
         RequestBody file = InputStreamRequestBody.create(mediaType, createRequest.getFile());
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
         multipartBuilder.setType(MultipartBody.FORM);

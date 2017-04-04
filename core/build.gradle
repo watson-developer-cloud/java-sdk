@@ -49,13 +49,10 @@ signArchives {
     }
 }
 
-checkstyleTest {
-    ignoreFailures = true
-}
 
 checkstyle {
     configFile = rootProject.file('checkstyle.xml')
-    ignoreFailures = true
+    ignoreFailures = false
 }
 
   task testJar(type: Jar) {

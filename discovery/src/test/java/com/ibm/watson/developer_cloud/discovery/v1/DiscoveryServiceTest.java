@@ -73,10 +73,14 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.BufferedWriter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -438,6 +442,121 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(DOCS1_PATH, request.getPath());
     assertEquals(POST, request.getMethod());
     assertEquals(createDocResp, response);
+  }
+
+  @Test
+  public void createDocumentFromInputStreamIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createDocResp));
+    String myDocumentJson = "{\"field\":\"value\"}";
+    JsonObject myMetadata = new JsonObject();
+    myMetadata.add("foo", new JsonPrimitive("bar"));
+    InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
+
+    CreateDocumentRequest.Builder builder = new CreateDocumentRequest.Builder(environmentId, collectionId);
+    builder.file(documentStream);
+    builder.metadata(myMetadata);
+    CreateDocumentResponse response = discoveryService.createDocument(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(DOCS1_PATH, request.getPath());
+    assertEquals(POST, request.getMethod());
+    assertEquals(createDocResp, response);
+  }
+
+  @Test
+  public void createDocumentFromInputStreamWithMediaTypeIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createDocResp));
+    String myDocumentJson = "{\"field\":\"value\"}";
+    JsonObject myMetadata = new JsonObject();
+    myMetadata.add("foo", new JsonPrimitive("bar"));
+    InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
+
+    CreateDocumentRequest.Builder builder = new CreateDocumentRequest.Builder(environmentId, collectionId);
+    builder.file(documentStream, HttpMediaType.APPLICATION_JSON);
+    builder.metadata(myMetadata);
+    CreateDocumentResponse response = discoveryService.createDocument(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(DOCS1_PATH, request.getPath());
+    assertEquals(POST, request.getMethod());
+    assertEquals(createDocResp, response);
+  }
+
+  @Test
+  public void createDocumentFromInputStreamWithFileNameAndMediaTypeIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createDocResp));
+    String fileName = "MyFileName";
+    String myDocumentJson = "{\"field\":\"value\"}";
+    JsonObject myMetadata = new JsonObject();
+    myMetadata.add("foo", new JsonPrimitive("bar"));
+    InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
+
+    CreateDocumentRequest.Builder builder = new CreateDocumentRequest.Builder(environmentId, collectionId);
+    builder.file(documentStream, fileName, HttpMediaType.APPLICATION_JSON);
+    builder.metadata(myMetadata);
+    CreateDocumentResponse response = discoveryService.createDocument(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(DOCS1_PATH, request.getPath());
+    assertEquals(POST, request.getMethod());
+    assertEquals(createDocResp, response);
+  }
+
+  @Test
+  public void createDocumentFromFileWithMediaTypeIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createDocResp));
+    String myDocumentJson = "{\"field\":\"value\"}";
+    JsonObject myMetadata = new JsonObject();
+    myMetadata.add("foo", new JsonPrimitive("bar"));
+
+    CreateDocumentRequest.Builder builder = new CreateDocumentRequest.Builder(environmentId, collectionId);
+
+    try {
+      File tempFile = File.createTempFile("CreateDocTest1", ".json");
+      tempFile.deleteOnExit();
+      BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
+      out.write(myDocumentJson);
+      out.close();
+
+      builder.file(tempFile, HttpMediaType.APPLICATION_JSON);
+      builder.metadata(myMetadata);
+      CreateDocumentResponse response = discoveryService.createDocument(builder.build()).execute();
+      RecordedRequest request = server.takeRequest();
+
+      assertEquals(DOCS1_PATH, request.getPath());
+      assertEquals(POST, request.getMethod());
+      assertEquals(createDocResp, response);
+    } catch (final IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  public void createDocumentFromFileIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createDocResp));
+    String myDocumentJson = "{\"field\":\"value\"}";
+    JsonObject myMetadata = new JsonObject();
+    myMetadata.add("foo", new JsonPrimitive("bar"));
+
+    CreateDocumentRequest.Builder builder = new CreateDocumentRequest.Builder(environmentId, collectionId);
+    try {
+      File tempFile = File.createTempFile("CreateDocTest2", ".json");
+      tempFile.deleteOnExit();
+      BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
+      out.write(myDocumentJson);
+      out.close();
+
+      builder.file(tempFile);
+      builder.metadata(myMetadata);
+      CreateDocumentResponse response = discoveryService.createDocument(builder.build()).execute();
+      RecordedRequest request = server.takeRequest();
+
+      assertEquals(DOCS1_PATH, request.getPath());
+      assertEquals(POST, request.getMethod());
+      assertEquals(createDocResp, response);
+    } catch (final IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @Test
