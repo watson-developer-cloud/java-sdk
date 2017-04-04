@@ -21,6 +21,15 @@ checkstyle {
   ignoreFailures = false
 }
 
+checkstyleMain {
+  ignoreFailures = false
+}
+
+checkstyleTest {
+  ignoreFailures = false
+}
+
+
 task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
 }
@@ -48,6 +57,10 @@ allprojects {
 }
 
 subprojects {
+
+  checkstyleMain {
+    ignoreFailures = false
+  }
 
   checkstyleTest {
     ignoreFailures = false
