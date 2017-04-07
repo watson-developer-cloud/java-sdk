@@ -13,11 +13,11 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
-import java.util.Date;
 
 /**
  * A Collection holds the documents that have been ingested and allows querying against it.

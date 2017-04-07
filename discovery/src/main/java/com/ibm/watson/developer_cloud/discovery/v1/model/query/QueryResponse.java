@@ -13,12 +13,12 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * A response containing the documents and aggregations from the QueryRequest.

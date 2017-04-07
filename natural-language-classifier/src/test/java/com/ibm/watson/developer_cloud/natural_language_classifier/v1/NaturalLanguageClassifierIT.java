@@ -21,8 +21,8 @@ import java.util.List;
 import org.junit.Assume;
 import org.junit.AssumptionViolatedException;
 import org.junit.Before;
-import org.junit.Test;
 import org.junit.FixMethodOrder;
+import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
