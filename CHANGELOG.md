@@ -1,6 +1,19 @@
 Change Log
 ==========
 
+## Version 3.7.2
+
+_2017-04-07_
+
+  * New: Provide a specific document Id when creating a document			d581c3f
+  * New: NLU: Add model for disambiguation and property in EntitiesResults			8acb411
+  * New: Add test for disambiguation info			9328c5f
+  * Fix: Discovery: create or update a document from an InputStream and optionally spec…  …			ab2f413
+  * Fix: Add README.md for Natural Language Understanding			4e53c8f
+  * Fix: 👕 Checkstyle	Verified		a95c68d
+  * Fix: TTS Synthesize using POST, fixes #635 and #602	Verified		5ae0d24
+  * Fix: Language translator, update service name	Verified		37abc86
+
 ## Version 3.7.1
 
 _2017-03-31_
