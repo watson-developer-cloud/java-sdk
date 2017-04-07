@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -216,9 +217,12 @@ public class TextToSpeech extends WatsonService {
     Validator.isTrue((text != null) && !text.isEmpty(), "text cannot be null or empty");
     Validator.isTrue(voice != null, "voice cannot be null or empty");
 
-    String modifiedText = text.replace(";", "%3B");
-    final RequestBuilder request = RequestBuilder.get(PATH_SYNTHESIZE);
-    request.query(TEXT, modifiedText);
+    final RequestBuilder request = RequestBuilder.post(PATH_SYNTHESIZE);
+
+    JsonObject jsonText = new JsonObject();
+    jsonText.addProperty(TEXT, text);
+    request.bodyJson(jsonText);
+    
     request.query(VOICE, voice.getName());
     request.query(ACCEPT, audioFormat != null ? audioFormat : AudioFormat.WAV);
 
