@@ -13,13 +13,13 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.CommonManager;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Notice;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Status;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
-import java.util.List;
 
 /**
  * Response from a {@link DeleteConfigurationRequest}.

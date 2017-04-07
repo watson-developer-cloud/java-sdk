@@ -13,10 +13,10 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsRequest;
-import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.Field;
+import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsResponse;
+import com.ibm.watson.developer_cloud.http.ServiceCall;
 
 /**
  * Interface defining the constants and methods associated with Collections.

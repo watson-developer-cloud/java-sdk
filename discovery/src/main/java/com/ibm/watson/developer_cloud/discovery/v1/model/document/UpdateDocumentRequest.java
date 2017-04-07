@@ -13,13 +13,13 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.document;
 
-import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+
+import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Request to update a {@link Document}.

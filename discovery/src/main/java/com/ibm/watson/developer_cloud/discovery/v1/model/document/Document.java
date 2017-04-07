@@ -13,14 +13,14 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.document;
 
+import java.util.Date;
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.CommonManager;
 import com.ibm.watson.developer_cloud.discovery.v1.model.common.Notice;
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * A Document contains the processing status and notices, if any, for a document in the index.
