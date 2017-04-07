@@ -495,4 +495,31 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       assertNotNull(result.getScore());
     }
   }
+
+  /**
+   * Analyze html for disambiguation.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void analyzeHtmlForDisambiguationIsSuccessful() throws Exception {
+    EntitiesOptions entities = new EntitiesOptions.Builder().sentiment(true).limit(1).build();
+    Features features = new Features.Builder().entities(entities).build();
+    AnalyzeOptions parameters =
+            new AnalyzeOptions.Builder().url("www.cnn.com").features(features).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    assertNotNull(results);
+    assertEquals(results.getLanguage(), "en");
+    assertNotNull(results.getEntities());
+    assertTrue(results.getEntities().size() == 1);
+    for (EntitiesResult result : results.getEntities()) {
+      assertNotNull(result.getDisambiguation());
+      assertEquals(result.getDisambiguation().getName(),"CNN");
+      assertEquals(result.getDisambiguation().getDbpediaResource(),"http://dbpedia.org/resource/CNN");
+      assertNotNull(result.getDisambiguation().getSubtype());
+      assertTrue(result.getDisambiguation().getSubtype().size() > 0);
+    }
+  }
 }
