@@ -26,6 +26,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
@@ -33,10 +34,12 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Phoneme;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 /**
  * Text to Speech integration tests.
  */
+@RunWith(RetryRunner.class)
 public class TextToSpeechIT extends WatsonServiceTest {
 
   private TextToSpeech service;

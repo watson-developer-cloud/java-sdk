@@ -13,12 +13,12 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
+import java.util.Date;
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.Document;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
-import java.util.Date;
-import java.util.List;
 
 /**
  * A Configuration is used to define how a {@link Document} will be ingested.
