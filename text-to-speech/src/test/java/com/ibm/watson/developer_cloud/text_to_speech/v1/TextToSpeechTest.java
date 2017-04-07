@@ -197,7 +197,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     final RecordedRequest request = server.takeRequest();
     final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
 
-    assertEquals(request.getBody().readUtf8(),"{\"text\":\""+text+"\"}");
+    assertEquals(request.getBody().readUtf8(), "{\"text\":\"" + text + "\"}");
     assertEquals(SYNTHESIZE_PATH, requestUrl.encodedPath());
     assertEquals(Voice.EN_LISA.getName(), requestUrl.queryParameter("voice"));
     assertEquals(HttpMediaType.AUDIO_PCM + "; rate=16000", requestUrl.queryParameter("accept"));
