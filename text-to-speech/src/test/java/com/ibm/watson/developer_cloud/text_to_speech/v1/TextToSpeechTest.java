@@ -198,7 +198,6 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     final RecordedRequest request = server.takeRequest();
     final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
     String modifiedText = text.replace(";", "%3B");
-    String encodedText = URLEncoder.encode(modifiedText, "UTF-8");
 
     assertEquals(SYNTHESIZE_PATH, requestUrl.encodedPath());
     assertEquals(modifiedText, requestUrl.queryParameter("text"));
