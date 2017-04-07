@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>natural-language-understanding</artifactId>
-	<version>3.7.1</version>
+	<version>3.7.2</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:natural-language-understanding:3.7.1'
+'com.ibm.watson.developer_cloud:natural-language-understanding:3.7.2'
 ```
 
 ## Usage
