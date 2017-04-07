@@ -516,8 +516,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     assertTrue(results.getEntities().size() == 1);
     for (EntitiesResult result : results.getEntities()) {
       assertNotNull(result.getDisambiguation());
-      assertEquals(result.getDisambiguation().getName(),"CNN");
-      assertEquals(result.getDisambiguation().getDbpediaResource(),"http://dbpedia.org/resource/CNN");
+      assertEquals(result.getDisambiguation().getName(), "CNN");
+      assertEquals(result.getDisambiguation().getDbpediaResource(), "http://dbpedia.org/resource/CNN");
       assertNotNull(result.getDisambiguation().getSubtype());
       assertTrue(result.getDisambiguation().getSubtype().size() > 0);
     }
