@@ -348,9 +348,19 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
     public ServiceCall<CreateDocumentResponse> createDocument(CreateDocumentRequest createRequest) {
         Validator.notEmpty(createRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
         Validator.notEmpty(createRequest.getCollectionId(), CollectionManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder
-                .post(String
-                        .format(PATH_DOCUMENTS, createRequest.getEnvironmentId(), createRequest.getCollectionId()));
+
+        String pathElements;
+        if (createRequest.getDocumentId() == null) {
+            pathElements = String.format(PATH_DOCUMENTS, createRequest.getEnvironmentId(),
+                                         createRequest.getCollectionId());
+        } else {
+            Validator.notEmpty(createRequest.getDocumentId(), DocumentManager.ID + " cannot be empty");
+            pathElements = String.format(PATH_DOCUMENT, createRequest.getEnvironmentId(),
+                                         createRequest.getCollectionId(), createRequest.getDocumentId());
+        }
+
+        RequestBuilder builder = RequestBuilder.post(pathElements);
+
         if (createRequest.getConfigurationId() != null) {
             builder.query(CollectionManager.CONFIGURATION_ID, createRequest.getConfigurationId());
         }
