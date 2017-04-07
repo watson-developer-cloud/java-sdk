@@ -28,6 +28,7 @@ public class CreateDocumentRequest extends GenericModel {
     private final String environmentId;
     private final String collectionId;
     private String configurationId;
+    private String documentId;
     private JsonObject metadata;
     private InputStream file;
     private String mediaType;
@@ -38,6 +39,7 @@ public class CreateDocumentRequest extends GenericModel {
         this.environmentId = builder.environmentId;
         this.collectionId = builder.collectionId;
         this.configurationId = builder.configurationId;
+        this.documentId = builder.documentId;
         this.metadata = builder.metadata;
         this.file = builder.file;
         this.mediaType = builder.mediaType;
@@ -50,6 +52,10 @@ public class CreateDocumentRequest extends GenericModel {
 
     public String getCollectionId() {
         return collectionId;
+    }
+
+    public String getDocumentId() {
+        return documentId;
     }
 
     public String getConfigurationId() {
@@ -76,6 +82,7 @@ public class CreateDocumentRequest extends GenericModel {
         private final String environmentId;
         private final String collectionId;
         private String configurationId;
+        private String documentId;
         private JsonObject metadata;
         private InputStream file;
         private String mediaType;
@@ -85,6 +92,11 @@ public class CreateDocumentRequest extends GenericModel {
             this.environmentId = environmentId;
             this.collectionId = collectionId;
             this.fileName = this.fileName == null || this.fileName.isEmpty() ? "file_name_not_provided" : this.fileName;
+        }
+
+        public Builder documentId(String documentId) {
+            this.documentId = documentId;
+            return this;
         }
 
         public Builder configurationId(String configurationId) {

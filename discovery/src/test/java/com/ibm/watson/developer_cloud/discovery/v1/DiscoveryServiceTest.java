@@ -560,6 +560,35 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   }
 
   @Test
+  public void createDocumentFromFileWithGivenIdIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createDocResp));
+    String myDocumentJson = "{\"field\":\"value\"}";
+    JsonObject myMetadata = new JsonObject();
+    myMetadata.add("foo", new JsonPrimitive("bar"));
+
+    CreateDocumentRequest.Builder builder = new CreateDocumentRequest.Builder(environmentId, collectionId);
+    try {
+      File tempFile = File.createTempFile("CreateDocTest3", ".json");
+      tempFile.deleteOnExit();
+      BufferedWriter out = new BufferedWriter(new FileWriter(tempFile));
+      out.write(myDocumentJson);
+      out.close();
+
+      builder.file(tempFile);
+      builder.metadata(myMetadata);
+      builder.documentId(documentId);
+      CreateDocumentResponse response = discoveryService.createDocument(builder.build()).execute();
+      RecordedRequest request = server.takeRequest();
+
+      assertEquals(DOCS2_PATH, request.getPath());
+      assertEquals(POST, request.getMethod());
+      assertEquals(createDocResp, response);
+    } catch (final IOException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
   public void updateDocumentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(updateDocResp));
     UpdateDocumentRequest.Builder updateBuilder =
