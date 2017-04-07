@@ -222,7 +222,7 @@ public class TextToSpeech extends WatsonService {
     JsonObject jsonText = new JsonObject();
     jsonText.addProperty(TEXT, text);
     request.bodyJson(jsonText);
-    
+
     request.query(VOICE, voice.getName());
     request.query(ACCEPT, audioFormat != null ? audioFormat : AudioFormat.WAV);
 
