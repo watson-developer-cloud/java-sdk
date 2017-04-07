@@ -25,6 +25,7 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -49,11 +50,13 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Se
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SemanticRolesResult;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.SentimentOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.TargetedSentimentResults;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 /**
- * The Class NaturalLanguageunderstandingTest.
+ * Natural Language Understanding integration tests.
  */
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
+@RunWith(RetryRunner.class)
 public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   private NaturalLanguageUnderstanding service;

@@ -13,10 +13,10 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
 /**
  * An empty implementation of {@link RecognizeCallback} interface.

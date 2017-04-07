@@ -37,6 +37,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -97,12 +98,14 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 import com.ibm.watson.developer_cloud.util.WaitFor;
 
 /**
  * Integration tests for {@link Discovery}.
  *
  */
+@RunWith(RetryRunner.class)
 public class DiscoveryServiceIT extends WatsonServiceTest {
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String DISCOVERY1_TEST_CONFIG_FILE = "src/test/resources/discovery/issue517.json";

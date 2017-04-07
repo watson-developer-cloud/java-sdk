@@ -13,6 +13,24 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1;
 
+import static org.junit.Assert.assertEquals;
+
+import java.io.BufferedWriter;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
@@ -65,24 +83,6 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import okhttp3.mockwebserver.RecordedRequest;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.BufferedWriter;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Unit tests for {@link Discovery}.
