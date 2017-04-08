@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.conversation.v1;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 
 import java.util.Map;
 
@@ -115,5 +116,185 @@ public class ConversationServiceIT extends WatsonServiceTest {
   @Test
   public void testToString() {
     assertNotNull(service.toString());
+  }
+  
+  /**
+   * Test createCounterexample.
+   */
+  @Test
+  public void testCreateCounterexample() {
+    // TODO: make test
+    fail("Test for createCounterexample not yet implemented");
+  }
+
+  /**
+   * Test deleteCounterexample.
+   */
+  @Test
+  public void testDeleteCounterexample() {
+    // TODO: make test
+    fail("Test for deleteCounterexample not yet implemented");
+  }
+
+  /**
+   * Test getCounterexample.
+   */
+  @Test
+  public void testGetCounterexample() {
+    // TODO: make test
+    fail("Test for getCounterexample not yet implemented");
+  }
+
+  /**
+   * Test listCounterexamples.
+   */
+  @Test
+  public void testListCounterexamples() {
+    // TODO: make test
+    fail("Test for listCounterexamples not yet implemented");
+  }
+
+  /**
+   * Test updateCounterexample.
+   */
+  @Test
+  public void testUpdateCounterexample() {
+    // TODO: make test
+    fail("Test for updateCounterexample not yet implemented");
+  }
+
+  /**
+   * Test createExample.
+   */
+  @Test
+  public void testCreateExample() {
+    // TODO: make test
+    fail("Test for createExample not yet implemented");
+  }
+
+  /**
+   * Test deleteExample.
+   */
+  @Test
+  public void testDeleteExample() {
+    // TODO: make test
+    fail("Test for deleteExample not yet implemented");
+  }
+
+  /**
+   * Test getExample.
+   */
+  @Test
+  public void testGetExample() {
+    // TODO: make test
+    fail("Test for getExample not yet implemented");
+  }
+
+  /**
+   * Test listExamples.
+   */
+  @Test
+  public void testListExamples() {
+    // TODO: make test
+    fail("Test for listExamples not yet implemented");
+  }
+
+  /**
+   * Test updateExample.
+   */
+  @Test
+  public void testUpdateExample() {
+    // TODO: make test
+    fail("Test for updateExample not yet implemented");
+  }
+
+  /**
+   * Test createIntent.
+   */
+  @Test
+  public void testCreateIntent() {
+    // TODO: make test
+    fail("Test for createIntent not yet implemented");
+  }
+
+  /**
+   * Test deleteIntent.
+   */
+  @Test
+  public void testDeleteIntent() {
+    // TODO: make test
+    fail("Test for deleteIntent not yet implemented");
+  }
+
+  /**
+   * Test getIntent.
+   */
+  @Test
+  public void testGetIntent() {
+    // TODO: make test
+    fail("Test for getIntent not yet implemented");
+  }
+
+  /**
+   * Test listIntents.
+   */
+  @Test
+  public void testListIntents() {
+    // TODO: make test
+    fail("Test for listIntents not yet implemented");
+  }
+
+  /**
+   * Test updateIntent.
+   */
+  @Test
+  public void testUpdateIntent() {
+    // TODO: make test
+    fail("Test for updateIntent not yet implemented");
+  }
+
+  /**
+   * Test createWorkspace.
+   */
+  @Test
+  public void testCreateWorkspace() {
+    // TODO: make test
+    fail("Test for createWorkspace not yet implemented");
+  }
+
+  /**
+   * Test deleteWorkspace.
+   */
+  @Test
+  public void testDeleteWorkspace() {
+    // TODO: make test
+    fail("Test for deleteWorkspace not yet implemented");
+  }
+
+  /**
+   * Test getWorkspace.
+   */
+  @Test
+  public void testGetWorkspace() {
+    // TODO: make test
+    fail("Test for getWorkspace not yet implemented");
+  }
+
+  /**
+   * Test listWorkspaces.
+   */
+  @Test
+  public void testListWorkspaces() {
+    // TODO: make test
+    fail("Test for listWorkspaces not yet implemented");
+  }
+
+  /**
+   * Test updateWorkspace.
+   */
+  @Test
+  public void testUpdateWorkspace() {
+    // TODO: make test
+    fail("Test for updateWorkspace not yet implemented");
   }
 }
