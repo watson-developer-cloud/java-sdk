@@ -23,12 +23,13 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import org.junit.Assume;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
-import org.junit.Before;
-import org.junit.Assume;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
@@ -47,14 +48,16 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSessionStatu
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordAlternatives;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Sort;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 /**
  * Speech to text Integration tests.
  */
+@RunWith(RetryRunner.class)
 public class SpeechToTextIT extends WatsonServiceTest {
 
   private static final String EN_BROADBAND16K = "en-US_BroadbandModel";

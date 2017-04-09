@@ -13,10 +13,10 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.configuration;
 
+import java.util.Map;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
-import java.util.Map;
 
 /**
  * An Enrichment contains configuration pertaining to which fields Watson should extract metadata from.

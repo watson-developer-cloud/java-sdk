@@ -12,6 +12,19 @@
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
@@ -29,19 +42,6 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognit
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@link VisualRecognition} service.

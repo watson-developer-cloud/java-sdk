@@ -19,6 +19,7 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
@@ -28,12 +29,14 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneText;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneTextLine;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneTextLine.Word;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 import okhttp3.HttpUrl;
 
 /**
  * The Class AlchemyVisionTest.
  */
+@RunWith(RetryRunner.class)
 public class AlchemyVisionIT extends WatsonServiceTest {
 
   private static final String IMAGE_OBAMA = "src/test/resources/alchemy/obama.jpg";

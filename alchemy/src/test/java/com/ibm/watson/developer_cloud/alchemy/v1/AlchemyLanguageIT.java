@@ -23,6 +23,7 @@ import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.CombinedResults;
@@ -45,10 +46,12 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedArguments;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedEntity;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelation;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.TypedRelations;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 /**
  * Alchemy Language Integration tests.
  */
+@RunWith(RetryRunner.class)
 public class AlchemyLanguageIT extends WatsonServiceTest {
 
   private static final String testURL =

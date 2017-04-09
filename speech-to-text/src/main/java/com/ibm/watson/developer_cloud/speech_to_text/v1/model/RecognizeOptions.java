@@ -12,9 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
+import java.io.InputStream;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 import okhttp3.MediaType;
@@ -121,7 +124,7 @@ public class RecognizeOptions {
     /**
      * If <code>true</code>, adds speaker labels to the transcript.
      *
-     * @param  speakerLabels Labels or "diarization"
+     * @param speakerLabels Labels or "diarization"
      * @return the recognize options
      */
     public Builder speakerLabels(Boolean speakerLabels) {
@@ -167,7 +170,9 @@ public class RecognizeOptions {
 
     /**
      * If true, the service sends interim results for the transcription. Otherwise, the recognition ends after first
-     * "end of speech" is detected. The default is false.
+     * "end of speech" is detected. The default is false. This option is only supported with the
+     * {@link SpeechToText#recognizeUsingWebSocket(InputStream, RecognizeOptions, RecognizeCallback)}
+     * method.
      *
      * @param interimResults the interim results
      * @return the recognize options

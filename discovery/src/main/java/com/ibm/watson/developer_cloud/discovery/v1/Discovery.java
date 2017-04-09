@@ -13,31 +13,60 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CollectionManager;
+import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.DeleteCollectionRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.DeleteCollectionResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionsRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.CreateConfigurationRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.CreateConfigurationResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.DeleteConfigurationRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.DeleteConfigurationResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationsRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.UpdateConfigurationRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.UpdateConfigurationResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.CreateDocumentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.CreateDocumentResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.document.DeleteDocumentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.DeleteDocumentResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.document.DocumentManager;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.GetDocumentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.GetDocumentResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.document.UpdateDocumentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.document.UpdateDocumentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.environment.CreateEnvironmentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.environment.CreateEnvironmentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.environment.DeleteEnvironmentRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.environment.DeleteEnvironmentResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager;
 import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentsRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.environment.UpdateEnvironmentRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.environment.UpdateEnvironmentResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.query.Operator;
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager;
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryRequest;
+import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -47,40 +76,11 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CollectionManager;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.Configuration;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.CreateConfigurationResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.DeleteConfigurationRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.DeleteConfigurationResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.UpdateConfigurationRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.DeleteDocumentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.DocumentManager;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.UpdateDocumentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.DeleteEnvironmentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentsRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.UpdateEnvironmentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.UpdateEnvironmentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.Operator;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.Request;
 import okhttp3.RequestBody;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Discovery service API for CRUD operations for indexing and searching data.
@@ -348,15 +348,24 @@ public class Discovery extends WatsonService implements EnvironmentManager, Conf
     public ServiceCall<CreateDocumentResponse> createDocument(CreateDocumentRequest createRequest) {
         Validator.notEmpty(createRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
         Validator.notEmpty(createRequest.getCollectionId(), CollectionManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder
-                .post(String
-                        .format(PATH_DOCUMENTS, createRequest.getEnvironmentId(), createRequest.getCollectionId()));
+
+        String pathElements;
+        if (createRequest.getDocumentId() == null) {
+            pathElements = String.format(PATH_DOCUMENTS, createRequest.getEnvironmentId(),
+                                         createRequest.getCollectionId());
+        } else {
+            Validator.notEmpty(createRequest.getDocumentId(), DocumentManager.ID + " cannot be empty");
+            pathElements = String.format(PATH_DOCUMENT, createRequest.getEnvironmentId(),
+                                         createRequest.getCollectionId(), createRequest.getDocumentId());
+        }
+
+        RequestBuilder builder = RequestBuilder.post(pathElements);
+
         if (createRequest.getConfigurationId() != null) {
             builder.query(CollectionManager.CONFIGURATION_ID, createRequest.getConfigurationId());
         }
         Validator.notNull(createRequest.getFile(), "Document " + FILE + " cannot be null");
         MediaType mediaType = supportedMediaTypes.get(createRequest.getMediaType());
-        Validator.notNull(mediaType, String.format("Media Type '%s' not supported", createRequest.getMediaType()));
         RequestBody file = InputStreamRequestBody.create(mediaType, createRequest.getFile());
         MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
         multipartBuilder.setType(MultipartBody.FORM);

@@ -15,6 +15,9 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.DeleteCollectionRequest;
@@ -39,9 +42,6 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironm
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
-
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 
 /**
  * End-to-end example for querying Discovery.
