@@ -30,7 +30,12 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.CounterexampleCollec
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollectionResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.IntentCollectionResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.IntentExportResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.IntentResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateExample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntent;
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
@@ -184,6 +189,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
       fail("deleteCounterexample failed");
     } catch (Exception ex) {
       // Expected result
+      assert(ex instanceof NotFoundException);
     }
   }
 
@@ -274,7 +280,6 @@ public class ConversationServiceIT extends WatsonServiceTest {
       // Clean up
       service.deleteCounterexample(workspaceId, counterExampleText).execute();
     }
-
   }
 
   /**
@@ -375,6 +380,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
       fail("deleteCounterexample failed");
     } catch (Exception ex) {
       // Expected result
+      assert(ex instanceof NotFoundException);
     }
   }
 
@@ -435,7 +441,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
 
       Date start = new Date();
 
-      // Now add a counterexample and make sure we get it back
+      // Now add an example and make sure we get it back
       service.createExample(workspaceId, exampleIntent, exampleText).execute();
 
       double count = ecResponse.getExamples().size();
@@ -443,11 +449,11 @@ public class ConversationServiceIT extends WatsonServiceTest {
       assertNotNull(ecResponse2);
       assertNotNull(ecResponse2.getExamples());
 
-      List<ExampleResponse> counterexamples = ecResponse2.getExamples();
-      assertTrue(counterexamples.size() > count);
+      List<ExampleResponse> examples = ecResponse2.getExamples();
+      assertTrue(examples.size() > count);
 
       ExampleResponse exResponse = null;
-      for (ExampleResponse resp : counterexamples) {
+      for (ExampleResponse resp : examples) {
         if (resp.getText().equals(exampleText)) {
           exResponse = resp;
           break;
@@ -514,8 +520,54 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testCreateIntent() {
-    // TODO: make test
-    fail("Test for createIntent not yet implemented");
+
+    String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
+    String intentDescription = "Description of " + intentName;
+    String intentExample = "Example of " + intentName;
+    List<CreateExample> intentExamples = new ArrayList<>();
+    intentExamples.add(new CreateExample.Builder().text(intentExample).build());
+
+    Date start = new Date();
+
+    IntentResponse response = service.createIntent(workspaceId, intentName, intentDescription, intentExamples).execute();
+
+    try {
+      assertNotNull(response);
+      assertNotNull(response.getIntent());
+      assertEquals(response.getIntent(), intentName);
+      assertNotNull(response.getDescription());
+      assertEquals(response.getDescription(), intentDescription);
+      assertNotNull(response.getCreated());
+      assertNotNull(response.getUpdated());
+
+      Date now = new Date();
+      Date created = isoDateFormat.parse(response.getCreated());
+      assertTrue(created.before(now));
+      assertTrue(created.after(start));
+      Date updated = isoDateFormat.parse(response.getUpdated());
+      assertTrue(updated.before(now));
+      assertTrue(updated.after(start));
+
+      ExampleCollectionResponse ecResponse = service.listExamples(workspaceId, intentName, null, null, null, null).execute();
+      assertNotNull(ecResponse);
+      assertNotNull(ecResponse.getExamples());
+
+      List<ExampleResponse> examples = ecResponse.getExamples();
+      assertTrue(examples.size() == 1);
+      assertEquals(examples.get(0).getText(),intentExample);
+      created = isoDateFormat.parse(examples.get(0).getCreated());
+      assertTrue(created.before(now));
+      assertTrue(created.after(start));
+      updated = isoDateFormat.parse(examples.get(0).getUpdated());
+      assertTrue(updated.before(now));
+      assertTrue(updated.after(start));
+
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      service.deleteIntent(workspaceId,intentName);
+    }
   }
 
   /**
@@ -523,8 +575,21 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testDeleteIntent() {
-    // TODO: make test
-    fail("Test for deleteIntent not yet implemented");
+
+    String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
+    String intentDescription = "Description of " + intentName;
+
+    service.createIntent(workspaceId, intentName, intentDescription, null).execute();
+
+    service.deleteIntent(workspaceId, intentName).execute();
+
+    try {
+      IntentExportResponse response = service.getIntent(workspaceId, intentName, false).execute();
+      fail("deleteIntent failed");
+    } catch (Exception ex) {
+      // Expected result
+      assert(ex instanceof NotFoundException);
+    }
   }
 
   /**
@@ -532,8 +597,52 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testGetIntent() {
-    // TODO: make test
-    fail("Test for getIntent not yet implemented");
+
+    String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
+    String intentDescription = "Description of " + intentName;
+    String intentExample = "Example of " + intentName;
+    List<CreateExample> intentExamples = new ArrayList<>();
+    intentExamples.add(new CreateExample.Builder().text(intentExample).build());
+
+    Date start = new Date();
+
+    service.createIntent(workspaceId, intentName, intentDescription, intentExamples).execute();
+
+    try {
+      IntentExportResponse response = service.getIntent(workspaceId, intentName, true).execute();
+      assertNotNull(response);
+      assertNotNull(response.getIntent());
+      assertEquals(response.getIntent(), intentName);
+      assertNotNull(response.getDescription());
+      assertEquals(response.getDescription(), intentDescription);
+      assertNotNull(response.getExamples());
+      assertNotNull(response.getCreated());
+      assertNotNull(response.getUpdated());
+
+      Date now = new Date();
+      Date created = isoDateFormat.parse(response.getCreated());
+      assertTrue(created.before(now));
+      assertTrue(created.after(start));
+      Date updated = isoDateFormat.parse(response.getUpdated());
+      assertTrue(updated.before(now));
+      assertTrue(updated.after(start));
+
+      List<ExampleResponse> examples = response.getExamples();
+      assertTrue(examples.size() == 1);
+      assertEquals(examples.get(0).getText(),intentExample);
+      created = isoDateFormat.parse(examples.get(0).getCreated());
+      assertTrue(created.before(now));
+      assertTrue(created.after(start));
+      updated = isoDateFormat.parse(examples.get(0).getUpdated());
+      assertTrue(updated.before(now));
+      assertTrue(updated.after(start));
+
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      service.deleteIntent(workspaceId,intentName);
+    }
   }
 
   /**
@@ -541,8 +650,64 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testListIntents() {
-    // TODO: make test
-    fail("Test for listIntents not yet implemented");
+
+    String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
+
+    try {
+      IntentCollectionResponse response = service.listIntents(workspaceId,false, null, null, null, null).execute();
+      assertNotNull(response);
+      assertNotNull(response.getIntents());
+      assertNotNull(response.getPagination());
+      assertNotNull(response.getPagination().getRefreshUrl());
+      // nextUrl may be null
+
+      // Now add an intent and make sure we get it back
+      String intentDescription = "Description of " + intentName;
+      String intentExample = "Example of " + intentName;
+      List<CreateExample> intentExamples = new ArrayList<>();
+      intentExamples.add(new CreateExample.Builder().text(intentExample).build());
+
+      Date start = new Date();
+
+      service.createIntent(workspaceId, intentName, intentDescription, intentExamples).execute();
+
+      double count = response.getIntents().size();
+      IntentCollectionResponse response2 = service.listIntents(workspaceId,true, count+1, null, null, null).execute();
+      assertNotNull(response2);
+      assertNotNull(response2.getIntents());
+
+      List<IntentExportResponse> intents = response2.getIntents();
+      assertTrue(intents.size() > count);
+
+      IntentExportResponse ieResponse = null;
+      for (IntentExportResponse resp : intents) {
+        if (resp.getIntent().equals(intentName)) {
+          ieResponse = resp;
+          break;
+        }
+      }
+
+      assertNotNull(ieResponse);
+      assertNotNull(ieResponse.getDescription());
+      assertEquals(ieResponse.getDescription(),intentDescription);
+      assertNotNull(ieResponse.getExamples());
+      assertTrue(ieResponse.getExamples().size()==1);
+      assertEquals(ieResponse.getExamples().get(0).getText(),intentExample);
+
+      Date now = new Date();
+      Date created = isoDateFormat.parse(ieResponse.getCreated());
+      assertTrue(created.before(now));
+      assertTrue(created.after(start));
+      Date updated = isoDateFormat.parse(ieResponse.getUpdated());
+      assertTrue(updated.before(now));
+      assertTrue(updated.after(start));
+
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      service.deleteIntent(workspaceId,intentName);
+    }
   }
 
   /**
@@ -550,8 +715,59 @@ public class ConversationServiceIT extends WatsonServiceTest {
    */
   @Test
   public void testUpdateIntent() {
-    // TODO: make test
-    fail("Test for updateIntent not yet implemented");
+
+    String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
+    String intentDescription = "Description of " + intentName;
+    String intentExample = "Example of " + intentName;
+    List<CreateExample> intentExamples = new ArrayList<>();
+    intentExamples.add(new CreateExample.Builder().text(intentExample).build());
+
+    service.createIntent(workspaceId, intentName, intentDescription, intentExamples).execute();
+
+    try {
+      String intentDescription2 = "Updated description of " + intentName;
+      String intentExample2 = "Updated Example of " + intentName;
+      List<CreateExample> intentExamples2 = new ArrayList<>();
+      intentExamples2.add(new CreateExample.Builder().text(intentExample2).build());
+      UpdateIntent update = new UpdateIntent.Builder().description(intentDescription2).examples(intentExamples2).build();
+      Date start = new Date();
+      IntentResponse response = service.updateIntent(workspaceId, intentName, update).execute();
+      assertNotNull(response);
+      assertNotNull(response.getIntent());
+      assertEquals(response.getIntent(), intentName);
+      assertNotNull(response.getDescription());
+      assertEquals(response.getDescription(), intentDescription2);
+      assertNotNull(response.getCreated());
+      assertNotNull(response.getUpdated());
+
+      Date now = new Date();
+      Date created = isoDateFormat.parse(response.getCreated());
+      assertTrue(created.before(now));
+      assertTrue(created.before(start));
+      Date updated = isoDateFormat.parse(response.getUpdated());
+      assertTrue(updated.before(now));
+      assertTrue(updated.after(start));
+
+      ExampleCollectionResponse ecResponse = service.listExamples(workspaceId, intentName, null, null, null, null).execute();
+      assertNotNull(ecResponse);
+      assertNotNull(ecResponse.getExamples());
+
+      List<ExampleResponse> examples = ecResponse.getExamples();
+      assertTrue(examples.size() == 1);
+      assertEquals(examples.get(0).getText(), intentExample2);
+      created = isoDateFormat.parse(examples.get(0).getCreated());
+      assertTrue(created.before(now));
+      assertTrue(created.after(start));
+      updated = isoDateFormat.parse(examples.get(0).getUpdated());
+      assertTrue(updated.before(now));
+      assertTrue(updated.after(start));
+
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      service.deleteIntent(workspaceId,intentName);
+    }
   }
 
   /**
