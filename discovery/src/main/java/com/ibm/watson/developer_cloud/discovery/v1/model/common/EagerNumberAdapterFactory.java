@@ -13,6 +13,11 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.common;
 
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.TypeAdapterFactory;
@@ -20,11 +25,6 @@ import com.google.gson.internal.LazilyParsedNumber;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
-import java.io.IOException;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.text.ParseException;
 
 /**
  * Override the default {@link LazilyParsedNumber} for parsing {@link Number}s.

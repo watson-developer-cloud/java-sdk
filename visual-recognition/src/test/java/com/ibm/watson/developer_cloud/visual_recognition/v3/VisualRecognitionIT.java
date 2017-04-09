@@ -28,8 +28,10 @@ import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.AddImageToCollectionOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions.Builder;
@@ -49,6 +51,7 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognit
  *
  * @version v3
  */
+@RunWith(RetryRunner.class)
 public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String IMAGE_FACE_FILE = "src/test/resources/visual_recognition/faces.zip";
   private static final String IMAGE_FACE_URL = "https://watson-test-resources.mybluemix.net/resources/obama.jpg";

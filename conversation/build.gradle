@@ -51,6 +51,7 @@ signArchives {
 
 checkstyle {
     configFile = rootProject.file('checkstyle.xml')
+    ignoreFailures = false
 }
 
 dependencies {

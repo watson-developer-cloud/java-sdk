@@ -13,8 +13,8 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.collection.field;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.discovery.v1.model.collection.Collection;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * Request to get a list of {@link Field}s from a {@link Collection}.

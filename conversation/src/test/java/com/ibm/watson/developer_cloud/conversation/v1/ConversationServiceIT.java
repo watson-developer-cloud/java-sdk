@@ -19,15 +19,18 @@ import java.util.Map;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 /**
  * Integration test for the {@link ConversationService}.
  */
+@RunWith(RetryRunner.class)
 public class ConversationServiceIT extends WatsonServiceTest {
 
   private ConversationService service;

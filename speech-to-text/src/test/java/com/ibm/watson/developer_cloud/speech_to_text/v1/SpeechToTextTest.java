@@ -33,10 +33,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
-import okhttp3.WebSocket;
-import okhttp3.internal.ws.WebSocketRecorder;
-import okio.ByteString;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -60,15 +56,19 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Sort;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.TestUtils;
 
+import okhttp3.WebSocket;
+import okhttp3.internal.ws.WebSocketRecorder;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
+import okio.ByteString;
 
 /**
  * The Class SpeechToTextTest.
