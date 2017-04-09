@@ -369,8 +369,12 @@ public final class ConversationService extends WatsonService {
 
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("intent", intent);
-    contentJson.addProperty("description", description);
-    contentJson.addProperty("examples", examples.toString());
+    if (description != null) {
+      contentJson.addProperty("description", description);
+    }
+    if (examples != null) {
+      contentJson.add("examples", GsonSingleton.getGson().toJsonTree(examples));
+    }
     builder.bodyJson(contentJson);
 
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentResponse.class));
