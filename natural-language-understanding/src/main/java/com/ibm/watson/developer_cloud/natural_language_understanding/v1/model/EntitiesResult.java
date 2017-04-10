@@ -27,10 +27,12 @@ public class EntitiesResult extends GenericModel {
   private Integer count;
   /** The name of the entity. */
   private String text;
-  /** Emotion analysis results for the entity, enabled with the \&quot;emotion\&quot; option. */
+  /** Emotion analysis results for the entity, enabled with the "emotion" option. */
   private EmotionScores emotion;
-  /** Sentiment analysis results for the entity, enabled with the \&quot;sentiment\&quot; option. */
+  /** Sentiment analysis results for the entity, enabled with the "sentiment" option. */
   private FeatureSentimentResults sentiment;
+  /** Disambiguation information for the entity. */
+  private DisambiguationResult disambiguation;
 
   /**
    * Gets the type.
@@ -87,6 +89,15 @@ public class EntitiesResult extends GenericModel {
   }
 
   /**
+   * Gets the disambiguation.
+   *
+   * @return the disambiguation
+   */
+  public DisambiguationResult getDisambiguation() {
+    return disambiguation;
+  }
+
+  /**
    * Sets the type.
    *
    * @param type the new type
@@ -140,4 +151,12 @@ public class EntitiesResult extends GenericModel {
     this.sentiment = sentiment;
   }
 
+  /**
+   * Sets the disambiguation.
+   *
+   * @param disambiguation the new disambiguation
+   */
+  public void setDisambiguation(final DisambiguationResult disambiguation) {
+    this.disambiguation = disambiguation;
+  }
 }
