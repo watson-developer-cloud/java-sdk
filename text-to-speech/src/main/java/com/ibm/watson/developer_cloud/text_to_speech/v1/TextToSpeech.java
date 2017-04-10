@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -31,7 +32,6 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Phoneme;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -216,10 +216,13 @@ public class TextToSpeech extends WatsonService {
       String customizationId) {
     Validator.isTrue((text != null) && !text.isEmpty(), "text cannot be null or empty");
     Validator.isTrue(voice != null, "voice cannot be null or empty");
-    String encodedText = RequestUtils.encode(text);
 
-    final RequestBuilder request = RequestBuilder.get(PATH_SYNTHESIZE);
-    request.query(TEXT, encodedText);
+    final RequestBuilder request = RequestBuilder.post(PATH_SYNTHESIZE);
+
+    JsonObject jsonText = new JsonObject();
+    jsonText.addProperty(TEXT, text);
+    request.bodyJson(jsonText);
+
     request.query(VOICE, voice.getName());
     request.query(ACCEPT, audioFormat != null ? audioFormat : AudioFormat.WAV);
 

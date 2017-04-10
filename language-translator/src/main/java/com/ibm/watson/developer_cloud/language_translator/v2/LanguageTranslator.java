@@ -50,7 +50,7 @@ public class LanguageTranslator extends WatsonService {
 
   private static final String LANGUAGES = "languages";
   private static final String MODELS = "models";
-  private static final String SERVICE_NAME = "language_translation";
+  private static final String SERVICE_NAME = "language_translator";
   private static final String PATH_IDENTIFY = "/v2/identify";
   private static final String PATH_TRANSLATE = "/v2/translate";
   private static final String PATH_IDENTIFIABLE_LANGUAGES = "/v2/identifiable_languages";

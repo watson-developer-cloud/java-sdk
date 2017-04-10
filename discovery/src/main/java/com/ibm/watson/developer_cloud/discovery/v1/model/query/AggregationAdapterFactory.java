@@ -13,6 +13,8 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
+import java.io.IOException;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -21,8 +23,6 @@ import com.google.gson.TypeAdapterFactory;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
-import java.io.IOException;
 
 /**
  * Adapts the abstract {@link Aggregation} to its concrete implementations.

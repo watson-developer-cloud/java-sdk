@@ -13,9 +13,9 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.query;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * Handles aggregations that can use the {@link Operator#NEST_AGGREGATION}.
