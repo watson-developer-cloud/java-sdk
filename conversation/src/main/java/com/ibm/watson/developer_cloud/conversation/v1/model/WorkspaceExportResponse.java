@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -29,7 +30,7 @@ public class WorkspaceExportResponse extends GenericModel {
   /** The language of the workspace. */
   private String language;
   /** Any metadata that is required by the workspace. */
-  private Object metadata;
+  private Map<String,Object> metadata;
   /** The timestamp for creation of the workspace. */
   private String created;
   /** The timestamp for the last update to the workspace. */
@@ -81,7 +82,7 @@ public class WorkspaceExportResponse extends GenericModel {
    *
    * @return the metadata
    */
-  public Object getMetadata() {
+  public Map<String, Object> getMetadata() {
     return metadata;
   }
 
@@ -189,7 +190,7 @@ public class WorkspaceExportResponse extends GenericModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Object metadata) {
+  public void setMetadata(final Map<String,Object> metadata) {
     this.metadata = metadata;
   }
 

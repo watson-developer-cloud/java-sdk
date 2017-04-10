@@ -14,6 +14,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -30,7 +31,7 @@ public class CreateWorkspace extends GenericModel {
   /** The language of the workspace. */
   private String language;
   /** Any metadata that is required by the workspace. */
-  private Object metadata;
+  private Map<String,Object> metadata;
   /** An array of CreateIntent objects defining the intents for the workspace. */
   private List<CreateIntent> intents;
   /** An array of CreateEntity objects defining the entities for the workspace. */
@@ -48,7 +49,7 @@ public class CreateWorkspace extends GenericModel {
     private String name;
     private String description;
     private String language;
-    private Object metadata;
+    private Map<String,Object> metadata;
     private List<CreateIntent> intents;
     private List<CreateEntity> entities;
     private List<CreateDialogNode> dialogNodes;
@@ -170,7 +171,7 @@ public class CreateWorkspace extends GenericModel {
      * @param metadata the metadata
      * @return a CreateWorkspace Builder
      */
-    public Builder metadata(Object metadata) {
+    public Builder metadata(Map<String,Object> metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -276,7 +277,7 @@ public class CreateWorkspace extends GenericModel {
    *
    * @return the metadata
    */
-  public Object metadata() {
+  public Map<String,Object> metadata() {
     return metadata;
   }
 

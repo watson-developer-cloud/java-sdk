@@ -15,6 +15,8 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
+import java.util.Map;
+
 /**
  * DialogNodeResponse.
  */
@@ -34,9 +36,9 @@ public class DialogNodeResponse extends GenericModel {
   private String previousSibling;
   private DialogNodeOutput output;
   /** The context for the dialog node. */
-  private Object context;
+  private Map<String,Object> context;
   /** The metadata for the dialog node. */
-  private Object metadata;
+  private Map<String,Object> metadata;
   @SerializedName("go_to")
   private DialogNodeGoTo goTo;
   /** The timestamp for creation of the dialog node. */
@@ -101,7 +103,7 @@ public class DialogNodeResponse extends GenericModel {
    *
    * @return the context
    */
-  public Object getContext() {
+  public Map<String,Object> getContext() {
     return context;
   }
 
@@ -110,7 +112,7 @@ public class DialogNodeResponse extends GenericModel {
    *
    * @return the metadata
    */
-  public Object getMetadata() {
+  public Map<String,Object> getMetadata() {
     return metadata;
   }
 
@@ -191,7 +193,7 @@ public class DialogNodeResponse extends GenericModel {
    *
    * @param context the new context
    */
-  public void setContext(final Object context) {
+  public void setContext(final Map<String,Object> context) {
     this.context = context;
   }
 
@@ -200,7 +202,7 @@ public class DialogNodeResponse extends GenericModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Object metadata) {
+  public void setMetadata(final Map<String,Object> metadata) {
     this.metadata = metadata;
   }
 

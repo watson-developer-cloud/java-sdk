@@ -16,6 +16,8 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
+import java.util.Map;
+
 /**
  * CreateDialogNode.
  */
@@ -35,9 +37,9 @@ public class CreateDialogNode extends GenericModel {
   private String previousSibling;
   private DialogNodeOutput output;
   /** The context for the dialog node. */
-  private Object context;
+  private Map<String,Object> context;
   /** The metadata for the dialog node. */
-  private Object metadata;
+  private Map<String,Object> metadata;
   @SerializedName("go_to")
   private DialogNodeGoTo goTo;
 
@@ -51,8 +53,8 @@ public class CreateDialogNode extends GenericModel {
     private String parent;
     private String previousSibling;
     private DialogNodeOutput output;
-    private Object context;
-    private Object metadata;
+    private Map<String,Object> context;
+    private Map<String,Object> metadata;
     private DialogNodeGoTo goTo;
 
     private Builder(CreateDialogNode createDialogNode) {
@@ -153,7 +155,7 @@ public class CreateDialogNode extends GenericModel {
      * @param context the context
      * @return a CreateDialogNode Builder
      */
-    public Builder context(Object context) {
+    public Builder context(Map<String,Object> context) {
       this.context = context;
       return this;
     }
@@ -164,7 +166,7 @@ public class CreateDialogNode extends GenericModel {
      * @param metadata the metadata
      * @return a CreateDialogNode Builder
      */
-    public Builder metadata(Object metadata) {
+    public Builder metadata(Map<String,Object> metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -262,7 +264,7 @@ public class CreateDialogNode extends GenericModel {
    *
    * @return the context
    */
-  public Object context() {
+  public Map<String,Object> context() {
     return context;
   }
 
@@ -271,7 +273,7 @@ public class CreateDialogNode extends GenericModel {
    *
    * @return the metadata
    */
-  public Object metadata() {
+  public Map<String,Object> metadata() {
     return metadata;
   }
 

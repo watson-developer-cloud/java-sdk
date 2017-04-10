@@ -14,6 +14,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -26,7 +27,7 @@ public class CreateValue extends GenericModel {
   /** The text of the entity value. */
   private String value;
   /** Any metadata related to the entity value. */
-  private Object metadata;
+  private Map<String,Object> metadata;
   /** Any array of synonyms for the entity value. */
   private List<String> synonyms;
 
@@ -35,7 +36,7 @@ public class CreateValue extends GenericModel {
    */
   public static class Builder {
     private String value;
-    private Object metadata;
+    private Map<String,Object> metadata;
     private List<String> synonyms;
 
     private Builder(CreateValue createValue) {
@@ -88,7 +89,7 @@ public class CreateValue extends GenericModel {
      * @param metadata the metadata
      * @return a CreateValue Builder
      */
-    public Builder metadata(Object metadata) {
+    public Builder metadata(Map<String,Object> metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -136,7 +137,7 @@ public class CreateValue extends GenericModel {
    *
    * @return the metadata
    */
-  public Object metadata() {
+  public Map<String,Object> metadata() {
     return metadata;
   }
 

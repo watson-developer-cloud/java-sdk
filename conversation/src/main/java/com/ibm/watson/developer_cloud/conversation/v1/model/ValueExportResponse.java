@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
@@ -24,7 +25,7 @@ public class ValueExportResponse extends GenericModel {
   /** The name of the corresponding entity. */
   private String value;
   /** Any metadata related to the entity value. */
-  private Object metadata;
+  private Map<String,Object> metadata;
   /** The timestamp for creation of the entity value. */
   private String created;
   /** The timestamp for the last update to the entity value. */
@@ -46,7 +47,7 @@ public class ValueExportResponse extends GenericModel {
    *
    * @return the metadata
    */
-  public Object getMetadata() {
+  public Map<String,Object> getMetadata() {
     return metadata;
   }
 
@@ -91,7 +92,7 @@ public class ValueExportResponse extends GenericModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Object metadata) {
+  public void setMetadata(final Map<String,Object> metadata) {
     this.metadata = metadata;
   }
 
