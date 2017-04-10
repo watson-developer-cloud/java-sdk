@@ -13,6 +13,7 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.model.collection;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -22,6 +23,7 @@ public class CreateCollectionRequest extends GenericModel {
     private final String environmentId;
     private final String name;
     private final String description;
+    @SerializedName("configuration_id")
     private final String configurationId;
     private final String language;
 

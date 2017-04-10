@@ -32,7 +32,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Configuration extends GenericModel {
     @SerializedName(ConfigurationManager.ID)
-    private String configuration_id;
+    private String configurationId;
     @SerializedName(ConfigurationManager.NAME)
     private String name;
     @SerializedName(ConfigurationManager.DESCRIPTION)
@@ -49,7 +49,7 @@ public class Configuration extends GenericModel {
     private List<NormalizationOperation> normalizations;
 
     public String getConfigurationId() {
-        return configuration_id;
+        return configurationId;
     }
 
     public String getName() {
