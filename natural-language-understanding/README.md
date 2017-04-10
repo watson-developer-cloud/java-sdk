@@ -23,8 +23,11 @@ Language Understanding will give you results for the features you request. The s
 analysis by default, so the results can ignore most advertisements and other unwanted content.
 
 ```java
-NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding();
-service.setUsernameAndPassword("<username>", "<password>");
+NaturalLanguageUnderstanding service = new NaturalLanguageUnderstanding(
+  NaturalLanguageUnderstanding.VERSION_DATE_2017_02_27,
+  "username",
+  "password"
+);
 
 EntitiesOptions entities = new EntitiesOptions.Builder().sentiment(true).limit(1).build();
 Features features = new Features.Builder().entities(entities).build();
