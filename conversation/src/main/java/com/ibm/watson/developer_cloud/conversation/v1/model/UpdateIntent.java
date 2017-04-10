@@ -63,7 +63,7 @@ public class UpdateIntent extends GenericModel {
      * @param examples the new examples
      */
     public Builder examples(CreateExample examples) {
-      if (examples == null) {
+      if (this.examples == null) {
         this.examples = new ArrayList<CreateExample>();
       }
       this.examples.add(examples);

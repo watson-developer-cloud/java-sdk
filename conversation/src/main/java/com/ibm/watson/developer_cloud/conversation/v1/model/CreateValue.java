@@ -64,7 +64,7 @@ public class CreateValue extends GenericModel {
      * @param synonyms the new synonyms
      */
     public Builder synonyms(String synonyms) {
-      if (synonyms == null) {
+      if (this.synonyms == null) {
         this.synonyms = new ArrayList<String>();
       }
       this.synonyms.add(synonyms);

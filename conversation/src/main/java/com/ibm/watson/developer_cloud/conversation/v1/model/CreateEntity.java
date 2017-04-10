@@ -78,7 +78,7 @@ public class CreateEntity extends GenericModel {
      * @param values the new values
      */
     public Builder values(CreateValue values) {
-      if (values == null) {
+      if (this.values == null) {
         this.values = new ArrayList<CreateValue>();
       }
       this.values.add(values);

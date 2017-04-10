@@ -85,7 +85,7 @@ public class CreateWorkspace extends GenericModel {
      * @param intents the new intents
      */
     public Builder intents(CreateIntent intents) {
-      if (intents == null) {
+      if (this.intents == null) {
         this.intents = new ArrayList<CreateIntent>();
       }
       this.intents.add(intents);
@@ -98,7 +98,7 @@ public class CreateWorkspace extends GenericModel {
      * @param entities the new entities
      */
     public Builder entities(CreateEntity entities) {
-      if (entities == null) {
+      if (this.entities == null) {
         this.entities = new ArrayList<CreateEntity>();
       }
       this.entities.add(entities);
@@ -111,7 +111,7 @@ public class CreateWorkspace extends GenericModel {
      * @param dialogNodes the new dialogNodes
      */
     public Builder dialogNodes(CreateDialogNode dialogNodes) {
-      if (dialogNodes == null) {
+      if (this.dialogNodes == null) {
         this.dialogNodes = new ArrayList<CreateDialogNode>();
       }
       this.dialogNodes.add(dialogNodes);
@@ -124,7 +124,7 @@ public class CreateWorkspace extends GenericModel {
      * @param counterexamples the new counterexamples
      */
     public Builder counterexamples(CreateExample counterexamples) {
-      if (counterexamples == null) {
+      if (this.counterexamples == null) {
         this.counterexamples = new ArrayList<CreateExample>();
       }
       this.counterexamples.add(counterexamples);
