@@ -18,6 +18,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +39,9 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
   private static final String VERSION_DATE = "version";
   private static final String FIXTURE = "src/test/resources/tone_analyzer/tone.json";
+  private static final String CHAT_FIXTURE = "src/test/resources/tone_analyzer/tone_chat.json";
   private static final String TONE_PATH = "/v3/tone";
+  private static final String CHAT_TONE_PATH = "/v3/tone_chat";
 
   /** The service. */
   private ToneAnalyzer service;
@@ -110,5 +113,42 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     request = server.takeRequest();
     path = path + "&tones=emotion,language,social";
     assertEquals(path, request.getPath());
+  }
+
+  /**
+   * Test to get Chat tones.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void testGetChatTones() throws IOException, InterruptedException {
+    String jsonText = "{\"utterances\": ["
+            + "{\"text\": \"My charger isn't working.\", \"user\": \"customer\"},"
+            + "{\"text\": \"Thanks for reaching out. Can you give me some more detail about the issue?\","
+            + " \"user\": \"agent\"},"
+            + "{\"text\": \"I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
+            + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
+            + "Which is ridiculous, it's brand new.\", \"user\": \"customer\"},"
+            + "{\"text\": \"I'm sorry you're having issues with charging. What kind of charger are you using?\","
+            + " \"user\": \"agent\"}"
+            + "    ]}";
+
+    UtterancesTone mockResponse = loadFixture(CHAT_FIXTURE, UtterancesTone.class);
+    server.enqueue(jsonResponse(mockResponse));
+    server.enqueue(jsonResponse(mockResponse));
+    server.enqueue(jsonResponse(mockResponse));
+
+    // execute request
+    UtterancesTone serviceResponse = service.getChatTone(jsonText).execute();
+
+    // first request
+    RecordedRequest request = server.takeRequest();
+
+    String path = StringUtils.join(CHAT_TONE_PATH, "?", VERSION_DATE, "=", ToneAnalyzer.VERSION_DATE_2016_05_19);
+    assertEquals(path, request.getPath());
+    assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
+    assertEquals(serviceResponse, mockResponse);
+    assertEquals(HttpMediaType.APPLICATION_JSON, request.getHeader(HttpHeaders.ACCEPT));
   }
 }

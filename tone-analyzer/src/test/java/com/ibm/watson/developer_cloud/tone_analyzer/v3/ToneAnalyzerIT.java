@@ -20,6 +20,7 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 
 /**
@@ -33,6 +34,17 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
       + "disappointing for the past three quarters for our data analytics "
       + "product suite. We have a competitive data analytics product "
       + "suite in the industry. But we need to do our job selling it! ";
+
+  private String jsonText = "{\"utterances\": ["
+      + "{\"text\": \"My charger isn't working.\", \"user\": \"customer\"},"
+      + "{\"text\": \"Thanks for reaching out. Can you give me some more detail about the issue?\","
+      + " \"user\": \"agent\"},"
+      + "{\"text\": \"I put my charger in my tablet to charge it up last night and it keeps saying it isn't charging."
+      + " The charging icon comes on, but it stays on even when I take the charger out. Which is ridiculous, it's brand"
+      + " new.\", \"user\": \"customer\"},"
+      + "{\"text\": \"I'm sorry you're having issues with charging. What kind of charger are you using?\","
+      + " \"user\": \"agent\"}"
+      + "    ]}";
 
   /*
    * (non-Javadoc)
@@ -85,5 +97,17 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
     Assert.assertNotNull(tone.getSentencesTone());
     Assert.assertEquals(4, tone.getSentencesTone().size());
     Assert.assertEquals("I know the times are difficult!", tone.getSentencesTone().get(0).getText());
+  }
+
+  /**
+   * Test to get chat tones from jsonText.
+   */
+  @Test
+  public void testGetChatTone() {
+    UtterancesTone utterancesTone = service.getChatTone(jsonText).execute();
+
+    Assert.assertNotNull(utterancesTone);
+    Assert.assertEquals(4, utterancesTone.getUtterancesTone().size());
+    Assert.assertEquals("My charger isn't working.", utterancesTone.getUtterancesTone().get(0).getText());
   }
 }

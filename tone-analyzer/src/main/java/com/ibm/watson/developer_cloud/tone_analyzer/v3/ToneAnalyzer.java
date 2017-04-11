@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
@@ -20,6 +21,7 @@ import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -35,6 +37,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ToneAnalyzer extends WatsonService {
 
   private static final String PATH_TONE = "/v3/tone";
+  private static final String PATH_CHAT_TONE = "/v3/tone_chat";
   private static final String SERVICE_NAME = "tone_analyzer";
   private static final String TEXT = "text";
   private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer/api";
@@ -106,5 +109,22 @@ public class ToneAnalyzer extends WatsonService {
     }
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(ToneAnalysis.class));
+  }
+
+  /**
+   * Analyzes the "tone" of a list of utterances in a conversation. The text is analyzed from several chat tones, and
+   * confidence score is given back for tones which are present in the text
+   *
+   * @param jsonText The text in JSON format to analyze
+   * @return the {@link UtterancesTone} with the response
+   */
+  public ServiceCall<UtterancesTone> getChatTone(String jsonText) {
+    Validator.notNull(jsonText, "text cannot be null");
+
+    RequestBuilder requestBuilder = RequestBuilder.post(PATH_CHAT_TONE).query(VERSION_DATE, versionDate);
+    JsonObject contentJson = new JsonParser().parse(jsonText).getAsJsonObject();
+    requestBuilder.bodyJson(contentJson);
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(UtterancesTone.class));
   }
 }
