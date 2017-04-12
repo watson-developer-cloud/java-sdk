@@ -3,7 +3,6 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v3.model;
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,8 +11,8 @@ import java.util.List;
  */
 public class UtterancesTone extends GenericModel {
 
-  @SerializedName("utterancesTone")
-  List<UtteranceAnalysis> utterancesTone = new ArrayList<>();
+  @SerializedName("utterances_tone")
+  List<UtteranceAnalysis> utterancesTone;
 
   /**
    * Gets the utterances tone.

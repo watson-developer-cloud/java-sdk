@@ -11,10 +11,10 @@ import java.util.List;
  */
 public class UtteranceAnalysis extends GenericModel {
 
-  @SerializedName("id")
-  int id;
+  @SerializedName("utterance_id")
+  Integer id;
 
-  @SerializedName("text")
+  @SerializedName("utterance_text")
   String text;
 
   List<ToneScore> tones;
@@ -23,7 +23,7 @@ public class UtteranceAnalysis extends GenericModel {
    * Gets the id.
    * @return the id
    */
-  public int getId() {
+  public Integer getId() {
       return id;
   }
 
