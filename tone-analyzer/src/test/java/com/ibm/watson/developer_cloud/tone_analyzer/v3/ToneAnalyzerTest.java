@@ -17,8 +17,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,6 +30,9 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatInput;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Utterance;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -123,16 +127,26 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetChatTones() throws IOException, InterruptedException {
-    String jsonText = "{\"utterances\": ["
-            + "{\"text\": \"My charger isn't working.\", \"user\": \"customer\"},"
-            + "{\"text\": \"Thanks for reaching out. Can you give me some more detail about the issue?\","
-            + " \"user\": \"agent\"},"
-            + "{\"text\": \"I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
+
+    String[] users = { "customer", "agent", "customer", "agent" };
+
+    String[] texts = {
+            "My charger isn't working.",
+            "Thanks for reaching out. Can you give me some more detail about the issue?",
+            "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
             + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
-            + "Which is ridiculous, it's brand new.\", \"user\": \"customer\"},"
-            + "{\"text\": \"I'm sorry you're having issues with charging. What kind of charger are you using?\","
-            + " \"user\": \"agent\"}"
-            + "    ]}";
+            + "Which is ridiculous, it's brand new.",
+            "I'm sorry you're having issues with charging. What kind of charger are you using?"
+            };
+
+    List<Utterance> utterances = new ArrayList<>();
+    for (int i = 0; i < texts.length; i++) {
+      Utterance utterance = new Utterance.Builder(texts[i], users[i]).build();
+      utterances.add(utterance);
+    }
+
+    ToneChatInput toneChatInput = new ToneChatInput();
+    toneChatInput.setUtterances(utterances);
 
     UtterancesTone mockResponse = loadFixture(CHAT_FIXTURE, UtterancesTone.class);
     server.enqueue(jsonResponse(mockResponse));
@@ -140,7 +154,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     server.enqueue(jsonResponse(mockResponse));
 
     // execute request
-    UtterancesTone serviceResponse = service.getChatTone(jsonText).execute();
+    UtterancesTone serviceResponse = service.getChatTone(toneChatInput).execute();
 
     // first request
     RecordedRequest request = server.takeRequest();
