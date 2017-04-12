@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.example.CreateExample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.example.ExampleResponse;
 
 /**
  * Object that represents the intent of a conversation workspace. This is used
@@ -149,7 +151,7 @@ public class CreateIntent extends Intent {
    *
    * @return the examples list
    */
-  public List<? extends CreateExample> getExamples() {
+  public List<CreateExample> getExamples() {
     return examples;
   }
 

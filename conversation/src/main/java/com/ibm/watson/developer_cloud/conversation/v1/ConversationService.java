@@ -191,7 +191,7 @@ public final class ConversationService extends WatsonService {
    *          the workspace id
    * @param payload
    *          the new data
-   * @return The intent for a given workspace.
+   * @return a WorkspaceResponse.
    */
   public ServiceCall<WorkspaceResponse> updateWorkspace(String workspaceId, WorkspaceRequest payload) {
     Validator.isTrue((workspaceId != null) && !workspaceId.isEmpty(), "'workspaceId' cannot be null or empty");

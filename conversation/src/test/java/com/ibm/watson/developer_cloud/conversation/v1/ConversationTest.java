@@ -36,7 +36,8 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceL
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.WorkspaceResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.entity.CreateEntity;
-import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateExample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.example.CreateExample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.example.Example;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.CreateIntent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent.IntentListResponse;
@@ -571,7 +572,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(TEST_INTENT, actPayload.getIntent());
     assertEquals(TEST_INTENT_DESCRIPTION, actPayload.getDescription());
     assertEquals(3, actPayload.getExamples().size());
-    CreateExample actEx0 = actPayload.getExamples().get(0);
+    Example actEx0 = actPayload.getExamples().get(0);
     assertEquals(TEST_INTENT_EXAMPLE_TEXT, actEx0.getText());
     assertEquals("aaa", actPayload.getExamples().get(1).getText());
     assertEquals("bbb", actPayload.getExamples().get(2).getText());

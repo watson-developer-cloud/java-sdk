@@ -15,6 +15,8 @@ package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
 import java.util.Date;
 import java.util.List;
 
+import com.ibm.watson.developer_cloud.conversation.v1.model.workspace.example.ExampleResponse;
+
 public class IntentExportResponse extends IntentResponse {
 
   private List<ExampleResponse> examples;

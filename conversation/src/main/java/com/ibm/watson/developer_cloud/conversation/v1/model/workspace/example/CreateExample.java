@@ -1,13 +1,11 @@
-package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
+package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.example;
 
 /**
  * a request to create an example.
  * @author davidbo
  *
  */
-public class CreateExample {
-
-  protected String text;
+public class CreateExample extends Example {
 
   /**
    * a request to create an example.
@@ -22,13 +20,6 @@ public class CreateExample {
    */
   public CreateExample(String text) {
     this.setText(text);
-  }
-
-  /**
-   * @return The text of a user input example.
-   */
-  public String getText() {
-    return text;
   }
 
   /**

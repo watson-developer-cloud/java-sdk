@@ -10,14 +10,14 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.intent;
+package com.ibm.watson.developer_cloud.conversation.v1.model.workspace.example;
 
 import java.util.Date;
 
 /**
  * An class used to describe the intent example payload object.
  */
-public class ExampleResponse extends CreateExample {
+public class ExampleResponse extends Example {
 
   protected Date created;
   protected Date updated;
