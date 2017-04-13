@@ -15,10 +15,8 @@ package com.ibm.watson.developer_cloud.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import com.google.gson.JsonElement;
@@ -65,7 +63,7 @@ public class DateDeserializerTest {
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
             Date dateVal = dateFormat.parse(dateString);
             JsonElement element = parser.parse("\"" + dateString + "\"");
-            assertEquals(deserializer.deserialize(element, null, null),dateVal);
+            assertEquals(deserializer.deserialize(element, null, null), dateVal);
         } catch (Exception ex) {
             fail(ex.getMessage());
         }
@@ -106,7 +104,7 @@ public class DateDeserializerTest {
         // Seconds since epoch
         try {
             String dateString = "1478097789";
-            Date dateVal = new Date(Long.parseLong(dateString)*1000);
+            Date dateVal = new Date(Long.parseLong(dateString) * 1000);
             JsonElement element = parser.parse("\"" + dateString + "\"");
             assertEquals(deserializer.deserialize(element, null, null), dateVal);
         } catch (Exception ex) {
