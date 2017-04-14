@@ -39,6 +39,8 @@ public class DateDeserializer implements JsonDeserializer<Date> {
   protected static final String DATE_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS";
   private static final String DATE_WITHOUT_SECONDS = "yyyy-MM-dd'T'HH:mm:ssZ";
   private static final String DATE_WITH_SECONDS = "yyyy-MM-dd'T'HH:mm:ss";
+  private static final String DATE_8601 = "yyyy-MM-dd'T'HH:mm:ss.SSSX";
+  private static final String DATE_8601_WITHOUT_MS = "yyyy-MM-dd'T'HH:mm:ssX";
 
   // SimpleDateFormat is NOT thread safe - they require private visibility and synchronized access
   private final SimpleDateFormat alchemyDateFormatter = new SimpleDateFormat(DATE_FROM_ALCHEMY);
@@ -46,10 +48,15 @@ public class DateDeserializer implements JsonDeserializer<Date> {
   private final SimpleDateFormat utcDateFormatter = new SimpleDateFormat(DATE_UTC);
   private final SimpleDateFormat utcWithoutSecondsDateFormatter = new SimpleDateFormat(DATE_WITHOUT_SECONDS);
   private final SimpleDateFormat utcWithSecondsDateFormatter = new SimpleDateFormat(DATE_WITH_SECONDS);
+  private final SimpleDateFormat iso8601DateFormatter = new SimpleDateFormat(DATE_8601);
+  private final SimpleDateFormat iso8601WithoutMsDateFormatter = new SimpleDateFormat(DATE_8601_WITHOUT_MS);
 
   private final List<SimpleDateFormat> dateFormatters =
       Arrays.asList(utcDateFormatter, utcWithoutSecondsDateFormatter, dialogDateFormatter,
               alchemyDateFormatter, utcWithSecondsDateFormatter);
+
+  private final List<SimpleDateFormat> iso8601Formatters =
+      Arrays.asList(iso8601DateFormatter, iso8601WithoutMsDateFormatter);
 
   private static final Logger LOG = Logger.getLogger(DateDeserializer.class.getName());
 
@@ -67,8 +74,18 @@ public class DateDeserializer implements JsonDeserializer<Date> {
       return null;
     }
 
-    String dateAsString = json.getAsJsonPrimitive().getAsString().replaceAll("Z$", "+0000");
+    String dateAsString = json.getAsJsonPrimitive().getAsString();
     ParseException e = null;
+
+    if (dateAsString.endsWith("Z")) {
+      for (SimpleDateFormat format : iso8601Formatters) {
+        try {
+          return format.parse(dateAsString);
+        } catch (ParseException e1) {
+          e = e1;
+        }
+      }
+    }
 
     for (SimpleDateFormat format : dateFormatters) {
       try {
