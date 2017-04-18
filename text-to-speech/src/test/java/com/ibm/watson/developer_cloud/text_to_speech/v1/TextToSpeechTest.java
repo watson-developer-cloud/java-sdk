@@ -208,6 +208,34 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
 
 
   /**
+   * Test synthesize for WebM.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @SuppressWarnings("resource")
+  @Test
+  public void testSynthesizeWebM() throws IOException, InterruptedException {
+    final File audio = new File("src/test/resources/text_to_speech/sample1.webm");
+    final Buffer buffer = new Buffer().write(Files.toByteArray(audio));
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.AUDIO_WEBM).setBody(buffer));
+
+    final InputStream in =
+        service.synthesize(text, Voice.EN_LISA, AudioFormat.WEBM).execute();
+    final RecordedRequest request = server.takeRequest();
+    final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
+
+    assertEquals(request.getBody().readUtf8(), "{\"text\":\"" + text + "\"}");
+    assertEquals(SYNTHESIZE_PATH, requestUrl.encodedPath());
+    assertEquals(Voice.EN_LISA.getName(), requestUrl.queryParameter("voice"));
+    assertEquals(HttpMediaType.AUDIO_WEBM, requestUrl.queryParameter("accept"));
+    assertNotNull(in);
+
+    writeInputStreamToOutputStream(in, new FileOutputStream("build/output.webm"));
+  }
+
+  /**
    * Test with voice as AudioFormat.WAV.
    */
   // @Test
@@ -222,7 +250,6 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     }
 
   }
-
 
   /**
    * Test the fix wave header not having the size due to be streamed.
