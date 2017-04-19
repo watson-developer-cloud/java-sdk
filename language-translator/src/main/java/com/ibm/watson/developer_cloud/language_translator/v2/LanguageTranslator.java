@@ -201,7 +201,7 @@ public class LanguageTranslator extends WatsonService {
     }
 
     if ((target != null) && !target.isEmpty()) {
-      requestBuilder.query(TARGET, source);
+      requestBuilder.query(TARGET, target);
     }
 
     if (showDefault != null) {
