@@ -1,0 +1,42 @@
+{
+  "utterances_tone": [
+    {
+      "utterance_id": 0,
+      "utterance_text": "My charger isn't working.",
+      "tones": [
+        {
+          "score": 0.536082,
+          "tone_id": "sad",
+          "tone_name": "sad"
+        }
+      ]
+    },
+    {
+      "utterance_id": 1,
+      "utterance_text": "Thanks for reaching out. Can you give me some more detail about the issue?",
+      "tones": [
+        {
+          "score": 0.956453,
+          "tone_id": "polite",
+          "tone_name": "polite"
+        }
+      ]
+    },
+    {
+      "utterance_id": 2,
+      "utterance_text": "I put my charger in my tablet to charge it up last night and it keeps saying it isn't charging. The charging icon comes on, but it stays on even when I take the charger out. Which is ridiculous, it's brand new.",
+      "tones": []
+    },
+    {
+      "utterance_id": 3,
+      "utterance_text": "I'm sorry you're having issues with charging. What kind of charger are you using?",
+      "tones": [
+        {
+          "score": 0.856453,
+          "tone_id": "polite",
+          "tone_name": "polite"
+        }
+      ]
+    }
+  ]
+}
