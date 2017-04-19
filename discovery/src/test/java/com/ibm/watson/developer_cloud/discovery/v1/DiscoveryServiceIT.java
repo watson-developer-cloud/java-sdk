@@ -918,7 +918,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   private class DocumentAccepted implements WaitFor.Condition {
-    public DocumentAccepted(String environmentId, String collectionId, String documentId) {
+    DocumentAccepted(String environmentId, String collectionId, String documentId) {
       this.environmentId = environmentId;
       this.collectionId = collectionId;
       this.documentId = documentId;
