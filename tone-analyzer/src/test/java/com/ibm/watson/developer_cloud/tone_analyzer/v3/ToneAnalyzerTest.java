@@ -30,7 +30,7 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatInput;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatRequest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Utterance;
 
@@ -141,12 +141,16 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
     List<Utterance> utterances = new ArrayList<>();
     for (int i = 0; i < texts.length; i++) {
-      Utterance utterance = new Utterance.Builder(texts[i], users[i]).build();
+      Utterance utterance = new Utterance.Builder()
+          .text(texts[i])
+          .user(users[i])
+          .build();
       utterances.add(utterance);
     }
 
-    ToneChatInput toneChatInput = new ToneChatInput();
-    toneChatInput.setUtterances(utterances);
+    ToneChatRequest toneChatInput = new ToneChatRequest.Builder()
+        .utterances(utterances)
+        .build();
 
     UtterancesTone mockResponse = loadFixture(CHAT_FIXTURE, UtterancesTone.class);
     server.enqueue(jsonResponse(mockResponse));

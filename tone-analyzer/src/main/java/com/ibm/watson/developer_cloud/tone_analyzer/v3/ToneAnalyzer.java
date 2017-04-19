@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatInput;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatRequest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
@@ -119,8 +119,8 @@ public class ToneAnalyzer extends WatsonService {
    * @param chatInput The object which has the JSON to analyze
    * @return the {@link UtterancesTone} with the response
    */
-  public ServiceCall<UtterancesTone> getChatTone(ToneChatInput chatInput) {
-    Validator.notNull(chatInput.getUtterances(), "Input utterances cannot be null");
+  public ServiceCall<UtterancesTone> getChatTone(ToneChatRequest chatInput) {
+    Validator.notNull(chatInput.utterances(), "chatInput.utterances cannot be null");
 
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_CHAT_TONE).query(VERSION_DATE, versionDate);
     requestBuilder.bodyJson(GsonSingleton.getGson().toJsonTree(chatInput).getAsJsonObject());

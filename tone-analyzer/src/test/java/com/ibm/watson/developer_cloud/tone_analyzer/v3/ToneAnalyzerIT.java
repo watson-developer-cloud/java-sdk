@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
@@ -20,13 +23,10 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatRequest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatInput;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Utterance;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
 
 /**
  * Tone Analyzer Integration tests.
@@ -41,15 +41,12 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
       + "suite in the industry. But we need to do our job selling it! ";
 
   private String[] users = { "customer", "agent", "customer", "agent" };
-  private String[] texts = {
-          "My charger isn't working.",
-          "Thanks for reaching out. Can you give me some more detail about the issue?",
+  private String[] texts =
+      { "My charger isn't working.", "Thanks for reaching out. Can you give me some more detail about the issue?",
           "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
-                  + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
-                  + "Which is ridiculous, it's brand new.",
-          "I'm sorry you're having issues with charging. What kind of charger are you using?"
-  };
-  private ToneChatInput toneChatInput;
+              + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
+              + "Which is ridiculous, it's brand new.",
+          "I'm sorry you're having issues with charging. What kind of charger are you using?" };
 
   /*
    * (non-Javadoc)
@@ -71,13 +68,6 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
     service.setEndPoint(getProperty("tone_analyzer.v3.url"));
     service.setDefaultHeaders(getDefaultHeaders());
 
-    List<Utterance> utterances = new ArrayList<>();
-    for (int i = 0; i < texts.length; i++) {
-      Utterance utterance = new Utterance.Builder(texts[i], users[i]).build();
-      utterances.add(utterance);
-    }
-    toneChatInput = new ToneChatInput();
-    toneChatInput.setUtterances(utterances);
   }
 
   /**
@@ -89,6 +79,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
         new ToneOptions.Builder().addTone(Tone.EMOTION).addTone(Tone.LANGUAGE).addTone(Tone.SOCIAL).build();
 
     ToneAnalysis tone = service.getTone(text, options).execute();
+    assertToneAnalysis(tone);
   }
 
   /**
@@ -115,6 +106,19 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
    */
   @Test
   public void testGetChatTone() {
+    List<Utterance> utterances = new ArrayList<>();
+    for (int i = 0; i < texts.length; i++) {
+      Utterance utterance = new Utterance.Builder()
+          .text(texts[i])
+          .user(users[i])
+          .build();
+      utterances.add(utterance);
+    }
+    ToneChatRequest toneChatInput = new ToneChatRequest.Builder()
+        .utterances(utterances)
+        .build();
+
+
     UtterancesTone utterancesTone = service.getChatTone(toneChatInput).execute();
 
     Assert.assertNotNull(utterancesTone);
