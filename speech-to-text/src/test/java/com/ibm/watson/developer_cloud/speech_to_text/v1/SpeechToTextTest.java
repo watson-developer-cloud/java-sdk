@@ -94,6 +94,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final String PATH_WORD = "/v1/customizations/%s/words/%s";
 
   private static final File SAMPLE_WAV = new File("src/test/resources/speech_to_text/sample1.wav");
+  private static final File SAMPLE_WEBM = new File("src/test/resources/speech_to_text/sample1.webm");
 
   private SpeechToText service;
   private SpeechSession session;
@@ -271,6 +272,40 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(HttpMediaType.AUDIO_WAV, request.getHeader(CONTENT_TYPE));
   }
 
+  /**
+   * Test recognize WebM for WebM audio format.
+   *
+   * @throws URISyntaxException the URI syntax exception
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testRecognizeWebM() throws URISyntaxException, InterruptedException {
+
+    final SpeechResults speechResults = new SpeechResults();
+    speechResults.setResultIndex(0);
+    final Transcript transcript = new Transcript();
+    transcript.setFinal(true);
+    final SpeechAlternative speechAlternative = new SpeechAlternative();
+    speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
+
+    final List<SpeechAlternative> speechAlternatives = ImmutableList.of(speechAlternative);
+    transcript.setAlternatives(speechAlternatives);
+
+    final List<Transcript> transcripts = ImmutableList.of(transcript);
+    speechResults.setResults(transcripts);
+
+    server.enqueue(
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(speechResults)));
+
+    final SpeechResults result = service.recognize(SAMPLE_WEBM).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertNotNull(result);
+    assertEquals(result, speechResults);
+    assertEquals("POST", request.getMethod());
+    assertEquals(PATH_RECOGNIZE, request.getPath());
+    assertEquals(HttpMediaType.AUDIO_WEBM, request.getHeader(CONTENT_TYPE));
+  }
 
   /**
    * Test diarization.
