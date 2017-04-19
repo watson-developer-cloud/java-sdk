@@ -1,0 +1,8 @@
+{
+  "utterances": [
+    {"text": "My charger isn't working.", "user": "customer"},
+    {"text": "Thanks for reaching out. Can you give me some more detail about the issue?", "user": "agent"},
+    {"text": "I put my charger in my tablet to charge it up last night and it keeps saying it isn't charging. The charging icon comes on, but it stays on even when I take the charger out. Which is ridiculous, it's brand new.", "user": "customer"},
+    {"text": "I'm sorry you're having issues with charging. What kind of charger are you using?", "user": "agent"}
+  ]
+}

@@ -19,7 +19,10 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatRequest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -35,6 +38,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ToneAnalyzer extends WatsonService {
 
   private static final String PATH_TONE = "/v3/tone";
+  private static final String PATH_CHAT_TONE = "/v3/tone_chat";
   private static final String SERVICE_NAME = "tone_analyzer";
   private static final String TEXT = "text";
   private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer/api";
@@ -106,5 +110,21 @@ public class ToneAnalyzer extends WatsonService {
     }
 
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(ToneAnalysis.class));
+  }
+
+  /**
+   * Analyzes the "tone" of a list of utterances in a conversation. The text is analyzed from several chat tones, and
+   * confidence score is given back for tones which are present in the text
+   *
+   * @param chatInput The object which has the JSON to analyze
+   * @return the {@link UtterancesTone} with the response
+   */
+  public ServiceCall<UtterancesTone> getChatTone(ToneChatRequest chatInput) {
+    Validator.notNull(chatInput.utterances(), "chatInput.utterances cannot be null");
+
+    RequestBuilder requestBuilder = RequestBuilder.post(PATH_CHAT_TONE).query(VERSION_DATE, versionDate);
+    requestBuilder.bodyJson(GsonSingleton.getGson().toJsonTree(chatInput).getAsJsonObject());
+
+    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(UtterancesTone.class));
   }
 }

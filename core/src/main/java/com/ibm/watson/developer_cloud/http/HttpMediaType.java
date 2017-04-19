@@ -90,6 +90,21 @@ public final class HttpMediaType {
   public static final String AUDIO_WAV = "audio/wav";
 
   /**
+   * Field AUDIO_WEBM. (value is "audio/webm")
+   */
+  public static final String AUDIO_WEBM = "audio/webm";
+
+  /**
+   * Field AUDIO_WEBM_VORBIS. (value is "audio/webm; codecs=vorbis")
+   */
+  public static final String AUDIO_WEBM_VORBIS = "audio/webm; codecs=vorbis";
+
+  /**
+   * Field AUDIO_WEBM_OPUS. (value is "audio/webm; codecs=opus")
+   */
+  public static final String AUDIO_WEBM_OPUS = "audio/webm; codecs=opus";
+
+  /**
    * Field AUDIO_PCM. (value is "audio/l16")
    */
   public static final String AUDIO_PCM = "audio/l16";

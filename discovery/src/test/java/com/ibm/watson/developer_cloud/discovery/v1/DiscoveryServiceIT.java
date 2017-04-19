@@ -373,6 +373,20 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   @Test
+  public void setConfigurationIsSuccessful() {
+    GetConfigurationsRequest getRequest = new GetConfigurationsRequest.Builder(environmentId).build();
+    GetConfigurationsResponse getResponse = discovery.getConfigurations(getRequest).execute();
+    String configurationId = getResponse.getConfigurations().get(0).getConfigurationId().toString();
+
+    String uniqueCollectionName = uniqueName + "-collection";
+    CreateCollectionRequest.Builder createCollectionBuilder = new CreateCollectionRequest.Builder(environmentId,
+           configurationId , uniqueCollectionName);
+    CreateCollectionResponse createResponse = createCollection(createCollectionBuilder.build());
+
+    assertEquals(configurationId, createResponse.getConfigurationId());
+  }
+
+  @Test
   public void deleteCollectionIsSuccessful() {
     CreateConfigurationResponse createConfigResponse = createTestConfig();
 
@@ -904,7 +918,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   private class DocumentAccepted implements WaitFor.Condition {
-    public DocumentAccepted(String environmentId, String collectionId, String documentId) {
+    DocumentAccepted(String environmentId, String collectionId, String documentId) {
       this.environmentId = environmentId;
       this.collectionId = collectionId;
       this.documentId = documentId;
