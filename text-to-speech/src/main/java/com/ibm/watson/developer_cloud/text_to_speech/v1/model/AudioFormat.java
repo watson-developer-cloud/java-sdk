@@ -32,6 +32,15 @@ public class AudioFormat {
   /** WAV format (value is "audio/wav"). */
   public static final AudioFormat WAV = new AudioFormat(HttpMediaType.AUDIO_WAV);
 
+  /** WEBM format (value is "audio/webm"). */
+  public static final AudioFormat WEBM = new AudioFormat(HttpMediaType.AUDIO_WEBM);
+
+  /** WEBM format (value is "audio/webm; codecs=vorbis"). */
+  public static final AudioFormat WEBM_VORBIS = new AudioFormat(HttpMediaType.AUDIO_WEBM_VORBIS);
+
+  /** WEBM format (value is "audio/webm; codecs=opus"). */
+  public static final AudioFormat WEBM_OPUS = new AudioFormat(HttpMediaType.AUDIO_WEBM_OPUS);
+
   /**
    * Linear 16-bit Pulse-Code Modulation (PCM) format (value is "audio/l16").
    * This format must have a sampling rate set before use, see {@link #getPCM(int)}.

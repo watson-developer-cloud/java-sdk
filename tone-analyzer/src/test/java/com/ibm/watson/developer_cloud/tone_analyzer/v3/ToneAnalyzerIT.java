@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
@@ -20,7 +23,10 @@ import org.junit.Test;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Tone;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatRequest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Utterance;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
 
 /**
  * Tone Analyzer Integration tests.
@@ -33,6 +39,14 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
       + "disappointing for the past three quarters for our data analytics "
       + "product suite. We have a competitive data analytics product "
       + "suite in the industry. But we need to do our job selling it! ";
+
+  private String[] users = { "customer", "agent", "customer", "agent" };
+  private String[] texts =
+      { "My charger isn't working.", "Thanks for reaching out. Can you give me some more detail about the issue?",
+          "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
+              + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
+              + "Which is ridiculous, it's brand new.",
+          "I'm sorry you're having issues with charging. What kind of charger are you using?" };
 
   /*
    * (non-Javadoc)
@@ -85,5 +99,31 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
     Assert.assertNotNull(tone.getSentencesTone());
     Assert.assertEquals(4, tone.getSentencesTone().size());
     Assert.assertEquals("I know the times are difficult!", tone.getSentencesTone().get(0).getText());
+  }
+
+  /**
+   * Test to get chat tones from jsonText.
+   */
+  @Test
+  public void testGetChatTone() {
+    List<Utterance> utterances = new ArrayList<>();
+    for (int i = 0; i < texts.length; i++) {
+      Utterance utterance = new Utterance.Builder()
+          .text(texts[i])
+          .user(users[i])
+          .build();
+      utterances.add(utterance);
+    }
+    ToneChatRequest toneChatInput = new ToneChatRequest.Builder()
+        .utterances(utterances)
+        .build();
+
+
+    UtterancesTone utterancesTone = service.getChatTone(toneChatInput).execute();
+
+    Assert.assertNotNull(utterancesTone);
+    Assert.assertNotNull(utterancesTone.getUtterancesTone());
+    Assert.assertEquals(4, utterancesTone.getUtterancesTone().size());
+    Assert.assertEquals("My charger isn't working.", utterancesTone.getUtterancesTone().get(0).getText());
   }
 }
