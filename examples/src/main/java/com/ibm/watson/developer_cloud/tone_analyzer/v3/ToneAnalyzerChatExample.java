@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -12,8 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatRequest;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.Utterance;
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatInput;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtterancesTone;
 
 public class ToneAnalyzerExample {
@@ -34,15 +37,18 @@ public class ToneAnalyzerExample {
 
       List<Utterance> utterances = new ArrayList<>();
       for (int i = 0; i < texts.length; i++) {
-          Utterance utterance = new Utterance.Builder(texts[i]).build();
-          utterances.add(utterance);
+        Utterance utterance = new Utterance.Builder()
+            .text(texts[i])
+            .user(users[i])
+            .build();
+        utterances.add(utterance);
       }
+      ToneChatRequest toneChatRequest = new ToneChatRequest.Builder()
+          .utterances(utterances)
+          .build();
 
-      ToneChatInput toneChatInput = new ToneChatInput();
-      toneChatInput.setUtterances(utterances);
-
-      // Call the service and get the tone
-      UtterancesTone tone = service.getChatTone(text).execute();
+      // Call the service
+      UtterancesTone utterancesTone = service.getChatTone(toneChatRequest).execute();
       System.out.println(tone);
 
     }
