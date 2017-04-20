@@ -15,7 +15,6 @@ package com.ibm.watson.developer_cloud.service;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
-import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -49,7 +48,6 @@ import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import jersey.repackaged.jsr166e.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.ConnectionSpec;
 import okhttp3.Credentials;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
@@ -128,12 +126,6 @@ public abstract class WatsonService {
     builder.readTimeout(90, TimeUnit.SECONDS);
 
     builder.addNetworkInterceptor(HttpLogging.getLoggingInterceptor());
-
-    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-        .allEnabledCipherSuites()
-        .build();
-
-    builder.connectionSpecs(Arrays.asList(spec, ConnectionSpec.CLEARTEXT));
 
     return builder.build();
   }
