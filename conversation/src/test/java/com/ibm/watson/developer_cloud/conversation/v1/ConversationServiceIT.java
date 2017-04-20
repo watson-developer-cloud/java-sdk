@@ -69,15 +69,16 @@ public class ConversationServiceIT extends WatsonServiceTest {
   /**
    * Test send messages.
    *
-   * @throws InterruptedException the interrupted exception
+   * @throws InterruptedException
+   *           the interrupted exception
    */
   @Test
   public void testSendMessages() throws InterruptedException {
     final String[] messages = new String[] { "turn ac on", "turn right", "no", "yes" };
     Map<String, Object> context = null;
     for (final String message : messages) {
-      MessageRequest request =
-          new MessageRequest.Builder().inputText(message).alternateIntents(true).context(context).build();
+      MessageRequest request = new MessageRequest.Builder().inputText(message).alternateIntents(true).context(context)
+          .build();
 
       if (message.equals("yes")) {
         request = request.newBuilder().intent(new Intent("off_topic", 1.0)).build();
@@ -93,7 +94,8 @@ public class ConversationServiceIT extends WatsonServiceTest {
   /**
    * Assert {@link MessageResponse} from service.
    *
-   * @param message the message from the {@link ConversationService}
+   * @param message
+   *          the message from the {@link ConversationService}
    */
   private void assertMessageFromService(MessageResponse message) {
     assertNotNull(message);

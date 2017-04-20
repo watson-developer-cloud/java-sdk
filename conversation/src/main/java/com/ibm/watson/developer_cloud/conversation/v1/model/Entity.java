@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An class used to describe the entity payload object.
+ * A class used to describe the entity payload object.
  */
 public class Entity extends GenericModel {
 
@@ -94,4 +94,3 @@ public class Entity extends GenericModel {
     this.value = value;
   }
 }
-

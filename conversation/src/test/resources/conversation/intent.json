@@ -1,0 +1,20 @@
+{
+  "intent":"hello",
+  "created":"2017-02-02T21:04:26.049Z",
+  "updated":"2017-02-02T21:04:26.049Z",
+  "examples":
+  [
+    {
+      "text":"good morning",
+      "created":"2017-02-02T21:04:26.049Z",
+      "updated":"2017-02-02T21:04:26.049Z"
+    },
+    {
+      "text":"aaa"
+    },
+    {
+      "text":"bbb"
+    }
+  ],
+  "description":"Test Description"
+}
