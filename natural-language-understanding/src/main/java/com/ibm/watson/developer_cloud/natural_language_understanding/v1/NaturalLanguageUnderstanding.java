@@ -114,7 +114,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   /**
    * Analyzes text, HTML, or a public webpage with one or more text analysis features.
    *
-   * @param parameters: An object containing request parameters. The `features` object and one of the `text`, `html`, or
+   * @param parameters An object containing request parameters. The `features` object and one of the `text`, `html`, or
    *        `url` attributes are required.
    * @return the {@link AnalysisResults} with the response
    */
