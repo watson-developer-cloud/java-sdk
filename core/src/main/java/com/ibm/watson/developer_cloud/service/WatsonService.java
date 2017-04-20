@@ -15,10 +15,22 @@ package com.ibm.watson.developer_cloud.service;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.net.CookiePolicy;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocket;
+import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.TrustManagerFactory;
+import javax.net.ssl.X509TrustManager;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
@@ -39,6 +51,7 @@ import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableExcept
 import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
+import com.ibm.watson.developer_cloud.service.security.DelegatingSSLSocketFactory;
 import com.ibm.watson.developer_cloud.util.CredentialUtils;
 import com.ibm.watson.developer_cloud.util.HttpLogging;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
@@ -56,9 +69,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
+import okhttp3.TlsVersion;
 
 /**
- * Watson service abstract common functionality of various Watson Services. It handle authentication and default url
+ * Watson service abstract common functionality of various Watson Services. It handle authentication and default url.
  *
  * @see <a href="http://www.ibm.com/watson/developercloud/"> IBM Watson Developer Cloud</a>
  */
@@ -127,7 +141,58 @@ public abstract class WatsonService {
 
     builder.addNetworkInterceptor(HttpLogging.getLoggingInterceptor());
 
+    setupTLSProtocol(builder);
+
     return builder.build();
+  }
+
+
+  /**
+   * Specifically enable all TLS protocols.
+   * See: https://github.com/watson-developer-cloud/java-sdk/issues/610
+   *
+   * @param builder the okhttp client builder.
+   */
+  private void setupTLSProtocol(final OkHttpClient.Builder builder) {
+    try {
+
+      TrustManagerFactory trustManagerFactory =
+          TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
+      trustManagerFactory.init((KeyStore) null);
+      TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
+
+      if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
+        throw new IllegalStateException("Unexpected default trust managers:" + Arrays.toString(trustManagers));
+      }
+
+      X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
+
+      // On IBM JDK's this gets only TLSv1
+      SSLContext sslContext = SSLContext.getInstance("TLS");
+
+      sslContext.init(null, new TrustManager[] { trustManager }, null);
+      SSLSocketFactory sslSocketFactory = new DelegatingSSLSocketFactory(sslContext.getSocketFactory()) {
+        @Override
+        protected SSLSocket configureSocket(SSLSocket socket) throws IOException {
+          socket.setEnabledProtocols(new String[] {
+            TlsVersion.TLS_1_0.javaName(),
+            TlsVersion.TLS_1_1.javaName(),
+            TlsVersion.TLS_1_2.javaName()
+          });
+
+          return socket;
+        }
+      };
+
+      builder.sslSocketFactory(sslSocketFactory, trustManager);
+
+    } catch (NoSuchAlgorithmException e) {
+      LOG.log(Level.SEVERE, "The cryptographic algorithm requested is not available in the environment.", e);
+    } catch (KeyStoreException e) {
+      LOG.log(Level.SEVERE, "Error using the keystore.", e);
+    } catch (KeyManagementException e) {
+      LOG.log(Level.SEVERE, "Error initializing the SSL Context.", e);
+    }
   }
 
   /**
@@ -153,7 +218,6 @@ public abstract class WatsonService {
       if (defaultHeaders.get(HttpHeaders.USER_AGENT) != null) {
         userAgent += " " + defaultHeaders.get(HttpHeaders.USER_AGENT);
       }
-
     }
 
     builder.header(HttpHeaders.USER_AGENT, userAgent);
