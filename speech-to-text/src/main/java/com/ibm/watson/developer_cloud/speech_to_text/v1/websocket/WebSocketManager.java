@@ -144,15 +144,7 @@ public class WebSocketManager {
         }
       } else if (json.has(RESULTS) || json.has(SPEAKER_LABELS)) {
         callback.onTranscription(GSON.fromJson(message, SpeechResults.class));
-
       } else if (json.has(STATE)) {
-        // A listen state after everything has been sent over
-        // indicates everything has been processed
-        if (!audioThread.isAlive()) {
-          socket.close(CLOSE_NORMAL, "Transcription completed");
-          return;
-        }
-
         // notify that the service is ready to receive audio
         callback.onListening();
       }
@@ -170,29 +162,33 @@ public class WebSocketManager {
       if (!socket.send(buildStartMessage(options))) {
         callback.onError(new IOException("WebSocket unavailable"));
       } else {
-        // Send the InputStream on a different Thread. Elsewise, interim results cannot be
-        // received,
-        // because the Thread that called SpeechToText.recognizeUsingWebSocket is blocked.
-        audioThread = new Thread() {
-          @Override
-          public void run() {
-            sendInputStream(stream);
+        if (audioThread == null) {
+          // Send the InputStream on a different Thread. Elsewise, interim results cannot be
+          // received,
+          // because the Thread that called SpeechToText.recognizeUsingWebSocket is blocked.
+          audioThread = new Thread() {
+            @Override
+            public void run() {
+              sendInputStream(stream);
 
-            // Do not send the stop message, if the socket has been closed already, for example
-            // because of
-            // the inactivity timeout.
-            if (socketOpen) {
-              // If the socket is still open after the sending finishes, for example because the
-              // user closed
-              // the microphone AudioInputStream, send a stop message.
-              if (!socket.send(buildStopMessage())) {
-                LOG.log(Level.SEVERE, "Stop message discarded because WebSocket is unavailable");
+              // Do not send the stop message, if the socket has been closed already, for example
+              // because of
+              // the inactivity timeout.
+              if (socketOpen) {
+                // If the socket is still open after the sending finishes, for example because the
+                // user closed
+                // the microphone AudioInputStream, send a stop message.
+                if (!socket.send(buildStopMessage())) {
+                  LOG.log(Level.SEVERE, "Stop message discarded because WebSocket is unavailable");
+                }
               }
             }
-          }
-        };
+          };
 
-        audioThread.start();
+          audioThread.start();
+        } else {
+          socket.close(CLOSE_NORMAL, "Transcription completed");
+        }
       }
     }
 
