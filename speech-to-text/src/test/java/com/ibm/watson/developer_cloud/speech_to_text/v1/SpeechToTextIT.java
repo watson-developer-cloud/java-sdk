@@ -382,7 +382,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       assertNotNull(job.getResults());
 
     } finally {
-      service.deleteRecognitionJob(job.getId());
+      service.deleteRecognitionJob(job.getId()).execute();
     }
   }
 
@@ -408,7 +408,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       assertEquals(RecognitionJob.Status.COMPLETED, job.getStatus());
       assertNotNull(job.getResults());
     } finally {
-      service.deleteRecognitionJob(job.getId());
+      service.deleteRecognitionJob(job.getId()).execute();
     }
   }
 
