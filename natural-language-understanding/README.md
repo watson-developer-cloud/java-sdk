@@ -34,3 +34,6 @@ Features features = new Features.Builder().entities(entities).build();
 AnalyzeOptions parameters = new AnalyzeOptions.Builder().url("www.cnn.com").features(features).build();
 AnalysisResults results = service.analyze(parameters).execute();
 ```
+
+We also offer a cognitive client which makes use of this API to provide enhanced features for applications using our natural language understanding services:
+https://github.com/watson-developer-cloud/cognitive-client-java
