@@ -32,6 +32,9 @@ DocumentSentiment sentiment = service.getSentiment(params).execute();
 System.out.println(sentiment);
 ```
 
+We also offer a cognitive client which makes use of this API to provide enhanced features for applications using our natural language understanding services such as AlchemyLanguage and NaturalLanguageUnderstanding:
+https://github.com/watson-developer-cloud/cognitive-client-java
+
 ## Alchemy Vision
 [Alchemy Vision][alchemy_vision] uses deep learning innovations to understand a picture's content and context. It sees complex visual scenes in their entirety —without needing any textual clues— leveraging a holistic approach to understand the objects, faces, and words in an image.
 
