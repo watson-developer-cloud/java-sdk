@@ -35,17 +35,18 @@ public class DateDeserializerTest {
      */
     @Test
     public void testDeserialize() {
-//        String[] dateStrings = {
-//            "2016-06-20T04:25:16.218+0000",
-//            "2016-06-20T04:25:16",
-//            "2016-06-20T04:25:16.218Z",
-//            "2015-05-28T18:01:57Z",
-//            "2016-06-20T04:25:16.218+0000",
-//            "1478097789",
-//            "1478097789000"
-//        };
         DateDeserializer deserializer = new DateDeserializer();
         JsonParser parser = new JsonParser();
+
+
+        // Date with MS and 3 digit and Z
+        try {
+            String dateString = "2017-04-23T19:09:46.712Z";
+            JsonElement element = parser.parse("\"" + dateString + "\"");
+            assertNotNull(deserializer.deserialize(element, null, null));
+        } catch (Exception ex) {
+            fail(ex.getMessage());
+        }
 
         // Date with MS and 3 digit TZ
         try {
