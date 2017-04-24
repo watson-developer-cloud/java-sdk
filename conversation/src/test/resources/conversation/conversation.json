@@ -16,9 +16,7 @@
     "text": "I'd like to get insurance to for my home"
   },
   "context": {
-   
   },
-  
   "output": {
     "text": ["Do you want to get a quote?"]
   }

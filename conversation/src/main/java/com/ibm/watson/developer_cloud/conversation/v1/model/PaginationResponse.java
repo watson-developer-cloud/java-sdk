@@ -12,12 +12,15 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.conversation.v1.model.util.PaginationResponseTypeAdapter;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * The pagination data for the returned objects.
  */
+@JsonAdapter(PaginationResponseTypeAdapter.class)
 public class PaginationResponse extends GenericModel {
 
   /** The URL that will return the same page of results. */
@@ -30,6 +33,28 @@ public class PaginationResponse extends GenericModel {
   private Long total;
   /** Reserved for future use. */
   private Long matched;
+
+  /** A token identifying the last value from the previous page of results. */
+  private String cursor;
+
+  /**
+   * Gets the cursor.
+   * A token identifying the last value from the previous page of results.
+   *
+   * @return the cursor
+   */
+  public String getCursor() {
+    return cursor;
+  }
+
+  /**
+   * Sets the cursor.
+   *
+   * @param cursor the new cursor
+   */
+  public void setCursor(String cursor) {
+    this.cursor = cursor;
+  }
 
   /**
    * Gets the refreshUrl.

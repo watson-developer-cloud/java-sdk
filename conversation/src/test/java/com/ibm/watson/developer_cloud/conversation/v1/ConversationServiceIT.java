@@ -201,7 +201,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
     service.deleteCounterexample(workspaceId, counterExampleText).execute();
 
     try {
-      ExampleResponse response = service.getCounterexample(workspaceId, counterExampleText).execute();
+      service.getCounterexample(workspaceId, counterExampleText).execute();
       fail("deleteCounterexample failed");
     } catch (Exception ex) {
       // Expected result
@@ -386,7 +386,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
     service.deleteExample(workspaceId, exampleIntent, exampleText).execute();
 
     try {
-      ExampleResponse response = service.getExample(workspaceId, exampleIntent, exampleText).execute();
+      service.getExample(workspaceId, exampleIntent, exampleText).execute();
       fail("deleteCounterexample failed");
     } catch (Exception ex) {
       // Expected result
@@ -587,7 +587,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
     service.deleteIntent(workspaceId, intentName).execute();
 
     try {
-      IntentExportResponse response = service.getIntent(workspaceId, intentName, false).execute();
+      service.getIntent(workspaceId, intentName, false).execute();
       fail("deleteIntent failed");
     } catch (Exception ex) {
       // Expected result
@@ -931,7 +931,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
 
       service.deleteWorkspace(workspaceId).execute();
 
-      WorkspaceExportResponse exResponse = service.getWorkspace(workspaceId, true).execute();
+      service.getWorkspace(workspaceId, true).execute();
     } catch (Exception ex) {
       // Expected result
       assertTrue(ex instanceof NotFoundException);

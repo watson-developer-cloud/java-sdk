@@ -24,6 +24,28 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class WorkspaceExportResponse extends GenericModel {
 
+
+  /**
+   * Classifier Status.
+   */
+  public enum Status {
+
+    /** The available. */
+    @SerializedName("Available") AVAILABLE,
+
+    /** The failed. */
+    @SerializedName("Failed") FAILED,
+
+    /** The non existent. */
+    @SerializedName("Non Existent") NON_EXISTENT,
+
+    /** The training. */
+    @SerializedName("Training") TRAINING,
+
+    /** The unavailable. */
+    @SerializedName("Unavailable") UNAVAILABLE
+  }
+
   /** The name of the workspace. */
   private String name;
   /** The description of the workspace. */
@@ -40,7 +62,7 @@ public class WorkspaceExportResponse extends GenericModel {
   @SerializedName("workspace_id")
   private String workspaceId;
   /** The current status of the workspace (`Non Existent`, `Training`, `Failed`, `Available`, or `Unavailable`). */
-  private String status;
+  private Status status;
   /** An array of intents. */
   private List<IntentExportResponse> intents;
   /** An array of entities. */
@@ -116,7 +138,7 @@ public class WorkspaceExportResponse extends GenericModel {
    *
    * @return the status
    */
-  public String getStatus() {
+  public Status getStatus() {
     return status;
   }
 
@@ -215,7 +237,7 @@ public class WorkspaceExportResponse extends GenericModel {
    *
    * @param status the new status
    */
-  public void setStatus(final String status) {
+  public void setStatus(final Status status) {
     this.status = status;
   }
 
