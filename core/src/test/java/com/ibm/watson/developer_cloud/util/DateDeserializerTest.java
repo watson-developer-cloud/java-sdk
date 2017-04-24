@@ -26,24 +26,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * The Class DateDeserializerTest.
+ * Test the Date deserializer.
  */
 public class DateDeserializerTest {
 
     /**
-     * Test deserialize.
+     * Test date deserializer.
      */
     @Test
     public void testDeserialize() {
-//        String[] dateStrings = {
-//            "2016-06-20T04:25:16.218+0000",
-//            "2016-06-20T04:25:16",
-//            "2016-06-20T04:25:16.218Z",
-//            "2015-05-28T18:01:57Z",
-//            "2016-06-20T04:25:16.218+0000",
-//            "1478097789",
-//            "1478097789000"
-//        };
         DateDeserializer deserializer = new DateDeserializer();
         JsonParser parser = new JsonParser();
 

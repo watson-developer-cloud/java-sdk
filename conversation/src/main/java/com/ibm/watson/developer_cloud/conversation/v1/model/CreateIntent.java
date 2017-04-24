@@ -62,6 +62,7 @@ public class CreateIntent extends GenericModel {
      * Adds an examples to examples.
      *
      * @param examples the new examples
+     * @return the builder
      */
     public Builder examples(CreateExample examples) {
       if (this.examples == null) {
