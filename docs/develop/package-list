@@ -3,6 +3,7 @@ com.ibm.watson.developer_cloud.alchemy.v1.model
 com.ibm.watson.developer_cloud.alchemy.v1.util
 com.ibm.watson.developer_cloud.conversation.v1
 com.ibm.watson.developer_cloud.conversation.v1.model
+com.ibm.watson.developer_cloud.conversation.v1.model.util
 com.ibm.watson.developer_cloud.dialog.v1
 com.ibm.watson.developer_cloud.dialog.v1.model
 com.ibm.watson.developer_cloud.discovery.v1
