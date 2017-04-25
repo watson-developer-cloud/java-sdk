@@ -59,7 +59,7 @@ dependencies {
 
     testCompile project(path: ':core', configuration: 'tests')
     testCompile project(':speech-to-text')
-    testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.6.0'
+    testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.7.0'
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
     testCompile group: 'com.google.guava', name: 'guava', version: '19.0'
     testCompile group: 'junit', name: 'junit-dep', version: '4.11'
