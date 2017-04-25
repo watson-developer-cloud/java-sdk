@@ -1,6 +1,24 @@
 Change Log
 ==========
 
+## Version 3.8.0
+
+_2017-04-24_
+
+* New: Add support for workspaces in Conversation 1b291a5
+* New: Update okhttp version to 3.7.0 7912344
+* New: Change WAV to WebM in comments in test-to-speech 4535c70
+* New: Add support for Customer Care API endpoint for Tone Analyzer 7a5fcfe
+* New: Add new audio format to text-to-speech 07a375e
+* New: Add new audio format to speech-to-text 1c93196
+* Fix: Enable cipher suites 4b51aee
+* Fix: Enable all TLS protocols 842383b
+* Fix: Use `target` in language translator Fixes #655 999f04c
+* Fix: Date deserialization for ISO 8601 dates with Z timezone 6c870dc
+* Fix: SerializedName annotation for configuration id and test dd0ec53
+* Fix: Fix NLU example 8c33f2b
+
+
 ## Version 3.7.2
 
 _2017-04-07_
