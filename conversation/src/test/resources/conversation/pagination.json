@@ -1,0 +1,4 @@
+{
+  "refresh_url": "/v1/workspaces/pizza_app-e0f3/counterexamples?version=2017-12-18&page_limit=2",
+  "next_url": "/v1/workspaces/pizza_app-e0f3/counterexamples?cursor=batman&version=2017-12-18&page_limit=2"
+}
