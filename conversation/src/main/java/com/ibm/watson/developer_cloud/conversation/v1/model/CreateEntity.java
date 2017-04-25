@@ -62,6 +62,7 @@ public class CreateEntity extends GenericModel {
      * Adds an values to values.
      *
      * @param values the new values
+     * @return the builder
      */
     public Builder values(CreateValue values) {
       if (this.values == null) {

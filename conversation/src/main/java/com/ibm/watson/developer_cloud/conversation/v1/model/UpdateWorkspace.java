@@ -84,6 +84,7 @@ public class UpdateWorkspace extends GenericModel {
      * Adds an intents to intents.
      *
      * @param intents the new intents
+     * @return the builder
      */
     public Builder intents(CreateIntent intents) {
       if (this.intents == null) {
@@ -97,6 +98,7 @@ public class UpdateWorkspace extends GenericModel {
      * Adds an entities to entities.
      *
      * @param entities the new entities
+     * @return the builder
      */
     public Builder entities(CreateEntity entities) {
       if (this.entities == null) {
@@ -110,6 +112,7 @@ public class UpdateWorkspace extends GenericModel {
      * Adds an dialogNodes to dialogNodes.
      *
      * @param dialogNodes the new dialogNodes
+     * @return the builder
      */
     public Builder dialogNodes(CreateDialogNode dialogNodes) {
       if (this.dialogNodes == null) {
@@ -123,6 +126,7 @@ public class UpdateWorkspace extends GenericModel {
      * Adds an counterexamples to counterexamples.
      *
      * @param counterexamples the new counterexamples
+     * @return the builder
      */
     public Builder counterexamples(CreateExample counterexamples) {
       if (this.counterexamples == null) {

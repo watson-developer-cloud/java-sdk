@@ -77,17 +77,6 @@ dependencies {
     compile group: 'org.glassfish.jersey.bundles.repackaged', name: 'jersey-jsr166e', version: '2.22.2'
 
     testCompile project(path: ':core', configuration: 'tests')
-    testCompile project(':alchemy')
-    testCompile project(':document-conversion')
-    testCompile project(':language-translation')
-    testCompile project(':natural-language-classifier')
-    testCompile project(':personality-insights')
-    testCompile project(':retrieve-and-rank')
-    testCompile project(':speech-to-text')
-    testCompile project(':text-to-speech')
-    testCompile project(':tone-analyzer')
-    testCompile project(':tradeoff-analytics')
-    testCompile project(':visual-recognition')
     testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.6.0'
     testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
     testCompile group: 'com.google.guava', name: 'guava', version: '19.0'

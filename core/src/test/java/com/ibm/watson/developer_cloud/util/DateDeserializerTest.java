@@ -26,12 +26,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * The Class DateDeserializerTest.
+ * Test the Date deserializer.
  */
 public class DateDeserializerTest {
 
     /**
-     * Test deserialize.
+     * Test date deserializer.
      */
     @Test
     public void testDeserialize() {
