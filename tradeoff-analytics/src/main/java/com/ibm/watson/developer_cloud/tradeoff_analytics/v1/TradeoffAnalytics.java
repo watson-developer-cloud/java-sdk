@@ -138,7 +138,7 @@ public class TradeoffAnalytics extends WatsonService {
     final RequestBuilder requestBuilder =
         RequestBuilder.post(PATH_DILEMMAS).bodyContent(contentJson, HttpMediaType.APPLICATION_JSON);
 
-    List<String> queryParams = new ArrayList<>();
+    List<String> queryParams = new ArrayList<String>();
     if (generateVisualization != null) {
       queryParams.add(GENERATE_VISUALIZATION);
       queryParams.add(generateVisualization.toString());
