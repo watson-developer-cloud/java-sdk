@@ -13,26 +13,9 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
-import com.ibm.watson.developer_cloud.discovery.v1.model.AggregationResult;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionRequest;
@@ -52,10 +35,15 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryAggregation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResult;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationType;
 import com.ibm.watson.developer_cloud.discovery.v1.query.Operator;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
+import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
+import com.ibm.watson.developer_cloud.util.WaitFor;
 import org.junit.After;
 import org.junit.Assume;
 import org.junit.Before;
@@ -64,19 +52,25 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
-import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
-import com.ibm.watson.developer_cloud.util.WaitFor;
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Integration tests for {@link Discovery}.
- *
  */
 @RunWith(RetryRunner.class)
 public class DiscoveryServiceIT extends WatsonServiceTest {
@@ -122,7 +116,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     if (environmentId == null) {
       // no environment found, create a new one (assuming we are a FREE plan)
       String environmentName = "watson_developer_cloud_test_environment";
-      CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder().name(environmentName).size(FREE).build();
+      CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder().name(environmentName).size(
+          FREE).build();
       Environment createResponse = discovery.createEnvironment(createRequest).execute();
       environmentId = createResponse.getEnvironmentId();
       WaitFor.Condition environmentReady = new EnvironmentReady(discovery, environmentId);
@@ -231,7 +226,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     CreateEnvironmentRequest createRequest =
         new CreateEnvironmentRequest.Builder().name(environmentName).size(FREE).build();
     Environment createResponse = createEnvironment(createRequest);
-    
+
     DeleteEnvironmentResponse deleteRepsonse = deleteEnvironment(createResponse.getEnvironmentId());
 
     assertEquals(createResponse.getEnvironmentId(), deleteRepsonse.getEnvironmentId());
@@ -249,7 +244,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     UpdateEnvironmentRequest.Builder updateBuilder =
         new UpdateEnvironmentRequest.Builder().name(environmentName);
     updateBuilder.description(randomDescription);
-    Environment updateResponse = discovery.updateEnvironment(createResponse.getEnvironmentId(), updateBuilder.build()).execute();
+    Environment updateResponse = discovery.updateEnvironment(createResponse.getEnvironmentId(), updateBuilder.build()
+    ).execute();
 
     assertEquals(randomDescription, updateResponse.getDescription());
   }
@@ -275,7 +271,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void deleteConfigurationIsSuccessful() {
     Configuration createResponse = createTestConfig();
 
-    DeleteConfigurationResponse deleteResponse = deleteConfiguration(environmentId, createResponse.getConfigurationId());
+    DeleteConfigurationResponse deleteResponse = deleteConfiguration(environmentId, createResponse.getConfigurationId(
+        ));
 
     assertEquals(createResponse.getConfigurationId(), deleteResponse.getConfigurationId());
   }
@@ -284,7 +281,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void getConfigurationIsSuccessful() {
     Configuration createResponse = createTestConfig();
 
-    Configuration getResponse = discovery.getConfiguration(environmentId, createResponse.getConfigurationId()).execute();
+    Configuration getResponse = discovery.getConfiguration(environmentId, createResponse.getConfigurationId())
+        .execute();
 
     assertEquals(createResponse.getName(), getResponse.getName());
   }
@@ -293,7 +291,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void getConfigurationsByNameIsSuccessful() {
     Configuration createResponse = createTestConfig();
 
-    GetConfigurationsResponse getResponse = discovery.getConfigurations(environmentId, createResponse.getName()).execute();
+    GetConfigurationsResponse getResponse = discovery.getConfigurations(environmentId, createResponse.getName())
+        .execute();
 
     assertEquals(1, getResponse.getConfigurations().size());
     assertEquals(createResponse.getName(), getResponse.getConfigurations().get(0).getName());
@@ -338,7 +337,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     String uniqueCollectionName = uniqueName + "-collection";
     CreateCollectionRequest.Builder createCollectionBuilder = new CreateCollectionRequest.Builder()
-          .configurationId(configurationId).name(uniqueCollectionName);
+        .configurationId(configurationId).name(uniqueCollectionName);
     Collection createResponse = createCollection(environmentId, createCollectionBuilder.build());
 
     assertEquals(configurationId, createResponse.getConfigurationId());
@@ -384,7 +383,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
         .configurationId(createConfigResponse.getConfigurationId()).name(uniqueCollectionName);
     createCollection(environmentId, createCollectionBuilder.build());
 
-    GetCollectionsResponse getResponse = discovery.getCollections(environmentId,uniqueCollectionName).execute();
+    GetCollectionsResponse getResponse = discovery.getCollections(environmentId, uniqueCollectionName).execute();
 
     assertEquals(1, getResponse.getCollections().size());
     assertEquals(uniqueCollectionName, getResponse.getCollections().get(0).getName());
@@ -399,7 +398,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
 
     DocumentAccepted createResponse = discovery.addDocument(environmentId, createCollectionResponse.getCollectionId(),
-        null, documentStream, HttpMediaType.APPLICATION_JSON,null, null).execute();
+        null, documentStream, HttpMediaType.APPLICATION_JSON, null, null).execute();
     assertFalse(createResponse.getDocumentId().isEmpty());
     assertNull(createResponse.getNotices());
   }
@@ -425,7 +424,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     QueryResponse queryResponse = discovery.query(environmentId, collectionId, null).execute();
 
-    assertTrue(queryResponse.getResults().get(0).getMetadata()!=null);
+    assertTrue(queryResponse.getResults().get(0).getMetadata() != null);
   }
 
   @Test
@@ -538,7 +537,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     fieldNames.add("field");
     queryBuilder.returnFields(fieldNames);
     QueryResponse queryResponse = discovery.query(environmentId, collectionId, queryBuilder.build()).execute();
-    String[] expected = new String[] { "id", "score", "field" };
+    String[] expected = new String[]{"id", "score", "field"};
     assertTrue(queryResponse.getResults().get(0).keySet().containsAll(Arrays.asList(expected)));
   }
 
@@ -707,7 +706,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     configuration.setName(uniqueConfigName);
     Configuration createResponse = createConfiguration(environmentId, configuration);
 
-    Configuration getResponse = discovery.getConfiguration(environmentId, createResponse.getConfigurationId()).execute();
+    Configuration getResponse = discovery.getConfiguration(environmentId, createResponse.getConfigurationId())
+        .execute();
 
     // returned config should have some json data
     assertEquals(1, getResponse.getConversions().getJsonNormalizations().size());
@@ -715,7 +715,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   @Test
   public void issueNumber518() {
-    String[] operations = new String[] { "MOVE", "COPY", "MERGE", "REMOVE", "REMOVE_NULLS" };
+    String[] operations = new String[]{"MOVE", "COPY", "MERGE", "REMOVE", "REMOVE_NULLS"};
 
     String uniqueConfigName = uniqueName + "-config";
     Configuration configuration = getTestConfiguration(DISCOVERY2_TEST_CONFIG_FILE);
@@ -723,7 +723,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     configuration.setName(uniqueConfigName);
     Configuration createResponse = createConfiguration(environmentId, configuration);
 
-    Configuration getResponse = discovery.getConfiguration(environmentId, createResponse.getConfigurationId()).execute();
+    Configuration getResponse = discovery.getConfiguration(environmentId, createResponse.getConfigurationId())
+        .execute();
 
     // verify getResponse deserializes the operations appropriately
     for (NormalizationOperation normalization : getResponse.getNormalizations()) {
@@ -749,7 +750,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   private DeleteConfigurationResponse deleteConfiguration(String environmentId, String configurationId) {
-    DeleteConfigurationResponse deleteResponse = discovery.deleteConfiguration(environmentId, configurationId).execute();
+    DeleteConfigurationResponse deleteResponse = discovery.deleteConfiguration(environmentId, configurationId)
+        .execute();
     configurationIds.remove(deleteResponse.getConfigurationId());
     return deleteResponse;
   }
@@ -778,7 +780,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     String uniqueCollectionName = uniqueName + "-collection";
     CreateCollectionRequest.Builder createCollectionBuilder = new CreateCollectionRequest.Builder()
-            .configurationId(createConfigResponse.getConfigurationId()).name(uniqueCollectionName);
+        .configurationId(createConfigResponse.getConfigurationId()).name(uniqueCollectionName);
     Collection createResponse = createCollection(environmentId, createCollectionBuilder.build());
     return createResponse;
   }
@@ -793,7 +795,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     InputStream documentStream = new ByteArrayInputStream(json.getBytes());
     // HttpMediaType.APPLICATION_JSON
     DocumentAccepted createResponse = discovery.addDocument(environmentId, collectionId, null,
-        documentStream, HttpMediaType.APPLICATION_JSON,null, null).execute();
+        documentStream, HttpMediaType.APPLICATION_JSON, null, null).execute();
     WaitFor.Condition waitForDocumentAccepted =
         new WaitForDocumentAccepted(environmentId, collectionId, createResponse.getDocumentId());
     WaitFor.waitFor(waitForDocumentAccepted, 5, TimeUnit.SECONDS, 500);

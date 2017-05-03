@@ -13,8 +13,6 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1.query;
 
-import com.ibm.watson.developer_cloud.http.ServiceCall;
-
 /**
  * Interface defining the constants and methods associated with Queries.
  */

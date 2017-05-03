@@ -12,10 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.Date;
 
 /**
  * A notice produced by the ingestion process.
@@ -28,13 +28,14 @@ public class Notice extends GenericModel {
   public enum Severity {
 
     /** warning. */
-    @SerializedName("warning") WARNING,
+    @SerializedName("warning")WARNING,
 
     /** error. */
-    @SerializedName("error") ERROR
+    @SerializedName("error")ERROR
   }
 
-  /** Identifies the notice. Many notices may have the same ID. This field exists so that user applications can programatically identify a notice and take automatic corrective action. */
+  /** Identifies the notice. Many notices may have the same ID. This field exists so that user applications can
+   * programatically identify a notice and take automatic corrective action. */
   @SerializedName("notice_id")
   private String noticeId;
   /** The creation date of the collection in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */

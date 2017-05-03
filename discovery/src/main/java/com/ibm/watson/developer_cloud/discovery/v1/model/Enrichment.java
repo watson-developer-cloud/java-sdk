@@ -22,7 +22,9 @@ public class Enrichment extends GenericModel {
 
   /** Describes what the enrichment step does. */
   private String description;
-  /** Field where enrichments will be stored. This field must already exist or be at most 1 level deeper than an existing field. For example, if `text` is a top-level field with no sub-fields, `text.foo` is a valid destination but `text.foo.bar` is not. */
+  /** Field where enrichments will be stored. This field must already exist or be at most 1 level deeper than an
+   * existing field. For example, if `text` is a top-level field with no sub-fields, `text.foo` is a valid
+   * destination but `text.foo.bar` is not. */
   @SerializedName("destination_field")
   private String destinationField;
   /** Field to be enriched. */
@@ -32,7 +34,8 @@ public class Enrichment extends GenericModel {
   private Boolean overwrite;
   /** Name of the enrichment service to call. Currently the only valid value is `alchemy_language`. */
   private String enrichment;
-  /** If true, then most errors generated during the enrichment process will be treated as warnings and wil not cause the document to fail processing. */
+  /** If true, then most errors generated during the enrichment process will be treated as warnings and wil not cause
+   *  the document to fail processing. */
   @SerializedName("ignore_downstream_errors")
   private Boolean ignoreDownstreamErrors;
   /** A list of options specific to the enrichment. */

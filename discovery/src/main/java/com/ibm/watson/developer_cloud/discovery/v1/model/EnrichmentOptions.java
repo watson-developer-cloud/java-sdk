@@ -21,98 +21,109 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class EnrichmentOptions extends GenericModel {
 
   /**
-   * If provided, then do not attempt to detect the language of the input document. Instead, assume the language is the one specified in this field.  You can set this property to work around `unsupported-text-language` errors.  Supported languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish. Supported language codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language (e.g. "russian").
+   * If provided, then do not attempt to detect the language of the input document. Instead, assume the language is
+   * the one specified in this field.  You can set this property to work around `unsupported-text-language` errors.
+   * Supported languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish.
+   * Supported language codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language (e
+   * .g. "russian").
    */
   public enum Language {
 
     /** english. */
-    @SerializedName("english") ENGLISH,
+    @SerializedName("english")ENGLISH,
 
     /** german. */
-    @SerializedName("german") GERMAN,
+    @SerializedName("german")GERMAN,
 
     /** french. */
-    @SerializedName("french") FRENCH,
+    @SerializedName("french")FRENCH,
 
     /** italian. */
-    @SerializedName("italian") ITALIAN,
+    @SerializedName("italian")ITALIAN,
 
     /** portuguese. */
-    @SerializedName("portuguese") PORTUGUESE,
+    @SerializedName("portuguese")PORTUGUESE,
 
     /** russian. */
-    @SerializedName("russian") RUSSIAN,
+    @SerializedName("russian")RUSSIAN,
 
     /** spanish. */
-    @SerializedName("spanish") SPANISH,
+    @SerializedName("spanish")SPANISH,
 
     /** swedish. */
-    @SerializedName("swedish") SWEDISH,
+    @SerializedName("swedish")SWEDISH,
 
     /** en. */
-    @SerializedName("en") EN,
+    @SerializedName("en")EN,
 
     /** eng. */
-    @SerializedName("eng") ENG,
+    @SerializedName("eng")ENG,
 
     /** de. */
-    @SerializedName("de") DE,
+    @SerializedName("de")DE,
 
     /** ger. */
-    @SerializedName("ger") GER,
+    @SerializedName("ger")GER,
 
     /** deu. */
-    @SerializedName("deu") DEU,
+    @SerializedName("deu")DEU,
 
     /** fr. */
-    @SerializedName("fr") FR,
+    @SerializedName("fr")FR,
 
     /** fre. */
-    @SerializedName("fre") FRE,
+    @SerializedName("fre")FRE,
 
     /** fra. */
-    @SerializedName("fra") FRA,
+    @SerializedName("fra")FRA,
 
     /** it. */
-    @SerializedName("it") IT,
+    @SerializedName("it")IT,
 
     /** ita. */
-    @SerializedName("ita") ITA,
+    @SerializedName("ita")ITA,
 
     /** pt. */
-    @SerializedName("pt") PT,
+    @SerializedName("pt")PT,
 
     /** por. */
-    @SerializedName("por") POR,
+    @SerializedName("por")POR,
 
     /** ru. */
-    @SerializedName("ru") RU,
+    @SerializedName("ru")RU,
 
     /** rus. */
-    @SerializedName("rus") RUS,
+    @SerializedName("rus")RUS,
 
     /** es. */
-    @SerializedName("es") ES,
+    @SerializedName("es")ES,
 
     /** spa. */
-    @SerializedName("spa") SPA,
+    @SerializedName("spa")SPA,
 
     /** sv. */
-    @SerializedName("sv") SV,
+    @SerializedName("sv")SV,
 
     /** swe. */
-    @SerializedName("swe") SWE
+    @SerializedName("swe")SWE
   }
 
-  /** A comma sepeated list of analyses that should be applied when using the `alchemy_language` enrichment. See the the service documentation for details on each extract option.  Possible values include:    * entity   * keyword   * taxonomy   * concept   * relation   * doc-sentiment   * doc-emotion   * typed-rels. */
+  /** A comma sepeated list of analyses that should be applied when using the `alchemy_language` enrichment. See the
+   * the service documentation for details on each extract option.  Possible values include:    * entity   * keyword
+   * * taxonomy   * concept   * relation   * doc-sentiment   * doc-emotion   * typed-rels. */
   private String extract;
   private Boolean sentiment;
   private Boolean quotations;
   private Boolean showSourceText;
   private Boolean hierarchicalTypedRelations;
-  /** Required when using the `typed-rel` extract option. Should be set to the ID of a previously published custom Watson Knowledge Studio model. */
+  /** Required when using the `typed-rel` extract option. Should be set to the ID of a previously published custom
+   * Watson Knowledge Studio model. */
   private String model;
-  /** If provided, then do not attempt to detect the language of the input document. Instead, assume the language is the one specified in this field.  You can set this property to work around `unsupported-text-language` errors.  Supported languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish. Supported language codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language (e.g. "russian"). */
+  /** If provided, then do not attempt to detect the language of the input document. Instead, assume the language is
+   * the one specified in this field.  You can set this property to work around `unsupported-text-language` errors.
+   * Supported languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish.
+   * Supported language codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language (e
+   * .g. "russian"). */
   private Language language;
 
   /**

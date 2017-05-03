@@ -12,10 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.Date;
 
 /**
  * A collection for storing documents.
@@ -38,9 +38,11 @@ public class Collection extends GenericModel {
   /** The unique identifier of the collection's configuration. */
   @SerializedName("configuration_id")
   private String configurationId;
-  /** The language of the documents stored in the collection. The only currently accepted value is en_us (U.S. English). */
+  /** The language of the documents stored in the collection. The only currently accepted value is en_us (U.S.
+   * English). */
   private String language;
-  /** The object providing information about the documents in the collection. Present only when retrieving details of a colleciton. */
+  /** The object providing information about the documents in the collection. Present only when retrieving details of
+   *  a colleciton. */
   @SerializedName("document_counts")
   private DocumentCounts documentCounts;
 

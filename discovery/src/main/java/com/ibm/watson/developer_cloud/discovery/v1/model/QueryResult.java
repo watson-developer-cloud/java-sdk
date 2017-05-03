@@ -16,9 +16,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
-* QueryResult.
-*/
-public class QueryResult extends HashMap<String,Object> {
+ * QueryResult.
+ */
+public class QueryResult extends HashMap<String, Object> {
 
   /**
    * Gets the id.
@@ -26,7 +26,7 @@ public class QueryResult extends HashMap<String,Object> {
    * @return the id
    */
   public String getId() {
-    return (String)this.get("id");
+    return (String) this.get("id");
   }
 
   /**
@@ -35,7 +35,7 @@ public class QueryResult extends HashMap<String,Object> {
    * @return the score
    */
   public Double getScore() {
-    return (Double)this.get("score");
+    return (Double) this.get("score");
   }
 
   /**
@@ -44,7 +44,7 @@ public class QueryResult extends HashMap<String,Object> {
    * @return the status
    */
   public String getStatus() {
-    return (String)this.get("status");
+    return (String) this.get("status");
   }
 
   /**
@@ -53,7 +53,7 @@ public class QueryResult extends HashMap<String,Object> {
    * @return the metadata
    */
   public Map<String, Object> getMetadata() {
-    return (Map<String, Object>)this.get("metadata");
+    return (Map<String, Object>) this.get("metadata");
   }
 
   /**

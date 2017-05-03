@@ -12,11 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.Date;
-import java.util.Map;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.Date;
+import java.util.Map;
 
 /**
  * NoticeQueryResult.
@@ -29,21 +29,24 @@ public class NoticeQueryResult extends GenericModel {
   public enum Severity {
 
     /** warning. */
-    @SerializedName("warning") WARNING,
+    @SerializedName("warning")WARNING,
 
     /** error. */
-    @SerializedName("error") ERROR
+    @SerializedName("error")ERROR
   }
 
   /** The unique identifier of the document. */
   private String id;
-  /** The confidence score of the result's analysis. Scores range from 0 to 1, with a higher score indicating greater confidence. */
+  /** The confidence score of the result's analysis. Scores range from 0 to 1, with a higher score indicating greater
+   *  confidence. */
   private Double score;
-  /** Status of the processed document which can be 'OK', 'ERROR' depending on if the document type and tags are accepted by the service. */
+  /** Status of the processed document which can be 'OK', 'ERROR' depending on if the document type and tags are
+   * accepted by the service. */
   private String status;
   /** Metadata of the document. */
   private Map<String, Object> metadata;
-  /** Identifies the notice. Many notices may have the same ID. This field exists so that user applications can programatically identify a notice and take automatic corrective action. */
+  /** Identifies the notice. Many notices may have the same ID. This field exists so that user applications can
+   * programatically identify a notice and take automatic corrective action. */
   @SerializedName("notice_id")
   private String noticeId;
   /** The creation date of the collection in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */

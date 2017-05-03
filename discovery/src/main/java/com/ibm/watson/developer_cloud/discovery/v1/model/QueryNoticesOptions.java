@@ -12,33 +12,43 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * the queryNotices options.
  */
 public class QueryNoticesOptions extends GenericModel {
 
-  /** A cacheable query that limits the documents returned to exclude any documents that don't mention the query content. Filter searches are better for metadata type searches and when you are trying to get a sense of concepts in the data set. */
+  /** A cacheable query that limits the documents returned to exclude any documents that don't mention the query
+   * content. Filter searches are better for metadata type searches and when you are trying to get a sense of
+   * concepts in the data set. */
   private String filter;
-  /** The number of query results to skip at the beginning. For example, if the total number of results that are returned is 10, and the offset is 8, it returns the last two results. */
+  /** The number of query results to skip at the beginning. For example, if the total number of results that are
+   * returned is 10, and the offset is 8, it returns the last two results. */
   private Long offset;
-  /** A natural language query that returns relevant documents by utilizing training data and natural language understanding. You cannot use `natural_language_query` and `query` at the same time. */
+  /** A natural language query that returns relevant documents by utilizing training data and natural language
+   * understanding. You cannot use `natural_language_query` and `query` at the same time. */
   @SerializedName("natural_language_query")
   private String naturalLanguageQuery;
-  /** A query search returns all documents in your data set with full enrichments and full text, but with the most relevant documents listed first. Use a query search when you want to find the most relevant search results. You cannot use `natural_language_query` and `query` at the same time. */
+  /** A query search returns all documents in your data set with full enrichments and full text, but with the most
+   * relevant documents listed first. Use a query search when you want to find the most relevant search results. You
+   * cannot use `natural_language_query` and `query` at the same time. */
   private String query;
   /** Number of documents to return. */
   private Long count;
   /** A passages query that returns the most relevant passages from the document. */
   private Boolean passages;
-  /** An aggregation search uses combinations of filters and query search to return an exact answer. Aggregations are useful for building applications, because you can use them to build lists, tables, and time series. For a full list of possible aggregrations, see the Query reference. */
+  /** An aggregation search uses combinations of filters and query search to return an exact answer. Aggregations are
+   *  useful for building applications, because you can use them to build lists, tables, and time series. For a full
+   *  list of possible aggregrations, see the Query reference. */
   private String aggregation;
-  /** A comma separated list of fields in the document to sort on. You can optionally specify a sort direction by prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no prefix is specified. */
+  /** A comma separated list of fields in the document to sort on. You can optionally specify a sort direction by
+   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
+   * prefix is specified. */
   private String sort;
   /** A comma separated list of the portion of the document hierarchy to return. */
   @SerializedName("return")
@@ -73,7 +83,8 @@ public class QueryNoticesOptions extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
      * Builds a QueryNoticesOptions.

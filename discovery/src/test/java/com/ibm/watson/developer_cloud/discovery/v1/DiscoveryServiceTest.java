@@ -13,63 +13,50 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-
-import java.io.BufferedWriter;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionFieldsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionFieldsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentRequest;
 import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationType;
 import com.ibm.watson.developer_cloud.discovery.v1.query.Operator;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
 import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Unit tests for {@link Discovery}.
- *
  */
 public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Discovery discoveryService;
@@ -259,7 +246,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   // Configuration tests
   @Test
   public void createConfigurationIsSuccessful() throws JsonSyntaxException, JsonIOException,
-  FileNotFoundException, InterruptedException {
+      FileNotFoundException, InterruptedException {
     server.enqueue(jsonResponse(createConfResp));
     Configuration configuration =
         GsonSingleton.getGson().fromJson(new FileReader(DISCOVERY_TEST_CONFIG_FILE), Configuration.class);
@@ -297,7 +284,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void deleteConfigurationIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteConfResp));
-    DeleteConfigurationResponse response = discoveryService.deleteConfiguration(environmentId, configurationId).execute();
+    DeleteConfigurationResponse response = discoveryService.deleteConfiguration(environmentId, configurationId)
+        .execute();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(CONF2_PATH, request.getPath());
@@ -371,7 +359,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   @Test
   public void deleteCollectionIsSuccessful() throws InterruptedException {
-    server.enqueue(jsonResponse(deleteCollResp));;
+    server.enqueue(jsonResponse(deleteCollResp));
     DeleteCollectionResponse response = discoveryService.deleteCollection(environmentId, collectionId).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -389,7 +377,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     myMetadata.add("foo", new JsonPrimitive("bar"));
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
 
-    DocumentAccepted response = discoveryService.addDocument(environmentId,collectionId, null, documentStream,
+    DocumentAccepted response = discoveryService.addDocument(environmentId, collectionId, null, documentStream,
         HttpMediaType.APPLICATION_JSON, myMetadata.toString(), null).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -460,7 +448,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     myMetadata.add("foo", new JsonPrimitive("bar"));
 
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
-    DocumentAccepted response = discoveryService.updateDocument(environmentId, collectionId, documentId, null, documentStream,
+    DocumentAccepted response = discoveryService.updateDocument(environmentId, collectionId, documentId, null,
+        documentStream,
         HttpMediaType.APPLICATION_JSON, myMetadata.toString(), null).execute();
     RecordedRequest request = server.takeRequest();
 
@@ -483,7 +472,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void deleteDocumentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(deleteDocResp));
-    DeleteDocumentResponse response = discoveryService.deleteDocument(environmentId, collectionId, documentId).execute();
+    DeleteDocumentResponse response = discoveryService.deleteDocument(environmentId, collectionId, documentId)
+        .execute();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DOCS2_PATH, request.getPath());
@@ -503,7 +493,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     queryBuilder.returnFields(fieldNames);
     queryBuilder.query("field" + Operator.CONTAINS + 1);
     queryBuilder.filter("field" + Operator.CONTAINS + 1);
-    QueryResponse response  = discoveryService.query(environmentId, collectionId, queryBuilder.build()).execute();
+    QueryResponse response = discoveryService.query(environmentId, collectionId, queryBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(Q1_PATH, request.getPath());
