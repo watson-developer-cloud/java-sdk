@@ -209,7 +209,7 @@ public class RequestBuilder {
     for (final NameValue param : queryParams) {
       builder.addQueryParameter(param.getName(), param.getValue());
     }
-    return builder.build().url().toString();
+    return builder.build().uri().toString();
   }
 
   /**
