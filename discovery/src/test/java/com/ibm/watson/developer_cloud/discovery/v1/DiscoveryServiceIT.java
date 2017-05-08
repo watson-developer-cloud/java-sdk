@@ -634,7 +634,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
     assertEquals(new Long(1), queryResponse.getMatchingResults());
     assertEquals(1, queryResponse.getResults().size());
-    assertTrue((double) queryResponse.getResults().get(0).get("score") > 1.0);
+    assertTrue((Double) queryResponse.getResults().get(0).get("score") > 1.0);
   }
 
   @Test

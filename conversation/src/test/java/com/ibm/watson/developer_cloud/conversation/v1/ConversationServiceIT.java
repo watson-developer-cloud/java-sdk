@@ -529,7 +529,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
     String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
     String intentDescription = "Description of " + intentName;
     String intentExample = "Example of " + intentName;
-    List<CreateExample> intentExamples = new ArrayList<>();
+    List<CreateExample> intentExamples = new ArrayList<CreateExample>();
     intentExamples.add(new CreateExample.Builder().text(intentExample).build());
 
     Date start = new Date();
@@ -604,7 +604,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
     String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
     String intentDescription = "Description of " + intentName;
     String intentExample = "Example of " + intentName;
-    List<CreateExample> intentExamples = new ArrayList<>();
+    List<CreateExample> intentExamples = new ArrayList<CreateExample>();
     intentExamples.add(new CreateExample.Builder().text(intentExample).build());
 
     Date start = new Date();
@@ -663,7 +663,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
       // Now add an intent and make sure we get it back
       String intentDescription = "Description of " + intentName;
       String intentExample = "Example of " + intentName;
-      List<CreateExample> intentExamples = new ArrayList<>();
+      List<CreateExample> intentExamples = new ArrayList<CreateExample>();
       intentExamples.add(new CreateExample.Builder().text(intentExample).build());
 
       Date start = new Date();
@@ -717,7 +717,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
     String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
     String intentDescription = "Description of " + intentName;
     String intentExample = "Example of " + intentName;
-    List<CreateExample> intentExamples = new ArrayList<>();
+    List<CreateExample> intentExamples = new ArrayList<CreateExample>();
     intentExamples.add(new CreateExample.Builder().text(intentExample).build());
 
     service.createIntent(workspaceId, intentName, intentDescription, intentExamples).execute();
@@ -725,7 +725,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
     try {
       String intentDescription2 = "Updated description of " + intentName;
       String intentExample2 = "Updated Example of " + intentName;
-      List<CreateExample> intentExamples2 = new ArrayList<>();
+      List<CreateExample> intentExamples2 = new ArrayList<CreateExample>();
       intentExamples2.add(new CreateExample.Builder().text(intentExample2).build());
       Date start = new Date();
       IntentResponse response = service.updateIntent(workspaceId, intentName, null, intentDescription2,
@@ -776,16 +776,16 @@ public class ConversationServiceIT extends WatsonServiceTest {
     String workspaceLanguage = "en";
 
     // metadata
-    Map<String, Object> workspaceMetadata = new HashMap<>();
+    Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
     String metadataValue = "value for " + workspaceName;
     workspaceMetadata.put("key", metadataValue);
 
     // intents
-    List<CreateIntent> workspaceIntents = new ArrayList<>();
+    List<CreateIntent> workspaceIntents = new ArrayList<CreateIntent>();
     String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
     String intentDescription = "Description of " + intentName;
     String intentExample = "Example of " + intentName;
-    List<CreateExample> intentExamples = new ArrayList<>();
+    List<CreateExample> intentExamples = new ArrayList<CreateExample>();
     intentExamples.add(new CreateExample.Builder().text(intentExample).build());
     workspaceIntents.add(new CreateIntent.Builder()
         .intent(intentName)
@@ -794,13 +794,13 @@ public class ConversationServiceIT extends WatsonServiceTest {
         .build());
 
     // entities
-    List<CreateEntity> workspaceEntities = new ArrayList<>();
+    List<CreateEntity> workspaceEntities = new ArrayList<CreateEntity>();
 //    String entityName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
 //    String entityDescription = "Description of " + entityName;
 //    String entitySource = "Source for " + entityName;
 //    String entityValue = "Value of " + entityName;
 //    String entityValueSynonym = "Synonym for Value of " + entityName;
-//    List<CreateValue> entityValues = new ArrayList<>();
+//    List<CreateValue> entityValues = new ArrayList<CreateValue>();
 //    entityValues.add(new CreateValue.Builder()
 //        .value(entityValue)
 //        .synonyms(entityValueSynonym)
@@ -813,7 +813,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
 //        .build());
 
     // counterexamples
-    List<CreateExample> workspaceCounterExamples = new ArrayList<>();
+    List<CreateExample> workspaceCounterExamples = new ArrayList<CreateExample>();
     String counterExampleText = "Counterexample for " + workspaceName;
     workspaceCounterExamples.add(new CreateExample.Builder().text(counterExampleText).build());
 
