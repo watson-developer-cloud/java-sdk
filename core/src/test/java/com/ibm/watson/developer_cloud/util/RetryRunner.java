@@ -31,7 +31,7 @@ import org.junit.runners.model.Statement;
 public class RetryRunner extends BlockJUnit4ClassRunner {
   private static final Logger LOG = Logger.getLogger(RetryRunner.class.getName());
 
-  private static final int RETRY_COUNT = 2;
+  private static final int RETRY_COUNT = 3;
 
   /**
    * Instantiates a new retry runner.
