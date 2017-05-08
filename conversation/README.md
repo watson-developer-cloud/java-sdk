@@ -21,7 +21,7 @@
 Use the [Conversation][conversation] service to identify intents, entities, and conduct conversations.
 
 ```java
-ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
+ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_03_02);
 service.setUsernameAndPassword("<username>", "<password>");
 
 MessageRequest newMessage = new MessageRequest.Builder().inputText("Hi").build();
