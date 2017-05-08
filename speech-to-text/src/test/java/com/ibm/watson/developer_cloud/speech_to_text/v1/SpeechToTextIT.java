@@ -203,7 +203,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
     File audio = new File(TWO_SPEAKERS_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
       .continuous(true)
-      .interimResults(true)
       .speakerLabels(true)
       .model(SpeechModel.EN_US_NARROWBANDMODEL.getName())
       .contentType(HttpMediaType.AUDIO_WAV)
@@ -237,9 +236,14 @@ public class SpeechToTextIT extends WatsonServiceTest {
     final String keyword1 = "rain";
     final String keyword2 = "tornadoes";
 
-    final RecognizeOptions options =
-        new RecognizeOptions.Builder().contentType("audio/wav").model(SpeechModel.EN_US_BROADBANDMODEL.getName())
-            .continuous(true).inactivityTimeout(500).keywords(keyword1, keyword2).keywordsThreshold(0.7).build();
+    final RecognizeOptions options = new RecognizeOptions.Builder()
+        .contentType(HttpMediaType.AUDIO_WAV)
+        .model(SpeechModel.EN_US_NARROWBANDMODEL.getName())
+        .continuous(true)
+        .inactivityTimeout(500)
+        .keywords(keyword1, keyword2)
+        .keywordsThreshold(0.5)
+        .build();
 
     final File audio = new File(SAMPLE_WAV);
     final SpeechResults results = service.recognize(audio, options).execute();
@@ -273,9 +277,17 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
-    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).interimResults(true)
-        .inactivityTimeout(40).timestamps(true).maxAlternatives(2).wordAlternativesThreshold(0.5).model(EN_BROADBAND16K)
-        .contentType(HttpMediaType.AUDIO_WAV).build();
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .continuous(true)
+        .interimResults(true)
+        .inactivityTimeout(40)
+        .timestamps(true)
+        .maxAlternatives(2)
+        .wordAlternativesThreshold(0.5)
+        .model(EN_BROADBAND16K)
+        .contentType(HttpMediaType.AUDIO_WAV)
+        .inactivityTimeout(120)
+        .build();
     FileInputStream audio = new FileInputStream(SAMPLE_WAV);
 
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {

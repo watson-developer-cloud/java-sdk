@@ -13,26 +13,12 @@
 package com.ibm.watson.developer_cloud.service;
 
 import java.io.IOException;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
-
 import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.http.HttpClientSingleton;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
@@ -51,9 +37,7 @@ import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableExcept
 import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
-import com.ibm.watson.developer_cloud.service.security.DelegatingSSLSocketFactory;
 import com.ibm.watson.developer_cloud.util.CredentialUtils;
-import com.ibm.watson.developer_cloud.util.HttpLogging;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
@@ -61,16 +45,12 @@ import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import jersey.repackaged.jsr166e.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.ConnectionSpec;
 import okhttp3.Credentials;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
-import okhttp3.JavaNetCookieJar;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
-import okhttp3.TlsVersion;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication and default url.
@@ -87,7 +67,6 @@ public abstract class WatsonService {
   private static final String BASIC = "Basic ";
   private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
   private String apiKey;
-  private final OkHttpClient client;
   private String endPoint;
   private final String name;
 
@@ -114,91 +93,10 @@ public abstract class WatsonService {
   public WatsonService(String name) {
     this.name = name;
     apiKey = CredentialUtils.getAPIKey(name);
-    client = configureHttpClient();
     String url = CredentialUtils.getAPIUrl(name);
     if ((url != null) && !url.isEmpty()) {
       // The VCAP_SERVICES will typically contain a url. If present use it.
       setEndPoint(url);
-    }
-  }
-
-
-  /**
-   * Configures the HTTP client.
-   *
-   * @return the HTTP client
-   */
-  protected OkHttpClient configureHttpClient() {
-    final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-
-    final CookieManager cookieManager = new CookieManager();
-    cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-
-    builder.cookieJar(new JavaNetCookieJar(cookieManager));
-
-    builder.connectTimeout(60, TimeUnit.SECONDS);
-    builder.writeTimeout(60, TimeUnit.SECONDS);
-    builder.readTimeout(90, TimeUnit.SECONDS);
-
-    builder.addNetworkInterceptor(HttpLogging.getLoggingInterceptor());
-
-    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-      .allEnabledCipherSuites()
-      .build();
-
-    builder.connectionSpecs(Arrays.asList(spec, ConnectionSpec.CLEARTEXT));
-
-    setupTLSProtocol(builder);
-
-    return builder.build();
-  }
-
-
-  /**
-   * Specifically enable all TLS protocols.
-   * See: https://github.com/watson-developer-cloud/java-sdk/issues/610
-   *
-   * @param builder the okhttp client builder.
-   */
-  private void setupTLSProtocol(final OkHttpClient.Builder builder) {
-    try {
-
-      TrustManagerFactory trustManagerFactory =
-          TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-      trustManagerFactory.init((KeyStore) null);
-      TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
-
-      if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
-        throw new IllegalStateException("Unexpected default trust managers:" + Arrays.toString(trustManagers));
-      }
-
-      X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
-
-      // On IBM JDK's this gets only TLSv1
-      SSLContext sslContext = SSLContext.getInstance("TLS");
-
-      sslContext.init(null, new TrustManager[] { trustManager }, null);
-      SSLSocketFactory sslSocketFactory = new DelegatingSSLSocketFactory(sslContext.getSocketFactory()) {
-        @Override
-        protected SSLSocket configureSocket(SSLSocket socket) throws IOException {
-          socket.setEnabledProtocols(new String[] {
-            TlsVersion.TLS_1_0.javaName(),
-            TlsVersion.TLS_1_1.javaName(),
-            TlsVersion.TLS_1_2.javaName()
-          });
-
-          return socket;
-        }
-      };
-
-      builder.sslSocketFactory(sslSocketFactory, trustManager);
-
-    } catch (NoSuchAlgorithmException e) {
-      LOG.log(Level.SEVERE, "The cryptographic algorithm requested is not available in the environment.", e);
-    } catch (KeyStoreException e) {
-      LOG.log(Level.SEVERE, "Error using the keystore.", e);
-    } catch (KeyManagementException e) {
-      LOG.log(Level.SEVERE, "Error initializing the SSL Context.", e);
     }
   }
 
@@ -232,8 +130,7 @@ public abstract class WatsonService {
     setAuthentication(builder);
 
     final Request newRequest = builder.build();
-    return client.newCall(newRequest);
-
+    return HttpClientSingleton.getInstance().getHttpClient().newCall(newRequest);
   }
 
   /**
