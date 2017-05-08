@@ -74,7 +74,7 @@ public class LanguageTranslation extends WatsonService {
 
   /**
    * Instantiates a new Language Translator service.
-   * @deprecated Use {@link LanguageTranslator}
+   * @deprecated
    */
   public LanguageTranslation() {
     super(SERVICE_NAME);
