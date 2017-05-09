@@ -13,26 +13,12 @@
 package com.ibm.watson.developer_cloud.service;
 
 import java.io.IOException;
-import java.net.CookieManager;
-import java.net.CookiePolicy;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocket;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
-import javax.net.ssl.X509TrustManager;
-
 import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.http.HttpClientSingleton;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.HttpStatus;
@@ -51,9 +37,7 @@ import com.ibm.watson.developer_cloud.service.exception.ServiceUnavailableExcept
 import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.service.exception.UnsupportedException;
-import com.ibm.watson.developer_cloud.service.security.DelegatingSSLSocketFactory;
 import com.ibm.watson.developer_cloud.util.CredentialUtils;
-import com.ibm.watson.developer_cloud.util.HttpLogging;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.ResponseUtils;
@@ -61,16 +45,12 @@ import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import jersey.repackaged.jsr166e.CompletableFuture;
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.ConnectionSpec;
 import okhttp3.Credentials;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
-import okhttp3.JavaNetCookieJar;
-import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
-import okhttp3.TlsVersion;
 
 /**
  * Watson service abstract common functionality of various Watson Services. It handle authentication and default url.
@@ -87,7 +67,6 @@ public abstract class WatsonService {
   private static final String BASIC = "Basic ";
   private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
   private String apiKey;
-  private final OkHttpClient client;
   private String endPoint;
   private final String name;
 
@@ -111,94 +90,13 @@ public abstract class WatsonService {
    *
    * @param name the service name
    */
-  public WatsonService(String name) {
+  public WatsonService(final String name) {
     this.name = name;
     apiKey = CredentialUtils.getAPIKey(name);
-    client = configureHttpClient();
     String url = CredentialUtils.getAPIUrl(name);
     if ((url != null) && !url.isEmpty()) {
       // The VCAP_SERVICES will typically contain a url. If present use it.
       setEndPoint(url);
-    }
-  }
-
-
-  /**
-   * Configures the HTTP client.
-   *
-   * @return the HTTP client
-   */
-  protected OkHttpClient configureHttpClient() {
-    final OkHttpClient.Builder builder = new OkHttpClient.Builder();
-
-    final CookieManager cookieManager = new CookieManager();
-    cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-
-    builder.cookieJar(new JavaNetCookieJar(cookieManager));
-
-    builder.connectTimeout(60, TimeUnit.SECONDS);
-    builder.writeTimeout(60, TimeUnit.SECONDS);
-    builder.readTimeout(90, TimeUnit.SECONDS);
-
-    builder.addNetworkInterceptor(HttpLogging.getLoggingInterceptor());
-
-    ConnectionSpec spec = new ConnectionSpec.Builder(ConnectionSpec.MODERN_TLS)
-      .allEnabledCipherSuites()
-      .build();
-
-    builder.connectionSpecs(Arrays.asList(spec, ConnectionSpec.CLEARTEXT));
-
-    setupTLSProtocol(builder);
-
-    return builder.build();
-  }
-
-
-  /**
-   * Specifically enable all TLS protocols.
-   * See: https://github.com/watson-developer-cloud/java-sdk/issues/610
-   *
-   * @param builder the okhttp client builder.
-   */
-  private void setupTLSProtocol(final OkHttpClient.Builder builder) {
-    try {
-
-      TrustManagerFactory trustManagerFactory =
-          TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-      trustManagerFactory.init((KeyStore) null);
-      TrustManager[] trustManagers = trustManagerFactory.getTrustManagers();
-
-      if (trustManagers.length != 1 || !(trustManagers[0] instanceof X509TrustManager)) {
-        throw new IllegalStateException("Unexpected default trust managers:" + Arrays.toString(trustManagers));
-      }
-
-      X509TrustManager trustManager = (X509TrustManager) trustManagers[0];
-
-      // On IBM JDK's this gets only TLSv1
-      SSLContext sslContext = SSLContext.getInstance("TLS");
-
-      sslContext.init(null, new TrustManager[] { trustManager }, null);
-      SSLSocketFactory sslSocketFactory = new DelegatingSSLSocketFactory(sslContext.getSocketFactory()) {
-        @Override
-        protected SSLSocket configureSocket(SSLSocket socket) throws IOException {
-          socket.setEnabledProtocols(new String[] {
-            TlsVersion.TLS_1_0.javaName(),
-            TlsVersion.TLS_1_1.javaName(),
-            TlsVersion.TLS_1_2.javaName()
-          });
-
-          return socket;
-        }
-      };
-
-      builder.sslSocketFactory(sslSocketFactory, trustManager);
-
-    } catch (NoSuchAlgorithmException e) {
-      LOG.log(Level.SEVERE, "The cryptographic algorithm requested is not available in the environment.", e);
-    } catch (KeyStoreException e) {
-      LOG.log(Level.SEVERE, "Error using the keystore.", e);
-    } catch (KeyManagementException e) {
-      LOG.log(Level.SEVERE, "Error initializing the SSL Context.", e);
     }
   }
 
@@ -209,13 +107,27 @@ public abstract class WatsonService {
    *
    * @return the HTTP response
    */
-  private Call createCall(Request request) {
+  private Call createCall(final Request request) {
     final Request.Builder builder = request.newBuilder();
 
     if (RequestUtils.isRelative(request)) {
       builder.url(RequestUtils.replaceEndPoint(request.url().toString(), getEndPoint()));
     }
 
+    setDefaultHeaders(builder);
+
+    setAuthentication(builder);
+
+    final Request newRequest = builder.build();
+    return HttpClientSingleton.getInstance().getHttpClient().newCall(newRequest);
+  }
+
+  /**
+   * Sets the default headers including User-Agent.
+   *
+   * @param builder the new default headers
+   */
+  protected void setDefaultHeaders(final Request.Builder builder) {
     String userAgent = RequestUtils.getUserAgent();
 
     if (defaultHeaders != null) {
@@ -226,14 +138,7 @@ public abstract class WatsonService {
         userAgent += " " + defaultHeaders.get(HttpHeaders.USER_AGENT);
       }
     }
-
     builder.header(HttpHeaders.USER_AGENT, userAgent);
-
-    setAuthentication(builder);
-
-    final Request newRequest = builder.build();
-    return client.newCall(newRequest);
-
   }
 
   /**
@@ -403,7 +308,7 @@ public abstract class WatsonService {
    *
    * @param builder the new authentication
    */
-  protected void setAuthentication(Builder builder) {
+  protected void setAuthentication(final Builder builder) {
     if (getApiKey() == null) {
       if (skipAuthentication) {
         return; // chosen to skip authentication with the service
@@ -432,7 +337,7 @@ public abstract class WatsonService {
    * @param username the username
    * @param password the password
    */
-  public void setUsernameAndPassword(String username, String password) {
+  public void setUsernameAndPassword(final String username, final String password) {
     apiKey = Credentials.basic(username, password);
   }
 
@@ -441,7 +346,7 @@ public abstract class WatsonService {
    *
    * @param headers name value pairs of headers
    */
-  public void setDefaultHeaders(Map<String, String> headers) {
+  public void setDefaultHeaders(final Map<String, String> headers) {
     if (headers == null) {
       defaultHeaders = null;
     } else {
@@ -474,7 +379,7 @@ public abstract class WatsonService {
    * @param response the response
    * @return the t
    */
-  protected <T> T processServiceCall(final ResponseConverter<T> converter, Response response) {
+  protected <T> T processServiceCall(final ResponseConverter<T> converter, final Response response) {
     if (response.isSuccessful()) {
       return converter.convert(response);
     }
@@ -519,7 +424,7 @@ public abstract class WatsonService {
    *
    * @param skipAuthentication the new skip authentication
    */
-  public void setSkipAuthentication(boolean skipAuthentication) {
+  public void setSkipAuthentication(final boolean skipAuthentication) {
     this.skipAuthentication = skipAuthentication;
   }
 }
