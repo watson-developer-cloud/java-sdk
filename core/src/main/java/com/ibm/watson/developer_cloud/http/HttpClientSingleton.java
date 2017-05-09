@@ -36,15 +36,15 @@ import com.ibm.watson.developer_cloud.service.security.DelegatingSSLSocketFactor
 import com.ibm.watson.developer_cloud.util.HttpLogging;
 
 import okhttp3.ConnectionSpec;
-import okhttp3.JavaNetCookieJar;
 import okhttp3.OkHttpClient;
+import okhttp3.OkHttpClient.Builder;
 import okhttp3.TlsVersion;
 
 /**
- * This class encapsulate the {@link OkHttpClient} instance in a singleton pattern.
- * OkHttp performs best when you create a single OkHttpClient instance and reuse it for all of your HTTP calls. This is
- * because each client holds its own connection pool and thread pools. Reusing connections and threads reduces latency
- * and saves memory. Conversely, creating a client for each request wastes resources on idle pools.
+ * This class encapsulate the {@link OkHttpClient} instance in a singleton pattern. OkHttp performs best when you create
+ * a single OkHttpClient instance and reuse it for all of your HTTP calls. This is because each client holds its own
+ * connection pool and thread pools. Reusing connections and threads reduces latency and saves memory. Conversely,
+ * creating a client for each request wastes resources on idle pools.
  */
 public class HttpClientSingleton {
   private static HttpClientSingleton instance = null;
@@ -80,10 +80,7 @@ public class HttpClientSingleton {
   private OkHttpClient configureHttpClient() {
     final OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-    final CookieManager cookieManager = new CookieManager();
-    cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
-
-    builder.cookieJar(new JavaNetCookieJar(cookieManager));
+    addCookieJar(builder);
 
     builder.connectTimeout(60, TimeUnit.SECONDS);
     builder.writeTimeout(60, TimeUnit.SECONDS);
@@ -100,13 +97,25 @@ public class HttpClientSingleton {
   }
 
   /**
+   * Adds the cookie jar.
+   *
+   * @param builder the builder
+   */
+  private void addCookieJar(final OkHttpClient.Builder builder) {
+    final CookieManager cookieManager = new CookieManager();
+    cookieManager.setCookiePolicy(CookiePolicy.ACCEPT_ALL);
+
+    builder.cookieJar(new WatsonCookieJar(cookieManager));
+  }
+
+
+  /**
    * Specifically enable all TLS protocols. See: https://github.com/watson-developer-cloud/java-sdk/issues/610
    *
-   * @param builder the okhttp client builder.
+   * @param builder the {@link OkHttpClient} builder.
    */
   private void setupTLSProtocol(final OkHttpClient.Builder builder) {
     try {
-
       TrustManagerFactory trustManagerFactory =
           TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
       trustManagerFactory.init((KeyStore) null);
@@ -151,6 +160,16 @@ public class HttpClientSingleton {
    */
   public OkHttpClient getHttpClient() {
     return okHttpClient;
+  }
+
+  /**
+   * Clear the cookies.
+   */
+  public void clearCookies() {
+    // Create a new okHttpClient and set a new CookieJar so that override existing cookies
+    Builder builder = this.okHttpClient.newBuilder();
+    addCookieJar(builder);
+    this.okHttpClient = builder.build();
   }
 
 }
