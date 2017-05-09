@@ -22,7 +22,7 @@ Select a domain, then identify or select the language of text, and then translat
 Example: Translate 'hello' from English to Spanish using the [Language Translator][language_translator] service.
 
 ```java
-LanguageTranslator service = new LanguageTranslation();
+LanguageTranslator service = new LanguageTranslator();
 service.setUsernameAndPassword("<username>", "<password>");
 
 TranslationResult translationResult = service.translate(

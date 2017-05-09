@@ -26,9 +26,9 @@ public class TranslationModel extends GenericModel {
    */
   public enum Status {
     /** The available. */
-    AVAILABLE, /** The error. */
-    ERROR, /** The training. */
-    TRAINING;
+    @SerializedName("available") AVAILABLE, /** The error. */
+    @SerializedName("error") ERROR, /** The training. */
+    @SerializedName("training") TRAINING;
   }
 
   @SerializedName("base_model_id")

@@ -338,6 +338,24 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   }
 
   @Test
+  public void getConfigurationsWithFunkyNameIsSuccessful() {
+    String uniqueConfigName = uniqueName + " with \"funky\" ?x=y&foo=bar ,[x](y) ~!@#$%^&*()-+ {} | ;:<>\\/ chars";
+
+    CreateConfigurationRequest.Builder createBuilder = new CreateConfigurationRequest.Builder(environmentId);
+    Configuration configuration = getTestConfiguration(DISCOVERY_TEST_CONFIG_FILE);
+    configuration.setName(uniqueConfigName);
+    createBuilder.configuration(configuration);
+    CreateConfigurationResponse createResponse = createConfiguration(createBuilder.build());
+
+    GetConfigurationsRequest.Builder getBuilder = new GetConfigurationsRequest.Builder(environmentId);
+    getBuilder.name(uniqueConfigName);
+    GetConfigurationsResponse getResponse = discovery.getConfigurations(getBuilder.build()).execute();
+
+    assertEquals(1, getResponse.getConfigurations().size());
+    assertEquals(uniqueConfigName, getResponse.getConfigurations().get(0).getName());
+  }
+
+  @Test
   public void updateConfigurationIsSuccessful() {
     CreateConfigurationResponse createResponse = createTestConfig();
 
@@ -616,7 +634,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
     assertEquals(new Long(1), queryResponse.getMatchingResults());
     assertEquals(1, queryResponse.getResults().size());
-    assertTrue((double) queryResponse.getResults().get(0).get("score") > 1.0);
+    assertTrue((Double) queryResponse.getResults().get(0).get("score") > 1.0);
   }
 
   @Test
@@ -802,6 +820,17 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
       Operation operation = normalization.getOperation();
       assertEquals(true, Arrays.asList(operations).contains(operation.name()));
     }
+  }
+
+  @Test
+  public void issueNumber654() {
+    String collectionId = setupTestDocuments();
+    QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
+    queryBuilder.query("field:1|3");
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+
+    assertEquals(new Long(2), queryResponse.getMatchingResults());
+    assertEquals(2, queryResponse.getResults().size());
   }
 
   private CreateEnvironmentResponse createEnvironment(CreateEnvironmentRequest createRequest) {

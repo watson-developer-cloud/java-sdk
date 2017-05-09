@@ -21,11 +21,11 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.http.HttpClientSingleton;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Customization;
@@ -42,14 +42,17 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.WebSocketManager;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Request.Builder;
 import okhttp3.RequestBody;
 import okhttp3.WebSocket;
 
@@ -801,32 +804,36 @@ public class SpeechToText extends WatsonService {
    * });
    * </pre>
    *
-   * @param audio the audio input stream
-   * @param options the recognize options
-   * @param callback the callback
+   * @param audio the audio {@link InputStream}
+   * @param options the {@link RecognizeOptions}
+   * @param callback the {@link RecognizeCallback} instance where results will be send
+   * @return the {@link WebSocket}
    */
-  public void recognizeUsingWebSocket(final InputStream audio, final RecognizeOptions options,
+  public WebSocket recognizeUsingWebSocket(final InputStream audio, final RecognizeOptions options,
       final RecognizeCallback callback) {
     Validator.notNull(audio, "audio cannot be null");
     Validator.notNull(options, "options cannot be null");
     Validator.notNull(options.contentType(), "options.contentType cannot be null");
     Validator.notNull(callback, "callback cannot be null");
 
+    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + PATH_RECOGNIZE).newBuilder();
 
-    getToken().enqueue(new ServiceCallback<String>() {
-      @Override
-      public void onFailure(Exception e) {
-        callback.onError(e);
-      }
+    if (options.model() != null && !options.model().isEmpty()) {
+      urlBuilder.addQueryParameter(MODEL, options.model());
+    }
 
-      @Override
-      public void onResponse(String token) {
-        String url = getEndPoint().replace("http://", "ws://").replace("https://", "wss://");
-        WebSocketManager wsManager =
-            new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, token);
-        wsManager.recognize(audio, options, callback);
-      }
-    });
+    if (options.customizationId() != null && !options.customizationId().isEmpty()) {
+      urlBuilder.addQueryParameter(CUSTOMIZATION_ID, options.model());
+    }
+
+    String url = urlBuilder.toString().replace("https://", "wss://");
+    Builder builder = new Request.Builder().url(url);
+
+    setAuthentication(builder);
+    setDefaultHeaders(builder);
+
+    OkHttpClient client = HttpClientSingleton.getInstance().getHttpClient();
+    return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(audio, options, callback));
   }
 
   /**
