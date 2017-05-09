@@ -90,7 +90,7 @@ public abstract class WatsonService {
    *
    * @param name the service name
    */
-  public WatsonService(String name) {
+  public WatsonService(final String name) {
     this.name = name;
     apiKey = CredentialUtils.getAPIKey(name);
     String url = CredentialUtils.getAPIUrl(name);
@@ -107,13 +107,27 @@ public abstract class WatsonService {
    *
    * @return the HTTP response
    */
-  private Call createCall(Request request) {
+  private Call createCall(final Request request) {
     final Request.Builder builder = request.newBuilder();
 
     if (RequestUtils.isRelative(request)) {
       builder.url(RequestUtils.replaceEndPoint(request.url().toString(), getEndPoint()));
     }
 
+    setDefaultHeaders(builder);
+
+    setAuthentication(builder);
+
+    final Request newRequest = builder.build();
+    return HttpClientSingleton.getInstance().getHttpClient().newCall(newRequest);
+  }
+
+  /**
+   * Sets the default headers including User-Agent.
+   *
+   * @param builder the new default headers
+   */
+  protected void setDefaultHeaders(final Request.Builder builder) {
     String userAgent = RequestUtils.getUserAgent();
 
     if (defaultHeaders != null) {
@@ -124,13 +138,7 @@ public abstract class WatsonService {
         userAgent += " " + defaultHeaders.get(HttpHeaders.USER_AGENT);
       }
     }
-
     builder.header(HttpHeaders.USER_AGENT, userAgent);
-
-    setAuthentication(builder);
-
-    final Request newRequest = builder.build();
-    return HttpClientSingleton.getInstance().getHttpClient().newCall(newRequest);
   }
 
   /**
@@ -300,7 +308,7 @@ public abstract class WatsonService {
    *
    * @param builder the new authentication
    */
-  protected void setAuthentication(Builder builder) {
+  protected void setAuthentication(final Builder builder) {
     if (getApiKey() == null) {
       if (skipAuthentication) {
         return; // chosen to skip authentication with the service
@@ -329,7 +337,7 @@ public abstract class WatsonService {
    * @param username the username
    * @param password the password
    */
-  public void setUsernameAndPassword(String username, String password) {
+  public void setUsernameAndPassword(final String username, final String password) {
     apiKey = Credentials.basic(username, password);
   }
 
@@ -338,7 +346,7 @@ public abstract class WatsonService {
    *
    * @param headers name value pairs of headers
    */
-  public void setDefaultHeaders(Map<String, String> headers) {
+  public void setDefaultHeaders(final Map<String, String> headers) {
     if (headers == null) {
       defaultHeaders = null;
     } else {
@@ -371,7 +379,7 @@ public abstract class WatsonService {
    * @param response the response
    * @return the t
    */
-  protected <T> T processServiceCall(final ResponseConverter<T> converter, Response response) {
+  protected <T> T processServiceCall(final ResponseConverter<T> converter, final Response response) {
     if (response.isSuccessful()) {
       return converter.convert(response);
     }
@@ -416,7 +424,7 @@ public abstract class WatsonService {
    *
    * @param skipAuthentication the new skip authentication
    */
-  public void setSkipAuthentication(boolean skipAuthentication) {
+  public void setSkipAuthentication(final boolean skipAuthentication) {
     this.skipAuthentication = skipAuthentication;
   }
 }
