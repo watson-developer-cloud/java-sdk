@@ -27,6 +27,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -339,5 +340,16 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Delete all the visual classifiers.
+   */
+  @Test
+  @Ignore
+  public void testDeleteAllClassifiers() {
+    List<VisualClassifier> classifiers = service.getClassifiers().execute();
+    for (VisualClassifier classifier : classifiers) {
+      service.deleteClassifier(classifier.getId()).execute();
+    }
+  }
 
 }

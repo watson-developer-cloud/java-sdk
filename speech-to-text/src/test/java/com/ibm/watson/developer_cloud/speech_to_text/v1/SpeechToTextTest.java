@@ -876,7 +876,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     PipedOutputStream outputStream = new PipedOutputStream();
     InputStream inputStream = new PipedInputStream(outputStream);
 
-    server.enqueue(new MockResponse().setBody("token"));
     server.enqueue(new MockResponse().withWebSocketUpgrade(webSocketRecorder));
 
     service.recognizeUsingWebSocket(inputStream, options, callback);
