@@ -85,7 +85,7 @@ Only Visual Recognition:
 ```
 ##### Development Snapshots
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
-###### Android Gradle
+###### Gradle
 Add repository to your project Gradle file
 ```gradle
 allprojects {
