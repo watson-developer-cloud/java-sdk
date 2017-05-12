@@ -83,8 +83,23 @@ Only Visual Recognition:
 ```gradle
 'com.ibm.watson.developer_cloud:visual-recognition:3.8.0'
 ```
-
+##### Development Snapshots
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
+###### Gradle
+Add repository to your project Gradle file
+```gradle
+allprojects {
+    repositories {
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    }
+}
+```
+
+And then reference the snapshot version on your app module gradle
+Only Speech to Text:
+```gradle
+'com.ibm.watson.developer_cloud:speech-to-text:3.8.1-SNAPSHOT'
+```
 
 
 ##### JAR

@@ -49,7 +49,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   private static final String START = "start";
   private static final String STOP = "stop";
   private static final String ACTION = "action";
-  private static final int FOUR_KB = 4096;
+  private static final int ONE_KB = 1024;
   private static final String ERROR = "error";
   private static final String RESULTS = "results";
   private static final String SPEAKER_LABELS = "speaker_labels";
@@ -182,14 +182,14 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @param inputStream the input stream
    */
   private void sendInputStream(InputStream inputStream) {
-    byte[] buffer = new byte[FOUR_KB];
+    byte[] buffer = new byte[ONE_KB];
     int read;
     try {
       // This method uses a blocking while loop to receive all contents of the underlying input stream.
       // AudioInputStreams, typically used for streaming microphone inputs return 0 only when the stream has been
       // closed. Elsewise AudioInputStream.read() blocks until enough audio frames are read.
       while (((read = inputStream.read(buffer)) > 0) && socketOpen) {
-        if (read == FOUR_KB) {
+        if (read == ONE_KB) {
           socket.send(ByteString.of(buffer));
         } else {
           socket.send(ByteString.of(Arrays.copyOfRange(buffer, 0, read)));

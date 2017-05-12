@@ -48,6 +48,8 @@ public class CredentialUtilsTest extends WatsonServiceTest {
   private static final String NOT_A_FREE_PASSWORD = "not-a-free-password";
   private static final String PLAN = "standard";
 
+  private static final String VISUAL_RECOGNITION = "watson_vision_combined";
+
   /**
    * Setup.
    */
@@ -69,6 +71,14 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     assertEquals(API_KEY_FREE, CredentialUtils.getAPIKey(SERVICE_NAME, null));
     assertEquals(API_KEY_FREE, CredentialUtils.getAPIKey(SERVICE_NAME, CredentialUtils.PLAN_FREE));
     assertEquals(API_KEY_STANDARD, CredentialUtils.getAPIKey(SERVICE_NAME, CredentialUtils.PLAN_STANDARD));
+  }
+
+  /**
+   * Test get api key for visual recognition.
+   */
+  @Test
+  public void testGetApiKeyForVisualRecognition() {
+    assertNull(CredentialUtils.getAPIKey(VISUAL_RECOGNITION, NOT_A_PASSWORD));
   }
 
   /**
