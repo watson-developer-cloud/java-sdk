@@ -175,15 +175,14 @@
          }
       }
    ],
-   "visual_recognition": [
+   "watson_vision_combined": [
       {
          "name": "visual_recognition_docs",
-         "label": "visual_recognition",
+         "label": "watson_vision_combined",
          "plan": "free",
          "credentials": {
             "url": "https://gateway.watsonplatform.net/visual-recognition/api",
-            "username": "not-a-username",
-            "password": "not-a-password"
+            "api_key": "not-a-password"
          }
       }
    ],
