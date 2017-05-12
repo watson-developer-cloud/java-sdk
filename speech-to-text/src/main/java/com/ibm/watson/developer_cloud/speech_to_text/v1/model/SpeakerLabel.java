@@ -1,11 +1,12 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Created by afaisman on 12/2/16.
+ * Speaker labels.
  */
-public class SpeakerLabel {
+public class SpeakerLabel extends GenericModel {
 
   private Double from;
   private Double to;
