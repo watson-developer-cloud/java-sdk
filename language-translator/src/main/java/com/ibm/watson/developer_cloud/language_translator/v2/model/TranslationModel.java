@@ -22,13 +22,16 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class TranslationModel extends GenericModel {
 
   /**
-   * The Enum Status.
+   * Translation model status.
    */
   public enum Status {
-    /** The available. */
-    @SerializedName("available") AVAILABLE, /** The error. */
-    @SerializedName("error") ERROR, /** The training. */
-    @SerializedName("training") TRAINING;
+    @SerializedName("available") AVAILABLE,
+    @SerializedName("error") ERROR,
+    @SerializedName("training") TRAINING,
+    @SerializedName("queue") QUEUED,
+    @SerializedName("uploaded") UPLOADED,
+    @SerializedName("dispatching") DISPATCHING,
+    @SerializedName("publishing") PUBLISHING
   }
 
   @SerializedName("base_model_id")
