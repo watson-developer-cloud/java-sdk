@@ -57,10 +57,10 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   private static final String IMAGE_FACE_FILE = "src/test/resources/visual_recognition/faces.zip";
   private static final String IMAGE_FACE_URL = "https://watson-test-resources.mybluemix.net/resources/obama.jpg";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
-  private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
   private static final String IMAGE_TEXT_FILE = "src/test/resources/visual_recognition/open.png";
   private static final String IMAGE_TEXT_URL = "https://watson-test-resources.mybluemix.net/resources/open.png";
   private static final String IMAGE_URL = "https://watson-test-resources.mybluemix.net/resources/car.png";
+  private static final String SINGLE_IMAGE_FILE = "src/test/resources/visual_recognition/car.png";
 
   private VisualRecognition service;
 
@@ -137,6 +137,21 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   }
 
   /**
+   * Test classify images from bytes or stream.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void testClassifyImagesFromBytes() throws IOException {
+    File images = new File(SINGLE_IMAGE_FILE);
+    byte[] fileBytes = Files.readAllBytes(Paths.get(images.getPath()));
+    ClassifyImagesOptions options = new ClassifyImagesOptions.Builder().images(fileBytes, "car.png").build();
+    VisualClassification result = service.classify(options).execute();
+    assertClassifyImage(result, options);
+  }
+
+
+  /**
    * Test classify images from file.
    */
   @Test
@@ -147,7 +162,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
     assertClassifyImage(result, options);
   }
-
 
   /**
    * Test classify images from url.
@@ -160,17 +174,63 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   }
 
   /**
-   * Test classify images from bytes or stream.
+   * Test that creates, add images and delete a collection.
    *
+   * @throws InterruptedException the interrupted exception
    * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
-  public void testClassifyImagesFromBytes() throws IOException {
-    File images = new File(SINGLE_IMAGE_FILE);
-    byte[] fileBytes = Files.readAllBytes(Paths.get(images.getPath()));
-    ClassifyImagesOptions options = new ClassifyImagesOptions.Builder().images(fileBytes, "car.png").build();
-    VisualClassification result = service.classify(options).execute();
-    assertClassifyImage(result, options);
+  public void testCollections() throws InterruptedException, IOException {
+    Collection collection = service.createCollection("it-java-sdk").execute();
+    try {
+      for (int x = 0; (x < 30) && (collection.getStatus() != Collection.Status.AVAILABLE); x++) {
+        Thread.sleep(5000);
+        collection = service.getCollection(collection.getId()).execute();
+      }
+      Assert.assertEquals(collection.getStatus(), Collection.Status.AVAILABLE);
+
+      AddImageToCollectionOptions options = new AddImageToCollectionOptions.Builder()
+          .collectionId(collection.getId())
+          .image(new File(SINGLE_IMAGE_FILE))
+          .metadata("key1", "value1")
+          .build();
+
+      Assert.assertEquals((int) collection.getImages(), 0);
+      service.addImageToCollection(options).execute();
+      collection = service.getCollection(collection.getId()).execute();
+      Assert.assertEquals((int) collection.getImages(), 1);
+      List<CollectionImage> images = service.getCollectionImages(collection.getId()).execute();
+      Assert.assertNotNull(images);
+      CollectionImage image = service.getCollectionImage(collection.getId(), images.get(0).getImageId()).execute();
+      Assert.assertNotNull(image);
+
+      File fileImage = new File(SINGLE_IMAGE_FILE);
+      byte[] fileBytes = Files.readAllBytes(Paths.get(fileImage.getPath()));
+
+      // find image with file
+      FindSimilarImagesOptions findImageOptions = new FindSimilarImagesOptions.Builder()
+          .collectionId(collection.getId())
+          .image(fileImage)
+          .build();
+
+      List<CollectionImage> similarImages = service.findSimilarImages(findImageOptions).execute();
+      Assert.assertNotNull(similarImages);
+      Assert.assertTrue(!similarImages.isEmpty());
+
+      // find image with byte array
+      findImageOptions = new FindSimilarImagesOptions.Builder()
+          .collectionId(collection.getId())
+          .image(fileBytes, "car.png")
+          .build();
+
+      similarImages = service.findSimilarImages(findImageOptions).execute();
+      Assert.assertNotNull(similarImages);
+      Assert.assertTrue(!similarImages.isEmpty());
+
+
+    } finally {
+      service.deleteCollection(collection.getId()).execute();
+    }
   }
 
   /**
@@ -216,6 +276,33 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   }
 
   /**
+   * Delete all the visual classifiers.
+   */
+  @Test
+  @Ignore
+  public void testDeleteAllClassifiers() {
+    List<VisualClassifier> classifiers = service.getClassifiers().execute();
+    for (VisualClassifier classifier : classifiers) {
+      service.deleteClassifier(classifier.getId()).execute();
+    }
+  }
+
+  /**
+   * Test detect faces from bytes or stream.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void testDetectFacesFromBytes() throws IOException {
+    File images = new File(IMAGE_FACE_FILE);
+    byte[] fileBytes = Files.readAllBytes(Paths.get(images.getPath()));
+    VisualRecognitionOptions options = new VisualRecognitionOptions.Builder().images(fileBytes, "faces.zip").build();
+    DetectedFaces result = service.detectFaces(options).execute();
+    assertDetectedFaces(result, options);
+  }
+
+
+  /**
    * Test detect faces from file.
    *
    * @throws FileNotFoundException the file not found exception
@@ -240,7 +327,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertDetectedFaces(detectedFaces, options);
   }
 
-
   /**
    * Test get all the classifiers.
    */
@@ -257,6 +343,31 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNotNull(classifier.getStatus());
     assertNotNull(classifier.getClasses());
     assertNotNull(classifier.getCreated());
+  }
+
+  /**
+   * Test get collections text from url.
+   */
+  @Test
+  public void testGetCollections() {
+    Assert.assertNotNull(service.getCollections().execute());
+    Assert.assertTrue(!service.getCollections().execute().isEmpty());
+  }
+
+
+  /**
+   * Test recognize text from byte array.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   */
+  @Test
+  public void testRecognizeTextFromByteArray() throws IOException {
+    File images = new File(IMAGE_TEXT_FILE);
+    byte[] fileBytes = Files.readAllBytes(Paths.get(images.getPath()));
+
+    VisualRecognitionOptions options = new VisualRecognitionOptions.Builder().images(fileBytes, "open.png").build();
+    RecognizedText recognizedText = service.recognizeText(options).execute();
+    assertRecognizedText(recognizedText, options);
   }
 
   /**
@@ -282,74 +393,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
     RecognizedText recognizedText = service.recognizeText(options).execute();
     assertRecognizedText(recognizedText, options);
-  }
-
-
-  /**
-   * Test get collections text from url.
-   */
-  @Test
-  public void testGetCollections() {
-    Assert.assertNotNull(service.getCollections().execute());
-    Assert.assertTrue(!service.getCollections().execute().isEmpty());
-  }
-
-  /**
-   * Test that creates, add images and delete a collection.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testCollections() throws InterruptedException {
-    Collection collection = service.createCollection("it-java-sdk").execute();
-    try {
-      for (int x = 0; (x < 30) && (collection.getStatus() != Collection.Status.AVAILABLE); x++) {
-        Thread.sleep(5000);
-        collection = service.getCollection(collection.getId()).execute();
-      }
-      Assert.assertEquals(collection.getStatus(), Collection.Status.AVAILABLE);
-
-      AddImageToCollectionOptions options = new AddImageToCollectionOptions.Builder()
-          .collectionId(collection.getId())
-          .images(new File(SINGLE_IMAGE_FILE))
-          .metadata("key1", "value1")
-          .build();
-
-      Assert.assertEquals((int) collection.getImages(), 0);
-      service.addImageToCollection(options).execute();
-      collection = service.getCollection(collection.getId()).execute();
-      Assert.assertEquals((int) collection.getImages(), 1);
-      List<CollectionImage> images = service.getCollectionImages(collection.getId()).execute();
-      Assert.assertNotNull(images);
-      CollectionImage image = service.getCollectionImage(collection.getId(), images.get(0).getImageId()).execute();
-      Assert.assertNotNull(image);
-
-      File fileImage = new File(SINGLE_IMAGE_FILE);
-      FindSimilarImagesOptions findImageOptions = new FindSimilarImagesOptions.Builder()
-          .collectionId(collection.getId())
-          .image(fileImage)
-          .build();
-
-      List<CollectionImage> similarImages = service.findSimilarImages(findImageOptions).execute();
-      Assert.assertNotNull(similarImages);
-      Assert.assertTrue(!similarImages.isEmpty());
-
-
-    } finally {
-      service.deleteCollection(collection.getId()).execute();
-    }
-  }
-
-  /**
-   * Delete all the visual classifiers.
-   */
-  @Test
-  @Ignore
-  public void testDeleteAllClassifiers() {
-    List<VisualClassifier> classifiers = service.getClassifiers().execute();
-    for (VisualClassifier classifier : classifiers) {
-      service.deleteClassifier(classifier.getId()).execute();
-    }
   }
 
 }

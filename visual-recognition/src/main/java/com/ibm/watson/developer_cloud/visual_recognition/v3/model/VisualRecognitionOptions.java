@@ -15,7 +15,6 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 import java.io.File;
 
 import com.ibm.watson.developer_cloud.util.Validator;
-
 import okhttp3.HttpUrl;
 
 /**
@@ -29,12 +28,16 @@ public class VisualRecognitionOptions {
   public static class Builder {
     private File imagesFile;
     private HttpUrl url;
+    private byte[] imagesBinary;
+    private String imageName;
 
 
     private Builder(VisualRecognitionOptions options) {
       this();
       imagesFile = options.imagesFile;
       url = options.url;
+      imagesBinary = options.imagesBinary;
+      imageName = options.imageName;
     }
 
     /**
@@ -48,7 +51,8 @@ public class VisualRecognitionOptions {
      * @return the profile options
      */
     public VisualRecognitionOptions build() {
-      Validator.isTrue((url != null) || (imagesFile != null), "url or imagesFile should be specified");
+      Validator.isTrue((url != null) || (imagesFile != null) || (imagesBinary != null),
+          "url, imagesBinary or imagesFile should be specified");
       return new VisualRecognitionOptions(this);
     }
 
@@ -61,6 +65,20 @@ public class VisualRecognitionOptions {
     public Builder images(File imagesFile) {
       Validator.notNull(imagesFile, "'imagesFile' cannot be null");
       this.imagesFile = imagesFile;
+      return this;
+    }
+
+    /**
+     * Sets the images.
+     *
+     * @param imagesBinary the images bytes
+     * @param imageName the image name
+     * @return the builder
+     */
+    public Builder images(byte[] imagesBinary, String imageName) {
+      Validator.notNull(imagesBinary, "'imagesBinary' cannot be null");
+      this.imagesBinary = imagesBinary;
+      this.imageName = imageName;
       return this;
     }
 
@@ -90,10 +108,14 @@ public class VisualRecognitionOptions {
 
   private File imagesFile;
   private HttpUrl url;
+  private byte[] imagesBinary;
+  private String imageName;
 
   private VisualRecognitionOptions(Builder builder) {
     imagesFile = builder.imagesFile;
     url = builder.url;
+    imagesBinary = builder.imagesBinary;
+    imageName = builder.imageName;
   }
 
   /**
@@ -121,5 +143,23 @@ public class VisualRecognitionOptions {
    */
   public HttpUrl url() {
     return url;
+  }
+
+  /**
+   * Image name.
+   *
+   * @return the string
+   */
+  public String imageName() {
+    return imageName;
+  }
+
+  /**
+   * Returns the images binary.
+   *
+   * @return the images binary
+   */
+  public byte[] imagesBinary() {
+    return imagesBinary;
   }
 }

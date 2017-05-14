@@ -26,7 +26,9 @@ public class FindSimilarImagesOptions {
    */
   public static class Builder {
     private String collectionId;
+    private byte[] imageBinary;
     private File imageFile;
+    private String imageName;
     private Integer limit;
 
 
@@ -35,6 +37,8 @@ public class FindSimilarImagesOptions {
       imageFile = options.imageFile;
       collectionId = options.collectionId;
       limit = options.limit;
+      imageBinary = options.imageBinary;
+      imageName = options.imageName;
     }
 
     /**
@@ -48,7 +52,8 @@ public class FindSimilarImagesOptions {
      * @return the profile options
      */
     public FindSimilarImagesOptions build() {
-      Validator.isTrue((collectionId != null) || (imageFile != null), "collectionId or imageFile should be specified");
+      Validator.isTrue((collectionId != null) || (imageBinary != null) || (imageFile != null),
+          "collectionId, imageBinary or imageFile should be specified");
       return new FindSimilarImagesOptions(this);
     }
 
@@ -76,6 +81,21 @@ public class FindSimilarImagesOptions {
     }
 
     /**
+     * Sets the image.
+     *
+     * @param imageBinary the image bytes
+     * @param imageName the image name
+     * @return the builder
+     */
+    public Builder image(byte[] imageBinary, String imageName) {
+      Validator.notNull(imageBinary, "'imageBinary' cannot be null");
+      this.imageBinary = imageBinary;
+      this.imageName = imageName;
+
+      return this;
+    }
+
+    /**
      * Sets the limit.
      *
      * @param limit the limit
@@ -87,15 +107,19 @@ public class FindSimilarImagesOptions {
     }
 
   }
-  private String collectionId;
-  private File imageFile;
 
+  private String collectionId;
+  private byte[] imageBinary;
+  private File imageFile;
+  private String imageName;
   private Integer limit;
 
   private FindSimilarImagesOptions(Builder builder) {
     imageFile = builder.imageFile;
     collectionId = builder.collectionId;
     limit = builder.limit;
+    imageBinary = builder.imageBinary;
+    imageName = builder.imageName;
   }
 
   /**
@@ -114,6 +138,24 @@ public class FindSimilarImagesOptions {
    */
   public File image() {
     return imageFile;
+  }
+
+  /**
+   * Returns the image binary.
+   *
+   * @return the image binary
+   */
+  public byte[] imageBinary() {
+    return imageBinary;
+  }
+
+  /**
+   * Image name.
+   *
+   * @return the string
+   */
+  public String imageName() {
+    return imageName;
   }
 
   /**
