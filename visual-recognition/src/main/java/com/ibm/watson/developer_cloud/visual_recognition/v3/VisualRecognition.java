@@ -337,8 +337,15 @@ public class VisualRecognition extends WatsonService {
     if (options.url() != null) {
       bodyBuilder.addFormDataPart(PARAM_PARAMETERS, getParametersAsJson(options).toString());
     } else {
-      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.images());
-      bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.images().getName(), requestBody);
+      if (options.images() != null) {
+        RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.images());
+        bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.images().getName(), requestBody);
+      }
+
+      if (options.imagesBinary() != null) {
+        RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imagesBinary());
+        bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.imageName(), requestBody);
+      }
     }
 
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_DETECT_FACES);
@@ -391,8 +398,15 @@ public class VisualRecognition extends WatsonService {
     if (options.url() != null) {
       bodyBuilder.addFormDataPart(PARAM_PARAMETERS, getParametersAsJson(options).toString());
     } else {
-      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.images());
-      bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.images().getName(), requestBody);
+      if (options.images() != null) {
+        RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.images());
+        bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.images().getName(), requestBody);
+      }
+
+      if (options.imagesBinary() != null) {
+        RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imagesBinary());
+        bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.imageName(), requestBody);
+      }
     }
 
     RequestBuilder requestBuilder = RequestBuilder.post(PATH_RECOGNIZE_TEXT);
@@ -481,8 +495,15 @@ public class VisualRecognition extends WatsonService {
 
     Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-    RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.image());
-    bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.image().getName(), requestBody);
+    if (options.image() != null) {
+      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.image());
+      bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.image().getName(), requestBody);
+    }
+
+    if (options.imageBinary() != null) {
+      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imageBinary());
+      bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.imageName(), requestBody);
+    }
 
     if (options.metadata() != null && !options.metadata().isEmpty()) {
       String metadata = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(options.metadata());
@@ -542,8 +563,15 @@ public class VisualRecognition extends WatsonService {
 
     Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
 
-    RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.image());
-    bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.image().getName(), requestBody);
+    if (options.image() != null) {
+      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.image());
+      bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.image().getName(), requestBody);
+    }
+
+    if (options.imageBinary() != null) {
+      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imageBinary());
+      bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.imageName(), requestBody);
+    }
 
     RequestBuilder requestBuilder =
         RequestBuilder.post(String.format(PATH_FIND_SIMILAR_IMAGES, options.collectionId()));

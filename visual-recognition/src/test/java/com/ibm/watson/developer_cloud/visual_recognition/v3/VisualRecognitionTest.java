@@ -593,7 +593,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String collectionId = "collection1";
     AddImageToCollectionOptions options = new AddImageToCollectionOptions.Builder()
         .collectionId(collectionId)
-        .images(new File(SINGLE_IMAGE_FILE))
+        .image(new File(SINGLE_IMAGE_FILE))
         .metadata("key1", "value1")
         .build();
 
