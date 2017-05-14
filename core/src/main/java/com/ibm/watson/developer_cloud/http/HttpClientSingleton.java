@@ -152,24 +152,26 @@ public class HttpClientSingleton {
     }
   }
 
+  /**
+   * Creates an {@link OkHttpClient} instance with a new {@link WatsonCookieJar}.
+   *
+   * @return the client
+   */
+  public OkHttpClient createHttpClient() {
+    Builder builder = okHttpClient.newBuilder();
+    addCookieJar(builder);
+    return builder.build();
+  }
+
 
   /**
-   * Gets the client.
+   * Gets the {@link OkHttpClient} instance that shares a {@link WatsonCookieJar}. Use
+   * {@link HttpClientSingleton#createHttpClient()} for a new cookieJar.
    *
    * @return the client
    */
   public OkHttpClient getHttpClient() {
     return okHttpClient;
-  }
-
-  /**
-   * Clear the cookies.
-   */
-  public void clearCookies() {
-    // Create a new okHttpClient and set a new CookieJar so that override existing cookies
-    Builder builder = this.okHttpClient.newBuilder();
-    addCookieJar(builder);
-    this.okHttpClient = builder.build();
   }
 
 }
