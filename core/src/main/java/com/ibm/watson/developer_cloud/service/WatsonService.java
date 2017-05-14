@@ -48,6 +48,7 @@ import okhttp3.Callback;
 import okhttp3.Credentials;
 import okhttp3.Headers;
 import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Request.Builder;
 import okhttp3.Response;
@@ -69,6 +70,8 @@ public abstract class WatsonService {
   private String apiKey;
   private String endPoint;
   private final String name;
+
+  private OkHttpClient client;
 
   /** The default headers. */
   protected Headers defaultHeaders = null;
@@ -98,6 +101,8 @@ public abstract class WatsonService {
       // The VCAP_SERVICES will typically contain a url. If present use it.
       setEndPoint(url);
     }
+
+    client = HttpClientSingleton.getInstance().createHttpClient();
   }
 
   /**
@@ -119,7 +124,7 @@ public abstract class WatsonService {
     setAuthentication(builder);
 
     final Request newRequest = builder.build();
-    return HttpClientSingleton.getInstance().getHttpClient().newCall(newRequest);
+    return client.newCall(newRequest);
   }
 
   /**
