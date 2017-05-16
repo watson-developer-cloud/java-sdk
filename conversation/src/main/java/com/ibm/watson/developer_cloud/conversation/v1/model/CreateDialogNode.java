@@ -38,7 +38,8 @@ public class CreateDialogNode extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
      * Builds the CreateDialogNode.

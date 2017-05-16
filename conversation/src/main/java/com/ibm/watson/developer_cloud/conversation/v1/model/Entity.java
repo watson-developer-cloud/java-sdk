@@ -94,4 +94,3 @@ public class Entity extends GenericModel {
     this.value = value;
   }
 }
-

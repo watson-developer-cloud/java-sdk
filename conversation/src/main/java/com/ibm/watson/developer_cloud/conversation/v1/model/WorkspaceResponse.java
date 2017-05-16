@@ -25,12 +25,8 @@ public class WorkspaceResponse extends GenericModel {
 
   /** The name of the workspace. */
   private String name;
-  /** The description of the workspace. */
-  private String description;
   /** The language of the workspace. */
   private String language;
-  /** Any metadata that is required by the workspace. */
-  private Map<String, Object> metadata;
   /** The timestamp for creation of the workspace. */
   private Date created;
   /** The timestamp for the last update to the workspace. */
@@ -38,6 +34,10 @@ public class WorkspaceResponse extends GenericModel {
   /** The workspace ID. */
   @SerializedName("workspace_id")
   private String workspaceId;
+  /** The description of the workspace. */
+  private String description;
+  /** Any metadata that is required by the workspace. */
+  private Map<String, Object> metadata;
 
   /**
    * Gets the name.
@@ -49,30 +49,12 @@ public class WorkspaceResponse extends GenericModel {
   }
 
   /**
-   * Gets the description.
-   *
-   * @return the description
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
    * Gets the language.
    *
    * @return the language
    */
   public String getLanguage() {
     return language;
-  }
-
-  /**
-   * Gets the metadata.
-   *
-   * @return the metadata
-   */
-  public Map<String, Object> getMetadata() {
-    return metadata;
   }
 
   /**
@@ -103,6 +85,24 @@ public class WorkspaceResponse extends GenericModel {
   }
 
   /**
+   * Gets the description.
+   *
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * Gets the metadata.
+   *
+   * @return the metadata
+   */
+  public Map<String, Object> getMetadata() {
+    return metadata;
+  }
+
+  /**
    * Sets the name.
    *
    * @param name the new name
@@ -112,30 +112,12 @@ public class WorkspaceResponse extends GenericModel {
   }
 
   /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
    * Sets the language.
    *
    * @param language the new language
    */
   public void setLanguage(final String language) {
     this.language = language;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map<String, Object> metadata) {
-    this.metadata = metadata;
   }
 
   /**
@@ -163,5 +145,23 @@ public class WorkspaceResponse extends GenericModel {
    */
   public void setWorkspaceId(final String workspaceId) {
     this.workspaceId = workspaceId;
+  }
+
+  /**
+   * Sets the description.
+   *
+   * @param description the new description
+   */
+  public void setDescription(final String description) {
+    this.description = description;
+  }
+
+  /**
+   * Sets the metadata.
+   *
+   * @param metadata the new metadata
+   */
+  public void setMetadata(final Map<String, Object> metadata) {
+    this.metadata = metadata;
   }
 }
