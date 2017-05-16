@@ -34,7 +34,8 @@ public class PaginationResponseTypeAdapter extends TypeAdapter<PaginationRespons
   private static final String REFRESH_URL = "refresh_url";
   private static final String CURSOR = "cursor";
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
    * @see com.google.gson.TypeAdapter#write(com.google.gson.stream.JsonWriter, java.lang.Object)
    */
   @Override
@@ -48,7 +49,8 @@ public class PaginationResponseTypeAdapter extends TypeAdapter<PaginationRespons
     writer.flush();
   }
 
-  /* (non-Javadoc)
+  /*
+   * (non-Javadoc)
    * @see com.google.gson.TypeAdapter#read(com.google.gson.stream.JsonReader)
    */
   @Override

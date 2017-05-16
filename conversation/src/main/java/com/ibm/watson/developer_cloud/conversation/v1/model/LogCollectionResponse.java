@@ -17,22 +17,21 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * IntentCollectionResponse.
+ * LogCollectionResponse.
  */
-public class IntentCollectionResponse extends GenericModel {
+public class LogCollectionResponse extends GenericModel {
 
-  /** An array of intents. */
-  private List<IntentExportResponse> intents;
-  /** An object defining the pagination data for the returned objects. */
+  /** An array of log events. */
+  private List<LogExportResponse> logs;
   private PaginationResponse pagination;
 
   /**
-   * Gets the intents.
+   * Gets the logs.
    *
-   * @return the intents
+   * @return the logs
    */
-  public List<IntentExportResponse> getIntents() {
-    return intents;
+  public List<LogExportResponse> getLogs() {
+    return logs;
   }
 
   /**
@@ -45,12 +44,12 @@ public class IntentCollectionResponse extends GenericModel {
   }
 
   /**
-   * Sets the intents.
+   * Sets the logs.
    *
-   * @param intents the new intents
+   * @param logs the new logs
    */
-  public void setIntents(final List<IntentExportResponse> intents) {
-    this.intents = intents;
+  public void setLogs(final List<LogExportResponse> logs) {
+    this.logs = logs;
   }
 
   /**

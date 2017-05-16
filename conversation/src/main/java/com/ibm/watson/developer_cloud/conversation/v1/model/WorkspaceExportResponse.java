@@ -24,26 +24,30 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class WorkspaceExportResponse extends GenericModel {
 
-
   /**
-   * Classifier Status.
+   * The current status of the workspace.
    */
   public enum Status {
 
     /** The available. */
-    @SerializedName("Available") AVAILABLE,
+    @SerializedName("Available")
+    AVAILABLE,
 
     /** The failed. */
-    @SerializedName("Failed") FAILED,
+    @SerializedName("Failed")
+    FAILED,
 
     /** The non existent. */
-    @SerializedName("Non Existent") NON_EXISTENT,
+    @SerializedName("Non Existent")
+    NON_EXISTENT,
 
     /** The training. */
-    @SerializedName("Training") TRAINING,
+    @SerializedName("Training")
+    TRAINING,
 
     /** The unavailable. */
-    @SerializedName("Unavailable") UNAVAILABLE
+    @SerializedName("Unavailable")
+    UNAVAILABLE
   }
 
   /** The name of the workspace. */
@@ -61,7 +65,7 @@ public class WorkspaceExportResponse extends GenericModel {
   /** The workspace ID. */
   @SerializedName("workspace_id")
   private String workspaceId;
-  /** The current status of the workspace (`Non Existent`, `Training`, `Failed`, `Available`, or `Unavailable`). */
+  /** The current status of the workspace. */
   private Status status;
   /** An array of intents. */
   private List<IntentExportResponse> intents;
@@ -69,6 +73,9 @@ public class WorkspaceExportResponse extends GenericModel {
   private List<EntityExportResponse> entities;
   /** An array of counterexamples. */
   private List<ExampleResponse> counterexamples;
+  /** An array of objects describing the dialog nodes in the workspace. */
+  @SerializedName("dialog_nodes")
+  private List<DialogNodeResponse> dialogNodes;
 
   /**
    * Gets the name.
@@ -170,6 +177,15 @@ public class WorkspaceExportResponse extends GenericModel {
   }
 
   /**
+   * Gets the dialogNodes.
+   *
+   * @return the dialogNodes
+   */
+  public List<DialogNodeResponse> getDialogNodes() {
+    return dialogNodes;
+  }
+
+  /**
    * Sets the name.
    *
    * @param name the new name
@@ -266,5 +282,14 @@ public class WorkspaceExportResponse extends GenericModel {
    */
   public void setCounterexamples(final List<ExampleResponse> counterexamples) {
     this.counterexamples = counterexamples;
+  }
+
+  /**
+   * Sets the dialogNodes.
+   *
+   * @param dialogNodes the new dialogNodes
+   */
+  public void setDialogNodes(final List<DialogNodeResponse> dialogNodes) {
+    this.dialogNodes = dialogNodes;
   }
 }

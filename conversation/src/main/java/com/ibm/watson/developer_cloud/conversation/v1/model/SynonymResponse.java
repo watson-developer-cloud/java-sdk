@@ -13,33 +13,28 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.Date;
-import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * IntentExportResponse.
+ * SynonymResponse.
  */
-public class IntentExportResponse extends GenericModel {
+public class SynonymResponse extends GenericModel {
 
-  /** The name of the intent. */
-  private String intent;
-  /** The timestamp for creation of the intent. */
+  /** The text of the synonym. */
+  private String synonym;
+  /** The timestamp for creation of the synonym. */
   private Date created;
-  /** The timestamp for the last update to the intent. */
+  /** The timestamp for the most recent update to the synonym. */
   private Date updated;
-  /** The description of the intent. */
-  private String description;
-  /** An array of user input examples. */
-  private List<ExampleResponse> examples;
 
   /**
-   * Gets the intent.
+   * Gets the synonym.
    *
-   * @return the intent
+   * @return the synonym
    */
-  public String getIntent() {
-    return intent;
+  public String getSynonym() {
+    return synonym;
   }
 
   /**
@@ -61,30 +56,12 @@ public class IntentExportResponse extends GenericModel {
   }
 
   /**
-   * Gets the description.
+   * Sets the synonym.
    *
-   * @return the description
+   * @param synonym the new synonym
    */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * Gets the examples.
-   *
-   * @return the examples
-   */
-  public List<ExampleResponse> getExamples() {
-    return examples;
-  }
-
-  /**
-   * Sets the intent.
-   *
-   * @param intent the new intent
-   */
-  public void setIntent(final String intent) {
-    this.intent = intent;
+  public void setSynonym(final String synonym) {
+    this.synonym = synonym;
   }
 
   /**
@@ -103,23 +80,5 @@ public class IntentExportResponse extends GenericModel {
    */
   public void setUpdated(final Date updated) {
     this.updated = updated;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the examples.
-   *
-   * @param examples the new examples
-   */
-  public void setExamples(final List<ExampleResponse> examples) {
-    this.examples = examples;
   }
 }
