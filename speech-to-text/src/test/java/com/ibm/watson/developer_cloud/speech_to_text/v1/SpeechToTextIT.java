@@ -22,6 +22,7 @@ import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import org.junit.Assume;
 import org.junit.Before;
@@ -65,6 +66,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private static final String SAMPLE_WAV = String.format(SPEECH_RESOURCE, "sample1.wav");
   private static final String TWO_SPEAKERS_WAV = String.format(SPEECH_RESOURCE, "twospeakers.wav");
   private static final String SAMPLE_WAV_WITH_PAUSE = String.format(SPEECH_RESOURCE, "sound-with-pause.wav");
+  private static final Logger LOG = Logger.getLogger(SpeechToTextIT.class.getName());
 
   private CountDownLatch lock = new CountDownLatch(1);
   private SpeechToText service;
@@ -294,12 +296,17 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
       @Override
       public void onConnected() {
-        System.out.println("onConnected()");
+        LOG.info("onConnected()");
       }
 
       @Override
       public void onDisconnected() {
-        System.out.println("onDisconnected()");
+        LOG.info("onDisconnected()");
+      }
+
+      @Override
+      public void onTranscriptionComplete() {
+        LOG.info("onTranscriptionComplete()");
         lock.countDown();
       }
 

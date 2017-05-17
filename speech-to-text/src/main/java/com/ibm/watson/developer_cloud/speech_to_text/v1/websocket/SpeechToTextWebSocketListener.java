@@ -134,6 +134,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
       if (!isListening) {
         isListening = true;
       } else {
+        callback.onTranscriptionComplete();
         socket.close(CLOSE_NORMAL, "Transcription completed");
         return;
       }
