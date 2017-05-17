@@ -541,6 +541,10 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     updateBuilder.inputStream(documentStream, HttpMediaType.APPLICATION_JSON);
     UpdateDocumentResponse updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
+    WaitFor.Condition documentAccepted =
+        new DocumentAccepted(environmentId, collectionId, createDocumentResponse.getDocumentId());
+    WaitFor.waitFor(documentAccepted, 5, TimeUnit.SECONDS, 500);
+
     GetDocumentRequest getRequest =
         new GetDocumentRequest.Builder(environmentId, collectionId, updateResponse.getDocumentId()).build();
     GetDocumentResponse getResponse = discovery.getDocument(getRequest).execute();
