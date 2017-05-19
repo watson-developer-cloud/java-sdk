@@ -18,8 +18,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -31,6 +29,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.CounterexampleCollec
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateEntity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValue;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspace;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollectionResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleResponse;
@@ -42,6 +41,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceCollectionR
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceResponse;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,11 +59,9 @@ import com.ibm.watson.developer_cloud.util.RetryRunner;
 @RunWith(RetryRunner.class)
 public class ConversationServiceIT extends WatsonServiceTest {
 
-  private ConversationService service;
-  private String workspaceId;
+  protected ConversationService service;
+  protected String workspaceId;
   private String exampleIntent;
-
-  DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
   /*
    * (non-Javadoc)
@@ -81,10 +79,17 @@ public class ConversationServiceIT extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (username == null) || username.equals(PLACEHOLDER));
 
-    service = new ConversationService(ConversationService.VERSION_DATE_2017_02_03);
+    service = new ConversationService(ConversationService.VERSION_DATE_2017_04_21);
     service.setEndPoint(getProperty("conversation.v1.url"));
     service.setUsernameAndPassword(username, password);
     service.setDefaultHeaders(getDefaultHeaders());
+  }
+
+  @Test(expected = UnauthorizedException.class)
+  public void pingBadCredentialsThrowsException() {
+    ConversationService badService =
+        new ConversationService(ConversationService.VERSION_DATE_2017_04_21, "foo", "bar");
+    badService.message(workspaceId, null).execute();
   }
 
   /**
@@ -130,15 +135,15 @@ public class ConversationServiceIT extends WatsonServiceTest {
     assertNotNull(message.getIntents());
   }
 
-  private long tolerance = 2000;  // 2 secs in ms
+  protected long tolerance = 2000;  // 2 secs in ms
 
   /** return `true` if ldate before rdate within tolerance. */
-  private boolean fuzzyBefore(Date ldate, Date rdate) {
+  protected boolean fuzzyBefore(Date ldate, Date rdate) {
     return (ldate.getTime() - rdate.getTime()) < tolerance;
   }
 
   /** return `true` if ldate after rdate within tolerance. */
-  private boolean fuzzyAfter(Date ldate, Date rdate) {
+  protected boolean fuzzyAfter(Date ldate, Date rdate) {
     return (rdate.getTime() - ldate.getTime()) < tolerance;
   }
 
@@ -795,22 +800,21 @@ public class ConversationServiceIT extends WatsonServiceTest {
 
     // entities
     List<CreateEntity> workspaceEntities = new ArrayList<CreateEntity>();
-//    String entityName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
-//    String entityDescription = "Description of " + entityName;
-//    String entitySource = "Source for " + entityName;
-//    String entityValue = "Value of " + entityName;
-//    String entityValueSynonym = "Synonym for Value of " + entityName;
-//    List<CreateValue> entityValues = new ArrayList<CreateValue>();
-//    entityValues.add(new CreateValue.Builder()
-//        .value(entityValue)
-//        .synonyms(entityValueSynonym)
-//        .build());
-//    workspaceEntities.add(new CreateEntity.Builder()
-//        .entity(entityName)
-//        .description(entityDescription)
-//        .source(entitySource)
-//        .values(entityValues)
-//        .build());
+    String entityName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
+    String entityDescription = "Description of " + entityName;
+    String entitySource = "Source for " + entityName;
+    String entityValue = "Value of " + entityName;
+    String entityValueSynonym = "Synonym for Value of " + entityName;
+    List<CreateValue> entityValues = new ArrayList<CreateValue>();
+    entityValues.add(new CreateValue.Builder()
+        .value(entityValue)
+        .synonyms(entityValueSynonym)
+        .build());
+    workspaceEntities.add(new CreateEntity.Builder()
+        .entity(entityName)
+        .description(entityDescription)
+        .values(entityValues)
+        .build());
 
     // counterexamples
     List<CreateExample> workspaceCounterExamples = new ArrayList<CreateExample>();
@@ -875,20 +879,18 @@ public class ConversationServiceIT extends WatsonServiceTest {
 
       // entities
       assertNotNull(exResponse.getEntities());
-//      assertTrue(exResponse.getEntities().size() == 1);
-//      assertNotNull(exResponse.getEntities().get(0).getEntity());
-//      assertEquals(exResponse.getEntities().get(0).getEntity(), entityName);
-//      assertNotNull(exResponse.getEntities().get(0).getDescription());
-//      assertEquals(exResponse.getEntities().get(0).getDescription(), entityDescription);
-//      assertNotNull(exResponse.getEntities().get(0).getSource());
-//      assertEquals(exResponse.getEntities().get(0).getSource(),entitySource);
-//      assertNotNull(exResponse.getEntities().get(0).getValues());
-//      assertTrue(exResponse.getEntities().get(0).getValues().size() == 1);
-//      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).getValue());
-//      assertEquals(exResponse.getEntities().get(0).getValues().get(0).getValue(),entityValue);
-//      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).getSynonyms());
-//      assertTrue(exResponse.getEntities().get(0).getValues().get(0).getSynonyms().size() == 1);
-//      assertEquals(exResponse.getEntities().get(0).getValues().get(0).getSynonyms().get(0),entityValueSynonym);
+      assertTrue(exResponse.getEntities().size() == 1);
+      assertNotNull(exResponse.getEntities().get(0).getEntity());
+      assertEquals(exResponse.getEntities().get(0).getEntity(), entityName);
+      assertNotNull(exResponse.getEntities().get(0).getDescription());
+      assertEquals(exResponse.getEntities().get(0).getDescription(), entityDescription);
+      assertNotNull(exResponse.getEntities().get(0).getValues());
+      assertTrue(exResponse.getEntities().get(0).getValues().size() == 1);
+      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).getValue());
+      assertEquals(exResponse.getEntities().get(0).getValues().get(0).getValue(), entityValue);
+      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).getSynonyms());
+      assertTrue(exResponse.getEntities().get(0).getValues().get(0).getSynonyms().size() == 1);
+      assertEquals(exResponse.getEntities().get(0).getValues().get(0).getSynonyms().get(0), entityValueSynonym);
 
       // counterexamples
       assertNotNull(exResponse.getCounterexamples());
