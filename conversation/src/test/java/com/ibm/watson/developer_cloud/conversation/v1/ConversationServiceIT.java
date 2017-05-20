@@ -15,9 +15,12 @@ package com.ibm.watson.developer_cloud.conversation.v1;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -36,6 +39,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.IntentCollectionResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.IntentExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.IntentResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListLogsOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.LogCollectionResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.LogExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspace;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceCollectionResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExportResponse;
@@ -62,6 +68,8 @@ public class ConversationServiceIT extends WatsonServiceTest {
   protected ConversationService service;
   protected String workspaceId;
   private String exampleIntent;
+
+  DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
 
   /*
    * (non-Javadoc)
@@ -302,6 +310,52 @@ public class ConversationServiceIT extends WatsonServiceTest {
   }
 
   /**
+   * Test listCounterexamples with paging.
+   */
+  @Test
+  public void testListCounterexamplesWithPaging() {
+
+    String counterExampleText1 = "alpha" + UUID.randomUUID().toString();  // gotta be unique
+    String counterExampleText2 = "zeta" + UUID.randomUUID().toString();  // gotta be unique
+
+    // Add two counterexamples
+    service.createCounterexample(workspaceId, counterExampleText1).execute();
+    service.createCounterexample(workspaceId, counterExampleText2).execute();
+
+    try {
+      CounterexampleCollectionResponse response =
+          service.listCounterexamples(workspaceId, 1L, null, "text", null).execute();
+      assertNotNull(response);
+      assertNotNull(response.getPagination());
+      assertNotNull(response.getPagination().getRefreshUrl());
+      assertNotNull(response.getPagination().getNextUrl());
+      assertNotNull(response.getPagination().getCursor());
+
+      boolean found1 = false, found2 = false;
+      while (true) {
+        assertNotNull(response.getCounterexamples());
+        assertTrue(response.getCounterexamples().size() == 1);
+        found1 |= response.getCounterexamples().get(0).getText().equals(counterExampleText1);
+        found2 |= response.getCounterexamples().get(0).getText().equals(counterExampleText2);
+        assertTrue(found1 || !found2);  // verify sort
+        if (response.getPagination().getCursor() == null) {
+          break;
+        }
+        String cursor = response.getPagination().getCursor();
+        response = service.listCounterexamples(workspaceId, 1L, null, "text", cursor).execute();
+      }
+
+      assertTrue(found1 && found2);
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      service.deleteCounterexample(workspaceId, counterExampleText1).execute();
+      service.deleteCounterexample(workspaceId, counterExampleText2).execute();
+    }
+  }
+
+  /**
    * Test updateCounterexample.
    */
   @Test
@@ -492,6 +546,54 @@ public class ConversationServiceIT extends WatsonServiceTest {
   }
 
   /**
+   * Test listExamples with paging.
+   */
+  @Test
+  public void testListExamplesWithPaging() {
+
+    createExampleIntent();
+
+    String exampleText1 = "Alpha " + UUID.randomUUID().toString();  // gotta be unique
+    String exampleText2 = "Zeta " + UUID.randomUUID().toString();  // gotta be unique
+    service.createExample(workspaceId, exampleIntent, exampleText1).execute();
+    service.createExample(workspaceId, exampleIntent, exampleText2).execute();
+
+    try {
+      ExampleCollectionResponse response =
+          service.listExamples(workspaceId, exampleIntent, 1L, null, "-text", null).execute();
+      assertNotNull(response);
+      assertNotNull(response.getExamples());
+      assertNotNull(response.getPagination());
+      assertNotNull(response.getPagination().getRefreshUrl());
+      assertNotNull(response.getPagination().getNextUrl());
+      assertNotNull(response.getPagination().getCursor());
+
+      boolean found1 = false, found2 = false;
+      while (true) {
+        assertNotNull(response.getExamples());
+        assertTrue(response.getExamples().size() == 1);
+        found1 |= response.getExamples().get(0).getText().equals(exampleText1);
+        found2 |= response.getExamples().get(0).getText().equals(exampleText2);
+        assertTrue(found2 || !found1);  // verify sort
+        if (response.getPagination().getCursor() == null) {
+          break;
+        }
+        String cursor = response.getPagination().getCursor();
+        response = service.listExamples(workspaceId, exampleIntent, 1L, null, "-text", cursor).execute();
+      }
+      assertTrue(found1 && found2);
+
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      service.deleteExample(workspaceId, exampleIntent, exampleText1).execute();
+      service.deleteExample(workspaceId, exampleIntent, exampleText2).execute();
+    }
+
+  }
+
+  /**
    * Test updateExample.
    */
   @Test
@@ -585,14 +687,13 @@ public class ConversationServiceIT extends WatsonServiceTest {
   public void testDeleteIntent() {
 
     String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
-    String intentDescription = "Description of " + intentName;
 
-    service.createIntent(workspaceId, intentName, intentDescription, null).execute();
+    service.createIntent(workspaceId, intentName, null, null).execute();
 
     service.deleteIntent(workspaceId, intentName).execute();
 
     try {
-      service.getIntent(workspaceId, intentName, false).execute();
+      service.getIntent(workspaceId, intentName, null).execute();
       fail("deleteIntent failed");
     } catch (Exception ex) {
       // Expected result
@@ -658,7 +759,7 @@ public class ConversationServiceIT extends WatsonServiceTest {
     String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
 
     try {
-      IntentCollectionResponse response = service.listIntents(workspaceId, false, null, null, null, null).execute();
+      IntentCollectionResponse response = service.listIntents(workspaceId, null, null, null, null, null).execute();
       assertNotNull(response);
       assertNotNull(response.getIntents());
       assertNotNull(response.getPagination());
@@ -710,6 +811,54 @@ public class ConversationServiceIT extends WatsonServiceTest {
     } finally {
       // Clean up
       service.deleteIntent(workspaceId, intentName).execute();
+    }
+  }
+
+  /**
+   * Test listIntents with paging.
+   */
+  @Test
+  public void testListIntentsWithPaging() {
+
+    String intentName1 = "First" + UUID.randomUUID().toString();  // gotta be unique
+    String intentName2 = "Second" + UUID.randomUUID().toString();  // gotta be unique
+
+    service.createIntent(workspaceId, intentName1, null, null).execute();
+    service.createIntent(workspaceId, intentName2, null, null).execute();
+
+    try {
+      IntentCollectionResponse response =
+          service.listIntents(workspaceId, true, 1L, null, "modified", null).execute();
+      assertNotNull(response);
+      assertNotNull(response.getIntents());
+      assertNotNull(response.getPagination());
+      assertNotNull(response.getPagination().getRefreshUrl());
+      assertNotNull(response.getPagination().getNextUrl());
+      assertNotNull(response.getPagination().getCursor());
+
+      boolean found1 = false, found2 = false;
+      while (true) {
+        assertNotNull(response.getIntents());
+        assertTrue(response.getIntents().size() == 1);
+        found1 |= response.getIntents().get(0).getIntent().equals(intentName1);
+        found2 |= response.getIntents().get(0).getIntent().equals(intentName2);
+        assertTrue(found1 || !found2);  // verify sort
+        if (response.getPagination().getCursor() == null) {
+          break;
+        }
+        String cursor = response.getPagination().getCursor();
+        response = service.listIntents(workspaceId, true, 1L, null, "modified", cursor).execute();
+
+      }
+      assertTrue(found1 && found2);
+
+
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      service.deleteIntent(workspaceId, intentName1).execute();
+      service.deleteIntent(workspaceId, intentName2).execute();
     }
   }
 
@@ -1004,6 +1153,36 @@ public class ConversationServiceIT extends WatsonServiceTest {
   }
 
   /**
+   * Test listWorkspaces with paging.
+   */
+  @Test
+  public void testListWorkspacesWithPaging() {
+
+    WorkspaceCollectionResponse response =
+        service.listWorkspaces(1L, null, "-modified", null).execute();
+
+    assertNotNull(response);
+    assertNotNull(response.getPagination());
+    assertNotNull(response.getPagination().getRefreshUrl());
+    assertNotNull(response.getPagination().getNextUrl());
+    assertNotNull(response.getPagination().getCursor());
+
+    boolean found = false;
+    while (true) {
+      assertNotNull(response.getWorkspaces());
+      assertTrue(response.getWorkspaces().size() == 1);
+      found |= response.getWorkspaces().get(0).getWorkspaceId().equals(workspaceId);
+      if (response.getPagination().getCursor() == null) {
+        break;
+      }
+      String cursor = response.getPagination().getCursor();
+      response = service.listWorkspaces(1L, null, "-modified", cursor).execute();
+    }
+
+    assertTrue(found);
+  }
+
+  /**
    * Test updateWorkspace.
    */
   @Test
@@ -1037,6 +1216,75 @@ public class ConversationServiceIT extends WatsonServiceTest {
     } finally {
       // Clean up
       service.deleteCounterexample(workspaceId, counterExampleText).execute();
+    }
+  }
+
+  /**
+   * Test listLogs.
+   */
+  @Test
+  public void testListLogs() {
+
+    try {
+      ListLogsOptions listOptions = new ListLogsOptions.Builder()
+          .workspaceId(workspaceId)
+          .build();
+      LogCollectionResponse response = service.listLogs(listOptions).execute();
+      assertNotNull(response);
+      assertNotNull(response.getLogs());
+      assertNotNull(response.getPagination());
+      // Empirically -- no refresh_url in pagination of listLogs
+      // assertNotNull(response.getPagination().getRefreshUrl());
+      // nextUrl may be null
+      if (response.getPagination().getNextUrl() == null) {
+        assertNull(response.getPagination().getCursor());
+      } else {
+        assertNotNull(response.getPagination().getCursor());
+      }
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    }
+  }
+
+  /**
+   * Test listLogs with pagination.
+   */
+  @Test
+  public void testListLogsWithPaging() {
+
+    try {
+      ListLogsOptions.Builder listOptionsBuilder = new ListLogsOptions.Builder(workspaceId);
+      listOptionsBuilder.sort("-request_timestamp");
+      listOptionsBuilder.filter("request.input.text:wipers");
+      listOptionsBuilder.pageLimit(1L);
+
+      LogCollectionResponse response = service.listLogs(listOptionsBuilder.build()).execute();
+      assertNotNull(response);
+      assertNotNull(response.getLogs());
+      assertNotNull(response.getPagination());
+      // Empirically -- no refresh_url in pagination of listLogs
+      // assertNotNull(response.getPagination().getRefreshUrl());
+      assertNotNull(response.getPagination().getNextUrl());
+      assertNotNull(response.getPagination().getCursor());
+
+      assertTrue(response.getLogs().size() == 1);
+      LogExportResponse logEntry1 = response.getLogs().get(0);
+
+      String cursor = response.getPagination().getCursor();
+      response = service.listLogs(listOptionsBuilder.cursor(cursor).build()).execute();
+
+      assertNotNull(response.getLogs());
+      assertTrue(response.getLogs().size() == 1);
+
+      LogExportResponse logEntry2 = response.getLogs().get(0);
+
+      Date requestDate1 = isoDateFormat.parse(logEntry1.getRequestTimestamp());
+      Date requestDate2 = isoDateFormat.parse(logEntry2.getRequestTimestamp());
+
+      assertTrue(requestDate2.before(requestDate1));
+
+    } catch (Exception ex) {
+      fail(ex.getMessage());
     }
   }
 }
