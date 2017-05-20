@@ -322,6 +322,7 @@ public class ValuesIT extends ConversationServiceIT {
           = new ListValuesOptions.Builder(workspaceId, entity);
       listOptionsBuilder.sort("modified");
       listOptionsBuilder.pageLimit(1L);
+      listOptionsBuilder.export(true);
 
       ValueCollectionResponse response =
           service.listValues(listOptionsBuilder.build()).execute();

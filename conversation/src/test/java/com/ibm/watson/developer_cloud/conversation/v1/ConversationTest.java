@@ -54,10 +54,50 @@ public class ConversationTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new ConversationService(ConversationService.VERSION_DATE_2017_02_03);
+    service = new ConversationService(ConversationService.VERSION_DATE_2017_04_21);
     service.setApiKey(EMPTY);
     service.setEndPoint(getMockWebServerUrl());
 
+  }
+
+  /**
+   * Test conversation with null versionDate.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testConversationWithNullVersionDate() {
+    ConversationService badService = new ConversationService(null);
+    badService.setApiKey(EMPTY);
+    badService.message(WORKSPACE_ID, null).execute();
+  }
+
+  /**
+   * Test conversation with empty versionDate.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testConversationWithEmptyVersionDate() {
+    ConversationService badService = new ConversationService("");
+    badService.setApiKey(EMPTY);
+    badService.message(WORKSPACE_ID, null).execute();
+  }
+
+  /**
+   * Test conversation with null workspaceId.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testConversationWithNullWorkspaceId() {
+    ConversationService badService = new ConversationService(ConversationService.VERSION_DATE_2017_04_21);
+    badService.setApiKey(EMPTY);
+    badService.message(null, null).execute();
+  }
+
+  /**
+   * Test conversation with empty workspaceId.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testConversationWithEmptyWorkspaceId() {
+    ConversationService badService = new ConversationService(ConversationService.VERSION_DATE_2017_04_21);
+    badService.setApiKey(EMPTY);
+    badService.message("", null).execute();
   }
 
   /**
@@ -82,7 +122,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_04_21);
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[] { "Do you want to get a quote?" }, serviceResponse.getText().toArray(new String[0]));
     assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
@@ -119,7 +159,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_02_03);
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_04_21);
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[] { "Do you want to get a quote?" }, serviceResponse.getText().toArray(new String[0]));
     assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
