@@ -22,7 +22,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.ValueCollectionRespo
 import com.ibm.watson.developer_cloud.conversation.v1.model.ValueExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ValueResponse;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +39,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class ValuesIT extends ConversationServiceIT {
+@RunWith(RetryRunner.class)
+public class ValuesIT extends ConversationServiceTest {
 
   /**
    * Test createValue.
