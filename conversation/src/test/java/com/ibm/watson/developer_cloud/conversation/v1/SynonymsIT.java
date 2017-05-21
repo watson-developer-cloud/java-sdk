@@ -22,7 +22,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.SynonymCollectionRes
 import com.ibm.watson.developer_cloud.conversation.v1.model.SynonymResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateSynonymOptions;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.Date;
 
@@ -32,7 +34,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class SynonymsIT extends ConversationServiceIT {
+@RunWith(RetryRunner.class)
+public class SynonymsIT extends ConversationServiceTest {
 
   /**
    * Test createSynonym.

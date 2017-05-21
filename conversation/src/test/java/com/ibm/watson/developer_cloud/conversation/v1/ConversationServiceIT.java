@@ -39,59 +39,32 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.IntentCollectionResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.IntentExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.IntentResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListLogsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.LogCollectionResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.LogExportResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspace;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceCollectionResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExportResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceResponse;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
-import org.junit.Assume;
-import org.junit.Before;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 /**
  * Integration test for the {@link ConversationService}.
  */
 @RunWith(RetryRunner.class)
-public class ConversationServiceIT extends WatsonServiceTest {
+public class ConversationServiceIT extends ConversationServiceTest {
 
-  protected ConversationService service;
-  protected String workspaceId;
   private String exampleIntent;
 
   DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-
-  /*
-   * (non-Javadoc)
-   *
-   * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
-   */
-  @Override
-  @Before
-  public void setUp() throws Exception {
-    super.setUp();
-    String username = getProperty("conversation.v1.username");
-    String password = getProperty("conversation.v1.password");
-    workspaceId = getProperty("conversation.v1.workspace_id");
-
-    Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
-
-    service = new ConversationService(ConversationService.VERSION_DATE_2017_04_21);
-    service.setEndPoint(getProperty("conversation.v1.url"));
-    service.setUsernameAndPassword(username, password);
-    service.setDefaultHeaders(getDefaultHeaders());
-  }
 
   @Test(expected = UnauthorizedException.class)
   public void pingBadCredentialsThrowsException() {
@@ -141,18 +114,6 @@ public class ConversationServiceIT extends WatsonServiceTest {
     assertNotNull(message);
     assertNotNull(message.getEntities());
     assertNotNull(message.getIntents());
-  }
-
-  protected long tolerance = 2000;  // 2 secs in ms
-
-  /** return `true` if ldate before rdate within tolerance. */
-  protected boolean fuzzyBefore(Date ldate, Date rdate) {
-    return (ldate.getTime() - rdate.getTime()) < tolerance;
-  }
-
-  /** return `true` if ldate after rdate within tolerance. */
-  protected boolean fuzzyAfter(Date ldate, Date rdate) {
-    return (rdate.getTime() - ldate.getTime()) < tolerance;
   }
 
   /**

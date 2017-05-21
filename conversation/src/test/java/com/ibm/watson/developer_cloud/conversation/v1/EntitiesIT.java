@@ -23,7 +23,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.ListEntitiesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ValueExportResponse;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,7 +40,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class EntitiesIT extends ConversationServiceIT {
+@RunWith(RetryRunner.class)
+public class EntitiesIT extends ConversationServiceTest {
 
   /**
    * Test createEntity.
