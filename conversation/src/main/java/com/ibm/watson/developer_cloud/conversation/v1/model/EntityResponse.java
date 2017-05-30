@@ -13,7 +13,9 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.Date;
+import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -23,12 +25,17 @@ public class EntityResponse extends GenericModel {
 
   /** The name of the entity. */
   private String entity;
-  /** The description of the entity. */
-  private String description;
   /** The timestamp for creation of the entity. */
   private Date created;
   /** The timestamp for the last update to the entity. */
   private Date updated;
+  /** The description of the entity. */
+  private String description;
+  /** Any metadata related to the entity. */
+  private Map<String, Object> metadata;
+  /** Whether fuzzy matching is used for the entity. */
+  @SerializedName("fuzzy_match")
+  private Boolean fuzzyMatch;
 
   /**
    * Gets the entity.
@@ -37,15 +44,6 @@ public class EntityResponse extends GenericModel {
    */
   public String getEntity() {
     return entity;
-  }
-
-  /**
-   * Gets the description.
-   *
-   * @return the description
-   */
-  public String getDescription() {
-    return description;
   }
 
   /**
@@ -67,21 +65,39 @@ public class EntityResponse extends GenericModel {
   }
 
   /**
+   * Gets the description.
+   *
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * Gets the metadata.
+   *
+   * @return the metadata
+   */
+  public Map<String, Object> getMetadata() {
+    return metadata;
+  }
+
+  /**
+   * Gets the fuzzyMatch.
+   *
+   * @return the fuzzyMatch
+   */
+  public Boolean isFuzzyMatch() {
+    return fuzzyMatch;
+  }
+
+  /**
    * Sets the entity.
    *
    * @param entity the new entity
    */
   public void setEntity(final String entity) {
     this.entity = entity;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
   }
 
   /**
@@ -100,5 +116,32 @@ public class EntityResponse extends GenericModel {
    */
   public void setUpdated(final Date updated) {
     this.updated = updated;
+  }
+
+  /**
+   * Sets the description.
+   *
+   * @param description the new description
+   */
+  public void setDescription(final String description) {
+    this.description = description;
+  }
+
+  /**
+   * Sets the metadata.
+   *
+   * @param metadata the new metadata
+   */
+  public void setMetadata(final Map<String, Object> metadata) {
+    this.metadata = metadata;
+  }
+
+  /**
+   * Sets the fuzzyMatch.
+   *
+   * @param fuzzyMatch the new fuzzyMatch
+   */
+  public void setFuzzyMatch(final Boolean fuzzyMatch) {
+    this.fuzzyMatch = fuzzyMatch;
   }
 }

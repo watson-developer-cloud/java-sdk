@@ -23,12 +23,12 @@ public class IntentResponse extends GenericModel {
 
   /** The name of the intent. */
   private String intent;
-  /** The description of the intent. */
-  private String description;
   /** The timestamp for creation of the intent. */
   private Date created;
   /** The timestamp for the last update to the intent. */
   private Date updated;
+  /** The description of the intent. */
+  private String description;
 
   /**
    * Gets the intent.
@@ -37,15 +37,6 @@ public class IntentResponse extends GenericModel {
    */
   public String getIntent() {
     return intent;
-  }
-
-  /**
-   * Gets the description.
-   *
-   * @return the description
-   */
-  public String getDescription() {
-    return description;
   }
 
   /**
@@ -67,21 +58,21 @@ public class IntentResponse extends GenericModel {
   }
 
   /**
+   * Gets the description.
+   *
+   * @return the description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
    * Sets the intent.
    *
    * @param intent the new intent
    */
   public void setIntent(final String intent) {
     this.intent = intent;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
   }
 
   /**
@@ -100,5 +91,14 @@ public class IntentResponse extends GenericModel {
    */
   public void setUpdated(final Date updated) {
     this.updated = updated;
+  }
+
+  /**
+   * Sets the description.
+   *
+   * @param description the new description
+   */
+  public void setDescription(final String description) {
+    this.description = description;
   }
 }

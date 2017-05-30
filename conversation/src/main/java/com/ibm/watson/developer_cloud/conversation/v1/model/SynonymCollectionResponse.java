@@ -17,22 +17,21 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * IntentCollectionResponse.
+ * SynonymCollectionResponse.
  */
-public class IntentCollectionResponse extends GenericModel {
+public class SynonymCollectionResponse extends GenericModel {
 
-  /** An array of intents. */
-  private List<IntentExportResponse> intents;
-  /** An object defining the pagination data for the returned objects. */
+  /** An array of synonyms. */
+  private List<SynonymResponse> synonyms;
   private PaginationResponse pagination;
 
   /**
-   * Gets the intents.
+   * Gets the synonyms.
    *
-   * @return the intents
+   * @return the synonyms
    */
-  public List<IntentExportResponse> getIntents() {
-    return intents;
+  public List<SynonymResponse> getSynonyms() {
+    return synonyms;
   }
 
   /**
@@ -45,12 +44,12 @@ public class IntentCollectionResponse extends GenericModel {
   }
 
   /**
-   * Sets the intents.
+   * Sets the synonyms.
    *
-   * @param intents the new intents
+   * @param synonyms the new synonyms
    */
-  public void setIntents(final List<IntentExportResponse> intents) {
-    this.intents = intents;
+  public void setSynonyms(final List<SynonymResponse> synonyms) {
+    this.synonyms = synonyms;
   }
 
   /**
