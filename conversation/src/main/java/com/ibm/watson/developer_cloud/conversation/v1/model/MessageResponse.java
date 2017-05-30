@@ -35,7 +35,6 @@ public class MessageResponse extends GenericModel {
   private Map<String, Object> output;
   private Map<String, Object> input;
 
-
   /**
    * Returns the context as returned by the service. At each step in the chat flow the conversation designer has the
    * ability to add information to the chat context. The context is a map of key value pairs, with the values being any

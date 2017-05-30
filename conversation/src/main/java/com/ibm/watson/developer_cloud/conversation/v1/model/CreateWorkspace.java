@@ -18,6 +18,7 @@ import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * CreateWorkspace.
@@ -30,16 +31,16 @@ public class CreateWorkspace extends GenericModel {
   private String description;
   /** The language of the workspace. */
   private String language;
-  /** An array of CreateIntent objects defining the intents for the workspace. */
+  /** An array of objects defining the intents for the workspace. */
   private List<CreateIntent> intents;
-  /** An array of CreateEntity objects defining the entities for the workspace. */
+  /** An array of objects defining the entities for the workspace. */
   private List<CreateEntity> entities;
-  /** An array of CreateDialogNode objects defining the nodes in the workspace dialog. */
+  /** An array of objects defining the nodes in the workspace dialog. */
   @SerializedName("dialog_nodes")
   private List<CreateDialogNode> dialogNodes;
-  /** An array of CreateExample objects defining input examples that have been marked as irrelevant input. */
+  /** An array of objects defining input examples that have been marked as irrelevant input. */
   private List<CreateExample> counterexamples;
-  /** Any metadata that is required by the workspace. */
+  /** Any metadata related to the workspace. */
   private Map<String, Object> metadata;
 
   /**
@@ -69,10 +70,11 @@ public class CreateWorkspace extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the CreateWorkspace.
+     * Builds a CreateWorkspace.
      *
      * @return the createWorkspace
      */
@@ -81,58 +83,62 @@ public class CreateWorkspace extends GenericModel {
     }
 
     /**
-     * Adds an intents to intents.
+     * Adds an intent to intents.
      *
-     * @param intents the new intents
-     * @return the builder
+     * @param intent the new intent
+     * @return the CreateWorkspace builder
      */
-    public Builder intents(CreateIntent intents) {
+    public Builder intents(CreateIntent intent) {
+      Validator.notNull(intent, "intent cannot be null");
       if (this.intents == null) {
         this.intents = new ArrayList<CreateIntent>();
       }
-      this.intents.add(intents);
+      this.intents.add(intent);
       return this;
     }
 
     /**
-     * Adds an entities to entities.
+     * Adds an entity to entities.
      *
-     * @param entities the new entities
-     * @return the builder
+     * @param entity the new entity
+     * @return the CreateWorkspace builder
      */
-    public Builder entities(CreateEntity entities) {
+    public Builder entities(CreateEntity entity) {
+      Validator.notNull(entity, "entity cannot be null");
       if (this.entities == null) {
         this.entities = new ArrayList<CreateEntity>();
       }
-      this.entities.add(entities);
+      this.entities.add(entity);
       return this;
     }
 
     /**
-     * Adds an dialogNodes to dialogNodes.
+     * Adds an dialogNode to dialogNodes.
      *
-     * @param dialogNodes the new dialogNodes
-     * @return the builder
+     * @param dialogNode the new dialogNode
+     * @return the CreateWorkspace builder
      */
-    public Builder dialogNodes(CreateDialogNode dialogNodes) {
+    public Builder dialogNodes(CreateDialogNode dialogNode) {
+      Validator.notNull(dialogNode, "dialogNode cannot be null");
       if (this.dialogNodes == null) {
         this.dialogNodes = new ArrayList<CreateDialogNode>();
       }
-      this.dialogNodes.add(dialogNodes);
+      this.dialogNodes.add(dialogNode);
       return this;
     }
 
     /**
-     * Adds an counterexamples to counterexamples.
+     * Adds an counterexample to counterexamples.
      *
-     * @param counterexamples the new counterexamples
-     * @return the builder
+     * @param counterexample the new counterexample
+     * @return the CreateWorkspace builder
      */
-    public Builder counterexamples(CreateExample counterexamples) {
+    public Builder counterexamples(CreateExample counterexample) {
+      Validator.notNull(counterexample, "counterexample cannot be null");
       if (this.counterexamples == null) {
         this.counterexamples = new ArrayList<CreateExample>();
       }
-      this.counterexamples.add(counterexamples);
+      this.counterexamples.add(counterexample);
       return this;
     }
 
@@ -140,7 +146,7 @@ public class CreateWorkspace extends GenericModel {
      * Set the name.
      *
      * @param name the name
-     * @return a CreateWorkspace Builder
+     * @return the CreateWorkspace builder
      */
     public Builder name(String name) {
       this.name = name;
@@ -151,7 +157,7 @@ public class CreateWorkspace extends GenericModel {
      * Set the description.
      *
      * @param description the description
-     * @return a CreateWorkspace Builder
+     * @return the CreateWorkspace builder
      */
     public Builder description(String description) {
       this.description = description;
@@ -162,7 +168,7 @@ public class CreateWorkspace extends GenericModel {
      * Set the language.
      *
      * @param language the language
-     * @return a CreateWorkspace Builder
+     * @return the CreateWorkspace builder
      */
     public Builder language(String language) {
       this.language = language;
@@ -174,7 +180,7 @@ public class CreateWorkspace extends GenericModel {
      * Existing intents will be replaced.
      *
      * @param intents the intents
-     * @return a CreateWorkspace Builder
+     * @return the CreateWorkspace builder
      */
     public Builder intents(List<CreateIntent> intents) {
       this.intents = intents;
@@ -186,7 +192,7 @@ public class CreateWorkspace extends GenericModel {
      * Existing entities will be replaced.
      *
      * @param entities the entities
-     * @return a CreateWorkspace Builder
+     * @return the CreateWorkspace builder
      */
     public Builder entities(List<CreateEntity> entities) {
       this.entities = entities;
@@ -198,7 +204,7 @@ public class CreateWorkspace extends GenericModel {
      * Existing dialogNodes will be replaced.
      *
      * @param dialogNodes the dialogNodes
-     * @return a CreateWorkspace Builder
+     * @return the CreateWorkspace builder
      */
     public Builder dialogNodes(List<CreateDialogNode> dialogNodes) {
       this.dialogNodes = dialogNodes;
@@ -210,7 +216,7 @@ public class CreateWorkspace extends GenericModel {
      * Existing counterexamples will be replaced.
      *
      * @param counterexamples the counterexamples
-     * @return a CreateWorkspace Builder
+     * @return the CreateWorkspace builder
      */
     public Builder counterexamples(List<CreateExample> counterexamples) {
       this.counterexamples = counterexamples;
@@ -221,7 +227,7 @@ public class CreateWorkspace extends GenericModel {
      * Set the metadata.
      *
      * @param metadata the metadata
-     * @return a CreateWorkspace Builder
+     * @return the CreateWorkspace builder
      */
     public Builder metadata(Map<String, Object> metadata) {
       this.metadata = metadata;
@@ -243,7 +249,7 @@ public class CreateWorkspace extends GenericModel {
   /**
    * New builder.
    *
-   * @return the builder
+   * @return a CreateWorkspace builder
    */
   public Builder newBuilder() {
     return new Builder(this);
