@@ -896,6 +896,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     callback.assertConnected();
     callback.assertDisconnected();
     callback.assertNoErrors();
+    callback.assertOnTranscriptionComplete();
   }
 
   private static class TestRecognizeCallback implements RecognizeCallback {
@@ -907,6 +908,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     private final BlockingQueue<Object> onDisconnectedCalls = new LinkedBlockingQueue<>();
 
     private final BlockingQueue<Object> onConnectedCalls = new LinkedBlockingQueue<>();
+
+    private final BlockingQueue<Object> onTranscriptionCompleteCalls = new LinkedBlockingQueue<>();
 
     @Override
     public void onTranscription(SpeechResults speechResults) {
@@ -926,6 +929,12 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     @Override
     public void onDisconnected() {
       this.onDisconnectedCalls.add(new Object());
+    }
+
+    void assertOnTranscriptionComplete() {
+      if (this.onTranscriptionCompleteCalls.size() == 1) {
+        throw new AssertionError("There were " + this.errors.size() + " calls to onTranscriptionComplete");
+      }
     }
 
     void assertConnected() {
@@ -961,5 +970,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     @Override
     public void onListening() { }
+
+    @Override
+    public void onTranscriptionComplete() {
+      this.onTranscriptionCompleteCalls.add(new Object());
+
+    }
   }
 }

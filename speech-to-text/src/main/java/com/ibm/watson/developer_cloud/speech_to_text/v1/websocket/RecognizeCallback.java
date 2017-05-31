@@ -58,4 +58,9 @@ public interface RecognizeCallback {
    * Called when the service is listening for audio.
    */
   void onListening();
+
+  /**
+   * Called after the service returns the final result for the transcription.
+   */
+  void onTranscriptionComplete();
 }
