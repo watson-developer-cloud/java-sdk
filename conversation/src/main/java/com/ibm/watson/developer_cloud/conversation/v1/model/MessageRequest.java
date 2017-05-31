@@ -57,7 +57,8 @@ public class MessageRequest extends GenericModel {
     /**
      * Instantiates a new Builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
      * Sets the alternate intents flag. Set to true to return all matching intents
@@ -223,7 +224,6 @@ public class MessageRequest extends GenericModel {
     return context;
   }
 
-
   /**
    * Returns a map storing the input which is to be sent to the service as a part of the API request.
    *
@@ -250,7 +250,6 @@ public class MessageRequest extends GenericModel {
   public List<Entity> entities() {
     return entities;
   }
-
 
   /**
    * Convenience method which allows the developer to quickly retrieve the 'text' property from the input object. This

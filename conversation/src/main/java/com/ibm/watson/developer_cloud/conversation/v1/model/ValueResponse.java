@@ -22,7 +22,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ValueResponse extends GenericModel {
 
-  /** The name of the corresponding entity. */
+  /** The text of the entity value. */
   private String value;
   /** Any metadata related to the entity value. */
   private Map<String, Object> metadata;
