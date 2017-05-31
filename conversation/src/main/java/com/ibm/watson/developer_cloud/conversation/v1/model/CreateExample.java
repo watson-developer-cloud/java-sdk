@@ -36,10 +36,20 @@ public class CreateExample extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the CreateExample.
+     * Instantiates a new builder with required properties.
+     *
+     * @param text the text
+     */
+    public Builder(String text) {
+      this.text = text;
+    }
+
+    /**
+     * Builds a CreateExample.
      *
      * @return the createExample
      */
@@ -51,7 +61,7 @@ public class CreateExample extends GenericModel {
      * Set the text.
      *
      * @param text the text
-     * @return a CreateExample Builder
+     * @return the CreateExample builder
      */
     public Builder text(String text) {
       this.text = text;
@@ -67,7 +77,7 @@ public class CreateExample extends GenericModel {
   /**
    * New builder.
    *
-   * @return the builder
+   * @return a CreateExample builder
    */
   public Builder newBuilder() {
     return new Builder(this);

@@ -73,4 +73,10 @@ public class BaseRecognizeCallback implements RecognizeCallback {
   @Override
   public void onListening() { };
 
+  /* (non-Javadoc)
+   * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onTranscriptionComplete()
+   */
+  @Override
+  public void onTranscriptionComplete() { };
+
 }

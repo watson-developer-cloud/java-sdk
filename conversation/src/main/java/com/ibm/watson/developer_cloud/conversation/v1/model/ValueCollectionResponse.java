@@ -17,22 +17,21 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * IntentCollectionResponse.
+ * ValueCollectionResponse.
  */
-public class IntentCollectionResponse extends GenericModel {
+public class ValueCollectionResponse extends GenericModel {
 
-  /** An array of intents. */
-  private List<IntentExportResponse> intents;
-  /** An object defining the pagination data for the returned objects. */
+  /** An array of entity values. */
+  private List<ValueExportResponse> values;
   private PaginationResponse pagination;
 
   /**
-   * Gets the intents.
+   * Gets the values.
    *
-   * @return the intents
+   * @return the values
    */
-  public List<IntentExportResponse> getIntents() {
-    return intents;
+  public List<ValueExportResponse> getValues() {
+    return values;
   }
 
   /**
@@ -45,12 +44,12 @@ public class IntentCollectionResponse extends GenericModel {
   }
 
   /**
-   * Sets the intents.
+   * Sets the values.
    *
-   * @param intents the new intents
+   * @param values the new values
    */
-  public void setIntents(final List<IntentExportResponse> intents) {
-    this.intents = intents;
+  public void setValues(final List<ValueExportResponse> values) {
+    this.values = values;
   }
 
   /**

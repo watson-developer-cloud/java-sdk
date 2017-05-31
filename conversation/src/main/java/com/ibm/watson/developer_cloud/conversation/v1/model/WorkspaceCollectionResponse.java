@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class WorkspaceCollectionResponse extends GenericModel {
 
-  /** An array of WorkspaceResponse objects describing the workspaces associated with the service instance. */
+  /** An array of workspaces. */
   private List<WorkspaceResponse> workspaces;
   private PaginationResponse pagination;
 
