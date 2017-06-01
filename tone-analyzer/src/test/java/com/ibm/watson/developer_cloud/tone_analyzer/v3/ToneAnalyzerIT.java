@@ -75,8 +75,8 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
    */
   @Test
   public void testGetToneFromText() {
-    ToneOptions options =
-        new ToneOptions.Builder().addTone(Tone.EMOTION).addTone(Tone.LANGUAGE).addTone(Tone.SOCIAL).build();
+    ToneOptions options = new ToneOptions.Builder().addTone(Tone.EMOTION).addTone(Tone.LANGUAGE).addTone(Tone.SOCIAL)
+            .contentLanguage("en").build();
 
     ToneAnalysis tone = service.getTone(text, options).execute();
     assertToneAnalysis(tone);

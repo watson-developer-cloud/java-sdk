@@ -109,6 +109,10 @@ public class ToneAnalyzer extends WatsonService {
       requestBuilder.query(SENTENCES, options.includeSentences().toString());
     }
 
+    if ((options != null) && (options.contentLanguage() != null)) {
+      requestBuilder.header(HttpHeaders.CONTENT_LANGUAGE, options.contentLanguage());
+    }
+
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(ToneAnalysis.class));
   }
 
