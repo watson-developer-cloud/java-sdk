@@ -27,6 +27,7 @@ public class ToneOptions {
   private Boolean isHtml;
   private List<Tone> tones;
   private Boolean includeSentences;
+  private String contentLanguage;
 
   /**
    * Builder.
@@ -35,6 +36,7 @@ public class ToneOptions {
     private Boolean isHtml;
     private Boolean includeSentences;
     private List<Tone> tones;
+    private String contentLanguage;
 
     /**
      * Instantiates a new builder.
@@ -50,6 +52,7 @@ public class ToneOptions {
       isHtml = options.isHtml;
       tones = options.tones;
       includeSentences = options.includeSentences;
+      contentLanguage = options.contentLanguage;
     }
 
     /**
@@ -91,6 +94,17 @@ public class ToneOptions {
     }
 
     /**
+     * Specifies the language of the content
+     *
+     * @param contentLanguage language of the content
+     * @return the builder
+     */
+    public Builder contentLanguage(String contentLanguage) {
+      this.contentLanguage = contentLanguage;
+      return this;
+    }
+
+    /**
      * Builds the {@link ToneOptions} object.
      *
      * @return the tone options object
@@ -104,6 +118,7 @@ public class ToneOptions {
     isHtml = builder.isHtml;
     tones = builder.tones;
     includeSentences = builder.includeSentences;
+    contentLanguage = builder.contentLanguage;
   }
 
   /**
@@ -140,6 +155,15 @@ public class ToneOptions {
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the language of the content
+   *
+   * @return content langauge
+   */
+  public String contentLanguage() {
+    return contentLanguage;
   }
 
 }
