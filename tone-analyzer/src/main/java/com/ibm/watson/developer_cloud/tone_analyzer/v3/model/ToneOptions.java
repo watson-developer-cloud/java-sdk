@@ -36,7 +36,6 @@ public class ToneOptions {
     private Boolean includeSentences;
     private List<Tone> tones;
 
-
     /**
      * Instantiates a new builder.
      */
@@ -56,7 +55,7 @@ public class ToneOptions {
     /**
      * Sets the text as HTML.
      *
-     * @param isHtml set the text as html
+     * @param isHtml sets the text as html
      * @return the builder
      */
     public Builder html(Boolean isHtml) {
@@ -65,9 +64,20 @@ public class ToneOptions {
     }
 
     /**
+     * Indicates whether to return sentence-level tone analysis.
+     *
+     * @param sentences sets sentence-level analysis.
+     * @return the builder
+     */
+    public Builder includeSentences(Boolean sentences) {
+      this.includeSentences = sentences;
+      return this;
+    }
+
+    /**
      * Adds the tone.
      *
-     * @param tone the tone
+     * @param tone the tone to add
      * @return the builder
      */
     public Builder addTone(Tone tone) {
@@ -83,7 +93,7 @@ public class ToneOptions {
     /**
      * Builds the {@link ToneOptions} object.
      *
-     * @return the gets the tone options
+     * @return the tone options object
      */
     public ToneOptions build() {
       return new ToneOptions(this);
@@ -97,22 +107,30 @@ public class ToneOptions {
   }
 
   /**
-   * Gets the html.
+   * Gets the isHtml.
    *
-   * @return the html
+   * @return the isHtml attribute
    */
   public Boolean html() {
     return isHtml;
   }
 
-
   /**
-   * include sentences.
+   * Get the includeSentences.
    *
-   * @return the text
+   * @return the includeSentences attribute
    */
   public Boolean includeSentences() {
     return includeSentences;
+  }
+
+  /**
+   * Gets the tones.
+   *
+   * @return the list of tones
+   */
+  public List<Tone> tones() {
+    return tones;
   }
 
   /**
@@ -122,15 +140,6 @@ public class ToneOptions {
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the tones.
-   *
-   * @return the tone list
-   */
-  public List<Tone> tones() {
-    return tones;
   }
 
 }
