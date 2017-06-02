@@ -58,7 +58,7 @@ public class Word extends GenericModel {
 
     private String sort;
 
-    private Sort(String s) {
+    Sort(String s) {
       sort = s;
     }
 
