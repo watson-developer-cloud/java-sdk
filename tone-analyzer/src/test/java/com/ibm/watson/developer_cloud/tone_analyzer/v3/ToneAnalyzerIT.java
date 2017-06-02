@@ -71,15 +71,30 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   }
 
   /**
-   * Test get tone from text.
+   * Test get tone from text with sentences.
    */
   @Test
-  public void testGetToneFromText() {
+  public void testGetToneFromTextWithSentences() {
     ToneOptions options =
         new ToneOptions.Builder().addTone(Tone.EMOTION).addTone(Tone.LANGUAGE).addTone(Tone.SOCIAL).build();
 
     ToneAnalysis tone = service.getTone(text, options).execute();
     assertToneAnalysis(tone);
+  }
+
+  /**
+   * Test get tone from text without sentences.
+   */
+  @Test
+  public void testGetToneFromTextWithoutSentences() {
+    ToneOptions options =
+        new ToneOptions.Builder().includeSentences(false).build();
+
+    ToneAnalysis tone = service.getTone(text, options).execute();
+    Assert.assertNotNull(tone);
+    Assert.assertNotNull(tone.getDocumentTone());
+    Assert.assertEquals(3, tone.getDocumentTone().getTones().size());
+    Assert.assertNull(tone.getSentencesTone());
   }
 
   /**
