@@ -14,10 +14,9 @@ package com.ibm.watson.developer_cloud.conversation.v1;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 
+import java.util.Date;
 import org.junit.Assume;
 import org.junit.Before;
-
-import java.util.Date;
 
 public class ConversationServiceTest extends WatsonServiceTest {
 

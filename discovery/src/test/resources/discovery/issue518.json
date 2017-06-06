@@ -39,7 +39,7 @@
       "enrichment": "alchemy_language",
       "options": {
         "extract": "keyword",
-        "showSourceText": 1
+        "showSourceText": true
       }
     },
     {
