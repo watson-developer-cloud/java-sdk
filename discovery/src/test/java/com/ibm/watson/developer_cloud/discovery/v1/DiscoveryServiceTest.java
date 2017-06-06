@@ -571,7 +571,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     assertEquals(Q1_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(queryResp, response);
+    assertEquals(GsonSingleton.getGson().toJsonTree(queryResp), GsonSingleton.getGson().toJsonTree(response));
   }
 
   @Test
@@ -590,7 +590,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     assertEquals(Q2_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(queryResp, response);
+    assertEquals(GsonSingleton.getGson().toJsonTree(queryResp), GsonSingleton.getGson().toJsonTree(response));
   }
 
 }
