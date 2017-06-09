@@ -75,9 +75,11 @@ public class CreateCollectionOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param environmentId the environmentId
+     * @param name the name
      */
-    public Builder(String environmentId) {
+    public Builder(String environmentId, String name) {
       this.environmentId = environmentId;
+      this.name = name;
     }
 
     /**
@@ -147,6 +149,7 @@ public class CreateCollectionOptions extends GenericModel {
 
   private CreateCollectionOptions(Builder builder) {
     Validator.notNull(builder.environmentId, "environmentId cannot be null");
+    Validator.notNull(builder.name, "name cannot be null");
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;
