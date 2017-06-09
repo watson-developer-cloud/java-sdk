@@ -13,28 +13,8 @@
 
 package com.ibm.watson.developer_cloud.discovery.v1;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
@@ -44,13 +24,9 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Enrichment;
@@ -69,8 +45,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptio
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation.Operation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation.Operation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryAggregation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
@@ -92,7 +68,6 @@ import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 import com.ibm.watson.developer_cloud.util.WaitFor;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assume;
@@ -101,6 +76,25 @@ import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Integration tests for {@link Discovery}.
@@ -283,9 +277,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     DeleteEnvironmentOptions deleteOptions =
         new DeleteEnvironmentOptions.Builder(createResponse.getEnvironmentId()).build();
-    DeleteEnvironmentResponse deleteRepsonse = deleteEnvironment(deleteOptions);
-
-    assertEquals(createResponse.getEnvironmentId(), deleteRepsonse.getEnvironmentId());
+    deleteEnvironment(deleteOptions);
   }
 
   @Test
@@ -377,9 +369,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     DeleteConfigurationOptions deleteOptions =
         new DeleteConfigurationOptions.Builder(environmentId, createResponse.getConfigurationId()).build();
-    DeleteConfigurationResponse deleteResponse = deleteConfiguration(deleteOptions);
-
-    assertEquals(createResponse.getConfigurationId(), deleteResponse.getConfigurationId());
+    deleteConfiguration(deleteOptions);
   }
 
   @Test
@@ -498,9 +488,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String uniqueCollectionName = uniqueName + "-collection";
     String uniqueCollectionDescription = "Description of " + uniqueCollectionName;
 
-    CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId)
+    CreateCollectionOptions.Builder createCollectionBuilder =
+        new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName)
         .configurationId(createConfigResponse.getConfigurationId())
-        .name(uniqueCollectionName)
         .description(uniqueCollectionDescription);
     Collection createResponse = createCollection(createCollectionBuilder.build());
 
@@ -509,10 +499,11 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(uniqueCollectionDescription, createResponse.getDescription());
   }
 
-  @Ignore("see https://github.ibm.com/Watson-Discovery/disco-issue-tracker/issues/549")
   @Test
   public void createCollectionWithMinimalParametersIsSuccessful() {
-    CreateCollectionOptions createOptions = new CreateCollectionOptions.Builder(environmentId).build();
+    String uniqueCollectionName = uniqueName + "-collection";
+    CreateCollectionOptions createOptions =
+        new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName).build();
     Collection createResponse = createCollection(createOptions);
 
     assertNotNull(createResponse.getCollectionId());
@@ -522,7 +513,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   public void updateCollectionIsSuccessful() {
     String uniqueCollectionName = uniqueName + "-collection";
     CreateCollectionOptions createOptions =
-        new CreateCollectionOptions.Builder(environmentId).name(uniqueCollectionName).build();
+        new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName).build();
     Collection collection = createCollection(createOptions);
     assertNotNull(collection.getCollectionId());
 
@@ -546,17 +537,16 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Configuration createConfigResponse = createTestConfig();
 
     String uniqueCollectionName = uniqueName + "-collection";
-    CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId)
-        .configurationId(createConfigResponse.getConfigurationId()).name(uniqueCollectionName);
+    CreateCollectionOptions.Builder createCollectionBuilder =
+        new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName)
+        .configurationId(createConfigResponse.getConfigurationId());
     Collection createResponse = createCollection(createCollectionBuilder.build());
 
     // need to wait for collection to be ready
 
     DeleteCollectionOptions deleteOptions =
         new DeleteCollectionOptions.Builder(environmentId, createResponse.getCollectionId()).build();
-    DeleteCollectionResponse deleteResponse = deleteCollection(deleteOptions);
-
-    assertEquals(DeleteCollectionResponse.Status.DELETED, deleteResponse.getStatus());
+    deleteCollection(deleteOptions);
   }
 
   @Test
@@ -564,8 +554,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Configuration createConfigResponse = createTestConfig();
 
     String uniqueCollectionName = uniqueName + "-collection";
-    CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId)
-        .configurationId(createConfigResponse.getConfigurationId()).name(uniqueCollectionName);
+    CreateCollectionOptions.Builder createCollectionBuilder =
+        new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName)
+        .configurationId(createConfigResponse.getConfigurationId());
     Collection createResponse = createCollection(createCollectionBuilder.build());
 
     GetCollectionOptions getOptions =
@@ -583,8 +574,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Configuration createConfigResponse = createTestConfig();
 
     String uniqueCollectionName = uniqueName + "-collection";
-    CreateCollectionOptions.Builder createCollectionBuilder = new CreateCollectionOptions.Builder(environmentId)
-        .configurationId(createConfigResponse.getConfigurationId()).name(uniqueCollectionName);
+    CreateCollectionOptions.Builder createCollectionBuilder =
+        new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName)
+        .configurationId(createConfigResponse.getConfigurationId());
     createCollection(createCollectionBuilder.build());
 
     ListCollectionsOptions.Builder getBuilder = new ListCollectionsOptions.Builder(environmentId);
@@ -669,8 +661,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     DeleteDocumentOptions deleteOptions =
         new DeleteDocumentOptions.Builder(environmentId, collectionId, documentAccepted.getDocumentId()).build();
-    DeleteDocumentResponse deleteResponse = discovery.deleteDocument(deleteOptions).execute();
-    assertEquals(DeleteDocumentResponse.Status.DELETED, deleteResponse.getStatus());
+    discovery.deleteDocument(deleteOptions).execute();
   }
 
   @Test
@@ -1104,7 +1095,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Configuration configuration = discovery.createConfiguration(configOptions).execute();
     configurationIds.add(configuration.getConfigurationId());
 
-    CreateCollectionOptions collectionOptions = new CreateCollectionOptions.Builder(environmentId)
+    String uniqueCollectionName = UUID.randomUUID().toString() + "-collection";
+    CreateCollectionOptions collectionOptions =
+        new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName)
         .configurationId(configuration.getConfigurationId())
         .name("This should not be required")
         .build();
@@ -1119,9 +1112,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     return createResponse;
   }
 
-  private DeleteEnvironmentResponse deleteEnvironment(DeleteEnvironmentOptions deleteOptions) {
-    DeleteEnvironmentResponse deleteResponse = discovery.deleteEnvironment(deleteOptions).execute();
-    return deleteResponse;
+  private void deleteEnvironment(DeleteEnvironmentOptions deleteOptions) {
+    discovery.deleteEnvironment(deleteOptions).execute();
   }
 
   private Configuration createConfiguration(CreateConfigurationOptions createOptions) {
@@ -1130,10 +1122,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     return createResponse;
   }
 
-  private DeleteConfigurationResponse deleteConfiguration(DeleteConfigurationOptions deleteOptions) {
-    DeleteConfigurationResponse deleteResponse = discovery.deleteConfiguration(deleteOptions).execute();
-    configurationIds.remove(deleteResponse.getConfigurationId());
-    return deleteResponse;
+  private void deleteConfiguration(DeleteConfigurationOptions deleteOptions) {
+    discovery.deleteConfiguration(deleteOptions).execute();
+    configurationIds.remove(deleteOptions.configurationId());
   }
 
   private Configuration createTestConfig() {
@@ -1151,10 +1142,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     return createResponse;
   }
 
-  private DeleteCollectionResponse deleteCollection(DeleteCollectionOptions deleteOptions) {
-    DeleteCollectionResponse deleteResponse = discovery.deleteCollection(deleteOptions).execute();
-    collectionIds.remove(deleteResponse.getCollectionId());
-    return deleteResponse;
+  private void deleteCollection(DeleteCollectionOptions deleteOptions) {
+    discovery.deleteCollection(deleteOptions).execute();
+    collectionIds.remove(deleteOptions.collectionId());
   }
 
   private Collection createTestCollection() {
@@ -1162,8 +1152,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     String uniqueCollectionName = uniqueName + "-collection";
     CreateCollectionOptions.Builder createCollectionBuilder =
-        new CreateCollectionOptions.Builder(environmentId)
-            .configurationId(createConfigResponse.getConfigurationId()).name(uniqueCollectionName);
+        new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName)
+            .configurationId(createConfigResponse.getConfigurationId());
     Collection createResponse = createCollection(createCollectionBuilder.build());
     return createResponse;
   }
