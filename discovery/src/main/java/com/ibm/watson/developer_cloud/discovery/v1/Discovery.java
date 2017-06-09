@@ -20,13 +20,9 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
@@ -125,9 +121,7 @@ public class Discovery extends WatsonService {
         createCollectionOptions.environmentId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
-    if (createCollectionOptions.name() != null) {
-      contentJson.addProperty("name", createCollectionOptions.name());
-    }
+    contentJson.addProperty("name", createCollectionOptions.name());
     if (createCollectionOptions.description() != null) {
       contentJson.addProperty("description", createCollectionOptions.description());
     }
@@ -145,14 +139,14 @@ public class Discovery extends WatsonService {
    * Delete a collection.
    *
    * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
-   * @return the {@link DeleteCollectionResponse} with the response
+   * @return the service call
    */
-  public ServiceCall<DeleteCollectionResponse> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
+  public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
     Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s",
         deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId()));
     builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DeleteCollectionResponse.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
@@ -278,15 +272,14 @@ public class Discovery extends WatsonService {
    * configuration as it existed at the time the document was submitted.
    *
    * @param deleteConfigurationOptions the {@link DeleteConfigurationOptions} containing the options for the call
-   * @return the {@link DeleteConfigurationResponse} with the response
+   * @return the service call
    */
-  public ServiceCall<DeleteConfigurationResponse> deleteConfiguration(
-      DeleteConfigurationOptions deleteConfigurationOptions) {
+  public ServiceCall<Void> deleteConfiguration(DeleteConfigurationOptions deleteConfigurationOptions) {
     Validator.notNull(deleteConfigurationOptions, "deleteConfigurationOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/configurations/%s",
         deleteConfigurationOptions.environmentId(), deleteConfigurationOptions.configurationId()));
     builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DeleteConfigurationResponse.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
@@ -412,15 +405,15 @@ public class Discovery extends WatsonService {
    * status code `200`) with the status set to 'deleted'.
    *
    * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the call
-   * @return the {@link DeleteDocumentResponse} with the response
+   * @return the service call
    */
-  public ServiceCall<DeleteDocumentResponse> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
+  public ServiceCall<Void> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
     Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s/documents/%s",
         deleteDocumentOptions.environmentId(), deleteDocumentOptions.collectionId(), deleteDocumentOptions
             .documentId()));
     builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DeleteDocumentResponse.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
@@ -514,14 +507,14 @@ public class Discovery extends WatsonService {
    * Delete environment.
    *
    * @param deleteEnvironmentOptions the {@link DeleteEnvironmentOptions} containing the options for the call
-   * @return the {@link DeleteEnvironmentResponse} with the response
+   * @return the service call
    */
-  public ServiceCall<DeleteEnvironmentResponse> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
+  public ServiceCall<Void> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
     Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s", deleteEnvironmentOptions
         .environmentId()));
     builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DeleteEnvironmentResponse.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
