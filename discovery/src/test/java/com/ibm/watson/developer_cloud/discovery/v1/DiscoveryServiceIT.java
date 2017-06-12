@@ -34,7 +34,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.EnrichmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.HtmlSettings;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
@@ -306,9 +306,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     System.out.println("Waiting for document to be ready...");
     boolean documentReady = false;
     while (!documentReady) {
-      GetDocumentOptions getDocumentOptions =
-          new GetDocumentOptions.Builder(environmentId, collectionId, documentId).build();
-      DocumentStatus getDocumentResponse = discovery.getDocument(getDocumentOptions).execute();
+      GetDocumentStatusOptions getDocumentStatusOptions =
+          new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentId).build();
+      DocumentStatus getDocumentResponse = discovery.getDocumentStatus(getDocumentStatusOptions).execute();
       documentReady = !getDocumentResponse.getStatus().equals(DocumentStatus.Status.PROCESSING);
       try {
         if (!documentReady) {
@@ -814,9 +814,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String collectionId = collection.getCollectionId();
     DocumentAccepted documentAccepted = createTestDocument(collectionId);
 
-    GetDocumentOptions getOptions =
-        new GetDocumentOptions.Builder(environmentId, collectionId, documentAccepted.getDocumentId()).build();
-    DocumentStatus getResponse = discovery.getDocument(getOptions).execute();
+    GetDocumentStatusOptions getOptions =
+        new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentAccepted.getDocumentId()).build();
+    DocumentStatus getResponse = discovery.getDocumentStatus(getOptions).execute();
 
     assertEquals(DocumentStatus.Status.AVAILABLE, getResponse.getStatus());
   }
@@ -838,9 +838,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     updateBuilder.configurationId(testConfig.getConfigurationId());
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
-    GetDocumentOptions getOptions =
-        new GetDocumentOptions.Builder(environmentId, collectionId, updateResponse.getDocumentId()).build();
-    DocumentStatus getResponse = discovery.getDocument(getOptions).execute();
+    GetDocumentStatusOptions getOptions =
+        new GetDocumentStatusOptions.Builder(environmentId, collectionId, updateResponse.getDocumentId()).build();
+    DocumentStatus getResponse = discovery.getDocumentStatus(getOptions).execute();
 
     assertTrue(getResponse.getStatus().equals(DocumentStatus.Status.AVAILABLE)
         || getResponse.getStatus().equals(DocumentStatus.Status.PROCESSING));
@@ -866,9 +866,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     updateBuilder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
-    GetDocumentOptions getOptions =
-        new GetDocumentOptions.Builder(environmentId, collectionId, updateResponse.getDocumentId()).build();
-    DocumentStatus getResponse = discovery.getDocument(getOptions).execute();
+    GetDocumentStatusOptions getOptions =
+        new GetDocumentStatusOptions.Builder(environmentId, collectionId, updateResponse.getDocumentId()).build();
+    DocumentStatus getResponse = discovery.getDocumentStatus(getOptions).execute();
 
     assertTrue(getResponse.getStatus().equals(DocumentStatus.Status.AVAILABLE)
         || getResponse.getStatus().equals(DocumentStatus.Status.PROCESSING));
@@ -1379,8 +1379,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     @Override
     public boolean isSatisfied() {
-      GetDocumentOptions getOptions = new GetDocumentOptions.Builder(environmentId, collectionId, documentId).build();
-      String status = discovery.getDocument(getOptions).execute().getStatus();
+      GetDocumentStatusOptions getOptions =
+          new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentId).build();
+      String status = discovery.getDocumentStatus(getOptions).execute().getStatus();
       return status.equals(DocumentStatus.Status.AVAILABLE);
     }
 

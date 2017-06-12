@@ -33,7 +33,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsResponse;
@@ -525,8 +525,9 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Test
   public void getDocumentIsSuccessful() throws InterruptedException {
     server.enqueue(jsonResponse(getDocResp));
-    GetDocumentOptions getRequest = new GetDocumentOptions.Builder(environmentId, collectionId, documentId).build();
-    DocumentStatus response = discoveryService.getDocument(getRequest).execute();
+    GetDocumentStatusOptions getRequest =
+        new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentId).build();
+    DocumentStatus response = discoveryService.getDocumentStatus(getRequest).execute();
     RecordedRequest request = server.takeRequest();
 
     assertEquals(DOCS2_PATH, request.getPath());
