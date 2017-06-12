@@ -28,7 +28,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsResponse;
@@ -423,13 +423,14 @@ public class Discovery extends WatsonService {
    * Instead, it returns only the document's processing status and any notices (warnings or errors) that were generated
    * when the document was ingested. Use the query API to retrieve the actual document content.
    *
-   * @param getDocumentOptions the {@link GetDocumentOptions} containing the options for the call
+   * @param getDocumentStatusOptions the {@link GetDocumentStatusOptions} containing the options for the call
    * @return the {@link DocumentStatus} with the response
    */
-  public ServiceCall<DocumentStatus> getDocument(GetDocumentOptions getDocumentOptions) {
-    Validator.notNull(getDocumentOptions, "getDocumentOptions cannot be null");
+  public ServiceCall<DocumentStatus> getDocumentStatus(GetDocumentStatusOptions getDocumentStatusOptions) {
+    Validator.notNull(getDocumentStatusOptions, "getDocumentStatusOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/documents/%s",
-        getDocumentOptions.environmentId(), getDocumentOptions.collectionId(), getDocumentOptions.documentId()));
+        getDocumentStatusOptions.environmentId(), getDocumentStatusOptions.collectionId(), getDocumentStatusOptions
+            .documentId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentStatus.class));
   }

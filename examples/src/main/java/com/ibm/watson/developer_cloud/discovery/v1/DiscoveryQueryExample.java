@@ -154,9 +154,9 @@ public class DiscoveryQueryExample {
         System.out.println("Waiting for document to be ready...");
         boolean documentReady = false;
         while (!documentReady) {
-            GetDocumentOptions getDocumentOptions =
-                new GetDocumentOptions.Builder(environmentId, collectionId, documentId).build();
-            DocumentStatus getDocumentResponse = discovery.getDocument(getDocumentOptions).execute();
+            GetDocumentStatusOptions getDocumentStatusOptions =
+                new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentId).build();
+            DocumentStatus getDocumentResponse = discovery.getDocument(getDocumentStatusOptions).execute();
             documentReady = !getDocumentResponse.getStatus().equals(DocumentStatus.Status.PROCESSING);
             try {
                 if (!documentReady) {

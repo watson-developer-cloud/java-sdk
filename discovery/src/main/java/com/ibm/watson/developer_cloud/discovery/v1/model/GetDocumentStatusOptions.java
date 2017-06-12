@@ -16,9 +16,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the getDocument options.
+ * the getDocumentStatus options.
  */
-public class GetDocumentOptions extends GenericModel {
+public class GetDocumentStatusOptions extends GenericModel {
 
   /** the ID of your environment. */
   private String environmentId;
@@ -35,10 +35,10 @@ public class GetDocumentOptions extends GenericModel {
     private String collectionId;
     private String documentId;
 
-    private Builder(GetDocumentOptions getDocumentOptions) {
-      environmentId = getDocumentOptions.environmentId;
-      collectionId = getDocumentOptions.collectionId;
-      documentId = getDocumentOptions.documentId;
+    private Builder(GetDocumentStatusOptions getDocumentStatusOptions) {
+      environmentId = getDocumentStatusOptions.environmentId;
+      collectionId = getDocumentStatusOptions.collectionId;
+      documentId = getDocumentStatusOptions.documentId;
     }
 
     /**
@@ -61,19 +61,19 @@ public class GetDocumentOptions extends GenericModel {
     }
 
     /**
-     * Builds a GetDocumentOptions.
+     * Builds a GetDocumentStatusOptions.
      *
-     * @return the getDocumentOptions
+     * @return the getDocumentStatusOptions
      */
-    public GetDocumentOptions build() {
-      return new GetDocumentOptions(this);
+    public GetDocumentStatusOptions build() {
+      return new GetDocumentStatusOptions(this);
     }
 
     /**
      * Set the environmentId.
      *
      * @param environmentId the environmentId
-     * @return the GetDocumentOptions builder
+     * @return the GetDocumentStatusOptions builder
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
@@ -84,7 +84,7 @@ public class GetDocumentOptions extends GenericModel {
      * Set the collectionId.
      *
      * @param collectionId the collectionId
-     * @return the GetDocumentOptions builder
+     * @return the GetDocumentStatusOptions builder
      */
     public Builder collectionId(String collectionId) {
       this.collectionId = collectionId;
@@ -95,7 +95,7 @@ public class GetDocumentOptions extends GenericModel {
      * Set the documentId.
      *
      * @param documentId the documentId
-     * @return the GetDocumentOptions builder
+     * @return the GetDocumentStatusOptions builder
      */
     public Builder documentId(String documentId) {
       this.documentId = documentId;
@@ -103,7 +103,7 @@ public class GetDocumentOptions extends GenericModel {
     }
   }
 
-  private GetDocumentOptions(Builder builder) {
+  private GetDocumentStatusOptions(Builder builder) {
     Validator.notNull(builder.environmentId, "environmentId cannot be null");
     Validator.notNull(builder.collectionId, "collectionId cannot be null");
     Validator.notNull(builder.documentId, "documentId cannot be null");
@@ -115,7 +115,7 @@ public class GetDocumentOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a GetDocumentOptions builder
+   * @return a GetDocumentStatusOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
