@@ -1,0 +1,94 @@
+/*
+ * Copyright 2017 IBM Corp. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
+package com.ibm.watson.developer_cloud.tone_analyzer.v3.model;
+
+import java.util.List;
+
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+/**
+ * UtteranceAnalysis.
+ */
+public class UtteranceAnalysis extends GenericModel {
+
+  /**
+   * The unique identifier of the utterance. The first utterance has ID 0, and the ID of each subsequent utterance is
+   * incremented by one.
+   */
+  @SerializedName("utterance_id")
+  private String utteranceId;
+  /** The text of the utterance. */
+  @SerializedName("utterance_text")
+  private String utteranceText;
+  /**
+   * An array of `ToneChatScore` objects that provides results for the most prevalent tones of the utterance. The array
+   * includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that meets
+   * this threshold.
+   */
+  private List<ToneChatScore> tones;
+
+  /**
+   * Gets the utteranceId.
+   *
+   * @return the utteranceId
+   */
+  public String getUtteranceId() {
+    return utteranceId;
+  }
+
+  /**
+   * Gets the utteranceText.
+   *
+   * @return the utteranceText
+   */
+  public String getUtteranceText() {
+    return utteranceText;
+  }
+
+  /**
+   * Gets the tones.
+   *
+   * @return the tones
+   */
+  public List<ToneChatScore> getTones() {
+    return tones;
+  }
+
+  /**
+   * Sets the utteranceId.
+   *
+   * @param utteranceId the new utteranceId
+   */
+  public void setUtteranceId(final String utteranceId) {
+    this.utteranceId = utteranceId;
+  }
+
+  /**
+   * Sets the utteranceText.
+   *
+   * @param utteranceText the new utteranceText
+   */
+  public void setUtteranceText(final String utteranceText) {
+    this.utteranceText = utteranceText;
+  }
+
+  /**
+   * Sets the tones.
+   *
+   * @param tones the new tones
+   */
+  public void setTones(final List<ToneChatScore> tones) {
+    this.tones = tones;
+  }
+}
