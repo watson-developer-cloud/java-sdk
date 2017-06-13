@@ -53,6 +53,7 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 import okhttp3.MediaType;
@@ -609,7 +610,7 @@ public class Discovery extends WatsonService {
       builder.query("count", String.valueOf(queryOptions.count()));
     }
     if (queryOptions.returnFields() != null) {
-      builder.query("return", queryOptions.returnFields());
+      builder.query("return", RequestUtils.join(queryOptions.returnFields(), ","));
     }
     if (queryOptions.offset() != null) {
       builder.query("offset", String.valueOf(queryOptions.offset()));
@@ -656,7 +657,7 @@ public class Discovery extends WatsonService {
       builder.query("count", String.valueOf(queryNoticesOptions.count()));
     }
     if (queryNoticesOptions.returnFields() != null) {
-      builder.query("return", queryNoticesOptions.returnFields());
+      builder.query("return", RequestUtils.join(queryNoticesOptions.returnFields(), ","));
     }
     if (queryNoticesOptions.offset() != null) {
       builder.query("offset", String.valueOf(queryNoticesOptions.offset()));
