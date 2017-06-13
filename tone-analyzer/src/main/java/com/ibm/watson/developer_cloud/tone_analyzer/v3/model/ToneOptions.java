@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -15,131 +15,228 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v3.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * This class contains the parameters when using {@link ToneAnalyzer#getTone(String, ToneOptions)}.
- *
- * @see ToneAnalyzer
+ * the tone options.
  */
-public class ToneOptions {
+public class ToneOptions extends GenericModel {
 
-  private Boolean isHtml;
-  private List<Tone> tones;
-  private Boolean includeSentences;
+  /**
+   * The type of the input: application/json, text/plain, or text/html.
+   */
+  public interface ContentType {
+    /** application/json. */
+    String APPLICATION_JSON = "application/json";
+    /** text/plain. */
+    String TEXT_PLAIN = "text/plain";
+    /** text/html. */
+    String TEXT_HTML = "text/html";
+  }
+
+  public interface Tone {
+    /** emotion. */
+    String EMOTION = "emotion";
+    /** language. */
+    String LANGUAGE = "language";
+    /** social. */
+    String SOCIAL = "social";
+  }
+
+  /**
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
+   * `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
+   */
+  private ToneInput toneInput;
+  /**
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
+   * `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
+   */
+  private String body;
+  /** The type of the input: application/json, text/plain, or text/html. */
+  private String contentType;
+  /**
+   * A comma-separated list of tones for which the service is to return its analysis of the input; the indicated tones
+   * apply both to the full document and to individual sentences of the document. You can specify one or more of the
+   * following values: `emotion`, `language`, and `social`. Omit the parameter to request results for all three tones.
+   */
+  private List<String> tones;
+  /**
+   * Indicates whether the service is to return an analysis of each individual sentence in addition to its analysis of
+   * the full document. If `true` (the default), the service returns results for each sentence. The service returns
+   * results only for the first 100 sentences of the input.
+   */
+  private Boolean sentences;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Boolean isHtml;
-    private Boolean includeSentences;
-    private List<Tone> tones;
+    private ToneInput toneInput;
+    private String body;
+    private String contentType;
+    private List<String> tones;
+    private Boolean sentences;
+
+    private Builder(ToneOptions toneOptions) {
+      toneInput = toneOptions.toneInput;
+      body = toneOptions.body;
+      contentType = toneOptions.contentType;
+      tones = toneOptions.tones;
+      sentences = toneOptions.sentences;
+    }
 
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
-
-    /**
-     * Instantiates a new builder.
-     *
-     * @param options the options
-     */
-    public Builder(ToneOptions options) {
-      isHtml = options.isHtml;
-      tones = options.tones;
-      includeSentences = options.includeSentences;
+    public Builder() {
     }
 
     /**
-     * Sets the text as HTML.
+     * Builds a ToneOptions.
      *
-     * @param isHtml sets the text as html
-     * @return the builder
-     */
-    public Builder html(Boolean isHtml) {
-      this.isHtml = isHtml;
-      return this;
-    }
-
-    /**
-     * Indicates whether to return sentence-level tone analysis.
-     *
-     * @param sentences sets sentence-level analysis.
-     * @return the builder
-     */
-    public Builder includeSentences(Boolean sentences) {
-      this.includeSentences = sentences;
-      return this;
-    }
-
-    /**
-     * Adds the tone.
-     *
-     * @param tone the tone to add
-     * @return the builder
-     */
-    public Builder addTone(Tone tone) {
-      if (tones == null) {
-        tones = new ArrayList<Tone>();
-      }
-      if (!tones.contains(tone)) {
-        tones.add(tone);
-      }
-      return this;
-    }
-
-    /**
-     * Builds the {@link ToneOptions} object.
-     *
-     * @return the tone options object
+     * @return the toneOptions
      */
     public ToneOptions build() {
       return new ToneOptions(this);
     }
+
+    /**
+     * Adds an tone to tones.
+     *
+     * @param tone the new tone
+     * @return the ToneOptions builder
+     */
+    public Builder addTone(String tone) {
+      Validator.notNull(tone, "tone cannot be null");
+      if (this.tones == null) {
+        this.tones = new ArrayList<String>();
+      }
+      this.tones.add(tone);
+      return this;
+    }
+
+    /**
+     * Set the tones.
+     * Existing tones will be replaced.
+     *
+     * @param tones the tones
+     * @return the ToneOptions builder
+     */
+    public Builder tones(List<String> tones) {
+      this.tones = tones;
+      return this;
+    }
+
+    /**
+     * Set the sentences.
+     *
+     * @param sentences the sentences
+     * @return the ToneOptions builder
+     */
+    public Builder sentences(Boolean sentences) {
+      this.sentences = sentences;
+      return this;
+    }
+
+    /**
+     * Set the toneInput.
+     *
+     * @param toneInput the toneInput
+     * @return the ToneOptions builder
+     */
+    public Builder toneInput(ToneInput toneInput) {
+      this.toneInput = toneInput;
+      this.contentType = ToneOptions.ContentType.APPLICATION_JSON;
+      return this;
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the ToneOptions builder
+     */
+    public Builder text(String text) {
+      this.body = text;
+      this.contentType = ToneOptions.ContentType.TEXT_PLAIN;
+      return this;
+    }
+
+    /**
+     * Set the html.
+     *
+     * @param html the html
+     * @return the ToneOptions builder
+     */
+    public Builder html(String html) {
+      this.body = html;
+      this.contentType = ToneOptions.ContentType.TEXT_HTML;
+      return this;
+    }
   }
 
   private ToneOptions(Builder builder) {
-    isHtml = builder.isHtml;
+    Validator.isTrue(builder.contentType != null, "contentType cannot be null");
+    toneInput = builder.toneInput;
+    body = builder.body;
+    contentType = builder.contentType;
     tones = builder.tones;
-    includeSentences = builder.includeSentences;
-  }
-
-  /**
-   * Gets the isHtml.
-   *
-   * @return the isHtml attribute
-   */
-  public Boolean html() {
-    return isHtml;
-  }
-
-  /**
-   * Get the includeSentences.
-   *
-   * @return the includeSentences attribute
-   */
-  public Boolean includeSentences() {
-    return includeSentences;
-  }
-
-  /**
-   * Gets the tones.
-   *
-   * @return the list of tones
-   */
-  public List<Tone> tones() {
-    return tones;
+    sentences = builder.sentences;
   }
 
   /**
    * New builder.
    *
-   * @return the builder
+   * @return a ToneOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
   }
 
+  /**
+   * Gets the toneInput.
+   *
+   * @return the toneInput
+   */
+  public ToneInput toneInput() {
+    return toneInput;
+  }
+
+  /**
+   * Gets the body.
+   *
+   * @return the body
+   */
+  public String body() {
+    return body;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
+  }
+
+  /**
+   * Gets the tones.
+   *
+   * @return the tones
+   */
+  public List<String> tones() {
+    return tones;
+  }
+
+  /**
+   * Gets the sentences.
+   *
+   * @return the sentences
+   */
+  public Boolean sentences() {
+    return sentences;
+  }
 }
