@@ -26,6 +26,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ListCollectionFieldsResponse extends GenericModel {
 
+  /** An array containing information about each field in the collection. */
   private List<Field> fields;
 
   /**

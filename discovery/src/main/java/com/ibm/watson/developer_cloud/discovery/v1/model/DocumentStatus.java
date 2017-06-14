@@ -40,9 +40,12 @@ public class DocumentStatus extends GenericModel {
   /** The unique identifier of the document. */
   @SerializedName("document_id")
   private String documentId;
+  /** The unique identifier for the configuration. */
   @SerializedName("configuration_id")
   private String configurationId;
+  /** The creation date of the document in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
   private Date created;
+  /** Date of the most recent document update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
   private Date updated;
   /** Status of the document in the ingestion process. */
   private String status;
@@ -113,60 +116,6 @@ public class DocumentStatus extends GenericModel {
    */
   public List<Notice> getNotices() {
     return notices;
-  }
-
-  /**
-   * Sets the documentId.
-   *
-   * @param documentId the new documentId
-   */
-  public void setDocumentId(final String documentId) {
-    this.documentId = documentId;
-  }
-
-  /**
-   * Sets the configurationId.
-   *
-   * @param configurationId the new configurationId
-   */
-  public void setConfigurationId(final String configurationId) {
-    this.configurationId = configurationId;
-  }
-
-  /**
-   * Sets the created.
-   *
-   * @param created the new created
-   */
-  public void setCreated(final Date created) {
-    this.created = created;
-  }
-
-  /**
-   * Sets the updated.
-   *
-   * @param updated the new updated
-   */
-  public void setUpdated(final Date updated) {
-    this.updated = updated;
-  }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(final String status) {
-    this.status = status;
-  }
-
-  /**
-   * Sets the statusDescription.
-   *
-   * @param statusDescription the new statusDescription
-   */
-  public void setStatusDescription(final String statusDescription) {
-    this.statusDescription = statusDescription;
   }
 
   /**

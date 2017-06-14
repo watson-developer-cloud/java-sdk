@@ -657,7 +657,7 @@ public class Discovery extends WatsonService {
       builder.query("count", String.valueOf(queryNoticesOptions.count()));
     }
     if (queryNoticesOptions.returnFields() != null) {
-      builder.query("return", RequestUtils.join(queryNoticesOptions.returnFields(), ","));
+      builder.query("return_fields", RequestUtils.join(queryNoticesOptions.returnFields(), ","));
     }
     if (queryNoticesOptions.offset() != null) {
       builder.query("offset", String.valueOf(queryNoticesOptions.offset()));

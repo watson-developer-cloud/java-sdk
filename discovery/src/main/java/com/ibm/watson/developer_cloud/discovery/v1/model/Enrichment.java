@@ -35,7 +35,8 @@ public class Enrichment extends GenericModel {
   /** Indicates that the enrichments will overwrite the destination_field field if it already exists. */
   private Boolean overwrite;
   /** Name of the enrichment service to call. Currently the only valid value is `alchemy_language`. */
-  private String enrichment;
+  @SerializedName("enrichment")
+  private String enrichmentName;
   /**
    * If true, then most errors generated during the enrichment process will be treated as warnings and will not cause
    * the document to fail processing.
@@ -82,12 +83,12 @@ public class Enrichment extends GenericModel {
   }
 
   /**
-   * Gets the enrichment.
+   * Gets the enrichmentName.
    *
-   * @return the enrichment
+   * @return the enrichmentName
    */
-  public String getEnrichment() {
-    return enrichment;
+  public String getEnrichmentName() {
+    return enrichmentName;
   }
 
   /**
@@ -145,12 +146,12 @@ public class Enrichment extends GenericModel {
   }
 
   /**
-   * Sets the enrichment.
+   * Sets the enrichmentName.
    *
-   * @param enrichment the new enrichment
+   * @param enrichmentName the new enrichmentName
    */
-  public void setEnrichment(final String enrichment) {
-    this.enrichment = enrichment;
+  public void setEnrichmentName(final String enrichmentName) {
+    this.enrichmentName = enrichmentName;
   }
 
   /**
