@@ -837,6 +837,27 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(2, queryResponse.getResults().size());
   }
 
+  /* Issue 659: creating a collection does not use the configuration id */
+  @Test
+  public void issueNumber659() {
+    String uniqueConfigName = UUID.randomUUID().toString() + "-config";
+    Configuration testConfiguration = getTestConfiguration(DISCOVERY_TEST_CONFIG_FILE);
+    testConfiguration.setName(uniqueConfigName);
+    CreateConfigurationRequest configRequest = new CreateConfigurationRequest.Builder(environmentId)
+        .configuration(testConfiguration)
+        .build();
+    Configuration configuration = discovery.createConfiguration(configRequest).execute();
+    configurationIds.add(configuration.getConfigurationId());
+
+    CreateCollectionRequest collectionRequest =
+        new CreateCollectionRequest.Builder(environmentId, configuration.getConfigurationId(), "Issue 659")
+        .build();
+    CreateCollectionResponse collectionResponse = discovery.createCollection(collectionRequest).execute();
+    collectionIds.add(collectionResponse.getCollectionId());
+
+    assertEquals(collectionResponse.getConfigurationId(), configuration.getConfigurationId());
+  }
+
   private CreateEnvironmentResponse createEnvironment(CreateEnvironmentRequest createRequest) {
     CreateEnvironmentResponse createResponse = discovery.createEnvironment(createRequest).execute();
     return createResponse;

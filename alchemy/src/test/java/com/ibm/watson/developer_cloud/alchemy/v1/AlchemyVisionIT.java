@@ -18,6 +18,7 @@ import java.io.FileInputStream;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -92,6 +93,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image scene text from image.
    */
+  @Ignore
   @Test(timeout = 180000)
   public void testGetRankedImageSceneTextFromImage() {
     final File imageFile = new File(IMAGE_COLORADO);
@@ -122,6 +124,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image scene text from URL.
    */
+  @Ignore
   @Test
   public void testGetRankedImageSceneTextFromURL() {
     final ImageSceneText image = service.getImageSceneText(HttpUrl.parse(IMAGE_COLORADO_URL).url()).execute();
@@ -134,6 +137,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image keywords from image.
    */
+  @Ignore
   @Test
   public void testGetRankedImageKeywordsFromImage() {
     final File imageFile = new File(IMAGE_OBAMA);
@@ -145,6 +149,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image keywords from image with knowledge graph data included.
    */
+  @Ignore
   @Test
   public void testGetRankedImageKeywordsFromImageWithKnowledgeGraph() {
     final File imageFile = new File(IMAGE_OBAMA);
@@ -161,6 +166,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image keywords from URL.
    */
+  @Ignore
   @Test
   public void testGetRankedImageKeywordsFromURL() {
     final ImageKeywords image = service.getImageKeywords(HttpUrl.parse(VR_IMAGE).url(), true, true).execute();
@@ -171,6 +177,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test recognize faces from image.
    */
+  @Ignore
   @Test
   public void testRecognizeFacesFromImage() {
     final File imageFile = new File(IMAGE_OBAMA);
@@ -182,6 +189,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test recognize faces from URL.
    */
+  @Ignore
   @Test
   public void testRecognizeFacesFromURL() {
     final ImageFaces image = service.recognizeFaces(HttpUrl.parse(VR_IMAGE).url(), false).execute();
