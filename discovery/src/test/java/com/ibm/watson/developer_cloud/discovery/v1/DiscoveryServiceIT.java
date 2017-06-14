@@ -468,7 +468,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Enrichment enrichment = new Enrichment();
     enrichment.setSourceField("foo");
     enrichment.setDestinationField("bar");
-    enrichment.setEnrichment("baz");
+    enrichment.setEnrichmentName("baz");
     enrichment.setDescription("Erich foo to bar with baz");
     enrichment.setIgnoreDownstreamErrors(true);
     enrichment.setOverwrite(false);
@@ -578,7 +578,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     Enrichment enrichment = new Enrichment();
     enrichment.setSourceField("foo");
     enrichment.setDestinationField("bar");
-    enrichment.setEnrichment("baz");
+    enrichment.setEnrichmentName("baz");
     enrichment.setDescription("Erich foo to bar with baz");
     enrichment.setIgnoreDownstreamErrors(true);
     enrichment.setOverwrite(false);
