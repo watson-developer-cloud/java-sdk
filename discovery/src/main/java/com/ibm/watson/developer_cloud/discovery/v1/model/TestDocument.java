@@ -22,8 +22,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class TestDocument extends GenericModel {
 
+  /** The unique identifier for the configuration. */
   @SerializedName("configuration_id")
   private String configurationId;
+  /** Status of the preview operation. */
   private String status;
   /**
    * The number of 10 Kilobytes of field data that was enriched. This can be used to estimate the cost of running a real
@@ -34,7 +36,9 @@ public class TestDocument extends GenericModel {
   /** Format of the test document. */
   @SerializedName("original_media_type")
   private String originalMediaType;
+  /** An array of objects that describe each step in the preview process. */
   private List<DocumentSnapshot> snapshots;
+  /** An array of notice messages about the preview operation. */
   private List<Notice> notices;
 
   /**
@@ -89,42 +93,6 @@ public class TestDocument extends GenericModel {
    */
   public List<Notice> getNotices() {
     return notices;
-  }
-
-  /**
-   * Sets the configurationId.
-   *
-   * @param configurationId the new configurationId
-   */
-  public void setConfigurationId(final String configurationId) {
-    this.configurationId = configurationId;
-  }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(final String status) {
-    this.status = status;
-  }
-
-  /**
-   * Sets the enrichedFieldUnits.
-   *
-   * @param enrichedFieldUnits the new enrichedFieldUnits
-   */
-  public void setEnrichedFieldUnits(final Double enrichedFieldUnits) {
-    this.enrichedFieldUnits = enrichedFieldUnits;
-  }
-
-  /**
-   * Sets the originalMediaType.
-   *
-   * @param originalMediaType the new originalMediaType
-   */
-  public void setOriginalMediaType(final String originalMediaType) {
-    this.originalMediaType = originalMediaType;
   }
 
   /**

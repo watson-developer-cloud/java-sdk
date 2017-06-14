@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -19,7 +20,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Field extends GenericModel {
 
-  public interface Type {
+  /**
+   * The type of the field.
+   */
+  public interface FieldType {
     /** nested. */
     String NESTED = "nested";
     /** string. */
@@ -44,42 +48,28 @@ public class Field extends GenericModel {
     String BINARY = "binary";
   }
 
-  private String field;
-  private String type;
+  /** The name of the field. */
+  @SerializedName("field")
+  private String fieldName;
+  /** The type of the field. */
+  @SerializedName("type")
+  private String fieldType;
 
   /**
-   * Gets the field.
+   * Gets the fieldName.
    *
-   * @return the field
+   * @return the fieldName
    */
-  public String getField() {
-    return field;
+  public String getFieldName() {
+    return fieldName;
   }
 
   /**
-   * Gets the type.
+   * Gets the fieldType.
    *
-   * @return the type
+   * @return the fieldType
    */
-  public String getType() {
-    return type;
-  }
-
-  /**
-   * Sets the field.
-   *
-   * @param field the new field
-   */
-  public void setField(final String field) {
-    this.field = field;
-  }
-
-  /**
-   * Sets the type.
-   *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
+  public String getFieldType() {
+    return fieldType;
   }
 }

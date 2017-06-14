@@ -132,17 +132,17 @@ public class QueryOptions extends GenericModel {
     }
 
     /**
-     * Adds an xreturn to returnFields.
+     * Adds an returnField to returnFields.
      *
-     * @param xreturn the new xreturn
+     * @param returnField the new returnField
      * @return the QueryOptions builder
      */
-    public Builder addXreturn(String xreturn) {
-      Validator.notNull(xreturn, "xreturn cannot be null");
+    public Builder addReturnField(String returnField) {
+      Validator.notNull(returnField, "returnField cannot be null");
       if (this.returnFields == null) {
         this.returnFields = new ArrayList<String>();
       }
-      this.returnFields.add(xreturn);
+      this.returnFields.add(returnField);
       return this;
     }
 
