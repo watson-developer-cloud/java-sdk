@@ -27,9 +27,8 @@ discovery.setUsernameAndPassword("<username>", "<password>");
 //Build an empty query on an existing environment/collection
 String environmentId = "<environmentId>";
 String collectionId = "<collectionId";
-QueryRequest queryRequest = new QueryRequest.Builder(environmentId, collectionId).build();
-
-QueryResponse queryResponse = discovery.query(queryRequest).execute();
+QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).build();
+QueryResponse queryResponse = discovery.query(queryOptions).execute();
 ```
 
 [discovery]: http://www.ibm.com/watson/developercloud/doc/discovery/
