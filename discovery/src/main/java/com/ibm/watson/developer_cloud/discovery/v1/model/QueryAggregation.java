@@ -12,32 +12,13 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.util.HashMap;
 import java.util.List;
-
-import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * An aggregation produced by the Discovery service to analyze the input provided.
  */
-public class QueryAggregation extends GenericModel {
-
-  /** The type of aggregation command used. e.g. term, filter, max, min, etc. */
-  private String type;
-  /** The field where the aggregation is located in the document. */
-  private String field;
-  private List<AggregationResult> results;
-  /** The match the aggregated results queried for. */
-  private String match;
-  /** Number of matching results. */
-  @SerializedName("matching_results")
-  private Long matchingResults;
-  /** Aggregations returned by the Discovery service. */
-  private List<QueryAggregation> aggregations;
-  /** Interval specified by using aggregation type 'timeslice'. */
-  private Long interval;
-  /** Value of the aggregation. (For 'max' and 'min' type). */
-  private Double value;
+public class QueryAggregation extends HashMap<String, Object> {
 
   /**
    * Gets the type.
@@ -45,34 +26,7 @@ public class QueryAggregation extends GenericModel {
    * @return the type
    */
   public String getType() {
-    return type;
-  }
-
-  /**
-   * Gets the field.
-   *
-   * @return the field
-   */
-  public String getField() {
-    return field;
-  }
-
-  /**
-   * Gets the results.
-   *
-   * @return the results
-   */
-  public List<AggregationResult> getResults() {
-    return results;
-  }
-
-  /**
-   * Gets the match.
-   *
-   * @return the match
-   */
-  public String getMatch() {
-    return match;
+    return (String) this.get("type");
   }
 
   /**
@@ -81,34 +35,16 @@ public class QueryAggregation extends GenericModel {
    * @return the matchingResults
    */
   public Long getMatchingResults() {
-    return matchingResults;
+    return (Long) this.get("matchingResults");
   }
 
   /**
-   * Gets the aggregations.
+   * Gets the results.
    *
-   * @return the aggregations
+   * @return the results
    */
-  public List<QueryAggregation> getAggregations() {
-    return aggregations;
-  }
-
-  /**
-   * Gets the interval.
-   *
-   * @return the interval
-   */
-  public Long getInterval() {
-    return interval;
-  }
-
-  /**
-   * Gets the value.
-   *
-   * @return the value
-   */
-  public Double getValue() {
-    return value;
+  public List<Object> getResults() {
+    return (List<Object>) this.get("results");
   }
 
   /**
@@ -117,34 +53,7 @@ public class QueryAggregation extends GenericModel {
    * @param type the new type
    */
   public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the field.
-   *
-   * @param field the new field
-   */
-  public void setField(final String field) {
-    this.field = field;
-  }
-
-  /**
-   * Sets the results.
-   *
-   * @param results the new results
-   */
-  public void setResults(final List<AggregationResult> results) {
-    this.results = results;
-  }
-
-  /**
-   * Sets the match.
-   *
-   * @param match the new match
-   */
-  public void setMatch(final String match) {
-    this.match = match;
+    this.put("type", type);
   }
 
   /**
@@ -153,33 +62,15 @@ public class QueryAggregation extends GenericModel {
    * @param matchingResults the new matchingResults
    */
   public void setMatchingResults(final Long matchingResults) {
-    this.matchingResults = matchingResults;
+    this.put("matchingResults", matchingResults);
   }
 
   /**
-   * Sets the aggregations.
+   * Sets the results.
    *
-   * @param aggregations the new aggregations
+   * @param results the new results
    */
-  public void setAggregations(final List<QueryAggregation> aggregations) {
-    this.aggregations = aggregations;
-  }
-
-  /**
-   * Sets the interval.
-   *
-   * @param interval the new interval
-   */
-  public void setInterval(final Long interval) {
-    this.interval = interval;
-  }
-
-  /**
-   * Sets the value.
-   *
-   * @param value the new value
-   */
-  public void setValue(final Double value) {
-    this.value = value;
+  public void setResults(final List<Object> results) {
+    this.put("results", results);
   }
 }
