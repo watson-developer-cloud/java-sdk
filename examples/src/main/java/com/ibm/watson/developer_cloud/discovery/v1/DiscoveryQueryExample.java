@@ -1,16 +1,14 @@
-/* BEGIN_COPYRIGHT
+/**
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
- * IBM Confidential
- * OCO Source Materials
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
- * 5727-I17
- * (C) Copyright IBM Corp. 2016 All Rights Reserved.
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
- * The source code for this program is not published or otherwise
- * divested of its trade secrets, irrespective of what has been
- * deposited with the U.S. Copyright Office.
- *
- * END_COPYRIGHT
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 
 package com.ibm.watson.developer_cloud.discovery.v1;
@@ -60,9 +58,9 @@ public class DiscoveryQueryExample {
 
         //See if an environment already exists
         System.out.println("Check if environment exists");
-        GetEnvironmentsRequest getRequest = new GetEnvironmentsRequest.Builder().build();
-        GetEnvironmentsResponse getResponse = discovery.getEnvironments(getRequest).execute();
-        for (Environment environment : getResponse.getEnvironments()) {
+        ListEnvironmentsOptions listOptions = new ListEnvironmentsOptions.Builder().build();
+        ListEnvironmentsResponse listResponse = discovery.listEnvironments(listOptions).execute();
+        for (Environment environment : listResponse.getEnvironments()) {
             //look for an existing environment that isn't read only
             if (!environment.isReadOnly()) {
                 environmentId = environment.getEnvironmentId();
@@ -75,10 +73,11 @@ public class DiscoveryQueryExample {
             System.out.println("No environment found, creating new one...");
             //no environment found, create a new one (assuming we are a FREE plan)
             String environmentName = "watson_developer_cloud_test_environment";
-            CreateEnvironmentRequest.Size size = CreateEnvironmentRequest.Size.FREE;
-            CreateEnvironmentRequest createRequest = new CreateEnvironmentRequest.Builder(environmentName, size)
-                    .build();
-            CreateEnvironmentResponse createResponse = discovery.createEnvironment(createRequest).execute();
+            CreateEnvironmentOptions createOptions = new CreateEnvironmentOptions.Builder()
+                .name(environmentName)
+                .size(0L)  /* FREE */
+                .build();
+            Environment createResponse = discovery.createEnvironment(createOptions).execute();
             environmentId = createResponse.getEnvironmentId();
             System.out.println("Created new environment ID: " + environmentId);
 
@@ -86,10 +85,9 @@ public class DiscoveryQueryExample {
             System.out.println("Waiting for environment to be ready...");
             boolean environmentReady = false;
             while (!environmentReady) {
-                GetEnvironmentRequest getEnvironmentRequest = new GetEnvironmentRequest.Builder(environmentId).build();
-                GetEnvironmentResponse getEnvironmentResponse = discovery.getEnvironment(getEnvironmentRequest)
-                        .execute();
-                environmentReady = getEnvironmentResponse.getStatus().equals(Status.ACTIVE);
+                GetEnvironmentOptions getEnvironmentOptions = new GetEnvironmentOptions.Builder(environmentId).build();
+                Environment getEnvironmentResponse = discovery.getEnvironment(getEnvironmentOptions).execute();
+                environmentReady = getEnvironmentResponse.getStatus().equals(Environment.Status.ACTIVE);
                 try {
                     if (!environmentReady) {
                         Thread.sleep(500);
@@ -103,9 +101,9 @@ public class DiscoveryQueryExample {
 
         //find the default configuration
         System.out.println("Finding the default configuration");
-        GetConfigurationsRequest getConfigRequest = new GetConfigurationsRequest.Builder(environmentId).build();
-        GetConfigurationsResponse getConfigResponse = discovery.getConfigurations(getConfigRequest).execute();
-        for (Configuration configuration : getConfigResponse.getConfigurations()) {
+        ListConfigurationsOptions listConfigsOptions = new ListConfigurationsOptions.Builder(environmentId).build();
+        ListConfigurationsResponse listConfigsResponse = discovery.listConfigurations(listConfigsOptions).execute();
+        for (Configuration configuration : listConfigsResponse.getConfigurations()) {
             if (configuration.getName().equals(DEFAULT_CONFIG_NAME)) {
                 configurationId = configuration.getConfigurationId();
                 System.out.println("Found default configuration ID: " + configurationId);
@@ -116,20 +114,20 @@ public class DiscoveryQueryExample {
         //create a new collection
         System.out.println("Creating a new collection...");
         String collectionName = "my_watson_developer_cloud_collection";
-        CreateCollectionRequest.Builder createCollectionBuilder = new CreateCollectionRequest.Builder(environmentId,
-                configurationId, collectionName);
-        CreateCollectionResponse createResponse = discovery.createCollection(createCollectionBuilder.build()).execute();
-        collectionId = createResponse.getCollectionId();
+        CreateCollectionOptions createCollectionOptions =
+            new CreateCollectionOptions.Builder(environmentId, collectionName).configurationId(configurationId).build();
+        Collection collection = discovery.createCollection(createCollectionOptions).execute();
+        collectionId = collection.getCollectionId();
         System.out.println("Created a collection ID: " + collectionId);
 
         //wait for the collection to be "available"
         System.out.println("Waiting for collection to be ready...");
         boolean collectionReady = false;
         while (!collectionReady) {
-            GetCollectionRequest getCollectionRequest = new GetCollectionRequest.Builder(environmentId, collectionId)
-                    .build();
-            GetCollectionResponse getCollectionResponse = discovery.getCollection(getCollectionRequest).execute();
-            collectionReady = getCollectionResponse.getStatus().equals(Status.ACTIVE);
+            GetCollectionOptions getCollectionOptions =
+                new GetCollectionOptions.Builder(environmentId, collectionId).build();
+            Collection getCollectionResponse = discovery.getCollection(getCollectionOptions).execute();
+            collectionReady = getCollectionResponse.getStatus().equals(Collection.Status.ACTIVE);
             try {
                 if (!collectionReady) {
                     Thread.sleep(500);
@@ -145,11 +143,10 @@ public class DiscoveryQueryExample {
         String documentJson = "{\"field\":\"value\"}";
         InputStream documentStream = new ByteArrayInputStream(documentJson.getBytes());
 
-        CreateDocumentRequest.Builder createDocumentBuilder = new CreateDocumentRequest.Builder(environmentId,
-                collectionId);
-        createDocumentBuilder.inputStream(documentStream, HttpMediaType.APPLICATION_JSON);
-        CreateDocumentResponse createDocumentResponse = discovery.createDocument(createDocumentBuilder.build())
-                .execute();
+        AddDocumentOptions.Builder createDocumentBuilder =
+            new AddDocumentOptions.Builder(environmentId, collectionId);
+        createDocumentBuilder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
+        DocumentAccepted createDocumentResponse = discovery.addDocument(createDocumentBuilder.build()).execute();
         documentId = createDocumentResponse.getDocumentId();
         System.out.println("Created a document ID: " + documentId);
 
@@ -157,10 +154,10 @@ public class DiscoveryQueryExample {
         System.out.println("Waiting for document to be ready...");
         boolean documentReady = false;
         while (!documentReady) {
-            GetDocumentRequest getDocumentRequest = new GetDocumentRequest.Builder(environmentId, collectionId,
-                    documentId).build();
-            GetDocumentResponse getDocumentResponse = discovery.getDocument(getDocumentRequest).execute();
-            documentReady = !getDocumentResponse.getStatus().equals(Document.Status.PROCESSING);
+            GetDocumentStatusOptions getDocumentStatusOptions =
+                new GetDocumentStatusOptions.Builder(environmentId, collectionId, documentId).build();
+            DocumentStatus getDocumentResponse = discovery.getDocument(getDocumentStatusOptions).execute();
+            documentReady = !getDocumentResponse.getStatus().equals(DocumentStatus.Status.PROCESSING);
             try {
                 if (!documentReady) {
                     Thread.sleep(500);
@@ -173,7 +170,7 @@ public class DiscoveryQueryExample {
 
         //query document
         System.out.println("Querying the collection...");
-        QueryRequest.Builder queryBuilder = new QueryRequest.Builder(environmentId, collectionId);
+        QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
         queryBuilder.query("field:value");
         QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
 
@@ -183,9 +180,9 @@ public class DiscoveryQueryExample {
 
         //cleanup the collection created
         System.out.println("Deleting the collection...");
-        DeleteCollectionRequest deleteRequest = new DeleteCollectionRequest.Builder(environmentId, collectionId)
-                .build();
-        discovery.deleteCollection(deleteRequest).execute();
+        DeleteCollectionOptions deleteOptions =
+            new DeleteCollectionOptions.Builder(environmentId, collectionId).build();
+        discovery.deleteCollection(deleteOptions).execute();
         System.out.println("Collection deleted!");
 
         System.out.println("Discovery example finished");
