@@ -86,6 +86,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -1028,7 +1029,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
     QueryAggregation term = (QueryAggregation) queryResponse.getAggregations().get(0);
-    assertFalse(term.getResults().get(0).getAggregations().isEmpty());
+    Map<String, Object> agResults = ((Map<String, Object>) term.getResults().get(0));
+    List<Object> aggregations = (List<Object>) agResults.get("aggregations");
+    assertFalse(aggregations.isEmpty());
   }
 
   @Test
@@ -1047,7 +1050,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
     QueryAggregation histogram = (QueryAggregation) queryResponse.getAggregations().get(0);
-    assertEquals(new Long(5), histogram.getInterval());
+    Long interval = ((Double) histogram.get("interval")).longValue();
+    assertEquals(new Long(5), interval);
     assertEquals(2, histogram.getResults().size());
   }
 
@@ -1066,7 +1070,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
     QueryAggregation max = (QueryAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MAX.getName(), max.getType());
-    assertEquals(new Double(9), max.getValue());
+    assertEquals(new Double(9), max.get("value"));
   }
 
   @Test
@@ -1084,7 +1088,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
     QueryAggregation min = (QueryAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MIN.getName(), min.getType());
-    assertEquals(new Double(0), min.getValue());
+    assertEquals(new Double(0), min.get("value"));
   }
 
   @Test
@@ -1102,7 +1106,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
     QueryAggregation sum = (QueryAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.SUM.getName(), sum.getType());
-    assertEquals(new Double(45), sum.getValue());
+    assertEquals(new Double(45), sum.get("value"));
   }
 
   @Test
@@ -1120,7 +1124,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
     QueryAggregation avg = (QueryAggregation) queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.AVERAGE.getName(), avg.getType());
-    assertEquals(new Double(4.5), avg.getValue());
+    assertEquals(new Double(4.5), avg.get("value"));
   }
 
   // queryNotices tests
