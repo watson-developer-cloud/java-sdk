@@ -109,7 +109,6 @@ public abstract class WatsonService {
    * Configure the {@link OkHttpClient}. This method will be called by the constructor and can be used to customize the
    * client that the service will use to perform the http calls.
    *
-   * @param okHttpClient the {@link OkHttpClient}
    * @return the {@link OkHttpClient}
    */
   protected OkHttpClient configureHttpClient() {
