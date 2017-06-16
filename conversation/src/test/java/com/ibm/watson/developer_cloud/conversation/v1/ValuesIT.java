@@ -18,9 +18,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListValuesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateValueOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ValueCollectionResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ValueExportResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ValueResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ValueCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ValueExport;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Value;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Test;
@@ -72,7 +72,7 @@ public class ValuesIT extends ConversationServiceTest {
         .value(entityValue)
         .metadata(valueMetadata)
         .build();
-    ValueResponse response = service.createValue(createOptions).execute();
+    Value response = service.createValue(createOptions).execute();
 
     try {
       assertNotNull(response);
@@ -121,7 +121,7 @@ public class ValuesIT extends ConversationServiceTest {
 
     CreateValueOptions createOptions =
         new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
-    ValueResponse response = service.createValue(createOptions).execute();
+    Value response = service.createValue(createOptions).execute();
 
     try {
       assertNotNull(response);
@@ -187,7 +187,7 @@ public class ValuesIT extends ConversationServiceTest {
           new GetValueOptions.Builder(workspaceId, entity, entityValue)
               .export(true)
               .build();
-      ValueExportResponse response = service.getValue(getOptions).execute();
+      ValueExport response = service.getValue(getOptions).execute();
 
       assertNotNull(response);
       assertNotNull(response.getValue());
@@ -252,7 +252,7 @@ public class ValuesIT extends ConversationServiceTest {
           .workspaceId(workspaceId)
           .entity(entity)
           .build();
-      final ValueCollectionResponse response = service.listValues(listOptions).execute();
+      final ValueCollection response = service.listValues(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getValues());
       assertNotNull(response.getPagination());
@@ -270,7 +270,7 @@ public class ValuesIT extends ConversationServiceTest {
       if (response.getPagination().getNextUrl() == null) {
         //assertTrue(response.getValues().stream().filter(r -> r.getValue().equals(synonym1)).count() == 1);
         boolean found1 = false, found2 = false;
-        for (ValueExportResponse valueResponse : response.getValues()) {
+        for (ValueExport valueResponse : response.getValues()) {
           found1 |= valueResponse.getValue().equals(entityValue1);
           found2 |= valueResponse.getValue().equals(entityValue2);
         }
@@ -327,7 +327,7 @@ public class ValuesIT extends ConversationServiceTest {
       listOptionsBuilder.pageLimit(1L);
       listOptionsBuilder.export(true);
 
-      ValueCollectionResponse response =
+      ValueCollection response =
           service.listValues(listOptionsBuilder.build()).execute();
       assertNotNull(response);
       assertNotNull(response.getPagination());
@@ -403,7 +403,7 @@ public class ValuesIT extends ConversationServiceTest {
         .newSynonyms(new ArrayList<String>(Arrays.asList(synonym1, synonym2)))
         .newMetadata(valueMetadata)
         .build();
-    ValueResponse response = service.updateValue(updateOptions).execute();
+    Value response = service.updateValue(updateOptions).execute();
 
     try {
       assertNotNull(response);
@@ -422,7 +422,7 @@ public class ValuesIT extends ConversationServiceTest {
           new GetValueOptions.Builder(workspaceId, entity, entityValue2)
               .export(true)
               .build();
-      ValueExportResponse vResponse = service.getValue(getOptions).execute();
+      ValueExport vResponse = service.getValue(getOptions).execute();
 
       assertNotNull(vResponse);
       assertNotNull(vResponse.getValue());
