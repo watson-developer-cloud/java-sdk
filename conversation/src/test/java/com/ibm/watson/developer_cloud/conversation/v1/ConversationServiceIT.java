@@ -28,27 +28,49 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.ibm.watson.developer_cloud.conversation.v1.model.CounterexampleCollectionResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Counterexample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CounterexampleCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateEntity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValue;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspace;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollectionResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.IntentCollectionResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.IntentExportResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.IntentResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteExampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteIntentOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Example;
+import com.ibm.watson.developer_cloud.conversation.v1.model.GetCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.GetExampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.GetIntentOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.GetWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
+import com.ibm.watson.developer_cloud.conversation.v1.model.IntentCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.IntentExport;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListCounterexamplesOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListExamplesOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListIntentsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListLogsOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.LogCollectionResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.LogExportResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListWorkspacesOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.LogCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.LogExport;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspace;
-import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceCollectionResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExportResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeIntent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateExampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExport;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Workspace;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
@@ -69,8 +91,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
   @Test(expected = UnauthorizedException.class)
   public void pingBadCredentialsThrowsException() {
     ConversationService badService =
-        new ConversationService(ConversationService.VERSION_DATE_2017_04_21, "foo", "bar");
-    badService.message(workspaceId, null).execute();
+        new ConversationService(ConversationService.VERSION_DATE_2017_05_26, "foo", "bar");
+    MessageOptions options = new MessageOptions.Builder(workspaceId).build();
+    badService.message(options).execute();
   }
 
   /**
@@ -78,7 +101,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
    */
   @Test()
   public void testStartAConversationWithoutMessage() {
-    service.message(workspaceId, null).execute();
+    MessageOptions options = new MessageOptions.Builder(workspaceId).build();
+    service.message(options).execute();
   }
 
   /**
@@ -89,18 +113,25 @@ public class ConversationServiceIT extends ConversationServiceTest {
   @Test
   public void testSendMessages() throws InterruptedException {
     final String[] messages = new String[] { "turn ac on", "turn right", "no", "yes" };
-    Map<String, Object> context = null;
+    Context context = null;
     for (final String message : messages) {
-      MessageRequest request =
-          new MessageRequest.Builder().inputText(message).alternateIntents(true).context(context).build();
+      MessageOptions request = new MessageOptions.Builder(workspaceId)
+          .input(new InputData.Builder(message).build())
+          .alternateIntents(true)
+          .context(context)
+          .build();
 
       if (message.equals("yes")) {
-        request = request.newBuilder().intent(new Intent("off_topic", 1.0)).build();
+        RuntimeIntent offTopic = new RuntimeIntent();
+        offTopic.setIntent("off_topic");
+        offTopic.setConfidence(1.0);
+        request = request.newBuilder().addIntent(offTopic).build();
       }
-      MessageResponse response = service.message(workspaceId, request).execute();
+      MessageResponse response = service.message(request).execute();
 
       assertMessageFromService(response);
-      context = response.getContext();
+      context = new Context();
+      context.putAll(response.getContext());
       Thread.sleep(500);
     }
   }
@@ -117,11 +148,11 @@ public class ConversationServiceIT extends ConversationServiceTest {
   }
 
   /**
-   * Test message with nulls.
+   * Test message with null.
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testMessageWithNulls() {
-    service.message(null, null).execute();
+  public void testMessageWithNull() {
+    service.message(null).execute();
   }
 
   /**
@@ -141,7 +172,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
     Date start = new Date();
 
     String counterExampleText = "Make me a " + UUID.randomUUID().toString() + " sandwich";  // gotta be unique
-    ExampleResponse response = service.createCounterexample(workspaceId, counterExampleText).execute();
+    CreateCounterexampleOptions createOptions =
+        new CreateCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+    Counterexample response = service.createCounterexample(createOptions).execute();
 
     try {
       assertNotNull(response);
@@ -159,7 +192,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteCounterexample(workspaceId, counterExampleText).execute();
+      DeleteCounterexampleOptions deleteOptions =
+          new DeleteCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+      service.deleteCounterexample(deleteOptions).execute();
     }
   }
 
@@ -170,12 +205,18 @@ public class ConversationServiceIT extends ConversationServiceTest {
   public void testDeleteCounterexample() {
 
     String counterExampleText = "Make me a " + UUID.randomUUID().toString() + " sandwich";  // gotta be unique
-    service.createCounterexample(workspaceId, counterExampleText).execute();
+    CreateCounterexampleOptions createOptions =
+        new CreateCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+    service.createCounterexample(createOptions).execute();
 
-    service.deleteCounterexample(workspaceId, counterExampleText).execute();
+    DeleteCounterexampleOptions deleteOptions =
+        new DeleteCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+    service.deleteCounterexample(deleteOptions).execute();
 
     try {
-      service.getCounterexample(workspaceId, counterExampleText).execute();
+      GetCounterexampleOptions getOptions =
+          new GetCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+      service.getCounterexample(getOptions).execute();
       fail("deleteCounterexample failed");
     } catch (Exception ex) {
       // Expected result
@@ -192,10 +233,14 @@ public class ConversationServiceIT extends ConversationServiceTest {
     Date start = new Date();
 
     String counterExampleText = "Make me a " + UUID.randomUUID().toString() + " sandwich";  // gotta be unique
-    service.createCounterexample(workspaceId, counterExampleText).execute();
+    CreateCounterexampleOptions createOptions =
+        new CreateCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+    service.createCounterexample(createOptions).execute();
 
     try {
-      ExampleResponse response = service.getCounterexample(workspaceId, counterExampleText).execute();
+      GetCounterexampleOptions getOptions =
+          new GetCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+      Counterexample response = service.getCounterexample(getOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getText());
       assertEquals(response.getText(), counterExampleText);
@@ -212,7 +257,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteCounterexample(workspaceId, counterExampleText).execute();
+      DeleteCounterexampleOptions deleteOptions =
+          new DeleteCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+      service.deleteCounterexample(deleteOptions).execute();
     }
   }
 
@@ -225,8 +272,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
     String counterExampleText = "Make me a " + UUID.randomUUID().toString() + " sandwich";  // gotta be unique
 
     try {
-      CounterexampleCollectionResponse ccResponse = service.listCounterexamples(workspaceId, null, null, null, null)
-          .execute();
+      ListCounterexamplesOptions listOptions = new ListCounterexamplesOptions.Builder(workspaceId).build();
+      CounterexampleCollection ccResponse = service.listCounterexamples(listOptions).execute();
       assertNotNull(ccResponse);
       assertNotNull(ccResponse.getCounterexamples());
       assertNotNull(ccResponse.getPagination());
@@ -236,19 +283,21 @@ public class ConversationServiceIT extends ConversationServiceTest {
       Date start = new Date();
 
       // Now add a counterexample and make sure we get it back
-      service.createCounterexample(workspaceId, counterExampleText).execute();
+      CreateCounterexampleOptions createOptions =
+          new CreateCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+      service.createCounterexample(createOptions).execute();
 
       long count = ccResponse.getCounterexamples().size();
-      CounterexampleCollectionResponse ccResponse2 = service.listCounterexamples(workspaceId, count + 1, null, null,
-          null).execute();
+      CounterexampleCollection ccResponse2 =
+          service.listCounterexamples(listOptions.newBuilder().pageLimit(count + 1).build()).execute();
       assertNotNull(ccResponse2);
       assertNotNull(ccResponse2.getCounterexamples());
 
-      List<ExampleResponse> counterexamples = ccResponse2.getCounterexamples();
+      List<Counterexample> counterexamples = ccResponse2.getCounterexamples();
       assertTrue(counterexamples.size() > count);
 
-      ExampleResponse exResponse = null;
-      for (ExampleResponse resp : counterexamples) {
+      Counterexample exResponse = null;
+      for (Counterexample resp : counterexamples) {
         if (resp.getText().equals(counterExampleText)) {
           exResponse = resp;
           break;
@@ -266,7 +315,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteCounterexample(workspaceId, counterExampleText).execute();
+      DeleteCounterexampleOptions deleteOptions =
+          new DeleteCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+      service.deleteCounterexample(deleteOptions).execute();
     }
   }
 
@@ -280,12 +331,17 @@ public class ConversationServiceIT extends ConversationServiceTest {
     String counterExampleText2 = "zeta" + UUID.randomUUID().toString();  // gotta be unique
 
     // Add two counterexamples
-    service.createCounterexample(workspaceId, counterExampleText1).execute();
-    service.createCounterexample(workspaceId, counterExampleText2).execute();
+    CreateCounterexampleOptions createOptions =
+        new CreateCounterexampleOptions.Builder(workspaceId, counterExampleText1).build();
+    service.createCounterexample(createOptions).execute();
+    service.createCounterexample(createOptions.newBuilder().text(counterExampleText2).build()).execute();
 
     try {
-      CounterexampleCollectionResponse response =
-          service.listCounterexamples(workspaceId, 1L, null, "text", null).execute();
+      ListCounterexamplesOptions listOptions = new ListCounterexamplesOptions.Builder(workspaceId)
+          .pageLimit(1L)
+          .sort("text")
+          .build();
+      CounterexampleCollection response = service.listCounterexamples(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
@@ -303,7 +359,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
           break;
         }
         String cursor = response.getPagination().getCursor();
-        response = service.listCounterexamples(workspaceId, 1L, null, "text", cursor).execute();
+        response = service.listCounterexamples(listOptions.newBuilder().cursor(cursor).build()).execute();
       }
 
       assertTrue(found1 && found2);
@@ -311,8 +367,10 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteCounterexample(workspaceId, counterExampleText1).execute();
-      service.deleteCounterexample(workspaceId, counterExampleText2).execute();
+      DeleteCounterexampleOptions deleteOptions =
+          new DeleteCounterexampleOptions.Builder(workspaceId, counterExampleText1).build();
+      service.deleteCounterexample(deleteOptions).execute();
+      service.deleteCounterexample(deleteOptions.newBuilder().text(counterExampleText2).build()).execute();
     }
   }
 
@@ -324,12 +382,16 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     String counterExampleText = "Make me a " + UUID.randomUUID().toString() + " sandwich";  // gotta be unique
     String counterExampleText2 = "Make me a " + UUID.randomUUID().toString() + " sandwich";  // gotta be unique
-    service.createCounterexample(workspaceId, counterExampleText).execute();
+    CreateCounterexampleOptions createOptions =
+        new CreateCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+    service.createCounterexample(createOptions).execute();
 
     try {
       Date start = new Date();
-      ExampleResponse response = service.updateCounterexample(workspaceId, counterExampleText, counterExampleText2)
-          .execute();
+      UpdateCounterexampleOptions updateOptions =
+          new UpdateCounterexampleOptions.Builder(workspaceId, counterExampleText)
+            .newText(counterExampleText2).build();
+      Counterexample response = service.updateCounterexample(updateOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getText());
       assertEquals(response.getText(), counterExampleText2);
@@ -345,14 +407,19 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteCounterexample(workspaceId, counterExampleText2).execute();
+      DeleteCounterexampleOptions deleteOptions =
+          new DeleteCounterexampleOptions.Builder(workspaceId, counterExampleText2).build();
+      service.deleteCounterexample(deleteOptions).execute();
     }
   }
 
   public void createExampleIntent() {
     exampleIntent = "Hello";
     try {
-      service.createIntent(workspaceId, exampleIntent, "Example Intent", null).execute();
+      CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, exampleIntent)
+          .description("Example Intent")
+          .build();
+      service.createIntent(createOptions).execute();
     } catch (Exception ex) {
       // Exception is okay if is for Unique Violation
       assertTrue(ex.getLocalizedMessage().startsWith("Unique Violation"));
@@ -370,7 +437,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
     Date start = new Date();
 
     String exampleText = "Howdy " + UUID.randomUUID().toString();  // gotta be unique
-    ExampleResponse response = service.createExample(workspaceId, exampleIntent, exampleText).execute();
+    CreateExampleOptions createOptions =
+        new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+    Example response = service.createExample(createOptions).execute();
 
     try {
       assertNotNull(response);
@@ -388,7 +457,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteExample(workspaceId, exampleIntent, exampleText).execute();
+      DeleteExampleOptions deleteOptions =
+          new DeleteExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+      service.deleteExample(deleteOptions).execute();
     }
   }
 
@@ -401,12 +472,18 @@ public class ConversationServiceIT extends ConversationServiceTest {
     createExampleIntent();
 
     String exampleText = "Howdy " + UUID.randomUUID().toString();  // gotta be unique
-    service.createExample(workspaceId, exampleIntent, exampleText).execute();
+    CreateExampleOptions createOptions =
+        new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+    service.createExample(createOptions).execute();
 
-    service.deleteExample(workspaceId, exampleIntent, exampleText).execute();
+    DeleteExampleOptions deleteOptions =
+        new DeleteExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+    service.deleteExample(deleteOptions).execute();
 
     try {
-      service.getExample(workspaceId, exampleIntent, exampleText).execute();
+      GetExampleOptions getOptions =
+          new GetExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+      service.getExample(getOptions).execute();
       fail("deleteCounterexample failed");
     } catch (Exception ex) {
       // Expected result
@@ -425,10 +502,14 @@ public class ConversationServiceIT extends ConversationServiceTest {
     Date start = new Date();
 
     String exampleText = "Howdy " + UUID.randomUUID().toString();  // gotta be unique
-    service.createExample(workspaceId, exampleIntent, exampleText).execute();
+    CreateExampleOptions createOptions =
+        new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+    service.createExample(createOptions).execute();
 
     try {
-      ExampleResponse response = service.getExample(workspaceId, exampleIntent, exampleText).execute();
+      GetExampleOptions getOptions =
+          new GetExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+      Example response = service.getExample(getOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getText());
       assertEquals(response.getText(), exampleText);
@@ -445,7 +526,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteExample(workspaceId, exampleIntent, exampleText).execute();
+      DeleteExampleOptions deleteOptions =
+          new DeleteExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+      service.deleteExample(deleteOptions).execute();
     }
   }
 
@@ -460,8 +543,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
     String exampleText = "Howdy " + UUID.randomUUID().toString();  // gotta be unique
 
     try {
-      ExampleCollectionResponse ecResponse = service.listExamples(workspaceId, exampleIntent, null, null, null, null)
-          .execute();
+      ListExamplesOptions listOptions =
+          new ListExamplesOptions.Builder(workspaceId, exampleIntent).build();
+      ExampleCollection ecResponse = service.listExamples(listOptions).execute();
       assertNotNull(ecResponse);
       assertNotNull(ecResponse.getExamples());
       assertNotNull(ecResponse.getPagination());
@@ -471,19 +555,21 @@ public class ConversationServiceIT extends ConversationServiceTest {
       Date start = new Date();
 
       // Now add an example and make sure we get it back
-      service.createExample(workspaceId, exampleIntent, exampleText).execute();
+      CreateExampleOptions createOptions =
+          new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+      service.createExample(createOptions).execute();
 
       long count = ecResponse.getExamples().size();
-      ExampleCollectionResponse ecResponse2 = service.listExamples(workspaceId, exampleIntent, count + 1, null, null,
-          null).execute();
+      ExampleCollection ecResponse2 = service.listExamples(listOptions.newBuilder()
+          .pageLimit(count + 1).build()).execute();
       assertNotNull(ecResponse2);
       assertNotNull(ecResponse2.getExamples());
 
-      List<ExampleResponse> examples = ecResponse2.getExamples();
+      List<Example> examples = ecResponse2.getExamples();
       assertTrue(examples.size() > count);
 
-      ExampleResponse exResponse = null;
-      for (ExampleResponse resp : examples) {
+      Example exResponse = null;
+      for (Example resp : examples) {
         if (resp.getText().equals(exampleText)) {
           exResponse = resp;
           break;
@@ -501,7 +587,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteExample(workspaceId, exampleIntent, exampleText).execute();
+      DeleteExampleOptions deleteOptions =
+          new DeleteExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+      service.deleteExample(deleteOptions).execute();
     }
 
   }
@@ -516,12 +604,17 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     String exampleText1 = "Alpha " + UUID.randomUUID().toString();  // gotta be unique
     String exampleText2 = "Zeta " + UUID.randomUUID().toString();  // gotta be unique
-    service.createExample(workspaceId, exampleIntent, exampleText1).execute();
-    service.createExample(workspaceId, exampleIntent, exampleText2).execute();
+    CreateExampleOptions createOptions =
+        new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText1).build();
+    service.createExample(createOptions).execute();
+    service.createExample(createOptions.newBuilder().text(exampleText2).build()).execute();
 
     try {
-      ExampleCollectionResponse response =
-          service.listExamples(workspaceId, exampleIntent, 1L, null, "-text", null).execute();
+      ListExamplesOptions listOptions = new ListExamplesOptions.Builder(workspaceId, exampleIntent)
+          .pageLimit(1L)
+          .sort("-text")
+          .build();
+      ExampleCollection response = service.listExamples(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getExamples());
       assertNotNull(response.getPagination());
@@ -540,7 +633,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
           break;
         }
         String cursor = response.getPagination().getCursor();
-        response = service.listExamples(workspaceId, exampleIntent, 1L, null, "-text", cursor).execute();
+        response = service.listExamples(listOptions.newBuilder().cursor(cursor).build()).execute();
       }
       assertTrue(found1 && found2);
 
@@ -548,8 +641,10 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteExample(workspaceId, exampleIntent, exampleText1).execute();
-      service.deleteExample(workspaceId, exampleIntent, exampleText2).execute();
+      DeleteExampleOptions deleteOptions =
+          new DeleteExampleOptions.Builder(workspaceId, exampleIntent, exampleText1).build();
+      service.deleteExample(deleteOptions).execute();
+      service.deleteExample(deleteOptions.newBuilder().text(exampleText2).build()).execute();
     }
 
   }
@@ -564,11 +659,17 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     String exampleText = "Howdy " + UUID.randomUUID().toString();  // gotta be unique
     String exampleText2 = "Howdy " + UUID.randomUUID().toString();  // gotta be unique
-    service.createExample(workspaceId, exampleIntent, exampleText).execute();
+    CreateExampleOptions createOptions =
+        new CreateExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
+    service.createExample(createOptions).execute();
 
     try {
       Date start = new Date();
-      ExampleResponse response = service.updateExample(workspaceId, exampleIntent, exampleText, exampleText2).execute();
+      UpdateExampleOptions updateOptions =
+          new UpdateExampleOptions.Builder(workspaceId, exampleIntent, exampleText)
+          .newText(exampleText2)
+          .build();
+      Example response = service.updateExample(updateOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getText());
       assertEquals(response.getText(), exampleText2);
@@ -584,7 +685,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteExample(workspaceId, exampleIntent, exampleText2).execute();
+      DeleteExampleOptions deleteOptions =
+          new DeleteExampleOptions.Builder(workspaceId, exampleIntent, exampleText2).build();
+      service.deleteExample(deleteOptions).execute();
     }
   }
 
@@ -602,8 +705,11 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     Date start = new Date();
 
-    IntentResponse response = service.createIntent(workspaceId, intentName, intentDescription, intentExamples)
-        .execute();
+    CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, intentName)
+        .description(intentDescription)
+        .examples(intentExamples)
+        .build();
+    Intent response = service.createIntent(createOptions).execute();
 
     try {
       assertNotNull(response);
@@ -620,12 +726,12 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertTrue(fuzzyBefore(response.getUpdated(), now));
       assertTrue(fuzzyAfter(response.getUpdated(), start));
 
-      ExampleCollectionResponse ecResponse = service.listExamples(workspaceId, intentName, null, null, null, null)
-          .execute();
+      ListExamplesOptions listOptions = new ListExamplesOptions.Builder(workspaceId, intentName).build();
+      ExampleCollection ecResponse = service.listExamples(listOptions).execute();
       assertNotNull(ecResponse);
       assertNotNull(ecResponse.getExamples());
 
-      List<ExampleResponse> examples = ecResponse.getExamples();
+      List<Example> examples = ecResponse.getExamples();
       assertTrue(examples.size() == 1);
       assertEquals(examples.get(0).getText(), intentExample);
       assertTrue(fuzzyBefore(examples.get(0).getCreated(), now));
@@ -637,7 +743,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteIntent(workspaceId, intentName).execute();
+      DeleteIntentOptions deleteOptions = new DeleteIntentOptions.Builder(workspaceId, intentName).build();
+      service.deleteIntent(deleteOptions).execute();
     }
   }
 
@@ -649,12 +756,18 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
 
-    service.createIntent(workspaceId, intentName, null, null).execute();
+    CreateIntentOptions createOptions =
+        new CreateIntentOptions.Builder(workspaceId, intentName).build();
+    service.createIntent(createOptions).execute();
 
-    service.deleteIntent(workspaceId, intentName).execute();
+    DeleteIntentOptions deleteOptions =
+        new DeleteIntentOptions.Builder(workspaceId, intentName).build();
+    service.deleteIntent(deleteOptions).execute();
 
     try {
-      service.getIntent(workspaceId, intentName, null).execute();
+      GetIntentOptions getOptions =
+          new GetIntentOptions.Builder(workspaceId, intentName).build();
+      service.getIntent(getOptions).execute();
       fail("deleteIntent failed");
     } catch (Exception ex) {
       // Expected result
@@ -676,10 +789,21 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     Date start = new Date();
 
-    service.createIntent(workspaceId, intentName, intentDescription, intentExamples).execute();
+    CreateIntentOptions createOptions = new CreateIntentOptions.Builder()
+        .workspaceId(workspaceId)
+        .intent(intentName)
+        .description(intentDescription)
+        .examples(intentExamples)
+        .build();
+    service.createIntent(createOptions).execute();
 
     try {
-      IntentExportResponse response = service.getIntent(workspaceId, intentName, true).execute();
+      GetIntentOptions getOptions = new GetIntentOptions.Builder()
+          .workspaceId(workspaceId)
+          .intent(intentName)
+          .export(true)
+          .build();
+      IntentExport response = service.getIntent(getOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getIntent());
       assertEquals(response.getIntent(), intentName);
@@ -695,7 +819,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertTrue(fuzzyBefore(response.getUpdated(), now));
       assertTrue(fuzzyAfter(response.getUpdated(), start));
 
-      List<ExampleResponse> examples = response.getExamples();
+      List<Example> examples = response.getExamples();
       assertTrue(examples.size() == 1);
       assertEquals(examples.get(0).getText(), intentExample);
       assertTrue(fuzzyBefore(examples.get(0).getCreated(), now));
@@ -707,7 +831,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteIntent(workspaceId, intentName).execute();
+      DeleteIntentOptions deleteOptions = new DeleteIntentOptions.Builder(workspaceId, intentName).build();
+      service.deleteIntent(deleteOptions).execute();
     }
   }
 
@@ -720,7 +845,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
     String intentName = "Hello" + UUID.randomUUID().toString();  // gotta be unique
 
     try {
-      IntentCollectionResponse response = service.listIntents(workspaceId, null, null, null, null, null).execute();
+      ListIntentsOptions listOptions = new ListIntentsOptions.Builder(workspaceId).build();
+      IntentCollection response = service.listIntents(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getIntents());
       assertNotNull(response.getPagination());
@@ -735,19 +861,26 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
       Date start = new Date();
 
-      service.createIntent(workspaceId, intentName, intentDescription, intentExamples).execute();
+      CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, intentName)
+          .description(intentDescription)
+          .examples(intentExamples)
+          .build();
+      service.createIntent(createOptions).execute();
 
       long count = response.getIntents().size();
-      IntentCollectionResponse response2 = service.listIntents(workspaceId, true, count + 1, null, null, null)
-          .execute();
+      ListIntentsOptions listOptions2 = new ListIntentsOptions.Builder(workspaceId)
+          .export(true)
+          .pageLimit(count + 1)
+          .build();
+      IntentCollection response2 = service.listIntents(listOptions2).execute();
       assertNotNull(response2);
       assertNotNull(response2.getIntents());
 
-      List<IntentExportResponse> intents = response2.getIntents();
+      List<IntentExport> intents = response2.getIntents();
       assertTrue(intents.size() > count);
 
-      IntentExportResponse ieResponse = null;
-      for (IntentExportResponse resp : intents) {
+      IntentExport ieResponse = null;
+      for (IntentExport resp : intents) {
         if (resp.getIntent().equals(intentName)) {
           ieResponse = resp;
           break;
@@ -771,7 +904,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteIntent(workspaceId, intentName).execute();
+      DeleteIntentOptions deleteOptions =
+          new DeleteIntentOptions.Builder(workspaceId, intentName).build();
+      service.deleteIntent(deleteOptions).execute();
     }
   }
 
@@ -784,12 +919,19 @@ public class ConversationServiceIT extends ConversationServiceTest {
     String intentName1 = "First" + UUID.randomUUID().toString();  // gotta be unique
     String intentName2 = "Second" + UUID.randomUUID().toString();  // gotta be unique
 
-    service.createIntent(workspaceId, intentName1, null, null).execute();
-    service.createIntent(workspaceId, intentName2, null, null).execute();
+    CreateIntentOptions createOptions =
+        new CreateIntentOptions.Builder(workspaceId, intentName1).build();
+    service.createIntent(createOptions).execute();
+    service.createIntent(createOptions.newBuilder().intent(intentName2).build()).execute();
 
     try {
-      IntentCollectionResponse response =
-          service.listIntents(workspaceId, true, 1L, null, "modified", null).execute();
+      ListIntentsOptions listOptions = new ListIntentsOptions.Builder()
+          .workspaceId(workspaceId)
+          .export(true)
+          .pageLimit(1L)
+          .sort("modified")
+          .build();
+      IntentCollection response = service.listIntents(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getIntents());
       assertNotNull(response.getPagination());
@@ -808,7 +950,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
           break;
         }
         String cursor = response.getPagination().getCursor();
-        response = service.listIntents(workspaceId, true, 1L, null, "modified", cursor).execute();
+        response = service.listIntents(listOptions.newBuilder().cursor(cursor).build()).execute();
 
       }
       assertTrue(found1 && found2);
@@ -818,8 +960,10 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteIntent(workspaceId, intentName1).execute();
-      service.deleteIntent(workspaceId, intentName2).execute();
+      DeleteIntentOptions deleteOptions =
+          new DeleteIntentOptions.Builder(workspaceId, intentName1).build();
+      service.deleteIntent(deleteOptions).execute();
+      service.deleteIntent(deleteOptions.newBuilder().intent(intentName2).build()).execute();
     }
   }
 
@@ -835,7 +979,11 @@ public class ConversationServiceIT extends ConversationServiceTest {
     List<CreateExample> intentExamples = new ArrayList<CreateExample>();
     intentExamples.add(new CreateExample.Builder().text(intentExample).build());
 
-    service.createIntent(workspaceId, intentName, intentDescription, intentExamples).execute();
+    CreateIntentOptions createOptions = new CreateIntentOptions.Builder(workspaceId, intentName)
+        .description(intentDescription)
+        .examples(intentExamples)
+        .build();
+    service.createIntent(createOptions).execute();
 
     try {
       String intentDescription2 = "Updated description of " + intentName;
@@ -843,8 +991,11 @@ public class ConversationServiceIT extends ConversationServiceTest {
       List<CreateExample> intentExamples2 = new ArrayList<CreateExample>();
       intentExamples2.add(new CreateExample.Builder().text(intentExample2).build());
       Date start = new Date();
-      IntentResponse response = service.updateIntent(workspaceId, intentName, null, intentDescription2,
-          intentExamples2).execute();
+      UpdateIntentOptions updateOptions = new UpdateIntentOptions.Builder(workspaceId, intentName)
+          .newDescription(intentDescription2)
+          .newExamples(intentExamples2)
+          .build();
+      Intent response = service.updateIntent(updateOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getIntent());
       assertEquals(response.getIntent(), intentName);
@@ -859,12 +1010,12 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertTrue(fuzzyBefore(response.getUpdated(), now));
       assertTrue(fuzzyAfter(response.getUpdated(), start));
 
-      ExampleCollectionResponse ecResponse = service.listExamples(workspaceId, intentName, null, null, null, null)
-          .execute();
+      ListExamplesOptions listOptions = new ListExamplesOptions.Builder(workspaceId, intentName).build();
+      ExampleCollection ecResponse = service.listExamples(listOptions).execute();
       assertNotNull(ecResponse);
       assertNotNull(ecResponse.getExamples());
 
-      List<ExampleResponse> examples = ecResponse.getExamples();
+      List<Example> examples = ecResponse.getExamples();
       assertTrue(examples.size() == 1);
       assertEquals(examples.get(0).getText(), intentExample2);
       assertTrue(fuzzyBefore(examples.get(0).getCreated(), now));
@@ -876,7 +1027,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteIntent(workspaceId, intentName).execute();
+      DeleteIntentOptions deleteOptions =
+          new DeleteIntentOptions.Builder(workspaceId, intentName).build();
+      service.deleteIntent(deleteOptions).execute();
     }
   }
 
@@ -918,7 +1071,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
     List<CreateValue> entityValues = new ArrayList<CreateValue>();
     entityValues.add(new CreateValue.Builder()
         .value(entityValue)
-        .synonyms(entityValueSynonym)
+        .addSynonym(entityValueSynonym)
         .build());
     workspaceEntities.add(new CreateEntity.Builder()
         .entity(entityName)
@@ -927,11 +1080,11 @@ public class ConversationServiceIT extends ConversationServiceTest {
         .build());
 
     // counterexamples
-    List<CreateExample> workspaceCounterExamples = new ArrayList<CreateExample>();
+    List<CreateCounterexample> workspaceCounterExamples = new ArrayList<CreateCounterexample>();
     String counterExampleText = "Counterexample for " + workspaceName;
-    workspaceCounterExamples.add(new CreateExample.Builder().text(counterExampleText).build());
+    workspaceCounterExamples.add(new CreateCounterexample.Builder().text(counterExampleText).build());
 
-    CreateWorkspace request = new CreateWorkspace.Builder()
+    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
         .description(workspaceDescription)
         .language(workspaceLanguage)
@@ -945,7 +1098,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
     try {
       Date start = new Date();
 
-      WorkspaceResponse response = service.createWorkspace(request).execute();
+      Workspace response = service.createWorkspace(createOptions).execute();
 
       assertNotNull(response);
       assertNotNull(response.getWorkspaceId());
@@ -971,7 +1124,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getMetadata().get("key"));
       assertEquals(response.getMetadata().get("key"), metadataValue);
 
-      WorkspaceExportResponse exResponse = service.getWorkspace(workspaceId, true).execute();
+      GetWorkspaceOptions getOptions = new GetWorkspaceOptions.Builder(workspaceId).export(true).build();
+      WorkspaceExport exResponse = service.getWorkspace(getOptions).execute();
       assertNotNull(exResponse);
 
       // intents
@@ -1013,7 +1167,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
     } finally {
       // Clean up
       if (workspaceId != null) {
-        service.deleteWorkspace(workspaceId).execute();
+        DeleteWorkspaceOptions deleteOptions = new DeleteWorkspaceOptions.Builder(workspaceId).build();
+        service.deleteWorkspace(deleteOptions).execute();
       }
     }
   }
@@ -1028,7 +1183,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
     String workspaceDescription = "Description of " + workspaceName;
     String workspaceLanguage = "en";
 
-    CreateWorkspace request = new CreateWorkspace.Builder()
+    CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder()
         .name(workspaceName)
         .description(workspaceDescription)
         .language(workspaceLanguage)
@@ -1036,14 +1191,16 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     String workspaceId = null;
     try {
-      WorkspaceResponse response = service.createWorkspace(request).execute();
+      Workspace response = service.createWorkspace(createOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getWorkspaceId());
       workspaceId = response.getWorkspaceId();
 
-      service.deleteWorkspace(workspaceId).execute();
+      DeleteWorkspaceOptions deleteOptions = new DeleteWorkspaceOptions.Builder(workspaceId).build();
+      service.deleteWorkspace(deleteOptions).execute();
 
-      service.getWorkspace(workspaceId, true).execute();
+      GetWorkspaceOptions getOptions = new GetWorkspaceOptions.Builder(workspaceId).export(true).build();
+      service.getWorkspace(getOptions).execute();
     } catch (Exception ex) {
       // Expected result
       assertTrue(ex instanceof NotFoundException);
@@ -1051,7 +1208,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
     } finally {
       // Clean up
       if (workspaceId != null) {
-        service.deleteWorkspace(workspaceId).execute();
+        DeleteWorkspaceOptions deleteOptions = new DeleteWorkspaceOptions.Builder(workspaceId).build();
+        service.deleteWorkspace(deleteOptions).execute();
       }
     }
   }
@@ -1062,7 +1220,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
   @Test
   public void testGetWorkspace() {
 
-    WorkspaceExportResponse response = service.getWorkspace(workspaceId, false).execute();
+    GetWorkspaceOptions getOptions = new GetWorkspaceOptions.Builder(workspaceId).export(false).build();
+    WorkspaceExport response = service.getWorkspace(getOptions).execute();
 
     try {
       assertNotNull(response);
@@ -1092,7 +1251,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
   @Test
   public void testListWorkspaces() {
 
-    WorkspaceCollectionResponse response = service.listWorkspaces(null, null, null, null).execute();
+    ListWorkspacesOptions listOptions = new ListWorkspacesOptions.Builder().build();
+    WorkspaceCollection response = service.listWorkspaces(listOptions).execute();
 
     assertNotNull(response);
     assertNotNull(response.getWorkspaces());
@@ -1100,8 +1260,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
     assertNotNull(response.getPagination());
     assertNotNull(response.getPagination().getRefreshUrl());
 
-    WorkspaceResponse wResponse = null;
-    for (WorkspaceResponse resp : response.getWorkspaces()) {
+    Workspace wResponse = null;
+    for (Workspace resp : response.getWorkspaces()) {
       if (resp.getWorkspaceId().equals(workspaceId)) {
         wResponse = resp;
         break;
@@ -1119,8 +1279,11 @@ public class ConversationServiceIT extends ConversationServiceTest {
   @Test
   public void testListWorkspacesWithPaging() {
 
-    WorkspaceCollectionResponse response =
-        service.listWorkspaces(1L, null, "-modified", null).execute();
+    ListWorkspacesOptions listOptions = new ListWorkspacesOptions.Builder()
+        .pageLimit(1L)
+        .sort("-modified")
+        .build();
+    WorkspaceCollection response = service.listWorkspaces(listOptions).execute();
 
     assertNotNull(response);
     assertNotNull(response.getPagination());
@@ -1137,7 +1300,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
         break;
       }
       String cursor = response.getPagination().getCursor();
-      response = service.listWorkspaces(1L, null, "-modified", cursor).execute();
+      response = service.listWorkspaces(listOptions.newBuilder().cursor(cursor).build()).execute();
     }
 
     assertTrue(found);
@@ -1150,13 +1313,13 @@ public class ConversationServiceIT extends ConversationServiceTest {
   public void testUpdateWorkspace() {
 
     String counterExampleText = "Counterexample " + UUID.randomUUID().toString();  // gotta be unique
-    UpdateWorkspace request = new UpdateWorkspace.Builder()
-        .counterexamples(new CreateExample.Builder().text(counterExampleText).build())
+    UpdateWorkspaceOptions updateOptions = new UpdateWorkspaceOptions.Builder(workspaceId)
+        .addCounterexample(new CreateCounterexample.Builder().text(counterExampleText).build())
         .build();
 
     Date start = new Date();
 
-    WorkspaceResponse response = service.updateWorkspace(workspaceId, request).execute();
+    Workspace response = service.updateWorkspace(updateOptions).execute();
 
     try {
       Date now = new Date();
@@ -1167,7 +1330,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertTrue(fuzzyBefore(response.getUpdated(), now));
       assertTrue(fuzzyAfter(response.getUpdated(), start));
 
-      ExampleResponse eResponse = service.getCounterexample(workspaceId, counterExampleText).execute();
+      GetCounterexampleOptions getOptions =
+          new GetCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+      Counterexample eResponse = service.getCounterexample(getOptions).execute();
       assertNotNull(eResponse);
       assertNotNull(eResponse.getText());
       assertEquals(eResponse.getText(), counterExampleText);
@@ -1176,7 +1341,9 @@ public class ConversationServiceIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       // Clean up
-      service.deleteCounterexample(workspaceId, counterExampleText).execute();
+      DeleteCounterexampleOptions deleteOptions =
+          new DeleteCounterexampleOptions.Builder(workspaceId, counterExampleText).build();
+      service.deleteCounterexample(deleteOptions).execute();
     }
   }
 
@@ -1190,7 +1357,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       ListLogsOptions listOptions = new ListLogsOptions.Builder()
           .workspaceId(workspaceId)
           .build();
-      LogCollectionResponse response = service.listLogs(listOptions).execute();
+      LogCollection response = service.listLogs(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getLogs());
       assertNotNull(response.getPagination());
@@ -1219,7 +1386,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       listOptionsBuilder.filter("request.intents:intent:off_topic");
       listOptionsBuilder.pageLimit(1L);
 
-      LogCollectionResponse response = service.listLogs(listOptionsBuilder.build()).execute();
+      LogCollection response = service.listLogs(listOptionsBuilder.build()).execute();
       assertNotNull(response);
       assertNotNull(response.getLogs());
       assertNotNull(response.getPagination());
@@ -1229,7 +1396,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getPagination().getCursor());
 
       assertTrue(response.getLogs().size() == 1);
-      LogExportResponse logEntry1 = response.getLogs().get(0);
+      LogExport logEntry1 = response.getLogs().get(0);
 
       String cursor = response.getPagination().getCursor();
       response = service.listLogs(listOptionsBuilder.cursor(cursor).build()).execute();
@@ -1237,7 +1404,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertNotNull(response.getLogs());
       assertTrue(response.getLogs().size() == 1);
 
-      LogExportResponse logEntry2 = response.getLogs().get(0);
+      LogExport logEntry2 = response.getLogs().get(0);
 
       Date requestDate1 = isoDateFormat.parse(logEntry1.getRequestTimestamp());
       Date requestDate2 = isoDateFormat.parse(logEntry2.getRequestTimestamp());
