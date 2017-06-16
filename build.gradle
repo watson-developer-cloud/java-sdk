@@ -6,6 +6,7 @@ apply from: 'utils.gradle'
 apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
+apply plugin: 'idea'
 
 import org.apache.tools.ant.filters.*
 
