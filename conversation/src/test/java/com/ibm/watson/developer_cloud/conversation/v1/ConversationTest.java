@@ -21,21 +21,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateDialogNode;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateEntity;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspace;
+import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeEntity;
+import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeIntent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
-
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.Entity;
-import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
-import com.ibm.watson.developer_cloud.http.HttpHeaders;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -60,7 +61,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new ConversationService(ConversationService.VERSION_DATE_2017_04_21);
+    service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
     service.setApiKey(EMPTY);
     service.setEndPoint(getMockWebServerUrl());
 
@@ -83,11 +84,20 @@ public class ConversationTest extends WatsonServiceUnitTest {
   }
 
   /**
+   * Negative - Test conversation with null options.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testConversationWithNullOptions() {
+    service.message(null).execute();
+  }
+
+  /**
    * Negative - Test conversation with null workspaceId.
    */
   @Test(expected = IllegalArgumentException.class)
   public void testConversationWithNullWorkspaceId() {
-    service.message(null, null).execute();
+    MessageOptions options = new MessageOptions.Builder().build();
+    service.message(options).execute();
   }
 
   /**
@@ -95,7 +105,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testConversationWithEmptyWorkspaceId() {
-    service.message("", null).execute();
+    MessageOptions options = new MessageOptions.Builder("").build();
+    service.message(options).execute();
   }
 
   /**
@@ -111,29 +122,42 @@ public class ConversationTest extends WatsonServiceUnitTest {
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
 
-    MessageRequest options = new MessageRequest.Builder().inputText(text).intent(new Intent("turn_off", 0.0))
-        .entity(new Entity("car", "ford", null)).alternateIntents(true).build();
+    InputData input = new InputData.Builder(text).build();
+    RuntimeIntent intent = new RuntimeIntent();
+    intent.setIntent("turn_off");
+    intent.setConfidence(0.0);
+    RuntimeEntity entity = new RuntimeEntity();
+    entity.setEntity("car");
+    entity.setValue("ford");
+    MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
+        .input(input)
+        .addIntent(intent)
+        .addEntity(entity)
+        .alternateIntents(true)
+        .build();
 
     // execute first request
-    MessageResponse serviceResponse = service.message(WORKSPACE_ID, options).execute();
+    MessageResponse serviceResponse = service.message(options).execute();
 
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_04_21);
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_05_26);
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[] { "Do you want to get a quote?" }, serviceResponse.getText().toArray(new String[0]));
-    assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
+    assertArrayEquals(new String[] { "Do you want to get a quote?" },
+        serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
-    assertEquals("{\"alternate_intents\":true,\"entities\":[{\"entity\":\"car\",\"value\":\"ford\"}],"
-        + "\"input\":{\"text\":\"I'd like to get insurance to for my home\"},\"intents\":"
-        + "[{\"confidence\":0.0,\"intent\":\"turn_off\"}]}", request.getBody().readUtf8());
+    String expected = "{" + "\"input\":{\"text\":\"I'd like to get insurance to for my home\"},"
+                          + "\"intents\":[{\"confidence\":0.0,\"intent\":\"turn_off\"}],"
+                          + "\"entities\":[{\"value\":\"ford\",\"entity\":\"car\"}],"
+                          + "\"alternate_intents\":true" + "}";
+    assertEquals(expected, request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
   }
 
   /**
-   * Test send message. use some different MessageRequest options like context and other public methods
+   * Test send message. use some different MessageOptions options like context and other public methods
    *
    * @throws IOException Signals that an I/O exception has occurred.
    * @throws InterruptedException the interrupted exception
@@ -143,28 +167,30 @@ public class ConversationTest extends WatsonServiceUnitTest {
     MessageResponse mockResponse = loadFixture(FIXTURE, MessageResponse.class);
     server.enqueue(jsonResponse(mockResponse));
 
-    Map<String, Object> contextTemp = new HashMap<String, Object>();
+    Context contextTemp = new Context();
     contextTemp.put("name", "Myname");
-    Map<String, Object> inputTemp = new HashMap<String, Object>();
-    inputTemp.put("text", "My text");
+    InputData inputTemp = new InputData.Builder("My text").build();
 
-    MessageRequest options = new MessageRequest.Builder().input(inputTemp).alternateIntents(false).context(contextTemp)
+    MessageOptions options = new MessageOptions.Builder(WORKSPACE_ID)
+        .input(inputTemp)
+        .alternateIntents(false)
+        .context(contextTemp)
         .entities(null).intents(null).build();
 
     // execute first request
-    MessageResponse serviceResponse = service.message(WORKSPACE_ID, options).execute();
+    MessageResponse serviceResponse = service.message(options).execute();
 
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_04_21);
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_05_26);
     assertEquals(path, request.getPath());
-    assertArrayEquals(new String[] { "Do you want to get a quote?" }, serviceResponse.getText().toArray(new String[0]));
-    assertEquals("Do you want to get a quote?", serviceResponse.getTextConcatenated(" "));
+    assertArrayEquals(new String[] { "Do you want to get a quote?" },
+        serviceResponse.getOutput().getText().toArray(new String[0]));
     assertEquals(request.getMethod(), "POST");
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertEquals(
-        "{\"alternate_intents\":false," + "\"context\":{\"name\":\"Myname\"},\"input\":{\"text\":\"My text\"}}",
+        "{\"input\":{\"text\":\"My text\"},\"alternate_intents\":false," + "\"context\":{\"name\":\"Myname\"}}",
         request.getBody().readUtf8());
     assertEquals(serviceResponse, mockResponse);
   }
@@ -179,21 +205,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
   public void testSendMessageWithNullWorkspaceId() throws InterruptedException {
     String text = "I'd like to get insurance to for my home";
 
-    MessageRequest options = new MessageRequest.Builder().inputText(text).alternateIntents(true).build();
+    InputData input = new InputData.Builder(text).build();
+    MessageOptions options = new MessageOptions.Builder().input(input).alternateIntents(true).build();
 
-    service.message(null, options).execute();
-  }
-
-  /**
-   * Negative - Test message with null input text. BUG?
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testSendMessageWithInputTextNull() throws InterruptedException {
-    MessageRequest options = new MessageRequest.Builder().inputText(null).alternateIntents(true).build();
-
-    service.message(WORKSPACE_ID, options).execute();
+    service.message(options).execute();
   }
 
   /**
@@ -214,27 +229,28 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateEntity testEntity = new CreateEntity.Builder("testEntity").build();
 
     // counterexamples
-    CreateExample testCounterexample = new CreateExample.Builder("testCounterexample").build();
+    CreateCounterexample testCounterexample = new CreateCounterexample.Builder("testCounterexample").build();
 
     // dialognodes
-    CreateDialogNode testDialogNode = new CreateDialogNode.Builder().dialogNode("testDialogNode").build();
+    Map<String, Object> testDialogNode = new HashMap<String, Object>();
+    testDialogNode.put("name", "testDialogNode");
 
     // metadata
     Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
     String metadataValue = "value for " + workspaceName;
     workspaceMetadata.put("key", metadataValue);
 
-    UpdateWorkspace.Builder builder = new UpdateWorkspace.Builder();
+    UpdateWorkspaceOptions.Builder builder = new UpdateWorkspaceOptions.Builder(WORKSPACE_ID);
     builder.name(workspaceName);
     builder.description(workspaceDescription);
     builder.language(workspaceLanguage);
-    builder.intents(testIntent);
-    builder.entities(testEntity);
-    builder.counterexamples(testCounterexample);
-    builder.dialogNodes(testDialogNode);
+    builder.addIntent(testIntent);
+    builder.addEntity(testEntity);
+    builder.addCounterexample(testCounterexample);
+    builder.addDialogNode(testDialogNode);
     builder.metadata(workspaceMetadata);
 
-    UpdateWorkspace options = builder.build();
+    UpdateWorkspaceOptions options = builder.build();
 
     assertEquals(options.name(), workspaceName);
     assertEquals(options.description(), workspaceDescription);
@@ -254,23 +270,24 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertNotNull(options.metadata());
     assertEquals(options.metadata(), workspaceMetadata);
 
-    UpdateWorkspace.Builder builder2 = options.newBuilder();
+    UpdateWorkspaceOptions.Builder builder2 = options.newBuilder();
 
     CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
     CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
-    CreateExample testCounterexample2 = new CreateExample.Builder("testCounterexample2").build();
-    CreateDialogNode testDialogNode2 = new CreateDialogNode.Builder().dialogNode("testDialogNode2").build();
+    CreateCounterexample testCounterexample2 = new CreateCounterexample.Builder("testCounterexample2").build();
+    Map<String, Object> testDialogNode2 = new HashMap<String, Object>();
+    testDialogNode2.put("name", "dialogNode2");
 
     builder2.intents(new ArrayList<CreateIntent>());
-    builder2.intents(testIntent2);
+    builder2.addIntent(testIntent2);
     builder2.entities(new ArrayList<CreateEntity>());
-    builder2.entities(testEntity2);
-    builder2.counterexamples(new ArrayList<CreateExample>());
-    builder2.counterexamples(testCounterexample2);
-    builder2.dialogNodes(new ArrayList<CreateDialogNode>());
-    builder2.dialogNodes(testDialogNode2);
+    builder2.addEntity(testEntity2);
+    builder2.counterexamples(new ArrayList<CreateCounterexample>());
+    builder2.addCounterexample(testCounterexample2);
+    builder2.dialogNodes(new ArrayList<Object>());
+    builder2.addDialogNode(testDialogNode2);
 
-    UpdateWorkspace options2 = builder2.build();
+    UpdateWorkspaceOptions options2 = builder2.build();
 
     assertNotNull(options2.intents());
     assertEquals(options2.intents().size(), 1);

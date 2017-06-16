@@ -22,13 +22,13 @@ import java.io.IOException;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.conversation.v1.model.PaginationResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Pagination;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
- * The Class PaginationResponseTypeAdapterTest.
+ * The Class PaginationTypeAdapterTest.
  */
-public class PaginationResponseTypeAdapterTest extends WatsonServiceUnitTest {
+public class PaginationTypeAdapterTest extends WatsonServiceUnitTest {
   private static final String FIXTURE = "src/test/resources/conversation/pagination.json";
 
   /* (non-Javadoc)
@@ -50,7 +50,7 @@ public class PaginationResponseTypeAdapterTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testParseTypeAdapter() throws FileNotFoundException {
-    PaginationResponse pagination = loadFixture(FIXTURE, PaginationResponse.class);
+    Pagination pagination = loadFixture(FIXTURE, Pagination.class);
     assertEquals(pagination.getCursor(), "batman");
   }
 
@@ -61,7 +61,7 @@ public class PaginationResponseTypeAdapterTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testWriteTypeAdapter() throws FileNotFoundException {
-    PaginationResponse pagination = loadFixture(FIXTURE, PaginationResponse.class);
+    Pagination pagination = loadFixture(FIXTURE, Pagination.class);
     assertNotNull(GsonSingleton.getGson().toJson(pagination), pagination.toString());
   }
 }
