@@ -103,7 +103,7 @@ public class ValuesIT extends ConversationServiceTest {
   }
 
   /**
-   * Test createValue.
+   * Test deleteValue.
    */
   @Test
   public void testDeleteValue() {
