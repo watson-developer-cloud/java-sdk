@@ -23,7 +23,8 @@ public class ToneAnalyzerExample {
 
 
     public static void main(String[] args) {
-      ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
+      final String VERSION_DATE = "2016-05-19";
+      ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
       service.setUsernameAndPassword("<username>", "<password>");
 
       String[] texts = {
@@ -43,13 +44,13 @@ public class ToneAnalyzerExample {
             .build();
         utterances.add(utterance);
       }
-      ToneChatRequest toneChatRequest = new ToneChatRequest.Builder()
+      ToneChatOptions toneChatOptions = new ToneChatOptions.Builder()
           .utterances(utterances)
           .build();
 
       // Call the service
-      UtterancesTone utterancesTone = service.getChatTone(toneChatRequest).execute();
-      System.out.println(tone);
+      UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute();
+      System.out.println(utterancesTone);
 
     }
 }
