@@ -71,7 +71,68 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   }
 
   /**
-   * Test get tone from text with sentences.
+   * Test ToneExample.
+   */
+  @Test
+  public void testToneExample() {
+//    final String VERSION_DATE = "2016-05-19";
+//    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
+//    service.setUsernameAndPassword("<username>", "<password>");
+
+    String text = "I know the times are difficult! Our sales have been "
+        + "disappointing for the past three quarters for our data analytics "
+        + "product suite. We have a competitive data analytics product "
+        + "suite in the industry. But we need to do our job selling it! "
+        + "We need to acknowledge and fix our sales challenges. "
+        + "We can’t blame the economy for our lack of execution! " + "We are missing critical sales opportunities. "
+        + "Our product is in no way inferior to the competitor products. "
+        + "Our clients are hungry for analytical tools to improve their "
+        + "business outcomes. Economy has nothing to do with it.";
+
+    // Call the service and get the tone
+    ToneOptions tonOptions = new ToneOptions.Builder().text(text).build();
+    ToneAnalysis tone = service.tone(tonOptions).execute();
+    System.out.println(tone);
+
+  }
+
+  /**
+   * Test ChatExample.
+   */
+  @Test
+  public void testChatExample() {
+//    final String VERSION_DATE = "2016-05-19";
+//    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
+//    service.setUsernameAndPassword("<username>", "<password>");
+
+    String[] texts = {
+        "My charger isn't working.",
+        "Thanks for reaching out. Can you give me some more detail about the issue?",
+        "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
+            + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
+            + "Which is ridiculous, it's brand new.",
+        "I'm sorry you're having issues with charging. What kind of charger are you using?"
+    };
+
+    List<Utterance> utterances = new ArrayList<>();
+    for (int i = 0; i < texts.length; i++) {
+      Utterance utterance = new Utterance.Builder()
+          .text(texts[i])
+          .user(users[i])
+          .build();
+      utterances.add(utterance);
+    }
+    ToneChatOptions toneChatOptions = new ToneChatOptions.Builder()
+        .utterances(utterances)
+        .build();
+
+    // Call the service
+    UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute();
+    System.out.println(utterancesTone);
+  }
+
+  /**
+   * Test get tone from text.
    */
   @Test
   public void testGetToneFromTextWithSentences() {
