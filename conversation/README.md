@@ -21,11 +21,12 @@
 Use the [Conversation][conversation] service to identify intents, entities, and conduct conversations.
 
 ```java
-ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_03_02);
+ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
 service.setUsernameAndPassword("<username>", "<password>");
 
-MessageRequest newMessage = new MessageRequest.Builder().inputText("Hi").build();
-MessageResponse response = service.message("<workspace-id>", newMessage).execute();
+InputData input = new InputData.Builder("Hi").build();
+MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+MessageResponse response = service.message(options).execute();
 System.out.println(response);
 ```
 
