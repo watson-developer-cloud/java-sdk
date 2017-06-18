@@ -29,17 +29,18 @@ import jersey.repackaged.jsr166e.CompletableFuture;
 public class ConversationExample {
 
   public static void main(String[] args) throws Exception {
-    ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_02_03);
+    ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
     service.setUsernameAndPassword("<username>", "<password>");
 
+    InputData input = new InputData.Builder("Hi").build();
+    MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+
     // sync
-    MessageRequest newMessage = new MessageRequest.Builder().inputText("Hi").build();
-    MessageResponse response = service.message("<workspace-id>", newMessage).execute();
+    MessageResponse response = service.message(options).execute();
     System.out.println(response);
 
-
     // async
-    service.message("<workspace-id>", newMessage).enqueue(new ServiceCallback<MessageResponse>() {
+    service.message(options).enqueue(new ServiceCallback<MessageResponse>() {
       @Override
       public void onResponse(MessageResponse response) {
         System.out.println(response);
@@ -50,36 +51,40 @@ public class ConversationExample {
     });
 
     // rx callback
-    service.message("<workspace-id>", newMessage).rx()
-        .thenApply(new CompletableFuture.Fun<MessageResponse, Map<String, Object>>() {
+    service.message(options).rx()
+        .thenApply(new CompletableFuture.Fun<MessageResponse, RuntimeOutput>() {
           @Override
-          public Map<String, Object> apply(MessageResponse message) {
+          public RuntimeOutput apply(MessageResponse message) {
             return message.getOutput();
           }
-        }).thenAccept(new CompletableFuture.Action<Map<String, Object>>() {
-          @Override
-          public void accept(Map<String, Object> output) {
-            System.out.println(output);
-          }
-        });
+        }).thenAccept(new CompletableFuture.Action<RuntimeOutput>() {
+      @Override
+      public void accept(RuntimeOutput output) {
+        System.out.println(output);
+      }
+    });
 
     // rx async callback
-    service.message("<workspace-id>", newMessage).rx()
-        .thenApplyAsync(new CompletableFuture.Fun<MessageResponse, Map<String, Object>>() {
+    service.message(options).rx()
+        .thenApplyAsync(new CompletableFuture.Fun<MessageResponse, RuntimeOutput>() {
           @Override
-          public Map<String, Object> apply(MessageResponse message) {
+          public RuntimeOutput apply(MessageResponse message) {
             return message.getOutput();
           }
-        }).thenAccept(new CompletableFuture.Action<Map<String, Object>>() {
-          @Override
-          public void accept(Map<String, Object> output) {
-            System.out.println(output);
-          }
-        });
+        }).thenAccept(new CompletableFuture.Action<RuntimeOutput>() {
+      @Override
+      public void accept(RuntimeOutput output) {
+        System.out.println(output);
+      }
+    });
 
     // rx sync
-    MessageResponse rxMessageResponse = service.message("<workspace-id>", newMessage).rx().get();
-    System.out.println(rxMessageResponse);
+    try {
+      MessageResponse rxMessageResponse = service.message(options).rx().get();
+      System.out.println(rxMessageResponse);
+    } catch (Exception ex) {
+      // Handle exception
+    }
   }
 
 }

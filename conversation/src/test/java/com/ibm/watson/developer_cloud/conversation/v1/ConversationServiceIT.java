@@ -64,6 +64,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.LogExport;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeIntent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeOutput;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateCounterexampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
@@ -71,10 +72,12 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspaceOptio
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExport;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Workspace;
+import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 
+import jersey.repackaged.jsr166e.CompletableFuture;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -87,6 +90,83 @@ public class ConversationServiceIT extends ConversationServiceTest {
   private String exampleIntent;
 
   DateFormat isoDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+
+  /**
+   * Test README.
+   */
+  @Test
+  public void testReadme() {
+//    ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
+//    service.setUsernameAndPassword("<username>", "<password>");
+
+    InputData input = new InputData.Builder("Hi").build();
+    MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+    MessageResponse response = service.message(options).execute();
+    System.out.println(response);
+  }
+
+  /**
+   * Test Example.
+   */
+  @Test
+  public void testExample() {
+//    ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
+//    service.setUsernameAndPassword("<username>", "<password>");
+
+    InputData input = new InputData.Builder("Hi").build();
+    MessageOptions options = new MessageOptions.Builder(workspaceId).input(input).build();
+
+    // sync
+    MessageResponse response = service.message(options).execute();
+    System.out.println(response);
+
+    // async
+    service.message(options).enqueue(new ServiceCallback<MessageResponse>() {
+      @Override
+      public void onResponse(MessageResponse response) {
+        System.out.println(response);
+      }
+
+      @Override
+      public void onFailure(Exception e) { }
+    });
+
+    // rx callback
+    service.message(options).rx()
+        .thenApply(new CompletableFuture.Fun<MessageResponse, RuntimeOutput>() {
+          @Override
+          public RuntimeOutput apply(MessageResponse message) {
+            return message.getOutput();
+          }
+        }).thenAccept(new CompletableFuture.Action<RuntimeOutput>() {
+      @Override
+      public void accept(RuntimeOutput output) {
+        System.out.println(output);
+      }
+    });
+
+    // rx async callback
+    service.message(options).rx()
+        .thenApplyAsync(new CompletableFuture.Fun<MessageResponse, RuntimeOutput>() {
+          @Override
+          public RuntimeOutput apply(MessageResponse message) {
+            return message.getOutput();
+          }
+        }).thenAccept(new CompletableFuture.Action<RuntimeOutput>() {
+      @Override
+      public void accept(RuntimeOutput output) {
+        System.out.println(output);
+      }
+    });
+
+    // rx sync
+    try {
+      MessageResponse rxMessageResponse = service.message(options).rx().get();
+      System.out.println(rxMessageResponse);
+    } catch (Exception ex) {
+      // Handle exception
+    }
+  }
 
   @Test(expected = UnauthorizedException.class)
   public void pingBadCredentialsThrowsException() {
