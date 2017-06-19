@@ -39,5 +39,4 @@ public class SemanticRolesKeyword extends GenericModel {
   public void setText(final String text) {
     this.text = text;
   }
-
 }

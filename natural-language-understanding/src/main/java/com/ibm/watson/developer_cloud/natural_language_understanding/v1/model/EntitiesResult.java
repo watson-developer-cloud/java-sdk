@@ -24,7 +24,7 @@ public class EntitiesResult extends GenericModel {
   /** Relevance score from 0 to 1. Higher values indicate greater relevance. */
   private Double relevance;
   /** How many times the entity was mentioned in the text. */
-  private Integer count;
+  private Long count;
   /** The name of the entity. */
   private String text;
   /** Emotion analysis results for the entity, enabled with the "emotion" option. */
@@ -57,7 +57,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @return the count
    */
-  public Integer getCount() {
+  public Long getCount() {
     return count;
   }
 
@@ -120,7 +120,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @param count the new count
    */
-  public void setCount(final Integer count) {
+  public void setCount(final long count) {
     this.count = count;
   }
 

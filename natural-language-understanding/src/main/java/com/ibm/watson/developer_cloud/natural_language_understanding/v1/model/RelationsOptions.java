@@ -35,10 +35,11 @@ public class RelationsOptions extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the RelationsOptions.
+     * Builds a RelationsOptions.
      *
      * @return the relationsOptions
      */
@@ -47,10 +48,10 @@ public class RelationsOptions extends GenericModel {
     }
 
     /**
-     * Add the model.
+     * Set the model.
      *
      * @param model the model
-     * @return a RelationsOptions Builder
+     * @return the RelationsOptions builder
      */
     public Builder model(String model) {
       this.model = model;
@@ -65,7 +66,7 @@ public class RelationsOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return the builder
+   * @return a RelationsOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -79,5 +80,4 @@ public class RelationsOptions extends GenericModel {
   public String model() {
     return model;
   }
-
 }

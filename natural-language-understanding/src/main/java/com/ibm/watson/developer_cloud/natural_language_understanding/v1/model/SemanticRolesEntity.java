@@ -59,5 +59,4 @@ public class SemanticRolesEntity extends GenericModel {
   public void setText(final String text) {
     this.text = text;
   }
-
 }

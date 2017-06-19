@@ -17,9 +17,8 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The detected anger, disgust, fear, joy, or sadness that is conveyed by the content.
- * Emotion information can be returned for detected entities, keywords, or user-specified
- * target phrases found in the text.
+ * The detected anger, disgust, fear, joy, or sadness that is conveyed by the content. Emotion information can be
+ * returned for detected entities, keywords, or user-specified target phrases found in the text.
  */
 public class EmotionResult extends GenericModel {
 
@@ -27,15 +26,6 @@ public class EmotionResult extends GenericModel {
   private DocumentEmotionResults document;
   /** The returned emotion results per specified target. */
   private List<TargetedEmotionResults> targets;
-
-  /**
-   * Adds the targets.
-   *
-   * @param targets the new targets
-   */
-  public void addtargets(TargetedEmotionResults targets) {
-    this.targets.add(targets);
-  }
 
   /**
    * Gets the document.
@@ -72,5 +62,4 @@ public class EmotionResult extends GenericModel {
   public void setTargets(final List<TargetedEmotionResults> targets) {
     this.targets = targets;
   }
-
 }
