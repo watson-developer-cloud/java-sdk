@@ -280,10 +280,10 @@ service.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api")
 ```
 
 ## 401 Unauthorized error
+
 Make sure you are using the service credentials and not your Bluemix account/password.
 
 Check the API Endpoint, you may need to update the default using setEndPoint().
-
 
 ## Debug
 
