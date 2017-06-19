@@ -27,15 +27,6 @@ public class SentimentResult extends GenericModel {
   private List<TargetedSentimentResults> targets;
 
   /**
-   * Adds the targets.
-   *
-   * @param targets the new targets
-   */
-  public void addtargets(TargetedSentimentResults targets) {
-    this.targets.add(targets);
-  }
-
-  /**
    * Gets the document.
    *
    * @return the document
@@ -70,5 +61,4 @@ public class SentimentResult extends GenericModel {
   public void setTargets(final List<TargetedSentimentResults> targets) {
     this.targets = targets;
   }
-
 }

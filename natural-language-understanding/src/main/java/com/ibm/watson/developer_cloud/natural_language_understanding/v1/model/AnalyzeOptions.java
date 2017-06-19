@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -12,114 +12,78 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * An object containing request parameters.
+ * the analyze options.
  */
 public class AnalyzeOptions extends GenericModel {
 
-  /** The plain text to analyze. */
-  private String text;
-  /** The HTML file to analyze. */
-  private String html;
-  /** The web page to analyze. */
-  private String url;
   /** Specific features to analyze the document for. */
   private Features features;
-  /** Remove website elements, such as links, ads, etc. */
-  private Boolean clean;
   /** XPath query for targeting nodes in HTML. */
   private String xpath;
-  /** Whether to use raw HTML content if text cleaning fails. */
-  @SerializedName("fallback_to_raw")
-  private Boolean fallbackToRaw;
   /** Whether or not to return the analyzed text. */
-  @SerializedName("return_analyzed_text")
   private Boolean returnAnalyzedText;
   /** ISO 639-1 code indicating the language to use in the analysis. */
   private String language;
+  /** The HTML file to analyze. */
+  private String html;
+  /** The plain text to analyze. */
+  private String text;
+  /** Remove website elements, such as links, ads, etc. */
+  private Boolean clean;
+  /** The web page to analyze. */
+  private String url;
+  /** Whether to use raw HTML content if text cleaning fails. */
+  private Boolean fallbackToRaw;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private String text;
-    private String html;
-    private String url;
     private Features features;
-    private Boolean clean;
     private String xpath;
-    private Boolean fallbackToRaw;
     private Boolean returnAnalyzedText;
     private String language;
+    private String html;
+    private String text;
+    private Boolean clean;
+    private String url;
+    private Boolean fallbackToRaw;
 
-    private Builder(AnalyzeOptions parameters) {
-      text = parameters.text;
-      html = parameters.html;
-      url = parameters.url;
-      features = parameters.features;
-      clean = parameters.clean;
-      xpath = parameters.xpath;
-      fallbackToRaw = parameters.fallbackToRaw;
-      returnAnalyzedText = parameters.returnAnalyzedText;
-      language = parameters.language;
+    private Builder(AnalyzeOptions analyzeOptions) {
+      features = analyzeOptions.features;
+      xpath = analyzeOptions.xpath;
+      returnAnalyzedText = analyzeOptions.returnAnalyzedText;
+      language = analyzeOptions.language;
+      html = analyzeOptions.html;
+      text = analyzeOptions.text;
+      clean = analyzeOptions.clean;
+      url = analyzeOptions.url;
+      fallbackToRaw = analyzeOptions.fallbackToRaw;
     }
 
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the Parameters.
+     * Builds a AnalyzeOptions.
      *
-     * @return the parameters
+     * @return the analyzeOptions
      */
     public AnalyzeOptions build() {
       return new AnalyzeOptions(this);
     }
 
     /**
-     * Add the text.
-     *
-     * @param text the text
-     * @return a Parameters Builder
-     */
-    public Builder text(String text) {
-      this.text = text;
-      return this;
-    }
-
-    /**
-     * Add the html.
-     *
-     * @param html the html
-     * @return a Parameters Builder
-     */
-    public Builder html(String html) {
-      this.html = html;
-      return this;
-    }
-
-    /**
-     * Add the url.
-     *
-     * @param url the url
-     * @return a Parameters Builder
-     */
-    public Builder url(String url) {
-      this.url = url;
-      return this;
-    }
-
-    /**
-     * Add the features.
+     * Set the features.
      *
      * @param features the features
-     * @return a Parameters Builder
+     * @return the AnalyzeOptions builder
      */
     public Builder features(Features features) {
       this.features = features;
@@ -127,21 +91,10 @@ public class AnalyzeOptions extends GenericModel {
     }
 
     /**
-     * Add the clean.
-     *
-     * @param clean the clean
-     * @return a Parameters Builder
-     */
-    public Builder clean(Boolean clean) {
-      this.clean = clean;
-      return this;
-    }
-
-    /**
-     * Add the xpath.
+     * Set the xpath.
      *
      * @param xpath the xpath
-     * @return a Parameters Builder
+     * @return the AnalyzeOptions builder
      */
     public Builder xpath(String xpath) {
       this.xpath = xpath;
@@ -149,21 +102,10 @@ public class AnalyzeOptions extends GenericModel {
     }
 
     /**
-     * Add the fallbackToRaw.
-     *
-     * @param fallbackToRaw the fallbackToRaw
-     * @return a Parameters Builder
-     */
-    public Builder fallbackToRaw(Boolean fallbackToRaw) {
-      this.fallbackToRaw = fallbackToRaw;
-      return this;
-    }
-
-    /**
-     * Add the returnAnalyzedText.
+     * Set the returnAnalyzedText.
      *
      * @param returnAnalyzedText the returnAnalyzedText
-     * @return a Parameters Builder
+     * @return the AnalyzeOptions builder
      */
     public Builder returnAnalyzedText(Boolean returnAnalyzedText) {
       this.returnAnalyzedText = returnAnalyzedText;
@@ -171,62 +113,91 @@ public class AnalyzeOptions extends GenericModel {
     }
 
     /**
-     * Add the language.
+     * Set the language.
      *
      * @param language the language
-     * @return a Parameters Builder
+     * @return the AnalyzeOptions builder
      */
     public Builder language(String language) {
       this.language = language;
       return this;
     }
+
+    /**
+     * Set the html.
+     *
+     * @param html the html
+     * @return the AnalyzeOptions builder
+     */
+    public Builder html(String html) {
+      this.html = html;
+      return this;
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the AnalyzeOptions builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the clean.
+     *
+     * @param clean the clean
+     * @return the AnalyzeOptions builder
+     */
+    public Builder clean(Boolean clean) {
+      this.clean = clean;
+      return this;
+    }
+
+    /**
+     * Set the url.
+     *
+     * @param url the url
+     * @return the AnalyzeOptions builder
+     */
+    public Builder url(String url) {
+      this.url = url;
+      return this;
+    }
+
+    /**
+     * Set the fallbackToRaw.
+     *
+     * @param fallbackToRaw the fallbackToRaw
+     * @return the AnalyzeOptions builder
+     */
+    public Builder fallbackToRaw(Boolean fallbackToRaw) {
+      this.fallbackToRaw = fallbackToRaw;
+      return this;
+    }
   }
 
   private AnalyzeOptions(Builder builder) {
-    Validator.notNull(builder.features, "features cannot be null");
-    Validator.notNull(builder.text != null && (builder.url != null || builder.html != null),
-       "Only text, html or url can be specified");
-    Validator.notNull(builder.url != null && (builder.text != null || builder.html != null),
-        "Only text, html or url can be specified");
-    Validator.notNull(builder.html != null && (builder.url != null || builder.text != null),
-        "Only text, html or url can be specified");
-
-    text = builder.text;
-    html = builder.html;
-    url = builder.url;
     features = builder.features;
-    clean = builder.clean;
     xpath = builder.xpath;
-    fallbackToRaw = builder.fallbackToRaw;
     returnAnalyzedText = builder.returnAnalyzedText;
     language = builder.language;
+    html = builder.html;
+    text = builder.text;
+    clean = builder.clean;
+    url = builder.url;
+    fallbackToRaw = builder.fallbackToRaw;
   }
 
   /**
-   * Gets the text.
+   * New builder.
    *
-   * @return the text
+   * @return a AnalyzeOptions builder
    */
-  public String text() {
-    return text;
-  }
-
-  /**
-   * Gets the html.
-   *
-   * @return the html
-   */
-  public String html() {
-    return html;
-  }
-
-  /**
-   * Gets the url.
-   *
-   * @return the url
-   */
-  public String url() {
-    return url;
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
@@ -239,30 +210,12 @@ public class AnalyzeOptions extends GenericModel {
   }
 
   /**
-   * Gets the clean.
-   *
-   * @return the clean
-   */
-  public Boolean clean() {
-    return clean;
-  }
-
-  /**
    * Gets the xpath.
    *
    * @return the xpath
    */
   public String xpath() {
     return xpath;
-  }
-
-  /**
-   * Gets the fallbackToRaw.
-   *
-   * @return the fallbackToRaw
-   */
-  public Boolean fallbackToRaw() {
-    return fallbackToRaw;
   }
 
   /**
@@ -284,11 +237,47 @@ public class AnalyzeOptions extends GenericModel {
   }
 
   /**
-   * New builder.
+   * Gets the html.
    *
-   * @return the builder
+   * @return the html
    */
-  public Builder newBuilder() {
-    return new Builder(this);
+  public String html() {
+    return html;
+  }
+
+  /**
+   * Gets the text.
+   *
+   * @return the text
+   */
+  public String text() {
+    return text;
+  }
+
+  /**
+   * Gets the clean.
+   *
+   * @return the clean
+   */
+  public Boolean clean() {
+    return clean;
+  }
+
+  /**
+   * Gets the url.
+   *
+   * @return the url
+   */
+  public String url() {
+    return url;
+  }
+
+  /**
+   * Gets the fallbackToRaw.
+   *
+   * @return the fallbackToRaw
+   */
+  public Boolean fallbackToRaw() {
+    return fallbackToRaw;
   }
 }

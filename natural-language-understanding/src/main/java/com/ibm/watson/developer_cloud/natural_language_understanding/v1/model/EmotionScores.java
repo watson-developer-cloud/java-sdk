@@ -119,5 +119,4 @@ public class EmotionScores extends GenericModel {
   public void setSadness(final Double sadness) {
     this.sadness = sadness;
   }
-
 }
