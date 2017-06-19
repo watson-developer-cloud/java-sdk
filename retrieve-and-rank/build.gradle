@@ -58,8 +58,6 @@ dependencies {
     compile project(':core')
 
     testCompile project(path: ':core', configuration: 'tests')
-    testCompile project(':document-conversion')
-
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
 }
 
