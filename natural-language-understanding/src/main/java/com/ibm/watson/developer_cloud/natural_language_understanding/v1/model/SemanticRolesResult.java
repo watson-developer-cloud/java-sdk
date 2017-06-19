@@ -99,5 +99,4 @@ public class SemanticRolesResult extends GenericModel {
   public void setObject(final SemanticRolesObject object) {
     this.object = object;
   }
-
 }

@@ -78,5 +78,4 @@ public class SemanticRolesAction extends GenericModel {
   public void setVerb(final SemanticRolesVerb verb) {
     this.verb = verb;
   }
-
 }

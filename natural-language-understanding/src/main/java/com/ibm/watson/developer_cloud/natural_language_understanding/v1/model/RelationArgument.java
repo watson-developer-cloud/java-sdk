@@ -26,15 +26,6 @@ public class RelationArgument extends GenericModel {
   private String text;
 
   /**
-   * Adds the entities.
-   *
-   * @param entities the new entities
-   */
-  public void addentities(RelationEntity entities) {
-    this.entities.add(entities);
-  }
-
-  /**
    * Gets the entities.
    *
    * @return the entities
@@ -69,5 +60,4 @@ public class RelationArgument extends GenericModel {
   public void setText(final String text) {
     this.text = text;
   }
-
 }

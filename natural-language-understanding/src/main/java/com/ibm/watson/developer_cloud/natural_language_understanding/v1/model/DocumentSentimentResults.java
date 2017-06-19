@@ -39,5 +39,4 @@ public class DocumentSentimentResults extends GenericModel {
   public void setScore(final Double score) {
     this.score = score;
   }
-
 }
