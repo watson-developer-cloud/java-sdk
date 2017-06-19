@@ -12,12 +12,14 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
  * A class representing an Intent as detected by the service. The intent is the 'intent' of the user utterance, e.g.
  * "pay_bill", "check_balance" etc.. The intent is accompanied by a confidence score ranging between 0.0 and 1.0, with
  * 1.0 being the most confident.
  */
-public class Intent {
+public class Intent extends GenericModel {
 
   /**
    * Instantiates a new intent.
