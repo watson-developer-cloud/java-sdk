@@ -36,7 +36,7 @@ Map<String, Object> context = new HashMap<String, Object>();
 
 // first message
 MessageRequest newMessage = new MessageRequest.Builder()
-	.inputText("First message to Conversation")
+	.input(new InputData.Builder("First message").build())
 	.context(context)
 	.build();
 
@@ -44,7 +44,7 @@ MessageResponse response = service.message("<workspace-id>", newMessage).execute
 
 // second message
 newMessage = new MessageRequest.Builder()
-	.inputText("Second message to Conversation")
+	.input(new InputData.Builder("Second message").build())
 	.context(response.getContext()) // output context from the first message
 	.build();
 

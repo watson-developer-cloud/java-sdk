@@ -17,4 +17,4 @@ bin/
 .gradletasknamecache
 docs
 .swagger-codegen-ignore
-.vscode/
+.vscode
