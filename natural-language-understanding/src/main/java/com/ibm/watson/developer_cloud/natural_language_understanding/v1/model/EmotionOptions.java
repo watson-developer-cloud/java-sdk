@@ -12,9 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Whether or not to return emotion analysis of the content.
@@ -41,10 +43,11 @@ public class EmotionOptions extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the EmotionOptions.
+     * Builds a EmotionOptions.
      *
      * @return the emotionOptions
      */
@@ -53,10 +56,25 @@ public class EmotionOptions extends GenericModel {
     }
 
     /**
-     * Add the document.
+     * Adds an targets to targets.
+     *
+     * @param targets the new targets
+     * @return the EmotionOptions builder
+     */
+    public Builder addTargets(String targets) {
+      Validator.notNull(targets, "targets cannot be null");
+      if (this.targets == null) {
+        this.targets = new ArrayList<String>();
+      }
+      this.targets.add(targets);
+      return this;
+    }
+
+    /**
+     * Set the document.
      *
      * @param document the document
-     * @return a EmotionOptions Builder
+     * @return the EmotionOptions builder
      */
     public Builder document(Boolean document) {
       this.document = document;
@@ -64,10 +82,11 @@ public class EmotionOptions extends GenericModel {
     }
 
     /**
-     * Add the targets.
+     * Set the targets.
+     * Existing targets will be replaced.
      *
      * @param targets the targets
-     * @return a EmotionOptions Builder
+     * @return the EmotionOptions builder
      */
     public Builder targets(List<String> targets) {
       this.targets = targets;
@@ -83,7 +102,7 @@ public class EmotionOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return the builder
+   * @return a EmotionOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -106,5 +125,4 @@ public class EmotionOptions extends GenericModel {
   public List<String> targets() {
     return targets;
   }
-
 }

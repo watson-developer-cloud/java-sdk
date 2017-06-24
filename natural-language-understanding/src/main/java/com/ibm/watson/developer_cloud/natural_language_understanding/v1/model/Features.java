@@ -29,8 +29,8 @@ public class Features extends GenericModel {
   /** Whether or not to return the keywords in the analyzed text. */
   private KeywordsOptions keywords;
   /**
-   * Whether or not the author, publication date, and title of the analyzed
-   * text should be returned. This parameter is only available for URL and HTML input.
+   * Whether or not the author, publication date, and title of the analyzed text should be returned. This parameter is
+   * only available for URL and HTML input.
    */
   private MetadataOptions metadata;
   /** Whether or not to return the relationships between detected entities in the analyzed text. */
@@ -72,10 +72,11 @@ public class Features extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the Features.
+     * Builds a Features.
      *
      * @return the features
      */
@@ -84,10 +85,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the concepts.
+     * Set the concepts.
      *
      * @param concepts the concepts
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder concepts(ConceptsOptions concepts) {
       this.concepts = concepts;
@@ -95,10 +96,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the emotion.
+     * Set the emotion.
      *
      * @param emotion the emotion
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder emotion(EmotionOptions emotion) {
       this.emotion = emotion;
@@ -106,10 +107,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the entities.
+     * Set the entities.
      *
      * @param entities the entities
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder entities(EntitiesOptions entities) {
       this.entities = entities;
@@ -117,10 +118,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the keywords.
+     * Set the keywords.
      *
      * @param keywords the keywords
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder keywords(KeywordsOptions keywords) {
       this.keywords = keywords;
@@ -128,10 +129,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the metadata.
+     * Set the metadata.
      *
      * @param metadata the metadata
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder metadata(MetadataOptions metadata) {
       this.metadata = metadata;
@@ -139,10 +140,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the relations.
+     * Set the relations.
      *
      * @param relations the relations
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder relations(RelationsOptions relations) {
       this.relations = relations;
@@ -150,10 +151,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the semanticRoles.
+     * Set the semanticRoles.
      *
      * @param semanticRoles the semanticRoles
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder semanticRoles(SemanticRolesOptions semanticRoles) {
       this.semanticRoles = semanticRoles;
@@ -161,10 +162,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the sentiment.
+     * Set the sentiment.
      *
      * @param sentiment the sentiment
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder sentiment(SentimentOptions sentiment) {
       this.sentiment = sentiment;
@@ -172,10 +173,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the categories.
+     * Set the categories.
      *
      * @param categories the categories
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder categories(CategoriesOptions categories) {
       this.categories = categories;
@@ -193,6 +194,15 @@ public class Features extends GenericModel {
     semanticRoles = builder.semanticRoles;
     sentiment = builder.sentiment;
     categories = builder.categories;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Features builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
@@ -274,15 +284,5 @@ public class Features extends GenericModel {
    */
   public CategoriesOptions categories() {
     return categories;
-  }
-
-
-  /**
-   * New builder.
-   *
-   * @return the builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
   }
 }

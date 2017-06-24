@@ -23,9 +23,9 @@ public class KeywordsResult extends GenericModel {
   private Double relevance;
   /** The keyword text. */
   private String text;
-  /** Emotion analysis results for the keyword, enabled with the \&quot;emotion\&quot; option. */
+  /** Emotion analysis results for the keyword, enabled with the "emotion" option. */
   private EmotionScores emotion;
-  /** Sentiment analysis results for the keyword, enabled with the \&quot;sentiment\&quot; option. */
+  /** Sentiment analysis results for the keyword, enabled with the "sentiment" option. */
   private FeatureSentimentResults sentiment;
 
   /**
@@ -99,5 +99,4 @@ public class KeywordsResult extends GenericModel {
   public void setSentiment(final FeatureSentimentResults sentiment) {
     this.sentiment = sentiment;
   }
-
 }

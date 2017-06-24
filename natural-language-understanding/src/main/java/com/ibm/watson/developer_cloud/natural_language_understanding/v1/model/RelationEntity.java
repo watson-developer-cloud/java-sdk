@@ -59,5 +59,4 @@ public class RelationEntity extends GenericModel {
   public void setType(final String type) {
     this.type = type;
   }
-
 }
