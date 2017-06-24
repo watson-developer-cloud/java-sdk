@@ -16,28 +16,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * Utterance.
+ * ToneInput.
  */
-public class Utterance extends GenericModel {
+public class ToneInput extends GenericModel {
 
-  /**
-   * An utterance contributed by a user in the conversation that is to be analyzed. The utterance can contain multiple
-   * sentences.
-   */
+  /** The input content that the service is to analyze. Sentences with fewer than three words cannot be analyzed. */
   private String text;
-  /** A string that identifies the user who contributed the utterance specified by the `text` parameter. */
-  private String user;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String text;
-    private String user;
 
-    private Builder(Utterance utterance) {
-      text = utterance.text;
-      user = utterance.user;
+    private Builder(ToneInput toneInput) {
+      text = toneInput.text;
     }
 
     /**
@@ -56,47 +49,35 @@ public class Utterance extends GenericModel {
     }
 
     /**
-     * Builds a Utterance.
+     * Builds a ToneInput.
      *
-     * @return the utterance
+     * @return the toneInput
      */
-    public Utterance build() {
-      return new Utterance(this);
+    public ToneInput build() {
+      return new ToneInput(this);
     }
 
     /**
      * Set the text.
      *
      * @param text the text
-     * @return the Utterance builder
+     * @return the ToneInput builder
      */
     public Builder text(String text) {
       this.text = text;
       return this;
     }
-
-    /**
-     * Set the user.
-     *
-     * @param user the user
-     * @return the Utterance builder
-     */
-    public Builder user(String user) {
-      this.user = user;
-      return this;
-    }
   }
 
-  private Utterance(Builder builder) {
+  private ToneInput(Builder builder) {
     Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
-    user = builder.user;
   }
 
   /**
    * New builder.
    *
-   * @return a Utterance builder
+   * @return a ToneInput builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -109,14 +90,5 @@ public class Utterance extends GenericModel {
    */
   public String text() {
     return text;
-  }
-
-  /**
-   * Gets the user.
-   *
-   * @return the user
-   */
-  public String user() {
-    return user;
   }
 }
