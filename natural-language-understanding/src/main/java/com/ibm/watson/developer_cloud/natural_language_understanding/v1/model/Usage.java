@@ -20,14 +20,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Usage extends GenericModel {
 
   /** Number of features used in the API call. */
-  private Integer features;
+  private Long features;
 
   /**
    * Gets the features.
    *
    * @return the features
    */
-  public Integer getFeatures() {
+  public Long getFeatures() {
     return features;
   }
 
@@ -36,8 +36,7 @@ public class Usage extends GenericModel {
    *
    * @param features the new features
    */
-  public void setFeatures(final Integer features) {
+  public void setFeatures(final long features) {
     this.features = features;
   }
-
 }

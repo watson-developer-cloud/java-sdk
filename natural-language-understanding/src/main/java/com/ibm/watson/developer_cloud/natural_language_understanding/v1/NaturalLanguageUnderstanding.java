@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -17,6 +17,7 @@ import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalyzeOptions;
+import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.DeleteModelOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ListModelsResults;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
@@ -55,7 +56,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * for detected entities, keywords, or user-specified target phrases found in the text.
  *
  * ### Relations
- * Recognize when two entities are related, and identify the type of relation.  For example, you can identify an
+ * Recognize when two entities are related, and identify the type of relation. For example, you can identify an
  * "awardedTo" relation between an award and its recipient.
  *
  * ### Semantic Roles
@@ -66,10 +67,9 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * Get author information, publication date, and the title of your text/HTML content.
  *
  * @version v1
- * @see <a
- * href="http://www.ibm.com/watson/developercloud/natural-language-understanding.html">
- * Natural Language Understanding</a>
-*/
+ * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-understanding.html">Natural Language
+ *      Understanding</a>
+ */
 public class NaturalLanguageUnderstanding extends WatsonService {
 
   private static final String SERVICE_NAME = "natural_language_understanding";
@@ -84,7 +84,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    * Instantiates a new `NaturalLanguageUnderstanding`.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *        calls from failing when the service introduces breaking changes.
+   *          calls from failing when the service introduces breaking changes.
    */
   public NaturalLanguageUnderstanding(String versionDate) {
     super(SERVICE_NAME);
@@ -102,7 +102,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    * Instantiates a new `NaturalLanguageUnderstanding` with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *        calls from failing when the service introduces breaking changes.
+   *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */
@@ -112,22 +112,47 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   }
 
   /**
+   * Analyze text, HTML, or a public webpage.
+   *
    * Analyzes text, HTML, or a public webpage with one or more text analysis features.
    *
-   * @param parameters An object containing request parameters. The `features` object and one of the `text`, `html`, or
-   *        `url` attributes are required.
+   * @param analyzeOptions the {@link AnalyzeOptions} containing the options for the call
    * @return the {@link AnalysisResults} with the response
    */
-  public ServiceCall<AnalysisResults> analyze(AnalyzeOptions parameters) {
+  public ServiceCall<AnalysisResults> analyze(AnalyzeOptions analyzeOptions) {
     RequestBuilder builder = RequestBuilder.post("/v1/analyze");
     builder.query(VERSION, versionDate);
-
-    if (parameters != null) {
-      builder.bodyJson(GsonSingleton.getGson().toJsonTree(parameters).getAsJsonObject());
-    } else {
-      builder.bodyJson(new JsonObject());
+    if (analyzeOptions != null) {
+      final JsonObject contentJson = new JsonObject();
+      if (analyzeOptions.features() != null) {
+        contentJson.add("features", GsonSingleton.getGson().toJsonTree(analyzeOptions.features()));
+      }
+      if (analyzeOptions.xpath() != null) {
+        contentJson.addProperty("xpath", analyzeOptions.xpath());
+      }
+      if (analyzeOptions.returnAnalyzedText() != null) {
+        contentJson.addProperty("return_analyzed_text", analyzeOptions.returnAnalyzedText());
+      }
+      if (analyzeOptions.language() != null) {
+        contentJson.addProperty("language", analyzeOptions.language());
+      }
+      if (analyzeOptions.html() != null) {
+        contentJson.addProperty("html", analyzeOptions.html());
+      }
+      if (analyzeOptions.text() != null) {
+        contentJson.addProperty("text", analyzeOptions.text());
+      }
+      if (analyzeOptions.clean() != null) {
+        contentJson.addProperty("clean", analyzeOptions.clean());
+      }
+      if (analyzeOptions.url() != null) {
+        contentJson.addProperty("url", analyzeOptions.url());
+      }
+      if (analyzeOptions.fallbackToRaw() != null) {
+        contentJson.addProperty("fallback_to_raw", analyzeOptions.fallbackToRaw());
+      }
+      builder.bodyJson(contentJson);
     }
-
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AnalysisResults.class));
   }
 
@@ -136,12 +161,12 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    *
    * Deletes a custom model.
    *
-   * @param modelId the model id
+   * @param deleteModelOptions the {@link DeleteModelOptions} containing the options for the call
    * @return the service call
    */
-  public ServiceCall<Void> deleteModel(String modelId) {
-    Validator.notNull(modelId, "modelID cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/models/%s", modelId));
+  public ServiceCall<Void> deleteModel(DeleteModelOptions deleteModelOptions) {
+    Validator.notNull(deleteModelOptions, "deleteModelOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/models/%s", deleteModelOptions.modelId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -154,7 +179,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    *
    * @return the {@link ListModelsResults} with the response
    */
-  public ServiceCall<ListModelsResults> getModels() {
+  public ServiceCall<ListModelsResults> listModels() {
     RequestBuilder builder = RequestBuilder.get("/v1/models");
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListModelsResults.class));

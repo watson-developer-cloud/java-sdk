@@ -59,5 +59,4 @@ public class SemanticRolesVerb extends GenericModel {
   public void setTense(final String tense) {
     this.tense = tense;
   }
-
 }

@@ -31,15 +31,6 @@ public class RelationsResult extends GenericModel {
   private List<RelationArgument> arguments;
 
   /**
-   * Adds the arguments.
-   *
-   * @param arguments the new arguments
-   */
-  public void addarguments(RelationArgument arguments) {
-    this.arguments.add(arguments);
-  }
-
-  /**
    * Gets the score.
    *
    * @return the score
@@ -110,5 +101,4 @@ public class RelationsResult extends GenericModel {
   public void setArguments(final List<RelationArgument> arguments) {
     this.arguments = arguments;
   }
-
 }

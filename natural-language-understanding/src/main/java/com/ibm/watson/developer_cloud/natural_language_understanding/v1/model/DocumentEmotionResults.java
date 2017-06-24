@@ -39,5 +39,4 @@ public class DocumentEmotionResults extends GenericModel {
   public void setEmotion(final EmotionScores emotion) {
     this.emotion = emotion;
   }
-
 }
