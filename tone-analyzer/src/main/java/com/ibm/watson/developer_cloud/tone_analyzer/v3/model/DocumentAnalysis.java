@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -18,41 +18,32 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * This object represents the results of Tone analysis on an element; which may be a document or a sentence. Its
- * structure is a 2-level tree, with tone categories in the top level and the individual tones (and their scores) in
- * leaves.
- *
+ * DocumentAnalysis.
  */
-public class ElementTone extends GenericModel {
+public class DocumentAnalysis extends GenericModel {
 
+  /**
+   * An array of `ToneCategory` objects that provides the results of the tone analysis for the full document of the
+   * input content. The service returns results only for the tones specified with the `tones` parameter of the request.
+   */
   @SerializedName("tone_categories")
-  private List<ToneCategory> tones;
+  private List<ToneCategory> toneCategories;
 
   /**
-   * Adds the tone.
+   * Gets the toneCategories.
    *
-   * @param tone the tone
+   * @return the toneCategories
    */
-  public void addTone(ToneCategory tone) {
-    tones.add(tone);
+  public List<ToneCategory> getToneCategories() {
+    return toneCategories;
   }
 
   /**
-   * Gets the tones.
+   * Sets the toneCategories.
    *
-   * @return the tones
+   * @param toneCategories the new toneCategories
    */
-  public List<ToneCategory> getTones() {
-    return tones;
+  public void setToneCategories(final List<ToneCategory> toneCategories) {
+    this.toneCategories = toneCategories;
   }
-
-  /**
-   * Sets the tones.
-   *
-   * @param tones the new tones
-   */
-  public void setTones(List<ToneCategory> tones) {
-    this.tones = tones;
-  }
-
 }

@@ -16,21 +16,19 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * ToneScore.
+ * ToneChatScore.
  */
-public class ToneScore extends GenericModel {
+public class ToneChatScore extends GenericModel {
 
   /**
-   * The score for the tone in the range of 0 to 1. A score less than 0.5 indicates that the tone is unlikely to be
-   * perceived in the content; a score greater than 0.75 indicates a high likelihood that the tone is perceived.
+   * The score for the tone in the range of 0.5 to 1. A score greater than 0.75 indicates a high likelihood that the
+   * tone is perceived in the utterance.
    */
   private Double score;
   /**
    * The unique, non-localized identifier of the tone for the results. The service can return results for the following
-   * tone IDs of the different categories: * For the `emotion` category: `anger`, `disgust`, `fear`, `joy`, and
-   * `sadness` * For the `language` category: `analytical`, `confident`, and `tentative` * For the `social` category:
-   * `openness_big5`, `conscientiousness_big5`, `extraversion_big5`, `agreeableness_big5`, and `emotional_range_big5`
-   * The service returns scores for all tones of a category, regardless of their values.
+   * tone IDs: `sad`, `frustrated`, `satisfied`, `excited`, `polite`, `impolite`, and `sympathetic`. The service returns
+   * results only for tones whose scores meet a minimum threshold of 0.5.
    */
   @SerializedName("tone_id")
   private String toneId;
