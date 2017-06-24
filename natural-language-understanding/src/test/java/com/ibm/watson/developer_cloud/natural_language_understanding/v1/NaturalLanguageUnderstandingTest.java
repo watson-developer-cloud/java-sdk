@@ -31,6 +31,7 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Ca
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.CategoriesResult;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ConceptsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ConceptsResult;
+import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.DeleteModelOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.DocumentEmotionResults;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.DocumentSentimentResults;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.EmotionOptions;
@@ -40,10 +41,8 @@ import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.En
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.EntitiesResult;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.FeatureSentimentResults;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.Features;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.FeaturesResults;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.KeywordsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.KeywordsResult;
-import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.LinkedDataResult;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ListModelsResults;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.MetadataOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.MetadataResult;
@@ -171,11 +170,17 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     RelationsResult addRelation = new RelationsResult();
     SemanticRolesResult addRole = new SemanticRolesResult();
     List<ConceptsResult> concepts = new ArrayList<ConceptsResult>();
+    concepts.add(addConcept);
     List<EntitiesResult> entities = new ArrayList<EntitiesResult>();
+    entities.add(addEntity);
     List<KeywordsResult> keywords = new ArrayList<KeywordsResult>();
+    keywords.add(addKeyword);
     List<CategoriesResult> categories = new ArrayList<CategoriesResult>();
+    categories.add(addCategory);
     List<RelationsResult> relations = new ArrayList<RelationsResult>();
+    relations.add(addRelation);
     List<SemanticRolesResult> semanticRoles = new ArrayList<SemanticRolesResult>();
+    semanticRoles.add(addRole);
     AnalysisResults analysisResults = new AnalysisResults();
     analysisResults.setAnalyzedText("Analyzed");
     analysisResults.setCategories(categories);
@@ -191,30 +196,18 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     analysisResults.setSentiment(null);
     analysisResults.setUsage(null);
     assertEquals(analysisResults.getAnalyzedText(), "Analyzed");
-    assertEquals(analysisResults.getCategories().size(), 0);
-    assertEquals(analysisResults.getConcepts().size(), 0);
-    assertEquals(analysisResults.getEmotion(), null);
-    assertEquals(analysisResults.getEntities().size(), 0);
-    assertEquals(analysisResults.getKeywords().size(), 0);
-    assertEquals(analysisResults.getLanguage(), "English");
-    assertEquals(analysisResults.getMetadata(), null);
-    assertEquals(analysisResults.getRelations().size(), 0);
-    assertEquals(analysisResults.getRetrievedUrl(), "URL");
-    assertEquals(analysisResults.getSemanticRoles().size(), 0);
-    assertEquals(analysisResults.getSentiment(), null);
-    assertEquals(analysisResults.getUsage(), null);
-    analysisResults.addcategories(addCategory);
-    analysisResults.addconcepts(addConcept);
-    analysisResults.addentities(addEntity);
-    analysisResults.addkeywords(addKeyword);
-    analysisResults.addrelations(addRelation);
-    analysisResults.addsemanticRoles(addRole);
     assertEquals(analysisResults.getCategories().size(), 1);
     assertEquals(analysisResults.getConcepts().size(), 1);
+    assertEquals(analysisResults.getEmotion(), null);
     assertEquals(analysisResults.getEntities().size(), 1);
     assertEquals(analysisResults.getKeywords().size(), 1);
+    assertEquals(analysisResults.getLanguage(), "English");
+    assertEquals(analysisResults.getMetadata(), null);
     assertEquals(analysisResults.getRelations().size(), 1);
+    assertEquals(analysisResults.getRetrievedUrl(), "URL");
     assertEquals(analysisResults.getSemanticRoles().size(), 1);
+    assertEquals(analysisResults.getSentiment(), null);
+    assertEquals(analysisResults.getUsage(), null);
 
     // AnalyzeOptions
     AnalyzeOptions analyzeOptions = new AnalyzeOptions.Builder().text("text").html("html").url("url")
@@ -275,12 +268,11 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     // EmotionResult
     TargetedEmotionResults addTarget = new TargetedEmotionResults();
     List<TargetedEmotionResults> targets = new ArrayList<TargetedEmotionResults>();
+    targets.add(addTarget);
     EmotionResult emotionResult = new EmotionResult();
     emotionResult.setDocument(null);
     emotionResult.setTargets(targets);
     assertEquals(emotionResult.getDocument(), null);
-    assertEquals(emotionResult.getTargets().size(), 0);
-    emotionResult.addtargets(addTarget);
     assertEquals(emotionResult.getTargets().size(), 1);
 
     // EmotionScores
@@ -358,37 +350,6 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     List<CategoriesResult> categories1 = new ArrayList<CategoriesResult>();
     List<RelationsResult> relations1 = new ArrayList<RelationsResult>();
     List<SemanticRolesResult> semanticRoles1 = new ArrayList<SemanticRolesResult>();
-    FeaturesResults featureResults = new FeaturesResults();
-    featureResults.setCategories(categories1);
-    featureResults.setConcepts(concepts1);
-    featureResults.setEmotion(null);
-    featureResults.setEntities(entities1);
-    featureResults.setKeywords(keywords1);
-    featureResults.setMetadata(null);
-    featureResults.setRelations(relations1);
-    featureResults.setSemanticRoles(semanticRoles1);
-    featureResults.setSentiment(null);
-    assertEquals(featureResults.getCategories().size(), 0);
-    assertEquals(featureResults.getConcepts().size(), 0);
-    assertEquals(featureResults.getEmotion(), null);
-    assertEquals(featureResults.getEntities().size(), 0);
-    assertEquals(featureResults.getKeywords().size(), 0);
-    assertEquals(featureResults.getMetadata(), null);
-    assertEquals(featureResults.getRelations().size(), 0);
-    assertEquals(featureResults.getSemanticRoles().size(), 0);
-    assertEquals(featureResults.getSentiment(), null);
-    featureResults.addcategories(addCategory1);
-    featureResults.addconcepts(addConcepts);
-    featureResults.addentities(addEntity1);
-    featureResults.addkeywords(addKeyword1);
-    featureResults.addrelations(addRelation1);
-    featureResults.addsemanticRoles(addRole1);
-    assertEquals(featureResults.getCategories().size(), 1);
-    assertEquals(featureResults.getConcepts().size(), 1);
-    assertEquals(featureResults.getEntities().size(), 1);
-    assertEquals(featureResults.getKeywords().size(), 1);
-    assertEquals(featureResults.getRelations().size(), 1);
-    assertEquals(featureResults.getSemanticRoles().size(), 1);
 
     // KeywordsOptions
     KeywordsOptions keywordsOptions = new KeywordsOptions.Builder().emotion(true).limit(10).sentiment(false).build();
@@ -408,20 +369,12 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertEquals(keywordsResult.getSentiment(), null);
     assertEquals(keywordsResult.getText(), "text");
 
-    // LinkedDataResult
-    LinkedDataResult linkedDataResult = new LinkedDataResult();
-    linkedDataResult.setLink("link");
-    linkedDataResult.setSource("source");
-    assertEquals(linkedDataResult.getLink(), "link");
-    assertEquals(linkedDataResult.getSource(), "source");
-
     // ListModelsResults
     Model addModel = new Model();
     List<Model> models = new ArrayList<Model>();
+    models.add(addModel);
     ListModelsResults listModelsResults = new ListModelsResults();
     listModelsResults.setModels(models);
-    assertEquals(listModelsResults.getModels().size(), 0);
-    listModelsResults.addmodels(addModel);
     assertEquals(listModelsResults.getModels().size(), 1);
 
     // MetadataOptions
@@ -431,15 +384,14 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     // MetadataResult
     Author addAuthor = new Author();
     List<Author> authors = new ArrayList<Author>();
+    authors.add(addAuthor);
     MetadataResult metadataResult = new MetadataResult();
     metadataResult.setAuthors(authors);
     metadataResult.setPublicationDate("publicationDate");
     metadataResult.setTitle("title");
-    assertEquals(metadataResult.getAuthors().size(), 0);
+    assertEquals(metadataResult.getAuthors().size(), 1);
     assertEquals(metadataResult.getPublicationDate(), "publicationDate");
     assertEquals(metadataResult.getTitle(), "title");
-    metadataResult.addauthors(addAuthor);
-    assertEquals(metadataResult.getAuthors().size(), 1);
 
     // Model
     Model model = new Model();
@@ -455,13 +407,12 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     // RelationArgument
     RelationEntity addEntity = new RelationEntity();
     List<RelationEntity> entities = new ArrayList<RelationEntity>();
+    entities.add(addEntity);
     RelationArgument relationArgument = new RelationArgument();
     relationArgument.setEntities(entities);
     relationArgument.setText("text");
-    assertEquals(relationArgument.getEntities().size(), 0);
-    assertEquals(relationArgument.getText(), "text");
-    relationArgument.addentities(addEntity);
     assertEquals(relationArgument.getEntities().size(), 1);
+    assertEquals(relationArgument.getText(), "text");
 
     // RelationEntity
     RelationEntity relationEntity = new RelationEntity();
@@ -478,17 +429,16 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     // RelationsResult
     RelationArgument addArgument = new RelationArgument();
     List<RelationArgument> arguments = new ArrayList<RelationArgument>();
+    arguments.add(addArgument);
     RelationsResult relationsResult = new RelationsResult();
     relationsResult.setArguments(arguments);
     relationsResult.setScore(10.10);
     relationsResult.setSentence("sentence");
     relationsResult.setType("type");
-    assertEquals(relationsResult.getArguments().size(), 0);
+    assertEquals(relationsResult.getArguments().size(), 1);
     assertEquals(relationsResult.getScore(), 10.10, 0);
     assertEquals(relationsResult.getSentence(), "sentence");
     assertEquals(relationsResult.getType(), "type");
-    relationsResult.addarguments(addArgument);
-    assertEquals(relationsResult.getArguments().size(), 1);
 
     // SemanticRolesAction
     SemanticRolesAction semanticRolesAction = new SemanticRolesAction();
@@ -514,13 +464,12 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     // SemanticRolesObject
     SemanticRolesKeyword addKeyword = new SemanticRolesKeyword();
     List<SemanticRolesKeyword> keywords = new ArrayList<SemanticRolesKeyword>();
+    keywords.add(addKeyword);
     SemanticRolesObject semanticRolesObject = new SemanticRolesObject();
     semanticRolesObject.setKeywords(keywords);
     semanticRolesObject.setText("text");
-    assertEquals(semanticRolesObject.getKeywords().size(), 0);
-    assertEquals(semanticRolesObject.getText(), "text");
-    semanticRolesObject.addkeywords(addKeyword);
     assertEquals(semanticRolesObject.getKeywords().size(), 1);
+    assertEquals(semanticRolesObject.getText(), "text");
 
     // SemanticRolesOptions
     SemanticRolesOptions semanticRolesOptions = new SemanticRolesOptions.Builder().entities(true).
@@ -554,17 +503,15 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     SemanticRolesKeyword semanticAddKeyword = new SemanticRolesKeyword();
     List<SemanticRolesEntity> semanticEntities = new ArrayList<SemanticRolesEntity>();
     List<SemanticRolesKeyword> semanticKeywords = new ArrayList<SemanticRolesKeyword>();
+    semanticEntities.add(semanticAddEntity);
+    semanticKeywords.add(semanticAddKeyword);
     SemanticRolesSubject semanticRolesSubject = new SemanticRolesSubject();
     semanticRolesSubject.setEntities(semanticEntities);
     semanticRolesSubject.setKeywords(semanticKeywords);
     semanticRolesSubject.setText("text");
-    assertEquals(semanticRolesSubject.getEntities().size(), 0);
-    assertEquals(semanticRolesSubject.getKeywords().size(), 0);
-    assertEquals(semanticRolesSubject.getText(), "text");
-    semanticRolesSubject.addentities(semanticAddEntity);
-    semanticRolesSubject.addkeywords(semanticAddKeyword);
     assertEquals(semanticRolesSubject.getEntities().size(), 1);
     assertEquals(semanticRolesSubject.getKeywords().size(), 1);
+    assertEquals(semanticRolesSubject.getText(), "text");
 
     // SemanticRolesVerb
     SemanticRolesVerb semanticRolesVerb = new SemanticRolesVerb();
@@ -582,12 +529,11 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     // SentimentResult
     TargetedSentimentResults addTarget = new TargetedSentimentResults();
     List<TargetedSentimentResults> targets = new ArrayList<TargetedSentimentResults>();
+    targets.add(addTarget);
     SentimentResult sentimentResult = new SentimentResult();
     sentimentResult.setDocument(null);
     sentimentResult.setTargets(targets);
     assertEquals(sentimentResult.getDocument(), null);
-    assertEquals(sentimentResult.getTargets().size(), 0);
-    sentimentResult.addtargets(addTarget);
     assertEquals(sentimentResult.getTargets().size(), 1);
 
     // TargetedEmotionResults
@@ -616,9 +562,9 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testGetModels() throws InterruptedException {
+  public void testListModels() throws InterruptedException {
     server.enqueue(jsonResponse(models));
-    final ListModelsResults response = service.getModels().execute();
+    final ListModelsResults response = service.listModels().execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(MODELS_PATH, request.getPath());
@@ -634,7 +580,8 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   @Test
   public void testDeleteModel() throws InterruptedException {
     server.enqueue(jsonResponse(null));
-    final Void response = service.deleteModel(modelId).execute();
+    DeleteModelOptions deleteOptions = new DeleteModelOptions.Builder(modelId).build();
+    final Void response = service.deleteModel(deleteOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(DELETE_PATH, request.getPath());

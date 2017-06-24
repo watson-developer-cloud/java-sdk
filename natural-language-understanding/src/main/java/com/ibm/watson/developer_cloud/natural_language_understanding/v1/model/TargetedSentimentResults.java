@@ -59,5 +59,4 @@ public class TargetedSentimentResults extends GenericModel {
   public void setScore(final Double score) {
     this.score = score;
   }
-
 }

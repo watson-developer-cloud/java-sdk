@@ -80,5 +80,4 @@ public class ConceptsResult extends GenericModel {
   public void setDbpediaResource(final String dbpediaResource) {
     this.dbpediaResource = dbpediaResource;
   }
-
 }
