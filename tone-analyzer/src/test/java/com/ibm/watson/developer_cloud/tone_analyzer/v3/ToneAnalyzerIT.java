@@ -75,10 +75,6 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
    */
   @Test
   public void testToneExample() {
-//    final String VERSION_DATE = "2016-05-19";
-//    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
-//    service.setUsernameAndPassword("<username>", "<password>");
-
     String text = "I know the times are difficult! Our sales have been "
         + "disappointing for the past three quarters for our data analytics "
         + "product suite. We have a competitive data analytics product "
@@ -101,10 +97,6 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
    */
   @Test
   public void testChatExample() {
-//    final String VERSION_DATE = "2016-05-19";
-//    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
-//    service.setUsernameAndPassword("<username>", "<password>");
-
     String[] texts = {
         "My charger isn't working.",
         "Thanks for reaching out. Can you give me some more detail about the issue?",
