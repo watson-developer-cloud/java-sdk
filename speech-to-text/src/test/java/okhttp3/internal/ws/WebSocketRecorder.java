@@ -294,12 +294,12 @@ public final class WebSocketRecorder extends WebSocketListener {
         public final ByteString bytes;
         public final String string;
 
-        public Message(ByteString bytes) {
+        Message(ByteString bytes) {
             this.bytes = bytes;
             this.string = null;
         }
 
-        public Message(String string) {
+        Message(String string) {
             this.bytes = null;
             this.string = string;
         }
@@ -322,7 +322,7 @@ public final class WebSocketRecorder extends WebSocketListener {
     static final class Ping {
         public final ByteString payload;
 
-        public Ping(ByteString payload) {
+        Ping(ByteString payload) {
             this.payload = payload;
         }
 
@@ -343,7 +343,7 @@ public final class WebSocketRecorder extends WebSocketListener {
     static final class Pong {
         public final ByteString payload;
 
-        public Pong(ByteString payload) {
+        Pong(ByteString payload) {
             this.payload = payload;
         }
 
