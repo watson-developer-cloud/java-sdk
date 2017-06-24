@@ -53,60 +53,6 @@ public class AnalysisResults extends GenericModel {
   private SentimentResult sentiment;
 
   /**
-   * Adds the concepts.
-   *
-   * @param concepts the new concepts
-   */
-  public void addconcepts(ConceptsResult concepts) {
-    this.concepts.add(concepts);
-  }
-
-  /**
-   * Adds the entities.
-   *
-   * @param entities the new entities
-   */
-  public void addentities(EntitiesResult entities) {
-    this.entities.add(entities);
-  }
-
-  /**
-   * Adds the keywords.
-   *
-   * @param keywords the new keywords
-   */
-  public void addkeywords(KeywordsResult keywords) {
-    this.keywords.add(keywords);
-  }
-
-  /**
-   * Adds the categories.
-   *
-   * @param categories the new categories
-   */
-  public void addcategories(CategoriesResult categories) {
-    this.categories.add(categories);
-  }
-
-  /**
-   * Adds the relations.
-   *
-   * @param relations the new relations
-   */
-  public void addrelations(RelationsResult relations) {
-    this.relations.add(relations);
-  }
-
-  /**
-   * Adds the semanticRoles.
-   *
-   * @param semanticRoles the new semanticRoles
-   */
-  public void addsemanticRoles(SemanticRolesResult semanticRoles) {
-    this.semanticRoles.add(semanticRoles);
-  }
-
-  /**
    * Gets the language.
    *
    * @return the language
@@ -339,5 +285,4 @@ public class AnalysisResults extends GenericModel {
   public void setSentiment(final SentimentResult sentiment) {
     this.sentiment = sentiment;
   }
-
 }

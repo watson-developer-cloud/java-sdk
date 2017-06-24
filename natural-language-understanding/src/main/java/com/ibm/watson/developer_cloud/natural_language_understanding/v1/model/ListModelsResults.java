@@ -24,15 +24,6 @@ public class ListModelsResults extends GenericModel {
   private List<Model> models;
 
   /**
-   * Adds the models.
-   *
-   * @param models the new models
-   */
-  public void addmodels(Model models) {
-    this.models.add(models);
-  }
-
-  /**
    * Gets the models.
    *
    * @return the models
@@ -49,5 +40,4 @@ public class ListModelsResults extends GenericModel {
   public void setModels(final List<Model> models) {
     this.models = models;
   }
-
 }

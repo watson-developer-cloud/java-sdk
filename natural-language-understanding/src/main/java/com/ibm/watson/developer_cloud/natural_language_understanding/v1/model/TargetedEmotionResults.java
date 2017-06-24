@@ -59,5 +59,4 @@ public class TargetedEmotionResults extends GenericModel {
   public void setEmotion(final EmotionScores emotion) {
     this.emotion = emotion;
   }
-
 }
