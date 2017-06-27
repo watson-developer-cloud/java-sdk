@@ -84,7 +84,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html">Conversation</a>
  */
-public class Conversation extends WatsonService {
+public class ConversationService extends WatsonService {
 
   private static final String SERVICE_NAME = "conversation";
   private static final String URL = "https://gateway.watsonplatform.net/conversation/api";
@@ -100,7 +100,7 @@ public class Conversation extends WatsonService {
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *          calls from failing when the service introduces breaking changes.
    */
-  public Conversation(String versionDate) {
+  public ConversationService(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
@@ -120,7 +120,7 @@ public class Conversation extends WatsonService {
    * @param username the username
    * @param password the password
    */
-  public Conversation(String versionDate, String username, String password) {
+  public ConversationService(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
   }
