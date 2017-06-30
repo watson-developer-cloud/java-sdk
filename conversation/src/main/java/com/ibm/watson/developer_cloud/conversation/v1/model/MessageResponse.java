@@ -13,168 +13,140 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.List;
-import java.util.Map;
 
-import com.ibm.watson.developer_cloud.conversation.v1.ConversationService;
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
 
 /**
- * The response payload from the Conversation service's message API call
- * {@link ConversationService#message(String, MessageRequest)}.
- *
- * @see <a href="http://www.ibm.com/watson/developercloud/conversation.html"> http://www.ibm.com/
- *      watson/developercloud/conversation.html</a>
+ * A response from the Conversation service.
  */
 public class MessageResponse extends GenericModel {
-  private static final String TEXT = "text";
 
-  private Map<String, Object> context;
-  private List<Entity> entities;
-  private List<Intent> intents;
-  private Map<String, Object> output;
-  private Map<String, Object> input;
-
-  /**
-   * Returns the context as returned by the service. At each step in the chat flow the conversation designer has the
-   * ability to add information to the chat context. The context is a map of key value pairs, with the values being any
-   * valid JSON objects/primitives.
-   *
-   * @return a map representing context/state
-   */
-  public Map<String, Object> getContext() {
-    return context;
-  }
-
-  /**
-   * Returns the list of entities as detected by the service.
-   *
-   * @return an array of {@link Entity} objects
-   */
-  public List<Entity> getEntities() {
-    return entities;
-  }
-
-  /**
-   * Returns the list of intents as detected by the service.
-   *
-   * @return an array of {@link Intent} objects.
-   */
-  public List<Intent> getIntents() {
-    return intents;
-  }
-
-  /**
-   * Returns the output as returned by the service, may be null.
-   *
-   * @return a map of objects representing the response from the Dialog portion of the service.
-   */
-  public Map<String, Object> getOutput() {
-    return output;
-  }
-
-  /**
-   * Sets the context as determined by the service.
-   *
-   * @param context a map of key value pairs
-   */
-  public void setContext(Map<String, Object> context) {
-    this.context = context;
-  }
-
-  /**
-   * Sets a list of entities as detected by the service.
-   *
-   * @param entities an array of entities
-   */
-  public void setEntities(List<Entity> entities) {
-    this.entities = entities;
-  }
-
-  /**
-   * Sets a list of intents as detected by the service.
-   *
-   * @param intents an array of intents
-   */
-  public void setIntents(List<Intent> intents) {
-    this.intents = intents;
-  }
-
-  /**
-   * Sets the output as returned by the service.
-   *
-   * @param output a map of outputs as defined by the conversation designer
-   */
-  public void setOutput(Map<String, Object> output) {
-    this.output = output;
-  }
-
-  /**
-   * A convenience method for getting the text property from the output object. This is equivalent to calling:
-   *
-   * <pre>
-   * List&lt;?&gt; text = null;
-   * Map&lt;String, Object&gt; output = response.getOutput();
-   * if (output != null) {
-   *   text = (List&lt;?&gt;) output.get("text");
-   * }
-   * </pre>
-   *
-   * @return an array of strings which is to be displayed/returned to the end user
-   */
-  @SuppressWarnings("unchecked")
-  public List<String> getText() {
-    if ((output != null) && output.containsKey(TEXT)) {
-      List<?> text = (List<?>) output.get(TEXT);
-      if (text != null) {
-        return (List<String>) text;
-      }
-    }
-    return null;
-  }
-
-  /**
-   * A convenience method for getting the text property from the output object. The text property is an array of
-   * strings. This convenience class concatenates the array, separating each entry with the separator string.
-   *
-   * @param separator the separator
-   * @return a concatenation of the strings in the output array, with each string separated by the separator string
-   */
-  public String getTextConcatenated(String separator) {
-    List<String> outputText = getText();
-    if (outputText != null) {
-      return RequestUtils.join(outputText, separator);
-    }
-    return null;
-  }
+  private MessageInput input;
+  private List<RuntimeIntent> intents;
+  private List<RuntimeEntity> entities;
+  @SerializedName("alternate_intents")
+  private Boolean alternateIntents;
+  private Context context;
+  private RuntimeOutput output;
 
   /**
    * Gets the input.
    *
+   * The user input from the request.
+   *
    * @return the input
    */
-  public Map<String, Object> getInput() {
+  public MessageInput getInput() {
     return input;
+  }
+
+  /**
+   * Gets the intents.
+   *
+   * An array of intents recognized in the user input, sorted in descending order of confidence.
+   *
+   * @return the intents
+   */
+  public List<RuntimeIntent> getIntents() {
+    return intents;
+  }
+
+  /**
+   * Gets the entities.
+   *
+   * An array of entities identified in the user input.
+   *
+   * @return the entities
+   */
+  public List<RuntimeEntity> getEntities() {
+    return entities;
+  }
+
+  /**
+   * Gets the alternateIntents.
+   *
+   * Whether to return more than one intent. `true` indicates that all matching intents are returned.
+   *
+   * @return the alternateIntents
+   */
+  public Boolean isAlternateIntents() {
+    return alternateIntents;
+  }
+
+  /**
+   * Gets the context.
+   *
+   * State information for the conversation.
+   *
+   * @return the context
+   */
+  public Context getContext() {
+    return context;
+  }
+
+  /**
+   * Gets the output.
+   *
+   * Output from the dialog, including the response to the user, the nodes that were triggered, and log messages.
+   *
+   * @return the output
+   */
+  public RuntimeOutput getOutput() {
+    return output;
   }
 
   /**
    * Sets the input.
    *
-   * @param input the input
+   * @param input the new input
    */
-  public void setInput(Map<String, Object> input) {
+  public void setInput(final MessageInput input) {
     this.input = input;
   }
 
   /**
-   * Gets the input text.
+   * Sets the intents.
    *
-   * @return the input text
+   * @param intents the new intents
    */
-  public String getInputText() {
-    if ((input != null) && input.containsKey(TEXT)) {
-      return input.get(TEXT).toString();
-    }
-    return null;
+  public void setIntents(final List<RuntimeIntent> intents) {
+    this.intents = intents;
+  }
+
+  /**
+   * Sets the entities.
+   *
+   * @param entities the new entities
+   */
+  public void setEntities(final List<RuntimeEntity> entities) {
+    this.entities = entities;
+  }
+
+  /**
+   * Sets the alternateIntents.
+   *
+   * @param alternateIntents the new alternateIntents
+   */
+  public void setAlternateIntents(final Boolean alternateIntents) {
+    this.alternateIntents = alternateIntents;
+  }
+
+  /**
+   * Sets the context.
+   *
+   * @param context the new context
+   */
+  public void setContext(final Context context) {
+    this.context = context;
+  }
+
+  /**
+   * Sets the output.
+   *
+   * @param output the new output
+   */
+  public void setOutput(final RuntimeOutput output) {
+    this.output = output;
   }
 }
