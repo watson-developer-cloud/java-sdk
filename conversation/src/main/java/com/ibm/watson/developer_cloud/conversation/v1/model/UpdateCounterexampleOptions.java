@@ -140,7 +140,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
   /**
    * Gets the newText.
    *
-   * The text of the user input example.
+   * The text of the example to be marked as irrelevant input.
    *
    * @return the newText
    */
