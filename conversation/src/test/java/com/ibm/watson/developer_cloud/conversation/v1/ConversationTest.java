@@ -32,6 +32,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValue;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNode;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
@@ -245,9 +246,9 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateCounterexample testCounterexample1 = new CreateCounterexample.Builder("testCounterexample1").build();
 
     // dialognodes
-    Map<String, Object> testDialogNode0 = new HashMap<String, Object>();
+    DialogNode testDialogNode0 = new DialogNode();
     testDialogNode0.put("name", "dialogNode0");
-    Map<String, Object> testDialogNode1 = new HashMap<String, Object>();
+    DialogNode testDialogNode1 = new DialogNode();
     testDialogNode1.put("name", "dialogNode1");
 
     // metadata
@@ -291,13 +292,13 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
     CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
     CreateCounterexample testCounterexample2 = new CreateCounterexample.Builder("testCounterexample2").build();
-    Map<String, Object> testDialogNode2 = new HashMap<String, Object>();
+    DialogNode testDialogNode2 = new DialogNode();
     testDialogNode2.put("name", "dialogNode2");
 
     builder.intents(Arrays.asList(testIntent2));
     builder.entities(Arrays.asList(testEntity2));
     builder.counterexamples(Arrays.asList(testCounterexample2));
-    builder.dialogNodes(Arrays.asList((Object) testDialogNode2));
+    builder.dialogNodes(Arrays.asList(testDialogNode2));
 
     CreateWorkspaceOptions options2 = builder.build();
 
@@ -336,7 +337,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateCounterexample testCounterexample = new CreateCounterexample.Builder("testCounterexample").build();
 
     // dialognodes
-    Map<String, Object> testDialogNode = new HashMap<String, Object>();
+    DialogNode testDialogNode = new DialogNode();
     testDialogNode.put("name", "testDialogNode");
 
     // metadata
@@ -379,7 +380,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
     CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
     CreateCounterexample testCounterexample2 = new CreateCounterexample.Builder("testCounterexample2").build();
-    Map<String, Object> testDialogNode2 = new HashMap<String, Object>();
+    DialogNode testDialogNode2 = new DialogNode();
     testDialogNode2.put("name", "dialogNode2");
 
     builder2.intents(new ArrayList<CreateIntent>());
@@ -388,7 +389,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     builder2.addEntity(testEntity2);
     builder2.counterexamples(new ArrayList<CreateCounterexample>());
     builder2.addCounterexample(testCounterexample2);
-    builder2.dialogNodes(new ArrayList<Object>());
+    builder2.dialogNodes(new ArrayList<DialogNode>());
     builder2.addDialogNode(testDialogNode2);
 
     UpdateWorkspaceOptions options2 = builder2.build();

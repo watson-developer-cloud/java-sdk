@@ -31,7 +31,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   private List<CreateCounterexample> counterexamples;
   private String description;
   private String language;
-  private List<Object> dialogNodes;
+  private List<DialogNode> dialogNodes;
 
   /**
    * Builder.
@@ -44,7 +44,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     private List<CreateCounterexample> counterexamples;
     private String description;
     private String language;
-    private List<Object> dialogNodes;
+    private List<DialogNode> dialogNodes;
 
     private Builder(CreateWorkspaceOptions createWorkspaceOptions) {
       metadata = createWorkspaceOptions.metadata;
@@ -123,10 +123,10 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @param dialogNode the new dialogNode
      * @return the CreateWorkspaceOptions builder
      */
-    public Builder addDialogNode(Object dialogNode) {
+    public Builder addDialogNode(DialogNode dialogNode) {
       Validator.notNull(dialogNode, "dialogNode cannot be null");
       if (this.dialogNodes == null) {
-        this.dialogNodes = new ArrayList<Object>();
+        this.dialogNodes = new ArrayList<DialogNode>();
       }
       this.dialogNodes.add(dialogNode);
       return this;
@@ -219,7 +219,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @param dialogNodes the dialogNodes
      * @return the CreateWorkspaceOptions builder
      */
-    public Builder dialogNodes(List<Object> dialogNodes) {
+    public Builder dialogNodes(List<DialogNode> dialogNodes) {
       this.dialogNodes = dialogNodes;
       return this;
     }
@@ -329,7 +329,7 @@ public class CreateWorkspaceOptions extends GenericModel {
    *
    * @return the dialogNodes
    */
-  public List<Object> dialogNodes() {
+  public List<DialogNode> dialogNodes() {
     return dialogNodes;
   }
 }
