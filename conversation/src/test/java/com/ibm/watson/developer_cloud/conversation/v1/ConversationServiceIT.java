@@ -1216,7 +1216,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
     try {
       ListLogsOptions.Builder listOptionsBuilder = new ListLogsOptions.Builder(workspaceId);
       listOptionsBuilder.sort("-request_timestamp");
-      listOptionsBuilder.filter("request.input.text:wipers");
+      listOptionsBuilder.filter("request.intents:intent:off_topic");
       listOptionsBuilder.pageLimit(1L);
 
       LogCollectionResponse response = service.listLogs(listOptionsBuilder.build()).execute();
