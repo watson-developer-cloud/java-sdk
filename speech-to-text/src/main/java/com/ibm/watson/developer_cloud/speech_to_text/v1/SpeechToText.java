@@ -832,7 +832,7 @@ public class SpeechToText extends WatsonService {
     setAuthentication(builder);
     setDefaultHeaders(builder);
 
-    OkHttpClient client = HttpClientSingleton.getInstance().createHttpClient();
+    OkHttpClient client = configureHttpClient();
     return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(audio, options, callback));
   }
 
