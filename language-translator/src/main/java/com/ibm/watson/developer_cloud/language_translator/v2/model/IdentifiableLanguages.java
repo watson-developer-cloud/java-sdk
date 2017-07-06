@@ -12,53 +12,34 @@
  */
 package com.ibm.watson.developer_cloud.language_translator.v2.model;
 
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * IdentifiedLanguage.
+ * IdentifiableLanguages.
  */
-public class IdentifiedLanguage extends GenericModel {
+public class IdentifiableLanguages extends GenericModel {
 
-  private String language;
-  private Double confidence;
+  private List<IdentifiableLanguage> languages;
 
   /**
-   * Gets the language.
+   * Gets the languages.
    *
-   * The code for an identified language.
+   * A list of all languages that the service can identify.
    *
-   * @return the language
+   * @return the languages
    */
-  public String getLanguage() {
-    return language;
+  public List<IdentifiableLanguage> getLanguages() {
+    return languages;
   }
 
   /**
-   * Gets the confidence.
+   * Sets the languages.
    *
-   * The confidence score for the identified language.
-   *
-   * @return the confidence
+   * @param languages the new languages
    */
-  public Double getConfidence() {
-    return confidence;
-  }
-
-  /**
-   * Sets the language.
-   *
-   * @param language the new language
-   */
-  public void setLanguage(final String language) {
-    this.language = language;
-  }
-
-  /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(final Double confidence) {
-    this.confidence = confidence;
+  public void setLanguages(final List<IdentifiableLanguage> languages) {
+    this.languages = languages;
   }
 }
