@@ -18,12 +18,18 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.ibm.watson.developer_cloud.language_translator.v2.model.GetModelOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifyOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.ListModelsOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -94,9 +100,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
    * Test create model with base model null.
    */
   @Test(expected = IllegalArgumentException.class)
-  public void testcreateModelWithBaseModelNull() {
-    final CreateModelOptions options =
-        new CreateModelOptions.Builder().forcedGlossary(new File("src/test/resources/car.png")).build();
+  public void testcreateModelWithBaseModelNull() throws IOException {
+    InputStream glossary = new FileInputStream(new File(RESOURCE + "glossary.tmx"));
+    final CreateModelOptions options = new CreateModelOptions.Builder()
+        .forcedGlossary(glossary)
+        .build();
     service.createModel(options).execute();
   }
 
@@ -125,7 +133,7 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void testGetIdentifiableLanguages() throws InterruptedException {
     server.enqueue(jsonResponse(identifiableLanguages));
 
-    final List<IdentifiableLanguage> languages = service.getIdentifiableLanguages().execute();
+    final List<IdentifiableLanguage> languages = service.listIdentifiableLanguages().execute().getLanguages();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(IDENTIFIABLE_LANGUAGES_PATH, request.getPath());
@@ -141,10 +149,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void testGetModel() throws InterruptedException {
     server.enqueue(jsonResponse(model));
 
-    final TranslationModel returnedModel = service.getModel(model.getId()).execute();
+    GetModelOptions getOptions = new GetModelOptions.Builder(model.getModelId()).build();
+    final TranslationModel returnedModel = service.getModel(getOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
-    assertEquals(GET_MODELS_PATH + "/" + model.getId(), request.getPath());
+    assertEquals(GET_MODELS_PATH + "/" + model.getModelId(), request.getPath());
     assertEquals(model, returnedModel);
   }
 
@@ -154,10 +163,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testGetModels() throws InterruptedException {
+  public void testListModels() throws InterruptedException {
     server.enqueue(jsonResponse(models));
 
-    final List<TranslationModel> modelList = service.getModels().execute();
+    ListModelsOptions options = new ListModelsOptions.Builder().build();
+    final List<TranslationModel> modelList = service.listModels(options).execute().getModels();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(GET_MODELS_PATH, request.getPath());
@@ -169,8 +179,9 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testGetModelWithNull() {
-    final String model = null;
-    service.getModel(model).execute();
+    final String modelId = null;
+    GetModelOptions getOptions = new GetModelOptions.Builder(modelId).build();
+    service.getModel(getOptions).execute();
   }
 
   /**
@@ -180,14 +191,20 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testIdentify() throws InterruptedException {
-    final List<IdentifiedLanguage> langs =
-        Arrays.asList(new IdentifiedLanguage("en", 0.877159), new IdentifiedLanguage("af", 0.0752636));
+    IdentifiedLanguage val1 = new IdentifiedLanguage();
+    val1.setLanguage("en");
+    val1.setConfidence(0.877159);
+    IdentifiedLanguage val2 = new IdentifiedLanguage();
+    val1.setLanguage("af");
+    val1.setConfidence(0.0752636);
+    final List<IdentifiedLanguage> langs = Arrays.asList(val1, val2);
     final Map<String, ?> response = ImmutableMap.of("languages", langs);
     final String text = texts.get(0);
 
     server.enqueue(jsonResponse(response));
 
-    final List<IdentifiedLanguage> identifiedLanguages = service.identify(text).execute();
+    IdentifyOptions identifyOptions = new IdentifyOptions.Builder(text).build();
+    final List<IdentifiedLanguage> identifiedLanguages = service.identify(identifyOptions).execute().getLanguages();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(IDENTITY_PATH, request.getPath());
@@ -215,7 +232,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     final Map<String, ?> requestBody = ImmutableMap.of("text", Collections.singleton(text), "model_id", modelId);
 
     server.enqueue(jsonResponse(response));
-    TranslationResult translationResult = service.translate(text, modelId).execute();
+    TranslateOptions translateOptions = new TranslateOptions.Builder().addText(text).modelId(modelId).build();
+    TranslationResult translationResult = service.translate(translateOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(LANGUAGE_TRANSLATION_PATH, request.getPath());
@@ -242,7 +260,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     final Map<String, ?> requestBody = ImmutableMap.of("text", texts, "model_id", modelId);
 
     server.enqueue(jsonResponse(response));
-    TranslationResult translationResult = service.translate(texts, modelId).execute();
+    TranslateOptions translateOptions = new TranslateOptions.Builder()
+        .text(texts)
+        .modelId(modelId)
+        .build();
+    TranslationResult translationResult = service.translate(translateOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(LANGUAGE_TRANSLATION_PATH, request.getPath());
@@ -260,7 +282,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   public void testTranslateNotSupported() {
     Map<String, ?> response = ImmutableMap.of("error_code", 400, "error message", "error");
     server.enqueue(jsonResponse(response).setResponseCode(400));
-    service.translate("X", "FOO-BAR-FOO").execute();
+    TranslateOptions translateOptions = new TranslateOptions.Builder()
+        .addText("X")
+        .modelId("FOO-BAR-FOO")
+        .build();
+    service.translate(translateOptions).execute();
   }
 
 
@@ -269,7 +295,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testTranslateWithNull() {
-    service.translate((String) null, null, null).execute();
+    TranslateOptions translateOptions = new TranslateOptions.Builder().build();
+    service.translate(translateOptions).execute();
   }
 
   /**
