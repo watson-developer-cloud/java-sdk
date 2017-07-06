@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -109,11 +110,19 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   }
 
   /**
+   * Test create model with baseModelId null.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testcreateModelWithBaseModelIdNull() {
+    service.createModel(new CreateModelOptions.Builder().build()).execute();
+  }
+
+  /**
    * Test create model with glossary null.
    */
   @Test(expected = IllegalArgumentException.class)
   public void testcreateModelWithGlossaryNull() {
-    service.createModel(new CreateModelOptions.Builder().build()).execute();
+    service.createModel(new CreateModelOptions.Builder(modelId).build()).execute();
   }
 
   /**
@@ -310,5 +319,47 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(translationResult.getWordCount().intValue(), text.split(" ").length);
     assertNotNull(translationResult.getTranslations());
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
+  }
+
+  /**
+   * Test translate options.
+   */
+  @Test
+  public void testTranslateOptions() {
+    final String text = "Hello, Watson!";
+
+    TranslateOptions options1 = new TranslateOptions.Builder()
+        .addText(text)
+        .modelId(modelId)
+        .build();
+    TranslateOptions.Builder builder = options1.newBuilder();
+    TranslateOptions options2 = builder.text(texts).build();
+    assertEquals(options2.text(), texts);
+    assertEquals(options2.modelId(), modelId);
+  }
+
+  /**
+   * Test create model options.
+   */
+  @Test
+  public void testCreateModelOptions() {
+
+    String myParallelCorpus = "{\"field\":\"value\"}";
+    InputStream parallelCorpusStream = new ByteArrayInputStream(myParallelCorpus.getBytes());
+    String myMonolingualCorpus = "{\"field\":\"value\"}";
+    InputStream monolingualCorpusStream = new ByteArrayInputStream(myMonolingualCorpus.getBytes());
+
+    CreateModelOptions options1 = new CreateModelOptions.Builder(modelId)
+        .parallelCorpus(parallelCorpusStream).parallelCorpusMediaType("foo")
+        .monolingualCorpus(monolingualCorpusStream).monolingualCorpusMediaType("bar")
+        .build();
+    CreateModelOptions.Builder builder = options1.newBuilder();
+    CreateModelOptions options2 = builder.name("baz").build();
+    assertEquals(options2.baseModelId(), modelId);
+    assertEquals(options2.parallelCorpus(), parallelCorpusStream);
+    assertEquals(options2.parallelCorpusMediaType(), "foo");
+    assertEquals(options2.monolingualCorpus(), monolingualCorpusStream);
+    assertEquals(options2.monolingualCorpusMediaType(), "bar");
+    assertEquals(options2.name(), "baz");
   }
 }

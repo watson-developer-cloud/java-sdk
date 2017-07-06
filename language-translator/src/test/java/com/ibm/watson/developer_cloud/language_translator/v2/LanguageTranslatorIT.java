@@ -28,6 +28,7 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.DeleteModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.GetModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifyOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.ListModelsOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
 import org.junit.Assume;
 import org.junit.Before;
@@ -89,10 +90,13 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   @Test
   public void testCreateAndDeleteModel() throws IOException {
 
+    String modelName = "integration-test";
+    String baseModelId = "en-es";
+
     InputStream glossary = new FileInputStream(new File(RESOURCE + "glossary.tmx"));
     CreateModelOptions options = new CreateModelOptions.Builder()
-        .name("integration-test")
-        .baseModelId("en-es")
+        .name(modelName)
+        .baseModelId(baseModelId)
         .forcedGlossary(glossary).forcedGlossaryMediaType(HttpMediaType.BINARY_FILE.toString())
         .build();
 
@@ -101,6 +105,11 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
       model = service.createModel(options).execute();
       Thread.sleep(3000);
       assertNotNull(model);
+      assertTrue(model.getModelId() != null && model.getModelId().length() > 0);
+      assertEquals(model.getName(), modelName);
+      assertEquals(model.getBaseModelId(), baseModelId);
+      assertEquals(model.isCustomizable(), false);
+      assertEquals(model.isDefaultModel(), false);
     } catch (InterruptedException e) {
       e.printStackTrace();
     } finally {
@@ -143,6 +152,24 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   }
 
   /**
+   * Test List Models with Options.
+   */
+  @Test
+  public void testListModelsWithOptions() {
+    ListModelsOptions options = new ListModelsOptions.Builder()
+        .source("en")
+        .target("es")
+        .defaultModels(false)
+        .build();
+    final List<TranslationModel> models = service.listModels(options).execute().getModels();
+
+    assertNotNull(models);
+    assertFalse(models.isEmpty());
+    assertEquals(models.get(0).getSource(), options.source());
+    assertEquals(models.get(0).getTarget(), options.target());
+  }
+
+  /**
    * Test Identify.
    */
   @Test
@@ -181,12 +208,15 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslation());
     assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslation());
 
-    TranslateOptions options1 = new TranslateOptions.Builder()
-        .text(texts).source(ENGLISH).target(SPANISH).build();
+    TranslateOptions.Builder builder = new TranslateOptions.Builder();
+    builder.source(ENGLISH).target(SPANISH);
+    for (String text : texts) {
+      builder.addText(text);
+    }
+    results = service.translate(builder.build()).execute();
     assertEquals(2, results.getTranslations().size());
     assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslation());
     assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslation());
-
   }
 
   /**
@@ -211,6 +241,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
    */
   private void testTranslationResult(String text, String result, TranslationResult translationResult) {
     assertNotNull(translationResult);
+    assertEquals(translationResult.getCharacterCount().intValue(), text.length());
     assertEquals(translationResult.getWordCount().intValue(), text.split(" ").length);
     assertNotNull(translationResult.getTranslations());
     assertNotNull(translationResult.getTranslations().get(0).getTranslation());
