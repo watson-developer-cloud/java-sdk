@@ -18,9 +18,17 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.DeleteModelOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.GetModelOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifyOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -32,7 +40,6 @@ import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiableLanguage;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.Language;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModel;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
 
@@ -40,6 +47,11 @@ import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationRe
  * Language Translator integration test.
  */
 public class LanguageTranslatorIT extends WatsonServiceTest {
+
+  /** English. */
+  private static final String ENGLISH = "en";
+  /** Spanish. */
+  private static final String SPANISH = "es";
 
   private static final String ENGLISH_TO_SPANISH = "en-es";
   private static final String RESOURCE = "src/test/resources/language_translation/";
@@ -75,9 +87,14 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
    * Test create and delete model.
    */
   @Test
-  public void testCreateAndDeleteModel() {
-    CreateModelOptions options = new CreateModelOptions.Builder().name("integration-test").baseModelId("en-es")
-        .forcedGlossary(new File(RESOURCE + "glossary.tmx")).build();
+  public void testCreateAndDeleteModel() throws IOException {
+
+    InputStream glossary = new FileInputStream(new File(RESOURCE + "glossary.tmx"));
+    CreateModelOptions options = new CreateModelOptions.Builder()
+        .name("integration-test")
+        .baseModelId("en-es")
+        .forcedGlossary(glossary).forcedGlossaryMediaType(HttpMediaType.BINARY_FILE.toString())
+        .build();
 
     TranslationModel model = null;
     try {
@@ -88,7 +105,8 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
       e.printStackTrace();
     } finally {
       if (model != null) {
-        service.deleteModel(model.getId()).execute();
+        DeleteModelOptions deleteOptions = new DeleteModelOptions.Builder(model.getModelId()).build();
+        service.deleteModel(deleteOptions).execute();
       }
     }
   }
@@ -98,7 +116,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
    */
   @Test
   public void testGetIdentifiableLanguages() {
-    final List<IdentifiableLanguage> languages = service.getIdentifiableLanguages().execute();
+    final List<IdentifiableLanguage> languages = service.listIdentifiableLanguages().execute().getLanguages();
     assertNotNull(languages);
     assertTrue(!languages.isEmpty());
   }
@@ -108,16 +126,17 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
    */
   @Test
   public void testGetModel() {
-    final TranslationModel model = service.getModel(ENGLISH_TO_SPANISH).execute();
+    GetModelOptions getOptions = new GetModelOptions.Builder(ENGLISH_TO_SPANISH).build();
+    final TranslationModel model = service.getModel(getOptions).execute();
     assertNotNull(model);
   }
 
   /**
-   * Test Get Models.
+   * Test List Models.
    */
   @Test
-  public void testGetModels() {
-    final List<TranslationModel> models = service.getModels().execute();
+  public void testListModels() {
+    final List<TranslationModel> models = service.listModels(null).execute().getModels();
 
     assertNotNull(models);
     assertFalse(models.isEmpty());
@@ -128,7 +147,9 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
    */
   @Test
   public void testIdentify() {
-    final List<IdentifiedLanguage> identifiedLanguages = service.identify(texts.get(0)).execute();
+
+    IdentifyOptions options = new IdentifyOptions.Builder(texts.get(0)).build();
+    final List<IdentifiedLanguage> identifiedLanguages = service.identify(options).execute().getLanguages();
     assertNotNull(identifiedLanguages);
     assertFalse(identifiedLanguages.isEmpty());
   }
@@ -139,9 +160,12 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   @Test
   public void testTranslate() {
     for (String text : texts) {
-      testTranslationResult(text, translations.get(text), service.translate(text, ENGLISH_TO_SPANISH).execute());
-      testTranslationResult(text, translations.get(text),
-          service.translate(text, Language.ENGLISH, Language.SPANISH).execute());
+      TranslateOptions options = new TranslateOptions.Builder()
+          .addText(text).modelId(ENGLISH_TO_SPANISH).build();
+      testTranslationResult(text, translations.get(text), service.translate(options).execute());
+      TranslateOptions options1 = new TranslateOptions.Builder()
+          .addText(text).source(ENGLISH).target(SPANISH).build();
+      testTranslationResult(text, translations.get(text), service.translate(options1).execute());
     }
   }
 
@@ -150,12 +174,15 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
    */
   @Test
   public void testTranslateMultiple() {
-    TranslationResult results = service.translate(texts, ENGLISH_TO_SPANISH).execute();
+    TranslateOptions options = new TranslateOptions.Builder(texts)
+        .modelId(ENGLISH_TO_SPANISH).build();
+    TranslationResult results = service.translate(options).execute();
     assertEquals(2, results.getTranslations().size());
     assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslation());
     assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslation());
 
-    results = service.translate(texts, Language.ENGLISH, Language.SPANISH).execute();
+    TranslateOptions options1 = new TranslateOptions.Builder()
+        .text(texts).source(ENGLISH).target(SPANISH).build();
     assertEquals(2, results.getTranslations().size());
     assertEquals(translations.get(texts.get(0)), results.getTranslations().get(0).getTranslation());
     assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslation());
@@ -168,9 +195,10 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   @Test
   @Ignore
   public void testDeleteAllModels() {
-    List<TranslationModel> models = service.getModels().execute();
+    List<TranslationModel> models = service.listModels(null).execute().getModels();
     for (TranslationModel translationModel : models) {
-      service.deleteModel(translationModel.getId()).execute();
+      DeleteModelOptions options = new DeleteModelOptions.Builder(translationModel.getModelId()).build();
+      service.deleteModel(options).execute();
     }
   }
 
