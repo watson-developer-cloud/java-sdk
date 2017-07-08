@@ -26,7 +26,7 @@ LanguageTranslator service = new LanguageTranslator();
 service.setUsernameAndPassword("<username>", "<password>");
 
 TranslateOptions translateOptions = new TranslateOptions.Builder()
-    .addText("hello").source("en").target("es").build();
+    .addText("hello").source(Language.ENGLISH).target(Language.SPANISH).build();
 TranslationResult translationResult = service.translate(translateOptions).execute();
 
 System.out.println(translationResult);

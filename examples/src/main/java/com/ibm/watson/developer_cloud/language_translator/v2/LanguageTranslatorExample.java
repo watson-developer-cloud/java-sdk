@@ -10,10 +10,12 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.language_translator.v2;
+package com.ibm.watson.developer_cloud.language_translator_v2_example;
 
-import com.ibm.watson.developer_cloud.language_translator.v2.model.Language;
+import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
+import com.ibm.watson.developer_cloud.language_translator.v2.util.Language;
 
 /**
  * Example of how to translate a sentence from English to Spanish.
@@ -25,7 +27,7 @@ public class LanguageTranslatorExample {
     service.setUsernameAndPassword("<username>", "<password>");
 
     TranslateOptions translateOptions = new TranslateOptions.Builder()
-        .addText("hello").source("en").target("es").build();
+        .addText("hello").source(Language.ENGLISH).target(Language.SPANISH).build();
     TranslationResult translationResult = service.translate(translateOptions).execute();
 
     System.out.println(translationResult);
