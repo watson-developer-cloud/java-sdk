@@ -85,6 +85,21 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
   }
 
   /**
+   * Test README.
+   */
+  @Test
+  public void testReadme() throws InterruptedException, IOException {
+//    LanguageTranslator service = new LanguageTranslator();
+//    service.setUsernameAndPassword("<username>", "<password>");
+
+    TranslateOptions translateOptions = new TranslateOptions.Builder()
+        .addText("hello").source("en").target("es").build();
+    TranslationResult translationResult = service.translate(translateOptions).execute();
+
+    System.out.println(translationResult);
+  }
+
+  /**
    * Test create and delete model.
    */
   @Test
