@@ -290,7 +290,7 @@ public class EntitiesIT extends ConversationServiceTest {
       // Clean up
       DeleteEntityOptions deleteOptions = new DeleteEntityOptions.Builder(workspaceId, entity1).build();
       service.deleteEntity(deleteOptions).execute();
-      service.deleteEntity(deleteOptions.newBuilder().entity(entity2).build());
+      service.deleteEntity(deleteOptions.newBuilder().entity(entity2).build()).execute();
     }
   }
 
