@@ -25,11 +25,18 @@ import java.util.List;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.DeleteModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.GetModelOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiableLanguage;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiedLanguage;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifyOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.ListModelsOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModel;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
+import com.ibm.watson.developer_cloud.language_translator.v2.util.Language;
+
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -38,21 +45,11 @@ import org.junit.Test;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.CreateModelOptions;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiableLanguage;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModel;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
 
 /**
  * Language Translator integration test.
  */
 public class LanguageTranslatorIT extends WatsonServiceTest {
-
-  /** English. */
-  private static final String ENGLISH = "en";
-  /** Spanish. */
-  private static final String SPANISH = "es";
 
   private static final String ENGLISH_TO_SPANISH = "en-es";
   private static final String RESOURCE = "src/test/resources/language_translation/";
@@ -82,6 +79,21 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     service.setUsernameAndPassword(username, password);
     service.setEndPoint(getProperty("language_translator.url"));
     service.setDefaultHeaders(getDefaultHeaders());
+  }
+
+  /**
+   * Test README.
+   */
+  @Test
+  public void testReadme() throws InterruptedException, IOException {
+//    LanguageTranslator service = new LanguageTranslator();
+//    service.setUsernameAndPassword("<username>", "<password>");
+
+    TranslateOptions translateOptions = new TranslateOptions.Builder()
+        .addText("hello").source(Language.ENGLISH).target(Language.SPANISH).build();
+    TranslationResult translationResult = service.translate(translateOptions).execute();
+
+    System.out.println(translationResult);
   }
 
   /**
@@ -191,7 +203,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
           .addText(text).modelId(ENGLISH_TO_SPANISH).build();
       testTranslationResult(text, translations.get(text), service.translate(options).execute());
       TranslateOptions options1 = new TranslateOptions.Builder()
-          .addText(text).source(ENGLISH).target(SPANISH).build();
+          .addText(text).source(Language.ENGLISH).target(Language.SPANISH).build();
       testTranslationResult(text, translations.get(text), service.translate(options1).execute());
     }
   }
@@ -209,7 +221,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     assertEquals(translations.get(texts.get(1)), results.getTranslations().get(1).getTranslation());
 
     TranslateOptions.Builder builder = new TranslateOptions.Builder();
-    builder.source(ENGLISH).target(SPANISH);
+    builder.source(Language.ENGLISH).target(Language.SPANISH);
     for (String text : texts) {
       builder.addText(text);
     }

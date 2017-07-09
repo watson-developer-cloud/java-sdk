@@ -27,10 +27,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.GetModelOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiableLanguage;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiedLanguage;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifyOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.ListModelsOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.Translation;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModel;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModels;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
+import com.ibm.watson.developer_cloud.language_translator.v2.util.Language;
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,16 +50,6 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.CreateModelOptions;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiableLanguage;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.Translation;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModel;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModels;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
-import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
@@ -201,10 +203,10 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   @Test
   public void testIdentify() throws InterruptedException {
     IdentifiedLanguage val1 = new IdentifiedLanguage();
-    val1.setLanguage("en");
+    val1.setLanguage(Language.ENGLISH);
     val1.setConfidence(0.877159);
     IdentifiedLanguage val2 = new IdentifiedLanguage();
-    val1.setLanguage("af");
+    val1.setLanguage(Language.AFRIKAANS);
     val1.setConfidence(0.0752636);
     final List<IdentifiedLanguage> langs = Arrays.asList(val1, val2);
     final Map<String, ?> response = ImmutableMap.of("languages", langs);
