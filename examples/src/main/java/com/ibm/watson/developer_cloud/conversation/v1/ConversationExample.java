@@ -16,6 +16,7 @@ import java.util.Map;
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageRequest;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.OutputData;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 
 import jersey.repackaged.jsr166e.CompletableFuture;
@@ -52,28 +53,28 @@ public class ConversationExample {
 
     // rx callback
     service.message(options).rx()
-        .thenApply(new CompletableFuture.Fun<MessageResponse, RuntimeOutput>() {
+        .thenApply(new CompletableFuture.Fun<MessageResponse, OutputData>() {
           @Override
-          public RuntimeOutput apply(MessageResponse message) {
+          public OutputData apply(MessageResponse message) {
             return message.getOutput();
           }
-        }).thenAccept(new CompletableFuture.Action<RuntimeOutput>() {
+        }).thenAccept(new CompletableFuture.Action<OutputData>() {
       @Override
-      public void accept(RuntimeOutput output) {
+      public void accept(OutputData output) {
         System.out.println(output);
       }
     });
 
     // rx async callback
     service.message(options).rx()
-        .thenApplyAsync(new CompletableFuture.Fun<MessageResponse, RuntimeOutput>() {
+        .thenApplyAsync(new CompletableFuture.Fun<MessageResponse, OutputData>() {
           @Override
-          public RuntimeOutput apply(MessageResponse message) {
+          public OutputData apply(MessageResponse message) {
             return message.getOutput();
           }
-        }).thenAccept(new CompletableFuture.Action<RuntimeOutput>() {
+        }).thenAccept(new CompletableFuture.Action<OutputData>() {
       @Override
-      public void accept(RuntimeOutput output) {
+      public void accept(OutputData output) {
         System.out.println(output);
       }
     });

@@ -28,7 +28,7 @@ public class MessageResponse extends GenericModel {
   @SerializedName("alternate_intents")
   private Boolean alternateIntents;
   private Context context;
-  private RuntimeOutput output;
+  private OutputData output;
 
   /**
    * Gets the input.
@@ -92,7 +92,7 @@ public class MessageResponse extends GenericModel {
    *
    * @return the output
    */
-  public RuntimeOutput getOutput() {
+  public OutputData getOutput() {
     return output;
   }
 
@@ -146,7 +146,7 @@ public class MessageResponse extends GenericModel {
    *
    * @param output the new output
    */
-  public void setOutput(final RuntimeOutput output) {
+  public void setOutput(final OutputData output) {
     this.output = output;
   }
 }
