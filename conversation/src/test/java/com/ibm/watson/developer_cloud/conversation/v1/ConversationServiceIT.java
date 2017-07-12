@@ -63,8 +63,8 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.LogCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.LogExport;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.OutputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeIntent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeOutput;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateCounterexampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
@@ -133,28 +133,28 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     // rx callback
     service.message(options).rx()
-        .thenApply(new CompletableFuture.Fun<MessageResponse, RuntimeOutput>() {
+        .thenApply(new CompletableFuture.Fun<MessageResponse, OutputData>() {
           @Override
-          public RuntimeOutput apply(MessageResponse message) {
+          public OutputData apply(MessageResponse message) {
             return message.getOutput();
           }
-        }).thenAccept(new CompletableFuture.Action<RuntimeOutput>() {
+        }).thenAccept(new CompletableFuture.Action<OutputData>() {
       @Override
-      public void accept(RuntimeOutput output) {
+      public void accept(OutputData output) {
         System.out.println(output);
       }
     });
 
     // rx async callback
     service.message(options).rx()
-        .thenApplyAsync(new CompletableFuture.Fun<MessageResponse, RuntimeOutput>() {
+        .thenApplyAsync(new CompletableFuture.Fun<MessageResponse, OutputData>() {
           @Override
-          public RuntimeOutput apply(MessageResponse message) {
+          public OutputData apply(MessageResponse message) {
             return message.getOutput();
           }
-        }).thenAccept(new CompletableFuture.Action<RuntimeOutput>() {
+        }).thenAccept(new CompletableFuture.Action<OutputData>() {
       @Override
-      public void accept(RuntimeOutput output) {
+      public void accept(OutputData output) {
         System.out.println(output);
       }
     });
