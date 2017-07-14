@@ -10,9 +10,11 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-package com.ibm.watson.developer_cloud.personality_insights.v3;
+package com.ibm.watson.developer_cloud.personality_insights_v3_example;
 
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.ProfileOptions;
+import com.ibm.watson.developer_cloud.personality_insights.v3.PersonalityInsights;
 
 public class PersonalityInsightsExample {
 
@@ -34,7 +36,9 @@ public class PersonalityInsightsExample {
         + "the street, and methodically knocking people's hats off-then, "
         + "I account it high time to get to sea as soon as I can.";
 
-    Profile profile = service.getProfile(text).execute();
+    ProfileOptions options = new ProfileOptions.Builder().text(text).build();
+    Profile profile = service.profile(options).execute();
+
     System.out.println(profile);
   }
 }

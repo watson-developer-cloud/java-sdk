@@ -10,7 +10,6 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.developer_cloud.personality_insights.v3.model;
 
 import java.util.List;
@@ -19,153 +18,62 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Personality profile.
+ * Profile.
  */
 public class Profile extends GenericModel {
 
-  /**
-   * Warning message associated with the input text submitted with the request.
-   */
-  public class Warning extends GenericModel {
-    @SerializedName("warning_id")
-    private String id;
-    private String message;
-
-    /**
-     * Gets the identifier of the warning message.
-     *
-     * @return the id
-     */
-    public String getId() {
-      return id;
-    }
-
-    /**
-     * Sets the identifier of the warning message.
-     *
-     * @param id the new id
-     */
-    public void setId(String id) {
-      this.id = id;
-    }
-
-    /**
-     * Gets the message.
-     *
-     * @return the message
-     */
-    public String getMessage() {
-      return message;
-    }
-
-    /**
-     * Sets the message.
-     *
-     * @param message the new message
-     */
-    public void setMessage(String message) {
-      this.message = message;
-    }
-
-  }
-
-  @SerializedName("word_count")
-  private Integer wordCount;
-
-  @SerializedName("word_count_message")
-  private String wordCountMessage;
-
   @SerializedName("processed_language")
   private String processedLanguage;
-
+  @SerializedName("word_count")
+  private Long wordCount;
+  @SerializedName("word_count_message")
+  private String wordCountMessage;
   private List<Trait> personality;
-  private List<Trait> needs;
   private List<Trait> values;
+  private List<Trait> needs;
   private List<Behavior> behavior;
-
   @SerializedName("consumption_preferences")
-  private List<ConsumptionPreferences> consumptionPreferences;
+  private List<ConsumptionPreferencesCategory> consumptionPreferences;
   private List<Warning> warnings;
 
   /**
-   * Gets the word count message.
+   * Gets the processedLanguage.
    *
-   * @return the word count message
-   */
-  public String getWordCountMessage() {
-    return wordCountMessage;
-  }
-
-  /**
-   * Gets the detailed results about the social behavior disclosed by the input in terms of temporal characteristics.
-   * The results include information about the distribution of the content over the days of the week and the hours of
-   * the day.
+   * The language model that was used to process the input; for example, `en`.
    *
-   * @return the behavior
-   */
-  public List<Behavior> getBehavior() {
-    return behavior;
-  }
-
-  /**
-   * Sets the detailed results about the social behavior disclosed by the input in terms of temporal characteristics.
-   * The results include information about the distribution of the content over the days of the week and the hours of
-   * the day.
-   *
-   * @param behavior the new behaviors
-   */
-  public void setBehavior(List<Behavior> behavior) {
-    this.behavior = behavior;
-  }
-
-  /**
-   * Sets the word count message.
-   *
-   * @param wordCountMessage the new word count message
-   */
-  public void setWordCountMessage(String wordCountMessage) {
-    this.wordCountMessage = wordCountMessage;
-  }
-
-  /**
-   * Gets the number of words that were found in the input.
-   *
-   * @return the word count
-   */
-  public Integer getWordCount() {
-    return wordCount;
-  }
-
-  /**
-   * Sets the number of words that were found in the input.
-   *
-   * @param wordCount the new word count
-   */
-  public void setWordCount(Integer wordCount) {
-    this.wordCount = wordCount;
-  }
-
-  /**
-   * Gets the processed language.
-   *
-   * @return the processed language
+   * @return the processedLanguage
    */
   public String getProcessedLanguage() {
     return processedLanguage;
   }
 
   /**
-   * Sets the processed language.
+   * Gets the wordCount.
    *
-   * @param processedLanguage the new processed language
+   * The number of words that were found in the input.
+   *
+   * @return the wordCount
    */
-  public void setProcessedLanguage(String processedLanguage) {
-    this.processedLanguage = processedLanguage;
+  public Long getWordCount() {
+    return wordCount;
   }
 
   /**
-   * Gets the detailed results for the Big Five personality characteristics (dimensions and facets) inferred from the
-   * input text.
+   * Gets the wordCountMessage.
+   *
+   * When guidance is appropriate, a string that provides a message that indicates the number of words found and where
+   * that value falls in the range of required or suggested number of words.
+   *
+   * @return the wordCountMessage
+   */
+  public String getWordCountMessage() {
+    return wordCountMessage;
+  }
+
+  /**
+   * Gets the personality.
+   *
+   * Detailed results for the Big Five personality characteristics (dimensions and facets) inferred from the input text.
    *
    * @return the personality
    */
@@ -174,35 +82,9 @@ public class Profile extends GenericModel {
   }
 
   /**
-   * Sets the detailed results for the Big Five personality characteristics (dimensions and facets) inferred from the
-   * input text.
+   * Gets the values.
    *
-   * @param personality the new personality
-   */
-  public void setPersonality(List<Trait> personality) {
-    this.personality = personality;
-  }
-
-  /**
-   * Gets the detailed results for the Needs characteristics inferred from the input text.
-   *
-   * @return the needs
-   */
-  public List<Trait> getNeeds() {
-    return needs;
-  }
-
-  /**
-   * Sets the detailed results for the Needs characteristics inferred from the input text.
-   *
-   * @param needs the new needs
-   */
-  public void setNeeds(List<Trait> needs) {
-    this.needs = needs;
-  }
-
-  /**
-   * Gets the detailed results for the Values characteristics inferred from the input text.
+   * Detailed results for the Needs characteristics inferred from the input text.
    *
    * @return the values
    */
@@ -211,34 +93,47 @@ public class Profile extends GenericModel {
   }
 
   /**
-   * Sets the detailed results for the Values characteristics inferred from the input text.
+   * Gets the needs.
    *
-   * @param values the new values
+   * Detailed results for the Values characteristics inferred from the input text.
+   *
+   * @return the needs
    */
-  public void setValues(List<Trait> values) {
-    this.values = values;
+  public List<Trait> getNeeds() {
+    return needs;
   }
 
   /**
-   * Gets the consumption preferences.
+   * Gets the behavior.
    *
-   * @return the consumption preferences
+   * For JSON content that is timestamped, detailed results about the social behavior disclosed by the input in terms of
+   * temporal characteristics. The results include information about the distribution of the content over the days of
+   * the week and the hours of the day.
+   *
+   * @return the behavior
    */
-  public List<ConsumptionPreferences> getConsumptionPreferences() {
+  public List<Behavior> getBehavior() {
+    return behavior;
+  }
+
+  /**
+   * Gets the consumptionPreferences.
+   *
+   * If the `consumption_preferences` query parameter is `true`, detailed results for each category of consumption
+   * preferences. Each element of the array provides information inferred from the input text for the individual
+   * preferences of that category.
+   *
+   * @return the consumptionPreferences
+   */
+  public List<ConsumptionPreferencesCategory> getConsumptionPreferences() {
     return consumptionPreferences;
   }
 
   /**
-   * Sets the consumption preferences.
+   * Gets the warnings.
    *
-   * @param consumptionPreferences the new consumption preferences
-   */
-  public void setConsumptionPreferences(List<ConsumptionPreferences> consumptionPreferences) {
-    this.consumptionPreferences = consumptionPreferences;
-  }
-
-  /**
-   * Gets the warning messages associated with the input text submitted with the request.
+   * Warning messages associated with the input text submitted with the request. The array is empty if the input
+   * generated no warnings.
    *
    * @return the warnings
    */
@@ -247,12 +142,83 @@ public class Profile extends GenericModel {
   }
 
   /**
-   * Sets the warning messages associated with the input text submitted with the request.
+   * Sets the processedLanguage.
+   *
+   * @param processedLanguage the new processedLanguage
+   */
+  public void setProcessedLanguage(final String processedLanguage) {
+    this.processedLanguage = processedLanguage;
+  }
+
+  /**
+   * Sets the wordCount.
+   *
+   * @param wordCount the new wordCount
+   */
+  public void setWordCount(final long wordCount) {
+    this.wordCount = wordCount;
+  }
+
+  /**
+   * Sets the wordCountMessage.
+   *
+   * @param wordCountMessage the new wordCountMessage
+   */
+  public void setWordCountMessage(final String wordCountMessage) {
+    this.wordCountMessage = wordCountMessage;
+  }
+
+  /**
+   * Sets the personality.
+   *
+   * @param personality the new personality
+   */
+  public void setPersonality(final List<Trait> personality) {
+    this.personality = personality;
+  }
+
+  /**
+   * Sets the values.
+   *
+   * @param values the new values
+   */
+  public void setValues(final List<Trait> values) {
+    this.values = values;
+  }
+
+  /**
+   * Sets the needs.
+   *
+   * @param needs the new needs
+   */
+  public void setNeeds(final List<Trait> needs) {
+    this.needs = needs;
+  }
+
+  /**
+   * Sets the behavior.
+   *
+   * @param behavior the new behavior
+   */
+  public void setBehavior(final List<Behavior> behavior) {
+    this.behavior = behavior;
+  }
+
+  /**
+   * Sets the consumptionPreferences.
+   *
+   * @param consumptionPreferences the new consumptionPreferences
+   */
+  public void setConsumptionPreferences(final List<ConsumptionPreferencesCategory> consumptionPreferences) {
+    this.consumptionPreferences = consumptionPreferences;
+  }
+
+  /**
+   * Sets the warnings.
    *
    * @param warnings the new warnings
    */
-  public void setWarnings(List<Warning> warnings) {
+  public void setWarnings(final List<Warning> warnings) {
     this.warnings = warnings;
   }
-
 }
