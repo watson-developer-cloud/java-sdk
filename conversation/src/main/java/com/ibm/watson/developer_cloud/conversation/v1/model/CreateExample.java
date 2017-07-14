@@ -20,7 +20,6 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateExample extends GenericModel {
 
-  /** The text of a user input example. */
   private String text;
 
   /**
@@ -85,6 +84,8 @@ public class CreateExample extends GenericModel {
 
   /**
    * Gets the text.
+   *
+   * The text of a user input example.
    *
    * @return the text
    */

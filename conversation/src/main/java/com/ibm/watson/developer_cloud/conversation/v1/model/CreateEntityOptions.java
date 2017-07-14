@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -25,19 +24,11 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateEntityOptions extends GenericModel {
 
-  /** The workspace ID. */
-  @SerializedName("workspace_id")
   private String workspaceId;
-  /** Any metadata related to the value. */
   private Map<String, Object> metadata;
-  /** An array of entity values. */
   private List<CreateValue> values;
-  /** Whether to use fuzzy matching for the entity. */
-  @SerializedName("fuzzy_match")
   private Boolean fuzzyMatch;
-  /** The description of the entity. */
   private String description;
-  /** The name of the entity. */
   private String entity;
 
   /**
@@ -170,7 +161,7 @@ public class CreateEntityOptions extends GenericModel {
   }
 
   private CreateEntityOptions(Builder builder) {
-    Validator.notNull(builder.workspaceId, "workspaceId cannot be null");
+    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
     Validator.notNull(builder.entity, "entity cannot be null");
     workspaceId = builder.workspaceId;
     metadata = builder.metadata;
@@ -192,6 +183,8 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
+   * The workspace ID.
+   *
    * @return the workspaceId
    */
   public String workspaceId() {
@@ -200,6 +193,8 @@ public class CreateEntityOptions extends GenericModel {
 
   /**
    * Gets the metadata.
+   *
+   * Any metadata related to the value.
    *
    * @return the metadata
    */
@@ -210,6 +205,8 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the values.
    *
+   * An array of entity values.
+   *
    * @return the values
    */
   public List<CreateValue> values() {
@@ -218,6 +215,8 @@ public class CreateEntityOptions extends GenericModel {
 
   /**
    * Gets the fuzzyMatch.
+   *
+   * Whether to use fuzzy matching for the entity.
    *
    * @return the fuzzyMatch
    */
@@ -228,6 +227,8 @@ public class CreateEntityOptions extends GenericModel {
   /**
    * Gets the description.
    *
+   * The description of the entity.
+   *
    * @return the description
    */
   public String description() {
@@ -236,6 +237,8 @@ public class CreateEntityOptions extends GenericModel {
 
   /**
    * Gets the entity.
+   *
+   * The name of the entity.
    *
    * @return the entity
    */
