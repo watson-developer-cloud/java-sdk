@@ -17,15 +17,14 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.FileNotFoundException;
 
+import com.ibm.watson.developer_cloud.personality_insights.v3.model.Content;
 import org.junit.Before;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.personality_insights.v3.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.ContentItem;
-import com.ibm.watson.developer_cloud.personality_insights.v3.model.Language;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.ProfileOptions;
 
@@ -39,6 +38,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
 
   private static final String RESOURCE = "src/test/resources/personality_insights/";
   private static final String PROFILE_PATH = "/v3/profile";
+  private static final String VERSION_DATE_2016_10_19 = "2016-10-19";
   private String text;
   private PersonalityInsights service;
   private Profile profile;
@@ -52,10 +52,8 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   public PersonalityInsightsTest() throws FileNotFoundException {
     profile = loadFixture(RESOURCE + "profile.json", Profile.class);
     text = "foo-bar-text";
-    contentItem = new ContentItem();
-    contentItem.setContent(text);
+    contentItem = new ContentItem.Builder().content(text).build();
   }
-
 
   /*
    * (non-Javadoc)
@@ -66,7 +64,7 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new PersonalityInsights(PersonalityInsights.VERSION_DATE_2016_10_19);
+    service = new PersonalityInsights(VERSION_DATE_2016_10_19);
     service.setEndPoint(getMockWebServerUrl());
     service.setApiKey("");
   }
@@ -78,12 +76,13 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetProfileWithContent() throws InterruptedException {
-    final Content content = new Content();
-    content.addContentItem(contentItem);
-    final ProfileOptions options = new ProfileOptions.Builder().addContentItem(contentItem).build();
+    final Content content = new Content.Builder()
+        .addContentItem(contentItem)
+        .build();
+    final ProfileOptions options = new ProfileOptions.Builder().content(content).build();
 
     server.enqueue(jsonResponse(profile));
-    final Profile profile = service.getProfile(options).execute();
+    final Profile profile = service.profile(options).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
@@ -112,10 +111,13 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetProfileWithEnglishText() throws InterruptedException {
-    final ProfileOptions options = new ProfileOptions.Builder().text(text).language(Language.ENGLISH).build();
+    final ProfileOptions options = new ProfileOptions.Builder()
+        .text(text)
+        .contentLanguage(ProfileOptions.ContentLanguage.EN)
+        .build();
 
     server.enqueue(jsonResponse(profile));
-    final Profile profile = service.getProfile(options).execute();
+    final Profile profile = service.profile(options).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(PROFILE_PATH + "?version=2016-10-19", request.getPath());
@@ -136,13 +138,13 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   public void testGetProfileWithSpanishText() throws InterruptedException {
     final ProfileOptions options = new ProfileOptions.Builder()
         .text(text)
-        .language(Language.SPANISH)
+        .contentLanguage(ProfileOptions.ContentLanguage.ES)
         .consumptionPreferences(true)
         .rawScores(true)
         .build();
 
     server.enqueue(jsonResponse(profile));
-    final Profile profile = service.getProfile(options).execute();
+    final Profile profile = service.profile(options).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(PROFILE_PATH + "?version=2016-10-19&raw_scores=true&consumption_preferences=true", request.getPath());

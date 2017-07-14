@@ -14,8 +14,6 @@ package com.ibm.watson.developer_cloud.personality_insights.v3;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Collections;
-import java.util.Date;
 
 import org.junit.Assert;
 import org.junit.Assume;
@@ -27,7 +25,6 @@ import com.ibm.watson.developer_cloud.personality_insights.v3.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.ContentItem;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.ProfileOptions;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Personality Insights Integration Tests.
@@ -35,7 +32,10 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
  */
 public class PersonalityInsightsIT extends WatsonServiceTest {
 
+  private static final String RESOURCE = "src/test/resources/personality_insights/";
+
   private PersonalityInsights service;
+  private static final String VERSION_DATE_2016_10_19 = "2016-10-19";
 
   /*
    * (non-Javadoc)
@@ -52,7 +52,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (username == null) || username.equals(PLACEHOLDER));
 
-    service = new PersonalityInsights(PersonalityInsights.VERSION_DATE_2016_10_19);
+    service = new PersonalityInsights(VERSION_DATE_2016_10_19);
     service.setUsernameAndPassword(username, password);
     service.setEndPoint(getProperty("personality_insights.url"));
     service.setDefaultHeaders(getDefaultHeaders());
@@ -65,10 +65,11 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void getProfileWithText() throws Exception {
-    File file = new File("src/test/resources/personality_insights/en.txt");
+    File file = new File(RESOURCE + "en.txt");
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
-    Profile profile = service.getProfile(englishText).execute();
+    ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
+    Profile profile = service.profile(options).execute();
 
     Assert.assertNotNull(profile);
     Assert.assertNotNull(profile.getProcessedLanguage());
@@ -101,22 +102,22 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void getProfileWithASingleContentItem() throws Exception {
-    File file = new File("src/test/resources/personality_insights/en.txt");
+    File file = new File(RESOURCE + "en.txt");
     String englishText = getStringFromInputStream(new FileInputStream(file));
 
-    ContentItem cItem = new ContentItem();
-    cItem.setContent(englishText);
-    cItem.setCreated(new Date());
+    ContentItem cItem = new ContentItem.Builder(englishText).build();
+    Content content = new Content.Builder()
+        .addContentItem(cItem)
+        .build();
     ProfileOptions options = new ProfileOptions.Builder()
-        .contentItems(Collections.singletonList(cItem))
+        .content(content)
         .consumptionPreferences(true)
         .rawScores(true)
         .build();
-    Profile profile = service.getProfile(options).execute();
+    Profile profile = service.profile(options).execute();
 
     assertProfile(profile);
   }
-
 
   /**
    * Gets the profile from a list of content items.
@@ -125,16 +126,14 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void getProfileWithContentItems() throws Exception {
-    File file = new File("src/test/resources/personality_insights/v3-contentItems.json");
-    String contentItems = getStringFromInputStream(new FileInputStream(file));
-    Content content = GsonSingleton.getGson().fromJson(contentItems, Content.class);
+    final Content content = loadFixture(RESOURCE + "v3-contentItems.json", Content.class);
     ProfileOptions options = new ProfileOptions.Builder()
-        .contentItems(content.getContentItems())
+        .content(content)
         .consumptionPreferences(true)
         .rawScores(true)
         .build();
 
-    Profile profile = service.getProfile(options).execute();
+    Profile profile = service.profile(options).execute();
     assertProfile(profile);
   }
 }
