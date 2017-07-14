@@ -18,8 +18,8 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteSynonymOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetSynonymOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListSynonymsOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.SynonymCollectionResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.SynonymResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.SynonymCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Synonym;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateSynonymOptions;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
@@ -71,7 +71,7 @@ public class SynonymsIT extends ConversationServiceTest {
         .value(entityValue)
         .synonym(synonym)
         .build();
-    SynonymResponse response = service.createSynonym(createOptions).execute();
+    Synonym response = service.createSynonym(createOptions).execute();
 
     try {
       assertNotNull(response);
@@ -123,7 +123,7 @@ public class SynonymsIT extends ConversationServiceTest {
 
     CreateSynonymOptions createOptions =
         new CreateSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
-    SynonymResponse response = service.createSynonym(createOptions).execute();
+    Synonym response = service.createSynonym(createOptions).execute();
 
     try {
       assertNotNull(response);
@@ -190,7 +190,7 @@ public class SynonymsIT extends ConversationServiceTest {
     try {
       GetSynonymOptions getOptions =
           new GetSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
-      SynonymResponse response = service.getSynonym(getOptions).execute();
+      Synonym response = service.getSynonym(getOptions).execute();
 
       assertNotNull(response);
       assertNotNull(response.getSynonym());
@@ -255,7 +255,7 @@ public class SynonymsIT extends ConversationServiceTest {
           .entity(entity)
           .value(entityValue)
           .build();
-      final SynonymCollectionResponse response = service.listSynonyms(listOptions).execute();
+      final SynonymCollection response = service.listSynonyms(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getSynonyms());
       assertNotNull(response.getPagination());
@@ -273,7 +273,7 @@ public class SynonymsIT extends ConversationServiceTest {
       if (response.getPagination().getNextUrl() == null) {
         //assertTrue(response.getSynonyms().stream().filter(r -> r.getSynonym().equals(synonym1)).count() == 1);
         boolean found1 = false, found2 = false;
-        for (SynonymResponse synonymResponse : response.getSynonyms()) {
+        for (Synonym synonymResponse : response.getSynonyms()) {
           found1 |= synonymResponse.getSynonym().equals(synonym1);
           found2 |= synonymResponse.getSynonym().equals(synonym2);
         }
@@ -338,7 +338,7 @@ public class SynonymsIT extends ConversationServiceTest {
       listOptionsBuilder.sort("modified");
       listOptionsBuilder.pageLimit(1L);
 
-      SynonymCollectionResponse response =
+      SynonymCollection response =
           service.listSynonyms(listOptionsBuilder.build()).execute();
       assertNotNull(response);
       assertNotNull(response.getPagination());
@@ -416,7 +416,7 @@ public class SynonymsIT extends ConversationServiceTest {
         .synonym(synonym1)
         .newSynonym(synonym2)
         .build();
-    SynonymResponse response = service.updateSynonym(updateOptions).execute();
+    Synonym response = service.updateSynonym(updateOptions).execute();
 
     try {
       assertNotNull(response);

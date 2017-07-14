@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -21,16 +20,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class GetEntityOptions extends GenericModel {
 
-  /** The workspace ID. */
-  @SerializedName("workspace_id")
   private String workspaceId;
-  /** The name of the entity. */
   private String entity;
-  /**
-   * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
-   * information about the element itself. If export=`true`, all content, including subelements, is included. The
-   * default value is `false`.
-   */
   private Boolean export;
 
   /**
@@ -108,8 +99,8 @@ public class GetEntityOptions extends GenericModel {
   }
 
   private GetEntityOptions(Builder builder) {
-    Validator.notNull(builder.workspaceId, "workspaceId cannot be null");
-    Validator.notNull(builder.entity, "entity cannot be null");
+    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
+    Validator.notEmpty(builder.entity, "entity cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     export = builder.export;
@@ -127,6 +118,8 @@ public class GetEntityOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
+   * The workspace ID.
+   *
    * @return the workspaceId
    */
   public String workspaceId() {
@@ -136,6 +129,8 @@ public class GetEntityOptions extends GenericModel {
   /**
    * Gets the entity.
    *
+   * The name of the entity.
+   *
    * @return the entity
    */
   public String entity() {
@@ -144,6 +139,10 @@ public class GetEntityOptions extends GenericModel {
 
   /**
    * Gets the export.
+   *
+   * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
+   * information about the element itself. If export=`true`, all content, including subelements, is included. The
+   * default value is `false`.
    *
    * @return the export
    */
