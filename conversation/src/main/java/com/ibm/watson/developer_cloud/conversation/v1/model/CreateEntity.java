@@ -25,15 +25,10 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateEntity extends GenericModel {
 
-  /** The name of the entity. */
   private String entity;
-  /** The description of the entity. */
   private String description;
-  /** Any metadata related to the value. */
   private Map<String, Object> metadata;
-  /** An array of entity values. */
   private List<CreateValue> values;
-  /** Whether to use fuzzy matching for the entity. */
   @SerializedName("fuzzy_match")
   private Boolean fuzzyMatch;
 
@@ -85,7 +80,7 @@ public class CreateEntity extends GenericModel {
      * @param value the new value
      * @return the CreateEntity builder
      */
-    public Builder values(CreateValue value) {
+    public Builder addValue(CreateValue value) {
       Validator.notNull(value, "value cannot be null");
       if (this.values == null) {
         this.values = new ArrayList<CreateValue>();
@@ -172,6 +167,8 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the entity.
    *
+   * The name of the entity.
+   *
    * @return the entity
    */
   public String entity() {
@@ -180,6 +177,8 @@ public class CreateEntity extends GenericModel {
 
   /**
    * Gets the description.
+   *
+   * The description of the entity.
    *
    * @return the description
    */
@@ -190,6 +189,8 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the metadata.
    *
+   * Any metadata related to the value.
+   *
    * @return the metadata
    */
   public Map<String, Object> metadata() {
@@ -199,6 +200,8 @@ public class CreateEntity extends GenericModel {
   /**
    * Gets the values.
    *
+   * An array of entity values.
+   *
    * @return the values
    */
   public List<CreateValue> values() {
@@ -207,6 +210,8 @@ public class CreateEntity extends GenericModel {
 
   /**
    * Gets the fuzzyMatch.
+   *
+   * Whether to use fuzzy matching for the entity.
    *
    * @return the fuzzyMatch
    */
