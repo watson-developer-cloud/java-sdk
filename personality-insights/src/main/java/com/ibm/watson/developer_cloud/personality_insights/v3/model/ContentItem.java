@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -12,198 +12,331 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v3.model;
 
-import java.util.Date;
-
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.LongToDateTypeAdapter;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The Content to be analyzed.
+ * ContentItem.
  */
 public class ContentItem extends GenericModel {
-  private String content;
-  @SerializedName("contenttype")
-  private String contentType;
-
-  @JsonAdapter(LongToDateTypeAdapter.class)
-  private Date created;
-  @JsonAdapter(LongToDateTypeAdapter.class)
-  private Date updated;
-
-
-  private Boolean forward;
-  private String id;
-  private String language;
-  @SerializedName("parentid")
-  private String parentId;
-  private Boolean reply;
 
   /**
-   * Gets the content to be analyzed. Up to 20MB of content is supported.
+   * MIME type of the content. The default is plain text. The tags are stripped from HTML content before it is analyzed;
+   * plain text is processed as submitted.
+   */
+  public interface Contenttype {
+    /** text/plain. */
+    String TEXT_PLAIN = "text/plain";
+    /** text/html. */
+    String TEXT_HTML = "text/html";
+  }
+
+  /**
+   * Language identifier (two-letter ISO 639-1 identifier) for the language of the content item. The default is `en`
+   * (English). Regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`. A
+   * language specified with the `Content-Type` header overrides the value of this parameter; any content items that
+   * specify a different language are ignored. Omit the `Content-Type` header to base the language on the most prevalent
+   * specification among the content items; again, content items that specify a different language are ignored. You can
+   * specify any combination of languages for the input and response content.
+   */
+  public interface Language {
+    /** ar. */
+    String AR = "ar";
+    /** en. */
+    String EN = "en";
+    /** es. */
+    String ES = "es";
+    /** ja. */
+    String JA = "ja";
+  }
+
+  private String content;
+  private String id;
+  private Long created;
+  private Long updated;
+  private String contenttype;
+  private String language;
+  private String parentid;
+  private Boolean reply;
+  private Boolean forward;
+
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private String content;
+    private String id;
+    private Long created;
+    private Long updated;
+    private String contenttype;
+    private String language;
+    private String parentid;
+    private Boolean reply;
+    private Boolean forward;
+
+    private Builder(ContentItem contentItem) {
+      content = contentItem.content;
+      id = contentItem.id;
+      created = contentItem.created;
+      updated = contentItem.updated;
+      contenttype = contentItem.contenttype;
+      language = contentItem.language;
+      parentid = contentItem.parentid;
+      reply = contentItem.reply;
+      forward = contentItem.forward;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param content the content
+     */
+    public Builder(String content) {
+      this.content = content;
+    }
+
+    /**
+     * Builds a ContentItem.
+     *
+     * @return the contentItem
+     */
+    public ContentItem build() {
+      return new ContentItem(this);
+    }
+
+    /**
+     * Set the content.
+     *
+     * @param content the content
+     * @return the ContentItem builder
+     */
+    public Builder content(String content) {
+      this.content = content;
+      return this;
+    }
+
+    /**
+     * Set the id.
+     *
+     * @param id the id
+     * @return the ContentItem builder
+     */
+    public Builder id(String id) {
+      this.id = id;
+      return this;
+    }
+
+    /**
+     * Set the created.
+     *
+     * @param created the created
+     * @return the ContentItem builder
+     */
+    public Builder created(long created) {
+      this.created = created;
+      return this;
+    }
+
+    /**
+     * Set the updated.
+     *
+     * @param updated the updated
+     * @return the ContentItem builder
+     */
+    public Builder updated(long updated) {
+      this.updated = updated;
+      return this;
+    }
+
+    /**
+     * Set the contenttype.
+     *
+     * @param contenttype the contenttype
+     * @return the ContentItem builder
+     */
+    public Builder contenttype(String contenttype) {
+      this.contenttype = contenttype;
+      return this;
+    }
+
+    /**
+     * Set the language.
+     *
+     * @param language the language
+     * @return the ContentItem builder
+     */
+    public Builder language(String language) {
+      this.language = language;
+      return this;
+    }
+
+    /**
+     * Set the parentid.
+     *
+     * @param parentid the parentid
+     * @return the ContentItem builder
+     */
+    public Builder parentid(String parentid) {
+      this.parentid = parentid;
+      return this;
+    }
+
+    /**
+     * Set the reply.
+     *
+     * @param reply the reply
+     * @return the ContentItem builder
+     */
+    public Builder reply(Boolean reply) {
+      this.reply = reply;
+      return this;
+    }
+
+    /**
+     * Set the forward.
+     *
+     * @param forward the forward
+     * @return the ContentItem builder
+     */
+    public Builder forward(Boolean forward) {
+      this.forward = forward;
+      return this;
+    }
+  }
+
+  private ContentItem(Builder builder) {
+    Validator.notNull(builder.content, "content cannot be null");
+    content = builder.content;
+    id = builder.id;
+    created = builder.created;
+    updated = builder.updated;
+    contenttype = builder.contenttype;
+    language = builder.language;
+    parentid = builder.parentid;
+    reply = builder.reply;
+    forward = builder.forward;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a ContentItem builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
+   * Gets the content.
+   *
+   * Content that is to be analyzed. The service supports up to 20 MB of content for all items combined.
    *
    * @return the content
    */
-  public String getContent() {
+  public String content() {
     return content;
   }
 
   /**
-   * Gets the date that identifies when this content was created.
+   * Gets the id.
    *
-   * @return the created
-   */
-  public Date getCreated() {
-    return created;
-  }
-
-  /**
-   * Gets the unique identifier for this content item.
+   * Unique identifier for this content item.
    *
-   * @return the identifier
+   * @return the id
    */
-  public String getId() {
+  public String id() {
     return id;
   }
 
   /**
-   * Gets the language identifier (two-letter ISO 639-1 identifier).
+   * Gets the created.
    *
-   * @return the language identifier (two-letter ISO 639-1 identifier).
+   * Timestamp that identifies when this content was created. Specify a value in milliseconds since the UNIX Epoch
+   * (January 1, 1970, at 0:00 UTC). Required only for results that include temporal behavior data.
+   *
+   * @return the created
    */
-  public String getLanguage() {
-    return language;
+  public Long created() {
+    return created;
   }
 
   /**
-   * Gets the date that identifies when this content was last updated.
+   * Gets the updated.
    *
-   * @return the updated date
+   * Timestamp that identifies when this content was last updated. Specify a value in milliseconds since the UNIX Epoch
+   * (January 1, 1970, at 0:00 UTC). Required only for results that include temporal behavior data.
+   *
+   * @return the updated
    */
-  public Date getUpdated() {
+  public Long updated() {
     return updated;
   }
 
   /**
-   * Indicates whether this content item is a forwarded/copied version of another content item.
+   * Gets the contenttype.
    *
-   * @return the forward
+   * MIME type of the content. The default is plain text. The tags are stripped from HTML content before it is analyzed;
+   * plain text is processed as submitted.
+   *
+   * @return the contenttype
    */
-  public boolean isForward() {
-    return forward;
+  public String contenttype() {
+    return contenttype;
   }
 
   /**
+   * Gets the language.
+   *
+   * Language identifier (two-letter ISO 639-1 identifier) for the language of the content item. The default is `en`
+   * (English). Regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`. A
+   * language specified with the `Content-Type` header overrides the value of this parameter; any content items that
+   * specify a different language are ignored. Omit the `Content-Type` header to base the language on the most prevalent
+   * specification among the content items; again, content items that specify a different language are ignored. You can
+   * specify any combination of languages for the input and response content.
+   *
+   * @return the language
+   */
+  public String language() {
+    return language;
+  }
+
+  /**
+   * Gets the parentid.
+   *
+   * Unique ID of the parent content item for this item. Used to identify hierarchical relationships between
+   * posts/replies, messages/replies, and so on.
+   *
+   * @return the parentid
+   */
+  public String parentid() {
+    return parentid;
+  }
+
+  /**
+   * Gets the reply.
+   *
    * Indicates whether this content item is a reply to another content item.
    *
-   * @return true, if is reply
+   * @return the reply
    */
-  public boolean isReply() {
+  public Boolean reply() {
     return reply;
   }
 
   /**
-   * Sets the content to be analyzed. Up to 20MB of content is supported.
+   * Gets the forward.
    *
-   * @param content the new content
-   */
-  public void setContent(String content) {
-    this.content = content;
-  }
-
-  /**
-   * Sets the date that identifies when this content was created.
-   *
-   * @param created the new created date
-   */
-  public void setCreated(Date created) {
-    this.created = created;
-  }
-
-  /**
-   * Sets the unique identifier for this content item.
-   *
-   * @param id the unique identifier
-   */
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  /**
-   * Sets the language identifier (two-letter ISO 639-1 identifier). Currently only English content (en) is supported.,
-   *
-   * @param language the language charset (two-letter ISO 639-1 identifier)
-   */
-  public void setLanguage(String language) {
-    this.language = language;
-  }
-
-  /**
-   * Sets the date that identifies when this content was last updated..
-   *
-   * @param updated the updated date
-   */
-  public void setUpdated(Date updated) {
-    this.updated = updated;
-  }
-
-  /**
-   * Gets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped from HTML content
-   * before it is analyzed. Other MIME types are processed as is.
-   *
-   * @return the contentType
-   */
-  public String getContentType() {
-    return contentType;
-  }
-
-  /**
-   * Sets the MIME type of the content, for example, "text/plain, text/html". The tags are stripped from HTML content
-   * before it is analyzed. Other MIME types are processed as is.
-   *
-   * @param contentType the new MIME type of the content
-   */
-  public void setContentType(String contentType) {
-    this.contentType = contentType;
-  }
-
-  /**
-   * Gets the unique id of the parent content item. Used to identify hierarchical relationships between posts/replies,
-   * messages/replies, etc.
-   *
-   * @return the parent identifier
-   */
-  public String getParentId() {
-    return parentId;
-  }
-
-  /**
-   * Sets the unique id of the parent content item. Used to identify hierarchical relationships between posts/replies,
-   * messages/replies, etc.,
-   *
-   * @param parentId the parent identifier
-   */
-  public void setParentId(String parentId) {
-    this.parentId = parentId;
-  }
-
-  /**
    * Indicates whether this content item is a forwarded/copied version of another content item.
    *
-   * @param forward set true if the content is a forwarded/copied version of another content item.
+   * @return the forward
    */
-  public void setForward(Boolean forward) {
-    this.forward = forward;
+  public Boolean forward() {
+    return forward;
   }
-
-  /**
-   * Indicates whether this content item is a reply to another content item.
-   *
-   * @param reply true if is a reply
-   */
-  public void setReply(Boolean reply) {
-    this.reply = reply;
-  }
-
 }

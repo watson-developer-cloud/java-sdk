@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -16,43 +16,99 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * {@link ContentItem} container.
+ * Content.
  */
 public class Content extends GenericModel {
+
   private List<ContentItem> contentItems;
 
   /**
-   * Adds a content item.
-   *
-   * @param contentItem the content item
+   * Builder.
    */
-  public void addContentItem(ContentItem contentItem) {
-    if (contentItems == null) {
-      contentItems = new ArrayList<ContentItem>();
+  public static class Builder {
+    private List<ContentItem> contentItems;
+
+    private Builder(Content content) {
+      contentItems = content.contentItems;
     }
 
-    contentItems.add(contentItem);
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param contentItems the contentItems
+     */
+    public Builder(List<ContentItem> contentItems) {
+      this.contentItems = contentItems;
+    }
+
+    /**
+     * Builds a Content.
+     *
+     * @return the content
+     */
+    public Content build() {
+      return new Content(this);
+    }
+
+    /**
+     * Adds an contentItem to contentItems.
+     *
+     * @param contentItem the new contentItem
+     * @return the Content builder
+     */
+    public Builder addContentItem(ContentItem contentItem) {
+      Validator.notNull(contentItem, "contentItem cannot be null");
+      if (this.contentItems == null) {
+        this.contentItems = new ArrayList<ContentItem>();
+      }
+      this.contentItems.add(contentItem);
+      return this;
+    }
+
+    /**
+     * Set the contentItems.
+     * Existing contentItems will be replaced.
+     *
+     * @param contentItems the contentItems
+     * @return the Content builder
+     */
+    public Builder contentItems(List<ContentItem> contentItems) {
+      this.contentItems = contentItems;
+      return this;
+    }
+  }
+
+  private Content(Builder builder) {
+    Validator.notNull(builder.contentItems, "contentItems cannot be null");
+    contentItems = builder.contentItems;
   }
 
   /**
-   * Gets the content items.
+   * New builder.
    *
-   *
-   * @return the content items
+   * @return a Content builder
    */
-  public List<ContentItem> getContentItems() {
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
+   * Gets the contentItems.
+   *
+   * An array of `ContentItem` objects that provides the text that is to be analyzed.
+   *
+   * @return the contentItems
+   */
+  public List<ContentItem> contentItems() {
     return contentItems;
   }
-
-  /**
-   * Sets the content items.
-   *
-   * @param contentItems the new content items
-   */
-  public void setContentItems(List<ContentItem> contentItems) {
-    this.contentItems = contentItems;
-  }
-
 }

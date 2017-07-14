@@ -10,44 +10,37 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.developer_cloud.personality_insights.v3.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Personality Behavior information.
+ * Behavior.
  */
 public class Behavior extends GenericModel {
 
   @SerializedName("trait_id")
   private String traitId;
-
   private String name;
   private String category;
   private Double percentage;
 
   /**
-   * Gets the unique identifier of the characteristic to which the results pertain.
+   * Gets the traitId.
    *
-   * @return the trait id
+   * The unique identifier of the characteristic to which the results pertain. IDs have the form `behavior_{value}`.
+   *
+   * @return the traitId
    */
   public String getTraitId() {
     return traitId;
   }
 
   /**
-   * Sets the unique identifier of the characteristic to which the results pertain.
+   * Gets the name.
    *
-   * @param traitId the new trait id
-   */
-  public void setTraitId(String traitId) {
-    this.traitId = traitId;
-  }
-
-  /**
-   * Gets the user-visible name of the characteristic.
+   * The user-visible name of the characteristic.
    *
    * @return the name
    */
@@ -56,16 +49,9 @@ public class Behavior extends GenericModel {
   }
 
   /**
-   * Sets the user-visible name of the characteristic.
+   * Gets the category.
    *
-   * @param name the new name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Gets the category of the characteristic.
+   * The category of the characteristic: `behavior` for temporal data.
    *
    * @return the category
    */
@@ -74,17 +60,10 @@ public class Behavior extends GenericModel {
   }
 
   /**
-   * Sets the category of the characteristic.
+   * Gets the percentage.
    *
-   * @param category the new category
-   */
-  public void setCategory(String category) {
-    this.category = category;
-  }
-
-  /**
-   * Gets the percentage of timestamped input data that occurred during that day of the week or hour of the day. The
-   * range is 0 to 1.
+   * For JSON content that is timestamped, the percentage of timestamped input data that occurred during that day of the
+   * week or hour of the day. The range is 0 to 1.
    *
    * @return the percentage
    */
@@ -93,13 +72,38 @@ public class Behavior extends GenericModel {
   }
 
   /**
-   * Sets the percentage of timestamped input data that occurred during that day of the week or hour of the day. The
-   * range is 0 to 1.
+   * Sets the traitId.
+   *
+   * @param traitId the new traitId
+   */
+  public void setTraitId(final String traitId) {
+    this.traitId = traitId;
+  }
+
+  /**
+   * Sets the name.
+   *
+   * @param name the new name
+   */
+  public void setName(final String name) {
+    this.name = name;
+  }
+
+  /**
+   * Sets the category.
+   *
+   * @param category the new category
+   */
+  public void setCategory(final String category) {
+    this.category = category;
+  }
+
+  /**
+   * Sets the percentage.
    *
    * @param percentage the new percentage
    */
-  public void setPercentage(Double percentage) {
+  public void setPercentage(final Double percentage) {
     this.percentage = percentage;
   }
-
 }
