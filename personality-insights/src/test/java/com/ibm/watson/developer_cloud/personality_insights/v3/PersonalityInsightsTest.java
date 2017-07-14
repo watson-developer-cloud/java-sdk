@@ -13,9 +13,12 @@
 package com.ibm.watson.developer_cloud.personality_insights.v3;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.FileNotFoundException;
+import java.util.Date;
+import java.util.UUID;
 
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Content;
 import org.junit.Before;
@@ -64,9 +67,24 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new PersonalityInsights(VERSION_DATE_2016_10_19);
+    service = new PersonalityInsights(VERSION_DATE_2016_10_19, "<username>", "<password>");
     service.setEndPoint(getMockWebServerUrl());
-    service.setApiKey("");
+  }
+
+  /**
+   * Negative - Test constructor with null version date.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testConstructorWithNullVersionDate() {
+    new PersonalityInsights(null);
+  }
+
+  /**
+   * Negative - Test constructor with empty version date.
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testConstructorWithEmptyVersionDate() {
+    new PersonalityInsights("");
   }
 
   /**
@@ -99,10 +117,45 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testLoadAContentFromAFile() throws InterruptedException, FileNotFoundException {
-    final Content content = loadFixture(RESOURCE + "/v3-contentItems.json", Content.class);
+    final Content content = loadFixture(RESOURCE + "v3-contentItems.json", Content.class);
     assertNotNull(content);
   }
 
+  /**
+   * Test content builders.
+   */
+  @Test
+  public void testContentBuilders() {
+    final String content1 = "Wow, I liked @TheRock before , now I really SEE how special he is. "
+        + "The daughter story was IT for me. So great! #MasterClass";
+    final String content2 = "Wow aren't you loving @TheRock and his candor? #Masterclass";
+    Long now = new Date().getTime();
+    final ContentItem cItem1 = new ContentItem.Builder(content1)
+        .language(ContentItem.Language.EN)
+        .contenttype("text/plain")
+        .created(now)
+        .updated(now)
+        .id(UUID.randomUUID().toString())
+        .forward(false)
+        .reply(false)
+        .parentid(null)
+        .build();
+    ContentItem cItem2 = cItem1.newBuilder()
+        .content(content2)
+        .id(UUID.randomUUID().toString())
+        .build();
+    assertEquals(cItem2.contenttype(), "text/plain");
+    assertEquals(cItem2.created(), now);
+    assertEquals(cItem2.updated(), now);
+    assertNotEquals(cItem1.id(), cItem2.id());
+    final Content content = new Content.Builder()
+        .addContentItem(cItem1)
+        .addContentItem(cItem2)
+        .build();
+    assertEquals(content.contentItems().size(), 2);
+    final Content newContent = content.newBuilder().build();
+    assertEquals(newContent.contentItems().size(), 2);
+  }
 
   /**
    * Test get profile with English text.
@@ -154,5 +207,34 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
     assertEquals(text, request.getBody().readUtf8());
     assertNotNull(profile);
     assertEquals(profile, this.profile);
+  }
+
+  /**
+   * Test profile options builders.
+   */
+  @Test
+  public void testProfileBuilders() {
+    final ProfileOptions options = new ProfileOptions.Builder()
+        .html(text)
+        .contentLanguage(ProfileOptions.ContentLanguage.ES)
+        .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
+        .csvHeaders(true)
+        .build();
+    final ProfileOptions newOptions = options.newBuilder().build();
+    assertEquals(newOptions.body(), text);
+    assertEquals(newOptions.contentLanguage(), ProfileOptions.ContentLanguage.ES);
+    assertEquals(newOptions.acceptLanguage(), ProfileOptions.AcceptLanguage.EN);
+    assertEquals(newOptions.csvHeaders(), true);
+  }
+
+  /**
+   * Negative - Test profile options builder without content (of any type).
+   */
+  @Test(expected = IllegalArgumentException.class)
+  public void testProfileOptionsBuilderWithoutContent() {
+    final ProfileOptions options = new ProfileOptions.Builder()
+        .contentLanguage(ProfileOptions.ContentLanguage.ES)
+        .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
+        .build();
   }
 }
