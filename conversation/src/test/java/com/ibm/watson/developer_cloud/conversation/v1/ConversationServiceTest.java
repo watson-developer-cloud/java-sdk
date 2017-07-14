@@ -38,7 +38,7 @@ public class ConversationServiceTest extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (username == null) || username.equals(PLACEHOLDER));
 
-    service = new ConversationService(ConversationService.VERSION_DATE_2017_04_21);
+    service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
     service.setEndPoint(getProperty("conversation.v1.url"));
     service.setUsernameAndPassword(username, password);
     service.setDefaultHeaders(getDefaultHeaders());
