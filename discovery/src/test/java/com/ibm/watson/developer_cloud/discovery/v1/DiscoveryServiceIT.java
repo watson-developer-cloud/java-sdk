@@ -188,7 +188,12 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     for (String configurationId : configurationIds) {
       DeleteConfigurationOptions deleteOptions =
           new DeleteConfigurationOptions.Builder(environmentId, configurationId).build();
-      discovery.deleteConfiguration(deleteOptions).execute();
+      try {
+        discovery.deleteConfiguration(deleteOptions).execute();
+      } catch (NotFoundException ex) {
+        // Ignore this failure - just print msg
+        System.out.println("deleteConfiguration failed. Configuration " + configurationId + " not found");
+      }
     }
   }
 
