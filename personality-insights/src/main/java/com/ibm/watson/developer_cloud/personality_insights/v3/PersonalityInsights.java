@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -12,11 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v3;
 
-import com.ibm.watson.developer_cloud.http.HttpHeaders;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.personality_insights.v3.model.Content;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.ProfileOptions;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -25,135 +22,115 @@ import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The Watson Personality Insights service uses linguistic analytics to extract a spectrum of cognitive and social
- * characteristics from the text data that a person generates through blogs, tweets, forum posts, and more.
+ * ### Service Overview
+ * The IBM Watson Personality Insights service provides a Representational State Transfer (REST) Application Programming
+ * Interface (API) that enables applications to derive insights from social media, enterprise data, or other digital
+ * communications. The service uses linguistic analytics to infer individuals' intrinsic personality characteristics,
+ * including Big Five, Needs, and Values, from digital communications such as email, text messages, tweets, and forum
+ * posts. The service can automatically infer, from potentially noisy social media, portraits of individuals that
+ * reflect their personality characteristics. The service can report consumption preferences based on the results of its
+ * analysis, and for JSON content that is timestamped, it can report temporal behavior.
+ * ### API Usage
+ * The following information provides details about using the service to obtain a personality profile:
+ * * **The profile method:** The service offers a single `/v3/profile` method that accepts up to 20 MB of input data and
+ * produces results in JSON or CSV format. The service accepts input in Arabic, English, Japanese, or Spanish and can
+ * produce output in a variety of languages.
+ * * **Authentication:** You authenticate to the service by using your service credentials. You can use your credentials
+ * to authenticate via a proxy server that resides in Bluemix, or you can use your credentials to obtain a token and
+ * contact the service directly. See [Service credentials for Watson
+ * services](http://www.ibm.com/watson/developercloud/doc/common/getting-started-credentials.html) and [Tokens for
+ * authentication](http://www.ibm.com/watson/developercloud/doc/common/getting-started-tokens.html).
+ * * **Request Logging:** By default, all Watson services log requests and their results. Data is collected only to
+ * improve the Watson services. If you do not want to share your data, set the header parameter
+ * `X-Watson-Learning-Opt-Out` to `true` for each request. Data is collected for any request that omits this header. See
+ * [Controlling request logging for Watson
+ * services](http://www.ibm.com/watson/developercloud/doc/common/getting-started-logging.html).
+ *
+ * For more information about the service, see [About Personality
+ * Insights](http://www.ibm.com/watson/developercloud/doc/personality-insights/). For detailed information about calling
+ * the service and the responses it can generate, including the meaning of the numeric results, see [Input: Requesting a
+ * profile](http://www.ibm.com/watson/developercloud/doc/personality-insights/input.html) and [Output: Understanding a
+ * profile](http://www.ibm.com/watson/developercloud/doc/personality-insights/output.html).
  *
  * @version v3
- * @see <a href= "http://www.ibm.com/watson/developercloud/personality-insights.html"> Personality Insights</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/personality-insights.html">Personality Insights</a>
  */
 public class PersonalityInsights extends WatsonService {
+
   private static final String SERVICE_NAME = "personality_insights";
-  private static final String PATH_PROFILE = "/v3/profile";
-  private static final String RAW_SCORES = "raw_scores";
   private static final String URL = "https://gateway.watsonplatform.net/personality-insights/api";
-  private static final String HEADERS = "headers";
-  private static final String CONSUMPTION_PREFERENCES = "consumption_preferences";
+
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2016_10_19. */
-  public static final String VERSION_DATE_2016_10_19 = "2016-10-19";
-
   /**
-   * Instantiates a new Personality Insights service.
+   * Instantiates a new `PersonalityInsights`.
    *
-   * @param versionDate the version date
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
    */
-  public PersonalityInsights(final String versionDate) {
+  public PersonalityInsights(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
     }
 
     Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2016_10_19);
+        "'version cannot be null.");
+
     this.versionDate = versionDate;
   }
 
   /**
-   * Instantiates a new personality insights service by username and password.
+   * Instantiates a new `PersonalityInsights` with username and password.
    *
-   * @param versionDate the version date
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */
-  public PersonalityInsights(final String versionDate, String username, String password) {
+  public PersonalityInsights(String versionDate, String username, String password) {
     this(versionDate);
     setUsernameAndPassword(username, password);
   }
 
-  private RequestBuilder buildProfileRequest(ProfileOptions options) {
-    Validator.notNull(options, "options cannot be null");
-    Validator.isTrue((options.text() != null) || (options.contentItems() != null),
-        "text, html or content items need to be specified");
-
-    final String contentType = options.contentType();
-
-    final RequestBuilder request = RequestBuilder.post(PATH_PROFILE);
-
-    request.query(VERSION, versionDate);
-
-    if (options.text() != null) {
-      request.header(HttpHeaders.CONTENT_TYPE, contentType);
-      request.bodyContent(options.text(), contentType);
+  /**
+   * Generates a personality profile based on input text.
+   *
+   * Derives personality insights for up to 20 MB of input content written by an author, though the service requires
+   * much less text to produce an accurate profile; for more information, see [Guidelines for providing sufficient
+   * input](http://www.ibm.com/watson/developercloud/doc/personality-insights/basics.html#overviewGuidelines). Accepts
+   * input in Arabic, English, Japanese, or Spanish and produces output in one of eleven languages. Provide plain text,
+   * HTML, or JSON content, and receive results in JSON or CSV format.
+   *
+   * @param profileOptions the {@link ProfileOptions} containing the options for the call
+   * @return the {@link Profile} with the response
+   */
+  public ServiceCall<Profile> profile(ProfileOptions profileOptions) {
+    Validator.notNull(profileOptions, "profileOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post("/v3/profile");
+    builder.query(VERSION, versionDate);
+    if (profileOptions.contentLanguage() != null) {
+      builder.header("Content-Language", profileOptions.contentLanguage());
+    }
+    if (profileOptions.acceptLanguage() != null) {
+      builder.header("Accept-Language", profileOptions.acceptLanguage());
+    }
+    builder.header("content-type", profileOptions.contentType());
+    if (profileOptions.rawScores() != null) {
+      builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
+    }
+    if (profileOptions.csvHeaders() != null) {
+      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
+    }
+    if (profileOptions.consumptionPreferences() != null) {
+      builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
+    }
+    if (profileOptions.contentType().equalsIgnoreCase(ProfileOptions.ContentType.APPLICATION_JSON)) {
+      builder.bodyJson(GsonSingleton.getGson().toJsonTree(profileOptions.content()).getAsJsonObject());
     } else {
-      final Content content = new Content();
-      content.setContentItems(options.contentItems());
-      String body = GsonSingleton.getGson().toJson(content);
-      request.bodyContent(body, contentType);
+      builder.bodyContent(profileOptions.body(), profileOptions.contentType());
     }
-
-    if (options.rawScores() != null) {
-      request.query(RAW_SCORES, options.rawScores());
-    }
-
-    if (options.consumptionPreferences() != null) {
-      request.query(CONSUMPTION_PREFERENCES, options.consumptionPreferences());
-    }
-
-    if (options.language() != null) {
-      request.header(HttpHeaders.CONTENT_LANGUAGE, options.language());
-    }
-
-    if (options.acceptLanguage() != null) {
-      request.header(HttpHeaders.ACCEPT_LANGUAGE, options.acceptLanguage());
-    }
-
-    return request;
-  }
-
-  /**
-   * Accepts text and responds with a {@link Profile} with a tree of characteristics that include personality, needs,
-   * and values. <br>
-   * <br>
-   *
-   * @param text Text to analyze
-   *
-   * @return The personality {@link Profile}
-   */
-  public ServiceCall<Profile> getProfile(final String text) {
-    Validator.notEmpty(text, "text cannot be null or empty");
-
-    final ProfileOptions options = new ProfileOptions.Builder().text(text).build();
-    final RequestBuilder requestBuilder = buildProfileRequest(options);
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Profile.class));
-  }
-
-  /**
-   * Returns a {@link Profile} with a tree of characteristics that include personality, needs, and values. <br>
-   * <br>
-   * Here is an example of how to get the personality profile given some {@link ProfileOptions}:
-   *
-   * @param options the {@link ProfileOptions}
-   * @return The personality {@link Profile}
-   */
-  public ServiceCall<Profile> getProfile(final ProfileOptions options) {
-    final RequestBuilder requestBuilder = buildProfileRequest(options);
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Profile.class));
-  }
-
-  /**
-   * Returns a CSV profile.
-   *
-   * @param options the {@link ProfileOptions}
-   * @param includeHeaders if true returns the CSV headers
-   * @return the CSV profile
-   */
-  public ServiceCall<String> getProfileAsCSV(final ProfileOptions options, final boolean includeHeaders) {
-    final RequestBuilder requestBuilder = buildProfileRequest(options);
-
-    requestBuilder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
-    requestBuilder.query(HEADERS, includeHeaders);
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getString());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Profile.class));
   }
 
 }

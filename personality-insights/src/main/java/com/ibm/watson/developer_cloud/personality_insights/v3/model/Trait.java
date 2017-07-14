@@ -10,7 +10,6 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.developer_cloud.personality_insights.v3.model;
 
 import java.util.List;
@@ -19,13 +18,12 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Personality trait information.
+ * Trait.
  */
 public class Trait extends GenericModel {
 
   @SerializedName("trait_id")
   private String traitId;
-
   private String name;
   private String category;
   private Double percentile;
@@ -34,43 +32,22 @@ public class Trait extends GenericModel {
   private List<Trait> children;
 
   /**
-   * Gets the raw score for the characteristic.
+   * Gets the traitId.
    *
-   * @return the raw score
-   */
-  public Double getRawScore() {
-    return rawScore;
-  }
-
-  /**
-   * Sets the raw score for the characteristic.
+   * The unique identifier of the characteristic to which the results pertain. IDs have the form `big5_{characteristic}`
+   * for Big Five personality characteristics, `need_{characteristic}` for Needs, or `value_{characteristic}` for
+   * Values.
    *
-   * @param rawScore the new raw score
-   */
-  public void setRawScore(Double rawScore) {
-    this.rawScore = rawScore;
-  }
-
-  /**
-   * Gets the unique identifier of the characteristic to which the results pertain.
-   *
-   * @return the trait id
+   * @return the traitId
    */
   public String getTraitId() {
     return traitId;
   }
 
   /**
-   * Sets the unique identifier of the characteristic to which the results pertain.
+   * Gets the name.
    *
-   * @param traitId the new trait id
-   */
-  public void setTraitId(String traitId) {
-    this.traitId = traitId;
-  }
-
-  /**
-   * Gets the user-visible name of the characteristic.
+   * The user-visible name of the characteristic.
    *
    * @return the name
    */
@@ -79,16 +56,10 @@ public class Trait extends GenericModel {
   }
 
   /**
-   * Sets the user-visible name of the characteristic.
+   * Gets the category.
    *
-   * @param name the new name
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Gets the category of the characteristic.
+   * The category of the characteristic: `personality` for Big Five personality characteristics, `needs` for Needs, or
+   * `values` for Values.
    *
    * @return the category
    */
@@ -97,16 +68,11 @@ public class Trait extends GenericModel {
   }
 
   /**
-   * Sets the category of the characteristic.
+   * Gets the percentile.
    *
-   * @param category the new category
-   */
-  public void setCategory(String category) {
-    this.category = category;
-  }
-
-  /**
-   * Gets the normalized percentile score for the characteristic. The range is 0 to 1.
+   * The normalized percentile score for the characteristic. The range is 0 to 1. For example, if the percentage for
+   * Openness is 0.60, the author scored in the 60th percentile; the author is more open than 59 percent of the
+   * population and less open than 39 percent of the population.
    *
    * @return the percentile
    */
@@ -115,16 +81,26 @@ public class Trait extends GenericModel {
   }
 
   /**
-   * Sets the normalized percentile score for the characteristic. The range is 0 to 1.
+   * Gets the rawScore.
    *
-   * @param percentile the new percentile
+   * The raw score for the characteristic. The range is 0 to 1. A higher score generally indicates a greater likelihood
+   * that the author has that characteristic, but raw scores must be considered in aggregate: The range of values in
+   * practice might be much smaller than 0 to 1, so an individual score must be considered in the context of the overall
+   * scores and their range. The raw score is computed based on the input and the service model; it is not normalized or
+   * compared with a sample population. The raw score enables comparison of the results against a different sampling
+   * population and with a custom normalization approach.
+   *
+   * @return the rawScore
    */
-  public void setPercentile(Double percentile) {
-    this.percentile = percentile;
+  public Double getRawScore() {
+    return rawScore;
   }
 
   /**
-   * Gets the more detailed results for the facets of each dimension as inferred from the input text.
+   * Gets the children.
+   *
+   * For `personality` (Big Five) dimensions, more detailed results for the facets of each dimension as inferred from
+   * the input text.
    *
    * @return the children
    */
@@ -133,12 +109,56 @@ public class Trait extends GenericModel {
   }
 
   /**
-   * Sets the more detailed results for the facets of each dimension as inferred from the input text.
+   * Sets the traitId.
+   *
+   * @param traitId the new traitId
+   */
+  public void setTraitId(final String traitId) {
+    this.traitId = traitId;
+  }
+
+  /**
+   * Sets the name.
+   *
+   * @param name the new name
+   */
+  public void setName(final String name) {
+    this.name = name;
+  }
+
+  /**
+   * Sets the category.
+   *
+   * @param category the new category
+   */
+  public void setCategory(final String category) {
+    this.category = category;
+  }
+
+  /**
+   * Sets the percentile.
+   *
+   * @param percentile the new percentile
+   */
+  public void setPercentile(final Double percentile) {
+    this.percentile = percentile;
+  }
+
+  /**
+   * Sets the rawScore.
+   *
+   * @param rawScore the new rawScore
+   */
+  public void setRawScore(final Double rawScore) {
+    this.rawScore = rawScore;
+  }
+
+  /**
+   * Sets the children.
    *
    * @param children the new children
    */
-  public void setChildren(List<Trait> children) {
+  public void setChildren(final List<Trait> children) {
     this.children = children;
   }
-
 }
