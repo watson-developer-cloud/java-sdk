@@ -42,7 +42,9 @@ String text = "Call me Ishmael. Some years ago-never mind how long precisely-hav
     + "city of the Manhattoes, belted round by wharves as Indian isles by coral reefs-commerce surrounds "
     + "it with her surf. Right and left, the streets take you waterward.";
 
-Profile profile = service.getProfile(text).execute();
+ProfileOptions options = new ProfileOptions.Builder().text(text).build();
+Profile profile = service.profile(options).execute();
+
 System.out.println(profile);
 ```
 
