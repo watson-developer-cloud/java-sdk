@@ -213,7 +213,7 @@ public abstract class WatsonServiceTest {
    * Fuzzy date checking.
    */
 
-  long tolerance = 2000;  // 2 secs in ms
+  long tolerance = 5000;  // 5 secs in ms
 
   /** return `true` if ldate before rdate within tolerance. */
   public boolean fuzzyBefore(Date ldate, Date rdate) {
