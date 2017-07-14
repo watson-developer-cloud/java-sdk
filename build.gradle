@@ -30,6 +30,12 @@ checkstyleTest {
   ignoreFailures = false
 }
 
+test {
+    testLogging {
+        events "failed"
+        exceptionFormat "full"
+    }
+}
 
 task docs(type: Javadoc) {
   destinationDir = file("$buildDir/docs/all")
