@@ -15,12 +15,16 @@ package com.ibm.watson.developer_cloud.conversation.v1;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexample;
@@ -163,7 +167,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
                           + "\"intents\":[{\"confidence\":0.0,\"intent\":\"turn_off\"}],"
                           + "\"entities\":[{\"value\":\"ford\",\"entity\":\"car\"}],"
                           + "\"alternate_intents\":true" + "}";
-    assertEquals(expected, request.getBody().readUtf8());
+    JsonParser parser = new JsonParser();
+    JsonObject expectedObj = parser.parse(expected).getAsJsonObject();
+    JsonObject actualObj = parser.parse(request.getBody().readUtf8()).getAsJsonObject();
+    assertTrue(expectedObj.equals(actualObj));
     assertEquals(serviceResponse, mockResponse);
   }
 
