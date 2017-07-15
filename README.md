@@ -146,7 +146,7 @@ Once you have credentials, copy config.properties.example to src/test/resources/
 #### 401
 Make sure you are using the service credentials and not your Bluemix account/password.
 
-Check the API Endpoint, you may need to update te default using setEndPoint().
+Check the API Endpoint, you may need to update the default using setEndPoint().
 
 #### Other
 If you are having difficulties using the APIs or you have a question about the IBM
