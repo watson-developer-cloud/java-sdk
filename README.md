@@ -14,7 +14,17 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Gradle](#gradle)
 * [Usage](#usage)
 * [Getting the Service Credentials](#getting-the-service-credentials)
+<<<<<<< HEAD
 * [Android](#android)
+||||||| merged common ancestors
+* [Questions](#questions)
+* [Android](android-utils)
+=======
+* [Questions and troubleshooting](#questions)
+  * [401 - Unauthorized](#401)
+  * [Other](#other)
+* [Android](android-utils)
+>>>>>>> Update readme
 * IBM Watson Services
   * [Alchemy Language](alchemy)
   * [Alchemy Vision](alchemy)
@@ -142,6 +152,7 @@ To get your service credentials, follow these steps:
     1. On the left side of the page, click **Service Credentials**, and then **View credentials** to view your service credentials.
     1. Copy `url`, `username` and `password`(`api_key` for AlchemyAPI or Visual Recognition).
 
+You can set the correct API Endpoint for your service calling `setEndPoint()`.
 
 ## Introduce reactive API call for v3.0.1
 
