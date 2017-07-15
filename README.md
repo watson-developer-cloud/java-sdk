@@ -14,17 +14,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Gradle](#gradle)
 * [Usage](#usage)
 * [Getting the Service Credentials](#getting-the-service-credentials)
-<<<<<<< HEAD
 * [Android](#android)
-||||||| merged common ancestors
-* [Questions](#questions)
-* [Android](android-utils)
-=======
-* [Questions and troubleshooting](#questions)
-  * [401 - Unauthorized](#401)
-  * [Other](#other)
-* [Android](android-utils)
->>>>>>> Update readme
 * IBM Watson Services
   * [Alchemy Language](alchemy)
   * [Alchemy Vision](alchemy)
