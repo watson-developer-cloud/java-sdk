@@ -339,8 +339,8 @@ public abstract class WatsonService {
    * @param endPoint the new end point. Will be ignored if empty or null
    */
   public void setEndPoint(final String endPoint) {
-    if ((endPoint != null) && !endPoint.isEmpty()){
-      this.endPoint = endPoint.endsWith("/")? endPoint.substring(0, endPoint.length() - 1) : endPoint;
+    if ((endPoint != null) && !endPoint.isEmpty()) {
+      this.endPoint = endPoint.endsWith("/") ? endPoint.substring(0, endPoint.length() - 1) : endPoint;
     }
   }
 
@@ -407,7 +407,8 @@ public abstract class WatsonService {
       case HttpStatus.BAD_REQUEST: // HTTP 400
         throw new BadRequestException(error != null ? error : "Bad Request", response);
       case HttpStatus.UNAUTHORIZED: // HTTP 401
-        throw new UnauthorizedException("Unauthorized: Access is denied due to invalid credentials. Tip: Did you set the Endpoint?", response);
+        throw new UnauthorizedException("Unauthorized: Access is denied due to invalid credentials. 
+                                        Tip: Did you set the Endpoint?", response);
       case HttpStatus.FORBIDDEN: // HTTP 403
         throw new ForbiddenException(error != null ? error : "Forbidden: Service refuse the request", response);
       case HttpStatus.NOT_FOUND: // HTTP 404
