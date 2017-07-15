@@ -336,7 +336,7 @@ public abstract class WatsonService {
   /**
    * Sets the end point.
    *
-   * @param endPoint the new end point
+   * @param endPoint the new end point. Will be ignored if empty or null
    */
   public void setEndPoint(final String endPoint) {
     if ((endPoint != null) && !endPoint.isEmpty()){
