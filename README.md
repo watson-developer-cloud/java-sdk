@@ -14,7 +14,9 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Gradle](#gradle)
 * [Usage](#usage)
 * [Getting the Service Credentials](#getting-the-service-credentials)
-* [Questions](#questions)
+* [Questions and troubleshooting](#questions)
+  * [401 - Unauthorized](#401)
+  * [Other](#other)
 * [Android](android-utils)
 * IBM Watson Services
   * [Alchemy Language](alchemy)
@@ -120,7 +122,7 @@ credentials; the library will get them for you by looking at the `VCAP_SERVICES`
 
 ## Getting the Service Credentials
 
-You will need the `username` and `password` (`api_key` for AlchemyAPI) credentials for each service. Service credentials are different from your Bluemix account username and password.
+You will need the `username` and `password` (`api_key` for AlchemyAPI) credentials, and the API endpoint for each service. Service credentials are different from your Bluemix account username and password.
 
 To get your service credentials, follow these steps:
 
@@ -135,10 +137,18 @@ To get your service credentials, follow these steps:
     1. On the left side of the page, click **Service Credentials** to view your service credentials.
     1. Copy `username` and `password`(`api_key` for AlchemyAPI).
 
+You can set the correct API Endpoint for your service calling setEndPoint().
+
 Once you have credentials, copy config.properties.example to src/test/resources/config.properties, and fill them in as necessary.
 
 ## Questions
 
+#### 401
+Make sure you are using the service credentials and not your Bluemix account/password.
+
+Check the API Endpoint, you may need to update te default using setEndPoint().
+
+#### Other
 If you are having difficulties using the APIs or you have a question about the IBM
 Watson Services, please ask a question on
 [dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=watson)
