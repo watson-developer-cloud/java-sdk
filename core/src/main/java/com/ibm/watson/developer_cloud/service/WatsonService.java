@@ -339,8 +339,8 @@ public abstract class WatsonService {
    * @param endPoint the new end point. Will be ignored if empty or null
    */
   public void setEndPoint(final String endPoint) {
-    if ((endPoint != null) && !endPoint.isEmpty()) {
-      this.endPoint = endPoint.endsWith("/") ? endPoint.substring(0, endPoint.length() - 1) : endPoint;
+    if ((endPoint != null) && !endPoint.isEmpty()){
+      this.endPoint = endPoint.endsWith("/")? endPoint.substring(0, endPoint.length() - 1) : endPoint;
     }
   }
 
