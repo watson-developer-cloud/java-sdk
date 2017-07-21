@@ -14,6 +14,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A term from the request that was identified as an entity.
@@ -57,6 +58,15 @@ public class RuntimeEntity extends HashMap<String, Object> {
   }
 
   /**
+   * Gets the metadata.
+   *
+   * @return the metadata
+   */
+  public Map getMetadata() {
+    return (Map) this.get("metadata");
+  }
+
+  /**
    * Sets the entity.
    *
    * @param entity the new entity
@@ -90,5 +100,14 @@ public class RuntimeEntity extends HashMap<String, Object> {
    */
   public void setConfidence(final Double confidence) {
     this.put("confidence", confidence);
+  }
+
+  /**
+   * Sets the metadata.
+   *
+   * @param metadata the new metadata
+   */
+  public void setMetadata(final Map metadata) {
+    this.put("metadata", metadata);
   }
 }

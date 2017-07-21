@@ -28,7 +28,7 @@ public class UpdateValueOptions extends GenericModel {
   private String entity;
   private String value;
   private List<String> newSynonyms;
-  private Map<String, Object> newMetadata;
+  private Map newMetadata;
   private String newValue;
 
   /**
@@ -39,7 +39,7 @@ public class UpdateValueOptions extends GenericModel {
     private String entity;
     private String value;
     private List<String> newSynonyms;
-    private Map<String, Object> newMetadata;
+    private Map newMetadata;
     private String newValue;
 
     private Builder(UpdateValueOptions updateValueOptions) {
@@ -145,7 +145,7 @@ public class UpdateValueOptions extends GenericModel {
      * @param newMetadata the newMetadata
      * @return the UpdateValueOptions builder
      */
-    public Builder newMetadata(Map<String, Object> newMetadata) {
+    public Builder newMetadata(Map newMetadata) {
       this.newMetadata = newMetadata;
       return this;
     }
@@ -234,7 +234,7 @@ public class UpdateValueOptions extends GenericModel {
    *
    * @return the newMetadata
    */
-  public Map<String, Object> newMetadata() {
+  public Map newMetadata() {
     return newMetadata;
   }
 
