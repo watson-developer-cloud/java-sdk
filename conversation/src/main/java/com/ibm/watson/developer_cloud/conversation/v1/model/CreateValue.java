@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateValue extends GenericModel {
 
   private String value;
-  private Map<String, Object> metadata;
+  private Map metadata;
   private List<String> synonyms;
 
   /**
@@ -33,7 +33,7 @@ public class CreateValue extends GenericModel {
    */
   public static class Builder {
     private String value;
-    private Map<String, Object> metadata;
+    private Map metadata;
     private List<String> synonyms;
 
     private Builder(CreateValue createValue) {
@@ -98,7 +98,7 @@ public class CreateValue extends GenericModel {
      * @param metadata the metadata
      * @return the CreateValue builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(Map metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -150,7 +150,7 @@ public class CreateValue extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> metadata() {
+  public Map metadata() {
     return metadata;
   }
 

@@ -43,7 +43,7 @@ public class WorkspaceExport extends GenericModel {
   private String name;
   private String description;
   private String language;
-  private Map<String, Object> metadata;
+  private Map metadata;
   private Date created;
   private Date updated;
   @SerializedName("workspace_id")
@@ -95,7 +95,7 @@ public class WorkspaceExport extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
+  public Map getMetadata() {
     return metadata;
   }
 
@@ -219,7 +219,7 @@ public class WorkspaceExport extends GenericModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Map<String, Object> metadata) {
+  public void setMetadata(final Map metadata) {
     this.metadata = metadata;
   }
 

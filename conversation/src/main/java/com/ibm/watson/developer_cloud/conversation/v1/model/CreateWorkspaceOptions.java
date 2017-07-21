@@ -24,27 +24,27 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateWorkspaceOptions extends GenericModel {
 
-  private Map<String, Object> metadata;
+  private Map metadata;
   private List<CreateIntent> intents;
   private List<CreateEntity> entities;
   private String name;
   private List<CreateCounterexample> counterexamples;
   private String description;
   private String language;
-  private List<DialogNode> dialogNodes;
+  private List<CreateDialogNode> dialogNodes;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Map<String, Object> metadata;
+    private Map metadata;
     private List<CreateIntent> intents;
     private List<CreateEntity> entities;
     private String name;
     private List<CreateCounterexample> counterexamples;
     private String description;
     private String language;
-    private List<DialogNode> dialogNodes;
+    private List<CreateDialogNode> dialogNodes;
 
     private Builder(CreateWorkspaceOptions createWorkspaceOptions) {
       metadata = createWorkspaceOptions.metadata;
@@ -123,10 +123,10 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @param dialogNode the new dialogNode
      * @return the CreateWorkspaceOptions builder
      */
-    public Builder addDialogNode(DialogNode dialogNode) {
+    public Builder addDialogNode(CreateDialogNode dialogNode) {
       Validator.notNull(dialogNode, "dialogNode cannot be null");
       if (this.dialogNodes == null) {
-        this.dialogNodes = new ArrayList<DialogNode>();
+        this.dialogNodes = new ArrayList<CreateDialogNode>();
       }
       this.dialogNodes.add(dialogNode);
       return this;
@@ -138,7 +138,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @param metadata the metadata
      * @return the CreateWorkspaceOptions builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(Map metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -219,7 +219,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @param dialogNodes the dialogNodes
      * @return the CreateWorkspaceOptions builder
      */
-    public Builder dialogNodes(List<DialogNode> dialogNodes) {
+    public Builder dialogNodes(List<CreateDialogNode> dialogNodes) {
       this.dialogNodes = dialogNodes;
       return this;
     }
@@ -252,7 +252,7 @@ public class CreateWorkspaceOptions extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> metadata() {
+  public Map metadata() {
     return metadata;
   }
 
@@ -329,7 +329,7 @@ public class CreateWorkspaceOptions extends GenericModel {
    *
    * @return the dialogNodes
    */
-  public List<DialogNode> dialogNodes() {
+  public List<CreateDialogNode> dialogNodes() {
     return dialogNodes;
   }
 }

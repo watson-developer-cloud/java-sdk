@@ -30,7 +30,7 @@ public class Workspace extends GenericModel {
   @SerializedName("workspace_id")
   private String workspaceId;
   private String description;
-  private Map<String, Object> metadata;
+  private Map metadata;
 
   /**
    * Gets the name.
@@ -105,7 +105,7 @@ public class Workspace extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
+  public Map getMetadata() {
     return metadata;
   }
 
@@ -141,7 +141,7 @@ public class Workspace extends GenericModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Map<String, Object> metadata) {
+  public void setMetadata(final Map metadata) {
     this.metadata = metadata;
   }
 }
