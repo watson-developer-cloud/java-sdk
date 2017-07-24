@@ -28,6 +28,7 @@ import com.google.gson.JsonParser;
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateDialogNode;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateEntity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExample;
@@ -36,7 +37,6 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValue;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspaceOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNode;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
@@ -253,10 +253,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateCounterexample testCounterexample1 = new CreateCounterexample.Builder("testCounterexample1").build();
 
     // dialognodes
-    DialogNode testDialogNode0 = new DialogNode();
-    testDialogNode0.put("name", "dialogNode0");
-    DialogNode testDialogNode1 = new DialogNode();
-    testDialogNode1.put("name", "dialogNode1");
+    CreateDialogNode testDialogNode0 = new CreateDialogNode.Builder("dialogNode0").build();
+    CreateDialogNode testDialogNode1 = new CreateDialogNode.Builder("dialogNode1").build();
 
     // metadata
     Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
@@ -299,8 +297,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
     CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
     CreateCounterexample testCounterexample2 = new CreateCounterexample.Builder("testCounterexample2").build();
-    DialogNode testDialogNode2 = new DialogNode();
-    testDialogNode2.put("name", "dialogNode2");
+    CreateDialogNode testDialogNode2 = new CreateDialogNode.Builder("dialogNode2").build();
 
     builder.intents(Arrays.asList(testIntent2));
     builder.entities(Arrays.asList(testEntity2));
@@ -344,8 +341,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateCounterexample testCounterexample = new CreateCounterexample.Builder("testCounterexample").build();
 
     // dialognodes
-    DialogNode testDialogNode = new DialogNode();
-    testDialogNode.put("name", "testDialogNode");
+    CreateDialogNode testDialogNode = new CreateDialogNode.Builder("dialogNode").build();
 
     // metadata
     Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
@@ -387,8 +383,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
     CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
     CreateCounterexample testCounterexample2 = new CreateCounterexample.Builder("testCounterexample2").build();
-    DialogNode testDialogNode2 = new DialogNode();
-    testDialogNode2.put("name", "dialogNode2");
+    CreateDialogNode testDialogNode2 = new CreateDialogNode.Builder("dialogNode2").build();
 
     builder2.intents(new ArrayList<CreateIntent>());
     builder2.addIntent(testIntent2);
@@ -396,7 +391,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     builder2.addEntity(testEntity2);
     builder2.counterexamples(new ArrayList<CreateCounterexample>());
     builder2.addCounterexample(testCounterexample2);
-    builder2.dialogNodes(new ArrayList<DialogNode>());
+    builder2.dialogNodes(new ArrayList<CreateDialogNode>());
     builder2.addDialogNode(testDialogNode2);
 
     UpdateWorkspaceOptions options2 = builder2.build();
