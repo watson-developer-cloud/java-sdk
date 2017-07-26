@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
@@ -12,6 +13,7 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson.developer_cloud:conversation:3.9.0'
 ```
