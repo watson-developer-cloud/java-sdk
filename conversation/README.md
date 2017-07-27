@@ -55,4 +55,4 @@ response = service.message("<workspace-id>", newMessage).execute();
 System.out.println(response);
 ```
 
-[conversation]: https://www.ibm.com/watson/developercloud/doc/conversation/
+[conversation]: https://console.bluemix.net/docs/services/conversation/index.html#about
