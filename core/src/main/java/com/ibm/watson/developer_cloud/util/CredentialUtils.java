@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,9 +28,10 @@ import com.google.gson.JsonSyntaxException;
 import okhttp3.Credentials;
 
 /**
- * The Class CredentialUtils.
+ * CredentialUtils retrieves service credentials from the environment.
  */
 public final class CredentialUtils {
+
   /**
    * A util class to easily store service credentials.
    *
@@ -66,6 +67,12 @@ public final class CredentialUtils {
   /** The Constant ALCHEMY_API. */
   private static final String ALCHEMY_API = "alchemy_api";
 
+  /** The Constant VISUAL_RECOGNITION. */
+  private static final String VISUAL_RECOGNITION = "watson_vision_combined";
+
+  /** The Constant VCAP_SERVICES. */
+  private static final String VCAP_SERVICES = "VCAP_SERVICES";
+
   /** The Constant APIKEY. */
   private static final String APIKEY = "apikey";
 
@@ -99,6 +106,9 @@ public final class CredentialUtils {
   /** The Constant PLAN_STANDARD. */
   public static final String PLAN_STANDARD = "standard";
 
+  /** The Constant API_KEY. */
+  private static final String API_KEY = "api_key";
+
   private CredentialUtils() {
     // This is a utility class - no instantiation allowed.
   }
@@ -112,7 +122,7 @@ public final class CredentialUtils {
    * @return The encoded API Key
    */
   private static String getKeyUsingJNDI(String serviceName) {
-    if (!isClassAvailable("javax.naming.Context")) {
+    if (!isClassAvailable("javax.naming.Context") || !isClassAvailable("javax.naming.InitialContext")) {
       log.info("JNDI string lookups is not available.");
       return null;
     }
@@ -141,7 +151,7 @@ public final class CredentialUtils {
    * @return the VCAP_SERVICES as a {@link JsonObject}.
    */
   private static JsonObject getVCAPServices() {
-    final String envServices = services != null ? services : System.getenv("VCAP_SERVICES");
+    final String envServices = services != null ? services : System.getenv(VCAP_SERVICES);
     if (envServices == null) {
       return null;
     }
@@ -186,8 +196,13 @@ public final class CredentialUtils {
     }
     if (serviceName.equalsIgnoreCase(ALCHEMY_API)) {
       final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
-      if ((credentials != null) && serviceName.equalsIgnoreCase(ALCHEMY_API)) {
+      if (credentials != null) {
         return credentials.get(APIKEY).getAsString();
+      }
+    } else if (serviceName.equalsIgnoreCase(VISUAL_RECOGNITION)) {
+      final JsonObject credentials = getCredentialsObject(services, serviceName, plan);
+      if (credentials != null) {
+        return credentials.get(API_KEY).getAsString();
       }
     } else {
       ServiceCredentials credentials = getUserNameAndPassword(serviceName, plan);

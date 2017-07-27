@@ -1,5 +1,5 @@
-/**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,43 +12,20 @@
  */
 package com.ibm.watson.developer_cloud.language_translator.v2.model;
 
-import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Identifiable language used by the {@link LanguageTranslator} service.
- *
- *
+ * IdentifiableLanguage.
  */
 public class IdentifiableLanguage extends GenericModel {
 
-  private final String language;
-  private final String name;
-
-  /**
-   * Instantiates a new language.
-   *
-   * @param language the language
-   */
-  public IdentifiableLanguage(final String language) {
-    this.language = language;
-    name = null;
-  }
-
-  /**
-   * Instantiates a new identifiable language.
-   *
-   * @param language the language
-   * @param name the name
-   */
-  public IdentifiableLanguage(final String language, final String name) {
-    super();
-    this.language = language;
-    this.name = name;
-  }
+  private String language;
+  private String name;
 
   /**
    * Gets the language.
+   *
+   * The code for an identifiable language.
    *
    * @return the language
    */
@@ -59,9 +36,29 @@ public class IdentifiableLanguage extends GenericModel {
   /**
    * Gets the name.
    *
+   * The name of the identifiable language.
+   *
    * @return the name
    */
   public String getName() {
     return name;
+  }
+
+  /**
+   * Sets the language.
+   *
+   * @param language the new language
+   */
+  public void setLanguage(final String language) {
+    this.language = language;
+  }
+
+  /**
+   * Sets the name.
+   *
+   * @param name the new name
+   */
+  public void setName(final String name) {
+    this.name = name;
   }
 }

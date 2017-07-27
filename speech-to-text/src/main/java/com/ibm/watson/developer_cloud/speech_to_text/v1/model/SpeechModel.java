@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -55,7 +55,7 @@ public class SpeechModel extends GenericModel {
      * @param customLanguageModel the new custom language model attribute
      * value.
      */
-    public void setCustomLanguageModel(Boolean customLanguageModel) {
+    public void setCustomLanguageModel(final Boolean customLanguageModel) {
       this.customLanguageModel = customLanguageModel;
     }
 
@@ -64,7 +64,7 @@ public class SpeechModel extends GenericModel {
      *
      * @param speakerLabels the new speaker labels attribute value.
      */
-    public void setSpeakerLabels(Boolean speakerLabels) {
+    public void setSpeakerLabels(final Boolean speakerLabels) {
       this.speakerLabels = speakerLabels;
     }
 
@@ -236,7 +236,7 @@ public class SpeechModel extends GenericModel {
    *
    * @param description The description
    */
-  public void setDescription(String description) {
+  public void setDescription(final String description) {
     this.description = description;
   }
 
@@ -254,7 +254,7 @@ public class SpeechModel extends GenericModel {
    *
    * @param supportedFeatures the new supported features
    */
-  public void setSupportedFeatures(SupportedFeatures supportedFeatures) {
+  public void setSupportedFeatures(final SupportedFeatures supportedFeatures) {
     this.supportedFeatures = supportedFeatures;
   }
 

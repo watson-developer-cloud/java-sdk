@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,9 +36,11 @@ public class DateDeserializer implements JsonDeserializer<Date> {
   private static final String DATE_FROM_DIALOG = "yyyy-MM-dd HH:mm:ss";
 
   /** The Constant DATE_UTC. */
-  protected static final String DATE_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS";
+  public static final String DATE_UTC = "yyyy-MM-dd'T'HH:mm:ss.SSS";
   private static final String DATE_WITHOUT_SECONDS = "yyyy-MM-dd'T'HH:mm:ssZ";
   private static final String DATE_WITH_SECONDS = "yyyy-MM-dd'T'HH:mm:ss";
+  private static final String DATE_822 = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+  private static final String DATE_822_WITHOUT_MS = "yyyy-MM-dd'T'HH:mm:ssZ";
 
   // SimpleDateFormat is NOT thread safe - they require private visibility and synchronized access
   private final SimpleDateFormat alchemyDateFormatter = new SimpleDateFormat(DATE_FROM_ALCHEMY);
@@ -46,10 +48,15 @@ public class DateDeserializer implements JsonDeserializer<Date> {
   private final SimpleDateFormat utcDateFormatter = new SimpleDateFormat(DATE_UTC);
   private final SimpleDateFormat utcWithoutSecondsDateFormatter = new SimpleDateFormat(DATE_WITHOUT_SECONDS);
   private final SimpleDateFormat utcWithSecondsDateFormatter = new SimpleDateFormat(DATE_WITH_SECONDS);
+  private final SimpleDateFormat rfc822DateFormatter = new SimpleDateFormat(DATE_822);
+  private final SimpleDateFormat rfc822WithoutMsDateFormatter = new SimpleDateFormat(DATE_822_WITHOUT_MS);
 
   private final List<SimpleDateFormat> dateFormatters =
       Arrays.asList(utcDateFormatter, utcWithoutSecondsDateFormatter, dialogDateFormatter,
               alchemyDateFormatter, utcWithSecondsDateFormatter);
+
+  private final List<SimpleDateFormat> rfc822Formatters =
+      Arrays.asList(rfc822DateFormatter, rfc822WithoutMsDateFormatter);
 
   private static final Logger LOG = Logger.getLogger(DateDeserializer.class.getName());
 
@@ -67,8 +74,19 @@ public class DateDeserializer implements JsonDeserializer<Date> {
       return null;
     }
 
-    String dateAsString = json.getAsJsonPrimitive().getAsString().replaceAll("Z$", "+0000");
+    String dateAsString = json.getAsJsonPrimitive().getAsString();
     ParseException e = null;
+
+    if (dateAsString.endsWith("Z")) {
+      String dateWithTz = dateAsString.replaceAll("Z$", "+0000");
+      for (SimpleDateFormat format : rfc822Formatters) {
+        try {
+          return format.parse(dateWithTz);
+        } catch (ParseException e1) {
+          e = e1;
+        }
+      }
+    }
 
     for (SimpleDateFormat format : dateFormatters) {
       try {

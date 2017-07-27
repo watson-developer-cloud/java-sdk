@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,6 @@ import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
-import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Customization;
@@ -42,14 +41,17 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.WebSocketManager;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.SpeechToTextWebSocketListener;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Request.Builder;
 import okhttp3.RequestBody;
 import okhttp3.WebSocket;
 
@@ -88,12 +90,6 @@ public class SpeechToText extends WatsonService {
   private static final String WORD_SORT = "sort";
   private static final String WORD_TYPE_TO_ADD = "word_type_to_add";
   private static final String WORDS = "words";
-  private static final String WORD_SORT_ALPHA = "alphabetical";
-  private static final String WORD_SORT_PLUS_ALPHA = "+alphabetical";
-  private static final String WORD_SORT_MINUS_ALPHA = "-alphabetical";
-  private static final String WORD_SORT_COUNT = "count";
-  private static final String WORD_SORT_PLUS_COUNT = "+count";
-  private static final String WORD_SORT_MINUS_COUNT = "-count";
 
   private static final String PATH_CORPORA = "/v1/customizations/%s/corpora";
   private static final String PATH_CORPUS = "/v1/customizations/%s/corpora/%s";
@@ -707,33 +703,8 @@ public class SpeechToText extends WatsonService {
     if (type != null) {
       requestBuilder.query(WORD_TYPE, type.toString().toLowerCase());
     }
-
-    /**
-     * The Word.Sort enumerated type cannot match the service arguments directly, so we need to convert
-     * to one of the required values. Although they do the same thing now, We keep ALPHA and PLUS_ALPHA
-     * separate in case the service defaults ever change; the same is true of COUNT and MINUS_COUNT.
-     */
     if (sort != null) {
-        switch (sort) {
-        case ALPHA:
-            requestBuilder.query(WORD_SORT, WORD_SORT_ALPHA);
-            break;
-        case PLUS_ALPHA:
-            requestBuilder.query(WORD_SORT, WORD_SORT_PLUS_ALPHA);
-            break;
-        case MINUS_ALPHA:
-            requestBuilder.query(WORD_SORT, WORD_SORT_MINUS_ALPHA);
-            break;
-        case COUNT:
-            requestBuilder.query(WORD_SORT, WORD_SORT_COUNT);
-            break;
-        case PLUS_COUNT:
-            requestBuilder.query(WORD_SORT, WORD_SORT_PLUS_COUNT);
-            break;
-        case MINUS_COUNT:
-            requestBuilder.query(WORD_SORT, WORD_SORT_MINUS_COUNT);
-            break;
-        }
+      requestBuilder.query(WORD_SORT, sort.getSort());
     }
 
     ResponseConverter<List<WordData>> converter = ResponseConverterUtils.getGenericObject(TYPE_WORDS, WORDS);
@@ -832,32 +803,36 @@ public class SpeechToText extends WatsonService {
    * });
    * </pre>
    *
-   * @param audio the audio input stream
-   * @param options the recognize options
-   * @param callback the callback
+   * @param audio the audio {@link InputStream}
+   * @param options the {@link RecognizeOptions}
+   * @param callback the {@link RecognizeCallback} instance where results will be send
+   * @return the {@link WebSocket}
    */
-  public void recognizeUsingWebSocket(final InputStream audio, final RecognizeOptions options,
+  public WebSocket recognizeUsingWebSocket(final InputStream audio, final RecognizeOptions options,
       final RecognizeCallback callback) {
     Validator.notNull(audio, "audio cannot be null");
     Validator.notNull(options, "options cannot be null");
     Validator.notNull(options.contentType(), "options.contentType cannot be null");
     Validator.notNull(callback, "callback cannot be null");
 
+    HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + PATH_RECOGNIZE).newBuilder();
 
-    getToken().enqueue(new ServiceCallback<String>() {
-      @Override
-      public void onFailure(Exception e) {
-        callback.onError(e);
-      }
+    if (options.model() != null && !options.model().isEmpty()) {
+      urlBuilder.addQueryParameter(MODEL, options.model());
+    }
 
-      @Override
-      public void onResponse(String token) {
-        String url = getEndPoint().replace("http://", "ws://").replace("https://", "wss://");
-        WebSocketManager wsManager =
-            new WebSocketManager(url + PATH_RECOGNIZE, configureHttpClient(), defaultHeaders, token);
-        wsManager.recognize(audio, options, callback);
-      }
-    });
+    if (options.customizationId() != null && !options.customizationId().isEmpty()) {
+      urlBuilder.addQueryParameter(CUSTOMIZATION_ID, options.customizationId());
+    }
+
+    String url = urlBuilder.toString().replace("https://", "wss://");
+    Builder builder = new Request.Builder().url(url);
+
+    setAuthentication(builder);
+    setDefaultHeaders(builder);
+
+    OkHttpClient client = configureHttpClient();
+    return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(audio, options, callback));
   }
 
   /**

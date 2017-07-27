@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -104,7 +104,7 @@ public class Solution extends GenericModel {
 
   @SerializedName("status_cause")
   private StatusCause statusCause;
-  
+
   @SerializedName("excluded_by")
   private List<DominatingOption> excludedBy;
 
@@ -162,7 +162,7 @@ public class Solution extends GenericModel {
   public List<DominatingOption> getExcludedBy() {
     return excludedBy;
   }
-  
+
   /**
    * Sets the shadow me.
    *
@@ -207,7 +207,7 @@ public class Solution extends GenericModel {
   public void setStatusCause(StatusCause statusCause) {
     this.statusCause = statusCause;
   }
-  
+
   /**
    * Sets the list of excluding options.
    *

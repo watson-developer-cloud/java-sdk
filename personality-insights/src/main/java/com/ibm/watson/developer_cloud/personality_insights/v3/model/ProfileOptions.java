@@ -1,5 +1,5 @@
-/**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,53 +10,176 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.developer_cloud.personality_insights.v3.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.personality_insights.v3.PersonalityInsights;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * Profile Options when using the {@link PersonalityInsights#getProfile(ProfileOptions)} method.
+ * the profile options.
  */
-public class ProfileOptions {
+public class ProfileOptions extends GenericModel {
+
+  /**
+   * The language of the input text for the request: Arabic, English, Spanish, or Japanese. Regional variants are
+   * treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the `Content-Language`
+   * header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or `text/html`, `Content-Language`
+   * is the only way to specify the language. When `Content-Type` is `application/json`, `Content-Language` overrides a
+   * language specified with the `language` parameter of a `ContentItem` object, and content items that specify a
+   * different language are ignored; omit this header to base the language on the specification of the content items.
+   * You can specify any combination of languages for `Content-Language` and `Accept-Language`.
+   */
+  public interface ContentLanguage {
+    /** ar. */
+    String AR = "ar";
+    /** en. */
+    String EN = "en";
+    /** es. */
+    String ES = "es";
+    /** ja. */
+    String JA = "ja";
+  }
+
+  /**
+   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for the input
+   * and response content.
+   */
+  public interface AcceptLanguage {
+    /** ar. */
+    String AR = "ar";
+    /** de. */
+    String DE = "de";
+    /** en. */
+    String EN = "en";
+    /** es. */
+    String ES = "es";
+    /** fr. */
+    String FR = "fr";
+    /** it. */
+    String IT = "it";
+    /** ja. */
+    String JA = "ja";
+    /** ko. */
+    String KO = "ko";
+    /** pt-br. */
+    String PT_BR = "pt-br";
+    /** zh-cn. */
+    String ZH_CN = "zh-cn";
+    /** zh-tw. */
+    String ZH_TW = "zh-tw";
+  }
+
+  /**
+   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
+   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
+   */
+  public interface ContentType {
+    /** application/json. */
+    String APPLICATION_JSON = "application/json";
+    /** text/html. */
+    String TEXT_HTML = "text/html";
+    /** text/plain. */
+    String TEXT_PLAIN = "text/plain";
+  }
+
+  private String contentLanguage;
+  private String acceptLanguage;
+  private Boolean rawScores;
+  private Boolean csvHeaders;
+  private Boolean consumptionPreferences;
+  private Content content;
+  private String body;
+  private String contentType;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private AcceptLanguage acceptLanguage;
-    private List<ContentItem> contentItems;
-    private String contentType;
+    private String contentLanguage;
+    private String acceptLanguage;
     private Boolean rawScores;
-    private Language language;
-    private String text;
+    private Boolean csvHeaders;
     private Boolean consumptionPreferences;
+    private Content content;
+    private String body;
+    private String contentType;
 
-    private Builder(ProfileOptions options) {
-      text = options.text;
-      contentType = options.contentType;
-      contentItems = options.contentItems;
-      rawScores = options.rawScores;
-      acceptLanguage = options.acceptLanguage;
-      language = options.language;
-      consumptionPreferences = options.consumptionPreferences;
+    private Builder(ProfileOptions profileOptions) {
+      contentLanguage = profileOptions.contentLanguage;
+      acceptLanguage = profileOptions.acceptLanguage;
+      rawScores = profileOptions.rawScores;
+      csvHeaders = profileOptions.csvHeaders;
+      consumptionPreferences = profileOptions.consumptionPreferences;
+      content = profileOptions.content;
+      body = profileOptions.body;
+      contentType = profileOptions.contentType;
     }
 
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Include consumption preference information.
+     * Builds a ProfileOptions.
      *
-     * @param consumptionPreferences consumtion preferences
-     * @return the profile options
+     * @return the profileOptions
+     */
+    public ProfileOptions build() {
+      return new ProfileOptions(this);
+    }
+
+    /**
+     * Set the contentLanguage.
+     *
+     * @param contentLanguage the contentLanguage
+     * @return the ProfileOptions builder
+     */
+    public Builder contentLanguage(String contentLanguage) {
+      this.contentLanguage = contentLanguage;
+      return this;
+    }
+
+    /**
+     * Set the acceptLanguage.
+     *
+     * @param acceptLanguage the acceptLanguage
+     * @return the ProfileOptions builder
+     */
+    public Builder acceptLanguage(String acceptLanguage) {
+      this.acceptLanguage = acceptLanguage;
+      return this;
+    }
+
+    /**
+     * Set the rawScores.
+     *
+     * @param rawScores the rawScores
+     * @return the ProfileOptions builder
+     */
+    public Builder rawScores(Boolean rawScores) {
+      this.rawScores = rawScores;
+      return this;
+    }
+
+    /**
+     * Set the csvHeaders.
+     *
+     * @param csvHeaders the csvHeaders
+     * @return the ProfileOptions builder
+     */
+    public Builder csvHeaders(Boolean csvHeaders) {
+      this.csvHeaders = csvHeaders;
+      return this;
+    }
+
+    /**
+     * Set the consumptionPreferences.
+     *
+     * @param consumptionPreferences the consumptionPreferences
+     * @return the ProfileOptions builder
      */
     public Builder consumptionPreferences(Boolean consumptionPreferences) {
       this.consumptionPreferences = consumptionPreferences;
@@ -64,155 +187,98 @@ public class ProfileOptions {
     }
 
     /**
-     * Accept language.
+     * Set the content.
      *
-     * @param acceptLanguage the accept language
-     * @return the profile options
+     * @param content the content
+     * @return the ProfileOptions builder
      */
-    public Builder acceptLanguage(AcceptLanguage acceptLanguage) {
-      this.acceptLanguage = acceptLanguage;
+    public Builder content(Content content) {
+      this.content = content;
+      this.contentType = ProfileOptions.ContentType.APPLICATION_JSON;
       return this;
     }
 
     /**
-     * Adds a content items.
-     *
-     * @param contentItem the content item
-     * @return the profile options
-     */
-    public Builder addContentItem(ContentItem contentItem) {
-      if (contentItems == null) {
-        contentItems = new ArrayList<ContentItem>();
-        contentType = HttpMediaType.APPLICATION_JSON;
-      }
-      contentItems.add(contentItem);
-      return this;
-    }
-
-    /**
-     * Builds the profile options.
-     *
-     * @return the profile options
-     */
-    public ProfileOptions build() {
-      return new ProfileOptions(this);
-    }
-
-    /**
-     * Content items.
-     *
-     * @param contentItems the content items
-     * @return the profile options
-     */
-    public Builder contentItems(List<ContentItem> contentItems) {
-      this.contentItems = contentItems;
-      contentType = HttpMediaType.APPLICATION_JSON;
-      return this;
-    }
-
-    /**
-     * Html.
+     * Set the html.
      *
      * @param html the html
-     * @return the profile options
+     * @return the ProfileOptions builder
      */
     public Builder html(String html) {
-      text = html;
-      contentType = HttpMediaType.TEXT_HTML;
-      return this;
-    }
-
-
-    /**
-     * Raw scores.
-     *
-     * @param includeRaw include the raw scores
-     * @return the profile options
-     */
-    public Builder rawScores(boolean includeRaw) {
-      this.rawScores = includeRaw;
+      this.body = html;
+      this.contentType = ProfileOptions.ContentType.TEXT_HTML;
       return this;
     }
 
     /**
-     * Language.
-     *
-     * @param language the language
-     * @return the profile options
-     */
-    public Builder language(Language language) {
-      this.language = language;
-      return this;
-    }
-
-    /**
-     * Text.
+     * Set the text.
      *
      * @param text the text
-     * @return the profile options
+     * @return the ProfileOptions builder
      */
     public Builder text(String text) {
-      this.text = text;
-      contentType = HttpMediaType.TEXT_PLAIN;
+      this.body = text;
+      this.contentType = ProfileOptions.ContentType.TEXT_PLAIN;
       return this;
     }
   }
 
-  private AcceptLanguage acceptLanguage;
-  private List<ContentItem> contentItems;
-  private String contentType;
-  private Boolean rawScores;
-  private Language language;
-  private String text;
-  private Boolean consumptionPreferences;
-
   private ProfileOptions(Builder builder) {
-    Validator.isTrue(
-        ((builder.text != null) && !builder.text.isEmpty())
-            || ((builder.contentItems != null) && !builder.contentItems.isEmpty()),
-        "text or contentItems are required");
-
-    text = builder.text;
-    contentType = builder.contentType;
-    contentItems = builder.contentItems;
-    rawScores = builder.rawScores;
+    Validator.isTrue(builder.contentType != null, "contentType cannot be null");
+    contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
-    language = builder.language;
+    rawScores = builder.rawScores;
+    csvHeaders = builder.csvHeaders;
     consumptionPreferences = builder.consumptionPreferences;
+    content = builder.content;
+    body = builder.body;
+    contentType = builder.contentType;
   }
 
+  /**
+   * New builder.
+   *
+   * @return a ProfileOptions builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
 
   /**
-   * Gets the accept language.
+   * Gets the contentLanguage.
+   *
+   * The language of the input text for the request: Arabic, English, Spanish, or Japanese. Regional variants are
+   * treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the `Content-Language`
+   * header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or `text/html`, `Content-Language`
+   * is the only way to specify the language. When `Content-Type` is `application/json`, `Content-Language` overrides a
+   * language specified with the `language` parameter of a `ContentItem` object, and content items that specify a
+   * different language are ignored; omit this header to base the language on the specification of the content items.
+   * You can specify any combination of languages for `Content-Language` and `Accept-Language`.
+   *
+   * @return the contentLanguage
+   */
+  public String contentLanguage() {
+    return contentLanguage;
+  }
+
+  /**
+   * Gets the acceptLanguage.
+   *
+   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for the input
+   * and response content.
    *
    * @return the acceptLanguage
    */
-  public AcceptLanguage acceptLanguage() {
+  public String acceptLanguage() {
     return acceptLanguage;
   }
 
-
   /**
-   * Gets the content items.
+   * Gets the rawScores.
    *
-   * @return the contentItems
-   */
-  public List<ContentItem> contentItems() {
-    return contentItems;
-  }
-
-
-  /**
-   * Gets the content type.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
-  }
-
-  /**
-   * Gets the raw scores.
+   * If `true`, a raw score in addition to a normalized percentile is returned for each characteristic; raw scores are
+   * not compared with a sample population. If `false` (the default), only normalized percentiles are returned.
    *
    * @return the rawScores
    */
@@ -220,43 +286,67 @@ public class ProfileOptions {
     return rawScores;
   }
 
-
   /**
-   * Gets the language.
+   * Gets the csvHeaders.
    *
-   * @return the language
-   */
-  public Language language() {
-    return language;
-  }
-
-
-  /**
-   * New builder.
+   * If `true`, column labels are returned with a CSV response; if `false` (the default), they are not. Applies only
+   * when the `Accept` header is set to `text/csv`.
    *
-   * @return the builder
+   * @return the csvHeaders
    */
-  public Builder newBuilder() {
-    return new Builder(this);
+  public Boolean csvHeaders() {
+    return csvHeaders;
   }
 
   /**
-   * Gets the consumption preferences flag.
+   * Gets the consumptionPreferences.
    *
-   * @return the text
+   * If `true`, information about consumption preferences is returned with the results; if `false` (the default), the
+   * response does not include the information.
+   *
+   * @return the consumptionPreferences
    */
   public Boolean consumptionPreferences() {
     return consumptionPreferences;
   }
 
   /**
-   * Gets the text.
+   * Gets the content.
    *
-   * @return the text
+   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
+   * [Guidelines for providing sufficient
+   * input](http://www.ibm.com/watson/developercloud/doc/personality-insights/basics.html#overviewGuidelines). A JSON
+   * request must conform to the `Content` model.
+   *
+   * @return the content
    */
-  public String text() {
-    return text;
+  public Content content() {
+    return content;
   }
 
+  /**
+   * Gets the body.
+   *
+   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
+   * [Guidelines for providing sufficient
+   * input](http://www.ibm.com/watson/developercloud/doc/personality-insights/basics.html#overviewGuidelines). A JSON
+   * request must conform to the `Content` model.
+   *
+   * @return the body
+   */
+  public String body() {
+    return body;
+  }
 
+  /**
+   * Gets the contentType.
+   *
+   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
+   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
+  }
 }

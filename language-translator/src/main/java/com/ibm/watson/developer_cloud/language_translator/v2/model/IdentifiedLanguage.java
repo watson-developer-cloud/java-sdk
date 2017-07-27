@@ -1,5 +1,5 @@
-/**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,34 +12,53 @@
  */
 package com.ibm.watson.developer_cloud.language_translator.v2.model;
 
-import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Language detected by the {@link LanguageTranslator} service.
- *
+ * IdentifiedLanguage.
  */
-public class IdentifiedLanguage extends IdentifiableLanguage {
+public class IdentifiedLanguage extends GenericModel {
 
-  /** The confidence. */
-  private final Double confidence;
+  private String language;
+  private Double confidence;
 
   /**
-   * Instantiates a new language.
+   * Gets the language.
    *
-   * @param language the language
-   * @param confidence the confidence
+   * The code for an identified language.
+   *
+   * @return the language
    */
-  public IdentifiedLanguage(final String language, final Double confidence) {
-    super(language);
-    this.confidence = confidence;
+  public String getLanguage() {
+    return language;
   }
 
   /**
    * Gets the confidence.
    *
+   * The confidence score for the identified language.
+   *
    * @return the confidence
    */
   public Double getConfidence() {
     return confidence;
+  }
+
+  /**
+   * Sets the language.
+   *
+   * @param language the new language
+   */
+  public void setLanguage(final String language) {
+    this.language = language;
+  }
+
+  /**
+   * Sets the confidence.
+   *
+   * @param confidence the new confidence
+   */
+  public void setConfidence(final Double confidence) {
+    this.confidence = confidence;
   }
 }

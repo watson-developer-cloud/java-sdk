@@ -1,5 +1,5 @@
-/**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,82 +18,73 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Translation results from calling the translate method. Contains the word count, character count and the
- * {@link Translation} list
- *
+ * TranslationResult.
  */
 public class TranslationResult extends GenericModel {
 
-  @SerializedName("character_count")
-  private Integer characterCount;
-  private List<Translation> translations;
   @SerializedName("word_count")
-  private Integer wordCount;
+  private Long wordCount;
+  @SerializedName("character_count")
+  private Long characterCount;
+  private List<Translation> translations;
 
   /**
-   * Gets the character count.
+   * Gets the wordCount.
    *
-   * @return The characterCount
+   * Number of words of the complete input text.
+   *
+   * @return the wordCount
    */
-  public Integer getCharacterCount() {
-    return characterCount;
+  public Long getWordCount() {
+    return wordCount;
   }
 
   /**
-   * Gets the first translation.
+   * Gets the characterCount.
    *
-   * @return the first translation, or null if none found
+   * Number of characters of the complete input text.
+   *
+   * @return the characterCount
    */
-  public String getFirstTranslation() {
-    if ((translations != null) && !translations.isEmpty()) {
-      return translations.get(0).getTranslation();
-    } else {
-      return null;
-    }
+  public Long getCharacterCount() {
+    return characterCount;
   }
 
   /**
    * Gets the translations.
    *
-   * @return The translations
+   * List of translation output in UTF-8, corresponding to the list of input text.
+   *
+   * @return the translations
    */
   public List<Translation> getTranslations() {
     return translations;
   }
 
   /**
-   * Gets the word count.
+   * Sets the wordCount.
    *
-   * @return The word count
+   * @param wordCount the new wordCount
    */
-  public Integer getWordCount() {
-    return wordCount;
+  public void setWordCount(final long wordCount) {
+    this.wordCount = wordCount;
   }
 
   /**
-   * Sets the character count.
+   * Sets the characterCount.
    *
-   * @param characterCount The character count
+   * @param characterCount the new characterCount
    */
-  public void setCharacterCount(final Integer characterCount) {
+  public void setCharacterCount(final long characterCount) {
     this.characterCount = characterCount;
   }
 
   /**
    * Sets the translations.
    *
-   * @param translations The translations
+   * @param translations the new translations
    */
   public void setTranslations(final List<Translation> translations) {
     this.translations = translations;
-  }
-
-  /**
-   * Sets the word count.
-   *
-   * @param wordCount The word count
-   */
-  public void setWordCount(final Integer wordCount) {
-    this.wordCount = wordCount;
   }
 }

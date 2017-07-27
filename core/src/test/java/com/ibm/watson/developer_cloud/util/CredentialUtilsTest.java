@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -48,6 +48,8 @@ public class CredentialUtilsTest extends WatsonServiceTest {
   private static final String NOT_A_FREE_PASSWORD = "not-a-free-password";
   private static final String PLAN = "standard";
 
+  private static final String VISUAL_RECOGNITION = "watson_vision_combined";
+
   /**
    * Setup.
    */
@@ -69,6 +71,14 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     assertEquals(API_KEY_FREE, CredentialUtils.getAPIKey(SERVICE_NAME, null));
     assertEquals(API_KEY_FREE, CredentialUtils.getAPIKey(SERVICE_NAME, CredentialUtils.PLAN_FREE));
     assertEquals(API_KEY_STANDARD, CredentialUtils.getAPIKey(SERVICE_NAME, CredentialUtils.PLAN_STANDARD));
+  }
+
+  /**
+   * Test get api key for visual recognition.
+   */
+  @Test
+  public void testGetApiKeyForVisualRecognition() {
+    assertNull(CredentialUtils.getAPIKey(VISUAL_RECOGNITION, NOT_A_PASSWORD));
   }
 
   /**

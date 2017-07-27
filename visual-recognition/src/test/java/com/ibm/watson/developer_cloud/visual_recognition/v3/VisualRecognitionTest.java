@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -11,6 +11,19 @@
  * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -29,19 +42,6 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognit
 
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Unit tests for the {@link VisualRecognition} service.
@@ -593,7 +593,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String collectionId = "collection1";
     AddImageToCollectionOptions options = new AddImageToCollectionOptions.Builder()
         .collectionId(collectionId)
-        .images(new File(SINGLE_IMAGE_FILE))
+        .image(new File(SINGLE_IMAGE_FILE))
         .metadata("key1", "value1")
         .build();
 

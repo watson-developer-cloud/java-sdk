@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -150,7 +151,8 @@ public abstract class WatsonServiceTest {
         (ch.qos.logback.classic.Logger) LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
     root.setLevel(ch.qos.logback.classic.Level.OFF);
     try {
-      FileInputStream configFile = new FileInputStream("src/test/resources/logging.properties");
+      ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+      InputStream configFile = classLoader.getResourceAsStream("logging.properties");
       LogManager.getLogManager().readConfiguration(configFile);
     } catch (IOException ex) {
       System.out.println("WARNING: Could not open configuration file");
@@ -206,5 +208,21 @@ public abstract class WatsonServiceTest {
    * @throws Exception the exception
    */
   public void setUp() throws Exception { }
+
+  /**
+   * Fuzzy date checking.
+   */
+
+  long tolerance = 2000;  // 2 secs in ms
+
+  /** return `true` if ldate before rdate within tolerance. */
+  public boolean fuzzyBefore(Date ldate, Date rdate) {
+    return (ldate.getTime() - rdate.getTime()) < tolerance;
+  }
+
+  /** return `true` if ldate after rdate within tolerance. */
+  public boolean fuzzyAfter(Date ldate, Date rdate) {
+    return (rdate.getTime() - ldate.getTime()) < tolerance;
+  }
 
 }

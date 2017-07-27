@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,9 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
+import java.io.InputStream;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 import okhttp3.MediaType;
@@ -121,7 +124,7 @@ public class RecognizeOptions {
     /**
      * If <code>true</code>, adds speaker labels to the transcript.
      *
-     * @param  speakerLabels Labels or "diarization"
+     * @param speakerLabels Labels or "diarization"
      * @return the recognize options
      */
     public Builder speakerLabels(Boolean speakerLabels) {
@@ -167,7 +170,9 @@ public class RecognizeOptions {
 
     /**
      * If true, the service sends interim results for the transcription. Otherwise, the recognition ends after first
-     * "end of speech" is detected. The default is false.
+     * "end of speech" is detected. The default is false. This option is only supported with the
+     * {@link SpeechToText#recognizeUsingWebSocket(InputStream, RecognizeOptions, RecognizeCallback)}
+     * method.
      *
      * @param interimResults the interim results
      * @return the recognize options
@@ -200,7 +205,6 @@ public class RecognizeOptions {
       this.keywords = (keywords == null) ? null : keywords.clone();
       return this;
     }
-
 
     /**
      * Specifies a minimum level of confidence that the service must have to report a matching keyword in the input
@@ -288,7 +292,6 @@ public class RecognizeOptions {
       return this;
     }
 
-
     /**
      * If true, confidence measure per word is returned if available.
      *
@@ -303,30 +306,38 @@ public class RecognizeOptions {
 
   @SerializedName("content-type")
   private String contentType;
-
   private Boolean continuous;
-
+  @SerializedName("inactivity_timeout")
   private Integer inactivityTimeout;
+
   @SerializedName("interim_results")
   private Boolean interimResults;
   private String[] keywords;
 
   @SerializedName("keywords_threshold")
   private Double keywordsThreshold;
+  @SerializedName("max_alternatives")
   private Integer maxAlternatives;
+  @SerializedName("profanity_filter")
   private Boolean profanityFilter;
   private String model;
+  @SerializedName("session_id")
   private String sessionId;
   private Boolean timestamps;
+
   @SerializedName("word_alternatives_threshold")
   private Double wordAlternativesThreshold;
+
   @SerializedName("word_confidence")
   private Boolean wordConfidence;
+
   @SerializedName("smart_formatting")
   private Boolean smartFormatting;
+
   @SerializedName("customization_id")
   private String customizationId;
-  @SerializedName("diarization")
+
+  @SerializedName("speaker_labels")
   private Boolean speakerLabels;
 
   private RecognizeOptions(Builder builder) {
