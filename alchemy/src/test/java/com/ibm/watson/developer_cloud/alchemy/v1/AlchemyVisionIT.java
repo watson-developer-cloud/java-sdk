@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -18,7 +18,9 @@ import java.io.FileInputStream;
 import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageFaces;
@@ -28,12 +30,14 @@ import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageLink;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneText;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneTextLine;
 import com.ibm.watson.developer_cloud.alchemy.v1.model.ImageSceneTextLine.Word;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 import okhttp3.HttpUrl;
 
 /**
  * The Class AlchemyVisionTest.
  */
+@RunWith(RetryRunner.class)
 public class AlchemyVisionIT extends WatsonServiceTest {
 
   private static final String IMAGE_OBAMA = "src/test/resources/alchemy/obama.jpg";
@@ -89,6 +93,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image scene text from image.
    */
+  @Ignore
   @Test(timeout = 180000)
   public void testGetRankedImageSceneTextFromImage() {
     final File imageFile = new File(IMAGE_COLORADO);
@@ -119,6 +124,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image scene text from URL.
    */
+  @Ignore
   @Test
   public void testGetRankedImageSceneTextFromURL() {
     final ImageSceneText image = service.getImageSceneText(HttpUrl.parse(IMAGE_COLORADO_URL).url()).execute();
@@ -131,6 +137,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image keywords from image.
    */
+  @Ignore
   @Test
   public void testGetRankedImageKeywordsFromImage() {
     final File imageFile = new File(IMAGE_OBAMA);
@@ -142,6 +149,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image keywords from image with knowledge graph data included.
    */
+  @Ignore
   @Test
   public void testGetRankedImageKeywordsFromImageWithKnowledgeGraph() {
     final File imageFile = new File(IMAGE_OBAMA);
@@ -158,6 +166,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get ranked image keywords from URL.
    */
+  @Ignore
   @Test
   public void testGetRankedImageKeywordsFromURL() {
     final ImageKeywords image = service.getImageKeywords(HttpUrl.parse(VR_IMAGE).url(), true, true).execute();
@@ -168,6 +177,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test recognize faces from image.
    */
+  @Ignore
   @Test
   public void testRecognizeFacesFromImage() {
     final File imageFile = new File(IMAGE_OBAMA);
@@ -179,6 +189,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test recognize faces from URL.
    */
+  @Ignore
   @Test
   public void testRecognizeFacesFromURL() {
     final ImageFaces image = service.recognizeFaces(HttpUrl.parse(VR_IMAGE).url(), false).execute();

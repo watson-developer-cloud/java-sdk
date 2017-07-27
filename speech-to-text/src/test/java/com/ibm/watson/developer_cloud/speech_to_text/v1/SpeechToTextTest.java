@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,10 +33,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
-import okhttp3.WebSocket;
-import okhttp3.internal.ws.WebSocketRecorder;
-import okio.ByteString;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -60,15 +56,19 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Sort;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.TestUtils;
 
+import okhttp3.WebSocket;
+import okhttp3.internal.ws.WebSocketRecorder;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
+import okio.ByteString;
 
 /**
  * The Class SpeechToTextTest.
@@ -94,6 +94,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final String PATH_WORD = "/v1/customizations/%s/words/%s";
 
   private static final File SAMPLE_WAV = new File("src/test/resources/speech_to_text/sample1.wav");
+  private static final File SAMPLE_WEBM = new File("src/test/resources/speech_to_text/sample1.webm");
 
   private SpeechToText service;
   private SpeechSession session;
@@ -271,6 +272,40 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(HttpMediaType.AUDIO_WAV, request.getHeader(CONTENT_TYPE));
   }
 
+  /**
+   * Test recognize WebM for WebM audio format.
+   *
+   * @throws URISyntaxException the URI syntax exception
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testRecognizeWebM() throws URISyntaxException, InterruptedException {
+
+    final SpeechResults speechResults = new SpeechResults();
+    speechResults.setResultIndex(0);
+    final Transcript transcript = new Transcript();
+    transcript.setFinal(true);
+    final SpeechAlternative speechAlternative = new SpeechAlternative();
+    speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
+
+    final List<SpeechAlternative> speechAlternatives = ImmutableList.of(speechAlternative);
+    transcript.setAlternatives(speechAlternatives);
+
+    final List<Transcript> transcripts = ImmutableList.of(transcript);
+    speechResults.setResults(transcripts);
+
+    server.enqueue(
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(speechResults)));
+
+    final SpeechResults result = service.recognize(SAMPLE_WEBM).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertNotNull(result);
+    assertEquals(result, speechResults);
+    assertEquals("POST", request.getMethod());
+    assertEquals(PATH_RECOGNIZE, request.getPath());
+    assertEquals(HttpMediaType.AUDIO_WEBM, request.getHeader(CONTENT_TYPE));
+  }
 
   /**
    * Test diarization.
@@ -388,8 +423,10 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     String id = "foo";
     RecognitionJob job = loadFixture("src/test/resources/speech_to_text/job.json", RecognitionJob.class);
 
-    server
-        .enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(job)));
+    server.enqueue(new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(job))
+    );
 
     RecognitionJob result = service.getRecognitionJob(id).execute();
     final RecordedRequest request = server.takeRequest();
@@ -410,8 +447,10 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     String id = "foo";
     RecognitionJob job = loadFixture("src/test/resources/speech_to_text/job.json", RecognitionJob.class);
 
-    server
-        .enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(job)));
+    server.enqueue(new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(job))
+    );
 
     RecognitionJob result = service.getRecognitionJob(id).execute();
     final RecordedRequest request = server.takeRequest();
@@ -837,7 +876,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     PipedOutputStream outputStream = new PipedOutputStream();
     InputStream inputStream = new PipedInputStream(outputStream);
 
-    server.enqueue(new MockResponse().setBody("token"));
     server.enqueue(new MockResponse().withWebSocketUpgrade(webSocketRecorder));
 
     service.recognizeUsingWebSocket(inputStream, options, callback);
@@ -858,6 +896,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     callback.assertConnected();
     callback.assertDisconnected();
     callback.assertNoErrors();
+    callback.assertOnTranscriptionComplete();
   }
 
   private static class TestRecognizeCallback implements RecognizeCallback {
@@ -869,6 +908,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     private final BlockingQueue<Object> onDisconnectedCalls = new LinkedBlockingQueue<>();
 
     private final BlockingQueue<Object> onConnectedCalls = new LinkedBlockingQueue<>();
+
+    private final BlockingQueue<Object> onTranscriptionCompleteCalls = new LinkedBlockingQueue<>();
 
     @Override
     public void onTranscription(SpeechResults speechResults) {
@@ -888,6 +929,12 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     @Override
     public void onDisconnected() {
       this.onDisconnectedCalls.add(new Object());
+    }
+
+    void assertOnTranscriptionComplete() {
+      if (this.onTranscriptionCompleteCalls.size() == 1) {
+        throw new AssertionError("There were " + this.errors.size() + " calls to onTranscriptionComplete");
+      }
     }
 
     void assertConnected() {
@@ -916,6 +963,18 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
       if (this.errors.size() > 0) {
         throw new AssertionError("There were " + this.errors.size() + " errors");
       }
+    }
+
+    @Override
+    public void onInactivityTimeout(RuntimeException runtimeException) { }
+
+    @Override
+    public void onListening() { }
+
+    @Override
+    public void onTranscriptionComplete() {
+      this.onTranscriptionCompleteCalls.add(new Object());
+
     }
   }
 }

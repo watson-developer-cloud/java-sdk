@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,6 +26,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
@@ -33,10 +34,12 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Phoneme;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 /**
  * Text to Speech integration tests.
  */
+@RunWith(RetryRunner.class)
 public class TextToSpeechIT extends WatsonServiceTest {
 
   private TextToSpeech service;
@@ -99,7 +102,7 @@ public class TextToSpeechIT extends WatsonServiceTest {
    */
   @Test
   public void testSynthesize() throws IOException {
-    String text = "This is an integration test";
+    String text = "This is an integration test; 1,2 !, @, #, $, %, ^, 20.";
     InputStream result = service.synthesize(text, Voice.EN_LISA, AudioFormat.WAV).execute();
     writeInputStreamToFile(result, File.createTempFile("tts-audio", "wav"));
   }

@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -31,6 +31,7 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.runner.RunWith;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.Ranker;
@@ -43,10 +44,12 @@ import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterSize
 import com.ibm.watson.developer_cloud.retrieve_and_rank.v1.model.SolrClusterStats;
 import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 /**
  * The Class RetrieveAndRankIT.
  */
+@RunWith(RetryRunner.class)
 public class RetrieveAndRankIT extends WatsonServiceTest {
 
   private static final Integer CREATED_CLUSTER_SIZE_ONE = 1;

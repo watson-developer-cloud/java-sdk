@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
  * in compliance with the License. You may obtain a copy of the License at
@@ -13,10 +13,10 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
 /**
  * An empty implementation of {@link RecognizeCallback} interface.
@@ -59,5 +59,24 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onDisconnected()
    */
   public void onDisconnected() { };
+
+  /* (non-Javadoc)
+   * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket
+   * .RecognizeCallback#onInactivityTimeout(java.lang.RuntimeException)
+   */
+  @Override
+  public void onInactivityTimeout(RuntimeException runtimeException) { };
+
+  /* (non-Javadoc)
+   * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onListening()
+   */
+  @Override
+  public void onListening() { };
+
+  /* (non-Javadoc)
+   * @see com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onTranscriptionComplete()
+   */
+  @Override
+  public void onTranscriptionComplete() { };
 
 }

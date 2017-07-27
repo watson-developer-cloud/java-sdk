@@ -1,0 +1,37 @@
+plugins {
+  id 'ru.vyarus.animalsniffer' version '1.3.0'
+}
+
+defaultTasks 'clean'
+
+apply plugin: 'java'
+apply plugin: 'ru.vyarus.animalsniffer'
+apply plugin: 'checkstyle'
+apply plugin: 'eclipse'
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+repositories {
+    mavenCentral()
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+checkstyle {
+    configFile = rootProject.file('checkstyle.xml')
+}
+
+dependencies {
+    compile group: 'com.ibm.watson.developer_cloud', name: 'java-sdk', version: '3.7.2'
+}

@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -241,6 +241,15 @@ public class RequestBuilderTest {
   public void testSpecialCharacterQuery() {
     final Request request = RequestBuilder.get(url).query("ä&ö", "ö=ü").build();
     assertEquals(url + "?%C3%A4%26%C3%B6=%C3%B6%3D%C3%BC", request.url().toString());
+  }
+
+  /**
+   * Test user agent.
+   */
+  @Test
+  public void testUserAgent() {
+    assertNotNull(RequestUtils.getUserAgent());
+    assertTrue(RequestUtils.getUserAgent().startsWith("watson-apis-java-sdk/"));
   }
 
 }

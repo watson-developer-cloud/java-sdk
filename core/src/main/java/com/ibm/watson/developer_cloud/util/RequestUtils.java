@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -180,15 +179,13 @@ public final class RequestUtils {
   }
 
   private static String loadSdkVersion() {
-    InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("version.properties");
+    ClassLoader classLoader = RequestUtils.class.getClassLoader();
+    InputStream inputStream = classLoader.getResourceAsStream("version.properties");
     Properties properties = new Properties();
 
-
-    // If for whatever reason the input stream is null, IOException will not catch the null pointer
-    // and app will crash
     try {
       properties.load(inputStream);
-    } catch (IOException e) {
+    } catch (Exception e) {
       LOG.log(Level.WARNING, "Could not load version.properties", e);
     }
 

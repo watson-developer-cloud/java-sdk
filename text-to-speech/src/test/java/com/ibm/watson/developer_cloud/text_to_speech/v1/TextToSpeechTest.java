@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -197,8 +197,8 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     final RecordedRequest request = server.takeRequest();
     final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
 
+    assertEquals(request.getBody().readUtf8(), "{\"text\":\"" + text + "\"}");
     assertEquals(SYNTHESIZE_PATH, requestUrl.encodedPath());
-    assertEquals(text, requestUrl.queryParameter("text"));
     assertEquals(Voice.EN_LISA.getName(), requestUrl.queryParameter("voice"));
     assertEquals(HttpMediaType.AUDIO_PCM + "; rate=16000", requestUrl.queryParameter("accept"));
     assertNotNull(in);
@@ -206,6 +206,34 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     writeInputStreamToOutputStream(in, new FileOutputStream("build/output.wav"));
   }
 
+
+  /**
+   * Test synthesize for WebM.
+   *
+   * @throws IOException Signals that an I/O exception has occurred.
+   * @throws InterruptedException the interrupted exception
+   */
+  @SuppressWarnings("resource")
+  @Test
+  public void testSynthesizeWebM() throws IOException, InterruptedException {
+    final File audio = new File("src/test/resources/text_to_speech/sample1.webm");
+    final Buffer buffer = new Buffer().write(Files.toByteArray(audio));
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.AUDIO_WEBM).setBody(buffer));
+
+    final InputStream in =
+        service.synthesize(text, Voice.EN_LISA, AudioFormat.WEBM).execute();
+    final RecordedRequest request = server.takeRequest();
+    final HttpUrl requestUrl = HttpUrl.parse("http://www.example.com" + request.getPath());
+
+    assertEquals(request.getBody().readUtf8(), "{\"text\":\"" + text + "\"}");
+    assertEquals(SYNTHESIZE_PATH, requestUrl.encodedPath());
+    assertEquals(Voice.EN_LISA.getName(), requestUrl.queryParameter("voice"));
+    assertEquals(HttpMediaType.AUDIO_WEBM, requestUrl.queryParameter("accept"));
+    assertNotNull(in);
+
+    writeInputStreamToOutputStream(in, new FileOutputStream("build/output.webm"));
+  }
 
   /**
    * Test with voice as AudioFormat.WAV.
@@ -222,7 +250,6 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     }
 
   }
-
 
   /**
    * Test the fix wave header not having the size due to be streamed.

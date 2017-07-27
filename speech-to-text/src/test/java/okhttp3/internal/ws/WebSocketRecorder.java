@@ -15,21 +15,22 @@
  */
 package okhttp3.internal.ws;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okhttp3.internal.Util;
 import okhttp3.internal.platform.Platform;
 import okio.ByteString;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 
 public final class WebSocketRecorder extends WebSocketListener {
     private final String name;
@@ -40,7 +41,11 @@ public final class WebSocketRecorder extends WebSocketListener {
         this.name = name;
     }
 
-    /** Sets a delegate for handling the next callback to this listener. Cleared after invoked. */
+    /**
+     * Sets a delegate for handling the next callback to this listener. Cleared after invoked.
+     *
+     * @param delegate the delegate to be set
+     */
     public void setNextEventDelegate(WebSocketListener delegate) {
         this.delegate = delegate;
     }
@@ -216,7 +221,11 @@ public final class WebSocketRecorder extends WebSocketListener {
         assertEquals(message, failure.t.getMessage());
     }
 
-    /** Expose this recorder as a frame callback and shim in "ping" events. */
+    /**
+     * Expose this recorder as a frame callback and shim in "ping" events.
+     *
+     * @return the frame callback for the WebSocket reader
+     */
     public WebSocketReader.FrameCallback asFrameCallback() {
         return new WebSocketReader.FrameCallback() {
             @Override public void onReadMessage(String text) throws IOException {
@@ -285,12 +294,12 @@ public final class WebSocketRecorder extends WebSocketListener {
         public final ByteString bytes;
         public final String string;
 
-        public Message(ByteString bytes) {
+        Message(ByteString bytes) {
             this.bytes = bytes;
             this.string = null;
         }
 
-        public Message(String string) {
+        Message(String string) {
             this.bytes = null;
             this.string = string;
         }
@@ -313,7 +322,7 @@ public final class WebSocketRecorder extends WebSocketListener {
     static final class Ping {
         public final ByteString payload;
 
-        public Ping(ByteString payload) {
+        Ping(ByteString payload) {
             this.payload = payload;
         }
 
@@ -334,7 +343,7 @@ public final class WebSocketRecorder extends WebSocketListener {
     static final class Pong {
         public final ByteString payload;
 
-        public Pong(ByteString payload) {
+        Pong(ByteString payload) {
             this.payload = payload;
         }
 

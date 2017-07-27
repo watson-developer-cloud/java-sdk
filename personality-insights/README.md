@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>personality-insights</artifactId>
-	<version>3.5.3</version>
+	<version>3.8.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:personality-insights:3.5.3'
+'com.ibm.watson.developer_cloud:personality-insights:3.8.0'
 ```
 
 ## Usage
@@ -42,7 +42,9 @@ String text = "Call me Ishmael. Some years ago-never mind how long precisely-hav
     + "city of the Manhattoes, belted round by wharves as Indian isles by coral reefs-commerce surrounds "
     + "it with her surf. Right and left, the streets take you waterward.";
 
-Profile profile = service.getProfile(text).execute();
+ProfileOptions options = new ProfileOptions.Builder().text(text).build();
+Profile profile = service.profile(options).execute();
+
 System.out.println(profile);
 ```
 

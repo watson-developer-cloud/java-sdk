@@ -7,13 +7,13 @@
 <dependency>
   <groupId>com.ibm.watson.developer_cloud</groupId>
   <artifactId>discovery</artifactId>
-  <version>3.5.3</version>
+  <version>3.8.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:discovery:3.5.3'
+'com.ibm.watson.developer_cloud:discovery:3.8.0'
 ```
 
 ## Usage
@@ -27,9 +27,8 @@ discovery.setUsernameAndPassword("<username>", "<password>");
 //Build an empty query on an existing environment/collection
 String environmentId = "<environmentId>";
 String collectionId = "<collectionId";
-QueryRequest queryRequest = new QueryRequest.Builder(environmentId, collectionId).build();
-
-QueryResponse queryResponse = discovery.query(queryRequest).execute();
+QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).build();
+QueryResponse queryResponse = discovery.query(queryOptions).execute();
 ```
 
 [discovery]: http://www.ibm.com/watson/developercloud/doc/discovery/

@@ -7,20 +7,21 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>tone-analyzer</artifactId>
-	<version>3.5.3</version>
+	<version>3.8.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:tone-analyzer:3.5.3'
+'com.ibm.watson.developer_cloud:tone-analyzer:3.8.0'
 ```
 
 ## Usage
 Use the [Tone Analyzer][tone_analyzer] service to get the tone of your email.
 
 ```java
-ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
+final String VERSION_DATE = "2016-05-19";
+ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
 service.setUsernameAndPassword("<username>", "<password>");
 
 String text =
@@ -36,7 +37,8 @@ String text =
       + "business outcomes. Economy has nothing to do with it.";
 
 // Call the service and get the tone
-ToneAnalysis tone = service.getTone(text, null).execute();
+ToneOptions toneOptions = new ToneOptions.Builder().html(text).build();
+ToneAnalysis tone = service.tone(toneOptions).execute();
 System.out.println(tone);
 ```
 

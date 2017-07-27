@@ -1,6 +1,4 @@
-rootProject.name = 'java-sdk'
-include ':alchemy', ':conversation', ':core', ':dialog', ':discovery', ':document-conversion', ':language-translation',
-        ':language-translator', ':natural-language-classifier', ':personality-insights', ':retrieve-and-rank',
+rootProject.name = 'parent'
+include ':android-utils', ':alchemy', ':conversation', ':core', ':dialog', ':discovery', ':document-conversion', ':language-translation',
+        ':language-translator', ':natural-language-classifier', ':natural-language-understanding', ':personality-insights', ':retrieve-and-rank',
         ':speech-to-text', ':text-to-speech', ':tone-analyzer', ':tradeoff-analytics', ':visual-recognition', ':java-sdk'
-
-project(':java-sdk').projectDir = "$rootDir/all" as File

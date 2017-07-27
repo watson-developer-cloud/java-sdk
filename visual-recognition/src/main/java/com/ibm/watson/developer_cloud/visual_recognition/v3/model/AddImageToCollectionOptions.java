@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 IBM Corp. All Rights Reserved.
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,14 +28,18 @@ public class AddImageToCollectionOptions {
    */
   public static class Builder {
     private String collectionId;
+    private byte[] imageBinary;
     private File imageFile;
-    private Map<String, String>  metadata;
+    private String imageName;
+    private Map<String, String> metadata;
 
     private Builder(AddImageToCollectionOptions options) {
       this();
       imageFile = options.imageFile;
       collectionId = options.collectionId;
       metadata = options.metadata;
+      imageBinary = options.imageBinary;
+      imageName = options.imageName;
     }
 
     /**
@@ -49,7 +53,8 @@ public class AddImageToCollectionOptions {
      * @return the profile options
      */
     public AddImageToCollectionOptions build() {
-      Validator.isTrue((collectionId != null) || (imageFile != null), "collectionId or imageFile should be specified");
+      Validator.isTrue((collectionId != null) || (imageFile != null) || (imageBinary != null),
+          "collectionId, imageBinary or imageFile should be specified");
       return new AddImageToCollectionOptions(this);
     }
 
@@ -67,10 +72,24 @@ public class AddImageToCollectionOptions {
     /**
      * Sets the image.
      *
+     * @param imageBinary the image bytes
+     * @param imageName the image name
+     * @return the builder
+     */
+    public Builder image(byte[] imageBinary, String imageName) {
+      Validator.notNull(imageBinary, "'imageBinary' cannot be null");
+      this.imageBinary = imageBinary;
+      this.imageName = imageName;
+      return this;
+    }
+
+    /**
+     * Sets the image.
+     *
      * @param imageFile the image file
      * @return the builder
      */
-    public Builder images(File imageFile) {
+    public Builder image(File imageFile) {
       Validator.notNull(imageFile, "'imageFile' cannot be null");
       this.imageFile = imageFile;
       return this;
@@ -104,15 +123,20 @@ public class AddImageToCollectionOptions {
     }
 
   }
-  private String collectionId;
-  private File imageFile;
 
+  private String collectionId;
+  private byte[] imageBinary;
+
+  private File imageFile;
+  private String imageName;
   private Map<String, String> metadata;
 
   private AddImageToCollectionOptions(Builder builder) {
     imageFile = builder.imageFile;
     collectionId = builder.collectionId;
     metadata = builder.metadata;
+    imageBinary = builder.imageBinary;
+    imageName = builder.imageName;
   }
 
   /**
@@ -131,6 +155,24 @@ public class AddImageToCollectionOptions {
    */
   public File image() {
     return imageFile;
+  }
+
+  /**
+   * Returns the image binary.
+   *
+   * @return the image binary
+   */
+  public byte[] imageBinary() {
+    return imageBinary;
+  }
+
+  /**
+   * Image name.
+   *
+   * @return the string
+   */
+  public String imageName() {
+    return imageName;
   }
 
   /**

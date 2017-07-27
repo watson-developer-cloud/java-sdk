@@ -1,5 +1,5 @@
-/**
- * Copyright 2015 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,42 +13,37 @@
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
 
 import com.google.gson.JsonObject;
-import com.ibm.watson.developer_cloud.http.HttpHeaders;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneChatOptions;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneOptions;
+import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.UtteranceAnalyses;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The IBM Watson Tone Analyzer service uses linguistic analysis to detect emotional tones, social propensities, and
- * writing styles in written communication. Then it offers suggestions to help the writer improve their intended
- * language tones.
+ * The IBM Watson Tone Analyzer service uses linguistic analysis to detect emotional, social, and language tones in
+ * written text. The service can analyze tone at both the document and sentence levels. You can use the service to
+ * understand how your written communications are perceived and then to improve the tone of your communications.
+ * Businesses can use the service to learn the tone of their customers' communications and to respond to each customer
+ * appropriately, or to understand and improve their customer conversations.
  *
  * @version v3
- * @see <a href= "http://www.ibm.com/watson/developercloud/tone-analyzer.html"> Tone Analyzer</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/tone-analyzer.html">Tone Analyzer</a>
  */
 public class ToneAnalyzer extends WatsonService {
 
-  private static final String PATH_TONE = "/v3/tone";
   private static final String SERVICE_NAME = "tone_analyzer";
-  private static final String TEXT = "text";
   private static final String URL = "https://gateway.watsonplatform.net/tone-analyzer/api";
-  private static final String VERSION_DATE = "version";
-  private static final String TONES = "tones";
-  private static final String SENTENCES = "sentences";
 
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2016_05_19. */
-  public static final String VERSION_DATE_2016_05_19 = "2016-05-19";
-
   /**
-   * Instantiates a new tone analyzer.
+   * Instantiates a new {@link ToneAnalyzer} service.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *        calls from failing when the service introduces breaking changes.
@@ -58,11 +53,14 @@ public class ToneAnalyzer extends WatsonService {
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
     }
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "'version cannot be null.");
+
     this.versionDate = versionDate;
   }
 
   /**
-   * Instantiates a new tone analyzer with username and password.
+   * Instantiates a new {@link ToneAnalyzer} with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
    *        calls from failing when the service introduces breaking changes.
@@ -75,36 +73,53 @@ public class ToneAnalyzer extends WatsonService {
   }
 
   /**
-   * Analyzes the "tone" of a piece of text. The message is analyzed from several tones (social tone, emotional tone,
-   * writing tone), and for each of them various traits are derived (such as conscientiousness, agreeableness,
-   * openness).
+   * Analyze general purpose tone.
    *
-   * @param text The text to analyze
-   * @param options The {@link ToneOptions} options
+   * Uses the general purpose endpoint to analyze the tone of your input content. The service can analyze the input for
+   * several tones: emotion, language, and social. It derives various characteristics for each tone that it analyzes.
+   *
+   * @param toneOptions the {@link ToneOptions} containing the options for the call
    * @return the {@link ToneAnalysis} with the response
    */
-  public ServiceCall<ToneAnalysis> getTone(String text, ToneOptions options) {
-    Validator.notNull(text, "text cannot be null");
-
-    RequestBuilder requestBuilder = RequestBuilder.post(PATH_TONE).query(VERSION_DATE, versionDate);
-
-    if ((options != null) && (options.html() != null) && options.html()) {
-      requestBuilder.header(HttpHeaders.CONTENT_TYPE, HttpMediaType.TEXT_HTML);
-      requestBuilder.bodyContent(text, HttpMediaType.TEXT_HTML);
+  public ServiceCall<ToneAnalysis> tone(ToneOptions toneOptions) {
+    Validator.notNull(toneOptions, "toneOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post("/v3/tone");
+    builder.query(VERSION, versionDate);
+    builder.header("content-type", toneOptions.contentType());
+    if (toneOptions.tones() != null) {
+      builder.query("tones", RequestUtils.join(toneOptions.tones(), ","));
+    }
+    if (toneOptions.sentences() != null) {
+      builder.query("sentences", String.valueOf(toneOptions.sentences()));
+    }
+    if (toneOptions.contentType().equalsIgnoreCase(ToneOptions.ContentType.APPLICATION_JSON)) {
+      builder.bodyJson(GsonSingleton.getGson().toJsonTree(toneOptions.toneInput()).getAsJsonObject());
     } else {
-      JsonObject contentJson = new JsonObject();
-      contentJson.addProperty(TEXT, text);
-      requestBuilder.bodyJson(contentJson);
+      builder.bodyContent(toneOptions.body(), toneOptions.contentType());
     }
-
-    if ((options != null) && (options.tones() != null)) {
-      requestBuilder.query(TONES, RequestUtils.join(options.tones(), ","));
-    }
-
-    if ((options != null) && (options.includeSentences() != null)) {
-      requestBuilder.query(SENTENCES, options.includeSentences().toString());
-    }
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(ToneAnalysis.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ToneAnalysis.class));
   }
+
+  /**
+   * Analyze customer engagement tone.
+   *
+   * Uses the customer engagement endpoint to analyze the tone of customer service and customer support conversations.
+   * For each utterance of a conversation, the method reports the most prevalent subset of the following seven tones:
+   * sad, frustrated, satisfied, excited, polite, impolite, and sympathetic. You can submit a maximum of 128 KB of JSON
+   * input. Per the JSON specification, the default character encoding for JSON content is effectively always UTF-8.<br>
+   * <b>Note:</b> The {@link ToneAnalyzer#toneChat(ToneChatOptions)} method is currently beta functionality.
+   *
+   * @param toneChatOptions the {@link ToneChatOptions} containing the options for the call
+   * @return the {@link UtteranceAnalyses} with the response
+   */
+  public ServiceCall<UtteranceAnalyses> toneChat(ToneChatOptions toneChatOptions) {
+    Validator.notNull(toneChatOptions, "toneChatOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post("/v3/tone_chat");
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("utterances", GsonSingleton.getGson().toJsonTree(toneChatOptions.utterances()));
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(UtteranceAnalyses.class));
+  }
+
 }
