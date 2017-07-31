@@ -17,7 +17,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 * [Questions and troubleshooting](#questions)
   * [401 - Unauthorized](#401)
   * [Other](#other)
-* [Android](android-utils)
+* [Android](#android)
 * IBM Watson Services
   * [Alchemy Language](alchemy)
   * [Alchemy Vision](alchemy)
@@ -248,8 +248,7 @@ System.out.println(dialogs);
 ```
 
 ## Android
-The library supports Android 2.3 and above. For Java, the minimum requirement is 1.7.  
-It depends on [OkHttp][] and [gson][].
+The Android SDK utilizes the Java SDK while making some Android-specific additions. This repository can be found [here](https://github.com/watson-developer-cloud/android-sdk). It depends on [OkHttp][] and [gson][].
 
 ## Running in Bluemix
 
