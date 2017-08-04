@@ -59,7 +59,7 @@ public class QueryNoticesResponse extends GenericModel {
    *
    * @param matchingResults the new matchingResults
    */
-  public void setMatchingResults(final Long matchingResults) {
+  public void setMatchingResults(final long matchingResults) {
     this.matchingResults = matchingResults;
   }
 

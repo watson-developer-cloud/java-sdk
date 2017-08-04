@@ -30,6 +30,33 @@ public class QueryAggregation extends HashMap<String, Object> {
   }
 
   /**
+   * Gets the field.
+   *
+   * @return the field
+   */
+  public String getField() {
+    return (String) this.get("field");
+  }
+
+  /**
+   * Gets the results.
+   *
+   * @return the results
+   */
+  public List<AggregationResult> getResults() {
+    return (List<AggregationResult>) this.get("results");
+  }
+
+  /**
+   * Gets the match.
+   *
+   * @return the match
+   */
+  public String getMatch() {
+    return (String) this.get("match");
+  }
+
+  /**
    * Gets the matchingResults.
    *
    * @return the matchingResults
@@ -39,12 +66,30 @@ public class QueryAggregation extends HashMap<String, Object> {
   }
 
   /**
-   * Gets the results.
+   * Gets the aggregations.
    *
-   * @return the results
+   * @return the aggregations
    */
-  public List<Object> getResults() {
-    return (List<Object>) this.get("results");
+  public List<QueryAggregation> getAggregations() {
+    return (List<QueryAggregation>) this.get("aggregations");
+  }
+
+  /**
+   * Gets the interval.
+   *
+   * @return the interval
+   */
+  public Long getInterval() {
+    return (Long) this.get("interval");
+  }
+
+  /**
+   * Gets the value.
+   *
+   * @return the value
+   */
+  public Double getValue() {
+    return (Double) this.get("value");
   }
 
   /**
@@ -57,6 +102,33 @@ public class QueryAggregation extends HashMap<String, Object> {
   }
 
   /**
+   * Sets the field.
+   *
+   * @param field the new field
+   */
+  public void setField(final String field) {
+    this.put("field", field);
+  }
+
+  /**
+   * Sets the results.
+   *
+   * @param results the new results
+   */
+  public void setResults(final List<AggregationResult> results) {
+    this.put("results", results);
+  }
+
+  /**
+   * Sets the match.
+   *
+   * @param match the new match
+   */
+  public void setMatch(final String match) {
+    this.put("match", match);
+  }
+
+  /**
    * Sets the matchingResults.
    *
    * @param matchingResults the new matchingResults
@@ -66,11 +138,29 @@ public class QueryAggregation extends HashMap<String, Object> {
   }
 
   /**
-   * Sets the results.
+   * Sets the aggregations.
    *
-   * @param results the new results
+   * @param aggregations the new aggregations
    */
-  public void setResults(final List<Object> results) {
-    this.put("results", results);
+  public void setAggregations(final List<QueryAggregation> aggregations) {
+    this.put("aggregations", aggregations);
+  }
+
+  /**
+   * Sets the interval.
+   *
+   * @param interval the new interval
+   */
+  public void setInterval(final Long interval) {
+    this.put("interval", interval);
+  }
+
+  /**
+   * Sets the value.
+   *
+   * @param value the new value
+   */
+  public void setValue(final Double value) {
+    this.put("value", value);
   }
 }

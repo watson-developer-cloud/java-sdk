@@ -48,15 +48,15 @@ public class Field extends GenericModel {
     String BINARY = "binary";
   }
 
-  /** The name of the field. */
   @SerializedName("field")
   private String fieldName;
-  /** The type of the field. */
   @SerializedName("type")
   private String fieldType;
 
   /**
    * Gets the fieldName.
+   *
+   * The name of the field.
    *
    * @return the fieldName
    */
@@ -66,6 +66,8 @@ public class Field extends GenericModel {
 
   /**
    * Gets the fieldType.
+   *
+   * The type of the field.
    *
    * @return the fieldType
    */

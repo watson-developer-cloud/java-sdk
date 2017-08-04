@@ -12,19 +12,22 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The updateCollection options.
+ * The addTrainingData options.
  */
-public class UpdateCollectionOptions extends GenericModel {
+public class AddTrainingDataOptions extends GenericModel {
 
   private String environmentId;
   private String collectionId;
-  private String name;
-  private String description;
-  private String configurationId;
+  private String filter;
+  private List<TrainingExample> examples;
+  private String naturalLanguageQuery;
 
   /**
    * Builder.
@@ -32,16 +35,16 @@ public class UpdateCollectionOptions extends GenericModel {
   public static class Builder {
     private String environmentId;
     private String collectionId;
-    private String name;
-    private String description;
-    private String configurationId;
+    private String filter;
+    private List<TrainingExample> examples;
+    private String naturalLanguageQuery;
 
-    private Builder(UpdateCollectionOptions updateCollectionOptions) {
-      environmentId = updateCollectionOptions.environmentId;
-      collectionId = updateCollectionOptions.collectionId;
-      name = updateCollectionOptions.name;
-      description = updateCollectionOptions.description;
-      configurationId = updateCollectionOptions.configurationId;
+    private Builder(AddTrainingDataOptions addTrainingDataOptions) {
+      environmentId = addTrainingDataOptions.environmentId;
+      collectionId = addTrainingDataOptions.collectionId;
+      filter = addTrainingDataOptions.filter;
+      examples = addTrainingDataOptions.examples;
+      naturalLanguageQuery = addTrainingDataOptions.naturalLanguageQuery;
     }
 
     /**
@@ -62,19 +65,34 @@ public class UpdateCollectionOptions extends GenericModel {
     }
 
     /**
-     * Builds a UpdateCollectionOptions.
+     * Builds a AddTrainingDataOptions.
      *
-     * @return the updateCollectionOptions
+     * @return the addTrainingDataOptions
      */
-    public UpdateCollectionOptions build() {
-      return new UpdateCollectionOptions(this);
+    public AddTrainingDataOptions build() {
+      return new AddTrainingDataOptions(this);
+    }
+
+    /**
+     * Adds an examples to examples.
+     *
+     * @param examples the new examples
+     * @return the AddTrainingDataOptions builder
+     */
+    public Builder addExamples(TrainingExample examples) {
+      Validator.notNull(examples, "examples cannot be null");
+      if (this.examples == null) {
+        this.examples = new ArrayList<TrainingExample>();
+      }
+      this.examples.add(examples);
+      return this;
     }
 
     /**
      * Set the environmentId.
      *
      * @param environmentId the environmentId
-     * @return the UpdateCollectionOptions builder
+     * @return the AddTrainingDataOptions builder
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
@@ -85,7 +103,7 @@ public class UpdateCollectionOptions extends GenericModel {
      * Set the collectionId.
      *
      * @param collectionId the collectionId
-     * @return the UpdateCollectionOptions builder
+     * @return the AddTrainingDataOptions builder
      */
     public Builder collectionId(String collectionId) {
       this.collectionId = collectionId;
@@ -93,53 +111,54 @@ public class UpdateCollectionOptions extends GenericModel {
     }
 
     /**
-     * Set the name.
+     * Set the filter.
      *
-     * @param name the name
-     * @return the UpdateCollectionOptions builder
+     * @param filter the filter
+     * @return the AddTrainingDataOptions builder
      */
-    public Builder name(String name) {
-      this.name = name;
+    public Builder filter(String filter) {
+      this.filter = filter;
       return this;
     }
 
     /**
-     * Set the description.
+     * Set the examples.
+     * Existing examples will be replaced.
      *
-     * @param description the description
-     * @return the UpdateCollectionOptions builder
+     * @param examples the examples
+     * @return the AddTrainingDataOptions builder
      */
-    public Builder description(String description) {
-      this.description = description;
+    public Builder examples(List<TrainingExample> examples) {
+      this.examples = examples;
       return this;
     }
 
     /**
-     * Set the configurationId.
+     * Set the naturalLanguageQuery.
      *
-     * @param configurationId the configurationId
-     * @return the UpdateCollectionOptions builder
+     * @param naturalLanguageQuery the naturalLanguageQuery
+     * @return the AddTrainingDataOptions builder
      */
-    public Builder configurationId(String configurationId) {
-      this.configurationId = configurationId;
+    public Builder naturalLanguageQuery(String naturalLanguageQuery) {
+      this.naturalLanguageQuery = naturalLanguageQuery;
       return this;
     }
   }
 
-  private UpdateCollectionOptions(Builder builder) {
+  private AddTrainingDataOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
-    name = builder.name;
-    description = builder.description;
-    configurationId = builder.configurationId;
+    filter = builder.filter;
+    examples = builder.examples;
+    naturalLanguageQuery = builder.naturalLanguageQuery;
   }
 
   /**
    * New builder.
    *
-   * @return a UpdateCollectionOptions builder
+   * @return a AddTrainingDataOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -168,35 +187,29 @@ public class UpdateCollectionOptions extends GenericModel {
   }
 
   /**
-   * Gets the name.
+   * Gets the filter.
    *
-   * The name of the collection.
-   *
-   * @return the name
+   * @return the filter
    */
-  public String name() {
-    return name;
+  public String filter() {
+    return filter;
   }
 
   /**
-   * Gets the description.
+   * Gets the examples.
    *
-   * A description of the collection.
-   *
-   * @return the description
+   * @return the examples
    */
-  public String description() {
-    return description;
+  public List<TrainingExample> examples() {
+    return examples;
   }
 
   /**
-   * Gets the configurationId.
+   * Gets the naturalLanguageQuery.
    *
-   * The ID of the configuration in which the collection is to be updated.
-   *
-   * @return the configurationId
+   * @return the naturalLanguageQuery
    */
-  public String configurationId() {
-    return configurationId;
+  public String naturalLanguageQuery() {
+    return naturalLanguageQuery;
   }
 }

@@ -12,34 +12,37 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.List;
-
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * ListConfigurationsResponse.
+ * Summary of the document usage statistics for the environment.
  */
-public class ListConfigurationsResponse extends GenericModel {
+public class EnvironmentDocuments extends GenericModel {
 
-  private List<Configuration> configurations;
+  private Long indexed;
+  @SerializedName("maximum_allowed")
+  private Long maximumAllowed;
 
   /**
-   * Gets the configurations.
+   * Gets the indexed.
    *
-   * An array of Configurations that are available for the service instance.
+   * Number of documents indexed for the environment.
    *
-   * @return the configurations
+   * @return the indexed
    */
-  public List<Configuration> getConfigurations() {
-    return configurations;
+  public Long getIndexed() {
+    return indexed;
   }
 
   /**
-   * Sets the configurations.
+   * Gets the maximumAllowed.
    *
-   * @param configurations the new configurations
+   * Total number of documents allowed in the environment's capacity.
+   *
+   * @return the maximumAllowed
    */
-  public void setConfigurations(final List<Configuration> configurations) {
-    this.configurations = configurations;
+  public Long getMaximumAllowed() {
+    return maximumAllowed;
   }
 }

@@ -12,34 +12,25 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.List;
-
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * ListConfigurationsResponse.
+ * Summary of the disk usage statistics for this collection.
  */
-public class ListConfigurationsResponse extends GenericModel {
+public class CollectionDiskUsage extends GenericModel {
 
-  private List<Configuration> configurations;
-
-  /**
-   * Gets the configurations.
-   *
-   * An array of Configurations that are available for the service instance.
-   *
-   * @return the configurations
-   */
-  public List<Configuration> getConfigurations() {
-    return configurations;
-  }
+  @SerializedName("used_bytes")
+  private Long usedBytes;
 
   /**
-   * Sets the configurations.
+   * Gets the usedBytes.
    *
-   * @param configurations the new configurations
+   * Number of bytes used by the collection.
+   *
+   * @return the usedBytes
    */
-  public void setConfigurations(final List<Configuration> configurations) {
-    this.configurations = configurations;
+  public Long getUsedBytes() {
+    return usedBytes;
   }
 }

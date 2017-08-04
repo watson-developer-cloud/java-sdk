@@ -16,13 +16,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the deleteConfiguration options.
+ * The deleteConfiguration options.
  */
 public class DeleteConfigurationOptions extends GenericModel {
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** the ID of your configuration. */
   private String configurationId;
 
   /**
@@ -87,8 +85,8 @@ public class DeleteConfigurationOptions extends GenericModel {
   }
 
   private DeleteConfigurationOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
-    Validator.notNull(builder.configurationId, "configurationId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    Validator.notEmpty(builder.configurationId, "configurationId cannot be empty");
     environmentId = builder.environmentId;
     configurationId = builder.configurationId;
   }
@@ -105,6 +103,8 @@ public class DeleteConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -113,6 +113,8 @@ public class DeleteConfigurationOptions extends GenericModel {
 
   /**
    * Gets the configurationId.
+   *
+   * the ID of your configuration.
    *
    * @return the configurationId
    */

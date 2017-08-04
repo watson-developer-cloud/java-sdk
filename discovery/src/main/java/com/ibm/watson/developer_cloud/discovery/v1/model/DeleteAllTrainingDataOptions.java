@@ -16,23 +16,23 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The getConfiguration options.
+ * The deleteAllTrainingData options.
  */
-public class GetConfigurationOptions extends GenericModel {
+public class DeleteAllTrainingDataOptions extends GenericModel {
 
   private String environmentId;
-  private String configurationId;
+  private String collectionId;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String environmentId;
-    private String configurationId;
+    private String collectionId;
 
-    private Builder(GetConfigurationOptions getConfigurationOptions) {
-      environmentId = getConfigurationOptions.environmentId;
-      configurationId = getConfigurationOptions.configurationId;
+    private Builder(DeleteAllTrainingDataOptions deleteAllTrainingDataOptions) {
+      environmentId = deleteAllTrainingDataOptions.environmentId;
+      collectionId = deleteAllTrainingDataOptions.collectionId;
     }
 
     /**
@@ -45,27 +45,27 @@ public class GetConfigurationOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param environmentId the environmentId
-     * @param configurationId the configurationId
+     * @param collectionId the collectionId
      */
-    public Builder(String environmentId, String configurationId) {
+    public Builder(String environmentId, String collectionId) {
       this.environmentId = environmentId;
-      this.configurationId = configurationId;
+      this.collectionId = collectionId;
     }
 
     /**
-     * Builds a GetConfigurationOptions.
+     * Builds a DeleteAllTrainingDataOptions.
      *
-     * @return the getConfigurationOptions
+     * @return the deleteAllTrainingDataOptions
      */
-    public GetConfigurationOptions build() {
-      return new GetConfigurationOptions(this);
+    public DeleteAllTrainingDataOptions build() {
+      return new DeleteAllTrainingDataOptions(this);
     }
 
     /**
      * Set the environmentId.
      *
      * @param environmentId the environmentId
-     * @return the GetConfigurationOptions builder
+     * @return the DeleteAllTrainingDataOptions builder
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
@@ -73,28 +73,28 @@ public class GetConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Set the configurationId.
+     * Set the collectionId.
      *
-     * @param configurationId the configurationId
-     * @return the GetConfigurationOptions builder
+     * @param collectionId the collectionId
+     * @return the DeleteAllTrainingDataOptions builder
      */
-    public Builder configurationId(String configurationId) {
-      this.configurationId = configurationId;
+    public Builder collectionId(String collectionId) {
+      this.collectionId = collectionId;
       return this;
     }
   }
 
-  private GetConfigurationOptions(Builder builder) {
+  private DeleteAllTrainingDataOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.notEmpty(builder.configurationId, "configurationId cannot be empty");
+    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
-    configurationId = builder.configurationId;
+    collectionId = builder.collectionId;
   }
 
   /**
    * New builder.
    *
-   * @return a GetConfigurationOptions builder
+   * @return a DeleteAllTrainingDataOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -112,13 +112,13 @@ public class GetConfigurationOptions extends GenericModel {
   }
 
   /**
-   * Gets the configurationId.
+   * Gets the collectionId.
    *
-   * the ID of your configuration.
+   * the ID of your collection.
    *
-   * @return the configurationId
+   * @return the collectionId
    */
-  public String configurationId() {
-    return configurationId;
+  public String collectionId() {
+    return collectionId;
   }
 }

@@ -20,34 +20,22 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Enrichment extends GenericModel {
 
-  /** Describes what the enrichment step does. */
   private String description;
-  /**
-   * Field where enrichments will be stored. This field must already exist or be at most 1 level deeper than an existing
-   * field. For example, if `text` is a top-level field with no sub-fields, `text.foo` is a valid destination but
-   * `text.foo.bar` is not.
-   */
   @SerializedName("destination_field")
   private String destinationField;
-  /** Field to be enriched. */
   @SerializedName("source_field")
   private String sourceField;
-  /** Indicates that the enrichments will overwrite the destination_field field if it already exists. */
   private Boolean overwrite;
-  /** Name of the enrichment service to call. Currently the only valid value is `alchemy_language`. */
   @SerializedName("enrichment")
   private String enrichmentName;
-  /**
-   * If true, then most errors generated during the enrichment process will be treated as warnings and will not cause
-   * the document to fail processing.
-   */
   @SerializedName("ignore_downstream_errors")
   private Boolean ignoreDownstreamErrors;
-  /** A list of options specific to the enrichment. */
   private EnrichmentOptions options;
 
   /**
    * Gets the description.
+   *
+   * Describes what the enrichment step does.
    *
    * @return the description
    */
@@ -58,6 +46,10 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the destinationField.
    *
+   * Field where enrichments will be stored. This field must already exist or be at most 1 level deeper than an existing
+   * field. For example, if `text` is a top-level field with no sub-fields, `text.foo` is a valid destination but
+   * `text.foo.bar` is not.
+   *
    * @return the destinationField
    */
   public String getDestinationField() {
@@ -66,6 +58,8 @@ public class Enrichment extends GenericModel {
 
   /**
    * Gets the sourceField.
+   *
+   * Field to be enriched.
    *
    * @return the sourceField
    */
@@ -76,6 +70,8 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the overwrite.
    *
+   * Indicates that the enrichments will overwrite the destination_field field if it already exists.
+   *
    * @return the overwrite
    */
   public Boolean isOverwrite() {
@@ -84,6 +80,8 @@ public class Enrichment extends GenericModel {
 
   /**
    * Gets the enrichmentName.
+   *
+   * Name of the enrichment service to call. Currently the only valid value is `alchemy_language`.
    *
    * @return the enrichmentName
    */
@@ -94,6 +92,9 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the ignoreDownstreamErrors.
    *
+   * If true, then most errors generated during the enrichment process will be treated as warnings and will not cause
+   * the document to fail processing.
+   *
    * @return the ignoreDownstreamErrors
    */
   public Boolean isIgnoreDownstreamErrors() {
@@ -102,6 +103,8 @@ public class Enrichment extends GenericModel {
 
   /**
    * Gets the options.
+   *
+   * A list of options specific to the enrichment.
    *
    * @return the options
    */

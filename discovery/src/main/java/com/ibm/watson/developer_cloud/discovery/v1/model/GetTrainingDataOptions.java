@@ -16,12 +16,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The deleteCollection options.
+ * The getTrainingData options.
  */
-public class DeleteCollectionOptions extends GenericModel {
+public class GetTrainingDataOptions extends GenericModel {
 
   private String environmentId;
   private String collectionId;
+  private String queryId;
 
   /**
    * Builder.
@@ -29,10 +30,12 @@ public class DeleteCollectionOptions extends GenericModel {
   public static class Builder {
     private String environmentId;
     private String collectionId;
+    private String queryId;
 
-    private Builder(DeleteCollectionOptions deleteCollectionOptions) {
-      environmentId = deleteCollectionOptions.environmentId;
-      collectionId = deleteCollectionOptions.collectionId;
+    private Builder(GetTrainingDataOptions getTrainingDataOptions) {
+      environmentId = getTrainingDataOptions.environmentId;
+      collectionId = getTrainingDataOptions.collectionId;
+      queryId = getTrainingDataOptions.queryId;
     }
 
     /**
@@ -46,26 +49,28 @@ public class DeleteCollectionOptions extends GenericModel {
      *
      * @param environmentId the environmentId
      * @param collectionId the collectionId
+     * @param queryId the queryId
      */
-    public Builder(String environmentId, String collectionId) {
+    public Builder(String environmentId, String collectionId, String queryId) {
       this.environmentId = environmentId;
       this.collectionId = collectionId;
+      this.queryId = queryId;
     }
 
     /**
-     * Builds a DeleteCollectionOptions.
+     * Builds a GetTrainingDataOptions.
      *
-     * @return the deleteCollectionOptions
+     * @return the getTrainingDataOptions
      */
-    public DeleteCollectionOptions build() {
-      return new DeleteCollectionOptions(this);
+    public GetTrainingDataOptions build() {
+      return new GetTrainingDataOptions(this);
     }
 
     /**
      * Set the environmentId.
      *
      * @param environmentId the environmentId
-     * @return the DeleteCollectionOptions builder
+     * @return the GetTrainingDataOptions builder
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
@@ -76,25 +81,38 @@ public class DeleteCollectionOptions extends GenericModel {
      * Set the collectionId.
      *
      * @param collectionId the collectionId
-     * @return the DeleteCollectionOptions builder
+     * @return the GetTrainingDataOptions builder
      */
     public Builder collectionId(String collectionId) {
       this.collectionId = collectionId;
       return this;
     }
+
+    /**
+     * Set the queryId.
+     *
+     * @param queryId the queryId
+     * @return the GetTrainingDataOptions builder
+     */
+    public Builder queryId(String queryId) {
+      this.queryId = queryId;
+      return this;
+    }
   }
 
-  private DeleteCollectionOptions(Builder builder) {
+  private GetTrainingDataOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
+    Validator.notEmpty(builder.queryId, "queryId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
+    queryId = builder.queryId;
   }
 
   /**
    * New builder.
    *
-   * @return a DeleteCollectionOptions builder
+   * @return a GetTrainingDataOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -120,5 +138,16 @@ public class DeleteCollectionOptions extends GenericModel {
    */
   public String collectionId() {
     return collectionId;
+  }
+
+  /**
+   * Gets the queryId.
+   *
+   * the ID of the query used for training.
+   *
+   * @return the queryId
+   */
+  public String queryId() {
+    return queryId;
   }
 }

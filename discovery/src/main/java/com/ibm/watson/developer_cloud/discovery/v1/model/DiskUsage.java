@@ -16,26 +16,25 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Summary of the disk usage statistics for this environment.
+ * Summary of the disk usage statistics for the environment.
  */
 public class DiskUsage extends GenericModel {
 
-  /** Number of bytes used on the environment's disk capacity. */
   @SerializedName("used_bytes")
   private Long usedBytes;
-  /** Total number of bytes available in the environment's disk capacity. */
+  @SerializedName("maximum_allowed_bytes")
+  private Long maximumAllowedBytes;
   @SerializedName("total_bytes")
   private Long totalBytes;
-  /** Amount of disk capacity used, in KB or GB format. */
   private String used;
-  /** Total amount of the environment's disk capacity, in KB or GB format. */
   private String total;
-  /** Percentage of the environment's disk capacity that is being used. */
   @SerializedName("percent_used")
   private Double percentUsed;
 
   /**
    * Gets the usedBytes.
+   *
+   * Number of bytes used on the environment's disk capacity.
    *
    * @return the usedBytes
    */
@@ -44,7 +43,20 @@ public class DiskUsage extends GenericModel {
   }
 
   /**
+   * Gets the maximumAllowedBytes.
+   *
+   * Total number of bytes available in the environment's disk capacity.
+   *
+   * @return the maximumAllowedBytes
+   */
+  public Long getMaximumAllowedBytes() {
+    return maximumAllowedBytes;
+  }
+
+  /**
    * Gets the totalBytes.
+   *
+   * **Deprecated**: Total number of bytes available in the environment's disk capacity.
    *
    * @return the totalBytes
    */
@@ -55,6 +67,8 @@ public class DiskUsage extends GenericModel {
   /**
    * Gets the used.
    *
+   * **Deprecated**: Amount of disk capacity used, in KB or GB format.
+   *
    * @return the used
    */
   public String getUsed() {
@@ -64,6 +78,8 @@ public class DiskUsage extends GenericModel {
   /**
    * Gets the total.
    *
+   * **Deprecated**: Total amount of the environment's disk capacity, in KB or GB format.
+   *
    * @return the total
    */
   public String getTotal() {
@@ -72,6 +88,8 @@ public class DiskUsage extends GenericModel {
 
   /**
    * Gets the percentUsed.
+   *
+   * **Deprecated**: Percentage of the environment's disk capacity that is being used.
    *
    * @return the percentUsed
    */
