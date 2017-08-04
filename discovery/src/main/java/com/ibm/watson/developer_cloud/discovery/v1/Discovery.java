@@ -14,15 +14,20 @@ package com.ibm.watson.developer_cloud.discovery.v1;
 
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.AddTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteAllTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
@@ -30,6 +35,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsOptions;
@@ -38,16 +45,21 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptio
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestConfigurationInEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestDocument;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingQuery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
@@ -76,6 +88,8 @@ public class Discovery extends WatsonService {
 
   private String versionDate;
 
+  /** The Constant VERSION_DATE_2017_08_01. */
+  public static final String VERSION_DATE_2017_08_01 = "2017-08-01";
   /** The Constant VERSION_DATE_2016_12_01. */
   public static final String VERSION_DATE_2016_12_01 = "2016-12-01";
 
@@ -92,7 +106,7 @@ public class Discovery extends WatsonService {
     }
 
     Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2016_12_01);
+        "'version cannot be null. Use " + VERSION_DATE_2017_08_01);
 
     this.versionDate = versionDate;
   }
@@ -358,16 +372,12 @@ public class Discovery extends WatsonService {
   /**
    * Add a document.
    *
-   * Add a document to a collection with optional metadata and optional configuration. Set the `Content-Type` header on
-   * the request to indicate the media type of the document. If the `Content-Type` header is missing or is one of the
-   * generic media types (for example, `application/octet-stream`), then the service attempts to automatically detect
-   * the document's media type. * The configuration to use to process the document can be provided by using the
-   * `configuration_id` query parameter. * The `version` query parameter is still required. * Returns immediately after
-   * the system has accepted the document for processing. * The user must provide document content, metadata, or both.
-   * If the request is missing both document content and metadata, it is rejected. * The user can set the `Content-Type`
-   * parameter on the `file` part to indicate the media type of the document. If the `Content-Type` parameter is missing
-   * or is one of the generic media types (for example, `application/octet-stream`), then the service attempts to
-   * automatically detect the document's media type.
+   * Add a document to a collection with optional metadata. * The `version` query parameter is still required. * Returns
+   * immediately after the system has accepted the document for processing. * The user must provide document content,
+   * metadata, or both. If the request is missing both document content and metadata, it is rejected. * The user can set
+   * the `Content-Type` parameter on the `file` part to indicate the media type of the document. If the `Content-Type`
+   * parameter is missing or is one of the generic media types (for example, `application/octet-stream`), then the
+   * service attempts to automatically detect the document's media type.
    *
    * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
    * @return the {@link DocumentAccepted} with the response
@@ -439,7 +449,7 @@ public class Discovery extends WatsonService {
   /**
    * Update a document.
    *
-   * Replace an existing document. Starts ingesting a document with optional metadata and optional configurations.
+   * Replace an existing document. Starts ingesting a document with optional metadata.
    *
    * @param updateDocumentOptions the {@link UpdateDocumentOptions} containing the options for the call
    * @return the {@link DocumentAccepted} with the response
@@ -452,9 +462,6 @@ public class Discovery extends WatsonService {
         updateDocumentOptions.environmentId(), updateDocumentOptions.collectionId(), updateDocumentOptions
             .documentId()));
     builder.query(VERSION, versionDate);
-    if (updateDocumentOptions.configurationId() != null) {
-      builder.query("configuration_id", updateDocumentOptions.configurationId());
-    }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (updateDocumentOptions.file() != null) {
@@ -476,32 +483,24 @@ public class Discovery extends WatsonService {
    * Add an environment.
    *
    * Creates a new environment. You can create only one environment per service instance. An attempt to create another
-   * environment will result in an error. The size of the new environment can be controlled by specifying the `size`
-   * parameter. Use the table below to map size values to the size of the environment which is created: | Size | Disk
-   * (GB) | RAM (GB) | Included Standard Enrichments | Notes | | ---: | -----------: | -----------: |
-   * --------------------------------------------: | -------- | | 0 | 2 | 1 | n/a (effectively unlimited) | Free Plan
-   * only, no HA (single node in elastic.co)| | 1 | 48 | 2 | 4,000 | | | 2 | 192 | 8 | 16,000 | | | 3 | 384 | 16 |
-   * 32,000 | | **Note:** you cannot set the size property when using the free plan.
+   * environment results in an error.
    *
    * @param createEnvironmentOptions the {@link CreateEnvironmentOptions} containing the options for the call
    * @return the {@link Environment} with the response
    */
   public ServiceCall<Environment> createEnvironment(CreateEnvironmentOptions createEnvironmentOptions) {
+    Validator.notNull(createEnvironmentOptions, "createEnvironmentOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/environments");
     builder.query(VERSION, versionDate);
-    if (createEnvironmentOptions != null) {
-      final JsonObject contentJson = new JsonObject();
-      if (createEnvironmentOptions.size() != null) {
-        contentJson.addProperty("size", createEnvironmentOptions.size());
-      }
-      if (createEnvironmentOptions.name() != null) {
-        contentJson.addProperty("name", createEnvironmentOptions.name());
-      }
-      if (createEnvironmentOptions.description() != null) {
-        contentJson.addProperty("description", createEnvironmentOptions.description());
-      }
-      builder.bodyJson(contentJson);
+    final JsonObject contentJson = new JsonObject();
+    if (createEnvironmentOptions.size() != null) {
+      contentJson.addProperty("size", createEnvironmentOptions.size());
     }
+    contentJson.addProperty("name", createEnvironmentOptions.name());
+    if (createEnvironmentOptions.description() != null) {
+      contentJson.addProperty("description", createEnvironmentOptions.description());
+    }
+    builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
 
@@ -555,8 +554,8 @@ public class Discovery extends WatsonService {
   /**
    * Update an environment.
    *
-   * Updates an environment. The environment's `name` and `description` parameters can be changed. You can increase the
-   * value of the `size` parameter. If you need to decrease an environment's size, contact IBM Support.
+   * Updates an environment. The environment's `name` and `description` parameters can be changed. You must specify a
+   * `name` for the environment.
    *
    * @param updateEnvironmentOptions the {@link UpdateEnvironmentOptions} containing the options for the call
    * @return the {@link Environment} with the response
@@ -625,8 +624,10 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Queries for notices (errors or warnings) that may have been generated by the system. Currently, notices are only
-   * generated when ingesting documents. See the [Discovery service
+   * Query system notices.
+   *
+   * Queries for notices (errors or warnings) that may have been generated by the system. Notices are generated when
+   * ingesting documents and performing relevance training. See the [Discovery service
    * documentation](https://www.ibm.com/watson/developercloud/doc/discovery/using.html) for more details on the query
    * language.
    *
@@ -684,8 +685,9 @@ public class Discovery extends WatsonService {
   public ServiceCall<TestDocument> testConfigurationInEnvironment(
       TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
     Validator.notNull(testConfigurationInEnvironmentOptions, "testConfigurationInEnvironmentOptions cannot be null");
-    Validator.isTrue((testConfigurationInEnvironmentOptions.file() != null) || (testConfigurationInEnvironmentOptions
-        .metadata() != null), "At least one of file or metadata must be supplied.");
+    Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
+        || (testConfigurationInEnvironmentOptions.file() != null) || (testConfigurationInEnvironmentOptions
+            .metadata() != null), "At least one of configuration, file, or metadata must be supplied.");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/preview",
         testConfigurationInEnvironmentOptions.environmentId()));
     builder.query(VERSION, versionDate);
@@ -697,6 +699,9 @@ public class Discovery extends WatsonService {
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
+    if (testConfigurationInEnvironmentOptions.configuration() != null) {
+      multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
+    }
     if (testConfigurationInEnvironmentOptions.file() != null) {
       MediaType mediaType = null;
       if (testConfigurationInEnvironmentOptions.fileMediaType() != null) {
@@ -710,6 +715,171 @@ public class Discovery extends WatsonService {
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TestDocument.class));
+  }
+
+  /**
+   * Adds a query to the training data for this collection. The query can contain a filter and natural language query.
+   *
+   * @param addTrainingDataOptions the {@link AddTrainingDataOptions} containing the options for the call
+   * @return the {@link TrainingQuery} with the response
+   */
+  public ServiceCall<TrainingQuery> addTrainingData(AddTrainingDataOptions addTrainingDataOptions) {
+    Validator.notNull(addTrainingDataOptions, "addTrainingDataOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/training_data",
+        addTrainingDataOptions.environmentId(), addTrainingDataOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (addTrainingDataOptions.filter() != null) {
+      contentJson.addProperty("filter", addTrainingDataOptions.filter());
+    }
+    if (addTrainingDataOptions.examples() != null) {
+      contentJson.add("examples", GsonSingleton.getGson().toJsonTree(addTrainingDataOptions.examples()));
+    }
+    if (addTrainingDataOptions.naturalLanguageQuery() != null) {
+      contentJson.addProperty("natural_language_query", addTrainingDataOptions.naturalLanguageQuery());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
+  }
+
+  /**
+   * Adds a new example to this training data query.
+   *
+   * @param createTrainingExampleOptions the {@link CreateTrainingExampleOptions} containing the options for the call
+   * @return the {@link TrainingExample} with the response
+   */
+  public ServiceCall<TrainingExample> createTrainingExample(CreateTrainingExampleOptions createTrainingExampleOptions) {
+    Validator.notNull(createTrainingExampleOptions, "createTrainingExampleOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s/examples", createTrainingExampleOptions.environmentId(),
+        createTrainingExampleOptions.collectionId(), createTrainingExampleOptions.queryId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createTrainingExampleOptions.documentId() != null) {
+      contentJson.addProperty("document_id", createTrainingExampleOptions.documentId());
+    }
+    if (createTrainingExampleOptions.relevance() != null) {
+      contentJson.addProperty("relevance", createTrainingExampleOptions.relevance());
+    }
+    if (createTrainingExampleOptions.crossReference() != null) {
+      contentJson.addProperty("cross_reference", createTrainingExampleOptions.crossReference());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
+  }
+
+  /**
+   * Clears all training data for this collection.
+   *
+   * @param deleteAllTrainingDataOptions the {@link DeleteAllTrainingDataOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteAllTrainingData(DeleteAllTrainingDataOptions deleteAllTrainingDataOptions) {
+    Validator.notNull(deleteAllTrainingDataOptions, "deleteAllTrainingDataOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s/training_data",
+        deleteAllTrainingDataOptions.environmentId(), deleteAllTrainingDataOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Removes the training data and all associated examples from the training data set.
+   *
+   * @param deleteTrainingDataOptions the {@link DeleteTrainingDataOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteTrainingData(DeleteTrainingDataOptions deleteTrainingDataOptions) {
+    Validator.notNull(deleteTrainingDataOptions, "deleteTrainingDataOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s/training_data/%s",
+        deleteTrainingDataOptions.environmentId(), deleteTrainingDataOptions.collectionId(), deleteTrainingDataOptions
+            .queryId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Removes the example with the given ID for the training data query.
+   *
+   * @param deleteTrainingExampleOptions the {@link DeleteTrainingExampleOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteTrainingExample(DeleteTrainingExampleOptions deleteTrainingExampleOptions) {
+    Validator.notNull(deleteTrainingExampleOptions, "deleteTrainingExampleOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s", deleteTrainingExampleOptions.environmentId(),
+        deleteTrainingExampleOptions.collectionId(), deleteTrainingExampleOptions.queryId(),
+        deleteTrainingExampleOptions.exampleId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Shows details for a specific training data query, including the query string and all examples.
+   *
+   * @param getTrainingDataOptions the {@link GetTrainingDataOptions} containing the options for the call
+   * @return the {@link TrainingQuery} with the response
+   */
+  public ServiceCall<TrainingQuery> getTrainingData(GetTrainingDataOptions getTrainingDataOptions) {
+    Validator.notNull(getTrainingDataOptions, "getTrainingDataOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/training_data/%s",
+        getTrainingDataOptions.environmentId(), getTrainingDataOptions.collectionId(), getTrainingDataOptions
+            .queryId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
+  }
+
+  /**
+   * Gets the details for this training example.
+   *
+   * @param getTrainingExampleOptions the {@link GetTrainingExampleOptions} containing the options for the call
+   * @return the {@link TrainingExample} with the response
+   */
+  public ServiceCall<TrainingExample> getTrainingExample(GetTrainingExampleOptions getTrainingExampleOptions) {
+    Validator.notNull(getTrainingExampleOptions, "getTrainingExampleOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s", getTrainingExampleOptions.environmentId(),
+        getTrainingExampleOptions.collectionId(), getTrainingExampleOptions.queryId(), getTrainingExampleOptions
+            .exampleId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
+  }
+
+  /**
+   * Lists the training data for this collection.
+   *
+   * @param listTrainingDataOptions the {@link ListTrainingDataOptions} containing the options for the call
+   * @return the {@link TrainingDataSet} with the response
+   */
+  public ServiceCall<TrainingDataSet> listTrainingData(ListTrainingDataOptions listTrainingDataOptions) {
+    Validator.notNull(listTrainingDataOptions, "listTrainingDataOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/training_data",
+        listTrainingDataOptions.environmentId(), listTrainingDataOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingDataSet.class));
+  }
+
+  /**
+   * Changes the label or cross reference query for this training example.
+   *
+   * @param updateTrainingExampleOptions the {@link UpdateTrainingExampleOptions} containing the options for the call
+   * @return the {@link TrainingExample} with the response
+   */
+  public ServiceCall<TrainingExample> updateTrainingExample(UpdateTrainingExampleOptions updateTrainingExampleOptions) {
+    Validator.notNull(updateTrainingExampleOptions, "updateTrainingExampleOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.put(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s", updateTrainingExampleOptions.environmentId(),
+        updateTrainingExampleOptions.collectionId(), updateTrainingExampleOptions.queryId(),
+        updateTrainingExampleOptions.exampleId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (updateTrainingExampleOptions.relevance() != null) {
+      contentJson.addProperty("relevance", updateTrainingExampleOptions.relevance());
+    }
+    if (updateTrainingExampleOptions.crossReference() != null) {
+      contentJson.addProperty("cross_reference", updateTrainingExampleOptions.crossReference());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
   }
 
 }

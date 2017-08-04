@@ -19,15 +19,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class DocumentCounts extends GenericModel {
 
-  /** The total number of available documents in the collection. */
   private Long available;
-  /** The number of documents in the collection that are currently being processed. */
   private Long processing;
-  /** The number of documents in the collection that failed to be ingested. */
   private Long failed;
 
   /**
    * Gets the available.
+   *
+   * The total number of available documents in the collection.
    *
    * @return the available
    */
@@ -38,6 +37,8 @@ public class DocumentCounts extends GenericModel {
   /**
    * Gets the processing.
    *
+   * The number of documents in the collection that are currently being processed.
+   *
    * @return the processing
    */
   public Long getProcessing() {
@@ -46,6 +47,8 @@ public class DocumentCounts extends GenericModel {
 
   /**
    * Gets the failed.
+   *
+   * The number of documents in the collection that failed to be ingested.
    *
    * @return the failed
    */

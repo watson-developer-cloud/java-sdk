@@ -12,33 +12,22 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DocumentAccepted.
+ * TrainingExample.
  */
-public class DocumentAccepted extends GenericModel {
-
-  /**
-   * Status of the document in the ingestion process.
-   */
-  public interface Status {
-    /** processing. */
-    String PROCESSING = "processing";
-  }
+public class TrainingExample extends GenericModel {
 
   @SerializedName("document_id")
   private String documentId;
-  private String status;
-  private List<Notice> notices;
+  @SerializedName("cross_reference")
+  private String crossReference;
+  private Double relevance;
 
   /**
    * Gets the documentId.
-   *
-   * The unique identifier of the ingested document.
    *
    * @return the documentId
    */
@@ -47,25 +36,21 @@ public class DocumentAccepted extends GenericModel {
   }
 
   /**
-   * Gets the status.
+   * Gets the crossReference.
    *
-   * Status of the document in the ingestion process.
-   *
-   * @return the status
+   * @return the crossReference
    */
-  public String getStatus() {
-    return status;
+  public String getCrossReference() {
+    return crossReference;
   }
 
   /**
-   * Gets the notices.
+   * Gets the relevance.
    *
-   * Array of notices produced by the document-ingestion process.
-   *
-   * @return the notices
+   * @return the relevance
    */
-  public List<Notice> getNotices() {
-    return notices;
+  public Double getRelevance() {
+    return relevance;
   }
 
   /**
@@ -78,20 +63,20 @@ public class DocumentAccepted extends GenericModel {
   }
 
   /**
-   * Sets the status.
+   * Sets the crossReference.
    *
-   * @param status the new status
+   * @param crossReference the new crossReference
    */
-  public void setStatus(final String status) {
-    this.status = status;
+  public void setCrossReference(final String crossReference) {
+    this.crossReference = crossReference;
   }
 
   /**
-   * Sets the notices.
+   * Sets the relevance.
    *
-   * @param notices the new notices
+   * @param relevance the new relevance
    */
-  public void setNotices(final List<Notice> notices) {
-    this.notices = notices;
+  public void setRelevance(final Double relevance) {
+    this.relevance = relevance;
   }
 }

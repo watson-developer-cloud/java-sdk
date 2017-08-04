@@ -16,19 +16,31 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Details about the disk and memory usage of this environment.
+ * Details about the resource usage and capacity of the environment.
  */
 public class IndexCapacity extends GenericModel {
 
-  /** Summary of the disk usage of the environment. */
+  private EnvironmentDocuments documents;
   @SerializedName("disk_usage")
   private DiskUsage diskUsage;
-  /** Summary of the memory usage of the environment. */
   @SerializedName("memory_usage")
   private MemoryUsage memoryUsage;
 
   /**
+   * Gets the documents.
+   *
+   * Summary of the document usage statistics for the environment.
+   *
+   * @return the documents
+   */
+  public EnvironmentDocuments getDocuments() {
+    return documents;
+  }
+
+  /**
    * Gets the diskUsage.
+   *
+   * Summary of the disk usage of the environment.
    *
    * @return the diskUsage
    */
@@ -39,10 +51,21 @@ public class IndexCapacity extends GenericModel {
   /**
    * Gets the memoryUsage.
    *
+   * **Deprecated**: Summary of the memory usage of the environment.
+   *
    * @return the memoryUsage
    */
   public MemoryUsage getMemoryUsage() {
     return memoryUsage;
+  }
+
+  /**
+   * Sets the documents.
+   *
+   * @param documents the new documents
+   */
+  public void setDocuments(final EnvironmentDocuments documents) {
+    this.documents = documents;
   }
 
   /**

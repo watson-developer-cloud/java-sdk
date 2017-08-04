@@ -30,38 +30,31 @@ public class Collection extends GenericModel {
     String ACTIVE = "active";
     /** pending. */
     String PENDING = "pending";
+    /** maintenance. */
+    String MAINTENANCE = "maintenance";
   }
 
-  /** The unique identifier of the collection. */
   @SerializedName("collection_id")
   private String collectionId;
-  /** The name of the collection. */
   private String name;
-  /** The description of the collection. */
   private String description;
-  /** The creation date of the collection in the format yyyy-MM-dd'T'HH:mmcon:ss.SSS'Z'. */
   private Date created;
-  /** The timestamp of when the collection was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
   private Date updated;
-  /** The status of the collection. */
   private String status;
-  /** The unique identifier of the collection's configuration. */
   @SerializedName("configuration_id")
   private String configurationId;
-  /**
-   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language
-   * code.
-   */
   private String language;
-  /**
-   * The object providing information about the documents in the collection. Present only when retrieving details of a
-   * collection.
-   */
   @SerializedName("document_counts")
   private DocumentCounts documentCounts;
+  @SerializedName("disk_usage")
+  private CollectionDiskUsage diskUsage;
+  @SerializedName("training_status")
+  private TrainingStatus trainingStatus;
 
   /**
    * Gets the collectionId.
+   *
+   * The unique identifier of the collection.
    *
    * @return the collectionId
    */
@@ -72,6 +65,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the name.
    *
+   * The name of the collection.
+   *
    * @return the name
    */
   public String getName() {
@@ -80,6 +75,8 @@ public class Collection extends GenericModel {
 
   /**
    * Gets the description.
+   *
+   * The description of the collection.
    *
    * @return the description
    */
@@ -90,6 +87,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the created.
    *
+   * The creation date of the collection in the format yyyy-MM-dd'T'HH:mmcon:ss.SSS'Z'.
+   *
    * @return the created
    */
   public Date getCreated() {
@@ -98,6 +97,8 @@ public class Collection extends GenericModel {
 
   /**
    * Gets the updated.
+   *
+   * The timestamp of when the collection was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the updated
    */
@@ -108,6 +109,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the status.
    *
+   * The status of the collection.
+   *
    * @return the status
    */
   public String getStatus() {
@@ -116,6 +119,8 @@ public class Collection extends GenericModel {
 
   /**
    * Gets the configurationId.
+   *
+   * The unique identifier of the collection's configuration.
    *
    * @return the configurationId
    */
@@ -126,6 +131,9 @@ public class Collection extends GenericModel {
   /**
    * Gets the language.
    *
+   * The language of the documents stored in the collection. Permitted values include `en_us` (U.S. English), `de`
+   * (German), and `es` (Spanish).
+   *
    * @return the language
    */
   public String getLanguage() {
@@ -135,10 +143,36 @@ public class Collection extends GenericModel {
   /**
    * Gets the documentCounts.
    *
+   * The object providing information about the documents in the collection. Present only when retrieving details of a
+   * collection.
+   *
    * @return the documentCounts
    */
   public DocumentCounts getDocumentCounts() {
     return documentCounts;
+  }
+
+  /**
+   * Gets the diskUsage.
+   *
+   * The object providing information about the disk usage of the collection. Present only when retrieving details of a
+   * collection.
+   *
+   * @return the diskUsage
+   */
+  public CollectionDiskUsage getDiskUsage() {
+    return diskUsage;
+  }
+
+  /**
+   * Gets the trainingStatus.
+   *
+   * Provides information about the status of relevance training for collection.
+   *
+   * @return the trainingStatus
+   */
+  public TrainingStatus getTrainingStatus() {
+    return trainingStatus;
   }
 
   /**
@@ -184,5 +218,23 @@ public class Collection extends GenericModel {
    */
   public void setDocumentCounts(final DocumentCounts documentCounts) {
     this.documentCounts = documentCounts;
+  }
+
+  /**
+   * Sets the diskUsage.
+   *
+   * @param diskUsage the new diskUsage
+   */
+  public void setDiskUsage(final CollectionDiskUsage diskUsage) {
+    this.diskUsage = diskUsage;
+  }
+
+  /**
+   * Sets the trainingStatus.
+   *
+   * @param trainingStatus the new trainingStatus
+   */
+  public void setTrainingStatus(final TrainingStatus trainingStatus) {
+    this.trainingStatus = trainingStatus;
   }
 }

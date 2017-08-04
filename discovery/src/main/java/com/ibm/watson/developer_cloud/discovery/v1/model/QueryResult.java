@@ -43,8 +43,8 @@ public class QueryResult extends HashMap<String, Object> {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
-    return (Map<String, Object>) this.get("metadata");
+  public Map getMetadata() {
+    return (Map) this.get("metadata");
   }
 
   /**
@@ -70,7 +70,7 @@ public class QueryResult extends HashMap<String, Object> {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Map<String, Object> metadata) {
+  public void setMetadata(final Map metadata) {
     this.put("metadata", metadata);
   }
 }

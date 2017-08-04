@@ -16,15 +16,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the getDocumentStatus options.
+ * The getDocumentStatus options.
  */
 public class GetDocumentStatusOptions extends GenericModel {
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** the ID of your collection. */
   private String collectionId;
-  /** the ID of your document. */
   private String documentId;
 
   /**
@@ -104,9 +101,9 @@ public class GetDocumentStatusOptions extends GenericModel {
   }
 
   private GetDocumentStatusOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
-    Validator.notNull(builder.collectionId, "collectionId cannot be null");
-    Validator.notNull(builder.documentId, "documentId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
+    Validator.notEmpty(builder.documentId, "documentId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     documentId = builder.documentId;
@@ -124,6 +121,8 @@ public class GetDocumentStatusOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -133,6 +132,8 @@ public class GetDocumentStatusOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
+   * the ID of your collection.
+   *
    * @return the collectionId
    */
   public String collectionId() {
@@ -141,6 +142,8 @@ public class GetDocumentStatusOptions extends GenericModel {
 
   /**
    * Gets the documentId.
+   *
+   * the ID of your document.
    *
    * @return the documentId
    */

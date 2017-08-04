@@ -19,24 +19,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createConfiguration options.
+ * The createConfiguration options.
  */
 public class CreateConfigurationOptions extends GenericModel {
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** The document conversion settings for the configuration. */
   private Conversions conversions;
-  /** The name of the configuration. */
   private String name;
-  /** The description of the configuration, if available. */
   private String description;
-  /**
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
-   */
   private List<NormalizationOperation> normalizations;
-  /** An array of document enrichment settings for the configuration. */
   private List<Enrichment> enrichments;
 
   /**
@@ -84,32 +75,32 @@ public class CreateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Adds an normalization to normalizations.
+     * Adds an normalizations to normalizations.
      *
-     * @param normalization the new normalization
+     * @param normalizations the new normalizations
      * @return the CreateConfigurationOptions builder
      */
-    public Builder addNormalization(NormalizationOperation normalization) {
-      Validator.notNull(normalization, "normalization cannot be null");
+    public Builder addNormalizations(NormalizationOperation normalizations) {
+      Validator.notNull(normalizations, "normalizations cannot be null");
       if (this.normalizations == null) {
         this.normalizations = new ArrayList<NormalizationOperation>();
       }
-      this.normalizations.add(normalization);
+      this.normalizations.add(normalizations);
       return this;
     }
 
     /**
-     * Adds an enrichment to enrichments.
+     * Adds an enrichments to enrichments.
      *
-     * @param enrichment the new enrichment
+     * @param enrichments the new enrichments
      * @return the CreateConfigurationOptions builder
      */
-    public Builder addEnrichment(Enrichment enrichment) {
-      Validator.notNull(enrichment, "enrichment cannot be null");
+    public Builder addEnrichments(Enrichment enrichments) {
+      Validator.notNull(enrichments, "enrichments cannot be null");
       if (this.enrichments == null) {
         this.enrichments = new ArrayList<Enrichment>();
       }
-      this.enrichments.add(enrichment);
+      this.enrichments.add(enrichments);
       return this;
     }
 
@@ -198,7 +189,7 @@ public class CreateConfigurationOptions extends GenericModel {
   }
 
   private CreateConfigurationOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     environmentId = builder.environmentId;
     conversions = builder.conversions;
     name = builder.name;
@@ -219,6 +210,8 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -227,6 +220,8 @@ public class CreateConfigurationOptions extends GenericModel {
 
   /**
    * Gets the conversions.
+   *
+   * The document conversion settings for the configuration.
    *
    * @return the conversions
    */
@@ -237,6 +232,8 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the name.
    *
+   * The name of the configuration.
+   *
    * @return the name
    */
   public String name() {
@@ -245,6 +242,8 @@ public class CreateConfigurationOptions extends GenericModel {
 
   /**
    * Gets the description.
+   *
+   * The description of the configuration, if available.
    *
    * @return the description
    */
@@ -255,6 +254,9 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the normalizations.
    *
+   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
+   * executed in the order that they appear in the array.
+   *
    * @return the normalizations
    */
   public List<NormalizationOperation> normalizations() {
@@ -263,6 +265,8 @@ public class CreateConfigurationOptions extends GenericModel {
 
   /**
    * Gets the enrichments.
+   *
+   * An array of document enrichment settings for the configuration.
    *
    * @return the enrichments
    */

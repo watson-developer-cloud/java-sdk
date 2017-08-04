@@ -22,27 +22,20 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class TestDocument extends GenericModel {
 
-  /** The unique identifier for the configuration. */
   @SerializedName("configuration_id")
   private String configurationId;
-  /** Status of the preview operation. */
   private String status;
-  /**
-   * The number of 10 Kilobytes of field data that was enriched. This can be used to estimate the cost of running a real
-   * ingestion.
-   */
   @SerializedName("enriched_field_units")
   private Double enrichedFieldUnits;
-  /** Format of the test document. */
   @SerializedName("original_media_type")
   private String originalMediaType;
-  /** An array of objects that describe each step in the preview process. */
   private List<DocumentSnapshot> snapshots;
-  /** An array of notice messages about the preview operation. */
   private List<Notice> notices;
 
   /**
    * Gets the configurationId.
+   *
+   * The unique identifier for the configuration.
    *
    * @return the configurationId
    */
@@ -53,6 +46,8 @@ public class TestDocument extends GenericModel {
   /**
    * Gets the status.
    *
+   * Status of the preview operation.
+   *
    * @return the status
    */
   public String getStatus() {
@@ -61,6 +56,9 @@ public class TestDocument extends GenericModel {
 
   /**
    * Gets the enrichedFieldUnits.
+   *
+   * The number of 10-kB chunks of field data that were enriched. This can be used to estimate the cost of running a
+   * real ingestion.
    *
    * @return the enrichedFieldUnits
    */
@@ -71,6 +69,8 @@ public class TestDocument extends GenericModel {
   /**
    * Gets the originalMediaType.
    *
+   * Format of the test document.
+   *
    * @return the originalMediaType
    */
   public String getOriginalMediaType() {
@@ -80,6 +80,8 @@ public class TestDocument extends GenericModel {
   /**
    * Gets the snapshots.
    *
+   * An array of objects that describe each step in the preview process.
+   *
    * @return the snapshots
    */
   public List<DocumentSnapshot> getSnapshots() {
@@ -88,6 +90,8 @@ public class TestDocument extends GenericModel {
 
   /**
    * Gets the notices.
+   *
+   * An array of notice messages about the preview operation.
    *
    * @return the notices
    */

@@ -23,29 +23,20 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Configuration extends GenericModel {
 
-  /** The unique identifier of the configuration. */
   @SerializedName("configuration_id")
   private String configurationId;
-  /** The name of the configuration. */
   private String name;
-  /** The creation date of the configuration in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
   private Date created;
-  /** The timestamp of when the configuration was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
   private Date updated;
-  /** The description of the configuration, if available. */
   private String description;
-  /** The document conversion settings for the configuration. */
   private Conversions conversions;
-  /** An array of document enrichment settings for the configuration. */
   private List<Enrichment> enrichments;
-  /**
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
-   */
   private List<NormalizationOperation> normalizations;
 
   /**
    * Gets the configurationId.
+   *
+   * The unique identifier of the configuration.
    *
    * @return the configurationId
    */
@@ -56,6 +47,8 @@ public class Configuration extends GenericModel {
   /**
    * Gets the name.
    *
+   * The name of the configuration.
+   *
    * @return the name
    */
   public String getName() {
@@ -64,6 +57,8 @@ public class Configuration extends GenericModel {
 
   /**
    * Gets the created.
+   *
+   * The creation date of the configuration in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the created
    */
@@ -74,6 +69,8 @@ public class Configuration extends GenericModel {
   /**
    * Gets the updated.
    *
+   * The timestamp of when the configuration was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   *
    * @return the updated
    */
   public Date getUpdated() {
@@ -82,6 +79,8 @@ public class Configuration extends GenericModel {
 
   /**
    * Gets the description.
+   *
+   * The description of the configuration, if available.
    *
    * @return the description
    */
@@ -92,6 +91,8 @@ public class Configuration extends GenericModel {
   /**
    * Gets the conversions.
    *
+   * The document conversion settings for the configuration.
+   *
    * @return the conversions
    */
   public Conversions getConversions() {
@@ -101,6 +102,8 @@ public class Configuration extends GenericModel {
   /**
    * Gets the enrichments.
    *
+   * An array of document enrichment settings for the configuration.
+   *
    * @return the enrichments
    */
   public List<Enrichment> getEnrichments() {
@@ -109,6 +112,9 @@ public class Configuration extends GenericModel {
 
   /**
    * Gets the normalizations.
+   *
+   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
+   * executed in the order that they appear in the array.
    *
    * @return the normalizations
    */

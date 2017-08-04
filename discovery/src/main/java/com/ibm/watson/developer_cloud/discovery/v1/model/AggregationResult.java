@@ -18,17 +18,30 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * A response containing the documents and aggregations for the query.
+ * AggregationResult.
  */
-public class QueryResponse extends GenericModel {
+public class AggregationResult extends GenericModel {
 
+  private String key;
   @SerializedName("matching_results")
   private Long matchingResults;
-  private List<QueryResult> results;
   private List<QueryAggregation> aggregations;
 
   /**
+   * Gets the key.
+   *
+   * Key that matched the aggregation type.
+   *
+   * @return the key
+   */
+  public String getKey() {
+    return key;
+  }
+
+  /**
    * Gets the matchingResults.
+   *
+   * Number of matching results.
    *
    * @return the matchingResults
    */
@@ -37,21 +50,23 @@ public class QueryResponse extends GenericModel {
   }
 
   /**
-   * Gets the results.
-   *
-   * @return the results
-   */
-  public List<QueryResult> getResults() {
-    return results;
-  }
-
-  /**
    * Gets the aggregations.
+   *
+   * Aggregations returned in the case of chained aggregations.
    *
    * @return the aggregations
    */
   public List<QueryAggregation> getAggregations() {
     return aggregations;
+  }
+
+  /**
+   * Sets the key.
+   *
+   * @param key the new key
+   */
+  public void setKey(final String key) {
+    this.key = key;
   }
 
   /**
@@ -61,15 +76,6 @@ public class QueryResponse extends GenericModel {
    */
   public void setMatchingResults(final long matchingResults) {
     this.matchingResults = matchingResults;
-  }
-
-  /**
-   * Sets the results.
-   *
-   * @param results the new results
-   */
-  public void setResults(final List<QueryResult> results) {
-    this.results = results;
   }
 
   /**

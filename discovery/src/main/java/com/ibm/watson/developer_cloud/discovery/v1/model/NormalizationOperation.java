@@ -50,7 +50,15 @@ public class NormalizationOperation extends GenericModel {
     String REMOVE_NULLS = "remove_nulls";
   }
 
+  private String operation;
+  @SerializedName("source_field")
+  private String sourceField;
+  @SerializedName("destination_field")
+  private String destinationField;
+
   /**
+   * Gets the operation.
+   *
    * Identifies what type of operation to perform. **copy** - Copies the value of the `source_field` to the
    * `destination_field` field. If the `destination_field` already exists, then the value of the `source_field`
    * overwrites the original value of the `destination_field`. **move** - Renames (moves) the `source_field` to the
@@ -66,17 +74,6 @@ public class NormalizationOperation extends GenericModel {
    * nested null (blank) leif values from the JSON tree. `source_field` and `destination_field` are ignored by this
    * operation because _remove_nulls_ operates on the entire JSON tree. Typically, `remove_nulls` is invoked as the last
    * normalization operation (if it is inoked at all, it can be time-expensive).
-   */
-  private String operation;
-  /** The source field for the operation. */
-  @SerializedName("source_field")
-  private String sourceField;
-  /** The destination field for the operation. */
-  @SerializedName("destination_field")
-  private String destinationField;
-
-  /**
-   * Gets the operation.
    *
    * @return the operation
    */
@@ -87,6 +84,8 @@ public class NormalizationOperation extends GenericModel {
   /**
    * Gets the sourceField.
    *
+   * The source field for the operation.
+   *
    * @return the sourceField
    */
   public String getSourceField() {
@@ -95,6 +94,8 @@ public class NormalizationOperation extends GenericModel {
 
   /**
    * Gets the destinationField.
+   *
+   * The destination field for the operation.
    *
    * @return the destinationField
    */
