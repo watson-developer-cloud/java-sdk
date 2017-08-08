@@ -26,7 +26,7 @@ discovery.setUsernameAndPassword("<username>", "<password>");
 
 //Build an empty query on an existing environment/collection
 String environmentId = "<environmentId>";
-String collectionId = "<collectionId";
+String collectionId = "<collectionId>";
 QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId).build();
 QueryResponse queryResponse = discovery.query(queryOptions).execute();
 ```
