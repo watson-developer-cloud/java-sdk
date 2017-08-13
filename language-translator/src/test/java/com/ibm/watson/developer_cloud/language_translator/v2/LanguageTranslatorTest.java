@@ -352,16 +352,14 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     InputStream monolingualCorpusStream = new ByteArrayInputStream(myMonolingualCorpus.getBytes());
 
     CreateModelOptions options1 = new CreateModelOptions.Builder(modelId)
-        .parallelCorpus(parallelCorpusStream).parallelCorpusMediaType("foo")
-        .monolingualCorpus(monolingualCorpusStream).monolingualCorpusMediaType("bar")
+        .parallelCorpus(parallelCorpusStream)
+        .monolingualCorpus(monolingualCorpusStream)
         .build();
     CreateModelOptions.Builder builder = options1.newBuilder();
     CreateModelOptions options2 = builder.name("baz").build();
     assertEquals(options2.baseModelId(), modelId);
     assertEquals(options2.parallelCorpus(), parallelCorpusStream);
-    assertEquals(options2.parallelCorpusMediaType(), "foo");
     assertEquals(options2.monolingualCorpus(), monolingualCorpusStream);
-    assertEquals(options2.monolingualCorpusMediaType(), "bar");
     assertEquals(options2.name(), "baz");
   }
 }
