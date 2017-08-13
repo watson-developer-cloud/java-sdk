@@ -142,6 +142,9 @@ public class NaturalLanguageUnderstanding extends WatsonService {
       if (analyzeOptions.text() != null) {
         contentJson.addProperty("text", analyzeOptions.text());
       }
+      if (analyzeOptions.limitTextCharacters() != null) {
+        contentJson.addProperty("limit_text_characters", analyzeOptions.limitTextCharacters());
+      }
       if (analyzeOptions.clean() != null) {
         contentJson.addProperty("clean", analyzeOptions.clean());
       }

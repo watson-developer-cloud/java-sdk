@@ -19,17 +19,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SemanticRolesResult extends GenericModel {
 
-  /** Sentence from the source that contains the subject, action, and object. */
   private String sentence;
-  /** The extracted subject from the sentence. */
   private SemanticRolesSubject subject;
-  /** The extracted action from the sentence. */
   private SemanticRolesAction action;
-  /** The extracted object from the sentence. */
   private SemanticRolesObject object;
 
   /**
    * Gets the sentence.
+   *
+   * Sentence from the source that contains the subject, action, and object.
    *
    * @return the sentence
    */
@@ -40,6 +38,8 @@ public class SemanticRolesResult extends GenericModel {
   /**
    * Gets the subject.
    *
+   * The extracted subject from the sentence.
+   *
    * @return the subject
    */
   public SemanticRolesSubject getSubject() {
@@ -49,6 +49,8 @@ public class SemanticRolesResult extends GenericModel {
   /**
    * Gets the action.
    *
+   * The extracted action from the sentence.
+   *
    * @return the action
    */
   public SemanticRolesAction getAction() {
@@ -57,6 +59,8 @@ public class SemanticRolesResult extends GenericModel {
 
   /**
    * Gets the object.
+   *
+   * The extracted object from the sentence.
    *
    * @return the object
    */

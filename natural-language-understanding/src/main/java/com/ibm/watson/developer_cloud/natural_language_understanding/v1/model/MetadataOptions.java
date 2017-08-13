@@ -12,11 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import java.util.HashMap;
 
 /**
  * The Authors, Publication Date, and Title of the document. Supports URL and HTML input types.
  */
-public class MetadataOptions extends GenericModel {
-
+public class MetadataOptions extends HashMap<String, Object> {
 }

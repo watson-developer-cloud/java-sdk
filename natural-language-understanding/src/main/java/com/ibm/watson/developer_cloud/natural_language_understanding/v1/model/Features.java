@@ -20,27 +20,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Features extends GenericModel {
 
-  /** Whether or not to return the concepts that are mentioned in the analyzed text. */
   private ConceptsOptions concepts;
-  /** Whether or not to extract the emotions implied in the analyzed text. */
   private EmotionOptions emotion;
-  /** Whether or not to extract detected entity objects from the analyzed text. */
   private EntitiesOptions entities;
-  /** Whether or not to return the keywords in the analyzed text. */
   private KeywordsOptions keywords;
-  /**
-   * Whether or not the author, publication date, and title of the analyzed text should be returned. This parameter is
-   * only available for URL and HTML input.
-   */
   private MetadataOptions metadata;
-  /** Whether or not to return the relationships between detected entities in the analyzed text. */
   private RelationsOptions relations;
-  /** Whether or not to return the subject-action-object relations from the analyzed text. */
   @SerializedName("semantic_roles")
   private SemanticRolesOptions semanticRoles;
-  /** Whether or not to return the overall sentiment of the analyzed text. */
   private SentimentOptions sentiment;
-  /** Whether or not to return the high level category the content is categorized as (i.e. news, art). */
   private CategoriesOptions categories;
 
   /**
@@ -208,6 +196,8 @@ public class Features extends GenericModel {
   /**
    * Gets the concepts.
    *
+   * Whether or not to return the concepts that are mentioned in the analyzed text.
+   *
    * @return the concepts
    */
   public ConceptsOptions concepts() {
@@ -216,6 +206,8 @@ public class Features extends GenericModel {
 
   /**
    * Gets the emotion.
+   *
+   * Whether or not to extract the emotions implied in the analyzed text.
    *
    * @return the emotion
    */
@@ -226,6 +218,8 @@ public class Features extends GenericModel {
   /**
    * Gets the entities.
    *
+   * Whether or not to extract detected entity objects from the analyzed text.
+   *
    * @return the entities
    */
   public EntitiesOptions entities() {
@@ -234,6 +228,8 @@ public class Features extends GenericModel {
 
   /**
    * Gets the keywords.
+   *
+   * Whether or not to return the keywords in the analyzed text.
    *
    * @return the keywords
    */
@@ -244,6 +240,9 @@ public class Features extends GenericModel {
   /**
    * Gets the metadata.
    *
+   * Whether or not the author, publication date, and title of the analyzed text should be returned. This parameter is
+   * only available for URL and HTML input.
+   *
    * @return the metadata
    */
   public MetadataOptions metadata() {
@@ -252,6 +251,8 @@ public class Features extends GenericModel {
 
   /**
    * Gets the relations.
+   *
+   * Whether or not to return the relationships between detected entities in the analyzed text.
    *
    * @return the relations
    */
@@ -262,6 +263,8 @@ public class Features extends GenericModel {
   /**
    * Gets the semanticRoles.
    *
+   * Whether or not to return the subject-action-object relations from the analyzed text.
+   *
    * @return the semanticRoles
    */
   public SemanticRolesOptions semanticRoles() {
@@ -271,6 +274,8 @@ public class Features extends GenericModel {
   /**
    * Gets the sentiment.
    *
+   * Whether or not to return the overall sentiment of the analyzed text.
+   *
    * @return the sentiment
    */
   public SentimentOptions sentiment() {
@@ -279,6 +284,8 @@ public class Features extends GenericModel {
 
   /**
    * Gets the categories.
+   *
+   * Whether or not to return the high level category the content is categorized as (i.e. news, art).
    *
    * @return the categories
    */
