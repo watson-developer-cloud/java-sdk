@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.CreateModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.DeleteModelOptions;
 import com.ibm.watson.developer_cloud.language_translator.v2.model.GetModelOptions;
@@ -109,7 +108,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
     CreateModelOptions options = new CreateModelOptions.Builder()
         .name(modelName)
         .baseModelId(baseModelId)
-        .forcedGlossary(glossary).forcedGlossaryMediaType(HttpMediaType.BINARY_FILE.toString())
+        .forcedGlossary(glossary)
         .build();
 
     TranslationModel model = null;
