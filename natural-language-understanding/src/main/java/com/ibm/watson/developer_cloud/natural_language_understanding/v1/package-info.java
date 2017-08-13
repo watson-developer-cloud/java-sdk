@@ -14,4 +14,3 @@
  * Natural Language Understanding v1.
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1;
-
