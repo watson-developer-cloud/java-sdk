@@ -16,9 +16,22 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the profile options.
+ * The profile options.
  */
 public class ProfileOptions extends GenericModel {
+
+  /**
+   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
+   * including a `charset` parameter. For example, 'text/html;charset=utf-8'.
+   */
+  public interface ContentType {
+    /** application/json. */
+    String APPLICATION_JSON = "application/json";
+    /** text/html. */
+    String TEXT_HTML = "text/html";
+    /** text/plain. */
+    String TEXT_PLAIN = "text/plain";
+  }
 
   /**
    * The language of the input text for the request: Arabic, English, Spanish, or Japanese. Regional variants are
@@ -70,50 +83,37 @@ public class ProfileOptions extends GenericModel {
     String ZH_TW = "zh-tw";
   }
 
-  /**
-   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
-   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
-   */
-  public interface ContentType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-    /** text/html. */
-    String TEXT_HTML = "text/html";
-    /** text/plain. */
-    String TEXT_PLAIN = "text/plain";
-  }
-
+  private Content content;
+  private String body;
+  private String contentType;
   private String contentLanguage;
   private String acceptLanguage;
   private Boolean rawScores;
   private Boolean csvHeaders;
   private Boolean consumptionPreferences;
-  private Content content;
-  private String body;
-  private String contentType;
 
   /**
    * Builder.
    */
   public static class Builder {
+    private Content content;
+    private String body;
+    private String contentType;
     private String contentLanguage;
     private String acceptLanguage;
     private Boolean rawScores;
     private Boolean csvHeaders;
     private Boolean consumptionPreferences;
-    private Content content;
-    private String body;
-    private String contentType;
 
     private Builder(ProfileOptions profileOptions) {
+      content = profileOptions.content;
+      body = profileOptions.body;
+      contentType = profileOptions.contentType;
       contentLanguage = profileOptions.contentLanguage;
       acceptLanguage = profileOptions.acceptLanguage;
       rawScores = profileOptions.rawScores;
       csvHeaders = profileOptions.csvHeaders;
       consumptionPreferences = profileOptions.consumptionPreferences;
-      content = profileOptions.content;
-      body = profileOptions.body;
-      contentType = profileOptions.contentType;
     }
 
     /**
@@ -225,14 +225,14 @@ public class ProfileOptions extends GenericModel {
 
   private ProfileOptions(Builder builder) {
     Validator.isTrue(builder.contentType != null, "contentType cannot be null");
+    content = builder.content;
+    body = builder.body;
+    contentType = builder.contentType;
     contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
     rawScores = builder.rawScores;
     csvHeaders = builder.csvHeaders;
     consumptionPreferences = builder.consumptionPreferences;
-    content = builder.content;
-    body = builder.body;
-    contentType = builder.contentType;
   }
 
   /**
@@ -242,6 +242,46 @@ public class ProfileOptions extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
+  }
+
+  /**
+   * Gets the content.
+   *
+   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
+   * [Guidelines for providing sufficient
+   * input](http://www.ibm.com/watson/developercloud/doc/personality-insights/basics.html#overviewGuidelines). A JSON
+   * request must conform to the `Content` model.
+   *
+   * @return the content
+   */
+  public Content content() {
+    return content;
+  }
+
+  /**
+   * Gets the body.
+   *
+   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
+   * [Guidelines for providing sufficient
+   * input](http://www.ibm.com/watson/developercloud/doc/personality-insights/basics.html#overviewGuidelines). A JSON
+   * request must conform to the `Content` model.
+   *
+   * @return the body
+   */
+  public String body() {
+    return body;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
+   * including a `charset` parameter. For example, 'text/html;charset=utf-8'.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
   }
 
   /**
@@ -308,45 +348,5 @@ public class ProfileOptions extends GenericModel {
    */
   public Boolean consumptionPreferences() {
     return consumptionPreferences;
-  }
-
-  /**
-   * Gets the content.
-   *
-   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Guidelines for providing sufficient
-   * input](http://www.ibm.com/watson/developercloud/doc/personality-insights/basics.html#overviewGuidelines). A JSON
-   * request must conform to the `Content` model.
-   *
-   * @return the content
-   */
-  public Content content() {
-    return content;
-  }
-
-  /**
-   * Gets the body.
-   *
-   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Guidelines for providing sufficient
-   * input](http://www.ibm.com/watson/developercloud/doc/personality-insights/basics.html#overviewGuidelines). A JSON
-   * request must conform to the `Content` model.
-   *
-   * @return the body
-   */
-  public String body() {
-    return body;
-  }
-
-  /**
-   * Gets the contentType.
-   *
-   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
-   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
   }
 }

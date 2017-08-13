@@ -109,13 +109,13 @@ public class PersonalityInsights extends WatsonService {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v3/profile");
     builder.query(VERSION, versionDate);
+    builder.header("content-type", profileOptions.contentType());
     if (profileOptions.contentLanguage() != null) {
       builder.header("Content-Language", profileOptions.contentLanguage());
     }
     if (profileOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", profileOptions.acceptLanguage());
     }
-    builder.header("content-type", profileOptions.contentType());
     if (profileOptions.rawScores() != null) {
       builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
