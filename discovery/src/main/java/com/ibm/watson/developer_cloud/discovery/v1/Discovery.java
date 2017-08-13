@@ -125,118 +125,100 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Create a collection.
+   * Add an environment.
    *
-   * @param createCollectionOptions the {@link CreateCollectionOptions} containing the options for the call
-   * @return the {@link Collection} with the response
+   * Creates a new environment. You can create only one environment per service instance. An attempt to create another
+   * environment results in an error.
+   *
+   * @param createEnvironmentOptions the {@link CreateEnvironmentOptions} containing the options for the call
+   * @return the {@link Environment} with the response
    */
-  public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
-    Validator.notNull(createCollectionOptions, "createCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections",
-        createCollectionOptions.environmentId()));
+  public ServiceCall<Environment> createEnvironment(CreateEnvironmentOptions createEnvironmentOptions) {
+    Validator.notNull(createEnvironmentOptions, "createEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post("/v1/environments");
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("name", createCollectionOptions.name());
-    if (createCollectionOptions.description() != null) {
-      contentJson.addProperty("description", createCollectionOptions.description());
+    if (createEnvironmentOptions.size() != null) {
+      contentJson.addProperty("size", createEnvironmentOptions.size());
     }
-    if (createCollectionOptions.language() != null) {
-      contentJson.addProperty("language", createCollectionOptions.language());
-    }
-    if (createCollectionOptions.configurationId() != null) {
-      contentJson.addProperty("configuration_id", createCollectionOptions.configurationId());
+    contentJson.addProperty("name", createEnvironmentOptions.name());
+    if (createEnvironmentOptions.description() != null) {
+      contentJson.addProperty("description", createEnvironmentOptions.description());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
 
   /**
-   * Delete a collection.
+   * Delete environment.
    *
-   * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
+   * @param deleteEnvironmentOptions the {@link DeleteEnvironmentOptions} containing the options for the call
    * @return the service call
    */
-  public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
-    Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s",
-        deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId()));
+  public ServiceCall<Void> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
+    Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s", deleteEnvironmentOptions
+        .environmentId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
-   * Get collection details.
+   * Get environment info.
    *
-   * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the call
-   * @return the {@link Collection} with the response
+   * @param getEnvironmentOptions the {@link GetEnvironmentOptions} containing the options for the call
+   * @return the {@link Environment} with the response
    */
-  public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
-    Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s", getCollectionOptions
-        .environmentId(), getCollectionOptions.collectionId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
-  }
-
-  /**
-   * List unique fields.
-   *
-   * Gets a list of the the unique fields (and their types) stored in the index.
-   *
-   * @param listCollectionFieldsOptions the {@link ListCollectionFieldsOptions} containing the options for the call
-   * @return the {@link ListCollectionFieldsResponse} with the response
-   */
-  public ServiceCall<ListCollectionFieldsResponse> listCollectionFields(
-      ListCollectionFieldsOptions listCollectionFieldsOptions) {
-    Validator.notNull(listCollectionFieldsOptions, "listCollectionFieldsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/fields",
-        listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions.collectionId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
-  }
-
-  /**
-   * List collections.
-   *
-   * Lists existing collections for the service instance.
-   *
-   * @param listCollectionsOptions the {@link ListCollectionsOptions} containing the options for the call
-   * @return the {@link ListCollectionsResponse} with the response
-   */
-  public ServiceCall<ListCollectionsResponse> listCollections(ListCollectionsOptions listCollectionsOptions) {
-    Validator.notNull(listCollectionsOptions, "listCollectionsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections", listCollectionsOptions
+  public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
+    Validator.notNull(getEnvironmentOptions, "getEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s", getEnvironmentOptions
         .environmentId()));
     builder.query(VERSION, versionDate);
-    if (listCollectionsOptions.name() != null) {
-      builder.query("name", listCollectionsOptions.name());
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionsResponse.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
 
   /**
-   * Update a collection.
+   * List environments.
    *
-   * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for the call
-   * @return the {@link Collection} with the response
+   * List existing environments for the service instance.
+   *
+   * @param listEnvironmentsOptions the {@link ListEnvironmentsOptions} containing the options for the call
+   * @return the {@link ListEnvironmentsResponse} with the response
    */
-  public ServiceCall<Collection> updateCollection(UpdateCollectionOptions updateCollectionOptions) {
-    Validator.notNull(updateCollectionOptions, "updateCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s/collections/%s",
-        updateCollectionOptions.environmentId(), updateCollectionOptions.collectionId()));
+  public ServiceCall<ListEnvironmentsResponse> listEnvironments(ListEnvironmentsOptions listEnvironmentsOptions) {
+    RequestBuilder builder = RequestBuilder.get("/v1/environments");
+    builder.query(VERSION, versionDate);
+    if (listEnvironmentsOptions != null) {
+      if (listEnvironmentsOptions.name() != null) {
+        builder.query("name", listEnvironmentsOptions.name());
+      }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListEnvironmentsResponse.class));
+  }
+
+  /**
+   * Update an environment.
+   *
+   * Updates an environment. The environment's `name` and `description` parameters can be changed. You must specify a
+   * `name` for the environment.
+   *
+   * @param updateEnvironmentOptions the {@link UpdateEnvironmentOptions} containing the options for the call
+   * @return the {@link Environment} with the response
+   */
+  public ServiceCall<Environment> updateEnvironment(UpdateEnvironmentOptions updateEnvironmentOptions) {
+    Validator.notNull(updateEnvironmentOptions, "updateEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s", updateEnvironmentOptions
+        .environmentId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
-    if (updateCollectionOptions.name() != null) {
-      contentJson.addProperty("name", updateCollectionOptions.name());
+    if (updateEnvironmentOptions.name() != null) {
+      contentJson.addProperty("name", updateEnvironmentOptions.name());
     }
-    if (updateCollectionOptions.description() != null) {
-      contentJson.addProperty("description", updateCollectionOptions.description());
-    }
-    if (updateCollectionOptions.configurationId() != null) {
-      contentJson.addProperty("configuration_id", updateCollectionOptions.configurationId());
+    if (updateEnvironmentOptions.description() != null) {
+      contentJson.addProperty("description", updateEnvironmentOptions.description());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
 
   /**
@@ -370,6 +352,166 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Test configuration.
+   *
+   * Runs a sample document through the default or your configuration and returns diagnostic information designed to
+   * help you understand how the document was processed. The document is not added to the index.
+   *
+   * @param testConfigurationInEnvironmentOptions the {@link TestConfigurationInEnvironmentOptions} containing the
+   *          options for the call
+   * @return the {@link TestDocument} with the response
+   */
+  public ServiceCall<TestDocument> testConfigurationInEnvironment(
+      TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
+    Validator.notNull(testConfigurationInEnvironmentOptions, "testConfigurationInEnvironmentOptions cannot be null");
+    Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
+        || (testConfigurationInEnvironmentOptions.file() != null) || (testConfigurationInEnvironmentOptions
+            .metadata() != null), "At least one of configuration, file, or metadata must be supplied.");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/preview",
+        testConfigurationInEnvironmentOptions.environmentId()));
+    builder.query(VERSION, versionDate);
+    if (testConfigurationInEnvironmentOptions.step() != null) {
+      builder.query("step", testConfigurationInEnvironmentOptions.step());
+    }
+    if (testConfigurationInEnvironmentOptions.configurationId() != null) {
+      builder.query("configuration_id", testConfigurationInEnvironmentOptions.configurationId());
+    }
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (testConfigurationInEnvironmentOptions.configuration() != null) {
+      multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
+    }
+    if (testConfigurationInEnvironmentOptions.file() != null) {
+      MediaType mediaType = null;
+      if (testConfigurationInEnvironmentOptions.fileMediaType() != null) {
+        mediaType = MediaType.parse(testConfigurationInEnvironmentOptions.fileMediaType());
+      }
+      RequestBody body = InputStreamRequestBody.create(mediaType, testConfigurationInEnvironmentOptions.file());
+      multipartBuilder.addFormDataPart("file", "filename", body);
+    }
+    if (testConfigurationInEnvironmentOptions.metadata() != null) {
+      multipartBuilder.addFormDataPart("metadata", testConfigurationInEnvironmentOptions.metadata());
+    }
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TestDocument.class));
+  }
+
+  /**
+   * Create a collection.
+   *
+   * @param createCollectionOptions the {@link CreateCollectionOptions} containing the options for the call
+   * @return the {@link Collection} with the response
+   */
+  public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
+    Validator.notNull(createCollectionOptions, "createCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections",
+        createCollectionOptions.environmentId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createCollectionOptions.name());
+    if (createCollectionOptions.description() != null) {
+      contentJson.addProperty("description", createCollectionOptions.description());
+    }
+    if (createCollectionOptions.language() != null) {
+      contentJson.addProperty("language", createCollectionOptions.language());
+    }
+    if (createCollectionOptions.configurationId() != null) {
+      contentJson.addProperty("configuration_id", createCollectionOptions.configurationId());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
+
+  /**
+   * Delete a collection.
+   *
+   * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
+    Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s",
+        deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get collection details.
+   *
+   * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the call
+   * @return the {@link Collection} with the response
+   */
+  public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
+    Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s", getCollectionOptions
+        .environmentId(), getCollectionOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
+
+  /**
+   * List unique fields.
+   *
+   * Gets a list of the the unique fields (and their types) stored in the index.
+   *
+   * @param listCollectionFieldsOptions the {@link ListCollectionFieldsOptions} containing the options for the call
+   * @return the {@link ListCollectionFieldsResponse} with the response
+   */
+  public ServiceCall<ListCollectionFieldsResponse> listCollectionFields(
+      ListCollectionFieldsOptions listCollectionFieldsOptions) {
+    Validator.notNull(listCollectionFieldsOptions, "listCollectionFieldsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/fields",
+        listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
+  }
+
+  /**
+   * List collections.
+   *
+   * Lists existing collections for the service instance.
+   *
+   * @param listCollectionsOptions the {@link ListCollectionsOptions} containing the options for the call
+   * @return the {@link ListCollectionsResponse} with the response
+   */
+  public ServiceCall<ListCollectionsResponse> listCollections(ListCollectionsOptions listCollectionsOptions) {
+    Validator.notNull(listCollectionsOptions, "listCollectionsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections", listCollectionsOptions
+        .environmentId()));
+    builder.query(VERSION, versionDate);
+    if (listCollectionsOptions.name() != null) {
+      builder.query("name", listCollectionsOptions.name());
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionsResponse.class));
+  }
+
+  /**
+   * Update a collection.
+   *
+   * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for the call
+   * @return the {@link Collection} with the response
+   */
+  public ServiceCall<Collection> updateCollection(UpdateCollectionOptions updateCollectionOptions) {
+    Validator.notNull(updateCollectionOptions, "updateCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s/collections/%s",
+        updateCollectionOptions.environmentId(), updateCollectionOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (updateCollectionOptions.name() != null) {
+      contentJson.addProperty("name", updateCollectionOptions.name());
+    }
+    if (updateCollectionOptions.description() != null) {
+      contentJson.addProperty("description", updateCollectionOptions.description());
+    }
+    if (updateCollectionOptions.configurationId() != null) {
+      contentJson.addProperty("configuration_id", updateCollectionOptions.configurationId());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
+
+  /**
    * Add a document.
    *
    * Add a document to a collection with optional metadata. * The `version` query parameter is still required. * Returns
@@ -480,103 +622,6 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Add an environment.
-   *
-   * Creates a new environment. You can create only one environment per service instance. An attempt to create another
-   * environment results in an error.
-   *
-   * @param createEnvironmentOptions the {@link CreateEnvironmentOptions} containing the options for the call
-   * @return the {@link Environment} with the response
-   */
-  public ServiceCall<Environment> createEnvironment(CreateEnvironmentOptions createEnvironmentOptions) {
-    Validator.notNull(createEnvironmentOptions, "createEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v1/environments");
-    builder.query(VERSION, versionDate);
-    final JsonObject contentJson = new JsonObject();
-    if (createEnvironmentOptions.size() != null) {
-      contentJson.addProperty("size", createEnvironmentOptions.size());
-    }
-    contentJson.addProperty("name", createEnvironmentOptions.name());
-    if (createEnvironmentOptions.description() != null) {
-      contentJson.addProperty("description", createEnvironmentOptions.description());
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
-  }
-
-  /**
-   * Delete environment.
-   *
-   * @param deleteEnvironmentOptions the {@link DeleteEnvironmentOptions} containing the options for the call
-   * @return the service call
-   */
-  public ServiceCall<Void> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
-    Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s", deleteEnvironmentOptions
-        .environmentId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get environment info.
-   *
-   * @param getEnvironmentOptions the {@link GetEnvironmentOptions} containing the options for the call
-   * @return the {@link Environment} with the response
-   */
-  public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
-    Validator.notNull(getEnvironmentOptions, "getEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s", getEnvironmentOptions
-        .environmentId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
-  }
-
-  /**
-   * List environments.
-   *
-   * List existing environments for the service instance.
-   *
-   * @param listEnvironmentsOptions the {@link ListEnvironmentsOptions} containing the options for the call
-   * @return the {@link ListEnvironmentsResponse} with the response
-   */
-  public ServiceCall<ListEnvironmentsResponse> listEnvironments(ListEnvironmentsOptions listEnvironmentsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v1/environments");
-    builder.query(VERSION, versionDate);
-    if (listEnvironmentsOptions != null) {
-      if (listEnvironmentsOptions.name() != null) {
-        builder.query("name", listEnvironmentsOptions.name());
-      }
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListEnvironmentsResponse.class));
-  }
-
-  /**
-   * Update an environment.
-   *
-   * Updates an environment. The environment's `name` and `description` parameters can be changed. You must specify a
-   * `name` for the environment.
-   *
-   * @param updateEnvironmentOptions the {@link UpdateEnvironmentOptions} containing the options for the call
-   * @return the {@link Environment} with the response
-   */
-  public ServiceCall<Environment> updateEnvironment(UpdateEnvironmentOptions updateEnvironmentOptions) {
-    Validator.notNull(updateEnvironmentOptions, "updateEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s", updateEnvironmentOptions
-        .environmentId()));
-    builder.query(VERSION, versionDate);
-    final JsonObject contentJson = new JsonObject();
-    if (updateEnvironmentOptions.name() != null) {
-      contentJson.addProperty("name", updateEnvironmentOptions.name());
-    }
-    if (updateEnvironmentOptions.description() != null) {
-      contentJson.addProperty("description", updateEnvironmentOptions.description());
-    }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
-  }
-
-  /**
    * Query documents.
    *
    * See the [Discovery service documentation](https://www.ibm.com/watson/developercloud/doc/discovery/using.html) for
@@ -670,51 +715,6 @@ public class Discovery extends WatsonService {
       builder.query("highlight", String.valueOf(queryNoticesOptions.highlight()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
-  }
-
-  /**
-   * Test configuration.
-   *
-   * Runs a sample document through the default or your configuration and returns diagnostic information designed to
-   * help you understand how the document was processed. The document is not added to the index.
-   *
-   * @param testConfigurationInEnvironmentOptions the {@link TestConfigurationInEnvironmentOptions} containing the
-   *          options for the call
-   * @return the {@link TestDocument} with the response
-   */
-  public ServiceCall<TestDocument> testConfigurationInEnvironment(
-      TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
-    Validator.notNull(testConfigurationInEnvironmentOptions, "testConfigurationInEnvironmentOptions cannot be null");
-    Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
-        || (testConfigurationInEnvironmentOptions.file() != null) || (testConfigurationInEnvironmentOptions
-            .metadata() != null), "At least one of configuration, file, or metadata must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/preview",
-        testConfigurationInEnvironmentOptions.environmentId()));
-    builder.query(VERSION, versionDate);
-    if (testConfigurationInEnvironmentOptions.step() != null) {
-      builder.query("step", testConfigurationInEnvironmentOptions.step());
-    }
-    if (testConfigurationInEnvironmentOptions.configurationId() != null) {
-      builder.query("configuration_id", testConfigurationInEnvironmentOptions.configurationId());
-    }
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    if (testConfigurationInEnvironmentOptions.configuration() != null) {
-      multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
-    }
-    if (testConfigurationInEnvironmentOptions.file() != null) {
-      MediaType mediaType = null;
-      if (testConfigurationInEnvironmentOptions.fileMediaType() != null) {
-        mediaType = MediaType.parse(testConfigurationInEnvironmentOptions.fileMediaType());
-      }
-      RequestBody body = InputStreamRequestBody.create(mediaType, testConfigurationInEnvironmentOptions.file());
-      multipartBuilder.addFormDataPart("file", "filename", body);
-    }
-    if (testConfigurationInEnvironmentOptions.metadata() != null) {
-      multipartBuilder.addFormDataPart("metadata", testConfigurationInEnvironmentOptions.metadata());
-    }
-    builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TestDocument.class));
   }
 
   /**
