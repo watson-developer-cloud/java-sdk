@@ -220,7 +220,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The content of the document to ingest.The maximum supported file size is 50 megabytes. Files larger than 50
+   * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than 50
    * megabytes is rejected.
    *
    * @return the file
