@@ -19,12 +19,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the tone options.
+ * The tone options.
  */
 public class ToneOptions extends GenericModel {
 
   /**
-   * The type of the input: application/json, text/plain, or text/html.
+   * The type of the input: application/json, text/plain, or text/html. A character encoding can be specified by
+   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
    */
   public interface ContentType {
     /** application/json. */
@@ -44,29 +45,10 @@ public class ToneOptions extends GenericModel {
     String SOCIAL = "social";
   }
 
-  /**
-   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
-   * `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
-   */
   private ToneInput toneInput;
-  /**
-   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
-   * `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
-   */
   private String body;
-  /** The type of the input: application/json, text/plain, or text/html. */
   private String contentType;
-  /**
-   * A comma-separated list of tones for which the service is to return its analysis of the input; the indicated tones
-   * apply both to the full document and to individual sentences of the document. You can specify one or more of the
-   * following values: `emotion`, `language`, and `social`. Omit the parameter to request results for all three tones.
-   */
   private List<String> tones;
-  /**
-   * Indicates whether the service is to return an analysis of each individual sentence in addition to its analysis of
-   * the full document. If `true` (the default), the service returns results for each sentence. The service returns
-   * results only for the first 100 sentences of the input.
-   */
   private Boolean sentences;
 
   /**
@@ -198,6 +180,9 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the toneInput.
    *
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
+   * `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
+   *
    * @return the toneInput
    */
   public ToneInput toneInput() {
@@ -206,6 +191,9 @@ public class ToneOptions extends GenericModel {
 
   /**
    * Gets the body.
+   *
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
+   * `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
    *
    * @return the body
    */
@@ -216,6 +204,9 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the contentType.
    *
+   * The type of the input: application/json, text/plain, or text/html. A character encoding can be specified by
+   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
+   *
    * @return the contentType
    */
   public String contentType() {
@@ -225,6 +216,10 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the tones.
    *
+   * A comma-separated list of tones for which the service is to return its analysis of the input; the indicated tones
+   * apply both to the full document and to individual sentences of the document. You can specify one or more of the
+   * following values: `emotion`, `language`, and `social`. Omit the parameter to request results for all three tones.
+   *
    * @return the tones
    */
   public List<String> tones() {
@@ -233,6 +228,10 @@ public class ToneOptions extends GenericModel {
 
   /**
    * Gets the sentences.
+   *
+   * Indicates whether the service is to return an analysis of each individual sentence in addition to its analysis of
+   * the full document. If `true` (the default), the service returns results for each sentence. The service returns
+   * results only for the first 100 sentences of the input.
    *
    * @return the sentences
    */

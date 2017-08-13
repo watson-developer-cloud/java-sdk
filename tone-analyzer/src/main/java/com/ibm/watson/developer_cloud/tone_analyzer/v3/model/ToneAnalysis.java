@@ -22,19 +22,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ToneAnalysis extends GenericModel {
 
-  /** An object of type `DocumentAnalysis` that provides the results for the full document of the input content. */
   @SerializedName("document_tone")
   private DocumentAnalysis documentTone;
-  /**
-   * An array of `SentenceAnalysis` objects that provides the results for the individual sentences of the input content.
-   * The service returns results only for the first 100 sentences of the input. The field is omitted if the `sentences`
-   * parameter of the request is set to `false`.
-   */
   @SerializedName("sentences_tone")
   private List<SentenceAnalysis> sentencesTone;
 
   /**
    * Gets the documentTone.
+   *
+   * An object of type `DocumentAnalysis` that provides the results for the full document of the input content.
    *
    * @return the documentTone
    */
@@ -44,6 +40,10 @@ public class ToneAnalysis extends GenericModel {
 
   /**
    * Gets the sentencesTone.
+   *
+   * An array of `SentenceAnalysis` objects that provides the results for the individual sentences of the input content.
+   * The service returns results only for the first 100 sentences of the input. The field is omitted if the `sentences`
+   * parameter of the request is set to `false`.
    *
    * @return the sentencesTone
    */

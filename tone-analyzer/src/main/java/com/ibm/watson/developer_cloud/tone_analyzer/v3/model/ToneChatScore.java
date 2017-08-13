@@ -20,24 +20,17 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ToneChatScore extends GenericModel {
 
-  /**
-   * The score for the tone in the range of 0.5 to 1. A score greater than 0.75 indicates a high likelihood that the
-   * tone is perceived in the utterance.
-   */
   private Double score;
-  /**
-   * The unique, non-localized identifier of the tone for the results. The service can return results for the following
-   * tone IDs: `sad`, `frustrated`, `satisfied`, `excited`, `polite`, `impolite`, and `sympathetic`. The service returns
-   * results only for tones whose scores meet a minimum threshold of 0.5.
-   */
   @SerializedName("tone_id")
   private String toneId;
-  /** The user-visible, localized name of the tone. */
   @SerializedName("tone_name")
   private String toneName;
 
   /**
    * Gets the score.
+   *
+   * The score for the tone in the range of 0.5 to 1. A score greater than 0.75 indicates a high likelihood that the
+   * tone is perceived in the utterance.
    *
    * @return the score
    */
@@ -48,6 +41,10 @@ public class ToneChatScore extends GenericModel {
   /**
    * Gets the toneId.
    *
+   * The unique, non-localized identifier of the tone for the results. The service can return results for the following
+   * tone IDs: `sad`, `frustrated`, `satisfied`, `excited`, `polite`, `impolite`, and `sympathetic`. The service returns
+   * results only for tones whose scores meet a minimum threshold of 0.5.
+   *
    * @return the toneId
    */
   public String getToneId() {
@@ -56,6 +53,8 @@ public class ToneChatScore extends GenericModel {
 
   /**
    * Gets the toneName.
+   *
+   * The user-visible, localized name of the tone.
    *
    * @return the toneName
    */

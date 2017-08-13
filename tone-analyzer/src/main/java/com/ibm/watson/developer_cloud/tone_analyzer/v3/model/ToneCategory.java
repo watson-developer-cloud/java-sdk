@@ -22,20 +22,16 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ToneCategory extends GenericModel {
 
-  /** An array of `ToneScore` objects that provides the results for the tones of the category. */
   private List<ToneScore> tones;
-  /**
-   * The unique, non-localized identifier of the category for the results. The service can return results for the
-   * following category IDs: `emotion_tone`, `language_tone`, and `social_tone`.
-   */
   @SerializedName("category_id")
   private String categoryId;
-  /** The user-visible, localized name of the category. */
   @SerializedName("category_name")
   private String categoryName;
 
   /**
    * Gets the tones.
+   *
+   * An array of `ToneScore` objects that provides the results for the tones of the category.
    *
    * @return the tones
    */
@@ -46,6 +42,9 @@ public class ToneCategory extends GenericModel {
   /**
    * Gets the categoryId.
    *
+   * The unique, non-localized identifier of the category for the results. The service can return results for the
+   * following category IDs: `emotion_tone`, `language_tone`, and `social_tone`.
+   *
    * @return the categoryId
    */
   public String getCategoryId() {
@@ -54,6 +53,8 @@ public class ToneCategory extends GenericModel {
 
   /**
    * Gets the categoryName.
+   *
+   * The user-visible, localized name of the category.
    *
    * @return the categoryName
    */
