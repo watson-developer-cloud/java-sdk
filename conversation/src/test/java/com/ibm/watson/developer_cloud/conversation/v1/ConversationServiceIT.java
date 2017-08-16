@@ -28,50 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
-import com.ibm.watson.developer_cloud.conversation.v1.model.Counterexample;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CounterexampleCollection;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexample;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexampleOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateEntity;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExample;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExampleOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntentOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValue;
-import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspaceOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteCounterexampleOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteExampleOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteIntentOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteWorkspaceOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollection;
-import com.ibm.watson.developer_cloud.conversation.v1.model.Example;
-import com.ibm.watson.developer_cloud.conversation.v1.model.GetCounterexampleOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.GetExampleOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.GetIntentOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.GetWorkspaceOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
-import com.ibm.watson.developer_cloud.conversation.v1.model.IntentCollection;
-import com.ibm.watson.developer_cloud.conversation.v1.model.IntentExport;
-import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ListCounterexamplesOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ListExamplesOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ListIntentsOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ListLogsOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ListWorkspacesOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.LogCollection;
-import com.ibm.watson.developer_cloud.conversation.v1.model.LogExport;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.OutputData;
-import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeIntent;
-import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateCounterexampleOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateExampleOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspaceOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceCollection;
-import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExport;
-import com.ibm.watson.developer_cloud.conversation.v1.model.Workspace;
+import com.ibm.watson.developer_cloud.conversation.v1.model.*;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
@@ -1521,6 +1478,269 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     } catch (Exception ex) {
       fail(ex.getMessage());
+    }
+  }
+
+  /**
+   * Test createDialogNode.
+   */
+  @Test
+  public void testCreateDialogNode() {
+    String dialogNodeName = "Test" + UUID.randomUUID().toString();
+    String dialogNodeDescription = "Description of " + dialogNodeName;
+
+    Date start = new Date();
+
+    CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
+            .description(dialogNodeDescription)
+            .build();
+    DialogNode response = service.createDialogNode(createOptions).execute();
+
+    try {
+      assertNotNull(response);
+      assertNotNull(response.getDialogNode());
+      assertEquals(response.getDialogNode(), dialogNodeName);
+      assertNotNull(response.getDescription());
+      assertEquals(response.getDescription(), dialogNodeDescription);
+      assertNotNull(response.getCreated());
+      assertNotNull(response.getUpdated());
+
+      Date now = new Date();
+      assertTrue(fuzzyBefore(response.getCreated(), now));
+      assertTrue(fuzzyAfter(response.getCreated(), start));
+      assertTrue(fuzzyBefore(response.getUpdated(), now));
+      assertTrue(fuzzyAfter(response.getUpdated(), start));
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      DeleteDialogNodeOptions deleteOptions = new DeleteDialogNodeOptions.Builder(workspaceId, dialogNodeName).build();
+      service.deleteDialogNode(deleteOptions).execute();
+    }
+  }
+
+  /**
+   * Test deleteDialogNode.
+   */
+  @Test
+  public void testDeleteDialogNode() {
+    String dialogNodeName = "Test" + UUID.randomUUID().toString();  // gotta be unique
+
+    CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName).build();
+    service.createDialogNode(createOptions).execute();
+
+    DeleteDialogNodeOptions deleteOptions = new DeleteDialogNodeOptions.Builder(workspaceId, dialogNodeName).build();
+    service.deleteDialogNode(deleteOptions).execute();
+
+    try {
+      GetDialogNodeOptions getOptions = new GetDialogNodeOptions.Builder(workspaceId, dialogNodeName).build();
+      service.getDialogNode(getOptions).execute();
+      fail("deleteDialogNode failed");
+    } catch (Exception ex) {
+      // Expected result
+      assertTrue(ex instanceof NotFoundException);
+    }
+  }
+
+  /**
+   * Test getDialogNode.
+   */
+  @Test
+  public void testGetDialogNode() {
+    String dialogNodeName = "Test" + UUID.randomUUID().toString();
+    String dialogNodeDescription = "Description of " + dialogNodeName;
+
+    Date start = new Date();
+
+    CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
+            .description(dialogNodeDescription)
+            .build();
+    service.createDialogNode(createOptions).execute();
+
+    try {
+      GetDialogNodeOptions getOptions = new GetDialogNodeOptions.Builder()
+              .workspaceId(workspaceId)
+              .dialogNode(dialogNodeName)
+              .build();
+      DialogNode response = service.getDialogNode(getOptions).execute();
+      assertNotNull(response);
+      assertNotNull(response.getDialogNode());
+      assertEquals(response.getDialogNode(), dialogNodeName);
+      assertNotNull(response.getDescription());
+      assertEquals(response.getDescription(), dialogNodeDescription);
+      assertNotNull(response.getCreated());
+      assertNotNull(response.getUpdated());
+
+      Date now = new Date();
+      assertTrue(fuzzyBefore(response.getCreated(), now));
+      assertTrue(fuzzyAfter(response.getCreated(), start));
+      assertTrue(fuzzyBefore(response.getUpdated(), now));
+      assertTrue(fuzzyAfter(response.getUpdated(), start));
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      DeleteDialogNodeOptions deleteOptions = new DeleteDialogNodeOptions.Builder(workspaceId, dialogNodeName).build();
+      service.deleteDialogNode(deleteOptions).execute();
+    }
+  }
+
+  /**
+   * Test listDialogNodes.
+   */
+  @Test
+  public void testListDialogNodes() {
+    String dialogNodeName = "Test" + UUID.randomUUID().toString();
+
+    try {
+      ListDialogNodesOptions listOptions = new ListDialogNodesOptions.Builder(workspaceId).build();
+      DialogNodeCollection response = service.listDialogNodes(listOptions).execute();
+      assertNotNull(response);
+      assertNotNull(response.getDialogNodes());
+      assertNotNull(response.getPagination());
+      assertNotNull(response.getPagination().getRefreshUrl());
+      // nextUrl may be null
+
+      // Now add a dialog node and make sure we get it back
+      String dialogNodeDescription = "Description of " + dialogNodeName;
+
+      Date start = new Date();
+
+      CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
+              .description(dialogNodeDescription)
+              .build();
+      service.createDialogNode(createOptions).execute();
+
+      long count = response.getDialogNodes().size();
+      ListDialogNodesOptions listOptions2 = new ListDialogNodesOptions.Builder(workspaceId)
+              .pageLimit(count + 1)
+              .build();
+      DialogNodeCollection response2 = service.listDialogNodes(listOptions2).execute();
+      assertNotNull(response2);
+      assertNotNull(response2.getDialogNodes());
+
+      List<DialogNode> dialogNodes = response2.getDialogNodes();
+      assertTrue(dialogNodes.size() > count);
+
+      DialogNode dialogResponse = null;
+      for (DialogNode node : dialogNodes) {
+        if (node.getDialogNode().equals(dialogNodeName)) {
+          dialogResponse = node;
+          break;
+        }
+      }
+
+      assertNotNull(dialogResponse);
+      assertNotNull(dialogResponse.getDescription());
+      assertEquals(dialogResponse.getDescription(), dialogNodeDescription);
+
+      Date now = new Date();
+      assertTrue(fuzzyBefore(dialogResponse.getCreated(), now));
+      assertTrue(fuzzyAfter(dialogResponse.getCreated(), start));
+      assertTrue(fuzzyBefore(dialogResponse.getUpdated(), now));
+      assertTrue(fuzzyAfter(dialogResponse.getUpdated(), start));
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      DeleteDialogNodeOptions deleteOptions = new DeleteDialogNodeOptions.Builder(workspaceId, dialogNodeName).build();
+      service.deleteDialogNode(deleteOptions).execute();
+    }
+  }
+
+  /**
+   * Test listDialogNodes with pagination.
+   */
+  @Test
+  public void testListDialogNodesWithPaging() {
+    String dialogNodeName1 = "First" + UUID.randomUUID().toString();
+    String dialogNodeName2 = "Second" + UUID.randomUUID().toString();
+
+    CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName1).build();
+    service.createDialogNode(createOptions).execute();
+    service.createDialogNode(createOptions.newBuilder().dialogNode(dialogNodeName2).build()).execute();
+
+    try {
+      ListDialogNodesOptions listOptions = new ListDialogNodesOptions.Builder()
+              .workspaceId(workspaceId)
+              .pageLimit(1L)
+              .sort("modified")
+              .build();
+      DialogNodeCollection response = service.listDialogNodes(listOptions).execute();
+      assertNotNull(response);
+      assertNotNull(response.getDialogNodes());
+      assertNotNull(response.getPagination());
+      assertNotNull(response.getPagination().getRefreshUrl());
+      assertNotNull(response.getPagination().getNextUrl());
+      assertNotNull(response.getPagination().getCursor());
+
+      boolean found1 = false, found2 = false;
+      while (true) {
+        assertNotNull(response.getDialogNodes());
+        assertTrue(response.getDialogNodes().size() == 1);
+        found1 |= response.getDialogNodes().get(0).getDialogNode().equals(dialogNodeName1);
+        found2 |= response.getDialogNodes().get(0).getDialogNode().equals(dialogNodeName2);
+        assertTrue(found1 || !found2);  // verify sort
+        if (response.getPagination().getCursor() == null) {
+          break;
+        }
+        String cursor = response.getPagination().getCursor();
+        response = service.listDialogNodes(listOptions.newBuilder().cursor(cursor).build()).execute();
+
+      }
+      assertTrue(found1 && found2);
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      DeleteDialogNodeOptions deleteOptions = new DeleteDialogNodeOptions.Builder(workspaceId, dialogNodeName1).build();
+      service.deleteDialogNode(deleteOptions).execute();
+      service.deleteDialogNode(deleteOptions.newBuilder().dialogNode(dialogNodeName2).build()).execute();
+    }
+  }
+
+  /**
+   * Test updateDialogNode.
+   */
+  @Test
+  public void testUpdateDialogNode() {
+    String dialogNodeName = "Test" + UUID.randomUUID().toString();
+    String dialogNodeDescription = "Description of " + dialogNodeName;
+
+    CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder(workspaceId, dialogNodeName)
+            .description(dialogNodeDescription)
+            .build();
+    service.createDialogNode(createOptions).execute();
+
+    String dialogNodeName2 = "Test2" + UUID.randomUUID().toString();
+
+    try {
+      String dialogNodeDescription2 = "Updated description of " + dialogNodeName;
+      Date start = new Date();
+      UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions.Builder(workspaceId, dialogNodeName, dialogNodeName2)
+              .newDescription(dialogNodeDescription2)
+              .build();
+      DialogNode response = service.updateDialogNode(updateOptions).execute();
+      assertNotNull(response);
+      assertNotNull(response.getDialogNode());
+      assertEquals(response.getDialogNode(), dialogNodeName2);
+      assertNotNull(response.getDescription());
+      assertEquals(response.getDescription(), dialogNodeDescription2);
+      assertNotNull(response.getCreated());
+      assertNotNull(response.getUpdated());
+
+      Date now = new Date();
+      assertTrue(fuzzyBefore(response.getCreated(), now));
+      assertTrue(fuzzyAfter(response.getCreated(), start));
+      assertTrue(fuzzyBefore(response.getUpdated(), now));
+      assertTrue(fuzzyAfter(response.getUpdated(), start));
+    } catch (Exception ex) {
+      fail(ex.getMessage());
+    } finally {
+      // Clean up
+      DeleteDialogNodeOptions deleteOptions =
+              new DeleteDialogNodeOptions.Builder(workspaceId, dialogNodeName2).build();
+      service.deleteDialogNode(deleteOptions).execute();
     }
   }
 }
