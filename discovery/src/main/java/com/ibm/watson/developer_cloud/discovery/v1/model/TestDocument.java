@@ -26,7 +26,7 @@ public class TestDocument extends GenericModel {
   private String configurationId;
   private String status;
   @SerializedName("enriched_field_units")
-  private Double enrichedFieldUnits;
+  private Long enrichedFieldUnits;
   @SerializedName("original_media_type")
   private String originalMediaType;
   private List<DocumentSnapshot> snapshots;
@@ -62,7 +62,7 @@ public class TestDocument extends GenericModel {
    *
    * @return the enrichedFieldUnits
    */
-  public Double getEnrichedFieldUnits() {
+  public Long getEnrichedFieldUnits() {
     return enrichedFieldUnits;
   }
 
