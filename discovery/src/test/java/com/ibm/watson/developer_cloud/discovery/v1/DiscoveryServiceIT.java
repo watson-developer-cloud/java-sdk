@@ -16,49 +16,8 @@ package com.ibm.watson.developer_cloud.discovery.v1;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
-import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
-import com.ibm.watson.developer_cloud.discovery.v1.model.Conversions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
-import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
-import com.ibm.watson.developer_cloud.discovery.v1.model.Enrichment;
-import com.ibm.watson.developer_cloud.discovery.v1.model.EnrichmentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.HtmlSettings;
-import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation;
+import com.ibm.watson.developer_cloud.discovery.v1.model.*;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation.Operation;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryAggregation;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResult;
-import com.ibm.watson.developer_cloud.discovery.v1.model.TestConfigurationInEnvironmentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.TestDocument;
-import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateCollectionOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationType;
 import com.ibm.watson.developer_cloud.discovery.v1.query.Operator;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
@@ -165,7 +124,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String username = getProperty("discovery.username");
     String password = getProperty("discovery.password");
     String url = getProperty("discovery.url");
-    discovery = new Discovery("2016-12-16");
+    discovery = new Discovery(Discovery.VERSION_DATE_2017_08_01);
     discovery.setEndPoint(url);
     discovery.setUsernameAndPassword(username, password);
 
@@ -1259,6 +1218,195 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(collection.getConfigurationId(), configuration.getConfigurationId());
   }
 
+  @Test
+  public void addTrainingDataIsSuccessful() {
+    AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
+    String naturalLanguageQuery = "Example query" + UUID.randomUUID().toString();
+    builder.naturalLanguageQuery(naturalLanguageQuery);
+    TrainingExample example = new TrainingExample();
+    String documentId = createTestDocument(collectionId).getDocumentId();
+    example.setDocumentId(documentId);
+    int relevance = 0;
+    example.setRelevance(relevance);
+    builder.addExamples(example);
+    TrainingQuery response = discovery.addTrainingData(builder.build()).execute();
+
+    assertFalse(response.getQueryId().isEmpty());
+    assertEquals(response.getNaturalLanguageQuery(), naturalLanguageQuery);
+    assertTrue(response.getFilter().isEmpty());
+    assertEquals(response.getExamples().size(), 1);
+
+    TrainingExample returnedExample = response.getExamples().get(0);
+    assertEquals(returnedExample.getDocumentId(), documentId);
+    assertTrue(returnedExample.getCrossReference().isEmpty());
+    assertEquals(returnedExample.getRelevance(), relevance);
+  }
+
+  @Test
+  public void addTrainingExampleIsSuccessful() {
+    TrainingQuery query = createTestQuery(collectionId, "Query" + UUID.randomUUID().toString());
+    int startingExampleCount = query.getExamples().size();
+    String queryId = query.getQueryId();
+
+    String documentId = "document_id";
+    String crossReference = "cross_reference";
+    int relevance = 50;
+    CreateTrainingExampleOptions.Builder exampleBuilder
+        = new CreateTrainingExampleOptions.Builder(environmentId, collectionId, queryId);
+    exampleBuilder.documentId(documentId);
+    exampleBuilder.crossReference(crossReference);
+    exampleBuilder.relevance(relevance);
+    discovery.createTrainingExample(exampleBuilder.build()).execute();
+
+    GetTrainingDataOptions.Builder queryBuilder
+       = new GetTrainingDataOptions.Builder(environmentId, collectionId, queryId);
+    TrainingQuery updatedQuery = discovery.getTrainingData(queryBuilder.build()).execute();
+
+    assertTrue(updatedQuery.getExamples().size() > startingExampleCount);
+    TrainingExample newExample = updatedQuery.getExamples().get(0);
+    assertEquals(newExample.getDocumentId(), documentId);
+    assertEquals(newExample.getCrossReference(), crossReference);
+    assertEquals(newExample.getRelevance(), relevance);
+  }
+
+  @Test
+  public void deleteAllCollectionTrainingDataIsSuccessful() {
+    String collId = setupTestQueries(collectionId);
+    DeleteAllTrainingDataOptions.Builder deleteBuilder = new DeleteAllTrainingDataOptions.Builder(environmentId, collId);
+    discovery.deleteAllTrainingData(deleteBuilder.build()).execute();
+
+    ListTrainingDataOptions.Builder listBuilder = new ListTrainingDataOptions.Builder(environmentId, collId);
+    TrainingDataSet trainingData = discovery.listTrainingData(listBuilder.build()).execute();
+
+    assertEquals(trainingData.getQueries().size(), 0);
+  }
+
+  @Test
+  public void deleteTrainingDataQueryIsSuccessful() {
+    TrainingQuery query = createTestQuery(collectionId, "Query" + UUID.randomUUID().toString());
+    String queryId = query.getQueryId();
+
+    ListTrainingDataOptions.Builder listBuilder = new ListTrainingDataOptions.Builder(environmentId, collectionId);
+    TrainingDataSet trainingData = discovery.listTrainingData(listBuilder.build()).execute();
+    List<TrainingQuery> queryList = trainingData.getQueries();
+    boolean doesQueryExist = false;
+    for (TrainingQuery q : queryList) {
+      if (q.getQueryId().equals(queryId)) {
+        doesQueryExist = true;
+        break;
+      }
+    }
+    assertTrue(doesQueryExist);
+
+    DeleteTrainingDataOptions.Builder deleteBuilder
+        = new DeleteTrainingDataOptions.Builder(environmentId, collectionId, queryId);
+    discovery.deleteTrainingData(deleteBuilder.build()).execute();
+
+    listBuilder = new ListTrainingDataOptions.Builder(environmentId, collectionId);
+    trainingData = discovery.listTrainingData(listBuilder.build()).execute();
+    queryList = trainingData.getQueries();
+    doesQueryExist = false;
+    for (TrainingQuery q : queryList) {
+      if (q.getQueryId().equals(queryId)) {
+        doesQueryExist = true;
+        break;
+      }
+    }
+    assertFalse(doesQueryExist);
+  }
+
+  @Test
+  public void deleteTrainingDataExampleIsSuccessful() {
+    TrainingQuery newQuery = createTestQuery(collectionId, "Query" + UUID.randomUUID().toString());
+    String queryId = newQuery.getQueryId();
+
+    String documentId = "document_id";
+    String crossReference = "cross_reference";
+    int relevance = 50;
+    CreateTrainingExampleOptions.Builder exampleBuilder
+            = new CreateTrainingExampleOptions.Builder(environmentId, collectionId, queryId);
+    exampleBuilder.documentId(documentId);
+    exampleBuilder.crossReference(crossReference);
+    exampleBuilder.relevance(relevance);
+    TrainingExample createdExample = discovery.createTrainingExample(exampleBuilder.build()).execute();
+    String exampleId = createdExample.getDocumentId();
+
+    GetTrainingDataOptions.Builder queryBuilder
+            = new GetTrainingDataOptions.Builder(environmentId, collectionId, queryId);
+    TrainingQuery queryWithAddedExample = discovery.getTrainingData(queryBuilder.build()).execute();
+    int startingCount = queryWithAddedExample.getExamples().size();
+
+    DeleteTrainingExampleOptions.Builder deleteBuilder
+        = new DeleteTrainingExampleOptions.Builder(environmentId, collectionId, queryId, exampleId);
+    discovery.deleteTrainingExample(deleteBuilder.build()).execute();
+
+    GetTrainingDataOptions.Builder newQueryBuilder
+            = new GetTrainingDataOptions.Builder(environmentId, collectionId, queryId);
+    TrainingQuery queryWithDeletedExample = discovery.getTrainingData(newQueryBuilder.build()).execute();
+
+    assertTrue(startingCount > queryWithDeletedExample.getExamples().size());
+  }
+
+  @Test
+  public void getTrainingDataIsSuccessful() {
+    String naturalLanguageQuery = "Query" + UUID.randomUUID().toString();
+    TrainingQuery newQuery = createTestQuery(collectionId, naturalLanguageQuery);
+    String queryId = newQuery.getQueryId();
+
+    GetTrainingDataOptions.Builder queryBuilder
+            = new GetTrainingDataOptions.Builder(environmentId, collectionId, queryId);
+    TrainingQuery queryResponse = discovery.getTrainingData(queryBuilder.build()).execute();
+
+    assertEquals(queryResponse.getNaturalLanguageQuery(), naturalLanguageQuery);
+  }
+
+  @Test
+  public void getTrainingExampleIsSuccessful() {
+    AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
+    String naturalLanguageQuery = "Query" + UUID.randomUUID().toString();
+    builder.naturalLanguageQuery(naturalLanguageQuery);
+    TrainingExample example = new TrainingExample();
+    String documentId = "Document" + UUID.randomUUID().toString();
+    example.setDocumentId(documentId);
+    int relevance = 0;
+    example.setRelevance(relevance);
+    builder.addExamples(example);
+    TrainingQuery response = discovery.addTrainingData(builder.build()).execute();
+    String queryId = response.getQueryId();
+
+    GetTrainingExampleOptions.Builder getExampleBuilder
+        = new GetTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
+    TrainingExample returnedExample = discovery.getTrainingExample(getExampleBuilder.build()).execute();
+
+    assertEquals(returnedExample.getDocumentId(), documentId);
+  }
+
+  @Test
+  public void updateTrainingExampleIsSuccessful() {
+    AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
+    String naturalLanguageQuery = "Query" + UUID.randomUUID().toString();
+    builder.naturalLanguageQuery(naturalLanguageQuery);
+    TrainingExample example = new TrainingExample();
+    String documentId = "Document" + UUID.randomUUID().toString();
+    example.setDocumentId(documentId);
+    int relevance = 0;
+    example.setRelevance(relevance);
+    builder.addExamples(example);
+    TrainingQuery response = discovery.addTrainingData(builder.build()).execute();
+    String queryId = response.getQueryId();
+
+    UpdateTrainingExampleOptions.Builder updateBuilder
+        = new UpdateTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
+    String newCrossReference = "cross_reference";
+    updateBuilder.crossReference(newCrossReference);
+    int newRelevance = 50;
+    updateBuilder.relevance(newRelevance);
+    TrainingExample updatedExample = discovery.updateTrainingExample(updateBuilder.build()).execute();
+
+    assertEquals(updatedExample.getCrossReference(), newCrossReference);
+    assertEquals(updatedExample.getRelevance(), newRelevance);
+  }
+
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {
     Environment createResponse = discovery.createEnvironment(createOptions).execute();
     return createResponse;
@@ -1348,6 +1496,36 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     WaitFor.Condition collectionAvailable =
         new WaitForCollectionAvailable(environmentId, collectionId);
+    WaitFor.waitFor(collectionAvailable, 5, TimeUnit.SECONDS, 500);
+
+    return collectionId;
+  }
+
+  private TrainingQuery createTestQuery(String collectionId, String naturalLanguageQuery) {
+    AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
+    builder.naturalLanguageQuery(naturalLanguageQuery);
+    TrainingQuery addResponse = discovery.addTrainingData(builder.build()).execute();
+    return addResponse;
+  }
+
+  private List<TrainingQuery> createTestQueries(String collectionId, int totalQueries) {
+    List<TrainingQuery> responses = new ArrayList<>();
+    for (int i = 0; i < totalQueries; i++) {
+      String naturalLanguageQuery = "Test query " + i;
+      responses.add(createTestQuery(collectionId, naturalLanguageQuery));
+    }
+    return responses;
+  }
+
+  private synchronized String setupTestQueries(String collectionId) {
+    ListTrainingDataOptions.Builder builder = new ListTrainingDataOptions.Builder(environmentId, collectionId);
+    if (discovery.listTrainingData(builder.build()).execute().getQueries().size() > 0) {
+      return collectionId;
+    }
+    List<TrainingQuery> queriesAccepted = createTestQueries(collectionId, 10);
+
+    WaitFor.Condition collectionAvailable =
+            new WaitForCollectionAvailable(environmentId, collectionId);
     WaitFor.waitFor(collectionAvailable, 5, TimeUnit.SECONDS, 500);
 
     return collectionId;
