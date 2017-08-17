@@ -24,7 +24,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   private String collectionId;
   private String queryId;
   private String documentId;
-  private Double relevance;
+  private int relevance;
   private String crossReference;
 
   /**
@@ -35,7 +35,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
     private String collectionId;
     private String queryId;
     private String documentId;
-    private Double relevance;
+    private int relevance;
     private String crossReference;
 
     private Builder(CreateTrainingExampleOptions createTrainingExampleOptions) {
@@ -125,7 +125,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
      * @param relevance the relevance
      * @return the CreateTrainingExampleOptions builder
      */
-    public Builder relevance(Double relevance) {
+    public Builder relevance(int relevance) {
       this.relevance = relevance;
       return this;
     }
@@ -223,7 +223,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
    *
    * @return the relevance
    */
-  public Double relevance() {
+  public int relevance() {
     return relevance;
   }
 

@@ -758,9 +758,7 @@ public class Discovery extends WatsonService {
     if (createTrainingExampleOptions.documentId() != null) {
       contentJson.addProperty("document_id", createTrainingExampleOptions.documentId());
     }
-    if (createTrainingExampleOptions.relevance() != null) {
-      contentJson.addProperty("relevance", createTrainingExampleOptions.relevance());
-    }
+    contentJson.addProperty("relevance", createTrainingExampleOptions.relevance());
     if (createTrainingExampleOptions.crossReference() != null) {
       contentJson.addProperty("cross_reference", createTrainingExampleOptions.crossReference());
     }
@@ -872,9 +870,7 @@ public class Discovery extends WatsonService {
         updateTrainingExampleOptions.exampleId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
-    if (updateTrainingExampleOptions.relevance() != null) {
-      contentJson.addProperty("relevance", updateTrainingExampleOptions.relevance());
-    }
+    contentJson.addProperty("relevance", updateTrainingExampleOptions.relevance());
     if (updateTrainingExampleOptions.crossReference() != null) {
       contentJson.addProperty("cross_reference", updateTrainingExampleOptions.crossReference());
     }
