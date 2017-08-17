@@ -23,7 +23,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class TrainingStatus extends GenericModel {
 
   @SerializedName("total_examples")
-  private Double totalExamples;
+  private Long totalExamples;
   private Boolean available;
   private Boolean processing;
   @SerializedName("minimum_queries_added")
@@ -32,7 +32,7 @@ public class TrainingStatus extends GenericModel {
   private Boolean minimumExamplesAdded;
   @SerializedName("sufficient_label_diversity")
   private Boolean sufficientLabelDiversity;
-  private Double notices;
+  private Long notices;
   @SerializedName("successfully_trained")
   private Date successfullyTrained;
   @SerializedName("data_updated")
@@ -43,7 +43,7 @@ public class TrainingStatus extends GenericModel {
    *
    * @return the totalExamples
    */
-  public Double getTotalExamples() {
+  public Long getTotalExamples() {
     return totalExamples;
   }
 
@@ -97,7 +97,7 @@ public class TrainingStatus extends GenericModel {
    *
    * @return the notices
    */
-  public Double getNotices() {
+  public Long getNotices() {
     return notices;
   }
 
@@ -124,7 +124,7 @@ public class TrainingStatus extends GenericModel {
    *
    * @param totalExamples the new totalExamples
    */
-  public void setTotalExamples(final Double totalExamples) {
+  public void setTotalExamples(final long totalExamples) {
     this.totalExamples = totalExamples;
   }
 
@@ -178,7 +178,7 @@ public class TrainingStatus extends GenericModel {
    *
    * @param notices the new notices
    */
-  public void setNotices(final Double notices) {
+  public void setNotices(final long notices) {
     this.notices = notices;
   }
 

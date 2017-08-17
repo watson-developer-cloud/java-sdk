@@ -24,7 +24,7 @@ public class TrainingExample extends GenericModel {
   private String documentId;
   @SerializedName("cross_reference")
   private String crossReference;
-  private int relevance;
+  private Long relevance;
 
   /**
    * Gets the documentId.
@@ -49,7 +49,7 @@ public class TrainingExample extends GenericModel {
    *
    * @return the relevance
    */
-  public int getRelevance() {
+  public Long getRelevance() {
     return relevance;
   }
 
@@ -76,7 +76,7 @@ public class TrainingExample extends GenericModel {
    *
    * @param relevance the new relevance
    */
-  public void setRelevance(final int relevance) {
+  public void setRelevance(final long relevance) {
     this.relevance = relevance;
   }
 }
