@@ -16,3 +16,5 @@ bin/
 .checkstyle
 .gradletasknamecache
 docs
+.swagger-codegen-ignore
+.vscode/

@@ -58,10 +58,6 @@ dependencies {
     compile project(':core')
 
     testCompile project(path: ':core', configuration: 'tests')
-    testCompile group: 'com.squareup.okhttp3', name: 'mockwebserver', version: '3.7.0'
-    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
-    testCompile group: 'com.google.guava', name: 'guava', version: '19.0'
-    testCompile group: 'junit', name: 'junit-dep', version: '4.11'
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
 }
 
@@ -88,7 +84,7 @@ uploadArchives {
                 packaging 'jar'
                 // optionally artifactId can be defined here
                 description 'Client library to use the IBM Watson Personality Insights Service'
-                url 'https://www.ibm.com/watson/developercloud/personality-insights.html'
+                url 'https://console.bluemix.net/docs/services/personality-insights/index.html'
 
                 scm {
                     connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'

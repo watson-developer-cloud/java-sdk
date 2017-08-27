@@ -40,4 +40,4 @@ ToneAnalysis tone = service.getTone(text, null).execute();
 System.out.println(tone);
 ```
 
-[tone_analyzer]: https://www.ibm.com/watson/developercloud/doc/tone-analyzer/index.html
+[tone_analyzer]: https://console.bluemix.net/docs/services/tone-analyzer/index.html

@@ -21,7 +21,6 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.ibm.watson.developer_cloud.http.HttpClientSingleton;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
@@ -823,7 +822,7 @@ public class SpeechToText extends WatsonService {
     }
 
     if (options.customizationId() != null && !options.customizationId().isEmpty()) {
-      urlBuilder.addQueryParameter(CUSTOMIZATION_ID, options.model());
+      urlBuilder.addQueryParameter(CUSTOMIZATION_ID, options.customizationId());
     }
 
     String url = urlBuilder.toString().replace("https://", "wss://");
@@ -832,7 +831,7 @@ public class SpeechToText extends WatsonService {
     setAuthentication(builder);
     setDefaultHeaders(builder);
 
-    OkHttpClient client = HttpClientSingleton.getInstance().getHttpClient();
+    OkHttpClient client = configureHttpClient();
     return client.newWebSocket(builder.build(), new SpeechToTextWebSocketListener(audio, options, callback));
   }
 
