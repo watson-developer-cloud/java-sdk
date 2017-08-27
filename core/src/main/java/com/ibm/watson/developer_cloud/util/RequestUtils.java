@@ -179,7 +179,8 @@ public final class RequestUtils {
   }
 
   private static String loadSdkVersion() {
-    InputStream inputStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("version.properties");
+    ClassLoader classLoader = RequestUtils.class.getClassLoader();
+    InputStream inputStream = classLoader.getResourceAsStream("version.properties");
     Properties properties = new Properties();
 
     try {

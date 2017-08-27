@@ -243,4 +243,13 @@ public class RequestBuilderTest {
     assertEquals(url + "?%C3%A4%26%C3%B6=%C3%B6%3D%C3%BC", request.url().toString());
   }
 
+  /**
+   * Test user agent.
+   */
+  @Test
+  public void testUserAgent() {
+    assertNotNull(RequestUtils.getUserAgent());
+    assertTrue(RequestUtils.getUserAgent().startsWith("watson-apis-java-sdk/"));
+  }
+
 }

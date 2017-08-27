@@ -3,6 +3,7 @@
 ## Installation
 
 ##### Maven
+
 ```xml
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
@@ -12,11 +13,13 @@
 ```
 
 ##### Gradle
+
 ```gradle
 'com.ibm.watson.developer_cloud:alchemy:3.8.0'
 ```
 
 ## Alchemy Language
+
 [Alchemy Language][alchemy_language] offers 12 API functions as part of its text analysis service, each of which uses sophisticated natural language processing techniques to analyze your content and add high-level semantic information.
 
 Use the [Sentiment Analysis][sentiment_analysis] endpoint to identify positive/negative sentiment within a sample text document.
@@ -36,6 +39,7 @@ We also offer a cognitive client which makes use of this API to provide enhanced
 https://github.com/watson-developer-cloud/cognitive-client-java
 
 ## Alchemy Vision
+
 [Alchemy Vision][alchemy_vision] uses deep learning innovations to understand a picture's content and context. It sees complex visual scenes in their entirety —without needing any textual clues— leveraging a holistic approach to understand the objects, faces, and words in an image.
 
 Example: Extract keywords from an image.
@@ -53,6 +57,7 @@ System.out.println(keywords);
 ```
 
 ## Alchemy Data News
+
 [Alchemy Data News][alchemy_data_news] indexes 250k to 300k English language news and
 blog articles every day with historical search available for the past 60 days.  
 Example: Get 7 documents between Friday 28th August 2015 and Friday 4th September 2015.
@@ -79,12 +84,9 @@ System.out.println(result);
 
 ## Concept Insights
 
-The [Concept Insights][concept_insights] has been deprecated, AlchemyLanguage's concept function can be used as a replacement for most Concept Insights use cases; therefore, we encourage existing Concept Insights service users to migrate to AlchemyLanguage.
+The Concept Insights service has been deprecated, AlchemyLanguage's concept function can be used as a replacement for most Concept Insights use cases; therefore, we encourage existing Concept Insights service users to migrate to AlchemyLanguage.
 
 [alchemy_language]: http://www.alchemyapi.com/products/alchemylanguage
 [alchemy_data_news]: http://www.alchemyapi.com/products/alchemydata-news
 [alchemy_vision]: http://www.alchemyapi.com/products/
-
 [sentiment_analysis]: http://www.alchemyapi.com/products/alchemylanguage/sentiment-analysis
-
-[concept_insights]: https://www.ibm.com/watson/developercloud/doc/concept-insights/

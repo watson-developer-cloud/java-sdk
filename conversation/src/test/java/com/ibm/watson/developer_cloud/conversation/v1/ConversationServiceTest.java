@@ -49,12 +49,12 @@ public class ConversationServiceTest extends WatsonServiceTest {
   long tolerance = 2000;  // 2 secs in ms
 
   /** return `true` if ldate before rdate within tolerance. */
-  boolean fuzzyBefore(Date ldate, Date rdate) {
+  public boolean fuzzyBefore(Date ldate, Date rdate) {
     return (ldate.getTime() - rdate.getTime()) < tolerance;
   }
 
   /** return `true` if ldate after rdate within tolerance. */
-  boolean fuzzyAfter(Date ldate, Date rdate) {
+  public boolean fuzzyAfter(Date ldate, Date rdate) {
     return (rdate.getTime() - ldate.getTime()) < tolerance;
   }
 

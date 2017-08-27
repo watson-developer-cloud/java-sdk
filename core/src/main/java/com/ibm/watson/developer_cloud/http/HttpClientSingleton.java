@@ -162,16 +162,4 @@ public class HttpClientSingleton {
     addCookieJar(builder);
     return builder.build();
   }
-
-
-  /**
-   * Gets the {@link OkHttpClient} instance that shares a {@link WatsonCookieJar}. Use
-   * {@link HttpClientSingleton#createHttpClient()} for a new cookieJar.
-   *
-   * @return the client
-   */
-  public OkHttpClient getHttpClient() {
-    return okHttpClient;
-  }
-
 }
