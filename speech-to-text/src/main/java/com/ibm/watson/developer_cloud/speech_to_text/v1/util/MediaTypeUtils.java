@@ -36,6 +36,8 @@ public final class MediaTypeUtils {
     MEDIA_TYPES.put(".oga", HttpMediaType.AUDIO_OGG);
     MEDIA_TYPES.put(".flac", HttpMediaType.AUDIO_FLAC);
     MEDIA_TYPES.put(".raw", HttpMediaType.AUDIO_RAW);
+    MEDIA_TYPES.put(".mp3", HttpMediaType.AUDIO_MP3);
+    MEDIA_TYPES.put(".mpeg", HttpMediaType.AUDIO_MPEG);
     MEDIA_TYPES.put(".webm", HttpMediaType.AUDIO_WEBM);
   }
 
