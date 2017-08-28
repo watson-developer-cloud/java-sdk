@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -207,5 +208,21 @@ public abstract class WatsonServiceTest {
    * @throws Exception the exception
    */
   public void setUp() throws Exception { }
+
+  /**
+   * Fuzzy date checking.
+   */
+
+  long tolerance = 5000;  // 5 secs in ms
+
+  /** return `true` if ldate before rdate within tolerance. */
+  public boolean fuzzyBefore(Date ldate, Date rdate) {
+    return (ldate.getTime() - rdate.getTime()) < tolerance;
+  }
+
+  /** return `true` if ldate after rdate within tolerance. */
+  public boolean fuzzyAfter(Date ldate, Date rdate) {
+    return (rdate.getTime() - ldate.getTime()) < tolerance;
+  }
 
 }
