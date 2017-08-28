@@ -67,7 +67,7 @@ import java.util.List;
  * @version v1
  * @see <a href= "http://www.ibm.com/watson/developercloud/conversation.html"> Conversation</a>
  */
-public final class ConversationService extends WatsonService {
+public class ConversationService extends WatsonService {
 
   /** The Constant VERSION_DATE_2017-04-21. */
   public static final String VERSION_DATE_2017_04_21 = "2017-04-21";
