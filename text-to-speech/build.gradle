@@ -85,7 +85,7 @@ uploadArchives {
                 packaging 'jar'
                 // optionally artifactId can be defined here
                 description 'Client library to use the IBM Watson Text to Speech Service'
-                url 'https://www.ibm.com/watson/developercloud/text-to-speech.html'
+                url 'https://console.bluemix.net/docs/services/text-to-speech/index.html'
 
                 scm {
                     connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'

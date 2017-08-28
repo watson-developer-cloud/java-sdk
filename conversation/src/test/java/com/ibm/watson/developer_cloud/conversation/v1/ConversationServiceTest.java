@@ -44,4 +44,16 @@ public class ConversationServiceTest extends WatsonServiceTest {
     service.setDefaultHeaders(getDefaultHeaders());
   }
 
+  long tolerance = 2000;  // 2 secs in ms
+
+  /** return `true` if ldate before rdate within tolerance. */
+  public boolean fuzzyBefore(Date ldate, Date rdate) {
+    return (ldate.getTime() - rdate.getTime()) < tolerance;
+  }
+
+  /** return `true` if ldate after rdate within tolerance. */
+  public boolean fuzzyAfter(Date ldate, Date rdate) {
+    return (rdate.getTime() - ldate.getTime()) < tolerance;
+  }
+
 }
