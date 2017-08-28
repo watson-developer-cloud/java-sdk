@@ -1,7 +1,8 @@
 language: java
-sudo: false
+sudo: required
+dist: precise
 jdk:
-  - openjdk7
+  - oraclejdk7
   - oraclejdk8
 
 branches:
@@ -31,11 +32,10 @@ before_install:
 script:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_a973fe4f8e79_key -iv $encrypted_a973fe4f8e79_iv -in .config.properties.enc -out core/src/test/resources/.config.properties -d || true'
   - ./gradlew install -x check
-  - ./gradlew test --continue
-  - ./gradlew codeCoverageReport
-  - ./gradlew docs > /dev/null # build the javadoc
   - ./gradlew checkstyleMain
   - ./gradlew checkstyleTest
+  - ./gradlew codeCoverageReport --continue
+  - ./gradlew docs > /dev/null # build the javadoc
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
