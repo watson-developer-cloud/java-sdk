@@ -356,7 +356,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     Assert.assertNotNull(service.getCollections().execute());
     Assert.assertTrue(!service.getCollections().execute().isEmpty());
   }
-  
+
   /**
    * Test recognize text from byte array.
    *
