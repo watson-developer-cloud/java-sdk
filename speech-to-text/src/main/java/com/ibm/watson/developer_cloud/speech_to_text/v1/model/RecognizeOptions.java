@@ -86,11 +86,14 @@ public class RecognizeOptions {
      * The format of the audio data specified as one of the following values: <br>
      * <ul>
      * <li><code>audio/flac</code> for Free Lossless Audio Codec (FLAC)</li>
-     * <li><code>audio/l16</code> for Linear 16-bit Pulse-Code Modulation (PCM).</li>
+     * <li><code>audio/l16</code> for Linear 16-bit Pulse-Code Modulation (PCM)</li>
+     * <li><code>audio/mp3</code> for MP3</li>
+     * <li><code>audio/mpeg</code> for MPEG-1</li>
+     * <li><code>audio/mulaw</code> for Mulaw</li>
+     * <li><code>audio/webm</code> for Webm</li>
      * <li><code>audio/wav</code> for Waveform Audio File Format (WAV)</li>
-     * <li><code>audio/ogg;codecs=opus</code> for Ogg format files that use the opus codec</li>
+     * <li><code>audio/ogg;codecs=opus</code> for OGG format files that use the opus codec</li>
      * </ul>
-     * .
      *
      * @param contentType the content type
      * @return the recognize options
@@ -146,9 +149,11 @@ public class RecognizeOptions {
     }
 
     /**
+     * 
      * If true, multiple final results that represent multiple consecutive phrases separated by pauses are returned.
      * Otherwise, the recognition ends after first "end of speech" is detected.
      *
+     * @deprecated
      * @param continuous the continuous
      * @return the recognize options
      */

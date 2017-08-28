@@ -41,7 +41,6 @@ service.setUsernameAndPassword("<username>", "<password>");
 File audio = new File("src/test/resources/sample1.wav");
 
 RecognizeOptions options = new RecognizeOptions.Builder()
-  .continuous(true)
   .interimResults(true)
   .contentType(HttpMediaType.AUDIO_WAV)
   .build();

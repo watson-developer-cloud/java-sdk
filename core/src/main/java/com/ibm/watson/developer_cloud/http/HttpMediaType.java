@@ -120,6 +120,21 @@ public final class HttpMediaType {
   public static final String AUDIO_FLAC = "audio/flac";
 
   /**
+   * Field AUDIO_MULAW. (value is "audio/mulaw")
+   */
+  public static final String AUDIO_MULAW = "audio/mulaw";
+  
+   /**
+    * Field AUDIO_MP3. (value is "audio/mp3")
+    */
+   public static final String AUDIO_MP3 = "audio/mp3";
+  
+   /**
+    * Field AUDIO_MPEG. (value is "audio/mpeg")
+    */
+   public static final String AUDIO_MPEG = "audio/mpeg";
+   
+   /**
    * Field AUDIO_RAW. (value is "audio/l16") <br>
    * When using in Speech to Text a sample rate must be provided
    */
