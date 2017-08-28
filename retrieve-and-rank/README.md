@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>retrieve-and-rank</artifactId>
-	<version>3.8.0</version>
+	<version>3.9.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:retrieve-and-rank:3.8.0'
+'com.ibm.watson.developer_cloud:retrieve-and-rank:3.9.0'
 ```
 
 ## Usage
