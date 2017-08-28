@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>tone-analyzer</artifactId>
-	<version>3.8.0</version>
+	<version>3.9.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:tone-analyzer:3.8.0'
+'com.ibm.watson.developer_cloud:tone-analyzer:3.9.0'
 ```
 
 ## Usage
@@ -40,4 +40,4 @@ ToneAnalysis tone = service.getTone(text, null).execute();
 System.out.println(tone);
 ```
 
-[tone_analyzer]: https://www.ibm.com/watson/developercloud/doc/tone-analyzer/index.html
+[tone_analyzer]: https://console.bluemix.net/docs/services/tone-analyzer/index.html

@@ -24,6 +24,8 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ValueExportResponse;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
+
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -192,6 +194,7 @@ public class EntitiesIT extends ConversationServiceTest {
    * Test listEntities.
    */
   @Test
+  @Ignore("To be run locally until we fix the Rate limitation issue")
   public void testListEntities() {
 
     String entity = "Hello" + UUID.randomUUID().toString();  // gotta be unique
@@ -248,6 +251,7 @@ public class EntitiesIT extends ConversationServiceTest {
    * Test listEntities with pagination.
    */
   @Test
+  @Ignore("To be run locally until we fix the Rate limitation issue")
   public void testListEntitiesWithPaging() {
 
     String entity1 = "Hello" + UUID.randomUUID().toString();  // gotta be unique

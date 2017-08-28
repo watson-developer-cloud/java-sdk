@@ -102,7 +102,17 @@ public abstract class WatsonService {
       setEndPoint(url);
     }
 
-    client = HttpClientSingleton.getInstance().createHttpClient();
+    client = configureHttpClient();
+  }
+
+  /**
+   * Configure the {@link OkHttpClient}. This method will be called by the constructor and can be used to customize the
+   * client that the service will use to perform the http calls.
+   *
+   * @return the {@link OkHttpClient}
+   */
+  protected OkHttpClient configureHttpClient() {
+    return HttpClientSingleton.getInstance().createHttpClient();
   }
 
   /**
@@ -326,13 +336,11 @@ public abstract class WatsonService {
   /**
    * Sets the end point.
    *
-   * @param endPoint the new end point
+   * @param endPoint the new end point. Will be ignored if empty or null
    */
   public void setEndPoint(final String endPoint) {
-    if ((endPoint != null) && !endPoint.isEmpty() && endPoint.endsWith("/")) {
-      this.endPoint = endPoint.substring(0, endPoint.length() - 1);
-    } else {
-      this.endPoint = endPoint;
+    if ((endPoint != null) && !endPoint.isEmpty()) {
+      this.endPoint = endPoint.endsWith("/") ? endPoint.substring(0, endPoint.length() - 1) : endPoint;
     }
   }
 
@@ -399,7 +407,8 @@ public abstract class WatsonService {
       case HttpStatus.BAD_REQUEST: // HTTP 400
         throw new BadRequestException(error != null ? error : "Bad Request", response);
       case HttpStatus.UNAUTHORIZED: // HTTP 401
-        throw new UnauthorizedException("Unauthorized: Access is denied due to invalid credentials", response);
+        throw new UnauthorizedException("Unauthorized: Access is denied due to invalid credentials. "
+                                        + "Tip: Did you set the Endpoint?", response);
       case HttpStatus.FORBIDDEN: // HTTP 403
         throw new ForbiddenException(error != null ? error : "Forbidden: Service refuse the request", response);
       case HttpStatus.NOT_FOUND: // HTTP 404
