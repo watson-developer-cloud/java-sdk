@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>conversation</artifactId>
-	<version>3.8.0</version>
+	<version>3.9.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:conversation:3.8.0'
+'com.ibm.watson.developer_cloud:conversation:3.9.0'
 ```
 
 ## Usage
