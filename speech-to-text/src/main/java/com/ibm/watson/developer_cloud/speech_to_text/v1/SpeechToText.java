@@ -366,9 +366,10 @@ public class SpeechToText extends WatsonService {
    * @param baseModel The name of the language model that is to be customized by the new model. e.g:
    *        'en-US_BroadbandModel'.
    * @param description the customization description
+   * @param dialect the language dialect
    * @return the service call with the GUID which identifies the created custom model.
    */
-  public ServiceCall<Customization> createCustomization(String name, SpeechModel baseModel, String description) {
+  public ServiceCall<Customization> createCustomization(String name, SpeechModel baseModel, String description, String dialect) {
     Validator.notNull(name, "name cannot be null");
     Validator.notNull(baseModel, "baseModel cannot be null");
 
@@ -378,8 +379,23 @@ public class SpeechToText extends WatsonService {
     newCustomization.setBaseModelName(baseModel.getName());
     newCustomization.setDescription(description);
     newCustomization.setName(name);
+    if (dialect != null)
+      newCustomization.setDialect(dialect);
     requestBuilder.bodyContent(GSON.toJson(newCustomization), HttpMediaType.APPLICATION_JSON);
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Customization.class));
+  }
+  
+  /**
+   * Creates the customization.
+   *
+   * @param name The customization name
+   * @param baseModel The name of the language model that is to be customized by the new model. e.g:
+   *        'en-US_BroadbandModel'.
+   * @param description the customization description
+   * @return the service call with the GUID which identifies the created custom model.
+   */
+  public ServiceCall<Customization> createCustomization(String name, SpeechModel baseModel, String description) {
+    return createCustomization(name, baseModel, description, null);
   }
 
   /**

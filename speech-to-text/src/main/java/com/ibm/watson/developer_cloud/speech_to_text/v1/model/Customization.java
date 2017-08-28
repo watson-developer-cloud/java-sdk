@@ -33,6 +33,8 @@ public class Customization extends GenericModel {
    * </ul>
    */
   public enum WordTypeToAdd {
+    
+    /** The all. */
     ALL, /** The corpora and user words. */
     USER /** The user words. */
   }
@@ -59,7 +61,7 @@ public class Customization extends GenericModel {
   }
 
   @SerializedName("customization_id")
-  private String customizationId;
+  private String id;
 
   private Date created;
 
@@ -80,22 +82,42 @@ public class Customization extends GenericModel {
 
   private String warnings;
 
+  private String dialect;
+  
   /**
    * Gets the customization id.
    *
    * @return The customizationId
    */
   public String getId() {
-    return customizationId;
+    return id;
+  }
+
+  /**
+   * Gets the dialect of the language that is to be used with the custom model.
+   *
+   * @return the dialect
+   */
+  public String getDialect() {
+    return dialect;
+  }
+
+  /**
+   * Sets the dialect of the language that is to be used with the custom model.
+   *
+   * @param dialect the new dialect
+   */
+  public void setDialect(String dialect) {
+    this.dialect = dialect;
   }
 
   /**
    * Sets the customization id.
    *
-   * @param customizationId The customization_id
+   * @param id The customization id
    */
-  public void setId(String customizationId) {
-    this.customizationId = customizationId;
+  public void setId(String id) {
+    this.id = id;
   }
 
   /**
