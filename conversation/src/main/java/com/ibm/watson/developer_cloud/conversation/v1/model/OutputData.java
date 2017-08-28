@@ -12,13 +12,20 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.HashMap;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.conversation.v1.model.util.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+
+import java.lang.reflect.Type;
 import java.util.List;
 
 /**
  * An output object that includes the response to the user, the nodes that were hit, and messages from the log.
  */
-public class OutputData extends HashMap<String, Object> {
+public class OutputData extends DynamicModel {
+
+  private Gson gsonSingleton = GsonSingleton.getGson();
 
   /**
    * Gets the logMessages.
@@ -26,7 +33,8 @@ public class OutputData extends HashMap<String, Object> {
    * @return the logMessages
    */
   public List<LogMessage> getLogMessages() {
-    return (List<LogMessage>) this.get("logMessages");
+    Type listType = new TypeToken<List<LogMessage>>() { } .getType();
+    return gsonSingleton.fromJson(gsonSingleton.toJsonTree(this.get("logMessages")), listType);
   }
 
   /**

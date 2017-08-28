@@ -28,7 +28,57 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import com.ibm.watson.developer_cloud.conversation.v1.model.*;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Counterexample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CounterexampleCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateDialogNodeOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateEntity;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntentOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValue;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteDialogNodeOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteExampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteIntentOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNode;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNodeCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Example;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.GetCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.GetDialogNodeOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.GetExampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.GetIntentOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.GetWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.IntentCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.IntentExport;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListCounterexamplesOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListDialogNodesOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListExamplesOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListIntentsOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListLogsOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListWorkspacesOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.LogCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.LogExport;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.OutputData;
+import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeIntent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateDialogNodeOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateExampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Workspace;
+import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExport;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
@@ -1717,7 +1767,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
     try {
       String dialogNodeDescription2 = "Updated description of " + dialogNodeName;
       Date start = new Date();
-      UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions.Builder(workspaceId, dialogNodeName, dialogNodeName2)
+      UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions
+              .Builder(workspaceId, dialogNodeName, dialogNodeName2)
               .newDescription(dialogNodeDescription2)
               .build();
       DialogNode response = service.updateDialogNode(updateOptions).execute();

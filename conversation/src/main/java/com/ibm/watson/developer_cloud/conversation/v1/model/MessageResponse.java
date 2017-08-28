@@ -12,23 +12,20 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.conversation.v1.model.util.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * A response from the Conversation service.
  */
-public class MessageResponse extends GenericModel {
+public class MessageResponse extends DynamicModel {
 
-  private MessageInput input;
-  private List<RuntimeIntent> intents;
-  private List<RuntimeEntity> entities;
-  @SerializedName("alternate_intents")
-  private Boolean alternateIntents;
-  private Context context;
-  private OutputData output;
+  private Gson gsonSingleton = GsonSingleton.getGson();
 
   /**
    * Gets the input.
@@ -38,7 +35,7 @@ public class MessageResponse extends GenericModel {
    * @return the input
    */
   public MessageInput getInput() {
-    return input;
+    return (MessageInput) this.get("input");
   }
 
   /**
@@ -49,7 +46,8 @@ public class MessageResponse extends GenericModel {
    * @return the intents
    */
   public List<RuntimeIntent> getIntents() {
-    return intents;
+    Type listType = new TypeToken<List<RuntimeIntent>>() { } .getType();
+    return gsonSingleton.fromJson(gsonSingleton.toJsonTree(this.get("intents")), listType);
   }
 
   /**
@@ -60,7 +58,8 @@ public class MessageResponse extends GenericModel {
    * @return the entities
    */
   public List<RuntimeEntity> getEntities() {
-    return entities;
+    Type listType = new TypeToken<List<RuntimeEntity>>() { } .getType();
+    return gsonSingleton.fromJson(gsonSingleton.toJsonTree(this.get("entities")), listType);
   }
 
   /**
@@ -71,7 +70,7 @@ public class MessageResponse extends GenericModel {
    * @return the alternateIntents
    */
   public Boolean isAlternateIntents() {
-    return alternateIntents;
+    return (Boolean) this.get("alternate_intents");
   }
 
   /**
@@ -82,7 +81,7 @@ public class MessageResponse extends GenericModel {
    * @return the context
    */
   public Context getContext() {
-    return context;
+    return gsonSingleton.fromJson(gsonSingleton.toJsonTree(this.get("context")), Context.class);
   }
 
   /**
@@ -93,7 +92,7 @@ public class MessageResponse extends GenericModel {
    * @return the output
    */
   public OutputData getOutput() {
-    return output;
+    return gsonSingleton.fromJson(gsonSingleton.toJsonTree(this.get("output")), OutputData.class);
   }
 
   /**
@@ -102,7 +101,7 @@ public class MessageResponse extends GenericModel {
    * @param input the new input
    */
   public void setInput(final MessageInput input) {
-    this.input = input;
+    this.put("input", input);
   }
 
   /**
@@ -111,7 +110,7 @@ public class MessageResponse extends GenericModel {
    * @param intents the new intents
    */
   public void setIntents(final List<RuntimeIntent> intents) {
-    this.intents = intents;
+    this.put("intents", intents);
   }
 
   /**
@@ -120,7 +119,7 @@ public class MessageResponse extends GenericModel {
    * @param entities the new entities
    */
   public void setEntities(final List<RuntimeEntity> entities) {
-    this.entities = entities;
+    this.put("entities", entities);
   }
 
   /**
@@ -129,7 +128,7 @@ public class MessageResponse extends GenericModel {
    * @param alternateIntents the new alternateIntents
    */
   public void setAlternateIntents(final Boolean alternateIntents) {
-    this.alternateIntents = alternateIntents;
+    this.put("alternate_intents", alternateIntents);
   }
 
   /**
@@ -138,7 +137,7 @@ public class MessageResponse extends GenericModel {
    * @param context the new context
    */
   public void setContext(final Context context) {
-    this.context = context;
+    this.put("context", context);
   }
 
   /**
@@ -147,6 +146,6 @@ public class MessageResponse extends GenericModel {
    * @param output the new output
    */
   public void setOutput(final OutputData output) {
-    this.output = output;
+    this.put("output", output);
   }
 }
