@@ -14,9 +14,6 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Gradle](#gradle)
 * [Usage](#usage)
 * [Getting the Service Credentials](#getting-the-service-credentials)
-* [Questions and troubleshooting](#questions)
-  * [401 - Unauthorized](#401)
-  * [Other](#other)
 * [Android](#android)
 * IBM Watson Services
   * [Alchemy Language](alchemy)
@@ -53,45 +50,53 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 ##### Maven
 
 All the services:
+
 ```xml
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>3.8.0</version>
+	<version>3.9.0</version>
 </dependency>
 ```
 
 Only Retrieve and Rank:
+
 ```xml
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>retrieve-and-rank</artifactId>
-	<version>3.8.0</version>
+	<version>3.9.0</version>
 </dependency>
 ```
 
 ##### Gradle
 
 All the services:
+
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:3.8.0'
+'com.ibm.watson.developer_cloud:java-sdk:3.9.0'
 ```
 
 Only Retrieve and Rank:
+
 ```gradle
-'com.ibm.watson.developer_cloud:retrieve-and-rank:3.8.0'
+'com.ibm.watson.developer_cloud:retrieve-and-rank:3.9.0'
 ```
 
 Only Visual Recognition:
+
 ```gradle
-'com.ibm.watson.developer_cloud:visual-recognition:3.8.0'
+'com.ibm.watson.developer_cloud:visual-recognition:3.9.0'
 ```
 
 ##### Development Snapshots
 
 Snapshots of the development version are available in [Sonatype's snapshots repository][sonatype_snapshots].
+
 ###### Gradle
+
 Add repository to your project Gradle file
+
 ```gradle
 allprojects {
     repositories {
@@ -102,6 +107,7 @@ allprojects {
 
 And then reference the snapshot version on your app module gradle
 Only Speech to Text:
+
 ```gradle
 'com.ibm.watson.developer_cloud:speech-to-text:3.8.1-SNAPSHOT'
 ```
@@ -126,34 +132,16 @@ You will need the `username` and `password` (`api_key` for AlchemyAPI) credentia
 
 To get your service credentials, follow these steps:
 
-1. Log in to Bluemix at https://bluemix.net.
+1. Log in to [Bluemix](https://console.bluemix.net/catalog?category=watson)
 
 1. Create an instance of the service:
     1. In the Bluemix **Catalog**, select the service you want to use.
-    1. Under **Add Service**, type a unique name for the service instance in the Service name field. For example, type `my-service-name`. Leave the default values for the other options.
     1. Click **Create**.
 
 1. Copy your credentials:
-    1. On the left side of the page, click **Service Credentials** to view your service credentials.
-    1. Copy `username` and `password`(`api_key` for AlchemyAPI).
+    1. On the left side of the page, click **Service Credentials**, and then **View credentials** to view your service credentials.
+    1. Copy `url`, `username` and `password`(`api_key` for AlchemyAPI or Visual Recognition).
 
-You can set the correct API Endpoint for your service calling setEndPoint(). 
-For example, if you have the conversation service in Germany, the Endpoint may be "https://gateway-fra.watsonplatform.net/conversation/api", and you will need to call myConversationService.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api").
-
-Once you have credentials, copy config.properties.example to src/test/resources/config.properties, and fill them in as necessary.
-
-## Questions
-
-#### 401
-Make sure you are using the service credentials and not your Bluemix account/password.
-
-Check the API Endpoint, you may need to update the default using setEndPoint().
-
-#### Other
-If you are having difficulties using the APIs or you have a question about the IBM
-Watson Services, please ask a question on
-[dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=watson)
-or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 
 ## Introduce reactive API call for v3.0.1
 
@@ -278,6 +266,25 @@ service.setDefaultHeaders(headers);
 // All the api calls from now on will send the default headers
 ```
 
+## Specifying a service URL
+
+You can set the correct API Endpoint for your service calling `setEndPoint()`.
+
+For example, if you have the conversation service in Germany, the Endpoint may be `https://gateway-fra.watsonplatform.net/conversation/api`. 
+
+You will need to call
+
+```java
+Conversation service = new Conversation("<version-date>");
+service.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api")
+```
+
+## 401 Unauthorized error
+Make sure you are using the service credentials and not your Bluemix account/password.
+
+Check the API Endpoint, you may need to update the default using setEndPoint().
+
+
 ## Debug
 
 HTTP requests can be logging by adding a `loggging.properties` file to your classpath.
@@ -295,6 +302,7 @@ com.ibm.watson.developer_cloud.util.HttpLogging.level=INFO
 The configuration above will log only the URL and query parameters for each request.
 
 For example:
+
 ```none
 Mar 30, 2017 7:31:22 PM okhttp3.internal.platform.Platform log
 INFO: --> POST https://gateway.watsonplatform.net/tradeoff-analytics/api/v1/dilemmas?generate_visualization=false http/1.1 (923-byte body)
@@ -305,6 +313,7 @@ INFO: --> POST https://gateway.watsonplatform.net/tradeoff-analytics/api/v1/dile
 Mar 30, 2017 7:31:35 PM okhttp3.internal.platform.Platform log
 INFO: <-- 200 OK https://gateway.watsonplatform.net/tradeoff-analytics/api/v1/dilemmas?generate_visualization=true (12311ms, unknown-length body)
 ```
+
 **Warning:** The logs generated by this logger when using the level `FINE` or `ALL` has the potential to leak sensitive information such as "Authorization" or "Cookie" headers and the contents of request and response bodies. This data should only be logged in a controlled way or in a non-production environment.
 
 ## Build + Test
@@ -314,12 +323,12 @@ To build and test the project you can use [Gradle][] (version 1.x).
 Gradle:
 
 ```sh
-$ cd java-sdk
-$ gradle jar  # build jar file (build/libs/watson-developer-cloud-3.8.0.jar)
-$ gradle test # run tests
-$ gradle check # performs quality checks on source files and generates reports
-$ gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
-$ gradle codeCoverageReport # run tests and generate the code coverage report (build/reports/jacoco)
+cd java-sdk
+gradle jar  # build jar file (build/libs/watson-developer-cloud-3.9.0.jar)
+gradle test # run tests
+gradle check # performs quality checks on source files and generates reports
+gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
+gradle codeCoverageReport # run tests and generate the code coverage report (build/reports/jacoco)
 ```
 
 ## Working with Eclipse and Intellij IDEA
@@ -328,11 +337,12 @@ If you want to work on the code in an IDE instead of a text editor you can
 easily create project files with gradle:
 
 ```sh
-$ gradle idea     # Intellij IDEA
-$ gradle eclipse  # Eclipse
+gradle idea     # Intellij IDEA
+gradle eclipse  # Eclipse
 ```
 
 ## Open Source @ IBM
+
 Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
 
 ## License
@@ -348,6 +358,13 @@ See [CONTRIBUTING.md](.github/CONTRIBUTING.md).
 
 See [CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md).
 
+### Other
+
+If you are having difficulties using the APIs or you have a question about the IBM
+Watson Services, please ask a question on
+[dW Answers](https://developer.ibm.com/answers/questions/ask/?topics=watson)
+or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
+
 
 [wdc]: http://www.ibm.com/watson/developercloud/
 [bluemix]: https://console.bluemix.net
@@ -357,4 +374,4 @@ See [CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md).
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.8.0/java-sdk-3.8.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.9.0/java-sdk-3.9.0-jar-with-dependencies.jar
