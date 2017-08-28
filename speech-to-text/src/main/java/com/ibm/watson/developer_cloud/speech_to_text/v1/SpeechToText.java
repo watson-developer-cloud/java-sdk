@@ -236,8 +236,8 @@ public class SpeechToText extends WatsonService {
 
   /**
    * Upgrades a custom language model to the latest release level of the Speech to Text service. The method bases the
-   * upgrade on the latest trained data stored for the custom model.
-   * <strong>Note: This method is not currently implemented. It will be added for a future release of the API. </strong>
+   * upgrade on the latest trained data stored for the custom model. <strong>Note: This method is not currently
+   * implemented. It will be added for a future release of the API. </strong>
    *
    * @param customizationId the customization id
    * @return the service call
@@ -273,7 +273,7 @@ public class SpeechToText extends WatsonService {
   @Deprecated
   public ServiceCall<Void> addTextToCustomizationCorpus(String customizationId, String corpusName,
       Boolean allowOverwrite, File trainingData) {
-      return addCorpus(customizationId, corpusName, trainingData, allowOverwrite);
+    return addCorpus(customizationId, corpusName, trainingData, allowOverwrite);
   }
 
   /**
@@ -288,16 +288,16 @@ public class SpeechToText extends WatsonService {
    *        request with the service credentials of the model's owner.
    * @param corpusName The name of the corpus that is to be added. The name cannot contain spaces and cannot be the
    *        string user, which is reserved by the service to denote custom words added or modified by the user.
-   * @param corpusFile A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if
-   *        it contains non-ASCII characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters.
+   * @param corpusFile A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if it
+   *        contains non-ASCII characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters.
    * @param allowOverwrite Indicates whether the specified corpus is to overwrite an existing corpus with the same name.
    *        If a corpus with the same name already exists, the request fails unless allow_overwrite is set to true; by
    *        default, the parameter is false. The parameter has no effect if a corpus with the same name does not already
    *        exist.
    * @return the service call
    */
-  public ServiceCall<Void> addCorpus(String customizationId, String corpusName,
-      File corpusFile, Boolean allowOverwrite) {
+  public ServiceCall<Void> addCorpus(String customizationId, String corpusName, File corpusFile,
+      Boolean allowOverwrite) {
     Validator.notNull(customizationId, "customizationId cannot be null");
     Validator.notNull(corpusName, "corpusName cannot be null");
     Validator.isTrue((corpusFile != null) && corpusFile.exists(), "corpusFile is null or does not exist");
@@ -369,7 +369,8 @@ public class SpeechToText extends WatsonService {
    * @param dialect the language dialect
    * @return the service call with the GUID which identifies the created custom model.
    */
-  public ServiceCall<Customization> createCustomization(String name, SpeechModel baseModel, String description, String dialect) {
+  public ServiceCall<Customization> createCustomization(String name, SpeechModel baseModel, String description,
+      String dialect) {
     Validator.notNull(name, "name cannot be null");
     Validator.notNull(baseModel, "baseModel cannot be null");
 
@@ -384,7 +385,7 @@ public class SpeechToText extends WatsonService {
     requestBuilder.bodyContent(GSON.toJson(newCustomization), HttpMediaType.APPLICATION_JSON);
     return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Customization.class));
   }
-  
+
   /**
    * Creates the customization.
    *
@@ -428,8 +429,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
-   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
+   * that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @return the {@link SpeechSession}
@@ -440,8 +441,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
-   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
+   * that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @param model the model
@@ -453,8 +454,8 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests,
-   * so that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
+   * Creates a session to lock an engine to the session. You can use the session for multiple recognition requests, so
+   * that each request is processed with the same speech-to-text engine. The session expires after 30 seconds of
    * inactivity.
    *
    * @param model the model
@@ -712,7 +713,7 @@ public class SpeechToText extends WatsonService {
    *        and MINUS_COUNT. The default is ALPHA/PLUS_ALPHA.
    * @return the words
    */
-    public ServiceCall<List<WordData>> getWords(String customizationId, Word.Type type, Word.Sort sort) {
+  public ServiceCall<List<WordData>> getWords(String customizationId, Word.Type type, Word.Sort sort) {
     Validator.notNull(customizationId, "customizationId cannot be null");
     RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_WORDS, customizationId));
 

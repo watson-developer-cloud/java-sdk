@@ -33,10 +33,10 @@ public class Customization extends GenericModel {
    * </ul>
    */
   public enum WordTypeToAdd {
-    
-    /** The all. */
-    ALL, /** The corpora and user words. */
-    USER /** The user words. */
+    /** The corpora and user words. */
+    ALL,
+    /** The user words. */
+    USER
   }
 
   /**
@@ -83,7 +83,7 @@ public class Customization extends GenericModel {
   private String warnings;
 
   private String dialect;
-  
+
   /**
    * Gets the customization id.
    *

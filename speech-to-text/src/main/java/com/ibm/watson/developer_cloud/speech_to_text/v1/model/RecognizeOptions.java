@@ -83,7 +83,7 @@ public class RecognizeOptions {
     }
 
     /**
-     * The format of the audio data specified as one of the following values: <br>
+     * The format of the audio data specified.
      * <ul>
      * <li><code>audio/flac</code> for Free Lossless Audio Codec (FLAC)</li>
      * <li><code>audio/l16</code> for Linear 16-bit Pulse-Code Modulation (PCM)</li>
@@ -149,7 +149,7 @@ public class RecognizeOptions {
     }
 
     /**
-     * 
+     *
      * If true, multiple final results that represent multiple consecutive phrases separated by pauses are returned.
      * Otherwise, the recognition ends after first "end of speech" is detected.
      *
@@ -176,8 +176,7 @@ public class RecognizeOptions {
     /**
      * If true, the service sends interim results for the transcription. Otherwise, the recognition ends after first
      * "end of speech" is detected. The default is false. This option is only supported with the
-     * {@link SpeechToText#recognizeUsingWebSocket(InputStream, RecognizeOptions, RecognizeCallback)}
-     * method.
+     * {@link SpeechToText#recognizeUsingWebSocket(InputStream, RecognizeOptions, RecognizeCallback)} method.
      *
      * @param interimResults the interim results
      * @return the recognize options
