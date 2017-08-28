@@ -12,12 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.HashMap;
+import com.ibm.watson.developer_cloud.conversation.v1.model.util.DynamicModel;
 
 /**
  * An intent identified in the user input.
  */
-public class RuntimeIntent extends HashMap<String, Object> {
+public class RuntimeIntent extends DynamicModel {
 
   /**
    * Gets the intent.

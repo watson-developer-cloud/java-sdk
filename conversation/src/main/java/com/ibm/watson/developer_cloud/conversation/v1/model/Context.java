@@ -12,13 +12,17 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.HashMap;
+import com.google.gson.Gson;
+import com.ibm.watson.developer_cloud.conversation.v1.model.util.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 /**
  * Context information for the message. Include the context from the previous response to maintain state for the
  * conversation.
  */
-public class Context extends HashMap<String, Object> {
+public class Context extends DynamicModel {
+
+  private Gson gsonSingleton = GsonSingleton.getGson();
 
   /**
    * Gets the conversationId.
@@ -35,7 +39,7 @@ public class Context extends HashMap<String, Object> {
    * @return the system
    */
   public SystemResponse getSystem() {
-    return (SystemResponse) this.get("system");
+    return gsonSingleton.fromJson(gsonSingleton.toJsonTree(this.get("system")), SystemResponse.class);
   }
 
   /**

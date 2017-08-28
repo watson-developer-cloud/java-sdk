@@ -19,6 +19,7 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
+import com.ibm.watson.developer_cloud.service.model.ObjectModel;
 import okhttp3.Response;
 
 /**
@@ -72,7 +73,7 @@ public final class ResponseConverterUtils {
    * @param type the type
    * @return the response converter
    */
-  public static <T extends GenericModel> ResponseConverter<T> getObject(final Class<? extends T> type) {
+  public static <T extends ObjectModel> ResponseConverter<T> getObject(final Class<? extends T> type) {
     return new ResponseConverter<T>() {
       @Override
       public T convert(Response response) {
