@@ -37,6 +37,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Visual Recognition](visual-recognition)
 * [Reactive API call for v3.0.1](#introduce-reactive-api-call-for-v301)
 * [Breaking Changes for v3.0](#breaking-changes-for-v30)
+* [Using a Proxy](#using-a-proxy)
 * [Android](#android)
 * [Running in Bluemix](#running-in-bluemix)
 * [Default Headers](#default-headers)
@@ -55,7 +56,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>3.9.0</version>
+	<version>3.9.1</version>
 </dependency>
 ```
 
@@ -65,7 +66,7 @@ Only Retrieve and Rank:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>retrieve-and-rank</artifactId>
-	<version>3.9.0</version>
+	<version>3.9.1</version>
 </dependency>
 ```
 
@@ -74,19 +75,19 @@ Only Retrieve and Rank:
 All the services:
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:3.9.0'
+'com.ibm.watson.developer_cloud:java-sdk:3.9.1'
 ```
 
 Only Retrieve and Rank:
 
 ```gradle
-'com.ibm.watson.developer_cloud:retrieve-and-rank:3.9.0'
+'com.ibm.watson.developer_cloud:retrieve-and-rank:3.9.1'
 ```
 
 Only Visual Recognition:
 
 ```gradle
-'com.ibm.watson.developer_cloud:visual-recognition:3.9.0'
+'com.ibm.watson.developer_cloud:visual-recognition:3.9.1'
 ```
 
 ##### Development Snapshots
@@ -193,16 +194,19 @@ The version 3.0 is a major release focused on simplicity and consistency. Severa
 ### Synchronous vs. Asynchronous
 
 Before 3.0 all the API calls were synchronous.
+
 ```java
 List<Dialog> dialogs = dialogService.getDialogs();
 System.out.println(dialogs);
 ```
+
 To do a synchronous call, you need to add `execute()`.
 
 ```java
 List<Dialog> dialogs = dialogService.getDialogs().execute();
 System.out.println(dialogs);
 ```
+
 To do an asynchronous call, you need to specify a callback.
 
 ```java
@@ -224,10 +228,12 @@ See the [CHANGELOG](CHANGELOG.md) for the release notes.
 
 To migrate to 3.0 from a previous version, simply add `.execute()` to the old methods.
 For example if you previously had
+
 ```java
 List<Dialog> dialogs = dialogService.getDialogs();
 System.out.println(dialogs);
 ```
+
 Just add `execute()` on the end, and your code will work exactly the same as before.
 
 ```java
@@ -236,7 +242,31 @@ System.out.println(dialogs);
 ```
 
 ## Android
+
 The Android SDK utilizes the Java SDK while making some Android-specific additions. This repository can be found [here](https://github.com/watson-developer-cloud/android-sdk). It depends on [OkHttp][] and [gson][].
+
+## Using a Proxy
+
+Override the `configureHttpClient()` method and add the proxy using the `OkHttpClient.Builder` object.
+
+For example:
+
+```java
+ConversationService service = new ConversationService("2017-05-26") {
+  @Override
+  protected OkHttpClient configureHttpClient() {
+    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080));
+    return super.configureHttpClient().newBuilder().proxy(proxy).build();
+  }
+};
+
+service.setUsernameAndPassword("<username>", "<password>");
+
+WorkspaceCollectionResponse workspaces = service.listWorkspaces(null, null, null, null).execute();
+System.out.println(workspaces);
+```
+
+For more information see: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564)
 
 ## Running in Bluemix
 
@@ -280,10 +310,9 @@ service.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api")
 ```
 
 ## 401 Unauthorized error
+
 Make sure you are using the service credentials and not your Bluemix account/password.
-
-Check the API Endpoint, you may need to update the default using setEndPoint().
-
+Check the API Endpoint, you may need to update the default using `setEndPoint()`.
 
 ## Debug
 
@@ -324,7 +353,7 @@ Gradle:
 
 ```sh
 cd java-sdk
-gradle jar  # build jar file (build/libs/watson-developer-cloud-3.9.0.jar)
+gradle jar  # build jar file (build/libs/watson-developer-cloud-3.9.1.jar)
 gradle test # run tests
 gradle check # performs quality checks on source files and generates reports
 gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
@@ -374,4 +403,4 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.9.0/java-sdk-3.9.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-3.9.1/java-sdk-3.9.1-jar-with-dependencies.jar
