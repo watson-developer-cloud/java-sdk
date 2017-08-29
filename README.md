@@ -37,6 +37,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Visual Recognition](visual-recognition)
 * [Reactive API call for v3.0.1](#introduce-reactive-api-call-for-v301)
 * [Breaking Changes for v3.0](#breaking-changes-for-v30)
+* [Using a Proxy](#using-a-proxy)
 * [Android](#android)
 * [Running in Bluemix](#running-in-bluemix)
 * [Default Headers](#default-headers)
@@ -193,16 +194,19 @@ The version 3.0 is a major release focused on simplicity and consistency. Severa
 ### Synchronous vs. Asynchronous
 
 Before 3.0 all the API calls were synchronous.
+
 ```java
 List<Dialog> dialogs = dialogService.getDialogs();
 System.out.println(dialogs);
 ```
+
 To do a synchronous call, you need to add `execute()`.
 
 ```java
 List<Dialog> dialogs = dialogService.getDialogs().execute();
 System.out.println(dialogs);
 ```
+
 To do an asynchronous call, you need to specify a callback.
 
 ```java
@@ -224,10 +228,12 @@ See the [CHANGELOG](CHANGELOG.md) for the release notes.
 
 To migrate to 3.0 from a previous version, simply add `.execute()` to the old methods.
 For example if you previously had
+
 ```java
 List<Dialog> dialogs = dialogService.getDialogs();
 System.out.println(dialogs);
 ```
+
 Just add `execute()` on the end, and your code will work exactly the same as before.
 
 ```java
@@ -236,7 +242,31 @@ System.out.println(dialogs);
 ```
 
 ## Android
+
 The Android SDK utilizes the Java SDK while making some Android-specific additions. This repository can be found [here](https://github.com/watson-developer-cloud/android-sdk). It depends on [OkHttp][] and [gson][].
+
+## Using a Proxy
+
+Override the `configureHttpClient()` method and add the proxy using the `OkHttpClient.Builder` object.
+
+For example:
+
+```java
+ConversationService service = new ConversationService("2017-05-26") {
+  @Override
+  protected OkHttpClient configureHttpClient() {
+    Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080));
+    return super.configureHttpClient().newBuilder().proxy(proxy).build();
+  }
+};
+
+service.setUsernameAndPassword("<username>", "<password>");
+
+WorkspaceCollectionResponse workspaces = service.listWorkspaces(null, null, null, null).execute();
+System.out.println(workspaces);
+```
+
+For more information see: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564)
 
 ## Running in Bluemix
 
@@ -280,10 +310,9 @@ service.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api")
 ```
 
 ## 401 Unauthorized error
+
 Make sure you are using the service credentials and not your Bluemix account/password.
-
-Check the API Endpoint, you may need to update the default using setEndPoint().
-
+Check the API Endpoint, you may need to update the default using `setEndPoint()`.
 
 ## Debug
 
