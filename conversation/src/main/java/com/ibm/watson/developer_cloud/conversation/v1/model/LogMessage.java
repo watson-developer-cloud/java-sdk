@@ -12,12 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import com.ibm.watson.developer_cloud.conversation.v1.model.util.DynamicModel;
+import java.util.HashMap;
 
 /**
  * Log message details.
  */
-public class LogMessage extends DynamicModel {
+public class LogMessage extends HashMap<String, Object> {
   /**
    * The severity of the message.
    */

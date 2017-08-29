@@ -14,12 +14,16 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.conversation.v1.model.util.DynamicModel;
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * For internal use only.
  */
-public class SystemResponse extends DynamicModel {
+public class SystemResponse extends GenericModel {
+
+  @SerializedName("SystemResponseObject")
+  private Map systemResponseObject;
 
   /**
    * Gets the systemResponseObject.
@@ -27,7 +31,7 @@ public class SystemResponse extends DynamicModel {
    * @return the systemResponseObject
    */
   public Map getSystemResponseObject() {
-    return (Map) this.get("SystemResponseObject");
+    return systemResponseObject;
   }
 
   /**
@@ -36,6 +40,6 @@ public class SystemResponse extends DynamicModel {
    * @param systemResponseObject the new systemResponseObject
    */
   public void setSystemResponseObject(final Map systemResponseObject) {
-    this.put("SystemResponseObject", systemResponseObject);
+    this.systemResponseObject = systemResponseObject;
   }
 }
