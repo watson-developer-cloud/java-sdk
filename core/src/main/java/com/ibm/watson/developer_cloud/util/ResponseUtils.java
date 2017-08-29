@@ -23,6 +23,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
+import com.ibm.watson.developer_cloud.service.model.ObjectModel;
 import okhttp3.Response;
 
 /**
@@ -86,7 +87,7 @@ public final class ResponseUtils {
    * @param type the type of the response
    * @return the POJO
    */
-  public static <T extends GenericModel> T getObject(Response response, Class<? extends T> type) {
+  public static <T extends ObjectModel> T getObject(Response response, Class<? extends T> type) {
     JsonReader reader;
     try {
       reader = new JsonReader(response.body().charStream());

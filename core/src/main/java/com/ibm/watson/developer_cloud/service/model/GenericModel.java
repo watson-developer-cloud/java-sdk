@@ -17,7 +17,7 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 /**
  * Abstract model class to provide a default toString() method in model classes.
  */
-public abstract class GenericModel {
+public abstract class GenericModel implements ObjectModel {
 
   /*
    * (non-Javadoc)

@@ -12,14 +12,15 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.HashMap;
+import com.ibm.watson.developer_cloud.conversation.v1.model.util.DynamicModel;
+
 import java.util.List;
 import java.util.Map;
 
 /**
  * A term from the request that was identified as an entity.
  */
-public class RuntimeEntity extends HashMap<String, Object> {
+public class RuntimeEntity extends DynamicModel {
 
   /**
    * Gets the entity.
