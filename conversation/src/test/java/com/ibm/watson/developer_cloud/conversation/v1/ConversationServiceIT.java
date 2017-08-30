@@ -28,6 +28,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.junit.Ignore;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+
 import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Counterexample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CounterexampleCollection;
@@ -44,16 +48,16 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteCounterexample
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteWorkspaceOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Example;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetCounterexampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetWorkspaceOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.IntentCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.IntentExport;
-import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListCounterexamplesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListExamplesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListIntentsOptions;
@@ -69,17 +73,15 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateCounterexample
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Workspace;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.WorkspaceExport;
-import com.ibm.watson.developer_cloud.conversation.v1.model.Workspace;
 import com.ibm.watson.developer_cloud.http.ServiceCallback;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 
 import jersey.repackaged.jsr166e.CompletableFuture;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 
 /**
  * Integration test for the {@link ConversationService}.
@@ -1486,6 +1488,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
    * Test listLogs with pagination.
    */
   @Test
+  @Ignore("To be run locally until we fix the Rate limitation issue")
   public void testListLogsWithPaging() {
 
     try {

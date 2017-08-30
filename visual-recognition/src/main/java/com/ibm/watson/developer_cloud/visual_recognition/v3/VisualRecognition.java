@@ -490,7 +490,7 @@ public class VisualRecognition extends WatsonService {
    * @param options the options
    * @return the service call
    */
-  public ServiceCall<Void> addImageToCollection(AddImageToCollectionOptions options) {
+  public ServiceCall<List<CollectionImage>> addImageToCollection(AddImageToCollectionOptions options) {
     Validator.notNull(options, " options cannot be null");
 
     Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
@@ -507,13 +507,16 @@ public class VisualRecognition extends WatsonService {
 
     if (options.metadata() != null && !options.metadata().isEmpty()) {
       String metadata = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(options.metadata());
-      bodyBuilder.addFormDataPart(PARAM_METADATA, metadata);
+      RequestBody requestBody = RequestBody.create(HttpMediaType.JSON, metadata);
+      bodyBuilder.addFormDataPart(PARAM_METADATA, "metatada.json", requestBody);
     }
 
     RequestBuilder requestBuilder = RequestBuilder.post(String.format(PATH_COLLECTION_IMAGES, options.collectionId()));
     requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
 
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
+    ResponseConverter<List<CollectionImage>> converter =
+        ResponseConverterUtils.getGenericObject(TYPE_LIST_IMAGES, PARAM_IMAGES);
+    return createServiceCall(requestBuilder.build(), converter);
   }
 
   /**
