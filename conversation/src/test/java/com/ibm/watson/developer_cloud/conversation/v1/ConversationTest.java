@@ -23,13 +23,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+
 import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateDialogNode;
@@ -54,6 +50,11 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateWorkspaceOptions;
 import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+
+import org.apache.commons.lang3.StringUtils;
+import org.junit.Before;
+import org.junit.Test;
 
 import okhttp3.mockwebserver.RecordedRequest;
 
