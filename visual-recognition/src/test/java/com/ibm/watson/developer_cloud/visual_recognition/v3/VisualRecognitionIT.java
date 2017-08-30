@@ -196,7 +196,10 @@ public class VisualRecognitionIT extends WatsonServiceTest {
           .build();
 
       Assert.assertEquals((int) collection.getImages(), 0);
-      service.addImageToCollection(options).execute();
+      List<CollectionImage> collectionImages = service.addImageToCollection(options).execute();
+      Assert.assertNotNull(collectionImages);
+      Assert.assertEquals((int) collectionImages.size(), 1);
+      Assert.assertEquals(collectionImages.get(0).getMetadata().get("key1"), "value1");
       collection = service.getCollection(collection.getId()).execute();
       Assert.assertEquals((int) collection.getImages(), 1);
       List<CollectionImage> images = service.getCollectionImages(collection.getId()).execute();
@@ -353,7 +356,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     Assert.assertNotNull(service.getCollections().execute());
     Assert.assertTrue(!service.getCollections().execute().isEmpty());
   }
-
 
   /**
    * Test recognize text from byte array.

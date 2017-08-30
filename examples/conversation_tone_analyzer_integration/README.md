@@ -27,8 +27,8 @@ On Mac or Linux:
     ./gradlew run
 
 
-[conversation]: https://www.ibm.com/watson/developercloud/conversation.html
-[tone_analyzer]: http://www.ibm.com/watson/developercloud/tone-analyzer.html
+[conversation]: https://console.bluemix.net/docs/services/conversation/index.html
+[tone_analyzer]: https://console.bluemix.net/docs/services/tone-analyzer/index.html
 [bluemix_conversation_service]: https://console.ng.bluemix.net/catalog/services/conversation/
 [bluemix_tone_analyzer_service]: https://console.ng.bluemix.net/catalog/services/tone-analyzer/
 [conversation_simple_workspace]: https://github.com/watson-developer-cloud/conversation-simple#workspace

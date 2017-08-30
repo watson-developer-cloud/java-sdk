@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>conversation</artifactId>
-	<version>3.8.0</version>
+	<version>3.9.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:conversation:3.8.0'
+'com.ibm.watson.developer_cloud:conversation:3.9.1'
 ```
 
 ## Usage
@@ -55,4 +55,4 @@ response = service.message("<workspace-id>", newMessage).execute();
 System.out.println(response);
 ```
 
-[conversation]: https://console.bluemix.net/docs/services/conversation/index.html#about
+[conversation]: https://console.bluemix.net/docs/services/conversation/index.html

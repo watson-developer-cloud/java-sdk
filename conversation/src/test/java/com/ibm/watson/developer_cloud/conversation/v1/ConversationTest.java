@@ -56,6 +56,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
+
 import okhttp3.mockwebserver.RecordedRequest;
 
 /**
