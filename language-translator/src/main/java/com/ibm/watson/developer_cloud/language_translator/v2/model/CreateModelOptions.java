@@ -18,18 +18,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createModel options.
+ * The createModel options.
  */
 public class CreateModelOptions extends GenericModel {
 
   private String baseModelId;
   private String name;
   private InputStream forcedGlossary;
-  private String forcedGlossaryMediaType;
   private InputStream parallelCorpus;
-  private String parallelCorpusMediaType;
   private InputStream monolingualCorpus;
-  private String monolingualCorpusMediaType;
 
   /**
    * Builder.
@@ -38,21 +35,15 @@ public class CreateModelOptions extends GenericModel {
     private String baseModelId;
     private String name;
     private InputStream forcedGlossary;
-    private String forcedGlossaryMediaType;
     private InputStream parallelCorpus;
-    private String parallelCorpusMediaType;
     private InputStream monolingualCorpus;
-    private String monolingualCorpusMediaType;
 
     private Builder(CreateModelOptions createModelOptions) {
       baseModelId = createModelOptions.baseModelId;
       name = createModelOptions.name;
       forcedGlossary = createModelOptions.forcedGlossary;
-      forcedGlossaryMediaType = createModelOptions.forcedGlossaryMediaType;
       parallelCorpus = createModelOptions.parallelCorpus;
-      parallelCorpusMediaType = createModelOptions.parallelCorpusMediaType;
       monolingualCorpus = createModelOptions.monolingualCorpus;
-      monolingualCorpusMediaType = createModelOptions.monolingualCorpusMediaType;
     }
 
     /**
@@ -113,17 +104,6 @@ public class CreateModelOptions extends GenericModel {
     }
 
     /**
-     * Set the forcedGlossaryMediaType.
-     *
-     * @param forcedGlossaryMediaType the forcedGlossaryMediaType
-     * @return the CreateModelOptions builder
-     */
-    public Builder forcedGlossaryMediaType(String forcedGlossaryMediaType) {
-      this.forcedGlossaryMediaType = forcedGlossaryMediaType;
-      return this;
-    }
-
-    /**
      * Set the parallelCorpus.
      *
      * @param parallelCorpus the parallelCorpus
@@ -131,17 +111,6 @@ public class CreateModelOptions extends GenericModel {
      */
     public Builder parallelCorpus(InputStream parallelCorpus) {
       this.parallelCorpus = parallelCorpus;
-      return this;
-    }
-
-    /**
-     * Set the parallelCorpusMediaType.
-     *
-     * @param parallelCorpusMediaType the parallelCorpusMediaType
-     * @return the CreateModelOptions builder
-     */
-    public Builder parallelCorpusMediaType(String parallelCorpusMediaType) {
-      this.parallelCorpusMediaType = parallelCorpusMediaType;
       return this;
     }
 
@@ -155,17 +124,6 @@ public class CreateModelOptions extends GenericModel {
       this.monolingualCorpus = monolingualCorpus;
       return this;
     }
-
-    /**
-     * Set the monolingualCorpusMediaType.
-     *
-     * @param monolingualCorpusMediaType the monolingualCorpusMediaType
-     * @return the CreateModelOptions builder
-     */
-    public Builder monolingualCorpusMediaType(String monolingualCorpusMediaType) {
-      this.monolingualCorpusMediaType = monolingualCorpusMediaType;
-      return this;
-    }
   }
 
   private CreateModelOptions(Builder builder) {
@@ -173,11 +131,8 @@ public class CreateModelOptions extends GenericModel {
     baseModelId = builder.baseModelId;
     name = builder.name;
     forcedGlossary = builder.forcedGlossary;
-    forcedGlossaryMediaType = builder.forcedGlossaryMediaType;
     parallelCorpus = builder.parallelCorpus;
-    parallelCorpusMediaType = builder.parallelCorpusMediaType;
     monolingualCorpus = builder.monolingualCorpus;
-    monolingualCorpusMediaType = builder.monolingualCorpusMediaType;
   }
 
   /**
@@ -226,17 +181,6 @@ public class CreateModelOptions extends GenericModel {
   }
 
   /**
-   * Gets the forcedGlossaryMediaType.
-   *
-   * the media type of forcedGlossary.
-   *
-   * @return the forcedGlossaryMediaType
-   */
-  public String forcedGlossaryMediaType() {
-    return forcedGlossaryMediaType;
-  }
-
-  /**
    * Gets the parallelCorpus.
    *
    * A TMX file that contains entries that are treated as a parallel corpus instead of a glossary.
@@ -248,17 +192,6 @@ public class CreateModelOptions extends GenericModel {
   }
 
   /**
-   * Gets the parallelCorpusMediaType.
-   *
-   * the media type of parallelCorpus.
-   *
-   * @return the parallelCorpusMediaType
-   */
-  public String parallelCorpusMediaType() {
-    return parallelCorpusMediaType;
-  }
-
-  /**
    * Gets the monolingualCorpus.
    *
    * A UTF-8 encoded plain text file that is used to customize the target language model.
@@ -267,16 +200,5 @@ public class CreateModelOptions extends GenericModel {
    */
   public InputStream monolingualCorpus() {
     return monolingualCorpus;
-  }
-
-  /**
-   * Gets the monolingualCorpusMediaType.
-   *
-   * the media type of monolingualCorpus.
-   *
-   * @return the monolingualCorpusMediaType
-   */
-  public String monolingualCorpusMediaType() {
-    return monolingualCorpusMediaType;
   }
 }
