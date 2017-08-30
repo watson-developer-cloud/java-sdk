@@ -587,7 +587,7 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testCreateImage() throws IOException, InterruptedException {
-    server.enqueue(new MockResponse().setBody(""));
+    server.enqueue(new MockResponse().setBody("{ \"images\": [] }"));
 
     // execute request
     String collectionId = "collection1";

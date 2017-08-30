@@ -1,10 +1,10 @@
 #!/bin/bash
 
-if [ "$TRAVIS_REPO_SLUG" == "watson-developer-cloud/java-sdk" ] && [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" ] && [ "$TRAVIS_BUILD_NUMBER.1" == "$TRAVIS_JOB_NUMBER" ]; then
+if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_BRANCH" ]; then
 
   git config --global user.email "wps@us.ibm.com"
   git config --global user.name "Watson Github Bot"
-  git clone --quiet --branch=gh-pages https://${GH_TOKEN}@github.com/watson-developer-cloud/java-sdk gh-pages > /dev/null
+  git clone --quiet --branch=gh-pages https://${GITHUB_TOKEN_DOCS}@github.com/watson-developer-cloud/java-sdk gh-pages > /dev/null
 
   pushd gh-pages
     # on tagged builds, $TRAVIS_BRANCH is the tag (e.g. v1.2.3), otherwise it's the branch name (e.g. master)
