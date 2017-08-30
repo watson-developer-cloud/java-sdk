@@ -126,12 +126,16 @@ release {
   tagTemplate = 'java-sdk-$version'
 }
 
-task(startmessage) << {
+task startmessage {
+  doLast {
     println 'starting build'
+  }
 }
 
-task(printversion) << {
+task printversion {
+  doLast {
     println project.version
+  }
 }
 
 beforeReleaseBuild.dependsOn startmessage

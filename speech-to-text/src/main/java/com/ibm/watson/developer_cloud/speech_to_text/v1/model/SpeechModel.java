@@ -74,9 +74,19 @@ public class SpeechModel extends GenericModel {
   public static final SpeechModel AR_AR_BROADBANDMODEL = new SpeechModel("ar-AR_BroadbandModel");
 
   /** UK English broadband model. */
-  public static final SpeechModel EN_UK_BROADBANDMODEL = new SpeechModel("en-UK_BroadbandModel");
+  public static final SpeechModel EN_GB_BROADBANDMODEL = new SpeechModel("en-GB_BroadbandModel");
 
   /** UK English narrowband model. */
+  public static final SpeechModel EN_GB_NARROWBANDMODEL = new SpeechModel("en-GB_NarrowbandModel");
+
+  /**
+   * @deprecated Use {@link SpeechModel#EN_GB_BROADBANDMODEL}.
+   */
+  public static final SpeechModel EN_UK_BROADBANDMODEL = new SpeechModel("en-UK_BroadbandModel");
+
+  /**
+   * @deprecated Use {@link SpeechModel#EN_GB_NARROWBANDMODEL}.
+   */
   public static final SpeechModel EN_UK_NARROWBANDMODEL = new SpeechModel("en-UK_NarrowbandModel");
 
   /** US English broadband model. */
