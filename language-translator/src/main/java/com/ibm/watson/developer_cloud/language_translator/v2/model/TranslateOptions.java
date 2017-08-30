@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the translate options.
+ * The translate options.
  */
 public class TranslateOptions extends GenericModel {
 
