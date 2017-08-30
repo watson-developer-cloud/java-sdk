@@ -103,7 +103,7 @@ uploadArchives {
                 packaging 'jar'
                 // optionally artifactId can be defined here
                 description 'Client library to use the IBM Watson Services'
-                url 'https://www.ibm.com/watson/developercloud'
+                url 'https://www.ibm.com/watson/developer'
 
                 scm {
                     connection 'scm:git:git@github.com:watson-developer-cloud/java-sdk.git'
