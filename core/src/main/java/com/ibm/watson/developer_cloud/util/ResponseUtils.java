@@ -21,7 +21,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.stream.JsonReader;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 import com.ibm.watson.developer_cloud.service.model.ObjectModel;
 import okhttp3.Response;
