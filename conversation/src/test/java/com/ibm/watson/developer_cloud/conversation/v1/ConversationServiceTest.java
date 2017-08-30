@@ -12,10 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import java.util.Date;
 
 import org.junit.Assume;
 import org.junit.Before;
+
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
 
 public class ConversationServiceTest extends WatsonServiceTest {
 
@@ -42,6 +44,18 @@ public class ConversationServiceTest extends WatsonServiceTest {
     service.setEndPoint(getProperty("conversation.v1.url"));
     service.setUsernameAndPassword(username, password);
     service.setDefaultHeaders(getDefaultHeaders());
+  }
+
+  long tolerance = 2000;  // 2 secs in ms
+
+  /** return `true` if ldate before rdate within tolerance. */
+  public boolean fuzzyBefore(Date ldate, Date rdate) {
+    return (ldate.getTime() - rdate.getTime()) < tolerance;
+  }
+
+  /** return `true` if ldate after rdate within tolerance. */
+  public boolean fuzzyAfter(Date ldate, Date rdate) {
+    return (rdate.getTime() - ldate.getTime()) < tolerance;
   }
 
 }
