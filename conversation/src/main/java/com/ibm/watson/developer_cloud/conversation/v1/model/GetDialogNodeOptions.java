@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the getDialogNode options.
+ * The getDialogNode options.
  */
 public class GetDialogNodeOptions extends GenericModel {
 
@@ -45,7 +45,7 @@ public class GetDialogNodeOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param dialogNode the dialogNode
+     * @param dialogNode  the dialogNode
      */
     public Builder(String workspaceId, String dialogNode) {
       this.workspaceId = workspaceId;
@@ -102,7 +102,7 @@ public class GetDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -113,7 +113,7 @@ public class GetDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the dialogNode.
-   *
+   * <p>
    * The dialog node ID (for example, `get_order`).
    *
    * @return the dialogNode

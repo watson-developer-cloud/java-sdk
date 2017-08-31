@@ -75,8 +75,8 @@ public class SynonymsIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getSynonym());
-      assertEquals(response.getSynonym(), synonym);
+      assertNotNull(response.getSynonymText());
+      assertEquals(response.getSynonymText(), synonym);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
 
@@ -127,8 +127,8 @@ public class SynonymsIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getSynonym());
-      assertEquals(response.getSynonym(), synonym);
+      assertNotNull(response.getSynonymText());
+      assertEquals(response.getSynonymText(), synonym);
     } catch (Exception ex) {
       DeleteSynonymOptions deleteOptions =
           new DeleteSynonymOptions.Builder(workspaceId, entity, entityValue, synonym).build();
@@ -193,8 +193,8 @@ public class SynonymsIT extends ConversationServiceTest {
       Synonym response = service.getSynonym(getOptions).execute();
 
       assertNotNull(response);
-      assertNotNull(response.getSynonym());
-      assertEquals(response.getSynonym(), synonym);
+      assertNotNull(response.getSynonymText());
+      assertEquals(response.getSynonymText(), synonym);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
 
@@ -274,8 +274,8 @@ public class SynonymsIT extends ConversationServiceTest {
         //assertTrue(response.getSynonyms().stream().filter(r -> r.getSynonym().equals(synonym1)).count() == 1);
         boolean found1 = false, found2 = false;
         for (Synonym synonymResponse : response.getSynonyms()) {
-          found1 |= synonymResponse.getSynonym().equals(synonym1);
-          found2 |= synonymResponse.getSynonym().equals(synonym2);
+          found1 |= synonymResponse.getSynonymText().equals(synonym1);
+          found2 |= synonymResponse.getSynonymText().equals(synonym2);
         }
         assertTrue(found1 && found2);
       }
@@ -350,8 +350,8 @@ public class SynonymsIT extends ConversationServiceTest {
       while (true) {
         assertNotNull(response.getSynonyms());
         assertTrue(response.getSynonyms().size() == 1);
-        found1 |= response.getSynonyms().get(0).getSynonym().equals(synonym1);
-        found2 |= response.getSynonyms().get(0).getSynonym().equals(synonym2);
+        found1 |= response.getSynonyms().get(0).getSynonymText().equals(synonym1);
+        found2 |= response.getSynonyms().get(0).getSynonymText().equals(synonym2);
         if (response.getPagination().getCursor() == null) {
           break;
         }
@@ -420,8 +420,8 @@ public class SynonymsIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getSynonym());
-      assertEquals(response.getSynonym(), synonym2);
+      assertNotNull(response.getSynonymText());
+      assertEquals(response.getSynonymText(), synonym2);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
 

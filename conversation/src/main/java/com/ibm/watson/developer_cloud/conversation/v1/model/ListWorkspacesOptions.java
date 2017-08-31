@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * the listWorkspaces options.
+ * The listWorkspaces options.
  */
 public class ListWorkspacesOptions extends GenericModel {
 
@@ -118,7 +118,7 @@ public class ListWorkspacesOptions extends GenericModel {
 
   /**
    * Gets the pageLimit.
-   *
+   * <p>
    * The number of records to return in each page of results. The default page limit is 100.
    *
    * @return the pageLimit
@@ -129,7 +129,7 @@ public class ListWorkspacesOptions extends GenericModel {
 
   /**
    * Gets the includeCount.
-   *
+   * <p>
    * Whether to include information about the number of records returned.
    *
    * @return the includeCount
@@ -140,7 +140,7 @@ public class ListWorkspacesOptions extends GenericModel {
 
   /**
    * Gets the sort.
-   *
+   * <p>
    * Sorts the response according to the value of the specified property, in ascending or descending order.
    *
    * @return the sort
@@ -151,7 +151,7 @@ public class ListWorkspacesOptions extends GenericModel {
 
   /**
    * Gets the cursor.
-   *
+   * <p>
    * A token identifying the last value from the previous page of results.
    *
    * @return the cursor

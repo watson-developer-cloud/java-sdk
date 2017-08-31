@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listIntents options.
+ * The listIntents options.
  */
 public class ListIntentsOptions extends GenericModel {
 
@@ -159,7 +159,7 @@ public class ListIntentsOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -170,7 +170,7 @@ public class ListIntentsOptions extends GenericModel {
 
   /**
    * Gets the export.
-   *
+   * <p>
    * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
    * information about the element itself. If export=`true`, all content, including subelements, is included. The
    * default value is `false`.
@@ -183,7 +183,7 @@ public class ListIntentsOptions extends GenericModel {
 
   /**
    * Gets the pageLimit.
-   *
+   * <p>
    * The number of records to return in each page of results. The default page limit is 100.
    *
    * @return the pageLimit
@@ -194,7 +194,7 @@ public class ListIntentsOptions extends GenericModel {
 
   /**
    * Gets the includeCount.
-   *
+   * <p>
    * Whether to include information about the number of records returned.
    *
    * @return the includeCount
@@ -205,7 +205,7 @@ public class ListIntentsOptions extends GenericModel {
 
   /**
    * Gets the sort.
-   *
+   * <p>
    * Sorts the response according to the value of the specified property, in ascending or descending order.
    *
    * @return the sort
@@ -216,7 +216,7 @@ public class ListIntentsOptions extends GenericModel {
 
   /**
    * Gets the cursor.
-   *
+   * <p>
    * A token identifying the last value from the previous page of results.
    *
    * @return the cursor

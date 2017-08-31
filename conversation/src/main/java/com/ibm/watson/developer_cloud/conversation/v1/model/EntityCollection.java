@@ -26,7 +26,7 @@ public class EntityCollection extends GenericModel {
 
   /**
    * Gets the entities.
-   *
+   * <p>
    * An array of entities.
    *
    * @return the entities
@@ -37,7 +37,7 @@ public class EntityCollection extends GenericModel {
 
   /**
    * Gets the pagination.
-   *
+   * <p>
    * An object defining the pagination data for the returned objects.
    *
    * @return the pagination

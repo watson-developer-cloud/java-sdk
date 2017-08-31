@@ -166,7 +166,7 @@ public class CreateEntity extends GenericModel {
 
   /**
    * Gets the entity.
-   *
+   * <p>
    * The name of the entity.
    *
    * @return the entity
@@ -177,7 +177,7 @@ public class CreateEntity extends GenericModel {
 
   /**
    * Gets the description.
-   *
+   * <p>
    * The description of the entity.
    *
    * @return the description
@@ -188,7 +188,7 @@ public class CreateEntity extends GenericModel {
 
   /**
    * Gets the metadata.
-   *
+   * <p>
    * Any metadata related to the value.
    *
    * @return the metadata
@@ -199,7 +199,7 @@ public class CreateEntity extends GenericModel {
 
   /**
    * Gets the values.
-   *
+   * <p>
    * An array of entity values.
    *
    * @return the values
@@ -210,7 +210,7 @@ public class CreateEntity extends GenericModel {
 
   /**
    * Gets the fuzzyMatch.
-   *
+   * <p>
    * Whether to use fuzzy matching for the entity.
    *
    * @return the fuzzyMatch

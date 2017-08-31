@@ -31,7 +31,7 @@ public class LogExport extends GenericModel {
 
   /**
    * Gets the request.
-   *
+   * <p>
    * A request formatted for the Conversation service.
    *
    * @return the request
@@ -42,7 +42,7 @@ public class LogExport extends GenericModel {
 
   /**
    * Gets the response.
-   *
+   * <p>
    * A response from the Conversation service.
    *
    * @return the response
@@ -53,7 +53,7 @@ public class LogExport extends GenericModel {
 
   /**
    * Gets the logId.
-   *
+   * <p>
    * A unique identifier for the logged message.
    *
    * @return the logId
@@ -64,7 +64,7 @@ public class LogExport extends GenericModel {
 
   /**
    * Gets the requestTimestamp.
-   *
+   * <p>
    * The timestamp for receipt of the message.
    *
    * @return the requestTimestamp
@@ -75,7 +75,7 @@ public class LogExport extends GenericModel {
 
   /**
    * Gets the responseTimestamp.
-   *
+   * <p>
    * The timestamp for the system response to the message.
    *
    * @return the responseTimestamp

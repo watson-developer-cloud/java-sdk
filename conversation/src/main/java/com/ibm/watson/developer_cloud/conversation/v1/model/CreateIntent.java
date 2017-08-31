@@ -133,7 +133,7 @@ public class CreateIntent extends GenericModel {
 
   /**
    * Gets the intent.
-   *
+   * <p>
    * The name of the intent.
    *
    * @return the intent
@@ -144,7 +144,7 @@ public class CreateIntent extends GenericModel {
 
   /**
    * Gets the description.
-   *
+   * <p>
    * The description of the intent.
    *
    * @return the description
@@ -155,7 +155,7 @@ public class CreateIntent extends GenericModel {
 
   /**
    * Gets the examples.
-   *
+   * <p>
    * An array of user input examples.
    *
    * @return the examples

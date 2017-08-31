@@ -25,22 +25,27 @@ public class DialogNodeAction extends GenericModel {
   /**
    * The type of action to invoke.
    */
-  public interface Type {
-    /** client. */
+  public interface ActionType {
+    /**
+     * client.
+     */
     String CLIENT = "client";
-    /** server. */
+    /**
+     * server.
+     */
     String SERVER = "server";
   }
 
   private String name;
-  private String type;
+  @SerializedName("type")
+  private String actionType;
   private Map parameters;
   @SerializedName("result_variable")
   private String resultVariable;
 
   /**
    * Gets the name.
-   *
+   * <p>
    * The name of the action.
    *
    * @return the name
@@ -50,19 +55,19 @@ public class DialogNodeAction extends GenericModel {
   }
 
   /**
-   * Gets the type.
-   *
+   * Gets the actionType.
+   * <p>
    * The type of action to invoke.
    *
-   * @return the type
+   * @return the actionType
    */
-  public String getType() {
-    return type;
+  public String getActionType() {
+    return actionType;
   }
 
   /**
    * Gets the parameters.
-   *
+   * <p>
    * A map of key/value pairs to be provided to the action.
    *
    * @return the parameters
@@ -73,7 +78,7 @@ public class DialogNodeAction extends GenericModel {
 
   /**
    * Gets the resultVariable.
-   *
+   * <p>
    * The location in the dialog context where the result of the action is stored.
    *
    * @return the resultVariable
@@ -92,12 +97,12 @@ public class DialogNodeAction extends GenericModel {
   }
 
   /**
-   * Sets the type.
+   * Sets the actionType.
    *
-   * @param type the new type
+   * @param actionType the new actionType
    */
-  public void setType(final String type) {
-    this.type = type;
+  public void setActionType(final String actionType) {
+    this.actionType = actionType;
   }
 
   /**

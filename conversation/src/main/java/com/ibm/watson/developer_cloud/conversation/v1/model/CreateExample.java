@@ -84,7 +84,7 @@ public class CreateExample extends GenericModel {
 
   /**
    * Gets the text.
-   *
+   * <p>
    * The text of a user input example.
    *
    * @return the text

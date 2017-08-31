@@ -27,6 +27,7 @@ public class CreateValue extends GenericModel {
   private String value;
   private Map metadata;
   private List<String> synonyms;
+  private List<String> patterns;
 
   /**
    * Builder.
@@ -35,11 +36,13 @@ public class CreateValue extends GenericModel {
     private String value;
     private Map metadata;
     private List<String> synonyms;
+    private List<String> patterns;
 
     private Builder(CreateValue createValue) {
       value = createValue.value;
       metadata = createValue.metadata;
       synonyms = createValue.synonyms;
+      patterns = createValue.patterns;
     }
 
     /**
@@ -82,6 +85,21 @@ public class CreateValue extends GenericModel {
     }
 
     /**
+     * Adds an patterns to patterns.
+     *
+     * @param patterns the new patterns
+     * @return the CreateValue builder
+     */
+    public Builder addPatterns(String patterns) {
+      Validator.notNull(patterns, "patterns cannot be null");
+      if (this.patterns == null) {
+        this.patterns = new ArrayList<String>();
+      }
+      this.patterns.add(patterns);
+      return this;
+    }
+
+    /**
      * Set the value.
      *
      * @param value the value
@@ -114,6 +132,18 @@ public class CreateValue extends GenericModel {
       this.synonyms = synonyms;
       return this;
     }
+
+    /**
+     * Set the patterns.
+     * Existing patterns will be replaced.
+     *
+     * @param patterns the patterns
+     * @return the CreateValue builder
+     */
+    public Builder patterns(List<String> patterns) {
+      this.patterns = patterns;
+      return this;
+    }
   }
 
   private CreateValue(Builder builder) {
@@ -121,6 +151,7 @@ public class CreateValue extends GenericModel {
     value = builder.value;
     metadata = builder.metadata;
     synonyms = builder.synonyms;
+    patterns = builder.patterns;
   }
 
   /**
@@ -134,7 +165,7 @@ public class CreateValue extends GenericModel {
 
   /**
    * Gets the value.
-   *
+   * <p>
    * The text of the entity value.
    *
    * @return the value
@@ -145,7 +176,7 @@ public class CreateValue extends GenericModel {
 
   /**
    * Gets the metadata.
-   *
+   * <p>
    * Any metadata related to the entity value.
    *
    * @return the metadata
@@ -156,12 +187,23 @@ public class CreateValue extends GenericModel {
 
   /**
    * Gets the synonyms.
-   *
+   * <p>
    * An array of synonyms for the entity value.
    *
    * @return the synonyms
    */
   public List<String> synonyms() {
     return synonyms;
+  }
+
+  /**
+   * Gets the patterns.
+   * <p>
+   * An array of patterns for the entity value. A pattern is specified as a regular expression.
+   *
+   * @return the patterns
+   */
+  public List<String> patterns() {
+    return patterns;
   }
 }

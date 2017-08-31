@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the deleteValue options.
+ * The deleteValue options.
  */
 public class DeleteValueOptions extends GenericModel {
 
@@ -48,8 +48,8 @@ public class DeleteValueOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity the entity
-     * @param value the value
+     * @param entity      the entity
+     * @param value       the value
      */
     public Builder(String workspaceId, String entity, String value) {
       this.workspaceId = workspaceId;
@@ -120,7 +120,7 @@ public class DeleteValueOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -131,7 +131,7 @@ public class DeleteValueOptions extends GenericModel {
 
   /**
    * Gets the entity.
-   *
+   * <p>
    * The name of the entity.
    *
    * @return the entity
@@ -142,7 +142,7 @@ public class DeleteValueOptions extends GenericModel {
 
   /**
    * Gets the value.
-   *
+   * <p>
    * The text of the entity value.
    *
    * @return the value

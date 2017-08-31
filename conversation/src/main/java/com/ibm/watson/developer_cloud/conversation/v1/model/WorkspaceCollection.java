@@ -26,7 +26,7 @@ public class WorkspaceCollection extends GenericModel {
 
   /**
    * Gets the workspaces.
-   *
+   * <p>
    * An array of workspaces.
    *
    * @return the workspaces
@@ -37,7 +37,7 @@ public class WorkspaceCollection extends GenericModel {
 
   /**
    * Gets the pagination.
-   *
+   * <p>
    * An object defining the pagination data for the returned objects.
    *
    * @return the pagination

@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateCounterexample options.
+ * The updateCounterexample options.
  */
 public class UpdateCounterexampleOptions extends GenericModel {
 
@@ -48,7 +48,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param text the text
+     * @param text        the text
      */
     public Builder(String workspaceId, String text) {
       this.workspaceId = workspaceId;
@@ -117,7 +117,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -128,7 +128,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
 
   /**
    * Gets the text.
-   *
+   * <p>
    * The text of a user input counterexample (for example, `What are you wearing?`).
    *
    * @return the text
@@ -139,7 +139,7 @@ public class UpdateCounterexampleOptions extends GenericModel {
 
   /**
    * Gets the newText.
-   *
+   * <p>
    * The text of the example to be marked as irrelevant input.
    *
    * @return the newText

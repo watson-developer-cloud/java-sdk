@@ -26,7 +26,7 @@ public class LogCollection extends GenericModel {
 
   /**
    * Gets the logs.
-   *
+   * <p>
    * An array of log events.
    *
    * @return the logs
@@ -37,7 +37,7 @@ public class LogCollection extends GenericModel {
 
   /**
    * Gets the pagination.
-   *
+   * <p>
    * An object defining the pagination data for the returned objects.
    *
    * @return the pagination
