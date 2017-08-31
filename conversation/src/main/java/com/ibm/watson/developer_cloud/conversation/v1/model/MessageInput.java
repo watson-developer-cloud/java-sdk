@@ -23,7 +23,7 @@ public class MessageInput extends GenericModel {
 
   /**
    * Gets the text.
-   *
+   * <p>
    * The user's input.
    *
    * @return the text

@@ -84,7 +84,7 @@ public class InputData extends GenericModel {
 
   /**
    * Gets the text.
-   *
+   * <p>
    * The text of the user input.
    *
    * @return the text

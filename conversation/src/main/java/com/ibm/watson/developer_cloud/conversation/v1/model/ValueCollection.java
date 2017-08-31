@@ -26,7 +26,7 @@ public class ValueCollection extends GenericModel {
 
   /**
    * Gets the values.
-   *
+   * <p>
    * An array of entity values.
    *
    * @return the values
@@ -37,7 +37,7 @@ public class ValueCollection extends GenericModel {
 
   /**
    * Gets the pagination.
-   *
+   * <p>
    * An object defining the pagination data for the returned objects.
    *
    * @return the pagination

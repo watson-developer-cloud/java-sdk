@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the getValue options.
+ * The getValue options.
  */
 public class GetValueOptions extends GenericModel {
 
@@ -51,8 +51,8 @@ public class GetValueOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity the entity
-     * @param value the value
+     * @param entity      the entity
+     * @param value       the value
      */
     public Builder(String workspaceId, String entity, String value) {
       this.workspaceId = workspaceId;
@@ -135,7 +135,7 @@ public class GetValueOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -146,7 +146,7 @@ public class GetValueOptions extends GenericModel {
 
   /**
    * Gets the entity.
-   *
+   * <p>
    * The name of the entity.
    *
    * @return the entity
@@ -157,7 +157,7 @@ public class GetValueOptions extends GenericModel {
 
   /**
    * Gets the value.
-   *
+   * <p>
    * The text of the entity value.
    *
    * @return the value
@@ -168,7 +168,7 @@ public class GetValueOptions extends GenericModel {
 
   /**
    * Gets the export.
-   *
+   * <p>
    * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
    * information about the element itself. If export=`true`, all content, including subelements, is included. The
    * default value is `false`.

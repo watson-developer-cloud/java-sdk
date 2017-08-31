@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listSynonyms options.
+ * The listSynonyms options.
  */
 public class ListSynonymsOptions extends GenericModel {
 
@@ -60,8 +60,8 @@ public class ListSynonymsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity the entity
-     * @param value the value
+     * @param entity      the entity
+     * @param value       the value
      */
     public Builder(String workspaceId, String entity, String value) {
       this.workspaceId = workspaceId;
@@ -180,7 +180,7 @@ public class ListSynonymsOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -191,7 +191,7 @@ public class ListSynonymsOptions extends GenericModel {
 
   /**
    * Gets the entity.
-   *
+   * <p>
    * The name of the entity.
    *
    * @return the entity
@@ -202,7 +202,7 @@ public class ListSynonymsOptions extends GenericModel {
 
   /**
    * Gets the value.
-   *
+   * <p>
    * The text of the entity value.
    *
    * @return the value
@@ -213,7 +213,7 @@ public class ListSynonymsOptions extends GenericModel {
 
   /**
    * Gets the pageLimit.
-   *
+   * <p>
    * The number of records to return in each page of results. The default page limit is 100.
    *
    * @return the pageLimit
@@ -224,7 +224,7 @@ public class ListSynonymsOptions extends GenericModel {
 
   /**
    * Gets the includeCount.
-   *
+   * <p>
    * Whether to include information about the number of records returned.
    *
    * @return the includeCount
@@ -235,7 +235,7 @@ public class ListSynonymsOptions extends GenericModel {
 
   /**
    * Gets the sort.
-   *
+   * <p>
    * Sorts the response according to the value of the specified property, in ascending or descending order.
    *
    * @return the sort
@@ -246,7 +246,7 @@ public class ListSynonymsOptions extends GenericModel {
 
   /**
    * Gets the cursor.
-   *
+   * <p>
    * A token identifying the last value from the previous page of results.
    *
    * @return the cursor

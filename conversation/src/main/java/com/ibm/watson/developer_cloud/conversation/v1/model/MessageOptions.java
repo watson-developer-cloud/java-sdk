@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the message options.
+ * The message options.
  */
 public class MessageOptions extends GenericModel {
 
@@ -209,7 +209,7 @@ public class MessageOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * Unique identifier of the workspace.
    *
    * @return the workspaceId
@@ -220,7 +220,7 @@ public class MessageOptions extends GenericModel {
 
   /**
    * Gets the output.
-   *
+   * <p>
    * System output. Include the output from the request when you have several requests within the same Dialog turn to
    * pass back in the intermediate information.
    *
@@ -232,7 +232,7 @@ public class MessageOptions extends GenericModel {
 
   /**
    * Gets the input.
-   *
+   * <p>
    * An input object that includes the input text.
    *
    * @return the input
@@ -243,9 +243,9 @@ public class MessageOptions extends GenericModel {
 
   /**
    * Gets the intents.
-   *
-   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they do
-   * not need to change and to prevent Watson from trying to identify them.
+   * <p>
+   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they
+   * do not need to change and to prevent Watson from trying to identify them.
    *
    * @return the intents
    */
@@ -255,9 +255,9 @@ public class MessageOptions extends GenericModel {
 
   /**
    * Gets the entities.
-   *
-   * Include the entities from the previous response when they do not need to change and to prevent Watson from trying
-   * to identify them.
+   * <p>
+   * Include the entities from the previous response when they do not need to change and to prevent Watson from
+   * trying to identify them.
    *
    * @return the entities
    */
@@ -267,7 +267,7 @@ public class MessageOptions extends GenericModel {
 
   /**
    * Gets the alternateIntents.
-   *
+   * <p>
    * Whether to return more than one intent. Set to `true` to return all matching intents.
    *
    * @return the alternateIntents
@@ -278,9 +278,9 @@ public class MessageOptions extends GenericModel {
 
   /**
    * Gets the context.
-   *
-   * State information for the conversation. Continue a conversation by including the context object from the previous
-   * response.
+   * <p>
+   * State information for the conversation. Continue a conversation by including the context object from the
+   * previous response.
    *
    * @return the context
    */

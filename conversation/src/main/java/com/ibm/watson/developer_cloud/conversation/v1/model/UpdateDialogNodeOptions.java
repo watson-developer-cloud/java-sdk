@@ -20,23 +20,33 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the UpdateDialogNode options.
+ * The UpdateDialogNode options.
  */
 public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * How the node is processed.
    */
-  public interface NewType {
-    /** standard. */
+  public interface NodeType {
+    /**
+     * standard.
+     */
     String STANDARD = "standard";
-    /** event_handler. */
+    /**
+     * event_handler.
+     */
     String EVENT_HANDLER = "event_handler";
-    /** frame. */
+    /**
+     * frame.
+     */
     String FRAME = "frame";
-    /** slot. */
+    /**
+     * slot.
+     */
     String SLOT = "slot";
-    /** response_condition. */
+    /**
+     * response_condition.
+     */
     String RESPONSE_CONDITION = "response_condition";
   }
 
@@ -44,27 +54,43 @@ public class UpdateDialogNodeOptions extends GenericModel {
    * How an `event_handler` node is processed.
    */
   public interface NewEventName {
-    /** focus. */
+    /**
+     * focus.
+     */
     String FOCUS = "focus";
-    /** input. */
+    /**
+     * input.
+     */
     String INPUT = "input";
-    /** filled. */
+    /**
+     * filled.
+     */
     String FILLED = "filled";
-    /** validate. */
+    /**
+     * validate.
+     */
     String VALIDATE = "validate";
-    /** filled_multiple. */
+    /**
+     * filled_multiple.
+     */
     String FILLED_MULTIPLE = "filled_multiple";
-    /** generic. */
+    /**
+     * generic.
+     */
     String GENERIC = "generic";
-    /** nomatch. */
+    /**
+     * nomatch.
+     */
     String NOMATCH = "nomatch";
-    /** nomatch_responses_depleted. */
+    /**
+     * nomatch_responses_depleted.
+     */
     String NOMATCH_RESPONSES_DEPLETED = "nomatch_responses_depleted";
   }
 
   private String workspaceId;
   private String dialogNode;
-  private String newType;
+  private String nodeType;
   private List<DialogNodeAction> newActions;
   private String newConditions;
   private String newPreviousSibling;
@@ -85,7 +111,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private String dialogNode;
-    private String newType;
+    private String nodeType;
     private List<DialogNodeAction> newActions;
     private String newConditions;
     private String newPreviousSibling;
@@ -103,7 +129,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     private Builder(UpdateDialogNodeOptions updateDialogNodeOptions) {
       workspaceId = updateDialogNodeOptions.workspaceId;
       dialogNode = updateDialogNodeOptions.dialogNode;
-      newType = updateDialogNodeOptions.newType;
+      nodeType = updateDialogNodeOptions.nodeType;
       newActions = updateDialogNodeOptions.newActions;
       newConditions = updateDialogNodeOptions.newConditions;
       newPreviousSibling = updateDialogNodeOptions.newPreviousSibling;
@@ -128,8 +154,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param workspaceId the workspaceId
-     * @param dialogNode the dialogNode
+     * @param workspaceId   the workspaceId
+     * @param dialogNode    the dialogNode
      * @param newDialogNode the newDialogNode
      */
     public Builder(String workspaceId, String dialogNode, String newDialogNode) {
@@ -185,13 +211,13 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the newType.
+     * Set the nodeType.
      *
-     * @param newType the newType
+     * @param nodeType the nodeType
      * @return the UpdateDialogNodeOptions builder
      */
-    public Builder newType(String newType) {
-      this.newType = newType;
+    public Builder nodeType(String nodeType) {
+      this.nodeType = nodeType;
       return this;
     }
 
@@ -346,7 +372,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     Validator.notNull(builder.newDialogNode, "newDialogNode cannot be null");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
-    newType = builder.newType;
+    nodeType = builder.nodeType;
     newActions = builder.newActions;
     newConditions = builder.newConditions;
     newPreviousSibling = builder.newPreviousSibling;
@@ -373,7 +399,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -384,7 +410,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the dialogNode.
-   *
+   * <p>
    * The dialog node ID (for example, `get_order`).
    *
    * @return the dialogNode
@@ -394,19 +420,19 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the newType.
-   *
+   * Gets the nodeType.
+   * <p>
    * How the node is processed.
    *
-   * @return the newType
+   * @return the nodeType
    */
-  public String newType() {
-    return newType;
+  public String nodeType() {
+    return nodeType;
   }
 
   /**
    * Gets the newActions.
-   *
+   * <p>
    * The actions for the dialog node.
    *
    * @return the newActions
@@ -417,7 +443,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newConditions.
-   *
+   * <p>
    * The condition that will trigger the dialog node.
    *
    * @return the newConditions
@@ -428,7 +454,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newPreviousSibling.
-   *
+   * <p>
    * The previous dialog node.
    *
    * @return the newPreviousSibling
@@ -439,7 +465,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newContext.
-   *
+   * <p>
    * The context for the dialog node.
    *
    * @return the newContext
@@ -450,7 +476,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newVariable.
-   *
+   * <p>
    * The location in the dialog context where output is stored.
    *
    * @return the newVariable
@@ -461,7 +487,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newMetadata.
-   *
+   * <p>
    * The metadata for the dialog node.
    *
    * @return the newMetadata
@@ -472,7 +498,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newTitle.
-   *
+   * <p>
    * The alias used to identify the dialog node.
    *
    * @return the newTitle
@@ -483,7 +509,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newDescription.
-   *
+   * <p>
    * The description of the dialog node.
    *
    * @return the newDescription
@@ -494,7 +520,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newEventName.
-   *
+   * <p>
    * How an `event_handler` node is processed.
    *
    * @return the newEventName
@@ -505,6 +531,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newNextStep.
+   * <p>
+   * The next step to execute following this dialog node.
    *
    * @return the newNextStep
    */
@@ -514,7 +542,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newOutput.
-   *
+   * <p>
    * The output of the dialog node.
    *
    * @return the newOutput
@@ -525,7 +553,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newParent.
-   *
+   * <p>
    * The ID of the parent dialog node (if any).
    *
    * @return the newParent
@@ -536,7 +564,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newDialogNode.
-   *
+   * <p>
    * The dialog node ID.
    *
    * @return the newDialogNode

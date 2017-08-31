@@ -26,7 +26,7 @@ public class ExampleCollection extends GenericModel {
 
   /**
    * Gets the examples.
-   *
+   * <p>
    * An array of Example objects describing the examples defined for the intent.
    *
    * @return the examples
@@ -37,7 +37,7 @@ public class ExampleCollection extends GenericModel {
 
   /**
    * Gets the pagination.
-   *
+   * <p>
    * An object defining the pagination data for the returned objects.
    *
    * @return the pagination

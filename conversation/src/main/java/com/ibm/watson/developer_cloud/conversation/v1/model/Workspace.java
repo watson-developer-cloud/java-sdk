@@ -31,10 +31,12 @@ public class Workspace extends GenericModel {
   private String workspaceId;
   private String description;
   private Map metadata;
+  @SerializedName("learning_opt_out")
+  private Boolean learningOptOut;
 
   /**
    * Gets the name.
-   *
+   * <p>
    * The name of the workspace.
    *
    * @return the name
@@ -45,7 +47,7 @@ public class Workspace extends GenericModel {
 
   /**
    * Gets the language.
-   *
+   * <p>
    * The language of the workspace.
    *
    * @return the language
@@ -56,7 +58,7 @@ public class Workspace extends GenericModel {
 
   /**
    * Gets the created.
-   *
+   * <p>
    * The timestamp for creation of the workspace.
    *
    * @return the created
@@ -67,7 +69,7 @@ public class Workspace extends GenericModel {
 
   /**
    * Gets the updated.
-   *
+   * <p>
    * The timestamp for the last update to the workspace.
    *
    * @return the updated
@@ -78,7 +80,7 @@ public class Workspace extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -89,7 +91,7 @@ public class Workspace extends GenericModel {
 
   /**
    * Gets the description.
-   *
+   * <p>
    * The description of the workspace.
    *
    * @return the description
@@ -100,13 +102,25 @@ public class Workspace extends GenericModel {
 
   /**
    * Gets the metadata.
-   *
+   * <p>
    * Any metadata that is required by the workspace.
    *
    * @return the metadata
    */
   public Map getMetadata() {
     return metadata;
+  }
+
+  /**
+   * Gets the learningOptOut.
+   * <p>
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates
+   * that workspace training data is not to be used.
+   *
+   * @return the learningOptOut
+   */
+  public Boolean isLearningOptOut() {
+    return learningOptOut;
   }
 
   /**
@@ -143,5 +157,14 @@ public class Workspace extends GenericModel {
    */
   public void setMetadata(final Map metadata) {
     this.metadata = metadata;
+  }
+
+  /**
+   * Sets the learningOptOut.
+   *
+   * @param learningOptOut the new learningOptOut
+   */
+  public void setLearningOptOut(final Boolean learningOptOut) {
+    this.learningOptOut = learningOptOut;
   }
 }

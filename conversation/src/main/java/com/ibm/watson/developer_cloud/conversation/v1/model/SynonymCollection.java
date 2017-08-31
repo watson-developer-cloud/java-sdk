@@ -26,7 +26,7 @@ public class SynonymCollection extends GenericModel {
 
   /**
    * Gets the synonyms.
-   *
+   * <p>
    * An array of synonyms.
    *
    * @return the synonyms
@@ -37,7 +37,7 @@ public class SynonymCollection extends GenericModel {
 
   /**
    * Gets the pagination.
-   *
+   * <p>
    * An object defining the pagination data for the returned objects.
    *
    * @return the pagination

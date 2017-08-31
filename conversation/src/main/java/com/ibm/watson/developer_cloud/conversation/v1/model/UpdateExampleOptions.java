@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateExample options.
+ * The updateExample options.
  */
 public class UpdateExampleOptions extends GenericModel {
 
@@ -51,8 +51,8 @@ public class UpdateExampleOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param intent the intent
-     * @param text the text
+     * @param intent      the intent
+     * @param text        the text
      */
     public Builder(String workspaceId, String intent, String text) {
       this.workspaceId = workspaceId;
@@ -135,7 +135,7 @@ public class UpdateExampleOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -146,7 +146,7 @@ public class UpdateExampleOptions extends GenericModel {
 
   /**
    * Gets the intent.
-   *
+   * <p>
    * The intent name (for example, `pizza_order`).
    *
    * @return the intent
@@ -157,7 +157,7 @@ public class UpdateExampleOptions extends GenericModel {
 
   /**
    * Gets the text.
-   *
+   * <p>
    * The text of the user input example.
    *
    * @return the text
@@ -168,7 +168,7 @@ public class UpdateExampleOptions extends GenericModel {
 
   /**
    * Gets the newText.
-   *
+   * <p>
    * The text of the user input example.
    *
    * @return the newText

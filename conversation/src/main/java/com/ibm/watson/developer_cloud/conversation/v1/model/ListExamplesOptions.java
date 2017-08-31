@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listExamples options.
+ * The listExamples options.
  */
 public class ListExamplesOptions extends GenericModel {
 
@@ -57,7 +57,7 @@ public class ListExamplesOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param intent the intent
+     * @param intent      the intent
      */
     public Builder(String workspaceId, String intent) {
       this.workspaceId = workspaceId;
@@ -162,7 +162,7 @@ public class ListExamplesOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -173,7 +173,7 @@ public class ListExamplesOptions extends GenericModel {
 
   /**
    * Gets the intent.
-   *
+   * <p>
    * The intent name (for example, `pizza_order`).
    *
    * @return the intent
@@ -184,7 +184,7 @@ public class ListExamplesOptions extends GenericModel {
 
   /**
    * Gets the pageLimit.
-   *
+   * <p>
    * The number of records to return in each page of results. The default page limit is 100.
    *
    * @return the pageLimit
@@ -195,7 +195,7 @@ public class ListExamplesOptions extends GenericModel {
 
   /**
    * Gets the includeCount.
-   *
+   * <p>
    * Whether to include information about the number of records returned.
    *
    * @return the includeCount
@@ -206,7 +206,7 @@ public class ListExamplesOptions extends GenericModel {
 
   /**
    * Gets the sort.
-   *
+   * <p>
    * Sorts the response according to the value of the specified property, in ascending or descending order.
    *
    * @return the sort
@@ -217,7 +217,7 @@ public class ListExamplesOptions extends GenericModel {
 
   /**
    * Gets the cursor.
-   *
+   * <p>
    * A token identifying the last value from the previous page of results.
    *
    * @return the cursor

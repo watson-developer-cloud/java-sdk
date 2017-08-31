@@ -23,7 +23,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Entity extends GenericModel {
 
-  private String entity;
+  @SerializedName("entity")
+  private String entityName;
   private Date created;
   private Date updated;
   private String description;
@@ -32,19 +33,19 @@ public class Entity extends GenericModel {
   private Boolean fuzzyMatch;
 
   /**
-   * Gets the entity.
-   *
+   * Gets the entityName.
+   * <p>
    * The name of the entity.
    *
-   * @return the entity
+   * @return the entityName
    */
-  public String getEntity() {
-    return entity;
+  public String getEntityName() {
+    return entityName;
   }
 
   /**
    * Gets the created.
-   *
+   * <p>
    * The timestamp for creation of the entity.
    *
    * @return the created
@@ -55,7 +56,7 @@ public class Entity extends GenericModel {
 
   /**
    * Gets the updated.
-   *
+   * <p>
    * The timestamp for the last update to the entity.
    *
    * @return the updated
@@ -66,7 +67,7 @@ public class Entity extends GenericModel {
 
   /**
    * Gets the description.
-   *
+   * <p>
    * The description of the entity.
    *
    * @return the description
@@ -77,7 +78,7 @@ public class Entity extends GenericModel {
 
   /**
    * Gets the metadata.
-   *
+   * <p>
    * Any metadata related to the entity.
    *
    * @return the metadata
@@ -88,7 +89,7 @@ public class Entity extends GenericModel {
 
   /**
    * Gets the fuzzyMatch.
-   *
+   * <p>
    * Whether fuzzy matching is used for the entity.
    *
    * @return the fuzzyMatch
@@ -98,12 +99,12 @@ public class Entity extends GenericModel {
   }
 
   /**
-   * Sets the entity.
+   * Sets the entityName.
    *
-   * @param entity the new entity
+   * @param entityName the new entityName
    */
-  public void setEntity(final String entity) {
-    this.entity = entity;
+  public void setEntityName(final String entityName) {
+    this.entityName = entityName;
   }
 
   /**

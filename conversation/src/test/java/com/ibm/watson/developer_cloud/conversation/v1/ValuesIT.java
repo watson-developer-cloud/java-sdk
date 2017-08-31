@@ -76,8 +76,8 @@ public class ValuesIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getValue());
-      assertEquals(response.getValue(), entityValue);
+      assertNotNull(response.getValueText());
+      assertEquals(response.getValueText(), entityValue);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
       assertNotNull(response.getMetadata());
@@ -125,8 +125,8 @@ public class ValuesIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getValue());
-      assertEquals(response.getValue(), entityValue);
+      assertNotNull(response.getValueText());
+      assertEquals(response.getValueText(), entityValue);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
       assertNull(response.getMetadata());
@@ -190,8 +190,8 @@ public class ValuesIT extends ConversationServiceTest {
       ValueExport response = service.getValue(getOptions).execute();
 
       assertNotNull(response);
-      assertNotNull(response.getValue());
-      assertEquals(response.getValue(), entityValue);
+      assertNotNull(response.getValueText());
+      assertEquals(response.getValueText(), entityValue);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
 
@@ -271,8 +271,8 @@ public class ValuesIT extends ConversationServiceTest {
         //assertTrue(response.getValues().stream().filter(r -> r.getValue().equals(synonym1)).count() == 1);
         boolean found1 = false, found2 = false;
         for (ValueExport valueResponse : response.getValues()) {
-          found1 |= valueResponse.getValue().equals(entityValue1);
-          found2 |= valueResponse.getValue().equals(entityValue2);
+          found1 |= valueResponse.getValueText().equals(entityValue1);
+          found2 |= valueResponse.getValueText().equals(entityValue2);
         }
         assertTrue(found1 && found2);
       }
@@ -339,8 +339,8 @@ public class ValuesIT extends ConversationServiceTest {
       while (true) {
         assertNotNull(response.getValues());
         assertTrue(response.getValues().size() == 1);
-        found1 |= response.getValues().get(0).getValue().equals(entityValue1);
-        found2 |= response.getValues().get(0).getValue().equals(entityValue2);
+        found1 |= response.getValues().get(0).getValueText().equals(entityValue1);
+        found2 |= response.getValues().get(0).getValueText().equals(entityValue2);
         if (response.getPagination().getCursor() == null) {
           break;
         }
@@ -407,8 +407,8 @@ public class ValuesIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getValue());
-      assertEquals(response.getValue(), entityValue2);
+      assertNotNull(response.getValueText());
+      assertEquals(response.getValueText(), entityValue2);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
 
@@ -425,8 +425,8 @@ public class ValuesIT extends ConversationServiceTest {
       ValueExport vResponse = service.getValue(getOptions).execute();
 
       assertNotNull(vResponse);
-      assertNotNull(vResponse.getValue());
-      assertEquals(vResponse.getValue(), entityValue2);
+      assertNotNull(vResponse.getValueText());
+      assertEquals(vResponse.getValueText(), entityValue2);
       assertNotNull(vResponse.getCreated());
       assertNotNull(vResponse.getUpdated());
 

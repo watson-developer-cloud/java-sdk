@@ -27,7 +27,7 @@ public class Counterexample extends GenericModel {
 
   /**
    * Gets the text.
-   *
+   * <p>
    * The text of the counterexample.
    *
    * @return the text
@@ -38,7 +38,7 @@ public class Counterexample extends GenericModel {
 
   /**
    * Gets the created.
-   *
+   * <p>
    * The timestamp for creation of the counterexample.
    *
    * @return the created
@@ -49,7 +49,7 @@ public class Counterexample extends GenericModel {
 
   /**
    * Gets the updated.
-   *
+   * <p>
    * The timestamp for the last update to the counterexample.
    *
    * @return the updated

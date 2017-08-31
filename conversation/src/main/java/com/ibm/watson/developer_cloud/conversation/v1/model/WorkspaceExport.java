@@ -28,15 +28,25 @@ public class WorkspaceExport extends GenericModel {
    * The current status of the workspace.
    */
   public interface Status {
-    /** Non Existent. */
+    /**
+     * Non Existent.
+     */
     String NON_EXISTENT = "Non Existent";
-    /** Training. */
+    /**
+     * Training.
+     */
     String TRAINING = "Training";
-    /** Failed. */
+    /**
+     * Failed.
+     */
     String FAILED = "Failed";
-    /** Available. */
+    /**
+     * Available.
+     */
     String AVAILABLE = "Available";
-    /** Unavailable. */
+    /**
+     * Unavailable.
+     */
     String UNAVAILABLE = "Unavailable";
   }
 
@@ -49,6 +59,8 @@ public class WorkspaceExport extends GenericModel {
   @SerializedName("workspace_id")
   private String workspaceId;
   private String status;
+  @SerializedName("learning_opt_out")
+  private Boolean learningOptOut;
   private List<IntentExport> intents;
   private List<EntityExport> entities;
   private List<Counterexample> counterexamples;
@@ -57,7 +69,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the name.
-   *
+   * <p>
    * The name of the workspace.
    *
    * @return the name
@@ -68,7 +80,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the description.
-   *
+   * <p>
    * The description of the workspace.
    *
    * @return the description
@@ -79,7 +91,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the language.
-   *
+   * <p>
    * The language of the workspace.
    *
    * @return the language
@@ -90,7 +102,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the metadata.
-   *
+   * <p>
    * Any metadata that is required by the workspace.
    *
    * @return the metadata
@@ -101,7 +113,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the created.
-   *
+   * <p>
    * The timestamp for creation of the workspace.
    *
    * @return the created
@@ -112,7 +124,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the updated.
-   *
+   * <p>
    * The timestamp for the last update to the workspace.
    *
    * @return the updated
@@ -123,7 +135,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -134,7 +146,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the status.
-   *
+   * <p>
    * The current status of the workspace.
    *
    * @return the status
@@ -144,8 +156,20 @@ public class WorkspaceExport extends GenericModel {
   }
 
   /**
-   * Gets the intents.
+   * Gets the learningOptOut.
+   * <p>
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates
+   * that workspace training data is not to be used.
    *
+   * @return the learningOptOut
+   */
+  public Boolean isLearningOptOut() {
+    return learningOptOut;
+  }
+
+  /**
+   * Gets the intents.
+   * <p>
    * An array of intents.
    *
    * @return the intents
@@ -156,7 +180,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the entities.
-   *
+   * <p>
    * An array of entities.
    *
    * @return the entities
@@ -167,7 +191,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the counterexamples.
-   *
+   * <p>
    * An array of counterexamples.
    *
    * @return the counterexamples
@@ -178,7 +202,7 @@ public class WorkspaceExport extends GenericModel {
 
   /**
    * Gets the dialogNodes.
-   *
+   * <p>
    * An array of objects describing the dialog nodes in the workspace.
    *
    * @return the dialogNodes
@@ -230,6 +254,15 @@ public class WorkspaceExport extends GenericModel {
    */
   public void setStatus(final String status) {
     this.status = status;
+  }
+
+  /**
+   * Sets the learningOptOut.
+   *
+   * @param learningOptOut the new learningOptOut
+   */
+  public void setLearningOptOut(final Boolean learningOptOut) {
+    this.learningOptOut = learningOptOut;
   }
 
   /**

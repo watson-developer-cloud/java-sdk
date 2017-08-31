@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createWorkspace options.
+ * The createWorkspace options.
  */
 public class CreateWorkspaceOptions extends GenericModel {
 
@@ -28,6 +28,7 @@ public class CreateWorkspaceOptions extends GenericModel {
   private List<CreateIntent> intents;
   private List<CreateEntity> entities;
   private String name;
+  private Boolean learningOptOut;
   private List<CreateCounterexample> counterexamples;
   private String description;
   private String language;
@@ -41,6 +42,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     private List<CreateIntent> intents;
     private List<CreateEntity> entities;
     private String name;
+    private Boolean learningOptOut;
     private List<CreateCounterexample> counterexamples;
     private String description;
     private String language;
@@ -51,6 +53,7 @@ public class CreateWorkspaceOptions extends GenericModel {
       intents = createWorkspaceOptions.intents;
       entities = createWorkspaceOptions.entities;
       name = createWorkspaceOptions.name;
+      learningOptOut = createWorkspaceOptions.learningOptOut;
       counterexamples = createWorkspaceOptions.counterexamples;
       description = createWorkspaceOptions.description;
       language = createWorkspaceOptions.language;
@@ -179,6 +182,17 @@ public class CreateWorkspaceOptions extends GenericModel {
     }
 
     /**
+     * Set the learningOptOut.
+     *
+     * @param learningOptOut the learningOptOut
+     * @return the CreateWorkspaceOptions builder
+     */
+    public Builder learningOptOut(Boolean learningOptOut) {
+      this.learningOptOut = learningOptOut;
+      return this;
+    }
+
+    /**
      * Set the counterexamples.
      * Existing counterexamples will be replaced.
      *
@@ -230,6 +244,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     intents = builder.intents;
     entities = builder.entities;
     name = builder.name;
+    learningOptOut = builder.learningOptOut;
     counterexamples = builder.counterexamples;
     description = builder.description;
     language = builder.language;
@@ -247,7 +262,7 @@ public class CreateWorkspaceOptions extends GenericModel {
 
   /**
    * Gets the metadata.
-   *
+   * <p>
    * Any metadata related to the workspace.
    *
    * @return the metadata
@@ -258,7 +273,7 @@ public class CreateWorkspaceOptions extends GenericModel {
 
   /**
    * Gets the intents.
-   *
+   * <p>
    * An array of objects defining the intents for the workspace.
    *
    * @return the intents
@@ -269,7 +284,7 @@ public class CreateWorkspaceOptions extends GenericModel {
 
   /**
    * Gets the entities.
-   *
+   * <p>
    * An array of objects defining the entities for the workspace.
    *
    * @return the entities
@@ -280,7 +295,7 @@ public class CreateWorkspaceOptions extends GenericModel {
 
   /**
    * Gets the name.
-   *
+   * <p>
    * The name of the workspace.
    *
    * @return the name
@@ -290,8 +305,20 @@ public class CreateWorkspaceOptions extends GenericModel {
   }
 
   /**
-   * Gets the counterexamples.
+   * Gets the learningOptOut.
+   * <p>
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates
+   * that workspace training data is not to be used.
    *
+   * @return the learningOptOut
+   */
+  public Boolean learningOptOut() {
+    return learningOptOut;
+  }
+
+  /**
+   * Gets the counterexamples.
+   * <p>
    * An array of objects defining input examples that have been marked as irrelevant input.
    *
    * @return the counterexamples
@@ -302,7 +329,7 @@ public class CreateWorkspaceOptions extends GenericModel {
 
   /**
    * Gets the description.
-   *
+   * <p>
    * The description of the workspace.
    *
    * @return the description
@@ -313,7 +340,7 @@ public class CreateWorkspaceOptions extends GenericModel {
 
   /**
    * Gets the language.
-   *
+   * <p>
    * The language of the workspace.
    *
    * @return the language
@@ -324,7 +351,7 @@ public class CreateWorkspaceOptions extends GenericModel {
 
   /**
    * Gets the dialogNodes.
-   *
+   * <p>
    * An array of objects defining the nodes in the workspace dialog.
    *
    * @return the dialogNodes

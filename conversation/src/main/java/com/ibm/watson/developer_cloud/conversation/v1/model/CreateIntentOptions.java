@@ -19,7 +19,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createIntent options.
+ * The createIntent options.
  */
 public class CreateIntentOptions extends GenericModel {
 
@@ -54,7 +54,7 @@ public class CreateIntentOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param intent the intent
+     * @param intent      the intent
      */
     public Builder(String workspaceId, String intent) {
       this.workspaceId = workspaceId;
@@ -151,7 +151,7 @@ public class CreateIntentOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -162,7 +162,7 @@ public class CreateIntentOptions extends GenericModel {
 
   /**
    * Gets the examples.
-   *
+   * <p>
    * An array of user input examples.
    *
    * @return the examples
@@ -173,7 +173,7 @@ public class CreateIntentOptions extends GenericModel {
 
   /**
    * Gets the description.
-   *
+   * <p>
    * The description of the intent.
    *
    * @return the description
@@ -184,7 +184,7 @@ public class CreateIntentOptions extends GenericModel {
 
   /**
    * Gets the intent.
-   *
+   * <p>
    * The name of the intent.
    *
    * @return the intent

@@ -526,8 +526,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getText());
-      assertEquals(response.getText(), exampleText);
+      assertNotNull(response.getExampleText());
+      assertEquals(response.getExampleText(), exampleText);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
 
@@ -592,8 +592,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       GetExampleOptions getOptions = new GetExampleOptions.Builder(workspaceId, exampleIntent, exampleText).build();
       Example response = service.getExample(getOptions).execute();
       assertNotNull(response);
-      assertNotNull(response.getText());
-      assertEquals(response.getText(), exampleText);
+      assertNotNull(response.getExampleText());
+      assertEquals(response.getExampleText(), exampleText);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
 
@@ -650,7 +650,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
       Example exResponse = null;
       for (Example resp : examples) {
-        if (resp.getText().equals(exampleText)) {
+        if (resp.getExampleText().equals(exampleText)) {
           exResponse = resp;
           break;
         }
@@ -704,8 +704,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       while (true) {
         assertNotNull(response.getExamples());
         assertTrue(response.getExamples().size() == 1);
-        found1 |= response.getExamples().get(0).getText().equals(exampleText1);
-        found2 |= response.getExamples().get(0).getText().equals(exampleText2);
+        found1 |= response.getExamples().get(0).getExampleText().equals(exampleText1);
+        found2 |= response.getExamples().get(0).getExampleText().equals(exampleText2);
         assertTrue(found2 || !found1); // verify sort
         if (response.getPagination().getCursor() == null) {
           break;
@@ -747,8 +747,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
           new UpdateExampleOptions.Builder(workspaceId, exampleIntent, exampleText).newText(exampleText2).build();
       Example response = service.updateExample(updateOptions).execute();
       assertNotNull(response);
-      assertNotNull(response.getText());
-      assertEquals(response.getText(), exampleText2);
+      assertNotNull(response.getExampleText());
+      assertEquals(response.getExampleText(), exampleText2);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
 
@@ -787,8 +787,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getIntent());
-      assertEquals(response.getIntent(), intentName);
+      assertNotNull(response.getIntentName());
+      assertEquals(response.getIntentName(), intentName);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), intentDescription);
       assertNotNull(response.getCreated());
@@ -807,7 +807,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
       List<Example> examples = ecResponse.getExamples();
       assertTrue(examples.size() == 1);
-      assertEquals(examples.get(0).getText(), intentExample);
+      assertEquals(examples.get(0).getExampleText(), intentExample);
       assertTrue(fuzzyBefore(examples.get(0).getCreated(), now));
       assertTrue(fuzzyAfter(examples.get(0).getCreated(), start));
       assertTrue(fuzzyBefore(examples.get(0).getUpdated(), now));
@@ -869,8 +869,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
           new GetIntentOptions.Builder().workspaceId(workspaceId).intent(intentName).export(true).build();
       IntentExport response = service.getIntent(getOptions).execute();
       assertNotNull(response);
-      assertNotNull(response.getIntent());
-      assertEquals(response.getIntent(), intentName);
+      assertNotNull(response.getIntentName());
+      assertEquals(response.getIntentName(), intentName);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), intentDescription);
       assertNotNull(response.getExamples());
@@ -885,7 +885,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
       List<Example> examples = response.getExamples();
       assertTrue(examples.size() == 1);
-      assertEquals(examples.get(0).getText(), intentExample);
+      assertEquals(examples.get(0).getExampleText(), intentExample);
       assertTrue(fuzzyBefore(examples.get(0).getCreated(), now));
       assertTrue(fuzzyAfter(examples.get(0).getCreated(), start));
       assertTrue(fuzzyBefore(examples.get(0).getUpdated(), now));
@@ -941,7 +941,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
       IntentExport ieResponse = null;
       for (IntentExport resp : intents) {
-        if (resp.getIntent().equals(intentName)) {
+        if (resp.getIntentName().equals(intentName)) {
           ieResponse = resp;
           break;
         }
@@ -952,7 +952,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
       assertEquals(ieResponse.getDescription(), intentDescription);
       assertNotNull(ieResponse.getExamples());
       assertTrue(ieResponse.getExamples().size() == 1);
-      assertEquals(ieResponse.getExamples().get(0).getText(), intentExample);
+      assertEquals(ieResponse.getExamples().get(0).getExampleText(), intentExample);
 
       Date now = new Date();
       assertTrue(fuzzyBefore(ieResponse.getCreated(), now));
@@ -997,8 +997,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       while (true) {
         assertNotNull(response.getIntents());
         assertTrue(response.getIntents().size() == 1);
-        found1 |= response.getIntents().get(0).getIntent().equals(intentName1);
-        found2 |= response.getIntents().get(0).getIntent().equals(intentName2);
+        found1 |= response.getIntents().get(0).getIntentName().equals(intentName1);
+        found2 |= response.getIntents().get(0).getIntentName().equals(intentName2);
         assertTrue(found1 || !found2); // verify sort
         if (response.getPagination().getCursor() == null) {
           break;
@@ -1046,8 +1046,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
           .newDescription(intentDescription2).newExamples(intentExamples2).build();
       Intent response = service.updateIntent(updateOptions).execute();
       assertNotNull(response);
-      assertNotNull(response.getIntent());
-      assertEquals(response.getIntent(), intentName);
+      assertNotNull(response.getIntentName());
+      assertEquals(response.getIntentName(), intentName);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), intentDescription2);
       assertNotNull(response.getCreated());
@@ -1066,7 +1066,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
       List<Example> examples = ecResponse.getExamples();
       assertTrue(examples.size() == 1);
-      assertEquals(examples.get(0).getText(), intentExample2);
+      assertEquals(examples.get(0).getExampleText(), intentExample2);
       assertTrue(fuzzyBefore(examples.get(0).getCreated(), now));
       assertTrue(fuzzyAfter(examples.get(0).getCreated(), start));
       assertTrue(fuzzyBefore(examples.get(0).getUpdated(), now));
@@ -1164,27 +1164,27 @@ public class ConversationServiceIT extends ConversationServiceTest {
       // intents
       assertNotNull(exResponse.getIntents());
       assertTrue(exResponse.getIntents().size() == 1);
-      assertNotNull(exResponse.getIntents().get(0).getIntent());
-      assertEquals(exResponse.getIntents().get(0).getIntent(), intentName);
+      assertNotNull(exResponse.getIntents().get(0).getIntentName());
+      assertEquals(exResponse.getIntents().get(0).getIntentName(), intentName);
       assertNotNull(exResponse.getIntents().get(0).getDescription());
       assertEquals(exResponse.getIntents().get(0).getDescription(), intentDescription);
       assertNotNull(exResponse.getIntents().get(0).getExamples());
       assertTrue(exResponse.getIntents().get(0).getExamples().size() == 1);
       assertNotNull(exResponse.getIntents().get(0).getExamples().get(0));
-      assertNotNull(exResponse.getIntents().get(0).getExamples().get(0).getText());
-      assertEquals(exResponse.getIntents().get(0).getExamples().get(0).getText(), intentExample);
+      assertNotNull(exResponse.getIntents().get(0).getExamples().get(0).getExampleText());
+      assertEquals(exResponse.getIntents().get(0).getExamples().get(0).getExampleText(), intentExample);
 
       // entities
       assertNotNull(exResponse.getEntities());
       assertTrue(exResponse.getEntities().size() == 1);
-      assertNotNull(exResponse.getEntities().get(0).getEntity());
-      assertEquals(exResponse.getEntities().get(0).getEntity(), entityName);
+      assertNotNull(exResponse.getEntities().get(0).getEntityName());
+      assertEquals(exResponse.getEntities().get(0).getEntityName(), entityName);
       assertNotNull(exResponse.getEntities().get(0).getDescription());
       assertEquals(exResponse.getEntities().get(0).getDescription(), entityDescription);
       assertNotNull(exResponse.getEntities().get(0).getValues());
       assertTrue(exResponse.getEntities().get(0).getValues().size() == 1);
-      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).getValue());
-      assertEquals(exResponse.getEntities().get(0).getValues().get(0).getValue(), entityValue);
+      assertNotNull(exResponse.getEntities().get(0).getValues().get(0).getValueText());
+      assertEquals(exResponse.getEntities().get(0).getValues().get(0).getValueText(), entityValue);
       assertNotNull(exResponse.getEntities().get(0).getValues().get(0).getSynonyms());
       assertTrue(exResponse.getEntities().get(0).getValues().get(0).getSynonyms().size() == 1);
       assertEquals(exResponse.getEntities().get(0).getValues().get(0).getSynonyms().get(0), entityValueSynonym);
@@ -1480,8 +1480,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getDialogNode());
-      assertEquals(response.getDialogNode(), dialogNodeName);
+      assertNotNull(response.getDialogNodeId());
+      assertEquals(response.getDialogNodeId(), dialogNodeName);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), dialogNodeDescription);
       assertNotNull(response.getCreated());
@@ -1543,8 +1543,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
           new GetDialogNodeOptions.Builder().workspaceId(workspaceId).dialogNode(dialogNodeName).build();
       DialogNode response = service.getDialogNode(getOptions).execute();
       assertNotNull(response);
-      assertNotNull(response.getDialogNode());
-      assertEquals(response.getDialogNode(), dialogNodeName);
+      assertNotNull(response.getDialogNodeId());
+      assertEquals(response.getDialogNodeId(), dialogNodeName);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), dialogNodeDescription);
       assertNotNull(response.getCreated());
@@ -1601,7 +1601,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
       DialogNode dialogResponse = null;
       for (DialogNode node : dialogNodes) {
-        if (node.getDialogNode().equals(dialogNodeName)) {
+        if (node.getDialogNodeId().equals(dialogNodeName)) {
           dialogResponse = node;
           break;
         }
@@ -1652,8 +1652,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
       while (true) {
         assertNotNull(response.getDialogNodes());
         assertTrue(response.getDialogNodes().size() == 1);
-        found1 |= response.getDialogNodes().get(0).getDialogNode().equals(dialogNodeName1);
-        found2 |= response.getDialogNodes().get(0).getDialogNode().equals(dialogNodeName2);
+        found1 |= response.getDialogNodes().get(0).getDialogNodeId().equals(dialogNodeName1);
+        found2 |= response.getDialogNodes().get(0).getDialogNodeId().equals(dialogNodeName2);
         assertTrue(found1 || !found2); // verify sort
         if (response.getPagination().getCursor() == null) {
           break;
@@ -1695,8 +1695,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
               .newDescription(dialogNodeDescription2).build();
       DialogNode response = service.updateDialogNode(updateOptions).execute();
       assertNotNull(response);
-      assertNotNull(response.getDialogNode());
-      assertEquals(response.getDialogNode(), dialogNodeName2);
+      assertNotNull(response.getDialogNodeId());
+      assertEquals(response.getDialogNodeId(), dialogNodeName2);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), dialogNodeDescription2);
       assertNotNull(response.getCreated());

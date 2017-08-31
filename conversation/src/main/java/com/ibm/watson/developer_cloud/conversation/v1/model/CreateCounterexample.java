@@ -84,7 +84,7 @@ public class CreateCounterexample extends GenericModel {
 
   /**
    * Gets the text.
-   *
+   * <p>
    * The text of a user input marked as irrelevant input.
    *
    * @return the text

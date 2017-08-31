@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the getIntent options.
+ * The getIntent options.
  */
 public class GetIntentOptions extends GenericModel {
 
@@ -48,7 +48,7 @@ public class GetIntentOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param intent the intent
+     * @param intent      the intent
      */
     public Builder(String workspaceId, String intent) {
       this.workspaceId = workspaceId;
@@ -117,7 +117,7 @@ public class GetIntentOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -128,7 +128,7 @@ public class GetIntentOptions extends GenericModel {
 
   /**
    * Gets the intent.
-   *
+   * <p>
    * The intent name (for example, `pizza_order`).
    *
    * @return the intent
@@ -139,7 +139,7 @@ public class GetIntentOptions extends GenericModel {
 
   /**
    * Gets the export.
-   *
+   * <p>
    * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
    * information about the element itself. If export=`true`, all content, including subelements, is included. The
    * default value is `false`.

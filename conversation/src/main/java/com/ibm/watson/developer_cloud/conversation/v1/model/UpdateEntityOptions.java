@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateEntity options.
+ * The updateEntity options.
  */
 public class UpdateEntityOptions extends GenericModel {
 
@@ -64,7 +64,7 @@ public class UpdateEntityOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity the entity
+     * @param entity      the entity
      */
     public Builder(String workspaceId, String entity) {
       this.workspaceId = workspaceId;
@@ -197,7 +197,7 @@ public class UpdateEntityOptions extends GenericModel {
 
   /**
    * Gets the workspaceId.
-   *
+   * <p>
    * The workspace ID.
    *
    * @return the workspaceId
@@ -208,7 +208,7 @@ public class UpdateEntityOptions extends GenericModel {
 
   /**
    * Gets the entity.
-   *
+   * <p>
    * The name of the entity.
    *
    * @return the entity
@@ -219,7 +219,7 @@ public class UpdateEntityOptions extends GenericModel {
 
   /**
    * Gets the newFuzzyMatch.
-   *
+   * <p>
    * Whether to use fuzzy matching for the entity.
    *
    * @return the newFuzzyMatch
@@ -230,7 +230,7 @@ public class UpdateEntityOptions extends GenericModel {
 
   /**
    * Gets the newEntity.
-   *
+   * <p>
    * The name of the entity.
    *
    * @return the newEntity
@@ -241,7 +241,7 @@ public class UpdateEntityOptions extends GenericModel {
 
   /**
    * Gets the newMetadata.
-   *
+   * <p>
    * Any metadata related to the entity.
    *
    * @return the newMetadata
@@ -252,7 +252,7 @@ public class UpdateEntityOptions extends GenericModel {
 
   /**
    * Gets the newValues.
-   *
+   * <p>
    * An array of entity values.
    *
    * @return the newValues
@@ -263,7 +263,7 @@ public class UpdateEntityOptions extends GenericModel {
 
   /**
    * Gets the newDescription.
-   *
+   * <p>
    * The description of the entity.
    *
    * @return the newDescription
