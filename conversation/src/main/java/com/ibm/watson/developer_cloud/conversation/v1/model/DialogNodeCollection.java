@@ -12,60 +12,55 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.Date;
+import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Example.
+ * DialogNodeCollection.
  */
-public class Example extends GenericModel {
+public class DialogNodeCollection extends GenericModel {
 
-  @SerializedName("text")
-  private String exampleText;
-  private Date created;
-  private Date updated;
+  @SerializedName("dialog_nodes")
+  private List<DialogNode> dialogNodes;
+  private Pagination pagination;
 
   /**
-   * Gets the exampleText.
+   * Gets the dialogNodes.
    *
-   * The text of the example.
-   *
-   * @return the exampleText
+   * @return the dialogNodes
    */
-  public String getExampleText() {
-    return exampleText;
+  public List<DialogNode> getDialogNodes() {
+    return dialogNodes;
   }
 
   /**
-   * Gets the created.
+   * Gets the pagination.
    *
-   * The timestamp for creation of the example.
+   * An object defining the pagination data for the returned objects.
    *
-   * @return the created
+   * @return the pagination
    */
-  public Date getCreated() {
-    return created;
+  public Pagination getPagination() {
+    return pagination;
   }
 
   /**
-   * Gets the updated.
+   * Sets the dialogNodes.
    *
-   * The timestamp for the last update to the example.
-   *
-   * @return the updated
+   * @param dialogNodes the new dialogNodes
    */
-  public Date getUpdated() {
-    return updated;
+  public void setDialogNodes(final List<DialogNode> dialogNodes) {
+    this.dialogNodes = dialogNodes;
   }
 
   /**
-   * Sets the exampleText.
+   * Sets the pagination.
    *
-   * @param exampleText the new exampleText
+   * @param pagination the new pagination
    */
-  public void setExampleText(final String exampleText) {
-    this.exampleText = exampleText;
+  public void setPagination(final Pagination pagination) {
+    this.pagination = pagination;
   }
 }

@@ -12,12 +12,18 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.HashMap;
+import java.lang.reflect.Type;
+
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
- * An intent identified in the user input.
- */
-public class RuntimeIntent extends HashMap<String, Object> {
+* An intent identified in the user input.
+*/
+public class RuntimeIntent extends DynamicModel {
+  private Type intentType = new TypeToken<String>() { } .getType();
+  private Type confidenceType = new TypeToken<Double>() { } .getType();
 
   /**
    * Gets the intent.
@@ -25,16 +31,15 @@ public class RuntimeIntent extends HashMap<String, Object> {
    * @return the intent
    */
   public String getIntent() {
-    return (String) this.get("intent");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("intent"), intentType);
   }
-
   /**
    * Gets the confidence.
    *
    * @return the confidence
    */
   public Double getConfidence() {
-    return (Double) this.get("confidence");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("confidence"), confidenceType);
   }
 
   /**
@@ -55,3 +60,4 @@ public class RuntimeIntent extends HashMap<String, Object> {
     this.put("confidence", confidence);
   }
 }
+

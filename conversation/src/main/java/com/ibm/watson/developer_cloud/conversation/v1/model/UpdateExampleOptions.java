@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateExample options.
+ * The updateExample options.
  */
 public class UpdateExampleOptions extends GenericModel {
 

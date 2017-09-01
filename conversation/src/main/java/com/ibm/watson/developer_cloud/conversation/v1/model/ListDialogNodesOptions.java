@@ -16,12 +16,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The listIntents options.
+ * The listDialogNodes options.
  */
-public class ListIntentsOptions extends GenericModel {
+public class ListDialogNodesOptions extends GenericModel {
 
   private String workspaceId;
-  private Boolean export;
   private Long pageLimit;
   private Boolean includeCount;
   private String sort;
@@ -32,19 +31,17 @@ public class ListIntentsOptions extends GenericModel {
    */
   public static class Builder {
     private String workspaceId;
-    private Boolean export;
     private Long pageLimit;
     private Boolean includeCount;
     private String sort;
     private String cursor;
 
-    private Builder(ListIntentsOptions listIntentsOptions) {
-      workspaceId = listIntentsOptions.workspaceId;
-      export = listIntentsOptions.export;
-      pageLimit = listIntentsOptions.pageLimit;
-      includeCount = listIntentsOptions.includeCount;
-      sort = listIntentsOptions.sort;
-      cursor = listIntentsOptions.cursor;
+    private Builder(ListDialogNodesOptions listDialogNodesOptions) {
+      workspaceId = listDialogNodesOptions.workspaceId;
+      pageLimit = listDialogNodesOptions.pageLimit;
+      includeCount = listDialogNodesOptions.includeCount;
+      sort = listDialogNodesOptions.sort;
+      cursor = listDialogNodesOptions.cursor;
     }
 
     /**
@@ -63,19 +60,19 @@ public class ListIntentsOptions extends GenericModel {
     }
 
     /**
-     * Builds a ListIntentsOptions.
+     * Builds a ListDialogNodesOptions.
      *
-     * @return the listIntentsOptions
+     * @return the listDialogNodesOptions
      */
-    public ListIntentsOptions build() {
-      return new ListIntentsOptions(this);
+    public ListDialogNodesOptions build() {
+      return new ListDialogNodesOptions(this);
     }
 
     /**
      * Set the workspaceId.
      *
      * @param workspaceId the workspaceId
-     * @return the ListIntentsOptions builder
+     * @return the ListDialogNodesOptions builder
      */
     public Builder workspaceId(String workspaceId) {
       this.workspaceId = workspaceId;
@@ -83,21 +80,10 @@ public class ListIntentsOptions extends GenericModel {
     }
 
     /**
-     * Set the export.
-     *
-     * @param export the export
-     * @return the ListIntentsOptions builder
-     */
-    public Builder export(Boolean export) {
-      this.export = export;
-      return this;
-    }
-
-    /**
      * Set the pageLimit.
      *
      * @param pageLimit the pageLimit
-     * @return the ListIntentsOptions builder
+     * @return the ListDialogNodesOptions builder
      */
     public Builder pageLimit(long pageLimit) {
       this.pageLimit = pageLimit;
@@ -108,7 +94,7 @@ public class ListIntentsOptions extends GenericModel {
      * Set the includeCount.
      *
      * @param includeCount the includeCount
-     * @return the ListIntentsOptions builder
+     * @return the ListDialogNodesOptions builder
      */
     public Builder includeCount(Boolean includeCount) {
       this.includeCount = includeCount;
@@ -119,7 +105,7 @@ public class ListIntentsOptions extends GenericModel {
      * Set the sort.
      *
      * @param sort the sort
-     * @return the ListIntentsOptions builder
+     * @return the ListDialogNodesOptions builder
      */
     public Builder sort(String sort) {
       this.sort = sort;
@@ -130,7 +116,7 @@ public class ListIntentsOptions extends GenericModel {
      * Set the cursor.
      *
      * @param cursor the cursor
-     * @return the ListIntentsOptions builder
+     * @return the ListDialogNodesOptions builder
      */
     public Builder cursor(String cursor) {
       this.cursor = cursor;
@@ -138,10 +124,9 @@ public class ListIntentsOptions extends GenericModel {
     }
   }
 
-  private ListIntentsOptions(Builder builder) {
+  private ListDialogNodesOptions(Builder builder) {
     Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
-    export = builder.export;
     pageLimit = builder.pageLimit;
     includeCount = builder.includeCount;
     sort = builder.sort;
@@ -151,7 +136,7 @@ public class ListIntentsOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return a ListIntentsOptions builder
+   * @return a ListDialogNodesOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -166,19 +151,6 @@ public class ListIntentsOptions extends GenericModel {
    */
   public String workspaceId() {
     return workspaceId;
-  }
-
-  /**
-   * Gets the export.
-   *
-   * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
-   * information about the element itself. If export=`true`, all content, including subelements, is included. The
-   * default value is `false`.
-   *
-   * @return the export
-   */
-  public Boolean export() {
-    return export;
   }
 
   /**

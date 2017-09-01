@@ -30,7 +30,9 @@ public class Pagination extends GenericModel {
   private Long total;
   private Long matched;
 
-  /** A token identifying the last value from the previous page of results. */
+  /**
+   * A token identifying the last value from the previous page of results.
+   */
   private String cursor;
 
   /**
