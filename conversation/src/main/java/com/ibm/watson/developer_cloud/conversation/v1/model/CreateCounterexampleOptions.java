@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createCounterexample options.
+ * The createCounterexample options.
  */
 public class CreateCounterexampleOptions extends GenericModel {
 
@@ -45,7 +45,7 @@ public class CreateCounterexampleOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param text the text
+     * @param text        the text
      */
     public Builder(String workspaceId, String text) {
       this.workspaceId = workspaceId;

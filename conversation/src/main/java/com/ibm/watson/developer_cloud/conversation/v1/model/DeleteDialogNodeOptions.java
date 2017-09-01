@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the deleteDialogNode options.
+ * The deleteDialogNode options.
  */
 public class DeleteDialogNodeOptions extends GenericModel {
 
@@ -45,7 +45,7 @@ public class DeleteDialogNodeOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param dialogNode the dialogNode
+     * @param dialogNode  the dialogNode
      */
     public Builder(String workspaceId, String dialogNode) {
       this.workspaceId = workspaceId;

@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateWorkspace options.
+ * The updateWorkspace options.
  */
 public class UpdateWorkspaceOptions extends GenericModel {
 
@@ -29,6 +29,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   private List<CreateIntent> intents;
   private List<CreateEntity> entities;
   private String name;
+  private Boolean learningOptOut;
   private List<CreateCounterexample> counterexamples;
   private String description;
   private String language;
@@ -43,6 +44,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     private List<CreateIntent> intents;
     private List<CreateEntity> entities;
     private String name;
+    private Boolean learningOptOut;
     private List<CreateCounterexample> counterexamples;
     private String description;
     private String language;
@@ -54,6 +56,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
       intents = updateWorkspaceOptions.intents;
       entities = updateWorkspaceOptions.entities;
       name = updateWorkspaceOptions.name;
+      learningOptOut = updateWorkspaceOptions.learningOptOut;
       counterexamples = updateWorkspaceOptions.counterexamples;
       description = updateWorkspaceOptions.description;
       language = updateWorkspaceOptions.language;
@@ -202,6 +205,17 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
+     * Set the learningOptOut.
+     *
+     * @param learningOptOut the learningOptOut
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder learningOptOut(Boolean learningOptOut) {
+      this.learningOptOut = learningOptOut;
+      return this;
+    }
+
+    /**
      * Set the counterexamples.
      * Existing counterexamples will be replaced.
      *
@@ -255,6 +269,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     intents = builder.intents;
     entities = builder.entities;
     name = builder.name;
+    learningOptOut = builder.learningOptOut;
     counterexamples = builder.counterexamples;
     description = builder.description;
     language = builder.language;
@@ -323,6 +338,18 @@ public class UpdateWorkspaceOptions extends GenericModel {
    */
   public String name() {
     return name;
+  }
+
+  /**
+   * Gets the learningOptOut.
+   *
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates
+   * that workspace training data is not to be used.
+   *
+   * @return the learningOptOut
+   */
+  public Boolean learningOptOut() {
+    return learningOptOut;
   }
 
   /**

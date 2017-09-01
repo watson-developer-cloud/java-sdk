@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the getValue options.
+ * The getValue options.
  */
 public class GetValueOptions extends GenericModel {
 
@@ -51,8 +51,8 @@ public class GetValueOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity the entity
-     * @param value the value
+     * @param entity      the entity
+     * @param value       the value
      */
     public Builder(String workspaceId, String entity, String value) {
       this.workspaceId = workspaceId;

@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createValue options.
+ * The createValue options.
  */
 public class CreateValueOptions extends GenericModel {
 
@@ -28,6 +28,7 @@ public class CreateValueOptions extends GenericModel {
   private String entity;
   private Map metadata;
   private List<String> synonyms;
+  private List<String> patterns;
   private String value;
 
   /**
@@ -38,6 +39,7 @@ public class CreateValueOptions extends GenericModel {
     private String entity;
     private Map metadata;
     private List<String> synonyms;
+    private List<String> patterns;
     private String value;
 
     private Builder(CreateValueOptions createValueOptions) {
@@ -45,6 +47,7 @@ public class CreateValueOptions extends GenericModel {
       entity = createValueOptions.entity;
       metadata = createValueOptions.metadata;
       synonyms = createValueOptions.synonyms;
+      patterns = createValueOptions.patterns;
       value = createValueOptions.value;
     }
 
@@ -58,8 +61,8 @@ public class CreateValueOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity the entity
-     * @param value the value
+     * @param entity      the entity
+     * @param value       the value
      */
     public Builder(String workspaceId, String entity, String value) {
       this.workspaceId = workspaceId;
@@ -88,6 +91,21 @@ public class CreateValueOptions extends GenericModel {
         this.synonyms = new ArrayList<String>();
       }
       this.synonyms.add(synonym);
+      return this;
+    }
+
+    /**
+     * Adds an patterns to patterns.
+     *
+     * @param patterns the new patterns
+     * @return the CreateValueOptions builder
+     */
+    public Builder addPatterns(String patterns) {
+      Validator.notNull(patterns, "patterns cannot be null");
+      if (this.patterns == null) {
+        this.patterns = new ArrayList<String>();
+      }
+      this.patterns.add(patterns);
       return this;
     }
 
@@ -137,6 +155,18 @@ public class CreateValueOptions extends GenericModel {
     }
 
     /**
+     * Set the patterns.
+     * Existing patterns will be replaced.
+     *
+     * @param patterns the patterns
+     * @return the CreateValueOptions builder
+     */
+    public Builder patterns(List<String> patterns) {
+      this.patterns = patterns;
+      return this;
+    }
+
+    /**
      * Set the value.
      *
      * @param value the value
@@ -156,6 +186,7 @@ public class CreateValueOptions extends GenericModel {
     entity = builder.entity;
     metadata = builder.metadata;
     synonyms = builder.synonyms;
+    patterns = builder.patterns;
     value = builder.value;
   }
 
@@ -210,6 +241,17 @@ public class CreateValueOptions extends GenericModel {
    */
   public List<String> synonyms() {
     return synonyms;
+  }
+
+  /**
+   * Gets the patterns.
+   *
+   * An array of patterns for the entity value. A pattern is specified as a regular expression.
+   *
+   * @return the patterns
+   */
+  public List<String> patterns() {
+    return patterns;
   }
 
   /**

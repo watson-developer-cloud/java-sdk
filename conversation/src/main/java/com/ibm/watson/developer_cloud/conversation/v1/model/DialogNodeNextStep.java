@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DialogNodeNextStep.
+ * The next step to execute following this dialog node.
  */
 public class DialogNodeNextStep extends GenericModel {
 
@@ -24,7 +24,9 @@ public class DialogNodeNextStep extends GenericModel {
    * How the `next_step` reference is processed.
    */
   public interface Behavior {
-    /** jump_to. */
+    /**
+     * jump_to.
+     */
     String JUMP_TO = "jump_to";
   }
 
@@ -32,13 +34,21 @@ public class DialogNodeNextStep extends GenericModel {
    * Which part of the dialog node to process next.
    */
   public interface Selector {
-    /** condition. */
+    /**
+     * condition.
+     */
     String CONDITION = "condition";
-    /** client. */
+    /**
+     * client.
+     */
     String CLIENT = "client";
-    /** user_input. */
+    /**
+     * user_input.
+     */
     String USER_INPUT = "user_input";
-    /** body. */
+    /**
+     * body.
+     */
     String BODY = "body";
   }
 
