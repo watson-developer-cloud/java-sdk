@@ -28,7 +28,7 @@ public class UpdateEntityOptions extends GenericModel {
   private String entity;
   private Boolean newFuzzyMatch;
   private String newEntity;
-  private Map<String, Object> newMetadata;
+  private Map newMetadata;
   private List<CreateValue> newValues;
   private String newDescription;
 
@@ -40,7 +40,7 @@ public class UpdateEntityOptions extends GenericModel {
     private String entity;
     private Boolean newFuzzyMatch;
     private String newEntity;
-    private Map<String, Object> newMetadata;
+    private Map newMetadata;
     private List<CreateValue> newValues;
     private String newDescription;
 
@@ -145,7 +145,7 @@ public class UpdateEntityOptions extends GenericModel {
      * @param newMetadata the newMetadata
      * @return the UpdateEntityOptions builder
      */
-    public Builder newMetadata(Map<String, Object> newMetadata) {
+    public Builder newMetadata(Map newMetadata) {
       this.newMetadata = newMetadata;
       return this;
     }
@@ -246,7 +246,7 @@ public class UpdateEntityOptions extends GenericModel {
    *
    * @return the newMetadata
    */
-  public Map<String, Object> newMetadata() {
+  public Map newMetadata() {
     return newMetadata;
   }
 

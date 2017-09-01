@@ -28,6 +28,8 @@ import com.google.gson.JsonParser;
 
 import com.ibm.watson.developer_cloud.conversation.v1.model.Context;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexample;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateDialogNode;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateDialogNodeOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateEntity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExample;
@@ -36,12 +38,13 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValue;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspaceOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNode;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNodeAction;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeEntity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeIntent;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateValueOptions;
@@ -253,10 +256,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateCounterexample testCounterexample1 = new CreateCounterexample.Builder("testCounterexample1").build();
 
     // dialognodes
-    DialogNode testDialogNode0 = new DialogNode();
-    testDialogNode0.put("name", "dialogNode0");
-    DialogNode testDialogNode1 = new DialogNode();
-    testDialogNode1.put("name", "dialogNode1");
+    CreateDialogNode testDialogNode0 = new CreateDialogNode.Builder("dialogNode0").build();
+    CreateDialogNode testDialogNode1 = new CreateDialogNode.Builder("dialogNode1").build();
 
     // metadata
     Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
@@ -299,8 +300,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
     CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
     CreateCounterexample testCounterexample2 = new CreateCounterexample.Builder("testCounterexample2").build();
-    DialogNode testDialogNode2 = new DialogNode();
-    testDialogNode2.put("name", "dialogNode2");
+    CreateDialogNode testDialogNode2 = new CreateDialogNode.Builder("dialogNode2").build();
 
     builder.intents(Arrays.asList(testIntent2));
     builder.entities(Arrays.asList(testEntity2));
@@ -344,8 +344,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateCounterexample testCounterexample = new CreateCounterexample.Builder("testCounterexample").build();
 
     // dialognodes
-    DialogNode testDialogNode = new DialogNode();
-    testDialogNode.put("name", "testDialogNode");
+    CreateDialogNode testDialogNode = new CreateDialogNode.Builder("dialogNode").build();
 
     // metadata
     Map<String, Object> workspaceMetadata = new HashMap<String, Object>();
@@ -387,8 +386,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     CreateIntent testIntent2 = new CreateIntent.Builder("testIntent2").build();
     CreateEntity testEntity2 = new CreateEntity.Builder("testEntity2").build();
     CreateCounterexample testCounterexample2 = new CreateCounterexample.Builder("testCounterexample2").build();
-    DialogNode testDialogNode2 = new DialogNode();
-    testDialogNode2.put("name", "dialogNode2");
+    CreateDialogNode testDialogNode2 = new CreateDialogNode.Builder("dialogNode2").build();
 
     builder2.intents(new ArrayList<CreateIntent>());
     builder2.addIntent(testIntent2);
@@ -396,7 +394,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     builder2.addEntity(testEntity2);
     builder2.counterexamples(new ArrayList<CreateCounterexample>());
     builder2.addCounterexample(testCounterexample2);
-    builder2.dialogNodes(new ArrayList<DialogNode>());
+    builder2.dialogNodes(new ArrayList<CreateDialogNode>());
     builder2.addDialogNode(testDialogNode2);
 
     UpdateWorkspaceOptions options2 = builder2.build();
@@ -641,5 +639,57 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(options2.newValue(), newValue);
     assertEquals(options2.newSynonyms().size(), 1);
     assertEquals(options2.newSynonyms().get(0), valueSynonym2);
+  }
+
+  /**
+   * Test CreateDialogNodeOptions builder.
+   *
+   */
+  @Test
+  public void testCreateDialogNodeOptionsBuilder() {
+    String dialogNodeName = "aDialogNode";
+    DialogNodeAction action0 = new DialogNodeAction();
+    action0.setName("action0");
+    DialogNodeAction action1 = new DialogNodeAction();
+    action0.setName("action1");
+
+    CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder()
+        .workspaceId(WORKSPACE_ID)
+        .dialogNode(dialogNodeName)
+        .addActions(action0).addActions(action1)
+        .build();
+
+    assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
+    assertEquals(createOptions.dialogNode(), dialogNodeName);
+    assertEquals(createOptions.actions().size(), 2);
+    assertEquals(createOptions.actions().get(0), action0);
+    assertEquals(createOptions.actions().get(1), action1);
+  }
+
+  /**
+   * Test UpdateDialogNodeOptions builder.
+   *
+   */
+  @Test
+  public void testUpdateDialogNodeOptionsBuilder() {
+    String dialogNodeName = "aDialogNode";
+    String newDialogNodeName = "renamedDialogNode";
+    DialogNodeAction action0 = new DialogNodeAction();
+    action0.setName("action0");
+    DialogNodeAction action1 = new DialogNodeAction();
+    action0.setName("action1");
+
+    UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions.Builder()
+            .workspaceId(WORKSPACE_ID)
+            .dialogNode(dialogNodeName)
+            .newDialogNode(newDialogNodeName)
+            .addNewActions(action0).addNewActions(action1)
+            .build();
+
+    assertEquals(updateOptions.workspaceId(), WORKSPACE_ID);
+    assertEquals(updateOptions.dialogNode(), dialogNodeName);
+    assertEquals(updateOptions.newActions().size(), 2);
+    assertEquals(updateOptions.newActions().get(0), action0);
+    assertEquals(updateOptions.newActions().get(1), action1);
   }
 }

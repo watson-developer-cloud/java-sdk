@@ -24,7 +24,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class ValueExport extends GenericModel {
 
   private String value;
-  private Map<String, Object> metadata;
+  private Map metadata;
   private Date created;
   private Date updated;
   private List<String> synonyms;
@@ -47,7 +47,7 @@ public class ValueExport extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
+  public Map getMetadata() {
     return metadata;
   }
 
@@ -98,7 +98,7 @@ public class ValueExport extends GenericModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Map<String, Object> metadata) {
+  public void setMetadata(final Map metadata) {
     this.metadata = metadata;
   }
 

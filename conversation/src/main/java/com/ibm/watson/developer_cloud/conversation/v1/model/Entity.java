@@ -27,7 +27,7 @@ public class Entity extends GenericModel {
   private Date created;
   private Date updated;
   private String description;
-  private Map<String, Object> metadata;
+  private Map metadata;
   @SerializedName("fuzzy_match")
   private Boolean fuzzyMatch;
 
@@ -82,7 +82,7 @@ public class Entity extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
+  public Map getMetadata() {
     return metadata;
   }
 
@@ -120,7 +120,7 @@ public class Entity extends GenericModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Map<String, Object> metadata) {
+  public void setMetadata(final Map metadata) {
     this.metadata = metadata;
   }
 

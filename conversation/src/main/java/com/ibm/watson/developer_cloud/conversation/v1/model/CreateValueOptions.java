@@ -26,7 +26,7 @@ public class CreateValueOptions extends GenericModel {
 
   private String workspaceId;
   private String entity;
-  private Map<String, Object> metadata;
+  private Map metadata;
   private List<String> synonyms;
   private String value;
 
@@ -36,7 +36,7 @@ public class CreateValueOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private String entity;
-    private Map<String, Object> metadata;
+    private Map metadata;
     private List<String> synonyms;
     private String value;
 
@@ -119,7 +119,7 @@ public class CreateValueOptions extends GenericModel {
      * @param metadata the metadata
      * @return the CreateValueOptions builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(Map metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -197,7 +197,7 @@ public class CreateValueOptions extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> metadata() {
+  public Map metadata() {
     return metadata;
   }
 
