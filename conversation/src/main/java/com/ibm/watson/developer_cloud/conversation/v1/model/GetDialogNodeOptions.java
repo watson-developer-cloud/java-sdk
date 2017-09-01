@@ -16,26 +16,23 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The deleteExample options.
+ * The getDialogNode options.
  */
-public class DeleteExampleOptions extends GenericModel {
+public class GetDialogNodeOptions extends GenericModel {
 
   private String workspaceId;
-  private String intent;
-  private String text;
+  private String dialogNode;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String workspaceId;
-    private String intent;
-    private String text;
+    private String dialogNode;
 
-    private Builder(DeleteExampleOptions deleteExampleOptions) {
-      workspaceId = deleteExampleOptions.workspaceId;
-      intent = deleteExampleOptions.intent;
-      text = deleteExampleOptions.text;
+    private Builder(GetDialogNodeOptions getDialogNodeOptions) {
+      workspaceId = getDialogNodeOptions.workspaceId;
+      dialogNode = getDialogNodeOptions.dialogNode;
     }
 
     /**
@@ -48,29 +45,27 @@ public class DeleteExampleOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param intent the intent
-     * @param text the text
+     * @param dialogNode the dialogNode
      */
-    public Builder(String workspaceId, String intent, String text) {
+    public Builder(String workspaceId, String dialogNode) {
       this.workspaceId = workspaceId;
-      this.intent = intent;
-      this.text = text;
+      this.dialogNode = dialogNode;
     }
 
     /**
-     * Builds a DeleteExampleOptions.
+     * Builds a GetDialogNodeOptions.
      *
-     * @return the deleteExampleOptions
+     * @return the getDialogNodeOptions
      */
-    public DeleteExampleOptions build() {
-      return new DeleteExampleOptions(this);
+    public GetDialogNodeOptions build() {
+      return new GetDialogNodeOptions(this);
     }
 
     /**
      * Set the workspaceId.
      *
      * @param workspaceId the workspaceId
-     * @return the DeleteExampleOptions builder
+     * @return the GetDialogNodeOptions builder
      */
     public Builder workspaceId(String workspaceId) {
       this.workspaceId = workspaceId;
@@ -78,41 +73,28 @@ public class DeleteExampleOptions extends GenericModel {
     }
 
     /**
-     * Set the intent.
+     * Set the dialogNode.
      *
-     * @param intent the intent
-     * @return the DeleteExampleOptions builder
+     * @param dialogNode the dialogNode
+     * @return the GetDialogNodeOptions builder
      */
-    public Builder intent(String intent) {
-      this.intent = intent;
-      return this;
-    }
-
-    /**
-     * Set the text.
-     *
-     * @param text the text
-     * @return the DeleteExampleOptions builder
-     */
-    public Builder text(String text) {
-      this.text = text;
+    public Builder dialogNode(String dialogNode) {
+      this.dialogNode = dialogNode;
       return this;
     }
   }
 
-  private DeleteExampleOptions(Builder builder) {
+  private GetDialogNodeOptions(Builder builder) {
     Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
-    Validator.notEmpty(builder.intent, "intent cannot be empty");
-    Validator.notEmpty(builder.text, "text cannot be empty");
+    Validator.notEmpty(builder.dialogNode, "dialogNode cannot be empty");
     workspaceId = builder.workspaceId;
-    intent = builder.intent;
-    text = builder.text;
+    dialogNode = builder.dialogNode;
   }
 
   /**
    * New builder.
    *
-   * @return a DeleteExampleOptions builder
+   * @return a GetDialogNodeOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -130,24 +112,13 @@ public class DeleteExampleOptions extends GenericModel {
   }
 
   /**
-   * Gets the intent.
+   * Gets the dialogNode.
    *
-   * The intent name (for example, `pizza_order`).
+   * The dialog node ID (for example, `get_order`).
    *
-   * @return the intent
+   * @return the dialogNode
    */
-  public String intent() {
-    return intent;
-  }
-
-  /**
-   * Gets the text.
-   *
-   * The text of the user input example.
-   *
-   * @return the text
-   */
-  public String text() {
-    return text;
+  public String dialogNode() {
+    return dialogNode;
   }
 }

@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the deleteWorkspace options.
+ * The deleteWorkspace options.
  */
 public class DeleteWorkspaceOptions extends GenericModel {
 
