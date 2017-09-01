@@ -19,31 +19,23 @@ import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
- * Log message details.
- */
+* Log message details.
+*/
 public class LogMessage extends DynamicModel {
   /**
    * The severity of the message.
    */
   public interface Level {
-    /**
-     * info.
-     */
+    /** info. */
     String INFO = "info";
-    /**
-     * error.
-     */
+    /** error. */
     String ERROR = "error";
-    /**
-     * warn.
-     */
+    /** warn. */
     String WARN = "warn";
   }
 
-  private Type levelType = new TypeToken<String>() {
-  }.getType();
-  private Type msgType = new TypeToken<String>() {
-  }.getType();
+  private Type levelType = new TypeToken<String>() { } .getType();
+  private Type msgType = new TypeToken<String>() { } .getType();
 
   /**
    * Gets the level.
@@ -51,16 +43,15 @@ public class LogMessage extends DynamicModel {
    * @return the level
    */
   public String getLevel() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("level"), levelType);
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("level"), levelType);
   }
-
   /**
    * Gets the msg.
    *
    * @return the msg
    */
   public String getMsg() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("msg"), msgType);
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("msg"), msgType);
   }
 
   /**

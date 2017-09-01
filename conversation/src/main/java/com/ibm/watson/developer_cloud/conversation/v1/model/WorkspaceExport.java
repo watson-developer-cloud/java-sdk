@@ -28,25 +28,15 @@ public class WorkspaceExport extends GenericModel {
    * The current status of the workspace.
    */
   public interface Status {
-    /**
-     * Non Existent.
-     */
+    /** Non Existent. */
     String NON_EXISTENT = "Non Existent";
-    /**
-     * Training.
-     */
+    /** Training. */
     String TRAINING = "Training";
-    /**
-     * Failed.
-     */
+    /** Failed. */
     String FAILED = "Failed";
-    /**
-     * Available.
-     */
+    /** Available. */
     String AVAILABLE = "Available";
-    /**
-     * Unavailable.
-     */
+    /** Unavailable. */
     String UNAVAILABLE = "Unavailable";
   }
 

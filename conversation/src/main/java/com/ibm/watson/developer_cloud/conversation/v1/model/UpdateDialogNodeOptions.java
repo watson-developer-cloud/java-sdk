@@ -28,25 +28,15 @@ public class UpdateDialogNodeOptions extends GenericModel {
    * How the node is processed.
    */
   public interface NodeType {
-    /**
-     * standard.
-     */
+    /** standard. */
     String STANDARD = "standard";
-    /**
-     * event_handler.
-     */
+    /** event_handler. */
     String EVENT_HANDLER = "event_handler";
-    /**
-     * frame.
-     */
+    /** frame. */
     String FRAME = "frame";
-    /**
-     * slot.
-     */
+    /** slot. */
     String SLOT = "slot";
-    /**
-     * response_condition.
-     */
+    /** response_condition. */
     String RESPONSE_CONDITION = "response_condition";
   }
 
@@ -54,37 +44,21 @@ public class UpdateDialogNodeOptions extends GenericModel {
    * How an `event_handler` node is processed.
    */
   public interface NewEventName {
-    /**
-     * focus.
-     */
+    /** focus. */
     String FOCUS = "focus";
-    /**
-     * input.
-     */
+    /** input. */
     String INPUT = "input";
-    /**
-     * filled.
-     */
+    /** filled. */
     String FILLED = "filled";
-    /**
-     * validate.
-     */
+    /** validate. */
     String VALIDATE = "validate";
-    /**
-     * filled_multiple.
-     */
+    /** filled_multiple. */
     String FILLED_MULTIPLE = "filled_multiple";
-    /**
-     * generic.
-     */
+    /** generic. */
     String GENERIC = "generic";
-    /**
-     * nomatch.
-     */
+    /** nomatch. */
     String NOMATCH = "nomatch";
-    /**
-     * nomatch_responses_depleted.
-     */
+    /** nomatch_responses_depleted. */
     String NOMATCH_RESPONSES_DEPLETED = "nomatch_responses_depleted";
   }
 
@@ -154,8 +128,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param workspaceId   the workspaceId
-     * @param dialogNode    the dialogNode
+     * @param workspaceId the workspaceId
+     * @param dialogNode the dialogNode
      * @param newDialogNode the newDialogNode
      */
     public Builder(String workspaceId, String dialogNode, String newDialogNode) {

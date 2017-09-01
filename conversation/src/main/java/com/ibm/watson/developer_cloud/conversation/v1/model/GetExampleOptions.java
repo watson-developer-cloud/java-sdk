@@ -48,8 +48,8 @@ public class GetExampleOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param intent      the intent
-     * @param text        the text
+     * @param intent the intent
+     * @param text the text
      */
     public Builder(String workspaceId, String intent, String text) {
       this.workspaceId = workspaceId;

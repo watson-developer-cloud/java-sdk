@@ -61,7 +61,7 @@ public class CreateEntityOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity      the entity
+     * @param entity the entity
      */
     public Builder(String workspaceId, String entity) {
       this.workspaceId = workspaceId;

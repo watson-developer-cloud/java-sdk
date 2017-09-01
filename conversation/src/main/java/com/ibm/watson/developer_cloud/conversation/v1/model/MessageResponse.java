@@ -20,21 +20,15 @@ import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
- * A response from the Conversation service.
- */
+* A response from the Conversation service.
+*/
 public class MessageResponse extends DynamicModel {
-  private Type inputType = new TypeToken<MessageInput>() {
-  }.getType();
-  private Type intentsType = new TypeToken<List<RuntimeIntent>>() {
-  }.getType();
-  private Type entitiesType = new TypeToken<List<RuntimeEntity>>() {
-  }.getType();
-  private Type alternateIntentsType = new TypeToken<Boolean>() {
-  }.getType();
-  private Type contextType = new TypeToken<Context>() {
-  }.getType();
-  private Type outputType = new TypeToken<OutputData>() {
-  }.getType();
+  private Type inputType = new TypeToken<MessageInput>() { } .getType();
+  private Type intentsType = new TypeToken<List<RuntimeIntent>>() { } .getType();
+  private Type entitiesType = new TypeToken<List<RuntimeEntity>>() { } .getType();
+  private Type alternateIntentsType = new TypeToken<Boolean>() { } .getType();
+  private Type contextType = new TypeToken<Context>() { } .getType();
+  private Type outputType = new TypeToken<OutputData>() { } .getType();
 
   /**
    * Gets the input.
@@ -42,52 +36,47 @@ public class MessageResponse extends DynamicModel {
    * @return the input
    */
   public MessageInput getInput() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("input"), inputType);
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("input"), inputType);
   }
-
   /**
    * Gets the intents.
    *
    * @return the intents
    */
   public List<RuntimeIntent> getIntents() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("intents"), intentsType);
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("intents"), intentsType);
   }
-
   /**
    * Gets the entities.
    *
    * @return the entities
    */
   public List<RuntimeEntity> getEntities() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("entities"), entitiesType);
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("entities"), entitiesType);
   }
-
   /**
    * Gets the alternateIntents.
    *
    * @return the alternateIntents
    */
   public Boolean isAlternateIntents() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("alternateIntents"), alternateIntentsType);
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("alternateIntents"), alternateIntentsType);
   }
-
   /**
    * Gets the context.
    *
    * @return the context
    */
   public Context getContext() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("context"), contextType);
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("context"), contextType);
   }
-
   /**
    * Gets the output.
    *
    * @return the output
    */
   public OutputData getOutput() {
-    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("output"), outputType);
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("output"), outputType);
   }
 
   /**

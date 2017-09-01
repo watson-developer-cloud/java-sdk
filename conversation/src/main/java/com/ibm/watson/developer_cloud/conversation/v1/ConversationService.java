@@ -123,7 +123,7 @@ public class ConversationService extends WatsonService {
    * Instantiates a new `Conversation`.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *                    calls from failing when the service introduces breaking changes.
+   *          calls from failing when the service introduces breaking changes.
    */
   public ConversationService(String versionDate) {
     super(SERVICE_NAME);
@@ -132,7 +132,7 @@ public class ConversationService extends WatsonService {
     }
 
     Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-            "'version cannot be null. Use " + VERSION_DATE_2017_05_26);
+        "'version cannot be null. Use " + VERSION_DATE_2017_05_26);
 
     this.versionDate = versionDate;
   }
@@ -141,9 +141,9 @@ public class ConversationService extends WatsonService {
    * Instantiates a new `Conversation` with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *                    calls from failing when the service introduces breaking changes.
-   * @param username    the username
-   * @param password    the password
+   *          calls from failing when the service introduces breaking changes.
+   * @param username the username
+   * @param password the password
    */
   public ConversationService(String versionDate, String username, String password) {
     this(versionDate);
@@ -161,7 +161,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Counterexample> createCounterexample(CreateCounterexampleOptions createCounterexampleOptions) {
     Validator.notNull(createCounterexampleOptions, "createCounterexampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/counterexamples",
-            createCounterexampleOptions.workspaceId()));
+        createCounterexampleOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", createCounterexampleOptions.text());
@@ -180,7 +180,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteCounterexample(DeleteCounterexampleOptions deleteCounterexampleOptions) {
     Validator.notNull(deleteCounterexampleOptions, "deleteCounterexampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/counterexamples/%s",
-            deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text()));
+        deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -196,7 +196,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Counterexample> getCounterexample(GetCounterexampleOptions getCounterexampleOptions) {
     Validator.notNull(getCounterexampleOptions, "getCounterexampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/counterexamples/%s",
-            getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text()));
+        getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
   }
@@ -210,10 +210,10 @@ public class ConversationService extends WatsonService {
    * @return the {@link CounterexampleCollection} with the response
    */
   public ServiceCall<CounterexampleCollection> listCounterexamples(
-          ListCounterexamplesOptions listCounterexamplesOptions) {
+      ListCounterexamplesOptions listCounterexamplesOptions) {
     Validator.notNull(listCounterexamplesOptions, "listCounterexamplesOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/counterexamples",
-            listCounterexamplesOptions.workspaceId()));
+        listCounterexamplesOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     if (listCounterexamplesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listCounterexamplesOptions.pageLimit()));
@@ -241,7 +241,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Counterexample> updateCounterexample(UpdateCounterexampleOptions updateCounterexampleOptions) {
     Validator.notNull(updateCounterexampleOptions, "updateCounterexampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/counterexamples/%s",
-            updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions.text()));
+        updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions.text()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateCounterexampleOptions.newText() != null) {
@@ -262,7 +262,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<DialogNode> createDialogNode(CreateDialogNodeOptions createDialogNodeOptions) {
     Validator.notNull(createDialogNodeOptions, "createDialogNodeOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/dialog_nodes",
-            createDialogNodeOptions.workspaceId()));
+        createDialogNodeOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createDialogNodeOptions.parent() != null) {
@@ -320,7 +320,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteDialogNode(DeleteDialogNodeOptions deleteDialogNodeOptions) {
     Validator.notNull(deleteDialogNodeOptions, "deleteDialogNodeOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/dialog_nodes/%s",
-            deleteDialogNodeOptions.workspaceId(), deleteDialogNodeOptions.dialogNode()));
+        deleteDialogNodeOptions.workspaceId(), deleteDialogNodeOptions.dialogNode()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -336,7 +336,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<DialogNode> getDialogNode(GetDialogNodeOptions getDialogNodeOptions) {
     Validator.notNull(getDialogNodeOptions, "getDialogNodeOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/dialog_nodes/%s",
-            getDialogNodeOptions.workspaceId(), getDialogNodeOptions.dialogNode()));
+        getDialogNodeOptions.workspaceId(), getDialogNodeOptions.dialogNode()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
   }
@@ -352,7 +352,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<DialogNodeCollection> listDialogNodes(ListDialogNodesOptions listDialogNodesOptions) {
     Validator.notNull(listDialogNodesOptions, "listDialogNodesOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/dialog_nodes",
-            listDialogNodesOptions.workspaceId()));
+        listDialogNodesOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     if (listDialogNodesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listDialogNodesOptions.pageLimit()));
@@ -380,7 +380,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<DialogNode> updateDialogNode(UpdateDialogNodeOptions updateDialogNodeOptions) {
     Validator.notNull(updateDialogNodeOptions, "updateDialogNodeOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/dialog_nodes/%s",
-            updateDialogNodeOptions.workspaceId(), updateDialogNodeOptions.dialogNode()));
+        updateDialogNodeOptions.workspaceId(), updateDialogNodeOptions.dialogNode()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateDialogNodeOptions.nodeType() != null) {
@@ -438,7 +438,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Entity> createEntity(CreateEntityOptions createEntityOptions) {
     Validator.notNull(createEntityOptions, "createEntityOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities", createEntityOptions
-            .workspaceId()));
+        .workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createEntityOptions.metadata() != null) {
@@ -469,7 +469,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteEntity(DeleteEntityOptions deleteEntityOptions) {
     Validator.notNull(deleteEntityOptions, "deleteEntityOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/entities/%s", deleteEntityOptions
-            .workspaceId(), deleteEntityOptions.entity()));
+        .workspaceId(), deleteEntityOptions.entity()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -485,7 +485,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<EntityExport> getEntity(GetEntityOptions getEntityOptions) {
     Validator.notNull(getEntityOptions, "getEntityOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s", getEntityOptions
-            .workspaceId(), getEntityOptions.entity()));
+        .workspaceId(), getEntityOptions.entity()));
     builder.query(VERSION, versionDate);
     if (getEntityOptions.export() != null) {
       builder.query("export", String.valueOf(getEntityOptions.export()));
@@ -504,7 +504,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<EntityCollection> listEntities(ListEntitiesOptions listEntitiesOptions) {
     Validator.notNull(listEntitiesOptions, "listEntitiesOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities", listEntitiesOptions
-            .workspaceId()));
+        .workspaceId()));
     builder.query(VERSION, versionDate);
     if (listEntitiesOptions.export() != null) {
       builder.query("export", String.valueOf(listEntitiesOptions.export()));
@@ -535,7 +535,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Entity> updateEntity(UpdateEntityOptions updateEntityOptions) {
     Validator.notNull(updateEntityOptions, "updateEntityOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s", updateEntityOptions
-            .workspaceId(), updateEntityOptions.entity()));
+        .workspaceId(), updateEntityOptions.entity()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateEntityOptions.newFuzzyMatch() != null) {
@@ -568,7 +568,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Example> createExample(CreateExampleOptions createExampleOptions) {
     Validator.notNull(createExampleOptions, "createExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/intents/%s/examples",
-            createExampleOptions.workspaceId(), createExampleOptions.intent()));
+        createExampleOptions.workspaceId(), createExampleOptions.intent()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", createExampleOptions.text());
@@ -587,7 +587,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteExample(DeleteExampleOptions deleteExampleOptions) {
     Validator.notNull(deleteExampleOptions, "deleteExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/intents/%s/examples/%s",
-            deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(), deleteExampleOptions.text()));
+        deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(), deleteExampleOptions.text()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -603,7 +603,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Example> getExample(GetExampleOptions getExampleOptions) {
     Validator.notNull(getExampleOptions, "getExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents/%s/examples/%s",
-            getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text()));
+        getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Example.class));
   }
@@ -619,7 +619,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<ExampleCollection> listExamples(ListExamplesOptions listExamplesOptions) {
     Validator.notNull(listExamplesOptions, "listExamplesOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents/%s/examples",
-            listExamplesOptions.workspaceId(), listExamplesOptions.intent()));
+        listExamplesOptions.workspaceId(), listExamplesOptions.intent()));
     builder.query(VERSION, versionDate);
     if (listExamplesOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listExamplesOptions.pageLimit()));
@@ -647,7 +647,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Example> updateExample(UpdateExampleOptions updateExampleOptions) {
     Validator.notNull(updateExampleOptions, "updateExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/intents/%s/examples/%s",
-            updateExampleOptions.workspaceId(), updateExampleOptions.intent(), updateExampleOptions.text()));
+        updateExampleOptions.workspaceId(), updateExampleOptions.intent(), updateExampleOptions.text()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateExampleOptions.newText() != null) {
@@ -668,7 +668,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Intent> createIntent(CreateIntentOptions createIntentOptions) {
     Validator.notNull(createIntentOptions, "createIntentOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/intents", createIntentOptions
-            .workspaceId()));
+        .workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createIntentOptions.examples() != null) {
@@ -693,7 +693,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteIntent(DeleteIntentOptions deleteIntentOptions) {
     Validator.notNull(deleteIntentOptions, "deleteIntentOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/intents/%s", deleteIntentOptions
-            .workspaceId(), deleteIntentOptions.intent()));
+        .workspaceId(), deleteIntentOptions.intent()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -709,7 +709,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<IntentExport> getIntent(GetIntentOptions getIntentOptions) {
     Validator.notNull(getIntentOptions, "getIntentOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents/%s", getIntentOptions
-            .workspaceId(), getIntentOptions.intent()));
+        .workspaceId(), getIntentOptions.intent()));
     builder.query(VERSION, versionDate);
     if (getIntentOptions.export() != null) {
       builder.query("export", String.valueOf(getIntentOptions.export()));
@@ -728,7 +728,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<IntentCollection> listIntents(ListIntentsOptions listIntentsOptions) {
     Validator.notNull(listIntentsOptions, "listIntentsOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents", listIntentsOptions
-            .workspaceId()));
+        .workspaceId()));
     builder.query(VERSION, versionDate);
     if (listIntentsOptions.export() != null) {
       builder.query("export", String.valueOf(listIntentsOptions.export()));
@@ -760,7 +760,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Intent> updateIntent(UpdateIntentOptions updateIntentOptions) {
     Validator.notNull(updateIntentOptions, "updateIntentOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/intents/%s", updateIntentOptions
-            .workspaceId(), updateIntentOptions.intent()));
+        .workspaceId(), updateIntentOptions.intent()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateIntentOptions.newIntent() != null) {
@@ -810,7 +810,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<MessageResponse> message(MessageOptions messageOptions) {
     Validator.notNull(messageOptions, "messageOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/message", messageOptions
-            .workspaceId()));
+        .workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (messageOptions.output() != null) {
@@ -846,7 +846,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Synonym> createSynonym(CreateSynonymOptions createSynonymOptions) {
     Validator.notNull(createSynonymOptions, "createSynonymOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s/values/%s/synonyms",
-            createSynonymOptions.workspaceId(), createSynonymOptions.entity(), createSynonymOptions.value()));
+        createSynonymOptions.workspaceId(), createSynonymOptions.entity(), createSynonymOptions.value()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("synonym", createSynonymOptions.synonym());
@@ -865,8 +865,8 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteSynonym(DeleteSynonymOptions deleteSynonymOptions) {
     Validator.notNull(deleteSynonymOptions, "deleteSynonymOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format(
-            "/v1/workspaces/%s/entities/%s/values/%s/synonyms/%s", deleteSynonymOptions.workspaceId(),
-            deleteSynonymOptions.entity(), deleteSynonymOptions.value(), deleteSynonymOptions.synonym()));
+        "/v1/workspaces/%s/entities/%s/values/%s/synonyms/%s", deleteSynonymOptions.workspaceId(),
+        deleteSynonymOptions.entity(), deleteSynonymOptions.value(), deleteSynonymOptions.synonym()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -882,8 +882,8 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Synonym> getSynonym(GetSynonymOptions getSynonymOptions) {
     Validator.notNull(getSynonymOptions, "getSynonymOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s/values/%s/synonyms/%s",
-            getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions.value(), getSynonymOptions
-                    .synonym()));
+        getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions.value(), getSynonymOptions
+            .synonym()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Synonym.class));
   }
@@ -899,7 +899,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<SynonymCollection> listSynonyms(ListSynonymsOptions listSynonymsOptions) {
     Validator.notNull(listSynonymsOptions, "listSynonymsOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s/values/%s/synonyms",
-            listSynonymsOptions.workspaceId(), listSynonymsOptions.entity(), listSynonymsOptions.value()));
+        listSynonymsOptions.workspaceId(), listSynonymsOptions.entity(), listSynonymsOptions.value()));
     builder.query(VERSION, versionDate);
     if (listSynonymsOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listSynonymsOptions.pageLimit()));
@@ -927,8 +927,8 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Synonym> updateSynonym(UpdateSynonymOptions updateSynonymOptions) {
     Validator.notNull(updateSynonymOptions, "updateSynonymOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s/values/%s/synonyms/%s",
-            updateSynonymOptions.workspaceId(), updateSynonymOptions.entity(), updateSynonymOptions.value(),
-            updateSynonymOptions.synonym()));
+        updateSynonymOptions.workspaceId(), updateSynonymOptions.entity(), updateSynonymOptions.value(),
+        updateSynonymOptions.synonym()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateSynonymOptions.newSynonym() != null) {
@@ -949,7 +949,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Value> createValue(CreateValueOptions createValueOptions) {
     Validator.notNull(createValueOptions, "createValueOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s/values",
-            createValueOptions.workspaceId(), createValueOptions.entity()));
+        createValueOptions.workspaceId(), createValueOptions.entity()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createValueOptions.metadata() != null) {
@@ -977,7 +977,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteValue(DeleteValueOptions deleteValueOptions) {
     Validator.notNull(deleteValueOptions, "deleteValueOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/entities/%s/values/%s",
-            deleteValueOptions.workspaceId(), deleteValueOptions.entity(), deleteValueOptions.value()));
+        deleteValueOptions.workspaceId(), deleteValueOptions.entity(), deleteValueOptions.value()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -993,7 +993,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<ValueExport> getValue(GetValueOptions getValueOptions) {
     Validator.notNull(getValueOptions, "getValueOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s/values/%s",
-            getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions.value()));
+        getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions.value()));
     builder.query(VERSION, versionDate);
     if (getValueOptions.export() != null) {
       builder.query("export", String.valueOf(getValueOptions.export()));
@@ -1012,7 +1012,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<ValueCollection> listValues(ListValuesOptions listValuesOptions) {
     Validator.notNull(listValuesOptions, "listValuesOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s/values",
-            listValuesOptions.workspaceId(), listValuesOptions.entity()));
+        listValuesOptions.workspaceId(), listValuesOptions.entity()));
     builder.query(VERSION, versionDate);
     if (listValuesOptions.export() != null) {
       builder.query("export", String.valueOf(listValuesOptions.export()));
@@ -1043,7 +1043,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Value> updateValue(UpdateValueOptions updateValueOptions) {
     Validator.notNull(updateValueOptions, "updateValueOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s/values/%s",
-            updateValueOptions.workspaceId(), updateValueOptions.entity(), updateValueOptions.value()));
+        updateValueOptions.workspaceId(), updateValueOptions.entity(), updateValueOptions.value()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateValueOptions.newSynonyms() != null) {
@@ -1093,7 +1093,7 @@ public class ConversationService extends WatsonService {
       }
       if (createWorkspaceOptions.counterexamples() != null) {
         contentJson.add("counterexamples", GsonSingleton.getGson().toJsonTree(
-                createWorkspaceOptions.counterexamples()));
+            createWorkspaceOptions.counterexamples()));
       }
       if (createWorkspaceOptions.description() != null) {
         contentJson.addProperty("description", createWorkspaceOptions.description());
@@ -1120,7 +1120,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteWorkspace(DeleteWorkspaceOptions deleteWorkspaceOptions) {
     Validator.notNull(deleteWorkspaceOptions, "deleteWorkspaceOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s", deleteWorkspaceOptions
-            .workspaceId()));
+        .workspaceId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1183,7 +1183,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Workspace> updateWorkspace(UpdateWorkspaceOptions updateWorkspaceOptions) {
     Validator.notNull(updateWorkspaceOptions, "updateWorkspaceOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s", updateWorkspaceOptions
-            .workspaceId()));
+        .workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateWorkspaceOptions.metadata() != null) {
