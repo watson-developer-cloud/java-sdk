@@ -4,6 +4,10 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import java.util.HashMap;
 
+/**
+ * Abstract model class for objects which may have dynamic properties attached to them,
+ * which is represented with an internal map.
+ */
 public abstract class DynamicModel extends HashMap<String, Object> implements ObjectModel {
 
   /*
@@ -41,11 +45,4 @@ public abstract class DynamicModel extends HashMap<String, Object> implements Ob
   public String toString() {
     return GsonSingleton.getGson().toJson(this);
   }
-
-  /*
-   * @Override
-   * public void putAll(Map<? extends String, ?> m) {
-   * System.out.println(m.toString());
-   * }
-   */
 }

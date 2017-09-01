@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DialogNodeNextStep.
+ * The next step to execute following this dialog node.
  */
 public class DialogNodeNextStep extends GenericModel {
 

@@ -20,14 +20,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the UpdateDialogNode options.
+ * The UpdateDialogNode options.
  */
 public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * How the node is processed.
    */
-  public interface NewType {
+  public interface NodeType {
     /** standard. */
     String STANDARD = "standard";
     /** event_handler. */
@@ -64,7 +64,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   private String workspaceId;
   private String dialogNode;
-  private String newType;
+  private String nodeType;
   private List<DialogNodeAction> newActions;
   private String newConditions;
   private String newPreviousSibling;
@@ -85,7 +85,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private String dialogNode;
-    private String newType;
+    private String nodeType;
     private List<DialogNodeAction> newActions;
     private String newConditions;
     private String newPreviousSibling;
@@ -103,7 +103,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     private Builder(UpdateDialogNodeOptions updateDialogNodeOptions) {
       workspaceId = updateDialogNodeOptions.workspaceId;
       dialogNode = updateDialogNodeOptions.dialogNode;
-      newType = updateDialogNodeOptions.newType;
+      nodeType = updateDialogNodeOptions.nodeType;
       newActions = updateDialogNodeOptions.newActions;
       newConditions = updateDialogNodeOptions.newConditions;
       newPreviousSibling = updateDialogNodeOptions.newPreviousSibling;
@@ -185,13 +185,13 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the newType.
+     * Set the nodeType.
      *
-     * @param newType the newType
+     * @param nodeType the nodeType
      * @return the UpdateDialogNodeOptions builder
      */
-    public Builder newType(String newType) {
-      this.newType = newType;
+    public Builder nodeType(String nodeType) {
+      this.nodeType = nodeType;
       return this;
     }
 
@@ -346,7 +346,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
     Validator.notNull(builder.newDialogNode, "newDialogNode cannot be null");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
-    newType = builder.newType;
+    nodeType = builder.nodeType;
     newActions = builder.newActions;
     newConditions = builder.newConditions;
     newPreviousSibling = builder.newPreviousSibling;
@@ -394,14 +394,14 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the newType.
+   * Gets the nodeType.
    *
    * How the node is processed.
    *
-   * @return the newType
+   * @return the nodeType
    */
-  public String newType() {
-    return newType;
+  public String nodeType() {
+    return nodeType;
   }
 
   /**
@@ -505,6 +505,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the newNextStep.
+   *
+   * The next step to execute following this dialog node.
    *
    * @return the newNextStep
    */

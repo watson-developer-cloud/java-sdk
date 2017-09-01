@@ -27,7 +27,7 @@ public class DialogNode extends GenericModel {
   /**
    * How the dialog node is processed.
    */
-  public interface Type {
+  public interface NodeType {
     /** standard. */
     String STANDARD = "standard";
     /** event_handler. */
@@ -63,7 +63,7 @@ public class DialogNode extends GenericModel {
   }
 
   @SerializedName("dialog_node")
-  private String dialogNode;
+  private String dialogNodeId;
   private String description;
   private String conditions;
   private String parent;
@@ -78,20 +78,21 @@ public class DialogNode extends GenericModel {
   private Date updated;
   private List<DialogNodeAction> actions;
   private String title;
-  private String type;
+  @SerializedName("type")
+  private String nodeType;
   @SerializedName("event_name")
   private String eventName;
   private String variable;
 
   /**
-   * Gets the dialogNode.
+   * Gets the dialogNodeId.
    *
    * The dialog node ID.
    *
-   * @return the dialogNode
+   * @return the dialogNodeId
    */
-  public String getDialogNode() {
-    return dialogNode;
+  public String getDialogNodeId() {
+    return dialogNodeId;
   }
 
   /**
@@ -174,6 +175,8 @@ public class DialogNode extends GenericModel {
   /**
    * Gets the nextStep.
    *
+   * The next step to execute following this dialog node.
+   *
    * @return the nextStep
    */
   public DialogNodeNextStep getNextStep() {
@@ -225,14 +228,14 @@ public class DialogNode extends GenericModel {
   }
 
   /**
-   * Gets the type.
+   * Gets the nodeType.
    *
    * How the dialog node is processed.
    *
-   * @return the type
+   * @return the nodeType
    */
-  public String getType() {
-    return type;
+  public String getNodeType() {
+    return nodeType;
   }
 
   /**
@@ -258,12 +261,12 @@ public class DialogNode extends GenericModel {
   }
 
   /**
-   * Sets the dialogNode.
+   * Sets the dialogNodeId.
    *
-   * @param dialogNode the new dialogNode
+   * @param dialogNodeId the new dialogNodeId
    */
-  public void setDialogNode(final String dialogNode) {
-    this.dialogNode = dialogNode;
+  public void setDialogNodeId(final String dialogNodeId) {
+    this.dialogNodeId = dialogNodeId;
   }
 
   /**
@@ -357,12 +360,12 @@ public class DialogNode extends GenericModel {
   }
 
   /**
-   * Sets the type.
+   * Sets the nodeType.
    *
-   * @param type the new type
+   * @param nodeType the new nodeType
    */
-  public void setType(final String type) {
-    this.type = type;
+  public void setNodeType(final String nodeType) {
+    this.nodeType = nodeType;
   }
 
   /**

@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the deleteDialogNode options.
+ * The deleteDialogNode options.
  */
 public class DeleteDialogNodeOptions extends GenericModel {
 

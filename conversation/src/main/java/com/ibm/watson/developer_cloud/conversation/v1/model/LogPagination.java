@@ -27,7 +27,9 @@ public class LogPagination extends GenericModel {
   private String nextUrl;
   private Long matched;
 
-  /** A token identifying the last value from the previous page of results. */
+  /**
+   * A token identifying the last value from the previous page of results.
+   */
   private String cursor;
 
   /**

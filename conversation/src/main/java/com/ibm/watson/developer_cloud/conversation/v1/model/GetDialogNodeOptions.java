@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the getDialogNode options.
+ * The getDialogNode options.
  */
 public class GetDialogNodeOptions extends GenericModel {
 

@@ -12,14 +12,23 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.HashMap;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
+
 /**
- * A term from the request that was identified as an entity.
- */
-public class RuntimeEntity extends HashMap<String, Object> {
+* A term from the request that was identified as an entity.
+*/
+public class RuntimeEntity extends DynamicModel {
+  private Type entityType = new TypeToken<String>() { } .getType();
+  private Type locationType = new TypeToken<List<Long>>() { } .getType();
+  private Type valueType = new TypeToken<String>() { } .getType();
+  private Type confidenceType = new TypeToken<Double>() { } .getType();
+  private Type metadataType = new TypeToken<Map>() { } .getType();
 
   /**
    * Gets the entity.
@@ -27,43 +36,39 @@ public class RuntimeEntity extends HashMap<String, Object> {
    * @return the entity
    */
   public String getEntity() {
-    return (String) this.get("entity");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("entity"), entityType);
   }
-
   /**
    * Gets the location.
    *
    * @return the location
    */
   public List<Long> getLocation() {
-    return (List<Long>) this.get("location");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("location"), locationType);
   }
-
   /**
    * Gets the value.
    *
    * @return the value
    */
   public String getValue() {
-    return (String) this.get("value");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("value"), valueType);
   }
-
   /**
    * Gets the confidence.
    *
    * @return the confidence
    */
   public Double getConfidence() {
-    return (Double) this.get("confidence");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("confidence"), confidenceType);
   }
-
   /**
    * Gets the metadata.
    *
    * @return the metadata
    */
   public Map getMetadata() {
-    return (Map) this.get("metadata");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
   }
 
   /**
@@ -111,3 +116,4 @@ public class RuntimeEntity extends HashMap<String, Object> {
     this.put("metadata", metadata);
   }
 }
+

@@ -69,8 +69,8 @@ public class EntitiesIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getEntity());
-      assertEquals(response.getEntity(), entity);
+      assertNotNull(response.getEntityName());
+      assertEquals(response.getEntityName(), entity);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), entityDescription);
       assertNotNull(response.getCreated());
@@ -110,8 +110,8 @@ public class EntitiesIT extends ConversationServiceTest {
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getEntity());
-      assertEquals(response.getEntity(), entity);
+      assertNotNull(response.getEntityName());
+      assertEquals(response.getEntityName(), entity);
       assertNull(response.getDescription());
       assertNull(response.getMetadata());
       assertTrue(response.isFuzzyMatch() == null || response.isFuzzyMatch().equals(Boolean.FALSE));
@@ -159,8 +159,8 @@ public class EntitiesIT extends ConversationServiceTest {
       GetEntityOptions getOptions = new GetEntityOptions.Builder(workspaceId, entity).export(true).build();
       EntityExport response = service.getEntity(getOptions).execute();
       assertNotNull(response);
-      assertNotNull(response.getEntity());
-      assertEquals(response.getEntity(), entity);
+      assertNotNull(response.getEntityName());
+      assertEquals(response.getEntityName(), entity);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), entityDescription);
       assertNotNull(response.getValues());
@@ -175,7 +175,7 @@ public class EntitiesIT extends ConversationServiceTest {
 
       List<ValueExport> values = response.getValues();
       assertTrue(values.size() == 1);
-      assertEquals(values.get(0).getValue(), entityValue);
+      assertEquals(values.get(0).getValueText(), entityValue);
       assertTrue(fuzzyBefore(values.get(0).getCreated(), now));
       assertTrue(fuzzyAfter(values.get(0).getCreated(), start));
       assertTrue(fuzzyBefore(values.get(0).getUpdated(), now));
@@ -212,13 +212,13 @@ public class EntitiesIT extends ConversationServiceTest {
       String entityDescription = "Description of " + entity;
       String entityValue = "Value of " + entity;
       CreateEntityOptions options = new CreateEntityOptions.Builder(workspaceId, entity)
-          .description(entityDescription)
-          .addValue(new CreateValue.Builder(entityValue).build())
-          .build();
+              .description(entityDescription)
+              .addValue(new CreateValue.Builder(entityValue).build())
+              .build();
       service.createEntity(options).execute();
 
       ListEntitiesOptions listOptions2 = listOptions.newBuilder()
-          .sort("-modified").pageLimit(5L).export(true).build();
+              .sort("-modified").pageLimit(5L).export(true).build();
       EntityCollection response2 = service.listEntities(listOptions2).execute();
       assertNotNull(response2);
       assertNotNull(response2.getEntities());
@@ -226,7 +226,7 @@ public class EntitiesIT extends ConversationServiceTest {
       List<EntityExport> entities = response2.getEntities();
       EntityExport ieResponse = null;
       for (EntityExport resp : entities) {
-        if (resp.getEntity().equals(entity)) {
+        if (resp.getEntityName().equals(entity)) {
           ieResponse = resp;
           break;
         }
@@ -237,7 +237,7 @@ public class EntitiesIT extends ConversationServiceTest {
       assertEquals(ieResponse.getDescription(), entityDescription);
       assertNotNull(ieResponse.getValues());
       assertTrue(ieResponse.getValues().size() == 1);
-      assertTrue(ieResponse.getValues().get(0).getValue().equals(entityValue));
+      assertTrue(ieResponse.getValues().get(0).getValueText().equals(entityValue));
     } catch (Exception ex) {
       fail(ex.getMessage());
     } finally {
@@ -263,9 +263,9 @@ public class EntitiesIT extends ConversationServiceTest {
 
     try {
       ListEntitiesOptions listOptions = new ListEntitiesOptions.Builder(workspaceId)
-          .sort("entity")
-          .pageLimit(1L)
-          .build();
+              .sort("entity")
+              .pageLimit(1L)
+              .build();
       EntityCollection response = service.listEntities(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getEntities());
@@ -273,13 +273,13 @@ public class EntitiesIT extends ConversationServiceTest {
       assertNotNull(response.getPagination().getRefreshUrl());
       assertNotNull(response.getPagination().getNextUrl());
       assertNotNull(response.getPagination().getCursor());
-      assertTrue(!response.getEntities().get(0).getEntity().equals(entity1));
+      assertTrue(!response.getEntities().get(0).getEntityName().equals(entity1));
 
       EntityExport ieResponse = null;
       while (response.getPagination().getCursor() != null) {
         assertNotNull(response.getEntities());
         assertTrue(response.getEntities().size() == 1);
-        if (response.getEntities().get(0).getEntity().equals(entity1)) {
+        if (response.getEntities().get(0).getEntityName().equals(entity1)) {
           ieResponse = response.getEntities().get(0);
           break;
         }
@@ -332,8 +332,8 @@ public class EntitiesIT extends ConversationServiceTest {
 
       Entity response = service.updateEntity(updateOptionsBuilder.build()).execute();
       assertNotNull(response);
-      assertNotNull(response.getEntity());
-      assertEquals(response.getEntity(), entity2);
+      assertNotNull(response.getEntityName());
+      assertEquals(response.getEntityName(), entity2);
       assertNotNull(response.getDescription());
       assertEquals(response.getDescription(), entityDescription2);
       assertNotNull(response.getCreated());
