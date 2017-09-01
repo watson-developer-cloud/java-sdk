@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listExamples options.
+ * The listExamples options.
  */
 public class ListExamplesOptions extends GenericModel {
 
@@ -57,7 +57,7 @@ public class ListExamplesOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param intent the intent
+     * @param intent      the intent
      */
     public Builder(String workspaceId, String intent) {
       this.workspaceId = workspaceId;

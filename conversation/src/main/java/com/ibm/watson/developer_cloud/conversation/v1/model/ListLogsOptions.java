@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listLogs options.
+ * The listLogs options.
  */
 public class ListLogsOptions extends GenericModel {
 
@@ -167,7 +167,9 @@ public class ListLogsOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable parameter that limits the results to those matching the specified filter.
+   * A cacheable parameter that limits the results to those matching the specified filter. For more information, see
+   * the [documentation](https://console.bluemix.net/docs/services/conversation/filter-reference
+   * .html#filter-query-syntax).
    *
    * @return the filter
    */

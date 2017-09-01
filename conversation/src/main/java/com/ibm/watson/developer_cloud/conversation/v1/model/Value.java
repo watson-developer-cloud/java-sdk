@@ -13,8 +13,10 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -22,20 +24,22 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Value extends GenericModel {
 
-  private String value;
+  @SerializedName("value")
+  private String valueText;
   private Map metadata;
   private Date created;
   private Date updated;
+  private List<String> patterns;
 
   /**
-   * Gets the value.
+   * Gets the valueText.
    *
    * The text of the entity value.
    *
-   * @return the value
+   * @return the valueText
    */
-  public String getValue() {
-    return value;
+  public String getValueText() {
+    return valueText;
   }
 
   /**
@@ -72,12 +76,23 @@ public class Value extends GenericModel {
   }
 
   /**
-   * Sets the value.
+   * Gets the patterns.
    *
-   * @param value the new value
+   * An array of patterns for the entity value. A pattern is specified as a regular expression.
+   *
+   * @return the patterns
    */
-  public void setValue(final String value) {
-    this.value = value;
+  public List<String> getPatterns() {
+    return patterns;
+  }
+
+  /**
+   * Sets the valueText.
+   *
+   * @param valueText the new valueText
+   */
+  public void setValueText(final String valueText) {
+    this.valueText = valueText;
   }
 
   /**
@@ -87,5 +102,14 @@ public class Value extends GenericModel {
    */
   public void setMetadata(final Map metadata) {
     this.metadata = metadata;
+  }
+
+  /**
+   * Sets the patterns.
+   *
+   * @param patterns the new patterns
+   */
+  public void setPatterns(final List<String> patterns) {
+    this.patterns = patterns;
   }
 }

@@ -27,7 +27,9 @@ public class LogPagination extends GenericModel {
   private String nextUrl;
   private Long matched;
 
-  /** A token identifying the last value from the previous page of results. */
+  /**
+   * A token identifying the last value from the previous page of results.
+   */
   private String cursor;
 
   /**
@@ -51,7 +53,7 @@ public class LogPagination extends GenericModel {
 
   /**
    * Gets the nextUrl.
-   *
+   * <p>
    * The URL that will return the next page of results.
    *
    * @return the nextUrl
@@ -62,7 +64,7 @@ public class LogPagination extends GenericModel {
 
   /**
    * Gets the matched.
-   *
+   * <p>
    * Reserved for future use.
    *
    * @return the matched

@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateValue options.
+ * The updateValue options.
  */
 public class UpdateValueOptions extends GenericModel {
 
@@ -30,6 +30,7 @@ public class UpdateValueOptions extends GenericModel {
   private List<String> newSynonyms;
   private Map newMetadata;
   private String newValue;
+  private List<String> newPatterns;
 
   /**
    * Builder.
@@ -41,6 +42,7 @@ public class UpdateValueOptions extends GenericModel {
     private List<String> newSynonyms;
     private Map newMetadata;
     private String newValue;
+    private List<String> newPatterns;
 
     private Builder(UpdateValueOptions updateValueOptions) {
       workspaceId = updateValueOptions.workspaceId;
@@ -49,6 +51,7 @@ public class UpdateValueOptions extends GenericModel {
       newSynonyms = updateValueOptions.newSynonyms;
       newMetadata = updateValueOptions.newMetadata;
       newValue = updateValueOptions.newValue;
+      newPatterns = updateValueOptions.newPatterns;
     }
 
     /**
@@ -61,8 +64,8 @@ public class UpdateValueOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity the entity
-     * @param value the value
+     * @param entity      the entity
+     * @param value       the value
      */
     public Builder(String workspaceId, String entity, String value) {
       this.workspaceId = workspaceId;
@@ -91,6 +94,21 @@ public class UpdateValueOptions extends GenericModel {
         this.newSynonyms = new ArrayList<String>();
       }
       this.newSynonyms.add(synonym);
+      return this;
+    }
+
+    /**
+     * Adds an newPatterns to newPatterns.
+     *
+     * @param newPatterns the new newPatterns
+     * @return the UpdateValueOptions builder
+     */
+    public Builder addNewPatterns(String newPatterns) {
+      Validator.notNull(newPatterns, "newPatterns cannot be null");
+      if (this.newPatterns == null) {
+        this.newPatterns = new ArrayList<String>();
+      }
+      this.newPatterns.add(newPatterns);
       return this;
     }
 
@@ -160,6 +178,18 @@ public class UpdateValueOptions extends GenericModel {
       this.newValue = newValue;
       return this;
     }
+
+    /**
+     * Set the newPatterns.
+     * Existing newPatterns will be replaced.
+     *
+     * @param newPatterns the newPatterns
+     * @return the UpdateValueOptions builder
+     */
+    public Builder newPatterns(List<String> newPatterns) {
+      this.newPatterns = newPatterns;
+      return this;
+    }
   }
 
   private UpdateValueOptions(Builder builder) {
@@ -172,6 +202,7 @@ public class UpdateValueOptions extends GenericModel {
     newSynonyms = builder.newSynonyms;
     newMetadata = builder.newMetadata;
     newValue = builder.newValue;
+    newPatterns = builder.newPatterns;
   }
 
   /**
@@ -247,5 +278,16 @@ public class UpdateValueOptions extends GenericModel {
    */
   public String newValue() {
     return newValue;
+  }
+
+  /**
+   * Gets the newPatterns.
+   *
+   * An array of patterns for the entity value. A pattern is specified as a regular expression.
+   *
+   * @return the newPatterns
+   */
+  public List<String> newPatterns() {
+    return newPatterns;
   }
 }

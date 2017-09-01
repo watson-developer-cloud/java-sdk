@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -23,21 +24,23 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ValueExport extends GenericModel {
 
-  private String value;
+  @SerializedName("value")
+  private String valueText;
   private Map metadata;
   private Date created;
   private Date updated;
+  private List<String> patterns;
   private List<String> synonyms;
 
   /**
-   * Gets the value.
+   * Gets the valueText.
    *
    * The text of the entity value.
    *
-   * @return the value
+   * @return the valueText
    */
-  public String getValue() {
-    return value;
+  public String getValueText() {
+    return valueText;
   }
 
   /**
@@ -74,6 +77,17 @@ public class ValueExport extends GenericModel {
   }
 
   /**
+   * Gets the patterns.
+   *
+   * An array of patterns for the entity value. A pattern is specified as a regular expression.
+   *
+   * @return the patterns
+   */
+  public List<String> getPatterns() {
+    return patterns;
+  }
+
+  /**
    * Gets the synonyms.
    *
    * An array of synonyms.
@@ -85,12 +99,12 @@ public class ValueExport extends GenericModel {
   }
 
   /**
-   * Sets the value.
+   * Sets the valueText.
    *
-   * @param value the new value
+   * @param valueText the new valueText
    */
-  public void setValue(final String value) {
-    this.value = value;
+  public void setValueText(final String valueText) {
+    this.valueText = valueText;
   }
 
   /**
@@ -100,6 +114,15 @@ public class ValueExport extends GenericModel {
    */
   public void setMetadata(final Map metadata) {
     this.metadata = metadata;
+  }
+
+  /**
+   * Sets the patterns.
+   *
+   * @param patterns the new patterns
+   */
+  public void setPatterns(final List<String> patterns) {
+    this.patterns = patterns;
   }
 
   /**

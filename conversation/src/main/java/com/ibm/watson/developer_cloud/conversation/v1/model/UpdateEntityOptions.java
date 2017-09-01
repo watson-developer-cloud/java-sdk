@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateEntity options.
+ * The updateEntity options.
  */
 public class UpdateEntityOptions extends GenericModel {
 
@@ -64,7 +64,7 @@ public class UpdateEntityOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity the entity
+     * @param entity      the entity
      */
     public Builder(String workspaceId, String entity) {
       this.workspaceId = workspaceId;

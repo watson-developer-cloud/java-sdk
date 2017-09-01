@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listSynonyms options.
+ * The listSynonyms options.
  */
 public class ListSynonymsOptions extends GenericModel {
 
@@ -60,8 +60,8 @@ public class ListSynonymsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity the entity
-     * @param value the value
+     * @param entity      the entity
+     * @param value       the value
      */
     public Builder(String workspaceId, String entity, String value) {
       this.workspaceId = workspaceId;

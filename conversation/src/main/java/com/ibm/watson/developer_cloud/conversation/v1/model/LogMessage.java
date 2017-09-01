@@ -12,23 +12,38 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.HashMap;
+import java.lang.reflect.Type;
+
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
  * Log message details.
  */
-public class LogMessage extends HashMap<String, Object> {
+public class LogMessage extends DynamicModel {
   /**
    * The severity of the message.
    */
   public interface Level {
-    /** info. */
+    /**
+     * info.
+     */
     String INFO = "info";
-    /** error. */
+    /**
+     * error.
+     */
     String ERROR = "error";
-    /** warn. */
+    /**
+     * warn.
+     */
     String WARN = "warn";
   }
+
+  private Type levelType = new TypeToken<String>() {
+  }.getType();
+  private Type msgType = new TypeToken<String>() {
+  }.getType();
 
   /**
    * Gets the level.
@@ -36,7 +51,7 @@ public class LogMessage extends HashMap<String, Object> {
    * @return the level
    */
   public String getLevel() {
-    return (String) this.get("level");
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("level"), levelType);
   }
 
   /**
@@ -45,7 +60,7 @@ public class LogMessage extends HashMap<String, Object> {
    * @return the msg
    */
   public String getMsg() {
-    return (String) this.get("msg");
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("msg"), msgType);
   }
 
   /**
@@ -66,3 +81,4 @@ public class LogMessage extends HashMap<String, Object> {
     this.put("msg", msg);
   }
 }
+

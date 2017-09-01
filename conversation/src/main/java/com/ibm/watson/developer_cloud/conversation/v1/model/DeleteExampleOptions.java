@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the deleteExample options.
+ * The deleteExample options.
  */
 public class DeleteExampleOptions extends GenericModel {
 
@@ -48,8 +48,8 @@ public class DeleteExampleOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param intent the intent
-     * @param text the text
+     * @param intent      the intent
+     * @param text        the text
      */
     public Builder(String workspaceId, String intent, String text) {
       this.workspaceId = workspaceId;

@@ -55,8 +55,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation. Continue a conversation by including the context object from the previous
-   * response.
+   * State information for the conversation. Continue a conversation by including the context object from the
+   * previous response.
    *
    * @return the context
    */
@@ -67,8 +67,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Include the entities from the previous response when they do not need to change and to prevent Watson from trying
-   * to identify them.
+   * Include the entities from the previous response when they do not need to change and to prevent Watson from
+   * trying to identify them.
    *
    * @return the entities
    */
@@ -79,8 +79,8 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they do
-   * not need to change and to prevent Watson from trying to identify them.
+   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they
+   * do not need to change and to prevent Watson from trying to identify them.
    *
    * @return the intents
    */
