@@ -1355,8 +1355,8 @@ public class ConversationServiceIT extends ConversationServiceTest {
     CreateCounterexample counterexample1 = new CreateCounterexample.Builder("What are you eating?").build();
 
     CreateWorkspaceOptions createOptions = new CreateWorkspaceOptions.Builder().name(workspaceName)
-            .description(workspaceDescription).addIntent(intent0).addIntent(intent1).addEntity(entity0).addEntity
-                    (entity1)
+            .description(workspaceDescription).addIntent(intent0).addIntent(intent1).addEntity(entity0)
+            .addEntity(entity1)
             .addCounterexample(counterexample0).addCounterexample(counterexample1).build();
 
     String workspaceId = null;
