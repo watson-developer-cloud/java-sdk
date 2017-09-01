@@ -29,7 +29,6 @@ public class ValueExport extends GenericModel {
   private Map metadata;
   private Date created;
   private Date updated;
-  private List<String> patterns;
   private List<String> synonyms;
 
   /**
@@ -77,17 +76,6 @@ public class ValueExport extends GenericModel {
   }
 
   /**
-   * Gets the patterns.
-   *
-   * An array of patterns for the entity value. A pattern is specified as a regular expression.
-   *
-   * @return the patterns
-   */
-  public List<String> getPatterns() {
-    return patterns;
-  }
-
-  /**
    * Gets the synonyms.
    *
    * An array of synonyms.
@@ -114,15 +102,6 @@ public class ValueExport extends GenericModel {
    */
   public void setMetadata(final Map metadata) {
     this.metadata = metadata;
-  }
-
-  /**
-   * Sets the patterns.
-   *
-   * @param patterns the new patterns
-   */
-  public void setPatterns(final List<String> patterns) {
-    this.patterns = patterns;
   }
 
   /**

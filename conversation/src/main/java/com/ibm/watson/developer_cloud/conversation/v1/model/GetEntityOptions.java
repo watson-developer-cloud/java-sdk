@@ -141,8 +141,8 @@ public class GetEntityOptions extends GenericModel {
    * Gets the export.
    *
    * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
-   * information about the element itself. If export=`true`, all content, including subelements, is included. The
-   * default value is `false`.
+   * information about the element itself. If export=`true`, all content, including subelements, is included.
+   * The default value is `false`.
    *
    * @return the export
    */
