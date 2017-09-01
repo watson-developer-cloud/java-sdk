@@ -31,6 +31,8 @@ public class Workspace extends GenericModel {
   private String workspaceId;
   private String description;
   private Map metadata;
+  @SerializedName("learning_opt_out")
+  private Boolean learningOptOut;
 
   /**
    * Gets the name.
@@ -110,6 +112,18 @@ public class Workspace extends GenericModel {
   }
 
   /**
+   * Gets the learningOptOut.
+   *
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates
+   * that workspace training data is not to be used.
+   *
+   * @return the learningOptOut
+   */
+  public Boolean isLearningOptOut() {
+    return learningOptOut;
+  }
+
+  /**
    * Sets the name.
    *
    * @param name the new name
@@ -143,5 +157,14 @@ public class Workspace extends GenericModel {
    */
   public void setMetadata(final Map metadata) {
     this.metadata = metadata;
+  }
+
+  /**
+   * Sets the learningOptOut.
+   *
+   * @param learningOptOut the new learningOptOut
+   */
+  public void setLearningOptOut(final Boolean learningOptOut) {
+    this.learningOptOut = learningOptOut;
   }
 }

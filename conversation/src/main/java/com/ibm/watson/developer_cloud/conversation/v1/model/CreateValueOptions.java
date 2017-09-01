@@ -20,7 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createValue options.
+ * The createValue options.
  */
 public class CreateValueOptions extends GenericModel {
 

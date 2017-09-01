@@ -14,6 +14,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.Date;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -21,19 +22,20 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Synonym extends GenericModel {
 
-  private String synonym;
+  @SerializedName("synonym")
+  private String synonymText;
   private Date created;
   private Date updated;
 
   /**
-   * Gets the synonym.
+   * Gets the synonymText.
    *
    * The text of the synonym.
    *
-   * @return the synonym
+   * @return the synonymText
    */
-  public String getSynonym() {
-    return synonym;
+  public String getSynonymText() {
+    return synonymText;
   }
 
   /**
@@ -59,11 +61,11 @@ public class Synonym extends GenericModel {
   }
 
   /**
-   * Sets the synonym.
+   * Sets the synonymText.
    *
-   * @param synonym the new synonym
+   * @param synonymText the new synonymText
    */
-  public void setSynonym(final String synonym) {
-    this.synonym = synonym;
+  public void setSynonymText(final String synonymText) {
+    this.synonymText = synonymText;
   }
 }

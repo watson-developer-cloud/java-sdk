@@ -31,7 +31,6 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -115,27 +114,15 @@ public class LanguageTranslator extends WatsonService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (createModelOptions.forcedGlossary() != null) {
-      MediaType mediaType = null;
-      if (createModelOptions.forcedGlossaryMediaType() != null) {
-        mediaType = MediaType.parse(createModelOptions.forcedGlossaryMediaType());
-      }
-      RequestBody body = InputStreamRequestBody.create(mediaType, createModelOptions.forcedGlossary());
-      multipartBuilder.addFormDataPart("forced_glossary", "filename.tmx", body);  // FIXME: Hand edit to add suffix
+      RequestBody body = InputStreamRequestBody.create(null, createModelOptions.forcedGlossary());
+      multipartBuilder.addFormDataPart("forced_glossary", "filename", body);
     }
     if (createModelOptions.parallelCorpus() != null) {
-      MediaType mediaType = null;
-      if (createModelOptions.parallelCorpusMediaType() != null) {
-        mediaType = MediaType.parse(createModelOptions.parallelCorpusMediaType());
-      }
-      RequestBody body = InputStreamRequestBody.create(mediaType, createModelOptions.parallelCorpus());
+      RequestBody body = InputStreamRequestBody.create(null, createModelOptions.parallelCorpus());
       multipartBuilder.addFormDataPart("parallel_corpus", "filename", body);
     }
     if (createModelOptions.monolingualCorpus() != null) {
-      MediaType mediaType = null;
-      if (createModelOptions.monolingualCorpusMediaType() != null) {
-        mediaType = MediaType.parse(createModelOptions.monolingualCorpusMediaType());
-      }
-      RequestBody body = InputStreamRequestBody.create(mediaType, createModelOptions.monolingualCorpus());
+      RequestBody body = InputStreamRequestBody.create(null, createModelOptions.monolingualCorpus());
       multipartBuilder.addFormDataPart("monolingual_corpus", "filename", body);
     }
     builder.body(multipartBuilder.build());

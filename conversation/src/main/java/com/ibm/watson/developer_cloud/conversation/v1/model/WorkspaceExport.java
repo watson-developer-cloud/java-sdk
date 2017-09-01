@@ -49,6 +49,8 @@ public class WorkspaceExport extends GenericModel {
   @SerializedName("workspace_id")
   private String workspaceId;
   private String status;
+  @SerializedName("learning_opt_out")
+  private Boolean learningOptOut;
   private List<IntentExport> intents;
   private List<EntityExport> entities;
   private List<Counterexample> counterexamples;
@@ -144,6 +146,18 @@ public class WorkspaceExport extends GenericModel {
   }
 
   /**
+   * Gets the learningOptOut.
+   *
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates
+   * that workspace training data is not to be used.
+   *
+   * @return the learningOptOut
+   */
+  public Boolean isLearningOptOut() {
+    return learningOptOut;
+  }
+
+  /**
    * Gets the intents.
    *
    * An array of intents.
@@ -230,6 +244,15 @@ public class WorkspaceExport extends GenericModel {
    */
   public void setStatus(final String status) {
     this.status = status;
+  }
+
+  /**
+   * Sets the learningOptOut.
+   *
+   * @param learningOptOut the new learningOptOut
+   */
+  public void setLearningOptOut(final Boolean learningOptOut) {
+    this.learningOptOut = learningOptOut;
   }
 
   /**

@@ -23,7 +23,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Entity extends GenericModel {
 
-  private String entity;
+  @SerializedName("entity")
+  private String entityName;
   private Date created;
   private Date updated;
   private String description;
@@ -32,14 +33,14 @@ public class Entity extends GenericModel {
   private Boolean fuzzyMatch;
 
   /**
-   * Gets the entity.
+   * Gets the entityName.
    *
    * The name of the entity.
    *
-   * @return the entity
+   * @return the entityName
    */
-  public String getEntity() {
-    return entity;
+  public String getEntityName() {
+    return entityName;
   }
 
   /**
@@ -98,12 +99,12 @@ public class Entity extends GenericModel {
   }
 
   /**
-   * Sets the entity.
+   * Sets the entityName.
    *
-   * @param entity the new entity
+   * @param entityName the new entityName
    */
-  public void setEntity(final String entity) {
-    this.entity = entity;
+  public void setEntityName(final String entityName) {
+    this.entityName = entityName;
   }
 
   /**

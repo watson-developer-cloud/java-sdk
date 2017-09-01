@@ -20,14 +20,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createDialogNode options.
+ * The createDialogNode options.
  */
 public class CreateDialogNodeOptions extends GenericModel {
 
   /**
    * How the dialog node is processed.
    */
-  public interface Type {
+  public interface NodeType {
     /** standard. */
     String STANDARD = "standard";
     /** event_handler. */
@@ -66,7 +66,7 @@ public class CreateDialogNodeOptions extends GenericModel {
   private String parent;
   private Map metadata;
   private String description;
-  private String type;
+  private String nodeType;
   private String title;
   private Map output;
   private DialogNodeNextStep nextStep;
@@ -86,7 +86,7 @@ public class CreateDialogNodeOptions extends GenericModel {
     private String parent;
     private Map metadata;
     private String description;
-    private String type;
+    private String nodeType;
     private String title;
     private Map output;
     private DialogNodeNextStep nextStep;
@@ -103,7 +103,7 @@ public class CreateDialogNodeOptions extends GenericModel {
       parent = createDialogNodeOptions.parent;
       metadata = createDialogNodeOptions.metadata;
       description = createDialogNodeOptions.description;
-      type = createDialogNodeOptions.type;
+      nodeType = createDialogNodeOptions.nodeType;
       title = createDialogNodeOptions.title;
       output = createDialogNodeOptions.output;
       nextStep = createDialogNodeOptions.nextStep;
@@ -202,13 +202,13 @@ public class CreateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the type.
+     * Set the nodeType.
      *
-     * @param type the type
+     * @param nodeType the nodeType
      * @return the CreateDialogNodeOptions builder
      */
-    public Builder type(String type) {
-      this.type = type;
+    public Builder nodeType(String nodeType) {
+      this.nodeType = nodeType;
       return this;
     }
 
@@ -331,7 +331,7 @@ public class CreateDialogNodeOptions extends GenericModel {
     parent = builder.parent;
     metadata = builder.metadata;
     description = builder.description;
-    type = builder.type;
+    nodeType = builder.nodeType;
     title = builder.title;
     output = builder.output;
     nextStep = builder.nextStep;
@@ -398,14 +398,14 @@ public class CreateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the type.
+   * Gets the nodeType.
    *
    * How the dialog node is processed.
    *
-   * @return the type
+   * @return the nodeType
    */
-  public String type() {
-    return type;
+  public String nodeType() {
+    return nodeType;
   }
 
   /**
@@ -432,6 +432,8 @@ public class CreateDialogNodeOptions extends GenericModel {
 
   /**
    * Gets the nextStep.
+   *
+   * The next step to execute following this dialog node.
    *
    * @return the nextStep
    */

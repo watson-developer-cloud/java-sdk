@@ -12,88 +12,71 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
- * A response from the Conversation service.
- */
-public class MessageResponse extends GenericModel {
-
-  private MessageInput input;
-  private List<RuntimeIntent> intents;
-  private List<RuntimeEntity> entities;
-  @SerializedName("alternate_intents")
-  private Boolean alternateIntents;
-  private Context context;
-  private OutputData output;
+* A response from the Conversation service.
+*/
+public class MessageResponse extends DynamicModel {
+  private Type inputType = new TypeToken<MessageInput>() { } .getType();
+  private Type intentsType = new TypeToken<List<RuntimeIntent>>() { } .getType();
+  private Type entitiesType = new TypeToken<List<RuntimeEntity>>() { } .getType();
+  private Type alternateIntentsType = new TypeToken<Boolean>() { } .getType();
+  private Type contextType = new TypeToken<Context>() { } .getType();
+  private Type outputType = new TypeToken<OutputData>() { } .getType();
 
   /**
    * Gets the input.
    *
-   * The user input from the request.
-   *
    * @return the input
    */
   public MessageInput getInput() {
-    return input;
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("input"), inputType);
   }
-
   /**
    * Gets the intents.
-   *
-   * An array of intents recognized in the user input, sorted in descending order of confidence.
    *
    * @return the intents
    */
   public List<RuntimeIntent> getIntents() {
-    return intents;
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("intents"), intentsType);
   }
-
   /**
    * Gets the entities.
-   *
-   * An array of entities identified in the user input.
    *
    * @return the entities
    */
   public List<RuntimeEntity> getEntities() {
-    return entities;
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("entities"), entitiesType);
   }
-
   /**
    * Gets the alternateIntents.
-   *
-   * Whether to return more than one intent. `true` indicates that all matching intents are returned.
    *
    * @return the alternateIntents
    */
   public Boolean isAlternateIntents() {
-    return alternateIntents;
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("alternateIntents"), alternateIntentsType);
   }
-
   /**
    * Gets the context.
-   *
-   * State information for the conversation.
    *
    * @return the context
    */
   public Context getContext() {
-    return context;
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("context"), contextType);
   }
-
   /**
    * Gets the output.
-   *
-   * Output from the dialog, including the response to the user, the nodes that were triggered, and log messages.
    *
    * @return the output
    */
   public OutputData getOutput() {
-    return output;
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("output"), outputType);
   }
 
   /**
@@ -102,7 +85,7 @@ public class MessageResponse extends GenericModel {
    * @param input the new input
    */
   public void setInput(final MessageInput input) {
-    this.input = input;
+    this.put("input", input);
   }
 
   /**
@@ -111,7 +94,7 @@ public class MessageResponse extends GenericModel {
    * @param intents the new intents
    */
   public void setIntents(final List<RuntimeIntent> intents) {
-    this.intents = intents;
+    this.put("intents", intents);
   }
 
   /**
@@ -120,7 +103,7 @@ public class MessageResponse extends GenericModel {
    * @param entities the new entities
    */
   public void setEntities(final List<RuntimeEntity> entities) {
-    this.entities = entities;
+    this.put("entities", entities);
   }
 
   /**
@@ -129,7 +112,7 @@ public class MessageResponse extends GenericModel {
    * @param alternateIntents the new alternateIntents
    */
   public void setAlternateIntents(final Boolean alternateIntents) {
-    this.alternateIntents = alternateIntents;
+    this.put("alternateIntents", alternateIntents);
   }
 
   /**
@@ -138,7 +121,7 @@ public class MessageResponse extends GenericModel {
    * @param context the new context
    */
   public void setContext(final Context context) {
-    this.context = context;
+    this.put("context", context);
   }
 
   /**
@@ -147,6 +130,7 @@ public class MessageResponse extends GenericModel {
    * @param output the new output
    */
   public void setOutput(final OutputData output) {
-    this.output = output;
+    this.put("output", output);
   }
 }
+

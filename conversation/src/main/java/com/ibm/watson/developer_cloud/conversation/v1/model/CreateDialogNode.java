@@ -28,7 +28,7 @@ public class CreateDialogNode extends GenericModel {
   /**
    * How the dialog node is processed.
    */
-  public interface Type {
+  public interface NodeType {
     /** standard. */
     String STANDARD = "standard";
     /** event_handler. */
@@ -77,7 +77,8 @@ public class CreateDialogNode extends GenericModel {
   private DialogNodeNextStep nextStep;
   private List<DialogNodeAction> actions;
   private String title;
-  private String type;
+  @SerializedName("type")
+  private String nodeType;
   @SerializedName("event_name")
   private String eventName;
   private String variable;
@@ -97,7 +98,7 @@ public class CreateDialogNode extends GenericModel {
     private DialogNodeNextStep nextStep;
     private List<DialogNodeAction> actions;
     private String title;
-    private String type;
+    private String nodeType;
     private String eventName;
     private String variable;
 
@@ -113,7 +114,7 @@ public class CreateDialogNode extends GenericModel {
       nextStep = createDialogNode.nextStep;
       actions = createDialogNode.actions;
       title = createDialogNode.title;
-      type = createDialogNode.type;
+      nodeType = createDialogNode.nodeType;
       eventName = createDialogNode.eventName;
       variable = createDialogNode.variable;
     }
@@ -280,13 +281,13 @@ public class CreateDialogNode extends GenericModel {
     }
 
     /**
-     * Set the type.
+     * Set the nodeType.
      *
-     * @param type the type
+     * @param nodeType the nodeType
      * @return the CreateDialogNode builder
      */
-    public Builder type(String type) {
-      this.type = type;
+    public Builder nodeType(String nodeType) {
+      this.nodeType = nodeType;
       return this;
     }
 
@@ -326,7 +327,7 @@ public class CreateDialogNode extends GenericModel {
     nextStep = builder.nextStep;
     actions = builder.actions;
     title = builder.title;
-    type = builder.type;
+    nodeType = builder.nodeType;
     eventName = builder.eventName;
     variable = builder.variable;
   }
@@ -431,6 +432,8 @@ public class CreateDialogNode extends GenericModel {
   /**
    * Gets the nextStep.
    *
+   * The next step to execute following this dialog node.
+   *
    * @return the nextStep
    */
   public DialogNodeNextStep nextStep() {
@@ -460,14 +463,14 @@ public class CreateDialogNode extends GenericModel {
   }
 
   /**
-   * Gets the type.
+   * Gets the nodeType.
    *
    * How the dialog node is processed.
    *
-   * @return the type
+   * @return the nodeType
    */
-  public String type() {
-    return type;
+  public String nodeType() {
+    return nodeType;
   }
 
   /**
