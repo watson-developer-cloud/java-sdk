@@ -13,7 +13,6 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
@@ -29,7 +28,6 @@ public class Value extends GenericModel {
   private Map metadata;
   private Date created;
   private Date updated;
-  private List<String> patterns;
 
   /**
    * Gets the valueText.
@@ -76,17 +74,6 @@ public class Value extends GenericModel {
   }
 
   /**
-   * Gets the patterns.
-   *
-   * An array of patterns for the entity value. A pattern is specified as a regular expression.
-   *
-   * @return the patterns
-   */
-  public List<String> getPatterns() {
-    return patterns;
-  }
-
-  /**
    * Sets the valueText.
    *
    * @param valueText the new valueText
@@ -102,14 +89,5 @@ public class Value extends GenericModel {
    */
   public void setMetadata(final Map metadata) {
     this.metadata = metadata;
-  }
-
-  /**
-   * Sets the patterns.
-   *
-   * @param patterns the new patterns
-   */
-  public void setPatterns(final List<String> patterns) {
-    this.patterns = patterns;
   }
 }

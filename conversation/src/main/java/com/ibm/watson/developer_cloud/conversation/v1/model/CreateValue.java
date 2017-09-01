@@ -27,7 +27,6 @@ public class CreateValue extends GenericModel {
   private String value;
   private Map metadata;
   private List<String> synonyms;
-  private List<String> patterns;
 
   /**
    * Builder.
@@ -36,13 +35,11 @@ public class CreateValue extends GenericModel {
     private String value;
     private Map metadata;
     private List<String> synonyms;
-    private List<String> patterns;
 
     private Builder(CreateValue createValue) {
       value = createValue.value;
       metadata = createValue.metadata;
       synonyms = createValue.synonyms;
-      patterns = createValue.patterns;
     }
 
     /**
@@ -85,21 +82,6 @@ public class CreateValue extends GenericModel {
     }
 
     /**
-     * Adds an patterns to patterns.
-     *
-     * @param patterns the new patterns
-     * @return the CreateValue builder
-     */
-    public Builder addPatterns(String patterns) {
-      Validator.notNull(patterns, "patterns cannot be null");
-      if (this.patterns == null) {
-        this.patterns = new ArrayList<String>();
-      }
-      this.patterns.add(patterns);
-      return this;
-    }
-
-    /**
      * Set the value.
      *
      * @param value the value
@@ -132,18 +114,6 @@ public class CreateValue extends GenericModel {
       this.synonyms = synonyms;
       return this;
     }
-
-    /**
-     * Set the patterns.
-     * Existing patterns will be replaced.
-     *
-     * @param patterns the patterns
-     * @return the CreateValue builder
-     */
-    public Builder patterns(List<String> patterns) {
-      this.patterns = patterns;
-      return this;
-    }
   }
 
   private CreateValue(Builder builder) {
@@ -151,7 +121,6 @@ public class CreateValue extends GenericModel {
     value = builder.value;
     metadata = builder.metadata;
     synonyms = builder.synonyms;
-    patterns = builder.patterns;
   }
 
   /**
@@ -194,16 +163,5 @@ public class CreateValue extends GenericModel {
    */
   public List<String> synonyms() {
     return synonyms;
-  }
-
-  /**
-   * Gets the patterns.
-   *
-   * An array of patterns for the entity value. A pattern is specified as a regular expression.
-   *
-   * @return the patterns
-   */
-  public List<String> patterns() {
-    return patterns;
   }
 }

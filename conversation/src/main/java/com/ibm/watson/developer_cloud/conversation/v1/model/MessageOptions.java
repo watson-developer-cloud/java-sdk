@@ -244,8 +244,8 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they do
-   * not need to change and to prevent Watson from trying to identify them.
+   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they
+   * do not need to change and to prevent Watson from trying to identify them.
    *
    * @return the intents
    */
