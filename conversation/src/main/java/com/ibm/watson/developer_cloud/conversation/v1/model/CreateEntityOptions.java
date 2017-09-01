@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateEntityOptions extends GenericModel {
 
   private String workspaceId;
-  private Map<String, Object> metadata;
+  private Map metadata;
   private List<CreateValue> values;
   private Boolean fuzzyMatch;
   private String description;
@@ -36,7 +36,7 @@ public class CreateEntityOptions extends GenericModel {
    */
   public static class Builder {
     private String workspaceId;
-    private Map<String, Object> metadata;
+    private Map metadata;
     private List<CreateValue> values;
     private Boolean fuzzyMatch;
     private String description;
@@ -109,7 +109,7 @@ public class CreateEntityOptions extends GenericModel {
      * @param metadata the metadata
      * @return the CreateEntityOptions builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(Map metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -198,7 +198,7 @@ public class CreateEntityOptions extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> metadata() {
+  public Map metadata() {
     return metadata;
   }
 

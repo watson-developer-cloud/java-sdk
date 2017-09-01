@@ -23,14 +23,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class SystemResponse extends GenericModel {
 
   @SerializedName("SystemResponseObject")
-  private Map<String, Object> systemResponseObject;
+  private Map systemResponseObject;
 
   /**
    * Gets the systemResponseObject.
    *
    * @return the systemResponseObject
    */
-  public Map<String, Object> getSystemResponseObject() {
+  public Map getSystemResponseObject() {
     return systemResponseObject;
   }
 
@@ -39,7 +39,7 @@ public class SystemResponse extends GenericModel {
    *
    * @param systemResponseObject the new systemResponseObject
    */
-  public void setSystemResponseObject(final Map<String, Object> systemResponseObject) {
+  public void setSystemResponseObject(final Map systemResponseObject) {
     this.systemResponseObject = systemResponseObject;
   }
 }
