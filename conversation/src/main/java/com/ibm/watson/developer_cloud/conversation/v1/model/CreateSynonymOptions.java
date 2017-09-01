@@ -51,9 +51,9 @@ public class CreateSynonymOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param entity      the entity
-     * @param value       the value
-     * @param synonym     the synonym
+     * @param entity the entity
+     * @param value the value
+     * @param synonym the synonym
      */
     public Builder(String workspaceId, String entity, String value, String synonym) {
       this.workspaceId = workspaceId;

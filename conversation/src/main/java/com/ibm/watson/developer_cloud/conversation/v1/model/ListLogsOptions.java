@@ -168,8 +168,8 @@ public class ListLogsOptions extends GenericModel {
    * Gets the filter.
    *
    * A cacheable parameter that limits the results to those matching the specified filter. For more information, see
-   * the [documentation](https://console.bluemix.net/docs/services/conversation/filter-reference
-   * .html#filter-query-syntax).
+   * the [documentation]
+   * (https://console.bluemix.net/docs/services/conversation/filter-reference.html#filter-query-syntax).
    *
    * @return the filter
    */

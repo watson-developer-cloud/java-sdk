@@ -26,13 +26,9 @@ public class DialogNodeAction extends GenericModel {
    * The type of action to invoke.
    */
   public interface ActionType {
-    /**
-     * client.
-     */
+    /** client. */
     String CLIENT = "client";
-    /**
-     * server.
-     */
+    /** server. */
     String SERVER = "server";
   }
 

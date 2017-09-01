@@ -45,7 +45,7 @@ public class DeleteIntentOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param workspaceId the workspaceId
-     * @param intent      the intent
+     * @param intent the intent
      */
     public Builder(String workspaceId, String intent) {
       this.workspaceId = workspaceId;
