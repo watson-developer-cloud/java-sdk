@@ -35,6 +35,9 @@ public class QueryNoticesOptions extends GenericModel {
   private Long offset;
   private String sort;
   private Boolean highlight;
+  private String passagesFields;
+  private Long passagesCount;
+  private Long passagesCharacters;
 
   /**
    * Builder.
@@ -52,6 +55,9 @@ public class QueryNoticesOptions extends GenericModel {
     private Long offset;
     private String sort;
     private Boolean highlight;
+    private String passagesFields;
+    private Long passagesCount;
+    private Long passagesCharacters;
 
     private Builder(QueryNoticesOptions queryNoticesOptions) {
       environmentId = queryNoticesOptions.environmentId;
@@ -66,6 +72,9 @@ public class QueryNoticesOptions extends GenericModel {
       offset = queryNoticesOptions.offset;
       sort = queryNoticesOptions.sort;
       highlight = queryNoticesOptions.highlight;
+      passagesFields = queryNoticesOptions.passagesFields;
+      passagesCount = queryNoticesOptions.passagesCount;
+      passagesCharacters = queryNoticesOptions.passagesCharacters;
     }
 
     /**
@@ -241,6 +250,39 @@ public class QueryNoticesOptions extends GenericModel {
       this.highlight = highlight;
       return this;
     }
+
+    /**
+     * Set the passagesFields.
+     *
+     * @param passagesFields the passagesFields
+     * @return the QueryNoticesOptions builder
+     */
+    public Builder passagesFields(String passagesFields) {
+      this.passagesFields = passagesFields;
+      return this;
+    }
+
+    /**
+     * Set the passagesCount.
+     *
+     * @param passagesCount the passagesCount
+     * @return the QueryNoticesOptions builder
+     */
+    public Builder passagesCount(long passagesCount) {
+      this.passagesCount = passagesCount;
+      return this;
+    }
+
+    /**
+     * Set the passagesCharacters.
+     *
+     * @param passagesCharacters the passagesCharacters
+     * @return the QueryNoticesOptions builder
+     */
+    public Builder passagesCharacters(long passagesCharacters) {
+      this.passagesCharacters = passagesCharacters;
+      return this;
+    }
   }
 
   private QueryNoticesOptions(Builder builder) {
@@ -258,6 +300,9 @@ public class QueryNoticesOptions extends GenericModel {
     offset = builder.offset;
     sort = builder.sort;
     highlight = builder.highlight;
+    passagesFields = builder.passagesFields;
+    passagesCount = builder.passagesCount;
+    passagesCharacters = builder.passagesCharacters;
   }
 
   /**
@@ -294,9 +339,9 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable query that limits the documents returned to exclude any documents that don't mention the query content.
-   * Filter searches are better for metadata type searches and when you are trying to get a sense of concepts in the
-   * data set.
+   * A cacheable query that limits the documents returned to exclude any documents that don't mention the query
+   * content. Filter searches are better for metadata type searches and when you are trying to get a sense of
+   * concepts in the data set.
    *
    * @return the filter
    */
@@ -308,8 +353,8 @@ public class QueryNoticesOptions extends GenericModel {
    * Gets the query.
    *
    * A query search returns all documents in your data set with full enrichments and full text, but with the most
-   * relevant documents listed first. Use a query search when you want to find the most relevant search results. You
-   * cannot use `natural_language_query` and `query` at the same time.
+   * relevant documents listed first. Use a query search when you want to find the most relevant search results.
+   * You cannot use `natural_language_query` and `query` at the same time.
    *
    * @return the query
    */
@@ -344,8 +389,8 @@ public class QueryNoticesOptions extends GenericModel {
    * Gets the aggregation.
    *
    * An aggregation search uses combinations of filters and query search to return an exact answer. Aggregations are
-   * useful for building applications, because you can use them to build lists, tables, and time series. For a full list
-   * of possible aggregrations, see the Query reference.
+   * useful for building applications, because you can use them to build lists, tables, and time series. For a full
+   * list of possible aggregrations, see the Query reference.
    *
    * @return the aggregation
    */
@@ -378,8 +423,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the offset.
    *
-   * The number of query results to skip at the beginning. For example, if the total number of results that are returned
-   * is 10, and the offset is 8, it returns the last two results.
+   * The number of query results to skip at the beginning. For example, if the total number of results that are
+   * returned is 10, and the offset is 8, it returns the last two results.
    *
    * @return the offset
    */
@@ -410,5 +455,41 @@ public class QueryNoticesOptions extends GenericModel {
    */
   public Boolean highlight() {
     return highlight;
+  }
+
+  /**
+   * Gets the passagesFields.
+   *
+   * A comma-separated list of fields that passages are drawn from. If this parameter not specified then all top
+   * level field are included.
+   *
+   * @return the passagesFields
+   */
+  public String passagesFields() {
+    return passagesFields;
+  }
+
+  /**
+   * Gets the passagesCount.
+   *
+   * The maximum number of passages to return. The search returns fewer passages if the requested total is not
+   * found.. The default is <tt>10</tt>. The maximum is <tt>100</tt>.
+   *
+   * @return the passagesCount
+   */
+  public Long passagesCount() {
+    return passagesCount;
+  }
+
+  /**
+   * Gets the passagesCharacters.
+   *
+   * The approximate number of characters that any one passage will have. The default is <tt>400</tt>. The minimum
+   * is <tt>50</tt>. The maximum is <tt>2000</tt>.
+   *
+   * @return the passagesCharacters
+   */
+  public Long passagesCharacters() {
+    return passagesCharacters;
   }
 }

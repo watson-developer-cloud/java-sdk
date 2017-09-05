@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the identify options.
+ * The identify options.
  */
 public class IdentifyOptions extends GenericModel {
 

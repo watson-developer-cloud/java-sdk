@@ -16,6 +16,7 @@ import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Counterexample;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CounterexampleCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.CreateDialogNodeOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateIntentOptions;
@@ -23,18 +24,22 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.CreateSynonymOptions
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspaceOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteDialogNodeOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteIntentOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteSynonymOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteWorkspaceOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNode;
+import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNodeCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Entity;
 import com.ibm.watson.developer_cloud.conversation.v1.model.EntityCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.EntityExport;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Example;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ExampleCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.GetDialogNodeOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetIntentOptions;
@@ -45,6 +50,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.Intent;
 import com.ibm.watson.developer_cloud.conversation.v1.model.IntentCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.IntentExport;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListCounterexamplesOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListDialogNodesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListEntitiesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListExamplesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListIntentsOptions;
@@ -58,6 +64,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.Synonym;
 import com.ibm.watson.developer_cloud.conversation.v1.model.SynonymCollection;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateCounterexampleOptions;
+import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateDialogNodeOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateEntityOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateExampleOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateIntentOptions;
@@ -93,7 +100,14 @@ public class ConversationService extends WatsonService {
 
   /** The Constant VERSION_DATE_2017_05_26. */
   public static final String VERSION_DATE_2017_05_26 = "2017-05-26";
-
+  /** The Constant VERSION_DATE_2017_04_21. */
+  public static final String VERSION_DATE_2017_04_21 = "2017-04-21";
+  /** The Constant VERSION_DATE_2017_02_03. */
+  public static final String VERSION_DATE_2017_02_03 = "2017-02-03";
+  /** The Constant VERSION_DATE_2016_09_20. */
+  public static final String VERSION_DATE_2016_09_20 = "2016-09-20";
+  /** The Constant VERSION_DATE_2016_07_11. */
+  public static final String VERSION_DATE_2016_07_11 = "2016-07-11";
   /**
    * Instantiates a new `Conversation`.
    *
@@ -116,7 +130,7 @@ public class ConversationService extends WatsonService {
    * Instantiates a new `Conversation` with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   *        calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */
@@ -136,7 +150,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Counterexample> createCounterexample(CreateCounterexampleOptions createCounterexampleOptions) {
     Validator.notNull(createCounterexampleOptions, "createCounterexampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/counterexamples",
-        createCounterexampleOptions.workspaceId()));
+            createCounterexampleOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", createCounterexampleOptions.text());
@@ -155,7 +169,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteCounterexample(DeleteCounterexampleOptions deleteCounterexampleOptions) {
     Validator.notNull(deleteCounterexampleOptions, "deleteCounterexampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/counterexamples/%s",
-        deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text()));
+            deleteCounterexampleOptions.workspaceId(), deleteCounterexampleOptions.text()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -171,7 +185,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Counterexample> getCounterexample(GetCounterexampleOptions getCounterexampleOptions) {
     Validator.notNull(getCounterexampleOptions, "getCounterexampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/counterexamples/%s",
-        getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text()));
+            getCounterexampleOptions.workspaceId(), getCounterexampleOptions.text()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
   }
@@ -185,22 +199,22 @@ public class ConversationService extends WatsonService {
    * @return the {@link CounterexampleCollection} with the response
    */
   public ServiceCall<CounterexampleCollection> listCounterexamples(
-      ListCounterexamplesOptions listCounterexamplesOptions) {
+          ListCounterexamplesOptions listCounterexamplesOptions) {
     Validator.notNull(listCounterexamplesOptions, "listCounterexamplesOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/counterexamples",
-        listCounterexamplesOptions.workspaceId()));
+            listCounterexamplesOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     if (listCounterexamplesOptions.pageLimit() != null) {
-      builder.query("page_limit", String.valueOf(listCounterexamplesOptions.pageLimit()));
+    builder.query("page_limit", String.valueOf(listCounterexamplesOptions.pageLimit()));
     }
     if (listCounterexamplesOptions.includeCount() != null) {
-      builder.query("include_count", String.valueOf(listCounterexamplesOptions.includeCount()));
+    builder.query("include_count", String.valueOf(listCounterexamplesOptions.includeCount()));
     }
     if (listCounterexamplesOptions.sort() != null) {
-      builder.query("sort", listCounterexamplesOptions.sort());
+    builder.query("sort", listCounterexamplesOptions.sort());
     }
     if (listCounterexamplesOptions.cursor() != null) {
-      builder.query("cursor", listCounterexamplesOptions.cursor());
+    builder.query("cursor", listCounterexamplesOptions.cursor());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CounterexampleCollection.class));
   }
@@ -216,7 +230,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Counterexample> updateCounterexample(UpdateCounterexampleOptions updateCounterexampleOptions) {
     Validator.notNull(updateCounterexampleOptions, "updateCounterexampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/counterexamples/%s",
-        updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions.text()));
+            updateCounterexampleOptions.workspaceId(), updateCounterexampleOptions.text()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateCounterexampleOptions.newText() != null) {
@@ -224,6 +238,182 @@ public class ConversationService extends WatsonService {
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Counterexample.class));
+  }
+
+  /**
+   * Create dialog node.
+   *
+   * Create a dialog node.
+   *
+   * @param createDialogNodeOptions the {@link CreateDialogNodeOptions} containing the options for the call
+   * @return the {@link DialogNode} with the response
+   */
+  public ServiceCall<DialogNode> createDialogNode(CreateDialogNodeOptions createDialogNodeOptions) {
+    Validator.notNull(createDialogNodeOptions, "createDialogNodeOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/dialog_nodes",
+            createDialogNodeOptions.workspaceId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createDialogNodeOptions.parent() != null) {
+      contentJson.addProperty("parent", createDialogNodeOptions.parent());
+    }
+    if (createDialogNodeOptions.metadata() != null) {
+      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createDialogNodeOptions.metadata()));
+    }
+    if (createDialogNodeOptions.description() != null) {
+      contentJson.addProperty("description", createDialogNodeOptions.description());
+    }
+    if (createDialogNodeOptions.nodeType() != null) {
+      contentJson.addProperty("type", createDialogNodeOptions.nodeType());
+    }
+    if (createDialogNodeOptions.title() != null) {
+      contentJson.addProperty("title", createDialogNodeOptions.title());
+    }
+    if (createDialogNodeOptions.output() != null) {
+      contentJson.add("output", GsonSingleton.getGson().toJsonTree(createDialogNodeOptions.output()));
+    }
+    if (createDialogNodeOptions.nextStep() != null) {
+      contentJson.add("next_step", GsonSingleton.getGson().toJsonTree(createDialogNodeOptions.nextStep()));
+    }
+    if (createDialogNodeOptions.variable() != null) {
+      contentJson.addProperty("variable", createDialogNodeOptions.variable());
+    }
+    if (createDialogNodeOptions.context() != null) {
+      contentJson.add("context", GsonSingleton.getGson().toJsonTree(createDialogNodeOptions.context()));
+    }
+    if (createDialogNodeOptions.eventName() != null) {
+      contentJson.addProperty("event_name", createDialogNodeOptions.eventName());
+    }
+    if (createDialogNodeOptions.previousSibling() != null) {
+      contentJson.addProperty("previous_sibling", createDialogNodeOptions.previousSibling());
+    }
+    if (createDialogNodeOptions.conditions() != null) {
+      contentJson.addProperty("conditions", createDialogNodeOptions.conditions());
+    }
+    if (createDialogNodeOptions.actions() != null) {
+      contentJson.add("actions", GsonSingleton.getGson().toJsonTree(createDialogNodeOptions.actions()));
+    }
+    contentJson.addProperty("dialog_node", createDialogNodeOptions.dialogNode());
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
+  }
+
+  /**
+   * Delete dialog node.
+   *
+   * Delete a dialog node from the workspace.
+   *
+   * @param deleteDialogNodeOptions the {@link DeleteDialogNodeOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteDialogNode(DeleteDialogNodeOptions deleteDialogNodeOptions) {
+    Validator.notNull(deleteDialogNodeOptions, "deleteDialogNodeOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/dialog_nodes/%s",
+            deleteDialogNodeOptions.workspaceId(), deleteDialogNodeOptions.dialogNode()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get dialog node.
+   *
+   * Get information about a dialog node.
+   *
+   * @param getDialogNodeOptions the {@link GetDialogNodeOptions} containing the options for the call
+   * @return the {@link DialogNode} with the response
+   */
+  public ServiceCall<DialogNode> getDialogNode(GetDialogNodeOptions getDialogNodeOptions) {
+    Validator.notNull(getDialogNodeOptions, "getDialogNodeOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/dialog_nodes/%s",
+            getDialogNodeOptions.workspaceId(), getDialogNodeOptions.dialogNode()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
+  }
+
+  /**
+   * List dialog nodes.
+   *
+   * List the dialog nodes in the workspace.
+   *
+   * @param listDialogNodesOptions the {@link ListDialogNodesOptions} containing the options for the call
+   * @return the {@link DialogNodeCollection} with the response
+   */
+  public ServiceCall<DialogNodeCollection> listDialogNodes(ListDialogNodesOptions listDialogNodesOptions) {
+    Validator.notNull(listDialogNodesOptions, "listDialogNodesOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/dialog_nodes",
+            listDialogNodesOptions.workspaceId()));
+    builder.query(VERSION, versionDate);
+    if (listDialogNodesOptions.pageLimit() != null) {
+    builder.query("page_limit", String.valueOf(listDialogNodesOptions.pageLimit()));
+    }
+    if (listDialogNodesOptions.includeCount() != null) {
+    builder.query("include_count", String.valueOf(listDialogNodesOptions.includeCount()));
+    }
+    if (listDialogNodesOptions.sort() != null) {
+    builder.query("sort", listDialogNodesOptions.sort());
+    }
+    if (listDialogNodesOptions.cursor() != null) {
+    builder.query("cursor", listDialogNodesOptions.cursor());
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNodeCollection.class));
+  }
+
+  /**
+   * Update dialog node.
+   *
+   * Update information for a dialog node.
+   *
+   * @param updateDialogNodeOptions the {@link UpdateDialogNodeOptions} containing the options for the call
+   * @return the {@link DialogNode} with the response
+   */
+  public ServiceCall<DialogNode> updateDialogNode(UpdateDialogNodeOptions updateDialogNodeOptions) {
+    Validator.notNull(updateDialogNodeOptions, "updateDialogNodeOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/dialog_nodes/%s",
+            updateDialogNodeOptions.workspaceId(), updateDialogNodeOptions.dialogNode()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (updateDialogNodeOptions.nodeType() != null) {
+      contentJson.addProperty("type", updateDialogNodeOptions.nodeType());
+    }
+    if (updateDialogNodeOptions.newActions() != null) {
+      contentJson.add("actions", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newActions()));
+    }
+    if (updateDialogNodeOptions.newConditions() != null) {
+      contentJson.addProperty("conditions", updateDialogNodeOptions.newConditions());
+    }
+    if (updateDialogNodeOptions.newPreviousSibling() != null) {
+      contentJson.addProperty("previous_sibling", updateDialogNodeOptions.newPreviousSibling());
+    }
+    if (updateDialogNodeOptions.newContext() != null) {
+      contentJson.add("context", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newContext()));
+    }
+    if (updateDialogNodeOptions.newVariable() != null) {
+      contentJson.addProperty("variable", updateDialogNodeOptions.newVariable());
+    }
+    if (updateDialogNodeOptions.newMetadata() != null) {
+      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newMetadata()));
+    }
+    if (updateDialogNodeOptions.newTitle() != null) {
+      contentJson.addProperty("title", updateDialogNodeOptions.newTitle());
+    }
+    if (updateDialogNodeOptions.newDescription() != null) {
+      contentJson.addProperty("description", updateDialogNodeOptions.newDescription());
+    }
+    if (updateDialogNodeOptions.newEventName() != null) {
+      contentJson.addProperty("event_name", updateDialogNodeOptions.newEventName());
+    }
+    if (updateDialogNodeOptions.newNextStep() != null) {
+      contentJson.add("next_step", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newNextStep()));
+    }
+    if (updateDialogNodeOptions.newOutput() != null) {
+      contentJson.add("output", GsonSingleton.getGson().toJsonTree(updateDialogNodeOptions.newOutput()));
+    }
+    if (updateDialogNodeOptions.newParent() != null) {
+      contentJson.addProperty("parent", updateDialogNodeOptions.newParent());
+    }
+    contentJson.addProperty("dialog_node", updateDialogNodeOptions.newDialogNode());
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DialogNode.class));
   }
 
   /**
@@ -236,8 +426,8 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<Entity> createEntity(CreateEntityOptions createEntityOptions) {
     Validator.notNull(createEntityOptions, "createEntityOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities", createEntityOptions
-        .workspaceId()));
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities",
+            createEntityOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createEntityOptions.metadata() != null) {
@@ -267,8 +457,8 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<Void> deleteEntity(DeleteEntityOptions deleteEntityOptions) {
     Validator.notNull(deleteEntityOptions, "deleteEntityOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/entities/%s", deleteEntityOptions
-        .workspaceId(), deleteEntityOptions.entity()));
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/entities/%s",
+            deleteEntityOptions.workspaceId(), deleteEntityOptions.entity()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -283,11 +473,11 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<EntityExport> getEntity(GetEntityOptions getEntityOptions) {
     Validator.notNull(getEntityOptions, "getEntityOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s", getEntityOptions
-        .workspaceId(), getEntityOptions.entity()));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s",
+            getEntityOptions.workspaceId(), getEntityOptions.entity()));
     builder.query(VERSION, versionDate);
     if (getEntityOptions.export() != null) {
-      builder.query("export", String.valueOf(getEntityOptions.export()));
+    builder.query("export", String.valueOf(getEntityOptions.export()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(EntityExport.class));
   }
@@ -302,23 +492,23 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<EntityCollection> listEntities(ListEntitiesOptions listEntitiesOptions) {
     Validator.notNull(listEntitiesOptions, "listEntitiesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities", listEntitiesOptions
-        .workspaceId()));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities",
+            listEntitiesOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     if (listEntitiesOptions.export() != null) {
-      builder.query("export", String.valueOf(listEntitiesOptions.export()));
+    builder.query("export", String.valueOf(listEntitiesOptions.export()));
     }
     if (listEntitiesOptions.pageLimit() != null) {
-      builder.query("page_limit", String.valueOf(listEntitiesOptions.pageLimit()));
+    builder.query("page_limit", String.valueOf(listEntitiesOptions.pageLimit()));
     }
     if (listEntitiesOptions.includeCount() != null) {
-      builder.query("include_count", String.valueOf(listEntitiesOptions.includeCount()));
+    builder.query("include_count", String.valueOf(listEntitiesOptions.includeCount()));
     }
     if (listEntitiesOptions.sort() != null) {
-      builder.query("sort", listEntitiesOptions.sort());
+    builder.query("sort", listEntitiesOptions.sort());
     }
     if (listEntitiesOptions.cursor() != null) {
-      builder.query("cursor", listEntitiesOptions.cursor());
+    builder.query("cursor", listEntitiesOptions.cursor());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(EntityCollection.class));
   }
@@ -333,8 +523,8 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<Entity> updateEntity(UpdateEntityOptions updateEntityOptions) {
     Validator.notNull(updateEntityOptions, "updateEntityOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s", updateEntityOptions
-        .workspaceId(), updateEntityOptions.entity()));
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s",
+            updateEntityOptions.workspaceId(), updateEntityOptions.entity()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateEntityOptions.newFuzzyMatch() != null) {
@@ -367,7 +557,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Example> createExample(CreateExampleOptions createExampleOptions) {
     Validator.notNull(createExampleOptions, "createExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/intents/%s/examples",
-        createExampleOptions.workspaceId(), createExampleOptions.intent()));
+            createExampleOptions.workspaceId(), createExampleOptions.intent()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("text", createExampleOptions.text());
@@ -386,7 +576,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteExample(DeleteExampleOptions deleteExampleOptions) {
     Validator.notNull(deleteExampleOptions, "deleteExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/intents/%s/examples/%s",
-        deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(), deleteExampleOptions.text()));
+            deleteExampleOptions.workspaceId(), deleteExampleOptions.intent(), deleteExampleOptions.text()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -402,7 +592,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Example> getExample(GetExampleOptions getExampleOptions) {
     Validator.notNull(getExampleOptions, "getExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents/%s/examples/%s",
-        getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text()));
+            getExampleOptions.workspaceId(), getExampleOptions.intent(), getExampleOptions.text()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Example.class));
   }
@@ -418,19 +608,19 @@ public class ConversationService extends WatsonService {
   public ServiceCall<ExampleCollection> listExamples(ListExamplesOptions listExamplesOptions) {
     Validator.notNull(listExamplesOptions, "listExamplesOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents/%s/examples",
-        listExamplesOptions.workspaceId(), listExamplesOptions.intent()));
+            listExamplesOptions.workspaceId(), listExamplesOptions.intent()));
     builder.query(VERSION, versionDate);
     if (listExamplesOptions.pageLimit() != null) {
-      builder.query("page_limit", String.valueOf(listExamplesOptions.pageLimit()));
+    builder.query("page_limit", String.valueOf(listExamplesOptions.pageLimit()));
     }
     if (listExamplesOptions.includeCount() != null) {
-      builder.query("include_count", String.valueOf(listExamplesOptions.includeCount()));
+    builder.query("include_count", String.valueOf(listExamplesOptions.includeCount()));
     }
     if (listExamplesOptions.sort() != null) {
-      builder.query("sort", listExamplesOptions.sort());
+    builder.query("sort", listExamplesOptions.sort());
     }
     if (listExamplesOptions.cursor() != null) {
-      builder.query("cursor", listExamplesOptions.cursor());
+    builder.query("cursor", listExamplesOptions.cursor());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ExampleCollection.class));
   }
@@ -446,7 +636,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Example> updateExample(UpdateExampleOptions updateExampleOptions) {
     Validator.notNull(updateExampleOptions, "updateExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/intents/%s/examples/%s",
-        updateExampleOptions.workspaceId(), updateExampleOptions.intent(), updateExampleOptions.text()));
+            updateExampleOptions.workspaceId(), updateExampleOptions.intent(), updateExampleOptions.text()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateExampleOptions.newText() != null) {
@@ -466,8 +656,8 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<Intent> createIntent(CreateIntentOptions createIntentOptions) {
     Validator.notNull(createIntentOptions, "createIntentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/intents", createIntentOptions
-        .workspaceId()));
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/intents",
+            createIntentOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createIntentOptions.examples() != null) {
@@ -491,8 +681,8 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<Void> deleteIntent(DeleteIntentOptions deleteIntentOptions) {
     Validator.notNull(deleteIntentOptions, "deleteIntentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/intents/%s", deleteIntentOptions
-        .workspaceId(), deleteIntentOptions.intent()));
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/intents/%s",
+            deleteIntentOptions.workspaceId(), deleteIntentOptions.intent()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -507,11 +697,11 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<IntentExport> getIntent(GetIntentOptions getIntentOptions) {
     Validator.notNull(getIntentOptions, "getIntentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents/%s", getIntentOptions
-        .workspaceId(), getIntentOptions.intent()));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents/%s",
+            getIntentOptions.workspaceId(), getIntentOptions.intent()));
     builder.query(VERSION, versionDate);
     if (getIntentOptions.export() != null) {
-      builder.query("export", String.valueOf(getIntentOptions.export()));
+    builder.query("export", String.valueOf(getIntentOptions.export()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentExport.class));
   }
@@ -526,23 +716,23 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<IntentCollection> listIntents(ListIntentsOptions listIntentsOptions) {
     Validator.notNull(listIntentsOptions, "listIntentsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents", listIntentsOptions
-        .workspaceId()));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/intents",
+            listIntentsOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     if (listIntentsOptions.export() != null) {
-      builder.query("export", String.valueOf(listIntentsOptions.export()));
+    builder.query("export", String.valueOf(listIntentsOptions.export()));
     }
     if (listIntentsOptions.pageLimit() != null) {
-      builder.query("page_limit", String.valueOf(listIntentsOptions.pageLimit()));
+    builder.query("page_limit", String.valueOf(listIntentsOptions.pageLimit()));
     }
     if (listIntentsOptions.includeCount() != null) {
-      builder.query("include_count", String.valueOf(listIntentsOptions.includeCount()));
+    builder.query("include_count", String.valueOf(listIntentsOptions.includeCount()));
     }
     if (listIntentsOptions.sort() != null) {
-      builder.query("sort", listIntentsOptions.sort());
+    builder.query("sort", listIntentsOptions.sort());
     }
     if (listIntentsOptions.cursor() != null) {
-      builder.query("cursor", listIntentsOptions.cursor());
+    builder.query("cursor", listIntentsOptions.cursor());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(IntentCollection.class));
   }
@@ -558,8 +748,8 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<Intent> updateIntent(UpdateIntentOptions updateIntentOptions) {
     Validator.notNull(updateIntentOptions, "updateIntentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/intents/%s", updateIntentOptions
-        .workspaceId(), updateIntentOptions.intent()));
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/intents/%s",
+            updateIntentOptions.workspaceId(), updateIntentOptions.intent()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateIntentOptions.newIntent() != null) {
@@ -586,16 +776,16 @@ public class ConversationService extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/logs", listLogsOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     if (listLogsOptions.sort() != null) {
-      builder.query("sort", listLogsOptions.sort());
+    builder.query("sort", listLogsOptions.sort());
     }
     if (listLogsOptions.filter() != null) {
-      builder.query("filter", listLogsOptions.filter());
+    builder.query("filter", listLogsOptions.filter());
     }
     if (listLogsOptions.pageLimit() != null) {
-      builder.query("page_limit", String.valueOf(listLogsOptions.pageLimit()));
+    builder.query("page_limit", String.valueOf(listLogsOptions.pageLimit()));
     }
     if (listLogsOptions.cursor() != null) {
-      builder.query("cursor", listLogsOptions.cursor());
+    builder.query("cursor", listLogsOptions.cursor());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LogCollection.class));
   }
@@ -608,8 +798,8 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<MessageResponse> message(MessageOptions messageOptions) {
     Validator.notNull(messageOptions, "messageOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/message", messageOptions
-        .workspaceId()));
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/message",
+            messageOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (messageOptions.output() != null) {
@@ -645,7 +835,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Synonym> createSynonym(CreateSynonymOptions createSynonymOptions) {
     Validator.notNull(createSynonymOptions, "createSynonymOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s/values/%s/synonyms",
-        createSynonymOptions.workspaceId(), createSynonymOptions.entity(), createSynonymOptions.value()));
+            createSynonymOptions.workspaceId(), createSynonymOptions.entity(), createSynonymOptions.value()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("synonym", createSynonymOptions.synonym());
@@ -664,8 +854,8 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteSynonym(DeleteSynonymOptions deleteSynonymOptions) {
     Validator.notNull(deleteSynonymOptions, "deleteSynonymOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/entities/%s/values/%s/synonyms/%s",
-        deleteSynonymOptions.workspaceId(), deleteSynonymOptions.entity(), deleteSynonymOptions.value(),
-        deleteSynonymOptions.synonym()));
+            deleteSynonymOptions.workspaceId(), deleteSynonymOptions.entity(), deleteSynonymOptions.value(),
+            deleteSynonymOptions.synonym()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -681,8 +871,8 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Synonym> getSynonym(GetSynonymOptions getSynonymOptions) {
     Validator.notNull(getSynonymOptions, "getSynonymOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s/values/%s/synonyms/%s",
-        getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions.value(), getSynonymOptions
-            .synonym()));
+            getSynonymOptions.workspaceId(), getSynonymOptions.entity(), getSynonymOptions.value(),
+            getSynonymOptions.synonym()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Synonym.class));
   }
@@ -698,19 +888,19 @@ public class ConversationService extends WatsonService {
   public ServiceCall<SynonymCollection> listSynonyms(ListSynonymsOptions listSynonymsOptions) {
     Validator.notNull(listSynonymsOptions, "listSynonymsOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s/values/%s/synonyms",
-        listSynonymsOptions.workspaceId(), listSynonymsOptions.entity(), listSynonymsOptions.value()));
+            listSynonymsOptions.workspaceId(), listSynonymsOptions.entity(), listSynonymsOptions.value()));
     builder.query(VERSION, versionDate);
     if (listSynonymsOptions.pageLimit() != null) {
-      builder.query("page_limit", String.valueOf(listSynonymsOptions.pageLimit()));
+    builder.query("page_limit", String.valueOf(listSynonymsOptions.pageLimit()));
     }
     if (listSynonymsOptions.includeCount() != null) {
-      builder.query("include_count", String.valueOf(listSynonymsOptions.includeCount()));
+    builder.query("include_count", String.valueOf(listSynonymsOptions.includeCount()));
     }
     if (listSynonymsOptions.sort() != null) {
-      builder.query("sort", listSynonymsOptions.sort());
+    builder.query("sort", listSynonymsOptions.sort());
     }
     if (listSynonymsOptions.cursor() != null) {
-      builder.query("cursor", listSynonymsOptions.cursor());
+    builder.query("cursor", listSynonymsOptions.cursor());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SynonymCollection.class));
   }
@@ -726,8 +916,8 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Synonym> updateSynonym(UpdateSynonymOptions updateSynonymOptions) {
     Validator.notNull(updateSynonymOptions, "updateSynonymOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s/values/%s/synonyms/%s",
-        updateSynonymOptions.workspaceId(), updateSynonymOptions.entity(), updateSynonymOptions.value(),
-        updateSynonymOptions.synonym()));
+            updateSynonymOptions.workspaceId(), updateSynonymOptions.entity(), updateSynonymOptions.value(),
+            updateSynonymOptions.synonym()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateSynonymOptions.newSynonym() != null) {
@@ -748,7 +938,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Value> createValue(CreateValueOptions createValueOptions) {
     Validator.notNull(createValueOptions, "createValueOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s/values",
-        createValueOptions.workspaceId(), createValueOptions.entity()));
+            createValueOptions.workspaceId(), createValueOptions.entity()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createValueOptions.metadata() != null) {
@@ -773,7 +963,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Void> deleteValue(DeleteValueOptions deleteValueOptions) {
     Validator.notNull(deleteValueOptions, "deleteValueOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s/entities/%s/values/%s",
-        deleteValueOptions.workspaceId(), deleteValueOptions.entity(), deleteValueOptions.value()));
+            deleteValueOptions.workspaceId(), deleteValueOptions.entity(), deleteValueOptions.value()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -788,11 +978,11 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<ValueExport> getValue(GetValueOptions getValueOptions) {
     Validator.notNull(getValueOptions, "getValueOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s/values/%s", getValueOptions
-        .workspaceId(), getValueOptions.entity(), getValueOptions.value()));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s/values/%s",
+            getValueOptions.workspaceId(), getValueOptions.entity(), getValueOptions.value()));
     builder.query(VERSION, versionDate);
     if (getValueOptions.export() != null) {
-      builder.query("export", String.valueOf(getValueOptions.export()));
+    builder.query("export", String.valueOf(getValueOptions.export()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ValueExport.class));
   }
@@ -807,23 +997,23 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<ValueCollection> listValues(ListValuesOptions listValuesOptions) {
     Validator.notNull(listValuesOptions, "listValuesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s/values", listValuesOptions
-        .workspaceId(), listValuesOptions.entity()));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s/entities/%s/values",
+            listValuesOptions.workspaceId(), listValuesOptions.entity()));
     builder.query(VERSION, versionDate);
     if (listValuesOptions.export() != null) {
-      builder.query("export", String.valueOf(listValuesOptions.export()));
+    builder.query("export", String.valueOf(listValuesOptions.export()));
     }
     if (listValuesOptions.pageLimit() != null) {
-      builder.query("page_limit", String.valueOf(listValuesOptions.pageLimit()));
+    builder.query("page_limit", String.valueOf(listValuesOptions.pageLimit()));
     }
     if (listValuesOptions.includeCount() != null) {
-      builder.query("include_count", String.valueOf(listValuesOptions.includeCount()));
+    builder.query("include_count", String.valueOf(listValuesOptions.includeCount()));
     }
     if (listValuesOptions.sort() != null) {
-      builder.query("sort", listValuesOptions.sort());
+    builder.query("sort", listValuesOptions.sort());
     }
     if (listValuesOptions.cursor() != null) {
-      builder.query("cursor", listValuesOptions.cursor());
+    builder.query("cursor", listValuesOptions.cursor());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ValueCollection.class));
   }
@@ -839,7 +1029,7 @@ public class ConversationService extends WatsonService {
   public ServiceCall<Value> updateValue(UpdateValueOptions updateValueOptions) {
     Validator.notNull(updateValueOptions, "updateValueOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/entities/%s/values/%s",
-        updateValueOptions.workspaceId(), updateValueOptions.entity(), updateValueOptions.value()));
+            updateValueOptions.workspaceId(), updateValueOptions.entity(), updateValueOptions.value()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateValueOptions.newSynonyms() != null) {
@@ -868,33 +1058,37 @@ public class ConversationService extends WatsonService {
     RequestBuilder builder = RequestBuilder.post("/v1/workspaces");
     builder.query(VERSION, versionDate);
     if (createWorkspaceOptions != null) {
-      final JsonObject contentJson = new JsonObject();
-      if (createWorkspaceOptions.metadata() != null) {
-        contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.metadata()));
-      }
-      if (createWorkspaceOptions.intents() != null) {
-        contentJson.add("intents", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.intents()));
-      }
-      if (createWorkspaceOptions.entities() != null) {
-        contentJson.add("entities", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.entities()));
-      }
-      if (createWorkspaceOptions.name() != null) {
-        contentJson.addProperty("name", createWorkspaceOptions.name());
-      }
-      if (createWorkspaceOptions.counterexamples() != null) {
-        contentJson.add("counterexamples", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions
-            .counterexamples()));
-      }
-      if (createWorkspaceOptions.description() != null) {
-        contentJson.addProperty("description", createWorkspaceOptions.description());
-      }
-      if (createWorkspaceOptions.language() != null) {
-        contentJson.addProperty("language", createWorkspaceOptions.language());
-      }
-      if (createWorkspaceOptions.dialogNodes() != null) {
-        contentJson.add("dialog_nodes", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.dialogNodes()));
-      }
-      builder.bodyJson(contentJson);
+    final JsonObject contentJson = new JsonObject();
+    if (createWorkspaceOptions.metadata() != null) {
+      contentJson.add("metadata", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.metadata()));
+    }
+    if (createWorkspaceOptions.intents() != null) {
+      contentJson.add("intents", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.intents()));
+    }
+    if (createWorkspaceOptions.entities() != null) {
+      contentJson.add("entities", GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.entities()));
+    }
+    if (createWorkspaceOptions.name() != null) {
+      contentJson.addProperty("name", createWorkspaceOptions.name());
+    }
+    if (createWorkspaceOptions.learningOptOut() != null) {
+      contentJson.addProperty("learning_opt_out", createWorkspaceOptions.learningOptOut());
+    }
+    if (createWorkspaceOptions.counterexamples() != null) {
+      contentJson.add("counterexamples",
+              GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.counterexamples()));
+    }
+    if (createWorkspaceOptions.description() != null) {
+      contentJson.addProperty("description", createWorkspaceOptions.description());
+    }
+    if (createWorkspaceOptions.language() != null) {
+      contentJson.addProperty("language", createWorkspaceOptions.language());
+    }
+    if (createWorkspaceOptions.dialogNodes() != null) {
+      contentJson.add("dialog_nodes",
+              GsonSingleton.getGson().toJsonTree(createWorkspaceOptions.dialogNodes()));
+    }
+    builder.bodyJson(contentJson);
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));
   }
@@ -909,8 +1103,8 @@ public class ConversationService extends WatsonService {
    */
   public ServiceCall<Void> deleteWorkspace(DeleteWorkspaceOptions deleteWorkspaceOptions) {
     Validator.notNull(deleteWorkspaceOptions, "deleteWorkspaceOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s", deleteWorkspaceOptions
-        .workspaceId()));
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/workspaces/%s",
+            deleteWorkspaceOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -928,7 +1122,7 @@ public class ConversationService extends WatsonService {
     RequestBuilder builder = RequestBuilder.get(String.format("/v1/workspaces/%s", getWorkspaceOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     if (getWorkspaceOptions.export() != null) {
-      builder.query("export", String.valueOf(getWorkspaceOptions.export()));
+    builder.query("export", String.valueOf(getWorkspaceOptions.export()));
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceExport.class));
   }
@@ -945,18 +1139,18 @@ public class ConversationService extends WatsonService {
     RequestBuilder builder = RequestBuilder.get("/v1/workspaces");
     builder.query(VERSION, versionDate);
     if (listWorkspacesOptions != null) {
-      if (listWorkspacesOptions.pageLimit() != null) {
-        builder.query("page_limit", String.valueOf(listWorkspacesOptions.pageLimit()));
-      }
-      if (listWorkspacesOptions.includeCount() != null) {
-        builder.query("include_count", String.valueOf(listWorkspacesOptions.includeCount()));
-      }
-      if (listWorkspacesOptions.sort() != null) {
-        builder.query("sort", listWorkspacesOptions.sort());
-      }
-      if (listWorkspacesOptions.cursor() != null) {
-        builder.query("cursor", listWorkspacesOptions.cursor());
-      }
+    if (listWorkspacesOptions.pageLimit() != null) {
+    builder.query("page_limit", String.valueOf(listWorkspacesOptions.pageLimit()));
+    }
+    if (listWorkspacesOptions.includeCount() != null) {
+    builder.query("include_count", String.valueOf(listWorkspacesOptions.includeCount()));
+    }
+    if (listWorkspacesOptions.sort() != null) {
+    builder.query("sort", listWorkspacesOptions.sort());
+    }
+    if (listWorkspacesOptions.cursor() != null) {
+    builder.query("cursor", listWorkspacesOptions.cursor());
+    }
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(WorkspaceCollection.class));
   }
@@ -964,16 +1158,16 @@ public class ConversationService extends WatsonService {
   /**
    * Update workspace.
    *
-   * Update an existing workspace with new or modified data. You must provide component objects defining the content of
-   * the updated workspace.
+   * Update an existing workspace with new or modified data. You must provide component objects defining the content
+   * of the updated workspace.
    *
    * @param updateWorkspaceOptions the {@link UpdateWorkspaceOptions} containing the options for the call
    * @return the {@link Workspace} with the response
    */
   public ServiceCall<Workspace> updateWorkspace(UpdateWorkspaceOptions updateWorkspaceOptions) {
     Validator.notNull(updateWorkspaceOptions, "updateWorkspaceOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s", updateWorkspaceOptions
-        .workspaceId()));
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s",
+            updateWorkspaceOptions.workspaceId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateWorkspaceOptions.metadata() != null) {
@@ -988,8 +1182,12 @@ public class ConversationService extends WatsonService {
     if (updateWorkspaceOptions.name() != null) {
       contentJson.addProperty("name", updateWorkspaceOptions.name());
     }
+    if (updateWorkspaceOptions.learningOptOut() != null) {
+      contentJson.addProperty("learning_opt_out", updateWorkspaceOptions.learningOptOut());
+    }
     if (updateWorkspaceOptions.counterexamples() != null) {
-      contentJson.add("counterexamples", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.counterexamples()));
+      contentJson.add("counterexamples",
+              GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.counterexamples()));
     }
     if (updateWorkspaceOptions.description() != null) {
       contentJson.addProperty("description", updateWorkspaceOptions.description());
@@ -998,7 +1196,8 @@ public class ConversationService extends WatsonService {
       contentJson.addProperty("language", updateWorkspaceOptions.language());
     }
     if (updateWorkspaceOptions.dialogNodes() != null) {
-      contentJson.add("dialog_nodes", GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.dialogNodes()));
+      contentJson.add("dialog_nodes",
+              GsonSingleton.getGson().toJsonTree(updateWorkspaceOptions.dialogNodes()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Workspace.class));

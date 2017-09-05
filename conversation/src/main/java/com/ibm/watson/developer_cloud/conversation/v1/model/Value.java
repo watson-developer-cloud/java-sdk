@@ -15,6 +15,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 import java.util.Date;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -22,20 +23,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Value extends GenericModel {
 
-  private String value;
-  private Map<String, Object> metadata;
+  @SerializedName("value")
+  private String valueText;
+  private Map metadata;
   private Date created;
   private Date updated;
 
   /**
-   * Gets the value.
+   * Gets the valueText.
    *
    * The text of the entity value.
    *
-   * @return the value
+   * @return the valueText
    */
-  public String getValue() {
-    return value;
+  public String getValueText() {
+    return valueText;
   }
 
   /**
@@ -45,7 +47,7 @@ public class Value extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> getMetadata() {
+  public Map getMetadata() {
     return metadata;
   }
 
@@ -72,12 +74,12 @@ public class Value extends GenericModel {
   }
 
   /**
-   * Sets the value.
+   * Sets the valueText.
    *
-   * @param value the new value
+   * @param valueText the new valueText
    */
-  public void setValue(final String value) {
-    this.value = value;
+  public void setValueText(final String valueText) {
+    this.valueText = valueText;
   }
 
   /**
@@ -85,7 +87,7 @@ public class Value extends GenericModel {
    *
    * @param metadata the new metadata
    */
-  public void setMetadata(final Map<String, Object> metadata) {
+  public void setMetadata(final Map metadata) {
     this.metadata = metadata;
   }
 }

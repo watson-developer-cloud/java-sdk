@@ -23,8 +23,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class TestConfigurationInEnvironmentOptions extends GenericModel {
 
   /**
-   * Specify to only run the input document through the given step instead of running the input document through the
-   * entire ingestion workflow. Valid values are `convert`, `enrich`, and `normalize`.
+   * Specify to only run the input document through the given step instead of running the input document through
+   * the entire ingestion workflow. Valid values are `convert`, `enrich`, and `normalize`.
    */
   public interface Step {
     /** html_input. */
@@ -50,8 +50,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     /** application/msword. */
     String APPLICATION_MSWORD = "application/msword";
     /** application/vnd.openxmlformats-officedocument.wordprocessingml.document. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT =
-        "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT
+        = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
     /** application/pdf. */
     String APPLICATION_PDF = "application/pdf";
     /** text/html. */
@@ -226,10 +226,10 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the configuration.
    *
-   * The configuration to use to process the document. If this part is provided, then the provided configuration is used
-   * to process the document. If the `configuration_id` is also provided (both are present at the same time), then
-   * request is rejected. The maximum supported configuration size is 1 MB. Configuration parts larger than 1 MB are
-   * rejected. See the `GET /configurations/{configuration_id}` operation for an example configuration.
+   * The configuration to use to process the document. If this part is provided, then the provided configuration is
+   * used to process the document. If the `configuration_id` is also provided (both are present at the same time),
+   * then request is rejected. The maximum supported configuration size is 1 MB. Configuration parts larger than 1
+   * MB are rejected. See the `GET /configurations/{configuration_id}` operation for an example configuration.
    *
    * @return the configuration
    */
@@ -252,8 +252,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided (both
-   * are present at the same time), then request will be rejected.
+   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided
+   * (both are present at the same time), then request will be rejected.
    *
    * @return the configurationId
    */
@@ -288,8 +288,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
    * Gets the metadata.
    *
    * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
-   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB
-   * are rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```.
+   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than
+   * 1 MB are rejected. Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
    *
    * @return the metadata
    */

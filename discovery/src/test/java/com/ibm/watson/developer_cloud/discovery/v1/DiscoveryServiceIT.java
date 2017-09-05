@@ -16,10 +16,53 @@ package com.ibm.watson.developer_cloud.discovery.v1;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.*;
+import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.AggregationResult;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Conversions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Enrichment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.EnrichmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.HtmlSettings;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation.Operation;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryAggregation;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryPassages;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TestConfigurationInEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TestDocument;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationType;
 import com.ibm.watson.developer_cloud.discovery.v1.query.Operator;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.service.exception.ForbiddenException;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
@@ -36,6 +79,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
@@ -44,7 +88,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -68,6 +111,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String DISCOVERY1_TEST_CONFIG_FILE = "src/test/resources/discovery/issue517.json";
   private static final String DISCOVERY2_TEST_CONFIG_FILE = "src/test/resources/discovery/issue518.json";
+  private static final String PASSAGES_TEST_FILE_1 = "src/test/resources/discovery/passages_test_doc_1.json";
+  private static final String PASSAGES_TEST_FILE_2 = "src/test/resources/discovery/passages_test_doc_2.json";
   private static String environmentId;
   private static String collectionId;
   private Discovery discovery;
@@ -124,7 +169,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String username = getProperty("discovery.username");
     String password = getProperty("discovery.password");
     String url = getProperty("discovery.url");
-    discovery = new Discovery(Discovery.VERSION_DATE_2017_08_01);
+    discovery = new Discovery("2016-12-16");
     discovery.setEndPoint(url);
     discovery.setUsernameAndPassword(username, password);
 
@@ -261,7 +306,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     AddDocumentOptions.Builder createDocumentBuilder =
         new AddDocumentOptions.Builder(environmentId, collectionId);
-    createDocumentBuilder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    createDocumentBuilder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
     DocumentAccepted createDocumentResponse = discovery.addDocument(createDocumentBuilder.build()).execute();
     documentId = createDocumentResponse.getDocumentId();
     System.out.println("Created a document ID: " + documentId);
@@ -311,7 +356,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
   @Test(expected = UnauthorizedException.class)
   public void badCredentialsThrowsException() {
-    Discovery badService = new Discovery(Discovery.VERSION_DATE_2017_08_01, "foo", "bar");
+    Discovery badService = new Discovery(Discovery.VERSION_DATE_2016_12_01, "foo", "bar");
     badService.listEnvironments(null).execute();
   }
 
@@ -706,7 +751,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder();
     builder.environmentId(environmentId);
     builder.collectionId(collection.getCollectionId());
-    builder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
 
     assertFalse(createResponse.getDocumentId().isEmpty());
@@ -726,7 +771,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     builder.environmentId(environmentId);
     builder.collectionId(collection.getCollectionId());
     builder.configurationId(testConfig.getConfigurationId());
-    builder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
 
     assertFalse(createResponse.getDocumentId().isEmpty());
@@ -746,7 +791,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     myMetadata.add("foo", new JsonPrimitive("bar"));
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
-    builder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
     builder.metadata(myMetadata.toString());
 
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
@@ -798,7 +843,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     UpdateDocumentOptions.Builder updateBuilder =
         new UpdateDocumentOptions.Builder(environmentId, collectionId, documentAccepted.getDocumentId());
-    updateBuilder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    updateBuilder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
     //updateBuilder.configurationId(testConfig.getConfigurationId());
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
@@ -827,7 +872,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     UpdateDocumentOptions.Builder updateBuilder =
         new UpdateDocumentOptions.Builder(environmentId, collectionId, documentAccepted.getDocumentId());
-    updateBuilder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    updateBuilder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
     GetDocumentStatusOptions getOptions =
@@ -853,7 +898,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     UpdateDocumentOptions.Builder updateBuilder =
         new UpdateDocumentOptions.Builder(environmentId, collectionId, documentAccepted.getDocumentId());
-    updateBuilder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    updateBuilder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
     updateBuilder.metadata(myMetadata.toString());
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
@@ -949,8 +994,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     queryBuilder.sort("field");
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
     assertTrue(queryResponse.getResults().size() > 1);
-    Double v0 = (Double) ((QueryResult) queryResponse.getResults().get(0)).get("field");
-    Double v1 = (Double) ((QueryResult) queryResponse.getResults().get(1)).get("field");
+    Double v0 = (Double) (queryResponse.getResults().get(0)).get("field");
+    Double v1 = (Double) (queryResponse.getResults().get(1)).get("field");
     assertTrue(v0 <= v1);
   }
 
@@ -991,9 +1036,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation term = (QueryAggregation) queryResponse.getAggregations().get(0);
-    Map<String, Object> agResults = ((Map<String, Object>) term.getResults().get(0));
-    List<Object> aggregations = (List<Object>) agResults.get("aggregations");
+    QueryAggregation term = queryResponse.getAggregations().get(0);
+    AggregationResult agResults = term.getResults().get(0);
+    List<QueryAggregation> aggregations = agResults.getAggregations();
     assertFalse(aggregations.isEmpty());
   }
 
@@ -1012,7 +1057,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation histogram = (QueryAggregation) queryResponse.getAggregations().get(0);
+    QueryAggregation histogram = queryResponse.getAggregations().get(0);
     Long interval = ((Double) histogram.get("interval")).longValue();
     assertEquals(new Long(5), interval);
     assertEquals(2, histogram.getResults().size());
@@ -1031,7 +1076,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation max = (QueryAggregation) queryResponse.getAggregations().get(0);
+    QueryAggregation max = queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MAX.getName(), max.getType());
     assertEquals(new Double(9), max.get("value"));
   }
@@ -1049,7 +1094,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation min = (QueryAggregation) queryResponse.getAggregations().get(0);
+    QueryAggregation min = queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MIN.getName(), min.getType());
     assertEquals(new Double(0), min.get("value"));
   }
@@ -1067,7 +1112,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation sum = (QueryAggregation) queryResponse.getAggregations().get(0);
+    QueryAggregation sum = queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.SUM.getName(), sum.getType());
     assertEquals(new Double(45), sum.get("value"));
   }
@@ -1085,9 +1130,27 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation avg = (QueryAggregation) queryResponse.getAggregations().get(0);
+    QueryAggregation avg = queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.AVERAGE.getName(), avg.getType());
     assertEquals(new Double(4.5), avg.get("value"));
+  }
+
+  @Test
+  public void queryWithPassagesIsSuccessful() throws InterruptedException, FileNotFoundException {
+    Collection testCollection = createTestCollection();
+    String collectionId = testCollection.getCollectionId();
+    createTestDocument(getStringFromInputStream(new FileInputStream(PASSAGES_TEST_FILE_1)), collectionId);
+    createTestDocument(getStringFromInputStream(new FileInputStream(PASSAGES_TEST_FILE_2)), collectionId);
+
+    QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
+    queryBuilder.passages(true);
+    queryBuilder.naturalLanguageQuery("Watson");
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    List<QueryPassages> passages = queryResponse.getPassages();
+    assertTrue(passages.size() > 0);
+    for (QueryPassages passage : passages) {
+      assertTrue(passage.getPassageText().contains("Watson"));
+    }
   }
 
   // queryNotices tests
@@ -1112,7 +1175,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     TestConfigurationInEnvironmentOptions options =
         new TestConfigurationInEnvironmentOptions.Builder(environmentId)
             .configurationId(testConfig.getConfigurationId())
-            .file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON)
+            .file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON)
             .build();
     TestDocument testResponse = discovery.testConfigurationInEnvironment(options).execute();
     assertNotNull(testResponse);
@@ -1131,7 +1194,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     builder.environmentId(environmentId);
     builder.configurationId(testConfig.getConfigurationId());
     builder.step(TestConfigurationInEnvironmentOptions.Step.HTML_OUTPUT);
-    builder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
     builder.metadata(myMetadata.toString());
     TestDocument testResponse = discovery.testConfigurationInEnvironment(builder.build()).execute();
 
@@ -1218,195 +1281,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertEquals(collection.getConfigurationId(), configuration.getConfigurationId());
   }
 
-  @Test
-  public void addTrainingDataIsSuccessful() {
-    AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
-    String naturalLanguageQuery = "Example query" + UUID.randomUUID().toString();
-    builder.naturalLanguageQuery(naturalLanguageQuery);
-    TrainingExample example = new TrainingExample();
-    String documentId = createTestDocument(collectionId).getDocumentId();
-    example.setDocumentId(documentId);
-    int relevance = 0;
-    example.setRelevance(relevance);
-    builder.addExamples(example);
-    TrainingQuery response = discovery.addTrainingData(builder.build()).execute();
-
-    assertFalse(response.getQueryId().isEmpty());
-    assertEquals(response.getNaturalLanguageQuery(), naturalLanguageQuery);
-    assertTrue(response.getFilter().isEmpty());
-    assertEquals(response.getExamples().size(), 1);
-
-    TrainingExample returnedExample = response.getExamples().get(0);
-    assertEquals(returnedExample.getDocumentId(), documentId);
-    assertTrue(returnedExample.getCrossReference().isEmpty());
-    assertEquals(returnedExample.getRelevance(), relevance);
-  }
-
-  @Test
-  public void addTrainingExampleIsSuccessful() {
-    TrainingQuery query = createTestQuery(collectionId, "Query" + UUID.randomUUID().toString());
-    int startingExampleCount = query.getExamples().size();
-    String queryId = query.getQueryId();
-
-    String documentId = "document_id";
-    String crossReference = "cross_reference";
-    int relevance = 50;
-    CreateTrainingExampleOptions.Builder exampleBuilder
-        = new CreateTrainingExampleOptions.Builder(environmentId, collectionId, queryId);
-    exampleBuilder.documentId(documentId);
-    exampleBuilder.crossReference(crossReference);
-    exampleBuilder.relevance(relevance);
-    discovery.createTrainingExample(exampleBuilder.build()).execute();
-
-    GetTrainingDataOptions.Builder queryBuilder
-       = new GetTrainingDataOptions.Builder(environmentId, collectionId, queryId);
-    TrainingQuery updatedQuery = discovery.getTrainingData(queryBuilder.build()).execute();
-
-    assertTrue(updatedQuery.getExamples().size() > startingExampleCount);
-    TrainingExample newExample = updatedQuery.getExamples().get(0);
-    assertEquals(newExample.getDocumentId(), documentId);
-    assertEquals(newExample.getCrossReference(), crossReference);
-    assertEquals(newExample.getRelevance(), relevance);
-  }
-
-  @Test
-  public void deleteAllCollectionTrainingDataIsSuccessful() {
-    String collId = setupTestQueries(collectionId);
-    DeleteAllTrainingDataOptions.Builder deleteBuilder = new DeleteAllTrainingDataOptions.Builder(environmentId, collId);
-    discovery.deleteAllTrainingData(deleteBuilder.build()).execute();
-
-    ListTrainingDataOptions.Builder listBuilder = new ListTrainingDataOptions.Builder(environmentId, collId);
-    TrainingDataSet trainingData = discovery.listTrainingData(listBuilder.build()).execute();
-
-    assertEquals(trainingData.getQueries().size(), 0);
-  }
-
-  @Test
-  public void deleteTrainingDataQueryIsSuccessful() {
-    TrainingQuery query = createTestQuery(collectionId, "Query" + UUID.randomUUID().toString());
-    String queryId = query.getQueryId();
-
-    ListTrainingDataOptions.Builder listBuilder = new ListTrainingDataOptions.Builder(environmentId, collectionId);
-    TrainingDataSet trainingData = discovery.listTrainingData(listBuilder.build()).execute();
-    List<TrainingQuery> queryList = trainingData.getQueries();
-    boolean doesQueryExist = false;
-    for (TrainingQuery q : queryList) {
-      if (q.getQueryId().equals(queryId)) {
-        doesQueryExist = true;
-        break;
-      }
-    }
-    assertTrue(doesQueryExist);
-
-    DeleteTrainingDataOptions.Builder deleteBuilder
-        = new DeleteTrainingDataOptions.Builder(environmentId, collectionId, queryId);
-    discovery.deleteTrainingData(deleteBuilder.build()).execute();
-
-    listBuilder = new ListTrainingDataOptions.Builder(environmentId, collectionId);
-    trainingData = discovery.listTrainingData(listBuilder.build()).execute();
-    queryList = trainingData.getQueries();
-    doesQueryExist = false;
-    for (TrainingQuery q : queryList) {
-      if (q.getQueryId().equals(queryId)) {
-        doesQueryExist = true;
-        break;
-      }
-    }
-    assertFalse(doesQueryExist);
-  }
-
-  @Test
-  public void deleteTrainingDataExampleIsSuccessful() {
-    TrainingQuery newQuery = createTestQuery(collectionId, "Query" + UUID.randomUUID().toString());
-    String queryId = newQuery.getQueryId();
-
-    String documentId = "document_id";
-    String crossReference = "cross_reference";
-    int relevance = 50;
-    CreateTrainingExampleOptions.Builder exampleBuilder
-            = new CreateTrainingExampleOptions.Builder(environmentId, collectionId, queryId);
-    exampleBuilder.documentId(documentId);
-    exampleBuilder.crossReference(crossReference);
-    exampleBuilder.relevance(relevance);
-    TrainingExample createdExample = discovery.createTrainingExample(exampleBuilder.build()).execute();
-    String exampleId = createdExample.getDocumentId();
-
-    GetTrainingDataOptions.Builder queryBuilder
-            = new GetTrainingDataOptions.Builder(environmentId, collectionId, queryId);
-    TrainingQuery queryWithAddedExample = discovery.getTrainingData(queryBuilder.build()).execute();
-    int startingCount = queryWithAddedExample.getExamples().size();
-
-    DeleteTrainingExampleOptions.Builder deleteBuilder
-        = new DeleteTrainingExampleOptions.Builder(environmentId, collectionId, queryId, exampleId);
-    discovery.deleteTrainingExample(deleteBuilder.build()).execute();
-
-    GetTrainingDataOptions.Builder newQueryBuilder
-            = new GetTrainingDataOptions.Builder(environmentId, collectionId, queryId);
-    TrainingQuery queryWithDeletedExample = discovery.getTrainingData(newQueryBuilder.build()).execute();
-
-    assertTrue(startingCount > queryWithDeletedExample.getExamples().size());
-  }
-
-  @Test
-  public void getTrainingDataIsSuccessful() {
-    String naturalLanguageQuery = "Query" + UUID.randomUUID().toString();
-    TrainingQuery newQuery = createTestQuery(collectionId, naturalLanguageQuery);
-    String queryId = newQuery.getQueryId();
-
-    GetTrainingDataOptions.Builder queryBuilder
-            = new GetTrainingDataOptions.Builder(environmentId, collectionId, queryId);
-    TrainingQuery queryResponse = discovery.getTrainingData(queryBuilder.build()).execute();
-
-    assertEquals(queryResponse.getNaturalLanguageQuery(), naturalLanguageQuery);
-  }
-
-  @Test
-  public void getTrainingExampleIsSuccessful() {
-    AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
-    String naturalLanguageQuery = "Query" + UUID.randomUUID().toString();
-    builder.naturalLanguageQuery(naturalLanguageQuery);
-    TrainingExample example = new TrainingExample();
-    String documentId = "Document" + UUID.randomUUID().toString();
-    example.setDocumentId(documentId);
-    int relevance = 0;
-    example.setRelevance(relevance);
-    builder.addExamples(example);
-    TrainingQuery response = discovery.addTrainingData(builder.build()).execute();
-    String queryId = response.getQueryId();
-
-    GetTrainingExampleOptions.Builder getExampleBuilder
-        = new GetTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
-    TrainingExample returnedExample = discovery.getTrainingExample(getExampleBuilder.build()).execute();
-
-    assertEquals(returnedExample.getDocumentId(), documentId);
-  }
-
-  @Test
-  public void updateTrainingExampleIsSuccessful() {
-    AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
-    String naturalLanguageQuery = "Query" + UUID.randomUUID().toString();
-    builder.naturalLanguageQuery(naturalLanguageQuery);
-    TrainingExample example = new TrainingExample();
-    String documentId = "Document" + UUID.randomUUID().toString();
-    example.setDocumentId(documentId);
-    int relevance = 0;
-    example.setRelevance(relevance);
-    builder.addExamples(example);
-    TrainingQuery response = discovery.addTrainingData(builder.build()).execute();
-    String queryId = response.getQueryId();
-
-    UpdateTrainingExampleOptions.Builder updateBuilder
-        = new UpdateTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
-    String newCrossReference = "cross_reference";
-    updateBuilder.crossReference(newCrossReference);
-    int newRelevance = 50;
-    updateBuilder.relevance(newRelevance);
-    TrainingExample updatedExample = discovery.updateTrainingExample(updateBuilder.build()).execute();
-
-    assertEquals(updatedExample.getCrossReference(), newCrossReference);
-    assertEquals(updatedExample.getRelevance(), newRelevance);
-  }
-
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {
     Environment createResponse = discovery.createEnvironment(createOptions).execute();
     return createResponse;
@@ -1467,7 +1341,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   private DocumentAccepted createTestDocument(String json, String collectionId) {
     InputStream documentStream = new ByteArrayInputStream(json.getBytes());
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
-    builder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
     WaitFor.Condition documentAccepted =
         new WaitForDocumentAccepted(environmentId, collectionId, createResponse.getDocumentId());
@@ -1496,36 +1370,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     WaitFor.Condition collectionAvailable =
         new WaitForCollectionAvailable(environmentId, collectionId);
-    WaitFor.waitFor(collectionAvailable, 5, TimeUnit.SECONDS, 500);
-
-    return collectionId;
-  }
-
-  private TrainingQuery createTestQuery(String collectionId, String naturalLanguageQuery) {
-    AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
-    builder.naturalLanguageQuery(naturalLanguageQuery);
-    TrainingQuery addResponse = discovery.addTrainingData(builder.build()).execute();
-    return addResponse;
-  }
-
-  private List<TrainingQuery> createTestQueries(String collectionId, int totalQueries) {
-    List<TrainingQuery> responses = new ArrayList<>();
-    for (int i = 0; i < totalQueries; i++) {
-      String naturalLanguageQuery = "Test query " + i;
-      responses.add(createTestQuery(collectionId, naturalLanguageQuery));
-    }
-    return responses;
-  }
-
-  private synchronized String setupTestQueries(String collectionId) {
-    ListTrainingDataOptions.Builder builder = new ListTrainingDataOptions.Builder(environmentId, collectionId);
-    if (discovery.listTrainingData(builder.build()).execute().getQueries().size() > 0) {
-      return collectionId;
-    }
-    List<TrainingQuery> queriesAccepted = createTestQueries(collectionId, 10);
-
-    WaitFor.Condition collectionAvailable =
-            new WaitForCollectionAvailable(environmentId, collectionId);
     WaitFor.waitFor(collectionAvailable, 5, TimeUnit.SECONDS, 500);
 
     return collectionId;
