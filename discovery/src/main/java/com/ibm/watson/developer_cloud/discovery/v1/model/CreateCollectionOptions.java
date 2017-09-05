@@ -21,7 +21,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateCollectionOptions extends GenericModel {
 
   /**
-   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language code.
+   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1
+   * language code.
    */
   public interface Language {
     /** en. */
@@ -193,7 +194,8 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language code.
+   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language
+   * code.
    *
    * @return the language
    */

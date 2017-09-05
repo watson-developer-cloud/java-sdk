@@ -18,7 +18,47 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.*;
+import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.AddTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteAllTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingQuery;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationType;
 import com.ibm.watson.developer_cloud.discovery.v1.query.Operator;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
@@ -66,13 +106,13 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
       "/v1/environments/mock_envid/collections/mock_collid/documents/mock_docid?version=" + VERSION;
   private static final String Q1_PATH =
       "/v1/environments/mock_envid/collections/mock_collid/query?version="
-      + VERSION
-      + "&filter=field:1"
-      + "&query=field:1&count=5&return=field&offset=5";
+          + VERSION
+          + "&filter=field:1"
+          + "&query=field:1&count=5&return=field&offset=5";
   private static final String Q2_PATH =
       "/v1/environments/mock_envid/collections/mock_collid/query?version="
-      + VERSION
-      + "&aggregation=term(field)";
+          + VERSION
+          + "&aggregation=term(field)";
   private static final String TRAINING1_PATH =
       "/v1/environments/mock_envid/collections/mock_collid/training_data?version=" + VERSION;
   private static final String TRAINING2_PATH =
@@ -81,7 +121,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
       "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid?version=" + VERSION;
   private static final String TRAINING4_PATH =
       "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples/mock_docid?version="
-      + VERSION;
+          + VERSION;
 
   private String environmentId;
   private String environmentName;
@@ -688,7 +728,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     MockResponse desiredResponse = new MockResponse().setResponseCode(204);
     server.enqueue(desiredResponse);
     DeleteTrainingExampleOptions.Builder builder =
-            new DeleteTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
+        new DeleteTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
     discoveryService.deleteTrainingExample(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
 

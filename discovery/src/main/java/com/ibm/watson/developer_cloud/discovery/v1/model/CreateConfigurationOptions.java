@@ -254,7 +254,8 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the normalizations.
    *
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are executed in the order that they appear in the array.
+   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
+   * executed in the order that they appear in the array.
    *
    * @return the normalizations
    */
