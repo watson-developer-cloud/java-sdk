@@ -12,10 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.Date;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+import java.util.Date;
 
 /**
  * A collection for storing documents.
@@ -26,11 +26,17 @@ public class Collection extends GenericModel {
    * The status of the collection.
    */
   public interface Status {
-    /** active. */
+    /**
+     * active.
+     */
     String ACTIVE = "active";
-    /** pending. */
+    /**
+     * pending.
+     */
     String PENDING = "pending";
-    /** maintenance. */
+    /**
+     * maintenance.
+     */
     String MAINTENANCE = "maintenance";
   }
 
@@ -143,8 +149,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the documentCounts.
    *
-   * The object providing information about the documents in the collection. Present only when retrieving details of a
-   * collection.
+   * The object providing information about the documents in the collection. Present only when retrieving details of
+   * a collection.
    *
    * @return the documentCounts
    */
@@ -155,8 +161,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the diskUsage.
    *
-   * The object providing information about the disk usage of the collection. Present only when retrieving details of a
-   * collection.
+   * The object providing information about the disk usage of the collection. Present only when retrieving details of
+   * a collection.
    *
    * @return the diskUsage
    */

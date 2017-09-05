@@ -12,13 +12,20 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.HashMap;
+import java.lang.reflect.Type;
 import java.util.Map;
+
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
  * QueryResult.
  */
-public class QueryResult extends HashMap<String, Object> {
+public class QueryResult extends DynamicModel {
+  private Type idType = new TypeToken<String>() { } .getType();
+  private Type scoreType = new TypeToken<Double>() { } .getType();
+  private Type metadataType = new TypeToken<Map>() { } .getType();
 
   /**
    * Gets the id.
@@ -26,25 +33,23 @@ public class QueryResult extends HashMap<String, Object> {
    * @return the id
    */
   public String getId() {
-    return (String) this.get("id");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("id"), idType);
   }
-
   /**
    * Gets the score.
    *
    * @return the score
    */
   public Double getScore() {
-    return (Double) this.get("score");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("score"), scoreType);
   }
-
   /**
    * Gets the metadata.
    *
    * @return the metadata
    */
   public Map getMetadata() {
-    return (Map) this.get("metadata");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
   }
 
   /**
@@ -74,3 +79,4 @@ public class QueryResult extends HashMap<String, Object> {
     this.put("metadata", metadata);
   }
 }
+
