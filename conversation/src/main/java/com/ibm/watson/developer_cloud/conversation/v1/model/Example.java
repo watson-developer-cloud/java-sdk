@@ -14,6 +14,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.Date;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -21,19 +22,20 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Example extends GenericModel {
 
-  private String text;
+  @SerializedName("text")
+  private String exampleText;
   private Date created;
   private Date updated;
 
   /**
-   * Gets the text.
+   * Gets the exampleText.
    *
    * The text of the example.
    *
-   * @return the text
+   * @return the exampleText
    */
-  public String getText() {
-    return text;
+  public String getExampleText() {
+    return exampleText;
   }
 
   /**
@@ -59,11 +61,11 @@ public class Example extends GenericModel {
   }
 
   /**
-   * Sets the text.
+   * Sets the exampleText.
    *
-   * @param text the new text
+   * @param exampleText the new exampleText
    */
-  public void setText(final String text) {
-    this.text = text;
+  public void setExampleText(final String exampleText) {
+    this.exampleText = exampleText;
   }
 }

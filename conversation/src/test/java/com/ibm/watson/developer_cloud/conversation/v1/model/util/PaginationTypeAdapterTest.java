@@ -35,13 +35,15 @@ public class PaginationTypeAdapterTest extends WatsonServiceUnitTest {
    * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
    */
   @Override
-  public void setUp() throws Exception { }
+  public void setUp() throws Exception {
+  }
 
   /* (non-Javadoc)
    * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#tearDown()
    */
   @Override
-  public void tearDown() throws IOException { }
+  public void tearDown() throws IOException {
+  }
 
   /**
    * Test parse type adapter.

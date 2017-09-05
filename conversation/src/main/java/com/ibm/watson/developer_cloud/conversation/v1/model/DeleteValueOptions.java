@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the deleteValue options.
+ * The deleteValue options.
  */
 public class DeleteValueOptions extends GenericModel {
 

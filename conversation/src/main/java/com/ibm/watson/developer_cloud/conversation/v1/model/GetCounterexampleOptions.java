@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the getCounterexample options.
+ * The getCounterexample options.
  */
 public class GetCounterexampleOptions extends GenericModel {
 
