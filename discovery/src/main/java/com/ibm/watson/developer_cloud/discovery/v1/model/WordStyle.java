@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class WordStyle extends GenericModel {
 
-  private Double level;
+  private Long level;
   private List<String> names;
 
   /**
@@ -29,7 +29,7 @@ public class WordStyle extends GenericModel {
    *
    * @return the level
    */
-  public Double getLevel() {
+  public Long getLevel() {
     return level;
   }
 
@@ -47,7 +47,7 @@ public class WordStyle extends GenericModel {
    *
    * @param level the new level
    */
-  public void setLevel(final Double level) {
+  public void setLevel(final long level) {
     this.level = level;
   }
 

@@ -19,24 +19,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createConfiguration options.
+ * The createConfiguration options.
  */
 public class CreateConfigurationOptions extends GenericModel {
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** The document conversion settings for the configuration. */
   private Conversions conversions;
-  /** The name of the configuration. */
   private String name;
-  /** The description of the configuration, if available. */
   private String description;
-  /**
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
-   */
   private List<NormalizationOperation> normalizations;
-  /** An array of document enrichment settings for the configuration. */
   private List<Enrichment> enrichments;
 
   /**
@@ -188,17 +179,17 @@ public class CreateConfigurationOptions extends GenericModel {
      * @return the CreateConfigurationOptions builder
      */
     public Builder configuration(Configuration configuration) {
-      this.conversions = configuration.getConversions();
-      this.name = configuration.getName();
-      this.description = configuration.getDescription();
-      this.normalizations = configuration.getNormalizations();
-      this.enrichments = configuration.getEnrichments();
+    this.conversions = configuration.getConversions();
+    this.name = configuration.getName();
+    this.description = configuration.getDescription();
+    this.normalizations = configuration.getNormalizations();
+    this.enrichments = configuration.getEnrichments();
       return this;
     }
   }
 
   private CreateConfigurationOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     environmentId = builder.environmentId;
     conversions = builder.conversions;
     name = builder.name;
@@ -219,6 +210,8 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -227,6 +220,8 @@ public class CreateConfigurationOptions extends GenericModel {
 
   /**
    * Gets the conversions.
+   *
+   * The document conversion settings for the configuration.
    *
    * @return the conversions
    */
@@ -237,6 +232,8 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the name.
    *
+   * The name of the configuration.
+   *
    * @return the name
    */
   public String name() {
@@ -245,6 +242,8 @@ public class CreateConfigurationOptions extends GenericModel {
 
   /**
    * Gets the description.
+   *
+   * The description of the configuration, if available.
    *
    * @return the description
    */
@@ -255,6 +254,8 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the normalizations.
    *
+   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are executed in the order that they appear in the array.
+   *
    * @return the normalizations
    */
   public List<NormalizationOperation> normalizations() {
@@ -263,6 +264,8 @@ public class CreateConfigurationOptions extends GenericModel {
 
   /**
    * Gets the enrichments.
+   *
+   * An array of document enrichment settings for the configuration.
    *
    * @return the enrichments
    */

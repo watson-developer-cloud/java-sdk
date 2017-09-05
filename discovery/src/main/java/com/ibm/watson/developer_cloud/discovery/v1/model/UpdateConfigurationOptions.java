@@ -19,26 +19,16 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateConfiguration options.
+ * The updateConfiguration options.
  */
 public class UpdateConfigurationOptions extends GenericModel {
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** the ID of your configuration. */
   private String configurationId;
-  /** The document conversion settings for the configuration. */
   private Conversions conversions;
-  /** The name of the configuration. */
   private String name;
-  /** The description of the configuration, if available. */
   private String description;
-  /**
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
-   */
   private List<NormalizationOperation> normalizations;
-  /** An array of document enrichment settings for the configuration. */
   private List<Enrichment> enrichments;
 
   /**
@@ -205,18 +195,18 @@ public class UpdateConfigurationOptions extends GenericModel {
      * @return the UpdateConfigurationOptions builder
      */
     public Builder configuration(Configuration configuration) {
-      this.conversions = configuration.getConversions();
-      this.name = configuration.getName();
-      this.description = configuration.getDescription();
-      this.normalizations = configuration.getNormalizations();
-      this.enrichments = configuration.getEnrichments();
+    this.conversions = configuration.getConversions();
+    this.name = configuration.getName();
+    this.description = configuration.getDescription();
+    this.normalizations = configuration.getNormalizations();
+    this.enrichments = configuration.getEnrichments();
       return this;
     }
   }
 
   private UpdateConfigurationOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
-    Validator.notNull(builder.configurationId, "configurationId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    Validator.notEmpty(builder.configurationId, "configurationId cannot be empty");
     environmentId = builder.environmentId;
     configurationId = builder.configurationId;
     conversions = builder.conversions;
@@ -238,6 +228,8 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -246,6 +238,8 @@ public class UpdateConfigurationOptions extends GenericModel {
 
   /**
    * Gets the configurationId.
+   *
+   * the ID of your configuration.
    *
    * @return the configurationId
    */
@@ -256,6 +250,8 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the conversions.
    *
+   * The document conversion settings for the configuration.
+   *
    * @return the conversions
    */
   public Conversions conversions() {
@@ -264,6 +260,8 @@ public class UpdateConfigurationOptions extends GenericModel {
 
   /**
    * Gets the name.
+   *
+   * The name of the configuration.
    *
    * @return the name
    */
@@ -274,6 +272,8 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the description.
    *
+   * The description of the configuration, if available.
+   *
    * @return the description
    */
   public String description() {
@@ -283,6 +283,8 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the normalizations.
    *
+   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are executed in the order that they appear in the array.
+   *
    * @return the normalizations
    */
   public List<NormalizationOperation> normalizations() {
@@ -291,6 +293,8 @@ public class UpdateConfigurationOptions extends GenericModel {
 
   /**
    * Gets the enrichments.
+   *
+   * An array of document enrichment settings for the configuration.
    *
    * @return the enrichments
    */

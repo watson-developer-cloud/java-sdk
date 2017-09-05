@@ -16,13 +16,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createCollection options.
+ * The createCollection options.
  */
 public class CreateCollectionOptions extends GenericModel {
 
   /**
-   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language
-   * code.
+   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language code.
    */
   public interface Language {
     /** en. */
@@ -33,18 +32,10 @@ public class CreateCollectionOptions extends GenericModel {
     String DE = "de";
   }
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** The name of the collection to be created. */
   private String name;
-  /** A description of the collection. */
   private String description;
-  /**
-   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language
-   * code.
-   */
   private String language;
-  /** The ID of the configuration in which the collection is to be created. */
   private String configurationId;
 
   /**
@@ -148,7 +139,7 @@ public class CreateCollectionOptions extends GenericModel {
   }
 
   private CreateCollectionOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notNull(builder.name, "name cannot be null");
     environmentId = builder.environmentId;
     name = builder.name;
@@ -169,6 +160,8 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -177,6 +170,8 @@ public class CreateCollectionOptions extends GenericModel {
 
   /**
    * Gets the name.
+   *
+   * The name of the collection to be created.
    *
    * @return the name
    */
@@ -187,6 +182,8 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the description.
    *
+   * A description of the collection.
+   *
    * @return the description
    */
   public String description() {
@@ -196,6 +193,8 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the language.
    *
+   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language code.
+   *
    * @return the language
    */
   public String language() {
@@ -204,6 +203,8 @@ public class CreateCollectionOptions extends GenericModel {
 
   /**
    * Gets the configurationId.
+   *
+   * The ID of the configuration in which the collection is to be created.
    *
    * @return the configurationId
    */

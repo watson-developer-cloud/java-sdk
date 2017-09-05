@@ -16,13 +16,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listCollectionFields options.
+ * The listCollectionFields options.
  */
 public class ListCollectionFieldsOptions extends GenericModel {
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** the ID of your collection. */
   private String collectionId;
 
   /**
@@ -87,8 +85,8 @@ public class ListCollectionFieldsOptions extends GenericModel {
   }
 
   private ListCollectionFieldsOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
-    Validator.notNull(builder.collectionId, "collectionId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
   }
@@ -105,6 +103,8 @@ public class ListCollectionFieldsOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -113,6 +113,8 @@ public class ListCollectionFieldsOptions extends GenericModel {
 
   /**
    * Gets the collectionId.
+   *
+   * the ID of your collection.
    *
    * @return the collectionId
    */

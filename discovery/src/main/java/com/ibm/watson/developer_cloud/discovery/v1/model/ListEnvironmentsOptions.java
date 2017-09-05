@@ -15,11 +15,10 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * the listEnvironments options.
+ * The listEnvironments options.
  */
 public class ListEnvironmentsOptions extends GenericModel {
 
-  /** Show only the environment with the given name. */
   private String name;
 
   /**
@@ -74,6 +73,8 @@ public class ListEnvironmentsOptions extends GenericModel {
 
   /**
    * Gets the name.
+   *
+   * Show only the environment with the given name.
    *
    * @return the name
    */

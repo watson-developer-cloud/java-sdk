@@ -21,11 +21,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ListEnvironmentsResponse extends GenericModel {
 
-  /** An array of [environments] that are available for the service instance. */
   private List<Environment> environments;
 
   /**
    * Gets the environments.
+   *
+   * An array of [environments] that are available for the service instance.
    *
    * @return the environments
    */

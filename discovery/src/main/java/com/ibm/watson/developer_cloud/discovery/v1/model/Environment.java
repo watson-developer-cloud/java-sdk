@@ -30,32 +30,27 @@ public class Environment extends GenericModel {
     String ACTIVE = "active";
     /** pending. */
     String PENDING = "pending";
+    /** maintenance. */
+    String MAINTENANCE = "maintenance";
   }
 
-  /** Unique identifier for this environment. */
   @SerializedName("environment_id")
   private String environmentId;
-  /** Name that identifies this environment. */
   private String name;
-  /** Description of the environment. */
   private String description;
-  /** Creation date of the environment, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
   private Date created;
-  /** Date of most recent environment update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
   private Date updated;
-  /** Status of the environment. */
   private String status;
-  /** If true, then the environment contains read-only collections which are maintained by IBM. */
   @SerializedName("read_only")
   private Boolean readOnly;
-  /** Size of the environment. */
   private Long size;
-  /** Object containing information about disk and memory usage. */
   @SerializedName("index_capacity")
   private IndexCapacity indexCapacity;
 
   /**
    * Gets the environmentId.
+   *
+   * Unique identifier for the environment.
    *
    * @return the environmentId
    */
@@ -66,6 +61,8 @@ public class Environment extends GenericModel {
   /**
    * Gets the name.
    *
+   * Name that identifies the environment.
+   *
    * @return the name
    */
   public String getName() {
@@ -74,6 +71,8 @@ public class Environment extends GenericModel {
 
   /**
    * Gets the description.
+   *
+   * Description of the environment.
    *
    * @return the description
    */
@@ -84,6 +83,8 @@ public class Environment extends GenericModel {
   /**
    * Gets the created.
    *
+   * Creation date of the environment, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   *
    * @return the created
    */
   public Date getCreated() {
@@ -92,6 +93,8 @@ public class Environment extends GenericModel {
 
   /**
    * Gets the updated.
+   *
+   * Date of most recent environment update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the updated
    */
@@ -102,6 +105,8 @@ public class Environment extends GenericModel {
   /**
    * Gets the status.
    *
+   * Status of the environment.
+   *
    * @return the status
    */
   public String getStatus() {
@@ -110,6 +115,8 @@ public class Environment extends GenericModel {
 
   /**
    * Gets the readOnly.
+   *
+   * If true, then the environment contains read-only collections which are maintained by IBM.
    *
    * @return the readOnly
    */
@@ -120,6 +127,8 @@ public class Environment extends GenericModel {
   /**
    * Gets the size.
    *
+   * **Deprecated**: Size of the environment.
+   *
    * @return the size
    */
   public Long getSize() {
@@ -128,6 +137,8 @@ public class Environment extends GenericModel {
 
   /**
    * Gets the indexCapacity.
+   *
+   * Details about the resource usage and capacity of the environment.
    *
    * @return the indexCapacity
    */
@@ -158,7 +169,7 @@ public class Environment extends GenericModel {
    *
    * @param size the new size
    */
-  public void setSize(final Long size) {
+  public void setSize(final long size) {
     this.size = size;
   }
 

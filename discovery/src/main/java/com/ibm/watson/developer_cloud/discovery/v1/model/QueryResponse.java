@@ -26,6 +26,7 @@ public class QueryResponse extends GenericModel {
   private Long matchingResults;
   private List<QueryResult> results;
   private List<QueryAggregation> aggregations;
+  private List<QueryPassages> passages;
 
   /**
    * Gets the matchingResults.
@@ -55,11 +56,20 @@ public class QueryResponse extends GenericModel {
   }
 
   /**
+   * Gets the passages.
+   *
+   * @return the passages
+   */
+  public List<QueryPassages> getPassages() {
+    return passages;
+  }
+
+  /**
    * Sets the matchingResults.
    *
    * @param matchingResults the new matchingResults
    */
-  public void setMatchingResults(final Long matchingResults) {
+  public void setMatchingResults(final long matchingResults) {
     this.matchingResults = matchingResults;
   }
 
@@ -79,5 +89,14 @@ public class QueryResponse extends GenericModel {
    */
   public void setAggregations(final List<QueryAggregation> aggregations) {
     this.aggregations = aggregations;
+  }
+
+  /**
+   * Sets the passages.
+   *
+   * @param passages the new passages
+   */
+  public void setPassages(final List<QueryPassages> passages) {
+    this.passages = passages;
   }
 }

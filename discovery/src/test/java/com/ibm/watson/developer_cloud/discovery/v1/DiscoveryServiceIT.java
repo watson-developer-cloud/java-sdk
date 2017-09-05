@@ -17,6 +17,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.AggregationResult;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Conversions;
@@ -51,6 +52,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.QueryAggregation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryPassages;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResult;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestConfigurationInEnvironmentOptions;
@@ -78,9 +80,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -110,6 +114,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String DISCOVERY1_TEST_CONFIG_FILE = "src/test/resources/discovery/issue517.json";
   private static final String DISCOVERY2_TEST_CONFIG_FILE = "src/test/resources/discovery/issue518.json";
+  private static final String PASSAGES_TEST_FILE_1 = "src/test/resources/discovery/passages_test_doc_1.json";
+  private static final String PASSAGES_TEST_FILE_2 = "src/test/resources/discovery/passages_test_doc_2.json";
   private static String environmentId;
   private static String collectionId;
   private Discovery discovery;
@@ -841,7 +847,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     UpdateDocumentOptions.Builder updateBuilder =
         new UpdateDocumentOptions.Builder(environmentId, collectionId, documentAccepted.getDocumentId());
     updateBuilder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
-    updateBuilder.configurationId(testConfig.getConfigurationId());
+    //updateBuilder.configurationId(testConfig.getConfigurationId());
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
     GetDocumentStatusOptions getOptions =
@@ -991,8 +997,8 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     queryBuilder.sort("field");
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
     assertTrue(queryResponse.getResults().size() > 1);
-    Double v0 = (Double) ((QueryResult) queryResponse.getResults().get(0)).get("field");
-    Double v1 = (Double) ((QueryResult) queryResponse.getResults().get(1)).get("field");
+    Double v0 = (Double) (queryResponse.getResults().get(0)).get("field");
+    Double v1 = (Double) (queryResponse.getResults().get(1)).get("field");
     assertTrue(v0 <= v1);
   }
 
@@ -1033,9 +1039,9 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation term = (QueryAggregation) queryResponse.getAggregations().get(0);
-    Map<String, Object> agResults = ((Map<String, Object>) term.getResults().get(0));
-    List<Object> aggregations = (List<Object>) agResults.get("aggregations");
+    QueryAggregation term = queryResponse.getAggregations().get(0);
+    AggregationResult agResults = term.getResults().get(0);
+    List<QueryAggregation> aggregations = agResults.getAggregations();
     assertFalse(aggregations.isEmpty());
   }
 
@@ -1054,7 +1060,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation histogram = (QueryAggregation) queryResponse.getAggregations().get(0);
+    QueryAggregation histogram = queryResponse.getAggregations().get(0);
     Long interval = ((Double) histogram.get("interval")).longValue();
     assertEquals(new Long(5), interval);
     assertEquals(2, histogram.getResults().size());
@@ -1073,7 +1079,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation max = (QueryAggregation) queryResponse.getAggregations().get(0);
+    QueryAggregation max = queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MAX.getName(), max.getType());
     assertEquals(new Double(9), max.get("value"));
   }
@@ -1091,7 +1097,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation min = (QueryAggregation) queryResponse.getAggregations().get(0);
+    QueryAggregation min = queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.MIN.getName(), min.getType());
     assertEquals(new Double(0), min.get("value"));
   }
@@ -1109,7 +1115,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation sum = (QueryAggregation) queryResponse.getAggregations().get(0);
+    QueryAggregation sum = queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.SUM.getName(), sum.getType());
     assertEquals(new Double(45), sum.get("value"));
   }
@@ -1127,9 +1133,27 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     String aggregation = sb.toString();
     queryBuilder.aggregation(aggregation);
     QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
-    QueryAggregation avg = (QueryAggregation) queryResponse.getAggregations().get(0);
+    QueryAggregation avg = queryResponse.getAggregations().get(0);
     assertEquals(AggregationType.AVERAGE.getName(), avg.getType());
     assertEquals(new Double(4.5), avg.get("value"));
+  }
+
+  @Test
+  public void queryWithPassagesIsSuccessful() throws InterruptedException, FileNotFoundException {
+    Collection testCollection = createTestCollection();
+    String collectionId = testCollection.getCollectionId();
+    createTestDocument(getStringFromInputStream(new FileInputStream(PASSAGES_TEST_FILE_1)), collectionId);
+    createTestDocument(getStringFromInputStream(new FileInputStream(PASSAGES_TEST_FILE_2)), collectionId);
+
+    QueryOptions.Builder queryBuilder = new QueryOptions.Builder(environmentId, collectionId);
+    queryBuilder.passages(true);
+    queryBuilder.naturalLanguageQuery("Watson");
+    QueryResponse queryResponse = discovery.query(queryBuilder.build()).execute();
+    List<QueryPassages> passages = queryResponse.getPassages();
+    assertTrue(passages.size() > 0);
+    for (QueryPassages passage : passages) {
+      assertTrue(passage.getPassageText().contains("Watson"));
+    }
   }
 
   // queryNotices tests
