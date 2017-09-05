@@ -27,7 +27,7 @@ public class CreateEntity extends GenericModel {
 
   private String entity;
   private String description;
-  private Map<String, Object> metadata;
+  private Map metadata;
   private List<CreateValue> values;
   @SerializedName("fuzzy_match")
   private Boolean fuzzyMatch;
@@ -38,7 +38,7 @@ public class CreateEntity extends GenericModel {
   public static class Builder {
     private String entity;
     private String description;
-    private Map<String, Object> metadata;
+    private Map metadata;
     private List<CreateValue> values;
     private Boolean fuzzyMatch;
 
@@ -117,7 +117,7 @@ public class CreateEntity extends GenericModel {
      * @param metadata the metadata
      * @return the CreateEntity builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(Map metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -193,7 +193,7 @@ public class CreateEntity extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> metadata() {
+  public Map metadata() {
     return metadata;
   }
 
