@@ -131,8 +131,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language of the documents stored in the collection. Permitted values include `en_us` (U.S. English), `de`
-   * (German), and `es` (Spanish).
+   * The language of the documents stored in the collection. Permitted values include `en_us` (U.S. English),
+   * `de` (German), and `es` (Spanish).
    *
    * @return the language
    */
@@ -143,8 +143,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the documentCounts.
    *
-   * The object providing information about the documents in the collection. Present only when retrieving details of a
-   * collection.
+   * The object providing information about the documents in the collection. Present only when retrieving details of
+   * a collection.
    *
    * @return the documentCounts
    */
@@ -155,8 +155,8 @@ public class Collection extends GenericModel {
   /**
    * Gets the diskUsage.
    *
-   * The object providing information about the disk usage of the collection. Present only when retrieving details of a
-   * collection.
+   * The object providing information about the disk usage of the collection. Present only when retrieving details
+   * of a collection.
    *
    * @return the diskUsage
    */

@@ -12,13 +12,25 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.HashMap;
+import java.lang.reflect.Type;
 import java.util.List;
+
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
  * An aggregation produced by the Discovery service to analyze the input provided.
  */
-public class QueryAggregation extends HashMap<String, Object> {
+public class QueryAggregation extends DynamicModel {
+  private Type typeType = new TypeToken<String>() { } .getType();
+  private Type fieldType = new TypeToken<String>() { } .getType();
+  private Type resultsType = new TypeToken<List<AggregationResult>>() { } .getType();
+  private Type matchType = new TypeToken<String>() { } .getType();
+  private Type matchingResultsType = new TypeToken<Long>() { } .getType();
+  private Type aggregationsType = new TypeToken<List<QueryAggregation>>() { } .getType();
+  private Type intervalType = new TypeToken<Long>() { } .getType();
+  private Type valueType = new TypeToken<Double>() { } .getType();
 
   /**
    * Gets the type.
@@ -26,70 +38,63 @@ public class QueryAggregation extends HashMap<String, Object> {
    * @return the type
    */
   public String getType() {
-    return (String) this.get("type");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("type"), typeType);
   }
-
   /**
    * Gets the field.
    *
    * @return the field
    */
   public String getField() {
-    return (String) this.get("field");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("field"), fieldType);
   }
-
   /**
    * Gets the results.
    *
    * @return the results
    */
   public List<AggregationResult> getResults() {
-    return (List<AggregationResult>) this.get("results");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("results"), resultsType);
   }
-
   /**
    * Gets the match.
    *
    * @return the match
    */
   public String getMatch() {
-    return (String) this.get("match");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("match"), matchType);
   }
-
   /**
    * Gets the matchingResults.
    *
    * @return the matchingResults
    */
   public Long getMatchingResults() {
-    return (Long) this.get("matchingResults");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("matchingResults"), matchingResultsType);
   }
-
   /**
    * Gets the aggregations.
    *
    * @return the aggregations
    */
   public List<QueryAggregation> getAggregations() {
-    return (List<QueryAggregation>) this.get("aggregations");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("aggregations"), aggregationsType);
   }
-
   /**
    * Gets the interval.
    *
    * @return the interval
    */
   public Long getInterval() {
-    return (Long) this.get("interval");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("interval"), intervalType);
   }
-
   /**
    * Gets the value.
    *
    * @return the value
    */
   public Double getValue() {
-    return (Double) this.get("value");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("value"), valueType);
   }
 
   /**
@@ -164,3 +169,4 @@ public class QueryAggregation extends HashMap<String, Object> {
     this.put("value", value);
   }
 }
+

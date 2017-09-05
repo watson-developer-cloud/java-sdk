@@ -20,10 +20,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class EnrichmentOptions extends GenericModel {
 
   /**
-   * If provided, then do not attempt to detect the language of the input document. Instead, assume the language is the
-   * one specified in this field. You can set this property to work around `unsupported-text-language` errors. Supported
-   * languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish. Supported language
-   * codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language (e.g. "russian").
+   * If provided, then do not attempt to detect the language of the input document. Instead, assume the language is
+   * the one specified in this field.  You can set this property to work around `unsupported-text-language` errors.
+   * Supported languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish. Supported
+   * language codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language
+   * (e.g. "russian").
    */
   public interface Language {
     /** english. */
@@ -91,9 +92,16 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the extract.
    *
-   * A comma-separated list of analyses that should be applied when using the `alchemy_language` enrichment. See the the
-   * service documentation for details on each extract option. Possible values include: * entity * keyword * taxonomy *
-   * concept * relation * doc-sentiment * doc-emotion * typed-rels.
+   * A comma-separated list of analyses that should be applied when using the `alchemy_language` enrichment. See the
+   * the service documentation for details on each extract option.  Possible values include:
+   * * entity
+   * * keyword
+   * * taxonomy
+   * * concept
+   * * relation
+   * * doc-sentiment
+   * * doc-emotion
+   * * typed-rels.
    *
    * @return the extract
    */
@@ -140,8 +148,8 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * Required when using the `typed-rel` extract option. Should be set to the ID of a previously published custom Watson
-   * Knowledge Studio model.
+   * Required when using the `typed-rel` extract option. Should be set to the ID of a previously published custom
+   * Watson Knowledge Studio model.
    *
    * @return the model
    */
@@ -152,10 +160,11 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * If provided, then do not attempt to detect the language of the input document. Instead, assume the language is the
-   * one specified in this field. You can set this property to work around `unsupported-text-language` errors. Supported
-   * languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish. Supported language
-   * codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language (e.g. "russian").
+   * If provided, then do not attempt to detect the language of the input document. Instead, assume the language is
+   * the one specified in this field.  You can set this property to work around `unsupported-text-language` errors.
+   * Supported languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish. Supported
+   * language codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language
+   * (e.g. "russian").
    *
    * @return the language
    */
