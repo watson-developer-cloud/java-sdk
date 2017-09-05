@@ -31,7 +31,8 @@ public class AddDocumentOptions extends GenericModel {
     /** application/msword. */
     String APPLICATION_MSWORD = "application/msword";
     /** application/vnd.openxmlformats-officedocument.wordprocessingml.document. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT
+        = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
     /** application/pdf. */
     String APPLICATION_PDF = "application/pdf";
     /** text/html. */
@@ -205,7 +206,8 @@ public class AddDocumentOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided (both are present at the same time), then request will be rejected.
+   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided
+   * (both are present at the same time), then request will be rejected.
    *
    * @return the configurationId
    */
@@ -216,7 +218,8 @@ public class AddDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than 50 megabytes is rejected.
+   * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than
+   * 50 megabytes is rejected.
    *
    * @return the file
    */
@@ -238,7 +241,9 @@ public class AddDocumentOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are rejected. Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
+   * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
+   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than
+   * 1 MB are rejected. Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
    *
    * @return the metadata
    */

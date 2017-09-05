@@ -339,7 +339,9 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable query that limits the documents returned to exclude any documents that don't mention the query content. Filter searches are better for metadata type searches and when you are trying to get a sense of concepts in the data set.
+   * A cacheable query that limits the documents returned to exclude any documents that don't mention the query
+   * content. Filter searches are better for metadata type searches and when you are trying to get a sense of
+   * concepts in the data set.
    *
    * @return the filter
    */
@@ -350,7 +352,9 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the query.
    *
-   * A query search returns all documents in your data set with full enrichments and full text, but with the most relevant documents listed first. Use a query search when you want to find the most relevant search results. You cannot use `natural_language_query` and `query` at the same time.
+   * A query search returns all documents in your data set with full enrichments and full text, but with the most
+   * relevant documents listed first. Use a query search when you want to find the most relevant search results.
+   * You cannot use `natural_language_query` and `query` at the same time.
    *
    * @return the query
    */
@@ -361,7 +365,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the naturalLanguageQuery.
    *
-   * A natural language query that returns relevant documents by utilizing training data and natural language understanding. You cannot use `natural_language_query` and `query` at the same time.
+   * A natural language query that returns relevant documents by utilizing training data and natural language
+   * understanding. You cannot use `natural_language_query` and `query` at the same time.
    *
    * @return the naturalLanguageQuery
    */
@@ -383,7 +388,9 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the aggregation.
    *
-   * An aggregation search uses combinations of filters and query search to return an exact answer. Aggregations are useful for building applications, because you can use them to build lists, tables, and time series. For a full list of possible aggregrations, see the Query reference.
+   * An aggregation search uses combinations of filters and query search to return an exact answer. Aggregations are
+   * useful for building applications, because you can use them to build lists, tables, and time series. For a full
+   * list of possible aggregrations, see the Query reference.
    *
    * @return the aggregation
    */
@@ -416,7 +423,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the offset.
    *
-   * The number of query results to skip at the beginning. For example, if the total number of results that are returned is 10, and the offset is 8, it returns the last two results.
+   * The number of query results to skip at the beginning. For example, if the total number of results that are
+   * returned is 10, and the offset is 8, it returns the last two results.
    *
    * @return the offset
    */
@@ -427,7 +435,9 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * A comma separated list of fields in the document to sort on. You can optionally specify a sort direction by prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no prefix is specified.
+   * A comma separated list of fields in the document to sort on. You can optionally specify a sort direction by
+   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if
+   * no prefix is specified.
    *
    * @return the sort
    */
@@ -438,7 +448,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the highlight.
    *
-   * When true a highlight field is returned for each result which contains the fields that match the query with `<em></em>` tags around the matching query terms. Defaults to false.
+   * When true a highlight field is returned for each result which contains the fields that match the query with
+   * `<em></em>` tags around the matching query terms. Defaults to false.
    *
    * @return the highlight
    */
@@ -449,7 +460,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the passagesFields.
    *
-   * A comma-separated list of fields that passages are drawn from. If this parameter not specified then all top level field are included.
+   * A comma-separated list of fields that passages are drawn from. If this parameter not specified then all top
+   * level field are included.
    *
    * @return the passagesFields
    */
@@ -460,7 +472,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the passagesCount.
    *
-   * The maximum number of passages to return. The search returns fewer passages if the requested total is not found.. The default is <tt>10</tt>. The maximum is <tt>100</tt>.
+   * The maximum number of passages to return. The search returns fewer passages if the requested total is not
+   * found.. The default is <tt>10</tt>. The maximum is <tt>100</tt>.
    *
    * @return the passagesCount
    */
@@ -471,7 +484,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the passagesCharacters.
    *
-   * The approximate number of characters that any one passage will have. The default is <tt>400</tt>. The minimum is <tt>50</tt>. The maximum is <tt>2000</tt>.
+   * The approximate number of characters that any one passage will have. The default is <tt>400</tt>. The minimum
+   * is <tt>50</tt>. The maximum is <tt>2000</tt>.
    *
    * @return the passagesCharacters
    */
