@@ -25,11 +25,17 @@ public class CreateCollectionOptions extends GenericModel {
    * code.
    */
   public interface Language {
-    /** en. */
+    /**
+     * en.
+     */
     String EN = "en";
-    /** es. */
+    /**
+     * es.
+     */
     String ES = "es";
-    /** de. */
+    /**
+     * de.
+     */
     String DE = "de";
   }
 
@@ -67,7 +73,7 @@ public class CreateCollectionOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param environmentId the environmentId
-     * @param name the name
+     * @param name          the name
      */
     public Builder(String environmentId, String name) {
       this.environmentId = environmentId;

@@ -12,11 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The createConfiguration options.
@@ -75,32 +75,32 @@ public class CreateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Adds an normalizations to normalizations.
+     * Adds an normalization to normalizations.
      *
-     * @param normalizations the new normalizations
+     * @param normalization the new normalization
      * @return the CreateConfigurationOptions builder
      */
-    public Builder addNormalizations(NormalizationOperation normalizations) {
-      Validator.notNull(normalizations, "normalizations cannot be null");
+    public Builder addNormalization(NormalizationOperation normalization) {
+      Validator.notNull(normalization, "normalization cannot be null");
       if (this.normalizations == null) {
         this.normalizations = new ArrayList<NormalizationOperation>();
       }
-      this.normalizations.add(normalizations);
+      this.normalizations.add(normalization);
       return this;
     }
 
     /**
-     * Adds an enrichments to enrichments.
+     * Adds an enrichment to enrichments.
      *
-     * @param enrichments the new enrichments
+     * @param enrichment the new enrichment
      * @return the CreateConfigurationOptions builder
      */
-    public Builder addEnrichments(Enrichment enrichments) {
-      Validator.notNull(enrichments, "enrichments cannot be null");
+    public Builder addEnrichment(Enrichment enrichment) {
+      Validator.notNull(enrichment, "enrichment cannot be null");
       if (this.enrichments == null) {
         this.enrichments = new ArrayList<Enrichment>();
       }
-      this.enrichments.add(enrichments);
+      this.enrichments.add(enrichment);
       return this;
     }
 
