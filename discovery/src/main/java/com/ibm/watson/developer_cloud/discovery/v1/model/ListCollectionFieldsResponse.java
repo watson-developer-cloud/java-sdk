@@ -17,12 +17,7 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The list of fetched fields. The fields are returned using a fully-qualified name format, however, the format differs
- * slightly from that used by the query operations. Specifically: * fields which contain nested JSON objects are
- * assigned a type of "nested". * fields which belong to a nested object are prefixed with `.properties` (e.g.,
- * `warnings.properties.severity` means that the `warnings` object has a property called `severity`). * fields returned
- * from the News collection are prefixed with `v[N]-fullnews-t3-[YEAR].mappings` (e.g.,
- * `v5-fullnews-t3-2016.mappings.text.properties.author`).
+ * The list of fetched fields.  The fields are returned using a fully-qualified name format, however, the format differs slightly from that used by the query operations. Specifically:      * fields which contain nested JSON objects are assigned a type of "nested".      * fields which belong to a nested object are prefixed with `.properties` (e.g., `warnings.properties.severity` means that the `warnings` object has a property called `severity`).      * fields returned from the News collection are prefixed with `v[N]-fullnews-t3-[YEAR].mappings` (e.g., `v5-fullnews-t3-2016.mappings.text.properties.author`).
  */
 public class ListCollectionFieldsResponse extends GenericModel {
 

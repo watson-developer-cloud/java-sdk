@@ -46,8 +46,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the noticeId.
    *
-   * Identifies the notice. Many notices may have the same ID. This field exists so that user applications can
-   * programmatically identify a notice and take automatic corrective action.
+   * Identifies the notice. Many notices may have the same ID. This field exists so that user applications can programmatically identify a notice and take automatic corrective action.
    *
    * @return the noticeId
    */

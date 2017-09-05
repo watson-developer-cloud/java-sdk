@@ -64,8 +64,7 @@ public class Conversions extends GenericModel {
   /**
    * Gets the jsonNormalizations.
    *
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
+   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are executed in the order that they appear in the array.
    *
    * @return the jsonNormalizations
    */
