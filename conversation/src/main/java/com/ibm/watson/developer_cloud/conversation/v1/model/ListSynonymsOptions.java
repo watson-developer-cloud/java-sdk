@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listSynonyms options.
+ * The listSynonyms options.
  */
 public class ListSynonymsOptions extends GenericModel {
 

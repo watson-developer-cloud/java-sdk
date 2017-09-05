@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.language_translator.v2.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * the listModels options.
+ * The listModels options.
  */
 public class ListModelsOptions extends GenericModel {
 
