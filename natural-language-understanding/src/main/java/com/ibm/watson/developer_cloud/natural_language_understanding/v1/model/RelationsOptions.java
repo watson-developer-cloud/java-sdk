@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class RelationsOptions extends GenericModel {
 
-  /** Enter a custom model ID to override the default model. */
   private String model;
 
   /**
@@ -74,6 +73,8 @@ public class RelationsOptions extends GenericModel {
 
   /**
    * Gets the model.
+   *
+   * Enter a custom model ID to override the default model.
    *
    * @return the model
    */

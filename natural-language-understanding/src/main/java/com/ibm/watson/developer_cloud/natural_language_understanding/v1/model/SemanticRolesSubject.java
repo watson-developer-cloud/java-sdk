@@ -21,13 +21,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SemanticRolesSubject extends GenericModel {
 
-  /** Text that corresponds to the subject role. */
   private String text;
   private List<SemanticRolesEntity> entities;
   private List<SemanticRolesKeyword> keywords;
 
   /**
    * Gets the text.
+   *
+   * Text that corresponds to the subject role.
    *
    * @return the text
    */
