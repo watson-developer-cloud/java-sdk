@@ -180,6 +180,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    * @throws IOException Signals that an I/O exception has occurred.
    */
   @Test
+  @Ignore
   public void testCollections() throws InterruptedException, IOException {
     Collection collection = service.createCollection("it-java-sdk").execute();
     try {
