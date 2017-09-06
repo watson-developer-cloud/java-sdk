@@ -525,4 +525,29 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
       assertTrue(result.getDisambiguation().getSubtype().size() > 0);
     }
   }
+
+  /**
+   * Analyze text while setting a character limit on the analyzed passage.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void analyzeTextWithCharacterLimitIsSuccessful() throws Exception {
+    String text = "But I believe this thinking is wrong. I believe the road of true democracy remains the better path."
+        + " I believe that in the 21st century, economies can only grow to a certain point until they need to open up"
+        + " -- because entrepreneurs need to access information in order to invent; young people need a global"
+        + " education in order to thrive; independent media needs to check the abuses of power.";
+
+    Long characterLimit = 10L;
+    Features features = new Features.Builder().categories(new CategoriesOptions()).build();
+    AnalyzeOptions parameters =
+        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
+            .limitTextCharacters(characterLimit).build();
+
+    AnalysisResults results = service.analyze(parameters).execute();
+
+    assertNotNull(results);
+    assertNotNull(results.getAnalyzedText());
+    assertTrue(results.getAnalyzedText().length() == characterLimit);
+  }
 }

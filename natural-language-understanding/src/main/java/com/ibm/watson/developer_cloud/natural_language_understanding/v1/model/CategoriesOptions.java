@@ -12,10 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
-import java.util.HashMap;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 
 /**
- * The hierarchical 5-level taxonomy the content is categorized into.
- */
-public class CategoriesOptions extends HashMap<String, Object> {
+* The hierarchical 5-level taxonomy the content is categorized into.
+*/
+public class CategoriesOptions extends DynamicModel {
+
 }
+
