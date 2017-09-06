@@ -22,16 +22,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class MetadataResult extends GenericModel {
 
-  /** The authors of the document. */
   private List<Author> authors;
-  /** The publication date in the format ISO 8601. */
   @SerializedName("publication_date")
   private String publicationDate;
-  /** The title of the document. */
   private String title;
 
   /**
    * Gets the authors.
+   *
+   * The authors of the document.
    *
    * @return the authors
    */
@@ -42,6 +41,8 @@ public class MetadataResult extends GenericModel {
   /**
    * Gets the publicationDate.
    *
+   * The publication date in the format ISO 8601.
+   *
    * @return the publicationDate
    */
   public String getPublicationDate() {
@@ -50,6 +51,8 @@ public class MetadataResult extends GenericModel {
 
   /**
    * Gets the title.
+   *
+   * The title of the document.
    *
    * @return the title
    */

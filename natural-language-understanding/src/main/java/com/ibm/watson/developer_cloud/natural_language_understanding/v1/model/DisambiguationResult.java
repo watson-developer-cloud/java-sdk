@@ -22,15 +22,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class DisambiguationResult extends GenericModel {
 
-  /** Common entity name. */
   private String name;
   @SerializedName("dbpedia_resource")
   private String dbpediaResource;
-  /** Entity subtype information. */
   private List<String> subtype;
 
   /**
    * Gets the name.
+   *
+   * Common entity name.
    *
    * @return the name
    */
@@ -41,6 +41,8 @@ public class DisambiguationResult extends GenericModel {
   /**
    * Gets the dbpediaResource.
    *
+   * Link to the corresponding DBpedia resource.
+   *
    * @return the dbpediaResource
    */
   public String getDbpediaResource() {
@@ -49,6 +51,8 @@ public class DisambiguationResult extends GenericModel {
 
   /**
    * Gets the subtype.
+   *
+   * Entity subtype information.
    *
    * @return the subtype
    */

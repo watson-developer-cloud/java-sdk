@@ -19,13 +19,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class RelationEntity extends GenericModel {
 
-  /** Text that corresponds to the entity. */
   private String text;
-  /** Entity type. */
   private String type;
 
   /**
    * Gets the text.
+   *
+   * Text that corresponds to the entity.
    *
    * @return the text
    */
@@ -35,6 +35,8 @@ public class RelationEntity extends GenericModel {
 
   /**
    * Gets the type.
+   *
+   * Entity type.
    *
    * @return the type
    */

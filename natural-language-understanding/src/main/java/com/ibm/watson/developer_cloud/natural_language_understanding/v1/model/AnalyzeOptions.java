@@ -15,27 +15,19 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * the analyze options.
+ * The analyze options.
  */
 public class AnalyzeOptions extends GenericModel {
 
-  /** Specific features to analyze the document for. */
   private Features features;
-  /** XPath query for targeting nodes in HTML. */
   private String xpath;
-  /** Whether or not to return the analyzed text. */
   private Boolean returnAnalyzedText;
-  /** ISO 639-1 code indicating the language to use in the analysis. */
   private String language;
-  /** The HTML file to analyze. */
   private String html;
-  /** The plain text to analyze. */
   private String text;
-  /** Remove website elements, such as links, ads, etc. */
+  private Long limitTextCharacters;
   private Boolean clean;
-  /** The web page to analyze. */
   private String url;
-  /** Whether to use raw HTML content if text cleaning fails. */
   private Boolean fallbackToRaw;
 
   /**
@@ -48,6 +40,7 @@ public class AnalyzeOptions extends GenericModel {
     private String language;
     private String html;
     private String text;
+    private Long limitTextCharacters;
     private Boolean clean;
     private String url;
     private Boolean fallbackToRaw;
@@ -59,6 +52,7 @@ public class AnalyzeOptions extends GenericModel {
       language = analyzeOptions.language;
       html = analyzeOptions.html;
       text = analyzeOptions.text;
+      limitTextCharacters = analyzeOptions.limitTextCharacters;
       clean = analyzeOptions.clean;
       url = analyzeOptions.url;
       fallbackToRaw = analyzeOptions.fallbackToRaw;
@@ -146,6 +140,17 @@ public class AnalyzeOptions extends GenericModel {
     }
 
     /**
+     * Set the limitTextCharacters.
+     *
+     * @param limitTextCharacters the limitTextCharacters
+     * @return the AnalyzeOptions builder
+     */
+    public Builder limitTextCharacters(long limitTextCharacters) {
+      this.limitTextCharacters = limitTextCharacters;
+      return this;
+    }
+
+    /**
      * Set the clean.
      *
      * @param clean the clean
@@ -186,6 +191,7 @@ public class AnalyzeOptions extends GenericModel {
     language = builder.language;
     html = builder.html;
     text = builder.text;
+    limitTextCharacters = builder.limitTextCharacters;
     clean = builder.clean;
     url = builder.url;
     fallbackToRaw = builder.fallbackToRaw;
@@ -203,6 +209,8 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the features.
    *
+   * Specific features to analyze the document for.
+   *
    * @return the features
    */
   public Features features() {
@@ -211,6 +219,8 @@ public class AnalyzeOptions extends GenericModel {
 
   /**
    * Gets the xpath.
+   *
+   * XPath query for targeting nodes in HTML.
    *
    * @return the xpath
    */
@@ -221,6 +231,8 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the returnAnalyzedText.
    *
+   * Whether or not to return the analyzed text.
+   *
    * @return the returnAnalyzedText
    */
   public Boolean returnAnalyzedText() {
@@ -229,6 +241,8 @@ public class AnalyzeOptions extends GenericModel {
 
   /**
    * Gets the language.
+   *
+   * ISO 639-1 code indicating the language to use in the analysis.
    *
    * @return the language
    */
@@ -239,6 +253,8 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the html.
    *
+   * The HTML file to analyze.
+   *
    * @return the html
    */
   public String html() {
@@ -248,6 +264,8 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the text.
    *
+   * The plain text to analyze.
+   *
    * @return the text
    */
   public String text() {
@@ -255,7 +273,20 @@ public class AnalyzeOptions extends GenericModel {
   }
 
   /**
+   * Gets the limitTextCharacters.
+   *
+   * Sets the maximum number of characters that are processed by the service.
+   *
+   * @return the limitTextCharacters
+   */
+  public Long limitTextCharacters() {
+    return limitTextCharacters;
+  }
+
+  /**
    * Gets the clean.
+   *
+   * Remove website elements, such as links, ads, etc.
    *
    * @return the clean
    */
@@ -266,6 +297,8 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the url.
    *
+   * The web page to analyze.
+   *
    * @return the url
    */
   public String url() {
@@ -274,6 +307,8 @@ public class AnalyzeOptions extends GenericModel {
 
   /**
    * Gets the fallbackToRaw.
+   *
+   * Whether to use raw HTML content if text cleaning fails.
    *
    * @return the fallbackToRaw
    */

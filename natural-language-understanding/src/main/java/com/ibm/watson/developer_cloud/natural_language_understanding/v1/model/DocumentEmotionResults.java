@@ -19,11 +19,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class DocumentEmotionResults extends GenericModel {
 
-  /** An object containing the emotion results for the document. */
   private EmotionScores emotion;
 
   /**
    * Gets the emotion.
+   *
+   * An object containing the emotion results for the document.
    *
    * @return the emotion
    */
