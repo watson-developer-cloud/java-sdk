@@ -21,12 +21,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SemanticRolesObject extends GenericModel {
 
-  /** Object text. */
   private String text;
   private List<SemanticRolesKeyword> keywords;
 
   /**
    * Gets the text.
+   *
+   * Object text.
    *
    * @return the text
    */

@@ -19,13 +19,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SemanticRolesEntity extends GenericModel {
 
-  /** Entity type. */
   private String type;
-  /** The entity text. */
   private String text;
 
   /**
    * Gets the type.
+   *
+   * Entity type.
    *
    * @return the type
    */
@@ -35,6 +35,8 @@ public class SemanticRolesEntity extends GenericModel {
 
   /**
    * Gets the text.
+   *
+   * The entity text.
    *
    * @return the text
    */
