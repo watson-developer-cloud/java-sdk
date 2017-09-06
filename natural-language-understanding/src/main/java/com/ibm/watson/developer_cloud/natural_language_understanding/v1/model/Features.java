@@ -240,7 +240,8 @@ public class Features extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * Whether or not the author, publication date, and title of the analyzed text should be returned. This parameter is only available for URL and HTML input.
+   * Whether or not the author, publication date, and title of the analyzed text should be returned. This parameter
+   * is only available for URL and HTML input.
    *
    * @return the metadata
    */

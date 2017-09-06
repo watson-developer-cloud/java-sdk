@@ -67,7 +67,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * Get author information, publication date, and the title of your text/HTML content.
  *
  * @version v1
- * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-understanding.html">Natural Language Understanding</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-understanding.html">Natural Language
+ * Understanding</a>
  */
 public class NaturalLanguageUnderstanding extends WatsonService {
 
@@ -176,7 +177,8 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   /**
    * List models.
    *
-   * Lists available models for Relations and Entities features, including Watson Knowledge Studio custom models that you have created and linked to your Natural Language Understanding service.
+   * Lists available models for Relations and Entities features, including Watson Knowledge Studio custom models that
+   * you have created and linked to your Natural Language Understanding service.
    *
    * @return the {@link ListModelsResults} with the response
    */
