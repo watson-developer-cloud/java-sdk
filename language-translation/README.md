@@ -8,13 +8,13 @@ Formerly called Language Translation. No code changes are required to migrate.
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>language-translator</artifactId>
-	<version>3.8.0</version>
+	<version>3.9.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:language-translator:3.8.0'
+'com.ibm.watson.developer_cloud:language-translator:3.9.1'
 ```
 
 ## Usage

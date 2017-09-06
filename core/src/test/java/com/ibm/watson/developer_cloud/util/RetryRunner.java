@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.junit.Ignore;
@@ -25,6 +26,9 @@ import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
 import org.junit.runners.model.Statement;
 
+import com.ibm.watson.developer_cloud.service.exception.TooManyRequestsException;
+import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
+
 /**
  * Junit Runner that retry tests. Useful when tests could fail due to network issues.
  */
@@ -32,6 +36,11 @@ public class RetryRunner extends BlockJUnit4ClassRunner {
   private static final Logger LOG = Logger.getLogger(RetryRunner.class.getName());
 
   private static final int RETRY_COUNT = 3;
+
+  /**
+   * Delay factor when tests are failing.
+   */
+  private static final int RETRY_DELAY_FACTOR = 2000;
 
   /**
    * Instantiates a new retry runner.
@@ -103,8 +112,20 @@ public class RetryRunner extends BlockJUnit4ClassRunner {
         LOG.warning("Retry attempt " + (failedAttempts + 1) + " for " + info.getDisplayName());
         statement.evaluate();
         return;
+      } catch (UnauthorizedException ue) {
+        LOG.log(Level.WARNING, "Do not retry test failures due to UnauthorizedException", ue);
+        failedAttempts = RETRY_COUNT;
+      } catch (TooManyRequestsException e) {
+        LOG.log(Level.WARNING, "Ignoring test failures due to rate limitation", e);
+        return;
       } catch (Throwable t) {
         failedAttempts++;
+        try {
+          // GERMAN: Delay test failures to prevent network/service hiccups
+          Thread.sleep(RETRY_DELAY_FACTOR * failedAttempts);
+        } catch (InterruptedException e) {
+          LOG.log(Level.WARNING, "The thread used by JUnit was interrupted", e);
+        }
         caughtThrowable = t;
       }
     }

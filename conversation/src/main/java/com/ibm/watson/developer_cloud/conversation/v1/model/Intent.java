@@ -14,6 +14,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.Date;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -21,20 +22,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Intent extends GenericModel {
 
-  private String intent;
+  @SerializedName("intent")
+  private String intentName;
   private Date created;
   private Date updated;
   private String description;
 
   /**
-   * Gets the intent.
+   * Gets the intentName.
    *
    * The name of the intent.
    *
-   * @return the intent
+   * @return the intentName
    */
-  public String getIntent() {
-    return intent;
+  public String getIntentName() {
+    return intentName;
   }
 
   /**
@@ -71,12 +73,12 @@ public class Intent extends GenericModel {
   }
 
   /**
-   * Sets the intent.
+   * Sets the intentName.
    *
-   * @param intent the new intent
+   * @param intentName the new intentName
    */
-  public void setIntent(final String intent) {
-    this.intent = intent;
+  public void setIntentName(final String intentName) {
+    this.intentName = intentName;
   }
 
   /**

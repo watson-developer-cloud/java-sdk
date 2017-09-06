@@ -20,37 +20,40 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createWorkspace options.
+ * The createWorkspace options.
  */
 public class CreateWorkspaceOptions extends GenericModel {
 
-  private Map<String, Object> metadata;
+  private Map metadata;
   private List<CreateIntent> intents;
   private List<CreateEntity> entities;
   private String name;
+  private Boolean learningOptOut;
   private List<CreateCounterexample> counterexamples;
   private String description;
   private String language;
-  private List<DialogNode> dialogNodes;
+  private List<CreateDialogNode> dialogNodes;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Map<String, Object> metadata;
+    private Map metadata;
     private List<CreateIntent> intents;
     private List<CreateEntity> entities;
     private String name;
+    private Boolean learningOptOut;
     private List<CreateCounterexample> counterexamples;
     private String description;
     private String language;
-    private List<DialogNode> dialogNodes;
+    private List<CreateDialogNode> dialogNodes;
 
     private Builder(CreateWorkspaceOptions createWorkspaceOptions) {
       metadata = createWorkspaceOptions.metadata;
       intents = createWorkspaceOptions.intents;
       entities = createWorkspaceOptions.entities;
       name = createWorkspaceOptions.name;
+      learningOptOut = createWorkspaceOptions.learningOptOut;
       counterexamples = createWorkspaceOptions.counterexamples;
       description = createWorkspaceOptions.description;
       language = createWorkspaceOptions.language;
@@ -123,10 +126,10 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @param dialogNode the new dialogNode
      * @return the CreateWorkspaceOptions builder
      */
-    public Builder addDialogNode(DialogNode dialogNode) {
+    public Builder addDialogNode(CreateDialogNode dialogNode) {
       Validator.notNull(dialogNode, "dialogNode cannot be null");
       if (this.dialogNodes == null) {
-        this.dialogNodes = new ArrayList<DialogNode>();
+        this.dialogNodes = new ArrayList<CreateDialogNode>();
       }
       this.dialogNodes.add(dialogNode);
       return this;
@@ -138,7 +141,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @param metadata the metadata
      * @return the CreateWorkspaceOptions builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(Map metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -175,6 +178,17 @@ public class CreateWorkspaceOptions extends GenericModel {
      */
     public Builder name(String name) {
       this.name = name;
+      return this;
+    }
+
+    /**
+     * Set the learningOptOut.
+     *
+     * @param learningOptOut the learningOptOut
+     * @return the CreateWorkspaceOptions builder
+     */
+    public Builder learningOptOut(Boolean learningOptOut) {
+      this.learningOptOut = learningOptOut;
       return this;
     }
 
@@ -219,7 +233,7 @@ public class CreateWorkspaceOptions extends GenericModel {
      * @param dialogNodes the dialogNodes
      * @return the CreateWorkspaceOptions builder
      */
-    public Builder dialogNodes(List<DialogNode> dialogNodes) {
+    public Builder dialogNodes(List<CreateDialogNode> dialogNodes) {
       this.dialogNodes = dialogNodes;
       return this;
     }
@@ -230,6 +244,7 @@ public class CreateWorkspaceOptions extends GenericModel {
     intents = builder.intents;
     entities = builder.entities;
     name = builder.name;
+    learningOptOut = builder.learningOptOut;
     counterexamples = builder.counterexamples;
     description = builder.description;
     language = builder.language;
@@ -252,7 +267,7 @@ public class CreateWorkspaceOptions extends GenericModel {
    *
    * @return the metadata
    */
-  public Map<String, Object> metadata() {
+  public Map metadata() {
     return metadata;
   }
 
@@ -287,6 +302,18 @@ public class CreateWorkspaceOptions extends GenericModel {
    */
   public String name() {
     return name;
+  }
+
+  /**
+   * Gets the learningOptOut.
+   *
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates
+   * that workspace training data is not to be used.
+   *
+   * @return the learningOptOut
+   */
+  public Boolean learningOptOut() {
+    return learningOptOut;
   }
 
   /**
@@ -329,7 +356,7 @@ public class CreateWorkspaceOptions extends GenericModel {
    *
    * @return the dialogNodes
    */
-  public List<DialogNode> dialogNodes() {
+  public List<CreateDialogNode> dialogNodes() {
     return dialogNodes;
   }
 }

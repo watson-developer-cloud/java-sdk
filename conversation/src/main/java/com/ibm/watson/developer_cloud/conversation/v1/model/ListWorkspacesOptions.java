@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * the listWorkspaces options.
+ * The listWorkspaces options.
  */
 public class ListWorkspacesOptions extends GenericModel {
 

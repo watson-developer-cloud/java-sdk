@@ -12,13 +12,20 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.HashMap;
+import java.lang.reflect.Type;
 import java.util.List;
 
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
+import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
+
 /**
- * An output object that includes the response to the user, the nodes that were hit, and messages from the log.
- */
-public class OutputData extends HashMap<String, Object> {
+* An output object that includes the response to the user, the nodes that were hit, and messages from the log.
+*/
+public class OutputData extends DynamicModel {
+  private Type logMessagesType = new TypeToken<List<LogMessage>>() { } .getType();
+  private Type textType = new TypeToken<List<String>>() { } .getType();
+  private Type nodesVisitedType = new TypeToken<List<String>>() { } .getType();
 
   /**
    * Gets the logMessages.
@@ -26,25 +33,23 @@ public class OutputData extends HashMap<String, Object> {
    * @return the logMessages
    */
   public List<LogMessage> getLogMessages() {
-    return (List<LogMessage>) this.get("logMessages");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("logMessages"), logMessagesType);
   }
-
   /**
    * Gets the text.
    *
    * @return the text
    */
   public List<String> getText() {
-    return (List<String>) this.get("text");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("text"), textType);
   }
-
   /**
    * Gets the nodesVisited.
    *
    * @return the nodesVisited
    */
   public List<String> getNodesVisited() {
-    return (List<String>) this.get("nodesVisited");
+      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("nodesVisited"), nodesVisitedType);
   }
 
   /**
@@ -74,3 +79,4 @@ public class OutputData extends HashMap<String, Object> {
     this.put("nodesVisited", nodesVisited);
   }
 }
+
