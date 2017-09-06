@@ -56,7 +56,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * for detected entities, keywords, or user-specified target phrases found in the text.
  *
  * ### Relations
- * Recognize when two entities are related, and identify the type of relation. For example, you can identify an
+ * Recognize when two entities are related, and identify the type of relation.  For example, you can identify an
  * "awardedTo" relation between an award and its recipient.
  *
  * ### Semantic Roles
@@ -67,8 +67,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * Get author information, publication date, and the title of your text/HTML content.
  *
  * @version v1
- * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-understanding.html">Natural Language
- *      Understanding</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-understanding.html">Natural Language Understanding</a>
  */
 public class NaturalLanguageUnderstanding extends WatsonService {
 
@@ -102,7 +101,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    * Instantiates a new `NaturalLanguageUnderstanding` with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   *        calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */
@@ -123,38 +122,38 @@ public class NaturalLanguageUnderstanding extends WatsonService {
     RequestBuilder builder = RequestBuilder.post("/v1/analyze");
     builder.query(VERSION, versionDate);
     if (analyzeOptions != null) {
-      final JsonObject contentJson = new JsonObject();
-      if (analyzeOptions.features() != null) {
-        contentJson.add("features", GsonSingleton.getGson().toJsonTree(analyzeOptions.features()));
-      }
-      if (analyzeOptions.xpath() != null) {
-        contentJson.addProperty("xpath", analyzeOptions.xpath());
-      }
-      if (analyzeOptions.returnAnalyzedText() != null) {
-        contentJson.addProperty("return_analyzed_text", analyzeOptions.returnAnalyzedText());
-      }
-      if (analyzeOptions.language() != null) {
-        contentJson.addProperty("language", analyzeOptions.language());
-      }
-      if (analyzeOptions.html() != null) {
-        contentJson.addProperty("html", analyzeOptions.html());
-      }
-      if (analyzeOptions.text() != null) {
-        contentJson.addProperty("text", analyzeOptions.text());
-      }
-      if (analyzeOptions.limitTextCharacters() != null) {
-        contentJson.addProperty("limit_text_characters", analyzeOptions.limitTextCharacters());
-      }
-      if (analyzeOptions.clean() != null) {
-        contentJson.addProperty("clean", analyzeOptions.clean());
-      }
-      if (analyzeOptions.url() != null) {
-        contentJson.addProperty("url", analyzeOptions.url());
-      }
-      if (analyzeOptions.fallbackToRaw() != null) {
-        contentJson.addProperty("fallback_to_raw", analyzeOptions.fallbackToRaw());
-      }
-      builder.bodyJson(contentJson);
+    final JsonObject contentJson = new JsonObject();
+    if (analyzeOptions.features() != null) {
+      contentJson.add("features", GsonSingleton.getGson().toJsonTree(analyzeOptions.features()));
+    }
+    if (analyzeOptions.xpath() != null) {
+      contentJson.addProperty("xpath", analyzeOptions.xpath());
+    }
+    if (analyzeOptions.returnAnalyzedText() != null) {
+      contentJson.addProperty("return_analyzed_text", analyzeOptions.returnAnalyzedText());
+    }
+    if (analyzeOptions.language() != null) {
+      contentJson.addProperty("language", analyzeOptions.language());
+    }
+    if (analyzeOptions.html() != null) {
+      contentJson.addProperty("html", analyzeOptions.html());
+    }
+    if (analyzeOptions.text() != null) {
+      contentJson.addProperty("text", analyzeOptions.text());
+    }
+    if (analyzeOptions.limitTextCharacters() != null) {
+      contentJson.addProperty("limit_text_characters", analyzeOptions.limitTextCharacters());
+    }
+    if (analyzeOptions.clean() != null) {
+      contentJson.addProperty("clean", analyzeOptions.clean());
+    }
+    if (analyzeOptions.url() != null) {
+      contentJson.addProperty("url", analyzeOptions.url());
+    }
+    if (analyzeOptions.fallbackToRaw() != null) {
+      contentJson.addProperty("fallback_to_raw", analyzeOptions.fallbackToRaw());
+    }
+    builder.bodyJson(contentJson);
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AnalysisResults.class));
   }
@@ -177,8 +176,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
   /**
    * List models.
    *
-   * Lists available models for Relations and Entities features, including Watson Knowledge Studio custom models that
-   * you have created and linked to your Natural Language Understanding service.
+   * Lists available models for Relations and Entities features, including Watson Knowledge Studio custom models that you have created and linked to your Natural Language Understanding service.
    *
    * @return the {@link ListModelsResults} with the response
    */
