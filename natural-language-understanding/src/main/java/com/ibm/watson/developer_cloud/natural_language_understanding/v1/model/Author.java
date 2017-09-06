@@ -19,11 +19,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Author extends GenericModel {
 
-  /** Name of the author. */
   private String name;
 
   /**
    * Gets the name.
+   *
+   * Name of the author.
    *
    * @return the name
    */

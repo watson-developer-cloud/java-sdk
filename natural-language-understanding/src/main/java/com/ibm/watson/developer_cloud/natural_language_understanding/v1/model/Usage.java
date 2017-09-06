@@ -19,11 +19,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Usage extends GenericModel {
 
-  /** Number of features used in the API call. */
   private Long features;
 
   /**
    * Gets the features.
+   *
+   * Number of features used in the API call.
    *
    * @return the features
    */

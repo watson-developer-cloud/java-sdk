@@ -23,9 +23,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class SentimentOptions extends GenericModel {
 
-  /** Set this to false to hide document-level sentiment results. */
   private Boolean document;
-  /** Sentiment results will be returned for each target string that is found in the document. */
   private List<String> targets;
 
   /**
@@ -111,6 +109,8 @@ public class SentimentOptions extends GenericModel {
   /**
    * Gets the document.
    *
+   * Set this to false to hide document-level sentiment results.
+   *
    * @return the document
    */
   public Boolean document() {
@@ -119,6 +119,8 @@ public class SentimentOptions extends GenericModel {
 
   /**
    * Gets the targets.
+   *
+   * Sentiment results will be returned for each target string that is found in the document.
    *
    * @return the targets
    */

@@ -19,11 +19,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class KeywordsOptions extends GenericModel {
 
-  /** Maximum number of keywords to return. */
   private Long limit;
-  /** Set this to true to return sentiment information for detected keywords. */
   private Boolean sentiment;
-  /** Set this to true to analyze emotion for detected keywords. */
   private Boolean emotion;
 
   /**
@@ -107,6 +104,8 @@ public class KeywordsOptions extends GenericModel {
   /**
    * Gets the limit.
    *
+   * Maximum number of keywords to return.
+   *
    * @return the limit
    */
   public Long limit() {
@@ -116,6 +115,8 @@ public class KeywordsOptions extends GenericModel {
   /**
    * Gets the sentiment.
    *
+   * Set this to true to return sentiment information for detected keywords.
+   *
    * @return the sentiment
    */
   public Boolean sentiment() {
@@ -124,6 +125,8 @@ public class KeywordsOptions extends GenericModel {
 
   /**
    * Gets the emotion.
+   *
+   * Set this to true to analyze emotion for detected keywords.
    *
    * @return the emotion
    */
