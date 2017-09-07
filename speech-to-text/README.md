@@ -31,7 +31,7 @@ System.out.println(transcript);
 
 #### WebSocket support
 
-Speech to Text supports WebSocket, the url is:  
+Speech to Text supports WebSocket, the url is:
   `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
 
   ```java
@@ -101,4 +101,4 @@ line.close();
 System.out.println("Fin.");
 ```
 
-[speech_to_text]: http://www.ibm.com/watson/developercloud/doc/speech-to-text/
+[speech_to_text]: https://console.bluemix.net/docs/services/speech-to-text/index.html
