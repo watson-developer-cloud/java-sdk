@@ -19,13 +19,9 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class EntitiesOptions extends GenericModel {
 
-  /** Maximum number of entities to return. */
   private Long limit;
-  /** Enter a custom model ID to override the standard entity detection model. */
   private String model;
-  /** Set this to true to return sentiment information for detected entities. */
   private Boolean sentiment;
-  /** Set this to true to analyze emotion for detected keywords. */
   private Boolean emotion;
 
   /**
@@ -123,6 +119,8 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
+   * Maximum number of entities to return.
+   *
    * @return the limit
    */
   public Long limit() {
@@ -131,6 +129,8 @@ public class EntitiesOptions extends GenericModel {
 
   /**
    * Gets the model.
+   *
+   * Enter a custom model ID to override the standard entity detection model.
    *
    * @return the model
    */
@@ -141,6 +141,8 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the sentiment.
    *
+   * Set this to true to return sentiment information for detected entities.
+   *
    * @return the sentiment
    */
   public Boolean sentiment() {
@@ -149,6 +151,8 @@ public class EntitiesOptions extends GenericModel {
 
   /**
    * Gets the emotion.
+   *
+   * Set this to true to analyze emotion for detected keywords.
    *
    * @return the emotion
    */

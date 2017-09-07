@@ -19,13 +19,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SemanticRolesVerb extends GenericModel {
 
-  /** The keyword text. */
   private String text;
-  /** Verb tense. */
   private String tense;
 
   /**
    * Gets the text.
+   *
+   * The keyword text.
    *
    * @return the text
    */
@@ -35,6 +35,8 @@ public class SemanticRolesVerb extends GenericModel {
 
   /**
    * Gets the tense.
+   *
+   * Verb tense.
    *
    * @return the tense
    */

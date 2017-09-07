@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ConceptsOptions extends GenericModel {
 
-  /** Maximum number of concepts to return. */
   private Long limit;
 
   /**
@@ -74,6 +73,8 @@ public class ConceptsOptions extends GenericModel {
 
   /**
    * Gets the limit.
+   *
+   * Maximum number of concepts to return.
    *
    * @return the limit
    */
