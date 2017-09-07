@@ -27,4 +27,4 @@ List<Voice> voices = service.getVoices().execute();
 System.out.println(voices);
 ```
 
-[text_to_speech]: http://www.ibm.com/watson/developercloud/doc/text-to-speech/
+[text_to_speech]: https://console.bluemix.net/docs/services/text-to-speech/index.html
