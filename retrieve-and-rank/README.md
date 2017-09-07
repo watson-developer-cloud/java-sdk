@@ -45,4 +45,4 @@ System.out.println("Solr clusters: " + service.getSolrClusters().execute());
 Retrieve and Rank is built on top of Apache Solr.
 Look at [this](https://github.com/watson-developer-cloud/java-sdk/tree/master/examples/retrieve-and-rank-solrj) example to learn how to use Solrj.
 
-[retrieve_and_rank]: http://www.ibm.com/watson/developercloud/doc/retrieve-rank/
+[retrieve_and_rank]: https://console.bluemix.net/docs/services/retrieve-and-rank/index.html
