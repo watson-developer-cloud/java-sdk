@@ -16,11 +16,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the deleteModel options.
+ * The deleteModel options.
  */
 public class DeleteModelOptions extends GenericModel {
 
-  /** model_id of the model to delete. */
   private String modelId;
 
   /**
@@ -85,6 +84,8 @@ public class DeleteModelOptions extends GenericModel {
 
   /**
    * Gets the modelId.
+   *
+   * model_id of the model to delete.
    *
    * @return the modelId
    */

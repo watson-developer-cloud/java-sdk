@@ -22,13 +22,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class EmotionResult extends GenericModel {
 
-  /** The returned emotion results across the document. */
   private DocumentEmotionResults document;
-  /** The returned emotion results per specified target. */
   private List<TargetedEmotionResults> targets;
 
   /**
    * Gets the document.
+   *
+   * The returned emotion results across the document.
    *
    * @return the document
    */
@@ -38,6 +38,8 @@ public class EmotionResult extends GenericModel {
 
   /**
    * Gets the targets.
+   *
+   * The returned emotion results per specified target.
    *
    * @return the targets
    */
