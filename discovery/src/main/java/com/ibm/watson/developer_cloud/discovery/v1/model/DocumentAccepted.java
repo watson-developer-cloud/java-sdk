@@ -30,16 +30,15 @@ public class DocumentAccepted extends GenericModel {
     String PROCESSING = "processing";
   }
 
-  /** The unique identifier of the ingested document. */
   @SerializedName("document_id")
   private String documentId;
-  /** Status of the document in the ingestion process. */
   private String status;
-  /** Array of notices produced by the document-ingestion process. */
   private List<Notice> notices;
 
   /**
    * Gets the documentId.
+   *
+   * The unique identifier of the ingested document.
    *
    * @return the documentId
    */
@@ -50,6 +49,8 @@ public class DocumentAccepted extends GenericModel {
   /**
    * Gets the status.
    *
+   * Status of the document in the ingestion process.
+   *
    * @return the status
    */
   public String getStatus() {
@@ -58,6 +59,8 @@ public class DocumentAccepted extends GenericModel {
 
   /**
    * Gets the notices.
+   *
+   * Array of notices produced by the document-ingestion process.
    *
    * @return the notices
    */

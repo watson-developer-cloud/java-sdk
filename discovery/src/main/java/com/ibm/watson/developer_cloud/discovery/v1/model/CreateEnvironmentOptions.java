@@ -13,17 +13,15 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createEnvironment options.
+ * The createEnvironment options.
  */
 public class CreateEnvironmentOptions extends GenericModel {
 
-  /** Size of the environment. */
   private Long size;
-  /** Name that identifies the environment. */
   private String name;
-  /** Description of the environment. */
   private String description;
 
   /**
@@ -47,6 +45,15 @@ public class CreateEnvironmentOptions extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param name the name
+     */
+    public Builder(String name) {
+      this.name = name;
+    }
+
+    /**
      * Builds a CreateEnvironmentOptions.
      *
      * @return the createEnvironmentOptions
@@ -61,7 +68,7 @@ public class CreateEnvironmentOptions extends GenericModel {
      * @param size the size
      * @return the CreateEnvironmentOptions builder
      */
-    public Builder size(Long size) {
+    public Builder size(long size) {
       this.size = size;
       return this;
     }
@@ -90,6 +97,7 @@ public class CreateEnvironmentOptions extends GenericModel {
   }
 
   private CreateEnvironmentOptions(Builder builder) {
+    Validator.notNull(builder.name, "name cannot be null");
     size = builder.size;
     name = builder.name;
     description = builder.description;
@@ -107,6 +115,8 @@ public class CreateEnvironmentOptions extends GenericModel {
   /**
    * Gets the size.
    *
+   * **Deprecated**: Size of the environment.
+   *
    * @return the size
    */
   public Long size() {
@@ -116,6 +126,8 @@ public class CreateEnvironmentOptions extends GenericModel {
   /**
    * Gets the name.
    *
+   * Name that identifies the environment.
+   *
    * @return the name
    */
   public String name() {
@@ -124,6 +136,8 @@ public class CreateEnvironmentOptions extends GenericModel {
 
   /**
    * Gets the description.
+   *
+   * Description of the environment.
    *
    * @return the description
    */

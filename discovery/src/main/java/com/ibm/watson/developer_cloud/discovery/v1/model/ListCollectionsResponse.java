@@ -21,11 +21,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ListCollectionsResponse extends GenericModel {
 
-  /** An array containing information about each collection in the environment. */
   private List<Collection> collections;
 
   /**
    * Gets the collections.
+   *
+   * An array containing information about each collection in the environment.
    *
    * @return the collections
    */

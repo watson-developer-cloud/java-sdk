@@ -16,26 +16,23 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Summary of the memory usage statistics for this environment.
+ * **Deprecated**: Summary of the memory usage statistics for this environment.
  */
 public class MemoryUsage extends GenericModel {
 
-  /** Number of bytes used in the environment's memory capacity. */
   @SerializedName("used_bytes")
   private Long usedBytes;
-  /** Total number of bytes available in the environment's memory capacity. */
   @SerializedName("total_bytes")
   private Long totalBytes;
-  /** Amount of memory capacity used, in KB or GB format. */
   private String used;
-  /** Total amount of the environment's memory capacity, in KB or GB format. */
   private String total;
-  /** Percentage of the environment's memory capacity that is being used. */
   @SerializedName("percent_used")
   private Double percentUsed;
 
   /**
    * Gets the usedBytes.
+   *
+   * **Deprecated**: Number of bytes used in the environment's memory capacity.
    *
    * @return the usedBytes
    */
@@ -46,6 +43,8 @@ public class MemoryUsage extends GenericModel {
   /**
    * Gets the totalBytes.
    *
+   * **Deprecated**: Total number of bytes available in the environment's memory capacity.
+   *
    * @return the totalBytes
    */
   public Long getTotalBytes() {
@@ -54,6 +53,8 @@ public class MemoryUsage extends GenericModel {
 
   /**
    * Gets the used.
+   *
+   * **Deprecated**: Amount of memory capacity used, in KB or GB format.
    *
    * @return the used
    */
@@ -64,6 +65,8 @@ public class MemoryUsage extends GenericModel {
   /**
    * Gets the total.
    *
+   * **Deprecated**: Total amount of the environment's memory capacity, in KB or GB format.
+   *
    * @return the total
    */
   public String getTotal() {
@@ -72,6 +75,8 @@ public class MemoryUsage extends GenericModel {
 
   /**
    * Gets the percentUsed.
+   *
+   * **Deprecated**: Percentage of the environment's memory capacity that is being used.
    *
    * @return the percentUsed
    */

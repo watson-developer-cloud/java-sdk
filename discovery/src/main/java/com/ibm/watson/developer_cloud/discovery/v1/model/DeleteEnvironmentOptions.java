@@ -16,11 +16,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the deleteEnvironment options.
+ * The deleteEnvironment options.
  */
 public class DeleteEnvironmentOptions extends GenericModel {
 
-  /** the ID of your environment. */
   private String environmentId;
 
   /**
@@ -70,7 +69,7 @@ public class DeleteEnvironmentOptions extends GenericModel {
   }
 
   private DeleteEnvironmentOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     environmentId = builder.environmentId;
   }
 
@@ -85,6 +84,8 @@ public class DeleteEnvironmentOptions extends GenericModel {
 
   /**
    * Gets the environmentId.
+   *
+   * the ID of your environment.
    *
    * @return the environmentId
    */
