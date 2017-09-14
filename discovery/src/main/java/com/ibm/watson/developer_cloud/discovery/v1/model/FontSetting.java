@@ -20,11 +20,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class FontSetting extends GenericModel {
 
-  private Double level;
+  private Long level;
   @SerializedName("min_size")
-  private Double minSize;
+  private Long minSize;
   @SerializedName("max_size")
-  private Double maxSize;
+  private Long maxSize;
   private Boolean bold;
   private Boolean italic;
   private String name;
@@ -34,7 +34,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the level
    */
-  public Double getLevel() {
+  public Long getLevel() {
     return level;
   }
 
@@ -43,7 +43,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the minSize
    */
-  public Double getMinSize() {
+  public Long getMinSize() {
     return minSize;
   }
 
@@ -52,7 +52,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the maxSize
    */
-  public Double getMaxSize() {
+  public Long getMaxSize() {
     return maxSize;
   }
 
@@ -88,7 +88,7 @@ public class FontSetting extends GenericModel {
    *
    * @param level the new level
    */
-  public void setLevel(final Double level) {
+  public void setLevel(final long level) {
     this.level = level;
   }
 
@@ -97,7 +97,7 @@ public class FontSetting extends GenericModel {
    *
    * @param minSize the new minSize
    */
-  public void setMinSize(final Double minSize) {
+  public void setMinSize(final long minSize) {
     this.minSize = minSize;
   }
 
@@ -106,7 +106,7 @@ public class FontSetting extends GenericModel {
    *
    * @param maxSize the new maxSize
    */
-  public void setMaxSize(final Double maxSize) {
+  public void setMaxSize(final long maxSize) {
     this.maxSize = maxSize;
   }
 

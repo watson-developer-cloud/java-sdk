@@ -16,15 +16,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateEnvironment options.
+ * The updateEnvironment options.
  */
 public class UpdateEnvironmentOptions extends GenericModel {
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** Name that identifies the environment. */
   private String name;
-  /** Description of the environment. */
   private String description;
 
   /**
@@ -100,7 +97,7 @@ public class UpdateEnvironmentOptions extends GenericModel {
   }
 
   private UpdateEnvironmentOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;
@@ -118,6 +115,8 @@ public class UpdateEnvironmentOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -127,6 +126,8 @@ public class UpdateEnvironmentOptions extends GenericModel {
   /**
    * Gets the name.
    *
+   * Name that identifies the environment.
+   *
    * @return the name
    */
   public String name() {
@@ -135,6 +136,8 @@ public class UpdateEnvironmentOptions extends GenericModel {
 
   /**
    * Gets the description.
+   *
+   * Description of the environment.
    *
    * @return the description
    */

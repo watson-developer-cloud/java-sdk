@@ -37,26 +37,39 @@ public class DocumentStatus extends GenericModel {
     String PROCESSING = "processing";
   }
 
-  /** The unique identifier of the document. */
+  /**
+   * The type of the original source file.
+   */
+  public interface FileType {
+    /** pdf. */
+    String PDF = "pdf";
+    /** html. */
+    String HTML = "html";
+    /** word. */
+    String WORD = "word";
+    /** json. */
+    String JSON = "json";
+  }
+
   @SerializedName("document_id")
   private String documentId;
-  /** The unique identifier for the configuration. */
   @SerializedName("configuration_id")
   private String configurationId;
-  /** The creation date of the document in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
   private Date created;
-  /** Date of the most recent document update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
   private Date updated;
-  /** Status of the document in the ingestion process. */
   private String status;
-  /** Description of the document status. */
   @SerializedName("status_description")
   private String statusDescription;
-  /** Array of notices produced by the document-ingestion process. */
+  private String filename;
+  @SerializedName("file_type")
+  private String fileType;
+  private String sha1;
   private List<Notice> notices;
 
   /**
    * Gets the documentId.
+   *
+   * The unique identifier of the document.
    *
    * @return the documentId
    */
@@ -67,6 +80,8 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the configurationId.
    *
+   * The unique identifier for the configuration.
+   *
    * @return the configurationId
    */
   public String getConfigurationId() {
@@ -75,6 +90,8 @@ public class DocumentStatus extends GenericModel {
 
   /**
    * Gets the created.
+   *
+   * The creation date of the document in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the created
    */
@@ -85,6 +102,8 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the updated.
    *
+   * Date of the most recent document update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   *
    * @return the updated
    */
   public Date getUpdated() {
@@ -93,6 +112,8 @@ public class DocumentStatus extends GenericModel {
 
   /**
    * Gets the status.
+   *
+   * Status of the document in the ingestion process.
    *
    * @return the status
    */
@@ -103,6 +124,8 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the statusDescription.
    *
+   * Description of the document status.
+   *
    * @return the statusDescription
    */
   public String getStatusDescription() {
@@ -110,12 +133,74 @@ public class DocumentStatus extends GenericModel {
   }
 
   /**
+   * Gets the filename.
+   *
+   * Name of the original source file (if available).
+   *
+   * @return the filename
+   */
+  public String getFilename() {
+    return filename;
+  }
+
+  /**
+   * Gets the fileType.
+   *
+   * The type of the original source file.
+   *
+   * @return the fileType
+   */
+  public String getFileType() {
+    return fileType;
+  }
+
+  /**
+   * Gets the sha1.
+   *
+   * The SHA-1 hash of the original source file (formatted as a hexadecimal string).
+   *
+   * @return the sha1
+   */
+  public String getSha1() {
+    return sha1;
+  }
+
+  /**
    * Gets the notices.
+   *
+   * Array of notices produced by the document-ingestion process.
    *
    * @return the notices
    */
   public List<Notice> getNotices() {
     return notices;
+  }
+
+  /**
+   * Sets the filename.
+   *
+   * @param filename the new filename
+   */
+  public void setFilename(final String filename) {
+    this.filename = filename;
+  }
+
+  /**
+   * Sets the fileType.
+   *
+   * @param fileType the new fileType
+   */
+  public void setFileType(final String fileType) {
+    this.fileType = fileType;
+  }
+
+  /**
+   * Sets the sha1.
+   *
+   * @param sha1 the new sha1
+   */
+  public void setSha1(final String sha1) {
+    this.sha1 = sha1;
   }
 
   /**

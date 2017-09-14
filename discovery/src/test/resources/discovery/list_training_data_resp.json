@@ -1,0 +1,16 @@
+{
+  "environment_id": "mock_envid",
+  "collection_id": "mock_confid",
+  "queries": [
+    {
+      "query_id": "mock_queryid",
+      "natural_language_query": "Example query",
+      "examples": [
+        {
+          "document_id": "mock_docid",
+          "relevance": 0
+        }
+      ]
+    }
+  ]
+}

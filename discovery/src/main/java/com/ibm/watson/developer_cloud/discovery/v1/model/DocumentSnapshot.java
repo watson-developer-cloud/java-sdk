@@ -37,7 +37,7 @@ public class DocumentSnapshot extends GenericModel {
   }
 
   private String step;
-  private Map<String, Object> snapshot;
+  private Map snapshot;
 
   /**
    * Gets the step.
@@ -53,7 +53,7 @@ public class DocumentSnapshot extends GenericModel {
    *
    * @return the snapshot
    */
-  public Map<String, Object> getSnapshot() {
+  public Map getSnapshot() {
     return snapshot;
   }
 
@@ -71,7 +71,7 @@ public class DocumentSnapshot extends GenericModel {
    *
    * @param snapshot the new snapshot
    */
-  public void setSnapshot(final Map<String, Object> snapshot) {
+  public void setSnapshot(final Map snapshot) {
     this.snapshot = snapshot;
   }
 }
