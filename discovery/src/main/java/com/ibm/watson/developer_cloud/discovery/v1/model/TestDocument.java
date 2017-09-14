@@ -12,10 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
-import java.util.List;
 
 /**
  * TestDocument.
@@ -57,8 +57,8 @@ public class TestDocument extends GenericModel {
   /**
    * Gets the enrichedFieldUnits.
    *
-   * The number of 10-kB chunks of field data that were enriched. This can be used to estimate the cost of running a
-   * real ingestion.
+   * The number of 10-kB chunks of field data that were enriched. This can be used to estimate the cost of running
+   * a real ingestion.
    *
    * @return the enrichedFieldUnits
    */

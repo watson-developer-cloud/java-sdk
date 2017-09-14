@@ -12,10 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.util.Date;
+
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-
-import java.util.Date;
 
 /**
  * A notice produced for the collection.
@@ -26,13 +26,9 @@ public class Notice extends GenericModel {
    * Severity level of the notice.
    */
   public interface Severity {
-    /**
-     * warning.
-     */
+    /** warning. */
     String WARNING = "warning";
-    /**
-     * error.
-     */
+    /** error. */
     String ERROR = "error";
   }
 

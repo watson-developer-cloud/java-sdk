@@ -12,10 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.io.InputStream;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
-
-import java.io.InputStream;
 
 /**
  * The updateDocument options.

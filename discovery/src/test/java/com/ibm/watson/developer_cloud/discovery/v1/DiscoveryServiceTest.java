@@ -88,7 +88,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   private static final Long FREE = 0L;
   private static final Long THREE = 3L;
-  private static final String VERSION = Discovery.VERSION_DATE_2017_08_01;
+  private static final String VERSION = Discovery.VERSION_DATE_2017_09_01;
 
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String RESOURCE = "src/test/resources/discovery/";
@@ -167,7 +167,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    discoveryService = new Discovery(Discovery.VERSION_DATE_2017_08_01);
+    discoveryService = new Discovery(Discovery.VERSION_DATE_2017_09_01);
     discoveryService.setApiKey("");
     discoveryService.setEndPoint(getMockWebServerUrl());
 
