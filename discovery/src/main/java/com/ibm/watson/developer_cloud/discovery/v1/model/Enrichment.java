@@ -92,8 +92,8 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the ignoreDownstreamErrors.
    *
-   * If true, then most errors generated during the enrichment process will be treated as warnings and will not
-   * cause the document to fail processing.
+   * If true, then most errors generated during the enrichment process will be treated as warnings and will not cause
+   * the document to fail processing.
    *
    * @return the ignoreDownstreamErrors
    */

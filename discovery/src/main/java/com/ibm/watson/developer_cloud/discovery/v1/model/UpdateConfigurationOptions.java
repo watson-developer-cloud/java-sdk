@@ -12,11 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The updateConfiguration options.
@@ -62,7 +62,7 @@ public class UpdateConfigurationOptions extends GenericModel {
     /**
      * Instantiates a new builder with required properties.
      *
-     * @param environmentId   the environmentId
+     * @param environmentId the environmentId
      * @param configurationId the configurationId
      */
     public Builder(String environmentId, String configurationId) {
@@ -195,11 +195,11 @@ public class UpdateConfigurationOptions extends GenericModel {
      * @return the UpdateConfigurationOptions builder
      */
     public Builder configuration(Configuration configuration) {
-      this.conversions = configuration.getConversions();
-      this.name = configuration.getName();
-      this.description = configuration.getDescription();
-      this.normalizations = configuration.getNormalizations();
-      this.enrichments = configuration.getEnrichments();
+    this.conversions = configuration.getConversions();
+    this.name = configuration.getName();
+    this.description = configuration.getDescription();
+    this.normalizations = configuration.getNormalizations();
+    this.enrichments = configuration.getEnrichments();
       return this;
     }
   }

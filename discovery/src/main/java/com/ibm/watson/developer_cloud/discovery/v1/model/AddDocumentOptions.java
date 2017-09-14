@@ -12,10 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.io.InputStream;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
-
-import java.io.InputStream;
 
 /**
  * The addDocument options.
@@ -26,36 +26,23 @@ public class AddDocumentOptions extends GenericModel {
    * The media type of file.
    */
   public interface FileMediaType {
-    /**
-     * application/json.
-     */
+    /** application/json. */
     String APPLICATION_JSON = "application/json";
-    /**
-     * application/msword.
-     */
+    /** application/msword. */
     String APPLICATION_MSWORD = "application/msword";
-    /**
-     * application/vnd.openxmlformats-officedocument.wordprocessingml.document.
-     */
+    /** application/vnd.openxmlformats-officedocument.wordprocessingml.document. */
     String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT
         = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    /**
-     * application/pdf.
-     */
+    /** application/pdf. */
     String APPLICATION_PDF = "application/pdf";
-    /**
-     * text/html.
-     */
+    /** text/html. */
     String TEXT_HTML = "text/html";
-    /**
-     * application/xhtml+xml.
-     */
+    /** application/xhtml+xml. */
     String APPLICATION_XHTML_XML = "application/xhtml+xml";
   }
 
   private String environmentId;
   private String collectionId;
-  private String configurationId;
   private InputStream file;
   private String fileMediaType;
   private String metadata;
@@ -66,7 +53,6 @@ public class AddDocumentOptions extends GenericModel {
   public static class Builder {
     private String environmentId;
     private String collectionId;
-    private String configurationId;
     private InputStream file;
     private String fileMediaType;
     private String metadata;
@@ -74,7 +60,6 @@ public class AddDocumentOptions extends GenericModel {
     private Builder(AddDocumentOptions addDocumentOptions) {
       environmentId = addDocumentOptions.environmentId;
       collectionId = addDocumentOptions.collectionId;
-      configurationId = addDocumentOptions.configurationId;
       file = addDocumentOptions.file;
       fileMediaType = addDocumentOptions.fileMediaType;
       metadata = addDocumentOptions.metadata;
@@ -90,7 +75,7 @@ public class AddDocumentOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param environmentId the environmentId
-     * @param collectionId  the collectionId
+     * @param collectionId the collectionId
      */
     public Builder(String environmentId, String collectionId) {
       this.environmentId = environmentId;
@@ -125,17 +110,6 @@ public class AddDocumentOptions extends GenericModel {
      */
     public Builder collectionId(String collectionId) {
       this.collectionId = collectionId;
-      return this;
-    }
-
-    /**
-     * Set the configurationId.
-     *
-     * @param configurationId the configurationId
-     * @return the AddDocumentOptions builder
-     */
-    public Builder configurationId(String configurationId) {
-      this.configurationId = configurationId;
       return this;
     }
 
@@ -178,7 +152,6 @@ public class AddDocumentOptions extends GenericModel {
     Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
-    configurationId = builder.configurationId;
     file = builder.file;
     fileMediaType = builder.fileMediaType;
     metadata = builder.metadata;
@@ -216,18 +189,6 @@ public class AddDocumentOptions extends GenericModel {
   }
 
   /**
-   * Gets the configurationId.
-   *
-   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided
-   * (both are present at the same time), then request will be rejected.
-   *
-   * @return the configurationId
-   */
-  public String configurationId() {
-    return configurationId;
-  }
-
-  /**
    * Gets the file.
    *
    * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than 50
@@ -254,8 +215,9 @@ public class AddDocumentOptions extends GenericModel {
    * Gets the metadata.
    *
    * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
-   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1
-   * MB are rejected. Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
+   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than
+   * 1 MB are rejected.
+   * Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
    *
    * @return the metadata
    */

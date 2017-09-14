@@ -12,11 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The queryNotices options.
@@ -33,11 +33,12 @@ public class QueryNoticesOptions extends GenericModel {
   private Long count;
   private List<String> returnFields;
   private Long offset;
-  private String sort;
+  private List<String> sort;
   private Boolean highlight;
-  private String passagesFields;
+  private List<String> passagesFields;
   private Long passagesCount;
   private Long passagesCharacters;
+  private String deduplicateField;
 
   /**
    * Builder.
@@ -53,11 +54,12 @@ public class QueryNoticesOptions extends GenericModel {
     private Long count;
     private List<String> returnFields;
     private Long offset;
-    private String sort;
+    private List<String> sort;
     private Boolean highlight;
-    private String passagesFields;
+    private List<String> passagesFields;
     private Long passagesCount;
     private Long passagesCharacters;
+    private String deduplicateField;
 
     private Builder(QueryNoticesOptions queryNoticesOptions) {
       environmentId = queryNoticesOptions.environmentId;
@@ -75,6 +77,7 @@ public class QueryNoticesOptions extends GenericModel {
       passagesFields = queryNoticesOptions.passagesFields;
       passagesCount = queryNoticesOptions.passagesCount;
       passagesCharacters = queryNoticesOptions.passagesCharacters;
+      deduplicateField = queryNoticesOptions.deduplicateField;
     }
 
     /**
@@ -87,7 +90,7 @@ public class QueryNoticesOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param environmentId the environmentId
-     * @param collectionId  the collectionId
+     * @param collectionId the collectionId
      */
     public Builder(String environmentId, String collectionId) {
       this.environmentId = environmentId;
@@ -115,6 +118,36 @@ public class QueryNoticesOptions extends GenericModel {
         this.returnFields = new ArrayList<String>();
       }
       this.returnFields.add(returnField);
+      return this;
+    }
+
+    /**
+     * Adds an sort to sort.
+     *
+     * @param sort the new sort
+     * @return the QueryNoticesOptions builder
+     */
+    public Builder addSort(String sort) {
+      Validator.notNull(sort, "sort cannot be null");
+      if (this.sort == null) {
+        this.sort = new ArrayList<String>();
+      }
+      this.sort.add(sort);
+      return this;
+    }
+
+    /**
+     * Adds an passagesFields to passagesFields.
+     *
+     * @param passagesFields the new passagesFields
+     * @return the QueryNoticesOptions builder
+     */
+    public Builder addPassagesFields(String passagesFields) {
+      Validator.notNull(passagesFields, "passagesFields cannot be null");
+      if (this.passagesFields == null) {
+        this.passagesFields = new ArrayList<String>();
+      }
+      this.passagesFields.add(passagesFields);
       return this;
     }
 
@@ -231,11 +264,12 @@ public class QueryNoticesOptions extends GenericModel {
 
     /**
      * Set the sort.
+     * Existing sort will be replaced.
      *
      * @param sort the sort
      * @return the QueryNoticesOptions builder
      */
-    public Builder sort(String sort) {
+    public Builder sort(List<String> sort) {
       this.sort = sort;
       return this;
     }
@@ -253,11 +287,12 @@ public class QueryNoticesOptions extends GenericModel {
 
     /**
      * Set the passagesFields.
+     * Existing passagesFields will be replaced.
      *
      * @param passagesFields the passagesFields
      * @return the QueryNoticesOptions builder
      */
-    public Builder passagesFields(String passagesFields) {
+    public Builder passagesFields(List<String> passagesFields) {
       this.passagesFields = passagesFields;
       return this;
     }
@@ -283,6 +318,17 @@ public class QueryNoticesOptions extends GenericModel {
       this.passagesCharacters = passagesCharacters;
       return this;
     }
+
+    /**
+     * Set the deduplicateField.
+     *
+     * @param deduplicateField the deduplicateField
+     * @return the QueryNoticesOptions builder
+     */
+    public Builder deduplicateField(String deduplicateField) {
+      this.deduplicateField = deduplicateField;
+      return this;
+    }
   }
 
   private QueryNoticesOptions(Builder builder) {
@@ -303,6 +349,7 @@ public class QueryNoticesOptions extends GenericModel {
     passagesFields = builder.passagesFields;
     passagesCount = builder.passagesCount;
     passagesCharacters = builder.passagesCharacters;
+    deduplicateField = builder.deduplicateField;
   }
 
   /**
@@ -340,8 +387,8 @@ public class QueryNoticesOptions extends GenericModel {
    * Gets the filter.
    *
    * A cacheable query that limits the documents returned to exclude any documents that don't mention the query
-   * content. Filter searches are better for metadata type searches and when you are trying to get a sense of
-   * concepts in the data set.
+   * content. Filter searches are better for metadata type searches and when you are trying to get a sense of concepts
+   * in the data set.
    *
    * @return the filter
    */
@@ -377,7 +424,7 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the passages.
    *
-   * A passages query that returns the most relevant passages from the document.
+   * A passages query that returns the most relevant passages from the results.
    *
    * @return the passages
    */
@@ -436,12 +483,12 @@ public class QueryNoticesOptions extends GenericModel {
    * Gets the sort.
    *
    * A comma separated list of fields in the document to sort on. You can optionally specify a sort direction by
-   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
-   * prefix is specified.
+   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if
+   * no prefix is specified.
    *
    * @return the sort
    */
-  public String sort() {
+  public List<String> sort() {
     return sort;
   }
 
@@ -460,20 +507,20 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the passagesFields.
    *
-   * A comma-separated list of fields that passages are drawn from. If this parameter not specified then all top
-   * level field are included.
+   * A comma-separated list of fields that passages are drawn from. If this parameter not specified, then all
+   * top-level fields are included.
    *
    * @return the passagesFields
    */
-  public String passagesFields() {
+  public List<String> passagesFields() {
     return passagesFields;
   }
 
   /**
    * Gets the passagesCount.
    *
-   * The maximum number of passages to return. The search returns fewer passages if the requested total is not
-   * found.. The default is <tt>10</tt>. The maximum is <tt>100</tt>.
+   * The maximum number of passages to return. The search returns fewer passages if the requested total is not found.
+   * The default is <tt>10</tt>. The maximum is <tt>100</tt>.
    *
    * @return the passagesCount
    */
@@ -491,5 +538,18 @@ public class QueryNoticesOptions extends GenericModel {
    */
   public Long passagesCharacters() {
     return passagesCharacters;
+  }
+
+  /**
+   * Gets the deduplicateField.
+   *
+   * When specified, duplicate results based on the field specified are removed from the returned results. Duplicate
+   * comparison is limited to the current query only, <tt>offset</tt> is not considered. This parameter is currently
+   * Beta functionality.
+   *
+   * @return the deduplicateField
+   */
+  public String deduplicateField() {
+    return deduplicateField;
   }
 }
