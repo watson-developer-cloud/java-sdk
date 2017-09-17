@@ -47,6 +47,8 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifi
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
+import java.io.File;
+
 /**
  * **Important**: As of September 8, 2017, the beta period for Similarity Search is closed. For more information, see
  * [Visual Recognition API – Similarity Search
@@ -65,7 +67,7 @@ import okhttp3.RequestBody;
 public class VisualRecognition extends WatsonService {
 
   private static final String SERVICE_NAME = "visual_recognition";
-  private static final String URL = "https://gateway.watsonplatform.net/visual-recognition/api";
+  private static final String URL = "https://gateway-a.watsonplatform.net/visual-recognition/api";
 
   private String versionDate;
 
@@ -186,10 +188,13 @@ public class VisualRecognition extends WatsonService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     multipartBuilder.addFormDataPart("name", createClassifierOptions.name());
-    RequestBody classnamePositiveExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions
-        .classnamePositiveExamples(), "application/octet-stream");
-    multipartBuilder.addFormDataPart("classname_positive_examples", createClassifierOptions
-        .classnamePositiveExamplesFilename(), classnamePositiveExamplesBody);
+    // Classes
+    for (String className : createClassifierOptions.classNames()) {
+      String dataName = className + "_positive_examples";
+      File positiveExamples = createClassifierOptions.positiveExamplesByClassName(className);
+      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
+      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
+    }
     if (createClassifierOptions.negativeExamples() != null) {
       RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions.negativeExamples(),
           "application/octet-stream");
@@ -258,10 +263,13 @@ public class VisualRecognition extends WatsonService {
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody classnamePositiveExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions
-        .classnamePositiveExamples(), "application/octet-stream");
-    multipartBuilder.addFormDataPart("classname_positive_examples", updateClassifierOptions
-        .classnamePositiveExamplesFilename(), classnamePositiveExamplesBody);
+    // Classes
+    for (String className : updateClassifierOptions.classNames()) {
+      String dataName = className + "_positive_examples";
+      File positiveExamples = updateClassifierOptions.positiveExamplesByClassName(className);
+      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
+      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
+    }
     if (updateClassifierOptions.negativeExamples() != null) {
       RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions.negativeExamples(),
           "application/octet-stream");
