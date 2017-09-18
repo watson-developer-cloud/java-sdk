@@ -61,7 +61,6 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOption
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationType;
 import com.ibm.watson.developer_cloud.discovery.v1.query.Operator;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
@@ -88,6 +87,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
   private static final Long FREE = 0L;
   private static final Long THREE = 3L;
+  private static final String APPLICATION_JSON = "application/json";
   private static final String VERSION = Discovery.VERSION_DATE_2017_09_01;
 
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
@@ -460,7 +460,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
-    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     builder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -498,7 +498,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
-    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     builder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -524,7 +524,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
-    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     builder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -546,7 +546,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     myMetadata.add("foo", new JsonPrimitive("bar"));
 
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
-    updateBuilder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
+    updateBuilder.file(documentStream).fileContentType(APPLICATION_JSON);
     updateBuilder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.updateDocument(updateBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();

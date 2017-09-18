@@ -402,8 +402,8 @@ public class QueryOptions extends GenericModel {
    * Gets the filter.
    *
    * A cacheable query that limits the documents returned to exclude any documents that don't mention the query
-   * content. Filter searches are better for metadata type searches and when you are trying to get a sense of
-   * concepts in the data set.
+   * content. Filter searches are better for metadata type searches and when you are trying to get a sense of concepts
+   * in the data set.
    *
    * @return the filter
    */
@@ -415,8 +415,8 @@ public class QueryOptions extends GenericModel {
    * Gets the query.
    *
    * A query search returns all documents in your data set with full enrichments and full text, but with the most
-   * relevant documents listed first. Use a query search when you want to find the most relevant search results. You
-   * cannot use `natural_language_query` and `query` at the same time.
+   * \relevant documents listed first. Use a query search when you want to find the most relevant search results.
+   * You cannot use `natural_language_query` and `query` at the same time.
    *
    * @return the query
    */
@@ -450,9 +450,9 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the aggregation.
    *
-   * An aggregation search uses combinations of filters and query search to return an exact answer. Aggregations are
-   * useful for building applications, because you can use them to build lists, tables, and time series. For a full
-   * list of possible aggregrations, see the Query reference.
+   * An aggregation search uses combinations of filters and query search to return an exact answer. Aggregations
+   * are useful for building applications, because you can use them to build lists, tables, and time series. For a
+   * full list of possible aggregrations, see the Query reference.
    *
    * @return the aggregation
    */
@@ -546,8 +546,8 @@ public class QueryOptions extends GenericModel {
   /**
    * Gets the passagesCharacters.
    *
-   * The approximate number of characters that any one passage will have. The default is <tt>400</tt>. The minimum is
-   * <tt>50</tt>. The maximum is <tt>2000</tt>.
+   * The approximate number of characters that any one passage will have. The default is <tt>400</tt>. The minimum
+   * is <tt>50</tt>. The maximum is <tt>2000</tt>.
    *
    * @return the passagesCharacters
    */

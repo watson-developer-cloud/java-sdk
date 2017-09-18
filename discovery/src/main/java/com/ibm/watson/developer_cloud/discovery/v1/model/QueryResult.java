@@ -27,29 +27,32 @@ public class QueryResult extends DynamicModel {
   private Type scoreType = new TypeToken<Double>() { } .getType();
   private Type metadataType = new TypeToken<Map>() { } .getType();
 
+
   /**
    * Gets the id.
    *
    * @return the id
    */
   public String getId() {
-      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("id"), idType);
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("id"), idType);
   }
+
   /**
    * Gets the score.
    *
    * @return the score
    */
   public Double getScore() {
-      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("score"), scoreType);
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("score"), scoreType);
   }
+
   /**
    * Gets the metadata.
    *
    * @return the metadata
    */
   public Map getMetadata() {
-      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
   }
 
   /**

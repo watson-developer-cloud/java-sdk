@@ -25,9 +25,9 @@ public class AddTrainingDataOptions extends GenericModel {
 
   private String environmentId;
   private String collectionId;
+  private String naturalLanguageQuery;
   private String filter;
   private List<TrainingExample> examples;
-  private String naturalLanguageQuery;
 
   /**
    * Builder.
@@ -35,16 +35,16 @@ public class AddTrainingDataOptions extends GenericModel {
   public static class Builder {
     private String environmentId;
     private String collectionId;
+    private String naturalLanguageQuery;
     private String filter;
     private List<TrainingExample> examples;
-    private String naturalLanguageQuery;
 
     private Builder(AddTrainingDataOptions addTrainingDataOptions) {
       environmentId = addTrainingDataOptions.environmentId;
       collectionId = addTrainingDataOptions.collectionId;
+      naturalLanguageQuery = addTrainingDataOptions.naturalLanguageQuery;
       filter = addTrainingDataOptions.filter;
       examples = addTrainingDataOptions.examples;
-      naturalLanguageQuery = addTrainingDataOptions.naturalLanguageQuery;
     }
 
     /**
@@ -111,6 +111,17 @@ public class AddTrainingDataOptions extends GenericModel {
     }
 
     /**
+     * Set the naturalLanguageQuery.
+     *
+     * @param naturalLanguageQuery the naturalLanguageQuery
+     * @return the AddTrainingDataOptions builder
+     */
+    public Builder naturalLanguageQuery(String naturalLanguageQuery) {
+      this.naturalLanguageQuery = naturalLanguageQuery;
+      return this;
+    }
+
+    /**
      * Set the filter.
      *
      * @param filter the filter
@@ -132,17 +143,6 @@ public class AddTrainingDataOptions extends GenericModel {
       this.examples = examples;
       return this;
     }
-
-    /**
-     * Set the naturalLanguageQuery.
-     *
-     * @param naturalLanguageQuery the naturalLanguageQuery
-     * @return the AddTrainingDataOptions builder
-     */
-    public Builder naturalLanguageQuery(String naturalLanguageQuery) {
-      this.naturalLanguageQuery = naturalLanguageQuery;
-      return this;
-    }
   }
 
   private AddTrainingDataOptions(Builder builder) {
@@ -150,9 +150,9 @@ public class AddTrainingDataOptions extends GenericModel {
     Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
+    naturalLanguageQuery = builder.naturalLanguageQuery;
     filter = builder.filter;
     examples = builder.examples;
-    naturalLanguageQuery = builder.naturalLanguageQuery;
   }
 
   /**
@@ -187,6 +187,15 @@ public class AddTrainingDataOptions extends GenericModel {
   }
 
   /**
+   * Gets the naturalLanguageQuery.
+   *
+   * @return the naturalLanguageQuery
+   */
+  public String naturalLanguageQuery() {
+    return naturalLanguageQuery;
+  }
+
+  /**
    * Gets the filter.
    *
    * @return the filter
@@ -202,14 +211,5 @@ public class AddTrainingDataOptions extends GenericModel {
    */
   public List<TrainingExample> examples() {
     return examples;
-  }
-
-  /**
-   * Gets the naturalLanguageQuery.
-   *
-   * @return the naturalLanguageQuery
-   */
-  public String naturalLanguageQuery() {
-    return naturalLanguageQuery;
   }
 }
