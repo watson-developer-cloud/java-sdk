@@ -24,8 +24,8 @@ public class CreateTrainingExampleOptions extends GenericModel {
   private String collectionId;
   private String queryId;
   private String documentId;
-  private Long relevance;
   private String crossReference;
+  private Long relevance;
 
   /**
    * Builder.
@@ -35,16 +35,16 @@ public class CreateTrainingExampleOptions extends GenericModel {
     private String collectionId;
     private String queryId;
     private String documentId;
-    private Long relevance;
     private String crossReference;
+    private Long relevance;
 
     private Builder(CreateTrainingExampleOptions createTrainingExampleOptions) {
       environmentId = createTrainingExampleOptions.environmentId;
       collectionId = createTrainingExampleOptions.collectionId;
       queryId = createTrainingExampleOptions.queryId;
       documentId = createTrainingExampleOptions.documentId;
-      relevance = createTrainingExampleOptions.relevance;
       crossReference = createTrainingExampleOptions.crossReference;
+      relevance = createTrainingExampleOptions.relevance;
     }
 
     /**
@@ -120,17 +120,6 @@ public class CreateTrainingExampleOptions extends GenericModel {
     }
 
     /**
-     * Set the relevance.
-     *
-     * @param relevance the relevance
-     * @return the CreateTrainingExampleOptions builder
-     */
-    public Builder relevance(long relevance) {
-      this.relevance = relevance;
-      return this;
-    }
-
-    /**
      * Set the crossReference.
      *
      * @param crossReference the crossReference
@@ -142,6 +131,17 @@ public class CreateTrainingExampleOptions extends GenericModel {
     }
 
     /**
+     * Set the relevance.
+     *
+     * @param relevance the relevance
+     * @return the CreateTrainingExampleOptions builder
+     */
+    public Builder relevance(long relevance) {
+      this.relevance = relevance;
+      return this;
+    }
+
+    /**
      * Set the trainingExample.
      *
      * @param trainingExample the trainingExample
@@ -149,8 +149,8 @@ public class CreateTrainingExampleOptions extends GenericModel {
      */
     public Builder trainingExample(TrainingExample trainingExample) {
     this.documentId = trainingExample.getDocumentId();
-    this.relevance = trainingExample.getRelevance();
     this.crossReference = trainingExample.getCrossReference();
+    this.relevance = trainingExample.getRelevance();
       return this;
     }
   }
@@ -163,8 +163,8 @@ public class CreateTrainingExampleOptions extends GenericModel {
     collectionId = builder.collectionId;
     queryId = builder.queryId;
     documentId = builder.documentId;
-    relevance = builder.relevance;
     crossReference = builder.crossReference;
+    relevance = builder.relevance;
   }
 
   /**
@@ -219,20 +219,20 @@ public class CreateTrainingExampleOptions extends GenericModel {
   }
 
   /**
-   * Gets the relevance.
-   *
-   * @return the relevance
-   */
-  public Long relevance() {
-    return relevance;
-  }
-
-  /**
    * Gets the crossReference.
    *
    * @return the crossReference
    */
   public String crossReference() {
     return crossReference;
+  }
+
+  /**
+   * Gets the relevance.
+   *
+   * @return the relevance
+   */
+  public Long relevance() {
+    return relevance;
   }
 }

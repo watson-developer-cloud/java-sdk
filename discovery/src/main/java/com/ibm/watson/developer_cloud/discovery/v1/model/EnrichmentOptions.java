@@ -24,9 +24,9 @@ public class EnrichmentOptions extends GenericModel {
   /**
    * If provided, then do not attempt to detect the language of the input document. Instead, assume the language is
    * the one specified in this field.  You can set this property to work around `unsupported-text-language` errors.
-   * Supported languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish.
-   * Supported language codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language
-   * (for example "russian").
+   * Supported languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish. Supported
+   * language codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language (for example
+   * "russian").
    */
   public interface Language {
     /** english. */
@@ -95,7 +95,8 @@ public class EnrichmentOptions extends GenericModel {
    * Gets the extract.
    *
    * A comma-separated list of analyses that should be applied when using the `alchemy_language` enrichment. See the
-   * the service documentation for details on each extract option.  Possible values include:
+   * the service documentation for details on each extract option.
+   * Possible values include:
    * * entity
    * * keyword
    * * taxonomy
@@ -165,8 +166,8 @@ public class EnrichmentOptions extends GenericModel {
    * If provided, then do not attempt to detect the language of the input document. Instead, assume the language is
    * the one specified in this field.  You can set this property to work around `unsupported-text-language` errors.
    * Supported languages include English, German, French, Italian, Portuguese, Russian, Spanish and Swedish. Supported
-   * language codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language
-   * (for example "russian").
+   * language codes are the ISO-639-1, ISO-639-2, ISO-639-3, and the plain english name of the language (for example
+   * "russian").
    *
    * @return the language
    */

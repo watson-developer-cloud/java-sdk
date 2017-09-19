@@ -20,22 +20,22 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateEnvironmentOptions extends GenericModel {
 
-  private Long size;
   private String name;
   private String description;
+  private Long size;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Long size;
     private String name;
     private String description;
+    private Long size;
 
     private Builder(CreateEnvironmentOptions createEnvironmentOptions) {
-      size = createEnvironmentOptions.size;
       name = createEnvironmentOptions.name;
       description = createEnvironmentOptions.description;
+      size = createEnvironmentOptions.size;
     }
 
     /**
@@ -63,17 +63,6 @@ public class CreateEnvironmentOptions extends GenericModel {
     }
 
     /**
-     * Set the size.
-     *
-     * @param size the size
-     * @return the CreateEnvironmentOptions builder
-     */
-    public Builder size(long size) {
-      this.size = size;
-      return this;
-    }
-
-    /**
      * Set the name.
      *
      * @param name the name
@@ -94,13 +83,24 @@ public class CreateEnvironmentOptions extends GenericModel {
       this.description = description;
       return this;
     }
+
+    /**
+     * Set the size.
+     *
+     * @param size the size
+     * @return the CreateEnvironmentOptions builder
+     */
+    public Builder size(long size) {
+      this.size = size;
+      return this;
+    }
   }
 
   private CreateEnvironmentOptions(Builder builder) {
     Validator.notNull(builder.name, "name cannot be null");
-    size = builder.size;
     name = builder.name;
     description = builder.description;
+    size = builder.size;
   }
 
   /**
@@ -110,17 +110,6 @@ public class CreateEnvironmentOptions extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the size.
-   *
-   * **Deprecated**: Size of the environment.
-   *
-   * @return the size
-   */
-  public Long size() {
-    return size;
   }
 
   /**
@@ -143,5 +132,16 @@ public class CreateEnvironmentOptions extends GenericModel {
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the size.
+   *
+   * **Deprecated**: Size of the environment.
+   *
+   * @return the size
+   */
+  public Long size() {
+    return size;
   }
 }

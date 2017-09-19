@@ -41,32 +41,13 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     String NORMALIZATIONS_OUTPUT = "normalizations_output";
   }
 
-  /**
-   * The media type of file.
-   */
-  public interface FileMediaType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-    /** application/msword. */
-    String APPLICATION_MSWORD = "application/msword";
-    /** application/vnd.openxmlformats-officedocument.wordprocessingml.document. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT
-        = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    /** application/pdf. */
-    String APPLICATION_PDF = "application/pdf";
-    /** text/html. */
-    String TEXT_HTML = "text/html";
-    /** application/xhtml+xml. */
-    String APPLICATION_XHTML_XML = "application/xhtml+xml";
-  }
-
   private String environmentId;
   private String configuration;
   private String step;
   private String configurationId;
   private InputStream file;
-  private String fileMediaType;
   private String metadata;
+  private String fileContentType;
 
   /**
    * Builder.
@@ -77,8 +58,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     private String step;
     private String configurationId;
     private InputStream file;
-    private String fileMediaType;
     private String metadata;
+    private String fileContentType;
 
     private Builder(TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
       environmentId = testConfigurationInEnvironmentOptions.environmentId;
@@ -86,8 +67,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
       step = testConfigurationInEnvironmentOptions.step;
       configurationId = testConfigurationInEnvironmentOptions.configurationId;
       file = testConfigurationInEnvironmentOptions.file;
-      fileMediaType = testConfigurationInEnvironmentOptions.fileMediaType;
       metadata = testConfigurationInEnvironmentOptions.metadata;
+      fileContentType = testConfigurationInEnvironmentOptions.fileContentType;
     }
 
     /**
@@ -170,17 +151,6 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     }
 
     /**
-     * Set the fileMediaType.
-     *
-     * @param fileMediaType the fileMediaType
-     * @return the TestConfigurationInEnvironmentOptions builder
-     */
-    public Builder fileMediaType(String fileMediaType) {
-      this.fileMediaType = fileMediaType;
-      return this;
-    }
-
-    /**
      * Set the metadata.
      *
      * @param metadata the metadata
@@ -188,6 +158,17 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
      */
     public Builder metadata(String metadata) {
       this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Set the fileContentType.
+     *
+     * @param fileContentType the fileContentType
+     * @return the TestConfigurationInEnvironmentOptions builder
+     */
+    public Builder fileContentType(String fileContentType) {
+      this.fileContentType = fileContentType;
       return this;
     }
   }
@@ -199,8 +180,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     step = builder.step;
     configurationId = builder.configurationId;
     file = builder.file;
-    fileMediaType = builder.fileMediaType;
     metadata = builder.metadata;
+    fileContentType = builder.fileContentType;
   }
 
   /**
@@ -228,8 +209,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
    *
    * The configuration to use to process the document. If this part is provided, then the provided configuration is
    * used to process the document. If the `configuration_id` is also provided (both are present at the same time),
-   * then request is rejected. The maximum supported configuration size is 1 MB. Configuration parts larger than 1
-   * MB are rejected. See the `GET /configurations/{configuration_id}` operation for an example configuration.
+   * then request is rejected. The maximum supported configuration size is 1 MB. Configuration parts larger than 1 MB
+   * are rejected. See the `GET /configurations/{configuration_id}` operation for an example configuration.
    *
    * @return the configuration
    */
@@ -274,17 +255,6 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   }
 
   /**
-   * Gets the fileMediaType.
-   *
-   * The media type of file.
-   *
-   * @return the fileMediaType
-   */
-  public String fileMediaType() {
-    return fileMediaType;
-  }
-
-  /**
    * Gets the metadata.
    *
    * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
@@ -296,5 +266,16 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
    */
   public String metadata() {
     return metadata;
+  }
+
+  /**
+   * Gets the fileContentType.
+   *
+   * The content type of file.
+   *
+   * @return the fileContentType
+   */
+  public String fileContentType() {
+    return fileContentType;
   }
 }

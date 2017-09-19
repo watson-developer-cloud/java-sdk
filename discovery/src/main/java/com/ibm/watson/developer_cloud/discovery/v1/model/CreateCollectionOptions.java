@@ -36,8 +36,8 @@ public class CreateCollectionOptions extends GenericModel {
   private String environmentId;
   private String name;
   private String description;
-  private String language;
   private String configurationId;
+  private String language;
 
   /**
    * Builder.
@@ -46,15 +46,15 @@ public class CreateCollectionOptions extends GenericModel {
     private String environmentId;
     private String name;
     private String description;
-    private String language;
     private String configurationId;
+    private String language;
 
     private Builder(CreateCollectionOptions createCollectionOptions) {
       environmentId = createCollectionOptions.environmentId;
       name = createCollectionOptions.name;
       description = createCollectionOptions.description;
-      language = createCollectionOptions.language;
       configurationId = createCollectionOptions.configurationId;
+      language = createCollectionOptions.language;
     }
 
     /**
@@ -117,17 +117,6 @@ public class CreateCollectionOptions extends GenericModel {
     }
 
     /**
-     * Set the language.
-     *
-     * @param language the language
-     * @return the CreateCollectionOptions builder
-     */
-    public Builder language(String language) {
-      this.language = language;
-      return this;
-    }
-
-    /**
      * Set the configurationId.
      *
      * @param configurationId the configurationId
@@ -135,6 +124,17 @@ public class CreateCollectionOptions extends GenericModel {
      */
     public Builder configurationId(String configurationId) {
       this.configurationId = configurationId;
+      return this;
+    }
+
+    /**
+     * Set the language.
+     *
+     * @param language the language
+     * @return the CreateCollectionOptions builder
+     */
+    public Builder language(String language) {
+      this.language = language;
       return this;
     }
   }
@@ -145,8 +145,8 @@ public class CreateCollectionOptions extends GenericModel {
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;
-    language = builder.language;
     configurationId = builder.configurationId;
+    language = builder.language;
   }
 
   /**
@@ -192,6 +192,17 @@ public class CreateCollectionOptions extends GenericModel {
   }
 
   /**
+   * Gets the configurationId.
+   *
+   * The ID of the configuration in which the collection is to be created.
+   *
+   * @return the configurationId
+   */
+  public String configurationId() {
+    return configurationId;
+  }
+
+  /**
    * Gets the language.
    *
    * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language
@@ -201,16 +212,5 @@ public class CreateCollectionOptions extends GenericModel {
    */
   public String language() {
     return language;
-  }
-
-  /**
-   * Gets the configurationId.
-   *
-   * The ID of the configuration in which the collection is to be created.
-   *
-   * @return the configurationId
-   */
-  public String configurationId() {
-    return configurationId;
   }
 }
