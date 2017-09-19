@@ -1,7 +1,8 @@
 language: java
-sudo: false
+sudo: required
+dist: precise
 jdk:
-  - openjdk7
+  - oraclejdk7
   - oraclejdk8
 
 branches:
@@ -29,18 +30,30 @@ before_install:
   - sed -i.bak -e 's|https://nexus.codehaus.org/snapshots/|https://oss.sonatype.org/content/repositories/codehaus-snapshots/|g' ~/.m2/settings.xml
 
 script:
-  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_a973fe4f8e79_key -iv $encrypted_a973fe4f8e79_iv -in .config.properties.enc -out core/src/test/resources/.config.properties -d || true'
+  - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_3faf32fc672a_key -iv $encrypted_3faf32fc672a_iv -in .config.properties.enc -out core/src/test/resources/.config.properties -d || true'
   - ./gradlew install -x check
-  - ./gradlew test --continue
-  - ./gradlew codeCoverageReport
-  - ./gradlew docs > /dev/null # build the javadoc
   - ./gradlew checkstyleMain
   - ./gradlew checkstyleTest
+  - ./gradlew codeCoverageReport --continue
+  - ./gradlew docs > /dev/null # build the javadoc
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
-  - .utility/push-javadoc-to-gh-pages.sh
-  - .utility/deploy.sh
+
+deploy:
+  - provider: script
+    script: .utility/push-javadoc-to-gh-pages.sh
+    skip_cleanup: true
+    on:
+      repo: watson-developer-cloud/java-sdk
+      jdk: oraclejdk7
+
+  - provider: script
+    script: .utility/deploy.sh
+    skip_cleanup: true
+    on:
+      repo: watson-developer-cloud/java-sdk
+      jdk: oraclejdk7
 
 notifications:
-  email: false
+  email: true

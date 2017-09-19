@@ -13,31 +13,29 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createEnvironment options.
+ * The createEnvironment options.
  */
 public class CreateEnvironmentOptions extends GenericModel {
 
-  /** Size of the environment. */
-  private Long size;
-  /** Name that identifies the environment. */
   private String name;
-  /** Description of the environment. */
   private String description;
+  private Long size;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Long size;
     private String name;
     private String description;
+    private Long size;
 
     private Builder(CreateEnvironmentOptions createEnvironmentOptions) {
-      size = createEnvironmentOptions.size;
       name = createEnvironmentOptions.name;
       description = createEnvironmentOptions.description;
+      size = createEnvironmentOptions.size;
     }
 
     /**
@@ -47,23 +45,21 @@ public class CreateEnvironmentOptions extends GenericModel {
     }
 
     /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param name the name
+     */
+    public Builder(String name) {
+      this.name = name;
+    }
+
+    /**
      * Builds a CreateEnvironmentOptions.
      *
      * @return the createEnvironmentOptions
      */
     public CreateEnvironmentOptions build() {
       return new CreateEnvironmentOptions(this);
-    }
-
-    /**
-     * Set the size.
-     *
-     * @param size the size
-     * @return the CreateEnvironmentOptions builder
-     */
-    public Builder size(Long size) {
-      this.size = size;
-      return this;
     }
 
     /**
@@ -87,12 +83,24 @@ public class CreateEnvironmentOptions extends GenericModel {
       this.description = description;
       return this;
     }
+
+    /**
+     * Set the size.
+     *
+     * @param size the size
+     * @return the CreateEnvironmentOptions builder
+     */
+    public Builder size(long size) {
+      this.size = size;
+      return this;
+    }
   }
 
   private CreateEnvironmentOptions(Builder builder) {
-    size = builder.size;
+    Validator.notNull(builder.name, "name cannot be null");
     name = builder.name;
     description = builder.description;
+    size = builder.size;
   }
 
   /**
@@ -105,16 +113,9 @@ public class CreateEnvironmentOptions extends GenericModel {
   }
 
   /**
-   * Gets the size.
-   *
-   * @return the size
-   */
-  public Long size() {
-    return size;
-  }
-
-  /**
    * Gets the name.
+   *
+   * Name that identifies the environment.
    *
    * @return the name
    */
@@ -125,9 +126,22 @@ public class CreateEnvironmentOptions extends GenericModel {
   /**
    * Gets the description.
    *
+   * Description of the environment.
+   *
    * @return the description
    */
   public String description() {
     return description;
+  }
+
+  /**
+   * Gets the size.
+   *
+   * **Deprecated**: Size of the environment.
+   *
+   * @return the size
+   */
+  public Long size() {
+    return size;
   }
 }

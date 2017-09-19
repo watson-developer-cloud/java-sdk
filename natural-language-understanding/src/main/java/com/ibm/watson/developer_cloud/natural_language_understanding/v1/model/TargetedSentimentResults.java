@@ -19,13 +19,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class TargetedSentimentResults extends GenericModel {
 
-  /** Targeted text. */
   private String text;
-  /** Sentiment score from -1 (negative) to 1 (positive). */
   private Double score;
 
   /**
    * Gets the text.
+   *
+   * Targeted text.
    *
    * @return the text
    */
@@ -35,6 +35,8 @@ public class TargetedSentimentResults extends GenericModel {
 
   /**
    * Gets the score.
+   *
+   * Sentiment score from -1 (negative) to 1 (positive).
    *
    * @return the score
    */

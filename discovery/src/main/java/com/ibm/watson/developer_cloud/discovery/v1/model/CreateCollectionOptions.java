@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the createCollection options.
+ * The createCollection options.
  */
 public class CreateCollectionOptions extends GenericModel {
 
@@ -33,19 +33,11 @@ public class CreateCollectionOptions extends GenericModel {
     String DE = "de";
   }
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** The name of the collection to be created. */
   private String name;
-  /** A description of the collection. */
   private String description;
-  /**
-   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language
-   * code.
-   */
-  private String language;
-  /** The ID of the configuration in which the collection is to be created. */
   private String configurationId;
+  private String language;
 
   /**
    * Builder.
@@ -54,15 +46,15 @@ public class CreateCollectionOptions extends GenericModel {
     private String environmentId;
     private String name;
     private String description;
-    private String language;
     private String configurationId;
+    private String language;
 
     private Builder(CreateCollectionOptions createCollectionOptions) {
       environmentId = createCollectionOptions.environmentId;
       name = createCollectionOptions.name;
       description = createCollectionOptions.description;
-      language = createCollectionOptions.language;
       configurationId = createCollectionOptions.configurationId;
+      language = createCollectionOptions.language;
     }
 
     /**
@@ -125,17 +117,6 @@ public class CreateCollectionOptions extends GenericModel {
     }
 
     /**
-     * Set the language.
-     *
-     * @param language the language
-     * @return the CreateCollectionOptions builder
-     */
-    public Builder language(String language) {
-      this.language = language;
-      return this;
-    }
-
-    /**
      * Set the configurationId.
      *
      * @param configurationId the configurationId
@@ -145,16 +126,27 @@ public class CreateCollectionOptions extends GenericModel {
       this.configurationId = configurationId;
       return this;
     }
+
+    /**
+     * Set the language.
+     *
+     * @param language the language
+     * @return the CreateCollectionOptions builder
+     */
+    public Builder language(String language) {
+      this.language = language;
+      return this;
+    }
   }
 
   private CreateCollectionOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notNull(builder.name, "name cannot be null");
     environmentId = builder.environmentId;
     name = builder.name;
     description = builder.description;
-    language = builder.language;
     configurationId = builder.configurationId;
+    language = builder.language;
   }
 
   /**
@@ -169,6 +161,8 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -177,6 +171,8 @@ public class CreateCollectionOptions extends GenericModel {
 
   /**
    * Gets the name.
+   *
+   * The name of the collection to be created.
    *
    * @return the name
    */
@@ -187,6 +183,8 @@ public class CreateCollectionOptions extends GenericModel {
   /**
    * Gets the description.
    *
+   * A description of the collection.
+   *
    * @return the description
    */
   public String description() {
@@ -194,20 +192,25 @@ public class CreateCollectionOptions extends GenericModel {
   }
 
   /**
-   * Gets the language.
-   *
-   * @return the language
-   */
-  public String language() {
-    return language;
-  }
-
-  /**
    * Gets the configurationId.
+   *
+   * The ID of the configuration in which the collection is to be created.
    *
    * @return the configurationId
    */
   public String configurationId() {
     return configurationId;
+  }
+
+  /**
+   * Gets the language.
+   *
+   * The language of the documents stored in the collection. The value should be in the form of an ISO 639-1 language
+   * code.
+   *
+   * @return the language
+   */
+  public String language() {
+    return language;
   }
 }

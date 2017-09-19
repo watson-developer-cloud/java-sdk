@@ -18,7 +18,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * A notice produced by the ingestion process.
+ * A notice produced for the collection.
  */
 public class Notice extends GenericModel {
 
@@ -32,26 +32,22 @@ public class Notice extends GenericModel {
     String ERROR = "error";
   }
 
-  /**
-   * Identifies the notice. Many notices may have the same ID. This field exists so that user applications can
-   * programmatically identify a notice and take automatic corrective action.
-   */
   @SerializedName("notice_id")
   private String noticeId;
-  /** The creation date of the collection in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'. */
   private Date created;
-  /** Unique identifier of the ingested document. */
   @SerializedName("document_id")
   private String documentId;
-  /** Severity level of the notice. */
+  @SerializedName("query_id")
+  private String queryId;
   private String severity;
-  /** Ingestion step in which the notice occurred. */
   private String step;
-  /** The description of the notice. */
   private String description;
 
   /**
    * Gets the noticeId.
+   *
+   * Identifies the notice. Many notices may have the same ID. This field exists so that user applications can
+   * programmatically identify a notice and take automatic corrective action.
    *
    * @return the noticeId
    */
@@ -62,6 +58,8 @@ public class Notice extends GenericModel {
   /**
    * Gets the created.
    *
+   * The creation date of the collection in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   *
    * @return the created
    */
   public Date getCreated() {
@@ -71,6 +69,8 @@ public class Notice extends GenericModel {
   /**
    * Gets the documentId.
    *
+   * Unique identifier of the document.
+   *
    * @return the documentId
    */
   public String getDocumentId() {
@@ -78,7 +78,20 @@ public class Notice extends GenericModel {
   }
 
   /**
+   * Gets the queryId.
+   *
+   * Unique identifier of the query used for relevance training.
+   *
+   * @return the queryId
+   */
+  public String getQueryId() {
+    return queryId;
+  }
+
+  /**
    * Gets the severity.
+   *
+   * Severity level of the notice.
    *
    * @return the severity
    */
@@ -89,6 +102,8 @@ public class Notice extends GenericModel {
   /**
    * Gets the step.
    *
+   * Ingestion or training step in which the notice occurred.
+   *
    * @return the step
    */
   public String getStep() {
@@ -97,6 +112,8 @@ public class Notice extends GenericModel {
 
   /**
    * Gets the description.
+   *
+   * The description of the notice.
    *
    * @return the description
    */

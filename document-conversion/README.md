@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>document-conversion</artifactId>
-	<version>3.8.0</version>
+	<version>3.9.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:document-conversion:3.8.0'
+'com.ibm.watson.developer_cloud:document-conversion:3.9.1'
 ```
 
 ## Usage
@@ -30,4 +30,4 @@ Answers htmlToAnswers = service.convertDocumentToAnswer(doc).execute();
 System.out.println(htmlToAnswers);
 ```
 
-[document_conversion]: http://www.ibm.com/watson/developercloud/doc/document-conversion/
+[document_conversion]: https://console.bluemix.net/docs/services/document-conversion/index.html

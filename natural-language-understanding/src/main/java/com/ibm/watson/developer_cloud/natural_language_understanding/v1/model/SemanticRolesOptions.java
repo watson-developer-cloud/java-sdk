@@ -19,11 +19,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SemanticRolesOptions extends GenericModel {
 
-  /** Maximum number of semantic_roles results to return. */
   private Long limit;
-  /** Set this to true to return keyword information for subjects and objects. */
   private Boolean keywords;
-  /** Set this to true to return entity information for subjects and objects. */
   private Boolean entities;
 
   /**
@@ -107,6 +104,8 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
+   * Maximum number of semantic_roles results to return.
+   *
    * @return the limit
    */
   public Long limit() {
@@ -116,6 +115,8 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the keywords.
    *
+   * Set this to true to return keyword information for subjects and objects.
+   *
    * @return the keywords
    */
   public Boolean keywords() {
@@ -124,6 +125,8 @@ public class SemanticRolesOptions extends GenericModel {
 
   /**
    * Gets the entities.
+   *
+   * Set this to true to return entity information for subjects and objects.
    *
    * @return the entities
    */

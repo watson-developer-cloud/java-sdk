@@ -18,32 +18,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the addDocument options.
+ * The addDocument options.
  */
 public class AddDocumentOptions extends GenericModel {
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** the ID of your collection. */
   private String collectionId;
-  /**
-   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided (both
-   * are present at the same time), then request will be rejected.
-   */
-  private String configurationId;
-  /**
-   * The content of the document to ingest.The maximum supported file size is 50 megabytes. Files larger than 50
-   * megabytes is rejected.
-   */
   private InputStream file;
-  /** the media type of file. */
-  private String fileMediaType;
-  /**
-   * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
-   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB
-   * are rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```.
-   */
   private String metadata;
+  private String fileContentType;
 
   /**
    * Builder.
@@ -51,18 +34,16 @@ public class AddDocumentOptions extends GenericModel {
   public static class Builder {
     private String environmentId;
     private String collectionId;
-    private String configurationId;
     private InputStream file;
-    private String fileMediaType;
     private String metadata;
+    private String fileContentType;
 
     private Builder(AddDocumentOptions addDocumentOptions) {
       environmentId = addDocumentOptions.environmentId;
       collectionId = addDocumentOptions.collectionId;
-      configurationId = addDocumentOptions.configurationId;
       file = addDocumentOptions.file;
-      fileMediaType = addDocumentOptions.fileMediaType;
       metadata = addDocumentOptions.metadata;
+      fileContentType = addDocumentOptions.fileContentType;
     }
 
     /**
@@ -114,17 +95,6 @@ public class AddDocumentOptions extends GenericModel {
     }
 
     /**
-     * Set the configurationId.
-     *
-     * @param configurationId the configurationId
-     * @return the AddDocumentOptions builder
-     */
-    public Builder configurationId(String configurationId) {
-      this.configurationId = configurationId;
-      return this;
-    }
-
-    /**
      * Set the file.
      *
      * @param file the file
@@ -132,17 +102,6 @@ public class AddDocumentOptions extends GenericModel {
      */
     public Builder file(InputStream file) {
       this.file = file;
-      return this;
-    }
-
-    /**
-     * Set the fileMediaType.
-     *
-     * @param fileMediaType the fileMediaType
-     * @return the AddDocumentOptions builder
-     */
-    public Builder fileMediaType(String fileMediaType) {
-      this.fileMediaType = fileMediaType;
       return this;
     }
 
@@ -156,17 +115,27 @@ public class AddDocumentOptions extends GenericModel {
       this.metadata = metadata;
       return this;
     }
+
+    /**
+     * Set the fileContentType.
+     *
+     * @param fileContentType the fileContentType
+     * @return the AddDocumentOptions builder
+     */
+    public Builder fileContentType(String fileContentType) {
+      this.fileContentType = fileContentType;
+      return this;
+    }
   }
 
   private AddDocumentOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
-    Validator.notNull(builder.collectionId, "collectionId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
-    configurationId = builder.configurationId;
     file = builder.file;
-    fileMediaType = builder.fileMediaType;
     metadata = builder.metadata;
+    fileContentType = builder.fileContentType;
   }
 
   /**
@@ -181,6 +150,8 @@ public class AddDocumentOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -190,6 +161,8 @@ public class AddDocumentOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
+   * the ID of your collection.
+   *
    * @return the collectionId
    */
   public String collectionId() {
@@ -197,16 +170,10 @@ public class AddDocumentOptions extends GenericModel {
   }
 
   /**
-   * Gets the configurationId.
-   *
-   * @return the configurationId
-   */
-  public String configurationId() {
-    return configurationId;
-  }
-
-  /**
    * Gets the file.
+   *
+   * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than 50
+   * megabytes is rejected.
    *
    * @return the file
    */
@@ -215,20 +182,26 @@ public class AddDocumentOptions extends GenericModel {
   }
 
   /**
-   * Gets the fileMediaType.
-   *
-   * @return the fileMediaType
-   */
-  public String fileMediaType() {
-    return fileMediaType;
-  }
-
-  /**
    * Gets the metadata.
+   *
+   * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
+   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than
+   * 1 MB are rejected. Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
    *
    * @return the metadata
    */
   public String metadata() {
     return metadata;
+  }
+
+  /**
+   * Gets the fileContentType.
+   *
+   * The content type of file.
+   *
+   * @return the fileContentType
+   */
+  public String fileContentType() {
+    return fileContentType;
   }
 }

@@ -21,13 +21,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SentimentResult extends GenericModel {
 
-  /** The document level sentiment. */
   private DocumentSentimentResults document;
-  /** The targeted sentiment to analyze. */
   private List<TargetedSentimentResults> targets;
 
   /**
    * Gets the document.
+   *
+   * The document level sentiment.
    *
    * @return the document
    */
@@ -37,6 +37,8 @@ public class SentimentResult extends GenericModel {
 
   /**
    * Gets the targets.
+   *
+   * The targeted sentiment to analyze.
    *
    * @return the targets
    */

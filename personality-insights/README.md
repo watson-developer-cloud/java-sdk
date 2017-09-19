@@ -7,17 +7,17 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>personality-insights</artifactId>
-	<version>3.8.0</version>
+	<version>3.9.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:personality-insights:3.8.0'
+'com.ibm.watson.developer_cloud:personality-insights:3.9.1'
 ```
 
 ## Usage
-Use linguistic analytics to infer personality and social characteristics, including Big Five, Needs, and Values, from text.  
+Use linguistic analytics to infer personality and social characteristics, including Big Five, Needs, and Values, from text.
 Example: Analyze text and get a personality profile using the [Personality Insights][personality_insights] service.
 
 ```java
@@ -52,4 +52,4 @@ System.out.println(profile);
 authentication errors, remember that the Personality Insights service is not
 a free service.
 
-[personality_insights]: http://www.ibm.com/watson/developercloud/doc/personality-insights/
+[personality_insights]: https://console.bluemix.net/docs/services/personality-insights/index.html

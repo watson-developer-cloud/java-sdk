@@ -16,7 +16,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listExamples options.
+ * The listExamples options.
  */
 public class ListExamplesOptions extends GenericModel {
 

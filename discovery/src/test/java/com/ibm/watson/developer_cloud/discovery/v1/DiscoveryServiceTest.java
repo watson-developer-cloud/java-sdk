@@ -19,15 +19,20 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSyntaxException;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.AddTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteAllTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
@@ -35,6 +40,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsOptions;
@@ -42,15 +49,20 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsResponse
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingQuery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationType;
 import com.ibm.watson.developer_cloud.discovery.v1.query.Operator;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 import org.junit.After;
 import org.junit.Before;
@@ -73,28 +85,43 @@ import static org.junit.Assert.assertEquals;
 public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private Discovery discoveryService;
 
-  private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
-  private static final String RESOURCE = "src/test/resources/discovery/";
-  private static final String ENV1_PATH = "/v1/environments/mock_envid?version=2016-12-16";
-  private static final String ENV2_PATH = "/v1/environments?version=2016-12-16";
-  private static final String CONF1_PATH = "/v1/environments/mock_envid/configurations?version=2016-12-16";
-  private static final String CONF2_PATH = "/v1/environments/mock_envid/configurations/mock_confid?version=2016-12-16";
-  private static final String COLL1_PATH = "/v1/environments/mock_envid/collections?version=2016-12-16";
-  private static final String COLL2_PATH = "/v1/environments/mock_envid/collections/mock_collid?version=2016-12-16";
-  private static final String COLL3_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/fields?version=2016-12-16";
-  private static final String DOCS1_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/documents?version=2016-12-16";
-  private static final String DOCS2_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/documents/mock_docid?version=2016-12-16";
-  private static final String Q1_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/query?version=2016-12-16&filter=field:1"
-          + "&query=field:1&count=5&return=field&offset=5";
-  private static final String Q2_PATH =
-      "/v1/environments/mock_envid/collections/mock_collid/query?version=2016-12-16&aggregation=term(field)";
-
   private static final Long FREE = 0L;
   private static final Long THREE = 3L;
+  private static final String APPLICATION_JSON = "application/json";
+  private static final String VERSION = Discovery.VERSION_DATE_2017_09_01;
+
+  private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
+  private static final String RESOURCE = "src/test/resources/discovery/";
+  private static final String ENV1_PATH = "/v1/environments/mock_envid?version=" + VERSION;
+  private static final String ENV2_PATH = "/v1/environments?version=" + VERSION;
+  private static final String CONF1_PATH = "/v1/environments/mock_envid/configurations?version=" + VERSION;
+  private static final String CONF2_PATH = "/v1/environments/mock_envid/configurations/mock_confid?version=" + VERSION;
+  private static final String COLL1_PATH = "/v1/environments/mock_envid/collections?version=" + VERSION;
+  private static final String COLL2_PATH = "/v1/environments/mock_envid/collections/mock_collid?version=" + VERSION;
+  private static final String COLL3_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/fields?version=" + VERSION;
+  private static final String DOCS1_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/documents?version=" + VERSION;
+  private static final String DOCS2_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/documents/mock_docid?version=" + VERSION;
+  private static final String Q1_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/query?version="
+          + VERSION
+          + "&filter=field:1"
+          + "&query=field:1&count=5&return=field&offset=5";
+  private static final String Q2_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/query?version="
+          + VERSION
+          + "&aggregation=term(field)";
+  private static final String TRAINING1_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/training_data?version=" + VERSION;
+  private static final String TRAINING2_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples?version=" + VERSION;
+  private static final String TRAINING3_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid?version=" + VERSION;
+  private static final String TRAINING4_PATH =
+      "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples/mock_docid?version="
+          + VERSION;
 
   private String environmentId;
   private String environmentName;
@@ -104,6 +131,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private String uniqueCollectionName;
   private String collectionId;
   private String documentId;
+  private String queryId;
 
   private Environment envResp;
   private ListEnvironmentsResponse envsResp;
@@ -125,6 +153,12 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private DocumentStatus getDocResp;
   private Map<String, Object> deleteDocResp;
   private QueryResponse queryResp;
+  private TrainingQuery addTrainingQueryResp;
+  private TrainingDataSet listTrainingDataResp;
+  private TrainingExample createTrainingExampleResp;
+  private TrainingQuery getTrainingDataResp;
+  private TrainingExample getTrainingExampleResp;
+  private TrainingExample updateTrainingExampleResp;
 
   @BeforeClass
   public static void setupClass() {
@@ -133,7 +167,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   @Before
   public void setup() throws Exception {
     super.setUp();
-    discoveryService = new Discovery("2016-12-16");
+    discoveryService = new Discovery(Discovery.VERSION_DATE_2017_09_01);
     discoveryService.setApiKey("");
     discoveryService.setEndPoint(getMockWebServerUrl());
 
@@ -145,6 +179,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     uniqueCollectionName = "mock_collname";
     collectionId = "mock_collid";
     documentId = "mock_docid";
+    queryId = "mock_queryid";
 
     envResp = loadFixture(RESOURCE + "get_env_resp.json", Environment.class);
     envsResp = loadFixture(RESOURCE + "get_envs_resp.json", ListEnvironmentsResponse.class);
@@ -166,6 +201,12 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     getDocResp = loadFixture(RESOURCE + "get_doc_resp.json", DocumentStatus.class);
     deleteDocResp = loadFixture(RESOURCE + "delete_doc_resp.json", Map.class);
     queryResp = loadFixture(RESOURCE + "query1_resp.json", QueryResponse.class);
+    addTrainingQueryResp = loadFixture(RESOURCE + "add_training_query_resp.json", TrainingQuery.class);
+    listTrainingDataResp = loadFixture(RESOURCE + "list_training_data_resp.json", TrainingDataSet.class);
+    createTrainingExampleResp = loadFixture(RESOURCE + "add_training_example_resp.json", TrainingExample.class);
+    getTrainingDataResp = loadFixture(RESOURCE + "get_training_data_resp.json", TrainingQuery.class);
+    getTrainingExampleResp = loadFixture(RESOURCE + "get_training_example_resp.json", TrainingExample.class);
+    updateTrainingExampleResp = loadFixture(RESOURCE + "update_training_example_resp.json", TrainingExample.class);
   }
 
   @After
@@ -419,7 +460,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
-    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     builder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -457,7 +498,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
-    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     builder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -483,7 +524,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
-    builder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     builder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -505,7 +546,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     myMetadata.add("foo", new JsonPrimitive("bar"));
 
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
-    updateBuilder.file(documentStream).fileMediaType(HttpMediaType.APPLICATION_JSON);
+    updateBuilder.file(documentStream).fileContentType(APPLICATION_JSON);
     updateBuilder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.updateDocument(updateBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -586,4 +627,126 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(GsonSingleton.getGson().toJsonTree(queryResp), GsonSingleton.getGson().toJsonTree(response));
   }
 
+  // Training data tests
+  @Test
+  public void addTrainingDataIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(addTrainingQueryResp));
+    AddTrainingDataOptions.Builder builder = new AddTrainingDataOptions.Builder(environmentId, collectionId);
+    builder.naturalLanguageQuery("Example query");
+    TrainingExample example = new TrainingExample();
+    example.setDocumentId(documentId);
+    example.setRelevance(0);
+    builder.addExamples(example);
+    TrainingQuery response = discoveryService.addTrainingData(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(TRAINING1_PATH, request.getPath());
+    assertEquals(POST, request.getMethod());
+    assertEquals(addTrainingQueryResp, response);
+  }
+
+  @Test
+  public void listTrainingDataIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(listTrainingDataResp));
+    ListTrainingDataOptions getRequest = new ListTrainingDataOptions.Builder(environmentId, collectionId).build();
+    TrainingDataSet response = discoveryService.listTrainingData(getRequest).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(TRAINING1_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(listTrainingDataResp, response);
+  }
+
+  @Test
+  public void deleteAllCollectionTrainingDataIsSuccessful() throws InterruptedException {
+    MockResponse desiredResponse = new MockResponse().setResponseCode(204);
+    server.enqueue(desiredResponse);
+    DeleteAllTrainingDataOptions deleteRequest =
+        new DeleteAllTrainingDataOptions.Builder(environmentId, collectionId).build();
+    discoveryService.deleteAllTrainingData(deleteRequest).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(TRAINING1_PATH, request.getPath());
+    assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void createTrainingExampleIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(createTrainingExampleResp));
+    CreateTrainingExampleOptions.Builder builder =
+        new CreateTrainingExampleOptions.Builder(environmentId, collectionId, queryId);
+    builder.documentId(documentId);
+    builder.relevance(0);
+    TrainingExample response = discoveryService.createTrainingExample(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(TRAINING2_PATH, request.getPath());
+    assertEquals(POST, request.getMethod());
+    assertEquals(createTrainingExampleResp, response);
+  }
+
+  @Test
+  public void getTrainingDataIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(getTrainingDataResp));
+    GetTrainingDataOptions.Builder builder = new GetTrainingDataOptions.Builder(environmentId, collectionId, queryId);
+    TrainingQuery response = discoveryService.getTrainingData(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(TRAINING3_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(getTrainingDataResp, response);
+  }
+
+  @Test
+  public void getTrainingExampleIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(getTrainingExampleResp));
+    GetTrainingExampleOptions.Builder builder =
+        new GetTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
+    TrainingExample response = discoveryService.getTrainingExample(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(TRAINING4_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(getTrainingExampleResp, response);
+  }
+
+  @Test
+  public void deleteTrainingDataIsSuccessful() throws InterruptedException {
+    MockResponse desiredResponse = new MockResponse().setResponseCode(204);
+    server.enqueue(desiredResponse);
+    DeleteTrainingDataOptions.Builder builder =
+        new DeleteTrainingDataOptions.Builder(environmentId, collectionId, queryId);
+    discoveryService.deleteTrainingData(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(TRAINING3_PATH, request.getPath());
+    assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void deleteTrainingExampleIsSuccessful() throws InterruptedException {
+    MockResponse desiredResponse = new MockResponse().setResponseCode(204);
+    server.enqueue(desiredResponse);
+    DeleteTrainingExampleOptions.Builder builder =
+        new DeleteTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
+    discoveryService.deleteTrainingExample(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(TRAINING4_PATH, request.getPath());
+    assertEquals(DELETE, request.getMethod());
+  }
+
+  @Test
+  public void updateTrainingExampleIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(updateTrainingExampleResp));
+    UpdateTrainingExampleOptions.Builder builder =
+        new UpdateTrainingExampleOptions.Builder(environmentId, collectionId, queryId, documentId);
+    builder.relevance(100);
+    TrainingExample response = discoveryService.updateTrainingExample(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(TRAINING4_PATH, request.getPath());
+    assertEquals(PUT, request.getMethod());
+    assertEquals(updateTrainingExampleResp, response);
+  }
 }

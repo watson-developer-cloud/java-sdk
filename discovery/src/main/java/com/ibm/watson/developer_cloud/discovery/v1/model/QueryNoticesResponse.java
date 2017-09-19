@@ -26,6 +26,9 @@ public class QueryNoticesResponse extends GenericModel {
   private Long matchingResults;
   private List<QueryNoticesResult> results;
   private List<QueryAggregation> aggregations;
+  private List<QueryPassages> passages;
+  @SerializedName("duplicates_removed")
+  private Long duplicatesRemoved;
 
   /**
    * Gets the matchingResults.
@@ -55,11 +58,29 @@ public class QueryNoticesResponse extends GenericModel {
   }
 
   /**
+   * Gets the passages.
+   *
+   * @return the passages
+   */
+  public List<QueryPassages> getPassages() {
+    return passages;
+  }
+
+  /**
+   * Gets the duplicatesRemoved.
+   *
+   * @return the duplicatesRemoved
+   */
+  public Long getDuplicatesRemoved() {
+    return duplicatesRemoved;
+  }
+
+  /**
    * Sets the matchingResults.
    *
    * @param matchingResults the new matchingResults
    */
-  public void setMatchingResults(final Long matchingResults) {
+  public void setMatchingResults(final long matchingResults) {
     this.matchingResults = matchingResults;
   }
 
@@ -79,5 +100,23 @@ public class QueryNoticesResponse extends GenericModel {
    */
   public void setAggregations(final List<QueryAggregation> aggregations) {
     this.aggregations = aggregations;
+  }
+
+  /**
+   * Sets the passages.
+   *
+   * @param passages the new passages
+   */
+  public void setPassages(final List<QueryPassages> passages) {
+    this.passages = passages;
+  }
+
+  /**
+   * Sets the duplicatesRemoved.
+   *
+   * @param duplicatesRemoved the new duplicatesRemoved
+   */
+  public void setDuplicatesRemoved(final long duplicatesRemoved) {
+    this.duplicatesRemoved = duplicatesRemoved;
   }
 }

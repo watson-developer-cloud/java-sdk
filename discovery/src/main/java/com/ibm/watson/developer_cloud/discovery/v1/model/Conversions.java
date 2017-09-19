@@ -22,21 +22,16 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Conversions extends GenericModel {
 
-  /** A list of PDF conversion settings. */
   private PdfSettings pdf;
-  /** A list of Word conversion settings. */
   private WordSettings word;
-  /** A list of HTML conversion settings. */
   private HtmlSettings html;
-  /**
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
-   */
   @SerializedName("json_normalizations")
   private List<NormalizationOperation> jsonNormalizations;
 
   /**
    * Gets the pdf.
+   *
+   * A list of PDF conversion settings.
    *
    * @return the pdf
    */
@@ -47,6 +42,8 @@ public class Conversions extends GenericModel {
   /**
    * Gets the word.
    *
+   * A list of Word conversion settings.
+   *
    * @return the word
    */
   public WordSettings getWord() {
@@ -56,6 +53,8 @@ public class Conversions extends GenericModel {
   /**
    * Gets the html.
    *
+   * A list of HTML conversion settings.
+   *
    * @return the html
    */
   public HtmlSettings getHtml() {
@@ -64,6 +63,9 @@ public class Conversions extends GenericModel {
 
   /**
    * Gets the jsonNormalizations.
+   *
+   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
+   * executed in the order that they appear in the array.
    *
    * @return the jsonNormalizations
    */

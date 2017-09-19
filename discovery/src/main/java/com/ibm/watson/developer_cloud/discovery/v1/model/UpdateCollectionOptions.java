@@ -16,19 +16,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateCollection options.
+ * The updateCollection options.
  */
 public class UpdateCollectionOptions extends GenericModel {
 
-  /** the ID of your environment. */
   private String environmentId;
-  /** the ID of your collection. */
   private String collectionId;
-  /** The name of the collection. */
   private String name;
-  /** A description of the collection. */
   private String description;
-  /** The ID of the configuration in which the collection is to be updated. */
   private String configurationId;
 
   /**
@@ -132,8 +127,8 @@ public class UpdateCollectionOptions extends GenericModel {
   }
 
   private UpdateCollectionOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
-    Validator.notNull(builder.collectionId, "collectionId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     name = builder.name;
@@ -153,6 +148,8 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -161,6 +158,8 @@ public class UpdateCollectionOptions extends GenericModel {
 
   /**
    * Gets the collectionId.
+   *
+   * the ID of your collection.
    *
    * @return the collectionId
    */
@@ -171,6 +170,8 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the name.
    *
+   * The name of the collection.
+   *
    * @return the name
    */
   public String name() {
@@ -180,6 +181,8 @@ public class UpdateCollectionOptions extends GenericModel {
   /**
    * Gets the description.
    *
+   * A description of the collection.
+   *
    * @return the description
    */
   public String description() {
@@ -188,6 +191,8 @@ public class UpdateCollectionOptions extends GenericModel {
 
   /**
    * Gets the configurationId.
+   *
+   * The ID of the configuration in which the collection is to be updated.
    *
    * @return the configurationId
    */

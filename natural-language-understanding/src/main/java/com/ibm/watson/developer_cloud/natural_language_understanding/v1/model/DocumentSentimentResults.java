@@ -19,11 +19,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class DocumentSentimentResults extends GenericModel {
 
-  /** Sentiment score from -1 (negative) to 1 (positive). */
   private Double score;
 
   /**
    * Gets the score.
+   *
+   * Sentiment score from -1 (negative) to 1 (positive).
    *
    * @return the score
    */

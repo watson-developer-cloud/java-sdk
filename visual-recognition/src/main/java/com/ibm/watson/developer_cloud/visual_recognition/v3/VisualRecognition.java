@@ -12,600 +12,257 @@
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3;
 
-import java.lang.reflect.Type;
-import java.util.List;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
-import com.google.gson.reflect.TypeToken;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
-import com.ibm.watson.developer_cloud.http.ResponseConverter;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.AddImageToCollectionOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifierOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyImagesOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Collection;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CollectionImage;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifiers;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.FindSimilarImagesOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.RecognizedText;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassification;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualClassifier;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.VisualRecognitionOptions;
-
-import okhttp3.HttpUrl;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
+import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifierOptions;
 import okhttp3.MultipartBody;
-import okhttp3.MultipartBody.Builder;
 import okhttp3.RequestBody;
 
+import java.io.File;
+
 /**
- * Visual Recognition allows you to derive insights from an image based on its visual content. You can organize image
- * libraries, understand an individual image, and create custom classifiers for specific results that are tailored to
- * your needs.
+ * **Important**: As of September 8, 2017, the beta period for Similarity Search is closed. For more information, see
+ * [Visual Recognition API – Similarity Search
+ * Update](https://www.ibm.com/blogs/bluemix/2017/08/visual-recognition-api-similarity-search-update).
+ *
+ * The IBM Watson Visual Recognition service uses deep learning algorithms to identify scenes, objects, and faces in
+ * images you upload to the service. You can create and train a custom classifier to identify subjects that suit your
+ * needs.
+ *
+ * **Tip**: To test calls to the **Custom classifiers** methods with the API explorer, provide your `api_key` from your
+ * Bluemix service instance.
  *
  * @version v3
- * @see <a href= "http://www.ibm.com/watson/developercloud/visual-recognition.html"> Visual Recognition</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/visual-recognition.html">Visual Recognition</a>
  */
 public class VisualRecognition extends WatsonService {
 
-  private static final String PARAM_API_KEY = "api_key";
-  private static final String PARAM_CLASSIFIERS = "classifiers";
-  private static final String PARAM_IMAGES_FILE = "images_file";
-  private static final String PARAM_NAME = "name";
-  private static final String PARAM_NEGATIVE_EXAMPLES = "negative_examples";
-  private static final String PARAM_PARAMETERS = "parameters";
-  private static final String PARAM_POSITIVE_EXAMPLES = "positive_examples";
-  private static final String PARAM_URL = "url";
-  private static final String PARAM_CLASSIFIER_IDS = "classifier_ids";
-  private static final String PARAM_THRESHOLD = "threshold";
-  private static final String PARAM_COLLECTIONS = "collections";
-  private static final String PARAM_IMAGE_FILE = "image_file";
-  private static final String PARAM_IMAGES = "images";
-  private static final String PARAM_SIMILAR_IMAGES = "similar_images";
-  private static final String PARAM_LIMIT = "limit";
-  private static final String PARAM_METADATA = "metadata";
-
-  private static final String PATH_CLASSIFIER = "/v3/classifiers/%s";
-  private static final String PATH_CLASSIFIERS = "/v3/classifiers";
-  private static final String PATH_CLASSIFY = "/v3/classify";
-  private static final String PATH_DETECT_FACES = "/v3/detect_faces";
-  private static final String PATH_RECOGNIZE_TEXT = "/v3/recognize_text";
-  private static final String PATH_COLLECTION = "/v3/collections/%s";
-  private static final String PATH_COLLECTIONS = "/v3/collections";
-  private static final String PATH_COLLECTION_IMAGES = "/v3/collections/%s/images";
-  private static final String PATH_COLLECTION_IMAGE = "/v3/collections/%s/images/%s";
-  private static final String PATH_FIND_SIMILAR_IMAGES = "/v3/collections/%s/find_similar";
-
-  private static final Type TYPE_LIST_IMAGES = new TypeToken<List<CollectionImage>>() { }.getType();
-  private static final Type TYPE_LIST_COLLECTIONS = new TypeToken<List<Collection>>() { }.getType();
-  private static final Type TYPE_LIST_CLASSIFIERS = new TypeToken<List<VisualClassifier>>() { }.getType();
-
-  private static final String SERVICE_NAME = "watson_vision_combined";
+  private static final String SERVICE_NAME = "visual_recognition";
   private static final String URL = "https://gateway-a.watsonplatform.net/visual-recognition/api";
-  private static final String VERBOSE = "verbose";
-
-  /** Version date. */
-  public static final String VERSION_DATE_2016_05_20 = "2016-05-20";
-
 
   private String versionDate;
 
+  /** The Constant VERSION_DATE_2016_05_20. */
+  public static final String VERSION_DATE_2016_05_20 = "2016-05-20";
+
   /**
-   * Instantiates a new Visual Recognition V3 service.
+   * Instantiates a new `VisualRecognition`.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *        calls from failing when the service introduces breaking changes.
+   *          calls from failing when the service introduces breaking changes.
    */
   public VisualRecognition(String versionDate) {
     super(SERVICE_NAME);
     if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
       setEndPoint(URL);
     }
-    Validator.notNull(versionDate, "versionDate cannot be null. Use '2016-05-19'");
+
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
+        "'version cannot be null. Use " + VERSION_DATE_2016_05_20);
+
     this.versionDate = versionDate;
   }
 
   /**
-   * Instantiates a new Visual Recognition V3 service with a given API key.
+   * Instantiates a new `VisualRecognition` with API Key.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *        calls from failing when the service introduces breaking changes.
-   * @param apiKey the api key
+   *          calls from failing when the service introduces breaking changes.
+   * @param apiKey the API Key
    */
   public VisualRecognition(String versionDate, String apiKey) {
     this(versionDate);
     setApiKey(apiKey);
   }
 
-  /**
-   * Adds the Alchemy API key to HTTP request.
-   *
-   * @param builder the builder
-   * @param apiKey the API key token
-   */
-  private void addApiKeyToRequest(okhttp3.Request.Builder builder, String apiKey) {
-    final HttpUrl url = HttpUrl.parse(builder.build().url().toString());
-    if ((url.query() == null) || url.query().isEmpty()) {
-      builder.url(builder.build().url() + "?" + apiKey);
-    } else {
-      builder.url(builder.build().url() + "&" + apiKey);
-    }
-  }
-
-  private JsonObject getParametersAsJson(ClassifyImagesOptions options) {
-    JsonObject ret = new JsonObject();
-
-    if ((options.url() != null) && (options.images() == null)) {
-      ret.addProperty(PARAM_URL, options.url().toString());
-    }
-
-    if ((options.classifierIds() != null) && !options.classifierIds().isEmpty()) {
-      JsonArray array = new JsonArray();
-      for (String cId : options.classifierIds()) {
-        array.add(new JsonPrimitive(cId));
-      }
-      ret.add(PARAM_CLASSIFIER_IDS, array);
-    }
-
-    if (options.threshold() != null) {
-      ret.addProperty(PARAM_THRESHOLD, options.threshold());
-    }
-
-    return ret;
-  }
-
-  /**
-   * Gets the request parameters as {@link JsonObject}.
-   *
-   * @param options the options
-   * @return the parameters as {@link JsonObject}
-   */
-  private JsonObject getParametersAsJson(VisualRecognitionOptions options) {
-    JsonObject ret = new JsonObject();
-    ret.addProperty(PARAM_URL, options.url().toString());
-    return ret;
-  }
-
-
   /*
    * (non-Javadoc)
-   *
-   * @see com.ibm.watson.developer_cloud.service.WatsonService#setAuthentication(okhttp3.Request. Builder)
    */
   @Override
   protected void setAuthentication(okhttp3.Request.Builder builder) {
     if (getApiKey() == null) {
       throw new IllegalArgumentException("api_key needs to be specified. Use setApiKey()");
     }
-    addApiKeyToRequest(builder, PARAM_API_KEY + "=" + getApiKey());
-  }
-
-  /**
-   * Classify.
-   *
-   * @param options the classify options
-   * @return the {@link VisualClassification}
-   */
-  public ServiceCall<VisualClassification> classify(ClassifyImagesOptions options) {
-    Validator.notNull(options, "'options' cannot be null");
-
-    // build body
-    Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-
-    if (options.images() != null) {
-      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.images());
-      bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.images().getName(), requestBody);
-    }
-
-    if (options.imagesBinary() != null) {
-      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imagesBinary());
-      bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.imageName(), requestBody);
-    }
-
-    bodyBuilder.addFormDataPart(PARAM_PARAMETERS, getParametersAsJson(options).toString());
-
-    RequestBuilder requestBuilder = RequestBuilder.post(PATH_CLASSIFY);
-    requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VisualClassification.class));
-  }
-
-  /**
-   * Train a new classifier on the uploaded image data. Upload a compressed (.zip) file of images (.jpg, .png, or .gif)
-   * with positive examples that show your classifier and another compressed file with negative examples that are
-   * similar to but do NOT show your classifier. <br>
-   *
-   * @param options The parameters to create a classifier
-   * @return The created {@link VisualClassifier}
-   * @see ClassifierOptions
-   * @see VisualClassifier
-   */
-  public ServiceCall<VisualClassifier> createClassifier(ClassifierOptions options) {
-    Validator.notNull(options, " options cannot be null");
-    validateClassifierOptions(options);
-
-    Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-    bodyBuilder.addFormDataPart(PARAM_NAME, options.classifierName());
-
-    // Classes
-    for (String className : options.classNames()) {
-      String dataName = className + "_" + PARAM_POSITIVE_EXAMPLES;
-      RequestBody requestBody =
-          RequestBody.create(HttpMediaType.BINARY_FILE, options.positiveExamplesByClassName(className));
-      bodyBuilder.addFormDataPart(dataName, options.positiveExamplesByClassName(className).getName(), requestBody);
-    }
-
-    if (options.negativeExamples() != null) {
-      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.negativeExamples());
-      bodyBuilder.addFormDataPart(PARAM_NEGATIVE_EXAMPLES, options.negativeExamples().getName(), requestBody);
-    }
-
-    RequestBuilder requestBuilder = RequestBuilder.post(PATH_CLASSIFIERS);
-    requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VisualClassifier.class));
-  }
-
-  /**
-   * Validates the {@link ClassifierOptions}.
-   *
-   * @param options the options
-   */
-  private void validateClassifierOptions(ClassifierOptions options) {
-    String errorMessage = "To create a classifier, you must supply at least 2 zip files - "
-        + "either 2 positive example sets, or 1 positive and 1 negative set";
-
-    Validator.notNull(options.classifierName(), "'classifierName' cannot be null");
-    Validator.isTrue(!options.classNames().isEmpty(), "There are no classes. " + errorMessage);
-
-    boolean hasExamples = (options.classNames().size() > 1)
-        || ((options.negativeExamples() != null) && (options.classNames().size() == 1));
-    Validator.isTrue(hasExamples, errorMessage);
-  }
-
-  /**
-   * Update an existing classifier by adding new classes, or by adding new images to existing classes. To update the
-   * existing classifier, use several compressed (.zip) files, including files containing positive or negative images
-   * (.jpg, or .png). You must supply at least one compressed file, with additional positive or negative examples. <br>
-   *
-   * @param classifierId the classifier id
-   * @param options The parameters to create a classifier
-   * @return The created {@link VisualClassifier}
-   * @see ClassifierOptions
-   * @see VisualClassifier
-   */
-  public ServiceCall<VisualClassifier> updateClassifier(String classifierId, ClassifierOptions options) {
-    Validator.notNull(classifierId, "classifierId cannot be null");
-    Validator.notNull(options, " options cannot be null");
-    String errorMessage =
-        "To update a classifier, you must supply at least 1 zip file - " + "either a positive or negative zip file.";
-    Validator.isTrue(!options.classNames().isEmpty() || (options.negativeExamples() != null), errorMessage);
-
-
-    Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-
-    // Classes
-    for (String className : options.classNames()) {
-      String dataName = className + "_" + PARAM_POSITIVE_EXAMPLES;
-      RequestBody requestBody =
-          RequestBody.create(HttpMediaType.BINARY_FILE, options.positiveExamplesByClassName(className));
-      bodyBuilder.addFormDataPart(dataName, options.positiveExamplesByClassName(className).getName(), requestBody);
-    }
-
-    if (options.negativeExamples() != null) {
-      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.negativeExamples());
-      bodyBuilder.addFormDataPart(PARAM_NEGATIVE_EXAMPLES, options.negativeExamples().getName(), requestBody);
-    }
-
-    RequestBuilder requestBuilder = RequestBuilder.post(String.format(PATH_CLASSIFIER, classifierId));
-    requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VisualClassifier.class));
-  }
-
-  /**
-   * Deletes a classifier.
-   *
-   * @param classifierId the classifier ID to delete
-   * @return the service call
-   * @see VisualClassifier
-   */
-  public ServiceCall<Void> deleteClassifier(String classifierId) {
-    Validator.isTrue((classifierId != null) && !classifierId.isEmpty(), "classifierId cannot be null or empty");
-
-    RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_CLASSIFIER, classifierId));
-    requestBuilder.query(VERSION, versionDate);
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
-  }
-
-
-  /**
-   * Detect faces.
-   *
-   * @param options the recognize text options
-   * @return the {@link VisualClassification}
-   */
-  public ServiceCall<DetectedFaces> detectFaces(VisualRecognitionOptions options) {
-    // build body
-    Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-    if (options.url() != null) {
-      bodyBuilder.addFormDataPart(PARAM_PARAMETERS, getParametersAsJson(options).toString());
+    final okhttp3.HttpUrl url = okhttp3.HttpUrl.parse(builder.build().url().toString());
+    if ((url.query() == null) || url.query().isEmpty()) {
+      builder.url(builder.build().url() + "?api_key=" + getApiKey());
     } else {
-      if (options.images() != null) {
-        RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.images());
-        bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.images().getName(), requestBody);
+      builder.url(builder.build().url() + "&api_key=" + getApiKey());
+    }
+  }
+
+  /**
+   * Classify images.
+   *
+   * @param classifyOptions the {@link ClassifyOptions} containing the options for the call
+   * @return the {@link ClassifiedImages} with the response
+   */
+  public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
+    Validator.notNull(classifyOptions, "classifyOptions cannot be null");
+    Validator.isTrue((classifyOptions.imagesFile() != null) || (classifyOptions.parameters() != null),
+        "At least one of imagesFile or parameters must be supplied.");
+    RequestBuilder builder = RequestBuilder.post("/v3/classify");
+    builder.query(VERSION, versionDate);
+    if (classifyOptions.acceptLanguage() != null) {
+      builder.header("Accept-Language", classifyOptions.acceptLanguage());
+    }
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (classifyOptions.imagesFile() != null) {
+      RequestBody imagesFileBody = RequestUtils.inputStreamBody(classifyOptions.imagesFile(), classifyOptions
+          .imagesFileContentType());
+      multipartBuilder.addFormDataPart("images_file", classifyOptions.imagesFilename(), imagesFileBody);
+    }
+    if (classifyOptions.parameters() != null) {
+      multipartBuilder.addFormDataPart("parameters", classifyOptions.parameters());
+    }
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassifiedImages.class));
+  }
+
+  /**
+   * Detect faces in an image.
+   *
+   * @param detectFacesOptions the {@link DetectFacesOptions} containing the options for the call
+   * @return the {@link DetectedFaces} with the response
+   */
+  public ServiceCall<DetectedFaces> detectFaces(DetectFacesOptions detectFacesOptions) {
+    Validator.notNull(detectFacesOptions, "detectFacesOptions cannot be null");
+    Validator.isTrue((detectFacesOptions.imagesFile() != null) || (detectFacesOptions.parameters() != null),
+        "At least one of imagesFile or parameters must be supplied.");
+    RequestBuilder builder = RequestBuilder.post("/v3/detect_faces");
+    builder.query(VERSION, versionDate);
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (detectFacesOptions.imagesFile() != null) {
+      RequestBody imagesFileBody = RequestUtils.inputStreamBody(detectFacesOptions.imagesFile(), detectFacesOptions
+          .imagesFileContentType());
+      multipartBuilder.addFormDataPart("images_file", detectFacesOptions.imagesFilename(), imagesFileBody);
+    }
+    if (detectFacesOptions.parameters() != null) {
+      multipartBuilder.addFormDataPart("parameters", detectFacesOptions.parameters());
+    }
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DetectedFaces.class));
+  }
+
+  /**
+   * Create a classifier.
+   *
+   * @param createClassifierOptions the {@link CreateClassifierOptions} containing the options for the call
+   * @return the {@link Classifier} with the response
+   */
+  public ServiceCall<Classifier> createClassifier(CreateClassifierOptions createClassifierOptions) {
+    Validator.notNull(createClassifierOptions, "createClassifierOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post("/v3/classifiers");
+    builder.query(VERSION, versionDate);
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    multipartBuilder.addFormDataPart("name", createClassifierOptions.name());
+    // Classes
+    for (String className : createClassifierOptions.classNames()) {
+      String dataName = className + "_positive_examples";
+      File positiveExamples = createClassifierOptions.positiveExamplesByClassName(className);
+      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
+      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
+    }
+    if (createClassifierOptions.negativeExamples() != null) {
+      RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions.negativeExamples(),
+          "application/octet-stream");
+      multipartBuilder.addFormDataPart("negative_examples", createClassifierOptions.negativeExamplesFilename(),
+          negativeExamplesBody);
+    }
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
+  }
+
+  /**
+   * Delete a custom classifier.
+   *
+   * @param deleteClassifierOptions the {@link DeleteClassifierOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
+    Validator.notNull(deleteClassifierOptions, "deleteClassifierOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v3/classifiers/%s", deleteClassifierOptions
+        .classifierId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Retrieve information about a custom classifier.
+   *
+   * @param getClassifierOptions the {@link GetClassifierOptions} containing the options for the call
+   * @return the {@link Classifier} with the response
+   */
+  public ServiceCall<Classifier> getClassifier(GetClassifierOptions getClassifierOptions) {
+    Validator.notNull(getClassifierOptions, "getClassifierOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v3/classifiers/%s", getClassifierOptions
+        .classifierId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
+  }
+
+  /**
+   * Retrieve a list of custom classifiers.
+   *
+   * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the call
+   * @return the {@link Classifiers} with the response
+   */
+  public ServiceCall<Classifiers> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
+    RequestBuilder builder = RequestBuilder.get("/v3/classifiers");
+    builder.query(VERSION, versionDate);
+    if (listClassifiersOptions != null) {
+      if (listClassifiersOptions.verbose() != null) {
+        builder.query("verbose", String.valueOf(listClassifiersOptions.verbose()));
       }
-
-      if (options.imagesBinary() != null) {
-        RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imagesBinary());
-        bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.imageName(), requestBody);
-      }
     }
-
-    RequestBuilder requestBuilder = RequestBuilder.post(PATH_DETECT_FACES);
-    requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(DetectedFaces.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifiers.class));
   }
 
   /**
-   * Retrieve information about a specific classifier. Only user-trained classifiers may be addressed.
+   * Update a classifier.
    *
-   * @param classifierId the classifier ID
-   * @return the classifier
-   * @see VisualClassifier
+   * @param updateClassifierOptions the {@link UpdateClassifierOptions} containing the options for the call
+   * @return the {@link Classifier} with the response
    */
-  public ServiceCall<VisualClassifier> getClassifier(String classifierId) {
-    Validator.isTrue((classifierId != null) && !classifierId.isEmpty(), "classifierId cannot be null or empty");
-
-    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_CLASSIFIER, classifierId));
-    requestBuilder.query(VERSION, versionDate);
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(VisualClassifier.class));
-  }
-
-
-  /**
-   * Retrieve the user-trained classifiers.
-   *
-   * @return the classifier list
-   * @see VisualClassifier
-   */
-  public ServiceCall<List<VisualClassifier>> getClassifiers() {
-    RequestBuilder requestBuilder =
-        RequestBuilder.get(PATH_CLASSIFIERS).query(VERSION, versionDate).query(VERBOSE, true);
-
-    ResponseConverter<List<VisualClassifier>> converter =
-        ResponseConverterUtils.getGenericObject(TYPE_LIST_CLASSIFIERS, PARAM_CLASSIFIERS);
-    return createServiceCall(requestBuilder.build(), converter);
-  }
-
-  /**
-   * Recognize text.
-   *
-   * @param options the recognize text options
-   * @return the {@link RecognizedText}
-   */
-  public ServiceCall<RecognizedText> recognizeText(VisualRecognitionOptions options) {
-
-    // build body
-    Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-    if (options.url() != null) {
-      bodyBuilder.addFormDataPart(PARAM_PARAMETERS, getParametersAsJson(options).toString());
-    } else {
-      if (options.images() != null) {
-        RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.images());
-        bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.images().getName(), requestBody);
-      }
-
-      if (options.imagesBinary() != null) {
-        RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imagesBinary());
-        bodyBuilder.addFormDataPart(PARAM_IMAGES_FILE, options.imageName(), requestBody);
-      }
+  public ServiceCall<Classifier> updateClassifier(UpdateClassifierOptions updateClassifierOptions) {
+    Validator.notNull(updateClassifierOptions, "updateClassifierOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v3/classifiers/%s", updateClassifierOptions
+        .classifierId()));
+    builder.query(VERSION, versionDate);
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    // Classes
+    for (String className : updateClassifierOptions.classNames()) {
+      String dataName = className + "_positive_examples";
+      File positiveExamples = updateClassifierOptions.positiveExamplesByClassName(className);
+      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
+      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
     }
-
-    RequestBuilder requestBuilder = RequestBuilder.post(PATH_RECOGNIZE_TEXT);
-    requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(RecognizedText.class));
-  }
-
-  /**
-   * The Visual Recognition V3 service use an <code>api_key</code> instead of username and password. <br>
-   * Use: {@link VisualRecognition#setApiKey(String)}
-   *
-   * @param username the username
-   * @param password the password
-   */
-  @Override
-  @Deprecated
-  public void setUsernameAndPassword(String username, String password) {
-    throw new IllegalArgumentException("This service requires an api_key. Use the setApiKey() method instead");
-  }
-
-  /**
-   * Gets the collections.
-   *
-   * @return the collections
-   */
-  public ServiceCall<List<Collection>> getCollections() {
-    RequestBuilder requestBuilder = RequestBuilder.get(PATH_COLLECTIONS).query(VERSION, versionDate);
-    ResponseConverter<List<Collection>> converter =
-        ResponseConverterUtils.getGenericObject(TYPE_LIST_COLLECTIONS, PARAM_COLLECTIONS);
-    return createServiceCall(requestBuilder.build(), converter);
-  }
-
-  /**
-   * Gets the collection information.
-   *
-   * @param collectionId the collection id
-   * @return the collection
-   */
-  public ServiceCall<Collection> getCollection(String collectionId) {
-    Validator.isTrue((collectionId != null) && !collectionId.isEmpty(), "collectionId cannot be null or empty");
-
-    RequestBuilder requestBuilder = RequestBuilder.get(String.format(PATH_COLLECTION, collectionId));
-    requestBuilder.query(VERSION, versionDate);
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Collection.class));
-  }
-
-  /**
-   * Deletes a collection.
-   *
-   * @param collectionId the collection id
-   * @return the service call
-   */
-  public ServiceCall<Void> deleteCollection(String collectionId) {
-    Validator.isTrue((collectionId != null) && !collectionId.isEmpty(), "collectionId cannot be null or empty");
-
-    RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_COLLECTION, collectionId));
-    requestBuilder.query(VERSION, versionDate);
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Deletes a collection.
-   *
-   * @param collectionId the collection id
-   * @param imageId the image id
-   * @return the service call
-   */
-  public ServiceCall<Void> deleteCollectionImage(String collectionId, String imageId) {
-    Validator.isTrue((collectionId != null) && !collectionId.isEmpty(), "collectionId cannot be null or empty");
-    Validator.isTrue((imageId != null) && !imageId.isEmpty(), "imageId cannot be null or empty");
-
-    RequestBuilder requestBuilder = RequestBuilder.delete(String.format(PATH_COLLECTION_IMAGE, collectionId, imageId));
-    requestBuilder.query(VERSION, versionDate);
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Adds the image to collection.
-   *
-   * @param options the options
-   * @return the service call
-   */
-  public ServiceCall<Void> addImageToCollection(AddImageToCollectionOptions options) {
-    Validator.notNull(options, " options cannot be null");
-
-    Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-
-    if (options.image() != null) {
-      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.image());
-      bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.image().getName(), requestBody);
+    if (updateClassifierOptions.negativeExamples() != null) {
+      RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions.negativeExamples(),
+          "application/octet-stream");
+      multipartBuilder.addFormDataPart("negative_examples", updateClassifierOptions.negativeExamplesFilename(),
+          negativeExamplesBody);
     }
-
-    if (options.imageBinary() != null) {
-      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imageBinary());
-      bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.imageName(), requestBody);
-    }
-
-    if (options.metadata() != null && !options.metadata().isEmpty()) {
-      String metadata = GsonSingleton.getGsonWithoutPrettyPrinting().toJson(options.metadata());
-      bodyBuilder.addFormDataPart(PARAM_METADATA, metadata);
-    }
-
-    RequestBuilder requestBuilder = RequestBuilder.post(String.format(PATH_COLLECTION_IMAGES, options.collectionId()));
-    requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getVoid());
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
   }
 
-  /**
-   * Gets the collection images.
-   *
-   * @param collectionId the collection id
-   * @return the collection images
-   */
-  public ServiceCall<List<CollectionImage>> getCollectionImages(String collectionId) {
-    Validator.isTrue((collectionId != null) && !collectionId.isEmpty(), "collectionId cannot be null or empty");
-
-    RequestBuilder requestBuilder = RequestBuilder
-        .get(String.format(PATH_COLLECTION_IMAGES, collectionId))
-        .query(VERSION, versionDate);
-
-    ResponseConverter<List<CollectionImage>> converter =
-        ResponseConverterUtils.getGenericObject(TYPE_LIST_IMAGES, PARAM_IMAGES);
-    return createServiceCall(requestBuilder.build(), converter);
-  }
-
-  /**
-   * Gets the collection image.
-   *
-   * @param collectionId the collection id
-   * @param imageId the imageId
-   * @return the collection image
-   */
-  public ServiceCall<CollectionImage> getCollectionImage(String collectionId, String imageId) {
-    Validator.isTrue((collectionId != null) && !collectionId.isEmpty(), "collectionId cannot be null or empty");
-    Validator.isTrue((imageId != null) && !imageId.isEmpty(), "imageId cannot be null or empty");
-
-    RequestBuilder requestBuilder = RequestBuilder
-        .get(String.format(PATH_COLLECTION_IMAGE, collectionId, imageId))
-        .query(VERSION, versionDate);
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(CollectionImage.class));
-  }
-
-  /**
-   * Find similar images.
-   *
-   * @param options the options
-   * @return the service call
-   */
-  public ServiceCall<List<CollectionImage>> findSimilarImages(FindSimilarImagesOptions options) {
-    Validator.notNull(options, "'options' cannot be null");
-
-    Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM);
-
-    if (options.image() != null) {
-      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.image());
-      bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.image().getName(), requestBody);
-    }
-
-    if (options.imageBinary() != null) {
-      RequestBody requestBody = RequestBody.create(HttpMediaType.BINARY_FILE, options.imageBinary());
-      bodyBuilder.addFormDataPart(PARAM_IMAGE_FILE, options.imageName(), requestBody);
-    }
-
-    RequestBuilder requestBuilder =
-        RequestBuilder.post(String.format(PATH_FIND_SIMILAR_IMAGES, options.collectionId()));
-    requestBuilder.query(VERSION, versionDate).body(bodyBuilder.build());
-
-    if (options.limit() != null) {
-      requestBuilder.query(PARAM_LIMIT, options.limit());
-    }
-
-    ResponseConverter<List<CollectionImage>> converter =
-        ResponseConverterUtils.getGenericObject(TYPE_LIST_IMAGES, PARAM_SIMILAR_IMAGES);
-
-    return createServiceCall(requestBuilder.build(), converter);
-  }
-
-  /**
-   * Creates a collection.
-   *
-   * @param name the collection name
-   * @return the service call
-   */
-  public ServiceCall<Collection> createCollection(String name) {
-    Validator.isTrue((name != null) && !name.isEmpty(), "collectionId cannot be null or empty");
-
-    RequestBody body = new MultipartBody.Builder()
-        .setType(MultipartBody.FORM)
-        .addFormDataPart(PARAM_NAME, name)
-        .build();
-
-    RequestBuilder requestBuilder = RequestBuilder.post(PATH_COLLECTIONS);
-    requestBuilder.body(body);
-    requestBuilder.query(VERSION, versionDate);
-    requestBuilder.query(PARAM_NAME, name);
-
-    return createServiceCall(requestBuilder.build(), ResponseConverterUtils.getObject(Collection.class));
-  }
 }

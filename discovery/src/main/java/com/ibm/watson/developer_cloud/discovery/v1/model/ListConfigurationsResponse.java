@@ -21,11 +21,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ListConfigurationsResponse extends GenericModel {
 
-  /** An array of Configurations that are available for the service instance. */
   private List<Configuration> configurations;
 
   /**
    * Gets the configurations.
+   *
+   * An array of Configurations that are available for the service instance.
    *
    * @return the configurations
    */

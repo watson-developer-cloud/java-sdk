@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>speech-to-text</artifactId>
-	<version>3.8.0</version>
+	<version>3.9.1</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:3.8.0'
+'com.ibm.watson.developer_cloud:speech-to-text:3.9.1'
 ```
 
 ## Usage
@@ -31,7 +31,7 @@ System.out.println(transcript);
 
 #### WebSocket support
 
-Speech to Text supports WebSocket, the url is:  
+Speech to Text supports WebSocket, the url is:
   `wss://stream.watsonplatform.net/speech-to-text/api/v1/recognize`
 
   ```java
@@ -41,7 +41,6 @@ service.setUsernameAndPassword("<username>", "<password>");
 File audio = new File("src/test/resources/sample1.wav");
 
 RecognizeOptions options = new RecognizeOptions.Builder()
-  .continuous(true)
   .interimResults(true)
   .contentType(HttpMediaType.AUDIO_WAV)
   .build();
@@ -102,4 +101,4 @@ line.close();
 System.out.println("Fin.");
 ```
 
-[speech_to_text]: http://www.ibm.com/watson/developercloud/doc/speech-to-text/
+[speech_to_text]: https://console.bluemix.net/docs/services/speech-to-text/index.html

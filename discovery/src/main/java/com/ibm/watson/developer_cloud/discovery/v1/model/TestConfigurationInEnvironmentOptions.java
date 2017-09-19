@@ -18,7 +18,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the testConfigurationInEnvironment options.
+ * The testConfigurationInEnvironment options.
  */
 public class TestConfigurationInEnvironmentOptions extends GenericModel {
 
@@ -41,50 +41,34 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     String NORMALIZATIONS_OUTPUT = "normalizations_output";
   }
 
-  /** the ID of your environment. */
   private String environmentId;
-  /**
-   * Specify to only run the input document through the given step instead of running the input document through the
-   * entire ingestion workflow. Valid values are `convert`, `enrich`, and `normalize`.
-   */
+  private String configuration;
   private String step;
-  /**
-   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided (both
-   * are present at the same time), then request will be rejected.
-   */
   private String configurationId;
-  /**
-   * The content of the document to ingest.The maximum supported file size is 50 megabytes. Files larger than 50
-   * megabytes is rejected.
-   */
   private InputStream file;
-  /** the media type of file. */
-  private String fileMediaType;
-  /**
-   * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
-   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB
-   * are rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```.
-   */
   private String metadata;
+  private String fileContentType;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String environmentId;
+    private String configuration;
     private String step;
     private String configurationId;
     private InputStream file;
-    private String fileMediaType;
     private String metadata;
+    private String fileContentType;
 
     private Builder(TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
       environmentId = testConfigurationInEnvironmentOptions.environmentId;
+      configuration = testConfigurationInEnvironmentOptions.configuration;
       step = testConfigurationInEnvironmentOptions.step;
       configurationId = testConfigurationInEnvironmentOptions.configurationId;
       file = testConfigurationInEnvironmentOptions.file;
-      fileMediaType = testConfigurationInEnvironmentOptions.fileMediaType;
       metadata = testConfigurationInEnvironmentOptions.metadata;
+      fileContentType = testConfigurationInEnvironmentOptions.fileContentType;
     }
 
     /**
@@ -123,6 +107,17 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     }
 
     /**
+     * Set the configuration.
+     *
+     * @param configuration the configuration
+     * @return the TestConfigurationInEnvironmentOptions builder
+     */
+    public Builder configuration(String configuration) {
+      this.configuration = configuration;
+      return this;
+    }
+
+    /**
      * Set the step.
      *
      * @param step the step
@@ -156,17 +151,6 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     }
 
     /**
-     * Set the fileMediaType.
-     *
-     * @param fileMediaType the fileMediaType
-     * @return the TestConfigurationInEnvironmentOptions builder
-     */
-    public Builder fileMediaType(String fileMediaType) {
-      this.fileMediaType = fileMediaType;
-      return this;
-    }
-
-    /**
      * Set the metadata.
      *
      * @param metadata the metadata
@@ -176,16 +160,28 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
       this.metadata = metadata;
       return this;
     }
+
+    /**
+     * Set the fileContentType.
+     *
+     * @param fileContentType the fileContentType
+     * @return the TestConfigurationInEnvironmentOptions builder
+     */
+    public Builder fileContentType(String fileContentType) {
+      this.fileContentType = fileContentType;
+      return this;
+    }
   }
 
   private TestConfigurationInEnvironmentOptions(Builder builder) {
-    Validator.notNull(builder.environmentId, "environmentId cannot be null");
+    Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     environmentId = builder.environmentId;
+    configuration = builder.configuration;
     step = builder.step;
     configurationId = builder.configurationId;
     file = builder.file;
-    fileMediaType = builder.fileMediaType;
     metadata = builder.metadata;
+    fileContentType = builder.fileContentType;
   }
 
   /**
@@ -200,6 +196,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
+   * the ID of your environment.
+   *
    * @return the environmentId
    */
   public String environmentId() {
@@ -207,7 +205,24 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   }
 
   /**
+   * Gets the configuration.
+   *
+   * The configuration to use to process the document. If this part is provided, then the provided configuration is
+   * used to process the document. If the `configuration_id` is also provided (both are present at the same time),
+   * then request is rejected. The maximum supported configuration size is 1 MB. Configuration parts larger than 1 MB
+   * are rejected. See the `GET /configurations/{configuration_id}` operation for an example configuration.
+   *
+   * @return the configuration
+   */
+  public String configuration() {
+    return configuration;
+  }
+
+  /**
    * Gets the step.
+   *
+   * Specify to only run the input document through the given step instead of running the input document through the
+   * entire ingestion workflow. Valid values are `convert`, `enrich`, and `normalize`.
    *
    * @return the step
    */
@@ -218,6 +233,9 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
+   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided
+   * (both are present at the same time), then request will be rejected.
+   *
    * @return the configurationId
    */
   public String configurationId() {
@@ -227,6 +245,9 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the file.
    *
+   * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than 50
+   * megabytes is rejected.
+   *
    * @return the file
    */
   public InputStream file() {
@@ -234,20 +255,27 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   }
 
   /**
-   * Gets the fileMediaType.
-   *
-   * @return the fileMediaType
-   */
-  public String fileMediaType() {
-    return fileMediaType;
-  }
-
-  /**
    * Gets the metadata.
+   *
+   * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
+   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than
+   * 1 MB are rejected.
+   * Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
    *
    * @return the metadata
    */
   public String metadata() {
     return metadata;
+  }
+
+  /**
+   * Gets the fileContentType.
+   *
+   * The content type of file.
+   *
+   * @return the fileContentType
+   */
+  public String fileContentType() {
+    return fileContentType;
   }
 }

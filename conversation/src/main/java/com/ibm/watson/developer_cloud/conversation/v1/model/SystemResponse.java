@@ -12,34 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.Map;
-
-import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 
 /**
- * For internal use only.
- */
-public class SystemResponse extends GenericModel {
+* For internal use only.
+*/
+public class SystemResponse extends DynamicModel {
 
-  @SerializedName("SystemResponseObject")
-  private Map<String, Object> systemResponseObject;
-
-  /**
-   * Gets the systemResponseObject.
-   *
-   * @return the systemResponseObject
-   */
-  public Map<String, Object> getSystemResponseObject() {
-    return systemResponseObject;
-  }
-
-  /**
-   * Sets the systemResponseObject.
-   *
-   * @param systemResponseObject the new systemResponseObject
-   */
-  public void setSystemResponseObject(final Map<String, Object> systemResponseObject) {
-    this.systemResponseObject = systemResponseObject;
-  }
 }
+
