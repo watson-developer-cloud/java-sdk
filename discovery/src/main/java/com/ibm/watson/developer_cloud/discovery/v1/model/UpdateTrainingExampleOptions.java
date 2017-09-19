@@ -24,8 +24,8 @@ public class UpdateTrainingExampleOptions extends GenericModel {
   private String collectionId;
   private String queryId;
   private String exampleId;
-  private Long relevance;
   private String crossReference;
+  private Long relevance;
 
   /**
    * Builder.
@@ -35,16 +35,16 @@ public class UpdateTrainingExampleOptions extends GenericModel {
     private String collectionId;
     private String queryId;
     private String exampleId;
-    private Long relevance;
     private String crossReference;
+    private Long relevance;
 
     private Builder(UpdateTrainingExampleOptions updateTrainingExampleOptions) {
       environmentId = updateTrainingExampleOptions.environmentId;
       collectionId = updateTrainingExampleOptions.collectionId;
       queryId = updateTrainingExampleOptions.queryId;
       exampleId = updateTrainingExampleOptions.exampleId;
-      relevance = updateTrainingExampleOptions.relevance;
       crossReference = updateTrainingExampleOptions.crossReference;
+      relevance = updateTrainingExampleOptions.relevance;
     }
 
     /**
@@ -122,17 +122,6 @@ public class UpdateTrainingExampleOptions extends GenericModel {
     }
 
     /**
-     * Set the relevance.
-     *
-     * @param relevance the relevance
-     * @return the UpdateTrainingExampleOptions builder
-     */
-    public Builder relevance(long relevance) {
-      this.relevance = relevance;
-      return this;
-    }
-
-    /**
      * Set the crossReference.
      *
      * @param crossReference the crossReference
@@ -140,6 +129,17 @@ public class UpdateTrainingExampleOptions extends GenericModel {
      */
     public Builder crossReference(String crossReference) {
       this.crossReference = crossReference;
+      return this;
+    }
+
+    /**
+     * Set the relevance.
+     *
+     * @param relevance the relevance
+     * @return the UpdateTrainingExampleOptions builder
+     */
+    public Builder relevance(long relevance) {
+      this.relevance = relevance;
       return this;
     }
   }
@@ -153,8 +153,8 @@ public class UpdateTrainingExampleOptions extends GenericModel {
     collectionId = builder.collectionId;
     queryId = builder.queryId;
     exampleId = builder.exampleId;
-    relevance = builder.relevance;
     crossReference = builder.crossReference;
+    relevance = builder.relevance;
   }
 
   /**
@@ -211,20 +211,20 @@ public class UpdateTrainingExampleOptions extends GenericModel {
   }
 
   /**
-   * Gets the relevance.
-   *
-   * @return the relevance
-   */
-  public Long relevance() {
-    return relevance;
-  }
-
-  /**
    * Gets the crossReference.
    *
    * @return the crossReference
    */
   public String crossReference() {
     return crossReference;
+  }
+
+  /**
+   * Gets the relevance.
+   *
+   * @return the relevance
+   */
+  public Long relevance() {
+    return relevance;
   }
 }

@@ -483,8 +483,8 @@ public class QueryNoticesOptions extends GenericModel {
    * Gets the sort.
    *
    * A comma separated list of fields in the document to sort on. You can optionally specify a sort direction by
-   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if
-   * no prefix is specified.
+   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
+   * prefix is specified.
    *
    * @return the sort
    */

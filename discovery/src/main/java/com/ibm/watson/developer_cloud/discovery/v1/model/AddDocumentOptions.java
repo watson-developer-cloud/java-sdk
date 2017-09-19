@@ -22,30 +22,11 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class AddDocumentOptions extends GenericModel {
 
-  /**
-   * The media type of file.
-   */
-  public interface FileMediaType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-    /** application/msword. */
-    String APPLICATION_MSWORD = "application/msword";
-    /** application/vnd.openxmlformats-officedocument.wordprocessingml.document. */
-    String APPLICATION_VND_OPENXMLFORMATS_OFFICEDOCUMENT_WORDPROCESSINGML_DOCUMENT
-        = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-    /** application/pdf. */
-    String APPLICATION_PDF = "application/pdf";
-    /** text/html. */
-    String TEXT_HTML = "text/html";
-    /** application/xhtml+xml. */
-    String APPLICATION_XHTML_XML = "application/xhtml+xml";
-  }
-
   private String environmentId;
   private String collectionId;
   private InputStream file;
-  private String fileMediaType;
   private String metadata;
+  private String fileContentType;
 
   /**
    * Builder.
@@ -54,15 +35,15 @@ public class AddDocumentOptions extends GenericModel {
     private String environmentId;
     private String collectionId;
     private InputStream file;
-    private String fileMediaType;
     private String metadata;
+    private String fileContentType;
 
     private Builder(AddDocumentOptions addDocumentOptions) {
       environmentId = addDocumentOptions.environmentId;
       collectionId = addDocumentOptions.collectionId;
       file = addDocumentOptions.file;
-      fileMediaType = addDocumentOptions.fileMediaType;
       metadata = addDocumentOptions.metadata;
+      fileContentType = addDocumentOptions.fileContentType;
     }
 
     /**
@@ -125,17 +106,6 @@ public class AddDocumentOptions extends GenericModel {
     }
 
     /**
-     * Set the fileMediaType.
-     *
-     * @param fileMediaType the fileMediaType
-     * @return the AddDocumentOptions builder
-     */
-    public Builder fileMediaType(String fileMediaType) {
-      this.fileMediaType = fileMediaType;
-      return this;
-    }
-
-    /**
      * Set the metadata.
      *
      * @param metadata the metadata
@@ -143,6 +113,17 @@ public class AddDocumentOptions extends GenericModel {
      */
     public Builder metadata(String metadata) {
       this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Set the fileContentType.
+     *
+     * @param fileContentType the fileContentType
+     * @return the AddDocumentOptions builder
+     */
+    public Builder fileContentType(String fileContentType) {
+      this.fileContentType = fileContentType;
       return this;
     }
   }
@@ -153,8 +134,8 @@ public class AddDocumentOptions extends GenericModel {
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     file = builder.file;
-    fileMediaType = builder.fileMediaType;
     metadata = builder.metadata;
+    fileContentType = builder.fileContentType;
   }
 
   /**
@@ -201,27 +182,26 @@ public class AddDocumentOptions extends GenericModel {
   }
 
   /**
-   * Gets the fileMediaType.
-   *
-   * The media type of file.
-   *
-   * @return the fileMediaType
-   */
-  public String fileMediaType() {
-    return fileMediaType;
-  }
-
-  /**
    * Gets the metadata.
    *
    * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
    * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than
-   * 1 MB are rejected.
-   * Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
+   * 1 MB are rejected. Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
    *
    * @return the metadata
    */
   public String metadata() {
     return metadata;
+  }
+
+  /**
+   * Gets the fileContentType.
+   *
+   * The content type of file.
+   *
+   * @return the fileContentType
+   */
+  public String fileContentType() {
+    return fileContentType;
   }
 }

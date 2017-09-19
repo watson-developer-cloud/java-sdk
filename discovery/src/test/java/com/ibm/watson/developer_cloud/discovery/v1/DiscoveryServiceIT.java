@@ -121,6 +121,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   // Constants for enum fields
   private static final Long FREE = 0L;
 
+  private static final String APPLICATION_JSON = "application/json";
   private static final String DISCOVERY_TEST_CONFIG_FILE = "src/test/resources/discovery/test-config.json";
   private static final String DISCOVERY1_TEST_CONFIG_FILE = "src/test/resources/discovery/issue517.json";
   private static final String DISCOVERY2_TEST_CONFIG_FILE = "src/test/resources/discovery/issue518.json";
@@ -319,7 +320,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     AddDocumentOptions.Builder createDocumentBuilder =
         new AddDocumentOptions.Builder(environmentId, collectionId);
-    createDocumentBuilder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    createDocumentBuilder.file(documentStream).fileContentType(APPLICATION_JSON);
     DocumentAccepted createDocumentResponse = discovery.addDocument(createDocumentBuilder.build()).execute();
     documentId = createDocumentResponse.getDocumentId();
     System.out.println("Created a document ID: " + documentId);
@@ -764,7 +765,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder();
     builder.environmentId(environmentId);
     builder.collectionId(collection.getCollectionId());
-    builder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
 
     assertFalse(createResponse.getDocumentId().isEmpty());
@@ -782,7 +783,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder();
     builder.environmentId(environmentId);
     builder.collectionId(collection.getCollectionId());
-    builder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
 
     assertFalse(createResponse.getDocumentId().isEmpty());
@@ -802,7 +803,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     myMetadata.add("foo", new JsonPrimitive("bar"));
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
-    builder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     builder.metadata(myMetadata.toString());
 
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
@@ -854,7 +855,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     UpdateDocumentOptions.Builder updateBuilder =
         new UpdateDocumentOptions.Builder(environmentId, collectionId, documentAccepted.getDocumentId());
-    updateBuilder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    updateBuilder.file(documentStream).fileContentType(APPLICATION_JSON);
     //updateBuilder.configurationId(testConfig.getConfigurationId());
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
@@ -883,7 +884,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     UpdateDocumentOptions.Builder updateBuilder =
         new UpdateDocumentOptions.Builder(environmentId, collectionId, documentAccepted.getDocumentId());
-    updateBuilder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    updateBuilder.file(documentStream).fileContentType(APPLICATION_JSON);
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
     GetDocumentStatusOptions getOptions =
@@ -909,7 +910,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     UpdateDocumentOptions.Builder updateBuilder =
         new UpdateDocumentOptions.Builder(environmentId, collectionId, documentAccepted.getDocumentId());
-    updateBuilder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    updateBuilder.file(documentStream).fileContentType(APPLICATION_JSON);
     updateBuilder.metadata(myMetadata.toString());
     DocumentAccepted updateResponse = discovery.updateDocument(updateBuilder.build()).execute();
 
@@ -1192,7 +1193,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     TestConfigurationInEnvironmentOptions options =
         new TestConfigurationInEnvironmentOptions.Builder(environmentId)
             .configurationId(testConfig.getConfigurationId())
-            .file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON)
+            .file(documentStream).fileContentType(APPLICATION_JSON)
             .build();
     TestDocument testResponse = discovery.testConfigurationInEnvironment(options).execute();
     assertNotNull(testResponse);
@@ -1211,7 +1212,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     builder.environmentId(environmentId);
     builder.configurationId(testConfig.getConfigurationId());
     builder.step(TestConfigurationInEnvironmentOptions.Step.HTML_OUTPUT);
-    builder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     builder.metadata(myMetadata.toString());
     TestDocument testResponse = discovery.testConfigurationInEnvironment(builder.build()).execute();
 
@@ -1548,7 +1549,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
   private DocumentAccepted createTestDocument(String json, String collectionId) {
     InputStream documentStream = new ByteArrayInputStream(json.getBytes());
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
-    builder.file(documentStream).fileMediaType(AddDocumentOptions.FileMediaType.APPLICATION_JSON);
+    builder.file(documentStream).fileContentType(APPLICATION_JSON);
     DocumentAccepted createResponse = discovery.addDocument(builder.build()).execute();
     WaitFor.Condition documentAccepted =
         new WaitForDocumentAccepted(environmentId, collectionId, createResponse.getDocumentId());
