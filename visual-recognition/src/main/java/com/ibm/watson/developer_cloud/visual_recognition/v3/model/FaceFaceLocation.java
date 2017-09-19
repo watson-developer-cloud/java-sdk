@@ -10,52 +10,71 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
- * Location within an image.
+ * FaceFaceLocation.
  */
-public class Location {
-  private Integer height;
-  private Integer left;
-  private Integer top;
-  private Integer width;
+public class FaceFaceLocation extends GenericModel {
+
+  private Double width;
+  private Double height;
+  private Double left;
+  private Double top;
+
+  /**
+   * Gets the width.
+   *
+   * Width in pixels of face region.
+   *
+   * @return the width
+   */
+  public Double getWidth() {
+    return width;
+  }
 
   /**
    * Gets the height.
    *
+   * Height in pixels of face region.
+   *
    * @return the height
    */
-  public Integer getHeight() {
+  public Double getHeight() {
     return height;
   }
 
   /**
    * Gets the left.
    *
+   * x-position of top-left pixel of face region.
+   *
    * @return the left
    */
-  public Integer getLeft() {
+  public Double getLeft() {
     return left;
   }
 
   /**
    * Gets the top.
    *
+   * y-position of top-left pixel of face region.
+   *
    * @return the top
    */
-  public Integer getTop() {
+  public Double getTop() {
     return top;
   }
 
   /**
-   * Gets the width.
+   * Sets the width.
    *
-   * @return the width
+   * @param width the new width
    */
-  public Integer getWidth() {
-    return width;
+  public void setWidth(final Double width) {
+    this.width = width;
   }
 
   /**
@@ -63,7 +82,7 @@ public class Location {
    *
    * @param height the new height
    */
-  public void setHeight(Integer height) {
+  public void setHeight(final Double height) {
     this.height = height;
   }
 
@@ -72,7 +91,7 @@ public class Location {
    *
    * @param left the new left
    */
-  public void setLeft(Integer left) {
+  public void setLeft(final Double left) {
     this.left = left;
   }
 
@@ -81,17 +100,7 @@ public class Location {
    *
    * @param top the new top
    */
-  public void setTop(Integer top) {
+  public void setTop(final Double top) {
     this.top = top;
   }
-
-  /**
-   * Sets the width.
-   *
-   * @param width the new width
-   */
-  public void setWidth(Integer width) {
-    this.width = width;
-  }
-
 }

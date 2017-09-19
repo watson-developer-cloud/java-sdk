@@ -18,13 +18,13 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DetectedFaces.
+ * Classify results for multiple images.
  */
-public class DetectedFaces extends GenericModel {
+public class ClassifiedImages extends GenericModel {
 
   @SerializedName("images_processed")
   private Long imagesProcessed;
-  private List<ImageWithFaces> images;
+  private List<ClassifiedImage> images;
   private List<WarningInfo> warnings;
 
   /**
@@ -41,16 +41,20 @@ public class DetectedFaces extends GenericModel {
   /**
    * Gets the images.
    *
+   * The array of classified images.
+   *
    * @return the images
    */
-  public List<ImageWithFaces> getImages() {
+  public List<ClassifiedImage> getImages() {
     return images;
   }
 
   /**
    * Gets the warnings.
    *
-   * Omitted if there are no warnings.
+   * Information about what might cause less than optimal output. For example, a request sent with a corrupt .zip file
+   * and a list of image URLs will still complete, but does not return the expected output. Not returned when there is
+   * no warning.
    *
    * @return the warnings
    */
@@ -72,7 +76,7 @@ public class DetectedFaces extends GenericModel {
    *
    * @param images the new images
    */
-  public void setImages(final List<ImageWithFaces> images) {
+  public void setImages(final List<ClassifiedImage> images) {
     this.images = images;
   }
 

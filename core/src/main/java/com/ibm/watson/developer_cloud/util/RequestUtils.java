@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -24,9 +25,13 @@ import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 
+import okhttp3.MediaType;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 
 /**
  * Utility functions to use when creating a {@link com.ibm.watson.developer_cloud.http.RequestBuilder }.
@@ -206,4 +211,29 @@ public final class RequestUtils {
     return "watson-apis-java-sdk/" + loadSdkVersion() + " (" + RequestUtils.join(details, "; ") + ")";
   }
 
+  /**
+   * Returns a request body that encapsulates the specified file qualified with the specified content type.
+   *
+   * @param file the file content to POST/PUT
+   * @param contentType the HTTP contentType to use.
+   *
+   * @return {@link RequestBody}
+   */
+  public static RequestBody fileBody(File file, String contentType) {
+    MediaType mediaType = (contentType != null) ? MediaType.parse(contentType) : HttpMediaType.BINARY_FILE;
+    return RequestBody.create(mediaType, file);
+  }
+
+  /**
+   * Returns a request body the encapsulates the specified input stream qualified with the specified content type.
+   *
+   * @param stream the input stream content to POST/PUT
+   * @param contentType the HTTP contentType to use.
+   *
+   * @return {@link RequestBody}
+   */
+  public static RequestBody inputStreamBody(InputStream stream, String contentType) {
+    MediaType mediaType = (contentType != null) ? MediaType.parse(contentType) : HttpMediaType.BINARY_FILE;
+    return InputStreamRequestBody.create(mediaType, stream);
+  }
 }

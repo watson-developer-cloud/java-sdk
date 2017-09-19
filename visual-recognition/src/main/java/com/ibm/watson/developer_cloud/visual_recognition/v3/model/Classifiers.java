@@ -12,9 +12,32 @@
  */
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
-/**
- * Visual classification.
- */
-public class VisualClassification extends VisualRecognitionGenericModel<ImageClassification> {
+import java.util.List;
 
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
+/**
+ * Verbose list of classifiers retrieved in the GET v2/classifiers call.
+ */
+public class Classifiers extends GenericModel {
+
+  private List<Classifier> classifiers;
+
+  /**
+   * Gets the classifiers.
+   *
+   * @return the classifiers
+   */
+  public List<Classifier> getClassifiers() {
+    return classifiers;
+  }
+
+  /**
+   * Sets the classifiers.
+   *
+   * @param classifiers the new classifiers
+   */
+  public void setClassifiers(final List<Classifier> classifiers) {
+    this.classifiers = classifiers;
+  }
 }
