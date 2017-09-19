@@ -42,10 +42,11 @@ public class ToneScore extends GenericModel {
    * Gets the toneId.
    *
    * The unique, non-localized identifier of the tone for the results. The service can return results for the following
-   * tone IDs of the different categories: * For the `emotion` category: `anger`, `disgust`, `fear`, `joy`, and
-   * `sadness` * For the `language` category: `analytical`, `confident`, and `tentative` * For the `social` category:
-   * `openness_big5`, `conscientiousness_big5`, `extraversion_big5`, `agreeableness_big5`, and `emotional_range_big5`
-   * The service returns scores for all tones of a category, regardless of their values.
+   * tone IDs of the different categories:
+   * * For the `emotion` category: `anger`, `disgust`, `fear`, `joy`, and `sadness`
+   * * For the `language` category: `analytical`, `confident`, and `tentative`
+   * * For the `social` category: `openness_big5`, `conscientiousness_big5`, `extraversion_big5`, `agreeableness_big5`,
+   * and `emotional_range_big5`   The service returns scores for all tones of a category, regardless of their values.
    *
    * @return the toneId
    */

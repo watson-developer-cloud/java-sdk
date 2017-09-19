@@ -129,8 +129,8 @@ public class ToneOptions extends GenericModel {
      * @return the ToneOptions builder
      */
     public Builder toneInput(ToneInput toneInput) {
-      this.toneInput = toneInput;
-      this.contentType = ToneOptions.ContentType.APPLICATION_JSON;
+    this.toneInput = toneInput;
+    this.contentType = ToneOptions.ContentType.APPLICATION_JSON;
       return this;
     }
 
@@ -141,8 +141,8 @@ public class ToneOptions extends GenericModel {
      * @return the ToneOptions builder
      */
     public Builder text(String text) {
-      this.body = text;
-      this.contentType = ToneOptions.ContentType.TEXT_PLAIN;
+    this.body = text;
+    this.contentType = ToneOptions.ContentType.TEXT_PLAIN;
       return this;
     }
 
@@ -153,8 +153,8 @@ public class ToneOptions extends GenericModel {
      * @return the ToneOptions builder
      */
     public Builder html(String html) {
-      this.body = html;
-      this.contentType = ToneOptions.ContentType.TEXT_HTML;
+    this.body = html;
+    this.contentType = ToneOptions.ContentType.TEXT_HTML;
       return this;
     }
   }
@@ -180,8 +180,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the toneInput.
    *
-   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
-   * `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of
+   * type `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
    *
    * @return the toneInput
    */
@@ -192,8 +192,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the body.
    *
-   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
-   * `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of
+   * type `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
    *
    * @return the body
    */
@@ -229,8 +229,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the sentences.
    *
-   * Indicates whether the service is to return an analysis of each individual sentence in addition to its analysis of
-   * the full document. If `true` (the default), the service returns results for each sentence. The service returns
+   * Indicates whether the service is to return an analysis of each individual sentence in addition to its analysis
+   * of the full document. If `true` (the default), the service returns results for each sentence. The service returns
    * results only for the first 100 sentences of the input.
    *
    * @return the sentences

@@ -54,9 +54,9 @@ public class UtteranceAnalysis extends GenericModel {
   /**
    * Gets the tones.
    *
-   * An array of `ToneChatScore` objects that provides results for the most prevalent tones of the utterance. The array
-   * includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that meets
-   * this threshold.
+   * An array of `ToneChatScore` objects that provides results for the most prevalent tones of the utterance. The
+   * array includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that
+   * meets this threshold.
    *
    * @return the tones
    */
