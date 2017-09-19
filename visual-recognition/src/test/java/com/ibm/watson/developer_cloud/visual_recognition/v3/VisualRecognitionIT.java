@@ -17,7 +17,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -25,18 +24,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CollectionImage;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifierOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteCollectionOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCollectionImageOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListCollectionImagesOptions;
-import org.junit.Assert;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -45,11 +37,8 @@ import org.junit.runner.RunWith;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.AddCollectionImageOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Collection;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.FindSimilarImagesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier.Status;
@@ -163,82 +152,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     ClassifyOptions options = new ClassifyOptions.Builder().parameters(parameters).build();
     ClassifiedImages result = service.classify(options).execute();
     assertClassifyImage(result, options);
-  }
-
-  /**
-   * Test that creates, add images and delete a collection.
-   *
-   * @throws InterruptedException the interrupted exception
-   * @throws IOException Signals that an I/O exception has occurred.
-   */
-  @Test
-  @Ignore
-  public void testCollections() throws InterruptedException, IOException {
-    CreateCollectionOptions createOptions = new CreateCollectionOptions.Builder("it-java-sdk").build();
-    Collection collection = service.createCollection(createOptions).execute();
-    try {
-      for (int x = 0; (x < 30) && (collection.getStatus() != Collection.Status.AVAILABLE); x++) {
-        Thread.sleep(5000);
-        GetCollectionOptions getOptions = new GetCollectionOptions.Builder(collection.getCollectionId()).build();
-        collection = service.getCollection(getOptions).execute();
-      }
-      Assert.assertEquals(collection.getStatus(), Collection.Status.AVAILABLE);
-
-      // metadata
-      String metadataString = "{\"key1\":\"value1\"}";
-      InputStream metadata = new ByteArrayInputStream(metadataString.getBytes());
-
-      AddCollectionImageOptions options = new AddCollectionImageOptions.Builder()
-          .collectionId(collection.getCollectionId())
-          .imageFile(new File(SINGLE_IMAGE_FILE))
-          .metadata(metadata)
-          .build();
-
-      Assert.assertEquals((long) collection.getImages(), 0);
-      service.addCollectionImage(options).execute();
-      GetCollectionOptions getOptions = new GetCollectionOptions.Builder(collection.getCollectionId()).build();
-      collection = service.getCollection(getOptions).execute();
-      Assert.assertNotNull(collection.getImages());
-      Assert.assertEquals((long) collection.getImages(), 1);
-      //Assert.assertEquals(collection.getImages().get(0).getMetadata().get("key1"), "value1");
-      ListCollectionImagesOptions listOptions =
-          new ListCollectionImagesOptions.Builder(collection.getCollectionId()).build();
-      List<CollectionImage> images = service.listCollectionImages(listOptions).execute().getImages();
-      Assert.assertNotNull(images);
-      GetCollectionImageOptions getImageOptions = new GetCollectionImageOptions.Builder()
-          .collectionId(collection.getCollectionId())
-          .imageId(images.get(0).getImageId())
-          .build();
-      CollectionImage image = service.getCollectionImage(getImageOptions).execute();
-      Assert.assertNotNull(image);
-
-      File fileImage = new File(SINGLE_IMAGE_FILE);
-
-      // find image with file
-      FindSimilarImagesOptions findImageOptions = new FindSimilarImagesOptions.Builder()
-          .collectionId(collection.getCollectionId())
-          .imageFile(fileImage)
-          .build();
-
-      List<CollectionImage> similarImages = service.findSimilarImages(findImageOptions).execute().getSimilarImages();
-      Assert.assertNotNull(similarImages);
-      Assert.assertTrue(!similarImages.isEmpty());
-
-      // find image with byte array
-      findImageOptions = new FindSimilarImagesOptions.Builder()
-          .collectionId(collection.getCollectionId())
-          .imageFile(fileImage)
-          .build();
-
-      similarImages = service.findSimilarImages(findImageOptions).execute().getSimilarImages();
-      Assert.assertNotNull(similarImages);
-      Assert.assertTrue(!similarImages.isEmpty());
-
-
-    } finally {
-      DeleteCollectionOptions deleteOptions = new DeleteCollectionOptions.Builder(collection.getCollectionId()).build();
-      service.deleteCollection(deleteOptions).execute();
-    }
   }
 
   /**
@@ -397,15 +310,4 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNotNull(classifier.getClasses());
     assertNotNull(classifier.getCreated());
   }
-
-  /**
-   * Test get collections text from url.
-   */
-  @Ignore("The Similarity Search beta is closed.")
-  @Test
-  public void testGetCollections() {
-    Assert.assertNotNull(service.listCollections(null).execute());
-    Assert.assertTrue(!service.listCollections(null).execute().getCollections().isEmpty());
-  }
-
 }

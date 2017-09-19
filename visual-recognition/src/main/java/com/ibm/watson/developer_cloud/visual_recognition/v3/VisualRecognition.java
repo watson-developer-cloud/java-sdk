@@ -18,31 +18,16 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.AddCollectionImageOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifiedImages;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifier;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Classifiers;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ClassifyOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Collection;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CollectionImage;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CollectionImages;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.Collections;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateClassifierOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteClassifierOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteCollectionImageOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteCollectionOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DeleteImageMetadataOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectFacesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.DetectedFaces;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.FindSimilarImagesOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetClassifierOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCollectionImageOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListClassifiersOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListCollectionImagesOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.ListCollectionsOptions;
-import com.ibm.watson.developer_cloud.visual_recognition.v3.model.SimilarImages;
 import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifierOptions;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -278,178 +263,6 @@ public class VisualRecognition extends WatsonService {
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
-  }
-
-  /**
-   * Create a new collection - beta.
-   *
-   * Create a new collection of images to search. You can create a maximum of 5 collections.
-   *
-   * @param createCollectionOptions the {@link CreateCollectionOptions} containing the options for the call
-   * @return the {@link Collection} with the response
-   */
-  public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
-    Validator.notNull(createCollectionOptions, "createCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v3/collections");
-    builder.query(VERSION, versionDate);
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    multipartBuilder.addFormDataPart("name", createCollectionOptions.name());
-    if (createCollectionOptions.disregard() != null) {
-      RequestBody disregardBody = RequestUtils.inputStreamBody(createCollectionOptions.disregard(),
-          "application/octet-stream");
-      multipartBuilder.addFormDataPart("disregard", createCollectionOptions.disregardFilename(), disregardBody);
-    }
-    builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
-  }
-
-  /**
-   * Find similar images - beta.
-   *
-   * @param findSimilarImagesOptions the {@link FindSimilarImagesOptions} containing the options for the call
-   * @return the {@link SimilarImages} with the response
-   */
-  public ServiceCall<SimilarImages> findSimilarImages(FindSimilarImagesOptions findSimilarImagesOptions) {
-    Validator.notNull(findSimilarImagesOptions, "findSimilarImagesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v3/collections/%s/find_similar",
-        findSimilarImagesOptions.collectionId()));
-    builder.query(VERSION, versionDate);
-    if (findSimilarImagesOptions.limit() != null) {
-      builder.query("limit", String.valueOf(findSimilarImagesOptions.limit()));
-    }
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody imageFileBody = RequestUtils.inputStreamBody(findSimilarImagesOptions.imageFile(),
-        findSimilarImagesOptions.imageFileContentType());
-    multipartBuilder.addFormDataPart("image_file", findSimilarImagesOptions.imageFilename(), imageFileBody);
-    builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SimilarImages.class));
-  }
-
-  /**
-   * Retrieve collection details - beta.
-   *
-   * Retrieve information about a specific collection. Only user-created collections can be specified.
-   *
-   * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the call
-   * @return the {@link Collection} with the response
-   */
-  public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
-    Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v3/collections/%s", getCollectionOptions
-        .collectionId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
-  }
-
-  /**
-   * List all custom collections - beta.
-   *
-   * @param listCollectionsOptions the {@link ListCollectionsOptions} containing the options for the call
-   * @return the {@link Collections} with the response
-   */
-  public ServiceCall<Collections> listCollections(ListCollectionsOptions listCollectionsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v3/collections");
-    builder.query(VERSION, versionDate);
-    if (listCollectionsOptions != null) {
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collections.class));
-  }
-
-  /**
-   * Add images to a collection - beta.
-   *
-   * @param addCollectionImageOptions the {@link AddCollectionImageOptions} containing the options for the call
-   * @return the {@link CollectionImages} with the response
-   */
-  public ServiceCall<CollectionImages> addCollectionImage(AddCollectionImageOptions addCollectionImageOptions) {
-    Validator.notNull(addCollectionImageOptions, "addCollectionImageOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v3/collections/%s/images", addCollectionImageOptions
-        .collectionId()));
-    builder.query(VERSION, versionDate);
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    RequestBody imageFileBody = RequestUtils.inputStreamBody(addCollectionImageOptions.imageFile(),
-        addCollectionImageOptions.imageFileContentType());
-    multipartBuilder.addFormDataPart("image_file", addCollectionImageOptions.imageFilename(), imageFileBody);
-    if (addCollectionImageOptions.metadata() != null) {
-      RequestBody metadataBody = RequestUtils.inputStreamBody(addCollectionImageOptions.metadata(),
-          "application/octet-stream");
-      multipartBuilder.addFormDataPart("metadata", addCollectionImageOptions.metadataFilename(), metadataBody);
-    }
-    builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CollectionImages.class));
-  }
-
-  /**
-   * Delete a collection - beta.
-   *
-   * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
-   * @return the service call
-   */
-  public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
-    Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v3/collections/%s", deleteCollectionOptions
-        .collectionId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Delete an image - beta.
-   *
-   * @param deleteCollectionImageOptions the {@link DeleteCollectionImageOptions} containing the options for the call
-   * @return the service call
-   */
-  public ServiceCall<Void> deleteCollectionImage(DeleteCollectionImageOptions deleteCollectionImageOptions) {
-    Validator.notNull(deleteCollectionImageOptions, "deleteCollectionImageOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v3/collections/%s/images/%s",
-        deleteCollectionImageOptions.collectionId(), deleteCollectionImageOptions.imageId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Delete image metadata - beta.
-   *
-   * @param deleteImageMetadataOptions the {@link DeleteImageMetadataOptions} containing the options for the call
-   * @return the service call
-   */
-  public ServiceCall<Void> deleteImageMetadata(DeleteImageMetadataOptions deleteImageMetadataOptions) {
-    Validator.notNull(deleteImageMetadataOptions, "deleteImageMetadataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v3/collections/%s/images/%s/metadata",
-        deleteImageMetadataOptions.collectionId(), deleteImageMetadataOptions.imageId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * List image details - beta.
-   *
-   * @param getCollectionImageOptions the {@link GetCollectionImageOptions} containing the options for the call
-   * @return the {@link CollectionImage} with the response
-   */
-  public ServiceCall<CollectionImage> getCollectionImage(GetCollectionImageOptions getCollectionImageOptions) {
-    Validator.notNull(getCollectionImageOptions, "getCollectionImageOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v3/collections/%s/images/%s", getCollectionImageOptions
-        .collectionId(), getCollectionImageOptions.imageId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CollectionImage.class));
-  }
-
-  /**
-   * List 100 images in a collection - beta.
-   *
-   * @param listCollectionImagesOptions the {@link ListCollectionImagesOptions} containing the options for the call
-   * @return the {@link CollectionImages} with the response
-   */
-  public ServiceCall<CollectionImages> listCollectionImages(ListCollectionImagesOptions listCollectionImagesOptions) {
-    Validator.notNull(listCollectionImagesOptions, "listCollectionImagesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v3/collections/%s/images", listCollectionImagesOptions
-        .collectionId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(CollectionImages.class));
   }
 
 }
