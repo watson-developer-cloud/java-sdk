@@ -139,8 +139,8 @@ public class DetectFacesOptions extends GenericModel {
    * Gets the imagesFile.
    *
    * An image file (.jpg, .png) or .zip file with images. Include no more than 15 images. You can also include images
-   * with the `url` property in the **parameters** object. All faces are detected, but if there are more than 10 faces
-   * in an image, age and gender confidence scores might return scores of 0.
+   * with the `url` property in the **parameters** object.  All faces are detected, but if there are more than 10
+   * faces in an image, age and gender confidence scores might return scores of 0.
    *
    * @return the imagesFile
    */
@@ -162,7 +162,7 @@ public class DetectFacesOptions extends GenericModel {
   /**
    * Gets the parameters.
    *
-   * A JSON string containing the image URL to analyze. For example: {"url": "..."}.
+   * A JSON string containing the image URL to analyze.   For example: {"url": "..."}.
    *
    * @return the parameters
    */
