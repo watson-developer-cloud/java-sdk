@@ -10,54 +10,36 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Image processing error.
+ * A category within a classifier.
  */
-public class ImageProcessingError {
+public class Class extends GenericModel {
 
-  private String description;
-  @SerializedName("error_id")
-  private String errorId;
+  @SerializedName("class")
+  private String className;
 
   /**
-   * Gets the description.
+   * Gets the className.
    *
-   * @return The description
+   * The name of the class.
+   *
+   * @return the className
    */
-  public String getDescription() {
-    return description;
+  public String getClassName() {
+    return className;
   }
 
   /**
-   * Gets the error id.
+   * Sets the className.
    *
-   * @return The error identifier
+   * @param className the new className
    */
-  public String getErrorId() {
-    return errorId;
+  public void setClassName(final String className) {
+    this.className = className;
   }
-
-  /**
-   * Sets the description.
-   *
-   * @param description The description
-   */
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the error id.
-   *
-   * @param errorId The error identifier
-   */
-  public void setErrorId(String errorId) {
-    this.errorId = errorId;
-  }
-
 }
