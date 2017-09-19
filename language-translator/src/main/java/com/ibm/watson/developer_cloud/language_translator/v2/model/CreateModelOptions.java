@@ -27,6 +27,9 @@ public class CreateModelOptions extends GenericModel {
   private InputStream forcedGlossary;
   private InputStream parallelCorpus;
   private InputStream monolingualCorpus;
+  private String forcedGlossaryContentType;
+  private String parallelCorpusContentType;
+  private String monolingualCorpusContentType;
 
   /**
    * Builder.
@@ -37,6 +40,9 @@ public class CreateModelOptions extends GenericModel {
     private InputStream forcedGlossary;
     private InputStream parallelCorpus;
     private InputStream monolingualCorpus;
+    private String forcedGlossaryContentType;
+    private String parallelCorpusContentType;
+    private String monolingualCorpusContentType;
 
     private Builder(CreateModelOptions createModelOptions) {
       baseModelId = createModelOptions.baseModelId;
@@ -44,6 +50,9 @@ public class CreateModelOptions extends GenericModel {
       forcedGlossary = createModelOptions.forcedGlossary;
       parallelCorpus = createModelOptions.parallelCorpus;
       monolingualCorpus = createModelOptions.monolingualCorpus;
+      forcedGlossaryContentType = createModelOptions.forcedGlossaryContentType;
+      parallelCorpusContentType = createModelOptions.parallelCorpusContentType;
+      monolingualCorpusContentType = createModelOptions.monolingualCorpusContentType;
     }
 
     /**
@@ -124,6 +133,39 @@ public class CreateModelOptions extends GenericModel {
       this.monolingualCorpus = monolingualCorpus;
       return this;
     }
+
+    /**
+     * Set the forcedGlossaryContentType.
+     *
+     * @param forcedGlossaryContentType the forcedGlossaryContentType
+     * @return the CreateModelOptions builder
+     */
+    public Builder forcedGlossaryContentType(String forcedGlossaryContentType) {
+      this.forcedGlossaryContentType = forcedGlossaryContentType;
+      return this;
+    }
+
+    /**
+     * Set the parallelCorpusContentType.
+     *
+     * @param parallelCorpusContentType the parallelCorpusContentType
+     * @return the CreateModelOptions builder
+     */
+    public Builder parallelCorpusContentType(String parallelCorpusContentType) {
+      this.parallelCorpusContentType = parallelCorpusContentType;
+      return this;
+    }
+
+    /**
+     * Set the monolingualCorpusContentType.
+     *
+     * @param monolingualCorpusContentType the monolingualCorpusContentType
+     * @return the CreateModelOptions builder
+     */
+    public Builder monolingualCorpusContentType(String monolingualCorpusContentType) {
+      this.monolingualCorpusContentType = monolingualCorpusContentType;
+      return this;
+    }
   }
 
   private CreateModelOptions(Builder builder) {
@@ -133,6 +175,9 @@ public class CreateModelOptions extends GenericModel {
     forcedGlossary = builder.forcedGlossary;
     parallelCorpus = builder.parallelCorpus;
     monolingualCorpus = builder.monolingualCorpus;
+    forcedGlossaryContentType = builder.forcedGlossaryContentType;
+    parallelCorpusContentType = builder.parallelCorpusContentType;
+    monolingualCorpusContentType = builder.monolingualCorpusContentType;
   }
 
   /**
@@ -171,8 +216,8 @@ public class CreateModelOptions extends GenericModel {
    * Gets the forcedGlossary.
    *
    * A TMX file with your customizations. The customizations in the file completely overwrite the domain data
-   * translation, including high frequency or high confidence phrase translations. You can upload only one glossary with
-   * a file size less than 10 MB per call.
+   * translation, including high frequency or high confidence phrase translations. You can upload only one glossary
+   * with a file size less than 10 MB per call.
    *
    * @return the forcedGlossary
    */
@@ -200,5 +245,38 @@ public class CreateModelOptions extends GenericModel {
    */
   public InputStream monolingualCorpus() {
     return monolingualCorpus;
+  }
+
+  /**
+   * Gets the forcedGlossaryContentType.
+   *
+   * The content type of forcedGlossary.
+   *
+   * @return the forcedGlossaryContentType
+   */
+  public String forcedGlossaryContentType() {
+    return forcedGlossaryContentType;
+  }
+
+  /**
+   * Gets the parallelCorpusContentType.
+   *
+   * The content type of parallelCorpus.
+   *
+   * @return the parallelCorpusContentType
+   */
+  public String parallelCorpusContentType() {
+    return parallelCorpusContentType;
+  }
+
+  /**
+   * Gets the monolingualCorpusContentType.
+   *
+   * The content type of monolingualCorpus.
+   *
+   * @return the monolingualCorpusContentType
+   */
+  public String monolingualCorpusContentType() {
+    return monolingualCorpusContentType;
   }
 }
