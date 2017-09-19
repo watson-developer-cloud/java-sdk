@@ -10,23 +10,35 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Image processing warning.
+ * Information about something that went wrong.
  */
-public class ImageProcessingWarning {
+public class ErrorInfo extends GenericModel {
 
-  @SerializedName("description")
+  @SerializedName("error_id")
+  private String errorId;
   private String description;
-  @SerializedName("warning_id")
-  private String warningId;
+
+  /**
+   * Gets the errorId.
+   *
+   * Codified error string, like 'input_error'.
+   *
+   * @return the errorId
+   */
+  public String getErrorId() {
+    return errorId;
+  }
 
   /**
    * Gets the description.
+   *
+   * Human-readable error string, like 'Ignoring image with no valid data.'.
    *
    * @return the description
    */
@@ -35,12 +47,12 @@ public class ImageProcessingWarning {
   }
 
   /**
-   * Gets the warning id.
+   * Sets the errorId.
    *
-   * @return the warning id
+   * @param errorId the new errorId
    */
-  public String getWarningId() {
-    return warningId;
+  public void setErrorId(final String errorId) {
+    this.errorId = errorId;
   }
 
   /**
@@ -48,17 +60,7 @@ public class ImageProcessingWarning {
    *
    * @param description the new description
    */
-  public void setDescription(String description) {
+  public void setDescription(final String description) {
     this.description = description;
   }
-
-  /**
-   * Sets the warning id.
-   *
-   * @param warningId the new warning id
-   */
-  public void setWarningId(String warningId) {
-    this.warningId = warningId;
-  }
-
 }
