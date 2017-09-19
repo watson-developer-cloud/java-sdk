@@ -62,8 +62,8 @@ public class Behavior extends GenericModel {
   /**
    * Gets the percentage.
    *
-   * For JSON content that is timestamped, the percentage of timestamped input data that occurred during that day of the
-   * week or hour of the day. The range is 0 to 1.
+   * For JSON content that is timestamped, the percentage of timestamped input data that occurred during that day of
+   * the week or hour of the day. The range is 0 to 1.
    *
    * @return the percentage
    */
