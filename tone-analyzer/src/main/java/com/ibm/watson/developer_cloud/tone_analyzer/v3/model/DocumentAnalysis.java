@@ -22,15 +22,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class DocumentAnalysis extends GenericModel {
 
-  /**
-   * An array of `ToneCategory` objects that provides the results of the tone analysis for the full document of the
-   * input content. The service returns results only for the tones specified with the `tones` parameter of the request.
-   */
   @SerializedName("tone_categories")
   private List<ToneCategory> toneCategories;
 
   /**
    * Gets the toneCategories.
+   *
+   * An array of `ToneCategory` objects that provides the results of the tone analysis for the full document of the
+   * input content. The service returns results only for the tones specified with the `tones` parameter of the request.
    *
    * @return the toneCategories
    */

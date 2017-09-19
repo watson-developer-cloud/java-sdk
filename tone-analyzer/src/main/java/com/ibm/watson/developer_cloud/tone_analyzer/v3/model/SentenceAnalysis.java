@@ -22,29 +22,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SentenceAnalysis extends GenericModel {
 
-  /**
-   * The unique identifier of a sentence of the input content. The first sentence has ID 0, and the ID of each
-   * subsequent sentence is incremented by one.
-   */
   @SerializedName("sentence_id")
   private Long sentenceId;
-  /** The text of the input sentence. */
   private String text;
-  /** The offset of the first character of the sentence in the overall input content. */
   @SerializedName("input_from")
   private Long inputFrom;
-  /** The offset of the last character of the sentence in the overall input content. */
   @SerializedName("input_to")
   private Long inputTo;
-  /**
-   * An array of `ToneCategory` objects that provides the results for the tone analysis of the sentence. The service
-   * returns results only for the tones specified with the `tones` parameter of the request.
-   */
   @SerializedName("tone_categories")
   private List<ToneCategory> toneCategories;
 
   /**
    * Gets the sentenceId.
+   *
+   * The unique identifier of a sentence of the input content. The first sentence has ID 0, and the ID of each
+   * subsequent sentence is incremented by one.
    *
    * @return the sentenceId
    */
@@ -55,6 +47,8 @@ public class SentenceAnalysis extends GenericModel {
   /**
    * Gets the text.
    *
+   * The text of the input sentence.
+   *
    * @return the text
    */
   public String getText() {
@@ -63,6 +57,8 @@ public class SentenceAnalysis extends GenericModel {
 
   /**
    * Gets the inputFrom.
+   *
+   * The offset of the first character of the sentence in the overall input content.
    *
    * @return the inputFrom
    */
@@ -73,6 +69,8 @@ public class SentenceAnalysis extends GenericModel {
   /**
    * Gets the inputTo.
    *
+   * The offset of the last character of the sentence in the overall input content.
+   *
    * @return the inputTo
    */
   public Long getInputTo() {
@@ -81,6 +79,9 @@ public class SentenceAnalysis extends GenericModel {
 
   /**
    * Gets the toneCategories.
+   *
+   * An array of `ToneCategory` objects that provides the results for the tone analysis of the sentence. The service
+   * returns results only for the tones specified with the `tones` parameter of the request.
    *
    * @return the toneCategories
    */
@@ -93,7 +94,7 @@ public class SentenceAnalysis extends GenericModel {
    *
    * @param sentenceId the new sentenceId
    */
-  public void setSentenceId(final Long sentenceId) {
+  public void setSentenceId(final long sentenceId) {
     this.sentenceId = sentenceId;
   }
 
@@ -111,7 +112,7 @@ public class SentenceAnalysis extends GenericModel {
    *
    * @param inputFrom the new inputFrom
    */
-  public void setInputFrom(final Long inputFrom) {
+  public void setInputFrom(final long inputFrom) {
     this.inputFrom = inputFrom;
   }
 
@@ -120,7 +121,7 @@ public class SentenceAnalysis extends GenericModel {
    *
    * @param inputTo the new inputTo
    */
-  public void setInputTo(final Long inputTo) {
+  public void setInputTo(final long inputTo) {
     this.inputTo = inputTo;
   }
 

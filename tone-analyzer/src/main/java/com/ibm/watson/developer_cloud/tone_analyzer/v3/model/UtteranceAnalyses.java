@@ -22,12 +22,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class UtteranceAnalyses extends GenericModel {
 
-  /** An array of {@link UtteranceAnalysis} objects that provides the results for each utterance of the input. */
   @SerializedName("utterances_tone")
   private List<UtteranceAnalysis> utterancesTone;
 
   /**
    * Gets the utterancesTone.
+   *
+   * An array of `UtteranceAnalysis` objects that provides the results for each utterance of the input.
    *
    * @return the utterancesTone
    */

@@ -22,24 +22,17 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class UtteranceAnalysis extends GenericModel {
 
-  /**
-   * The unique identifier of the utterance. The first utterance has ID 0, and the ID of each subsequent utterance is
-   * incremented by one.
-   */
   @SerializedName("utterance_id")
   private String utteranceId;
-  /** The text of the utterance. */
   @SerializedName("utterance_text")
   private String utteranceText;
-  /**
-   * An array of `ToneChatScore` objects that provides results for the most prevalent tones of the utterance. The array
-   * includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that meets
-   * this threshold.
-   */
   private List<ToneChatScore> tones;
 
   /**
    * Gets the utteranceId.
+   *
+   * The unique identifier of the utterance. The first utterance has ID 0, and the ID of each subsequent utterance is
+   * incremented by one.
    *
    * @return the utteranceId
    */
@@ -50,6 +43,8 @@ public class UtteranceAnalysis extends GenericModel {
   /**
    * Gets the utteranceText.
    *
+   * The text of the utterance.
+   *
    * @return the utteranceText
    */
   public String getUtteranceText() {
@@ -58,6 +53,10 @@ public class UtteranceAnalysis extends GenericModel {
 
   /**
    * Gets the tones.
+   *
+   * An array of `ToneChatScore` objects that provides results for the most prevalent tones of the utterance. The
+   * array includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that
+   * meets this threshold.
    *
    * @return the tones
    */
