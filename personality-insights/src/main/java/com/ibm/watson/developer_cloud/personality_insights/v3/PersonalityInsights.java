@@ -38,19 +38,19 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * * **Authentication:** You authenticate to the service by using your service credentials. You can use your credentials
  * to authenticate via a proxy server that resides in Bluemix, or you can use your credentials to obtain a token and
  * contact the service directly. See [Service credentials for Watson
- * services](http://www.ibm.com/watson/developercloud/doc/common/getting-started-credentials.html) and [Tokens for
- * authentication](http://www.ibm.com/watson/developercloud/doc/common/getting-started-tokens.html).
+ * services](https://console.bluemix.net/docs/services/watson/getting-started-credentials.html) and [Tokens for
+ * authentication](https://console.bluemix.net/docs/services/watson/getting-started-tokens.html).
  * * **Request Logging:** By default, all Watson services log requests and their results. Data is collected only to
  * improve the Watson services. If you do not want to share your data, set the header parameter
  * `X-Watson-Learning-Opt-Out` to `true` for each request. Data is collected for any request that omits this header. See
  * [Controlling request logging for Watson
- * services](http://www.ibm.com/watson/developercloud/doc/common/getting-started-logging.html).
+ * services](https://console.bluemix.net/docs/services/watson/getting-started-logging.html).
  *
  * For more information about the service, see [About Personality
- * Insights](http://www.ibm.com/watson/developercloud/doc/personality-insights/). For detailed information about calling
- * the service and the responses it can generate, including the meaning of the numeric results, see [Input: Requesting a
- * profile](http://www.ibm.com/watson/developercloud/doc/personality-insights/input.html) and [Output: Understanding a
- * profile](http://www.ibm.com/watson/developercloud/doc/personality-insights/output.html).
+ * Insights](https://console.bluemix.net/docs/services/personality-insights/index.html). For information about calling
+ * the service and the responses it can generate, see [Requesting a
+ * profile](https://console.bluemix.net/docs/services/personality-insights/input.html) and [Understanding a
+ * profile](https://console.bluemix.net/docs/services/personality-insights/output.html).
  *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/personality-insights.html">Personality Insights</a>
@@ -84,7 +84,7 @@ public class PersonalityInsights extends WatsonService {
    * Instantiates a new `PersonalityInsights` with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *          calls from failing when the service introduces breaking changes.
+   *        calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */
@@ -97,8 +97,9 @@ public class PersonalityInsights extends WatsonService {
    * Generates a personality profile based on input text.
    *
    * Derives personality insights for up to 20 MB of input content written by an author, though the service requires
-   * much less text to produce an accurate profile; for more information, see [Guidelines for providing sufficient
-   * input](http://www.ibm.com/watson/developercloud/doc/personality-insights/basics.html#overviewGuidelines). Accepts
+   * much less text to produce an accurate profile; for more information, see
+   * [Guidelines for providing sufficient input]
+   * (https://console.bluemix.net/docs/services/personality-insights/user-overview.html#overviewGuidelines). Accepts
    * input in Arabic, English, Japanese, or Spanish and produces output in one of eleven languages. Provide plain text,
    * HTML, or JSON content, and receive results in JSON or CSV format.
    *
@@ -109,26 +110,26 @@ public class PersonalityInsights extends WatsonService {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v3/profile");
     builder.query(VERSION, versionDate);
+    builder.header("content-type", profileOptions.contentType());
     if (profileOptions.contentLanguage() != null) {
       builder.header("Content-Language", profileOptions.contentLanguage());
     }
     if (profileOptions.acceptLanguage() != null) {
       builder.header("Accept-Language", profileOptions.acceptLanguage());
     }
-    builder.header("content-type", profileOptions.contentType());
     if (profileOptions.rawScores() != null) {
-      builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
+    builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
     if (profileOptions.csvHeaders() != null) {
-      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
+    builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
     }
     if (profileOptions.consumptionPreferences() != null) {
-      builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
+    builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
     if (profileOptions.contentType().equalsIgnoreCase(ProfileOptions.ContentType.APPLICATION_JSON)) {
-      builder.bodyJson(GsonSingleton.getGson().toJsonTree(profileOptions.content()).getAsJsonObject());
+        builder.bodyJson(GsonSingleton.getGson().toJsonTree(profileOptions.content()).getAsJsonObject());
     } else {
-      builder.bodyContent(profileOptions.body(), profileOptions.contentType());
+        builder.bodyContent(profileOptions.body(), profileOptions.contentType());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Profile.class));
   }
