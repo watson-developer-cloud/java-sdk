@@ -24,8 +24,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class TranslateOptions extends GenericModel {
 
   private List<String> text;
-  private String source;
   private String modelId;
+  private String source;
   private String target;
 
   /**
@@ -33,14 +33,14 @@ public class TranslateOptions extends GenericModel {
    */
   public static class Builder {
     private List<String> text;
-    private String source;
     private String modelId;
+    private String source;
     private String target;
 
     private Builder(TranslateOptions translateOptions) {
       text = translateOptions.text;
-      source = translateOptions.source;
       modelId = translateOptions.modelId;
+      source = translateOptions.source;
       target = translateOptions.target;
     }
 
@@ -96,17 +96,6 @@ public class TranslateOptions extends GenericModel {
     }
 
     /**
-     * Set the source.
-     *
-     * @param source the source
-     * @return the TranslateOptions builder
-     */
-    public Builder source(String source) {
-      this.source = source;
-      return this;
-    }
-
-    /**
      * Set the modelId.
      *
      * @param modelId the modelId
@@ -114,6 +103,17 @@ public class TranslateOptions extends GenericModel {
      */
     public Builder modelId(String modelId) {
       this.modelId = modelId;
+      return this;
+    }
+
+    /**
+     * Set the source.
+     *
+     * @param source the source
+     * @return the TranslateOptions builder
+     */
+    public Builder source(String source) {
+      this.source = source;
       return this;
     }
 
@@ -132,8 +132,8 @@ public class TranslateOptions extends GenericModel {
   private TranslateOptions(Builder builder) {
     Validator.notNull(builder.text, "text cannot be null");
     text = builder.text;
-    source = builder.source;
     modelId = builder.modelId;
+    source = builder.source;
     target = builder.target;
   }
 
@@ -149,13 +149,26 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * Input text in UTF-8 encoding. It is a list so that multiple sentences/paragraphs can be submitted. Also accept a
-   * single string, instead of an array, as valid input.
+   * Input text in UTF-8 encoding. It is a list so that multiple paragraphs can be submitted. Also accept a single
+   * string, instead of an array, as valid input.
    *
    * @return the text
    */
   public List<String> text() {
     return text;
+  }
+
+  /**
+   * Gets the modelId.
+   *
+   * The unique model_id of the translation model being used to translate text. The model_id inherently specifies
+   * source language, target language, and domain. If the model_id is specified, there is no need for the source and
+   * target parameters and the values are ignored.
+   *
+   * @return the modelId
+   */
+  public String modelId() {
+    return modelId;
   }
 
   /**
@@ -169,19 +182,6 @@ public class TranslateOptions extends GenericModel {
    */
   public String source() {
     return source;
-  }
-
-  /**
-   * Gets the modelId.
-   *
-   * The unique model_id of the translation model being used to translate text. The model_id inherently specifies source
-   * language, target language, and domain. If the model_id is specified, there is no need for the source and target
-   * parameters and the values are ignored.
-   *
-   * @return the modelId
-   */
-  public String modelId() {
-    return modelId;
   }
 
   /**

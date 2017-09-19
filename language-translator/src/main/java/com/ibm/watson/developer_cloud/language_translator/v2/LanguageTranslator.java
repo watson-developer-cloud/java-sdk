@@ -31,6 +31,7 @@ import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
+import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
@@ -103,26 +104,39 @@ public class LanguageTranslator extends WatsonService {
    */
   public ServiceCall<TranslationModel> createModel(CreateModelOptions createModelOptions) {
     Validator.notNull(createModelOptions, "createModelOptions cannot be null");
-    Validator.isTrue((createModelOptions.forcedGlossary() != null) || (createModelOptions.parallelCorpus() != null)
+    Validator.isTrue((createModelOptions.forcedGlossary() != null)
+        || (createModelOptions.parallelCorpus() != null)
         || (createModelOptions.monolingualCorpus() != null),
         "At least one of forcedGlossary, parallelCorpus, or monolingualCorpus must be supplied.");
     RequestBuilder builder = RequestBuilder.post("/v2/models");
     builder.query("base_model_id", createModelOptions.baseModelId());
     if (createModelOptions.name() != null) {
-      builder.query("name", createModelOptions.name());
+    builder.query("name", createModelOptions.name());
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (createModelOptions.forcedGlossary() != null) {
-      RequestBody body = InputStreamRequestBody.create(null, createModelOptions.forcedGlossary());
+      MediaType contentType = null;
+      if (createModelOptions.forcedGlossaryContentType() != null) {
+        contentType = MediaType.parse(createModelOptions.forcedGlossaryContentType());
+      }
+      RequestBody body = InputStreamRequestBody.create(contentType, createModelOptions.forcedGlossary());
       multipartBuilder.addFormDataPart("forced_glossary", "filename", body);
     }
     if (createModelOptions.parallelCorpus() != null) {
-      RequestBody body = InputStreamRequestBody.create(null, createModelOptions.parallelCorpus());
+      MediaType contentType = null;
+      if (createModelOptions.parallelCorpusContentType() != null) {
+        contentType = MediaType.parse(createModelOptions.parallelCorpusContentType());
+      }
+      RequestBody body = InputStreamRequestBody.create(contentType, createModelOptions.parallelCorpus());
       multipartBuilder.addFormDataPart("parallel_corpus", "filename", body);
     }
     if (createModelOptions.monolingualCorpus() != null) {
-      RequestBody body = InputStreamRequestBody.create(null, createModelOptions.monolingualCorpus());
+      MediaType contentType = null;
+      if (createModelOptions.monolingualCorpusContentType() != null) {
+        contentType = MediaType.parse(createModelOptions.monolingualCorpusContentType());
+      }
+      RequestBody body = InputStreamRequestBody.create(contentType, createModelOptions.monolingualCorpus());
       multipartBuilder.addFormDataPart("monolingual_corpus", "filename", body);
     }
     builder.body(multipartBuilder.build());
@@ -142,7 +156,7 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
-   * Returns the training status of the translation model.
+   * Get information about the given translation model, including training status.
    *
    * @param getModelOptions the {@link GetModelOptions} containing the options for the call
    * @return the {@link TranslationModel} with the response
@@ -162,15 +176,15 @@ public class LanguageTranslator extends WatsonService {
   public ServiceCall<TranslationModels> listModels(ListModelsOptions listModelsOptions) {
     RequestBuilder builder = RequestBuilder.get("/v2/models");
     if (listModelsOptions != null) {
-      if (listModelsOptions.source() != null) {
-        builder.query("source", listModelsOptions.source());
-      }
-      if (listModelsOptions.target() != null) {
-        builder.query("target", listModelsOptions.target());
-      }
-      if (listModelsOptions.defaultModels() != null) {
-        builder.query("default", String.valueOf(listModelsOptions.defaultModels()));
-      }
+    if (listModelsOptions.source() != null) {
+    builder.query("source", listModelsOptions.source());
+    }
+    if (listModelsOptions.target() != null) {
+    builder.query("target", listModelsOptions.target());
+    }
+    if (listModelsOptions.defaultModels() != null) {
+    builder.query("default", String.valueOf(listModelsOptions.defaultModels()));
+    }
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationModels.class));
   }
@@ -186,11 +200,11 @@ public class LanguageTranslator extends WatsonService {
     RequestBuilder builder = RequestBuilder.post("/v2/translate");
     final JsonObject contentJson = new JsonObject();
     contentJson.add("text", GsonSingleton.getGson().toJsonTree(translateOptions.text()));
-    if (translateOptions.source() != null) {
-      contentJson.addProperty("source", translateOptions.source());
-    }
     if (translateOptions.modelId() != null) {
       contentJson.addProperty("model_id", translateOptions.modelId());
+    }
+    if (translateOptions.source() != null) {
+      contentJson.addProperty("source", translateOptions.source());
     }
     if (translateOptions.target() != null) {
       contentJson.addProperty("target", translateOptions.target());
