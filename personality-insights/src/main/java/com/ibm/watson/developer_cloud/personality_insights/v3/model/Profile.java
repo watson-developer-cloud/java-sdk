@@ -106,9 +106,9 @@ public class Profile extends GenericModel {
   /**
    * Gets the behavior.
    *
-   * For JSON content that is timestamped, detailed results about the social behavior disclosed by the input in terms of
-   * temporal characteristics. The results include information about the distribution of the content over the days of
-   * the week and the hours of the day.
+   * For JSON content that is timestamped, detailed results about the social behavior disclosed by the input in terms
+   * of temporal characteristics. The results include information about the distribution of the content over the days
+   * of the week and the hours of the day.
    *
    * @return the behavior
    */

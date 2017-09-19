@@ -16,18 +16,32 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the profile options.
+ * The profile options.
  */
 public class ProfileOptions extends GenericModel {
 
   /**
+   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
+   * including a `charset` parameter. For example, 'text/html;charset=utf-8'.
+   */
+  public interface ContentType {
+    /** application/json. */
+    String APPLICATION_JSON = "application/json";
+    /** text/html. */
+    String TEXT_HTML = "text/html";
+    /** text/plain. */
+    String TEXT_PLAIN = "text/plain";
+  }
+
+  /**
    * The language of the input text for the request: Arabic, English, Spanish, or Japanese. Regional variants are
-   * treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the `Content-Language`
-   * header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or `text/html`, `Content-Language`
-   * is the only way to specify the language. When `Content-Type` is `application/json`, `Content-Language` overrides a
-   * language specified with the `language` parameter of a `ContentItem` object, and content items that specify a
-   * different language are ignored; omit this header to base the language on the specification of the content items.
-   * You can specify any combination of languages for `Content-Language` and `Accept-Language`.
+   * treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the
+   * `Content-Language` header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or
+   * `text/html`, `Content-Language` is the only way to specify the language. When `Content-Type` is
+   * `application/json`, `Content-Language` overrides a language specified with the `language` parameter of a
+   * `ContentItem` object, and content items that specify a different language are ignored; omit this header to base
+   * the language on the specification of the content items. You can specify any combination of languages for
+   * `Content-Language` and `Accept-Language`.
    */
   public interface ContentLanguage {
     /** ar. */
@@ -70,50 +84,37 @@ public class ProfileOptions extends GenericModel {
     String ZH_TW = "zh-tw";
   }
 
-  /**
-   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
-   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
-   */
-  public interface ContentType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-    /** text/html. */
-    String TEXT_HTML = "text/html";
-    /** text/plain. */
-    String TEXT_PLAIN = "text/plain";
-  }
-
+  private Content content;
+  private String body;
+  private String contentType;
   private String contentLanguage;
   private String acceptLanguage;
   private Boolean rawScores;
   private Boolean csvHeaders;
   private Boolean consumptionPreferences;
-  private Content content;
-  private String body;
-  private String contentType;
 
   /**
    * Builder.
    */
   public static class Builder {
+    private Content content;
+    private String body;
+    private String contentType;
     private String contentLanguage;
     private String acceptLanguage;
     private Boolean rawScores;
     private Boolean csvHeaders;
     private Boolean consumptionPreferences;
-    private Content content;
-    private String body;
-    private String contentType;
 
     private Builder(ProfileOptions profileOptions) {
+      content = profileOptions.content;
+      body = profileOptions.body;
+      contentType = profileOptions.contentType;
       contentLanguage = profileOptions.contentLanguage;
       acceptLanguage = profileOptions.acceptLanguage;
       rawScores = profileOptions.rawScores;
       csvHeaders = profileOptions.csvHeaders;
       consumptionPreferences = profileOptions.consumptionPreferences;
-      content = profileOptions.content;
-      body = profileOptions.body;
-      contentType = profileOptions.contentType;
     }
 
     /**
@@ -193,8 +194,8 @@ public class ProfileOptions extends GenericModel {
      * @return the ProfileOptions builder
      */
     public Builder content(Content content) {
-      this.content = content;
-      this.contentType = ProfileOptions.ContentType.APPLICATION_JSON;
+    this.content = content;
+    this.contentType = ProfileOptions.ContentType.APPLICATION_JSON;
       return this;
     }
 
@@ -205,8 +206,8 @@ public class ProfileOptions extends GenericModel {
      * @return the ProfileOptions builder
      */
     public Builder html(String html) {
-      this.body = html;
-      this.contentType = ProfileOptions.ContentType.TEXT_HTML;
+    this.body = html;
+    this.contentType = ProfileOptions.ContentType.TEXT_HTML;
       return this;
     }
 
@@ -217,22 +218,22 @@ public class ProfileOptions extends GenericModel {
      * @return the ProfileOptions builder
      */
     public Builder text(String text) {
-      this.body = text;
-      this.contentType = ProfileOptions.ContentType.TEXT_PLAIN;
+    this.body = text;
+    this.contentType = ProfileOptions.ContentType.TEXT_PLAIN;
       return this;
     }
   }
 
   private ProfileOptions(Builder builder) {
     Validator.isTrue(builder.contentType != null, "contentType cannot be null");
+    content = builder.content;
+    body = builder.body;
+    contentType = builder.contentType;
     contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
     rawScores = builder.rawScores;
     csvHeaders = builder.csvHeaders;
     consumptionPreferences = builder.consumptionPreferences;
-    content = builder.content;
-    body = builder.body;
-    contentType = builder.contentType;
   }
 
   /**
@@ -245,15 +246,56 @@ public class ProfileOptions extends GenericModel {
   }
 
   /**
+   * Gets the content.
+   *
+   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
+   * [Guidelines for providing sufficient input]
+   * (https://console.bluemix.net/docs/services/personality-insights/user-overview.html#overviewGuidelines). A JSON
+   * request must conform to the `Content` model.
+   *
+   * @return the content
+   */
+  public Content content() {
+    return content;
+  }
+
+  /**
+   * Gets the body.
+   *
+   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
+   * [Guidelines for providing sufficient input]
+   * (https://console.bluemix.net/docs/services/personality-insights/user-overview.html#overviewGuidelines). A JSON
+   * request must conform to the `Content` model.
+   *
+   * @return the body
+   */
+  public String body() {
+    return body;
+  }
+
+  /**
+   * Gets the contentType.
+   *
+   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
+   * including a `charset` parameter. For example, 'text/html;charset=utf-8'.
+   *
+   * @return the contentType
+   */
+  public String contentType() {
+    return contentType;
+  }
+
+  /**
    * Gets the contentLanguage.
    *
    * The language of the input text for the request: Arabic, English, Spanish, or Japanese. Regional variants are
-   * treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the `Content-Language`
-   * header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or `text/html`, `Content-Language`
-   * is the only way to specify the language. When `Content-Type` is `application/json`, `Content-Language` overrides a
-   * language specified with the `language` parameter of a `ContentItem` object, and content items that specify a
-   * different language are ignored; omit this header to base the language on the specification of the content items.
-   * You can specify any combination of languages for `Content-Language` and `Accept-Language`.
+   * treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the
+   * `Content-Language` header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or
+   * `text/html`, `Content-Language` is the only way to specify the language. When `Content-Type` is
+   * `application/json`, `Content-Language` overrides a language specified with the `language` parameter of a
+   * `ContentItem` object, and content items that specify a different language are ignored; omit this header to base
+   * the language on the specification of the content items. You can specify any combination of languages for
+   * `Content-Language` and `Accept-Language`.
    *
    * @return the contentLanguage
    */
@@ -308,45 +350,5 @@ public class ProfileOptions extends GenericModel {
    */
   public Boolean consumptionPreferences() {
     return consumptionPreferences;
-  }
-
-  /**
-   * Gets the content.
-   *
-   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Guidelines for providing sufficient
-   * input](http://www.ibm.com/watson/developercloud/doc/personality-insights/basics.html#overviewGuidelines). A JSON
-   * request must conform to the `Content` model.
-   *
-   * @return the content
-   */
-  public Content content() {
-    return content;
-  }
-
-  /**
-   * Gets the body.
-   *
-   * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Guidelines for providing sufficient
-   * input](http://www.ibm.com/watson/developercloud/doc/personality-insights/basics.html#overviewGuidelines). A JSON
-   * request must conform to the `Content` model.
-   *
-   * @return the body
-   */
-  public String body() {
-    return body;
-  }
-
-  /**
-   * Gets the contentType.
-   *
-   * The type of the input: application/json, text/html, or text/plain. A character encoding can be specified by
-   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
-   *
-   * @return the contentType
-   */
-  public String contentType() {
-    return contentType;
   }
 }
