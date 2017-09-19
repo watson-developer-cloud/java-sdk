@@ -20,12 +20,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class Utterance extends GenericModel {
 
-  /**
-   * An utterance contributed by a user in the conversation that is to be analyzed. The utterance can contain multiple
-   * sentences.
-   */
   private String text;
-  /** A string that identifies the user who contributed the utterance specified by the `text` parameter. */
   private String user;
 
   /**
@@ -105,6 +100,9 @@ public class Utterance extends GenericModel {
   /**
    * Gets the text.
    *
+   * An utterance contributed by a user in the conversation that is to be analyzed. The utterance can contain multiple
+   * sentences.
+   *
    * @return the text
    */
   public String text() {
@@ -113,6 +111,8 @@ public class Utterance extends GenericModel {
 
   /**
    * Gets the user.
+   *
+   * A string that identifies the user who contributed the utterance specified by the `text` parameter.
    *
    * @return the user
    */

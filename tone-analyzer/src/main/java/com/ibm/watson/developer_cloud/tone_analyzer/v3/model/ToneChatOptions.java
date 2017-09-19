@@ -19,11 +19,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the toneChat options.
+ * The toneChat options.
  */
 public class ToneChatOptions extends GenericModel {
 
-  /** An array of `Utterance` objects that provides the input content that the service is to analyze. */
   private List<Utterance> utterances;
 
   /**
@@ -104,6 +103,8 @@ public class ToneChatOptions extends GenericModel {
 
   /**
    * Gets the utterances.
+   *
+   * An array of `Utterance` objects that provides the input content that the service is to analyze.
    *
    * @return the utterances
    */
