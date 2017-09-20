@@ -33,24 +33,25 @@ System.out.println(response);
 Moving from Node 1 to Node 2.
 
 ```java
-
-Map<String, Object> context = new HashMap<String, Object>();
+Context context = null;
 
 // first message
-MessageRequest newMessage = new MessageRequest.Builder()
-	.input(new InputData.Builder("First message").build())
-	.context(context)
-	.build();
+MessageOptions newMessageOptions = new MessageOptions.Builder()
+    .workspaceId("<workspace-id>")
+    .input(new InputData.Builder("First message").build())
+    .context(context)
+    .build();
 
-MessageResponse response = service.message("<workspace-id>", newMessage).execute();
+MessageResponse response = service.message(newMessageOptions).execute();
 
 // second message
-newMessage = new MessageRequest.Builder()
-	.input(new InputData.Builder("Second message").build())
-	.context(response.getContext()) // output context from the first message
-	.build();
+newMessageOptions = new MessageOptions.Builder()
+    .workspaceId("<workspace-id>")
+    .input(new InputData.Builder("Second message").build())
+    .context(response.getContext()) // output context from the first message
+    .build();
 
-response = service.message("<workspace-id>", newMessage).execute();
+response = service.message(newMessageOptions).execute();
 
 System.out.println(response);
 ```
