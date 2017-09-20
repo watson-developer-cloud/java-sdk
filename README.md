@@ -211,7 +211,7 @@ For example, if you have the conversation service in Germany, the Endpoint may b
 You will need to call
 
 ```java
-Conversation service = new Conversation("<version-date>");
+ConversationService service = new ConversationService("<version-date>");
 service.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api")
 ```
 
