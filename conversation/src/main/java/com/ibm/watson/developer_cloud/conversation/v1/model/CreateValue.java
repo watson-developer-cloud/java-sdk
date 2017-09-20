@@ -24,11 +24,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateValue extends GenericModel {
 
-  /** The text of the entity value. */
   private String value;
-  /** Any metadata related to the entity value. */
-  private Map<String, Object> metadata;
-  /** An array of synonyms for the entity value. */
+  private Map metadata;
   private List<String> synonyms;
 
   /**
@@ -36,7 +33,7 @@ public class CreateValue extends GenericModel {
    */
   public static class Builder {
     private String value;
-    private Map<String, Object> metadata;
+    private Map metadata;
     private List<String> synonyms;
 
     private Builder(CreateValue createValue) {
@@ -75,7 +72,7 @@ public class CreateValue extends GenericModel {
      * @param synonym the new synonym
      * @return the CreateValue builder
      */
-    public Builder synonyms(String synonym) {
+    public Builder addSynonym(String synonym) {
       Validator.notNull(synonym, "synonym cannot be null");
       if (this.synonyms == null) {
         this.synonyms = new ArrayList<String>();
@@ -101,7 +98,7 @@ public class CreateValue extends GenericModel {
      * @param metadata the metadata
      * @return the CreateValue builder
      */
-    public Builder metadata(Map<String, Object> metadata) {
+    public Builder metadata(Map metadata) {
       this.metadata = metadata;
       return this;
     }
@@ -138,6 +135,8 @@ public class CreateValue extends GenericModel {
   /**
    * Gets the value.
    *
+   * The text of the entity value.
+   *
    * @return the value
    */
   public String value() {
@@ -147,14 +146,18 @@ public class CreateValue extends GenericModel {
   /**
    * Gets the metadata.
    *
+   * Any metadata related to the entity value.
+   *
    * @return the metadata
    */
-  public Map<String, Object> metadata() {
+  public Map metadata() {
     return metadata;
   }
 
   /**
    * Gets the synonyms.
+   *
+   * An array of synonyms for the entity value.
    *
    * @return the synonyms
    */

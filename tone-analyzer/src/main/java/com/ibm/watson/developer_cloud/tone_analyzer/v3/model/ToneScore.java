@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -16,47 +16,21 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Object representing scoring of a single Tone (of any category) on our responses. It contains the Tone ID, a score,
- * and optionally a list of evidences.
+ * ToneScore.
  */
 public class ToneScore extends GenericModel {
 
-  @SerializedName("tone_id")
-  private String id;
-
-  @SerializedName("tone_name")
-  private String name;
-
-  /** The score. */
   private Double score;
-
-  /**
-   * Instantiates a new tone score.
-   */
-  public ToneScore() {
-
-  }
-
-  /**
-   * Gets the id.
-   *
-   * @return the id
-   */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * Gets the name.
-   *
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
+  @SerializedName("tone_id")
+  private String toneId;
+  @SerializedName("tone_name")
+  private String toneName;
 
   /**
    * Gets the score.
+   *
+   * The score for the tone in the range of 0 to 1. A score less than 0.5 indicates that the tone is unlikely to be
+   * perceived in the content; a score greater than 0.75 indicates a high likelihood that the tone is perceived.
    *
    * @return the score
    */
@@ -65,21 +39,30 @@ public class ToneScore extends GenericModel {
   }
 
   /**
-   * Sets the id.
+   * Gets the toneId.
    *
-   * @param id the new id
+   * The unique, non-localized identifier of the tone for the results. The service can return results for the following
+   * tone IDs of the different categories:
+   * * For the `emotion` category: `anger`, `disgust`, `fear`, `joy`, and `sadness`
+   * * For the `language` category: `analytical`, `confident`, and `tentative`
+   * * For the `social` category: `openness_big5`, `conscientiousness_big5`, `extraversion_big5`, `agreeableness_big5`,
+   * and `emotional_range_big5`   The service returns scores for all tones of a category, regardless of their values.
+   *
+   * @return the toneId
    */
-  public void setId(String id) {
-    this.id = id;
+  public String getToneId() {
+    return toneId;
   }
 
   /**
-   * Sets the name.
+   * Gets the toneName.
    *
-   * @param name the new name
+   * The user-visible, localized name of the tone.
+   *
+   * @return the toneName
    */
-  public void setName(String name) {
-    this.name = name;
+  public String getToneName() {
+    return toneName;
   }
 
   /**
@@ -87,8 +70,25 @@ public class ToneScore extends GenericModel {
    *
    * @param score the new score
    */
-  public void setScore(Double score) {
+  public void setScore(final Double score) {
     this.score = score;
   }
 
+  /**
+   * Sets the toneId.
+   *
+   * @param toneId the new toneId
+   */
+  public void setToneId(final String toneId) {
+    this.toneId = toneId;
+  }
+
+  /**
+   * Sets the toneName.
+   *
+   * @param toneName the new toneName
+   */
+  public void setToneName(final String toneName) {
+    this.toneName = toneName;
+  }
 }

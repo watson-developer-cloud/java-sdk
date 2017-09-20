@@ -19,19 +19,16 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class EmotionScores extends GenericModel {
 
-  /** Anger score from 0 to 1. A higher score means that the text is more likely to convey anger. */
   private Double anger;
-  /** Disgust score from 0 to 1. A higher score means that the text is more likely to convey disgust. */
   private Double disgust;
-  /** Fear score from 0 to 1. A higher score means that the text is more likely to convey fear. */
   private Double fear;
-  /** Joy score from 0 to 1. A higher score means that the text is more likely to convey joy. */
   private Double joy;
-  /** Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness. */
   private Double sadness;
 
   /**
    * Gets the anger.
+   *
+   * Anger score from 0 to 1. A higher score means that the text is more likely to convey anger.
    *
    * @return the anger
    */
@@ -42,6 +39,8 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the disgust.
    *
+   * Disgust score from 0 to 1. A higher score means that the text is more likely to convey disgust.
+   *
    * @return the disgust
    */
   public Double getDisgust() {
@@ -50,6 +49,8 @@ public class EmotionScores extends GenericModel {
 
   /**
    * Gets the fear.
+   *
+   * Fear score from 0 to 1. A higher score means that the text is more likely to convey fear.
    *
    * @return the fear
    */
@@ -60,6 +61,8 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the joy.
    *
+   * Joy score from 0 to 1. A higher score means that the text is more likely to convey joy.
+   *
    * @return the joy
    */
   public Double getJoy() {
@@ -68,6 +71,8 @@ public class EmotionScores extends GenericModel {
 
   /**
    * Gets the sadness.
+   *
+   * Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness.
    *
    * @return the sadness
    */
@@ -119,5 +124,4 @@ public class EmotionScores extends GenericModel {
   public void setSadness(final Double sadness) {
     this.sadness = sadness;
   }
-
 }

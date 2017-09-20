@@ -16,34 +16,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateEntity options.
+ * The updateEntity options.
  */
 public class UpdateEntityOptions extends GenericModel {
 
-  /** The workspace ID. */
-  @SerializedName("workspace_id")
   private String workspaceId;
-  /** The name of the entity. */
   private String entity;
-  /** Whether to use fuzzy matching for the entity. */
-  @SerializedName("new_fuzzy_match")
   private Boolean newFuzzyMatch;
-  /** The name of the entity. */
-  @SerializedName("new_entity")
   private String newEntity;
-  /** Any metadata related to the entity. */
-  @SerializedName("new_metadata")
-  private Map<String, Object> newMetadata;
-  /** An array of entity values. */
-  @SerializedName("new_values")
+  private Map newMetadata;
   private List<CreateValue> newValues;
-  /** The description of the entity. */
-  @SerializedName("new_description")
   private String newDescription;
 
   /**
@@ -54,7 +40,7 @@ public class UpdateEntityOptions extends GenericModel {
     private String entity;
     private Boolean newFuzzyMatch;
     private String newEntity;
-    private Map<String, Object> newMetadata;
+    private Map newMetadata;
     private List<CreateValue> newValues;
     private String newDescription;
 
@@ -159,7 +145,7 @@ public class UpdateEntityOptions extends GenericModel {
      * @param newMetadata the newMetadata
      * @return the UpdateEntityOptions builder
      */
-    public Builder newMetadata(Map<String, Object> newMetadata) {
+    public Builder newMetadata(Map newMetadata) {
       this.newMetadata = newMetadata;
       return this;
     }
@@ -189,8 +175,8 @@ public class UpdateEntityOptions extends GenericModel {
   }
 
   private UpdateEntityOptions(Builder builder) {
-    Validator.notNull(builder.workspaceId, "workspaceId cannot be null");
-    Validator.notNull(builder.entity, "entity cannot be null");
+    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
+    Validator.notEmpty(builder.entity, "entity cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     newFuzzyMatch = builder.newFuzzyMatch;
@@ -212,6 +198,8 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
+   * The workspace ID.
+   *
    * @return the workspaceId
    */
   public String workspaceId() {
@@ -220,6 +208,8 @@ public class UpdateEntityOptions extends GenericModel {
 
   /**
    * Gets the entity.
+   *
+   * The name of the entity.
    *
    * @return the entity
    */
@@ -230,6 +220,8 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the newFuzzyMatch.
    *
+   * Whether to use fuzzy matching for the entity.
+   *
    * @return the newFuzzyMatch
    */
   public Boolean newFuzzyMatch() {
@@ -238,6 +230,8 @@ public class UpdateEntityOptions extends GenericModel {
 
   /**
    * Gets the newEntity.
+   *
+   * The name of the entity.
    *
    * @return the newEntity
    */
@@ -248,14 +242,18 @@ public class UpdateEntityOptions extends GenericModel {
   /**
    * Gets the newMetadata.
    *
+   * Any metadata related to the entity.
+   *
    * @return the newMetadata
    */
-  public Map<String, Object> newMetadata() {
+  public Map newMetadata() {
     return newMetadata;
   }
 
   /**
    * Gets the newValues.
+   *
+   * An array of entity values.
    *
    * @return the newValues
    */
@@ -265,6 +263,8 @@ public class UpdateEntityOptions extends GenericModel {
 
   /**
    * Gets the newDescription.
+   *
+   * The description of the entity.
    *
    * @return the newDescription
    */

@@ -18,7 +18,8 @@ public class ToneAnalyzerExample {
 
 
   public static void main(String[] args) {
-    ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
+    final String VERSION_DATE = "2016-05-19";
+    ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
     service.setUsernameAndPassword("<username>", "<password>");
 
     String text = "I know the times are difficult! Our sales have been "
@@ -32,7 +33,8 @@ public class ToneAnalyzerExample {
         + "business outcomes. Economy has nothing to do with it.";
 
     // Call the service and get the tone
-    ToneAnalysis tone = service.getTone(text, null).execute();
+    ToneOptions tonOptions = new ToneOptions.Builder().text(text).build();
+    ToneAnalysis tone = service.tone(tonOptions).execute();
     System.out.println(tone);
 
   }

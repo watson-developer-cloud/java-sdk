@@ -19,14 +19,14 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SemanticRolesAction extends GenericModel {
 
-  /** Analyzed text that corresponds to the action. */
   private String text;
-  /** normalized version of the action. */
   private String normalized;
   private SemanticRolesVerb verb;
 
   /**
    * Gets the text.
+   *
+   * Analyzed text that corresponds to the action.
    *
    * @return the text
    */
@@ -36,6 +36,8 @@ public class SemanticRolesAction extends GenericModel {
 
   /**
    * Gets the normalized.
+   *
+   * normalized version of the action.
    *
    * @return the normalized
    */
@@ -78,5 +80,4 @@ public class SemanticRolesAction extends GenericModel {
   public void setVerb(final SemanticRolesVerb verb) {
     this.verb = verb;
   }
-
 }

@@ -30,4 +30,4 @@ Answers htmlToAnswers = service.convertDocumentToAnswer(doc).execute();
 System.out.println(htmlToAnswers);
 ```
 
-[document_conversion]: http://www.ibm.com/watson/developercloud/doc/document-conversion/
+[document_conversion]: https://console.bluemix.net/docs/services/document-conversion/index.html

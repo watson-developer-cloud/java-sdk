@@ -19,13 +19,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class TargetedEmotionResults extends GenericModel {
 
-  /** Targeted text. */
   private String text;
-  /** An object containing the emotion results for the target. */
   private EmotionScores emotion;
 
   /**
    * Gets the text.
+   *
+   * Targeted text.
    *
    * @return the text
    */
@@ -35,6 +35,8 @@ public class TargetedEmotionResults extends GenericModel {
 
   /**
    * Gets the emotion.
+   *
+   * An object containing the emotion results for the target.
    *
    * @return the emotion
    */
@@ -59,5 +61,4 @@ public class TargetedEmotionResults extends GenericModel {
   public void setEmotion(final EmotionScores emotion) {
     this.emotion = emotion;
   }
-
 }

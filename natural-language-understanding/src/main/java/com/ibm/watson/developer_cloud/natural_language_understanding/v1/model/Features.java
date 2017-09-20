@@ -20,27 +20,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Features extends GenericModel {
 
-  /** Whether or not to return the concepts that are mentioned in the analyzed text. */
   private ConceptsOptions concepts;
-  /** Whether or not to extract the emotions implied in the analyzed text. */
   private EmotionOptions emotion;
-  /** Whether or not to extract detected entity objects from the analyzed text. */
   private EntitiesOptions entities;
-  /** Whether or not to return the keywords in the analyzed text. */
   private KeywordsOptions keywords;
-  /**
-   * Whether or not the author, publication date, and title of the analyzed
-   * text should be returned. This parameter is only available for URL and HTML input.
-   */
   private MetadataOptions metadata;
-  /** Whether or not to return the relationships between detected entities in the analyzed text. */
   private RelationsOptions relations;
-  /** Whether or not to return the subject-action-object relations from the analyzed text. */
   @SerializedName("semantic_roles")
   private SemanticRolesOptions semanticRoles;
-  /** Whether or not to return the overall sentiment of the analyzed text. */
   private SentimentOptions sentiment;
-  /** Whether or not to return the high level category the content is categorized as (i.e. news, art). */
   private CategoriesOptions categories;
 
   /**
@@ -72,10 +60,11 @@ public class Features extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the Features.
+     * Builds a Features.
      *
      * @return the features
      */
@@ -84,10 +73,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the concepts.
+     * Set the concepts.
      *
      * @param concepts the concepts
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder concepts(ConceptsOptions concepts) {
       this.concepts = concepts;
@@ -95,10 +84,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the emotion.
+     * Set the emotion.
      *
      * @param emotion the emotion
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder emotion(EmotionOptions emotion) {
       this.emotion = emotion;
@@ -106,10 +95,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the entities.
+     * Set the entities.
      *
      * @param entities the entities
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder entities(EntitiesOptions entities) {
       this.entities = entities;
@@ -117,10 +106,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the keywords.
+     * Set the keywords.
      *
      * @param keywords the keywords
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder keywords(KeywordsOptions keywords) {
       this.keywords = keywords;
@@ -128,10 +117,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the metadata.
+     * Set the metadata.
      *
      * @param metadata the metadata
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder metadata(MetadataOptions metadata) {
       this.metadata = metadata;
@@ -139,10 +128,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the relations.
+     * Set the relations.
      *
      * @param relations the relations
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder relations(RelationsOptions relations) {
       this.relations = relations;
@@ -150,10 +139,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the semanticRoles.
+     * Set the semanticRoles.
      *
      * @param semanticRoles the semanticRoles
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder semanticRoles(SemanticRolesOptions semanticRoles) {
       this.semanticRoles = semanticRoles;
@@ -161,10 +150,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the sentiment.
+     * Set the sentiment.
      *
      * @param sentiment the sentiment
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder sentiment(SentimentOptions sentiment) {
       this.sentiment = sentiment;
@@ -172,10 +161,10 @@ public class Features extends GenericModel {
     }
 
     /**
-     * Add the categories.
+     * Set the categories.
      *
      * @param categories the categories
-     * @return a Features Builder
+     * @return the Features builder
      */
     public Builder categories(CategoriesOptions categories) {
       this.categories = categories;
@@ -196,7 +185,18 @@ public class Features extends GenericModel {
   }
 
   /**
+   * New builder.
+   *
+   * @return a Features builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the concepts.
+   *
+   * Whether or not to return the concepts that are mentioned in the analyzed text.
    *
    * @return the concepts
    */
@@ -207,6 +207,8 @@ public class Features extends GenericModel {
   /**
    * Gets the emotion.
    *
+   * Whether or not to extract the emotions implied in the analyzed text.
+   *
    * @return the emotion
    */
   public EmotionOptions emotion() {
@@ -215,6 +217,8 @@ public class Features extends GenericModel {
 
   /**
    * Gets the entities.
+   *
+   * Whether or not to extract detected entity objects from the analyzed text.
    *
    * @return the entities
    */
@@ -225,6 +229,8 @@ public class Features extends GenericModel {
   /**
    * Gets the keywords.
    *
+   * Whether or not to return the keywords in the analyzed text.
+   *
    * @return the keywords
    */
   public KeywordsOptions keywords() {
@@ -233,6 +239,9 @@ public class Features extends GenericModel {
 
   /**
    * Gets the metadata.
+   *
+   * Whether or not the author, publication date, and title of the analyzed text should be returned. This parameter
+   * is only available for URL and HTML input.
    *
    * @return the metadata
    */
@@ -243,6 +252,8 @@ public class Features extends GenericModel {
   /**
    * Gets the relations.
    *
+   * Whether or not to return the relationships between detected entities in the analyzed text.
+   *
    * @return the relations
    */
   public RelationsOptions relations() {
@@ -251,6 +262,8 @@ public class Features extends GenericModel {
 
   /**
    * Gets the semanticRoles.
+   *
+   * Whether or not to return the subject-action-object relations from the analyzed text.
    *
    * @return the semanticRoles
    */
@@ -261,6 +274,8 @@ public class Features extends GenericModel {
   /**
    * Gets the sentiment.
    *
+   * Whether or not to return the overall sentiment of the analyzed text.
+   *
    * @return the sentiment
    */
   public SentimentOptions sentiment() {
@@ -270,19 +285,11 @@ public class Features extends GenericModel {
   /**
    * Gets the categories.
    *
+   * Whether or not to return the high level category the content is categorized as (i.e. news, art).
+   *
    * @return the categories
    */
   public CategoriesOptions categories() {
     return categories;
-  }
-
-
-  /**
-   * New builder.
-   *
-   * @return the builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
   }
 }

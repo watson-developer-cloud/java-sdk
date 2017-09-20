@@ -18,9 +18,9 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.DeleteValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.GetValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.ListValuesOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.UpdateValueOptions;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ValueCollectionResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ValueExportResponse;
-import com.ibm.watson.developer_cloud.conversation.v1.model.ValueResponse;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ValueCollection;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ValueExport;
+import com.ibm.watson.developer_cloud.conversation.v1.model.Value;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Test;
@@ -67,17 +67,17 @@ public class ValuesIT extends ConversationServiceTest {
     Date start = new Date();
 
     CreateValueOptions createOptions = new CreateValueOptions.Builder()
-        .workspaceId(workspaceId)
-        .entity(entity)
-        .value(entityValue)
-        .metadata(valueMetadata)
-        .build();
-    ValueResponse response = service.createValue(createOptions).execute();
+            .workspaceId(workspaceId)
+            .entity(entity)
+            .value(entityValue)
+            .metadata(valueMetadata)
+            .build();
+    Value response = service.createValue(createOptions).execute();
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getValue());
-      assertEquals(response.getValue(), entityValue);
+      assertNotNull(response.getValueText());
+      assertEquals(response.getValueText(), entityValue);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
       assertNotNull(response.getMetadata());
@@ -97,13 +97,13 @@ public class ValuesIT extends ConversationServiceTest {
     } finally {
       // Clean up
       DeleteValueOptions deleteOptions =
-          new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
+              new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
       service.deleteValue(deleteOptions).execute();
     }
   }
 
   /**
-   * Test createValue.
+   * Test deleteValue.
    */
   @Test
   public void testDeleteValue() {
@@ -120,34 +120,34 @@ public class ValuesIT extends ConversationServiceTest {
     }
 
     CreateValueOptions createOptions =
-        new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
-    ValueResponse response = service.createValue(createOptions).execute();
+            new CreateValueOptions.Builder(workspaceId, entity, entityValue).build();
+    Value response = service.createValue(createOptions).execute();
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getValue());
-      assertEquals(response.getValue(), entityValue);
+      assertNotNull(response.getValueText());
+      assertEquals(response.getValueText(), entityValue);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
       assertNull(response.getMetadata());
     } catch (Exception ex) {
       // Clean up
       DeleteValueOptions deleteOptions =
-          new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
+              new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
       service.deleteValue(deleteOptions).execute();
       fail(ex.getMessage());
     }
 
     DeleteValueOptions deleteOptions = new DeleteValueOptions.Builder()
-        .workspaceId(workspaceId)
-        .entity(entity)
-        .value(entityValue)
-        .build();
+            .workspaceId(workspaceId)
+            .entity(entity)
+            .value(entityValue)
+            .build();
     service.deleteValue(deleteOptions).execute();
 
     try {
       GetValueOptions getOptions =
-          new GetValueOptions.Builder(workspaceId, entity, entityValue).build();
+              new GetValueOptions.Builder(workspaceId, entity, entityValue).build();
       service.getValue(getOptions).execute();
       fail("deleteValue failed");
     } catch (Exception ex) {
@@ -176,22 +176,22 @@ public class ValuesIT extends ConversationServiceTest {
     }
 
     CreateValueOptions createOptions = new CreateValueOptions.Builder(workspaceId, entity, entityValue)
-        .synonyms(new ArrayList<String>(Arrays.asList(synonym1, synonym2)))
-        .build();
+            .synonyms(new ArrayList<String>(Arrays.asList(synonym1, synonym2)))
+            .build();
     service.createValue(createOptions).execute();
 
     Date start = new Date();
 
     try {
       GetValueOptions getOptions =
-          new GetValueOptions.Builder(workspaceId, entity, entityValue)
-              .export(true)
-              .build();
-      ValueExportResponse response = service.getValue(getOptions).execute();
+              new GetValueOptions.Builder(workspaceId, entity, entityValue)
+                      .export(true)
+                      .build();
+      ValueExport response = service.getValue(getOptions).execute();
 
       assertNotNull(response);
-      assertNotNull(response.getValue());
-      assertEquals(response.getValue(), entityValue);
+      assertNotNull(response.getValueText());
+      assertEquals(response.getValueText(), entityValue);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
 
@@ -209,7 +209,7 @@ public class ValuesIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       DeleteValueOptions deleteOptions =
-          new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
+              new DeleteValueOptions.Builder(workspaceId, entity, entityValue).build();
       service.deleteValue(deleteOptions).execute();
     }
   }
@@ -249,10 +249,10 @@ public class ValuesIT extends ConversationServiceTest {
 
     try {
       ListValuesOptions listOptions = new ListValuesOptions.Builder()
-          .workspaceId(workspaceId)
-          .entity(entity)
-          .build();
-      final ValueCollectionResponse response = service.listValues(listOptions).execute();
+              .workspaceId(workspaceId)
+              .entity(entity)
+              .build();
+      final ValueCollection response = service.listValues(listOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getValues());
       assertNotNull(response.getPagination());
@@ -270,9 +270,9 @@ public class ValuesIT extends ConversationServiceTest {
       if (response.getPagination().getNextUrl() == null) {
         //assertTrue(response.getValues().stream().filter(r -> r.getValue().equals(synonym1)).count() == 1);
         boolean found1 = false, found2 = false;
-        for (ValueExportResponse valueResponse : response.getValues()) {
-          found1 |= valueResponse.getValue().equals(entityValue1);
-          found2 |= valueResponse.getValue().equals(entityValue2);
+        for (ValueExport valueResponse : response.getValues()) {
+          found1 |= valueResponse.getValueText().equals(entityValue1);
+          found2 |= valueResponse.getValueText().equals(entityValue2);
         }
         assertTrue(found1 && found2);
       }
@@ -281,7 +281,7 @@ public class ValuesIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       DeleteValueOptions deleteOptions =
-          new DeleteValueOptions.Builder(workspaceId, entity, entityValue1).build();
+              new DeleteValueOptions.Builder(workspaceId, entity, entityValue1).build();
       service.deleteValue(deleteOptions).execute();
       service.deleteValue(deleteOptions.newBuilder().value(entityValue2).build()).execute();
     }
@@ -322,13 +322,13 @@ public class ValuesIT extends ConversationServiceTest {
 
     try {
       ListValuesOptions.Builder listOptionsBuilder
-          = new ListValuesOptions.Builder(workspaceId, entity);
+              = new ListValuesOptions.Builder(workspaceId, entity);
       listOptionsBuilder.sort("modified");
       listOptionsBuilder.pageLimit(1L);
       listOptionsBuilder.export(true);
 
-      ValueCollectionResponse response =
-          service.listValues(listOptionsBuilder.build()).execute();
+      ValueCollection response =
+              service.listValues(listOptionsBuilder.build()).execute();
       assertNotNull(response);
       assertNotNull(response.getPagination());
       assertNotNull(response.getPagination().getRefreshUrl());
@@ -339,8 +339,8 @@ public class ValuesIT extends ConversationServiceTest {
       while (true) {
         assertNotNull(response.getValues());
         assertTrue(response.getValues().size() == 1);
-        found1 |= response.getValues().get(0).getValue().equals(entityValue1);
-        found2 |= response.getValues().get(0).getValue().equals(entityValue2);
+        found1 |= response.getValues().get(0).getValueText().equals(entityValue1);
+        found2 |= response.getValues().get(0).getValueText().equals(entityValue2);
         if (response.getPagination().getCursor() == null) {
           break;
         }
@@ -354,7 +354,7 @@ public class ValuesIT extends ConversationServiceTest {
       fail(ex.getMessage());
     } finally {
       DeleteValueOptions deleteOptions =
-          new DeleteValueOptions.Builder(workspaceId, entity, entityValue1).build();
+              new DeleteValueOptions.Builder(workspaceId, entity, entityValue1).build();
       service.deleteValue(deleteOptions).execute();
       service.deleteValue(deleteOptions.newBuilder().value(entityValue2).build()).execute();
     }
@@ -396,19 +396,19 @@ public class ValuesIT extends ConversationServiceTest {
     Date start = new Date();
 
     UpdateValueOptions updateOptions = new UpdateValueOptions.Builder()
-        .workspaceId(workspaceId)
-        .entity(entity)
-        .value(entityValue1)
-        .newValue(entityValue2)
-        .newSynonyms(new ArrayList<String>(Arrays.asList(synonym1, synonym2)))
-        .newMetadata(valueMetadata)
-        .build();
-    ValueResponse response = service.updateValue(updateOptions).execute();
+            .workspaceId(workspaceId)
+            .entity(entity)
+            .value(entityValue1)
+            .newValue(entityValue2)
+            .newSynonyms(new ArrayList<String>(Arrays.asList(synonym1, synonym2)))
+            .newMetadata(valueMetadata)
+            .build();
+    Value response = service.updateValue(updateOptions).execute();
 
     try {
       assertNotNull(response);
-      assertNotNull(response.getValue());
-      assertEquals(response.getValue(), entityValue2);
+      assertNotNull(response.getValueText());
+      assertEquals(response.getValueText(), entityValue2);
       assertNotNull(response.getCreated());
       assertNotNull(response.getUpdated());
 
@@ -419,14 +419,14 @@ public class ValuesIT extends ConversationServiceTest {
       assertTrue(fuzzyAfter(response.getUpdated(), start));
 
       GetValueOptions getOptions =
-          new GetValueOptions.Builder(workspaceId, entity, entityValue2)
-              .export(true)
-              .build();
-      ValueExportResponse vResponse = service.getValue(getOptions).execute();
+              new GetValueOptions.Builder(workspaceId, entity, entityValue2)
+                      .export(true)
+                      .build();
+      ValueExport vResponse = service.getValue(getOptions).execute();
 
       assertNotNull(vResponse);
-      assertNotNull(vResponse.getValue());
-      assertEquals(vResponse.getValue(), entityValue2);
+      assertNotNull(vResponse.getValueText());
+      assertEquals(vResponse.getValueText(), entityValue2);
       assertNotNull(vResponse.getCreated());
       assertNotNull(vResponse.getUpdated());
 
@@ -448,7 +448,7 @@ public class ValuesIT extends ConversationServiceTest {
     } finally {
       // Clean up
       DeleteValueOptions deleteOptions =
-          new DeleteValueOptions.Builder(workspaceId, entity, entityValue2).build();
+              new DeleteValueOptions.Builder(workspaceId, entity, entityValue2).build();
       service.deleteValue(deleteOptions).execute();
     }
   }

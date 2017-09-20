@@ -19,20 +19,16 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class EntitiesOptions extends GenericModel {
 
-  /** Maximum number of entities to return. */
-  private Integer limit;
-  /** Enter a custom model ID to override the standard entity detection model. */
+  private Long limit;
   private String model;
-  /** Set this to true to return sentiment information for detected entities. */
   private Boolean sentiment;
-  /** Set this to true to analyze emotion for detected keywords. */
   private Boolean emotion;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Integer limit;
+    private Long limit;
     private String model;
     private Boolean sentiment;
     private Boolean emotion;
@@ -47,10 +43,11 @@ public class EntitiesOptions extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the EntitiesOptions.
+     * Builds a EntitiesOptions.
      *
      * @return the entitiesOptions
      */
@@ -59,21 +56,21 @@ public class EntitiesOptions extends GenericModel {
     }
 
     /**
-     * Add the limit.
+     * Set the limit.
      *
      * @param limit the limit
-     * @return a EntitiesOptions Builder
+     * @return the EntitiesOptions builder
      */
-    public Builder limit(Integer limit) {
+    public Builder limit(long limit) {
       this.limit = limit;
       return this;
     }
 
     /**
-     * Add the model.
+     * Set the model.
      *
      * @param model the model
-     * @return a EntitiesOptions Builder
+     * @return the EntitiesOptions builder
      */
     public Builder model(String model) {
       this.model = model;
@@ -81,10 +78,10 @@ public class EntitiesOptions extends GenericModel {
     }
 
     /**
-     * Add the sentiment.
+     * Set the sentiment.
      *
      * @param sentiment the sentiment
-     * @return a EntitiesOptions Builder
+     * @return the EntitiesOptions builder
      */
     public Builder sentiment(Boolean sentiment) {
       this.sentiment = sentiment;
@@ -92,10 +89,10 @@ public class EntitiesOptions extends GenericModel {
     }
 
     /**
-     * Add the emotion.
+     * Set the emotion.
      *
      * @param emotion the emotion
-     * @return a EntitiesOptions Builder
+     * @return the EntitiesOptions builder
      */
     public Builder emotion(Boolean emotion) {
       this.emotion = emotion;
@@ -113,7 +110,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return the builder
+   * @return a EntitiesOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -122,14 +119,18 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
+   * Maximum number of entities to return.
+   *
    * @return the limit
    */
-  public Integer limit() {
+  public Long limit() {
     return limit;
   }
 
   /**
    * Gets the model.
+   *
+   * Enter a custom model ID to override the standard entity detection model.
    *
    * @return the model
    */
@@ -140,6 +141,8 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the sentiment.
    *
+   * Set this to true to return sentiment information for detected entities.
+   *
    * @return the sentiment
    */
   public Boolean sentiment() {
@@ -149,10 +152,11 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the emotion.
    *
+   * Set this to true to analyze emotion for detected keywords.
+   *
    * @return the emotion
    */
   public Boolean emotion() {
     return emotion;
   }
-
 }

@@ -20,7 +20,8 @@
 Use the [Tone Analyzer][tone_analyzer] service to get the tone of your email.
 
 ```java
-ToneAnalyzer service = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
+final String VERSION_DATE = "2016-05-19";
+ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
 service.setUsernameAndPassword("<username>", "<password>");
 
 String text =
@@ -36,7 +37,8 @@ String text =
       + "business outcomes. Economy has nothing to do with it.";
 
 // Call the service and get the tone
-ToneAnalysis tone = service.getTone(text, null).execute();
+ToneOptions toneOptions = new ToneOptions.Builder().html(text).build();
+ToneAnalysis tone = service.tone(toneOptions).execute();
 System.out.println(tone);
 ```
 

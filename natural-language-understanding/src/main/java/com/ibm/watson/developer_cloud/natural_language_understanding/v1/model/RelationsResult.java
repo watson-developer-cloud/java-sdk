@@ -21,26 +21,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class RelationsResult extends GenericModel {
 
-  /** Confidence score for the relation. Higher values indicate greater confidence. */
   private Double score;
-  /** The sentence that contains the relation. */
   private String sentence;
-  /** The type of the relation. */
   private String type;
-  /** The extracted relation objects from the text. */
   private List<RelationArgument> arguments;
 
   /**
-   * Adds the arguments.
-   *
-   * @param arguments the new arguments
-   */
-  public void addarguments(RelationArgument arguments) {
-    this.arguments.add(arguments);
-  }
-
-  /**
    * Gets the score.
+   *
+   * Confidence score for the relation. Higher values indicate greater confidence.
    *
    * @return the score
    */
@@ -51,6 +40,8 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the sentence.
    *
+   * The sentence that contains the relation.
+   *
    * @return the sentence
    */
   public String getSentence() {
@@ -60,6 +51,8 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the type.
    *
+   * The type of the relation.
+   *
    * @return the type
    */
   public String getType() {
@@ -68,6 +61,8 @@ public class RelationsResult extends GenericModel {
 
   /**
    * Gets the arguments.
+   *
+   * The extracted relation objects from the text.
    *
    * @return the arguments
    */
@@ -110,5 +105,4 @@ public class RelationsResult extends GenericModel {
   public void setArguments(final List<RelationArgument> arguments) {
     this.arguments = arguments;
   }
-
 }

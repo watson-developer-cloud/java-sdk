@@ -26,7 +26,7 @@ import com.ibm.watson.developer_cloud.tone_analyzer.v3.ToneAnalyzer;
 import com.ibm.watson.developer_cloud.tone_analyzer.v3.model.ToneAnalysis;
 
 /**
- * Example of how to call the {@link ConversationService#message(String, MessageRequest)} 
+ * Example of how to call the {@link ConversationService#message(String, MessageRequest)}
  * method asynchronously.
  *
  * @version v1
@@ -37,19 +37,20 @@ public class ToneConversationIntegrationV1 {
 
     // load the properties file
     Properties props = new Properties();
-    props.load(FileUtils.openInputStream(new File("tone_conversation_integration.properties")));
+    props.load(FileUtils.openInputStream(new File("tone_conversation_integration.properties.example")));
 
     // instantiate the conversation service
-    ConversationService conversationService = new ConversationService(ConversationService.VERSION_DATE_2016_07_11);
+    final ConversationService conversationService = new ConversationService(ConversationService
+        .VERSION_DATE_2016_07_11);
     conversationService.setUsernameAndPassword(
-        props.getProperty("CONVERSATION_USERNAME", "<conversation_username>"), 
+        props.getProperty("CONVERSATION_USERNAME", "<conversation_username>"),
         props.getProperty("CONVERSATION_PASSWORD", "<conversation_password>")
     );
 
     // instantiate the tone analyzer service
     ToneAnalyzer toneService = new ToneAnalyzer(ToneAnalyzer.VERSION_DATE_2016_05_19);
     toneService.setUsernameAndPassword(
-        props.getProperty("TONE_ANALYZER_USERNAME", "<tone_analyzer_username>"), 
+        props.getProperty("TONE_ANALYZER_USERNAME", "<tone_analyzer_username>"),
         props.getProperty("TONE_ANALYZER_PASSWORD", "<tone_analyzer_password>")
     );
 

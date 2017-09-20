@@ -1,41 +1,107 @@
 /*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
- * in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
+ * the License. You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License
- * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
- * or implied. See the License for the specific language governing permissions and limitations under
- * the License.
+ * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+ * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3.model;
 
-import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * This object represents an utterance of a conversation. It has the text and the user who said this utterance. The user
- * field is optional
+ * Utterance.
  */
-public class Utterance {
+public class Utterance extends GenericModel {
 
-  /** The text. */
-  @SerializedName("text")
-  String text;
+  private String text;
+  private String user;
 
-  /** The user. */
-  @SerializedName("user")
-  String user;
+  /**
+   * Builder.
+   */
+  public static class Builder {
+    private String text;
+    private String user;
+
+    private Builder(Utterance utterance) {
+      text = utterance.text;
+      user = utterance.user;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param text the text
+     */
+    public Builder(String text) {
+      this.text = text;
+    }
+
+    /**
+     * Builds a Utterance.
+     *
+     * @return the utterance
+     */
+    public Utterance build() {
+      return new Utterance(this);
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the Utterance builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the user.
+     *
+     * @param user the user
+     * @return the Utterance builder
+     */
+    public Builder user(String user) {
+      this.user = user;
+      return this;
+    }
+  }
 
   private Utterance(Builder builder) {
-    this.text = builder.text;
-    this.user = builder.user;
+    Validator.notNull(builder.text, "text cannot be null");
+    text = builder.text;
+    user = builder.user;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Utterance builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 
   /**
    * Gets the text.
+   *
+   * An utterance contributed by a user in the conversation that is to be analyzed. The utterance can contain multiple
+   * sentences.
    *
    * @return the text
    */
@@ -46,77 +112,11 @@ public class Utterance {
   /**
    * Gets the user.
    *
+   * A string that identifies the user who contributed the utterance specified by the `text` parameter.
+   *
    * @return the user
    */
   public String user() {
     return user;
   }
-
-  /**
-   * Utterance Builder.
-   */
-  public static class Builder {
-
-    /** The text. */
-    String text;
-
-    /** The user. */
-    String user;
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() { }
-
-    /**
-     * Instantiates a new builder.
-     *
-     * @param options the options
-     */
-    public Builder(Utterance options) {
-      this.user = options.user;
-      this.text = options.text;
-    }
-
-    /**
-     * Sets the text.
-     *
-     * @param text the text
-     * @return the builder
-     */
-    public Builder text(String text) {
-      this.text = text;
-      return this;
-    }
-
-    /**
-     * Sets the user.
-     *
-     * @param user the user
-     * @return the builder
-     */
-    public Builder user(String user) {
-      this.user = user;
-      return this;
-    }
-
-    /**
-     * Builds the.
-     *
-     * @return the utterance
-     */
-    public Utterance build() {
-      return new Utterance(this);
-    }
-  }
-
-  /**
-   * New builder.
-   *
-   * @return the builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
 }

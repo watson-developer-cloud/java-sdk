@@ -22,92 +22,27 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class AnalysisResults extends GenericModel {
 
-  /** Language used to analyze the text. */
   private String language;
-  /** Text that was used in the analysis. */
   @SerializedName("analyzed_text")
   private String analyzedText;
-  /** URL that was used to retrieve HTML content. */
   @SerializedName("retrieved_url")
   private String retrievedUrl;
-  /** API usage information for the request. */
   private Usage usage;
-  /** The general concepts referenced or alluded to in the specified content. */
   private List<ConceptsResult> concepts;
-  /** The important entities in the specified content. */
   private List<EntitiesResult> entities;
-  /** The important keywords in content organized by relevance. */
   private List<KeywordsResult> keywords;
-  /** The hierarchical 5-level taxonomy the content is categorized into. */
   private List<CategoriesResult> categories;
-  /** The anger, disgust, fear, joy, or sadness conveyed by the content. */
   private EmotionResult emotion;
-  /** The metadata holds author information, publication date and the title of the text/HTML content. */
   private MetadataResult metadata;
-  /** The relationships between entities in the content. */
   private List<RelationsResult> relations;
-  /** The subjects of actions and the objects the actions act upon. */
   @SerializedName("semantic_roles")
   private List<SemanticRolesResult> semanticRoles;
-  /** The sentiment of the content. */
   private SentimentResult sentiment;
 
   /**
-   * Adds the concepts.
-   *
-   * @param concepts the new concepts
-   */
-  public void addconcepts(ConceptsResult concepts) {
-    this.concepts.add(concepts);
-  }
-
-  /**
-   * Adds the entities.
-   *
-   * @param entities the new entities
-   */
-  public void addentities(EntitiesResult entities) {
-    this.entities.add(entities);
-  }
-
-  /**
-   * Adds the keywords.
-   *
-   * @param keywords the new keywords
-   */
-  public void addkeywords(KeywordsResult keywords) {
-    this.keywords.add(keywords);
-  }
-
-  /**
-   * Adds the categories.
-   *
-   * @param categories the new categories
-   */
-  public void addcategories(CategoriesResult categories) {
-    this.categories.add(categories);
-  }
-
-  /**
-   * Adds the relations.
-   *
-   * @param relations the new relations
-   */
-  public void addrelations(RelationsResult relations) {
-    this.relations.add(relations);
-  }
-
-  /**
-   * Adds the semanticRoles.
-   *
-   * @param semanticRoles the new semanticRoles
-   */
-  public void addsemanticRoles(SemanticRolesResult semanticRoles) {
-    this.semanticRoles.add(semanticRoles);
-  }
-
-  /**
    * Gets the language.
+   *
+   * Language used to analyze the text.
    *
    * @return the language
    */
@@ -118,6 +53,8 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the analyzedText.
    *
+   * Text that was used in the analysis.
+   *
    * @return the analyzedText
    */
   public String getAnalyzedText() {
@@ -126,6 +63,8 @@ public class AnalysisResults extends GenericModel {
 
   /**
    * Gets the retrievedUrl.
+   *
+   * URL that was used to retrieve HTML content.
    *
    * @return the retrievedUrl
    */
@@ -136,6 +75,8 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the usage.
    *
+   * API usage information for the request.
+   *
    * @return the usage
    */
   public Usage getUsage() {
@@ -144,6 +85,8 @@ public class AnalysisResults extends GenericModel {
 
   /**
    * Gets the concepts.
+   *
+   * The general concepts referenced or alluded to in the specified content.
    *
    * @return the concepts
    */
@@ -154,6 +97,8 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the entities.
    *
+   * The important entities in the specified content.
+   *
    * @return the entities
    */
   public List<EntitiesResult> getEntities() {
@@ -162,6 +107,8 @@ public class AnalysisResults extends GenericModel {
 
   /**
    * Gets the keywords.
+   *
+   * The important keywords in content organized by relevance.
    *
    * @return the keywords
    */
@@ -172,6 +119,8 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the categories.
    *
+   * The hierarchical 5-level taxonomy the content is categorized into.
+   *
    * @return the categories
    */
   public List<CategoriesResult> getCategories() {
@@ -180,6 +129,8 @@ public class AnalysisResults extends GenericModel {
 
   /**
    * Gets the emotion.
+   *
+   * The anger, disgust, fear, joy, or sadness conveyed by the content.
    *
    * @return the emotion
    */
@@ -190,6 +141,8 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the metadata.
    *
+   * The metadata holds author information, publication date and the title of the text/HTML content.
+   *
    * @return the metadata
    */
   public MetadataResult getMetadata() {
@@ -198,6 +151,8 @@ public class AnalysisResults extends GenericModel {
 
   /**
    * Gets the relations.
+   *
+   * The relationships between entities in the content.
    *
    * @return the relations
    */
@@ -208,6 +163,8 @@ public class AnalysisResults extends GenericModel {
   /**
    * Gets the semanticRoles.
    *
+   * The subjects of actions and the objects the actions act upon.
+   *
    * @return the semanticRoles
    */
   public List<SemanticRolesResult> getSemanticRoles() {
@@ -216,6 +173,8 @@ public class AnalysisResults extends GenericModel {
 
   /**
    * Gets the sentiment.
+   *
+   * The sentiment of the content.
    *
    * @return the sentiment
    */
@@ -339,5 +298,4 @@ public class AnalysisResults extends GenericModel {
   public void setSentiment(final SentimentResult sentiment) {
     this.sentiment = sentiment;
   }
-
 }

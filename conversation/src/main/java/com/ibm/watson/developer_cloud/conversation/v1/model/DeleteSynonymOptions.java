@@ -12,23 +12,17 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the deleteSynonym options.
+ * The deleteSynonym options.
  */
 public class DeleteSynonymOptions extends GenericModel {
 
-  /** The workspace ID. */
-  @SerializedName("workspace_id")
   private String workspaceId;
-  /** The name of the entity. */
   private String entity;
-  /** The text of the entity value. */
   private String value;
-  /** The text of the synonym. */
   private String synonym;
 
   /**
@@ -123,10 +117,10 @@ public class DeleteSynonymOptions extends GenericModel {
   }
 
   private DeleteSynonymOptions(Builder builder) {
-    Validator.notNull(builder.workspaceId, "workspaceId cannot be null");
-    Validator.notNull(builder.entity, "entity cannot be null");
-    Validator.notNull(builder.value, "value cannot be null");
-    Validator.notNull(builder.synonym, "synonym cannot be null");
+    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
+    Validator.notEmpty(builder.entity, "entity cannot be empty");
+    Validator.notEmpty(builder.value, "value cannot be empty");
+    Validator.notEmpty(builder.synonym, "synonym cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
@@ -145,6 +139,8 @@ public class DeleteSynonymOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
+   * The workspace ID.
+   *
    * @return the workspaceId
    */
   public String workspaceId() {
@@ -153,6 +149,8 @@ public class DeleteSynonymOptions extends GenericModel {
 
   /**
    * Gets the entity.
+   *
+   * The name of the entity.
    *
    * @return the entity
    */
@@ -163,6 +161,8 @@ public class DeleteSynonymOptions extends GenericModel {
   /**
    * Gets the value.
    *
+   * The text of the entity value.
+   *
    * @return the value
    */
   public String value() {
@@ -171,6 +171,8 @@ public class DeleteSynonymOptions extends GenericModel {
 
   /**
    * Gets the synonym.
+   *
+   * The text of the synonym.
    *
    * @return the synonym
    */

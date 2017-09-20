@@ -19,14 +19,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ConceptsOptions extends GenericModel {
 
-  /** Maximum number of concepts to return. */
-  private Integer limit;
+  private Long limit;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Integer limit;
+    private Long limit;
 
     private Builder(ConceptsOptions conceptsOptions) {
       limit = conceptsOptions.limit;
@@ -35,10 +34,11 @@ public class ConceptsOptions extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the ConceptsOptions.
+     * Builds a ConceptsOptions.
      *
      * @return the conceptsOptions
      */
@@ -47,12 +47,12 @@ public class ConceptsOptions extends GenericModel {
     }
 
     /**
-     * Add the limit.
+     * Set the limit.
      *
      * @param limit the limit
-     * @return a ConceptsOptions Builder
+     * @return the ConceptsOptions builder
      */
-    public Builder limit(Integer limit) {
+    public Builder limit(long limit) {
       this.limit = limit;
       return this;
     }
@@ -65,7 +65,7 @@ public class ConceptsOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return the builder
+   * @return a ConceptsOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -74,10 +74,11 @@ public class ConceptsOptions extends GenericModel {
   /**
    * Gets the limit.
    *
+   * Maximum number of concepts to return.
+   *
    * @return the limit
    */
-  public Integer limit() {
+  public Long limit() {
     return limit;
   }
-
 }

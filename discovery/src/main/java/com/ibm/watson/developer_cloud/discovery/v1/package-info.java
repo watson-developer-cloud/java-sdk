@@ -14,4 +14,3 @@
  * Discovery v1.
  */
 package com.ibm.watson.developer_cloud.discovery.v1;
-

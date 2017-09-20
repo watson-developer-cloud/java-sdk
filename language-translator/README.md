@@ -25,9 +25,9 @@ Example: Translate 'hello' from English to Spanish using the [Language Translato
 LanguageTranslator service = new LanguageTranslator();
 service.setUsernameAndPassword("<username>", "<password>");
 
-TranslationResult translationResult = service.translate(
-  "hello", Language.ENGLISH, Language.SPANISH)
-  .execute();
+TranslateOptions translateOptions = new TranslateOptions.Builder()
+    .addText("hello").source(Language.ENGLISH).target(Language.SPANISH).build();
+TranslationResult translationResult = service.translate(translateOptions).execute();
 
 System.out.println(translationResult);
 ```

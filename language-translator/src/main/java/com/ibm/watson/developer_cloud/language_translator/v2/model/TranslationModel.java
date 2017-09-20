@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -16,42 +16,105 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Language Model used by the {@link TranslationModel}.
- *
+ * Response payload for models.
  */
 public class TranslationModel extends GenericModel {
 
   /**
-   * Translation model status.
+   * Availability of a model.
    */
-  public enum Status {
-    @SerializedName("available") AVAILABLE,
-    @SerializedName("error") ERROR,
-    @SerializedName("training") TRAINING,
-    @SerializedName("queue") QUEUED,
-    @SerializedName("uploaded") UPLOADED,
-    @SerializedName("dispatching") DISPATCHING,
-    @SerializedName("publishing") PUBLISHING
+  public interface Status {
+    /** uploading. */
+    String UPLOADING = "uploading";
+    /** uploaded. */
+    String UPLOADED = "uploaded";
+    /** dispatching. */
+    String DISPATCHING = "dispatching";
+    /** queued. */
+    String QUEUED = "queued";
+    /** training. */
+    String TRAINING = "training";
+    /** trained. */
+    String TRAINED = "trained";
+    /** publishing. */
+    String PUBLISHING = "publishing";
+    /** available. */
+    String AVAILABLE = "available";
+    /** deleted. */
+    String DELETED = "deleted";
+    /** error. */
+    String ERROR = "error";
   }
 
+  @SerializedName("model_id")
+  private String modelId;
+  private String name;
+  private String source;
+  private String target;
   @SerializedName("base_model_id")
   private String baseModelId;
+  private String domain;
   private Boolean customizable;
   @SerializedName("default_model")
   private Boolean defaultModel;
-  private String domain;
-  @SerializedName("model_id")
-  private String id;
-  private String name;
   private String owner;
-  private String source;
-  private Status status;
-  private String target;
+  private String status;
 
   /**
-   * Gets the base model id.
+   * Gets the modelId.
    *
-   * @return The baseModelId
+   * A globally unique string that identifies the underlying model that is used for translation. This string contains
+   * all the information about source language, target language, domain, and various other related configurations.
+   *
+   * @return the modelId
+   */
+  public String getModelId() {
+    return modelId;
+  }
+
+  /**
+   * Gets the name.
+   *
+   * If a model is trained by a user, there might be an optional “name” parameter attached during training to help the
+   * user identify the model.
+   *
+   * @return the name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Gets the source.
+   *
+   * Source language in two letter language code. Use the five letter code when clarifying between multiple supported
+   * languages. When model_id is used directly, it will override the source-target language combination. Also, when a
+   * two letter language code is used, but no suitable default is found, it returns an error.
+   *
+   * @return the source
+   */
+  public String getSource() {
+    return source;
+  }
+
+  /**
+   * Gets the target.
+   *
+   * Target language in two letter language code.
+   *
+   * @return the target
+   */
+  public String getTarget() {
+    return target;
+  }
+
+  /**
+   * Gets the baseModelId.
+   *
+   * If this model is a custom model, this returns the base model that it is trained on. For a base model, this
+   * response value is empty.
+   *
+   * @return the baseModelId
    */
   public String getBaseModelId() {
     return baseModelId;
@@ -60,171 +123,148 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the domain.
    *
-   * @return The domain
+   * The domain of the translation model.
+   *
+   * @return the domain
    */
   public String getDomain() {
     return domain;
   }
 
   /**
-   * Gets the model id.
+   * Gets the customizable.
    *
-   * @return The modelId
+   * Whether this model can be used as a base for customization. Customized models are not further customizable, and
+   * we don't allow the customization of certain base models.
+   *
+   * @return the customizable
    */
-  public String getId() {
-    return id;
+  public Boolean isCustomizable() {
+    return customizable;
   }
 
   /**
-   * Gets the name.
+   * Gets the defaultModel.
    *
-   * @return The name
+   * Whether this model is considered a default model and is used when the source and target languages are specified
+   * without the model_id.
+   *
+   * @return the defaultModel
    */
-  public String getName() {
-    return name;
+  public Boolean isDefaultModel() {
+    return defaultModel;
   }
 
   /**
    * Gets the owner.
    *
-   * @return The owner
+   * Returns the Bluemix ID of the instance that created the model, or an empty string if it is a model that is
+   * trained by IBM.
+   *
+   * @return the owner
    */
   public String getOwner() {
     return owner;
   }
 
   /**
-   * Gets the source.
-   *
-   * @return The source
-   */
-  public String getSource() {
-    return source;
-  }
-
-  /**
    * Gets the status.
    *
-   * @return The status
+   * Availability of a model.
+   *
+   * @return the status
    */
-  public Status getStatus() {
+  public String getStatus() {
     return status;
   }
 
   /**
-   * Gets the target.
+   * Sets the modelId.
    *
-   * @return The target
+   * @param modelId the new modelId
    */
-  public String getTarget() {
-    return target;
-  }
-
-  /**
-   * Checks if is customizable.
-   *
-   * @return The customizable
-   */
-  public boolean isCustomizable() {
-    return customizable;
-  }
-
-  /**
-   * Checks if is default model.
-   *
-   * @return The defaultModel
-   */
-  public boolean isDefaultModel() {
-    return defaultModel;
-  }
-
-  /**
-   * Sets the base model id.
-   *
-   * @param baseModelId The base_model_id
-   */
-  public void setBaseModelId(final String baseModelId) {
-    this.baseModelId = baseModelId;
-  }
-
-  /**
-   * Sets the customizable.
-   *
-   * @param customizable The customizable
-   */
-  public void setCustomizable(final boolean customizable) {
-    this.customizable = customizable;
-  }
-
-  /**
-   * Sets the default model.
-   *
-   * @param defaultModel The default_model
-   */
-  public void setDefaultModel(final boolean defaultModel) {
-    this.defaultModel = defaultModel;
-  }
-
-  /**
-   * Sets the domain.
-   *
-   * @param domain The domain
-   */
-  public void setDomain(final String domain) {
-    this.domain = domain;
-  }
-
-  /**
-   * Sets the model id.
-   *
-   * @param id The model id
-   */
-  public void setId(final String id) {
-    this.id = id;
+  public void setModelId(final String modelId) {
+    this.modelId = modelId;
   }
 
   /**
    * Sets the name.
    *
-   * @param name The name
+   * @param name the new name
    */
   public void setName(final String name) {
     this.name = name;
   }
 
   /**
-   * Sets the owner.
-   *
-   * @param owner The owner
-   */
-  public void setOwner(final String owner) {
-    this.owner = owner;
-  }
-
-  /**
    * Sets the source.
    *
-   * @param source The source
+   * @param source the new source
    */
   public void setSource(final String source) {
     this.source = source;
   }
 
   /**
-   * Sets the status.
-   *
-   * @param status The status
-   */
-  public void setStatus(final Status status) {
-    this.status = status;
-  }
-
-  /**
    * Sets the target.
    *
-   * @param target The target
+   * @param target the new target
    */
   public void setTarget(final String target) {
     this.target = target;
+  }
+
+  /**
+   * Sets the baseModelId.
+   *
+   * @param baseModelId the new baseModelId
+   */
+  public void setBaseModelId(final String baseModelId) {
+    this.baseModelId = baseModelId;
+  }
+
+  /**
+   * Sets the domain.
+   *
+   * @param domain the new domain
+   */
+  public void setDomain(final String domain) {
+    this.domain = domain;
+  }
+
+  /**
+   * Sets the customizable.
+   *
+   * @param customizable the new customizable
+   */
+  public void setCustomizable(final Boolean customizable) {
+    this.customizable = customizable;
+  }
+
+  /**
+   * Sets the defaultModel.
+   *
+   * @param defaultModel the new defaultModel
+   */
+  public void setDefaultModel(final Boolean defaultModel) {
+    this.defaultModel = defaultModel;
+  }
+
+  /**
+   * Sets the owner.
+   *
+   * @param owner the new owner
+   */
+  public void setOwner(final String owner) {
+    this.owner = owner;
+  }
+
+  /**
+   * Sets the status.
+   *
+   * @param status the new status
+   */
+  public void setStatus(final String status) {
+    this.status = status;
   }
 }

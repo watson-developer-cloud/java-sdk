@@ -23,11 +23,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateIntent extends GenericModel {
 
-  /** The name of the intent. */
   private String intent;
-  /** The description of the intent. */
   private String description;
-  /** An array of user input examples. */
   private List<CreateExample> examples;
 
   /**
@@ -74,7 +71,7 @@ public class CreateIntent extends GenericModel {
      * @param example the new example
      * @return the CreateIntent builder
      */
-    public Builder examples(CreateExample example) {
+    public Builder addExample(CreateExample example) {
       Validator.notNull(example, "example cannot be null");
       if (this.examples == null) {
         this.examples = new ArrayList<CreateExample>();
@@ -137,6 +134,8 @@ public class CreateIntent extends GenericModel {
   /**
    * Gets the intent.
    *
+   * The name of the intent.
+   *
    * @return the intent
    */
   public String intent() {
@@ -146,6 +145,8 @@ public class CreateIntent extends GenericModel {
   /**
    * Gets the description.
    *
+   * The description of the intent.
+   *
    * @return the description
    */
   public String description() {
@@ -154,6 +155,8 @@ public class CreateIntent extends GenericModel {
 
   /**
    * Gets the examples.
+   *
+   * An array of user input examples.
    *
    * @return the examples
    */

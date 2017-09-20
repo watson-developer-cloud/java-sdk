@@ -22,17 +22,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class RelationArgument extends GenericModel {
 
   private List<RelationEntity> entities;
-  /** Text that corresponds to the argument. */
   private String text;
-
-  /**
-   * Adds the entities.
-   *
-   * @param entities the new entities
-   */
-  public void addentities(RelationEntity entities) {
-    this.entities.add(entities);
-  }
 
   /**
    * Gets the entities.
@@ -45,6 +35,8 @@ public class RelationArgument extends GenericModel {
 
   /**
    * Gets the text.
+   *
+   * Text that corresponds to the argument.
    *
    * @return the text
    */
@@ -69,5 +61,4 @@ public class RelationArgument extends GenericModel {
   public void setText(final String text) {
     this.text = text;
   }
-
 }

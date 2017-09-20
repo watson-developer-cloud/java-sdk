@@ -12,26 +12,18 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listLogs options.
+ * The listLogs options.
  */
 public class ListLogsOptions extends GenericModel {
 
-  /** The workspace ID. */
-  @SerializedName("workspace_id")
   private String workspaceId;
-  /** Sorts the response according to the value of the specified property, in ascending or descending order. */
   private String sort;
-  /** A cacheable parameter that limits the results to those matching the specified filter. */
   private String filter;
-  /** The number of records to return in each page of results. The default page limit is 100. */
-  @SerializedName("page_limit")
   private Long pageLimit;
-  /** A token identifying the last value from the previous page of results. */
   private String cursor;
 
   /**
@@ -115,7 +107,7 @@ public class ListLogsOptions extends GenericModel {
      * @param pageLimit the pageLimit
      * @return the ListLogsOptions builder
      */
-    public Builder pageLimit(Long pageLimit) {
+    public Builder pageLimit(long pageLimit) {
       this.pageLimit = pageLimit;
       return this;
     }
@@ -133,7 +125,7 @@ public class ListLogsOptions extends GenericModel {
   }
 
   private ListLogsOptions(Builder builder) {
-    Validator.notNull(builder.workspaceId, "workspaceId cannot be null");
+    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     sort = builder.sort;
     filter = builder.filter;
@@ -153,6 +145,8 @@ public class ListLogsOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
+   * The workspace ID.
+   *
    * @return the workspaceId
    */
   public String workspaceId() {
@@ -161,6 +155,8 @@ public class ListLogsOptions extends GenericModel {
 
   /**
    * Gets the sort.
+   *
+   * Sorts the response according to the value of the specified property, in ascending or descending order.
    *
    * @return the sort
    */
@@ -171,6 +167,10 @@ public class ListLogsOptions extends GenericModel {
   /**
    * Gets the filter.
    *
+   * A cacheable parameter that limits the results to those matching the specified filter. For more information,
+   * see the [documentation]
+   * (https://console.bluemix.net/docs/services/conversation/filter-reference.html#filter-query-syntax).
+   *
    * @return the filter
    */
   public String filter() {
@@ -180,6 +180,8 @@ public class ListLogsOptions extends GenericModel {
   /**
    * Gets the pageLimit.
    *
+   * The number of records to return in each page of results. The default page limit is 100.
+   *
    * @return the pageLimit
    */
   public Long pageLimit() {
@@ -188,6 +190,8 @@ public class ListLogsOptions extends GenericModel {
 
   /**
    * Gets the cursor.
+   *
+   * A token identifying the last value from the previous page of results.
    *
    * @return the cursor
    */

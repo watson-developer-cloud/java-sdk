@@ -12,85 +12,125 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import java.util.Date;
+import java.util.Map;
+
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * An class used to describe the entity payload object.
+ * Entity.
  */
 public class Entity extends GenericModel {
 
-  /**
-   * Instantiates a new entity.
-   *
-   * @param entity the entity
-   * @param value the value
-   * @param location the location
-   */
-  public Entity(String entity, String value, Integer[] location) {
-    super();
-    this.entity = entity;
-    this.value = value;
-    this.location = location;
-  }
-
-  private String entity;
-  private Integer[] location;
-  private String value;
+  @SerializedName("entity")
+  private String entityName;
+  private Date created;
+  private Date updated;
+  private String description;
+  private Map metadata;
+  @SerializedName("fuzzy_match")
+  private Boolean fuzzyMatch;
 
   /**
-   * Returns the name of the entity. e.g. "I'd like to get a pepperoni pizza", entity in this case would likely be
-   * "topping" (depending on how the system has been trained). The {@link #getValue()} of the input would be
-   * "pepperoni".
+   * Gets the entityName.
    *
-   * @return the name of an entity
+   * The name of the entity.
+   *
+   * @return the entityName
    */
-  public String getEntity() {
-    return entity;
+  public String getEntityName() {
+    return entityName;
   }
 
   /**
-   * Returns the location of the entity within the input string, the array will have two values: a start index and end
-   * index.
+   * Gets the created.
    *
-   * @return an array of locations (start and end)
+   * The timestamp for creation of the entity.
+   *
+   * @return the created
    */
-  public Integer[] getLocation() {
-    return (location == null) ? null : location.clone();
+  public Date getCreated() {
+    return created;
   }
 
   /**
-   * Returns the detected value of the entity.
+   * Gets the updated.
    *
-   * @return a string representing the entity value
+   * The timestamp for the last update to the entity.
+   *
+   * @return the updated
    */
-  public String getValue() {
-    return value;
+  public Date getUpdated() {
+    return updated;
   }
 
   /**
-   * Sets the entity detected by the system for the given input.
+   * Gets the description.
    *
-   * @param entity the new entity
+   * The description of the entity.
+   *
+   * @return the description
    */
-  public void setEntity(String entity) {
-    this.entity = entity;
+  public String getDescription() {
+    return description;
   }
 
   /**
-   * Sets the location of the entity detected by the system (i.e. starting index and end index).
+   * Gets the metadata.
    *
-   * @param location an array of <code>Integers</code> representing a start and end index
+   * Any metadata related to the entity.
+   *
+   * @return the metadata
    */
-  public void setLocation(Integer... location) {
-    this.location = (location == null) ? null : location.clone();
+  public Map getMetadata() {
+    return metadata;
   }
 
   /**
-   * Sets the value of the entity as detected by the system.
+   * Gets the fuzzyMatch.
    *
-   * @param value the new value
+   * Whether fuzzy matching is used for the entity.
+   *
+   * @return the fuzzyMatch
    */
-  public void setValue(String value) {
-    this.value = value;
+  public Boolean isFuzzyMatch() {
+    return fuzzyMatch;
+  }
+
+  /**
+   * Sets the entityName.
+   *
+   * @param entityName the new entityName
+   */
+  public void setEntityName(final String entityName) {
+    this.entityName = entityName;
+  }
+
+  /**
+   * Sets the description.
+   *
+   * @param description the new description
+   */
+  public void setDescription(final String description) {
+    this.description = description;
+  }
+
+  /**
+   * Sets the metadata.
+   *
+   * @param metadata the new metadata
+   */
+  public void setMetadata(final Map metadata) {
+    this.metadata = metadata;
+  }
+
+  /**
+   * Sets the fuzzyMatch.
+   *
+   * @param fuzzyMatch the new fuzzyMatch
+   */
+  public void setFuzzyMatch(final Boolean fuzzyMatch) {
+    this.fuzzyMatch = fuzzyMatch;
   }
 }

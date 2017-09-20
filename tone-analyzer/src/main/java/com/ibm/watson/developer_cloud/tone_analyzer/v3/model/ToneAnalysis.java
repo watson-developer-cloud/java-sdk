@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -18,61 +18,54 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Main object containing the result of running Tone Analyzer on a document. It contains both the sentence-level and
- * document-level results.
+ * ToneAnalysis.
  */
 public class ToneAnalysis extends GenericModel {
 
   @SerializedName("document_tone")
-  private ElementTone documentTone;
-
+  private DocumentAnalysis documentTone;
   @SerializedName("sentences_tone")
-  private List<SentenceTone> sentencesTone;
+  private List<SentenceAnalysis> sentencesTone;
 
   /**
-   * Adds the sentences tone.
+   * Gets the documentTone.
    *
-   * @param analysis the analysis
-   */
-  public void addSentencesTone(SentenceTone analysis) {
-    sentencesTone.add(analysis);
-  }
-
-  /**
-   * Gets the document tone.
+   * An object of type `DocumentAnalysis` that provides the results for the full document of the input content.
    *
-   * @return the document tone
+   * @return the documentTone
    */
-  public ElementTone getDocumentTone() {
+  public DocumentAnalysis getDocumentTone() {
     return documentTone;
   }
 
   /**
-   * Gets the sentences tone.
+   * Gets the sentencesTone.
    *
-   * @return the sentences tone
+   * An array of `SentenceAnalysis` objects that provides the results for the individual sentences of the input
+   * content. The service returns results only for the first 100 sentences of the input. The field is omitted if the
+   * `sentences` parameter of the request is set to `false`.
+   *
+   * @return the sentencesTone
    */
-  public List<SentenceTone> getSentencesTone() {
+  public List<SentenceAnalysis> getSentencesTone() {
     return sentencesTone;
   }
 
   /**
-   * Sets the document tone.
+   * Sets the documentTone.
    *
-   * @param documentTone the new document tone
+   * @param documentTone the new documentTone
    */
-  public void setDocumentTone(ElementTone documentTone) {
+  public void setDocumentTone(final DocumentAnalysis documentTone) {
     this.documentTone = documentTone;
   }
 
   /**
-   * Sets the sentences tone.
+   * Sets the sentencesTone.
    *
-   * @param sentencesTone the new sentences tone
+   * @param sentencesTone the new sentencesTone
    */
-  public void setSentencesTone(List<SentenceTone> sentencesTone) {
+  public void setSentencesTone(final List<SentenceAnalysis> sentencesTone) {
     this.sentencesTone = sentencesTone;
   }
-
-
 }

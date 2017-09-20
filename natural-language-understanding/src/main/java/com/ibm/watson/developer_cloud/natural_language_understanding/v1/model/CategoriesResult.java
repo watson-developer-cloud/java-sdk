@@ -19,13 +19,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class CategoriesResult extends GenericModel {
 
-  /** The path to the category through the taxonomy hierarchy. */
   private String label;
-  /** Confidence score for the category classification. Higher values indicate greater confidence. */
   private Double score;
 
   /**
    * Gets the label.
+   *
+   * The path to the category through the taxonomy hierarchy.
    *
    * @return the label
    */
@@ -35,6 +35,8 @@ public class CategoriesResult extends GenericModel {
 
   /**
    * Gets the score.
+   *
+   * Confidence score for the category classification. Higher values indicate greater confidence.
    *
    * @return the score
    */
@@ -59,5 +61,4 @@ public class CategoriesResult extends GenericModel {
   public void setScore(final Double score) {
     this.score = score;
   }
-
 }

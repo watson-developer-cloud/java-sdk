@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -14,34 +14,32 @@ package com.ibm.watson.developer_cloud.language_translator.v2.model;
 
 import java.util.List;
 
-import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
-
 /**
- * {@link TranslationModel} list used by the {@link LanguageTranslator} service.
- *
+ * The response type for listing existing translation models.
  */
 public class TranslationModels extends GenericModel {
 
   private List<TranslationModel> models;
 
   /**
-   * Gets the model.
+   * Gets the models.
    *
-   * @return the model
+   * An array of available models.
+   *
+   * @return the models
    */
   public List<TranslationModel> getModels() {
     return models;
   }
 
   /**
-   * Sets the model.
+   * Sets the models.
    *
-   * @param models the model to set
+   * @param models the new models
    */
-  public void setModels(List<TranslationModel> models) {
+  public void setModels(final List<TranslationModel> models) {
     this.models = models;
   }
-
 }

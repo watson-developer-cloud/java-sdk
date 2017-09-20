@@ -38,8 +38,10 @@
       "destination_field": "alchemy_enriched_text",
       "enrichment": "alchemy_language",
       "options": {
-        "extract": "keyword",
-        "showSourceText": 1
+        "extract": [
+          "keyword"
+        ],
+        "showSourceText": true
       }
     },
     {
@@ -47,7 +49,9 @@
       "destination_field": "sire_enriched_text",
       "enrichment": "alchemy_language",
       "options": {
-        "extract": "typed-rels",
+        "extract": [
+          "typed-rels"
+        ],
         "model": "ie-en-news"
       }
     }

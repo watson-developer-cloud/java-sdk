@@ -16,30 +16,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the updateValue options.
+ * The updateValue options.
  */
 public class UpdateValueOptions extends GenericModel {
 
-  /** The workspace ID. */
-  @SerializedName("workspace_id")
   private String workspaceId;
-  /** The name of the entity. */
   private String entity;
-  /** The text of the entity value. */
   private String value;
-  /** An array of synonyms for the entity value. */
-  @SerializedName("new_synonyms")
   private List<String> newSynonyms;
-  /** Any metadata related to the entity value. */
-  @SerializedName("new_metadata")
-  private Map<String, Object> newMetadata;
-  /** The text of the entity value. */
-  @SerializedName("new_value")
+  private Map newMetadata;
   private String newValue;
 
   /**
@@ -50,7 +39,7 @@ public class UpdateValueOptions extends GenericModel {
     private String entity;
     private String value;
     private List<String> newSynonyms;
-    private Map<String, Object> newMetadata;
+    private Map newMetadata;
     private String newValue;
 
     private Builder(UpdateValueOptions updateValueOptions) {
@@ -156,7 +145,7 @@ public class UpdateValueOptions extends GenericModel {
      * @param newMetadata the newMetadata
      * @return the UpdateValueOptions builder
      */
-    public Builder newMetadata(Map<String, Object> newMetadata) {
+    public Builder newMetadata(Map newMetadata) {
       this.newMetadata = newMetadata;
       return this;
     }
@@ -174,9 +163,9 @@ public class UpdateValueOptions extends GenericModel {
   }
 
   private UpdateValueOptions(Builder builder) {
-    Validator.notNull(builder.workspaceId, "workspaceId cannot be null");
-    Validator.notNull(builder.entity, "entity cannot be null");
-    Validator.notNull(builder.value, "value cannot be null");
+    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
+    Validator.notEmpty(builder.entity, "entity cannot be empty");
+    Validator.notEmpty(builder.value, "value cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     value = builder.value;
@@ -197,6 +186,8 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
+   * The workspace ID.
+   *
    * @return the workspaceId
    */
   public String workspaceId() {
@@ -205,6 +196,8 @@ public class UpdateValueOptions extends GenericModel {
 
   /**
    * Gets the entity.
+   *
+   * The name of the entity.
    *
    * @return the entity
    */
@@ -215,6 +208,8 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the value.
    *
+   * The text of the entity value.
+   *
    * @return the value
    */
   public String value() {
@@ -223,6 +218,8 @@ public class UpdateValueOptions extends GenericModel {
 
   /**
    * Gets the newSynonyms.
+   *
+   * An array of synonyms for the entity value.
    *
    * @return the newSynonyms
    */
@@ -233,14 +230,18 @@ public class UpdateValueOptions extends GenericModel {
   /**
    * Gets the newMetadata.
    *
+   * Any metadata related to the entity value.
+   *
    * @return the newMetadata
    */
-  public Map<String, Object> newMetadata() {
+  public Map newMetadata() {
     return newMetadata;
   }
 
   /**
    * Gets the newValue.
+   *
+   * The text of the entity value.
    *
    * @return the newValue
    */
