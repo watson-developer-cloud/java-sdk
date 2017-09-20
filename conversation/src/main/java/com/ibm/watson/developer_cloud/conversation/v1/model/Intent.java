@@ -12,65 +12,81 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import java.util.Date;
+
+import com.google.gson.annotations.SerializedName;
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
- * A class representing an Intent as detected by the service. The intent is the 'intent' of the user utterance, e.g.
- * "pay_bill", "check_balance" etc.. The intent is accompanied by a confidence score ranging between 0.0 and 1.0, with
- * 1.0 being the most confident.
+ * Intent.
  */
-public class Intent {
+public class Intent extends GenericModel {
+
+  @SerializedName("intent")
+  private String intentName;
+  private Date created;
+  private Date updated;
+  private String description;
 
   /**
-   * Instantiates a new intent.
+   * Gets the intentName.
    *
-   * @param intent the intent
-   * @param confidence the confidence
-   */
-  public Intent(String intent, Double confidence) {
-    super();
-    this.confidence = confidence;
-    this.intent = intent;
-  }
-
-  private Double confidence;
-  private String intent;
-
-  /**
-   * Returns the confidence associated with the intent. When the service parses/analyzes the user input it tries to
-   * determine the 'intent' of what the user said. The service will be trained to expect n different intents and the
-   * service tries to match the input with one of the intents. The confidence is the value assigned by the system to the
-   * returned intent. High confidence scores (close to 1.0) imply that the system is very confident that the user meant
-   * the returned intent. Low confidence scores indicate that the system is not confident in its response.
+   * The name of the intent.
    *
-   * @return a float representing system confidence
+   * @return the intentName
    */
-  public Double getConfidence() {
-    return confidence;
+  public String getIntentName() {
+    return intentName;
   }
 
   /**
-   * Returns the name of the intent that the system detected in the user input.
+   * Gets the created.
    *
-   * @return a string representing an intent name
+   * The timestamp for creation of the intent.
+   *
+   * @return the created
    */
-  public String getIntent() {
-    return intent;
+  public Date getCreated() {
+    return created;
   }
 
   /**
-   * Sets the system confidence in the intent.
+   * Gets the updated.
    *
-   * @param confidence a float between 0.0 and 1.0
+   * The timestamp for the last update to the intent.
+   *
+   * @return the updated
    */
-  public void setConfidence(Double confidence) {
-    this.confidence = confidence;
+  public Date getUpdated() {
+    return updated;
   }
 
   /**
-   * Sets the name of the intent the system understood the user to have 'said'.
+   * Gets the description.
    *
-   * @param intent a string representing one of the trained intents
+   * The description of the intent.
+   *
+   * @return the description
    */
-  public void setIntent(String intent) {
-    this.intent = intent;
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * Sets the intentName.
+   *
+   * @param intentName the new intentName
+   */
+  public void setIntentName(final String intentName) {
+    this.intentName = intentName;
+  }
+
+  /**
+   * Sets the description.
+   *
+   * @param description the new description
+   */
+  public void setDescription(final String description) {
+    this.description = description;
   }
 }

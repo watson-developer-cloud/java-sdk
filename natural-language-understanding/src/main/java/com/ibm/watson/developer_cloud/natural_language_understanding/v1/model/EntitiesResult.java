@@ -19,23 +19,18 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class EntitiesResult extends GenericModel {
 
-  /** Entity type. */
   private String type;
-  /** Relevance score from 0 to 1. Higher values indicate greater relevance. */
   private Double relevance;
-  /** How many times the entity was mentioned in the text. */
-  private Integer count;
-  /** The name of the entity. */
+  private Long count;
   private String text;
-  /** Emotion analysis results for the entity, enabled with the "emotion" option. */
   private EmotionScores emotion;
-  /** Sentiment analysis results for the entity, enabled with the "sentiment" option. */
   private FeatureSentimentResults sentiment;
-  /** Disambiguation information for the entity. */
   private DisambiguationResult disambiguation;
 
   /**
    * Gets the type.
+   *
+   * Entity type.
    *
    * @return the type
    */
@@ -46,6 +41,8 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the relevance.
    *
+   * Relevance score from 0 to 1. Higher values indicate greater relevance.
+   *
    * @return the relevance
    */
   public Double getRelevance() {
@@ -55,14 +52,18 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the count.
    *
+   * How many times the entity was mentioned in the text.
+   *
    * @return the count
    */
-  public Integer getCount() {
+  public Long getCount() {
     return count;
   }
 
   /**
    * Gets the text.
+   *
+   * The name of the entity.
    *
    * @return the text
    */
@@ -73,6 +74,8 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the emotion.
    *
+   * Emotion analysis results for the entity, enabled with the "emotion" option.
+   *
    * @return the emotion
    */
   public EmotionScores getEmotion() {
@@ -82,6 +85,8 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the sentiment.
    *
+   * Sentiment analysis results for the entity, enabled with the "sentiment" option.
+   *
    * @return the sentiment
    */
   public FeatureSentimentResults getSentiment() {
@@ -90,6 +95,8 @@ public class EntitiesResult extends GenericModel {
 
   /**
    * Gets the disambiguation.
+   *
+   * Disambiguation information for the entity.
    *
    * @return the disambiguation
    */
@@ -120,7 +127,7 @@ public class EntitiesResult extends GenericModel {
    *
    * @param count the new count
    */
-  public void setCount(final Integer count) {
+  public void setCount(final long count) {
     this.count = count;
   }
 

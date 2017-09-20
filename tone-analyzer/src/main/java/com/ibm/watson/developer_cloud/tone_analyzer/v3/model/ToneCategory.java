@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2017 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
@@ -18,46 +18,20 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Top level tone (or Tone Category) from the list of Writing Tone, Emotion Tone or Social Tone. It holds a list of
- * scores for individual Tones.
+ * ToneCategory.
  */
 public class ToneCategory extends GenericModel {
 
-  @SerializedName("category_id")
-  private String id;
-  @SerializedName("category_name")
-  private String name;
   private List<ToneScore> tones;
-
-  /**
-   * Adds the tone.
-   *
-   * @param score the score
-   */
-  public void addTone(ToneScore score) {
-    tones.add(score);
-  }
-
-  /**
-   * Gets the id.
-   *
-   * @return the id
-   */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * Gets the name.
-   *
-   * @return the name
-   */
-  public String getName() {
-    return name;
-  }
+  @SerializedName("category_id")
+  private String categoryId;
+  @SerializedName("category_name")
+  private String categoryName;
 
   /**
    * Gets the tones.
+   *
+   * An array of `ToneScore` objects that provides the results for the tones of the category.
    *
    * @return the tones
    */
@@ -66,21 +40,26 @@ public class ToneCategory extends GenericModel {
   }
 
   /**
-   * Sets the id.
+   * Gets the categoryId.
    *
-   * @param id the new id
+   * The unique, non-localized identifier of the category for the results. The service can return results for the
+   * following category IDs: `emotion_tone`, `language_tone`, and `social_tone`.
+   *
+   * @return the categoryId
    */
-  public void setId(String id) {
-    this.id = id;
+  public String getCategoryId() {
+    return categoryId;
   }
 
   /**
-   * Sets the name.
+   * Gets the categoryName.
    *
-   * @param name the new name
+   * The user-visible, localized name of the category.
+   *
+   * @return the categoryName
    */
-  public void setName(String name) {
-    this.name = name;
+  public String getCategoryName() {
+    return categoryName;
   }
 
   /**
@@ -88,7 +67,25 @@ public class ToneCategory extends GenericModel {
    *
    * @param tones the new tones
    */
-  public void setTones(List<ToneScore> tones) {
+  public void setTones(final List<ToneScore> tones) {
     this.tones = tones;
+  }
+
+  /**
+   * Sets the categoryId.
+   *
+   * @param categoryId the new categoryId
+   */
+  public void setCategoryId(final String categoryId) {
+    this.categoryId = categoryId;
+  }
+
+  /**
+   * Sets the categoryName.
+   *
+   * @param categoryName the new categoryName
+   */
+  public void setCategoryName(final String categoryName) {
+    this.categoryName = categoryName;
   }
 }

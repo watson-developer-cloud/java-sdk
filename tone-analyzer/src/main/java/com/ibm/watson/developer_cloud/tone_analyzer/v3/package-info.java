@@ -14,4 +14,3 @@
  * Tone Analyzer v3.
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3;
-

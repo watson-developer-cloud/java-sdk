@@ -14,4 +14,3 @@
  * Personality Insights v3.
  */
 package com.ibm.watson.developer_cloud.personality_insights.v3;
-

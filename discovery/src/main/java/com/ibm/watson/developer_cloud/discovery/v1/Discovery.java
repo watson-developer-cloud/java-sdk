@@ -10,64 +10,56 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.developer_cloud.discovery.v1;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CollectionManager;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.CreateCollectionResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.DeleteCollectionRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.DeleteCollectionResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionsRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.GetCollectionsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.collection.field.GetCollectionFieldsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.Configuration;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.ConfigurationManager;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.CreateConfigurationRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.CreateConfigurationResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.DeleteConfigurationRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.DeleteConfigurationResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationsRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.GetConfigurationsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.UpdateConfigurationRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.configuration.UpdateConfigurationResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.CreateDocumentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.CreateDocumentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.DeleteDocumentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.DeleteDocumentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.DocumentManager;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.GetDocumentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.GetDocumentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.UpdateDocumentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.document.UpdateDocumentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.CreateEnvironmentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.CreateEnvironmentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.DeleteEnvironmentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.DeleteEnvironmentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.EnvironmentManager;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentsRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.GetEnvironmentsResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.UpdateEnvironmentRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.environment.UpdateEnvironmentResponse;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.Operator;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryManager;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryRequest;
-import com.ibm.watson.developer_cloud.discovery.v1.model.query.QueryResponse;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.google.gson.JsonObject;
+import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.AddTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Collection;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Configuration;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteAllTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.GetTrainingExampleOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionFieldsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TestConfigurationInEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TestDocument;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingQuery;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateCollectionOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
@@ -76,379 +68,894 @@ import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 
 /**
- * Discovery service API for CRUD operations for indexing and searching data.
+ * The IBM Watson Discovery Service is a cognitive search and content analytics engine that you can add to applications
+ * to identify patterns, trends and actionable insights to drive better decision-making. Securely unify structured and
+ * unstructured data with pre-enriched content, and use a simplified query language to eliminate the need for manual
+ * filtering of results.
+ *
+ * @version v1
+ * @see <a href="http://www.ibm.com/watson/developercloud/discovery.html">Discovery</a>
  */
-public class Discovery extends WatsonService implements EnvironmentManager, ConfigurationManager, CollectionManager,
-        DocumentManager, QueryManager {
-    private static final String VERSION_DATE = "version";
-    private static final String SERVICE_NAME = "discovery";
-    private static final String FILENAME = "filename";
-    private static final String PATH_ENVIRONMENTS = "/v1/environments";
-    private static final String PATH_ENVIRONMENT = PATH_ENVIRONMENTS + "/%s";
-    private static final String PATH_CONFIGURATIONS = PATH_ENVIRONMENT + "/configurations";
-    private static final String PATH_CONFIGURATION = PATH_CONFIGURATIONS + "/%s";
-    private static final String PATH_COLLECTIONS = PATH_ENVIRONMENT + "/collections";
-    private static final String PATH_COLLECTION = PATH_COLLECTIONS + "/%s";
-    private static final String PATH_FIELDS = PATH_COLLECTION + "/fields";
-    private static final String PATH_DOCUMENTS = PATH_COLLECTION + "/documents";
-    private static final String PATH_DOCUMENT = PATH_DOCUMENTS + "/%s";
-    private static final String PATH_QUERY = PATH_COLLECTION + "/query";
-    private static final Pattern invalidFieldCharactersPattern = Pattern.compile("[^\\w\\.]");
-    private static final Pattern escapeControlCharactersPattern;
-    private static final String INVALID_FIELD_CHARACTER_REPLACEMENT = "_";
+public class Discovery extends WatsonService {
 
-    private String versionDate;
-    private static Map<String, MediaType> supportedMediaTypes = new HashMap<String, MediaType>();
+  private static final String SERVICE_NAME = "discovery";
+  private static final String URL = "https://gateway.watsonplatform.net/discovery/api";
 
-    static {
-        supportedMediaTypes.put(HttpMediaType.APPLICATION_JSON, MediaType.parse(HttpMediaType.APPLICATION_JSON));
-        supportedMediaTypes.put(HttpMediaType.APPLICATION_MS_WORD, MediaType.parse(HttpMediaType.APPLICATION_MS_WORD));
-        supportedMediaTypes
-                .put(HttpMediaType.APPLICATION_MS_WORD_DOCX, MediaType.parse(HttpMediaType.APPLICATION_MS_WORD_DOCX));
-        supportedMediaTypes.put(HttpMediaType.APPLICATION_PDF, MediaType.parse(HttpMediaType.APPLICATION_PDF));
-        supportedMediaTypes.put(HttpMediaType.TEXT_HTML, MediaType.parse(HttpMediaType.TEXT_HTML));
-        supportedMediaTypes
-                .put(HttpMediaType.APPLICATION_XHTML_XML, MediaType.parse(HttpMediaType.APPLICATION_XHTML_XML));
+  private String versionDate;
 
-        List<String> operatorsToEscape = new ArrayList<String>();
-        for (Operator operator : Operator.values()) {
-            if (operator.shouldEscape()) {
-                operatorsToEscape.add(Pattern.quote(operator.getSymbol()));
-            }
-        }
-
-        escapeControlCharactersPattern = Pattern.compile("(" + RequestUtils.join(operatorsToEscape, "|") + ")");
+  /** The Constant VERSION_DATE_2017_09_01. */
+  public static final String VERSION_DATE_2017_09_01 = "2017-09-01";
+  /** The Constant VERSION_DATE_2017_08_01. */
+  public static final String VERSION_DATE_2017_08_01 = "2017-08-01";
+  /** The Constant VERSION_DATE_2017_07_19. */
+  public static final String VERSION_DATE_2017_07_19 = "2017-07-19";
+  /** The Constant VERSION_DATE_2017_06_25. */
+  public static final String VERSION_DATE_2017_06_25 = "2017-06-25";
+  /** The Constant VERSION_DATE_2016_12_01. */
+  public static final String VERSION_DATE_2016_12_01 = "2016-12-01";
+  /**
+   * Instantiates a new `Discovery`.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *          calls from failing when the service introduces breaking changes.
+   */
+  public Discovery(String versionDate) {
+    super(SERVICE_NAME);
+    if ((getEndPoint() == null) || getEndPoint().isEmpty()) {
+      setEndPoint(URL);
     }
 
-    /**
-     * Instantiates a new Discovery service.
-     *
-     * @param versionDate the version date
-     */
-    public Discovery(String versionDate) {
-        super(SERVICE_NAME);
-        this.versionDate = versionDate;
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
+        "'version cannot be null. Use " + VERSION_DATE_2017_09_01);
+
+    this.versionDate = versionDate;
+  }
+
+  /**
+   * Instantiates a new `Discovery` with username and password.
+   *
+   * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
+   *        calls from failing when the service introduces breaking changes.
+   * @param username the username
+   * @param password the password
+   */
+  public Discovery(String versionDate, String username, String password) {
+    this(versionDate);
+    setUsernameAndPassword(username, password);
+  }
+
+  /**
+   * Create a collection.
+   *
+   * @param createCollectionOptions the {@link CreateCollectionOptions} containing the options for the call
+   * @return the {@link Collection} with the response
+   */
+  public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
+    Validator.notNull(createCollectionOptions, "createCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections",
+        createCollectionOptions.environmentId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createCollectionOptions.name());
+    if (createCollectionOptions.description() != null) {
+      contentJson.addProperty("description", createCollectionOptions.description());
     }
-
-    /**
-     * Utility method to replace unsupported characters in a field name.
-     *
-     * @param fieldName the field name to escape
-     * @return a clean field name
-     */
-    public static String cleanFieldName(String fieldName) {
-        return invalidFieldCharactersPattern.matcher(fieldName).replaceAll(INVALID_FIELD_CHARACTER_REPLACEMENT);
+    if (createCollectionOptions.configurationId() != null) {
+      contentJson.addProperty("configuration_id", createCollectionOptions.configurationId());
     }
-
-    /**
-     * Utility method to escape control characters in a value for querying.
-     *
-     * @param value the value that potentially contains control characters
-     * @return a value with control characters escaped
-     */
-    public static String escapeControlChracters(String value) {
-        return escapeControlCharactersPattern.matcher(value)
-                .replaceAll(Matcher.quoteReplacement(Operator.ESCAPE.getSymbol()) + "$1");
+    if (createCollectionOptions.language() != null) {
+      contentJson.addProperty("language", createCollectionOptions.language());
     }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
 
-    /**
-     * Ping the service.
-     *
-     * @return true if the service is reachable
-     * @throws RuntimeException if the service is unreachable
-     */
-    public boolean ping() throws RuntimeException {
-        getEnvironments(new GetEnvironmentsRequest.Builder().build()).execute();
-        return true;
+  /**
+   * Delete a collection.
+   *
+   * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
+    Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s",
+        deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get collection details.
+   *
+   * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the call
+   * @return the {@link Collection} with the response
+   */
+  public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
+    Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s",
+        getCollectionOptions.environmentId(), getCollectionOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
+
+  /**
+   * List unique fields.
+   *
+   * Gets a list of the the unique fields (and their types) stored in the index.
+   *
+   * @param listCollectionFieldsOptions the {@link ListCollectionFieldsOptions} containing the options for the call
+   * @return the {@link ListCollectionFieldsResponse} with the response
+   */
+  public ServiceCall<ListCollectionFieldsResponse> listCollectionFields(
+      ListCollectionFieldsOptions listCollectionFieldsOptions) {
+    Validator.notNull(listCollectionFieldsOptions, "listCollectionFieldsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/fields",
+        listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
+  }
+
+  /**
+   * List collections.
+   *
+   * Lists existing collections for the service instance.
+   *
+   * @param listCollectionsOptions the {@link ListCollectionsOptions} containing the options for the call
+   * @return the {@link ListCollectionsResponse} with the response
+   */
+  public ServiceCall<ListCollectionsResponse> listCollections(ListCollectionsOptions listCollectionsOptions) {
+    Validator.notNull(listCollectionsOptions, "listCollectionsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections",
+        listCollectionsOptions.environmentId()));
+    builder.query(VERSION, versionDate);
+    if (listCollectionsOptions.name() != null) {
+    builder.query("name", listCollectionsOptions.name());
     }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionsResponse.class));
+  }
 
-    @Override
-    public ServiceCall<GetEnvironmentsResponse> getEnvironments(GetEnvironmentsRequest getRequest) {
-        RequestBuilder builder = RequestBuilder.get(String.format(PATH_ENVIRONMENTS));
-        if (getRequest.hasName()) {
-            builder.query(EnvironmentManager.NAME, getRequest.getName());
-        }
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(GetEnvironmentsResponse.class));
+  /**
+   * Update a collection.
+   *
+   * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for the call
+   * @return the {@link Collection} with the response
+   */
+  public ServiceCall<Collection> updateCollection(UpdateCollectionOptions updateCollectionOptions) {
+    Validator.notNull(updateCollectionOptions, "updateCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s/collections/%s",
+        updateCollectionOptions.environmentId(), updateCollectionOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (updateCollectionOptions.name() != null) {
+      contentJson.addProperty("name", updateCollectionOptions.name());
     }
-
-    @Override
-    public ServiceCall<GetEnvironmentResponse> getEnvironment(GetEnvironmentRequest getRequest) {
-        Validator.notEmpty(getRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notNull(getRequest, "Environment request cannot be null");
-        RequestBuilder builder = RequestBuilder.get(String.format(PATH_ENVIRONMENT, getRequest.getEnvironmentId()));
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(GetEnvironmentResponse.class));
+    if (updateCollectionOptions.description() != null) {
+      contentJson.addProperty("description", updateCollectionOptions.description());
     }
-
-    @Override
-    public ServiceCall<CreateEnvironmentResponse> createEnvironment(CreateEnvironmentRequest createRequest) {
-        Validator.notEmpty(createRequest.getName(), EnvironmentManager.NAME + " cannot be empty");
-        Validator.notNull(createRequest.getSize(), EnvironmentManager.SIZE + " cannot be null");
-        RequestBuilder builder = RequestBuilder.post(String.format(PATH_ENVIRONMENTS));
-        builder.bodyJson(GsonSingleton.getGson().toJsonTree(createRequest).getAsJsonObject());
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(CreateEnvironmentResponse.class));
+    if (updateCollectionOptions.configurationId() != null) {
+      contentJson.addProperty("configuration_id", updateCollectionOptions.configurationId());
     }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
 
-    @Override
-    public ServiceCall<DeleteEnvironmentResponse> deleteEnvironment(DeleteEnvironmentRequest deleteRequest) {
-        Validator.notEmpty(deleteRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notNull(deleteRequest, "Environment request cannot be null");
-        RequestBuilder builder = RequestBuilder
-                .delete(String.format(PATH_ENVIRONMENT, deleteRequest.getEnvironmentId()));
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(DeleteEnvironmentResponse.class));
+  /**
+   * Add configuration.
+   *
+   * Creates a new configuration.  If the input configuration contains the `configuration_id`, `created`, or `updated`
+   * properties, then they are ignored and overridden by the system, and an error is not returned so that the
+   * overridden fields do not need to be removed when copying a configuration.  The configuration can contain
+   * unrecognized JSON fields. Any such fields are ignored and do not generate an error. This makes it easier to
+   * use newer configuration files with older versions of the API and the service. It also makes it possible for the
+   * tooling to add additional metadata and information to the configuration.
+   *
+   * @param createConfigurationOptions the {@link CreateConfigurationOptions} containing the options for the call
+   * @return the {@link Configuration} with the response
+   */
+  public ServiceCall<Configuration> createConfiguration(CreateConfigurationOptions createConfigurationOptions) {
+    Validator.notNull(createConfigurationOptions, "createConfigurationOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/configurations",
+        createConfigurationOptions.environmentId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createConfigurationOptions.name() != null) {
+      contentJson.addProperty("name", createConfigurationOptions.name());
     }
-
-    @Override
-    public ServiceCall<UpdateEnvironmentResponse> updateEnvironment(UpdateEnvironmentRequest updateRequest) {
-        Validator.notEmpty(updateRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(updateRequest.getName(), EnvironmentManager.NAME + " cannot be empty");
-        Validator.notNull(updateRequest, "Environment request cannot be null");
-        RequestBuilder builder = RequestBuilder.put(String.format(PATH_ENVIRONMENT, updateRequest.getEnvironmentId()));
-        builder.bodyJson(GsonSingleton.getGson().toJsonTree(updateRequest).getAsJsonObject());
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(UpdateEnvironmentResponse.class));
+    if (createConfigurationOptions.description() != null) {
+      contentJson.addProperty("description", createConfigurationOptions.description());
     }
-
-    @Override
-    public ServiceCall<GetConfigurationsResponse> getConfigurations(GetConfigurationsRequest getRequest) {
-        Validator.notEmpty(getRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder.get(String.format(PATH_CONFIGURATIONS, getRequest.getEnvironmentId()));
-        if (getRequest.hasName()) {
-            builder.query(ConfigurationManager.NAME, getRequest.getName());
-        }
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(GetConfigurationsResponse.class));
+    if (createConfigurationOptions.conversions() != null) {
+      contentJson.add("conversions",
+          GsonSingleton.getGson().toJsonTree(createConfigurationOptions.conversions()));
     }
-
-    @Override
-    public ServiceCall<GetConfigurationResponse> getConfiguration(GetConfigurationRequest getRequest) {
-        Validator.notEmpty(getRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(getRequest.getConfigurationId(), ConfigurationManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder
-                .get(String.format(PATH_CONFIGURATION, getRequest.getEnvironmentId(), getRequest.getConfigurationId()));
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(GetConfigurationResponse.class));
+    if (createConfigurationOptions.enrichments() != null) {
+      contentJson.add("enrichments",
+          GsonSingleton.getGson().toJsonTree(createConfigurationOptions.enrichments()));
     }
-
-    @Override
-    public ServiceCall<CreateConfigurationResponse> createConfiguration(CreateConfigurationRequest createRequest) {
-        Validator.notEmpty(createRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notNull(createRequest.getConfiguration(), ConfigurationManager.CONFIGURATION + " cannot be null");
-        Validator.notEmpty(createRequest.getConfiguration().getName(),
-                ConfigurationManager.CONFIGURATION + "." + ConfigurationManager.NAME + " cannot be empty");
-        RequestBuilder builder = RequestBuilder
-                .post(String.format(PATH_CONFIGURATIONS, createRequest.getEnvironmentId()));
-        builder.bodyJson(GsonSingleton.getGson().toJsonTree(createRequest.getConfiguration(), Configuration.class)
-                .getAsJsonObject());
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(CreateConfigurationResponse.class));
+    if (createConfigurationOptions.normalizations() != null) {
+      contentJson.add("normalizations",
+          GsonSingleton.getGson().toJsonTree(createConfigurationOptions.normalizations()));
     }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
+  }
 
-    @Override
-    public ServiceCall<DeleteConfigurationResponse> deleteConfiguration(DeleteConfigurationRequest deleteRequest) {
-        Validator.notEmpty(deleteRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(deleteRequest.getConfigurationId(), ConfigurationManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder.delete(String
-                .format(PATH_CONFIGURATION, deleteRequest.getEnvironmentId(), deleteRequest.getConfigurationId()));
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(DeleteConfigurationResponse.class));
+  /**
+   * Delete a configuration.
+   *
+   * The deletion is performed unconditionally. A configuration deletion request succeeds even if the configuration
+   * is referenced by a collection or document ingestion. However, documents that have already been submitted for
+   * processing continue to use the deleted configuration. Documents are always processed with a snapshot of the
+   * configuration as it existed at the time the document was submitted.
+   *
+   * @param deleteConfigurationOptions the {@link DeleteConfigurationOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteConfiguration(DeleteConfigurationOptions deleteConfigurationOptions) {
+    Validator.notNull(deleteConfigurationOptions, "deleteConfigurationOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(
+        String.format("/v1/environments/%s/configurations/%s",
+            deleteConfigurationOptions.environmentId(),
+            deleteConfigurationOptions.configurationId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get configuration details.
+   *
+   * @param getConfigurationOptions the {@link GetConfigurationOptions} containing the options for the call
+   * @return the {@link Configuration} with the response
+   */
+  public ServiceCall<Configuration> getConfiguration(GetConfigurationOptions getConfigurationOptions) {
+    Validator.notNull(getConfigurationOptions, "getConfigurationOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/configurations/%s",
+            getConfigurationOptions.environmentId(),
+            getConfigurationOptions.configurationId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
+  }
+
+  /**
+   * List configurations.
+   *
+   * Lists existing configurations for the service instance.
+   *
+   * @param listConfigurationsOptions the {@link ListConfigurationsOptions} containing the options for the call
+   * @return the {@link ListConfigurationsResponse} with the response
+   */
+  public ServiceCall<ListConfigurationsResponse> listConfigurations(
+      ListConfigurationsOptions listConfigurationsOptions) {
+    Validator.notNull(listConfigurationsOptions, "listConfigurationsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/configurations",
+        listConfigurationsOptions.environmentId()));
+    builder.query(VERSION, versionDate);
+    if (listConfigurationsOptions.name() != null) {
+    builder.query("name", listConfigurationsOptions.name());
     }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListConfigurationsResponse.class));
+  }
 
-    @Override
-    public ServiceCall<UpdateConfigurationResponse> updateConfiguration(UpdateConfigurationRequest updateRequest) {
-        Validator.notEmpty(updateRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(updateRequest.getConfigurationId(), ConfigurationManager.ID + " cannot be empty");
-        Validator.notNull(updateRequest.getConfiguration(), ConfigurationManager.CONFIGURATION + " cannot be null");
-        Validator.notEmpty(updateRequest.getConfiguration().getName(),
-                ConfigurationManager.CONFIGURATION + "." + ConfigurationManager.NAME + " cannot be empty");
-        RequestBuilder builder = RequestBuilder.put(String
-                .format(PATH_CONFIGURATION, updateRequest.getEnvironmentId(), updateRequest.getConfigurationId()));
-        builder.bodyJson(GsonSingleton.getGson().toJsonTree(updateRequest.getConfiguration(), Configuration.class)
-                .getAsJsonObject());
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(UpdateConfigurationResponse.class));
+  /**
+   * Update a configuration.
+   *
+   * Replaces an existing configuration.
+   * * Completely replaces the original configuration.
+   * * The `configuration_id`, `updated`, and `created` fields are accepted in the request, but they are ignored, and
+   * an error is not generated. It is also acceptable for users to submit an updated configuration with none of the
+   * three properties.
+   * * Documents are processed with a snapshot of the configuration as it was at the time the document was submitted
+   * to be ingested. This means that already submitted documents will not see any updates made to the configuration.
+   *
+   * @param updateConfigurationOptions the {@link UpdateConfigurationOptions} containing the options for the call
+   * @return the {@link Configuration} with the response
+   */
+  public ServiceCall<Configuration> updateConfiguration(UpdateConfigurationOptions updateConfigurationOptions) {
+    Validator.notNull(updateConfigurationOptions, "updateConfigurationOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.put(
+        String.format("/v1/environments/%s/configurations/%s",
+            updateConfigurationOptions.environmentId(),
+            updateConfigurationOptions.configurationId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (updateConfigurationOptions.name() != null) {
+      contentJson.addProperty("name", updateConfigurationOptions.name());
     }
-
-    @Override
-    public ServiceCall<GetCollectionsResponse> getCollections(GetCollectionsRequest getRequest) {
-        Validator.notEmpty(getRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder.get(String.format(PATH_COLLECTIONS, getRequest.getEnvironmentId()));
-        if (getRequest.hasName()) {
-            builder.query(CollectionManager.NAME, getRequest.getName());
-        }
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(GetCollectionsResponse.class));
+    if (updateConfigurationOptions.description() != null) {
+      contentJson.addProperty("description", updateConfigurationOptions.description());
     }
-
-    @Override
-    public ServiceCall<GetCollectionResponse> getCollection(GetCollectionRequest getRequest) {
-        Validator.notEmpty(getRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(getRequest.getCollectionId(), CollectionManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder
-                .get(String.format(PATH_COLLECTION, getRequest.getEnvironmentId(), getRequest.getCollectionId()));
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(GetCollectionResponse.class));
+    if (updateConfigurationOptions.conversions() != null) {
+      contentJson.add("conversions",
+          GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.conversions()));
     }
-
-    @Override
-    public ServiceCall<CreateCollectionResponse> createCollection(CreateCollectionRequest createRequest) {
-        Validator.notEmpty(createRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(createRequest.getConfigurationId(), ConfigurationManager.ID + " cannot be empty");
-        Validator.notEmpty(createRequest.getName(), CollectionManager.NAME + " cannot be empty");
-        RequestBuilder builder = RequestBuilder.post(String.format(PATH_COLLECTIONS, createRequest.getEnvironmentId()));
-        builder.bodyJson(
-                GsonSingleton.getGson().toJsonTree(createRequest, CreateCollectionRequest.class).getAsJsonObject());
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(CreateCollectionResponse.class));
+    if (updateConfigurationOptions.enrichments() != null) {
+      contentJson.add("enrichments",
+          GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.enrichments()));
     }
-
-    @Override
-    public ServiceCall<DeleteCollectionResponse> deleteCollection(DeleteCollectionRequest deleteRequest) {
-        Validator.notEmpty(deleteRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(deleteRequest.getCollectionId(), CollectionManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder.delete(String
-                .format(PATH_COLLECTION, deleteRequest.getEnvironmentId(), deleteRequest.getCollectionId()));
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(DeleteCollectionResponse.class));
+    if (updateConfigurationOptions.normalizations() != null) {
+      contentJson.add("normalizations",
+          GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.normalizations()));
     }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
+  }
 
-    @Override
-    public ServiceCall<GetCollectionFieldsResponse> getCollectionFields(GetCollectionFieldsRequest getRequest) {
-        Validator.notEmpty(getRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(getRequest.getCollectionId(), CollectionManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder
-                .get(String.format(PATH_FIELDS, getRequest.getEnvironmentId(), getRequest.getCollectionId()));
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(GetCollectionFieldsResponse.class));
+  /**
+   * Add a document.
+   *
+   * Add a document to a collection with optional metadata.
+   * * The `version` query parameter is still required.
+   * * Returns immediately after the system has accepted the document for processing.
+   * * The user must provide document content, metadata, or both. If the request is missing both document content and
+   * metadata, it is rejected.
+   * * The user can set the `Content-Type` parameter on the `file` part to indicate the media type of the document.
+   * If the `Content-Type` parameter is missing or is one of the generic media types (for example,
+   * `application/octet-stream`), then the service attempts to automatically detect the document's media type.
+   * * The following field names are reserved and will be filtered out if present after normalization: `id`, `score`,
+   * `highlight`, and any field with the prefix of: `_`, `+`, or `-`
+   * * Fields with empty name values after normalization are filtered out before indexing.
+   * * Fields containing the following characters after normalization are filtered out before indexing: `#` and `,`.
+   *
+   * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
+   * @return the {@link DocumentAccepted} with the response
+   */
+  public ServiceCall<DocumentAccepted> addDocument(AddDocumentOptions addDocumentOptions) {
+    Validator.notNull(addDocumentOptions, "addDocumentOptions cannot be null");
+    Validator.isTrue((addDocumentOptions.file() != null) || (addDocumentOptions.metadata() != null),
+        "At least one of file or metadata must be supplied.");
+    RequestBuilder builder = RequestBuilder.post(
+        String.format("/v1/environments/%s/collections/%s/documents",
+            addDocumentOptions.environmentId(),
+            addDocumentOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (addDocumentOptions.file() != null) {
+      MediaType contentType = null;
+      if (addDocumentOptions.fileContentType() != null) {
+        contentType = MediaType.parse(addDocumentOptions.fileContentType());
+      }
+      RequestBody body = InputStreamRequestBody.create(contentType, addDocumentOptions.file());
+      multipartBuilder.addFormDataPart("file", "filename", body);
     }
-
-    @Override
-    public ServiceCall<GetDocumentResponse> getDocument(GetDocumentRequest getRequest) {
-        Validator.notEmpty(getRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(getRequest.getCollectionId(), CollectionManager.ID + " cannot be empty");
-        Validator.notEmpty(getRequest.getDocumentId(), DocumentManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder.get(String
-                .format(PATH_DOCUMENT, getRequest.getEnvironmentId(), getRequest.getCollectionId(),
-                        getRequest.getDocumentId()));
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(GetDocumentResponse.class));
+    if (addDocumentOptions.metadata() != null) {
+    multipartBuilder.addFormDataPart("metadata", addDocumentOptions.metadata());
     }
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentAccepted.class));
+  }
 
-    @Override
-    public ServiceCall<CreateDocumentResponse> createDocument(CreateDocumentRequest createRequest) {
-        Validator.notEmpty(createRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(createRequest.getCollectionId(), CollectionManager.ID + " cannot be empty");
+  /**
+   * Delete a document.
+   *
+   * If the given document id is invalid, or if the document is not found, then the a success response is returned
+   * (HTTP status code `200`) with the status set to 'deleted'.
+   *
+   * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
+    Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(
+        String.format("/v1/environments/%s/collections/%s/documents/%s",
+            deleteDocumentOptions.environmentId(),
+            deleteDocumentOptions.collectionId(),
+            deleteDocumentOptions.documentId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
 
-        String pathElements;
-        if (createRequest.getDocumentId() == null) {
-            pathElements = String.format(PATH_DOCUMENTS, createRequest.getEnvironmentId(),
-                                         createRequest.getCollectionId());
-        } else {
-            Validator.notEmpty(createRequest.getDocumentId(), DocumentManager.ID + " cannot be empty");
-            pathElements = String.format(PATH_DOCUMENT, createRequest.getEnvironmentId(),
-                                         createRequest.getCollectionId(), createRequest.getDocumentId());
-        }
+  /**
+   * Get document details.
+   *
+   * Fetch status details about a submitted document.
+   * **Note:** this operation does not return the document itself. Instead, it returns only the document's processing
+   * status and any notices (warnings or errors) that were generated when the document was ingested. Use the query API
+   * to retrieve the actual document content.
+   *
+   * @param getDocumentStatusOptions the {@link GetDocumentStatusOptions} containing the options for the call
+   * @return the {@link DocumentStatus} with the response
+   */
+  public ServiceCall<DocumentStatus> getDocumentStatus(GetDocumentStatusOptions getDocumentStatusOptions) {
+    Validator.notNull(getDocumentStatusOptions, "getDocumentStatusOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/collections/%s/documents/%s",
+            getDocumentStatusOptions.environmentId(),
+            getDocumentStatusOptions.collectionId(),
+            getDocumentStatusOptions.documentId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentStatus.class));
+  }
 
-        RequestBuilder builder = RequestBuilder.post(pathElements);
-
-        if (createRequest.getConfigurationId() != null) {
-            builder.query(CollectionManager.CONFIGURATION_ID, createRequest.getConfigurationId());
-        }
-        Validator.notNull(createRequest.getFile(), "Document " + FILE + " cannot be null");
-        MediaType mediaType = supportedMediaTypes.get(createRequest.getMediaType());
-        RequestBody file = InputStreamRequestBody.create(mediaType, createRequest.getFile());
-        MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-        multipartBuilder.setType(MultipartBody.FORM);
-        multipartBuilder.addFormDataPart(FILE, FILENAME, file);
-        if (createRequest.getMetadata() != null) {
-            multipartBuilder.addFormDataPart(METADATA, createRequest.getMetadata().toString());
-        }
-        builder.body(multipartBuilder.build());
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(CreateDocumentResponse.class));
+  /**
+   * Update a document.
+   *
+   * Replace an existing document. Starts ingesting a document with optional metadata.
+   *
+   * @param updateDocumentOptions the {@link UpdateDocumentOptions} containing the options for the call
+   * @return the {@link DocumentAccepted} with the response
+   */
+  public ServiceCall<DocumentAccepted> updateDocument(UpdateDocumentOptions updateDocumentOptions) {
+    Validator.notNull(updateDocumentOptions, "updateDocumentOptions cannot be null");
+    Validator.isTrue((updateDocumentOptions.file() != null) || (updateDocumentOptions.metadata() != null),
+        "At least one of file or metadata must be supplied.");
+    RequestBuilder builder = RequestBuilder.post(
+        String.format("/v1/environments/%s/collections/%s/documents/%s",
+            updateDocumentOptions.environmentId(),
+            updateDocumentOptions.collectionId(),
+            updateDocumentOptions.documentId()));
+    builder.query(VERSION, versionDate);
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (updateDocumentOptions.file() != null) {
+      MediaType contentType = null;
+      if (updateDocumentOptions.fileContentType() != null) {
+        contentType = MediaType.parse(updateDocumentOptions.fileContentType());
+      }
+      RequestBody body = InputStreamRequestBody.create(contentType, updateDocumentOptions.file());
+      multipartBuilder.addFormDataPart("file", "filename", body);
     }
-
-    @Override
-    public ServiceCall<DeleteDocumentResponse> deleteDocument(DeleteDocumentRequest deleteRequest) {
-        Validator.notEmpty(deleteRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(deleteRequest.getCollectionId(), CollectionManager.ID + " cannot be empty");
-        Validator.notEmpty(deleteRequest.getDocumentId(), DocumentManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder.delete(String
-                .format(PATH_DOCUMENT, deleteRequest.getEnvironmentId(), deleteRequest.getCollectionId(),
-                        deleteRequest.getDocumentId()));
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(DeleteDocumentResponse.class));
+    if (updateDocumentOptions.metadata() != null) {
+    multipartBuilder.addFormDataPart("metadata", updateDocumentOptions.metadata());
     }
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentAccepted.class));
+  }
 
-    @Override
-    public ServiceCall<UpdateDocumentResponse> updateDocument(UpdateDocumentRequest updateRequest) {
-        Validator.notEmpty(updateRequest.getEnvironmentId(), EnvironmentManager.ID + " cannot be empty");
-        Validator.notEmpty(updateRequest.getCollectionId(), CollectionManager.ID + " cannot be empty");
-        Validator.notEmpty(updateRequest.getDocumentId(), DocumentManager.ID + " cannot be empty");
-        RequestBuilder builder = RequestBuilder.post(String
-                .format(PATH_DOCUMENT, updateRequest.getEnvironmentId(), updateRequest.getCollectionId(),
-                        updateRequest.getDocumentId()));
-        if (updateRequest.getConfigurationId() != null) {
-            builder.query(CollectionManager.CONFIGURATION_ID, updateRequest.getConfigurationId());
-        }
-        Validator.notNull(updateRequest.getFile(), "Document " + FILE + " cannot be null");
-        MediaType mediaType = supportedMediaTypes.get(updateRequest.getMediaType());
-        Validator.notNull(mediaType, String.format("Media Type '%s' not supported", updateRequest.getMediaType()));
-        RequestBody file = InputStreamRequestBody.create(mediaType, updateRequest.getFile());
-        MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-        multipartBuilder.setType(MultipartBody.FORM);
-        multipartBuilder.addFormDataPart(FILE, FILENAME, file);
-        if (updateRequest.getMetadata() != null) {
-            multipartBuilder.addFormDataPart(METADATA, updateRequest.getMetadata().toString());
-        }
-        builder.body(multipartBuilder.build());
-        final Request request = createVersionedRequest(builder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(UpdateDocumentResponse.class));
+  /**
+   * Add an environment.
+   *
+   * Creates a new environment.  You can create only one environment per service instance. An attempt to create
+   * another environment results in an error.
+   *
+   * @param createEnvironmentOptions the {@link CreateEnvironmentOptions} containing the options for the call
+   * @return the {@link Environment} with the response
+   */
+  public ServiceCall<Environment> createEnvironment(CreateEnvironmentOptions createEnvironmentOptions) {
+    Validator.notNull(createEnvironmentOptions, "createEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post("/v1/environments");
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createEnvironmentOptions.name());
+    if (createEnvironmentOptions.description() != null) {
+      contentJson.addProperty("description", createEnvironmentOptions.description());
     }
+    if (createEnvironmentOptions.size() != null) {
+      contentJson.addProperty("size", createEnvironmentOptions.size());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
+  }
 
-    @Override
-    public ServiceCall<QueryResponse> query(QueryRequest queryRequest) {
-        Validator.notNull(queryRequest.getEnvironmentId(), "Environment ID cannot be null");
-        Validator.notNull(queryRequest.getCollectionId(), "Collection ID cannot be null");
-        RequestBuilder requestBuilder = RequestBuilder
-                .get(String.format(PATH_QUERY, queryRequest.getEnvironmentId(), queryRequest.getCollectionId()));
-        if (queryRequest.getFilter() != null) {
-            requestBuilder.query(FILTER, queryRequest.getFilter());
-        }
-        if (queryRequest.getQuery() != null) {
-            requestBuilder.query(QUERY, queryRequest.getQuery());
-        }
-        if (queryRequest.getAggregation() != null) {
-            requestBuilder.query(AGGREGATION, queryRequest.getAggregation());
-        }
-        if (queryRequest.getCount() > -1) {
-            requestBuilder.query(COUNT, queryRequest.getCount());
-        }
-        if (queryRequest.getOffset() > -1) {
-            requestBuilder.query(OFFSET, queryRequest.getOffset());
-        }
-        if (queryRequest.getReturnFields() != null) {
-            String fields = RequestUtils.join(queryRequest.getReturnFields(), ",");
-            if (!fields.isEmpty()) {
-                requestBuilder.query(RETURN, fields);
-            }
-        }
-        final Request request = createVersionedRequest(requestBuilder);
-        return createServiceCall(request, ResponseConverterUtils.getObject(QueryResponse.class));
-    }
+  /**
+   * Delete environment.
+   *
+   * @param deleteEnvironmentOptions the {@link DeleteEnvironmentOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
+    Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s",
+        deleteEnvironmentOptions.environmentId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
 
-    private Request createVersionedRequest(RequestBuilder requestBuilder) {
-        Validator.notEmpty(versionDate, "versionDate cannot be empty");
-        return requestBuilder.query(VERSION_DATE, versionDate).build();
+  /**
+   * Get environment info.
+   *
+   * @param getEnvironmentOptions the {@link GetEnvironmentOptions} containing the options for the call
+   * @return the {@link Environment} with the response
+   */
+  public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
+    Validator.notNull(getEnvironmentOptions, "getEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s",
+        getEnvironmentOptions.environmentId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
+  }
+
+  /**
+   * List environments.
+   *
+   * List existing environments for the service instance.
+   *
+   * @param listEnvironmentsOptions the {@link ListEnvironmentsOptions} containing the options for the call
+   * @return the {@link ListEnvironmentsResponse} with the response
+   */
+  public ServiceCall<ListEnvironmentsResponse> listEnvironments(ListEnvironmentsOptions listEnvironmentsOptions) {
+    RequestBuilder builder = RequestBuilder.get("/v1/environments");
+    builder.query(VERSION, versionDate);
+    if (listEnvironmentsOptions != null) {
+    if (listEnvironmentsOptions.name() != null) {
+    builder.query("name", listEnvironmentsOptions.name());
     }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListEnvironmentsResponse.class));
+  }
+
+  /**
+   * Update an environment.
+   *
+   * Updates an environment. The environment's `name` and  `description` parameters can be changed. You must specify
+   * a `name` for the environment.
+   *
+   * @param updateEnvironmentOptions the {@link UpdateEnvironmentOptions} containing the options for the call
+   * @return the {@link Environment} with the response
+   */
+  public ServiceCall<Environment> updateEnvironment(UpdateEnvironmentOptions updateEnvironmentOptions) {
+    Validator.notNull(updateEnvironmentOptions, "updateEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s",
+        updateEnvironmentOptions.environmentId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (updateEnvironmentOptions.name() != null) {
+      contentJson.addProperty("name", updateEnvironmentOptions.name());
+    }
+    if (updateEnvironmentOptions.description() != null) {
+      contentJson.addProperty("description", updateEnvironmentOptions.description());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
+  }
+
+  /**
+   * Query documents.
+   *
+   * See the [Discovery service documentation](https://www.ibm.com/watson/developercloud/doc/discovery/using.html)
+   * for more details.
+   *
+   * @param queryOptions the {@link QueryOptions} containing the options for the call
+   * @return the {@link QueryResponse} with the response
+   */
+  public ServiceCall<QueryResponse> query(QueryOptions queryOptions) {
+    Validator.notNull(queryOptions, "queryOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/query",
+        queryOptions.environmentId(), queryOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    if (queryOptions.filter() != null) {
+    builder.query("filter", queryOptions.filter());
+    }
+    if (queryOptions.query() != null) {
+    builder.query("query", queryOptions.query());
+    }
+    if (queryOptions.naturalLanguageQuery() != null) {
+    builder.query("natural_language_query", queryOptions.naturalLanguageQuery());
+    }
+    if (queryOptions.passages() != null) {
+    builder.query("passages", String.valueOf(queryOptions.passages()));
+    }
+    if (queryOptions.aggregation() != null) {
+    builder.query("aggregation", queryOptions.aggregation());
+    }
+    if (queryOptions.count() != null) {
+    builder.query("count", String.valueOf(queryOptions.count()));
+    }
+    if (queryOptions.returnFields() != null) {
+    builder.query("return", RequestUtils.join(queryOptions.returnFields(), ","));
+    }
+    if (queryOptions.offset() != null) {
+    builder.query("offset", String.valueOf(queryOptions.offset()));
+    }
+    if (queryOptions.sort() != null) {
+    builder.query("sort", RequestUtils.join(queryOptions.sort(), ","));
+    }
+    if (queryOptions.highlight() != null) {
+    builder.query("highlight", String.valueOf(queryOptions.highlight()));
+    }
+    if (queryOptions.passagesFields() != null) {
+    builder.query("passages.fields", RequestUtils.join(queryOptions.passagesFields(), ","));
+    }
+    if (queryOptions.passagesCount() != null) {
+    builder.query("passages.count", String.valueOf(queryOptions.passagesCount()));
+    }
+    if (queryOptions.passagesCharacters() != null) {
+    builder.query("passages.characters", String.valueOf(queryOptions.passagesCharacters()));
+    }
+    if (queryOptions.deduplicate() != null) {
+    builder.query("deduplicate", String.valueOf(queryOptions.deduplicate()));
+    }
+    if (queryOptions.deduplicateField() != null) {
+    builder.query("deduplicate.field", queryOptions.deduplicateField());
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
+  }
+
+  /**
+   * Query system notices.
+   *
+   * Queries for notices (errors or warnings) that may have been generated by the system. Notices are generated when
+   * ingesting documents and performing relevance training. See the [Discovery service documentation]
+   * (https://www.ibm.com/watson/developercloud/doc/discovery/using.html) for more details on the query language.
+   *
+   * @param queryNoticesOptions the {@link QueryNoticesOptions} containing the options for the call
+   * @return the {@link QueryNoticesResponse} with the response
+   */
+  public ServiceCall<QueryNoticesResponse> queryNotices(QueryNoticesOptions queryNoticesOptions) {
+    Validator.notNull(queryNoticesOptions, "queryNoticesOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/collections/%s/notices",
+            queryNoticesOptions.environmentId(),
+            queryNoticesOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    if (queryNoticesOptions.filter() != null) {
+    builder.query("filter", queryNoticesOptions.filter());
+    }
+    if (queryNoticesOptions.query() != null) {
+    builder.query("query", queryNoticesOptions.query());
+    }
+    if (queryNoticesOptions.naturalLanguageQuery() != null) {
+    builder.query("natural_language_query", queryNoticesOptions.naturalLanguageQuery());
+    }
+    if (queryNoticesOptions.passages() != null) {
+    builder.query("passages", String.valueOf(queryNoticesOptions.passages()));
+    }
+    if (queryNoticesOptions.aggregation() != null) {
+    builder.query("aggregation", queryNoticesOptions.aggregation());
+    }
+    if (queryNoticesOptions.count() != null) {
+    builder.query("count", String.valueOf(queryNoticesOptions.count()));
+    }
+    if (queryNoticesOptions.returnFields() != null) {
+    builder.query("return_fields", RequestUtils.join(queryNoticesOptions.returnFields(), ","));
+    }
+    if (queryNoticesOptions.offset() != null) {
+    builder.query("offset", String.valueOf(queryNoticesOptions.offset()));
+    }
+    if (queryNoticesOptions.sort() != null) {
+    builder.query("sort", RequestUtils.join(queryNoticesOptions.sort(), ","));
+    }
+    if (queryNoticesOptions.highlight() != null) {
+    builder.query("highlight", String.valueOf(queryNoticesOptions.highlight()));
+    }
+    if (queryNoticesOptions.passagesFields() != null) {
+    builder.query("passages.fields", RequestUtils.join(queryNoticesOptions.passagesFields(), ","));
+    }
+    if (queryNoticesOptions.passagesCount() != null) {
+    builder.query("passages.count", String.valueOf(queryNoticesOptions.passagesCount()));
+    }
+    if (queryNoticesOptions.passagesCharacters() != null) {
+    builder.query("passages.characters", String.valueOf(queryNoticesOptions.passagesCharacters()));
+    }
+    if (queryNoticesOptions.deduplicateField() != null) {
+    builder.query("deduplicate.field", queryNoticesOptions.deduplicateField());
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
+  }
+
+  /**
+   * Test configuration.
+   *
+   * Runs a sample document through the default or your configuration and returns diagnostic information designed to
+   * help you understand how the document was processed. The document is not added to the index.
+   *
+   * @param testConfigurationInEnvironmentOptions the {@link TestConfigurationInEnvironmentOptions} containing the
+   *                                              options for the call
+   * @return the {@link TestDocument} with the response
+   */
+  public ServiceCall<TestDocument> testConfigurationInEnvironment(
+      TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
+    Validator.notNull(testConfigurationInEnvironmentOptions, "testConfigurationInEnvironmentOptions cannot be null");
+    Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
+        || (testConfigurationInEnvironmentOptions.file() != null)
+        || (testConfigurationInEnvironmentOptions.metadata() != null),
+        "At least one of configuration, file, or metadata must be supplied.");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/preview",
+        testConfigurationInEnvironmentOptions.environmentId()));
+    builder.query(VERSION, versionDate);
+    if (testConfigurationInEnvironmentOptions.step() != null) {
+    builder.query("step", testConfigurationInEnvironmentOptions.step());
+    }
+    if (testConfigurationInEnvironmentOptions.configurationId() != null) {
+    builder.query("configuration_id", testConfigurationInEnvironmentOptions.configurationId());
+    }
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (testConfigurationInEnvironmentOptions.configuration() != null) {
+    multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
+    }
+    if (testConfigurationInEnvironmentOptions.file() != null) {
+      MediaType contentType = null;
+      if (testConfigurationInEnvironmentOptions.fileContentType() != null) {
+        contentType = MediaType.parse(testConfigurationInEnvironmentOptions.fileContentType());
+      }
+      RequestBody body = InputStreamRequestBody.create(contentType, testConfigurationInEnvironmentOptions.file());
+      multipartBuilder.addFormDataPart("file", "filename", body);
+    }
+    if (testConfigurationInEnvironmentOptions.metadata() != null) {
+    multipartBuilder.addFormDataPart("metadata", testConfigurationInEnvironmentOptions.metadata());
+    }
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TestDocument.class));
+  }
+
+  /**
+   * Adds a query to the training data for this collection. The query can contain a filter and natural language query.
+   *
+   * @param addTrainingDataOptions the {@link AddTrainingDataOptions} containing the options for the call
+   * @return the {@link TrainingQuery} with the response
+   */
+  public ServiceCall<TrainingQuery> addTrainingData(AddTrainingDataOptions addTrainingDataOptions) {
+    Validator.notNull(addTrainingDataOptions, "addTrainingDataOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(
+        String.format("/v1/environments/%s/collections/%s/training_data",
+            addTrainingDataOptions.environmentId(),
+            addTrainingDataOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (addTrainingDataOptions.naturalLanguageQuery() != null) {
+      contentJson.addProperty("natural_language_query", addTrainingDataOptions.naturalLanguageQuery());
+    }
+    if (addTrainingDataOptions.filter() != null) {
+      contentJson.addProperty("filter", addTrainingDataOptions.filter());
+    }
+    if (addTrainingDataOptions.examples() != null) {
+      contentJson.add("examples", GsonSingleton.getGson().toJsonTree(addTrainingDataOptions.examples()));
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
+  }
+
+  /**
+   * Adds a new example to this training data query.
+   *
+   * @param createTrainingExampleOptions the {@link CreateTrainingExampleOptions} containing the options for the call
+   * @return the {@link TrainingExample} with the response
+   */
+  public ServiceCall<TrainingExample> createTrainingExample(CreateTrainingExampleOptions createTrainingExampleOptions) {
+    Validator.notNull(createTrainingExampleOptions, "createTrainingExampleOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(
+        String.format("/v1/environments/%s/collections/%s/training_data/%s/examples",
+            createTrainingExampleOptions.environmentId(),
+            createTrainingExampleOptions.collectionId(),
+            createTrainingExampleOptions.queryId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (createTrainingExampleOptions.documentId() != null) {
+      contentJson.addProperty("document_id", createTrainingExampleOptions.documentId());
+    }
+    if (createTrainingExampleOptions.crossReference() != null) {
+      contentJson.addProperty("cross_reference", createTrainingExampleOptions.crossReference());
+    }
+    if (createTrainingExampleOptions.relevance() != null) {
+      contentJson.addProperty("relevance", createTrainingExampleOptions.relevance());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
+  }
+
+  /**
+   * Clears all training data for this collection.
+   *
+   * @param deleteAllTrainingDataOptions the {@link DeleteAllTrainingDataOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteAllTrainingData(DeleteAllTrainingDataOptions deleteAllTrainingDataOptions) {
+    Validator.notNull(deleteAllTrainingDataOptions, "deleteAllTrainingDataOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(
+        String.format("/v1/environments/%s/collections/%s/training_data",
+            deleteAllTrainingDataOptions.environmentId(),
+            deleteAllTrainingDataOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Removes the training data and all associated examples from the training data set.
+   *
+   * @param deleteTrainingDataOptions the {@link DeleteTrainingDataOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteTrainingData(DeleteTrainingDataOptions deleteTrainingDataOptions) {
+    Validator.notNull(deleteTrainingDataOptions, "deleteTrainingDataOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(
+        String.format("/v1/environments/%s/collections/%s/training_data/%s",
+            deleteTrainingDataOptions.environmentId(),
+            deleteTrainingDataOptions.collectionId(),
+            deleteTrainingDataOptions.queryId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Removes the example with the given ID for the training data query.
+   *
+   * @param deleteTrainingExampleOptions the {@link DeleteTrainingExampleOptions} containing the options for the call
+   * @return the service call
+   */
+  public ServiceCall<Void> deleteTrainingExample(DeleteTrainingExampleOptions deleteTrainingExampleOptions) {
+    Validator.notNull(deleteTrainingExampleOptions, "deleteTrainingExampleOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(
+        String.format("/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
+            deleteTrainingExampleOptions.environmentId(),
+            deleteTrainingExampleOptions.collectionId(),
+            deleteTrainingExampleOptions.queryId(),
+            deleteTrainingExampleOptions.exampleId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Shows details for a specific training data query, including the query string and all examples.
+   *
+   * @param getTrainingDataOptions the {@link GetTrainingDataOptions} containing the options for the call
+   * @return the {@link TrainingQuery} with the response
+   */
+  public ServiceCall<TrainingQuery> getTrainingData(GetTrainingDataOptions getTrainingDataOptions) {
+    Validator.notNull(getTrainingDataOptions, "getTrainingDataOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/collections/%s/training_data/%s",
+            getTrainingDataOptions.environmentId(),
+            getTrainingDataOptions.collectionId(),
+            getTrainingDataOptions.queryId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
+  }
+
+  /**
+   * Gets the details for this training example.
+   *
+   * @param getTrainingExampleOptions the {@link GetTrainingExampleOptions} containing the options for the call
+   * @return the {@link TrainingExample} with the response
+   */
+  public ServiceCall<TrainingExample> getTrainingExample(GetTrainingExampleOptions getTrainingExampleOptions) {
+    Validator.notNull(getTrainingExampleOptions, "getTrainingExampleOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
+            getTrainingExampleOptions.environmentId(),
+            getTrainingExampleOptions.collectionId(),
+            getTrainingExampleOptions.queryId(),
+            getTrainingExampleOptions.exampleId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
+  }
+
+  /**
+   * Lists the training data for this collection.
+   *
+   * @param listTrainingDataOptions the {@link ListTrainingDataOptions} containing the options for the call
+   * @return the {@link TrainingDataSet} with the response
+   */
+  public ServiceCall<TrainingDataSet> listTrainingData(ListTrainingDataOptions listTrainingDataOptions) {
+    Validator.notNull(listTrainingDataOptions, "listTrainingDataOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/collections/%s/training_data",
+            listTrainingDataOptions.environmentId(),
+            listTrainingDataOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingDataSet.class));
+  }
+
+  /**
+   * Changes the label or cross reference query for this training example.
+   *
+   * @param updateTrainingExampleOptions the {@link UpdateTrainingExampleOptions} containing the options for the call
+   * @return the {@link TrainingExample} with the response
+   */
+  public ServiceCall<TrainingExample> updateTrainingExample(UpdateTrainingExampleOptions updateTrainingExampleOptions) {
+    Validator.notNull(updateTrainingExampleOptions, "updateTrainingExampleOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.put(
+        String.format("/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
+            updateTrainingExampleOptions.environmentId(),
+            updateTrainingExampleOptions.collectionId(),
+            updateTrainingExampleOptions.queryId(),
+            updateTrainingExampleOptions.exampleId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (updateTrainingExampleOptions.crossReference() != null) {
+      contentJson.addProperty("cross_reference", updateTrainingExampleOptions.crossReference());
+    }
+    if (updateTrainingExampleOptions.relevance() != null) {
+      contentJson.addProperty("relevance", updateTrainingExampleOptions.relevance());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
+  }
+
 }

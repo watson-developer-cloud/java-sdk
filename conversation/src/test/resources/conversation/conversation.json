@@ -1,16 +1,19 @@
 {
   "intents": [
     {
-       "intent": "get_quote",
-       "confidence": 0.943643
-     }
-   ],
-   "entities": [
-     {
-       "entity": "house",
-       "value": "home",
-       "location": [36, 40]
-     }
+      "intent": "get_quote",
+      "confidence": 0.943643
+    }
+  ],
+  "entities": [
+    {
+      "entity": "house",
+      "value": "home",
+      "location": [
+        36,
+        40
+      ]
+    }
   ],
   "input": {
     "text": "I'd like to get insurance to for my home"
@@ -18,6 +21,8 @@
   "context": {
   },
   "output": {
-    "text": ["Do you want to get a quote?"]
+    "text": [
+      "Do you want to get a quote?"
+    ]
   }
 }

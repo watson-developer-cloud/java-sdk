@@ -27,10 +27,10 @@ VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE
 service.setApiKey("<api-key>");
 
 System.out.println("Classify an image");
-ClassifyImagesOptions options = new ClassifyImagesOptions.Builder()
-    .images(new File("src/test/resources/visual_recognition/car.png"))
+ClassifyOptions options = new ClassifyOptions.Builder()
+    .imagesFile(new File(SINGLE_IMAGE_FILE))
     .build();
-VisualClassification result = service.classify(options).execute();
+ClassifiedImages result = service.classify(options).execute();
 System.out.println(result);
 ```
 

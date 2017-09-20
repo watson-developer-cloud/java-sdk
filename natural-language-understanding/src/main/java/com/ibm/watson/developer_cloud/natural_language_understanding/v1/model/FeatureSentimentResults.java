@@ -19,11 +19,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class FeatureSentimentResults extends GenericModel {
 
-  /** Sentiment score from -1 (negative) to 1 (positive). */
   private Double score;
 
   /**
    * Gets the score.
+   *
+   * Sentiment score from -1 (negative) to 1 (positive).
    *
    * @return the score
    */
@@ -39,5 +40,4 @@ public class FeatureSentimentResults extends GenericModel {
   public void setScore(final Double score) {
     this.score = score;
   }
-
 }

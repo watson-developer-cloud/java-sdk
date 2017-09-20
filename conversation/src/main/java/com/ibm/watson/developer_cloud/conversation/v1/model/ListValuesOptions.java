@@ -12,35 +12,20 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * the listValues options.
+ * The listValues options.
  */
 public class ListValuesOptions extends GenericModel {
 
-  /** The workspace ID. */
-  @SerializedName("workspace_id")
   private String workspaceId;
-  /** The name of the entity. */
   private String entity;
-  /**
-   * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
-   * information about the element itself. If export=`true`, all content, including subelements, is included. The
-   * default value is `false`.
-   */
   private Boolean export;
-  /** The number of records to return in each page of results. The default page limit is 100. */
-  @SerializedName("page_limit")
   private Long pageLimit;
-  /** Whether to include information about the number of records returned. */
-  @SerializedName("include_count")
   private Boolean includeCount;
-  /** Sorts the response according to the value of the specified property, in ascending or descending order. */
   private String sort;
-  /** A token identifying the last value from the previous page of results. */
   private String cursor;
 
   /**
@@ -130,7 +115,7 @@ public class ListValuesOptions extends GenericModel {
      * @param pageLimit the pageLimit
      * @return the ListValuesOptions builder
      */
-    public Builder pageLimit(Long pageLimit) {
+    public Builder pageLimit(long pageLimit) {
       this.pageLimit = pageLimit;
       return this;
     }
@@ -170,8 +155,8 @@ public class ListValuesOptions extends GenericModel {
   }
 
   private ListValuesOptions(Builder builder) {
-    Validator.notNull(builder.workspaceId, "workspaceId cannot be null");
-    Validator.notNull(builder.entity, "entity cannot be null");
+    Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
+    Validator.notEmpty(builder.entity, "entity cannot be empty");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
     export = builder.export;
@@ -193,6 +178,8 @@ public class ListValuesOptions extends GenericModel {
   /**
    * Gets the workspaceId.
    *
+   * The workspace ID.
+   *
    * @return the workspaceId
    */
   public String workspaceId() {
@@ -201,6 +188,8 @@ public class ListValuesOptions extends GenericModel {
 
   /**
    * Gets the entity.
+   *
+   * The name of the entity.
    *
    * @return the entity
    */
@@ -211,6 +200,10 @@ public class ListValuesOptions extends GenericModel {
   /**
    * Gets the export.
    *
+   * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
+   * information about the element itself. If export=`true`, all content, including subelements, is included. The
+   * default value is `false`.
+   *
    * @return the export
    */
   public Boolean export() {
@@ -219,6 +212,8 @@ public class ListValuesOptions extends GenericModel {
 
   /**
    * Gets the pageLimit.
+   *
+   * The number of records to return in each page of results. The default page limit is 100.
    *
    * @return the pageLimit
    */
@@ -229,6 +224,8 @@ public class ListValuesOptions extends GenericModel {
   /**
    * Gets the includeCount.
    *
+   * Whether to include information about the number of records returned.
+   *
    * @return the includeCount
    */
   public Boolean includeCount() {
@@ -238,6 +235,8 @@ public class ListValuesOptions extends GenericModel {
   /**
    * Gets the sort.
    *
+   * Sorts the response according to the value of the specified property, in ascending or descending order.
+   *
    * @return the sort
    */
   public String sort() {
@@ -246,6 +245,8 @@ public class ListValuesOptions extends GenericModel {
 
   /**
    * Gets the cursor.
+   *
+   * A token identifying the last value from the previous page of results.
    *
    * @return the cursor
    */

@@ -19,18 +19,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SemanticRolesOptions extends GenericModel {
 
-  /** Maximum number of semantic_roles results to return. */
-  private Integer limit;
-  /** Set this to true to return keyword information for subjects and objects. */
+  private Long limit;
   private Boolean keywords;
-  /** Set this to true to return entity information for subjects and objects. */
   private Boolean entities;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Integer limit;
+    private Long limit;
     private Boolean keywords;
     private Boolean entities;
 
@@ -43,10 +40,11 @@ public class SemanticRolesOptions extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the SemanticRolesOptions.
+     * Builds a SemanticRolesOptions.
      *
      * @return the semanticRolesOptions
      */
@@ -55,21 +53,21 @@ public class SemanticRolesOptions extends GenericModel {
     }
 
     /**
-     * Add the limit.
+     * Set the limit.
      *
      * @param limit the limit
-     * @return a SemanticRolesOptions Builder
+     * @return the SemanticRolesOptions builder
      */
-    public Builder limit(Integer limit) {
+    public Builder limit(long limit) {
       this.limit = limit;
       return this;
     }
 
     /**
-     * Add the keywords.
+     * Set the keywords.
      *
      * @param keywords the keywords
-     * @return a SemanticRolesOptions Builder
+     * @return the SemanticRolesOptions builder
      */
     public Builder keywords(Boolean keywords) {
       this.keywords = keywords;
@@ -77,10 +75,10 @@ public class SemanticRolesOptions extends GenericModel {
     }
 
     /**
-     * Add the entities.
+     * Set the entities.
      *
      * @param entities the entities
-     * @return a SemanticRolesOptions Builder
+     * @return the SemanticRolesOptions builder
      */
     public Builder entities(Boolean entities) {
       this.entities = entities;
@@ -97,7 +95,7 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return the builder
+   * @return a SemanticRolesOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -106,14 +104,18 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
+   * Maximum number of semantic_roles results to return.
+   *
    * @return the limit
    */
-  public Integer limit() {
+  public Long limit() {
     return limit;
   }
 
   /**
    * Gets the keywords.
+   *
+   * Set this to true to return keyword information for subjects and objects.
    *
    * @return the keywords
    */
@@ -124,10 +126,11 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the entities.
    *
+   * Set this to true to return entity information for subjects and objects.
+   *
    * @return the entities
    */
   public Boolean entities() {
     return entities;
   }
-
 }

@@ -20,15 +20,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ConceptsResult extends GenericModel {
 
-  /** Name of the concept. */
   private String text;
-  /** Relevance score between 0 and 1. Higher scores indicate greater relevance. */
   private Double relevance;
   @SerializedName("dbpedia_resource")
   private String dbpediaResource;
 
   /**
    * Gets the text.
+   *
+   * Name of the concept.
    *
    * @return the text
    */
@@ -39,6 +39,8 @@ public class ConceptsResult extends GenericModel {
   /**
    * Gets the relevance.
    *
+   * Relevance score between 0 and 1. Higher scores indicate greater relevance.
+   *
    * @return the relevance
    */
   public Double getRelevance() {
@@ -47,6 +49,8 @@ public class ConceptsResult extends GenericModel {
 
   /**
    * Gets the dbpediaResource.
+   *
+   * Link to the corresponding DBpedia resource.
    *
    * @return the dbpediaResource
    */
@@ -80,5 +84,4 @@ public class ConceptsResult extends GenericModel {
   public void setDbpediaResource(final String dbpediaResource) {
     this.dbpediaResource = dbpediaResource;
   }
-
 }

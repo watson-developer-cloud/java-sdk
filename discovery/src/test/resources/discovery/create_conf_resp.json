@@ -126,7 +126,14 @@
       "source_field": "text",
       "enrichment": "alchemy_language",
       "options": {
-        "extract": "keyword, entity, doc-sentiment, taxonomy, concept, relation",
+        "extract": [
+          "keyword",
+          "entity",
+          "doc-sentiment",
+          "taxonomy",
+          "concept",
+          "relation"
+        ],
         "sentiment": true,
         "quotations": true
       }

@@ -19,11 +19,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class SemanticRolesKeyword extends GenericModel {
 
-  /** The keyword text. */
   private String text;
 
   /**
    * Gets the text.
+   *
+   * The keyword text.
    *
    * @return the text
    */
@@ -39,5 +40,4 @@ public class SemanticRolesKeyword extends GenericModel {
   public void setText(final String text) {
     this.text = text;
   }
-
 }

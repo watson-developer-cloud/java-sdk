@@ -12,12 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import java.util.Date;
 
 import org.junit.Assume;
 import org.junit.Before;
 
-import java.util.Date;
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
 
 public class ConversationServiceTest extends WatsonServiceTest {
 
@@ -38,9 +38,9 @@ public class ConversationServiceTest extends WatsonServiceTest {
     workspaceId = getProperty("conversation.v1.workspace_id");
 
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
-        (username == null) || username.equals(PLACEHOLDER));
+            (username == null) || username.equals(PLACEHOLDER));
 
-    service = new ConversationService(ConversationService.VERSION_DATE_2017_04_21);
+    service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
     service.setEndPoint(getProperty("conversation.v1.url"));
     service.setUsernameAndPassword(username, password);
     service.setDefaultHeaders(getDefaultHeaders());
@@ -48,12 +48,16 @@ public class ConversationServiceTest extends WatsonServiceTest {
 
   long tolerance = 2000;  // 2 secs in ms
 
-  /** return `true` if ldate before rdate within tolerance. */
+  /**
+   * return `true` if ldate before rdate within tolerance.
+   */
   public boolean fuzzyBefore(Date ldate, Date rdate) {
     return (ldate.getTime() - rdate.getTime()) < tolerance;
   }
 
-  /** return `true` if ldate after rdate within tolerance. */
+  /**
+   * return `true` if ldate after rdate within tolerance.
+   */
   public boolean fuzzyAfter(Date ldate, Date rdate) {
     return (rdate.getTime() - ldate.getTime()) < tolerance;
   }

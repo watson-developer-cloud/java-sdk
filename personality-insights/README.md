@@ -17,7 +17,7 @@
 ```
 
 ## Usage
-Use linguistic analytics to infer personality and social characteristics, including Big Five, Needs, and Values, from text.  
+Use linguistic analytics to infer personality and social characteristics, including Big Five, Needs, and Values, from text.
 Example: Analyze text and get a personality profile using the [Personality Insights][personality_insights] service.
 
 ```java
@@ -42,7 +42,9 @@ String text = "Call me Ishmael. Some years ago-never mind how long precisely-hav
     + "city of the Manhattoes, belted round by wharves as Indian isles by coral reefs-commerce surrounds "
     + "it with her surf. Right and left, the streets take you waterward.";
 
-Profile profile = service.getProfile(text).execute();
+ProfileOptions options = new ProfileOptions.Builder().text(text).build();
+Profile profile = service.profile(options).execute();
+
 System.out.println(profile);
 ```
 
@@ -50,4 +52,4 @@ System.out.println(profile);
 authentication errors, remember that the Personality Insights service is not
 a free service.
 
-[personality_insights]: http://www.ibm.com/watson/developercloud/doc/personality-insights/
+[personality_insights]: https://console.bluemix.net/docs/services/personality-insights/index.html

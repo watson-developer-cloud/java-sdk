@@ -19,18 +19,15 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class KeywordsOptions extends GenericModel {
 
-  /** Maximum number of keywords to return. */
-  private Integer limit;
-  /** Set this to true to return sentiment information for detected keywords. */
+  private Long limit;
   private Boolean sentiment;
-  /** Set this to true to analyze emotion for detected keywords. */
   private Boolean emotion;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private Integer limit;
+    private Long limit;
     private Boolean sentiment;
     private Boolean emotion;
 
@@ -43,10 +40,11 @@ public class KeywordsOptions extends GenericModel {
     /**
      * Instantiates a new builder.
      */
-    public Builder() { }
+    public Builder() {
+    }
 
     /**
-     * Builds the KeywordsOptions.
+     * Builds a KeywordsOptions.
      *
      * @return the keywordsOptions
      */
@@ -55,21 +53,21 @@ public class KeywordsOptions extends GenericModel {
     }
 
     /**
-     * Add the limit.
+     * Set the limit.
      *
      * @param limit the limit
-     * @return a KeywordsOptions Builder
+     * @return the KeywordsOptions builder
      */
-    public Builder limit(Integer limit) {
+    public Builder limit(long limit) {
       this.limit = limit;
       return this;
     }
 
     /**
-     * Add the sentiment.
+     * Set the sentiment.
      *
      * @param sentiment the sentiment
-     * @return a KeywordsOptions Builder
+     * @return the KeywordsOptions builder
      */
     public Builder sentiment(Boolean sentiment) {
       this.sentiment = sentiment;
@@ -77,10 +75,10 @@ public class KeywordsOptions extends GenericModel {
     }
 
     /**
-     * Add the emotion.
+     * Set the emotion.
      *
      * @param emotion the emotion
-     * @return a KeywordsOptions Builder
+     * @return the KeywordsOptions builder
      */
     public Builder emotion(Boolean emotion) {
       this.emotion = emotion;
@@ -97,7 +95,7 @@ public class KeywordsOptions extends GenericModel {
   /**
    * New builder.
    *
-   * @return the builder
+   * @return a KeywordsOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -106,14 +104,18 @@ public class KeywordsOptions extends GenericModel {
   /**
    * Gets the limit.
    *
+   * Maximum number of keywords to return.
+   *
    * @return the limit
    */
-  public Integer limit() {
+  public Long limit() {
     return limit;
   }
 
   /**
    * Gets the sentiment.
+   *
+   * Set this to true to return sentiment information for detected keywords.
    *
    * @return the sentiment
    */
@@ -124,10 +126,11 @@ public class KeywordsOptions extends GenericModel {
   /**
    * Gets the emotion.
    *
+   * Set this to true to analyze emotion for detected keywords.
+   *
    * @return the emotion
    */
   public Boolean emotion() {
     return emotion;
   }
-
 }
