@@ -14,7 +14,6 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Gradle](#gradle)
 * [Usage](#usage)
 * [Getting the Service Credentials](#getting-the-service-credentials)
-* [Android](#android)
 * IBM Watson Services
   * [Alchemy Language](alchemy)
   * [Alchemy Vision](alchemy)
@@ -35,8 +34,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
   * [Tone Analyzer](tone-analyzer)
   * [Tradeoff Analytics](tradeoff-analytics)
   * [Visual Recognition](visual-recognition)
-* [Reactive API call for v3.0.1](#introduce-reactive-api-call-for-v301)
-* [Breaking Changes for v3.0](#breaking-changes-for-v30)
+* [Changes for v4.0](#changes-for-v40)
 * [Using a Proxy](#using-a-proxy)
 * [Android](#android)
 * [Running in Bluemix](#running-in-bluemix)
@@ -143,103 +141,11 @@ To get your service credentials, follow these steps:
     1. On the left side of the page, click **Service Credentials**, and then **View credentials** to view your service credentials.
     1. Copy `url`, `username` and `password`(`api_key` for AlchemyAPI or Visual Recognition).
 
-
-## Introduce reactive API call for v3.0.1
-
-To do a reactive call, you need to add `rx()`.  With reactive you can use synchronous or asynchronous calls as you like, and you can combine multiple rest calls more efficiently.
-
-Use callback way
-
-```java
-service.getDialogs().rx().thenApply(new CompletableFuture.Fun<List<Dialog>, Integer>() {
-  @Override
-  public Integer apply(List<Dialog> dialogs) {
-    return dialogs.size();
-  }
-}).thenAccept(new CompletableFuture.Action<Integer>() {
-  @Override
-  public void accept(Integer integer) {
-    System.out.println(integer);
-  }
-});
-```
-
-Use asynchronous callback way
-
-```java
-service.getDialogs().rx().thenApplyAsync(new CompletableFuture.Fun<List<Dialog>, Integer>() {
-  @Override
-  public Integer apply(List<Dialog> dialogs) {
-    return dialogs.size();
-  }
-}).thenAccept(new CompletableFuture.Action<Integer>() {
-  @Override
-  public void accept(Integer size) {
-    System.out.println(size);
-  }
-});
-```
-
-Use synchronous way
-
-```java
-Integer size=service.getDialogs().rx().get().size();
-System.out.println(size);
-```
-
-## Breaking Changes for v3.0
-
-The version 3.0 is a major release focused on simplicity and consistency. Several breaking changes were introduced.
-
-### Synchronous vs. Asynchronous
-
-Before 3.0 all the API calls were synchronous.
-
-```java
-List<Dialog> dialogs = dialogService.getDialogs();
-System.out.println(dialogs);
-```
-
-To do a synchronous call, you need to add `execute()`.
-
-```java
-List<Dialog> dialogs = dialogService.getDialogs().execute();
-System.out.println(dialogs);
-```
-
-To do an asynchronous call, you need to specify a callback.
-
-```java
-service.getDialogs().enqueue(new ServiceCallback<List<Dialog>>() {
-  @Override
-  public void onResponse(List<Dialog> response) {
-    System.out.println(response);
-  }
-
-  @Override
-  public void onFailure(Exception e) {
-  }}
-);
-```
-
-See the [CHANGELOG](CHANGELOG.md) for the release notes.
+## Changes for v4.0
+Version 4.0 focuses on the move to programmatically-generated code for many of the services. See the [changelog](https://github.com/watson-developer-cloud/java-sdk/wiki/Changelog) for the details.
 
 ## Migration
-
-To migrate to 3.0 from a previous version, simply add `.execute()` to the old methods.
-For example if you previously had
-
-```java
-List<Dialog> dialogs = dialogService.getDialogs();
-System.out.println(dialogs);
-```
-
-Just add `execute()` on the end, and your code will work exactly the same as before.
-
-```java
-List<Dialog> dialogs = dialogService.getDialogs().execute();
-System.out.println(dialogs);
-```
+This version includes many breaking changes as a result of standardizing behavior across the new generated services. Full details on migration from previous versions can be found [here](https://github.com/watson-developer-cloud/java-sdk/wiki/Migration).
 
 ## Android
 
