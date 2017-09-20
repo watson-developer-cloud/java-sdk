@@ -25,7 +25,11 @@ service.setUsernameAndPassword("<username>", "<password>");
 
 File audio = new File("src/test/resources/sample1.wav");
 
-SpeechResults transcript = service.recognize(audio, HttpMediaType.AUDIO_WAV).execute();
+RecognizeOptions options = new RecognizeOptions.Builder()
+    .contentType(HttpMediaType.AUDIO_WAV)
+    .build();
+
+SpeechResults transcript = service.recognize(audio, options).execute();
 System.out.println(transcript);
 ```
 
@@ -38,21 +42,22 @@ Speech to Text supports WebSocket, the url is:
 SpeechToText service = new SpeechToText();
 service.setUsernameAndPassword("<username>", "<password>");
 
-File audio = new File("src/test/resources/sample1.wav");
+InputStream audio = new FileInputStream("src/test/resources/sample1.wav");
 
 RecognizeOptions options = new RecognizeOptions.Builder()
-  .interimResults(true)
-  .contentType(HttpMediaType.AUDIO_WAV)
-  .build();
+    .interimResults(true)
+    .contentType(HttpMediaType.AUDIO_WAV)
+    .build();
 
-  service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
-    @Override
-    public void onTranscription(SpeechResults speechResults) {
-      System.out.println(speechResults);
-    }
-  );
-  // wait 20 seconds for the asynchronous response
-  Thread.sleep(20000);
+service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
+  @Override
+  public void onTranscription(SpeechResults speechResults) {
+    System.out.println(speechResults);
+  }
+});
+
+// wait 20 seconds for the asynchronous response
+Thread.sleep(20000);
 ```
 #### Microphone example
 Use your microphone to recognize audio for 30 seconds.
