@@ -261,33 +261,6 @@ public class SpeechToText extends WatsonService {
    *        request with the service credentials of the model's owner.
    * @param corpusName The name of the corpus that is to be added. The name cannot contain spaces and cannot be the
    *        string user, which is reserved by the service to denote custom words added or modified by the user.
-   * @param allowOverwrite Indicates whether the specified corpus is to overwrite an existing corpus with the same name.
-   *        If a corpus with the same name already exists, the request fails unless allow_overwrite is set to true; by
-   *        default, the parameter is false. The parameter has no effect if a corpus with the same name does not already
-   *        exist.
-   * @param trainingData A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if
-   *        it contains non-ASCII characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters.
-   * @return the service call
-   * @deprecated use {@link #addCorpus(String, String, File, Boolean)} instead.
-   */
-  @Deprecated
-  public ServiceCall<Void> addTextToCustomizationCorpus(String customizationId, String corpusName,
-      Boolean allowOverwrite, File trainingData) {
-    return addCorpus(customizationId, corpusName, trainingData, allowOverwrite);
-  }
-
-  /**
-   * Adds a single corpus text file of new training data to the custom language model. Use multiple requests to submit
-   * multiple corpus text files. Only the owner of a custom model can use this method to add a corpus to the model.
-   * Submit a plain text file that contains sample sentences from the domain of interest to enable the service to
-   * extract words in context. The more sentences you add that represent the context in which speakers use words from
-   * the domain, the better the service's recognition accuracy. Adding a corpus does not affect the custom model until
-   * you train the model for the new data by using the POST /v1/customizations/{customization_id}/train method.
-   *
-   * @param customizationId The GUID of the custom language model to which a corpus is to be added. You must make the
-   *        request with the service credentials of the model's owner.
-   * @param corpusName The name of the corpus that is to be added. The name cannot contain spaces and cannot be the
-   *        string user, which is reserved by the service to denote custom words added or modified by the user.
    * @param corpusFile A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if it
    *        contains non-ASCII characters; the service assumes UTF-8 encoding if it encounters non-ASCII characters.
    * @param allowOverwrite Indicates whether the specified corpus is to overwrite an existing corpus with the same name.

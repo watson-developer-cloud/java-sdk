@@ -125,17 +125,6 @@ public class Environment extends GenericModel {
   }
 
   /**
-   * Gets the size.
-   *
-   * **Deprecated**: Size of the environment.
-   *
-   * @return the size
-   */
-  public Long getSize() {
-    return size;
-  }
-
-  /**
    * Gets the indexCapacity.
    *
    * Details about the resource usage and capacity of the environment.

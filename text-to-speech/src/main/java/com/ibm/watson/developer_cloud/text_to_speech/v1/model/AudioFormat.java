@@ -42,13 +42,6 @@ public class AudioFormat {
   public static final AudioFormat WEBM_OPUS = new AudioFormat(HttpMediaType.AUDIO_WEBM_OPUS);
 
   /**
-   * Linear 16-bit Pulse-Code Modulation (PCM) format (value is "audio/l16").
-   * This format must have a sampling rate set before use, see {@link #getPCM(int)}.
-   */
-  @Deprecated
-  public static final AudioFormat PCM = new AudioFormat(HttpMediaType.AUDIO_PCM);
-
-  /**
    * BASIC format, single-channel audio encoded using 8-bit u-law (or mu-law) data sampled at 8 KHz (value is
    * "audio/basic").
    */
