@@ -1291,7 +1291,6 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     CreateCollectionOptions collectionOptions =
         new CreateCollectionOptions.Builder(environmentId, uniqueCollectionName)
             .configurationId(configuration.getConfigurationId())
-            .name("This should not be required")
             .build();
     Collection collection = discovery.createCollection(collectionOptions).execute();
     collectionIds.add(collection.getCollectionId());

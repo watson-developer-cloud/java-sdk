@@ -149,20 +149,6 @@ public class RecognizeOptions {
     }
 
     /**
-     *
-     * If true, multiple final results that represent multiple consecutive phrases separated by pauses are returned.
-     * Otherwise, the recognition ends after first "end of speech" is detected.
-     *
-     * @deprecated
-     * @param continuous the continuous
-     * @return the recognize options
-     */
-    public Builder continuous(Boolean continuous) {
-      this.continuous = continuous;
-      return this;
-    }
-
-    /**
      * Inactivity timeout.
      *
      * @param inactivityTimeout the inactivity timeout

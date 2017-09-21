@@ -91,7 +91,7 @@ import com.ibm.watson.developer_cloud.util.RetryRunner;
 import jersey.repackaged.jsr166e.CompletableFuture;
 
 /**
- * Integration test for the {@link ConversationService}.
+ * Integration test for the {@link Conversation}.
  */
 @RunWith(RetryRunner.class)
 public class ConversationServiceIT extends ConversationServiceTest {
@@ -105,7 +105,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
    */
   @Test
   public void testReadme() {
-    // ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
+    // Conversation service = new Conversation(Conversation.VERSION_DATE_2017_05_26);
     // service.setUsernameAndPassword("<username>", "<password>");
 
     InputData input = new InputData.Builder("Hi").build();
@@ -119,7 +119,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
    */
   @Test
   public void testExample() {
-    // ConversationService service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
+    // Conversation service = new Conversation(Conversation.VERSION_DATE_2017_05_26);
     // service.setUsernameAndPassword("<username>", "<password>");
 
     InputData input = new InputData.Builder("Hi").build();
@@ -178,7 +178,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
   @Test(expected = UnauthorizedException.class)
   public void pingBadCredentialsThrowsException() {
-    ConversationService badService = new ConversationService(ConversationService.VERSION_DATE_2017_05_26, "foo", "bar");
+    Conversation badService = new Conversation(Conversation.VERSION_DATE_2017_05_26, "foo", "bar");
     MessageOptions options = new MessageOptions.Builder(workspaceId).build();
     badService.message(options).execute();
   }
@@ -223,7 +223,7 @@ public class ConversationServiceIT extends ConversationServiceTest {
   /**
    * Assert {@link MessageResponse} from service.
    *
-   * @param message the message from the {@link ConversationService}
+   * @param message the message from the {@link Conversation}
    */
   private void assertMessageFromService(MessageResponse message) {
     assertNotNull(message);

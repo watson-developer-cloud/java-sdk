@@ -79,16 +79,6 @@ public class SpeechModel extends GenericModel {
   /** UK English narrowband model. */
   public static final SpeechModel EN_GB_NARROWBANDMODEL = new SpeechModel("en-GB_NarrowbandModel");
 
-  /**
-   * @deprecated Use {@link SpeechModel#EN_GB_BROADBANDMODEL}.
-   */
-  public static final SpeechModel EN_UK_BROADBANDMODEL = new SpeechModel("en-UK_BroadbandModel");
-
-  /**
-   * @deprecated Use {@link SpeechModel#EN_GB_NARROWBANDMODEL}.
-   */
-  public static final SpeechModel EN_UK_NARROWBANDMODEL = new SpeechModel("en-UK_NarrowbandModel");
-
   /** US English broadband model. */
   public static final SpeechModel EN_US_BROADBANDMODEL = new SpeechModel("en-US_BroadbandModel");
 
