@@ -81,10 +81,6 @@ public class Voice extends GenericModel {
   /** The Constant DE_DIETER (value is "de-DE_DieterVoice"). */
   public static final Voice DE_DIETER = new Voice("de-DE_DieterVoice", MALE, "de-DE");
 
-  /** Deprecated. Use DE_BIRGIT instead. */
-  @Deprecated
-  public static final Voice DE_GIRGIT = DE_BIRGIT;
-
   /** The Constant EN_ALLISON (value is "en-US_AllisonVoice"). */
   public static final Voice EN_ALLISON = new Voice("en-US_AllisonVoice", FEMALE, "en-US");
 
