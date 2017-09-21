@@ -229,26 +229,6 @@ public class CustomizationsIT extends WatsonServiceTest {
   }
 
   /**
-   * Test update voice model with failure for language change.
-   * COMMENTED because the saveWords() method is deprecated.
-   *
-  @Test
-  public void testUpdateVoiceModelFailure() {
-    final String newName = "new test";
-
-    model = createVoiceModel();
-    model = service.getCustomVoiceModel(model.getId()).execute();
-    model.setLanguage(MODEL_LANGUAGE_JAPANESE);
-
-    try {
-      service.saveCustomVoiceModel(model).execute();
-    } catch (IllegalArgumentException e) {
-      // Expected failure.
-    }
-  }
-   */
-
-  /**
    * Test delete voice model.
    */
   @Test

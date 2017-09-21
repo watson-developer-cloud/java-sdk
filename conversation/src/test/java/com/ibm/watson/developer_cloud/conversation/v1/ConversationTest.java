@@ -59,10 +59,10 @@ import org.junit.Test;
 import okhttp3.mockwebserver.RecordedRequest;
 
 /**
- * Unit tests for the {@link ConversationService}.
+ * Unit tests for the {@link Conversation}.
  */
 public class ConversationTest extends WatsonServiceUnitTest {
-  private ConversationService service;
+  private Conversation service;
   private static final String FIXTURE = "src/test/resources/conversation/conversation.json";
   private static final String WORKSPACE_ID = "123";
   private static final String PATH_MESSAGE = "/v1/workspaces/" + WORKSPACE_ID + "/message";
@@ -79,7 +79,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new ConversationService(ConversationService.VERSION_DATE_2017_05_26);
+    service = new Conversation(Conversation.VERSION_DATE_2017_05_26);
     service.setApiKey(EMPTY);
     service.setEndPoint(getMockWebServerUrl());
 
@@ -90,7 +90,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithNullVersionDate() {
-    new ConversationService(null);
+    new Conversation(null);
   }
 
   /**
@@ -98,7 +98,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testConstructorWithEmptyVersionDate() {
-    new ConversationService("");
+    new Conversation("");
   }
 
   /**
@@ -160,7 +160,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_05_26);
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", Conversation.VERSION_DATE_2017_05_26);
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[]{"Do you want to get a quote?"},
             serviceResponse.getOutput().getText().toArray(new String[0]));
@@ -204,7 +204,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", ConversationService.VERSION_DATE_2017_05_26);
+    String path = StringUtils.join(PATH_MESSAGE, "?", VERSION, "=", Conversation.VERSION_DATE_2017_05_26);
     assertEquals(path, request.getPath());
     assertArrayEquals(new String[]{"Do you want to get a quote?"},
             serviceResponse.getOutput().getText().toArray(new String[0]));

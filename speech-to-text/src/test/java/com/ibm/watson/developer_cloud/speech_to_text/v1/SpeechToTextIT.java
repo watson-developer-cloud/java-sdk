@@ -204,7 +204,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testRecognizeMultipleSpeakers() {
     File audio = new File(TWO_SPEAKERS_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
-      .continuous(true)
       .speakerLabels(true)
       .model(SpeechModel.EN_US_NARROWBANDMODEL.getName())
       .contentType(HttpMediaType.AUDIO_WAV)
@@ -222,7 +221,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   public void testRecognizeFileStringRecognizeOptions() {
     File audio = new File(SAMPLE_WAV);
     String contentType = HttpMediaType.AUDIO_WAV;
-    RecognizeOptions options = new RecognizeOptions.Builder().continuous(true).timestamps(true).wordConfidence(true)
+    RecognizeOptions options = new RecognizeOptions.Builder().timestamps(true).wordConfidence(true)
         .model(EN_BROADBAND16K).contentType(contentType).profanityFilter(false).build();
     SpeechResults results = service.recognize(audio, options).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
@@ -241,7 +240,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
     final RecognizeOptions options = new RecognizeOptions.Builder()
         .contentType(HttpMediaType.AUDIO_WAV)
         .model(SpeechModel.EN_US_NARROWBANDMODEL.getName())
-        .continuous(true)
         .inactivityTimeout(500)
         .keywords(keyword1, keyword2)
         .keywordsThreshold(0.5)
@@ -280,7 +278,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
     RecognizeOptions options = new RecognizeOptions.Builder()
-        .continuous(true)
         .interimResults(true)
         .inactivityTimeout(40)
         .timestamps(true)
@@ -344,7 +341,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Test
   public void testInactivityTimeoutWithWebSocket() throws FileNotFoundException, InterruptedException {
     RecognizeOptions options = new RecognizeOptions.Builder()
-        .continuous(true)
         .interimResults(true)
         .inactivityTimeout(3)
         .timestamps(true)

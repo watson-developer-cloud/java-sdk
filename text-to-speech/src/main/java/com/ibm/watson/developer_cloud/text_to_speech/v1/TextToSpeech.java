@@ -12,11 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import java.io.InputStream;
-import java.lang.reflect.Type;
-import java.util.Collections;
-import java.util.List;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -33,12 +28,14 @@ import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
-import com.ibm.watson.developer_cloud.util.ResponseUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-
 import okhttp3.Request;
 import okhttp3.RequestBody;
-import okhttp3.Response;
+
+import java.io.InputStream;
+import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * The Text to Speech service uses IBM's speech synthesis capabilities to convert text to an audio signal. The audio is
@@ -280,56 +277,6 @@ public class TextToSpeech extends WatsonService {
   }
 
   /**
-   * Saves a CustomVoiceModel. If the given model has an id, the service updates an existing model. If no id is set,
-   * a new CustomVoiceModel is created and the id field set. You cannot specify a new language for an existing model.
-   *
-   * @param model the custom voice model object to be saved
-   * @return a reference to the given CustomVoiceModel. If a new model is created, the id field is populated.
-   * @deprecated use {@link #createCustomVoiceModel(String, String, String)} and
-   * {@link #updateCustomVoiceModel(CustomVoiceModel)} instead.
-   */
-  public ServiceCall<CustomVoiceModel> saveCustomVoiceModel(final CustomVoiceModel model) {
-    final boolean isNew = model.getId() == null;
-    final String path = isNew ? PATH_CUSTOMIZATIONS : String.format(PATH_CUSTOMIZATION, model.getId());
-
-    // For update, a specified language cannot differ from existing model.
-    if (!isNew && model.getLanguage() != null) {
-      final Request request = RequestBuilder.get(path).build();
-      createServiceCall(request, new ResponseConverter<CustomVoiceModel>() {
-
-        // The existing model can be null for unit test.
-        @Override
-        public CustomVoiceModel convert(Response response) {
-          CustomVoiceModel existing = ResponseUtils.getObject(response, CustomVoiceModel.class);
-
-          if (existing != null) {
-            Validator.isTrue(model.getLanguage().equals(existing.getLanguage()),
-                             "cannot change language of existing model");
-          }
-
-          return null;
-        }
-      }).execute();
-    }
-
-    final RequestBody body = RequestBody.create(HttpMediaType.JSON, model.toString());
-    final Request request = RequestBuilder.post(path).body(body).build();
-
-    return createServiceCall(request, new ResponseConverter<CustomVoiceModel>() {
-      @Override
-      public CustomVoiceModel convert(Response response) {
-        CustomVoiceModel newModel = ResponseUtils.getObject(response, CustomVoiceModel.class);
-
-        if ((newModel != null) && (newModel.getId() != null)) {
-          model.setId(newModel.getId());
-        }
-
-        return model;
-      }
-    });
-  }
-
-  /**
    * Creates a new CustomVoiceModel with the specified name, description, and language.
    *
    * @param name the name of the new model
@@ -415,27 +362,6 @@ public class TextToSpeech extends WatsonService {
 
     final Request request = RequestBuilder.get(String.format(PATH_WORD, model.getId(), word)).build();
     return createServiceCall(request, ResponseConverterUtils.getObject(CustomTranslation.class));
-  }
-
-  /**
-   * Saves or updates custom word translations for a CustomVoiceModel. If no translation with a given word exists,
-   * a new translation is created. Otherwise, the existing translation is updated.
-   *
-   * @param model the custom voice model object to which words are to be saved
-   * @param translations the translations to be saved or updated
-   * @return the service call
-   * @deprecated use {@link #addWords(CustomVoiceModel, CustomTranslation...)} and
-   * {@link #addWord(CustomVoiceModel, CustomTranslation)} instead.
-   */
-  public ServiceCall<Void> saveWords(final CustomVoiceModel model, final CustomTranslation... translations) {
-    Validator.notNull(model, "model cannot be null");
-    Validator.notEmpty(model.getId(), "model id must not be empty");
-
-    final String json = GSON.toJson(Collections.singletonMap("words", translations));
-    final String path = String.format(PATH_WORDS, model.getId());
-    final RequestBody body = RequestBody.create(HttpMediaType.JSON, json);
-    final Request request = RequestBuilder.post(path).body(body).build();
-    return createServiceCall(request, ResponseConverterUtils.getVoid());
   }
 
   /**
