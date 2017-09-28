@@ -17,9 +17,26 @@ If you are not familiar with Sonatype and/or the maven release process please re
 
 ### Release steps
 
-  1. Update `README.md` to include the new version number
+  1. Update all READMEs to include the new version number
+
+     This can be done using [bumpversion]. If necessary, it can be installed with the following command:
+
+     ```bash
+     pip install bumpversion
+     ```
+
+     To then update all version numbers, simply run:
+
+     ```bash
+     bumpversion major|minor|patch
+     ```
+
   1. Perform a release deployment to OSSRH (Staging) with:
 
-    `gradle release`
+     ```bash
+     `gradle release`
+     ```
 
-    You will have to answer prompts for versions and tags. That will tag and commit a new version into your repository automatically.
+     You will have to answer prompts for versions and tags. That will tag and commit a new version into your repository automatically.
+
+[bumpversion]: https://pypi.python.org/pypi/bumpversion
