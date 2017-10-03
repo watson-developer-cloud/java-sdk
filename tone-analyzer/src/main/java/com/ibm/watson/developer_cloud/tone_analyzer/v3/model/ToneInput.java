@@ -85,7 +85,7 @@ public class ToneInput extends GenericModel {
   /**
    * Gets the text.
    *
-   * The input content that the service is to analyze. Sentences with fewer than three words cannot be analyzed.
+   * The input content that the service is to analyze.
    *
    * @return the text
    */
