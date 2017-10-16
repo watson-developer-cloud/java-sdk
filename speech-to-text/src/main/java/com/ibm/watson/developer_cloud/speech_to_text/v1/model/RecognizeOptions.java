@@ -48,6 +48,7 @@ public class RecognizeOptions {
     private Boolean smartFormatting;
     private String customizationId;
     private Boolean speakerLabels;
+    private Double customizationWeight;
 
     private Builder(RecognizeOptions options) {
       contentType = options.contentType;
@@ -66,6 +67,7 @@ public class RecognizeOptions {
       smartFormatting = options.smartFormatting;
       customizationId = options.customizationId;
       speakerLabels = options.speakerLabels;
+      customizationWeight = options.customizationWeight;
     }
 
     /**
@@ -132,6 +134,21 @@ public class RecognizeOptions {
      */
     public Builder speakerLabels(Boolean speakerLabels) {
       this.speakerLabels = speakerLabels;
+      return this;
+    }
+
+    /**
+     * If a custom model is specified, this parameter tells the service how much weight to give 
+     * to words from the custom language model compared to those from the base model.
+     * Specify a value between 0.0 and 1.0 (inclusive). If value is null or omitted, the customization 
+     * weight from the model is used. If no customization weight is specified on the model, the default
+     * value of the service will be used.
+     *
+     * @param customizationWeight Labels or "diarization"
+     * @return the recognize options
+     */
+    public Builder customizationWeight(Double customizationWeight) {
+      this.customizationWeight = customizationWeight;
       return this;
     }
 
@@ -330,6 +347,9 @@ public class RecognizeOptions {
   @SerializedName("speaker_labels")
   private Boolean speakerLabels;
 
+  @SerializedName("customization_weight")
+  private Double customizationWeight;
+
   private RecognizeOptions(Builder builder) {
     contentType = builder.contentType;
     continuous = builder.continuous;
@@ -347,6 +367,7 @@ public class RecognizeOptions {
     smartFormatting = builder.smartFormatting;
     customizationId = builder.customizationId;
     speakerLabels = builder.speakerLabels;
+    customizationWeight = builder.customizationWeight;
   }
 
   /**
@@ -392,6 +413,15 @@ public class RecognizeOptions {
    */
   public Boolean speakerLabels() {
     return speakerLabels;
+  }
+
+  /**
+   * Gets the customizationWeight.
+   *
+   * @return the customizationWeight
+   */
+  public Double customizationWeight() {
+    return customizationWeight;
   }
 
   /**
