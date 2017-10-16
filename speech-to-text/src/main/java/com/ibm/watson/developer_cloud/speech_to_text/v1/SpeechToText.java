@@ -69,6 +69,7 @@ public class SpeechToText extends WatsonService {
   private static final String CALLBACK_URL = "callback_url";
   private static final String CONTINUOUS = "continuous";
   private static final String CUSTOMIZATION_ID = "customization_id";
+  private static final String CUSTOMIZATION_WEIGHT = "customization_weight";
   private static final String EVENTS = "events";
   private static final String INACTIVITY_TIMEOUT = "inactivity_timeout";
   private static final String KEYWORDS = "keywords";
@@ -231,6 +232,10 @@ public class SpeechToText extends WatsonService {
 
     if (options.customizationId() != null) {
       requestBuilder.query(CUSTOMIZATION_ID, options.customizationId());
+    }
+
+    if (options.customizationWeight() != null) {
+      requestBuilder.query(CUSTOMIZATION_WEIGHT, options.customizationWeight().toString());
     }
   }
 
@@ -813,6 +818,10 @@ public class SpeechToText extends WatsonService {
 
     if (options.customizationId() != null && !options.customizationId().isEmpty()) {
       urlBuilder.addQueryParameter(CUSTOMIZATION_ID, options.customizationId());
+    }
+
+    if (options.customizationWeight() != null) {
+      urlBuilder.addQueryParameter(CUSTOMIZATION_WEIGHT, options.customizationWeight().toString());
     }
 
     String url = urlBuilder.toString().replace("https://", "wss://");
