@@ -138,9 +138,9 @@ public class RecognizeOptions {
     }
 
     /**
-     * If a custom model is specified, this parameter tells the service how much weight to give 
+     * If a custom model is specified, this parameter tells the service how much weight to give
      * to words from the custom language model compared to those from the base model.
-     * Specify a value between 0.0 and 1.0 (inclusive). If value is null or omitted, the customization 
+     * Specify a value between 0.0 and 1.0 (inclusive). If value is null or omitted, the customization
      * weight from the model is used. If no customization weight is specified on the model, the default
      * value of the service will be used.
      *
