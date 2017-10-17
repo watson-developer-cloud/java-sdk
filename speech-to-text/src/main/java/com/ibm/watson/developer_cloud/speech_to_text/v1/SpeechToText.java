@@ -235,7 +235,7 @@ public class SpeechToText extends WatsonService {
     }
 
     if (options.customizationWeight() != null) {
-      requestBuilder.query(CUSTOMIZATION_WEIGHT, options.customizationWeight().toString());
+      requestBuilder.query(CUSTOMIZATION_WEIGHT, options.customizationWeight());
     }
   }
 
@@ -821,7 +821,7 @@ public class SpeechToText extends WatsonService {
     }
 
     if (options.customizationWeight() != null) {
-      urlBuilder.addQueryParameter(CUSTOMIZATION_WEIGHT, options.customizationWeight().toString());
+      urlBuilder.addQueryParameter(CUSTOMIZATION_WEIGHT, String.valueOf(options.customizationWeight()));
     }
 
     String url = urlBuilder.toString().replace("https://", "wss://");
