@@ -358,6 +358,29 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(recognition, GSON.toJsonTree(result));
   }
 
+    /**
+   * Test recognize with customization weight.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testRecognizeWithCustomizationWeight() throws FileNotFoundException, InterruptedException {
+    String id = "foo";
+    String recString =
+        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/recognition.json"));
+    JsonObject recognition = new JsonParser().parse(recString).getAsJsonObject();
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(recString));
+
+    RecognizeOptions options = new RecognizeOptions.Builder().customizationId(id).customizationWeight(0.5).build();
+    SpeechResults result = service.recognize(SAMPLE_WAV, options).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals(PATH_RECOGNIZE + "?customization_id=" + id + "&customization_weight=0.5", request.getPath());
+    assertEquals(recognition, GSON.toJsonTree(result));
+  }
+
   /**
    * Test recognize -missing audio file, generate IllegalArgumentException.
    *
