@@ -27,12 +27,12 @@ public class UtteranceAnalysis extends GenericModel {
   @SerializedName("utterance_text")
   private String utteranceText;
   private List<ToneChatScore> tones;
+  private String error;
 
   /**
    * Gets the utteranceId.
    *
-   * The unique identifier of the utterance. The first utterance has ID 0, and the ID of each subsequent utterance is
-   * incremented by one.
+   * The unique identifier of the utterance. The first utterance has ID 0, and the ID of each subsequent utterance is incremented by one.
    *
    * @return the utteranceId
    */
@@ -54,14 +54,23 @@ public class UtteranceAnalysis extends GenericModel {
   /**
    * Gets the tones.
    *
-   * An array of `ToneChatScore` objects that provides results for the most prevalent tones of the utterance. The
-   * array includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that
-   * meets this threshold.
+   * An array of `ToneChatScore` objects that provides results for the most prevalent tones of the utterance. The array includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that meets this threshold.
    *
    * @return the tones
    */
   public List<ToneChatScore> getTones() {
     return tones;
+  }
+
+  /**
+   * Gets the error.
+   *
+   * An error message if the utterance contains more than 500 characters. The service does not analyze the utterance.
+   *
+   * @return the error
+   */
+  public String getError() {
+    return error;
   }
 
   /**
@@ -89,5 +98,14 @@ public class UtteranceAnalysis extends GenericModel {
    */
   public void setTones(final List<ToneChatScore> tones) {
     this.tones = tones;
+  }
+
+  /**
+   * Sets the error.
+   *
+   * @param error the new error
+   */
+  public void setError(final String error) {
+    this.error = error;
   }
 }

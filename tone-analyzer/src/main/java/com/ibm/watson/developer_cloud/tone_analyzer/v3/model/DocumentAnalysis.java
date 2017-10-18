@@ -14,7 +14,6 @@ package com.ibm.watson.developer_cloud.tone_analyzer.v3.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -22,27 +21,46 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class DocumentAnalysis extends GenericModel {
 
-  @SerializedName("tone_categories")
-  private List<ToneCategory> toneCategories;
+  private List<ToneScore> tones;
+  private String warning;
 
   /**
-   * Gets the toneCategories.
+   * Gets the tones.
    *
-   * An array of `ToneCategory` objects that provides the results of the tone analysis for the full document of the
-   * input content. The service returns results only for the tones specified with the `tones` parameter of the request.
+   * An array of `ToneScore` objects that provides the results of the analysis for each qualifying tone of the document. The array includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that meets this threshold.
    *
-   * @return the toneCategories
+   * @return the tones
    */
-  public List<ToneCategory> getToneCategories() {
-    return toneCategories;
+  public List<ToneScore> getTones() {
+    return tones;
   }
 
   /**
-   * Sets the toneCategories.
+   * Gets the warning.
    *
-   * @param toneCategories the new toneCategories
+   * A warning message if the overall content exceeds 128 KB or contains more than 1000 sentences. The service analyzes only the first 1000 sentences for document-level analysis and the first 100 sentences for sentence-level analysis.
+   *
+   * @return the warning
    */
-  public void setToneCategories(final List<ToneCategory> toneCategories) {
-    this.toneCategories = toneCategories;
+  public String getWarning() {
+    return warning;
+  }
+
+  /**
+   * Sets the tones.
+   *
+   * @param tones the new tones
+   */
+  public void setTones(final List<ToneScore> tones) {
+    this.tones = tones;
+  }
+
+  /**
+   * Sets the warning.
+   *
+   * @param warning the new warning
+   */
+  public void setWarning(final String warning) {
+    this.warning = warning;
   }
 }
