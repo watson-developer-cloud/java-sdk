@@ -23,16 +23,47 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class ToneChatOptions extends GenericModel {
 
+  /**
+   * The desired language of the response. For two-character arguments, regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`.
+   */
+  public interface AcceptLanguage {
+    /** ar. */
+    String AR = "ar";
+    /** de. */
+    String DE = "de";
+    /** en. */
+    String EN = "en";
+    /** es. */
+    String ES = "es";
+    /** fr. */
+    String FR = "fr";
+    /** it. */
+    String IT = "it";
+    /** ja. */
+    String JA = "ja";
+    /** ko. */
+    String KO = "ko";
+    /** pt-br. */
+    String PT_BR = "pt-br";
+    /** zh-cn. */
+    String ZH_CN = "zh-cn";
+    /** zh-tw. */
+    String ZH_TW = "zh-tw";
+  }
+
   private List<Utterance> utterances;
+  private String acceptLanguage;
 
   /**
    * Builder.
    */
   public static class Builder {
     private List<Utterance> utterances;
+    private String acceptLanguage;
 
     private Builder(ToneChatOptions toneChatOptions) {
       utterances = toneChatOptions.utterances;
+      acceptLanguage = toneChatOptions.acceptLanguage;
     }
 
     /**
@@ -85,11 +116,23 @@ public class ToneChatOptions extends GenericModel {
       this.utterances = utterances;
       return this;
     }
+
+    /**
+     * Set the acceptLanguage.
+     *
+     * @param acceptLanguage the acceptLanguage
+     * @return the ToneChatOptions builder
+     */
+    public Builder acceptLanguage(String acceptLanguage) {
+      this.acceptLanguage = acceptLanguage;
+      return this;
+    }
   }
 
   private ToneChatOptions(Builder builder) {
     Validator.notNull(builder.utterances, "utterances cannot be null");
     utterances = builder.utterances;
+    acceptLanguage = builder.acceptLanguage;
   }
 
   /**
@@ -110,5 +153,16 @@ public class ToneChatOptions extends GenericModel {
    */
   public List<Utterance> utterances() {
     return utterances;
+  }
+
+  /**
+   * Gets the acceptLanguage.
+   *
+   * The desired language of the response. For two-character arguments, regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`.
+   *
+   * @return the acceptLanguage
+   */
+  public String acceptLanguage() {
+    return acceptLanguage;
   }
 }

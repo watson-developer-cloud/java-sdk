@@ -25,18 +25,12 @@ public class SentenceAnalysis extends GenericModel {
   @SerializedName("sentence_id")
   private Long sentenceId;
   private String text;
-  @SerializedName("input_from")
-  private Long inputFrom;
-  @SerializedName("input_to")
-  private Long inputTo;
-  @SerializedName("tone_categories")
-  private List<ToneCategory> toneCategories;
+  private List<ToneScore> tones;
 
   /**
    * Gets the sentenceId.
    *
-   * The unique identifier of a sentence of the input content. The first sentence has ID 0, and the ID of each
-   * subsequent sentence is incremented by one.
+   * The unique identifier of a sentence of the input content. The first sentence has ID 0, and the ID of each subsequent sentence is incremented by one.
    *
    * @return the sentenceId
    */
@@ -56,37 +50,14 @@ public class SentenceAnalysis extends GenericModel {
   }
 
   /**
-   * Gets the inputFrom.
+   * Gets the tones.
    *
-   * The offset of the first character of the sentence in the overall input content.
+   * An array of `ToneScore` objects that provides the results of the analysis for each qualifying tone of the sentence. The array includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that meets this threshold.
    *
-   * @return the inputFrom
+   * @return the tones
    */
-  public Long getInputFrom() {
-    return inputFrom;
-  }
-
-  /**
-   * Gets the inputTo.
-   *
-   * The offset of the last character of the sentence in the overall input content.
-   *
-   * @return the inputTo
-   */
-  public Long getInputTo() {
-    return inputTo;
-  }
-
-  /**
-   * Gets the toneCategories.
-   *
-   * An array of `ToneCategory` objects that provides the results for the tone analysis of the sentence. The service
-   * returns results only for the tones specified with the `tones` parameter of the request.
-   *
-   * @return the toneCategories
-   */
-  public List<ToneCategory> getToneCategories() {
-    return toneCategories;
+  public List<ToneScore> getTones() {
+    return tones;
   }
 
   /**
@@ -108,29 +79,11 @@ public class SentenceAnalysis extends GenericModel {
   }
 
   /**
-   * Sets the inputFrom.
+   * Sets the tones.
    *
-   * @param inputFrom the new inputFrom
+   * @param tones the new tones
    */
-  public void setInputFrom(final long inputFrom) {
-    this.inputFrom = inputFrom;
-  }
-
-  /**
-   * Sets the inputTo.
-   *
-   * @param inputTo the new inputTo
-   */
-  public void setInputTo(final long inputTo) {
-    this.inputTo = inputTo;
-  }
-
-  /**
-   * Sets the toneCategories.
-   *
-   * @param toneCategories the new toneCategories
-   */
-  public void setToneCategories(final List<ToneCategory> toneCategories) {
-    this.toneCategories = toneCategories;
+  public void setTones(final List<ToneScore> tones) {
+    this.tones = tones;
   }
 }
