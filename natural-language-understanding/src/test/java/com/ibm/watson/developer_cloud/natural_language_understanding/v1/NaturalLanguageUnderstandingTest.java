@@ -257,7 +257,9 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     // DocumentSentimentResults
     DocumentSentimentResults documentSentimentResults = new DocumentSentimentResults();
     documentSentimentResults.setScore(10.10);
+    documentSentimentResults.setLabel("neutral");
     assertEquals(documentSentimentResults.getScore(), 10.10, 0);
+    assertEquals(documentSentimentResults.getLabel(), "neutral");
 
     // EmotionOptions
     EmotionOptions emotionOptions = new EmotionOptions.Builder().document(true).targets(null).build();
