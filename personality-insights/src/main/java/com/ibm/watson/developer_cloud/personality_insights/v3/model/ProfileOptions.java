@@ -52,6 +52,8 @@ public class ProfileOptions extends GenericModel {
     String ES = "es";
     /** ja. */
     String JA = "ja";
+    /** ko. */
+    String KO = "ko";
   }
 
   /**
