@@ -33,7 +33,7 @@ public class ClassifiedImage extends GenericModel {
   /**
    * Gets the sourceUrl.
    *
-   * Source image URL. Omitted if the image was uploaded. This is the URL as given to the service, before any redirects.
+   * Source of the image before any redirects. Not returned when the image is uploaded.
    *
    * @return the sourceUrl
    */
@@ -44,8 +44,7 @@ public class ClassifiedImage extends GenericModel {
   /**
    * Gets the resolvedUrl.
    *
-   * Fully-resolved image URL. Omitted if the image was uploaded. Redirects are followed, for example with URL
-   * shorteners.
+   * Fully resolved URL of the image after redirects are followed. Not returned when the image is uploaded.
    *
    * @return the resolvedUrl
    */
@@ -56,7 +55,7 @@ public class ClassifiedImage extends GenericModel {
   /**
    * Gets the image.
    *
-   * Relative path of the image file if uploaded directly (e.g., inside a zip file). Omitted if image was passed by URL.
+   * Relative path of the image file if uploaded directly. Not returned when the image is passed by URL.
    *
    * @return the image
    */

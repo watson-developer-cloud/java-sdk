@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.AddTrainingDataOptions;
@@ -31,6 +34,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOp
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
@@ -45,7 +50,9 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptio
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
@@ -54,23 +61,19 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.TestConfigurationInEnvi
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestDocument;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExampleList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingQuery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateTrainingExampleOptions;
-import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
-import com.ibm.watson.developer_cloud.util.RequestUtils;
 import com.ibm.watson.developer_cloud.util.ResponseConverterUtils;
 import com.ibm.watson.developer_cloud.util.Validator;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 
 /**
  * The IBM Watson Discovery Service is a cognitive search and content analytics engine that you can add to applications
@@ -130,118 +133,131 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Create a collection.
+   * Add an environment.
    *
-   * @param createCollectionOptions the {@link CreateCollectionOptions} containing the options for the call
-   * @return the {@link Collection} with the response
+   * Creates a new environment.  You can create only one environment per service instance. An attempt to create another
+   * environment results in an error.
+   *
+   * @param createEnvironmentOptions the {@link CreateEnvironmentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Environment}
    */
-  public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
-    Validator.notNull(createCollectionOptions, "createCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections",
-        createCollectionOptions.environmentId()));
+  public ServiceCall<Environment> createEnvironment(CreateEnvironmentOptions createEnvironmentOptions) {
+    Validator.notNull(createEnvironmentOptions, "createEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post("/v1/environments");
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("name", createCollectionOptions.name());
-    if (createCollectionOptions.description() != null) {
-      contentJson.addProperty("description", createCollectionOptions.description());
+    contentJson.addProperty("name", createEnvironmentOptions.name());
+    if (createEnvironmentOptions.description() != null) {
+      contentJson.addProperty("description", createEnvironmentOptions.description());
     }
-    if (createCollectionOptions.configurationId() != null) {
-      contentJson.addProperty("configuration_id", createCollectionOptions.configurationId());
-    }
-    if (createCollectionOptions.language() != null) {
-      contentJson.addProperty("language", createCollectionOptions.language());
+    if (createEnvironmentOptions.size() != null) {
+      contentJson.addProperty("size", createEnvironmentOptions.size());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
 
   /**
-   * Delete a collection.
+   * Delete environment.
    *
-   * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
-   * @return the service call
+   * @param deleteEnvironmentOptions the {@link DeleteEnvironmentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
    */
-  public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
-    Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s",
-        deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId()));
+  public ServiceCall<Void> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
+    Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(
+        String.format("/v1/environments/%s", deleteEnvironmentOptions.environmentId())
+    );
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
   /**
-   * Get collection details.
+   * Get environment info.
    *
-   * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the call
-   * @return the {@link Collection} with the response
+   * @param getEnvironmentOptions the {@link GetEnvironmentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Environment}
    */
-  public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
-    Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s",
-        getCollectionOptions.environmentId(), getCollectionOptions.collectionId()));
+  public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
+    Validator.notNull(getEnvironmentOptions, "getEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s", getEnvironmentOptions.environmentId())
+    );
     builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
 
   /**
-   * List unique fields.
+   * List environments.
    *
-   * Gets a list of the the unique fields (and their types) stored in the index.
+   * List existing environments for the service instance.
    *
-   * @param listCollectionFieldsOptions the {@link ListCollectionFieldsOptions} containing the options for the call
-   * @return the {@link ListCollectionFieldsResponse} with the response
+   * @param listEnvironmentsOptions the {@link ListEnvironmentsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ListEnvironmentsResponse}
    */
-  public ServiceCall<ListCollectionFieldsResponse> listCollectionFields(
-      ListCollectionFieldsOptions listCollectionFieldsOptions) {
-    Validator.notNull(listCollectionFieldsOptions, "listCollectionFieldsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/fields",
-        listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions.collectionId()));
+  public ServiceCall<ListEnvironmentsResponse> listEnvironments(ListEnvironmentsOptions listEnvironmentsOptions) {
+    RequestBuilder builder = RequestBuilder.get("/v1/environments");
     builder.query(VERSION, versionDate);
+    if (listEnvironmentsOptions != null) {
+    if (listEnvironmentsOptions.name() != null) {
+    builder.query("name", listEnvironmentsOptions.name());
+    }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListEnvironmentsResponse.class));
+  }
+
+  /**
+   * List environments.
+   *
+   * List existing environments for the service instance.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link ListEnvironmentsResponse}
+   */
+  public ServiceCall<ListEnvironmentsResponse> listEnvironments() {
+    return listEnvironments(null);
+  }
+
+  /**
+   * List fields in specified collecitons.
+   *
+   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collecitons.
+   *
+   * @param listFieldsOptions the {@link ListFieldsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}
+   */
+  public ServiceCall<ListCollectionFieldsResponse> listFields(ListFieldsOptions listFieldsOptions) {
+    Validator.notNull(listFieldsOptions, "listFieldsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/fields", listFieldsOptions.environmentId())
+    );
+    builder.query(VERSION, versionDate);
+    builder.query("collection_ids", RequestUtils.join(listFieldsOptions.collectionIds(), ","));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
   }
 
   /**
-   * List collections.
+   * Update an environment.
    *
-   * Lists existing collections for the service instance.
+   * Updates an environment. The environment's `name` and  `description` parameters can be changed. You must specify a
+   * `name` for the environment.
    *
-   * @param listCollectionsOptions the {@link ListCollectionsOptions} containing the options for the call
-   * @return the {@link ListCollectionsResponse} with the response
+   * @param updateEnvironmentOptions the {@link UpdateEnvironmentOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Environment}
    */
-  public ServiceCall<ListCollectionsResponse> listCollections(ListCollectionsOptions listCollectionsOptions) {
-    Validator.notNull(listCollectionsOptions, "listCollectionsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections",
-        listCollectionsOptions.environmentId()));
-    builder.query(VERSION, versionDate);
-    if (listCollectionsOptions.name() != null) {
-    builder.query("name", listCollectionsOptions.name());
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionsResponse.class));
-  }
-
-  /**
-   * Update a collection.
-   *
-   * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for the call
-   * @return the {@link Collection} with the response
-   */
-  public ServiceCall<Collection> updateCollection(UpdateCollectionOptions updateCollectionOptions) {
-    Validator.notNull(updateCollectionOptions, "updateCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s/collections/%s",
-        updateCollectionOptions.environmentId(), updateCollectionOptions.collectionId()));
+  public ServiceCall<Environment> updateEnvironment(UpdateEnvironmentOptions updateEnvironmentOptions) {
+    Validator.notNull(updateEnvironmentOptions, "updateEnvironmentOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s",
+        updateEnvironmentOptions.environmentId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
-    if (updateCollectionOptions.name() != null) {
-      contentJson.addProperty("name", updateCollectionOptions.name());
+    if (updateEnvironmentOptions.name() != null) {
+      contentJson.addProperty("name", updateEnvironmentOptions.name());
     }
-    if (updateCollectionOptions.description() != null) {
-      contentJson.addProperty("description", updateCollectionOptions.description());
-    }
-    if (updateCollectionOptions.configurationId() != null) {
-      contentJson.addProperty("configuration_id", updateCollectionOptions.configurationId());
+    if (updateEnvironmentOptions.description() != null) {
+      contentJson.addProperty("description", updateEnvironmentOptions.description());
     }
     builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
 
   /**
@@ -250,17 +266,18 @@ public class Discovery extends WatsonService {
    * Creates a new configuration.  If the input configuration contains the `configuration_id`, `created`, or `updated`
    * properties, then they are ignored and overridden by the system, and an error is not returned so that the
    * overridden fields do not need to be removed when copying a configuration.  The configuration can contain
-   * unrecognized JSON fields. Any such fields are ignored and do not generate an error. This makes it easier to
-   * use newer configuration files with older versions of the API and the service. It also makes it possible for the
+   * unrecognized JSON fields. Any such fields are ignored and do not generate an error. This makes it easier to use
+   * newer configuration files with older versions of the API and the service. It also makes it possible for the
    * tooling to add additional metadata and information to the configuration.
    *
    * @param createConfigurationOptions the {@link CreateConfigurationOptions} containing the options for the call
-   * @return the {@link Configuration} with the response
+   * @return a {@link ServiceCall} with a response type of {@link Configuration}
    */
   public ServiceCall<Configuration> createConfiguration(CreateConfigurationOptions createConfigurationOptions) {
     Validator.notNull(createConfigurationOptions, "createConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/configurations",
-        createConfigurationOptions.environmentId()));
+    RequestBuilder builder = RequestBuilder.post(
+        String.format("/v1/environments/%s/configurations", createConfigurationOptions.environmentId())
+    );
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createConfigurationOptions.name() != null) {
@@ -288,20 +305,21 @@ public class Discovery extends WatsonService {
   /**
    * Delete a configuration.
    *
-   * The deletion is performed unconditionally. A configuration deletion request succeeds even if the configuration
-   * is referenced by a collection or document ingestion. However, documents that have already been submitted for
+   * The deletion is performed unconditionally. A configuration deletion request succeeds even if the configuration is
+   * referenced by a collection or document ingestion. However, documents that have already been submitted for
    * processing continue to use the deleted configuration. Documents are always processed with a snapshot of the
    * configuration as it existed at the time the document was submitted.
    *
    * @param deleteConfigurationOptions the {@link DeleteConfigurationOptions} containing the options for the call
-   * @return the service call
+   * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteConfiguration(DeleteConfigurationOptions deleteConfigurationOptions) {
     Validator.notNull(deleteConfigurationOptions, "deleteConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(
-        String.format("/v1/environments/%s/configurations/%s",
-            deleteConfigurationOptions.environmentId(),
-            deleteConfigurationOptions.configurationId()));
+    RequestBuilder builder = RequestBuilder.delete(String.format(
+        "/v1/environments/%s/configurations/%s",
+        deleteConfigurationOptions.environmentId(),
+        deleteConfigurationOptions.configurationId()
+    ));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -310,14 +328,15 @@ public class Discovery extends WatsonService {
    * Get configuration details.
    *
    * @param getConfigurationOptions the {@link GetConfigurationOptions} containing the options for the call
-   * @return the {@link Configuration} with the response
+   * @return a {@link ServiceCall} with a response type of {@link Configuration}
    */
   public ServiceCall<Configuration> getConfiguration(GetConfigurationOptions getConfigurationOptions) {
     Validator.notNull(getConfigurationOptions, "getConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/configurations/%s",
-            getConfigurationOptions.environmentId(),
-            getConfigurationOptions.configurationId()));
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/configurations/%s",
+        getConfigurationOptions.environmentId(),
+        getConfigurationOptions.configurationId()
+    ));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
   }
@@ -328,13 +347,14 @@ public class Discovery extends WatsonService {
    * Lists existing configurations for the service instance.
    *
    * @param listConfigurationsOptions the {@link ListConfigurationsOptions} containing the options for the call
-   * @return the {@link ListConfigurationsResponse} with the response
+   * @return a {@link ServiceCall} with a response type of {@link ListConfigurationsResponse}
    */
   public ServiceCall<ListConfigurationsResponse> listConfigurations(
       ListConfigurationsOptions listConfigurationsOptions) {
     Validator.notNull(listConfigurationsOptions, "listConfigurationsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/configurations",
-        listConfigurationsOptions.environmentId()));
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/configurations", listConfigurationsOptions.environmentId())
+    );
     builder.query(VERSION, versionDate);
     if (listConfigurationsOptions.name() != null) {
     builder.query("name", listConfigurationsOptions.name());
@@ -354,14 +374,15 @@ public class Discovery extends WatsonService {
    * to be ingested. This means that already submitted documents will not see any updates made to the configuration.
    *
    * @param updateConfigurationOptions the {@link UpdateConfigurationOptions} containing the options for the call
-   * @return the {@link Configuration} with the response
+   * @return a {@link ServiceCall} with a response type of {@link Configuration}
    */
   public ServiceCall<Configuration> updateConfiguration(UpdateConfigurationOptions updateConfigurationOptions) {
     Validator.notNull(updateConfigurationOptions, "updateConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(
-        String.format("/v1/environments/%s/configurations/%s",
-            updateConfigurationOptions.environmentId(),
-            updateConfigurationOptions.configurationId()));
+    RequestBuilder builder = RequestBuilder.put(String.format(
+        "/v1/environments/%s/configurations/%s",
+        updateConfigurationOptions.environmentId(),
+        updateConfigurationOptions.configurationId()
+    ));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateConfigurationOptions.name() != null) {
@@ -387,6 +408,180 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Test configuration.
+   *
+   * Runs a sample document through the default or your configuration and returns diagnostic information designed to
+   * help you understand how the document was processed. The document is not added to the index.
+   *
+   * @param testConfigurationInEnvironmentOptions the {@link TestConfigurationInEnvironmentOptions} containing the
+   *                                              options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TestDocument}
+   */
+  public ServiceCall<TestDocument> testConfigurationInEnvironment(
+      TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
+    Validator.notNull(testConfigurationInEnvironmentOptions, "testConfigurationInEnvironmentOptions cannot be null");
+    Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
+        || (testConfigurationInEnvironmentOptions.file() != null)
+        || (testConfigurationInEnvironmentOptions.metadata() != null),
+        "At least one of configuration, file, or metadata must be supplied.");
+    RequestBuilder builder = RequestBuilder.post(
+        String.format("/v1/environments/%s/preview", testConfigurationInEnvironmentOptions.environmentId())
+    );
+    builder.query(VERSION, versionDate);
+    if (testConfigurationInEnvironmentOptions.step() != null) {
+    builder.query("step", testConfigurationInEnvironmentOptions.step());
+    }
+    if (testConfigurationInEnvironmentOptions.configurationId() != null) {
+    builder.query("configuration_id", testConfigurationInEnvironmentOptions.configurationId());
+    }
+    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
+    multipartBuilder.setType(MultipartBody.FORM);
+    if (testConfigurationInEnvironmentOptions.configuration() != null) {
+    multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
+    }
+    if (testConfigurationInEnvironmentOptions.file() != null) {
+    RequestBody fileBody = RequestUtils.inputStreamBody(
+        testConfigurationInEnvironmentOptions.file(), testConfigurationInEnvironmentOptions.fileContentType()
+    );
+    multipartBuilder.addFormDataPart("file", testConfigurationInEnvironmentOptions.filename(), fileBody);
+    }
+    if (testConfigurationInEnvironmentOptions.metadata() != null) {
+    multipartBuilder.addFormDataPart("metadata", testConfigurationInEnvironmentOptions.metadata());
+    }
+    builder.body(multipartBuilder.build());
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TestDocument.class));
+  }
+
+  /**
+   * Create a collection.
+   *
+   * @param createCollectionOptions the {@link CreateCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   */
+  public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
+    Validator.notNull(createCollectionOptions, "createCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(
+        String.format("/v1/environments/%s/collections", createCollectionOptions.environmentId())
+    );
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createCollectionOptions.name());
+    if (createCollectionOptions.description() != null) {
+      contentJson.addProperty("description", createCollectionOptions.description());
+    }
+    if (createCollectionOptions.configurationId() != null) {
+      contentJson.addProperty("configuration_id", createCollectionOptions.configurationId());
+    }
+    if (createCollectionOptions.language() != null) {
+      contentJson.addProperty("language", createCollectionOptions.language());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
+
+  /**
+   * Delete a collection.
+   *
+   * @param deleteCollectionOptions the {@link DeleteCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
+    Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format(
+        "/v1/environments/%s/collections/%s",
+        deleteCollectionOptions.environmentId(),
+        deleteCollectionOptions.collectionId()
+    ));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
+  }
+
+  /**
+   * Get collection details.
+   *
+   * @param getCollectionOptions the {@link GetCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   */
+  public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
+    Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/collections/%s",
+        getCollectionOptions.environmentId(),
+        getCollectionOptions.collectionId()
+    ));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
+
+  /**
+   * List unique fields.
+   *
+   * Gets a list of the unique fields (and their types) stored in the index.
+   *
+   * @param listCollectionFieldsOptions the {@link ListCollectionFieldsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}
+   */
+  public ServiceCall<ListCollectionFieldsResponse> listCollectionFields(
+      ListCollectionFieldsOptions listCollectionFieldsOptions) {
+    Validator.notNull(listCollectionFieldsOptions, "listCollectionFieldsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/collections/%s/fields",
+        listCollectionFieldsOptions.environmentId(),
+        listCollectionFieldsOptions.collectionId()
+    ));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
+  }
+
+  /**
+   * List collections.
+   *
+   * Lists existing collections for the service instance.
+   *
+   * @param listCollectionsOptions the {@link ListCollectionsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ListCollectionsResponse}
+   */
+  public ServiceCall<ListCollectionsResponse> listCollections(ListCollectionsOptions listCollectionsOptions) {
+    Validator.notNull(listCollectionsOptions, "listCollectionsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/collections", listCollectionsOptions.environmentId())
+    );
+    builder.query(VERSION, versionDate);
+    if (listCollectionsOptions.name() != null) {
+    builder.query("name", listCollectionsOptions.name());
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionsResponse.class));
+  }
+
+  /**
+   * Update a collection.
+   *
+   * @param updateCollectionOptions the {@link UpdateCollectionOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Collection}
+   */
+  public ServiceCall<Collection> updateCollection(UpdateCollectionOptions updateCollectionOptions) {
+    Validator.notNull(updateCollectionOptions, "updateCollectionOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.put(String.format(
+        "/v1/environments/%s/collections/%s",
+        updateCollectionOptions.environmentId(),
+        updateCollectionOptions.collectionId()
+    ));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (updateCollectionOptions.name() != null) {
+      contentJson.addProperty("name", updateCollectionOptions.name());
+    }
+    if (updateCollectionOptions.description() != null) {
+      contentJson.addProperty("description", updateCollectionOptions.description());
+    }
+    if (updateCollectionOptions.configurationId() != null) {
+      contentJson.addProperty("configuration_id", updateCollectionOptions.configurationId());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
+  }
+
+  /**
    * Add a document.
    *
    * Add a document to a collection with optional metadata.
@@ -394,8 +589,8 @@ public class Discovery extends WatsonService {
    * * Returns immediately after the system has accepted the document for processing.
    * * The user must provide document content, metadata, or both. If the request is missing both document content and
    * metadata, it is rejected.
-   * * The user can set the `Content-Type` parameter on the `file` part to indicate the media type of the document.
-   * If the `Content-Type` parameter is missing or is one of the generic media types (for example,
+   * * The user can set the `Content-Type` parameter on the `file` part to indicate the media type of the document. If
+   * the `Content-Type` parameter is missing or is one of the generic media types (for example,
    * `application/octet-stream`), then the service attempts to automatically detect the document's media type.
    * * The following field names are reserved and will be filtered out if present after normalization: `id`, `score`,
    * `highlight`, and any field with the prefix of: `_`, `+`, or `-`
@@ -403,26 +598,25 @@ public class Discovery extends WatsonService {
    * * Fields containing the following characters after normalization are filtered out before indexing: `#` and `,`.
    *
    * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
-   * @return the {@link DocumentAccepted} with the response
+   * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
    */
   public ServiceCall<DocumentAccepted> addDocument(AddDocumentOptions addDocumentOptions) {
     Validator.notNull(addDocumentOptions, "addDocumentOptions cannot be null");
-    Validator.isTrue((addDocumentOptions.file() != null) || (addDocumentOptions.metadata() != null),
+    Validator.isTrue((addDocumentOptions.file() != null)
+        || (addDocumentOptions.metadata() != null),
         "At least one of file or metadata must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(
-        String.format("/v1/environments/%s/collections/%s/documents",
-            addDocumentOptions.environmentId(),
-            addDocumentOptions.collectionId()));
+    RequestBuilder builder = RequestBuilder.post(String.format(
+        "/v1/environments/%s/collections/%s/documents",
+        addDocumentOptions.environmentId(),
+        addDocumentOptions.collectionId()
+    ));
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (addDocumentOptions.file() != null) {
-      MediaType contentType = null;
-      if (addDocumentOptions.fileContentType() != null) {
-        contentType = MediaType.parse(addDocumentOptions.fileContentType());
-      }
-      RequestBody body = InputStreamRequestBody.create(contentType, addDocumentOptions.file());
-      multipartBuilder.addFormDataPart("file", "filename", body);
+    RequestBody fileBody = RequestUtils.inputStreamBody(addDocumentOptions.file(),
+        addDocumentOptions.fileContentType());
+    multipartBuilder.addFormDataPart("file", addDocumentOptions.filename(), fileBody);
     }
     if (addDocumentOptions.metadata() != null) {
     multipartBuilder.addFormDataPart("metadata", addDocumentOptions.metadata());
@@ -434,19 +628,20 @@ public class Discovery extends WatsonService {
   /**
    * Delete a document.
    *
-   * If the given document id is invalid, or if the document is not found, then the a success response is returned
+   * If the given document ID is invalid, or if the document is not found, then the a success response is returned
    * (HTTP status code `200`) with the status set to 'deleted'.
    *
    * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the call
-   * @return the service call
+   * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
     Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(
-        String.format("/v1/environments/%s/collections/%s/documents/%s",
-            deleteDocumentOptions.environmentId(),
-            deleteDocumentOptions.collectionId(),
-            deleteDocumentOptions.documentId()));
+    RequestBuilder builder = RequestBuilder.delete(String.format(
+        "/v1/environments/%s/collections/%s/documents/%s",
+        deleteDocumentOptions.environmentId(),
+        deleteDocumentOptions.collectionId(),
+        deleteDocumentOptions.documentId()
+    ));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -454,21 +649,21 @@ public class Discovery extends WatsonService {
   /**
    * Get document details.
    *
-   * Fetch status details about a submitted document.
-   * **Note:** this operation does not return the document itself. Instead, it returns only the document's processing
-   * status and any notices (warnings or errors) that were generated when the document was ingested. Use the query API
-   * to retrieve the actual document content.
+   * Fetch status details about a submitted document. **Note:** this operation does not return the document itself.
+   * Instead, it returns only the document's processing status and any notices (warnings or errors) that were generated
+   * when the document was ingested. Use the query API to retrieve the actual document content.
    *
    * @param getDocumentStatusOptions the {@link GetDocumentStatusOptions} containing the options for the call
-   * @return the {@link DocumentStatus} with the response
+   * @return a {@link ServiceCall} with a response type of {@link DocumentStatus}
    */
   public ServiceCall<DocumentStatus> getDocumentStatus(GetDocumentStatusOptions getDocumentStatusOptions) {
     Validator.notNull(getDocumentStatusOptions, "getDocumentStatusOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/collections/%s/documents/%s",
-            getDocumentStatusOptions.environmentId(),
-            getDocumentStatusOptions.collectionId(),
-            getDocumentStatusOptions.documentId()));
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/collections/%s/documents/%s",
+        getDocumentStatusOptions.environmentId(),
+        getDocumentStatusOptions.collectionId(),
+        getDocumentStatusOptions.documentId()
+    ));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentStatus.class));
   }
@@ -479,27 +674,26 @@ public class Discovery extends WatsonService {
    * Replace an existing document. Starts ingesting a document with optional metadata.
    *
    * @param updateDocumentOptions the {@link UpdateDocumentOptions} containing the options for the call
-   * @return the {@link DocumentAccepted} with the response
+   * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
    */
   public ServiceCall<DocumentAccepted> updateDocument(UpdateDocumentOptions updateDocumentOptions) {
     Validator.notNull(updateDocumentOptions, "updateDocumentOptions cannot be null");
-    Validator.isTrue((updateDocumentOptions.file() != null) || (updateDocumentOptions.metadata() != null),
+    Validator.isTrue((updateDocumentOptions.file() != null)
+        || (updateDocumentOptions.metadata() != null),
         "At least one of file or metadata must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(
-        String.format("/v1/environments/%s/collections/%s/documents/%s",
-            updateDocumentOptions.environmentId(),
-            updateDocumentOptions.collectionId(),
-            updateDocumentOptions.documentId()));
+    RequestBuilder builder = RequestBuilder.post(String.format(
+        "/v1/environments/%s/collections/%s/documents/%s",
+        updateDocumentOptions.environmentId(),
+        updateDocumentOptions.collectionId(),
+        updateDocumentOptions.documentId()
+    ));
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (updateDocumentOptions.file() != null) {
-      MediaType contentType = null;
-      if (updateDocumentOptions.fileContentType() != null) {
-        contentType = MediaType.parse(updateDocumentOptions.fileContentType());
-      }
-      RequestBody body = InputStreamRequestBody.create(contentType, updateDocumentOptions.file());
-      multipartBuilder.addFormDataPart("file", "filename", body);
+    RequestBody fileBody = RequestUtils.inputStreamBody(updateDocumentOptions.file(),
+        updateDocumentOptions.fileContentType());
+    multipartBuilder.addFormDataPart("file", updateDocumentOptions.filename(), fileBody);
     }
     if (updateDocumentOptions.metadata() != null) {
     multipartBuilder.addFormDataPart("metadata", updateDocumentOptions.metadata());
@@ -509,115 +703,124 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Add an environment.
+   * Query documents in multiple collections.
    *
-   * Creates a new environment.  You can create only one environment per service instance. An attempt to create
-   * another environment results in an error.
+   * See the [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html) for
+   * more details.
    *
-   * @param createEnvironmentOptions the {@link CreateEnvironmentOptions} containing the options for the call
-   * @return the {@link Environment} with the response
+   * @param federatedQueryOptions the {@link FederatedQueryOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
    */
-  public ServiceCall<Environment> createEnvironment(CreateEnvironmentOptions createEnvironmentOptions) {
-    Validator.notNull(createEnvironmentOptions, "createEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post("/v1/environments");
+  public ServiceCall<QueryResponse> federatedQuery(FederatedQueryOptions federatedQueryOptions) {
+    Validator.notNull(federatedQueryOptions, "federatedQueryOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/query", federatedQueryOptions.environmentId())
+    );
     builder.query(VERSION, versionDate);
-    final JsonObject contentJson = new JsonObject();
-    contentJson.addProperty("name", createEnvironmentOptions.name());
-    if (createEnvironmentOptions.description() != null) {
-      contentJson.addProperty("description", createEnvironmentOptions.description());
+    builder.query("collection_ids", RequestUtils.join(federatedQueryOptions.collectionIds(), ","));
+    if (federatedQueryOptions.filter() != null) {
+    builder.query("filter", federatedQueryOptions.filter());
     }
-    if (createEnvironmentOptions.size() != null) {
-      contentJson.addProperty("size", createEnvironmentOptions.size());
+    if (federatedQueryOptions.query() != null) {
+    builder.query("query", federatedQueryOptions.query());
     }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
+    if (federatedQueryOptions.naturalLanguageQuery() != null) {
+    builder.query("natural_language_query", federatedQueryOptions.naturalLanguageQuery());
+    }
+    if (federatedQueryOptions.aggregation() != null) {
+    builder.query("aggregation", federatedQueryOptions.aggregation());
+    }
+    if (federatedQueryOptions.count() != null) {
+    builder.query("count", String.valueOf(federatedQueryOptions.count()));
+    }
+    if (federatedQueryOptions.returnFields() != null) {
+    builder.query("return_fields", RequestUtils.join(federatedQueryOptions.returnFields(), ","));
+    }
+    if (federatedQueryOptions.offset() != null) {
+    builder.query("offset", String.valueOf(federatedQueryOptions.offset()));
+    }
+    if (federatedQueryOptions.sort() != null) {
+    builder.query("sort", RequestUtils.join(federatedQueryOptions.sort(), ","));
+    }
+    if (federatedQueryOptions.highlight() != null) {
+    builder.query("highlight", String.valueOf(federatedQueryOptions.highlight()));
+    }
+    if (federatedQueryOptions.deduplicate() != null) {
+    builder.query("deduplicate", String.valueOf(federatedQueryOptions.deduplicate()));
+    }
+    if (federatedQueryOptions.deduplicateField() != null) {
+    builder.query("deduplicate.field", federatedQueryOptions.deduplicateField());
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
 
   /**
-   * Delete environment.
+   * Query multiple collection system notices.
    *
-   * @param deleteEnvironmentOptions the {@link DeleteEnvironmentOptions} containing the options for the call
-   * @return the service call
+   * Queries for notices (errors or warnings) that might have been generated by the system. Notices are generated when
+   * ingesting documents and performing relevance training. See the [Discovery service documentation]
+   * (https://console.bluemix.net/docs/services/discovery/using.html) for more details on the query language.
+   *
+   * @param federatedQueryNoticesOptions the {@link FederatedQueryNoticesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link QueryNoticesResponse}
    */
-  public ServiceCall<Void> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
-    Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s",
-        deleteEnvironmentOptions.environmentId()));
+  public ServiceCall<QueryNoticesResponse> federatedQueryNotices(
+      FederatedQueryNoticesOptions federatedQueryNoticesOptions) {
+    Validator.notNull(federatedQueryNoticesOptions, "federatedQueryNoticesOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(
+        String.format("/v1/environments/%s/notices", federatedQueryNoticesOptions.environmentId())
+    );
     builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Get environment info.
-   *
-   * @param getEnvironmentOptions the {@link GetEnvironmentOptions} containing the options for the call
-   * @return the {@link Environment} with the response
-   */
-  public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
-    Validator.notNull(getEnvironmentOptions, "getEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s",
-        getEnvironmentOptions.environmentId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
-  }
-
-  /**
-   * List environments.
-   *
-   * List existing environments for the service instance.
-   *
-   * @param listEnvironmentsOptions the {@link ListEnvironmentsOptions} containing the options for the call
-   * @return the {@link ListEnvironmentsResponse} with the response
-   */
-  public ServiceCall<ListEnvironmentsResponse> listEnvironments(ListEnvironmentsOptions listEnvironmentsOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v1/environments");
-    builder.query(VERSION, versionDate);
-    if (listEnvironmentsOptions != null) {
-    if (listEnvironmentsOptions.name() != null) {
-    builder.query("name", listEnvironmentsOptions.name());
+    builder.query("collection_ids", RequestUtils.join(federatedQueryNoticesOptions.collectionIds(), ","));
+    if (federatedQueryNoticesOptions.filter() != null) {
+    builder.query("filter", federatedQueryNoticesOptions.filter());
     }
+    if (federatedQueryNoticesOptions.query() != null) {
+    builder.query("query", federatedQueryNoticesOptions.query());
     }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListEnvironmentsResponse.class));
-  }
-
-  /**
-   * Update an environment.
-   *
-   * Updates an environment. The environment's `name` and  `description` parameters can be changed. You must specify
-   * a `name` for the environment.
-   *
-   * @param updateEnvironmentOptions the {@link UpdateEnvironmentOptions} containing the options for the call
-   * @return the {@link Environment} with the response
-   */
-  public ServiceCall<Environment> updateEnvironment(UpdateEnvironmentOptions updateEnvironmentOptions) {
-    Validator.notNull(updateEnvironmentOptions, "updateEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s",
-        updateEnvironmentOptions.environmentId()));
-    builder.query(VERSION, versionDate);
-    final JsonObject contentJson = new JsonObject();
-    if (updateEnvironmentOptions.name() != null) {
-      contentJson.addProperty("name", updateEnvironmentOptions.name());
+    if (federatedQueryNoticesOptions.naturalLanguageQuery() != null) {
+    builder.query("natural_language_query", federatedQueryNoticesOptions.naturalLanguageQuery());
     }
-    if (updateEnvironmentOptions.description() != null) {
-      contentJson.addProperty("description", updateEnvironmentOptions.description());
+    if (federatedQueryNoticesOptions.aggregation() != null) {
+    builder.query("aggregation", federatedQueryNoticesOptions.aggregation());
     }
-    builder.bodyJson(contentJson);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
+    if (federatedQueryNoticesOptions.count() != null) {
+    builder.query("count", String.valueOf(federatedQueryNoticesOptions.count()));
+    }
+    if (federatedQueryNoticesOptions.returnFields() != null) {
+    builder.query("return_fields", RequestUtils.join(federatedQueryNoticesOptions.returnFields(), ","));
+    }
+    if (federatedQueryNoticesOptions.offset() != null) {
+    builder.query("offset", String.valueOf(federatedQueryNoticesOptions.offset()));
+    }
+    if (federatedQueryNoticesOptions.sort() != null) {
+    builder.query("sort", RequestUtils.join(federatedQueryNoticesOptions.sort(), ","));
+    }
+    if (federatedQueryNoticesOptions.highlight() != null) {
+    builder.query("highlight", String.valueOf(federatedQueryNoticesOptions.highlight()));
+    }
+    if (federatedQueryNoticesOptions.deduplicateField() != null) {
+    builder.query("deduplicate.field", federatedQueryNoticesOptions.deduplicateField());
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }
 
   /**
    * Query documents.
    *
-   * See the [Discovery service documentation](https://www.ibm.com/watson/developercloud/doc/discovery/using.html)
-   * for more details.
+   * See the [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html) for
+   * more details.
    *
    * @param queryOptions the {@link QueryOptions} containing the options for the call
-   * @return the {@link QueryResponse} with the response
+   * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
    */
   public ServiceCall<QueryResponse> query(QueryOptions queryOptions) {
     Validator.notNull(queryOptions, "queryOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/query",
-        queryOptions.environmentId(), queryOptions.collectionId()));
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/collections/%s/query",
+        queryOptions.environmentId(),
+        queryOptions.collectionId()
+    ));
     builder.query(VERSION, versionDate);
     if (queryOptions.filter() != null) {
     builder.query("filter", queryOptions.filter());
@@ -670,19 +873,20 @@ public class Discovery extends WatsonService {
   /**
    * Query system notices.
    *
-   * Queries for notices (errors or warnings) that may have been generated by the system. Notices are generated when
+   * Queries for notices (errors or warnings) that might have been generated by the system. Notices are generated when
    * ingesting documents and performing relevance training. See the [Discovery service documentation]
-   * (https://www.ibm.com/watson/developercloud/doc/discovery/using.html) for more details on the query language.
+   * (https://console.bluemix.net/docs/services/discovery/using.html) for more details on the query language.
    *
    * @param queryNoticesOptions the {@link QueryNoticesOptions} containing the options for the call
-   * @return the {@link QueryNoticesResponse} with the response
+   * @return a {@link ServiceCall} with a response type of {@link QueryNoticesResponse}
    */
   public ServiceCall<QueryNoticesResponse> queryNotices(QueryNoticesOptions queryNoticesOptions) {
     Validator.notNull(queryNoticesOptions, "queryNoticesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/collections/%s/notices",
-            queryNoticesOptions.environmentId(),
-            queryNoticesOptions.collectionId()));
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/collections/%s/notices",
+        queryNoticesOptions.environmentId(),
+        queryNoticesOptions.collectionId()
+    ));
     builder.query(VERSION, versionDate);
     if (queryNoticesOptions.filter() != null) {
     builder.query("filter", queryNoticesOptions.filter());
@@ -730,63 +934,18 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * Test configuration.
-   *
-   * Runs a sample document through the default or your configuration and returns diagnostic information designed to
-   * help you understand how the document was processed. The document is not added to the index.
-   *
-   * @param testConfigurationInEnvironmentOptions the {@link TestConfigurationInEnvironmentOptions} containing the
-   *                                              options for the call
-   * @return the {@link TestDocument} with the response
-   */
-  public ServiceCall<TestDocument> testConfigurationInEnvironment(
-      TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
-    Validator.notNull(testConfigurationInEnvironmentOptions, "testConfigurationInEnvironmentOptions cannot be null");
-    Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
-        || (testConfigurationInEnvironmentOptions.file() != null)
-        || (testConfigurationInEnvironmentOptions.metadata() != null),
-        "At least one of configuration, file, or metadata must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/preview",
-        testConfigurationInEnvironmentOptions.environmentId()));
-    builder.query(VERSION, versionDate);
-    if (testConfigurationInEnvironmentOptions.step() != null) {
-    builder.query("step", testConfigurationInEnvironmentOptions.step());
-    }
-    if (testConfigurationInEnvironmentOptions.configurationId() != null) {
-    builder.query("configuration_id", testConfigurationInEnvironmentOptions.configurationId());
-    }
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    if (testConfigurationInEnvironmentOptions.configuration() != null) {
-    multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
-    }
-    if (testConfigurationInEnvironmentOptions.file() != null) {
-      MediaType contentType = null;
-      if (testConfigurationInEnvironmentOptions.fileContentType() != null) {
-        contentType = MediaType.parse(testConfigurationInEnvironmentOptions.fileContentType());
-      }
-      RequestBody body = InputStreamRequestBody.create(contentType, testConfigurationInEnvironmentOptions.file());
-      multipartBuilder.addFormDataPart("file", "filename", body);
-    }
-    if (testConfigurationInEnvironmentOptions.metadata() != null) {
-    multipartBuilder.addFormDataPart("metadata", testConfigurationInEnvironmentOptions.metadata());
-    }
-    builder.body(multipartBuilder.build());
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TestDocument.class));
-  }
-
-  /**
    * Adds a query to the training data for this collection. The query can contain a filter and natural language query.
    *
    * @param addTrainingDataOptions the {@link AddTrainingDataOptions} containing the options for the call
-   * @return the {@link TrainingQuery} with the response
+   * @return a {@link ServiceCall} with a response type of {@link TrainingQuery}
    */
   public ServiceCall<TrainingQuery> addTrainingData(AddTrainingDataOptions addTrainingDataOptions) {
     Validator.notNull(addTrainingDataOptions, "addTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(
-        String.format("/v1/environments/%s/collections/%s/training_data",
-            addTrainingDataOptions.environmentId(),
-            addTrainingDataOptions.collectionId()));
+    RequestBuilder builder = RequestBuilder.post(String.format(
+        "/v1/environments/%s/collections/%s/training_data",
+        addTrainingDataOptions.environmentId(),
+        addTrainingDataOptions.collectionId()
+    ));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (addTrainingDataOptions.naturalLanguageQuery() != null) {
@@ -806,15 +965,16 @@ public class Discovery extends WatsonService {
    * Adds a new example to this training data query.
    *
    * @param createTrainingExampleOptions the {@link CreateTrainingExampleOptions} containing the options for the call
-   * @return the {@link TrainingExample} with the response
+   * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
    */
   public ServiceCall<TrainingExample> createTrainingExample(CreateTrainingExampleOptions createTrainingExampleOptions) {
     Validator.notNull(createTrainingExampleOptions, "createTrainingExampleOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(
-        String.format("/v1/environments/%s/collections/%s/training_data/%s/examples",
-            createTrainingExampleOptions.environmentId(),
-            createTrainingExampleOptions.collectionId(),
-            createTrainingExampleOptions.queryId()));
+    RequestBuilder builder = RequestBuilder.post(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s/examples",
+        createTrainingExampleOptions.environmentId(),
+        createTrainingExampleOptions.collectionId(),
+        createTrainingExampleOptions.queryId()
+    ));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createTrainingExampleOptions.documentId() != null) {
@@ -834,14 +994,15 @@ public class Discovery extends WatsonService {
    * Clears all training data for this collection.
    *
    * @param deleteAllTrainingDataOptions the {@link DeleteAllTrainingDataOptions} containing the options for the call
-   * @return the service call
+   * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteAllTrainingData(DeleteAllTrainingDataOptions deleteAllTrainingDataOptions) {
     Validator.notNull(deleteAllTrainingDataOptions, "deleteAllTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(
-        String.format("/v1/environments/%s/collections/%s/training_data",
-            deleteAllTrainingDataOptions.environmentId(),
-            deleteAllTrainingDataOptions.collectionId()));
+    RequestBuilder builder = RequestBuilder.delete(String.format(
+        "/v1/environments/%s/collections/%s/training_data",
+        deleteAllTrainingDataOptions.environmentId(),
+        deleteAllTrainingDataOptions.collectionId()
+    ));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -850,15 +1011,16 @@ public class Discovery extends WatsonService {
    * Removes the training data and all associated examples from the training data set.
    *
    * @param deleteTrainingDataOptions the {@link DeleteTrainingDataOptions} containing the options for the call
-   * @return the service call
+   * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteTrainingData(DeleteTrainingDataOptions deleteTrainingDataOptions) {
     Validator.notNull(deleteTrainingDataOptions, "deleteTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(
-        String.format("/v1/environments/%s/collections/%s/training_data/%s",
-            deleteTrainingDataOptions.environmentId(),
-            deleteTrainingDataOptions.collectionId(),
-            deleteTrainingDataOptions.queryId()));
+    RequestBuilder builder = RequestBuilder.delete(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s",
+        deleteTrainingDataOptions.environmentId(),
+        deleteTrainingDataOptions.collectionId(),
+        deleteTrainingDataOptions.queryId()
+    ));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -867,16 +1029,17 @@ public class Discovery extends WatsonService {
    * Removes the example with the given ID for the training data query.
    *
    * @param deleteTrainingExampleOptions the {@link DeleteTrainingExampleOptions} containing the options for the call
-   * @return the service call
+   * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteTrainingExample(DeleteTrainingExampleOptions deleteTrainingExampleOptions) {
     Validator.notNull(deleteTrainingExampleOptions, "deleteTrainingExampleOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(
-        String.format("/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
-            deleteTrainingExampleOptions.environmentId(),
-            deleteTrainingExampleOptions.collectionId(),
-            deleteTrainingExampleOptions.queryId(),
-            deleteTrainingExampleOptions.exampleId()));
+    RequestBuilder builder = RequestBuilder.delete(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
+        deleteTrainingExampleOptions.environmentId(),
+        deleteTrainingExampleOptions.collectionId(),
+        deleteTrainingExampleOptions.queryId(),
+        deleteTrainingExampleOptions.exampleId()
+    ));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -885,15 +1048,16 @@ public class Discovery extends WatsonService {
    * Shows details for a specific training data query, including the query string and all examples.
    *
    * @param getTrainingDataOptions the {@link GetTrainingDataOptions} containing the options for the call
-   * @return the {@link TrainingQuery} with the response
+   * @return a {@link ServiceCall} with a response type of {@link TrainingQuery}
    */
   public ServiceCall<TrainingQuery> getTrainingData(GetTrainingDataOptions getTrainingDataOptions) {
     Validator.notNull(getTrainingDataOptions, "getTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/collections/%s/training_data/%s",
-            getTrainingDataOptions.environmentId(),
-            getTrainingDataOptions.collectionId(),
-            getTrainingDataOptions.queryId()));
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s",
+        getTrainingDataOptions.environmentId(),
+        getTrainingDataOptions.collectionId(),
+        getTrainingDataOptions.queryId()
+    ));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
   }
@@ -902,16 +1066,17 @@ public class Discovery extends WatsonService {
    * Gets the details for this training example.
    *
    * @param getTrainingExampleOptions the {@link GetTrainingExampleOptions} containing the options for the call
-   * @return the {@link TrainingExample} with the response
+   * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
    */
   public ServiceCall<TrainingExample> getTrainingExample(GetTrainingExampleOptions getTrainingExampleOptions) {
     Validator.notNull(getTrainingExampleOptions, "getTrainingExampleOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
-            getTrainingExampleOptions.environmentId(),
-            getTrainingExampleOptions.collectionId(),
-            getTrainingExampleOptions.queryId(),
-            getTrainingExampleOptions.exampleId()));
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
+        getTrainingExampleOptions.environmentId(),
+        getTrainingExampleOptions.collectionId(),
+        getTrainingExampleOptions.queryId(),
+        getTrainingExampleOptions.exampleId()
+    ));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
   }
@@ -920,32 +1085,53 @@ public class Discovery extends WatsonService {
    * Lists the training data for this collection.
    *
    * @param listTrainingDataOptions the {@link ListTrainingDataOptions} containing the options for the call
-   * @return the {@link TrainingDataSet} with the response
+   * @return a {@link ServiceCall} with a response type of {@link TrainingDataSet}
    */
   public ServiceCall<TrainingDataSet> listTrainingData(ListTrainingDataOptions listTrainingDataOptions) {
     Validator.notNull(listTrainingDataOptions, "listTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/collections/%s/training_data",
-            listTrainingDataOptions.environmentId(),
-            listTrainingDataOptions.collectionId()));
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/collections/%s/training_data",
+        listTrainingDataOptions.environmentId(),
+        listTrainingDataOptions.collectionId()
+    ));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingDataSet.class));
+  }
+
+  /**
+   * List all examples for this training data query.
+   *
+   * @param listTrainingExamplesOptions the {@link ListTrainingExamplesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link TrainingExampleList}
+   */
+  public ServiceCall<TrainingExampleList> listTrainingExamples(
+      ListTrainingExamplesOptions listTrainingExamplesOptions) {
+    Validator.notNull(listTrainingExamplesOptions, "listTrainingExamplesOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.get(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s/examples",
+        listTrainingExamplesOptions.environmentId(),
+        listTrainingExamplesOptions.collectionId(),
+        listTrainingExamplesOptions.queryId()
+    ));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExampleList.class));
   }
 
   /**
    * Changes the label or cross reference query for this training example.
    *
    * @param updateTrainingExampleOptions the {@link UpdateTrainingExampleOptions} containing the options for the call
-   * @return the {@link TrainingExample} with the response
+   * @return a {@link ServiceCall} with a response type of {@link TrainingExample}
    */
   public ServiceCall<TrainingExample> updateTrainingExample(UpdateTrainingExampleOptions updateTrainingExampleOptions) {
     Validator.notNull(updateTrainingExampleOptions, "updateTrainingExampleOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(
-        String.format("/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
-            updateTrainingExampleOptions.environmentId(),
-            updateTrainingExampleOptions.collectionId(),
-            updateTrainingExampleOptions.queryId(),
-            updateTrainingExampleOptions.exampleId()));
+    RequestBuilder builder = RequestBuilder.put(String.format(
+        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
+        updateTrainingExampleOptions.environmentId(),
+        updateTrainingExampleOptions.collectionId(),
+        updateTrainingExampleOptions.queryId(),
+        updateTrainingExampleOptions.exampleId()
+    ));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateTrainingExampleOptions.crossReference() != null) {

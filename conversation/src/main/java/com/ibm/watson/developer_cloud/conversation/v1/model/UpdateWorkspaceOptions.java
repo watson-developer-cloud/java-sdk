@@ -25,42 +25,42 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class UpdateWorkspaceOptions extends GenericModel {
 
   private String workspaceId;
-  private Map metadata;
-  private List<CreateIntent> intents;
-  private List<CreateEntity> entities;
   private String name;
-  private Boolean learningOptOut;
-  private List<CreateCounterexample> counterexamples;
   private String description;
   private String language;
+  private List<CreateIntent> intents;
+  private List<CreateEntity> entities;
   private List<CreateDialogNode> dialogNodes;
+  private List<CreateCounterexample> counterexamples;
+  private Map metadata;
+  private Boolean learningOptOut;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String workspaceId;
-    private Map metadata;
-    private List<CreateIntent> intents;
-    private List<CreateEntity> entities;
     private String name;
-    private Boolean learningOptOut;
-    private List<CreateCounterexample> counterexamples;
     private String description;
     private String language;
+    private List<CreateIntent> intents;
+    private List<CreateEntity> entities;
     private List<CreateDialogNode> dialogNodes;
+    private List<CreateCounterexample> counterexamples;
+    private Map metadata;
+    private Boolean learningOptOut;
 
     private Builder(UpdateWorkspaceOptions updateWorkspaceOptions) {
       workspaceId = updateWorkspaceOptions.workspaceId;
-      metadata = updateWorkspaceOptions.metadata;
-      intents = updateWorkspaceOptions.intents;
-      entities = updateWorkspaceOptions.entities;
       name = updateWorkspaceOptions.name;
-      learningOptOut = updateWorkspaceOptions.learningOptOut;
-      counterexamples = updateWorkspaceOptions.counterexamples;
       description = updateWorkspaceOptions.description;
       language = updateWorkspaceOptions.language;
+      intents = updateWorkspaceOptions.intents;
+      entities = updateWorkspaceOptions.entities;
       dialogNodes = updateWorkspaceOptions.dialogNodes;
+      counterexamples = updateWorkspaceOptions.counterexamples;
+      metadata = updateWorkspaceOptions.metadata;
+      learningOptOut = updateWorkspaceOptions.learningOptOut;
     }
 
     /**
@@ -118,21 +118,6 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Adds an counterexample to counterexamples.
-     *
-     * @param counterexample the new counterexample
-     * @return the UpdateWorkspaceOptions builder
-     */
-    public Builder addCounterexample(CreateCounterexample counterexample) {
-      Validator.notNull(counterexample, "counterexample cannot be null");
-      if (this.counterexamples == null) {
-        this.counterexamples = new ArrayList<CreateCounterexample>();
-      }
-      this.counterexamples.add(counterexample);
-      return this;
-    }
-
-    /**
      * Adds an dialogNode to dialogNodes.
      *
      * @param dialogNode the new dialogNode
@@ -148,6 +133,21 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
+     * Adds an counterexample to counterexamples.
+     *
+     * @param counterexample the new counterexample
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder addCounterexample(CreateCounterexample counterexample) {
+      Validator.notNull(counterexample, "counterexample cannot be null");
+      if (this.counterexamples == null) {
+        this.counterexamples = new ArrayList<CreateCounterexample>();
+      }
+      this.counterexamples.add(counterexample);
+      return this;
+    }
+
+    /**
      * Set the workspaceId.
      *
      * @param workspaceId the workspaceId
@@ -159,13 +159,35 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the metadata.
+     * Set the name.
      *
-     * @param metadata the metadata
+     * @param name the name
      * @return the UpdateWorkspaceOptions builder
      */
-    public Builder metadata(Map metadata) {
-      this.metadata = metadata;
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    /**
+     * Set the description.
+     *
+     * @param description the description
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder description(String description) {
+      this.description = description;
+      return this;
+    }
+
+    /**
+     * Set the language.
+     *
+     * @param language the language
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder language(String language) {
+      this.language = language;
       return this;
     }
 
@@ -194,24 +216,14 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the name.
+     * Set the dialogNodes.
+     * Existing dialogNodes will be replaced.
      *
-     * @param name the name
+     * @param dialogNodes the dialogNodes
      * @return the UpdateWorkspaceOptions builder
      */
-    public Builder name(String name) {
-      this.name = name;
-      return this;
-    }
-
-    /**
-     * Set the learningOptOut.
-     *
-     * @param learningOptOut the learningOptOut
-     * @return the UpdateWorkspaceOptions builder
-     */
-    public Builder learningOptOut(Boolean learningOptOut) {
-      this.learningOptOut = learningOptOut;
+    public Builder dialogNodes(List<CreateDialogNode> dialogNodes) {
+      this.dialogNodes = dialogNodes;
       return this;
     }
 
@@ -228,36 +240,24 @@ public class UpdateWorkspaceOptions extends GenericModel {
     }
 
     /**
-     * Set the description.
+     * Set the metadata.
      *
-     * @param description the description
+     * @param metadata the metadata
      * @return the UpdateWorkspaceOptions builder
      */
-    public Builder description(String description) {
-      this.description = description;
+    public Builder metadata(Map metadata) {
+      this.metadata = metadata;
       return this;
     }
 
     /**
-     * Set the language.
+     * Set the learningOptOut.
      *
-     * @param language the language
+     * @param learningOptOut the learningOptOut
      * @return the UpdateWorkspaceOptions builder
      */
-    public Builder language(String language) {
-      this.language = language;
-      return this;
-    }
-
-    /**
-     * Set the dialogNodes.
-     * Existing dialogNodes will be replaced.
-     *
-     * @param dialogNodes the dialogNodes
-     * @return the UpdateWorkspaceOptions builder
-     */
-    public Builder dialogNodes(List<CreateDialogNode> dialogNodes) {
-      this.dialogNodes = dialogNodes;
+    public Builder learningOptOut(Boolean learningOptOut) {
+      this.learningOptOut = learningOptOut;
       return this;
     }
   }
@@ -265,15 +265,15 @@ public class UpdateWorkspaceOptions extends GenericModel {
   private UpdateWorkspaceOptions(Builder builder) {
     Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
-    metadata = builder.metadata;
-    intents = builder.intents;
-    entities = builder.entities;
     name = builder.name;
-    learningOptOut = builder.learningOptOut;
-    counterexamples = builder.counterexamples;
     description = builder.description;
     language = builder.language;
+    intents = builder.intents;
+    entities = builder.entities;
     dialogNodes = builder.dialogNodes;
+    counterexamples = builder.counterexamples;
+    metadata = builder.metadata;
+    learningOptOut = builder.learningOptOut;
   }
 
   /**
@@ -297,39 +297,6 @@ public class UpdateWorkspaceOptions extends GenericModel {
   }
 
   /**
-   * Gets the metadata.
-   *
-   * Any metadata related to the workspace.
-   *
-   * @return the metadata
-   */
-  public Map metadata() {
-    return metadata;
-  }
-
-  /**
-   * Gets the intents.
-   *
-   * An array of objects defining the intents for the workspace.
-   *
-   * @return the intents
-   */
-  public List<CreateIntent> intents() {
-    return intents;
-  }
-
-  /**
-   * Gets the entities.
-   *
-   * An array of objects defining the entities for the workspace.
-   *
-   * @return the entities
-   */
-  public List<CreateEntity> entities() {
-    return entities;
-  }
-
-  /**
    * Gets the name.
    *
    * The name of the workspace.
@@ -338,29 +305,6 @@ public class UpdateWorkspaceOptions extends GenericModel {
    */
   public String name() {
     return name;
-  }
-
-  /**
-   * Gets the learningOptOut.
-   *
-   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates
-   * that workspace training data is not to be used.
-   *
-   * @return the learningOptOut
-   */
-  public Boolean learningOptOut() {
-    return learningOptOut;
-  }
-
-  /**
-   * Gets the counterexamples.
-   *
-   * An array of objects defining input examples that have been marked as irrelevant input.
-   *
-   * @return the counterexamples
-   */
-  public List<CreateCounterexample> counterexamples() {
-    return counterexamples;
   }
 
   /**
@@ -386,6 +330,28 @@ public class UpdateWorkspaceOptions extends GenericModel {
   }
 
   /**
+   * Gets the intents.
+   *
+   * An array of objects defining the intents for the workspace.
+   *
+   * @return the intents
+   */
+  public List<CreateIntent> intents() {
+    return intents;
+  }
+
+  /**
+   * Gets the entities.
+   *
+   * An array of objects defining the entities for the workspace.
+   *
+   * @return the entities
+   */
+  public List<CreateEntity> entities() {
+    return entities;
+  }
+
+  /**
    * Gets the dialogNodes.
    *
    * An array of objects defining the nodes in the workspace dialog.
@@ -394,5 +360,39 @@ public class UpdateWorkspaceOptions extends GenericModel {
    */
   public List<CreateDialogNode> dialogNodes() {
     return dialogNodes;
+  }
+
+  /**
+   * Gets the counterexamples.
+   *
+   * An array of objects defining input examples that have been marked as irrelevant input.
+   *
+   * @return the counterexamples
+   */
+  public List<CreateCounterexample> counterexamples() {
+    return counterexamples;
+  }
+
+  /**
+   * Gets the metadata.
+   *
+   * Any metadata related to the workspace.
+   *
+   * @return the metadata
+   */
+  public Map metadata() {
+    return metadata;
+  }
+
+  /**
+   * Gets the learningOptOut.
+   *
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates
+   * that workspace training data is not to be used.
+   *
+   * @return the learningOptOut
+   */
+  public Boolean learningOptOut() {
+    return learningOptOut;
   }
 }

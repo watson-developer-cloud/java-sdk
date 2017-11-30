@@ -15,7 +15,8 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * FaceAge.
+ * Provides age information about a face. If there are more than 10 faces in an image, the response might return the
+ * confidence score `0g.
  */
 public class FaceAge extends GenericModel {
 
@@ -48,8 +49,7 @@ public class FaceAge extends GenericModel {
   /**
    * Gets the score.
    *
-   * The score of a class identified in an image. Scores range from 0-1, with a higher score indicating greater
-   * correlation.
+   * Confidence score for the property. Scores range from 0-1, with a higher score indicating greater correlation.
    *
    * @return the score
    */
