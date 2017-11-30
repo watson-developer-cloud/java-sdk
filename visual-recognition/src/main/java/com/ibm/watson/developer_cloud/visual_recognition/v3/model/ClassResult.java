@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * result of a class within a classifier.
+ * Result of a class within a classifier.
  */
 public class ClassResult extends GenericModel {
 
@@ -40,8 +40,7 @@ public class ClassResult extends GenericModel {
   /**
    * Gets the score.
    *
-   * The score of a class identified in an image. Scores range from 0-1, with a higher score indicating greater
-   * correlation.
+   * Confidence score for the property. Scores range from 0-1, with a higher score indicating greater correlation.
    *
    * @return the score
    */
@@ -52,7 +51,8 @@ public class ClassResult extends GenericModel {
   /**
    * Gets the typeHierarchy.
    *
-   * Type hierarchy, e.g. 'People/Leaders/Presidents/USA/Barack Obama'. Only included if found.
+   * Knowledge graph of the property. For example, `People/Leaders/Presidents/USA/Barack Obama`. Included only if
+   * identified.
    *
    * @return the typeHierarchy
    */

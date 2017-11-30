@@ -25,30 +25,30 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateEntityOptions extends GenericModel {
 
   private String workspaceId;
+  private String entity;
+  private String description;
   private Map metadata;
   private List<CreateValue> values;
   private Boolean fuzzyMatch;
-  private String description;
-  private String entity;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String workspaceId;
+    private String entity;
+    private String description;
     private Map metadata;
     private List<CreateValue> values;
     private Boolean fuzzyMatch;
-    private String description;
-    private String entity;
 
     private Builder(CreateEntityOptions createEntityOptions) {
       workspaceId = createEntityOptions.workspaceId;
+      entity = createEntityOptions.entity;
+      description = createEntityOptions.description;
       metadata = createEntityOptions.metadata;
       values = createEntityOptions.values;
       fuzzyMatch = createEntityOptions.fuzzyMatch;
-      description = createEntityOptions.description;
-      entity = createEntityOptions.entity;
     }
 
     /**
@@ -104,6 +104,28 @@ public class CreateEntityOptions extends GenericModel {
     }
 
     /**
+     * Set the entity.
+     *
+     * @param entity the entity
+     * @return the CreateEntityOptions builder
+     */
+    public Builder entity(String entity) {
+      this.entity = entity;
+      return this;
+    }
+
+    /**
+     * Set the description.
+     *
+     * @param description the description
+     * @return the CreateEntityOptions builder
+     */
+    public Builder description(String description) {
+      this.description = description;
+      return this;
+    }
+
+    /**
      * Set the metadata.
      *
      * @param metadata the metadata
@@ -136,39 +158,17 @@ public class CreateEntityOptions extends GenericModel {
       this.fuzzyMatch = fuzzyMatch;
       return this;
     }
-
-    /**
-     * Set the description.
-     *
-     * @param description the description
-     * @return the CreateEntityOptions builder
-     */
-    public Builder description(String description) {
-      this.description = description;
-      return this;
-    }
-
-    /**
-     * Set the entity.
-     *
-     * @param entity the entity
-     * @return the CreateEntityOptions builder
-     */
-    public Builder entity(String entity) {
-      this.entity = entity;
-      return this;
-    }
   }
 
   private CreateEntityOptions(Builder builder) {
     Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
     Validator.notNull(builder.entity, "entity cannot be null");
     workspaceId = builder.workspaceId;
+    entity = builder.entity;
+    description = builder.description;
     metadata = builder.metadata;
     values = builder.values;
     fuzzyMatch = builder.fuzzyMatch;
-    description = builder.description;
-    entity = builder.entity;
   }
 
   /**
@@ -189,6 +189,28 @@ public class CreateEntityOptions extends GenericModel {
    */
   public String workspaceId() {
     return workspaceId;
+  }
+
+  /**
+   * Gets the entity.
+   *
+   * The name of the entity.
+   *
+   * @return the entity
+   */
+  public String entity() {
+    return entity;
+  }
+
+  /**
+   * Gets the description.
+   *
+   * The description of the entity.
+   *
+   * @return the description
+   */
+  public String description() {
+    return description;
   }
 
   /**
@@ -222,27 +244,5 @@ public class CreateEntityOptions extends GenericModel {
    */
   public Boolean fuzzyMatch() {
     return fuzzyMatch;
-  }
-
-  /**
-   * Gets the description.
-   *
-   * The description of the entity.
-   *
-   * @return the description
-   */
-  public String description() {
-    return description;
-  }
-
-  /**
-   * Gets the entity.
-   *
-   * The name of the entity.
-   *
-   * @return the entity
-   */
-  public String entity() {
-    return entity;
   }
 }

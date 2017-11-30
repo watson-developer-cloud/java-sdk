@@ -15,8 +15,8 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 
 /**
-* For internal use only.
-*/
+ * For internal use only.
+ */
 public class SystemResponse extends DynamicModel {
 
 }

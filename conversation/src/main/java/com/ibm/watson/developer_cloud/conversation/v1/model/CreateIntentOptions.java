@@ -24,24 +24,24 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class CreateIntentOptions extends GenericModel {
 
   private String workspaceId;
-  private List<CreateExample> examples;
-  private String description;
   private String intent;
+  private String description;
+  private List<CreateExample> examples;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String workspaceId;
-    private List<CreateExample> examples;
-    private String description;
     private String intent;
+    private String description;
+    private List<CreateExample> examples;
 
     private Builder(CreateIntentOptions createIntentOptions) {
       workspaceId = createIntentOptions.workspaceId;
-      examples = createIntentOptions.examples;
-      description = createIntentOptions.description;
       intent = createIntentOptions.intent;
+      description = createIntentOptions.description;
+      examples = createIntentOptions.examples;
     }
 
     /**
@@ -97,14 +97,13 @@ public class CreateIntentOptions extends GenericModel {
     }
 
     /**
-     * Set the examples.
-     * Existing examples will be replaced.
+     * Set the intent.
      *
-     * @param examples the examples
+     * @param intent the intent
      * @return the CreateIntentOptions builder
      */
-    public Builder examples(List<CreateExample> examples) {
-      this.examples = examples;
+    public Builder intent(String intent) {
+      this.intent = intent;
       return this;
     }
 
@@ -120,13 +119,14 @@ public class CreateIntentOptions extends GenericModel {
     }
 
     /**
-     * Set the intent.
+     * Set the examples.
+     * Existing examples will be replaced.
      *
-     * @param intent the intent
+     * @param examples the examples
      * @return the CreateIntentOptions builder
      */
-    public Builder intent(String intent) {
-      this.intent = intent;
+    public Builder examples(List<CreateExample> examples) {
+      this.examples = examples;
       return this;
     }
   }
@@ -135,9 +135,9 @@ public class CreateIntentOptions extends GenericModel {
     Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
     Validator.notNull(builder.intent, "intent cannot be null");
     workspaceId = builder.workspaceId;
-    examples = builder.examples;
-    description = builder.description;
     intent = builder.intent;
+    description = builder.description;
+    examples = builder.examples;
   }
 
   /**
@@ -161,14 +161,14 @@ public class CreateIntentOptions extends GenericModel {
   }
 
   /**
-   * Gets the examples.
+   * Gets the intent.
    *
-   * An array of user input examples.
+   * The name of the intent.
    *
-   * @return the examples
+   * @return the intent
    */
-  public List<CreateExample> examples() {
-    return examples;
+  public String intent() {
+    return intent;
   }
 
   /**
@@ -183,13 +183,13 @@ public class CreateIntentOptions extends GenericModel {
   }
 
   /**
-   * Gets the intent.
+   * Gets the examples.
    *
-   * The name of the intent.
+   * An array of user input examples.
    *
-   * @return the intent
+   * @return the examples
    */
-  public String intent() {
-    return intent;
+  public List<CreateExample> examples() {
+    return examples;
   }
 }

@@ -139,7 +139,7 @@ public class GetTrainingExampleOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * the ID of your environment.
+   * The ID of the environment.
    *
    * @return the environmentId
    */
@@ -150,7 +150,7 @@ public class GetTrainingExampleOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * the ID of your collection.
+   * The ID of the collection.
    *
    * @return the collectionId
    */
@@ -161,7 +161,7 @@ public class GetTrainingExampleOptions extends GenericModel {
   /**
    * Gets the queryId.
    *
-   * the ID of the query used for training.
+   * The ID of the query used for training.
    *
    * @return the queryId
    */
@@ -172,7 +172,7 @@ public class GetTrainingExampleOptions extends GenericModel {
   /**
    * Gets the exampleId.
    *
-   * the ID of the document as it is indexed.
+   * The ID of the document as it is indexed.
    *
    * @return the exampleId
    */

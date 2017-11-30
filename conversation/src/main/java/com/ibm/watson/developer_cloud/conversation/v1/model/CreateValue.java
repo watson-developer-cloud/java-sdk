@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -24,9 +25,22 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateValue extends GenericModel {
 
+  /**
+   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   */
+  public interface ValueType {
+    /** synonyms. */
+    String SYNONYMS = "synonyms";
+    /** patterns. */
+    String PATTERNS = "patterns";
+  }
+
   private String value;
   private Map metadata;
   private List<String> synonyms;
+  private List<String> patterns;
+  @SerializedName("type")
+  private String valueType;
 
   /**
    * Builder.
@@ -35,11 +49,15 @@ public class CreateValue extends GenericModel {
     private String value;
     private Map metadata;
     private List<String> synonyms;
+    private List<String> patterns;
+    private String valueType;
 
     private Builder(CreateValue createValue) {
       value = createValue.value;
       metadata = createValue.metadata;
       synonyms = createValue.synonyms;
+      patterns = createValue.patterns;
+      valueType = createValue.valueType;
     }
 
     /**
@@ -82,6 +100,21 @@ public class CreateValue extends GenericModel {
     }
 
     /**
+     * Adds an patterns to patterns.
+     *
+     * @param patterns the new patterns
+     * @return the CreateValue builder
+     */
+    public Builder addPatterns(String patterns) {
+      Validator.notNull(patterns, "patterns cannot be null");
+      if (this.patterns == null) {
+        this.patterns = new ArrayList<String>();
+      }
+      this.patterns.add(patterns);
+      return this;
+    }
+
+    /**
      * Set the value.
      *
      * @param value the value
@@ -114,6 +147,29 @@ public class CreateValue extends GenericModel {
       this.synonyms = synonyms;
       return this;
     }
+
+    /**
+     * Set the patterns.
+     * Existing patterns will be replaced.
+     *
+     * @param patterns the patterns
+     * @return the CreateValue builder
+     */
+    public Builder patterns(List<String> patterns) {
+      this.patterns = patterns;
+      return this;
+    }
+
+    /**
+     * Set the valueType.
+     *
+     * @param valueType the valueType
+     * @return the CreateValue builder
+     */
+    public Builder valueType(String valueType) {
+      this.valueType = valueType;
+      return this;
+    }
   }
 
   private CreateValue(Builder builder) {
@@ -121,6 +177,8 @@ public class CreateValue extends GenericModel {
     value = builder.value;
     metadata = builder.metadata;
     synonyms = builder.synonyms;
+    patterns = builder.patterns;
+    valueType = builder.valueType;
   }
 
   /**
@@ -163,5 +221,27 @@ public class CreateValue extends GenericModel {
    */
   public List<String> synonyms() {
     return synonyms;
+  }
+
+  /**
+   * Gets the patterns.
+   *
+   * An array of patterns for the entity value. A pattern is specified as a regular expression.
+   *
+   * @return the patterns
+   */
+  public List<String> patterns() {
+    return patterns;
+  }
+
+  /**
+   * Gets the valueType.
+   *
+   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   *
+   * @return the valueType
+   */
+  public String valueType() {
+    return valueType;
   }
 }

@@ -63,57 +63,57 @@ public class CreateDialogNodeOptions extends GenericModel {
   }
 
   private String workspaceId;
-  private String parent;
-  private Map metadata;
-  private String description;
-  private String nodeType;
-  private String title;
-  private Map output;
-  private DialogNodeNextStep nextStep;
-  private String variable;
-  private Map context;
-  private String eventName;
-  private String previousSibling;
-  private String conditions;
-  private List<DialogNodeAction> actions;
   private String dialogNode;
+  private String description;
+  private String conditions;
+  private String parent;
+  private String previousSibling;
+  private Map output;
+  private Map context;
+  private Map metadata;
+  private DialogNodeNextStep nextStep;
+  private List<DialogNodeAction> actions;
+  private String title;
+  private String nodeType;
+  private String eventName;
+  private String variable;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String workspaceId;
-    private String parent;
-    private Map metadata;
-    private String description;
-    private String nodeType;
-    private String title;
-    private Map output;
-    private DialogNodeNextStep nextStep;
-    private String variable;
-    private Map context;
-    private String eventName;
-    private String previousSibling;
-    private String conditions;
-    private List<DialogNodeAction> actions;
     private String dialogNode;
+    private String description;
+    private String conditions;
+    private String parent;
+    private String previousSibling;
+    private Map output;
+    private Map context;
+    private Map metadata;
+    private DialogNodeNextStep nextStep;
+    private List<DialogNodeAction> actions;
+    private String title;
+    private String nodeType;
+    private String eventName;
+    private String variable;
 
     private Builder(CreateDialogNodeOptions createDialogNodeOptions) {
       workspaceId = createDialogNodeOptions.workspaceId;
-      parent = createDialogNodeOptions.parent;
-      metadata = createDialogNodeOptions.metadata;
-      description = createDialogNodeOptions.description;
-      nodeType = createDialogNodeOptions.nodeType;
-      title = createDialogNodeOptions.title;
-      output = createDialogNodeOptions.output;
-      nextStep = createDialogNodeOptions.nextStep;
-      variable = createDialogNodeOptions.variable;
-      context = createDialogNodeOptions.context;
-      eventName = createDialogNodeOptions.eventName;
-      previousSibling = createDialogNodeOptions.previousSibling;
-      conditions = createDialogNodeOptions.conditions;
-      actions = createDialogNodeOptions.actions;
       dialogNode = createDialogNodeOptions.dialogNode;
+      description = createDialogNodeOptions.description;
+      conditions = createDialogNodeOptions.conditions;
+      parent = createDialogNodeOptions.parent;
+      previousSibling = createDialogNodeOptions.previousSibling;
+      output = createDialogNodeOptions.output;
+      context = createDialogNodeOptions.context;
+      metadata = createDialogNodeOptions.metadata;
+      nextStep = createDialogNodeOptions.nextStep;
+      actions = createDialogNodeOptions.actions;
+      title = createDialogNodeOptions.title;
+      nodeType = createDialogNodeOptions.nodeType;
+      eventName = createDialogNodeOptions.eventName;
+      variable = createDialogNodeOptions.variable;
     }
 
     /**
@@ -169,24 +169,13 @@ public class CreateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the parent.
+     * Set the dialogNode.
      *
-     * @param parent the parent
+     * @param dialogNode the dialogNode
      * @return the CreateDialogNodeOptions builder
      */
-    public Builder parent(String parent) {
-      this.parent = parent;
-      return this;
-    }
-
-    /**
-     * Set the metadata.
-     *
-     * @param metadata the metadata
-     * @return the CreateDialogNodeOptions builder
-     */
-    public Builder metadata(Map metadata) {
-      this.metadata = metadata;
+    public Builder dialogNode(String dialogNode) {
+      this.dialogNode = dialogNode;
       return this;
     }
 
@@ -202,79 +191,24 @@ public class CreateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the nodeType.
+     * Set the conditions.
      *
-     * @param nodeType the nodeType
+     * @param conditions the conditions
      * @return the CreateDialogNodeOptions builder
      */
-    public Builder nodeType(String nodeType) {
-      this.nodeType = nodeType;
+    public Builder conditions(String conditions) {
+      this.conditions = conditions;
       return this;
     }
 
     /**
-     * Set the title.
+     * Set the parent.
      *
-     * @param title the title
+     * @param parent the parent
      * @return the CreateDialogNodeOptions builder
      */
-    public Builder title(String title) {
-      this.title = title;
-      return this;
-    }
-
-    /**
-     * Set the output.
-     *
-     * @param output the output
-     * @return the CreateDialogNodeOptions builder
-     */
-    public Builder output(Map output) {
-      this.output = output;
-      return this;
-    }
-
-    /**
-     * Set the nextStep.
-     *
-     * @param nextStep the nextStep
-     * @return the CreateDialogNodeOptions builder
-     */
-    public Builder nextStep(DialogNodeNextStep nextStep) {
-      this.nextStep = nextStep;
-      return this;
-    }
-
-    /**
-     * Set the variable.
-     *
-     * @param variable the variable
-     * @return the CreateDialogNodeOptions builder
-     */
-    public Builder variable(String variable) {
-      this.variable = variable;
-      return this;
-    }
-
-    /**
-     * Set the context.
-     *
-     * @param context the context
-     * @return the CreateDialogNodeOptions builder
-     */
-    public Builder context(Map context) {
-      this.context = context;
-      return this;
-    }
-
-    /**
-     * Set the eventName.
-     *
-     * @param eventName the eventName
-     * @return the CreateDialogNodeOptions builder
-     */
-    public Builder eventName(String eventName) {
-      this.eventName = eventName;
+    public Builder parent(String parent) {
+      this.parent = parent;
       return this;
     }
 
@@ -290,13 +224,46 @@ public class CreateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the conditions.
+     * Set the output.
      *
-     * @param conditions the conditions
+     * @param output the output
      * @return the CreateDialogNodeOptions builder
      */
-    public Builder conditions(String conditions) {
-      this.conditions = conditions;
+    public Builder output(Map output) {
+      this.output = output;
+      return this;
+    }
+
+    /**
+     * Set the context.
+     *
+     * @param context the context
+     * @return the CreateDialogNodeOptions builder
+     */
+    public Builder context(Map context) {
+      this.context = context;
+      return this;
+    }
+
+    /**
+     * Set the metadata.
+     *
+     * @param metadata the metadata
+     * @return the CreateDialogNodeOptions builder
+     */
+    public Builder metadata(Map metadata) {
+      this.metadata = metadata;
+      return this;
+    }
+
+    /**
+     * Set the nextStep.
+     *
+     * @param nextStep the nextStep
+     * @return the CreateDialogNodeOptions builder
+     */
+    public Builder nextStep(DialogNodeNextStep nextStep) {
+      this.nextStep = nextStep;
       return this;
     }
 
@@ -313,13 +280,46 @@ public class CreateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the dialogNode.
+     * Set the title.
      *
-     * @param dialogNode the dialogNode
+     * @param title the title
      * @return the CreateDialogNodeOptions builder
      */
-    public Builder dialogNode(String dialogNode) {
-      this.dialogNode = dialogNode;
+    public Builder title(String title) {
+      this.title = title;
+      return this;
+    }
+
+    /**
+     * Set the nodeType.
+     *
+     * @param nodeType the nodeType
+     * @return the CreateDialogNodeOptions builder
+     */
+    public Builder nodeType(String nodeType) {
+      this.nodeType = nodeType;
+      return this;
+    }
+
+    /**
+     * Set the eventName.
+     *
+     * @param eventName the eventName
+     * @return the CreateDialogNodeOptions builder
+     */
+    public Builder eventName(String eventName) {
+      this.eventName = eventName;
+      return this;
+    }
+
+    /**
+     * Set the variable.
+     *
+     * @param variable the variable
+     * @return the CreateDialogNodeOptions builder
+     */
+    public Builder variable(String variable) {
+      this.variable = variable;
       return this;
     }
   }
@@ -328,20 +328,20 @@ public class CreateDialogNodeOptions extends GenericModel {
     Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
     Validator.notNull(builder.dialogNode, "dialogNode cannot be null");
     workspaceId = builder.workspaceId;
-    parent = builder.parent;
-    metadata = builder.metadata;
-    description = builder.description;
-    nodeType = builder.nodeType;
-    title = builder.title;
-    output = builder.output;
-    nextStep = builder.nextStep;
-    variable = builder.variable;
-    context = builder.context;
-    eventName = builder.eventName;
-    previousSibling = builder.previousSibling;
-    conditions = builder.conditions;
-    actions = builder.actions;
     dialogNode = builder.dialogNode;
+    description = builder.description;
+    conditions = builder.conditions;
+    parent = builder.parent;
+    previousSibling = builder.previousSibling;
+    output = builder.output;
+    context = builder.context;
+    metadata = builder.metadata;
+    nextStep = builder.nextStep;
+    actions = builder.actions;
+    title = builder.title;
+    nodeType = builder.nodeType;
+    eventName = builder.eventName;
+    variable = builder.variable;
   }
 
   /**
@@ -365,25 +365,14 @@ public class CreateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the parent.
+   * Gets the dialogNode.
    *
-   * The ID of the parent dialog node (if any).
+   * The dialog node ID.
    *
-   * @return the parent
+   * @return the dialogNode
    */
-  public String parent() {
-    return parent;
-  }
-
-  /**
-   * Gets the metadata.
-   *
-   * The metadata for the dialog node.
-   *
-   * @return the metadata
-   */
-  public Map metadata() {
-    return metadata;
+  public String dialogNode() {
+    return dialogNode;
   }
 
   /**
@@ -398,80 +387,25 @@ public class CreateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the nodeType.
+   * Gets the conditions.
    *
-   * How the dialog node is processed.
+   * The condition that will trigger the dialog node.
    *
-   * @return the nodeType
+   * @return the conditions
    */
-  public String nodeType() {
-    return nodeType;
+  public String conditions() {
+    return conditions;
   }
 
   /**
-   * Gets the title.
+   * Gets the parent.
    *
-   * The alias used to identify the dialog node.
+   * The ID of the parent dialog node (if any).
    *
-   * @return the title
+   * @return the parent
    */
-  public String title() {
-    return title;
-  }
-
-  /**
-   * Gets the output.
-   *
-   * The output of the dialog node.
-   *
-   * @return the output
-   */
-  public Map output() {
-    return output;
-  }
-
-  /**
-   * Gets the nextStep.
-   *
-   * The next step to execute following this dialog node.
-   *
-   * @return the nextStep
-   */
-  public DialogNodeNextStep nextStep() {
-    return nextStep;
-  }
-
-  /**
-   * Gets the variable.
-   *
-   * The location in the dialog context where output is stored.
-   *
-   * @return the variable
-   */
-  public String variable() {
-    return variable;
-  }
-
-  /**
-   * Gets the context.
-   *
-   * The context for the dialog node.
-   *
-   * @return the context
-   */
-  public Map context() {
-    return context;
-  }
-
-  /**
-   * Gets the eventName.
-   *
-   * How an `event_handler` node is processed.
-   *
-   * @return the eventName
-   */
-  public String eventName() {
-    return eventName;
+  public String parent() {
+    return parent;
   }
 
   /**
@@ -486,14 +420,47 @@ public class CreateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the conditions.
+   * Gets the output.
    *
-   * The condition that will trigger the dialog node.
+   * The output of the dialog node.
    *
-   * @return the conditions
+   * @return the output
    */
-  public String conditions() {
-    return conditions;
+  public Map output() {
+    return output;
+  }
+
+  /**
+   * Gets the context.
+   *
+   * The context for the dialog node.
+   *
+   * @return the context
+   */
+  public Map context() {
+    return context;
+  }
+
+  /**
+   * Gets the metadata.
+   *
+   * The metadata for the dialog node.
+   *
+   * @return the metadata
+   */
+  public Map metadata() {
+    return metadata;
+  }
+
+  /**
+   * Gets the nextStep.
+   *
+   * The next step to execute following this dialog node.
+   *
+   * @return the nextStep
+   */
+  public DialogNodeNextStep nextStep() {
+    return nextStep;
   }
 
   /**
@@ -508,13 +475,46 @@ public class CreateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the dialogNode.
+   * Gets the title.
    *
-   * The dialog node ID.
+   * The alias used to identify the dialog node.
    *
-   * @return the dialogNode
+   * @return the title
    */
-  public String dialogNode() {
-    return dialogNode;
+  public String title() {
+    return title;
+  }
+
+  /**
+   * Gets the nodeType.
+   *
+   * How the dialog node is processed.
+   *
+   * @return the nodeType
+   */
+  public String nodeType() {
+    return nodeType;
+  }
+
+  /**
+   * Gets the eventName.
+   *
+   * How an `event_handler` node is processed.
+   *
+   * @return the eventName
+   */
+  public String eventName() {
+    return eventName;
+  }
+
+  /**
+   * Gets the variable.
+   *
+   * The location in the dialog context where output is stored.
+   *
+   * @return the variable
+   */
+  public String variable() {
+    return variable;
   }
 }

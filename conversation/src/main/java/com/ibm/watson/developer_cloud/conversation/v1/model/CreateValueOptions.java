@@ -24,11 +24,23 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateValueOptions extends GenericModel {
 
+  /**
+   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   */
+  public interface ValueType {
+    /** synonyms. */
+    String SYNONYMS = "synonyms";
+    /** patterns. */
+    String PATTERNS = "patterns";
+  }
+
   private String workspaceId;
   private String entity;
+  private String value;
   private Map metadata;
   private List<String> synonyms;
-  private String value;
+  private List<String> patterns;
+  private String valueType;
 
   /**
    * Builder.
@@ -36,16 +48,20 @@ public class CreateValueOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private String entity;
+    private String value;
     private Map metadata;
     private List<String> synonyms;
-    private String value;
+    private List<String> patterns;
+    private String valueType;
 
     private Builder(CreateValueOptions createValueOptions) {
       workspaceId = createValueOptions.workspaceId;
       entity = createValueOptions.entity;
+      value = createValueOptions.value;
       metadata = createValueOptions.metadata;
       synonyms = createValueOptions.synonyms;
-      value = createValueOptions.value;
+      patterns = createValueOptions.patterns;
+      valueType = createValueOptions.valueType;
     }
 
     /**
@@ -92,6 +108,21 @@ public class CreateValueOptions extends GenericModel {
     }
 
     /**
+     * Adds an patterns to patterns.
+     *
+     * @param patterns the new patterns
+     * @return the CreateValueOptions builder
+     */
+    public Builder addPatterns(String patterns) {
+      Validator.notNull(patterns, "patterns cannot be null");
+      if (this.patterns == null) {
+        this.patterns = new ArrayList<String>();
+      }
+      this.patterns.add(patterns);
+      return this;
+    }
+
+    /**
      * Set the workspaceId.
      *
      * @param workspaceId the workspaceId
@@ -110,6 +141,17 @@ public class CreateValueOptions extends GenericModel {
      */
     public Builder entity(String entity) {
       this.entity = entity;
+      return this;
+    }
+
+    /**
+     * Set the value.
+     *
+     * @param value the value
+     * @return the CreateValueOptions builder
+     */
+    public Builder value(String value) {
+      this.value = value;
       return this;
     }
 
@@ -137,13 +179,25 @@ public class CreateValueOptions extends GenericModel {
     }
 
     /**
-     * Set the value.
+     * Set the patterns.
+     * Existing patterns will be replaced.
      *
-     * @param value the value
+     * @param patterns the patterns
      * @return the CreateValueOptions builder
      */
-    public Builder value(String value) {
-      this.value = value;
+    public Builder patterns(List<String> patterns) {
+      this.patterns = patterns;
+      return this;
+    }
+
+    /**
+     * Set the valueType.
+     *
+     * @param valueType the valueType
+     * @return the CreateValueOptions builder
+     */
+    public Builder valueType(String valueType) {
+      this.valueType = valueType;
       return this;
     }
   }
@@ -154,9 +208,11 @@ public class CreateValueOptions extends GenericModel {
     Validator.notNull(builder.value, "value cannot be null");
     workspaceId = builder.workspaceId;
     entity = builder.entity;
+    value = builder.value;
     metadata = builder.metadata;
     synonyms = builder.synonyms;
-    value = builder.value;
+    patterns = builder.patterns;
+    valueType = builder.valueType;
   }
 
   /**
@@ -191,6 +247,17 @@ public class CreateValueOptions extends GenericModel {
   }
 
   /**
+   * Gets the value.
+   *
+   * The text of the entity value.
+   *
+   * @return the value
+   */
+  public String value() {
+    return value;
+  }
+
+  /**
    * Gets the metadata.
    *
    * Any metadata related to the entity value.
@@ -213,13 +280,24 @@ public class CreateValueOptions extends GenericModel {
   }
 
   /**
-   * Gets the value.
+   * Gets the patterns.
    *
-   * The text of the entity value.
+   * An array of patterns for the entity value. A pattern is specified as a regular expression.
    *
-   * @return the value
+   * @return the patterns
    */
-  public String value() {
-    return value;
+  public List<String> patterns() {
+    return patterns;
+  }
+
+  /**
+   * Gets the valueType.
+   *
+   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   *
+   * @return the valueType
+   */
+  public String valueType() {
+    return valueType;
   }
 }

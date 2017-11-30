@@ -144,7 +144,10 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     service1.setEndPoint(getMockWebServerUrl());
 
     server.enqueue(jsonResponse(analyzeResults));
-    final AnalysisResults response = service1.analyze(null).execute();
+    Features features = new Features.Builder().concepts(null).categories(null).emotion(null)
+        .entities(null).keywords(null).metadata(null).relations(null).semanticRoles(null).sentiment(null).build();
+    AnalyzeOptions.Builder builder = new AnalyzeOptions.Builder().features(features);
+    final AnalysisResults response = service1.analyze(builder.build()).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals(ANALYZE_PATH, request.getPath());

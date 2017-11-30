@@ -460,6 +460,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
+    builder.filename("test_file");
     builder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -479,6 +480,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
     builder.file(documentStream);
+    builder.filename("test_file");
     builder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -498,6 +500,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
+    builder.filename("test_file");
     builder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -524,6 +527,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     AddDocumentOptions.Builder builder = new AddDocumentOptions.Builder(environmentId, collectionId);
     builder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
+    builder.filename("test_file");
     builder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.addDocument(builder.build()).execute();
     RecordedRequest request = server.takeRequest();
@@ -546,6 +550,7 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     InputStream documentStream = new ByteArrayInputStream(myDocumentJson.getBytes());
     updateBuilder.file(documentStream).fileContentType(HttpMediaType.APPLICATION_JSON);
+    updateBuilder.filename("test_file");
     updateBuilder.metadata(myMetadata.toString());
     DocumentAccepted response = discoveryService.updateDocument(updateBuilder.build()).execute();
     RecordedRequest request = server.takeRequest();

@@ -23,6 +23,9 @@ public class IndexCapacity extends GenericModel {
   private EnvironmentDocuments documents;
   @SerializedName("disk_usage")
   private DiskUsage diskUsage;
+  private CollectionUsage collections;
+  @SerializedName("memory_usage")
+  private MemoryUsage memoryUsage;
 
   /**
    * Gets the documents.
@@ -47,6 +50,28 @@ public class IndexCapacity extends GenericModel {
   }
 
   /**
+   * Gets the collections.
+   *
+   * Summary of the collection usage in the environment.
+   *
+   * @return the collections
+   */
+  public CollectionUsage getCollections() {
+    return collections;
+  }
+
+  /**
+   * Gets the memoryUsage.
+   *
+   * **Deprecated**: Summary of the memory usage of the environment.
+   *
+   * @return the memoryUsage
+   */
+  public MemoryUsage getMemoryUsage() {
+    return memoryUsage;
+  }
+
+  /**
    * Sets the documents.
    *
    * @param documents the new documents
@@ -62,5 +87,23 @@ public class IndexCapacity extends GenericModel {
    */
   public void setDiskUsage(final DiskUsage diskUsage) {
     this.diskUsage = diskUsage;
+  }
+
+  /**
+   * Sets the collections.
+   *
+   * @param collections the new collections
+   */
+  public void setCollections(final CollectionUsage collections) {
+    this.collections = collections;
+  }
+
+  /**
+   * Sets the memoryUsage.
+   *
+   * @param memoryUsage the new memoryUsage
+   */
+  public void setMemoryUsage(final MemoryUsage memoryUsage) {
+    this.memoryUsage = memoryUsage;
   }
 }
