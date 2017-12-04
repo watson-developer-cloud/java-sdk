@@ -111,17 +111,17 @@ public class UpdateValueOptions extends GenericModel {
     }
 
     /**
-     * Adds an newPatterns to newPatterns.
+     * Adds an pattern to newPatterns.
      *
-     * @param newPatterns the new newPatterns
+     * @param pattern the new pattern
      * @return the UpdateValueOptions builder
      */
-    public Builder addNewPatterns(String newPatterns) {
-      Validator.notNull(newPatterns, "newPatterns cannot be null");
+    public Builder addPattern(String pattern) {
+      Validator.notNull(pattern, "pattern cannot be null");
       if (this.newPatterns == null) {
         this.newPatterns = new ArrayList<String>();
       }
-      this.newPatterns.add(newPatterns);
+      this.newPatterns.add(pattern);
       return this;
     }
 

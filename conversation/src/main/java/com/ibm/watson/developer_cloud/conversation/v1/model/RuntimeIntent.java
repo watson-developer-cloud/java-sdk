@@ -22,9 +22,10 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * An intent identified in the user input.
  */
 public class RuntimeIntent extends DynamicModel {
-  private Type intentType = new TypeToken<String>() { } .getType();
-  private Type confidenceType = new TypeToken<Double>() { } .getType();
-
+  private Type intentType = new TypeToken<String>() {
+  }.getType();
+  private Type confidenceType = new TypeToken<Double>() {
+  }.getType();
 
   /**
    * Gets the intent.
@@ -62,4 +63,3 @@ public class RuntimeIntent extends DynamicModel {
     this.put("confidence", confidence);
   }
 }
-

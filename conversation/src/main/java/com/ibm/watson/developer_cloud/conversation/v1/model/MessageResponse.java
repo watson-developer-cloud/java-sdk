@@ -23,13 +23,18 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * A response from the Conversation service.
  */
 public class MessageResponse extends DynamicModel {
-  private Type inputType = new TypeToken<MessageInput>() { } .getType();
-  private Type intentsType = new TypeToken<List<RuntimeIntent>>() { } .getType();
-  private Type entitiesType = new TypeToken<List<RuntimeEntity>>() { } .getType();
-  private Type alternateIntentsType = new TypeToken<Boolean>() { } .getType();
-  private Type contextType = new TypeToken<Context>() { } .getType();
-  private Type outputType = new TypeToken<OutputData>() { } .getType();
-
+  private Type inputType = new TypeToken<MessageInput>() {
+  }.getType();
+  private Type intentsType = new TypeToken<List<RuntimeIntent>>() {
+  }.getType();
+  private Type entitiesType = new TypeToken<List<RuntimeEntity>>() {
+  }.getType();
+  private Type alternateIntentsType = new TypeToken<Boolean>() {
+  }.getType();
+  private Type contextType = new TypeToken<Context>() {
+  }.getType();
+  private Type outputType = new TypeToken<OutputData>() {
+  }.getType();
 
   /**
    * Gets the input.
@@ -118,7 +123,7 @@ public class MessageResponse extends DynamicModel {
    * @param alternateIntents the new alternateIntents
    */
   public void setAlternateIntents(final Boolean alternateIntents) {
-    this.put("alternate_intents", alternateIntents);
+    this.put("alternateIntents", alternateIntents);
   }
 
   /**
@@ -139,4 +144,3 @@ public class MessageResponse extends DynamicModel {
     this.put("output", output);
   }
 }
-
