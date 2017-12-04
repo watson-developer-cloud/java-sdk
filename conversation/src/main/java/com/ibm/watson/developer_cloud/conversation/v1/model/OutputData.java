@@ -63,7 +63,7 @@ public class OutputData extends DynamicModel {
    * @param logMessages the new logMessages
    */
   public void setLogMessages(final List<LogMessage> logMessages) {
-    this.put("logMessages", logMessages);
+    this.put("log_messages", logMessages);
   }
 
   /**
@@ -81,6 +81,6 @@ public class OutputData extends DynamicModel {
    * @param nodesVisited the new nodesVisited
    */
   public void setNodesVisited(final List<String> nodesVisited) {
-    this.put("nodesVisited", nodesVisited);
+    this.put("nodes_visited", nodesVisited);
   }
 }

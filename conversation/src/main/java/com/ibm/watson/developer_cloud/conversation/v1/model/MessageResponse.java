@@ -123,7 +123,7 @@ public class MessageResponse extends DynamicModel {
    * @param alternateIntents the new alternateIntents
    */
   public void setAlternateIntents(final Boolean alternateIntents) {
-    this.put("alternateIntents", alternateIntents);
+    this.put("alternate_intents", alternateIntents);
   }
 
   /**
