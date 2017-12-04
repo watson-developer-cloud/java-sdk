@@ -23,9 +23,10 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * conversation.
  */
 public class Context extends DynamicModel {
-  private Type conversationIdType = new TypeToken<String>() { } .getType();
-  private Type systemType = new TypeToken<SystemResponse>() { } .getType();
-
+  private Type conversationIdType = new TypeToken<String>() {
+  }.getType();
+  private Type systemType = new TypeToken<SystemResponse>() {
+  }.getType();
 
   /**
    * Gets the conversationId.
@@ -51,7 +52,7 @@ public class Context extends DynamicModel {
    * @param conversationId the new conversationId
    */
   public void setConversationId(final String conversationId) {
-    this.put("conversation_id", conversationId);
+    this.put("conversationId", conversationId);
   }
 
   /**
@@ -63,4 +64,3 @@ public class Context extends DynamicModel {
     this.put("system", system);
   }
 }
-

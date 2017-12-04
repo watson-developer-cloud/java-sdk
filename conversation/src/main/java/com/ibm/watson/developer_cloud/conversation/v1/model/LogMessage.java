@@ -34,9 +34,10 @@ public class LogMessage extends DynamicModel {
     String WARN = "warn";
   }
 
-  private Type levelType = new TypeToken<String>() { } .getType();
-  private Type msgType = new TypeToken<String>() { } .getType();
-
+  private Type levelType = new TypeToken<String>() {
+  }.getType();
+  private Type msgType = new TypeToken<String>() {
+  }.getType();
 
   /**
    * Gets the level.
@@ -74,4 +75,3 @@ public class LogMessage extends DynamicModel {
     this.put("msg", msg);
   }
 }
-

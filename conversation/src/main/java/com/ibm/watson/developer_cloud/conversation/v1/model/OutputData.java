@@ -23,10 +23,12 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * An output object that includes the response to the user, the nodes that were hit, and messages from the log.
  */
 public class OutputData extends DynamicModel {
-  private Type logMessagesType = new TypeToken<List<LogMessage>>() { } .getType();
-  private Type textType = new TypeToken<List<String>>() { } .getType();
-  private Type nodesVisitedType = new TypeToken<List<String>>() { } .getType();
-
+  private Type logMessagesType = new TypeToken<List<LogMessage>>() {
+  }.getType();
+  private Type textType = new TypeToken<List<String>>() {
+  }.getType();
+  private Type nodesVisitedType = new TypeToken<List<String>>() {
+  }.getType();
 
   /**
    * Gets the logMessages.
@@ -61,7 +63,7 @@ public class OutputData extends DynamicModel {
    * @param logMessages the new logMessages
    */
   public void setLogMessages(final List<LogMessage> logMessages) {
-    this.put("log_messages", logMessages);
+    this.put("logMessages", logMessages);
   }
 
   /**
@@ -79,7 +81,6 @@ public class OutputData extends DynamicModel {
    * @param nodesVisited the new nodesVisited
    */
   public void setNodesVisited(final List<String> nodesVisited) {
-    this.put("nodes_visited", nodesVisited);
+    this.put("nodesVisited", nodesVisited);
   }
 }
-

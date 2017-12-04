@@ -24,12 +24,16 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * A term from the request that was identified as an entity.
  */
 public class RuntimeEntity extends DynamicModel {
-  private Type entityType = new TypeToken<String>() { } .getType();
-  private Type locationType = new TypeToken<List<Long>>() { } .getType();
-  private Type valueType = new TypeToken<String>() { } .getType();
-  private Type confidenceType = new TypeToken<Double>() { } .getType();
-  private Type metadataType = new TypeToken<Map>() { } .getType();
-
+  private Type entityType = new TypeToken<String>() {
+  }.getType();
+  private Type locationType = new TypeToken<List<Long>>() {
+  }.getType();
+  private Type valueType = new TypeToken<String>() {
+  }.getType();
+  private Type confidenceType = new TypeToken<Double>() {
+  }.getType();
+  private Type metadataType = new TypeToken<Map>() {
+  }.getType();
 
   /**
    * Gets the entity.
@@ -121,4 +125,3 @@ public class RuntimeEntity extends DynamicModel {
     this.put("metadata", metadata);
   }
 }
-

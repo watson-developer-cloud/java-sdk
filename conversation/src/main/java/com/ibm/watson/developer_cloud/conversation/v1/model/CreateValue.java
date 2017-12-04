@@ -100,17 +100,17 @@ public class CreateValue extends GenericModel {
     }
 
     /**
-     * Adds an patterns to patterns.
+     * Adds an pattern to patterns.
      *
-     * @param patterns the new patterns
+     * @param pattern the new pattern
      * @return the CreateValue builder
      */
-    public Builder addPatterns(String patterns) {
-      Validator.notNull(patterns, "patterns cannot be null");
+    public Builder addPattern(String pattern) {
+      Validator.notNull(pattern, "pattern cannot be null");
       if (this.patterns == null) {
         this.patterns = new ArrayList<String>();
       }
-      this.patterns.add(patterns);
+      this.patterns.add(pattern);
       return this;
     }
 

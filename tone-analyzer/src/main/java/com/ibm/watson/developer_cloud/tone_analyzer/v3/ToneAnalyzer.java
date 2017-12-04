@@ -128,15 +128,15 @@ public class ToneAnalyzer extends WatsonService {
       builder.header("Accept-Language", toneOptions.acceptLanguage());
     }
     if (toneOptions.sentences() != null) {
-    builder.query("sentences", String.valueOf(toneOptions.sentences()));
+      builder.query("sentences", String.valueOf(toneOptions.sentences()));
     }
     if (toneOptions.tones() != null) {
-    builder.query("tones", RequestUtils.join(toneOptions.tones(), ","));
+      builder.query("tones", RequestUtils.join(toneOptions.tones(), ","));
     }
     if (toneOptions.contentType().equalsIgnoreCase(ToneOptions.ContentType.APPLICATION_JSON)) {
-        builder.bodyJson(GsonSingleton.getGson().toJsonTree(toneOptions.toneInput()).getAsJsonObject());
+      builder.bodyJson(GsonSingleton.getGson().toJsonTree(toneOptions.toneInput()).getAsJsonObject());
     } else {
-        builder.bodyContent(toneOptions.body(), toneOptions.contentType());
+      builder.bodyContent(toneOptions.body(), toneOptions.contentType());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ToneAnalysis.class));
   }
