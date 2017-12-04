@@ -52,7 +52,7 @@ public class Context extends DynamicModel {
    * @param conversationId the new conversationId
    */
   public void setConversationId(final String conversationId) {
-    this.put("conversationId", conversationId);
+    this.put("conversation_id", conversationId);
   }
 
   /**
