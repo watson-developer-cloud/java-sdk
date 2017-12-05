@@ -46,9 +46,9 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the destinationField.
    *
-   * Field where enrichments will be stored. This field must already exist or be at most 1 level deeper than an
-   * existing field. For example, if `text` is a top-level field with no sub-fields, `text.foo` is a valid
-   * destination \but `text.foo.bar` is not.
+   * Field where enrichments will be stored. This field must already exist or be at most 1 level deeper than an existing
+   * field. For example, if `text` is a top-level field with no sub-fields, `text.foo` is a valid destination but
+   * `text.foo.bar` is not.
    *
    * @return the destinationField
    */
@@ -93,7 +93,7 @@ public class Enrichment extends GenericModel {
    * Gets the ignoreDownstreamErrors.
    *
    * If true, then most errors generated during the enrichment process will be treated as warnings and will not cause
-   * \the document to fail processing.
+   * the document to fail processing.
    *
    * @return the ignoreDownstreamErrors
    */
@@ -104,7 +104,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the options.
    *
-   * A list of options specific to the enrichment.
+   * A list of options specific to the enrichment
    *
    * @return the options
    */

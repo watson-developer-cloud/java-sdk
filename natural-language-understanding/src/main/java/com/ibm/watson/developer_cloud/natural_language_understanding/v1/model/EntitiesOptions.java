@@ -134,7 +134,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
-   * Maximum number of entities to return.
+   * Maximum number of entities to return
    *
    * @return the limit
    */
@@ -145,7 +145,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the mentions.
    *
-   * Set this to true to return locations of entity mentions.
+   * Set this to true to return locations of entity mentions
    *
    * @return the mentions
    */
@@ -156,7 +156,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the model.
    *
-   * Enter a custom model ID to override the standard entity detection model.
+   * Enter a custom model ID to override the standard entity detection model
    *
    * @return the model
    */
@@ -167,7 +167,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * Set this to true to return sentiment information for detected entities.
+   * Set this to true to return sentiment information for detected entities
    *
    * @return the sentiment
    */
@@ -178,7 +178,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * Set this to true to analyze emotion for detected keywords.
+   * Set this to true to analyze emotion for detected keywords
    *
    * @return the emotion
    */

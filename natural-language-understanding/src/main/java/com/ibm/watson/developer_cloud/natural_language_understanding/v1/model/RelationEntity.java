@@ -15,7 +15,7 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * The entities extracted from a sentence in a given document.
+ * An entity that corresponds with an argument in a relation.
  */
 public class RelationEntity extends GenericModel {
 
@@ -25,7 +25,7 @@ public class RelationEntity extends GenericModel {
   /**
    * Gets the text.
    *
-   * Text that corresponds to the entity.
+   * Text that corresponds to the entity
    *
    * @return the text
    */
@@ -36,7 +36,7 @@ public class RelationEntity extends GenericModel {
   /**
    * Gets the type.
    *
-   * Entity type.
+   * Entity type
    *
    * @return the type
    */

@@ -36,12 +36,12 @@ public class ProfileOptions extends GenericModel {
   /**
    * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish. Regional variants
    * are treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the
-   * `Content-Language` header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or
-   * `text/html`, `Content-Language` is the only way to specify the language. When `Content-Type` is
-   * `application/json`, `Content-Language` overrides a language specified with the `language` parameter of a
-   * `ContentItem` object, and content items that specify a different language are ignored; omit this header to base
-   * the language on the specification of the content items. You can specify any combination of languages for
-   * `Content-Language` and `Accept-Language`.
+   * `Content-Language` header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or `text/html`,
+   * `Content-Language` is the only way to specify the language. When `Content-Type` is `application/json`,
+   * `Content-Language` overrides a language specified with the `language` parameter of a `ContentItem` object, and
+   * content items that specify a different language are ignored; omit this header to base the language on the
+   * specification of the content items. You can specify any combination of languages for `Content-Language` and
+   * `Accept-Language`.
    */
   public interface ContentLanguage {
     /** ar. */
@@ -290,12 +290,12 @@ public class ProfileOptions extends GenericModel {
    *
    * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish. Regional variants
    * are treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the
-   * `Content-Language` header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or
-   * `text/html`, `Content-Language` is the only way to specify the language. When `Content-Type` is
-   * `application/json`, `Content-Language` overrides a language specified with the `language` parameter of a
-   * `ContentItem` object, and content items that specify a different language are ignored; omit this header to base
-   * the language on the specification of the content items. You can specify any combination of languages for
-   * `Content-Language` and `Accept-Language`.
+   * `Content-Language` header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or `text/html`,
+   * `Content-Language` is the only way to specify the language. When `Content-Type` is `application/json`,
+   * `Content-Language` overrides a language specified with the `language` parameter of a `ContentItem` object, and
+   * content items that specify a different language are ignored; omit this header to base the language on the
+   * specification of the content items. You can specify any combination of languages for `Content-Language` and
+   * `Accept-Language`.
    *
    * @return the contentLanguage
    */

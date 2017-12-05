@@ -21,8 +21,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ContentItem extends GenericModel {
 
   /**
-   * MIME type of the content. The default is plain text. The tags are stripped from HTML content before it is
-   * analyzed; plain text is processed as submitted.
+   * MIME type of the content. The default is plain text. The tags are stripped from HTML content before it is analyzed;
+   * plain text is processed as submitted.
    */
   public interface Contenttype {
     /** text/plain. */
@@ -35,9 +35,9 @@ public class ContentItem extends GenericModel {
    * Language identifier (two-letter ISO 639-1 identifier) for the language of the content item. The default is `en`
    * (English). Regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`. A
    * language specified with the `Content-Type` header overrides the value of this parameter; any content items that
-   * specify a different language are ignored. Omit the `Content-Type` header to base the language on the most
-   * prevalent specification among the content items; again, content items that specify a different language are
-   * ignored. You can specify any combination of languages for the input and response content.
+   * specify a different language are ignored. Omit the `Content-Type` header to base the language on the most prevalent
+   * specification among the content items; again, content items that specify a different language are ignored. You can
+   * specify any combination of languages for the input and response content.
    */
   public interface Language {
     /** ar. */
@@ -271,8 +271,8 @@ public class ContentItem extends GenericModel {
   /**
    * Gets the updated.
    *
-   * Timestamp that identifies when this content was last updated. Specify a value in milliseconds since the UNIX
-   * Epoch (January 1, 1970, at 0:00 UTC). Required only for results that include temporal behavior data.
+   * Timestamp that identifies when this content was last updated. Specify a value in milliseconds since the UNIX Epoch
+   * (January 1, 1970, at 0:00 UTC). Required only for results that include temporal behavior data.
    *
    * @return the updated
    */
@@ -283,8 +283,8 @@ public class ContentItem extends GenericModel {
   /**
    * Gets the contenttype.
    *
-   * MIME type of the content. The default is plain text. The tags are stripped from HTML content before it is
-   * analyzed; plain text is processed as submitted.
+   * MIME type of the content. The default is plain text. The tags are stripped from HTML content before it is analyzed;
+   * plain text is processed as submitted.
    *
    * @return the contenttype
    */
@@ -296,11 +296,11 @@ public class ContentItem extends GenericModel {
    * Gets the language.
    *
    * Language identifier (two-letter ISO 639-1 identifier) for the language of the content item. The default is `en`
-   * (English). Regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`.
-   * A language specified with the `Content-Type` header overrides the value of this parameter; any content items that
-   * specify a different language are ignored. Omit the `Content-Type` header to base the language on the most
-   * prevalent specification among the content items; again, content items that specify a different language are
-   * ignored. You can specify any combination of languages for the input and response content.
+   * (English). Regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`. A
+   * language specified with the `Content-Type` header overrides the value of this parameter; any content items that
+   * specify a different language are ignored. Omit the `Content-Type` header to base the language on the most prevalent
+   * specification among the content items; again, content items that specify a different language are ignored. You can
+   * specify any combination of languages for the input and response content.
    *
    * @return the language
    */

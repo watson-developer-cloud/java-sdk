@@ -25,7 +25,7 @@ public class TargetedEmotionResults extends GenericModel {
   /**
    * Gets the text.
    *
-   * Targeted text.
+   * Targeted text
    *
    * @return the text
    */
@@ -36,7 +36,7 @@ public class TargetedEmotionResults extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * An object containing the emotion results for the target.
+   * An object containing the emotion results for the target
    *
    * @return the emotion
    */

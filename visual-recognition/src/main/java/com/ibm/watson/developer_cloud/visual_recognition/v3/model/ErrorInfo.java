@@ -16,8 +16,8 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Information about what might have caused a failure, such as an image that is too large. Not returned when there is
- * no error.
+ * Information about what might have caused a failure, such as an image that is too large. Not returned when there is no
+ * error.
  */
 public class ErrorInfo extends GenericModel {
 

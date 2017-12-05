@@ -126,9 +126,9 @@ public class ListModelsOptions extends GenericModel {
   /**
    * Gets the defaultModels.
    *
-   * Valid values are leaving it unset, `true`, and `false`. When `true`, it filters models to return the default
-   * model or models. When `false`, it returns the non-default model or models. If not set, it returns all models,
-   * default and non-default.
+   * Valid values are leaving it unset, `true`, and `false`. When `true`, it filters models to return the default model
+   * or models. When `false`, it returns the non-default model or models. If not set, it returns all models, default and
+   * non-default.
    *
    * @return the defaultModels
    */

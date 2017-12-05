@@ -23,10 +23,8 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class Trait extends GenericModel {
 
   /**
-   * The category of the characteristic:
-   * * `personality` for Big Five personality characteristics
-   * * `needs` for Needs
-   * * `values` for Values.
+   * The category of the characteristic: * `personality` for Big Five personality characteristics * `needs` for Needs *
+   * `values` for Values.
    */
   public interface Category {
     /** personality. */
@@ -50,9 +48,9 @@ public class Trait extends GenericModel {
   /**
    * Gets the traitId.
    *
-   * The unique identifier of the characteristic to which the results pertain. IDs have the form
-   * `big5_{characteristic}` for Big Five personality characteristics, `need_{characteristic}` for Needs, or
-   * `value_{characteristic}` for Values.
+   * The unique identifier of the characteristic to which the results pertain. IDs have the form `big5_{characteristic}`
+   * for Big Five personality characteristics, `need_{characteristic}` for Needs, or `value_{characteristic}` for
+   * Values.
    *
    * @return the traitId
    */
@@ -74,10 +72,8 @@ public class Trait extends GenericModel {
   /**
    * Gets the category.
    *
-   * The category of the characteristic:
-   * * `personality` for Big Five personality characteristics
-   * * `needs` for Needs
-   * * `values` for Values.
+   * The category of the characteristic: * `personality` for Big Five personality characteristics * `needs` for Needs *
+   * `values` for Values
    *
    * @return the category
    */
@@ -103,10 +99,10 @@ public class Trait extends GenericModel {
    *
    * The raw score for the characteristic. The range is 0 to 1. A higher score generally indicates a greater likelihood
    * that the author has that characteristic, but raw scores must be considered in aggregate: The range of values in
-   * practice might be much smaller than 0 to 1, so an individual score must be considered in the context of the
-   * overall scores and their range. The raw score is computed based on the input and the service model; it is not
-   * normalized or compared with a sample population. The raw score enables comparison of the results against a
-   * different sampling population and with a custom normalization approach.
+   * practice might be much smaller than 0 to 1, so an individual score must be considered in the context of the overall
+   * scores and their range. The raw score is computed based on the input and the service model; it is not normalized or
+   * compared with a sample population. The raw score enables comparison of the results against a different sampling
+   * population and with a custom normalization approach.
    *
    * @return the rawScore
    */
@@ -120,8 +116,7 @@ public class Trait extends GenericModel {
    * **`2017-10-13`**: Indicates whether the characteristic is meaningful for the input language. The field is always
    * `true` for all characteristics of English, Spanish, and Japanese input. The field is `false` for the subset of
    * characteristics of Arabic and Korean input for which the service's models are unable to generate meaningful
-   * results.
-   * **`2016-10-19`**: Not returned.
+   * results. **`2016-10-19`**: Not returned.
    *
    * @return the significant
    */
