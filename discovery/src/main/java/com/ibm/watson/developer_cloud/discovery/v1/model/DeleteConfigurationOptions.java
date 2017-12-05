@@ -103,7 +103,7 @@ public class DeleteConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * the ID of your environment.
+   * The ID of the environment.
    *
    * @return the environmentId
    */
@@ -114,7 +114,7 @@ public class DeleteConfigurationOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * the ID of your configuration.
+   * The ID of the configuration.
    *
    * @return the configurationId
    */

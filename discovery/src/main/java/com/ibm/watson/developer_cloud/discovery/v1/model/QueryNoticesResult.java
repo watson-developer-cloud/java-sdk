@@ -26,6 +26,7 @@ public class QueryNoticesResult extends DynamicModel {
   private Type idType = new TypeToken<String>() { } .getType();
   private Type scoreType = new TypeToken<Double>() { } .getType();
   private Type metadataType = new TypeToken<Map>() { } .getType();
+  private Type collectionIdType = new TypeToken<String>() { } .getType();
 
 
   /**
@@ -56,6 +57,15 @@ public class QueryNoticesResult extends DynamicModel {
   }
 
   /**
+   * Gets the collectionId.
+   *
+   * @return the collectionId
+   */
+  public String getCollectionId() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("collection_id"), collectionIdType);
+  }
+
+  /**
    * Sets the id.
    *
    * @param id the new id
@@ -80,6 +90,15 @@ public class QueryNoticesResult extends DynamicModel {
    */
   public void setMetadata(final Map metadata) {
     this.put("metadata", metadata);
+  }
+
+  /**
+   * Sets the collectionId.
+   *
+   * @param collectionId the new collectionId
+   */
+  public void setCollectionId(final String collectionId) {
+    this.put("collection_id", collectionId);
   }
 }
 

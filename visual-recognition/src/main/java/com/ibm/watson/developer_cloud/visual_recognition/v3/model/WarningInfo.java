@@ -27,7 +27,7 @@ public class WarningInfo extends GenericModel {
   /**
    * Gets the warningId.
    *
-   * Codified warning string, like 'limit_reached'.
+   * Codified warning string, such as `limit_reached`.
    *
    * @return the warningId
    */
@@ -38,7 +38,7 @@ public class WarningInfo extends GenericModel {
   /**
    * Gets the description.
    *
-   * Human-readable warning string, like 'Max number of images (100) reached.'.
+   * Information about the error.
    *
    * @return the description
    */

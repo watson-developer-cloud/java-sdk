@@ -195,11 +195,11 @@ public class UpdateConfigurationOptions extends GenericModel {
      * @return the UpdateConfigurationOptions builder
      */
     public Builder configuration(Configuration configuration) {
-    this.name = configuration.getName();
-    this.description = configuration.getDescription();
-    this.conversions = configuration.getConversions();
-    this.enrichments = configuration.getEnrichments();
-    this.normalizations = configuration.getNormalizations();
+      this.name = configuration.getName();
+      this.description = configuration.getDescription();
+      this.conversions = configuration.getConversions();
+      this.enrichments = configuration.getEnrichments();
+      this.normalizations = configuration.getNormalizations();
       return this;
     }
   }
@@ -228,7 +228,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * the ID of your environment.
+   * The ID of the environment.
    *
    * @return the environmentId
    */
@@ -239,7 +239,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * the ID of your configuration.
+   * The ID of the configuration.
    *
    * @return the configurationId
    */

@@ -179,11 +179,11 @@ public class CreateConfigurationOptions extends GenericModel {
      * @return the CreateConfigurationOptions builder
      */
     public Builder configuration(Configuration configuration) {
-    this.name = configuration.getName();
-    this.description = configuration.getDescription();
-    this.conversions = configuration.getConversions();
-    this.enrichments = configuration.getEnrichments();
-    this.normalizations = configuration.getNormalizations();
+      this.name = configuration.getName();
+      this.description = configuration.getDescription();
+      this.conversions = configuration.getConversions();
+      this.enrichments = configuration.getEnrichments();
+      this.normalizations = configuration.getNormalizations();
       return this;
     }
   }
@@ -210,7 +210,7 @@ public class CreateConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * the ID of your environment.
+   * The ID of the environment.
    *
    * @return the environmentId
    */

@@ -158,8 +158,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the owner.
    *
-   * Returns the Bluemix ID of the instance that created the model, or an empty string if it is a model that is
-   * trained by IBM.
+   * Returns the ID of the Language Translator service instance that created the model, or an empty string if it is a
+   * model that is trained by IBM.
    *
    * @return the owner
    */

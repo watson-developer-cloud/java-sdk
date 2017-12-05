@@ -20,6 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class EntitiesOptions extends GenericModel {
 
   private Long limit;
+  private Boolean mentions;
   private String model;
   private Boolean sentiment;
   private Boolean emotion;
@@ -29,12 +30,14 @@ public class EntitiesOptions extends GenericModel {
    */
   public static class Builder {
     private Long limit;
+    private Boolean mentions;
     private String model;
     private Boolean sentiment;
     private Boolean emotion;
 
     private Builder(EntitiesOptions entitiesOptions) {
       limit = entitiesOptions.limit;
+      mentions = entitiesOptions.mentions;
       model = entitiesOptions.model;
       sentiment = entitiesOptions.sentiment;
       emotion = entitiesOptions.emotion;
@@ -63,6 +66,17 @@ public class EntitiesOptions extends GenericModel {
      */
     public Builder limit(long limit) {
       this.limit = limit;
+      return this;
+    }
+
+    /**
+     * Set the mentions.
+     *
+     * @param mentions the mentions
+     * @return the EntitiesOptions builder
+     */
+    public Builder mentions(Boolean mentions) {
+      this.mentions = mentions;
       return this;
     }
 
@@ -102,6 +116,7 @@ public class EntitiesOptions extends GenericModel {
 
   private EntitiesOptions(Builder builder) {
     limit = builder.limit;
+    mentions = builder.mentions;
     model = builder.model;
     sentiment = builder.sentiment;
     emotion = builder.emotion;
@@ -125,6 +140,17 @@ public class EntitiesOptions extends GenericModel {
    */
   public Long limit() {
     return limit;
+  }
+
+  /**
+   * Gets the mentions.
+   *
+   * Set this to true to return locations of entity mentions.
+   *
+   * @return the mentions
+   */
+  public Boolean mentions() {
+    return mentions;
   }
 
   /**

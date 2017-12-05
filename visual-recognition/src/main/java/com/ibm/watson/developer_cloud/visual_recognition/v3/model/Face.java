@@ -16,14 +16,14 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Face.
+ * Provides information about the face.
  */
 public class Face extends GenericModel {
 
   private FaceAge age;
   private FaceGender gender;
   @SerializedName("face_location")
-  private FaceFaceLocation faceLocation;
+  private FaceLocation faceLocation;
   private FaceIdentity identity;
 
   /**
@@ -49,7 +49,7 @@ public class Face extends GenericModel {
    *
    * @return the faceLocation
    */
-  public FaceFaceLocation getFaceLocation() {
+  public FaceLocation getFaceLocation() {
     return faceLocation;
   }
 
@@ -85,7 +85,7 @@ public class Face extends GenericModel {
    *
    * @param faceLocation the new faceLocation
    */
-  public void setFaceLocation(final FaceFaceLocation faceLocation) {
+  public void setFaceLocation(final FaceLocation faceLocation) {
     this.faceLocation = faceLocation;
   }
 
