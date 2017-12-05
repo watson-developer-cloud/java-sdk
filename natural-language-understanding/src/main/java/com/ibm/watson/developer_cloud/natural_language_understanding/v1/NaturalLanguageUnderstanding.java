@@ -18,6 +18,7 @@ import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalysisResults;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.AnalyzeOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.DeleteModelOptions;
+import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ListModelsOptions;
 import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.ListModelsResults;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
@@ -79,7 +80,6 @@ public class NaturalLanguageUnderstanding extends WatsonService {
 
   /** The Constant VERSION_DATE_2017_02_27. */
   public static final String VERSION_DATE_2017_02_27 = "2017-02-27";
-
   /**
    * Instantiates a new `NaturalLanguageUnderstanding`.
    *
@@ -117,18 +117,31 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    * Analyzes text, HTML, or a public webpage with one or more text analysis features.
    *
    * @param analyzeOptions the {@link AnalyzeOptions} containing the options for the call
-   * @return the {@link AnalysisResults} with the response
+   * @return a {@link ServiceCall} with a response type of {@link AnalysisResults}
    */
   public ServiceCall<AnalysisResults> analyze(AnalyzeOptions analyzeOptions) {
+    Validator.notNull(analyzeOptions, "analyzeOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/analyze");
     builder.query(VERSION, versionDate);
-    if (analyzeOptions != null) {
     final JsonObject contentJson = new JsonObject();
-    if (analyzeOptions.features() != null) {
-      contentJson.add("features", GsonSingleton.getGson().toJsonTree(analyzeOptions.features()));
+    if (analyzeOptions.text() != null) {
+      contentJson.addProperty("text", analyzeOptions.text());
+    }
+    if (analyzeOptions.html() != null) {
+      contentJson.addProperty("html", analyzeOptions.html());
+    }
+    if (analyzeOptions.url() != null) {
+      contentJson.addProperty("url", analyzeOptions.url());
+    }
+    contentJson.add("features", GsonSingleton.getGson().toJsonTree(analyzeOptions.features()));
+    if (analyzeOptions.clean() != null) {
+      contentJson.addProperty("clean", analyzeOptions.clean());
     }
     if (analyzeOptions.xpath() != null) {
       contentJson.addProperty("xpath", analyzeOptions.xpath());
+    }
+    if (analyzeOptions.fallbackToRaw() != null) {
+      contentJson.addProperty("fallback_to_raw", analyzeOptions.fallbackToRaw());
     }
     if (analyzeOptions.returnAnalyzedText() != null) {
       contentJson.addProperty("return_analyzed_text", analyzeOptions.returnAnalyzedText());
@@ -136,26 +149,10 @@ public class NaturalLanguageUnderstanding extends WatsonService {
     if (analyzeOptions.language() != null) {
       contentJson.addProperty("language", analyzeOptions.language());
     }
-    if (analyzeOptions.html() != null) {
-      contentJson.addProperty("html", analyzeOptions.html());
-    }
-    if (analyzeOptions.text() != null) {
-      contentJson.addProperty("text", analyzeOptions.text());
-    }
     if (analyzeOptions.limitTextCharacters() != null) {
       contentJson.addProperty("limit_text_characters", analyzeOptions.limitTextCharacters());
     }
-    if (analyzeOptions.clean() != null) {
-      contentJson.addProperty("clean", analyzeOptions.clean());
-    }
-    if (analyzeOptions.url() != null) {
-      contentJson.addProperty("url", analyzeOptions.url());
-    }
-    if (analyzeOptions.fallbackToRaw() != null) {
-      contentJson.addProperty("fallback_to_raw", analyzeOptions.fallbackToRaw());
-    }
     builder.bodyJson(contentJson);
-    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AnalysisResults.class));
   }
 
@@ -165,7 +162,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    * Deletes a custom model.
    *
    * @param deleteModelOptions the {@link DeleteModelOptions} containing the options for the call
-   * @return the service call
+   * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteModel(DeleteModelOptions deleteModelOptions) {
     Validator.notNull(deleteModelOptions, "deleteModelOptions cannot be null");
@@ -180,12 +177,27 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    * Lists available models for Relations and Entities features, including Watson Knowledge Studio custom models that
    * you have created and linked to your Natural Language Understanding service.
    *
-   * @return the {@link ListModelsResults} with the response
+   * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
    */
-  public ServiceCall<ListModelsResults> listModels() {
+  public ServiceCall<ListModelsResults> listModels(ListModelsOptions listModelsOptions) {
     RequestBuilder builder = RequestBuilder.get("/v1/models");
     builder.query(VERSION, versionDate);
+    if (listModelsOptions != null) {
+    }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListModelsResults.class));
+  }
+
+  /**
+   * List models.
+   *
+   * Lists available models for Relations and Entities features, including Watson Knowledge Studio custom models that
+   * you have created and linked to your Natural Language Understanding service.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link ListModelsResults}
+   */
+  public ServiceCall<ListModelsResults> listModels() {
+    return listModels(null);
   }
 
 }

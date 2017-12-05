@@ -48,6 +48,8 @@ public class ContentItem extends GenericModel {
     String ES = "es";
     /** ja. */
     String JA = "ja";
+    /** ko. */
+    String KO = "ko";
   }
 
   private String content;
@@ -294,8 +296,8 @@ public class ContentItem extends GenericModel {
    * Gets the language.
    *
    * Language identifier (two-letter ISO 639-1 identifier) for the language of the content item. The default is `en`
-   * (English). Regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`. A
-   * language specified with the `Content-Type` header overrides the value of this parameter; any content items that
+   * (English). Regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`.
+   * A language specified with the `Content-Type` header overrides the value of this parameter; any content items that
    * specify a different language are ignored. Omit the `Content-Type` header to base the language on the most
    * prevalent specification among the content items; again, content items that specify a different language are
    * ignored. You can specify any combination of languages for the input and response content.

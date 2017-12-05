@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.language_translator.v2.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -25,11 +28,11 @@ public class CreateModelOptions extends GenericModel {
   private String baseModelId;
   private String name;
   private InputStream forcedGlossary;
+  private String forcedGlossaryFilename;
   private InputStream parallelCorpus;
+  private String parallelCorpusFilename;
   private InputStream monolingualCorpus;
-  private String forcedGlossaryContentType;
-  private String parallelCorpusContentType;
-  private String monolingualCorpusContentType;
+  private String monolingualCorpusFilename;
 
   /**
    * Builder.
@@ -38,21 +41,21 @@ public class CreateModelOptions extends GenericModel {
     private String baseModelId;
     private String name;
     private InputStream forcedGlossary;
+    private String forcedGlossaryFilename;
     private InputStream parallelCorpus;
+    private String parallelCorpusFilename;
     private InputStream monolingualCorpus;
-    private String forcedGlossaryContentType;
-    private String parallelCorpusContentType;
-    private String monolingualCorpusContentType;
+    private String monolingualCorpusFilename;
 
     private Builder(CreateModelOptions createModelOptions) {
       baseModelId = createModelOptions.baseModelId;
       name = createModelOptions.name;
       forcedGlossary = createModelOptions.forcedGlossary;
+      forcedGlossaryFilename = createModelOptions.forcedGlossaryFilename;
       parallelCorpus = createModelOptions.parallelCorpus;
+      parallelCorpusFilename = createModelOptions.parallelCorpusFilename;
       monolingualCorpus = createModelOptions.monolingualCorpus;
-      forcedGlossaryContentType = createModelOptions.forcedGlossaryContentType;
-      parallelCorpusContentType = createModelOptions.parallelCorpusContentType;
-      monolingualCorpusContentType = createModelOptions.monolingualCorpusContentType;
+      monolingualCorpusFilename = createModelOptions.monolingualCorpusFilename;
     }
 
     /**
@@ -113,6 +116,17 @@ public class CreateModelOptions extends GenericModel {
     }
 
     /**
+     * Set the forcedGlossaryFilename.
+     *
+     * @param forcedGlossaryFilename the forcedGlossaryFilename
+     * @return the CreateModelOptions builder
+     */
+    public Builder forcedGlossaryFilename(String forcedGlossaryFilename) {
+      this.forcedGlossaryFilename = forcedGlossaryFilename;
+      return this;
+    }
+
+    /**
      * Set the parallelCorpus.
      *
      * @param parallelCorpus the parallelCorpus
@@ -120,6 +134,17 @@ public class CreateModelOptions extends GenericModel {
      */
     public Builder parallelCorpus(InputStream parallelCorpus) {
       this.parallelCorpus = parallelCorpus;
+      return this;
+    }
+
+    /**
+     * Set the parallelCorpusFilename.
+     *
+     * @param parallelCorpusFilename the parallelCorpusFilename
+     * @return the CreateModelOptions builder
+     */
+    public Builder parallelCorpusFilename(String parallelCorpusFilename) {
+      this.parallelCorpusFilename = parallelCorpusFilename;
       return this;
     }
 
@@ -135,35 +160,55 @@ public class CreateModelOptions extends GenericModel {
     }
 
     /**
-     * Set the forcedGlossaryContentType.
+     * Set the monolingualCorpusFilename.
      *
-     * @param forcedGlossaryContentType the forcedGlossaryContentType
+     * @param monolingualCorpusFilename the monolingualCorpusFilename
      * @return the CreateModelOptions builder
      */
-    public Builder forcedGlossaryContentType(String forcedGlossaryContentType) {
-      this.forcedGlossaryContentType = forcedGlossaryContentType;
+    public Builder monolingualCorpusFilename(String monolingualCorpusFilename) {
+      this.monolingualCorpusFilename = monolingualCorpusFilename;
       return this;
     }
 
     /**
-     * Set the parallelCorpusContentType.
+     * Set the forcedGlossary.
      *
-     * @param parallelCorpusContentType the parallelCorpusContentType
+     * @param forcedGlossary the forcedGlossary
      * @return the CreateModelOptions builder
+     *
+     * @throws FileNotFoundException
      */
-    public Builder parallelCorpusContentType(String parallelCorpusContentType) {
-      this.parallelCorpusContentType = parallelCorpusContentType;
+    public Builder forcedGlossary(File forcedGlossary) throws FileNotFoundException {
+      this.forcedGlossary = new FileInputStream(forcedGlossary);
+      this.forcedGlossaryFilename = forcedGlossary.getName();
       return this;
     }
 
     /**
-     * Set the monolingualCorpusContentType.
+     * Set the parallelCorpus.
      *
-     * @param monolingualCorpusContentType the monolingualCorpusContentType
+     * @param parallelCorpus the parallelCorpus
      * @return the CreateModelOptions builder
+     *
+     * @throws FileNotFoundException
      */
-    public Builder monolingualCorpusContentType(String monolingualCorpusContentType) {
-      this.monolingualCorpusContentType = monolingualCorpusContentType;
+    public Builder parallelCorpus(File parallelCorpus) throws FileNotFoundException {
+      this.parallelCorpus = new FileInputStream(parallelCorpus);
+      this.parallelCorpusFilename = parallelCorpus.getName();
+      return this;
+    }
+
+    /**
+     * Set the monolingualCorpus.
+     *
+     * @param monolingualCorpus the monolingualCorpus
+     * @return the CreateModelOptions builder
+     *
+     * @throws FileNotFoundException
+     */
+    public Builder monolingualCorpus(File monolingualCorpus) throws FileNotFoundException {
+      this.monolingualCorpus = new FileInputStream(monolingualCorpus);
+      this.monolingualCorpusFilename = monolingualCorpus.getName();
       return this;
     }
   }
@@ -173,11 +218,11 @@ public class CreateModelOptions extends GenericModel {
     baseModelId = builder.baseModelId;
     name = builder.name;
     forcedGlossary = builder.forcedGlossary;
+    forcedGlossaryFilename = builder.forcedGlossaryFilename;
     parallelCorpus = builder.parallelCorpus;
+    parallelCorpusFilename = builder.parallelCorpusFilename;
     monolingualCorpus = builder.monolingualCorpus;
-    forcedGlossaryContentType = builder.forcedGlossaryContentType;
-    parallelCorpusContentType = builder.parallelCorpusContentType;
-    monolingualCorpusContentType = builder.monolingualCorpusContentType;
+    monolingualCorpusFilename = builder.monolingualCorpusFilename;
   }
 
   /**
@@ -226,6 +271,17 @@ public class CreateModelOptions extends GenericModel {
   }
 
   /**
+   * Gets the forcedGlossaryFilename.
+   *
+   * The filename for forcedGlossary.
+   *
+   * @return the forcedGlossaryFilename
+   */
+  public String forcedGlossaryFilename() {
+    return forcedGlossaryFilename;
+  }
+
+  /**
    * Gets the parallelCorpus.
    *
    * A TMX file that contains entries that are treated as a parallel corpus instead of a glossary.
@@ -234,6 +290,17 @@ public class CreateModelOptions extends GenericModel {
    */
   public InputStream parallelCorpus() {
     return parallelCorpus;
+  }
+
+  /**
+   * Gets the parallelCorpusFilename.
+   *
+   * The filename for parallelCorpus.
+   *
+   * @return the parallelCorpusFilename
+   */
+  public String parallelCorpusFilename() {
+    return parallelCorpusFilename;
   }
 
   /**
@@ -248,35 +315,13 @@ public class CreateModelOptions extends GenericModel {
   }
 
   /**
-   * Gets the forcedGlossaryContentType.
+   * Gets the monolingualCorpusFilename.
    *
-   * The content type of forcedGlossary.
+   * The filename for monolingualCorpus.
    *
-   * @return the forcedGlossaryContentType
+   * @return the monolingualCorpusFilename
    */
-  public String forcedGlossaryContentType() {
-    return forcedGlossaryContentType;
-  }
-
-  /**
-   * Gets the parallelCorpusContentType.
-   *
-   * The content type of parallelCorpus.
-   *
-   * @return the parallelCorpusContentType
-   */
-  public String parallelCorpusContentType() {
-    return parallelCorpusContentType;
-  }
-
-  /**
-   * Gets the monolingualCorpusContentType.
-   *
-   * The content type of monolingualCorpus.
-   *
-   * @return the monolingualCorpusContentType
-   */
-  public String monolingualCorpusContentType() {
-    return monolingualCorpusContentType;
+  public String monolingualCorpusFilename() {
+    return monolingualCorpusFilename;
   }
 }

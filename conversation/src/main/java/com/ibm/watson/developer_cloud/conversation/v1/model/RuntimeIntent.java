@@ -19,11 +19,13 @@ import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
-* An intent identified in the user input.
-*/
+ * An intent identified in the user input.
+ */
 public class RuntimeIntent extends DynamicModel {
-  private Type intentType = new TypeToken<String>() { } .getType();
-  private Type confidenceType = new TypeToken<Double>() { } .getType();
+  private Type intentType = new TypeToken<String>() {
+  }.getType();
+  private Type confidenceType = new TypeToken<Double>() {
+  }.getType();
 
   /**
    * Gets the intent.
@@ -31,15 +33,16 @@ public class RuntimeIntent extends DynamicModel {
    * @return the intent
    */
   public String getIntent() {
-      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("intent"), intentType);
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("intent"), intentType);
   }
+
   /**
    * Gets the confidence.
    *
    * @return the confidence
    */
   public Double getConfidence() {
-      return GsonSerializationHelper.serializeDynamicModelProperty(this.get("confidence"), confidenceType);
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("confidence"), confidenceType);
   }
 
   /**
@@ -60,4 +63,3 @@ public class RuntimeIntent extends DynamicModel {
     this.put("confidence", confidence);
   }
 }
-

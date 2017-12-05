@@ -364,7 +364,7 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * the ID of your environment.
+   * The ID of the environment.
    *
    * @return the environmentId
    */
@@ -375,7 +375,7 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * the ID of your collection.
+   * The ID of the collection.
    *
    * @return the collectionId
    */
@@ -483,7 +483,7 @@ public class QueryNoticesOptions extends GenericModel {
    * Gets the sort.
    *
    * A comma separated list of fields in the document to sort on. You can optionally specify a sort direction by
-   * prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
+   * 'prefixing the field with `-` for descending or `+` for ascending. Ascending is the default sort direction if no
    * prefix is specified.
    *
    * @return the sort
@@ -507,8 +507,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the passagesFields.
    *
-   * A comma-separated list of fields that passages are drawn from. If this parameter not specified, then all
-   * top-level fields are included.
+   * A comma-separated list of fields that passages are drawn from. If this parameter not specified, then all top-level
+   * fields are included.
    *
    * @return the passagesFields
    */
@@ -520,7 +520,7 @@ public class QueryNoticesOptions extends GenericModel {
    * Gets the passagesCount.
    *
    * The maximum number of passages to return. The search returns fewer passages if the requested total is not found.
-   * The default is <tt>10</tt>. The maximum is <tt>100</tt>.
+   * The default is `10`. The maximum is `100`.
    *
    * @return the passagesCount
    */
@@ -531,8 +531,8 @@ public class QueryNoticesOptions extends GenericModel {
   /**
    * Gets the passagesCharacters.
    *
-   * The approximate number of characters that any one passage will have. The default is <tt>400</tt>. The minimum is
-   * <tt>50</tt>. The maximum is <tt>2000</tt>.
+   * The approximate number of characters that any one passage will have. The default is `400`. The minimum is `50`.
+   * The maximum is `2000`.
    *
    * @return the passagesCharacters
    */
@@ -544,8 +544,8 @@ public class QueryNoticesOptions extends GenericModel {
    * Gets the deduplicateField.
    *
    * When specified, duplicate results based on the field specified are removed from the returned results. Duplicate
-   * comparison is limited to the current query only, <tt>offset</tt> is not considered. This parameter is currently
-   * Beta functionality.
+   * comparison is limited to the current query only, `offset` is not considered. This parameter is currently Beta
+   * functionality.
    *
    * @return the deduplicateField
    */

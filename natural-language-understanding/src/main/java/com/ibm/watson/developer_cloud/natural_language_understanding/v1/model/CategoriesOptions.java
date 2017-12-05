@@ -15,8 +15,8 @@ package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 
 /**
-* The hierarchical 5-level taxonomy the content is categorized into.
-*/
+ * The hierarchical 5-level taxonomy the content is categorized into.
+ */
 public class CategoriesOptions extends DynamicModel {
 
 }

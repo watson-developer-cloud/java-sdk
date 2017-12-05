@@ -24,7 +24,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ToneChatOptions extends GenericModel {
 
   /**
-   * The desired language of the response. For two-character arguments, regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`.
+   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`.
    */
   public interface AcceptLanguage {
     /** ar. */
@@ -158,7 +159,8 @@ public class ToneChatOptions extends GenericModel {
   /**
    * Gets the acceptLanguage.
    *
-   * The desired language of the response. For two-character arguments, regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`.
+   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`.
    *
    * @return the acceptLanguage
    */

@@ -22,6 +22,21 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Trait extends GenericModel {
 
+  /**
+   * The category of the characteristic:
+   * * `personality` for Big Five personality characteristics
+   * * `needs` for Needs
+   * * `values` for Values.
+   */
+  public interface Category {
+    /** personality. */
+    String PERSONALITY = "personality";
+    /** needs. */
+    String NEEDS = "needs";
+    /** values. */
+    String VALUES = "values";
+  }
+
   @SerializedName("trait_id")
   private String traitId;
   private String name;
@@ -29,6 +44,7 @@ public class Trait extends GenericModel {
   private Double percentile;
   @SerializedName("raw_score")
   private Double rawScore;
+  private Boolean significant;
   private List<Trait> children;
 
   /**
@@ -58,8 +74,10 @@ public class Trait extends GenericModel {
   /**
    * Gets the category.
    *
-   * The category of the characteristic: `personality` for Big Five personality characteristics, `needs` for Needs, or
-   * `values` for Values.
+   * The category of the characteristic:
+   * * `personality` for Big Five personality characteristics
+   * * `needs` for Needs
+   * * `values` for Values.
    *
    * @return the category
    */
@@ -94,6 +112,21 @@ public class Trait extends GenericModel {
    */
   public Double getRawScore() {
     return rawScore;
+  }
+
+  /**
+   * Gets the significant.
+   *
+   * **`2017-10-13`**: Indicates whether the characteristic is meaningful for the input language. The field is always
+   * `true` for all characteristics of English, Spanish, and Japanese input. The field is `false` for the subset of
+   * characteristics of Arabic and Korean input for which the service's models are unable to generate meaningful
+   * results.
+   * **`2016-10-19`**: Not returned.
+   *
+   * @return the significant
+   */
+  public Boolean isSignificant() {
+    return significant;
   }
 
   /**
@@ -151,6 +184,15 @@ public class Trait extends GenericModel {
    */
   public void setRawScore(final Double rawScore) {
     this.rawScore = rawScore;
+  }
+
+  /**
+   * Sets the significant.
+   *
+   * @param significant the new significant
+   */
+  public void setSignificant(final Boolean significant) {
+    this.significant = significant;
   }
 
   /**

@@ -40,6 +40,7 @@ import com.ibm.watson.developer_cloud.conversation.v1.model.CreateValueOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.CreateWorkspaceOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.DialogNodeAction;
 import com.ibm.watson.developer_cloud.conversation.v1.model.InputData;
+import com.ibm.watson.developer_cloud.conversation.v1.model.ListAllLogsOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageOptions;
 import com.ibm.watson.developer_cloud.conversation.v1.model.MessageResponse;
 import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeEntity;
@@ -489,8 +490,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
   @Test
   public void testCreateEntityOptionsBuilder() {
     String entity = "anEntity";
-    CreateValue entityValue0 = new CreateValue.Builder().value("entityValue0").build();
-    CreateValue entityValue1 = new CreateValue.Builder().value("entityValue1").build();
+    CreateValue entityValue0 = new CreateValue.Builder().value("entityValue0").addPattern("pattern0").build();
+    CreateValue entityValue1 = new CreateValue.Builder().value("entityValue1").addPattern("pattern1").build();
 
     CreateEntityOptions createOptions = new CreateEntityOptions.Builder()
             .workspaceId(WORKSPACE_ID)
@@ -506,7 +507,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
     CreateEntityOptions.Builder builder = createOptions.newBuilder();
 
-    CreateValue entityValue2 = new CreateValue.Builder().value("entityValue2").build();
+    CreateValue entityValue2 = new CreateValue.Builder().value("entityValue2").addPattern("pattern2").build();
     builder.values(Arrays.asList(entityValue2));
 
     CreateEntityOptions options2 = builder.build();
@@ -524,8 +525,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
   public void testUpdateEntityOptionsBuilder() {
     String entity = "anEntity";
     String newEntity = "renamedEntity";
-    CreateValue entityValue0 = new CreateValue.Builder().value("entityValue0").build();
-    CreateValue entityValue1 = new CreateValue.Builder().value("entityValue1").build();
+    CreateValue entityValue0 = new CreateValue.Builder().value("entityValue0").addPattern("pattern0").build();
+    CreateValue entityValue1 = new CreateValue.Builder().value("entityValue1").addPattern("pattern1").build();
 
     UpdateEntityOptions updateOptions = new UpdateEntityOptions.Builder()
             .workspaceId(WORKSPACE_ID)
@@ -543,7 +544,7 @@ public class ConversationTest extends WatsonServiceUnitTest {
 
     UpdateEntityOptions.Builder builder = updateOptions.newBuilder();
 
-    CreateValue entityValue2 = new CreateValue.Builder().value("entityValue2").build();
+    CreateValue entityValue2 = new CreateValue.Builder().value("entityValue2").addPattern("pattern2").build();
     builder.newValues(Arrays.asList(entityValue2));
 
     UpdateEntityOptions options2 = builder.build();
@@ -564,12 +565,17 @@ public class ConversationTest extends WatsonServiceUnitTest {
     String value = "aValue";
     String valueSynonym0 = "valueSynonym0";
     String valueSynonym1 = "valueSynonym1";
+    String valuePattern0 = "valuePattern0";
+    String valuePattern1 = "valuePattern1";
+    String valueType = "patterns";
 
     CreateValueOptions createOptions = new CreateValueOptions.Builder()
             .workspaceId(WORKSPACE_ID)
             .entity(entity)
             .value(value)
             .addSynonym(valueSynonym0).addSynonym(valueSynonym1)
+            .addPattern(valuePattern0).addPattern(valuePattern1)
+            .valueType(valueType)
             .build();
 
     assertEquals(createOptions.workspaceId(), WORKSPACE_ID);
@@ -578,11 +584,17 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.synonyms().size(), 2);
     assertEquals(createOptions.synonyms().get(0), valueSynonym0);
     assertEquals(createOptions.synonyms().get(1), valueSynonym1);
+    assertEquals(createOptions.patterns().size(), 2);
+    assertEquals(createOptions.patterns().get(0), valuePattern0);
+    assertEquals(createOptions.patterns().get(1), valuePattern1);
+    assertEquals(createOptions.valueType(), valueType);
 
     CreateValueOptions.Builder builder = createOptions.newBuilder();
 
     String valueSynonym2 = "valueSynonym2";
+    String valuePattern2 = "valuePattern2";
     builder.synonyms(Arrays.asList(valueSynonym2));
+    builder.patterns(Arrays.asList(valuePattern2));
 
     CreateValueOptions options2 = builder.build();
 
@@ -591,6 +603,8 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(options2.value(), value);
     assertEquals(options2.synonyms().size(), 1);
     assertEquals(options2.synonyms().get(0), valueSynonym2);
+    assertEquals(options2.patterns().size(), 1);
+    assertEquals(options2.patterns().get(0), valuePattern2);
   }
 
   /**
@@ -641,8 +655,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     String dialogNodeName = "aDialogNode";
     DialogNodeAction action0 = new DialogNodeAction();
     action0.setName("action0");
+    action0.setCredentials("credential0");
     DialogNodeAction action1 = new DialogNodeAction();
-    action0.setName("action1");
+    action1.setName("action1");
+    action1.setCredentials("credential1");
 
     CreateDialogNodeOptions createOptions = new CreateDialogNodeOptions.Builder()
             .workspaceId(WORKSPACE_ID)
@@ -654,7 +670,9 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(createOptions.dialogNode(), dialogNodeName);
     assertEquals(createOptions.actions().size(), 2);
     assertEquals(createOptions.actions().get(0), action0);
+    assertEquals(createOptions.actions().get(0).getCredentials(), "credential0");
     assertEquals(createOptions.actions().get(1), action1);
+    assertEquals(createOptions.actions().get(1).getCredentials(), "credential1");
   }
 
   /**
@@ -666,8 +684,10 @@ public class ConversationTest extends WatsonServiceUnitTest {
     String newDialogNodeName = "renamedDialogNode";
     DialogNodeAction action0 = new DialogNodeAction();
     action0.setName("action0");
+    action0.setCredentials("credential0");
     DialogNodeAction action1 = new DialogNodeAction();
-    action0.setName("action1");
+    action1.setName("action1");
+    action1.setCredentials("credential1");
 
     UpdateDialogNodeOptions updateOptions = new UpdateDialogNodeOptions.Builder()
             .workspaceId(WORKSPACE_ID)
@@ -680,6 +700,31 @@ public class ConversationTest extends WatsonServiceUnitTest {
     assertEquals(updateOptions.dialogNode(), dialogNodeName);
     assertEquals(updateOptions.newActions().size(), 2);
     assertEquals(updateOptions.newActions().get(0), action0);
+    assertEquals(updateOptions.newActions().get(0).getCredentials(), "credential0");
     assertEquals(updateOptions.newActions().get(1), action1);
+    assertEquals(updateOptions.newActions().get(1).getCredentials(), "credential1");
+  }
+
+  /**
+   * Test ListAllLogsOptions builder.
+   */
+  @Test
+  public void testListAllLogsOptionsBuilder() {
+    String sort = "sort";
+    String filter = "filter";
+    Long pageLimit = 5L;
+    String cursor = "cursor";
+
+    ListAllLogsOptions listOptions = new ListAllLogsOptions.Builder()
+        .sort(sort)
+        .filter(filter)
+        .pageLimit(pageLimit)
+        .cursor(cursor)
+        .build();
+
+    assertEquals(listOptions.sort(), sort);
+    assertEquals(listOptions.filter(), filter);
+    assertEquals(listOptions.pageLimit(), pageLimit);
+    assertEquals(listOptions.cursor(), cursor);
   }
 }

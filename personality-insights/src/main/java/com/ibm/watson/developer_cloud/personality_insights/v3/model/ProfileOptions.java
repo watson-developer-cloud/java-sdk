@@ -34,8 +34,8 @@ public class ProfileOptions extends GenericModel {
   }
 
   /**
-   * The language of the input text for the request: Arabic, English, Spanish, or Japanese. Regional variants are
-   * treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the
+   * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish. Regional variants
+   * are treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the
    * `Content-Language` header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or
    * `text/html`, `Content-Language` is the only way to specify the language. When `Content-Type` is
    * `application/json`, `Content-Language` overrides a language specified with the `language` parameter of a
@@ -196,8 +196,8 @@ public class ProfileOptions extends GenericModel {
      * @return the ProfileOptions builder
      */
     public Builder content(Content content) {
-    this.content = content;
-    this.contentType = ProfileOptions.ContentType.APPLICATION_JSON;
+      this.content = content;
+      this.contentType = ProfileOptions.ContentType.APPLICATION_JSON;
       return this;
     }
 
@@ -208,8 +208,8 @@ public class ProfileOptions extends GenericModel {
      * @return the ProfileOptions builder
      */
     public Builder html(String html) {
-    this.body = html;
-    this.contentType = ProfileOptions.ContentType.TEXT_HTML;
+      this.body = html;
+      this.contentType = ProfileOptions.ContentType.TEXT_HTML;
       return this;
     }
 
@@ -220,8 +220,8 @@ public class ProfileOptions extends GenericModel {
      * @return the ProfileOptions builder
      */
     public Builder text(String text) {
-    this.body = text;
-    this.contentType = ProfileOptions.ContentType.TEXT_PLAIN;
+      this.body = text;
+      this.contentType = ProfileOptions.ContentType.TEXT_PLAIN;
       return this;
     }
   }
@@ -251,9 +251,8 @@ public class ProfileOptions extends GenericModel {
    * Gets the content.
    *
    * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Guidelines for providing sufficient input]
-   * (https://console.bluemix.net/docs/services/personality-insights/user-overview.html#overviewGuidelines). A JSON
-   * request must conform to the `Content` model.
+   * [Providing sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient).
+   * A JSON request must conform to the `Content` model.
    *
    * @return the content
    */
@@ -265,9 +264,8 @@ public class ProfileOptions extends GenericModel {
    * Gets the body.
    *
    * A maximum of 20 MB of content to analyze, though the service requires much less text; for more information, see
-   * [Guidelines for providing sufficient input]
-   * (https://console.bluemix.net/docs/services/personality-insights/user-overview.html#overviewGuidelines). A JSON
-   * request must conform to the `Content` model.
+   * [Providing sufficient input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient).
+   * A JSON request must conform to the `Content` model.
    *
    * @return the body
    */
@@ -290,8 +288,8 @@ public class ProfileOptions extends GenericModel {
   /**
    * Gets the contentLanguage.
    *
-   * The language of the input text for the request: Arabic, English, Spanish, or Japanese. Regional variants are
-   * treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the
+   * The language of the input text for the request: Arabic, English, Japanese, Korean, or Spanish. Regional variants
+   * are treated as their parent language; for example, `en-US` is interpreted as `en`. The effect of the
    * `Content-Language` header depends on the `Content-Type` header. When `Content-Type` is `text/plain` or
    * `text/html`, `Content-Language` is the only way to specify the language. When `Content-Type` is
    * `application/json`, `Content-Language` overrides a language specified with the `language` parameter of a
