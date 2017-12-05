@@ -199,9 +199,9 @@ public class Discovery extends WatsonService {
     RequestBuilder builder = RequestBuilder.get("/v1/environments");
     builder.query(VERSION, versionDate);
     if (listEnvironmentsOptions != null) {
-    if (listEnvironmentsOptions.name() != null) {
-    builder.query("name", listEnvironmentsOptions.name());
-    }
+      if (listEnvironmentsOptions.name() != null) {
+        builder.query("name", listEnvironmentsOptions.name());
+      }
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListEnvironmentsResponse.class));
   }
@@ -357,7 +357,7 @@ public class Discovery extends WatsonService {
     );
     builder.query(VERSION, versionDate);
     if (listConfigurationsOptions.name() != null) {
-    builder.query("name", listConfigurationsOptions.name());
+      builder.query("name", listConfigurationsOptions.name());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListConfigurationsResponse.class));
   }
@@ -429,15 +429,15 @@ public class Discovery extends WatsonService {
     );
     builder.query(VERSION, versionDate);
     if (testConfigurationInEnvironmentOptions.step() != null) {
-    builder.query("step", testConfigurationInEnvironmentOptions.step());
+      builder.query("step", testConfigurationInEnvironmentOptions.step());
     }
     if (testConfigurationInEnvironmentOptions.configurationId() != null) {
-    builder.query("configuration_id", testConfigurationInEnvironmentOptions.configurationId());
+      builder.query("configuration_id", testConfigurationInEnvironmentOptions.configurationId());
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (testConfigurationInEnvironmentOptions.configuration() != null) {
-    multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
+      multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
     }
     if (testConfigurationInEnvironmentOptions.file() != null) {
     RequestBody fileBody = RequestUtils.inputStreamBody(
@@ -446,7 +446,7 @@ public class Discovery extends WatsonService {
     multipartBuilder.addFormDataPart("file", testConfigurationInEnvironmentOptions.filename(), fileBody);
     }
     if (testConfigurationInEnvironmentOptions.metadata() != null) {
-    multipartBuilder.addFormDataPart("metadata", testConfigurationInEnvironmentOptions.metadata());
+      multipartBuilder.addFormDataPart("metadata", testConfigurationInEnvironmentOptions.metadata());
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TestDocument.class));
@@ -548,7 +548,7 @@ public class Discovery extends WatsonService {
     );
     builder.query(VERSION, versionDate);
     if (listCollectionsOptions.name() != null) {
-    builder.query("name", listCollectionsOptions.name());
+      builder.query("name", listCollectionsOptions.name());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionsResponse.class));
   }
@@ -616,10 +616,10 @@ public class Discovery extends WatsonService {
     if (addDocumentOptions.file() != null) {
     RequestBody fileBody = RequestUtils.inputStreamBody(addDocumentOptions.file(),
         addDocumentOptions.fileContentType());
-    multipartBuilder.addFormDataPart("file", addDocumentOptions.filename(), fileBody);
+      multipartBuilder.addFormDataPart("file", addDocumentOptions.filename(), fileBody);
     }
     if (addDocumentOptions.metadata() != null) {
-    multipartBuilder.addFormDataPart("metadata", addDocumentOptions.metadata());
+      multipartBuilder.addFormDataPart("metadata", addDocumentOptions.metadata());
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentAccepted.class));
@@ -691,12 +691,12 @@ public class Discovery extends WatsonService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (updateDocumentOptions.file() != null) {
-    RequestBody fileBody = RequestUtils.inputStreamBody(updateDocumentOptions.file(),
+      RequestBody fileBody = RequestUtils.inputStreamBody(updateDocumentOptions.file(),
         updateDocumentOptions.fileContentType());
-    multipartBuilder.addFormDataPart("file", updateDocumentOptions.filename(), fileBody);
+      multipartBuilder.addFormDataPart("file", updateDocumentOptions.filename(), fileBody);
     }
     if (updateDocumentOptions.metadata() != null) {
-    multipartBuilder.addFormDataPart("metadata", updateDocumentOptions.metadata());
+      multipartBuilder.addFormDataPart("metadata", updateDocumentOptions.metadata());
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentAccepted.class));
@@ -719,37 +719,37 @@ public class Discovery extends WatsonService {
     builder.query(VERSION, versionDate);
     builder.query("collection_ids", RequestUtils.join(federatedQueryOptions.collectionIds(), ","));
     if (federatedQueryOptions.filter() != null) {
-    builder.query("filter", federatedQueryOptions.filter());
+      builder.query("filter", federatedQueryOptions.filter());
     }
     if (federatedQueryOptions.query() != null) {
-    builder.query("query", federatedQueryOptions.query());
+      builder.query("query", federatedQueryOptions.query());
     }
     if (federatedQueryOptions.naturalLanguageQuery() != null) {
-    builder.query("natural_language_query", federatedQueryOptions.naturalLanguageQuery());
+      builder.query("natural_language_query", federatedQueryOptions.naturalLanguageQuery());
     }
     if (federatedQueryOptions.aggregation() != null) {
-    builder.query("aggregation", federatedQueryOptions.aggregation());
+      builder.query("aggregation", federatedQueryOptions.aggregation());
     }
     if (federatedQueryOptions.count() != null) {
-    builder.query("count", String.valueOf(federatedQueryOptions.count()));
+      builder.query("count", String.valueOf(federatedQueryOptions.count()));
     }
     if (federatedQueryOptions.returnFields() != null) {
-    builder.query("return_fields", RequestUtils.join(federatedQueryOptions.returnFields(), ","));
+      builder.query("return_fields", RequestUtils.join(federatedQueryOptions.returnFields(), ","));
     }
     if (federatedQueryOptions.offset() != null) {
-    builder.query("offset", String.valueOf(federatedQueryOptions.offset()));
+      builder.query("offset", String.valueOf(federatedQueryOptions.offset()));
     }
     if (federatedQueryOptions.sort() != null) {
-    builder.query("sort", RequestUtils.join(federatedQueryOptions.sort(), ","));
+      builder.query("sort", RequestUtils.join(federatedQueryOptions.sort(), ","));
     }
     if (federatedQueryOptions.highlight() != null) {
-    builder.query("highlight", String.valueOf(federatedQueryOptions.highlight()));
+      builder.query("highlight", String.valueOf(federatedQueryOptions.highlight()));
     }
     if (federatedQueryOptions.deduplicate() != null) {
-    builder.query("deduplicate", String.valueOf(federatedQueryOptions.deduplicate()));
+      builder.query("deduplicate", String.valueOf(federatedQueryOptions.deduplicate()));
     }
     if (federatedQueryOptions.deduplicateField() != null) {
-    builder.query("deduplicate.field", federatedQueryOptions.deduplicateField());
+      builder.query("deduplicate.field", federatedQueryOptions.deduplicateField());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
@@ -773,34 +773,34 @@ public class Discovery extends WatsonService {
     builder.query(VERSION, versionDate);
     builder.query("collection_ids", RequestUtils.join(federatedQueryNoticesOptions.collectionIds(), ","));
     if (federatedQueryNoticesOptions.filter() != null) {
-    builder.query("filter", federatedQueryNoticesOptions.filter());
+      builder.query("filter", federatedQueryNoticesOptions.filter());
     }
     if (federatedQueryNoticesOptions.query() != null) {
-    builder.query("query", federatedQueryNoticesOptions.query());
+      builder.query("query", federatedQueryNoticesOptions.query());
     }
     if (federatedQueryNoticesOptions.naturalLanguageQuery() != null) {
-    builder.query("natural_language_query", federatedQueryNoticesOptions.naturalLanguageQuery());
+      builder.query("natural_language_query", federatedQueryNoticesOptions.naturalLanguageQuery());
     }
     if (federatedQueryNoticesOptions.aggregation() != null) {
-    builder.query("aggregation", federatedQueryNoticesOptions.aggregation());
+      builder.query("aggregation", federatedQueryNoticesOptions.aggregation());
     }
     if (federatedQueryNoticesOptions.count() != null) {
-    builder.query("count", String.valueOf(federatedQueryNoticesOptions.count()));
+      builder.query("count", String.valueOf(federatedQueryNoticesOptions.count()));
     }
     if (federatedQueryNoticesOptions.returnFields() != null) {
-    builder.query("return_fields", RequestUtils.join(federatedQueryNoticesOptions.returnFields(), ","));
+      builder.query("return_fields", RequestUtils.join(federatedQueryNoticesOptions.returnFields(), ","));
     }
     if (federatedQueryNoticesOptions.offset() != null) {
-    builder.query("offset", String.valueOf(federatedQueryNoticesOptions.offset()));
+      builder.query("offset", String.valueOf(federatedQueryNoticesOptions.offset()));
     }
     if (federatedQueryNoticesOptions.sort() != null) {
-    builder.query("sort", RequestUtils.join(federatedQueryNoticesOptions.sort(), ","));
+      builder.query("sort", RequestUtils.join(federatedQueryNoticesOptions.sort(), ","));
     }
     if (federatedQueryNoticesOptions.highlight() != null) {
-    builder.query("highlight", String.valueOf(federatedQueryNoticesOptions.highlight()));
+      builder.query("highlight", String.valueOf(federatedQueryNoticesOptions.highlight()));
     }
     if (federatedQueryNoticesOptions.deduplicateField() != null) {
-    builder.query("deduplicate.field", federatedQueryNoticesOptions.deduplicateField());
+      builder.query("deduplicate.field", federatedQueryNoticesOptions.deduplicateField());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }
@@ -823,49 +823,49 @@ public class Discovery extends WatsonService {
     ));
     builder.query(VERSION, versionDate);
     if (queryOptions.filter() != null) {
-    builder.query("filter", queryOptions.filter());
+      builder.query("filter", queryOptions.filter());
     }
     if (queryOptions.query() != null) {
-    builder.query("query", queryOptions.query());
+      builder.query("query", queryOptions.query());
     }
     if (queryOptions.naturalLanguageQuery() != null) {
-    builder.query("natural_language_query", queryOptions.naturalLanguageQuery());
+      builder.query("natural_language_query", queryOptions.naturalLanguageQuery());
     }
     if (queryOptions.passages() != null) {
-    builder.query("passages", String.valueOf(queryOptions.passages()));
+      builder.query("passages", String.valueOf(queryOptions.passages()));
     }
     if (queryOptions.aggregation() != null) {
-    builder.query("aggregation", queryOptions.aggregation());
+      builder.query("aggregation", queryOptions.aggregation());
     }
     if (queryOptions.count() != null) {
-    builder.query("count", String.valueOf(queryOptions.count()));
+      builder.query("count", String.valueOf(queryOptions.count()));
     }
     if (queryOptions.returnFields() != null) {
-    builder.query("return", RequestUtils.join(queryOptions.returnFields(), ","));
+      builder.query("return", RequestUtils.join(queryOptions.returnFields(), ","));
     }
     if (queryOptions.offset() != null) {
-    builder.query("offset", String.valueOf(queryOptions.offset()));
+      builder.query("offset", String.valueOf(queryOptions.offset()));
     }
     if (queryOptions.sort() != null) {
-    builder.query("sort", RequestUtils.join(queryOptions.sort(), ","));
+      builder.query("sort", RequestUtils.join(queryOptions.sort(), ","));
     }
     if (queryOptions.highlight() != null) {
-    builder.query("highlight", String.valueOf(queryOptions.highlight()));
+      builder.query("highlight", String.valueOf(queryOptions.highlight()));
     }
     if (queryOptions.passagesFields() != null) {
-    builder.query("passages.fields", RequestUtils.join(queryOptions.passagesFields(), ","));
+      builder.query("passages.fields", RequestUtils.join(queryOptions.passagesFields(), ","));
     }
     if (queryOptions.passagesCount() != null) {
-    builder.query("passages.count", String.valueOf(queryOptions.passagesCount()));
+      builder.query("passages.count", String.valueOf(queryOptions.passagesCount()));
     }
     if (queryOptions.passagesCharacters() != null) {
-    builder.query("passages.characters", String.valueOf(queryOptions.passagesCharacters()));
+      builder.query("passages.characters", String.valueOf(queryOptions.passagesCharacters()));
     }
     if (queryOptions.deduplicate() != null) {
-    builder.query("deduplicate", String.valueOf(queryOptions.deduplicate()));
+      builder.query("deduplicate", String.valueOf(queryOptions.deduplicate()));
     }
     if (queryOptions.deduplicateField() != null) {
-    builder.query("deduplicate.field", queryOptions.deduplicateField());
+      builder.query("deduplicate.field", queryOptions.deduplicateField());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryResponse.class));
   }
@@ -889,46 +889,46 @@ public class Discovery extends WatsonService {
     ));
     builder.query(VERSION, versionDate);
     if (queryNoticesOptions.filter() != null) {
-    builder.query("filter", queryNoticesOptions.filter());
+      builder.query("filter", queryNoticesOptions.filter());
     }
     if (queryNoticesOptions.query() != null) {
-    builder.query("query", queryNoticesOptions.query());
+      builder.query("query", queryNoticesOptions.query());
     }
     if (queryNoticesOptions.naturalLanguageQuery() != null) {
-    builder.query("natural_language_query", queryNoticesOptions.naturalLanguageQuery());
+      builder.query("natural_language_query", queryNoticesOptions.naturalLanguageQuery());
     }
     if (queryNoticesOptions.passages() != null) {
-    builder.query("passages", String.valueOf(queryNoticesOptions.passages()));
+      builder.query("passages", String.valueOf(queryNoticesOptions.passages()));
     }
     if (queryNoticesOptions.aggregation() != null) {
-    builder.query("aggregation", queryNoticesOptions.aggregation());
+      builder.query("aggregation", queryNoticesOptions.aggregation());
     }
     if (queryNoticesOptions.count() != null) {
-    builder.query("count", String.valueOf(queryNoticesOptions.count()));
+      builder.query("count", String.valueOf(queryNoticesOptions.count()));
     }
     if (queryNoticesOptions.returnFields() != null) {
-    builder.query("return_fields", RequestUtils.join(queryNoticesOptions.returnFields(), ","));
+      builder.query("return_fields", RequestUtils.join(queryNoticesOptions.returnFields(), ","));
     }
     if (queryNoticesOptions.offset() != null) {
-    builder.query("offset", String.valueOf(queryNoticesOptions.offset()));
+      builder.query("offset", String.valueOf(queryNoticesOptions.offset()));
     }
     if (queryNoticesOptions.sort() != null) {
-    builder.query("sort", RequestUtils.join(queryNoticesOptions.sort(), ","));
+      builder.query("sort", RequestUtils.join(queryNoticesOptions.sort(), ","));
     }
     if (queryNoticesOptions.highlight() != null) {
-    builder.query("highlight", String.valueOf(queryNoticesOptions.highlight()));
+      builder.query("highlight", String.valueOf(queryNoticesOptions.highlight()));
     }
     if (queryNoticesOptions.passagesFields() != null) {
-    builder.query("passages.fields", RequestUtils.join(queryNoticesOptions.passagesFields(), ","));
+      builder.query("passages.fields", RequestUtils.join(queryNoticesOptions.passagesFields(), ","));
     }
     if (queryNoticesOptions.passagesCount() != null) {
-    builder.query("passages.count", String.valueOf(queryNoticesOptions.passagesCount()));
+      builder.query("passages.count", String.valueOf(queryNoticesOptions.passagesCount()));
     }
     if (queryNoticesOptions.passagesCharacters() != null) {
-    builder.query("passages.characters", String.valueOf(queryNoticesOptions.passagesCharacters()));
+      builder.query("passages.characters", String.valueOf(queryNoticesOptions.passagesCharacters()));
     }
     if (queryNoticesOptions.deduplicateField() != null) {
-    builder.query("deduplicate.field", queryNoticesOptions.deduplicateField());
+      builder.query("deduplicate.field", queryNoticesOptions.deduplicateField());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryNoticesResponse.class));
   }

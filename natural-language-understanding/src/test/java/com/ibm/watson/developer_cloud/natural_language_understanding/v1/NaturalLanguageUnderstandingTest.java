@@ -18,8 +18,11 @@ import static org.junit.Assert.assertNotNull;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.DisambiguationResult;
+import com.ibm.watson.developer_cloud.natural_language_understanding.v1.model.EntityMention;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -252,6 +255,13 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertEquals(conceptsResult.getRelevance(), 10.10, 0);
     assertEquals(conceptsResult.getText(), "text");
 
+    // DisambiguationResult
+    DisambiguationResult disambiguationResult = new DisambiguationResult();
+    disambiguationResult.setName("name");
+    disambiguationResult.setDbpediaResource("dbpediaResource");
+    assertEquals(disambiguationResult.getName(), "name");
+    assertEquals(disambiguationResult.getDbpediaResource(), "dbpediaResource");
+
     // DocumentEmotionResults
     DocumentEmotionResults dpcumentEmotionsResults = new DocumentEmotionResults();
     dpcumentEmotionsResults.setEmotion(null);
@@ -265,9 +275,14 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertEquals(documentSentimentResults.getLabel(), "neutral");
 
     // EmotionOptions
-    EmotionOptions emotionOptions = new EmotionOptions.Builder().document(true).targets(null).build();
+    List<String> emotionOptionsTargets = new ArrayList<>(Arrays.asList("target1", "target2"));
+    EmotionOptions emotionOptions = new EmotionOptions.Builder()
+        .document(true)
+        .targets(emotionOptionsTargets)
+        .addTargets("target3").build();
+    emotionOptionsTargets.add("target3");
     assertEquals(emotionOptions.document(), true);
-    assertEquals(emotionOptions.targets(), null);
+    assertEquals(emotionOptions.targets(), emotionOptionsTargets);
     emotionOptions.newBuilder();
 
     // EmotionResult
@@ -295,12 +310,23 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
 
     // EntitiesOptions
     EntitiesOptions entitiesOptions = new EntitiesOptions.Builder().emotion(true).
-        limit(10).model("model").sentiment(false).build();
+        limit(10).model("model").sentiment(false).mentions(false).build();
     assertEquals(entitiesOptions.emotion(), true);
     assertEquals(entitiesOptions.limit(), 10, 0);
     assertEquals(entitiesOptions.model(), "model");
     assertEquals(entitiesOptions.sentiment(), false);
+    assertEquals(entitiesOptions.mentions(), false);
     entitiesOptions.newBuilder();
+
+    // EntityMention
+    EntityMention mention = new EntityMention();
+    mention.setText("text");
+    List<Long> location = new ArrayList<>(Arrays.asList(1L, 2L, 3L));
+    mention.setLocation(location);
+    List<EntityMention> entityMentions = new ArrayList<>();
+    entityMentions.add(mention);
+    assertEquals(mention.getText(), "text");
+    assertEquals(mention.getLocation(), location);
 
     // EntitiesResult
     EntitiesResult entitiesResult = new EntitiesResult();
@@ -310,12 +336,16 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     entitiesResult.setSentiment(null);
     entitiesResult.setText("text");
     entitiesResult.setType("type");
+    entitiesResult.setMentions(entityMentions);
+    entitiesResult.setDisambiguation(disambiguationResult);
     assertEquals(entitiesResult.getCount(), 10, 0);
     assertEquals(entitiesResult.getEmotion(), null);
     assertEquals(entitiesResult.getRelevance(), 10.10, 0);
     assertEquals(entitiesResult.getSentiment(), null);
     assertEquals(entitiesResult.getText(), "text");
     assertEquals(entitiesResult.getType(), "type");
+    assertEquals(entitiesResult.getMentions(), entityMentions);
+    assertEquals(entitiesResult.getDisambiguation(), disambiguationResult);
 
     // Features
     assertEquals(features.categories(), null);
@@ -526,9 +556,15 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertEquals(semanticRolesVerb.getText(), "text");
 
     // SentimentOptions
-    SentimentOptions sentimentOptions = new SentimentOptions.Builder().document(true).targets(null).build();
+    List<String> optionsTargets = new ArrayList<>(Arrays.asList("target1", "target2"));
+    SentimentOptions sentimentOptions = new SentimentOptions.Builder()
+        .document(true)
+        .targets(optionsTargets)
+        .addTargets("target3")
+        .build();
+    optionsTargets.add("target3");
     assertEquals(sentimentOptions.document(), true);
-    assertEquals(sentimentOptions.targets(), null);
+    assertEquals(sentimentOptions.targets(), optionsTargets);
     sentimentOptions.newBuilder();
 
     // SentimentResult
@@ -558,7 +594,11 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     // Usage
     Usage usage = new Usage();
     usage.setFeatures(10);
+    usage.setTextCharacters(20);
+    usage.setTextUnits(30);
     assertEquals(usage.getFeatures(), 10, 0);
+    assertEquals(usage.getTextCharacters(), 20, 0);
+    assertEquals(usage.getTextUnits(), 30, 0);
   }
 
   /**
