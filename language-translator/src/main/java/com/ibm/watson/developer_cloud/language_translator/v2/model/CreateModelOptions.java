@@ -262,7 +262,7 @@ public class CreateModelOptions extends GenericModel {
    *
    * A TMX file with your customizations. The customizations in the file completely overwrite the domain data
    * translation, including high frequency or high confidence phrase translations. You can upload only one glossary
-   * \with a file size less than 10 MB per call.
+   * with a file size less than 10 MB per call.
    *
    * @return the forcedGlossary
    */
