@@ -27,7 +27,7 @@ public class CollectionUsage extends GenericModel {
   /**
    * Gets the available.
    *
-   * Number of active collections in the environment.
+   * Number of active collections in the environment
    *
    * @return the available
    */
@@ -38,7 +38,7 @@ public class CollectionUsage extends GenericModel {
   /**
    * Gets the maximumAllowed.
    *
-   * Total number of collections allowed in the environment.
+   * Total number of collections allowed in the environment
    *
    * @return the maximumAllowed
    */

@@ -19,7 +19,6 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ListModelsOptions extends GenericModel {
 
-
   /**
    * Builder.
    */

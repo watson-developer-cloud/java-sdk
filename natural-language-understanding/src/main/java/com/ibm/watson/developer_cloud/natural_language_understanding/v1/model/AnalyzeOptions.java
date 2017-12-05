@@ -220,7 +220,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the text.
    *
-   * The plain text to analyze.
+   * The plain text to analyze
    *
    * @return the text
    */
@@ -231,7 +231,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the html.
    *
-   * The HTML file to analyze.
+   * The HTML file to analyze
    *
    * @return the html
    */
@@ -242,7 +242,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the url.
    *
-   * The web page to analyze.
+   * The web page to analyze
    *
    * @return the url
    */
@@ -253,7 +253,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the features.
    *
-   * Specific features to analyze the document for.
+   * Specific features to analyze the document for
    *
    * @return the features
    */
@@ -264,7 +264,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the clean.
    *
-   * Remove website elements, such as links, ads, etc.
+   * Remove website elements, such as links, ads, etc
    *
    * @return the clean
    */
@@ -275,7 +275,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the xpath.
    *
-   * XPath query for targeting nodes in HTML.
+   * XPath query for targeting nodes in HTML
    *
    * @return the xpath
    */
@@ -286,7 +286,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the fallbackToRaw.
    *
-   * Whether to use raw HTML content if text cleaning fails.
+   * Whether to use raw HTML content if text cleaning fails
    *
    * @return the fallbackToRaw
    */
@@ -297,7 +297,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the returnAnalyzedText.
    *
-   * Whether or not to return the analyzed text.
+   * Whether or not to return the analyzed text
    *
    * @return the returnAnalyzedText
    */
@@ -308,7 +308,7 @@ public class AnalyzeOptions extends GenericModel {
   /**
    * Gets the language.
    *
-   * ISO 639-1 code indicating the language to use in the analysis.
+   * ISO 639-1 code indicating the language to use in the analysis
    *
    * @return the language
    */

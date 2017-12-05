@@ -85,7 +85,7 @@ public class PersonalityInsights extends WatsonService {
    * Instantiates a new `PersonalityInsights` with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *        calls from failing when the service introduces breaking changes.
+   *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */
@@ -98,10 +98,10 @@ public class PersonalityInsights extends WatsonService {
    * Generates a personality profile based on input text.
    *
    * Derives personality insights for up to 20 MB of input content written by an author, though the service requires
-   * much less text to produce an accurate profile; for more information, see [Providing sufficient input]
-   * (https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient). Accepts input in Arabic,
-   * English, Japanese, Korean, or Spanish and produces output in one of eleven languages. Provide plain text, HTML,
-   * or JSON content, and receive results in JSON or CSV format.
+   * much less text to produce an accurate profile; for more information, see [Providing sufficient
+   * input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient). Accepts input in
+   * Arabic, English, Japanese, Korean, or Spanish and produces output in one of eleven languages. Provide plain text,
+   * HTML, or JSON content, and receive results in JSON or CSV format.
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Profile}
@@ -118,18 +118,18 @@ public class PersonalityInsights extends WatsonService {
       builder.header("Accept-Language", profileOptions.acceptLanguage());
     }
     if (profileOptions.rawScores() != null) {
-    builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
+      builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
     if (profileOptions.csvHeaders() != null) {
-    builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
+      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
     }
     if (profileOptions.consumptionPreferences() != null) {
-    builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
+      builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
     if (profileOptions.contentType().equalsIgnoreCase(ProfileOptions.ContentType.APPLICATION_JSON)) {
-        builder.bodyJson(GsonSingleton.getGson().toJsonTree(profileOptions.content()).getAsJsonObject());
+      builder.bodyJson(GsonSingleton.getGson().toJsonTree(profileOptions.content()).getAsJsonObject());
     } else {
-        builder.bodyContent(profileOptions.body(), profileOptions.contentType());
+      builder.bodyContent(profileOptions.body(), profileOptions.contentType());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Profile.class));
   }

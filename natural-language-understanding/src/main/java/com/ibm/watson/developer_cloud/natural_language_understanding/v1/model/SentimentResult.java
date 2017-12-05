@@ -27,7 +27,7 @@ public class SentimentResult extends GenericModel {
   /**
    * Gets the document.
    *
-   * The document level sentiment.
+   * The document level sentiment
    *
    * @return the document
    */
@@ -38,7 +38,7 @@ public class SentimentResult extends GenericModel {
   /**
    * Gets the targets.
    *
-   * The targeted sentiment to analyze.
+   * The targeted sentiment to analyze
    *
    * @return the targets
    */

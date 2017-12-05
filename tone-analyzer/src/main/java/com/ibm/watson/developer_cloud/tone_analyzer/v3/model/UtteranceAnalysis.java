@@ -55,9 +55,9 @@ public class UtteranceAnalysis extends GenericModel {
   /**
    * Gets the tones.
    *
-   * An array of `ToneChatScore` objects that provides results for the most prevalent tones of the utterance. The
-   * array includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that
-   * meets this threshold.
+   * An array of `ToneChatScore` objects that provides results for the most prevalent tones of the utterance. The array
+   * includes results for any tone whose score is at least 0.5. The array is empty if no tone has a score that meets
+   * this threshold.
    *
    * @return the tones
    */
@@ -68,9 +68,8 @@ public class UtteranceAnalysis extends GenericModel {
   /**
    * Gets the error.
    *
-   * **`2017-09-21`:** An error message if the utterance contains more than 500 characters. The service does not
-   * analyze the utterance.
-   * **`2016-05-19`:** Not returned.
+   * **`2017-09-21`:** An error message if the utterance contains more than 500 characters. The service does not analyze
+   * the utterance. **`2016-05-19`:** Not returned.
    *
    * @return the error
    */

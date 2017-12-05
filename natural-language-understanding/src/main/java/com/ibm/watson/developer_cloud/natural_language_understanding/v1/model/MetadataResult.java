@@ -26,11 +26,13 @@ public class MetadataResult extends GenericModel {
   @SerializedName("publication_date")
   private String publicationDate;
   private String title;
+  private String image;
+  private List<Feed> feeds;
 
   /**
    * Gets the authors.
    *
-   * The authors of the document.
+   * The authors of the document
    *
    * @return the authors
    */
@@ -41,7 +43,7 @@ public class MetadataResult extends GenericModel {
   /**
    * Gets the publicationDate.
    *
-   * The publication date in the format ISO 8601.
+   * The publication date in the format ISO 8601
    *
    * @return the publicationDate
    */
@@ -52,12 +54,34 @@ public class MetadataResult extends GenericModel {
   /**
    * Gets the title.
    *
-   * The title of the document.
+   * The title of the document
    *
    * @return the title
    */
   public String getTitle() {
     return title;
+  }
+
+  /**
+   * Gets the image.
+   *
+   * URL of a prominent image on the webpage
+   *
+   * @return the image
+   */
+  public String getImage() {
+    return image;
+  }
+
+  /**
+   * Gets the feeds.
+   *
+   * RSS/ATOM feeds found on the webpage
+   *
+   * @return the feeds
+   */
+  public List<Feed> getFeeds() {
+    return feeds;
   }
 
   /**
@@ -85,5 +109,23 @@ public class MetadataResult extends GenericModel {
    */
   public void setTitle(final String title) {
     this.title = title;
+  }
+
+  /**
+   * Sets the image.
+   *
+   * @param image the new image
+   */
+  public void setImage(final String image) {
+    this.image = image;
+  }
+
+  /**
+   * Sets the feeds.
+   *
+   * @param feeds the new feeds
+   */
+  public void setFeeds(final List<Feed> feeds) {
+    this.feeds = feeds;
   }
 }

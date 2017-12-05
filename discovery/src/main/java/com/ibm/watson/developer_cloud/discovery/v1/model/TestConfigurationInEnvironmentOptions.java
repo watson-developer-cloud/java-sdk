@@ -206,7 +206,7 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
 
   private TestConfigurationInEnvironmentOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
-    Validator.isTrue((builder.file == null)  || (builder.filename != null),
+    Validator.isTrue((builder.file == null) || (builder.filename != null),
         "filename cannot be null if file is not null.");
     environmentId = builder.environmentId;
     configuration = builder.configuration;
@@ -241,10 +241,10 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the configuration.
    *
-   * The configuration to use to process the document. If this part is provided, then the provided configuration is
-   * used to process the document. If the `configuration_id` is also provided (both are present at the same time),
-   * then request is rejected. The maximum supported configuration size is 1 MB. Configuration parts larger than 1 MB
-   * are rejected. See the `GET /configurations/{configuration_id}` operation for an example configuration.
+   * The configuration to use to process the document. If this part is provided, then the provided configuration is used
+   * to process the document. If the `configuration_id` is also provided (both are present at the same time), then
+   * request is rejected. The maximum supported configuration size is 1 MB. Configuration parts larger than 1 MB are
+   * rejected. See the `GET /configurations/{configuration_id}` operation for an example configuration.
    *
    * @return the configuration
    */
@@ -267,8 +267,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided
-   * (both are present at the same time), then request will be rejected.
+   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided (both
+   * are present at the same time), then request will be rejected.
    *
    * @return the configurationId
    */
@@ -303,8 +303,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
    * Gets the metadata.
    *
    * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
-   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1
-   * MB are rejected. Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
+   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB
+   * are rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```
    *
    * @return the metadata
    */

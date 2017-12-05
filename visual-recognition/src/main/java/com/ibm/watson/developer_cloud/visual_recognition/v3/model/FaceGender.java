@@ -26,7 +26,7 @@ public class FaceGender extends GenericModel {
   /**
    * Gets the gender.
    *
-   * Gender identified by the face. For example, `MALE` or `FEMALE`.
+   * Gender identified by the face. For example, `MALE` or `FEMALE`
    *
    * @return the gender
    */

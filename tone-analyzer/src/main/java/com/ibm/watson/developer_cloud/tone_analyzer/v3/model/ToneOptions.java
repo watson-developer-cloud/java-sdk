@@ -49,9 +49,7 @@ public class ToneOptions extends GenericModel {
    * The language of the input text for the request: English or French. Regional variants are treated as their parent
    * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
    * submit content that contains both languages. You can specify any combination of languages for `Content-Language`
-   * and `Accept-Language`.
-   * * **`2017-09-21`:** Accepts `en` or `fr`.
-   * * **`2016-05-19`:** Accepts only `en`.
+   * and `Accept-Language`. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
    */
   public interface ContentLanguage {
     /** en. */
@@ -255,8 +253,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the toneInput.
    *
-   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of
-   * type `ToneInput`.
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
+   * `ToneInput`.
    *
    * @return the toneInput
    */
@@ -267,8 +265,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the body.
    *
-   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of
-   * type `ToneInput`.
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
+   * `ToneInput`.
    *
    * @return the body
    */
@@ -304,10 +302,10 @@ public class ToneOptions extends GenericModel {
    * Gets the tones.
    *
    * **`2017-09-21`:** Deprecated. The service continues to accept the parameter for backward-compatibility, but the
-   * parameter no longer affects the response.   **`2016-05-19`:** A comma-separated list of tones for which the
-   * service is to return its analysis of the input; the indicated tones apply both to the full document and to
-   * individual sentences of the document. You can specify one or more of the valid values. Omit the parameter to
-   * request results for all three tones.
+   * parameter no longer affects the response. **`2016-05-19`:** A comma-separated list of tones for which the service
+   * is to return its analysis of the input; the indicated tones apply both to the full document and to individual
+   * sentences of the document. You can specify one or more of the valid values. Omit the parameter to request results
+   * for all three tones.
    *
    * @return the tones
    */
@@ -321,9 +319,7 @@ public class ToneOptions extends GenericModel {
    * The language of the input text for the request: English or French. Regional variants are treated as their parent
    * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
    * submit content that contains both languages. You can specify any combination of languages for `Content-Language`
-   * and `Accept-Language`.
-   * * **`2017-09-21`:** Accepts `en` or `fr`.
-   * * **`2016-05-19`:** Accepts only `en`.
+   * and `Accept-Language`. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
    *
    * @return the contentLanguage
    */

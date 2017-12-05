@@ -22,6 +22,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class RelationArgument extends GenericModel {
 
   private List<RelationEntity> entities;
+  private List<Long> location;
   private String text;
 
   /**
@@ -34,9 +35,20 @@ public class RelationArgument extends GenericModel {
   }
 
   /**
+   * Gets the location.
+   *
+   * Character offsets indicating the beginning and end of the mention in the analyzed text
+   *
+   * @return the location
+   */
+  public List<Long> getLocation() {
+    return location;
+  }
+
+  /**
    * Gets the text.
    *
-   * Text that corresponds to the argument.
+   * Text that corresponds to the argument
    *
    * @return the text
    */
@@ -51,6 +63,15 @@ public class RelationArgument extends GenericModel {
    */
   public void setEntities(final List<RelationEntity> entities) {
     this.entities = entities;
+  }
+
+  /**
+   * Sets the location.
+   *
+   * @param location the new location
+   */
+  public void setLocation(final List<Long> location) {
+    this.location = location;
   }
 
   /**
