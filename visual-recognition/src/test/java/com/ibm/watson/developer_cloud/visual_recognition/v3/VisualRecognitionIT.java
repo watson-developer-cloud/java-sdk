@@ -295,6 +295,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   /**
    * Test list all the classifiers.
    */
+  @Ignore
   @Test
   public void testListClassifiers() {
     ListClassifiersOptions options = new ListClassifiersOptions.Builder().verbose(true).build();

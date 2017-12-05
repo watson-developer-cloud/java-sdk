@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
@@ -49,6 +50,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
    *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
+  @Ignore
   @Override
   @Before
   public void setUp() throws Exception {
@@ -69,6 +71,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
   /**
    * Test dilemmas.
    */
+  @Ignore
   @Test
   public void testDilemmas() {
     Dilemma dilemma = service.dilemmas(problem, true).execute();
@@ -85,6 +88,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
   /**
    * Test dilemmas.
    */
+  @Ignore
   @Test
   public void testDilemmasWithProblem() {
     Problem problem = new Problem("phone");
@@ -150,6 +154,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
    *
    * @throws Exception the exception
    */
+  @Ignore
   @Test
   public void testExample() throws Exception {
 
@@ -199,6 +204,7 @@ public class TradeoffAnalyticsIT extends WatsonServiceTest {
    *
    * @throws Exception the exception
    */
+  @Ignore
   @Test
   public void testForDataColumns() throws Exception {
 

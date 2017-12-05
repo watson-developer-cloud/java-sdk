@@ -36,6 +36,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOp
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryNoticesOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.FederatedQueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
@@ -49,11 +51,16 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListCollectionsResponse
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingDataSet;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExample;
+import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingExampleList;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TrainingQuery;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.UpdateDocumentOptions;
@@ -75,6 +82,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -112,6 +120,12 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
       "/v1/environments/mock_envid/collections/mock_collid/query?version="
           + VERSION
           + "&aggregation=term(field)";
+  private static final String Q3_PATH = "/v1/environments/mock_envid/query?version="
+      + VERSION + "&collection_ids=mock_collid";
+  private static final String Q4_PATH = "/v1/environments/mock_envid/notices?version="
+      + VERSION + "&collection_ids=mock_collid";
+  private static final String Q5_PATH = "/v1/environments/mock_envid/collections/mock_collid/notices?version="
+      + VERSION;
   private static final String TRAINING1_PATH =
       "/v1/environments/mock_envid/collections/mock_collid/training_data?version=" + VERSION;
   private static final String TRAINING2_PATH =
@@ -121,6 +135,8 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private static final String TRAINING4_PATH =
       "/v1/environments/mock_envid/collections/mock_collid/training_data/mock_queryid/examples/mock_docid?version="
           + VERSION;
+  private static final String FIELD_PATH = "/v1/environments/mock_envid/fields?version="
+      + VERSION + "&collection_ids=mock_collid";
 
   private String environmentId;
   private String environmentName;
@@ -152,12 +168,15 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
   private DocumentStatus getDocResp;
   private Map<String, Object> deleteDocResp;
   private QueryResponse queryResp;
+  private QueryNoticesResponse queryNoticesResp;
   private TrainingQuery addTrainingQueryResp;
   private TrainingDataSet listTrainingDataResp;
   private TrainingExample createTrainingExampleResp;
   private TrainingQuery getTrainingDataResp;
   private TrainingExample getTrainingExampleResp;
   private TrainingExample updateTrainingExampleResp;
+  private TrainingExampleList listTrainingExamplesResp;
+  private ListCollectionFieldsResponse listFieldsResp;
 
   @BeforeClass
   public static void setupClass() {
@@ -200,12 +219,15 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     getDocResp = loadFixture(RESOURCE + "get_doc_resp.json", DocumentStatus.class);
     deleteDocResp = loadFixture(RESOURCE + "delete_doc_resp.json", Map.class);
     queryResp = loadFixture(RESOURCE + "query1_resp.json", QueryResponse.class);
+    queryNoticesResp = loadFixture(RESOURCE + "query1_resp.json", QueryNoticesResponse.class);
     addTrainingQueryResp = loadFixture(RESOURCE + "add_training_query_resp.json", TrainingQuery.class);
     listTrainingDataResp = loadFixture(RESOURCE + "list_training_data_resp.json", TrainingDataSet.class);
     createTrainingExampleResp = loadFixture(RESOURCE + "add_training_example_resp.json", TrainingExample.class);
     getTrainingDataResp = loadFixture(RESOURCE + "get_training_data_resp.json", TrainingQuery.class);
     getTrainingExampleResp = loadFixture(RESOURCE + "get_training_example_resp.json", TrainingExample.class);
     updateTrainingExampleResp = loadFixture(RESOURCE + "update_training_example_resp.json", TrainingExample.class);
+    listTrainingExamplesResp = loadFixture(RESOURCE + "list_training_examples_resp.json", TrainingExampleList.class);
+    listFieldsResp = loadFixture(RESOURCE + "list_fields_resp.json", ListCollectionFieldsResponse.class);
   }
 
   @After
@@ -752,5 +774,70 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
     assertEquals(TRAINING4_PATH, request.getPath());
     assertEquals(PUT, request.getMethod());
     assertEquals(updateTrainingExampleResp, response);
+  }
+
+  @Test
+  public void listTrainingExamplesIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(listTrainingExamplesResp));
+    ListTrainingExamplesOptions.Builder builder =
+        new ListTrainingExamplesOptions.Builder(environmentId, collectionId, queryId);
+    TrainingExampleList response = discoveryService.listTrainingExamples(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(TRAINING2_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(listTrainingExamplesResp, response);
+  }
+
+  @Test
+  public void listFieldsIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(listFieldsResp));
+    ListFieldsOptions.Builder builder =
+        new ListFieldsOptions.Builder(environmentId, new ArrayList<>(Arrays.asList(collectionId)));
+    ListCollectionFieldsResponse response = discoveryService.listFields(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(FIELD_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(listFieldsResp, response);
+  }
+
+  @Test
+  public void queryNoticesIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(queryNoticesResp));
+    QueryNoticesOptions.Builder builder =
+        new QueryNoticesOptions.Builder(environmentId, collectionId);
+    QueryNoticesResponse response = discoveryService.queryNotices(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(Q5_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(queryNoticesResp, response);
+  }
+
+  @Test
+  public void federatedQueryIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(queryResp));
+    FederatedQueryOptions.Builder builder =
+        new FederatedQueryOptions.Builder(environmentId, new ArrayList<>(Arrays.asList(collectionId)));
+    QueryResponse response = discoveryService.federatedQuery(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(Q3_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(queryResp, response);
+  }
+
+  @Test
+  public void federatedQueryNoticesIsSuccessful() throws InterruptedException {
+    server.enqueue(jsonResponse(queryNoticesResp));
+    FederatedQueryNoticesOptions.Builder builder =
+        new FederatedQueryNoticesOptions.Builder(environmentId, new ArrayList<>(Arrays.asList(collectionId)));
+    QueryNoticesResponse response = discoveryService.federatedQueryNotices(builder.build()).execute();
+    RecordedRequest request = server.takeRequest();
+
+    assertEquals(Q4_PATH, request.getPath());
+    assertEquals(GET, request.getMethod());
+    assertEquals(queryNoticesResp, response);
   }
 }

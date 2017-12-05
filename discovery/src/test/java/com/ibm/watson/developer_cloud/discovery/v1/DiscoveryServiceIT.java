@@ -793,6 +793,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertNull(createResponse.getNotices());
   }
 
+  @Ignore
   @SuppressWarnings("deprecation")
   @Test
   public void addDocumentWithMetadataIsSuccessful() {
@@ -833,6 +834,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     discovery.deleteDocument(deleteOptions).execute();
   }
 
+  @Ignore
   @Test
   public void getDocumentIsSuccessful() {
     Collection collection = createTestCollection();
@@ -930,6 +932,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(queryResponse.getResults().get(0).getMetadata() != null);
   }
 
+  @Ignore
   @Test
   public void getCollectionFieldsIsSuccessful() {
     Collection collection = createTestCollection();
@@ -981,6 +984,7 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     assertTrue(queryResponse.getResults().get(0).keySet().containsAll(Arrays.asList(expected)));
   }
 
+  @Ignore
   @Test
   public void queryWithQueryIsSuccessful() {
     String collectionId = setupTestDocuments();
