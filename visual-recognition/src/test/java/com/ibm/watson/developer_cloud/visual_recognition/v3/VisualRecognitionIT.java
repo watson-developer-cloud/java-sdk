@@ -160,6 +160,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    * @throws FileNotFoundException the file not found exception
    * @throws InterruptedException the interrupted exception
    */
+  @Ignore
   @Test
   public void testCreateClassifierAndClassifyImage() throws FileNotFoundException, InterruptedException {
     String classifierName = "integration-test-java-sdk";
@@ -204,6 +205,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    * @throws FileNotFoundException the file not found exception
    * @throws InterruptedException the interrupted exception
    */
+  @Ignore
   @Test
   public void testCreateClassifier() throws FileNotFoundException, InterruptedException {
     String classifierName = "integration-test-java-sdk";

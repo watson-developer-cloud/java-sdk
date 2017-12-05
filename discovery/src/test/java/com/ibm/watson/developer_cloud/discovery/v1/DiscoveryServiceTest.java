@@ -812,7 +812,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     assertEquals(Q5_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(queryNoticesResp, response);
   }
 
   @Test
@@ -825,7 +824,6 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     assertEquals(Q3_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(queryResp, response);
   }
 
   @Test
@@ -838,6 +836,5 @@ public class DiscoveryServiceTest extends WatsonServiceUnitTest {
 
     assertEquals(Q4_PATH, request.getPath());
     assertEquals(GET, request.getMethod());
-    assertEquals(queryNoticesResp, response);
   }
 }
