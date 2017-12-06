@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.util;
 
+import java.util.Hashtable;
 import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,6 +92,9 @@ public final class CredentialUtils {
   /** The services. */
   private static String services;
 
+  /** The context. */
+  private static Context context;
+
   /** The Constant USERNAME. */
   private static final String USERNAME = "username";
 
@@ -120,22 +124,35 @@ public final class CredentialUtils {
   }
 
   /**
-   * Attempt to get the Base64-encoded value through JNDI.
-   *
-   * This method should always return null on Android due to the javax functions being unsupported
+   * Builds the lookup name to be searched for in JDNI
+   * and uses it to call the overloaded JDNI method.
    *
    * @param serviceName Name of the bluemix service
    * @param lookupNameExtension Extension to determine which value should be retrieved through JDNI
    * @return The encoded desired value
    */
   private static String getJDNIValue(String serviceName, String lookupNameExtension) {
+    return getJDNIValue("watson-developer-cloud/" + serviceName + lookupNameExtension);
+  }
+
+  /**
+   * Attempt to get the Base64-encoded value through JNDI.
+   *
+   * This method should always return null on Android due to the javax functions being unsupported
+   *
+   * @param lookupName Key to lookup in JDNI
+   * @return The encoded desired value
+   */
+  private static String getJDNIValue(String lookupName) {
     if (!isClassAvailable("javax.naming.Context") || !isClassAvailable("javax.naming.InitialContext")) {
       log.info("JNDI string lookups is not available.");
       return null;
     }
-    String lookupName = "watson-developer-cloud/" + serviceName + lookupNameExtension;
+
     try {
-      Context context = new InitialContext();
+      if (context == null) {
+        context = new InitialContext();
+      }
       return (String) context.lookup(lookupName);
     } catch (Exception e) {
       log.fine("JNDI " + lookupName + " not found.");
@@ -338,5 +355,33 @@ public final class CredentialUtils {
    */
   public static void setServices(String services) {
     CredentialUtils.services = services;
+  }
+
+  /**
+   * Sets the context variable for JDNI. This is a utility method for testing.
+   *
+   * @param env Configuration options for the context
+   */
+  public static void setContext(Hashtable<String, String> env) {
+    try {
+      CredentialUtils.context = new InitialContext(env);
+    } catch (Exception e) {
+      log.fine("Error setting up JDNI context: " + e.getMessage());
+    }
+  }
+
+  /**
+   * Method for testing the getAPIUrl method that bypasses the VCAP
+   * services to ensure retrieval from JDNI.
+   *
+   * @param serviceName the service name
+   * @return the API URL
+   */
+  public static String getAPIUrlTest(String serviceName) {
+    if ((serviceName == null) || serviceName.isEmpty()) {
+      return null;
+    }
+
+    return getJDNIValue("jdni/watson-developer-cloud/" + serviceName + LOOKUP_NAME_EXTENSION_URL);
   }
 }

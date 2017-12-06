@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.InputStream;
+import java.util.Hashtable;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -50,6 +51,8 @@ public class CredentialUtilsTest extends WatsonServiceTest {
 
   private static final String VISUAL_RECOGNITION = "watson_vision_combined";
 
+  private static final String PERSONALITY_INSIGHTS_URL = "https://gateway.watsonplatform.net/personality-insights/api";
+
   /**
    * Setup.
    */
@@ -58,6 +61,14 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     final InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(VCAP_SERVICES);
     final String vcapServices = getStringFromInputStream(in);
     CredentialUtils.setServices(vcapServices);
+
+    final Hashtable<String, String> env = new Hashtable<>();
+    env.put("java.naming.factory.initial", "org.osjava.sj.SimpleContextFactory");
+    env.put("org.osjava.sj.delimiter", "/");
+    String rootPath = System.getProperty("user.dir") + "/src/test/resources";
+    env.put("org.osjava.sj.root", rootPath);
+
+    CredentialUtils.setContext(env);
   }
 
   /**
@@ -112,5 +123,13 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     assertTrue(credentials != null);
     assertEquals(credentials.getUsername(), NOT_A_USERNAME);
     assertEquals(credentials.getPassword(), NOT_A_PASSWORD);
+  }
+
+  /**
+   * Test getting the API URL using JDNI.
+   */
+  @Test
+  public void testGetAPIUrlFromJDNI() {
+    assertEquals(CredentialUtils.getAPIUrlTest(SERVICE_NAME), PERSONALITY_INSIGHTS_URL);
   }
 }
