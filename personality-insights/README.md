@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>personality-insights</artifactId>
-	<version>4.0.0</version>
+	<version>4.1.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:personality-insights:4.0.0'
+'com.ibm.watson.developer_cloud:personality-insights:4.1.0'
 ```
 
 ## Usage
