@@ -24,7 +24,7 @@ public class SemanticRolesKeyword extends GenericModel {
   /**
    * Gets the text.
    *
-   * The keyword text.
+   * The keyword text
    *
    * @return the text
    */

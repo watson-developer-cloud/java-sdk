@@ -58,7 +58,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the created.
    *
-   * The creation date of the collection in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * The creation date of the collection in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
    *
    * @return the created
    */

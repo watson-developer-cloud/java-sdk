@@ -27,7 +27,7 @@ public class EntityMention extends GenericModel {
   /**
    * Gets the text.
    *
-   * Entity mention text.
+   * Entity mention text
    *
    * @return the text
    */
@@ -38,7 +38,7 @@ public class EntityMention extends GenericModel {
   /**
    * Gets the location.
    *
-   * Character offsets indicating the beginning and end of the mention in the analyzed text.
+   * Character offsets indicating the beginning and end of the mention in the analyzed text
    *
    * @return the location
    */

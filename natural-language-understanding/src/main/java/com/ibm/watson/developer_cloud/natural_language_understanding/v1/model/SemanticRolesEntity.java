@@ -25,7 +25,7 @@ public class SemanticRolesEntity extends GenericModel {
   /**
    * Gets the type.
    *
-   * Entity type.
+   * Entity type
    *
    * @return the type
    */
@@ -36,7 +36,7 @@ public class SemanticRolesEntity extends GenericModel {
   /**
    * Gets the text.
    *
-   * The entity text.
+   * The entity text
    *
    * @return the text
    */

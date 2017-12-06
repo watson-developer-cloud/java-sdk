@@ -26,7 +26,7 @@ public class SemanticRolesAction extends GenericModel {
   /**
    * Gets the text.
    *
-   * Analyzed text that corresponds to the action.
+   * Analyzed text that corresponds to the action
    *
    * @return the text
    */
@@ -37,7 +37,7 @@ public class SemanticRolesAction extends GenericModel {
   /**
    * Gets the normalized.
    *
-   * normalized version of the action.
+   * normalized version of the action
    *
    * @return the normalized
    */

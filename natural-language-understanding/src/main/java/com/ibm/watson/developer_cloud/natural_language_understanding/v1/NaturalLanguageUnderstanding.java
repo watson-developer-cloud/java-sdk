@@ -57,7 +57,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * for detected entities, keywords, or user-specified target phrases found in the text.
  *
  * ### Relations
- * Recognize when two entities are related, and identify the type of relation.  For example, you can identify an
+ * Recognize when two entities are related, and identify the type of relation. For example, you can identify an
  * "awardedTo" relation between an award and its recipient.
  *
  * ### Semantic Roles
@@ -69,7 +69,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  *
  * @version v1
  * @see <a href="http://www.ibm.com/watson/developercloud/natural-language-understanding.html">Natural Language
- * Understanding</a>
+ *      Understanding</a>
  */
 public class NaturalLanguageUnderstanding extends WatsonService {
 
@@ -80,6 +80,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
 
   /** The Constant VERSION_DATE_2017_02_27. */
   public static final String VERSION_DATE_2017_02_27 = "2017-02-27";
+
   /**
    * Instantiates a new `NaturalLanguageUnderstanding`.
    *
@@ -102,7 +103,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
    * Instantiates a new `NaturalLanguageUnderstanding` with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *        calls from failing when the service introduces breaking changes.
+   *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */

@@ -28,7 +28,7 @@ public class SemanticRolesSubject extends GenericModel {
   /**
    * Gets the text.
    *
-   * Text that corresponds to the subject role.
+   * Text that corresponds to the subject role
    *
    * @return the text
    */

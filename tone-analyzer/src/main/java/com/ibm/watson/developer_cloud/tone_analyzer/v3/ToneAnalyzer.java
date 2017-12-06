@@ -88,7 +88,7 @@ public class ToneAnalyzer extends WatsonService {
    * Instantiates a new `ToneAnalyzer` with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *        calls from failing when the service introduces breaking changes.
+   *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */
@@ -102,16 +102,16 @@ public class ToneAnalyzer extends WatsonService {
    *
    * Uses the general purpose endpoint to analyze the tone of your input content. The service analyzes the content for
    * emotional and language tones. The method always analyzes the tone of the full document; by default, it also
-   * analyzes the tone of each individual sentence of the content.   You can submit no more than 128 KB of total
-   * input content and no more than 1000 individual sentences in JSON, plain text, or HTML format. The service
-   * analyzes the first 1000 sentences for document-level analysis and only the first 100 sentences for sentence-level
-   * analysis.   Use the `POST` request method to analyze larger amounts of content in any of the available formats.
-   * Use the `GET` request method to analyze smaller quantities of plain text content.   Per the JSON specification,
-   * the default character encoding for JSON content is effectively always UTF-8; per the HTTP specification, the
-   * default encoding for plain text and HTML is ISO-8859-1 (effectively, the ASCII character set). When specifying a
-   * content type of plain text or HTML, include the `charset` parameter to indicate the character encoding of the
-   * input text; for example: `Content-Type: text/plain;charset=utf-8`. For `text/html`, the service removes HTML tags
-   * and analyzes only the textual content.
+   * analyzes the tone of each individual sentence of the content. You can submit no more than 128 KB of total input
+   * content and no more than 1000 individual sentences in JSON, plain text, or HTML format. The service analyzes the
+   * first 1000 sentences for document-level analysis and only the first 100 sentences for sentence-level analysis. Use
+   * the `POST` request method to analyze larger amounts of content in any of the available formats. Use the `GET`
+   * request method to analyze smaller quantities of plain text content. Per the JSON specification, the default
+   * character encoding for JSON content is effectively always UTF-8; per the HTTP specification, the default encoding
+   * for plain text and HTML is ISO-8859-1 (effectively, the ASCII character set). When specifying a content type of
+   * plain text or HTML, include the `charset` parameter to indicate the character encoding of the input text; for
+   * example: `Content-Type: text/plain;charset=utf-8`. For `text/html`, the service removes HTML tags and analyzes only
+   * the textual content.
    *
    * @param toneOptions the {@link ToneOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ToneAnalysis}
@@ -146,12 +146,11 @@ public class ToneAnalyzer extends WatsonService {
    *
    * Use the customer engagement endpoint to analyze the tone of customer service and customer support conversations.
    * For each utterance of a conversation, the method reports the most prevalent subset of the following seven tones:
-   * sad, frustrated, satisfied, excited, polite, impolite, and sympathetic.
-   * If you submit more than 50 utterances, the service returns a warning for the overall content and analyzes only the
-   * first 50 utterances. If you submit a single utterance that contains more than 500 characters, the service returns
-   * an error for that utterance and does not analyze the utterance. The request fails if all utterances have more than
-   * 500 characters.   Per the JSON specification, the default character encoding for JSON content is effectively
-   * always UTF-8.
+   * sad, frustrated, satisfied, excited, polite, impolite, and sympathetic. If you submit more than 50 utterances, the
+   * service returns a warning for the overall content and analyzes only the first 50 utterances. If you submit a single
+   * utterance that contains more than 500 characters, the service returns an error for that utterance and does not
+   * analyze the utterance. The request fails if all utterances have more than 500 characters. Per the JSON
+   * specification, the default character encoding for JSON content is effectively always UTF-8.
    *
    * @param toneChatOptions the {@link ToneChatOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link UtteranceAnalyses}
