@@ -67,8 +67,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
   private String nodeType;
   private List<DialogNodeAction> newActions;
   private String newConditions;
-  private String newPreviousSibling;
   private Map newContext;
+  private String newPreviousSibling;
   private String newVariable;
   private Map newMetadata;
   private String newTitle;
@@ -88,8 +88,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
     private String nodeType;
     private List<DialogNodeAction> newActions;
     private String newConditions;
-    private String newPreviousSibling;
     private Map newContext;
+    private String newPreviousSibling;
     private String newVariable;
     private Map newMetadata;
     private String newTitle;
@@ -106,8 +106,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
       nodeType = updateDialogNodeOptions.nodeType;
       newActions = updateDialogNodeOptions.newActions;
       newConditions = updateDialogNodeOptions.newConditions;
-      newPreviousSibling = updateDialogNodeOptions.newPreviousSibling;
       newContext = updateDialogNodeOptions.newContext;
+      newPreviousSibling = updateDialogNodeOptions.newPreviousSibling;
       newVariable = updateDialogNodeOptions.newVariable;
       newMetadata = updateDialogNodeOptions.newMetadata;
       newTitle = updateDialogNodeOptions.newTitle;
@@ -219,17 +219,6 @@ public class UpdateDialogNodeOptions extends GenericModel {
     }
 
     /**
-     * Set the newPreviousSibling.
-     *
-     * @param newPreviousSibling the newPreviousSibling
-     * @return the UpdateDialogNodeOptions builder
-     */
-    public Builder newPreviousSibling(String newPreviousSibling) {
-      this.newPreviousSibling = newPreviousSibling;
-      return this;
-    }
-
-    /**
      * Set the newContext.
      *
      * @param newContext the newContext
@@ -237,6 +226,17 @@ public class UpdateDialogNodeOptions extends GenericModel {
      */
     public Builder newContext(Map newContext) {
       this.newContext = newContext;
+      return this;
+    }
+
+    /**
+     * Set the newPreviousSibling.
+     *
+     * @param newPreviousSibling the newPreviousSibling
+     * @return the UpdateDialogNodeOptions builder
+     */
+    public Builder newPreviousSibling(String newPreviousSibling) {
+      this.newPreviousSibling = newPreviousSibling;
       return this;
     }
 
@@ -349,8 +349,8 @@ public class UpdateDialogNodeOptions extends GenericModel {
     nodeType = builder.nodeType;
     newActions = builder.newActions;
     newConditions = builder.newConditions;
-    newPreviousSibling = builder.newPreviousSibling;
     newContext = builder.newContext;
+    newPreviousSibling = builder.newPreviousSibling;
     newVariable = builder.newVariable;
     newMetadata = builder.newMetadata;
     newTitle = builder.newTitle;
@@ -427,17 +427,6 @@ public class UpdateDialogNodeOptions extends GenericModel {
   }
 
   /**
-   * Gets the newPreviousSibling.
-   *
-   * The previous dialog node.
-   *
-   * @return the newPreviousSibling
-   */
-  public String newPreviousSibling() {
-    return newPreviousSibling;
-  }
-
-  /**
    * Gets the newContext.
    *
    * The context for the dialog node.
@@ -446,6 +435,17 @@ public class UpdateDialogNodeOptions extends GenericModel {
    */
   public Map newContext() {
     return newContext;
+  }
+
+  /**
+   * Gets the newPreviousSibling.
+   *
+   * The previous dialog node.
+   *
+   * @return the newPreviousSibling
+   */
+  public String newPreviousSibling() {
+    return newPreviousSibling;
   }
 
   /**

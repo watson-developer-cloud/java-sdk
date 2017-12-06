@@ -83,7 +83,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the created.
    *
-   * Creation date of the environment, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * Creation date of the environment, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
    *
    * @return the created
    */
@@ -94,7 +94,7 @@ public class Environment extends GenericModel {
   /**
    * Gets the updated.
    *
-   * Date of most recent environment update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * Date of most recent environment update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
    *
    * @return the updated
    */
@@ -122,6 +122,17 @@ public class Environment extends GenericModel {
    */
   public Boolean isReadOnly() {
     return readOnly;
+  }
+
+  /**
+   * Gets the size.
+   *
+   * **Deprecated**: Size of the environment.
+   *
+   * @return the size
+   */
+  public Long getSize() {
+    return size;
   }
 
   /**

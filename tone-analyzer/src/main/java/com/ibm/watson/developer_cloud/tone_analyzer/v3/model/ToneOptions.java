@@ -45,11 +45,56 @@ public class ToneOptions extends GenericModel {
     String SOCIAL = "social";
   }
 
+  /**
+   * The language of the input text for the request: English or French. Regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
+   * submit content that contains both languages. You can specify any combination of languages for `Content-Language`
+   * and `Accept-Language`. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
+   */
+  public interface ContentLanguage {
+    /** en. */
+    String EN = "en";
+    /** fr. */
+    String FR = "fr";
+  }
+
+  /**
+   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for
+   * `Content-Language` and `Accept-Language`.
+   */
+  public interface AcceptLanguage {
+    /** ar. */
+    String AR = "ar";
+    /** de. */
+    String DE = "de";
+    /** en. */
+    String EN = "en";
+    /** es. */
+    String ES = "es";
+    /** fr. */
+    String FR = "fr";
+    /** it. */
+    String IT = "it";
+    /** ja. */
+    String JA = "ja";
+    /** ko. */
+    String KO = "ko";
+    /** pt-br. */
+    String PT_BR = "pt-br";
+    /** zh-cn. */
+    String ZH_CN = "zh-cn";
+    /** zh-tw. */
+    String ZH_TW = "zh-tw";
+  }
+
   private ToneInput toneInput;
   private String body;
   private String contentType;
-  private List<String> tones;
   private Boolean sentences;
+  private List<String> tones;
+  private String contentLanguage;
+  private String acceptLanguage;
 
   /**
    * Builder.
@@ -58,15 +103,19 @@ public class ToneOptions extends GenericModel {
     private ToneInput toneInput;
     private String body;
     private String contentType;
-    private List<String> tones;
     private Boolean sentences;
+    private List<String> tones;
+    private String contentLanguage;
+    private String acceptLanguage;
 
     private Builder(ToneOptions toneOptions) {
       toneInput = toneOptions.toneInput;
       body = toneOptions.body;
       contentType = toneOptions.contentType;
-      tones = toneOptions.tones;
       sentences = toneOptions.sentences;
+      tones = toneOptions.tones;
+      contentLanguage = toneOptions.contentLanguage;
+      acceptLanguage = toneOptions.acceptLanguage;
     }
 
     /**
@@ -100,6 +149,17 @@ public class ToneOptions extends GenericModel {
     }
 
     /**
+     * Set the sentences.
+     *
+     * @param sentences the sentences
+     * @return the ToneOptions builder
+     */
+    public Builder sentences(Boolean sentences) {
+      this.sentences = sentences;
+      return this;
+    }
+
+    /**
      * Set the tones.
      * Existing tones will be replaced.
      *
@@ -112,13 +172,24 @@ public class ToneOptions extends GenericModel {
     }
 
     /**
-     * Set the sentences.
+     * Set the contentLanguage.
      *
-     * @param sentences the sentences
+     * @param contentLanguage the contentLanguage
      * @return the ToneOptions builder
      */
-    public Builder sentences(Boolean sentences) {
-      this.sentences = sentences;
+    public Builder contentLanguage(String contentLanguage) {
+      this.contentLanguage = contentLanguage;
+      return this;
+    }
+
+    /**
+     * Set the acceptLanguage.
+     *
+     * @param acceptLanguage the acceptLanguage
+     * @return the ToneOptions builder
+     */
+    public Builder acceptLanguage(String acceptLanguage) {
+      this.acceptLanguage = acceptLanguage;
       return this;
     }
 
@@ -129,8 +200,8 @@ public class ToneOptions extends GenericModel {
      * @return the ToneOptions builder
      */
     public Builder toneInput(ToneInput toneInput) {
-    this.toneInput = toneInput;
-    this.contentType = ToneOptions.ContentType.APPLICATION_JSON;
+      this.toneInput = toneInput;
+      this.contentType = ToneOptions.ContentType.APPLICATION_JSON;
       return this;
     }
 
@@ -141,8 +212,8 @@ public class ToneOptions extends GenericModel {
      * @return the ToneOptions builder
      */
     public Builder text(String text) {
-    this.body = text;
-    this.contentType = ToneOptions.ContentType.TEXT_PLAIN;
+      this.body = text;
+      this.contentType = ToneOptions.ContentType.TEXT_PLAIN;
       return this;
     }
 
@@ -153,8 +224,8 @@ public class ToneOptions extends GenericModel {
      * @return the ToneOptions builder
      */
     public Builder html(String html) {
-    this.body = html;
-    this.contentType = ToneOptions.ContentType.TEXT_HTML;
+      this.body = html;
+      this.contentType = ToneOptions.ContentType.TEXT_HTML;
       return this;
     }
   }
@@ -164,8 +235,10 @@ public class ToneOptions extends GenericModel {
     toneInput = builder.toneInput;
     body = builder.body;
     contentType = builder.contentType;
-    tones = builder.tones;
     sentences = builder.sentences;
+    tones = builder.tones;
+    contentLanguage = builder.contentLanguage;
+    acceptLanguage = builder.acceptLanguage;
   }
 
   /**
@@ -180,8 +253,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the toneInput.
    *
-   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of
-   * type `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
+   * `ToneInput`.
    *
    * @return the toneInput
    */
@@ -192,8 +265,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the body.
    *
-   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of
-   * type `ToneInput`. Submit a maximum of 128 KB of content. Sentences with fewer than three words cannot be analyzed.
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
+   * `ToneInput`.
    *
    * @return the body
    */
@@ -214,11 +287,25 @@ public class ToneOptions extends GenericModel {
   }
 
   /**
+   * Gets the sentences.
+   *
+   * Indicates whether the service is to return an analysis of each individual sentence in addition to its analysis of
+   * the full document. If `true` (the default), the service returns results for each sentence.
+   *
+   * @return the sentences
+   */
+  public Boolean sentences() {
+    return sentences;
+  }
+
+  /**
    * Gets the tones.
    *
-   * A comma-separated list of tones for which the service is to return its analysis of the input; the indicated tones
-   * apply both to the full document and to individual sentences of the document. You can specify one or more of the
-   * following values: `emotion`, `language`, and `social`. Omit the parameter to request results for all three tones.
+   * **`2017-09-21`:** Deprecated. The service continues to accept the parameter for backward-compatibility, but the
+   * parameter no longer affects the response. **`2016-05-19`:** A comma-separated list of tones for which the service
+   * is to return its analysis of the input; the indicated tones apply both to the full document and to individual
+   * sentences of the document. You can specify one or more of the valid values. Omit the parameter to request results
+   * for all three tones.
    *
    * @return the tones
    */
@@ -227,15 +314,29 @@ public class ToneOptions extends GenericModel {
   }
 
   /**
-   * Gets the sentences.
+   * Gets the contentLanguage.
    *
-   * Indicates whether the service is to return an analysis of each individual sentence in addition to its analysis
-   * of the full document. If `true` (the default), the service returns results for each sentence. The service returns
-   * results only for the first 100 sentences of the input.
+   * The language of the input text for the request: English or French. Regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
+   * submit content that contains both languages. You can specify any combination of languages for `Content-Language`
+   * and `Accept-Language`. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
    *
-   * @return the sentences
+   * @return the contentLanguage
    */
-  public Boolean sentences() {
-    return sentences;
+  public String contentLanguage() {
+    return contentLanguage;
+  }
+
+  /**
+   * Gets the acceptLanguage.
+   *
+   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for
+   * `Content-Language` and `Accept-Language`.
+   *
+   * @return the acceptLanguage
+   */
+  public String acceptLanguage() {
+    return acceptLanguage;
   }
 }

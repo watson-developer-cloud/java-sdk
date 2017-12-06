@@ -103,7 +103,7 @@ public class ListTrainingDataOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * the ID of your environment.
+   * The ID of the environment.
    *
    * @return the environmentId
    */
@@ -114,7 +114,7 @@ public class ListTrainingDataOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * the ID of your collection.
+   * The ID of the collection.
    *
    * @return the collectionId
    */

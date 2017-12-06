@@ -22,19 +22,57 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class DocumentAnalysis extends GenericModel {
 
+  private List<ToneScore> tones;
   @SerializedName("tone_categories")
   private List<ToneCategory> toneCategories;
+  private String warning;
+
+  /**
+   * Gets the tones.
+   *
+   * **`2017-09-21`:** An array of `ToneScore` objects that provides the results of the analysis for each qualifying
+   * tone of the document. The array includes results for any tone whose score is at least 0.5. The array is empty if no
+   * tone has a score that meets this threshold. **`2016-05-19`:** Not returned.
+   *
+   * @return the tones
+   */
+  public List<ToneScore> getTones() {
+    return tones;
+  }
 
   /**
    * Gets the toneCategories.
    *
-   * An array of `ToneCategory` objects that provides the results of the tone analysis for the full document of the
-   * input content. The service returns results only for the tones specified with the `tones` parameter of the request.
+   * **`2017-09-21`:** Not returned. **`2016-05-19`:** An array of `ToneCategory` objects that provides the results of
+   * the tone analysis for the full document of the input content. The service returns results only for the tones
+   * specified with the `tones` parameter of the request.
    *
    * @return the toneCategories
    */
   public List<ToneCategory> getToneCategories() {
     return toneCategories;
+  }
+
+  /**
+   * Gets the warning.
+   *
+   * **`2017-09-21`:** A warning message if the overall content exceeds 128 KB or contains more than 1000 sentences. The
+   * service analyzes only the first 1000 sentences for document-level analysis and the first 100 sentences for
+   * sentence-level analysis. **`2016-05-19`:** Not returned.
+   *
+   * @return the warning
+   */
+  public String getWarning() {
+    return warning;
+  }
+
+  /**
+   * Sets the tones.
+   *
+   * @param tones the new tones
+   */
+  public void setTones(final List<ToneScore> tones) {
+    this.tones = tones;
   }
 
   /**
@@ -44,5 +82,14 @@ public class DocumentAnalysis extends GenericModel {
    */
   public void setToneCategories(final List<ToneCategory> toneCategories) {
     this.toneCategories = toneCategories;
+  }
+
+  /**
+   * Sets the warning.
+   *
+   * @param warning the new warning
+   */
+  public void setWarning(final String warning) {
+    this.warning = warning;
   }
 }

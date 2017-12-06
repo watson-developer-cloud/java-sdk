@@ -27,7 +27,7 @@ public class SemanticRolesObject extends GenericModel {
   /**
    * Gets the text.
    *
-   * Object text.
+   * Object text
    *
    * @return the text
    */

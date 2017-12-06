@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_understanding.v1.model;
 
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
@@ -20,9 +22,10 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class EntitiesResult extends GenericModel {
 
   private String type;
-  private Double relevance;
-  private Long count;
   private String text;
+  private Double relevance;
+  private List<EntityMention> mentions;
+  private Long count;
   private EmotionScores emotion;
   private FeatureSentimentResults sentiment;
   private DisambiguationResult disambiguation;
@@ -30,7 +33,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the type.
    *
-   * Entity type.
+   * Entity type
    *
    * @return the type
    */
@@ -39,31 +42,9 @@ public class EntitiesResult extends GenericModel {
   }
 
   /**
-   * Gets the relevance.
-   *
-   * Relevance score from 0 to 1. Higher values indicate greater relevance.
-   *
-   * @return the relevance
-   */
-  public Double getRelevance() {
-    return relevance;
-  }
-
-  /**
-   * Gets the count.
-   *
-   * How many times the entity was mentioned in the text.
-   *
-   * @return the count
-   */
-  public Long getCount() {
-    return count;
-  }
-
-  /**
    * Gets the text.
    *
-   * The name of the entity.
+   * The name of the entity
    *
    * @return the text
    */
@@ -72,9 +53,42 @@ public class EntitiesResult extends GenericModel {
   }
 
   /**
+   * Gets the relevance.
+   *
+   * Relevance score from 0 to 1. Higher values indicate greater relevance
+   *
+   * @return the relevance
+   */
+  public Double getRelevance() {
+    return relevance;
+  }
+
+  /**
+   * Gets the mentions.
+   *
+   * Entity mentions and locations
+   *
+   * @return the mentions
+   */
+  public List<EntityMention> getMentions() {
+    return mentions;
+  }
+
+  /**
+   * Gets the count.
+   *
+   * How many times the entity was mentioned in the text
+   *
+   * @return the count
+   */
+  public Long getCount() {
+    return count;
+  }
+
+  /**
    * Gets the emotion.
    *
-   * Emotion analysis results for the entity, enabled with the "emotion" option.
+   * Emotion analysis results for the entity, enabled with the "emotion" option
    *
    * @return the emotion
    */
@@ -85,7 +99,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * Sentiment analysis results for the entity, enabled with the "sentiment" option.
+   * Sentiment analysis results for the entity, enabled with the "sentiment" option
    *
    * @return the sentiment
    */
@@ -96,7 +110,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the disambiguation.
    *
-   * Disambiguation information for the entity.
+   * Disambiguation information for the entity
    *
    * @return the disambiguation
    */
@@ -114,6 +128,15 @@ public class EntitiesResult extends GenericModel {
   }
 
   /**
+   * Sets the text.
+   *
+   * @param text the new text
+   */
+  public void setText(final String text) {
+    this.text = text;
+  }
+
+  /**
    * Sets the relevance.
    *
    * @param relevance the new relevance
@@ -123,21 +146,21 @@ public class EntitiesResult extends GenericModel {
   }
 
   /**
+   * Sets the mentions.
+   *
+   * @param mentions the new mentions
+   */
+  public void setMentions(final List<EntityMention> mentions) {
+    this.mentions = mentions;
+  }
+
+  /**
    * Sets the count.
    *
    * @param count the new count
    */
   public void setCount(final long count) {
     this.count = count;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
   }
 
   /**

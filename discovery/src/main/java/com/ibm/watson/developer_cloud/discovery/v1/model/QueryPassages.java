@@ -27,9 +27,9 @@ public class QueryPassages extends GenericModel {
   @SerializedName("passage_text")
   private String passageText;
   @SerializedName("start_offset")
-  private Double startOffset;
+  private Long startOffset;
   @SerializedName("end_offset")
-  private Double endOffset;
+  private Long endOffset;
   private String field;
 
   /**
@@ -72,7 +72,7 @@ public class QueryPassages extends GenericModel {
    *
    * @return the startOffset
    */
-  public Double getStartOffset() {
+  public Long getStartOffset() {
     return startOffset;
   }
 
@@ -83,7 +83,7 @@ public class QueryPassages extends GenericModel {
    *
    * @return the endOffset
    */
-  public Double getEndOffset() {
+  public Long getEndOffset() {
     return endOffset;
   }
 
@@ -130,7 +130,7 @@ public class QueryPassages extends GenericModel {
    *
    * @param startOffset the new startOffset
    */
-  public void setStartOffset(final Double startOffset) {
+  public void setStartOffset(final long startOffset) {
     this.startOffset = startOffset;
   }
 
@@ -139,7 +139,7 @@ public class QueryPassages extends GenericModel {
    *
    * @param endOffset the new endOffset
    */
-  public void setEndOffset(final Double endOffset) {
+  public void setEndOffset(final long endOffset) {
     this.endOffset = endOffset;
   }
 

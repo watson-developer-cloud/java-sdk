@@ -24,6 +24,7 @@ public class UtteranceAnalyses extends GenericModel {
 
   @SerializedName("utterances_tone")
   private List<UtteranceAnalysis> utterancesTone;
+  private String warning;
 
   /**
    * Gets the utterancesTone.
@@ -37,11 +38,32 @@ public class UtteranceAnalyses extends GenericModel {
   }
 
   /**
+   * Gets the warning.
+   *
+   * **`2017-09-21`:** A warning message if the content contains more than 50 utterances. The service analyzes only the
+   * first 50 utterances. **`2016-05-19`:** Not returned.
+   *
+   * @return the warning
+   */
+  public String getWarning() {
+    return warning;
+  }
+
+  /**
    * Sets the utterancesTone.
    *
    * @param utterancesTone the new utterancesTone
    */
   public void setUtterancesTone(final List<UtteranceAnalysis> utterancesTone) {
     this.utterancesTone = utterancesTone;
+  }
+
+  /**
+   * Sets the warning.
+   *
+   * @param warning the new warning
+   */
+  public void setWarning(final String warning) {
+    this.warning = warning;
   }
 }

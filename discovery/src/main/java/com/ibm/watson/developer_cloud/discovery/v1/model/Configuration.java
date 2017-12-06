@@ -36,7 +36,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The unique identifier of the configuration.
+   * The unique identifier of the configuration
    *
    * @return the configurationId
    */
@@ -58,7 +58,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the created.
    *
-   * The creation date of the configuration in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * The creation date of the configuration in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
    *
    * @return the created
    */
@@ -69,7 +69,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp of when the configuration was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
+   * The timestamp of when the configuration was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
    *
    * @return the updated
    */

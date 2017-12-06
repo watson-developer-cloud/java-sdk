@@ -41,7 +41,7 @@ public class ClassifierResult extends GenericModel {
   /**
    * Gets the classifierId.
    *
-   * Classifier ID.  Only returned if custom classifier.
+   * Classifier ID. Only returned if custom classifier.
    *
    * @return the classifierId
    */
