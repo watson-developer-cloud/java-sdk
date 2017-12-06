@@ -24,7 +24,7 @@ public class FeatureSentimentResults extends GenericModel {
   /**
    * Gets the score.
    *
-   * Sentiment score from -1 (negative) to 1 (positive).
+   * Sentiment score from -1 (negative) to 1 (positive)
    *
    * @return the score
    */

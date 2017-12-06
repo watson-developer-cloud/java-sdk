@@ -28,6 +28,9 @@ public class LogExport extends GenericModel {
   private String requestTimestamp;
   @SerializedName("response_timestamp")
   private String responseTimestamp;
+  @SerializedName("workspace_id")
+  private String workspaceId;
+  private String language;
 
   /**
    * Gets the request.
@@ -85,6 +88,28 @@ public class LogExport extends GenericModel {
   }
 
   /**
+   * Gets the workspaceId.
+   *
+   * The workspace ID.
+   *
+   * @return the workspaceId
+   */
+  public String getWorkspaceId() {
+    return workspaceId;
+  }
+
+  /**
+   * Gets the language.
+   *
+   * The language of the workspace where the message request was made.
+   *
+   * @return the language
+   */
+  public String getLanguage() {
+    return language;
+  }
+
+  /**
    * Sets the request.
    *
    * @param request the new request
@@ -127,5 +152,23 @@ public class LogExport extends GenericModel {
    */
   public void setResponseTimestamp(final String responseTimestamp) {
     this.responseTimestamp = responseTimestamp;
+  }
+
+  /**
+   * Sets the workspaceId.
+   *
+   * @param workspaceId the new workspaceId
+   */
+  public void setWorkspaceId(final String workspaceId) {
+    this.workspaceId = workspaceId;
+  }
+
+  /**
+   * Sets the language.
+   *
+   * @param language the new language
+   */
+  public void setLanguage(final String language) {
+    this.language = language;
   }
 }

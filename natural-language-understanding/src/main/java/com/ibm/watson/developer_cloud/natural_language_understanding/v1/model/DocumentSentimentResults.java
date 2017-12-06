@@ -19,18 +19,38 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class DocumentSentimentResults extends GenericModel {
 
-  private Double score;
   private String label;
+  private Double score;
+
+  /**
+   * Gets the label.
+   *
+   * Indicates whether the sentiment is positive, neutral, or negative
+   *
+   * @return the label
+   */
+  public String getLabel() {
+    return label;
+  }
 
   /**
    * Gets the score.
    *
-   * Sentiment score from -1 (negative) to 1 (positive).
+   * Sentiment score from -1 (negative) to 1 (positive)
    *
    * @return the score
    */
   public Double getScore() {
     return score;
+  }
+
+  /**
+   * Sets the label.
+   *
+   * @param label the new label
+   */
+  public void setLabel(final String label) {
+    this.label = label;
   }
 
   /**
@@ -40,25 +60,5 @@ public class DocumentSentimentResults extends GenericModel {
    */
   public void setScore(final Double score) {
     this.score = score;
-  }
-
-  /**
-   * Gets the label.
-   *
-   * Sentiment label
-   *
-   * @return the label
-   */
-  public String getLabel() {
-    return label;
-  }
-
-  /**
-   * Sets the label.
-   *
-   * @param label the new label
-   */
-  public void setLabel(String label) {
-    this.label = label;
   }
 }

@@ -24,7 +24,7 @@ public class Author extends GenericModel {
   /**
    * Gets the name.
    *
-   * Name of the author.
+   * Name of the author
    *
    * @return the name
    */

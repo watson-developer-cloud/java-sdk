@@ -15,9 +15,9 @@ package com.ibm.watson.developer_cloud.visual_recognition.v3.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * FaceFaceLocation.
+ * Defines the location of the bounding box around the face.
  */
-public class FaceFaceLocation extends GenericModel {
+public class FaceLocation extends GenericModel {
 
   private Double width;
   private Double height;
@@ -49,7 +49,7 @@ public class FaceFaceLocation extends GenericModel {
   /**
    * Gets the left.
    *
-   * x-position of top-left pixel of face region.
+   * X-position of top-left pixel of face region.
    *
    * @return the left
    */
@@ -60,7 +60,7 @@ public class FaceFaceLocation extends GenericModel {
   /**
    * Gets the top.
    *
-   * y-position of top-left pixel of face region.
+   * Y-position of top-left pixel of face region.
    *
    * @return the top
    */

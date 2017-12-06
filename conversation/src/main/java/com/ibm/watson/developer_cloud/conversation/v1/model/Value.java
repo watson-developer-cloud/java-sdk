@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.google.gson.annotations.SerializedName;
@@ -23,11 +24,25 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class Value extends GenericModel {
 
+  /**
+   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   */
+  public interface ValueType {
+    /** synonyms. */
+    String SYNONYMS = "synonyms";
+    /** patterns. */
+    String PATTERNS = "patterns";
+  }
+
   @SerializedName("value")
   private String valueText;
   private Map metadata;
   private Date created;
   private Date updated;
+  private List<String> synonyms;
+  private List<String> patterns;
+  @SerializedName("type")
+  private String valueType;
 
   /**
    * Gets the valueText.
@@ -74,6 +89,39 @@ public class Value extends GenericModel {
   }
 
   /**
+   * Gets the synonyms.
+   *
+   * An array of synonyms for the entity value.
+   *
+   * @return the synonyms
+   */
+  public List<String> getSynonyms() {
+    return synonyms;
+  }
+
+  /**
+   * Gets the patterns.
+   *
+   * An array of patterns for the entity value. A pattern is specified as a regular expression.
+   *
+   * @return the patterns
+   */
+  public List<String> getPatterns() {
+    return patterns;
+  }
+
+  /**
+   * Gets the valueType.
+   *
+   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   *
+   * @return the valueType
+   */
+  public String getValueType() {
+    return valueType;
+  }
+
+  /**
    * Sets the valueText.
    *
    * @param valueText the new valueText
@@ -89,5 +137,32 @@ public class Value extends GenericModel {
    */
   public void setMetadata(final Map metadata) {
     this.metadata = metadata;
+  }
+
+  /**
+   * Sets the synonyms.
+   *
+   * @param synonyms the new synonyms
+   */
+  public void setSynonyms(final List<String> synonyms) {
+    this.synonyms = synonyms;
+  }
+
+  /**
+   * Sets the patterns.
+   *
+   * @param patterns the new patterns
+   */
+  public void setPatterns(final List<String> patterns) {
+    this.patterns = patterns;
+  }
+
+  /**
+   * Sets the valueType.
+   *
+   * @param valueType the new valueType
+   */
+  public void setValueType(final String valueType) {
+    this.valueType = valueType;
   }
 }
