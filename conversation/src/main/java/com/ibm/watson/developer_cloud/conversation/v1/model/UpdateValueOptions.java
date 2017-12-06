@@ -24,11 +24,23 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class UpdateValueOptions extends GenericModel {
 
+  /**
+   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   */
+  public interface ValueType {
+    /** synonyms. */
+    String SYNONYMS = "synonyms";
+    /** patterns. */
+    String PATTERNS = "patterns";
+  }
+
   private String workspaceId;
   private String entity;
   private String value;
   private List<String> newSynonyms;
+  private String valueType;
   private Map newMetadata;
+  private List<String> newPatterns;
   private String newValue;
 
   /**
@@ -39,7 +51,9 @@ public class UpdateValueOptions extends GenericModel {
     private String entity;
     private String value;
     private List<String> newSynonyms;
+    private String valueType;
     private Map newMetadata;
+    private List<String> newPatterns;
     private String newValue;
 
     private Builder(UpdateValueOptions updateValueOptions) {
@@ -47,7 +61,9 @@ public class UpdateValueOptions extends GenericModel {
       entity = updateValueOptions.entity;
       value = updateValueOptions.value;
       newSynonyms = updateValueOptions.newSynonyms;
+      valueType = updateValueOptions.valueType;
       newMetadata = updateValueOptions.newMetadata;
+      newPatterns = updateValueOptions.newPatterns;
       newValue = updateValueOptions.newValue;
     }
 
@@ -91,6 +107,21 @@ public class UpdateValueOptions extends GenericModel {
         this.newSynonyms = new ArrayList<String>();
       }
       this.newSynonyms.add(synonym);
+      return this;
+    }
+
+    /**
+     * Adds an pattern to newPatterns.
+     *
+     * @param pattern the new pattern
+     * @return the UpdateValueOptions builder
+     */
+    public Builder addPattern(String pattern) {
+      Validator.notNull(pattern, "pattern cannot be null");
+      if (this.newPatterns == null) {
+        this.newPatterns = new ArrayList<String>();
+      }
+      this.newPatterns.add(pattern);
       return this;
     }
 
@@ -140,6 +171,17 @@ public class UpdateValueOptions extends GenericModel {
     }
 
     /**
+     * Set the valueType.
+     *
+     * @param valueType the valueType
+     * @return the UpdateValueOptions builder
+     */
+    public Builder valueType(String valueType) {
+      this.valueType = valueType;
+      return this;
+    }
+
+    /**
      * Set the newMetadata.
      *
      * @param newMetadata the newMetadata
@@ -147,6 +189,18 @@ public class UpdateValueOptions extends GenericModel {
      */
     public Builder newMetadata(Map newMetadata) {
       this.newMetadata = newMetadata;
+      return this;
+    }
+
+    /**
+     * Set the newPatterns.
+     * Existing newPatterns will be replaced.
+     *
+     * @param newPatterns the newPatterns
+     * @return the UpdateValueOptions builder
+     */
+    public Builder newPatterns(List<String> newPatterns) {
+      this.newPatterns = newPatterns;
       return this;
     }
 
@@ -170,7 +224,9 @@ public class UpdateValueOptions extends GenericModel {
     entity = builder.entity;
     value = builder.value;
     newSynonyms = builder.newSynonyms;
+    valueType = builder.valueType;
     newMetadata = builder.newMetadata;
+    newPatterns = builder.newPatterns;
     newValue = builder.newValue;
   }
 
@@ -228,6 +284,17 @@ public class UpdateValueOptions extends GenericModel {
   }
 
   /**
+   * Gets the valueType.
+   *
+   * Specifies the type of value (`synonyms` or `patterns`). The default value is `synonyms`.
+   *
+   * @return the valueType
+   */
+  public String valueType() {
+    return valueType;
+  }
+
+  /**
    * Gets the newMetadata.
    *
    * Any metadata related to the entity value.
@@ -236,6 +303,17 @@ public class UpdateValueOptions extends GenericModel {
    */
   public Map newMetadata() {
     return newMetadata;
+  }
+
+  /**
+   * Gets the newPatterns.
+   *
+   * An array of patterns for the entity value. A pattern is specified as a regular expression.
+   *
+   * @return the newPatterns
+   */
+  public List<String> newPatterns() {
+    return newPatterns;
   }
 
   /**

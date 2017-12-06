@@ -25,7 +25,7 @@ public class TargetedSentimentResults extends GenericModel {
   /**
    * Gets the text.
    *
-   * Targeted text.
+   * Targeted text
    *
    * @return the text
    */
@@ -36,7 +36,7 @@ public class TargetedSentimentResults extends GenericModel {
   /**
    * Gets the score.
    *
-   * Sentiment score from -1 (negative) to 1 (positive).
+   * Sentiment score from -1 (negative) to 1 (positive)
    *
    * @return the score
    */

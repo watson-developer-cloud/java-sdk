@@ -51,9 +51,9 @@ public class ConsumptionPreferences extends GenericModel {
   /**
    * Gets the score.
    *
-   * The score for the consumption preference: `0.0` indicates unlikely, `0.5` indicates neutrality, and `1.0`
-   * indicates likely. The scores for some preferences are binary and do not allow a neutral value. The score is an
-   * indication of preference based on the results inferred from the input text, not a normalized percentile.
+   * The score for the consumption preference: * `0.0`: Unlikely * `0.5`: Neutral * `1.0`: Likely The scores for some
+   * preferences are binary and do not allow a neutral value. The score is an indication of preference based on the
+   * results inferred from the input text, not a normalized percentile.
    *
    * @return the score
    */

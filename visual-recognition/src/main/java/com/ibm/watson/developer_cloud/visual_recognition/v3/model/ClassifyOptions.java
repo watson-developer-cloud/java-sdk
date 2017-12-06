@@ -25,12 +25,11 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class ClassifyOptions extends GenericModel {
 
   /**
-   * Specifies the language of the output class names.  Can be `en` (English), `ar` (Arabic), `de` (German), `es`
-   * (Spanish), `it` (Italian), `ja` (Japanese), or `ko` (Korean).  Classes for which no translation is available are
-   * omitted.  The response might not be in the specified language under these conditions:
-   * - English is returned when the requested language is not supported.
-   * - Classes are not returned when there is no translation for them.
-   * - Custom classifiers returned with this method return tags in the language of the custom classifier.
+   * Specifies the language of the output class names. Can be `en` (English), `ar` (Arabic), `de` (German), `es`
+   * (Spanish), `it` (Italian), `ja` (Japanese), or `ko` (Korean). Classes for which no translation is available are
+   * omitted. The response might not be in the specified language under these conditions: - English is returned when the
+   * requested language is not supported. - Classes are not returned when there is no translation for them. - Custom
+   * classifiers returned with this method return tags in the language of the custom classifier.
    */
   public interface AcceptLanguage {
     /** en. */
@@ -201,13 +200,12 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the parameters.
    *
-   * Specifies input parameters. The parameter can include these inputs in a JSON object:
-   * - url: A string with the image URL to analyze. You can also include images in the **images_file** parameter.
-   * - classifier_ids: An array of classifier IDs to classify the images against.
-   * - owners: An array with the values IBM, me, or both to specify which classifiers to run.
-   * - threshold: A floating point value that specifies the minimum score a class must have to be displayed in the
-   * response.
-   * For example: {"url": "...", "classifier_ids": ["...","..."], "owners": ["IBM", "me"], "threshold": 0.4}.
+   * Specifies input parameters. The parameter can include these inputs in a JSON object: - url: A string with the image
+   * URL to analyze. You can also include images in the **images_file** parameter. - classifier_ids: An array of
+   * classifier IDs to classify the images against. - owners: An array with the values IBM, me, or both to specify which
+   * classifiers to run. - threshold: A floating point value that specifies the minimum score a class must have to be
+   * displayed in the response. For example: {"url": "...", "classifier_ids": ["...","..."], "owners": ["IBM", "me"],
+   * "threshold": 0.4}
    *
    * @return the parameters
    */
@@ -218,12 +216,11 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the acceptLanguage.
    *
-   * Specifies the language of the output class names.  Can be `en` (English), `ar` (Arabic), `de` (German), `es`
-   * (Spanish), `it` (Italian), `ja` (Japanese), or `ko` (Korean).  Classes for which no translation is available are
-   * omitted.  The response might not be in the specified language under these conditions:
-   * - English is returned when the requested language is not supported.
-   * - Classes are not returned when there is no translation for them.
-   * - Custom classifiers returned with this method return tags in the language of the custom classifier.
+   * Specifies the language of the output class names. Can be `en` (English), `ar` (Arabic), `de` (German), `es`
+   * (Spanish), `it` (Italian), `ja` (Japanese), or `ko` (Korean). Classes for which no translation is available are
+   * omitted. The response might not be in the specified language under these conditions: - English is returned when the
+   * requested language is not supported. - Classes are not returned when there is no translation for them. - Custom
+   * classifiers returned with this method return tags in the language of the custom classifier.
    *
    * @return the acceptLanguage
    */
@@ -234,7 +231,7 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the imagesFileContentType.
    *
-   * The content type of imagesFile.
+   * The content type of imagesFile. Values for this parameter can be obtained from the HttpMediaType class.
    *
    * @return the imagesFileContentType
    */

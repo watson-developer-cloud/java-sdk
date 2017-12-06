@@ -28,7 +28,7 @@ public class ConceptsResult extends GenericModel {
   /**
    * Gets the text.
    *
-   * Name of the concept.
+   * Name of the concept
    *
    * @return the text
    */
@@ -39,7 +39,7 @@ public class ConceptsResult extends GenericModel {
   /**
    * Gets the relevance.
    *
-   * Relevance score between 0 and 1. Higher scores indicate greater relevance.
+   * Relevance score between 0 and 1. Higher scores indicate greater relevance
    *
    * @return the relevance
    */
@@ -50,7 +50,7 @@ public class ConceptsResult extends GenericModel {
   /**
    * Gets the dbpediaResource.
    *
-   * Link to the corresponding DBpedia resource.
+   * Link to the corresponding DBpedia resource
    *
    * @return the dbpediaResource
    */

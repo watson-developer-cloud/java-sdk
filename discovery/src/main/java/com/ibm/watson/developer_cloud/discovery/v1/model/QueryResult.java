@@ -23,10 +23,16 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * QueryResult.
  */
 public class QueryResult extends DynamicModel {
-  private Type idType = new TypeToken<String>() { } .getType();
-  private Type scoreType = new TypeToken<Double>() { } .getType();
-  private Type metadataType = new TypeToken<Map>() { } .getType();
-
+  private Type idType = new TypeToken<String>() {
+  }.getType();
+  private Type scoreType = new TypeToken<Double>() {
+  }.getType();
+  private Type metadataType = new TypeToken<Map>() {
+  }.getType();
+  private Type collectionIdType = new TypeToken<String>() {
+  }.getType();
+  private Type resultMetadataType = new TypeToken<QueryResultResultMetadata>() {
+  }.getType();
 
   /**
    * Gets the id.
@@ -56,6 +62,24 @@ public class QueryResult extends DynamicModel {
   }
 
   /**
+   * Gets the collectionId.
+   *
+   * @return the collectionId
+   */
+  public String getCollectionId() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("collection_id"), collectionIdType);
+  }
+
+  /**
+   * Gets the resultMetadata.
+   *
+   * @return the resultMetadata
+   */
+  public QueryResultResultMetadata getResultMetadata() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("result_metadata"), resultMetadataType);
+  }
+
+  /**
    * Sets the id.
    *
    * @param id the new id
@@ -81,5 +105,22 @@ public class QueryResult extends DynamicModel {
   public void setMetadata(final Map metadata) {
     this.put("metadata", metadata);
   }
-}
 
+  /**
+   * Sets the collectionId.
+   *
+   * @param collectionId the new collectionId
+   */
+  public void setCollectionId(final String collectionId) {
+    this.put("collection_id", collectionId);
+  }
+
+  /**
+   * Sets the resultMetadata.
+   *
+   * @param resultMetadata the new resultMetadata
+   */
+  public void setResultMetadata(final QueryResultResultMetadata resultMetadata) {
+    this.put("result_metadata", resultMetadata);
+  }
+}
