@@ -24,7 +24,7 @@ public class DocumentEmotionResults extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * An object containing the emotion results for the document.
+   * An object containing the emotion results for the document
    *
    * @return the emotion
    */

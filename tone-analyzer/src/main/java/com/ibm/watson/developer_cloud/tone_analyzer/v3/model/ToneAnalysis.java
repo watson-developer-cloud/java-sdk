@@ -30,7 +30,7 @@ public class ToneAnalysis extends GenericModel {
   /**
    * Gets the documentTone.
    *
-   * An object of type `DocumentAnalysis` that provides the results for the full document of the input content.
+   * An object of type `DocumentAnalysis` that provides the results of the analysis for the full input document.
    *
    * @return the documentTone
    */
@@ -41,9 +41,9 @@ public class ToneAnalysis extends GenericModel {
   /**
    * Gets the sentencesTone.
    *
-   * An array of `SentenceAnalysis` objects that provides the results for the individual sentences of the input
-   * content. The service returns results only for the first 100 sentences of the input. The field is omitted if the
-   * `sentences` parameter of the request is set to `false`.
+   * An array of `SentenceAnalysis` objects that provides the results of the analysis for the individual sentences of
+   * the input content. The service returns results only for the first 100 sentences of the input. The field is omitted
+   * if the `sentences` parameter of the request is set to `false`.
    *
    * @return the sentencesTone
    */

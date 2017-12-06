@@ -38,6 +38,7 @@ public class DialogNodeAction extends GenericModel {
   private Map parameters;
   @SerializedName("result_variable")
   private String resultVariable;
+  private String credentials;
 
   /**
    * Gets the name.
@@ -84,6 +85,17 @@ public class DialogNodeAction extends GenericModel {
   }
 
   /**
+   * Gets the credentials.
+   *
+   * The name of the context variable that the client application will use to pass in credentials for the action.
+   *
+   * @return the credentials
+   */
+  public String getCredentials() {
+    return credentials;
+  }
+
+  /**
    * Sets the name.
    *
    * @param name the new name
@@ -117,5 +129,14 @@ public class DialogNodeAction extends GenericModel {
    */
   public void setResultVariable(final String resultVariable) {
     this.resultVariable = resultVariable;
+  }
+
+  /**
+   * Sets the credentials.
+   *
+   * @param credentials the new credentials
+   */
+  public void setCredentials(final String credentials) {
+    this.credentials = credentials;
   }
 }

@@ -84,6 +84,7 @@ public class AlchemyVisionIT extends WatsonServiceTest {
   /**
    * Test get image with HTML.
    */
+  @Ignore
   @Test
   public void testGetImageWithHTML() {
     final ImageLink image = service.getImageLink(htmlExample).execute();

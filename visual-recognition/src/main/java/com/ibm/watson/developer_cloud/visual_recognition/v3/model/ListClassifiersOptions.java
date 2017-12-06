@@ -74,7 +74,7 @@ public class ListClassifiersOptions extends GenericModel {
   /**
    * Gets the verbose.
    *
-   * Specify true to return classifier details. Omit this parameter to return a brief list of classifiers.
+   * Specify `true` to return classifier details. Omit this parameter to return a brief list of classifiers.
    *
    * @return the verbose
    */

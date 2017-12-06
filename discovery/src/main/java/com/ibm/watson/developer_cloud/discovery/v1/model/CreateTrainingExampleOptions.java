@@ -148,9 +148,9 @@ public class CreateTrainingExampleOptions extends GenericModel {
      * @return the CreateTrainingExampleOptions builder
      */
     public Builder trainingExample(TrainingExample trainingExample) {
-    this.documentId = trainingExample.getDocumentId();
-    this.crossReference = trainingExample.getCrossReference();
-    this.relevance = trainingExample.getRelevance();
+      this.documentId = trainingExample.getDocumentId();
+      this.crossReference = trainingExample.getCrossReference();
+      this.relevance = trainingExample.getRelevance();
       return this;
     }
   }
@@ -179,7 +179,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * the ID of your environment.
+   * The ID of the environment.
    *
    * @return the environmentId
    */
@@ -190,7 +190,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * the ID of your collection.
+   * The ID of the collection.
    *
    * @return the collectionId
    */
@@ -201,7 +201,7 @@ public class CreateTrainingExampleOptions extends GenericModel {
   /**
    * Gets the queryId.
    *
-   * the ID of the query used for training.
+   * The ID of the query used for training.
    *
    * @return the queryId
    */

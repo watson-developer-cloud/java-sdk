@@ -25,7 +25,7 @@ public class CategoriesResult extends GenericModel {
   /**
    * Gets the label.
    *
-   * The path to the category through the taxonomy hierarchy.
+   * The path to the category through the taxonomy hierarchy
    *
    * @return the label
    */

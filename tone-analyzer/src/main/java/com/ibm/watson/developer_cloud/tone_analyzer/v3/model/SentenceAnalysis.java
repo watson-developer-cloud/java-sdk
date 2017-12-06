@@ -25,12 +25,13 @@ public class SentenceAnalysis extends GenericModel {
   @SerializedName("sentence_id")
   private Long sentenceId;
   private String text;
+  private List<ToneScore> tones;
+  @SerializedName("tone_categories")
+  private List<ToneCategory> toneCategories;
   @SerializedName("input_from")
   private Long inputFrom;
   @SerializedName("input_to")
   private Long inputTo;
-  @SerializedName("tone_categories")
-  private List<ToneCategory> toneCategories;
 
   /**
    * Gets the sentenceId.
@@ -56,9 +57,36 @@ public class SentenceAnalysis extends GenericModel {
   }
 
   /**
+   * Gets the tones.
+   *
+   * **`2017-09-21`:** An array of `ToneScore` objects that provides the results of the analysis for each qualifying
+   * tone of the sentence. The array includes results for any tone whose score is at least 0.5. The array is empty if no
+   * tone has a score that meets this threshold. **`2016-05-19`:** Not returned.
+   *
+   * @return the tones
+   */
+  public List<ToneScore> getTones() {
+    return tones;
+  }
+
+  /**
+   * Gets the toneCategories.
+   *
+   * **`2017-09-21`:** Not returned. **`2016-05-19`:** An array of `ToneCategory` objects that provides the results of
+   * the tone analysis for the sentence. The service returns results only for the tones specified with the `tones`
+   * parameter of the request.
+   *
+   * @return the toneCategories
+   */
+  public List<ToneCategory> getToneCategories() {
+    return toneCategories;
+  }
+
+  /**
    * Gets the inputFrom.
    *
-   * The offset of the first character of the sentence in the overall input content.
+   * **`2017-09-21`:** Not returned. **`2016-05-19`:** The offset of the first character of the sentence in the overall
+   * input content.
    *
    * @return the inputFrom
    */
@@ -69,24 +97,13 @@ public class SentenceAnalysis extends GenericModel {
   /**
    * Gets the inputTo.
    *
-   * The offset of the last character of the sentence in the overall input content.
+   * **`2017-09-21`:** Not returned. **`2016-05-19`:** The offset of the last character of the sentence in the overall
+   * input content.
    *
    * @return the inputTo
    */
   public Long getInputTo() {
     return inputTo;
-  }
-
-  /**
-   * Gets the toneCategories.
-   *
-   * An array of `ToneCategory` objects that provides the results for the tone analysis of the sentence. The service
-   * returns results only for the tones specified with the `tones` parameter of the request.
-   *
-   * @return the toneCategories
-   */
-  public List<ToneCategory> getToneCategories() {
-    return toneCategories;
   }
 
   /**
@@ -108,6 +125,24 @@ public class SentenceAnalysis extends GenericModel {
   }
 
   /**
+   * Sets the tones.
+   *
+   * @param tones the new tones
+   */
+  public void setTones(final List<ToneScore> tones) {
+    this.tones = tones;
+  }
+
+  /**
+   * Sets the toneCategories.
+   *
+   * @param toneCategories the new toneCategories
+   */
+  public void setToneCategories(final List<ToneCategory> toneCategories) {
+    this.toneCategories = toneCategories;
+  }
+
+  /**
    * Sets the inputFrom.
    *
    * @param inputFrom the new inputFrom
@@ -123,14 +158,5 @@ public class SentenceAnalysis extends GenericModel {
    */
   public void setInputTo(final long inputTo) {
     this.inputTo = inputTo;
-  }
-
-  /**
-   * Sets the toneCategories.
-   *
-   * @param toneCategories the new toneCategories
-   */
-  public void setToneCategories(final List<ToneCategory> toneCategories) {
-    this.toneCategories = toneCategories;
   }
 }

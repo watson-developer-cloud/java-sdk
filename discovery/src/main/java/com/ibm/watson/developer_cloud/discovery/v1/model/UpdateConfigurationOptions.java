@@ -80,32 +80,32 @@ public class UpdateConfigurationOptions extends GenericModel {
     }
 
     /**
-     * Adds an enrichment to enrichments.
+     * Adds an enrichments to enrichments.
      *
-     * @param enrichment the new enrichment
+     * @param enrichments the new enrichments
      * @return the UpdateConfigurationOptions builder
      */
-    public Builder addEnrichment(Enrichment enrichment) {
-      Validator.notNull(enrichment, "enrichment cannot be null");
+    public Builder addEnrichments(Enrichment enrichments) {
+      Validator.notNull(enrichments, "enrichments cannot be null");
       if (this.enrichments == null) {
         this.enrichments = new ArrayList<Enrichment>();
       }
-      this.enrichments.add(enrichment);
+      this.enrichments.add(enrichments);
       return this;
     }
 
     /**
-     * Adds an normalization to normalizations.
+     * Adds an normalizations to normalizations.
      *
-     * @param normalization the new normalization
+     * @param normalizations the new normalizations
      * @return the UpdateConfigurationOptions builder
      */
-    public Builder addNormalization(NormalizationOperation normalization) {
-      Validator.notNull(normalization, "normalization cannot be null");
+    public Builder addNormalizations(NormalizationOperation normalizations) {
+      Validator.notNull(normalizations, "normalizations cannot be null");
       if (this.normalizations == null) {
         this.normalizations = new ArrayList<NormalizationOperation>();
       }
-      this.normalizations.add(normalization);
+      this.normalizations.add(normalizations);
       return this;
     }
 
@@ -195,11 +195,11 @@ public class UpdateConfigurationOptions extends GenericModel {
      * @return the UpdateConfigurationOptions builder
      */
     public Builder configuration(Configuration configuration) {
-    this.name = configuration.getName();
-    this.description = configuration.getDescription();
-    this.conversions = configuration.getConversions();
-    this.enrichments = configuration.getEnrichments();
-    this.normalizations = configuration.getNormalizations();
+      this.name = configuration.getName();
+      this.description = configuration.getDescription();
+      this.conversions = configuration.getConversions();
+      this.enrichments = configuration.getEnrichments();
+      this.normalizations = configuration.getNormalizations();
       return this;
     }
   }
@@ -228,7 +228,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * the ID of your environment.
+   * The ID of the environment.
    *
    * @return the environmentId
    */
@@ -239,7 +239,7 @@ public class UpdateConfigurationOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * the ID of your configuration.
+   * The ID of the configuration.
    *
    * @return the configurationId
    */

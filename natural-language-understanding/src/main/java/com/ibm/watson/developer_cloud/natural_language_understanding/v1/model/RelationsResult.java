@@ -40,7 +40,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the sentence.
    *
-   * The sentence that contains the relation.
+   * The sentence that contains the relation
    *
    * @return the sentence
    */
@@ -51,7 +51,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of the relation.
+   * The type of the relation
    *
    * @return the type
    */
@@ -62,7 +62,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the arguments.
    *
-   * The extracted relation objects from the text.
+   * The extracted relation objects from the text
    *
    * @return the arguments
    */

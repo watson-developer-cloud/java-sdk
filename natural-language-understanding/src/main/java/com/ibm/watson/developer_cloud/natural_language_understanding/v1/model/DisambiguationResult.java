@@ -30,7 +30,7 @@ public class DisambiguationResult extends GenericModel {
   /**
    * Gets the name.
    *
-   * Common entity name.
+   * Common entity name
    *
    * @return the name
    */
@@ -41,7 +41,7 @@ public class DisambiguationResult extends GenericModel {
   /**
    * Gets the dbpediaResource.
    *
-   * Link to the corresponding DBpedia resource.
+   * Link to the corresponding DBpedia resource
    *
    * @return the dbpediaResource
    */
@@ -52,7 +52,7 @@ public class DisambiguationResult extends GenericModel {
   /**
    * Gets the subtype.
    *
-   * Entity subtype information.
+   * Entity subtype information
    *
    * @return the subtype
    */
