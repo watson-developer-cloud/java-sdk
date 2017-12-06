@@ -74,7 +74,7 @@ public class ConceptsOptions extends GenericModel {
   /**
    * Gets the limit.
    *
-   * Maximum number of concepts to return.
+   * Maximum number of concepts to return
    *
    * @return the limit
    */

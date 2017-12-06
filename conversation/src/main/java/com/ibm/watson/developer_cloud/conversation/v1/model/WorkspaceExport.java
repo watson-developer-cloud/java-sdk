@@ -148,8 +148,8 @@ public class WorkspaceExport extends GenericModel {
   /**
    * Gets the learningOptOut.
    *
-   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates
-   * that workspace training data is not to be used.
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates that
+   * workspace training data is not to be used.
    *
    * @return the learningOptOut
    */

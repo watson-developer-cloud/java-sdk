@@ -29,7 +29,7 @@ public class Model extends GenericModel {
   /**
    * Gets the status.
    *
-   * Shows as available if the model is ready for use.
+   * Shows as available if the model is ready for use
    *
    * @return the status
    */
@@ -40,7 +40,7 @@ public class Model extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * Unique model ID.
+   * Unique model ID
    *
    * @return the modelId
    */
@@ -51,7 +51,7 @@ public class Model extends GenericModel {
   /**
    * Gets the language.
    *
-   * ISO 639-1 code indicating the language of the model.
+   * ISO 639-1 code indicating the language of the model
    *
    * @return the language
    */
@@ -62,7 +62,7 @@ public class Model extends GenericModel {
   /**
    * Gets the description.
    *
-   * Model description.
+   * Model description
    *
    * @return the description
    */

@@ -22,18 +22,40 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ImageWithFaces extends GenericModel {
 
+  private List<Face> faces;
+  private String image;
   @SerializedName("source_url")
   private String sourceUrl;
   @SerializedName("resolved_url")
   private String resolvedUrl;
-  private String image;
   private ErrorInfo error;
-  private List<Face> faces;
+
+  /**
+   * Gets the faces.
+   *
+   * An array of the faces detected in the images.
+   *
+   * @return the faces
+   */
+  public List<Face> getFaces() {
+    return faces;
+  }
+
+  /**
+   * Gets the image.
+   *
+   * Relative path of the image file if uploaded directly. Not returned when the image is passed by URL.
+   *
+   * @return the image
+   */
+  public String getImage() {
+    return image;
+  }
 
   /**
    * Gets the sourceUrl.
    *
-   * Source image URL. Omitted if the image was uploaded. This is the URL as given to the service, before any redirects.
+   * Source of the image before any redirects. Not returned when the image is uploaded.
    *
    * @return the sourceUrl
    */
@@ -44,24 +66,12 @@ public class ImageWithFaces extends GenericModel {
   /**
    * Gets the resolvedUrl.
    *
-   * Fully-resolved image URL. Omitted if the image was uploaded. Redirects are followed, for example with URL
-   * shorteners.
+   * Fully resolved URL of the image after redirects are followed. Not returned when the image is uploaded.
    *
    * @return the resolvedUrl
    */
   public String getResolvedUrl() {
     return resolvedUrl;
-  }
-
-  /**
-   * Gets the image.
-   *
-   * Relative path of the image file if uploaded directly (e.g., inside a zip file). Omitted if image was passed by URL.
-   *
-   * @return the image
-   */
-  public String getImage() {
-    return image;
   }
 
   /**
@@ -74,12 +84,21 @@ public class ImageWithFaces extends GenericModel {
   }
 
   /**
-   * Gets the faces.
+   * Sets the faces.
    *
-   * @return the faces
+   * @param faces the new faces
    */
-  public List<Face> getFaces() {
-    return faces;
+  public void setFaces(final List<Face> faces) {
+    this.faces = faces;
+  }
+
+  /**
+   * Sets the image.
+   *
+   * @param image the new image
+   */
+  public void setImage(final String image) {
+    this.image = image;
   }
 
   /**
@@ -101,29 +120,11 @@ public class ImageWithFaces extends GenericModel {
   }
 
   /**
-   * Sets the image.
-   *
-   * @param image the new image
-   */
-  public void setImage(final String image) {
-    this.image = image;
-  }
-
-  /**
    * Sets the error.
    *
    * @param error the new error
    */
   public void setError(final ErrorInfo error) {
     this.error = error;
-  }
-
-  /**
-   * Sets the faces.
-   *
-   * @param faces the new faces
-   */
-  public void setFaces(final List<Face> faces) {
-    this.faces = faces;
   }
 }

@@ -109,6 +109,7 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
         .name(modelName)
         .baseModelId(baseModelId)
         .forcedGlossary(glossary)
+        .forcedGlossaryFilename("test_glossary")
         .build();
 
     TranslationModel model = null;

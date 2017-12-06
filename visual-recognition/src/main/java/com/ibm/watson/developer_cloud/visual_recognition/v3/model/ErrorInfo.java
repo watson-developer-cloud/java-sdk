@@ -16,7 +16,8 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Information about something that went wrong.
+ * Information about what might have caused a failure, such as an image that is too large. Not returned when there is no
+ * error.
  */
 public class ErrorInfo extends GenericModel {
 
@@ -27,7 +28,7 @@ public class ErrorInfo extends GenericModel {
   /**
    * Gets the errorId.
    *
-   * Codified error string, like 'input_error'.
+   * Codified error string. For example, `limit_exceeded`.
    *
    * @return the errorId
    */
@@ -38,7 +39,7 @@ public class ErrorInfo extends GenericModel {
   /**
    * Gets the description.
    *
-   * Human-readable error string, like 'Ignoring image with no valid data.'.
+   * Human-readable error description. For example, `File size limit exceeded`.
    *
    * @return the description
    */

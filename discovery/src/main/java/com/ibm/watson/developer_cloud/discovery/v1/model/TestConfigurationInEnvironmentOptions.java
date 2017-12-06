@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -46,6 +49,7 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   private String step;
   private String configurationId;
   private InputStream file;
+  private String filename;
   private String metadata;
   private String fileContentType;
 
@@ -58,6 +62,7 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     private String step;
     private String configurationId;
     private InputStream file;
+    private String filename;
     private String metadata;
     private String fileContentType;
 
@@ -67,6 +72,7 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
       step = testConfigurationInEnvironmentOptions.step;
       configurationId = testConfigurationInEnvironmentOptions.configurationId;
       file = testConfigurationInEnvironmentOptions.file;
+      filename = testConfigurationInEnvironmentOptions.filename;
       metadata = testConfigurationInEnvironmentOptions.metadata;
       fileContentType = testConfigurationInEnvironmentOptions.fileContentType;
     }
@@ -151,6 +157,17 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
     }
 
     /**
+     * Set the filename.
+     *
+     * @param filename the filename
+     * @return the TestConfigurationInEnvironmentOptions builder
+     */
+    public Builder filename(String filename) {
+      this.filename = filename;
+      return this;
+    }
+
+    /**
      * Set the metadata.
      *
      * @param metadata the metadata
@@ -171,15 +188,32 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
       this.fileContentType = fileContentType;
       return this;
     }
+
+    /**
+     * Set the file.
+     *
+     * @param file the file
+     * @return the TestConfigurationInEnvironmentOptions builder
+     *
+     * @throws FileNotFoundException
+     */
+    public Builder file(File file) throws FileNotFoundException {
+      this.file = new FileInputStream(file);
+      this.filename = file.getName();
+      return this;
+    }
   }
 
   private TestConfigurationInEnvironmentOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    Validator.isTrue((builder.file == null) || (builder.filename != null),
+        "filename cannot be null if file is not null.");
     environmentId = builder.environmentId;
     configuration = builder.configuration;
     step = builder.step;
     configurationId = builder.configurationId;
     file = builder.file;
+    filename = builder.filename;
     metadata = builder.metadata;
     fileContentType = builder.fileContentType;
   }
@@ -196,7 +230,7 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * the ID of your environment.
+   * The ID of the environment.
    *
    * @return the environmentId
    */
@@ -207,10 +241,10 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the configuration.
    *
-   * The configuration to use to process the document. If this part is provided, then the provided configuration is
-   * used to process the document. If the `configuration_id` is also provided (both are present at the same time),
-   * then request is rejected. The maximum supported configuration size is 1 MB. Configuration parts larger than 1 MB
-   * are rejected. See the `GET /configurations/{configuration_id}` operation for an example configuration.
+   * The configuration to use to process the document. If this part is provided, then the provided configuration is used
+   * to process the document. If the `configuration_id` is also provided (both are present at the same time), then
+   * request is rejected. The maximum supported configuration size is 1 MB. Configuration parts larger than 1 MB are
+   * rejected. See the `GET /configurations/{configuration_id}` operation for an example configuration.
    *
    * @return the configuration
    */
@@ -233,8 +267,8 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided
-   * (both are present at the same time), then request will be rejected.
+   * The ID of the configuration to use to process the document. If the `configuration` form part is also provided (both
+   * are present at the same time), then request will be rejected.
    *
    * @return the configurationId
    */
@@ -255,12 +289,22 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   }
 
   /**
+   * Gets the filename.
+   *
+   * The filename for file.
+   *
+   * @return the filename
+   */
+  public String filename() {
+    return filename;
+  }
+
+  /**
    * Gets the metadata.
    *
    * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
-   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than
-   * 1 MB are rejected.
-   * Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
+   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB
+   * are rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```
    *
    * @return the metadata
    */
@@ -271,7 +315,7 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
   /**
    * Gets the fileContentType.
    *
-   * The content type of file.
+   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
    *
    * @return the fileContentType
    */

@@ -33,10 +33,10 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * ### API Usage
  * The following information provides details about using the service to obtain a personality profile:
  * * **The profile method:** The service offers a single `/v3/profile` method that accepts up to 20 MB of input data and
- * produces results in JSON or CSV format. The service accepts input in Arabic, English, Japanese, or Spanish and can
- * produce output in a variety of languages.
+ * produces results in JSON or CSV format. The service accepts input in Arabic, English, Japanese, Korean, or Spanish
+ * and can produce output in a variety of languages.
  * * **Authentication:** You authenticate to the service by using your service credentials. You can use your credentials
- * to authenticate via a proxy server that resides in Bluemix, or you can use your credentials to obtain a token and
+ * to authenticate via a proxy server that resides in IBM Cloud, or you can use your credentials to obtain a token and
  * contact the service directly. See [Service credentials for Watson
  * services](https://console.bluemix.net/docs/services/watson/getting-started-credentials.html) and [Tokens for
  * authentication](https://console.bluemix.net/docs/services/watson/getting-started-tokens.html).
@@ -49,8 +49,9 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * For more information about the service, see [About Personality
  * Insights](https://console.bluemix.net/docs/services/personality-insights/index.html). For information about calling
  * the service and the responses it can generate, see [Requesting a
- * profile](https://console.bluemix.net/docs/services/personality-insights/input.html) and [Understanding a
- * profile](https://console.bluemix.net/docs/services/personality-insights/output.html).
+ * profile](https://console.bluemix.net/docs/services/personality-insights/input.html), [Understanding a JSON
+ * profile](https://console.bluemix.net/docs/services/personality-insights/output.html), and [Understanding a CSV
+ * profile](https://console.bluemix.net/docs/services/personality-insights/output-csv.html).
  *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/personality-insights.html">Personality Insights</a>
@@ -84,7 +85,7 @@ public class PersonalityInsights extends WatsonService {
    * Instantiates a new `PersonalityInsights` with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *        calls from failing when the service introduces breaking changes.
+   *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */
@@ -97,20 +98,19 @@ public class PersonalityInsights extends WatsonService {
    * Generates a personality profile based on input text.
    *
    * Derives personality insights for up to 20 MB of input content written by an author, though the service requires
-   * much less text to produce an accurate profile; for more information, see
-   * [Guidelines for providing sufficient input]
-   * (https://console.bluemix.net/docs/services/personality-insights/user-overview.html#overviewGuidelines). Accepts
-   * input in Arabic, English, Japanese, or Spanish and produces output in one of eleven languages. Provide plain text,
+   * much less text to produce an accurate profile; for more information, see [Providing sufficient
+   * input](https://console.bluemix.net/docs/services/personality-insights/input.html#sufficient). Accepts input in
+   * Arabic, English, Japanese, Korean, or Spanish and produces output in one of eleven languages. Provide plain text,
    * HTML, or JSON content, and receive results in JSON or CSV format.
    *
    * @param profileOptions the {@link ProfileOptions} containing the options for the call
-   * @return the {@link Profile} with the response
+   * @return a {@link ServiceCall} with a response type of {@link Profile}
    */
   public ServiceCall<Profile> profile(ProfileOptions profileOptions) {
     Validator.notNull(profileOptions, "profileOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v3/profile");
     builder.query(VERSION, versionDate);
-    builder.header("content-type", profileOptions.contentType());
+    builder.header("Content-Type", profileOptions.contentType());
     if (profileOptions.contentLanguage() != null) {
       builder.header("Content-Language", profileOptions.contentLanguage());
     }
@@ -118,18 +118,18 @@ public class PersonalityInsights extends WatsonService {
       builder.header("Accept-Language", profileOptions.acceptLanguage());
     }
     if (profileOptions.rawScores() != null) {
-    builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
+      builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
     }
     if (profileOptions.csvHeaders() != null) {
-    builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
+      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
     }
     if (profileOptions.consumptionPreferences() != null) {
-    builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
+      builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
     }
     if (profileOptions.contentType().equalsIgnoreCase(ProfileOptions.ContentType.APPLICATION_JSON)) {
-        builder.bodyJson(GsonSingleton.getGson().toJsonTree(profileOptions.content()).getAsJsonObject());
+      builder.bodyJson(GsonSingleton.getGson().toJsonTree(profileOptions.content()).getAsJsonObject());
     } else {
-        builder.bodyContent(profileOptions.body(), profileOptions.contentType());
+      builder.bodyContent(profileOptions.body(), profileOptions.contentType());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Profile.class));
   }

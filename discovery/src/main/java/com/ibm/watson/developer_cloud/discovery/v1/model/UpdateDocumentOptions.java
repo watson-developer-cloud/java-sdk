@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
@@ -26,6 +29,7 @@ public class UpdateDocumentOptions extends GenericModel {
   private String collectionId;
   private String documentId;
   private InputStream file;
+  private String filename;
   private String metadata;
   private String fileContentType;
 
@@ -37,6 +41,7 @@ public class UpdateDocumentOptions extends GenericModel {
     private String collectionId;
     private String documentId;
     private InputStream file;
+    private String filename;
     private String metadata;
     private String fileContentType;
 
@@ -45,6 +50,7 @@ public class UpdateDocumentOptions extends GenericModel {
       collectionId = updateDocumentOptions.collectionId;
       documentId = updateDocumentOptions.documentId;
       file = updateDocumentOptions.file;
+      filename = updateDocumentOptions.filename;
       metadata = updateDocumentOptions.metadata;
       fileContentType = updateDocumentOptions.fileContentType;
     }
@@ -122,6 +128,17 @@ public class UpdateDocumentOptions extends GenericModel {
     }
 
     /**
+     * Set the filename.
+     *
+     * @param filename the filename
+     * @return the UpdateDocumentOptions builder
+     */
+    public Builder filename(String filename) {
+      this.filename = filename;
+      return this;
+    }
+
+    /**
      * Set the metadata.
      *
      * @param metadata the metadata
@@ -142,16 +159,33 @@ public class UpdateDocumentOptions extends GenericModel {
       this.fileContentType = fileContentType;
       return this;
     }
+
+    /**
+     * Set the file.
+     *
+     * @param file the file
+     * @return the UpdateDocumentOptions builder
+     *
+     * @throws FileNotFoundException
+     */
+    public Builder file(File file) throws FileNotFoundException {
+      this.file = new FileInputStream(file);
+      this.filename = file.getName();
+      return this;
+    }
   }
 
   private UpdateDocumentOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     Validator.notEmpty(builder.documentId, "documentId cannot be empty");
+    Validator.isTrue((builder.file == null) || (builder.filename != null),
+        "filename cannot be null if file is not null.");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     documentId = builder.documentId;
     file = builder.file;
+    filename = builder.filename;
     metadata = builder.metadata;
     fileContentType = builder.fileContentType;
   }
@@ -168,7 +202,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the environmentId.
    *
-   * the ID of your environment.
+   * The ID of the environment.
    *
    * @return the environmentId
    */
@@ -179,7 +213,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the collectionId.
    *
-   * the ID of your collection.
+   * The ID of the collection.
    *
    * @return the collectionId
    */
@@ -190,7 +224,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the documentId.
    *
-   * the ID of your document.
+   * The ID of the document.
    *
    * @return the documentId
    */
@@ -211,12 +245,22 @@ public class UpdateDocumentOptions extends GenericModel {
   }
 
   /**
+   * Gets the filename.
+   *
+   * The filename for file.
+   *
+   * @return the filename
+   */
+  public String filename() {
+    return filename;
+  }
+
+  /**
    * Gets the metadata.
    *
    * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
-   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1
-   * MB are rejected.
-   * Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
+   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB
+   * are rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```
    *
    * @return the metadata
    */
@@ -227,7 +271,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the fileContentType.
    *
-   * The content type of file.
+   * The content type of file. Values for this parameter can be obtained from the HttpMediaType class.
    *
    * @return the fileContentType
    */

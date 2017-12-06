@@ -12,6 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.tone_analyzer.v3.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
@@ -21,7 +24,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class ToneOptions extends GenericModel {
 
   /**
-   * The type of the input: application/json, text/plain, or text/html. A character encoding can be specified by including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
+   * The type of the input: application/json, text/plain, or text/html. A character encoding can be specified by
+   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
    */
   public interface ContentType {
     /** application/json. */
@@ -32,8 +36,20 @@ public class ToneOptions extends GenericModel {
     String TEXT_HTML = "text/html";
   }
 
+  public interface Tone {
+    /** emotion. */
+    String EMOTION = "emotion";
+    /** language. */
+    String LANGUAGE = "language";
+    /** social. */
+    String SOCIAL = "social";
+  }
+
   /**
-   * The language of the input text for the request: English or French. Regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not submit content that contains both languages. You can specify any combination of languages for `Content-Language` and `Accept-Language`.
+   * The language of the input text for the request: English or French. Regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
+   * submit content that contains both languages. You can specify any combination of languages for `Content-Language`
+   * and `Accept-Language`. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
    */
   public interface ContentLanguage {
     /** en. */
@@ -43,7 +59,9 @@ public class ToneOptions extends GenericModel {
   }
 
   /**
-   * The desired language of the response. For two-character arguments, regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for `Content-Language` and `Accept-Language`.
+   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for
+   * `Content-Language` and `Accept-Language`.
    */
   public interface AcceptLanguage {
     /** ar. */
@@ -74,6 +92,7 @@ public class ToneOptions extends GenericModel {
   private String body;
   private String contentType;
   private Boolean sentences;
+  private List<String> tones;
   private String contentLanguage;
   private String acceptLanguage;
 
@@ -85,6 +104,7 @@ public class ToneOptions extends GenericModel {
     private String body;
     private String contentType;
     private Boolean sentences;
+    private List<String> tones;
     private String contentLanguage;
     private String acceptLanguage;
 
@@ -93,6 +113,7 @@ public class ToneOptions extends GenericModel {
       body = toneOptions.body;
       contentType = toneOptions.contentType;
       sentences = toneOptions.sentences;
+      tones = toneOptions.tones;
       contentLanguage = toneOptions.contentLanguage;
       acceptLanguage = toneOptions.acceptLanguage;
     }
@@ -113,6 +134,21 @@ public class ToneOptions extends GenericModel {
     }
 
     /**
+     * Adds an tone to tones.
+     *
+     * @param tone the new tone
+     * @return the ToneOptions builder
+     */
+    public Builder addTone(String tone) {
+      Validator.notNull(tone, "tone cannot be null");
+      if (this.tones == null) {
+        this.tones = new ArrayList<String>();
+      }
+      this.tones.add(tone);
+      return this;
+    }
+
+    /**
      * Set the sentences.
      *
      * @param sentences the sentences
@@ -120,6 +156,18 @@ public class ToneOptions extends GenericModel {
      */
     public Builder sentences(Boolean sentences) {
       this.sentences = sentences;
+      return this;
+    }
+
+    /**
+     * Set the tones.
+     * Existing tones will be replaced.
+     *
+     * @param tones the tones
+     * @return the ToneOptions builder
+     */
+    public Builder tones(List<String> tones) {
+      this.tones = tones;
       return this;
     }
 
@@ -188,6 +236,7 @@ public class ToneOptions extends GenericModel {
     body = builder.body;
     contentType = builder.contentType;
     sentences = builder.sentences;
+    tones = builder.tones;
     contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
   }
@@ -204,7 +253,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the toneInput.
    *
-   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type `ToneInput`.
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
+   * `ToneInput`.
    *
    * @return the toneInput
    */
@@ -215,7 +265,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the body.
    *
-   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type `ToneInput`.
+   * JSON, plain text, or HTML input that contains the content to be analyzed. For JSON input, provide an object of type
+   * `ToneInput`.
    *
    * @return the body
    */
@@ -226,7 +277,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the contentType.
    *
-   * The type of the input: application/json, text/plain, or text/html. A character encoding can be specified by including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
+   * The type of the input: application/json, text/plain, or text/html. A character encoding can be specified by
+   * including a `charset` parameter. For example, 'text/plain;charset=utf-8'.
    *
    * @return the contentType
    */
@@ -237,7 +289,8 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the sentences.
    *
-   * Indicates whether the service is to return an analysis of each individual sentence in addition to its analysis of the full document. If `true` (the default), the service returns results for each sentence.
+   * Indicates whether the service is to return an analysis of each individual sentence in addition to its analysis of
+   * the full document. If `true` (the default), the service returns results for each sentence.
    *
    * @return the sentences
    */
@@ -246,9 +299,27 @@ public class ToneOptions extends GenericModel {
   }
 
   /**
+   * Gets the tones.
+   *
+   * **`2017-09-21`:** Deprecated. The service continues to accept the parameter for backward-compatibility, but the
+   * parameter no longer affects the response. **`2016-05-19`:** A comma-separated list of tones for which the service
+   * is to return its analysis of the input; the indicated tones apply both to the full document and to individual
+   * sentences of the document. You can specify one or more of the valid values. Omit the parameter to request results
+   * for all three tones.
+   *
+   * @return the tones
+   */
+  public List<String> tones() {
+    return tones;
+  }
+
+  /**
    * Gets the contentLanguage.
    *
-   * The language of the input text for the request: English or French. Regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not submit content that contains both languages. You can specify any combination of languages for `Content-Language` and `Accept-Language`.
+   * The language of the input text for the request: English or French. Regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. The input content must match the specified language. Do not
+   * submit content that contains both languages. You can specify any combination of languages for `Content-Language`
+   * and `Accept-Language`. * **`2017-09-21`:** Accepts `en` or `fr`. * **`2016-05-19`:** Accepts only `en`.
    *
    * @return the contentLanguage
    */
@@ -259,7 +330,9 @@ public class ToneOptions extends GenericModel {
   /**
    * Gets the acceptLanguage.
    *
-   * The desired language of the response. For two-character arguments, regional variants are treated as their parent language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for `Content-Language` and `Accept-Language`.
+   * The desired language of the response. For two-character arguments, regional variants are treated as their parent
+   * language; for example, `en-US` is interpreted as `en`. You can specify any combination of languages for
+   * `Content-Language` and `Accept-Language`.
    *
    * @return the acceptLanguage
    */

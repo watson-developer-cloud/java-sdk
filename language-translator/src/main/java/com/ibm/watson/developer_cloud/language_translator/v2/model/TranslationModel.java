@@ -111,8 +111,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the baseModelId.
    *
-   * If this model is a custom model, this returns the base model that it is trained on. For a base model, this
-   * response value is empty.
+   * If this model is a custom model, this returns the base model that it is trained on. For a base model, this response
+   * value is empty.
    *
    * @return the baseModelId
    */
@@ -134,8 +134,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the customizable.
    *
-   * Whether this model can be used as a base for customization. Customized models are not further customizable, and
-   * we don't allow the customization of certain base models.
+   * Whether this model can be used as a base for customization. Customized models are not further customizable, and we
+   * don't allow the customization of certain base models.
    *
    * @return the customizable
    */
@@ -158,8 +158,8 @@ public class TranslationModel extends GenericModel {
   /**
    * Gets the owner.
    *
-   * Returns the Bluemix ID of the instance that created the model, or an empty string if it is a model that is
-   * trained by IBM.
+   * Returns the ID of the Language Translator service instance that created the model, or an empty string if it is a
+   * model that is trained by IBM.
    *
    * @return the owner
    */

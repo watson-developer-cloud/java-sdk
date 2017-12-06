@@ -161,9 +161,9 @@ public class TranslateOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * The unique model_id of the translation model being used to translate text. The model_id inherently specifies
-   * source language, target language, and domain. If the model_id is specified, there is no need for the source and
-   * target parameters and the values are ignored.
+   * The unique model_id of the translation model being used to translate text. The model_id inherently specifies source
+   * language, target language, and domain. If the model_id is specified, there is no need for the source and target
+   * parameters and the values are ignored.
    *
    * @return the modelId
    */
