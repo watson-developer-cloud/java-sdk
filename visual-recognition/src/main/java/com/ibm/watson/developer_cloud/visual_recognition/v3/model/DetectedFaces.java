@@ -41,6 +41,8 @@ public class DetectedFaces extends GenericModel {
   /**
    * Gets the images.
    *
+   * The array of images.
+   *
    * @return the images
    */
   public List<ImageWithFaces> getImages() {
@@ -50,7 +52,9 @@ public class DetectedFaces extends GenericModel {
   /**
    * Gets the warnings.
    *
-   * Omitted if there are no warnings.
+   * Information about what might cause less than optimal output. For example, a request sent with a corrupt .zip file
+   * and a list of image URLs will still complete, but does not return the expected output. Not returned when there is
+   * no warning.
    *
    * @return the warnings
    */

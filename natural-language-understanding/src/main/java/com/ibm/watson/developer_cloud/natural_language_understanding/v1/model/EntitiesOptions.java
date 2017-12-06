@@ -20,6 +20,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 public class EntitiesOptions extends GenericModel {
 
   private Long limit;
+  private Boolean mentions;
   private String model;
   private Boolean sentiment;
   private Boolean emotion;
@@ -29,12 +30,14 @@ public class EntitiesOptions extends GenericModel {
    */
   public static class Builder {
     private Long limit;
+    private Boolean mentions;
     private String model;
     private Boolean sentiment;
     private Boolean emotion;
 
     private Builder(EntitiesOptions entitiesOptions) {
       limit = entitiesOptions.limit;
+      mentions = entitiesOptions.mentions;
       model = entitiesOptions.model;
       sentiment = entitiesOptions.sentiment;
       emotion = entitiesOptions.emotion;
@@ -63,6 +66,17 @@ public class EntitiesOptions extends GenericModel {
      */
     public Builder limit(long limit) {
       this.limit = limit;
+      return this;
+    }
+
+    /**
+     * Set the mentions.
+     *
+     * @param mentions the mentions
+     * @return the EntitiesOptions builder
+     */
+    public Builder mentions(Boolean mentions) {
+      this.mentions = mentions;
       return this;
     }
 
@@ -102,6 +116,7 @@ public class EntitiesOptions extends GenericModel {
 
   private EntitiesOptions(Builder builder) {
     limit = builder.limit;
+    mentions = builder.mentions;
     model = builder.model;
     sentiment = builder.sentiment;
     emotion = builder.emotion;
@@ -119,7 +134,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
-   * Maximum number of entities to return.
+   * Maximum number of entities to return
    *
    * @return the limit
    */
@@ -128,9 +143,20 @@ public class EntitiesOptions extends GenericModel {
   }
 
   /**
+   * Gets the mentions.
+   *
+   * Set this to true to return locations of entity mentions
+   *
+   * @return the mentions
+   */
+  public Boolean mentions() {
+    return mentions;
+  }
+
+  /**
    * Gets the model.
    *
-   * Enter a custom model ID to override the standard entity detection model.
+   * Enter a custom model ID to override the standard entity detection model
    *
    * @return the model
    */
@@ -141,7 +167,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * Set this to true to return sentiment information for detected entities.
+   * Set this to true to return sentiment information for detected entities
    *
    * @return the sentiment
    */
@@ -152,7 +178,7 @@ public class EntitiesOptions extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * Set this to true to analyze emotion for detected keywords.
+   * Set this to true to analyze emotion for detected keywords
    *
    * @return the emotion
    */

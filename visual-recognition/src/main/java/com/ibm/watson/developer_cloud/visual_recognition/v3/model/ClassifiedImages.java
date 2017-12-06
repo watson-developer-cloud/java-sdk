@@ -22,10 +22,23 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
  */
 public class ClassifiedImages extends GenericModel {
 
+  @SerializedName("custom_classes")
+  private Long customClasses;
   @SerializedName("images_processed")
   private Long imagesProcessed;
   private List<ClassifiedImage> images;
   private List<WarningInfo> warnings;
+
+  /**
+   * Gets the customClasses.
+   *
+   * The number of custom classes identified in the images.
+   *
+   * @return the customClasses
+   */
+  public Long getCustomClasses() {
+    return customClasses;
+  }
 
   /**
    * Gets the imagesProcessed.
@@ -60,6 +73,15 @@ public class ClassifiedImages extends GenericModel {
    */
   public List<WarningInfo> getWarnings() {
     return warnings;
+  }
+
+  /**
+   * Sets the customClasses.
+   *
+   * @param customClasses the new customClasses
+   */
+  public void setCustomClasses(final long customClasses) {
+    this.customClasses = customClasses;
   }
 
   /**

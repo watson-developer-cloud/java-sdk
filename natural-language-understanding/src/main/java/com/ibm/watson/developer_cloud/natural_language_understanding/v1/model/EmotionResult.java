@@ -28,7 +28,7 @@ public class EmotionResult extends GenericModel {
   /**
    * Gets the document.
    *
-   * The returned emotion results across the document.
+   * The returned emotion results across the document
    *
    * @return the document
    */
@@ -39,7 +39,7 @@ public class EmotionResult extends GenericModel {
   /**
    * Gets the targets.
    *
-   * The returned emotion results per specified target.
+   * The returned emotion results per specified target
    *
    * @return the targets
    */

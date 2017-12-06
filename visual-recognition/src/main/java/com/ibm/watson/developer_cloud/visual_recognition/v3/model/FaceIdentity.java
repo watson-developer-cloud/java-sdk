@@ -16,7 +16,7 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Only included if identified celebrity, otherwise set to "".
+ * Provides information about a celebrity who is detected in the image. Not returned when a celebrity is not detected.
  */
 public class FaceIdentity extends GenericModel {
 
@@ -39,8 +39,7 @@ public class FaceIdentity extends GenericModel {
   /**
    * Gets the score.
    *
-   * The score of a class identified in an image. Scores range from 0-1, with a higher score indicating greater
-   * correlation.
+   * Confidence score for the property. Scores range from 0-1, with a higher score indicating greater correlation.
    *
    * @return the score
    */
@@ -51,7 +50,8 @@ public class FaceIdentity extends GenericModel {
   /**
    * Gets the typeHierarchy.
    *
-   * Type hierarchy, e.g. 'People/Leaders/Presidents/USA/Barack Obama'. Only included if found.
+   * Knowledge graph of the property. For example, `People/Leaders/Presidents/USA/Barack Obama`. Included only if
+   * identified.
    *
    * @return the typeHierarchy
    */
