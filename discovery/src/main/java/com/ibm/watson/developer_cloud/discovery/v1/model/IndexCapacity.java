@@ -30,7 +30,7 @@ public class IndexCapacity extends GenericModel {
   /**
    * Gets the documents.
    *
-   * Summary of the document usage statistics for the environment.
+   * Summary of the document usage statistics for the environment
    *
    * @return the documents
    */
@@ -52,7 +52,7 @@ public class IndexCapacity extends GenericModel {
   /**
    * Gets the collections.
    *
-   * Summary of the collection usage in the environment.
+   * Summary of the collection usage in the environment
    *
    * @return the collections
    */

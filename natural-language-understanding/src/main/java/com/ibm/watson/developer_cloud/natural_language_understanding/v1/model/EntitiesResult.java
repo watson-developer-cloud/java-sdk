@@ -33,7 +33,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the type.
    *
-   * Entity type.
+   * Entity type
    *
    * @return the type
    */
@@ -44,7 +44,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the text.
    *
-   * The name of the entity.
+   * The name of the entity
    *
    * @return the text
    */
@@ -55,7 +55,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the relevance.
    *
-   * Relevance score from 0 to 1. Higher values indicate greater relevance.
+   * Relevance score from 0 to 1. Higher values indicate greater relevance
    *
    * @return the relevance
    */
@@ -66,7 +66,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the mentions.
    *
-   * Entity mentions and locations.
+   * Entity mentions and locations
    *
    * @return the mentions
    */
@@ -77,7 +77,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the count.
    *
-   * How many times the entity was mentioned in the text.
+   * How many times the entity was mentioned in the text
    *
    * @return the count
    */
@@ -88,7 +88,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the emotion.
    *
-   * Emotion analysis results for the entity, enabled with the "emotion" option.
+   * Emotion analysis results for the entity, enabled with the "emotion" option
    *
    * @return the emotion
    */
@@ -99,7 +99,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the sentiment.
    *
-   * Sentiment analysis results for the entity, enabled with the "sentiment" option.
+   * Sentiment analysis results for the entity, enabled with the "sentiment" option
    *
    * @return the sentiment
    */
@@ -110,7 +110,7 @@ public class EntitiesResult extends GenericModel {
   /**
    * Gets the disambiguation.
    *
-   * Disambiguation information for the entity.
+   * Disambiguation information for the entity
    *
    * @return the disambiguation
    */

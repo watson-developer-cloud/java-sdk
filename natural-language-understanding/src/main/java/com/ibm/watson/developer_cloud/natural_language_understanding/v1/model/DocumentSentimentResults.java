@@ -25,7 +25,7 @@ public class DocumentSentimentResults extends GenericModel {
   /**
    * Gets the label.
    *
-   * Indicates whether the sentiment is positive, neutral, or negative.
+   * Indicates whether the sentiment is positive, neutral, or negative
    *
    * @return the label
    */
@@ -36,7 +36,7 @@ public class DocumentSentimentResults extends GenericModel {
   /**
    * Gets the score.
    *
-   * Sentiment score from -1 (negative) to 1 (positive).
+   * Sentiment score from -1 (negative) to 1 (positive)
    *
    * @return the score
    */

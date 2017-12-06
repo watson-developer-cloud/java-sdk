@@ -20,4 +20,3 @@ import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 public class CategoriesOptions extends DynamicModel {
 
 }
-

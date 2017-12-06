@@ -113,8 +113,8 @@ public class LanguageTranslator extends WatsonService {
    * Lists all languages that the service can identify. Returns the two-letter code (for example, `en` for English or
    * `es` for Spanish) and name of each language.
    *
-   * @param listIdentifiableLanguagesOptions the {@link ListIdentifiableLanguagesOptions} containing the options for
-   *                                         the call
+   * @param listIdentifiableLanguagesOptions the {@link ListIdentifiableLanguagesOptions} containing the options for the
+   *          call
    * @return a {@link ServiceCall} with a response type of {@link IdentifiableLanguages}
    */
   public ServiceCall<IdentifiableLanguages> listIdentifiableLanguages(
@@ -145,37 +145,33 @@ public class LanguageTranslator extends WatsonService {
    */
   public ServiceCall<TranslationModel> createModel(CreateModelOptions createModelOptions) {
     Validator.notNull(createModelOptions, "createModelOptions cannot be null");
-    Validator.isTrue((createModelOptions.forcedGlossary() != null)
-        || (createModelOptions.parallelCorpus() != null)
+    Validator.isTrue((createModelOptions.forcedGlossary() != null) || (createModelOptions.parallelCorpus() != null)
         || (createModelOptions.monolingualCorpus() != null),
         "At least one of forcedGlossary, parallelCorpus, or monolingualCorpus must be supplied.");
     RequestBuilder builder = RequestBuilder.post("/v2/models");
     builder.query("base_model_id", createModelOptions.baseModelId());
     if (createModelOptions.name() != null) {
-    builder.query("name", createModelOptions.name());
+      builder.query("name", createModelOptions.name());
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (createModelOptions.forcedGlossary() != null) {
-    RequestBody forcedGlossaryBody = RequestUtils.inputStreamBody(createModelOptions.forcedGlossary(),
-        "application/octet-stream");
-    multipartBuilder.addFormDataPart("forced_glossary",
-        createModelOptions.forcedGlossaryFilename(),
-        forcedGlossaryBody);
+      RequestBody forcedGlossaryBody = RequestUtils.inputStreamBody(createModelOptions.forcedGlossary(),
+          "application/octet-stream");
+      multipartBuilder.addFormDataPart("forced_glossary", createModelOptions.forcedGlossaryFilename(),
+          forcedGlossaryBody);
     }
     if (createModelOptions.parallelCorpus() != null) {
-    RequestBody parallelCorpusBody = RequestUtils.inputStreamBody(createModelOptions.parallelCorpus(),
-        "application/octet-stream");
-    multipartBuilder.addFormDataPart("parallel_corpus",
-        createModelOptions.parallelCorpusFilename(),
-        parallelCorpusBody);
+      RequestBody parallelCorpusBody = RequestUtils.inputStreamBody(createModelOptions.parallelCorpus(),
+          "application/octet-stream");
+      multipartBuilder.addFormDataPart("parallel_corpus", createModelOptions.parallelCorpusFilename(),
+          parallelCorpusBody);
     }
     if (createModelOptions.monolingualCorpus() != null) {
-    RequestBody monolingualCorpusBody = RequestUtils.inputStreamBody(createModelOptions.monolingualCorpus(),
-        "text/plain");
-    multipartBuilder.addFormDataPart("monolingual_corpus",
-        createModelOptions.monolingualCorpusFilename(),
-        monolingualCorpusBody);
+      RequestBody monolingualCorpusBody = RequestUtils.inputStreamBody(createModelOptions.monolingualCorpus(),
+          "text/plain");
+      multipartBuilder.addFormDataPart("monolingual_corpus", createModelOptions.monolingualCorpusFilename(),
+          monolingualCorpusBody);
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationModel.class));
@@ -214,15 +210,15 @@ public class LanguageTranslator extends WatsonService {
   public ServiceCall<TranslationModels> listModels(ListModelsOptions listModelsOptions) {
     RequestBuilder builder = RequestBuilder.get("/v2/models");
     if (listModelsOptions != null) {
-    if (listModelsOptions.source() != null) {
-    builder.query("source", listModelsOptions.source());
-    }
-    if (listModelsOptions.target() != null) {
-    builder.query("target", listModelsOptions.target());
-    }
-    if (listModelsOptions.defaultModels() != null) {
-    builder.query("default", String.valueOf(listModelsOptions.defaultModels()));
-    }
+      if (listModelsOptions.source() != null) {
+        builder.query("source", listModelsOptions.source());
+      }
+      if (listModelsOptions.target() != null) {
+        builder.query("target", listModelsOptions.target());
+      }
+      if (listModelsOptions.defaultModels() != null) {
+        builder.query("default", String.valueOf(listModelsOptions.defaultModels()));
+      }
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TranslationModels.class));
   }

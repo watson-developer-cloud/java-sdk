@@ -25,7 +25,7 @@ public class SemanticRolesVerb extends GenericModel {
   /**
    * Gets the text.
    *
-   * The keyword text.
+   * The keyword text
    *
    * @return the text
    */
@@ -36,7 +36,7 @@ public class SemanticRolesVerb extends GenericModel {
   /**
    * Gets the tense.
    *
-   * Verb tense.
+   * Verb tense
    *
    * @return the tense
    */

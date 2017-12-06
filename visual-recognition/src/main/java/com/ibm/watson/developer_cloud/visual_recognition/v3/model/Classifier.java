@@ -93,7 +93,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the explanation.
    *
-   * If classifier training has failed, this field may explain why.
+   * If classifier training has failed, this field may explain why
    *
    * @return the explanation
    */

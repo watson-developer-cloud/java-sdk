@@ -53,9 +53,13 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsRespons
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListFieldsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingExamplesOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryEntitiesOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryEntitiesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryNoticesResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryRelationsOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.QueryRelationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestConfigurationInEnvironmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.TestDocument;
@@ -91,6 +95,8 @@ public class Discovery extends WatsonService {
 
   private String versionDate;
 
+  /** The Constant VERSION_DATE_2017_11_07. */
+  public static final String VERSION_DATE_2017_11_07 = "2017-11-07";
   /** The Constant VERSION_DATE_2017_09_01. */
   public static final String VERSION_DATE_2017_09_01 = "2017-09-01";
   /** The Constant VERSION_DATE_2017_08_01. */
@@ -101,6 +107,7 @@ public class Discovery extends WatsonService {
   public static final String VERSION_DATE_2017_06_25 = "2017-06-25";
   /** The Constant VERSION_DATE_2016_12_01. */
   public static final String VERSION_DATE_2016_12_01 = "2016-12-01";
+
   /**
    * Instantiates a new `Discovery`.
    *
@@ -114,7 +121,7 @@ public class Discovery extends WatsonService {
     }
 
     Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2017_09_01);
+        "'version cannot be null. Use " + VERSION_DATE_2017_11_07);
 
     this.versionDate = versionDate;
   }
@@ -123,7 +130,7 @@ public class Discovery extends WatsonService {
    * Instantiates a new `Discovery` with username and password.
    *
    * @param versionDate The version date (yyyy-MM-dd) of the REST API to use. Specifying this value will keep your API
-   *        calls from failing when the service introduces breaking changes.
+   *          calls from failing when the service introduces breaking changes.
    * @param username the username
    * @param password the password
    */
@@ -135,7 +142,7 @@ public class Discovery extends WatsonService {
   /**
    * Add an environment.
    *
-   * Creates a new environment.  You can create only one environment per service instance. An attempt to create another
+   * Creates a new environment. You can create only one environment per service instance. An attempt to create another
    * environment results in an error.
    *
    * @param createEnvironmentOptions the {@link CreateEnvironmentOptions} containing the options for the call
@@ -165,9 +172,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteEnvironment(DeleteEnvironmentOptions deleteEnvironmentOptions) {
     Validator.notNull(deleteEnvironmentOptions, "deleteEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(
-        String.format("/v1/environments/%s", deleteEnvironmentOptions.environmentId())
-    );
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s", deleteEnvironmentOptions
+        .environmentId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -180,9 +186,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Environment> getEnvironment(GetEnvironmentOptions getEnvironmentOptions) {
     Validator.notNull(getEnvironmentOptions, "getEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s", getEnvironmentOptions.environmentId())
-    );
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s", getEnvironmentOptions
+        .environmentId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Environment.class));
   }
@@ -207,7 +212,7 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * List environments.
+   * List environments
    *
    * List existing environments for the service instance.
    *
@@ -227,9 +232,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<ListCollectionFieldsResponse> listFields(ListFieldsOptions listFieldsOptions) {
     Validator.notNull(listFieldsOptions, "listFieldsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/fields", listFieldsOptions.environmentId())
-    );
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/fields", listFieldsOptions
+        .environmentId()));
     builder.query(VERSION, versionDate);
     builder.query("collection_ids", RequestUtils.join(listFieldsOptions.collectionIds(), ","));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
@@ -238,7 +242,7 @@ public class Discovery extends WatsonService {
   /**
    * Update an environment.
    *
-   * Updates an environment. The environment's `name` and  `description` parameters can be changed. You must specify a
+   * Updates an environment. The environment's `name` and `description` parameters can be changed. You must specify a
    * `name` for the environment.
    *
    * @param updateEnvironmentOptions the {@link UpdateEnvironmentOptions} containing the options for the call
@@ -246,8 +250,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Environment> updateEnvironment(UpdateEnvironmentOptions updateEnvironmentOptions) {
     Validator.notNull(updateEnvironmentOptions, "updateEnvironmentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s",
-        updateEnvironmentOptions.environmentId()));
+    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s", updateEnvironmentOptions
+        .environmentId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateEnvironmentOptions.name() != null) {
@@ -263,21 +267,20 @@ public class Discovery extends WatsonService {
   /**
    * Add configuration.
    *
-   * Creates a new configuration.  If the input configuration contains the `configuration_id`, `created`, or `updated`
-   * properties, then they are ignored and overridden by the system, and an error is not returned so that the
-   * overridden fields do not need to be removed when copying a configuration.  The configuration can contain
-   * unrecognized JSON fields. Any such fields are ignored and do not generate an error. This makes it easier to use
-   * newer configuration files with older versions of the API and the service. It also makes it possible for the
-   * tooling to add additional metadata and information to the configuration.
+   * Creates a new configuration. If the input configuration contains the `configuration_id`, `created`, or `updated`
+   * properties, then they are ignored and overridden by the system, and an error is not returned so that the overridden
+   * fields do not need to be removed when copying a configuration. The configuration can contain unrecognized JSON
+   * fields. Any such fields are ignored and do not generate an error. This makes it easier to use newer configuration
+   * files with older versions of the API and the service. It also makes it possible for the tooling to add additional
+   * metadata and information to the configuration.
    *
    * @param createConfigurationOptions the {@link CreateConfigurationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Configuration}
    */
   public ServiceCall<Configuration> createConfiguration(CreateConfigurationOptions createConfigurationOptions) {
     Validator.notNull(createConfigurationOptions, "createConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(
-        String.format("/v1/environments/%s/configurations", createConfigurationOptions.environmentId())
-    );
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/configurations",
+        createConfigurationOptions.environmentId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createConfigurationOptions.name() != null) {
@@ -287,16 +290,14 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("description", createConfigurationOptions.description());
     }
     if (createConfigurationOptions.conversions() != null) {
-      contentJson.add("conversions",
-          GsonSingleton.getGson().toJsonTree(createConfigurationOptions.conversions()));
+      contentJson.add("conversions", GsonSingleton.getGson().toJsonTree(createConfigurationOptions.conversions()));
     }
     if (createConfigurationOptions.enrichments() != null) {
-      contentJson.add("enrichments",
-          GsonSingleton.getGson().toJsonTree(createConfigurationOptions.enrichments()));
+      contentJson.add("enrichments", GsonSingleton.getGson().toJsonTree(createConfigurationOptions.enrichments()));
     }
     if (createConfigurationOptions.normalizations() != null) {
-      contentJson.add("normalizations",
-          GsonSingleton.getGson().toJsonTree(createConfigurationOptions.normalizations()));
+      contentJson.add("normalizations", GsonSingleton.getGson().toJsonTree(createConfigurationOptions
+          .normalizations()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
@@ -315,11 +316,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteConfiguration(DeleteConfigurationOptions deleteConfigurationOptions) {
     Validator.notNull(deleteConfigurationOptions, "deleteConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format(
-        "/v1/environments/%s/configurations/%s",
-        deleteConfigurationOptions.environmentId(),
-        deleteConfigurationOptions.configurationId()
-    ));
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/configurations/%s",
+        deleteConfigurationOptions.environmentId(), deleteConfigurationOptions.configurationId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -332,11 +330,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Configuration> getConfiguration(GetConfigurationOptions getConfigurationOptions) {
     Validator.notNull(getConfigurationOptions, "getConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/configurations/%s",
-        getConfigurationOptions.environmentId(),
-        getConfigurationOptions.configurationId()
-    ));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/configurations/%s",
+        getConfigurationOptions.environmentId(), getConfigurationOptions.configurationId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
   }
@@ -352,9 +347,8 @@ public class Discovery extends WatsonService {
   public ServiceCall<ListConfigurationsResponse> listConfigurations(
       ListConfigurationsOptions listConfigurationsOptions) {
     Validator.notNull(listConfigurationsOptions, "listConfigurationsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/configurations", listConfigurationsOptions.environmentId())
-    );
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/configurations",
+        listConfigurationsOptions.environmentId()));
     builder.query(VERSION, versionDate);
     if (listConfigurationsOptions.name() != null) {
       builder.query("name", listConfigurationsOptions.name());
@@ -365,24 +359,19 @@ public class Discovery extends WatsonService {
   /**
    * Update a configuration.
    *
-   * Replaces an existing configuration.
-   * * Completely replaces the original configuration.
-   * * The `configuration_id`, `updated`, and `created` fields are accepted in the request, but they are ignored, and
-   * an error is not generated. It is also acceptable for users to submit an updated configuration with none of the
-   * three properties.
-   * * Documents are processed with a snapshot of the configuration as it was at the time the document was submitted
-   * to be ingested. This means that already submitted documents will not see any updates made to the configuration.
+   * Replaces an existing configuration. * Completely replaces the original configuration. * The `configuration_id`,
+   * `updated`, and `created` fields are accepted in the request, but they are ignored, and an error is not generated.
+   * It is also acceptable for users to submit an updated configuration with none of the three properties. * Documents
+   * are processed with a snapshot of the configuration as it was at the time the document was submitted to be ingested.
+   * This means that already submitted documents will not see any updates made to the configuration.
    *
    * @param updateConfigurationOptions the {@link UpdateConfigurationOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Configuration}
    */
   public ServiceCall<Configuration> updateConfiguration(UpdateConfigurationOptions updateConfigurationOptions) {
     Validator.notNull(updateConfigurationOptions, "updateConfigurationOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format(
-        "/v1/environments/%s/configurations/%s",
-        updateConfigurationOptions.environmentId(),
-        updateConfigurationOptions.configurationId()
-    ));
+    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s/configurations/%s",
+        updateConfigurationOptions.environmentId(), updateConfigurationOptions.configurationId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateConfigurationOptions.name() != null) {
@@ -392,16 +381,14 @@ public class Discovery extends WatsonService {
       contentJson.addProperty("description", updateConfigurationOptions.description());
     }
     if (updateConfigurationOptions.conversions() != null) {
-      contentJson.add("conversions",
-          GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.conversions()));
+      contentJson.add("conversions", GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.conversions()));
     }
     if (updateConfigurationOptions.enrichments() != null) {
-      contentJson.add("enrichments",
-          GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.enrichments()));
+      contentJson.add("enrichments", GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.enrichments()));
     }
     if (updateConfigurationOptions.normalizations() != null) {
-      contentJson.add("normalizations",
-          GsonSingleton.getGson().toJsonTree(updateConfigurationOptions.normalizations()));
+      contentJson.add("normalizations", GsonSingleton.getGson().toJsonTree(updateConfigurationOptions
+          .normalizations()));
     }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Configuration.class));
@@ -414,19 +401,17 @@ public class Discovery extends WatsonService {
    * help you understand how the document was processed. The document is not added to the index.
    *
    * @param testConfigurationInEnvironmentOptions the {@link TestConfigurationInEnvironmentOptions} containing the
-   *                                              options for the call
+   *          options for the call
    * @return a {@link ServiceCall} with a response type of {@link TestDocument}
    */
   public ServiceCall<TestDocument> testConfigurationInEnvironment(
       TestConfigurationInEnvironmentOptions testConfigurationInEnvironmentOptions) {
     Validator.notNull(testConfigurationInEnvironmentOptions, "testConfigurationInEnvironmentOptions cannot be null");
     Validator.isTrue((testConfigurationInEnvironmentOptions.configuration() != null)
-        || (testConfigurationInEnvironmentOptions.file() != null)
-        || (testConfigurationInEnvironmentOptions.metadata() != null),
-        "At least one of configuration, file, or metadata must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(
-        String.format("/v1/environments/%s/preview", testConfigurationInEnvironmentOptions.environmentId())
-    );
+        || (testConfigurationInEnvironmentOptions.file() != null) || (testConfigurationInEnvironmentOptions
+            .metadata() != null), "At least one of configuration, file, or metadata must be supplied.");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/preview",
+        testConfigurationInEnvironmentOptions.environmentId()));
     builder.query(VERSION, versionDate);
     if (testConfigurationInEnvironmentOptions.step() != null) {
       builder.query("step", testConfigurationInEnvironmentOptions.step());
@@ -440,10 +425,9 @@ public class Discovery extends WatsonService {
       multipartBuilder.addFormDataPart("configuration", testConfigurationInEnvironmentOptions.configuration());
     }
     if (testConfigurationInEnvironmentOptions.file() != null) {
-    RequestBody fileBody = RequestUtils.inputStreamBody(
-        testConfigurationInEnvironmentOptions.file(), testConfigurationInEnvironmentOptions.fileContentType()
-    );
-    multipartBuilder.addFormDataPart("file", testConfigurationInEnvironmentOptions.filename(), fileBody);
+      RequestBody fileBody = RequestUtils.inputStreamBody(testConfigurationInEnvironmentOptions.file(),
+          testConfigurationInEnvironmentOptions.fileContentType());
+      multipartBuilder.addFormDataPart("file", testConfigurationInEnvironmentOptions.filename(), fileBody);
     }
     if (testConfigurationInEnvironmentOptions.metadata() != null) {
       multipartBuilder.addFormDataPart("metadata", testConfigurationInEnvironmentOptions.metadata());
@@ -460,9 +444,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Collection> createCollection(CreateCollectionOptions createCollectionOptions) {
     Validator.notNull(createCollectionOptions, "createCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(
-        String.format("/v1/environments/%s/collections", createCollectionOptions.environmentId())
-    );
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections",
+        createCollectionOptions.environmentId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     contentJson.addProperty("name", createCollectionOptions.name());
@@ -487,11 +470,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteCollection(DeleteCollectionOptions deleteCollectionOptions) {
     Validator.notNull(deleteCollectionOptions, "deleteCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format(
-        "/v1/environments/%s/collections/%s",
-        deleteCollectionOptions.environmentId(),
-        deleteCollectionOptions.collectionId()
-    ));
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s",
+        deleteCollectionOptions.environmentId(), deleteCollectionOptions.collectionId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -504,11 +484,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Collection> getCollection(GetCollectionOptions getCollectionOptions) {
     Validator.notNull(getCollectionOptions, "getCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s",
-        getCollectionOptions.environmentId(),
-        getCollectionOptions.collectionId()
-    ));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s", getCollectionOptions
+        .environmentId(), getCollectionOptions.collectionId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Collection.class));
   }
@@ -524,11 +501,8 @@ public class Discovery extends WatsonService {
   public ServiceCall<ListCollectionFieldsResponse> listCollectionFields(
       ListCollectionFieldsOptions listCollectionFieldsOptions) {
     Validator.notNull(listCollectionFieldsOptions, "listCollectionFieldsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s/fields",
-        listCollectionFieldsOptions.environmentId(),
-        listCollectionFieldsOptions.collectionId()
-    ));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/fields",
+        listCollectionFieldsOptions.environmentId(), listCollectionFieldsOptions.collectionId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ListCollectionFieldsResponse.class));
   }
@@ -543,9 +517,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<ListCollectionsResponse> listCollections(ListCollectionsOptions listCollectionsOptions) {
     Validator.notNull(listCollectionsOptions, "listCollectionsOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/collections", listCollectionsOptions.environmentId())
-    );
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections", listCollectionsOptions
+        .environmentId()));
     builder.query(VERSION, versionDate);
     if (listCollectionsOptions.name() != null) {
       builder.query("name", listCollectionsOptions.name());
@@ -561,11 +534,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Collection> updateCollection(UpdateCollectionOptions updateCollectionOptions) {
     Validator.notNull(updateCollectionOptions, "updateCollectionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.put(String.format(
-        "/v1/environments/%s/collections/%s",
-        updateCollectionOptions.environmentId(),
-        updateCollectionOptions.collectionId()
-    ));
+    RequestBuilder builder = RequestBuilder.put(String.format("/v1/environments/%s/collections/%s",
+        updateCollectionOptions.environmentId(), updateCollectionOptions.collectionId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateCollectionOptions.name() != null) {
@@ -584,38 +554,31 @@ public class Discovery extends WatsonService {
   /**
    * Add a document.
    *
-   * Add a document to a collection with optional metadata.
-   * * The `version` query parameter is still required.
-   * * Returns immediately after the system has accepted the document for processing.
-   * * The user must provide document content, metadata, or both. If the request is missing both document content and
-   * metadata, it is rejected.
-   * * The user can set the `Content-Type` parameter on the `file` part to indicate the media type of the document. If
-   * the `Content-Type` parameter is missing or is one of the generic media types (for example,
-   * `application/octet-stream`), then the service attempts to automatically detect the document's media type.
-   * * The following field names are reserved and will be filtered out if present after normalization: `id`, `score`,
-   * `highlight`, and any field with the prefix of: `_`, `+`, or `-`
-   * * Fields with empty name values after normalization are filtered out before indexing.
-   * * Fields containing the following characters after normalization are filtered out before indexing: `#` and `,`.
+   * Add a document to a collection with optional metadata. * The `version` query parameter is still required. * Returns
+   * immediately after the system has accepted the document for processing. * The user must provide document content,
+   * metadata, or both. If the request is missing both document content and metadata, it is rejected. * The user can set
+   * the `Content-Type` parameter on the `file` part to indicate the media type of the document. If the `Content-Type`
+   * parameter is missing or is one of the generic media types (for example, `application/octet-stream`), then the
+   * service attempts to automatically detect the document's media type. * The following field names are reserved and
+   * will be filtered out if present after normalization: `id`, `score`, `highlight`, and any field with the prefix of:
+   * `_`, `+`, or `-` * Fields with empty name values after normalization are filtered out before indexing. * Fields
+   * containing the following characters after normalization are filtered out before indexing: `#` and `,`
    *
    * @param addDocumentOptions the {@link AddDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link DocumentAccepted}
    */
   public ServiceCall<DocumentAccepted> addDocument(AddDocumentOptions addDocumentOptions) {
     Validator.notNull(addDocumentOptions, "addDocumentOptions cannot be null");
-    Validator.isTrue((addDocumentOptions.file() != null)
-        || (addDocumentOptions.metadata() != null),
+    Validator.isTrue((addDocumentOptions.file() != null) || (addDocumentOptions.metadata() != null),
         "At least one of file or metadata must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(String.format(
-        "/v1/environments/%s/collections/%s/documents",
-        addDocumentOptions.environmentId(),
-        addDocumentOptions.collectionId()
-    ));
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/documents",
+        addDocumentOptions.environmentId(), addDocumentOptions.collectionId()));
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (addDocumentOptions.file() != null) {
-    RequestBody fileBody = RequestUtils.inputStreamBody(addDocumentOptions.file(),
-        addDocumentOptions.fileContentType());
+      RequestBody fileBody = RequestUtils.inputStreamBody(addDocumentOptions.file(), addDocumentOptions
+          .fileContentType());
       multipartBuilder.addFormDataPart("file", addDocumentOptions.filename(), fileBody);
     }
     if (addDocumentOptions.metadata() != null) {
@@ -628,20 +591,17 @@ public class Discovery extends WatsonService {
   /**
    * Delete a document.
    *
-   * If the given document ID is invalid, or if the document is not found, then the a success response is returned
-   * (HTTP status code `200`) with the status set to 'deleted'.
+   * If the given document ID is invalid, or if the document is not found, then the a success response is returned (HTTP
+   * status code `200`) with the status set to 'deleted'.
    *
    * @param deleteDocumentOptions the {@link DeleteDocumentOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of Void
    */
   public ServiceCall<Void> deleteDocument(DeleteDocumentOptions deleteDocumentOptions) {
     Validator.notNull(deleteDocumentOptions, "deleteDocumentOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format(
-        "/v1/environments/%s/collections/%s/documents/%s",
-        deleteDocumentOptions.environmentId(),
-        deleteDocumentOptions.collectionId(),
-        deleteDocumentOptions.documentId()
-    ));
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s/documents/%s",
+        deleteDocumentOptions.environmentId(), deleteDocumentOptions.collectionId(), deleteDocumentOptions
+            .documentId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -658,12 +618,9 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<DocumentStatus> getDocumentStatus(GetDocumentStatusOptions getDocumentStatusOptions) {
     Validator.notNull(getDocumentStatusOptions, "getDocumentStatusOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s/documents/%s",
-        getDocumentStatusOptions.environmentId(),
-        getDocumentStatusOptions.collectionId(),
-        getDocumentStatusOptions.documentId()
-    ));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/documents/%s",
+        getDocumentStatusOptions.environmentId(), getDocumentStatusOptions.collectionId(), getDocumentStatusOptions
+            .documentId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DocumentStatus.class));
   }
@@ -678,21 +635,17 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<DocumentAccepted> updateDocument(UpdateDocumentOptions updateDocumentOptions) {
     Validator.notNull(updateDocumentOptions, "updateDocumentOptions cannot be null");
-    Validator.isTrue((updateDocumentOptions.file() != null)
-        || (updateDocumentOptions.metadata() != null),
+    Validator.isTrue((updateDocumentOptions.file() != null) || (updateDocumentOptions.metadata() != null),
         "At least one of file or metadata must be supplied.");
-    RequestBuilder builder = RequestBuilder.post(String.format(
-        "/v1/environments/%s/collections/%s/documents/%s",
-        updateDocumentOptions.environmentId(),
-        updateDocumentOptions.collectionId(),
-        updateDocumentOptions.documentId()
-    ));
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/documents/%s",
+        updateDocumentOptions.environmentId(), updateDocumentOptions.collectionId(), updateDocumentOptions
+            .documentId()));
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     if (updateDocumentOptions.file() != null) {
-      RequestBody fileBody = RequestUtils.inputStreamBody(updateDocumentOptions.file(),
-        updateDocumentOptions.fileContentType());
+      RequestBody fileBody = RequestUtils.inputStreamBody(updateDocumentOptions.file(), updateDocumentOptions
+          .fileContentType());
       multipartBuilder.addFormDataPart("file", updateDocumentOptions.filename(), fileBody);
     }
     if (updateDocumentOptions.metadata() != null) {
@@ -705,17 +658,16 @@ public class Discovery extends WatsonService {
   /**
    * Query documents in multiple collections.
    *
-   * See the [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html) for
-   * more details.
+   * See the [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html) for more
+   * details.
    *
    * @param federatedQueryOptions the {@link FederatedQueryOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
    */
   public ServiceCall<QueryResponse> federatedQuery(FederatedQueryOptions federatedQueryOptions) {
     Validator.notNull(federatedQueryOptions, "federatedQueryOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/query", federatedQueryOptions.environmentId())
-    );
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/query", federatedQueryOptions
+        .environmentId()));
     builder.query(VERSION, versionDate);
     builder.query("collection_ids", RequestUtils.join(federatedQueryOptions.collectionIds(), ","));
     if (federatedQueryOptions.filter() != null) {
@@ -758,8 +710,9 @@ public class Discovery extends WatsonService {
    * Query multiple collection system notices.
    *
    * Queries for notices (errors or warnings) that might have been generated by the system. Notices are generated when
-   * ingesting documents and performing relevance training. See the [Discovery service documentation]
-   * (https://console.bluemix.net/docs/services/discovery/using.html) for more details on the query language.
+   * ingesting documents and performing relevance training. See the [Discovery service
+   * documentation](https://console.bluemix.net/docs/services/discovery/using.html) for more details on the query
+   * language.
    *
    * @param federatedQueryNoticesOptions the {@link FederatedQueryNoticesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryNoticesResponse}
@@ -767,9 +720,8 @@ public class Discovery extends WatsonService {
   public ServiceCall<QueryNoticesResponse> federatedQueryNotices(
       FederatedQueryNoticesOptions federatedQueryNoticesOptions) {
     Validator.notNull(federatedQueryNoticesOptions, "federatedQueryNoticesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(
-        String.format("/v1/environments/%s/notices", federatedQueryNoticesOptions.environmentId())
-    );
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/notices",
+        federatedQueryNoticesOptions.environmentId()));
     builder.query(VERSION, versionDate);
     builder.query("collection_ids", RequestUtils.join(federatedQueryNoticesOptions.collectionIds(), ","));
     if (federatedQueryNoticesOptions.filter() != null) {
@@ -808,19 +760,16 @@ public class Discovery extends WatsonService {
   /**
    * Query documents.
    *
-   * See the [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html) for
-   * more details.
+   * See the [Discovery service documentation](https://console.bluemix.net/docs/services/discovery/using.html) for more
+   * details.
    *
    * @param queryOptions the {@link QueryOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryResponse}
    */
   public ServiceCall<QueryResponse> query(QueryOptions queryOptions) {
     Validator.notNull(queryOptions, "queryOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s/query",
-        queryOptions.environmentId(),
-        queryOptions.collectionId()
-    ));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/query", queryOptions
+        .environmentId(), queryOptions.collectionId()));
     builder.query(VERSION, versionDate);
     if (queryOptions.filter() != null) {
       builder.query("filter", queryOptions.filter());
@@ -871,22 +820,51 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Knowledge Graph entity query.
+   *
+   * See the [Knowledge Graph documentation](https://console.bluemix.net/docs/services/discovery/building-kg.html) for
+   * more details.
+   *
+   * @param queryEntitiesOptions the {@link QueryEntitiesOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link QueryEntitiesResponse}
+   */
+  public ServiceCall<QueryEntitiesResponse> queryEntities(QueryEntitiesOptions queryEntitiesOptions) {
+    Validator.notNull(queryEntitiesOptions, "queryEntitiesOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/query_entities",
+        queryEntitiesOptions.environmentId(), queryEntitiesOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (queryEntitiesOptions.feature() != null) {
+      contentJson.addProperty("feature", queryEntitiesOptions.feature());
+    }
+    if (queryEntitiesOptions.entity() != null) {
+      contentJson.add("entity", GsonSingleton.getGson().toJsonTree(queryEntitiesOptions.entity()));
+    }
+    if (queryEntitiesOptions.context() != null) {
+      contentJson.add("context", GsonSingleton.getGson().toJsonTree(queryEntitiesOptions.context()));
+    }
+    if (queryEntitiesOptions.count() != null) {
+      contentJson.addProperty("count", queryEntitiesOptions.count());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryEntitiesResponse.class));
+  }
+
+  /**
    * Query system notices.
    *
    * Queries for notices (errors or warnings) that might have been generated by the system. Notices are generated when
-   * ingesting documents and performing relevance training. See the [Discovery service documentation]
-   * (https://console.bluemix.net/docs/services/discovery/using.html) for more details on the query language.
+   * ingesting documents and performing relevance training. See the [Discovery service
+   * documentation](https://console.bluemix.net/docs/services/discovery/using.html) for more details on the query
+   * language.
    *
    * @param queryNoticesOptions the {@link QueryNoticesOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link QueryNoticesResponse}
    */
   public ServiceCall<QueryNoticesResponse> queryNotices(QueryNoticesOptions queryNoticesOptions) {
     Validator.notNull(queryNoticesOptions, "queryNoticesOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s/notices",
-        queryNoticesOptions.environmentId(),
-        queryNoticesOptions.collectionId()
-    ));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/notices",
+        queryNoticesOptions.environmentId(), queryNoticesOptions.collectionId()));
     builder.query(VERSION, versionDate);
     if (queryNoticesOptions.filter() != null) {
       builder.query("filter", queryNoticesOptions.filter());
@@ -934,6 +912,40 @@ public class Discovery extends WatsonService {
   }
 
   /**
+   * Knowledge Graph relationship query.
+   *
+   * See the [Knowledge Graph documentation](https://console.bluemix.net/docs/services/discovery/building-kg.html) for
+   * more details.
+   *
+   * @param queryRelationsOptions the {@link QueryRelationsOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link QueryRelationsResponse}
+   */
+  public ServiceCall<QueryRelationsResponse> queryRelations(QueryRelationsOptions queryRelationsOptions) {
+    Validator.notNull(queryRelationsOptions, "queryRelationsOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/query_relations",
+        queryRelationsOptions.environmentId(), queryRelationsOptions.collectionId()));
+    builder.query(VERSION, versionDate);
+    final JsonObject contentJson = new JsonObject();
+    if (queryRelationsOptions.entities() != null) {
+      contentJson.add("entities", GsonSingleton.getGson().toJsonTree(queryRelationsOptions.entities()));
+    }
+    if (queryRelationsOptions.context() != null) {
+      contentJson.add("context", GsonSingleton.getGson().toJsonTree(queryRelationsOptions.context()));
+    }
+    if (queryRelationsOptions.sort() != null) {
+      contentJson.addProperty("sort", queryRelationsOptions.sort());
+    }
+    if (queryRelationsOptions.filter() != null) {
+      contentJson.add("filter", GsonSingleton.getGson().toJsonTree(queryRelationsOptions.filter()));
+    }
+    if (queryRelationsOptions.count() != null) {
+      contentJson.addProperty("count", queryRelationsOptions.count());
+    }
+    builder.bodyJson(contentJson);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(QueryRelationsResponse.class));
+  }
+
+  /**
    * Adds a query to the training data for this collection. The query can contain a filter and natural language query.
    *
    * @param addTrainingDataOptions the {@link AddTrainingDataOptions} containing the options for the call
@@ -941,11 +953,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<TrainingQuery> addTrainingData(AddTrainingDataOptions addTrainingDataOptions) {
     Validator.notNull(addTrainingDataOptions, "addTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format(
-        "/v1/environments/%s/collections/%s/training_data",
-        addTrainingDataOptions.environmentId(),
-        addTrainingDataOptions.collectionId()
-    ));
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/environments/%s/collections/%s/training_data",
+        addTrainingDataOptions.environmentId(), addTrainingDataOptions.collectionId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (addTrainingDataOptions.naturalLanguageQuery() != null) {
@@ -970,11 +979,8 @@ public class Discovery extends WatsonService {
   public ServiceCall<TrainingExample> createTrainingExample(CreateTrainingExampleOptions createTrainingExampleOptions) {
     Validator.notNull(createTrainingExampleOptions, "createTrainingExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s/examples",
-        createTrainingExampleOptions.environmentId(),
-        createTrainingExampleOptions.collectionId(),
-        createTrainingExampleOptions.queryId()
-    ));
+        "/v1/environments/%s/collections/%s/training_data/%s/examples", createTrainingExampleOptions.environmentId(),
+        createTrainingExampleOptions.collectionId(), createTrainingExampleOptions.queryId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (createTrainingExampleOptions.documentId() != null) {
@@ -998,11 +1004,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteAllTrainingData(DeleteAllTrainingDataOptions deleteAllTrainingDataOptions) {
     Validator.notNull(deleteAllTrainingDataOptions, "deleteAllTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format(
-        "/v1/environments/%s/collections/%s/training_data",
-        deleteAllTrainingDataOptions.environmentId(),
-        deleteAllTrainingDataOptions.collectionId()
-    ));
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s/training_data",
+        deleteAllTrainingDataOptions.environmentId(), deleteAllTrainingDataOptions.collectionId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1015,12 +1018,9 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<Void> deleteTrainingData(DeleteTrainingDataOptions deleteTrainingDataOptions) {
     Validator.notNull(deleteTrainingDataOptions, "deleteTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s",
-        deleteTrainingDataOptions.environmentId(),
-        deleteTrainingDataOptions.collectionId(),
-        deleteTrainingDataOptions.queryId()
-    ));
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/environments/%s/collections/%s/training_data/%s",
+        deleteTrainingDataOptions.environmentId(), deleteTrainingDataOptions.collectionId(), deleteTrainingDataOptions
+            .queryId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1034,12 +1034,9 @@ public class Discovery extends WatsonService {
   public ServiceCall<Void> deleteTrainingExample(DeleteTrainingExampleOptions deleteTrainingExampleOptions) {
     Validator.notNull(deleteTrainingExampleOptions, "deleteTrainingExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.delete(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
-        deleteTrainingExampleOptions.environmentId(),
-        deleteTrainingExampleOptions.collectionId(),
-        deleteTrainingExampleOptions.queryId(),
-        deleteTrainingExampleOptions.exampleId()
-    ));
+        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s", deleteTrainingExampleOptions.environmentId(),
+        deleteTrainingExampleOptions.collectionId(), deleteTrainingExampleOptions.queryId(),
+        deleteTrainingExampleOptions.exampleId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1052,12 +1049,9 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<TrainingQuery> getTrainingData(GetTrainingDataOptions getTrainingDataOptions) {
     Validator.notNull(getTrainingDataOptions, "getTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s",
-        getTrainingDataOptions.environmentId(),
-        getTrainingDataOptions.collectionId(),
-        getTrainingDataOptions.queryId()
-    ));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/training_data/%s",
+        getTrainingDataOptions.environmentId(), getTrainingDataOptions.collectionId(), getTrainingDataOptions
+            .queryId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingQuery.class));
   }
@@ -1071,12 +1065,9 @@ public class Discovery extends WatsonService {
   public ServiceCall<TrainingExample> getTrainingExample(GetTrainingExampleOptions getTrainingExampleOptions) {
     Validator.notNull(getTrainingExampleOptions, "getTrainingExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
-        getTrainingExampleOptions.environmentId(),
-        getTrainingExampleOptions.collectionId(),
-        getTrainingExampleOptions.queryId(),
-        getTrainingExampleOptions.exampleId()
-    ));
+        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s", getTrainingExampleOptions.environmentId(),
+        getTrainingExampleOptions.collectionId(), getTrainingExampleOptions.queryId(), getTrainingExampleOptions
+            .exampleId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExample.class));
   }
@@ -1089,11 +1080,8 @@ public class Discovery extends WatsonService {
    */
   public ServiceCall<TrainingDataSet> listTrainingData(ListTrainingDataOptions listTrainingDataOptions) {
     Validator.notNull(listTrainingDataOptions, "listTrainingDataOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s/training_data",
-        listTrainingDataOptions.environmentId(),
-        listTrainingDataOptions.collectionId()
-    ));
+    RequestBuilder builder = RequestBuilder.get(String.format("/v1/environments/%s/collections/%s/training_data",
+        listTrainingDataOptions.environmentId(), listTrainingDataOptions.collectionId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingDataSet.class));
   }
@@ -1108,11 +1096,8 @@ public class Discovery extends WatsonService {
       ListTrainingExamplesOptions listTrainingExamplesOptions) {
     Validator.notNull(listTrainingExamplesOptions, "listTrainingExamplesOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s/examples",
-        listTrainingExamplesOptions.environmentId(),
-        listTrainingExamplesOptions.collectionId(),
-        listTrainingExamplesOptions.queryId()
-    ));
+        "/v1/environments/%s/collections/%s/training_data/%s/examples", listTrainingExamplesOptions.environmentId(),
+        listTrainingExamplesOptions.collectionId(), listTrainingExamplesOptions.queryId()));
     builder.query(VERSION, versionDate);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(TrainingExampleList.class));
   }
@@ -1126,12 +1111,9 @@ public class Discovery extends WatsonService {
   public ServiceCall<TrainingExample> updateTrainingExample(UpdateTrainingExampleOptions updateTrainingExampleOptions) {
     Validator.notNull(updateTrainingExampleOptions, "updateTrainingExampleOptions cannot be null");
     RequestBuilder builder = RequestBuilder.put(String.format(
-        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s",
-        updateTrainingExampleOptions.environmentId(),
-        updateTrainingExampleOptions.collectionId(),
-        updateTrainingExampleOptions.queryId(),
-        updateTrainingExampleOptions.exampleId()
-    ));
+        "/v1/environments/%s/collections/%s/training_data/%s/examples/%s", updateTrainingExampleOptions.environmentId(),
+        updateTrainingExampleOptions.collectionId(), updateTrainingExampleOptions.queryId(),
+        updateTrainingExampleOptions.exampleId()));
     builder.query(VERSION, versionDate);
     final JsonObject contentJson = new JsonObject();
     if (updateTrainingExampleOptions.crossReference() != null) {

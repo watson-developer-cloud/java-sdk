@@ -104,7 +104,7 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the limit.
    *
-   * Maximum number of semantic_roles results to return.
+   * Maximum number of semantic_roles results to return
    *
    * @return the limit
    */
@@ -115,7 +115,7 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the keywords.
    *
-   * Set this to true to return keyword information for subjects and objects.
+   * Set this to true to return keyword information for subjects and objects
    *
    * @return the keywords
    */
@@ -126,7 +126,7 @@ public class SemanticRolesOptions extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Set this to true to return entity information for subjects and objects.
+   * Set this to true to return entity information for subjects and objects
    *
    * @return the entities
    */

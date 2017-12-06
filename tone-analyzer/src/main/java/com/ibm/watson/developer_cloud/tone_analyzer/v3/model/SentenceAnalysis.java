@@ -60,9 +60,8 @@ public class SentenceAnalysis extends GenericModel {
    * Gets the tones.
    *
    * **`2017-09-21`:** An array of `ToneScore` objects that provides the results of the analysis for each qualifying
-   * tone of the sentence. The array includes results for any tone whose score is at least 0.5. The array is empty if
-   * no tone has a score that meets this threshold.
-   * **`2016-05-19`:** Not returned.
+   * tone of the sentence. The array includes results for any tone whose score is at least 0.5. The array is empty if no
+   * tone has a score that meets this threshold. **`2016-05-19`:** Not returned.
    *
    * @return the tones
    */
@@ -73,8 +72,7 @@ public class SentenceAnalysis extends GenericModel {
   /**
    * Gets the toneCategories.
    *
-   * **`2017-09-21`:** Not returned.
-   * **`2016-05-19`:** An array of `ToneCategory` objects that provides the results of
+   * **`2017-09-21`:** Not returned. **`2016-05-19`:** An array of `ToneCategory` objects that provides the results of
    * the tone analysis for the sentence. The service returns results only for the tones specified with the `tones`
    * parameter of the request.
    *
@@ -87,8 +85,8 @@ public class SentenceAnalysis extends GenericModel {
   /**
    * Gets the inputFrom.
    *
-   * **`2017-09-21`:** Not returned.
-   * **`2016-05-19`:** The offset of the first character of the sentence in the overall input content.
+   * **`2017-09-21`:** Not returned. **`2016-05-19`:** The offset of the first character of the sentence in the overall
+   * input content.
    *
    * @return the inputFrom
    */
@@ -99,8 +97,8 @@ public class SentenceAnalysis extends GenericModel {
   /**
    * Gets the inputTo.
    *
-   * **`2017-09-21`:** Not returned.
-   * **`2016-05-19`:** The offset of the last character of the sentence in the overall input content.
+   * **`2017-09-21`:** Not returned. **`2016-05-19`:** The offset of the last character of the sentence in the overall
+   * input content.
    *
    * @return the inputTo
    */

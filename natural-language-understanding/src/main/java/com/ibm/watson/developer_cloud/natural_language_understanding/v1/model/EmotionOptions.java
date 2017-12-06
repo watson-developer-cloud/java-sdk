@@ -109,7 +109,7 @@ public class EmotionOptions extends GenericModel {
   /**
    * Gets the document.
    *
-   * Set this to false to hide document-level emotion results.
+   * Set this to false to hide document-level emotion results
    *
    * @return the document
    */
@@ -120,7 +120,7 @@ public class EmotionOptions extends GenericModel {
   /**
    * Gets the targets.
    *
-   * Emotion results will be returned for each target string that is found in the document.
+   * Emotion results will be returned for each target string that is found in the document
    *
    * @return the targets
    */
