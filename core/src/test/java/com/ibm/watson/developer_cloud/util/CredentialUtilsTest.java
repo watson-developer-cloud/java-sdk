@@ -65,8 +65,7 @@ public class CredentialUtilsTest extends WatsonServiceTest {
     final Hashtable<String, String> env = new Hashtable<>();
     env.put("java.naming.factory.initial", "org.osjava.sj.SimpleContextFactory");
     env.put("org.osjava.sj.delimiter", "/");
-    String rootPath = System.getProperty("user.dir") + "/src/test/resources";
-    env.put("org.osjava.sj.root", rootPath);
+    env.put("org.osjava.sj.root", "src/test/resources");
 
     CredentialUtils.setContext(env);
   }
