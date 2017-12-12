@@ -131,7 +131,7 @@ public class CredentialUtilsTest extends WatsonServiceTest {
    */
   @Test
   public void testGetAPIUrlFromJDNI() {
-    assumeTrue(!System.getenv().containsKey("TRAVIS"));
+    //assumeTrue(!System.getenv().containsKey("TRAVIS"));
     assertEquals(CredentialUtils.getAPIUrlTest(SERVICE_NAME), PERSONALITY_INSIGHTS_URL);
   }
 }
