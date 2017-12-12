@@ -12,32 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 
 /**
- * Options which are specific to a particular enrichment.
+ * An object that indicates the Categories enrichment will be applied to the specified field.
  */
-public class EnrichmentOptions extends GenericModel {
+public class NluEnrichmentCategories extends DynamicModel {
 
-  private NluEnrichmentFeatures features;
-
-  /**
-   * Gets the features.
-   *
-   * An object representing the enrichment features that will be applied to the specified field.
-   *
-   * @return the features
-   */
-  public NluEnrichmentFeatures getFeatures() {
-    return features;
-  }
-
-  /**
-   * Sets the features.
-   *
-   * @param features the new features
-   */
-  public void setFeatures(final NluEnrichmentFeatures features) {
-    this.features = features;
-  }
 }
