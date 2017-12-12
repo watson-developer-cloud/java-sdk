@@ -12,6 +12,8 @@
  */
 package com.ibm.watson.developer_cloud.personality_insights.v3;
 
+import com.ibm.watson.developer_cloud.http.HttpHeaders;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.personality_insights.v3.model.Profile;
@@ -134,4 +136,35 @@ public class PersonalityInsights extends WatsonService {
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Profile.class));
   }
 
+  public ServiceCall<String> getProfileAsCSV(ProfileOptions profileOptions, boolean includeHeaders) {
+    Validator.notNull(profileOptions, "profileOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.post("/v3/profile");
+    builder.query(VERSION, versionDate);
+    builder.header("Content-Type", profileOptions.contentType());
+    if (profileOptions.contentLanguage() != null) {
+      builder.header("Content-Language", profileOptions.contentLanguage());
+    }
+    if (profileOptions.acceptLanguage() != null) {
+      builder.header("Accept-Language", profileOptions.acceptLanguage());
+    }
+    if (profileOptions.rawScores() != null) {
+      builder.query("raw_scores", String.valueOf(profileOptions.rawScores()));
+    }
+    if (profileOptions.csvHeaders() != null) {
+      builder.query("csv_headers", String.valueOf(profileOptions.csvHeaders()));
+    }
+    if (profileOptions.consumptionPreferences() != null) {
+      builder.query("consumption_preferences", String.valueOf(profileOptions.consumptionPreferences()));
+    }
+    if (profileOptions.contentType().equalsIgnoreCase(ProfileOptions.ContentType.APPLICATION_JSON)) {
+      builder.bodyJson(GsonSingleton.getGson().toJsonTree(profileOptions.content()).getAsJsonObject());
+    } else {
+      builder.bodyContent(profileOptions.body(), profileOptions.contentType());
+    }
+
+    builder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
+    builder.query("headers", includeHeaders);
+
+    return createServiceCall(builder.build(), ResponseConverterUtils.getString());
+  }
 }
