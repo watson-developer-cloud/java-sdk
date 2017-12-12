@@ -24,13 +24,91 @@ public class NluEnrichmentSemanticRoles extends GenericModel {
   private Long limit;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Boolean entities;
+    private Boolean keywords;
+    private Long limit;
+
+    private Builder(NluEnrichmentSemanticRoles nluEnrichmentSemanticRoles) {
+      entities = nluEnrichmentSemanticRoles.entities;
+      keywords = nluEnrichmentSemanticRoles.keywords;
+      limit = nluEnrichmentSemanticRoles.limit;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NluEnrichmentSemanticRoles.
+     *
+     * @return the nluEnrichmentSemanticRoles
+     */
+    public NluEnrichmentSemanticRoles build() {
+      return new NluEnrichmentSemanticRoles(this);
+    }
+
+    /**
+     * Set the entities.
+     *
+     * @param entities the entities
+     * @return the NluEnrichmentSemanticRoles builder
+     */
+    public Builder entities(Boolean entities) {
+      this.entities = entities;
+      return this;
+    }
+
+    /**
+     * Set the keywords.
+     *
+     * @param keywords the keywords
+     * @return the NluEnrichmentSemanticRoles builder
+     */
+    public Builder keywords(Boolean keywords) {
+      this.keywords = keywords;
+      return this;
+    }
+
+    /**
+     * Set the limit.
+     *
+     * @param limit the limit
+     * @return the NluEnrichmentSemanticRoles builder
+     */
+    public Builder limit(long limit) {
+      this.limit = limit;
+      return this;
+    }
+  }
+
+  private NluEnrichmentSemanticRoles(Builder builder) {
+    entities = builder.entities;
+    keywords = builder.keywords;
+    limit = builder.limit;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a NluEnrichmentSemanticRoles builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the entities.
    *
    * When `true` entities are extracted from the identified sentence parts.
    *
    * @return the entities
    */
-  public Boolean isEntities() {
+  public Boolean entities() {
     return entities;
   }
 
@@ -41,7 +119,7 @@ public class NluEnrichmentSemanticRoles extends GenericModel {
    *
    * @return the keywords
    */
-  public Boolean isKeywords() {
+  public Boolean keywords() {
     return keywords;
   }
 
@@ -52,34 +130,7 @@ public class NluEnrichmentSemanticRoles extends GenericModel {
    *
    * @return the limit
    */
-  public Long getLimit() {
+  public Long limit() {
     return limit;
-  }
-
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(final Boolean entities) {
-    this.entities = entities;
-  }
-
-  /**
-   * Sets the keywords.
-   *
-   * @param keywords the new keywords
-   */
-  public void setKeywords(final Boolean keywords) {
-    this.keywords = keywords;
-  }
-
-  /**
-   * Sets the limit.
-   *
-   * @param limit the new limit
-   */
-  public void setLimit(final long limit) {
-    this.limit = limit;
   }
 }

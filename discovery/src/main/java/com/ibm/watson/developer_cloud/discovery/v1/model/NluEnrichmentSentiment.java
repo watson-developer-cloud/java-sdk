@@ -12,9 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * An object specifying the sentiment extraction enrichment and related parameters.
@@ -25,13 +27,93 @@ public class NluEnrichmentSentiment extends GenericModel {
   private List<String> targets;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Boolean document;
+    private List<String> targets;
+
+    private Builder(NluEnrichmentSentiment nluEnrichmentSentiment) {
+      document = nluEnrichmentSentiment.document;
+      targets = nluEnrichmentSentiment.targets;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NluEnrichmentSentiment.
+     *
+     * @return the nluEnrichmentSentiment
+     */
+    public NluEnrichmentSentiment build() {
+      return new NluEnrichmentSentiment(this);
+    }
+
+    /**
+     * Adds an targets to targets.
+     *
+     * @param targets the new targets
+     * @return the NluEnrichmentSentiment builder
+     */
+    public Builder addTargets(String targets) {
+      Validator.notNull(targets, "targets cannot be null");
+      if (this.targets == null) {
+        this.targets = new ArrayList<String>();
+      }
+      this.targets.add(targets);
+      return this;
+    }
+
+    /**
+     * Set the document.
+     *
+     * @param document the document
+     * @return the NluEnrichmentSentiment builder
+     */
+    public Builder document(Boolean document) {
+      this.document = document;
+      return this;
+    }
+
+    /**
+     * Set the targets.
+     * Existing targets will be replaced.
+     *
+     * @param targets the targets
+     * @return the NluEnrichmentSentiment builder
+     */
+    public Builder targets(List<String> targets) {
+      this.targets = targets;
+      return this;
+    }
+  }
+
+  private NluEnrichmentSentiment(Builder builder) {
+    document = builder.document;
+    targets = builder.targets;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a NluEnrichmentSentiment builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the document.
    *
    * When `true`, sentiment analysis is performed on the entire field.
    *
    * @return the document
    */
-  public Boolean isDocument() {
+  public Boolean document() {
     return document;
   }
 
@@ -42,25 +124,7 @@ public class NluEnrichmentSentiment extends GenericModel {
    *
    * @return the targets
    */
-  public List<String> getTargets() {
+  public List<String> targets() {
     return targets;
-  }
-
-  /**
-   * Sets the document.
-   *
-   * @param document the new document
-   */
-  public void setDocument(final Boolean document) {
-    this.document = document;
-  }
-
-  /**
-   * Sets the targets.
-   *
-   * @param targets the new targets
-   */
-  public void setTargets(final List<String> targets) {
-    this.targets = targets;
   }
 }

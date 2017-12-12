@@ -30,13 +30,147 @@ public class NluEnrichmentFeatures extends GenericModel {
   private NluEnrichmentRelations relations;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private NluEnrichmentKeywords keywords;
+    private NluEnrichmentEntities entities;
+    private NluEnrichmentSentiment sentiment;
+    private NluEnrichmentEmotion emotion;
+    private NluEnrichmentCategories categories;
+    private NluEnrichmentSemanticRoles semanticRoles;
+    private NluEnrichmentRelations relations;
+
+    private Builder(NluEnrichmentFeatures nluEnrichmentFeatures) {
+      keywords = nluEnrichmentFeatures.keywords;
+      entities = nluEnrichmentFeatures.entities;
+      sentiment = nluEnrichmentFeatures.sentiment;
+      emotion = nluEnrichmentFeatures.emotion;
+      categories = nluEnrichmentFeatures.categories;
+      semanticRoles = nluEnrichmentFeatures.semanticRoles;
+      relations = nluEnrichmentFeatures.relations;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NluEnrichmentFeatures.
+     *
+     * @return the nluEnrichmentFeatures
+     */
+    public NluEnrichmentFeatures build() {
+      return new NluEnrichmentFeatures(this);
+    }
+
+    /**
+     * Set the keywords.
+     *
+     * @param keywords the keywords
+     * @return the NluEnrichmentFeatures builder
+     */
+    public Builder keywords(NluEnrichmentKeywords keywords) {
+      this.keywords = keywords;
+      return this;
+    }
+
+    /**
+     * Set the entities.
+     *
+     * @param entities the entities
+     * @return the NluEnrichmentFeatures builder
+     */
+    public Builder entities(NluEnrichmentEntities entities) {
+      this.entities = entities;
+      return this;
+    }
+
+    /**
+     * Set the sentiment.
+     *
+     * @param sentiment the sentiment
+     * @return the NluEnrichmentFeatures builder
+     */
+    public Builder sentiment(NluEnrichmentSentiment sentiment) {
+      this.sentiment = sentiment;
+      return this;
+    }
+
+    /**
+     * Set the emotion.
+     *
+     * @param emotion the emotion
+     * @return the NluEnrichmentFeatures builder
+     */
+    public Builder emotion(NluEnrichmentEmotion emotion) {
+      this.emotion = emotion;
+      return this;
+    }
+
+    /**
+     * Set the categories.
+     *
+     * @param categories the categories
+     * @return the NluEnrichmentFeatures builder
+     */
+    public Builder categories(NluEnrichmentCategories categories) {
+      this.categories = categories;
+      return this;
+    }
+
+    /**
+     * Set the semanticRoles.
+     *
+     * @param semanticRoles the semanticRoles
+     * @return the NluEnrichmentFeatures builder
+     */
+    public Builder semanticRoles(NluEnrichmentSemanticRoles semanticRoles) {
+      this.semanticRoles = semanticRoles;
+      return this;
+    }
+
+    /**
+     * Set the relations.
+     *
+     * @param relations the relations
+     * @return the NluEnrichmentFeatures builder
+     */
+    public Builder relations(NluEnrichmentRelations relations) {
+      this.relations = relations;
+      return this;
+    }
+  }
+
+  private NluEnrichmentFeatures(Builder builder) {
+    keywords = builder.keywords;
+    entities = builder.entities;
+    sentiment = builder.sentiment;
+    emotion = builder.emotion;
+    categories = builder.categories;
+    semanticRoles = builder.semanticRoles;
+    relations = builder.relations;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a NluEnrichmentFeatures builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the keywords.
    *
    * An object specifying the Keyword enrichment and related parameters.
    *
    * @return the keywords
    */
-  public NluEnrichmentKeywords getKeywords() {
+  public NluEnrichmentKeywords keywords() {
     return keywords;
   }
 
@@ -47,7 +181,7 @@ public class NluEnrichmentFeatures extends GenericModel {
    *
    * @return the entities
    */
-  public NluEnrichmentEntities getEntities() {
+  public NluEnrichmentEntities entities() {
     return entities;
   }
 
@@ -58,7 +192,7 @@ public class NluEnrichmentFeatures extends GenericModel {
    *
    * @return the sentiment
    */
-  public NluEnrichmentSentiment getSentiment() {
+  public NluEnrichmentSentiment sentiment() {
     return sentiment;
   }
 
@@ -69,7 +203,7 @@ public class NluEnrichmentFeatures extends GenericModel {
    *
    * @return the emotion
    */
-  public NluEnrichmentEmotion getEmotion() {
+  public NluEnrichmentEmotion emotion() {
     return emotion;
   }
 
@@ -80,7 +214,7 @@ public class NluEnrichmentFeatures extends GenericModel {
    *
    * @return the categories
    */
-  public NluEnrichmentCategories getCategories() {
+  public NluEnrichmentCategories categories() {
     return categories;
   }
 
@@ -91,7 +225,7 @@ public class NluEnrichmentFeatures extends GenericModel {
    *
    * @return the semanticRoles
    */
-  public NluEnrichmentSemanticRoles getSemanticRoles() {
+  public NluEnrichmentSemanticRoles semanticRoles() {
     return semanticRoles;
   }
 
@@ -102,70 +236,7 @@ public class NluEnrichmentFeatures extends GenericModel {
    *
    * @return the relations
    */
-  public NluEnrichmentRelations getRelations() {
+  public NluEnrichmentRelations relations() {
     return relations;
-  }
-
-  /**
-   * Sets the keywords.
-   *
-   * @param keywords the new keywords
-   */
-  public void setKeywords(final NluEnrichmentKeywords keywords) {
-    this.keywords = keywords;
-  }
-
-  /**
-   * Sets the entities.
-   *
-   * @param entities the new entities
-   */
-  public void setEntities(final NluEnrichmentEntities entities) {
-    this.entities = entities;
-  }
-
-  /**
-   * Sets the sentiment.
-   *
-   * @param sentiment the new sentiment
-   */
-  public void setSentiment(final NluEnrichmentSentiment sentiment) {
-    this.sentiment = sentiment;
-  }
-
-  /**
-   * Sets the emotion.
-   *
-   * @param emotion the new emotion
-   */
-  public void setEmotion(final NluEnrichmentEmotion emotion) {
-    this.emotion = emotion;
-  }
-
-  /**
-   * Sets the categories.
-   *
-   * @param categories the new categories
-   */
-  public void setCategories(final NluEnrichmentCategories categories) {
-    this.categories = categories;
-  }
-
-  /**
-   * Sets the semanticRoles.
-   *
-   * @param semanticRoles the new semanticRoles
-   */
-  public void setSemanticRoles(final NluEnrichmentSemanticRoles semanticRoles) {
-    this.semanticRoles = semanticRoles;
-  }
-
-  /**
-   * Sets the relations.
-   *
-   * @param relations the new relations
-   */
-  public void setRelations(final NluEnrichmentRelations relations) {
-    this.relations = relations;
   }
 }
