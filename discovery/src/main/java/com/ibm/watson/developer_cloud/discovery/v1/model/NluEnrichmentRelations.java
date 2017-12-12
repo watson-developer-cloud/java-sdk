@@ -15,29 +15,30 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Options which are specific to a particular enrichment.
+ * An object specifying the relations enrichment and related parameters.
  */
-public class EnrichmentOptions extends GenericModel {
+public class NluEnrichmentRelations extends GenericModel {
 
-  private NluEnrichmentFeatures features;
+  private String model;
 
   /**
-   * Gets the features.
+   * Gets the model.
    *
-   * An object representing the enrichment features that will be applied to the specified field.
+   * The enrichement model to use with relationship extraction. May be a custom model provided by Watson Knowledge
+   * Studio, the public model for use with Knowledge Graph `en-news`, the default is`en-news`.
    *
-   * @return the features
+   * @return the model
    */
-  public NluEnrichmentFeatures getFeatures() {
-    return features;
+  public String getModel() {
+    return model;
   }
 
   /**
-   * Sets the features.
+   * Sets the model.
    *
-   * @param features the new features
+   * @param model the new model
    */
-  public void setFeatures(final NluEnrichmentFeatures features) {
-    this.features = features;
+  public void setModel(final String model) {
+    this.model = model;
   }
 }
