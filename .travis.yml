@@ -57,9 +57,8 @@ deploy:
       jdk: oraclejdk7
 
   - provider: releases
-    api_key:
-      secure: NhwGz9ppK1YM0M9Pr15b6fOHPpN09QrLvdK4z1PTRxAt+oVpzl3xM/CpGr+iRXT3aV+8q0xLtb4rjxdmgV7aDFY5WEcKkdHAlENpLk/ZVCswnl/MakNbupFbiml0aLcNRe90qvuMILjwSfzYU6BlxZ/W1Xz1eqwtQ1oP/A92MZM=
-    file: java-sdk/build/libs/jar-with-dependencies-4.1.0.jar
+    api_key: $GITHUB_TOKEN_RELEASES
+    file: java-sdk/build/libs/jar-with-dependencies-$TRAVIS_BRANCH.jar
     skip_cleanup: true
     on:
       repo: watson-developer-cloud/java-sdk
