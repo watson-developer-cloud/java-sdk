@@ -22,22 +22,63 @@ public class EnrichmentOptions extends GenericModel {
   private NluEnrichmentFeatures features;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private NluEnrichmentFeatures features;
+
+    private Builder(EnrichmentOptions enrichmentOptions) {
+      features = enrichmentOptions.features;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a EnrichmentOptions.
+     *
+     * @return the enrichmentOptions
+     */
+    public EnrichmentOptions build() {
+      return new EnrichmentOptions(this);
+    }
+
+    /**
+     * Set the features.
+     *
+     * @param features the features
+     * @return the EnrichmentOptions builder
+     */
+    public Builder features(NluEnrichmentFeatures features) {
+      this.features = features;
+      return this;
+    }
+  }
+
+  private EnrichmentOptions(Builder builder) {
+    features = builder.features;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a EnrichmentOptions builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the features.
    *
    * An object representing the enrichment features that will be applied to the specified field.
    *
    * @return the features
    */
-  public NluEnrichmentFeatures getFeatures() {
+  public NluEnrichmentFeatures features() {
     return features;
-  }
-
-  /**
-   * Sets the features.
-   *
-   * @param features the new features
-   */
-  public void setFeatures(final NluEnrichmentFeatures features) {
-    this.features = features;
   }
 }

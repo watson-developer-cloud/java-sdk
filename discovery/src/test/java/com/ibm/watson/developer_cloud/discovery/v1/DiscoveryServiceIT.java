@@ -56,12 +56,10 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsRespo
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
-import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentCategories;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentEmotion;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentEntities;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentFeatures;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentKeywords;
-import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentRelations;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentSemanticRoles;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentSentiment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation;
@@ -505,27 +503,34 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     enrichment.setIgnoreDownstreamErrors(true);
     enrichment.setOverwrite(false);
 
-    NluEnrichmentSentiment sentiment = new NluEnrichmentSentiment();
-    sentiment.setDocument(true);
-    NluEnrichmentEmotion emotion = new NluEnrichmentEmotion();
-    emotion.setDocument(true);
-    NluEnrichmentEntities entities = new NluEnrichmentEntities();
-    entities.setEmotion(true);
-    entities.setSentiment(true);
-    entities.setModel("WhatComesAfterQux");
-    NluEnrichmentKeywords keywords = new NluEnrichmentKeywords();
-    keywords.setEmotion(true);
-    keywords.setSentiment(true);
-    NluEnrichmentSemanticRoles semanticRoles = new NluEnrichmentSemanticRoles();
-    semanticRoles.setEntities(true);
-    NluEnrichmentFeatures features = new NluEnrichmentFeatures();
-    features.setSentiment(sentiment);
-    features.setEmotion(emotion);
-    features.setEntities(entities);
-    features.setKeywords(keywords);
-    features.setSemanticRoles(semanticRoles);
-    EnrichmentOptions options = new EnrichmentOptions();
-    options.setFeatures(features);
+    NluEnrichmentSentiment sentiment = new NluEnrichmentSentiment.Builder()
+      .document(true)
+      .build();
+    NluEnrichmentEmotion emotion = new NluEnrichmentEmotion.Builder()
+      .document(true)
+      .build();
+    NluEnrichmentEntities entities = new NluEnrichmentEntities.Builder()
+      .emotion(true)
+      .sentiment(true)
+      .model("WhatComesAfterQux")
+      .build();
+    NluEnrichmentKeywords keywords = new NluEnrichmentKeywords.Builder()
+      .emotion(true)
+      .sentiment(true)
+      .build();
+    NluEnrichmentSemanticRoles semanticRoles = new NluEnrichmentSemanticRoles.Builder()
+      .entities(true)
+      .build();
+    NluEnrichmentFeatures features = new NluEnrichmentFeatures.Builder()
+      .sentiment(sentiment)
+      .emotion(emotion)
+      .entities(entities)
+      .keywords(keywords)
+      .semanticRoles(semanticRoles)
+      .build();
+    EnrichmentOptions options = new EnrichmentOptions.Builder()
+      .features(features)
+      .build();
 
     enrichment.setOptions(options);
     List<Enrichment> enrichments = Arrays.asList(enrichment);
@@ -630,27 +635,34 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     enrichment.setIgnoreDownstreamErrors(true);
     enrichment.setOverwrite(false);
 
-    NluEnrichmentSentiment sentiment = new NluEnrichmentSentiment();
-    sentiment.setDocument(true);
-    NluEnrichmentEmotion emotion = new NluEnrichmentEmotion();
-    emotion.setDocument(true);
-    NluEnrichmentEntities entities = new NluEnrichmentEntities();
-    entities.setEmotion(true);
-    entities.setSentiment(true);
-    entities.setModel("WhatComesAfterQux");
-    NluEnrichmentKeywords keywords = new NluEnrichmentKeywords();
-    keywords.setEmotion(true);
-    keywords.setSentiment(true);
-    NluEnrichmentSemanticRoles semanticRoles = new NluEnrichmentSemanticRoles();
-    semanticRoles.setEntities(true);
-    NluEnrichmentFeatures features = new NluEnrichmentFeatures();
-    features.setSentiment(sentiment);
-    features.setEmotion(emotion);
-    features.setEntities(entities);
-    features.setKeywords(keywords);
-    features.setSemanticRoles(semanticRoles);
-    EnrichmentOptions options = new EnrichmentOptions();
-    options.setFeatures(features);
+    NluEnrichmentSentiment sentiment = new NluEnrichmentSentiment.Builder()
+      .document(true)
+      .build();
+    NluEnrichmentEmotion emotion = new NluEnrichmentEmotion.Builder()
+      .document(true)
+      .build();
+    NluEnrichmentEntities entities = new NluEnrichmentEntities.Builder()
+      .emotion(true)
+      .sentiment(true)
+      .model("WhatComesAfterQux")
+      .build();
+    NluEnrichmentKeywords keywords = new NluEnrichmentKeywords.Builder()
+      .emotion(true)
+      .sentiment(true)
+      .build();
+    NluEnrichmentSemanticRoles semanticRoles = new NluEnrichmentSemanticRoles.Builder()
+      .entities(true)
+      .build();
+    NluEnrichmentFeatures features = new NluEnrichmentFeatures.Builder()
+      .sentiment(sentiment)
+      .emotion(emotion)
+      .entities(entities)
+      .keywords(keywords)
+      .semanticRoles(semanticRoles)
+      .build();
+    EnrichmentOptions options = new EnrichmentOptions.Builder()
+      .features(features)
+      .build();
 
     enrichment.setOptions(options);
     List<Enrichment> updatedEnrichments = Arrays.asList(enrichment);

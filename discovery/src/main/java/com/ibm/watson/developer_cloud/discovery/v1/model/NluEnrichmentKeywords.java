@@ -24,13 +24,91 @@ public class NluEnrichmentKeywords extends GenericModel {
   private Long limit;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Boolean sentiment;
+    private Boolean emotion;
+    private Long limit;
+
+    private Builder(NluEnrichmentKeywords nluEnrichmentKeywords) {
+      sentiment = nluEnrichmentKeywords.sentiment;
+      emotion = nluEnrichmentKeywords.emotion;
+      limit = nluEnrichmentKeywords.limit;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NluEnrichmentKeywords.
+     *
+     * @return the nluEnrichmentKeywords
+     */
+    public NluEnrichmentKeywords build() {
+      return new NluEnrichmentKeywords(this);
+    }
+
+    /**
+     * Set the sentiment.
+     *
+     * @param sentiment the sentiment
+     * @return the NluEnrichmentKeywords builder
+     */
+    public Builder sentiment(Boolean sentiment) {
+      this.sentiment = sentiment;
+      return this;
+    }
+
+    /**
+     * Set the emotion.
+     *
+     * @param emotion the emotion
+     * @return the NluEnrichmentKeywords builder
+     */
+    public Builder emotion(Boolean emotion) {
+      this.emotion = emotion;
+      return this;
+    }
+
+    /**
+     * Set the limit.
+     *
+     * @param limit the limit
+     * @return the NluEnrichmentKeywords builder
+     */
+    public Builder limit(long limit) {
+      this.limit = limit;
+      return this;
+    }
+  }
+
+  private NluEnrichmentKeywords(Builder builder) {
+    sentiment = builder.sentiment;
+    emotion = builder.emotion;
+    limit = builder.limit;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a NluEnrichmentKeywords builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the sentiment.
    *
    * When `true`, sentiment analysis of keywords will be performed on the specified field.
    *
    * @return the sentiment
    */
-  public Boolean isSentiment() {
+  public Boolean sentiment() {
     return sentiment;
   }
 
@@ -41,7 +119,7 @@ public class NluEnrichmentKeywords extends GenericModel {
    *
    * @return the emotion
    */
-  public Boolean isEmotion() {
+  public Boolean emotion() {
     return emotion;
   }
 
@@ -52,34 +130,7 @@ public class NluEnrichmentKeywords extends GenericModel {
    *
    * @return the limit
    */
-  public Long getLimit() {
+  public Long limit() {
     return limit;
-  }
-
-  /**
-   * Sets the sentiment.
-   *
-   * @param sentiment the new sentiment
-   */
-  public void setSentiment(final Boolean sentiment) {
-    this.sentiment = sentiment;
-  }
-
-  /**
-   * Sets the emotion.
-   *
-   * @param emotion the new emotion
-   */
-  public void setEmotion(final Boolean emotion) {
-    this.emotion = emotion;
-  }
-
-  /**
-   * Sets the limit.
-   *
-   * @param limit the new limit
-   */
-  public void setLimit(final long limit) {
-    this.limit = limit;
   }
 }

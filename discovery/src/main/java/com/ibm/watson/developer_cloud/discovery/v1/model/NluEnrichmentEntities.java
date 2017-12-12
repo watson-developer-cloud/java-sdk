@@ -31,13 +31,147 @@ public class NluEnrichmentEntities extends GenericModel {
   private String model;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Boolean sentiment;
+    private Boolean emotion;
+    private Long limit;
+    private Boolean mentions;
+    private Boolean mentionTypes;
+    private Boolean sentenceLocation;
+    private String model;
+
+    private Builder(NluEnrichmentEntities nluEnrichmentEntities) {
+      sentiment = nluEnrichmentEntities.sentiment;
+      emotion = nluEnrichmentEntities.emotion;
+      limit = nluEnrichmentEntities.limit;
+      mentions = nluEnrichmentEntities.mentions;
+      mentionTypes = nluEnrichmentEntities.mentionTypes;
+      sentenceLocation = nluEnrichmentEntities.sentenceLocation;
+      model = nluEnrichmentEntities.model;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NluEnrichmentEntities.
+     *
+     * @return the nluEnrichmentEntities
+     */
+    public NluEnrichmentEntities build() {
+      return new NluEnrichmentEntities(this);
+    }
+
+    /**
+     * Set the sentiment.
+     *
+     * @param sentiment the sentiment
+     * @return the NluEnrichmentEntities builder
+     */
+    public Builder sentiment(Boolean sentiment) {
+      this.sentiment = sentiment;
+      return this;
+    }
+
+    /**
+     * Set the emotion.
+     *
+     * @param emotion the emotion
+     * @return the NluEnrichmentEntities builder
+     */
+    public Builder emotion(Boolean emotion) {
+      this.emotion = emotion;
+      return this;
+    }
+
+    /**
+     * Set the limit.
+     *
+     * @param limit the limit
+     * @return the NluEnrichmentEntities builder
+     */
+    public Builder limit(long limit) {
+      this.limit = limit;
+      return this;
+    }
+
+    /**
+     * Set the mentions.
+     *
+     * @param mentions the mentions
+     * @return the NluEnrichmentEntities builder
+     */
+    public Builder mentions(Boolean mentions) {
+      this.mentions = mentions;
+      return this;
+    }
+
+    /**
+     * Set the mentionTypes.
+     *
+     * @param mentionTypes the mentionTypes
+     * @return the NluEnrichmentEntities builder
+     */
+    public Builder mentionTypes(Boolean mentionTypes) {
+      this.mentionTypes = mentionTypes;
+      return this;
+    }
+
+    /**
+     * Set the sentenceLocation.
+     *
+     * @param sentenceLocation the sentenceLocation
+     * @return the NluEnrichmentEntities builder
+     */
+    public Builder sentenceLocation(Boolean sentenceLocation) {
+      this.sentenceLocation = sentenceLocation;
+      return this;
+    }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the NluEnrichmentEntities builder
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
+  }
+
+  private NluEnrichmentEntities(Builder builder) {
+    sentiment = builder.sentiment;
+    emotion = builder.emotion;
+    limit = builder.limit;
+    mentions = builder.mentions;
+    mentionTypes = builder.mentionTypes;
+    sentenceLocation = builder.sentenceLocation;
+    model = builder.model;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a NluEnrichmentEntities builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the sentiment.
    *
    * When `true`, sentiment analysis of entities will be performed on the specified field.
    *
    * @return the sentiment
    */
-  public Boolean isSentiment() {
+  public Boolean sentiment() {
     return sentiment;
   }
 
@@ -48,7 +182,7 @@ public class NluEnrichmentEntities extends GenericModel {
    *
    * @return the emotion
    */
-  public Boolean isEmotion() {
+  public Boolean emotion() {
     return emotion;
   }
 
@@ -59,7 +193,7 @@ public class NluEnrichmentEntities extends GenericModel {
    *
    * @return the limit
    */
-  public Long getLimit() {
+  public Long limit() {
     return limit;
   }
 
@@ -70,7 +204,7 @@ public class NluEnrichmentEntities extends GenericModel {
    *
    * @return the mentions
    */
-  public Boolean isMentions() {
+  public Boolean mentions() {
     return mentions;
   }
 
@@ -81,7 +215,7 @@ public class NluEnrichmentEntities extends GenericModel {
    *
    * @return the mentionTypes
    */
-  public Boolean isMentionTypes() {
+  public Boolean mentionTypes() {
     return mentionTypes;
   }
 
@@ -93,7 +227,7 @@ public class NluEnrichmentEntities extends GenericModel {
    *
    * @return the sentenceLocation
    */
-  public Boolean isSentenceLocation() {
+  public Boolean sentenceLocation() {
     return sentenceLocation;
   }
 
@@ -105,70 +239,7 @@ public class NluEnrichmentEntities extends GenericModel {
    *
    * @return the model
    */
-  public String getModel() {
+  public String model() {
     return model;
-  }
-
-  /**
-   * Sets the sentiment.
-   *
-   * @param sentiment the new sentiment
-   */
-  public void setSentiment(final Boolean sentiment) {
-    this.sentiment = sentiment;
-  }
-
-  /**
-   * Sets the emotion.
-   *
-   * @param emotion the new emotion
-   */
-  public void setEmotion(final Boolean emotion) {
-    this.emotion = emotion;
-  }
-
-  /**
-   * Sets the limit.
-   *
-   * @param limit the new limit
-   */
-  public void setLimit(final long limit) {
-    this.limit = limit;
-  }
-
-  /**
-   * Sets the mentions.
-   *
-   * @param mentions the new mentions
-   */
-  public void setMentions(final Boolean mentions) {
-    this.mentions = mentions;
-  }
-
-  /**
-   * Sets the mentionTypes.
-   *
-   * @param mentionTypes the new mentionTypes
-   */
-  public void setMentionTypes(final Boolean mentionTypes) {
-    this.mentionTypes = mentionTypes;
-  }
-
-  /**
-   * Sets the sentenceLocation.
-   *
-   * @param sentenceLocation the new sentenceLocation
-   */
-  public void setSentenceLocation(final Boolean sentenceLocation) {
-    this.sentenceLocation = sentenceLocation;
-  }
-
-  /**
-   * Sets the model.
-   *
-   * @param model the new model
-   */
-  public void setModel(final String model) {
-    this.model = model;
   }
 }
