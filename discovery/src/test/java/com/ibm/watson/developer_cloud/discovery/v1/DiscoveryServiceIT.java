@@ -56,6 +56,14 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsRespo
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentCategories;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentEmotion;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentEntities;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentFeatures;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentKeywords;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentRelations;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentSemanticRoles;
+import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentSentiment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NormalizationOperation.Operation;
 import com.ibm.watson.developer_cloud.discovery.v1.model.QueryAggregation;
@@ -496,15 +504,30 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     enrichment.setDescription("Erich foo to bar with baz");
     enrichment.setIgnoreDownstreamErrors(true);
     enrichment.setOverwrite(false);
-    EnrichmentOptions enrichmentOptions = new EnrichmentOptions();
-    enrichmentOptions.setSentiment(true);
-    enrichmentOptions.setExtract(Arrays.asList("qux"));
-    enrichmentOptions.setHierarchicalTypedRelations(false);
-    enrichmentOptions.setLanguage("en");
-    enrichmentOptions.setModel("WhatComesAfterQux");
-    enrichmentOptions.setQuotations(true);
-    enrichmentOptions.setShowSourceText(true);
-    enrichment.setOptions(enrichmentOptions);
+
+    NluEnrichmentSentiment sentiment = new NluEnrichmentSentiment();
+    sentiment.setDocument(true);
+    NluEnrichmentEmotion emotion = new NluEnrichmentEmotion();
+    emotion.setDocument(true);
+    NluEnrichmentEntities entities = new NluEnrichmentEntities();
+    entities.setEmotion(true);
+    entities.setSentiment(true);
+    entities.setModel("WhatComesAfterQux");
+    NluEnrichmentKeywords keywords = new NluEnrichmentKeywords();
+    keywords.setEmotion(true);
+    keywords.setSentiment(true);
+    NluEnrichmentSemanticRoles semanticRoles = new NluEnrichmentSemanticRoles();
+    semanticRoles.setEntities(true);
+    NluEnrichmentFeatures features = new NluEnrichmentFeatures();
+    features.setSentiment(sentiment);
+    features.setEmotion(emotion);
+    features.setEntities(entities);
+    features.setKeywords(keywords);
+    features.setSemanticRoles(semanticRoles);
+    EnrichmentOptions options = new EnrichmentOptions();
+    options.setFeatures(features);
+
+    enrichment.setOptions(options);
     List<Enrichment> enrichments = Arrays.asList(enrichment);
 
     CreateConfigurationOptions createOptions = new CreateConfigurationOptions.Builder()
@@ -606,15 +629,30 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
     enrichment.setDescription("Erich foo to bar with baz");
     enrichment.setIgnoreDownstreamErrors(true);
     enrichment.setOverwrite(false);
-    EnrichmentOptions enrichmentOptions = new EnrichmentOptions();
-    enrichmentOptions.setSentiment(true);
-    enrichmentOptions.setExtract(Arrays.asList("qux"));
-    enrichmentOptions.setHierarchicalTypedRelations(false);
-    enrichmentOptions.setLanguage("en");
-    enrichmentOptions.setModel("WhatComesAfterQux");
-    enrichmentOptions.setQuotations(true);
-    enrichmentOptions.setShowSourceText(true);
-    enrichment.setOptions(enrichmentOptions);
+
+    NluEnrichmentSentiment sentiment = new NluEnrichmentSentiment();
+    sentiment.setDocument(true);
+    NluEnrichmentEmotion emotion = new NluEnrichmentEmotion();
+    emotion.setDocument(true);
+    NluEnrichmentEntities entities = new NluEnrichmentEntities();
+    entities.setEmotion(true);
+    entities.setSentiment(true);
+    entities.setModel("WhatComesAfterQux");
+    NluEnrichmentKeywords keywords = new NluEnrichmentKeywords();
+    keywords.setEmotion(true);
+    keywords.setSentiment(true);
+    NluEnrichmentSemanticRoles semanticRoles = new NluEnrichmentSemanticRoles();
+    semanticRoles.setEntities(true);
+    NluEnrichmentFeatures features = new NluEnrichmentFeatures();
+    features.setSentiment(sentiment);
+    features.setEmotion(emotion);
+    features.setEntities(entities);
+    features.setKeywords(keywords);
+    features.setSemanticRoles(semanticRoles);
+    EnrichmentOptions options = new EnrichmentOptions();
+    options.setFeatures(features);
+
+    enrichment.setOptions(options);
     List<Enrichment> updatedEnrichments = Arrays.asList(enrichment);
 
     UpdateConfigurationOptions.Builder updateBuilder =
