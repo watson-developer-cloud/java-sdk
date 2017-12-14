@@ -57,8 +57,8 @@ deploy:
       jdk: oraclejdk7
 
   - provider: releases
-    api_key: $GITHUB_TOKEN_RELEASES
-    file: java-sdk/build/libs/jar-with-dependencies-$TRAVIS_BRANCH.jar
+    api_key: ${GITHUB_TOKEN_RELEASES}
+    file: java-sdk/build/libs/jar-with-dependencies-${TRAVIS_BRANCH}.jar
     skip_cleanup: true
     on:
       repo: watson-developer-cloud/java-sdk
