@@ -92,7 +92,6 @@ public class ProfileOptions extends GenericModel {
   private String contentLanguage;
   private String acceptLanguage;
   private Boolean rawScores;
-  private Boolean csvHeaders;
   private Boolean consumptionPreferences;
 
   /**
@@ -105,7 +104,6 @@ public class ProfileOptions extends GenericModel {
     private String contentLanguage;
     private String acceptLanguage;
     private Boolean rawScores;
-    private Boolean csvHeaders;
     private Boolean consumptionPreferences;
 
     private Builder(ProfileOptions profileOptions) {
@@ -115,7 +113,6 @@ public class ProfileOptions extends GenericModel {
       contentLanguage = profileOptions.contentLanguage;
       acceptLanguage = profileOptions.acceptLanguage;
       rawScores = profileOptions.rawScores;
-      csvHeaders = profileOptions.csvHeaders;
       consumptionPreferences = profileOptions.consumptionPreferences;
     }
 
@@ -164,17 +161,6 @@ public class ProfileOptions extends GenericModel {
      */
     public Builder rawScores(Boolean rawScores) {
       this.rawScores = rawScores;
-      return this;
-    }
-
-    /**
-     * Set the csvHeaders.
-     *
-     * @param csvHeaders the csvHeaders
-     * @return the ProfileOptions builder
-     */
-    public Builder csvHeaders(Boolean csvHeaders) {
-      this.csvHeaders = csvHeaders;
       return this;
     }
 
@@ -234,7 +220,6 @@ public class ProfileOptions extends GenericModel {
     contentLanguage = builder.contentLanguage;
     acceptLanguage = builder.acceptLanguage;
     rawScores = builder.rawScores;
-    csvHeaders = builder.csvHeaders;
     consumptionPreferences = builder.consumptionPreferences;
   }
 
@@ -326,18 +311,6 @@ public class ProfileOptions extends GenericModel {
    */
   public Boolean rawScores() {
     return rawScores;
-  }
-
-  /**
-   * Gets the csvHeaders.
-   *
-   * If `true`, column labels are returned with a CSV response; if `false` (the default), they are not. Applies only
-   * when the `Accept` header is set to `text/csv`.
-   *
-   * @return the csvHeaders
-   */
-  public Boolean csvHeaders() {
-    return csvHeaders;
   }
 
   /**
