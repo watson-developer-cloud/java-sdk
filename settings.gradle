@@ -1,4 +1,5 @@
 rootProject.name = 'parent'
 include ':alchemy', ':conversation', ':core', ':discovery', ':document-conversion',
         ':language-translator', ':natural-language-classifier', ':natural-language-understanding', ':personality-insights', ':retrieve-and-rank',
-        ':speech-to-text', ':text-to-speech', ':tone-analyzer', ':tradeoff-analytics', ':visual-recognition', ':java-sdk'
+        ':speech-to-text', ':text-to-speech', ':tone-analyzer', ':tradeoff-analytics', ':visual-recognition', ':java-sdk',
+        ':spring-boot-starter'
