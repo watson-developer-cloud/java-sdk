@@ -54,9 +54,9 @@ public class NluEnrichmentEmotion extends GenericModel {
     }
 
     /**
-     * Adds an targets to targets.
+     * Adds a target to targets.
      *
-     * @param targets the new targets
+     * @param target the new target
      * @return the NluEnrichmentEmotion builder
      */
     public Builder addTarget(String target) {
