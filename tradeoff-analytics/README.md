@@ -7,13 +7,13 @@
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>tradeoff-analytics</artifactId>
-	<version>4.1.0</version>
+	<version>4.2.0</version>
 </dependency>
 ```
 
 ##### Gradle
 ```gradle
-'com.ibm.watson.developer_cloud:tradeoff-analytics:4.1.0'
+'com.ibm.watson.developer_cloud:tradeoff-analytics:4.2.0'
 ```
 
 ## Usage
