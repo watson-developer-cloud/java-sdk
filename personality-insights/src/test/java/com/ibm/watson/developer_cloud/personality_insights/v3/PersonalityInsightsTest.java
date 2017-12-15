@@ -218,13 +218,11 @@ public class PersonalityInsightsTest extends WatsonServiceUnitTest {
         .html(text)
         .contentLanguage(ProfileOptions.ContentLanguage.ES)
         .acceptLanguage(ProfileOptions.AcceptLanguage.EN)
-        .csvHeaders(true)
         .build();
     final ProfileOptions newOptions = options.newBuilder().build();
     assertEquals(newOptions.body(), text);
     assertEquals(newOptions.contentLanguage(), ProfileOptions.ContentLanguage.ES);
     assertEquals(newOptions.acceptLanguage(), ProfileOptions.AcceptLanguage.EN);
-    assertEquals(newOptions.csvHeaders(), true);
   }
 
   /**
