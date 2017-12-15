@@ -59,12 +59,12 @@ public class NluEnrichmentEmotion extends GenericModel {
      * @param targets the new targets
      * @return the NluEnrichmentEmotion builder
      */
-    public Builder addTargets(String targets) {
-      Validator.notNull(targets, "targets cannot be null");
+    public Builder addTarget(String target) {
+      Validator.notNull(target, "target cannot be null");
       if (this.targets == null) {
         this.targets = new ArrayList<String>();
       }
-      this.targets.add(targets);
+      this.targets.add(target);
       return this;
     }
 
