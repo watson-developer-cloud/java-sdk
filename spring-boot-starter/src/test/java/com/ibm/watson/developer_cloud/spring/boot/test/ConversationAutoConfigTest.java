@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
@@ -33,19 +34,18 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {WatsonAutoConfiguration.class},loader=AnnotationConfigContextLoader.class)
+@TestPropertySource(properties = {
+    "watson.conversation.url="+ConversationAutoConfigTest.url,
+    "watson.conversation.username="+ConversationAutoConfigTest.username,
+    "watson.conversation.password="+ConversationAutoConfigTest.password,
+    "watson.conversation.versionDate="+ConversationAutoConfigTest.versionDate
+})
 public class ConversationAutoConfigTest {
 
-  private static final String url = "http://watson.com/conversation";
-  private static final String username = "sam";
-  private static final String password = "secret";
-  private static final String versionDate = "2017-12-15";
-
-  static {
-    System.setProperty("watson.conversation.url", url);
-    System.setProperty("watson.conversation.username", username);
-    System.setProperty("watson.conversation.password", password);
-    System.setProperty("watson.conversation.versionDate", versionDate);
-  }
+  static final String url = "http://watson.com/conversation";
+  static final String username = "sam";
+  static final String password = "secret";
+  static final String versionDate = "2017-12-15";
 
   @Autowired
   private ApplicationContext applicationContext;

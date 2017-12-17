@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
@@ -33,19 +34,18 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {WatsonAutoConfiguration.class},loader=AnnotationConfigContextLoader.class)
+@TestPropertySource(properties = {
+    "watson.natural_language_understanding.url="+NaturalLanguageUnderstandingAutoConfigTest.url,
+    "watson.natural_language_understanding.username="+NaturalLanguageUnderstandingAutoConfigTest.username,
+    "watson.natural_language_understanding.password="+NaturalLanguageUnderstandingAutoConfigTest.password,
+    "watson.natural_language_understanding.versionDate="+NaturalLanguageUnderstandingAutoConfigTest.versionDate
+})
 public class NaturalLanguageUnderstandingAutoConfigTest {
 
-  private static final String url = "http://watson.com/natural_language_understanding";
-  private static final String username = "sam";
-  private static final String password = "secret";
-  private static final String versionDate = "2017-12-15";
-
-  static {
-    System.setProperty("watson.natural_language_understanding.url", url);
-    System.setProperty("watson.natural_language_understanding.username", username);
-    System.setProperty("watson.natural_language_understanding.password", password);
-    System.setProperty("watson.natural_language_understanding.versionDate", versionDate);
-  }
+  static final String url = "http://watson.com/natural_language_understanding";
+  static final String username = "sam";
+  static final String password = "secret";
+  static final String versionDate = "2017-12-15";
 
   @Autowired
   private ApplicationContext applicationContext;

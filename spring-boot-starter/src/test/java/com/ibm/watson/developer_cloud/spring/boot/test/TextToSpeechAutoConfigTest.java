@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
@@ -33,17 +34,16 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {WatsonAutoConfiguration.class},loader=AnnotationConfigContextLoader.class)
+@TestPropertySource(properties = {
+    "watson.text_to_speech.url="+TextToSpeechAutoConfigTest.url,
+    "watson.text_to_speech.username="+TextToSpeechAutoConfigTest.username,
+    "watson.text_to_speech.password="+TextToSpeechAutoConfigTest.password
+})
 public class TextToSpeechAutoConfigTest {
 
-  private static final String url = "http://watson.com/text_to_speech";
-  private static final String username = "sam";
-  private static final String password = "secret";
-
-  static {
-    System.setProperty("watson.text_to_speech.url", url);
-    System.setProperty("watson.text_to_speech.username", username);
-    System.setProperty("watson.text_to_speech.password", password);
-  }
+  static final String url = "http://watson.com/text_to_speech";
+  static final String username = "sam";
+  static final String password = "secret";
 
   @Autowired
   private ApplicationContext applicationContext;

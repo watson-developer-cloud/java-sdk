@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
@@ -33,19 +34,18 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {WatsonAutoConfiguration.class},loader=AnnotationConfigContextLoader.class)
+@TestPropertySource(properties = {
+    "watson.personality_insights.url="+PersonalityInsightsAutoConfigTest.url,
+    "watson.personality_insights.username="+PersonalityInsightsAutoConfigTest.username,
+    "watson.personality_insights.password="+PersonalityInsightsAutoConfigTest.password,
+    "watson.personality_insights.versionDate="+PersonalityInsightsAutoConfigTest.versionDate
+})
 public class PersonalityInsightsAutoConfigTest {
 
-  private static final String url = "http://watson.com/personality_insights";
-  private static final String username = "sam";
-  private static final String password = "secret";
-  private static final String versionDate = "2017-12-15";
-
-  static {
-    System.setProperty("watson.personality_insights.url", url);
-    System.setProperty("watson.personality_insights.username", username);
-    System.setProperty("watson.personality_insights.password", password);
-    System.setProperty("watson.personality_insights.versionDate", versionDate);
-  }
+  static final String url = "http://watson.com/personality_insights";
+  static final String username = "sam";
+  static final String password = "secret";
+  static final String versionDate = "2017-12-15";
 
   @Autowired
   private ApplicationContext applicationContext;

@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
@@ -33,17 +34,16 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {WatsonAutoConfiguration.class},loader=AnnotationConfigContextLoader.class)
+@TestPropertySource(properties = {
+    "watson.natural_language_classifier.url="+NaturalLanguageClassifierAutoConfigTest.url,
+    "watson.natural_language_classifier.username="+NaturalLanguageClassifierAutoConfigTest.username,
+    "watson.natural_language_classifier.password="+NaturalLanguageClassifierAutoConfigTest.password
+})
 public class NaturalLanguageClassifierAutoConfigTest {
 
-  private static final String url = "http://watson.com/natural_language_classifier";
-  private static final String username = "sam";
-  private static final String password = "secret";
-
-  static {
-    System.setProperty("watson.natural_language_classifier.url", url);
-    System.setProperty("watson.natural_language_classifier.username", username);
-    System.setProperty("watson.natural_language_classifier.password", password);
-  }
+  static final String url = "http://watson.com/natural_language_classifier";
+  static final String username = "sam";
+  static final String password = "secret";
 
   @Autowired
   private ApplicationContext applicationContext;

@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
@@ -33,17 +34,16 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {WatsonAutoConfiguration.class},loader=AnnotationConfigContextLoader.class)
+@TestPropertySource(properties = {
+    "watson.language_translator.url="+LanguageTranslatorAutoConfigTest.url,
+    "watson.language_translator.username="+LanguageTranslatorAutoConfigTest.username,
+    "watson.language_translator.password="+LanguageTranslatorAutoConfigTest.password
+})
 public class LanguageTranslatorAutoConfigTest {
 
-  private static final String url = "http://watson.com/language_translator";
-  private static final String username = "sam";
-  private static final String password = "secret";
-
-  static {
-    System.setProperty("watson.language_translator.url", url);
-    System.setProperty("watson.language_translator.username", username);
-    System.setProperty("watson.language_translator.password", password);
-  }
+  static final String url = "http://watson.com/language_translator";
+  static final String username = "sam";
+  static final String password = "secret";
 
   @Autowired
   private ApplicationContext applicationContext;

@@ -23,6 +23,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
@@ -33,17 +34,16 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {WatsonAutoConfiguration.class},loader=AnnotationConfigContextLoader.class)
+@TestPropertySource(properties = {
+    "watson.visual_recognition.url="+VisualRecognitionAutoConfigTest.url,
+    "watson.visual_recognition.apiKey="+VisualRecognitionAutoConfigTest.apiKey,
+    "watson.visual_recognition.versionDate="+VisualRecognitionAutoConfigTest.versionDate
+})
 public class VisualRecognitionAutoConfigTest {
 
-  private static final String url = "http://watson.com/visual_recognition";
-  private static final String apiKey = "secret";
-  private static final String versionDate = "2017-12-15";
-
-  static {
-    System.setProperty("watson.visual_recognition.url", url);
-    System.setProperty("watson.visual_recognition.apiKey", apiKey);
-    System.setProperty("watson.visual_recognition.versionDate", versionDate);
-  }
+  static final String url = "http://watson.com/visual_recognition";
+  static final String apiKey = "secret";
+  static final String versionDate = "2017-12-15";
 
   @Autowired
   private ApplicationContext applicationContext;
