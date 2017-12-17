@@ -14,7 +14,7 @@
 
 package com.ibm.watson.developer_cloud.spring.boot.test;
 
-import com.ibm.watson.developer_cloud.conversation.v1.Conversation;
+import com.ibm.watson.developer_cloud.language_translator.v2.LanguageTranslator;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.spring.boot.WatsonAutoConfiguration;
 import okhttp3.Credentials;
@@ -33,39 +33,33 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {WatsonAutoConfiguration.class},loader=AnnotationConfigContextLoader.class)
-public class ConversationAutoConfigTest {
+public class LanguageTranslatorAutoConfigTest {
 
-  private static final String url = "http://watson.com/conversation";
+  private static final String url = "http://watson.com/language_translator";
   private static final String username = "sam";
   private static final String password = "secret";
-  private static final String versionDate = "2017-12-15";
 
   static {
-    System.setProperty("watson.conversation.url", url);
-    System.setProperty("watson.conversation.username", username);
-    System.setProperty("watson.conversation.password", password);
-    System.setProperty("watson.conversation.versionDate", versionDate);
+    System.setProperty("watson.language_translator.url", url);
+    System.setProperty("watson.language_translator.username", username);
+    System.setProperty("watson.language_translator.password", password);
   }
 
   @Autowired
   private ApplicationContext applicationContext;
 
   @Test
-  public void conversationBeanConfig() {
-    Conversation conversation = (Conversation) applicationContext.getBean("conversation");
+  public void languageTranslatorBeanConfig() {
+    LanguageTranslator languageTranslator = (LanguageTranslator) applicationContext.getBean("languageTranslator");
 
-    assertNotNull(conversation);
-    assertEquals(url, conversation.getEndPoint());
+    assertNotNull(languageTranslator);
+    assertEquals(url, languageTranslator.getEndPoint());
 
-    // Verify the credentials and versionDate -- which are stored in private member variables
+    // Verify the credentials -- which are stored in a private member variables
     try {
       Field apiKeyField = WatsonService.class.getDeclaredField("apiKey");
       apiKeyField.setAccessible(true);
-      assertEquals(Credentials.basic(username, password), (String) apiKeyField.get(conversation));
-
-      Field versionField = Conversation.class.getDeclaredField("versionDate");
-      versionField.setAccessible(true);
-      assertEquals(versionDate, (String) versionField.get(conversation));
+      assertEquals(Credentials.basic(username, password), (String) apiKeyField.get(languageTranslator));
     } catch (NoSuchFieldException|IllegalAccessException ex) {
       // This shouldn't happen
       assert(false);

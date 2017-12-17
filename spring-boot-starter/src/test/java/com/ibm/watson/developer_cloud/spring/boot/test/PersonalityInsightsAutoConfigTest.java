@@ -14,7 +14,7 @@
 
 package com.ibm.watson.developer_cloud.spring.boot.test;
 
-import com.ibm.watson.developer_cloud.conversation.v1.Conversation;
+import com.ibm.watson.developer_cloud.personality_insights.v3.PersonalityInsights;
 import com.ibm.watson.developer_cloud.service.WatsonService;
 import com.ibm.watson.developer_cloud.spring.boot.WatsonAutoConfiguration;
 import okhttp3.Credentials;
@@ -33,39 +33,39 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes= {WatsonAutoConfiguration.class},loader=AnnotationConfigContextLoader.class)
-public class ConversationAutoConfigTest {
+public class PersonalityInsightsAutoConfigTest {
 
-  private static final String url = "http://watson.com/conversation";
+  private static final String url = "http://watson.com/personality_insights";
   private static final String username = "sam";
   private static final String password = "secret";
   private static final String versionDate = "2017-12-15";
 
   static {
-    System.setProperty("watson.conversation.url", url);
-    System.setProperty("watson.conversation.username", username);
-    System.setProperty("watson.conversation.password", password);
-    System.setProperty("watson.conversation.versionDate", versionDate);
+    System.setProperty("watson.personality_insights.url", url);
+    System.setProperty("watson.personality_insights.username", username);
+    System.setProperty("watson.personality_insights.password", password);
+    System.setProperty("watson.personality_insights.versionDate", versionDate);
   }
 
   @Autowired
   private ApplicationContext applicationContext;
 
   @Test
-  public void conversationBeanConfig() {
-    Conversation conversation = (Conversation) applicationContext.getBean("conversation");
+  public void personalityInsightsBeanConfig() {
+    PersonalityInsights personalityInsights = (PersonalityInsights) applicationContext.getBean("personalityInsights");
 
-    assertNotNull(conversation);
-    assertEquals(url, conversation.getEndPoint());
+    assertNotNull(personalityInsights);
+    assertEquals(url, personalityInsights.getEndPoint());
 
     // Verify the credentials and versionDate -- which are stored in private member variables
     try {
       Field apiKeyField = WatsonService.class.getDeclaredField("apiKey");
       apiKeyField.setAccessible(true);
-      assertEquals(Credentials.basic(username, password), (String) apiKeyField.get(conversation));
+      assertEquals(Credentials.basic(username, password), (String) apiKeyField.get(personalityInsights));
 
-      Field versionField = Conversation.class.getDeclaredField("versionDate");
+      Field versionField = PersonalityInsights.class.getDeclaredField("versionDate");
       versionField.setAccessible(true);
-      assertEquals(versionDate, (String) versionField.get(conversation));
+      assertEquals(versionDate, (String) versionField.get(personalityInsights));
     } catch (NoSuchFieldException|IllegalAccessException ex) {
       // This shouldn't happen
       assert(false);
