@@ -16,6 +16,7 @@ package com.ibm.watson.developer_cloud.spring.boot;
 
 import com.ibm.watson.developer_cloud.conversation.v1.Conversation;
 
+import com.ibm.watson.developer_cloud.service.WatsonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -26,22 +27,38 @@ import org.springframework.context.annotation.Configuration;
 @EnableConfigurationProperties(WatsonConversationConfigurationProperties.class)
 public class WatsonAutoConfiguration {
 
-  @Autowired
-  private WatsonConversationConfigurationProperties config;
+  private void configUrl(WatsonService service, WatsonConfigurationProperties config) {
+    String url = config.getUrl();
+    if (url != null) {
+      service.setEndPoint(url);
+    }
+  }
 
-  @Bean
-  @ConditionalOnMissingBean
-  public Conversation conversation() {
-    Conversation service = new Conversation(config.getVersionDate());
+  private void configBasicAuth(WatsonService service, WatsonConfigurationProperties config) {
     String username = config.getUsername();
     String password = config.getPassword();
     if (username != null && password != null) {
       service.setUsernameAndPassword(username, password);
     }
-    String url = config.getUrl();
-    if (url != null) {
-      service.setEndPoint(url);
+  }
+
+  private void configApiKey(WatsonService service, WatsonConfigurationProperties config) {
+    String apiKey = config.getApiKey();
+    if (apiKey != null) {
+      service.setApiKey(apiKey);
     }
+  }
+
+  @Autowired
+  private WatsonConversationConfigurationProperties conversationConfig;
+
+  @Bean
+  @ConditionalOnMissingBean
+  //@ConditionalOnWatsonServiceProperties(prefix = WatsonConversationConfigurationProperties.PREFIX)
+  public Conversation conversation() {
+    Conversation service = new Conversation(conversationConfig.getVersionDate());
+    configUrl(service, conversationConfig);
+    configBasicAuth(service, conversationConfig);
     return service;
   }
 

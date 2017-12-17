@@ -18,50 +18,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.net.URL;
 
-@ConfigurationProperties(prefix = "watson.conversation.v1")
-public class WatsonConversationConfigurationProperties {
+@ConfigurationProperties(prefix = WatsonConversationConfigurationProperties.PREFIX)
+public class WatsonConversationConfigurationProperties extends WatsonConfigurationProperties {
 
-  /** URL for watson conversation service. This URL should not include the username or password. **/
-  private String url;
-
-  /** Watson conversation service username */
-  private String username;
-
-  /** Watson conversation service password */
-  private String password;
-
-  /** Watson conversation service versionDate */
-  private String versionDate;
-
-  public void setUrl(String url) {
-    this.url = url;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public void setVersionDate(String versionDate) {
-    this.versionDate = versionDate;
-  }
-
-  public String getUrl() {
-    return this.url;
-  }
-
-  public String getUsername() {
-    return this.username;
-  }
-
-  public String getPassword() {
-    return this.password;
-  }
-
-  public String getVersionDate() {
-    return this.versionDate;
-  }
+  public static final String PREFIX = "watson.conversation";
 }
