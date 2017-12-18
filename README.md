@@ -54,7 +54,7 @@ All the services:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>java-sdk</artifactId>
-	<version>4.1.0</version>
+	<version>4.2.1</version>
 </dependency>
 ```
 
@@ -64,7 +64,7 @@ Only Retrieve and Rank:
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
 	<artifactId>retrieve-and-rank</artifactId>
-	<version>4.1.0</version>
+	<version>4.2.1</version>
 </dependency>
 ```
 
@@ -73,19 +73,19 @@ Only Retrieve and Rank:
 All the services:
 
 ```gradle
-'com.ibm.watson.developer_cloud:java-sdk:4.1.0'
+'com.ibm.watson.developer_cloud:java-sdk:4.2.1'
 ```
 
 Only Retrieve and Rank:
 
 ```gradle
-'com.ibm.watson.developer_cloud:retrieve-and-rank:4.1.0'
+'com.ibm.watson.developer_cloud:retrieve-and-rank:4.2.1'
 ```
 
 Only Visual Recognition:
 
 ```gradle
-'com.ibm.watson.developer_cloud:visual-recognition:4.1.0'
+'com.ibm.watson.developer_cloud:visual-recognition:4.2.1'
 ```
 
 ##### Development Snapshots
@@ -259,7 +259,7 @@ Gradle:
 
 ```sh
 cd java-sdk
-gradle jar  # build jar file (build/libs/watson-developer-cloud-4.1.0.jar)
+gradle jar  # build jar file (build/libs/watson-developer-cloud-4.2.1.jar)
 gradle test # run tests
 gradle check # performs quality checks on source files and generates reports
 gradle testReport # run tests and generate the aggregated test report (build/reports/allTests)
@@ -309,4 +309,4 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
 
-[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-4.1.0/java-sdk-4.1.0-jar-with-dependencies.jar
+[jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-4.2.1/java-sdk-4.2.1-jar-with-dependencies.jar
