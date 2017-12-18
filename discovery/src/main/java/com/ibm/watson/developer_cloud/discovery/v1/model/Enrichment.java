@@ -81,7 +81,8 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the enrichmentName.
    *
-   * Name of the enrichment service to call. Currently the only valid value is `alchemy_language`.
+   * Name of the enrichment service to call. Currently the only valid value is `natural_language_understanding`.
+   * Previous API versions also supported `alchemy_language`.
    *
    * @return the enrichmentName
    */
@@ -104,7 +105,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the options.
    *
-   * A list of options specific to the enrichment
+   * A list of options specific to the enrichment.
    *
    * @return the options
    */
