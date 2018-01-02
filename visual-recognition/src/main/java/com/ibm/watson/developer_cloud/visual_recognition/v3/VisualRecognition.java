@@ -59,6 +59,8 @@ public class VisualRecognition extends WatsonService {
   /** The Constant VERSION_DATE_2016_05_20. */
   public static final String VERSION_DATE_2016_05_20 = "2016-05-20";
 
+  private boolean endPointChanged;
+
   /**
    * Instantiates a new `VisualRecognition`.
    *
@@ -89,6 +91,17 @@ public class VisualRecognition extends WatsonService {
     setApiKey(apiKey);
   }
 
+  /**
+   * Sets the endpoint while making a note of the change to later authenticate properly.
+   *
+   * @param endPoint the new endpoint. Will be ignored if empty or null
+   */
+  @Override
+  public void setEndPoint(String endPoint) {
+    super.setEndPoint(endPoint);
+    endPointChanged = true;
+  }
+
   /*
    * (non-Javadoc)
    */
@@ -96,6 +109,9 @@ public class VisualRecognition extends WatsonService {
   protected void setAuthentication(okhttp3.Request.Builder builder) {
     if (getApiKey() == null) {
       throw new IllegalArgumentException("api_key needs to be specified. Use setApiKey()");
+    }
+    if (endPointChanged && !getEndPoint().equals(URL)) {
+      super.setAuthentication(builder);
     }
     final okhttp3.HttpUrl url = okhttp3.HttpUrl.parse(builder.build().url().toString());
     if ((url.query() == null) || url.query().isEmpty()) {
