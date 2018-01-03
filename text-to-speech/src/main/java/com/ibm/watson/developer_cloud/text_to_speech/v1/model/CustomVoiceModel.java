@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * A customized voice model that allows users to specify custom pronunciations for Waton's Text to Speech API.
  *
- * @see <a href= "http://www.ibm.com/watson/developercloud/doc/text-to-speech/custom-intro.shtml"> Customization</a>
+ * @see <a href= "https://console.bluemix.net/docs/services/text-to-speech/custom-intro.html"> Customization</a>
  */
 public class CustomVoiceModel extends GenericModel {
 
