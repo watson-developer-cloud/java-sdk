@@ -32,4 +32,4 @@ TranslationResult translationResult = service.translate(translateOptions).execut
 System.out.println(translationResult);
 ```
 
-[language_translator]: http://www.ibm.com/watson/developercloud/doc/language-translator/index.html
+[language_translator]: https://console.bluemix.net/docs/services/language-translator/index.html
