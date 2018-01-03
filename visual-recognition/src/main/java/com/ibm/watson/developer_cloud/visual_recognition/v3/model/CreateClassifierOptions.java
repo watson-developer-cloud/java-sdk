@@ -129,7 +129,7 @@ public class CreateClassifierOptions extends GenericModel {
      * @param negativeExamples the negativeExamples
      * @return the CreateClassifierOptions builder
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the file could not be found
      */
     public Builder negativeExamples(File negativeExamples) throws FileNotFoundException {
       this.negativeExamples = new FileInputStream(negativeExamples);

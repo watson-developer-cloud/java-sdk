@@ -195,7 +195,7 @@ public class TestConfigurationInEnvironmentOptions extends GenericModel {
      * @param file the file
      * @return the TestConfigurationInEnvironmentOptions builder
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the file could not be found
      */
     public Builder file(File file) throws FileNotFoundException {
       this.file = new FileInputStream(file);
