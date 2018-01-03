@@ -91,33 +91,23 @@ public class VisualRecognition extends WatsonService {
     setApiKey(apiKey);
   }
 
-  /**
-   * Sets the endpoint while making a note of the change to later authenticate properly.
-   *
-   * @param endPoint the new endpoint. Will be ignored if empty or null
-   */
-  @Override
-  public void setEndPoint(String endPoint) {
-    super.setEndPoint(endPoint);
-    endPointChanged = true;
-  }
-
   /*
    * (non-Javadoc)
    */
   @Override
   protected void setAuthentication(okhttp3.Request.Builder builder) {
-    if (getApiKey() == null) {
-      throw new IllegalArgumentException("api_key needs to be specified. Use setApiKey()");
-    }
-    if (endPointChanged && !getEndPoint().equals(URL)) {
+    if (getUsername() != null && getPassword() != null) {
       super.setAuthentication(builder);
-    }
-    final okhttp3.HttpUrl url = okhttp3.HttpUrl.parse(builder.build().url().toString());
-    if ((url.query() == null) || url.query().isEmpty()) {
-      builder.url(builder.build().url() + "?api_key=" + getApiKey());
+    } else if (getApiKey() != null) {
+      final okhttp3.HttpUrl url = okhttp3.HttpUrl.parse(builder.build().url().toString());
+      
+      if ((url.query() == null) || url.query().isEmpty()) {
+        builder.url(builder.build().url() + "?api_key=" + getApiKey());
+      } else {
+        builder.url(builder.build().url() + "&api_key=" + getApiKey());
+      }
     } else {
-      builder.url(builder.build().url() + "&api_key=" + getApiKey());
+      throw new IllegalArgumentException("Credentials need to be specified. Use setApiKey() or setUsernameAndPassword()");
     }
   }
 
