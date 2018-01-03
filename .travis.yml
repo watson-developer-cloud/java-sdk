@@ -58,7 +58,7 @@ deploy:
 
   - provider: releases
     api_key: ${GITHUB_TOKEN_RELEASES}
-    file: java-sdk/build/libs/jar-with-dependencies-${TRAVIS_BRANCH}.jar
+    file: java-sdk/build/libs/${TRAVIS_BRANCH}-jar-with-dependencies.jar
     skip_cleanup: true
     on:
       repo: watson-developer-cloud/java-sdk
