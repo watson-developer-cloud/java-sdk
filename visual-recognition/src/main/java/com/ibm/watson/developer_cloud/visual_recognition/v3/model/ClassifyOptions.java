@@ -148,7 +148,7 @@ public class ClassifyOptions extends GenericModel {
      * @param imagesFile the imagesFile
      * @return the ClassifyOptions builder
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the file could not be found
      */
     public Builder imagesFile(File imagesFile) throws FileNotFoundException {
       this.imagesFile = new FileInputStream(imagesFile);
