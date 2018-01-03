@@ -31,4 +31,4 @@ QueryOptions queryOptions = new QueryOptions.Builder(environmentId, collectionId
 QueryResponse queryResponse = discovery.query(queryOptions).execute();
 ```
 
-[discovery]: http://www.ibm.com/watson/developercloud/doc/discovery/
+[discovery]: https://console.bluemix.net/docs/services/discovery/getting-started.html
