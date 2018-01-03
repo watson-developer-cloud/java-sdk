@@ -17,8 +17,8 @@ echo '<!DOCTYPE html>
         <h1>IBM Watson Developer Cloud Java SDK</h1>
     </div>
 
-    <p><a href="http://www.ibm.com/watson/developercloud/">Info</a>
-        | <a href="http://www.ibm.com/watson/developercloud/doc/">Documentation</a>
+    <p><a href="https://www.ibm.com/watson/developer/">Info</a>
+        | <a href="https://console.bluemix.net/developer/watson/documentation">Documentation</a>
         | <a href="https://github.com/watson-developer-cloud/java-sdk">GitHub</a>
         | <a href="http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22com.ibm.watson.developer_cloud%22%20a%3A%22java-sdk%22">Maven</a>
     </p>
