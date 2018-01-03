@@ -150,7 +150,7 @@ public class AddDocumentOptions extends GenericModel {
      * @param file the file
      * @return the AddDocumentOptions builder
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the file could not be found
      */
     public Builder file(File file) throws FileNotFoundException {
       this.file = new FileInputStream(file);

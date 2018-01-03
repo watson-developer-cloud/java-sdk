@@ -176,7 +176,7 @@ public class CreateModelOptions extends GenericModel {
      * @param forcedGlossary the forcedGlossary
      * @return the CreateModelOptions builder
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the file could not be found
      */
     public Builder forcedGlossary(File forcedGlossary) throws FileNotFoundException {
       this.forcedGlossary = new FileInputStream(forcedGlossary);
@@ -190,7 +190,7 @@ public class CreateModelOptions extends GenericModel {
      * @param parallelCorpus the parallelCorpus
      * @return the CreateModelOptions builder
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the file could not be found
      */
     public Builder parallelCorpus(File parallelCorpus) throws FileNotFoundException {
       this.parallelCorpus = new FileInputStream(parallelCorpus);
@@ -204,7 +204,7 @@ public class CreateModelOptions extends GenericModel {
      * @param monolingualCorpus the monolingualCorpus
      * @return the CreateModelOptions builder
      *
-     * @throws FileNotFoundException
+     * @throws FileNotFoundException if the file could not be found
      */
     public Builder monolingualCorpus(File monolingualCorpus) throws FileNotFoundException {
       this.monolingualCorpus = new FileInputStream(monolingualCorpus);
