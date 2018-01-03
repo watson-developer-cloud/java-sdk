@@ -100,14 +100,15 @@ public class VisualRecognition extends WatsonService {
       super.setAuthentication(builder);
     } else if (getApiKey() != null) {
       final okhttp3.HttpUrl url = okhttp3.HttpUrl.parse(builder.build().url().toString());
-      
+
       if ((url.query() == null) || url.query().isEmpty()) {
         builder.url(builder.build().url() + "?api_key=" + getApiKey());
       } else {
         builder.url(builder.build().url() + "&api_key=" + getApiKey());
       }
     } else {
-      throw new IllegalArgumentException("Credentials need to be specified. Use setApiKey() or setUsernameAndPassword()");
+      throw new IllegalArgumentException(
+        "Credentials need to be specified. Use setApiKey() or setUsernameAndPassword()");
     }
   }
 
