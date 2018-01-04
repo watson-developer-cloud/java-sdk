@@ -20,7 +20,7 @@
 Use the [Visual Recognition][visual_recognition] service to recognize the
 following picture.
 
-![Car](https://visual-recognition-demo.mybluemix.net/images/samples/5.jpg)
+![Car](https://visual-recognition-demo.ng.bluemix.net/images/samples/5.jpg)
 
 ```java
 VisualRecognition service = new VisualRecognition(VisualRecognition.VERSION_DATE_2016_05_20);
@@ -34,4 +34,4 @@ ClassifiedImages result = service.classify(options).execute();
 System.out.println(result);
 ```
 
-[visual_recognition]: http://www.ibm.com/watson/developercloud/doc/visual-recognition/
+[visual_recognition]: https://console.bluemix.net/docs/services/visual-recognition/getting-started.html

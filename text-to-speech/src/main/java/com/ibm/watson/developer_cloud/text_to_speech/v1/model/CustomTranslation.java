@@ -21,7 +21,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
  * simple String of the desired pronunciation ({@code "Sunday"} as translation for {@code "Sun."}), an International
  * Phonetic Alphabet (IPA) representation. A Japanese translation can also specify a part of speech.
  *
- * @see <a href= "http://www.ibm.com/watson/developercloud/doc/text-to-speech/custom-intro.shtml">Customization</a>
+ * @see <a href= "https://console.bluemix.net/docs/services/text-to-speech/custom-intro.html">Customization</a>
  *
  */
 public class CustomTranslation extends GenericModel {
@@ -123,7 +123,7 @@ public class CustomTranslation extends GenericModel {
    * Phonetic Alphabet (IPA) representation an IBM Symbolic Phonetic Representation (SPR), or a mix of them.
    *
    * @param translation the translation
-   * @see <a href= "http://www.ibm.com/watson/developercloud/doc/text-to-speech/custom-intro.shtml">Customization</a>
+   * @see <a href= "https://console.bluemix.net/docs/services/text-to-speech/custom-intro.html">Customization</a>
    */
   public void setTranslation(String translation) {
     this.translation = translation;
