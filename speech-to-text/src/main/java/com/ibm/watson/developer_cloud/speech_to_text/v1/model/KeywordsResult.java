@@ -18,7 +18,7 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 /**
  * A keyword spotting result.
  *
- * @see <a href="http://www.ibm.com/watson/developercloud/doc/speech-to-text/output.shtml"> Speech to Text: Transcribing
+ * @see <a href="https://console.bluemix.net/docs/services/speech-to-text/output.html"> Speech to Text: Transcribing
  *      audio</a>
  */
 public class KeywordsResult extends GenericModel {
