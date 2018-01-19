@@ -59,6 +59,8 @@ public class VisualRecognition extends WatsonService {
   /** The Constant VERSION_DATE_2016_05_20. */
   public static final String VERSION_DATE_2016_05_20 = "2016-05-20";
 
+  private boolean endPointChanged;
+
   /**
    * Instantiates a new `VisualRecognition`.
    *
@@ -94,14 +96,19 @@ public class VisualRecognition extends WatsonService {
    */
   @Override
   protected void setAuthentication(okhttp3.Request.Builder builder) {
-    if (getApiKey() == null) {
-      throw new IllegalArgumentException("api_key needs to be specified. Use setApiKey()");
-    }
-    final okhttp3.HttpUrl url = okhttp3.HttpUrl.parse(builder.build().url().toString());
-    if ((url.query() == null) || url.query().isEmpty()) {
-      builder.url(builder.build().url() + "?api_key=" + getApiKey());
+    if (getUsername() != null && getPassword() != null) {
+      super.setAuthentication(builder);
+    } else if (getApiKey() != null) {
+      final okhttp3.HttpUrl url = okhttp3.HttpUrl.parse(builder.build().url().toString());
+
+      if ((url.query() == null) || url.query().isEmpty()) {
+        builder.url(builder.build().url() + "?api_key=" + getApiKey());
+      } else {
+        builder.url(builder.build().url() + "&api_key=" + getApiKey());
+      }
     } else {
-      builder.url(builder.build().url() + "&api_key=" + getApiKey());
+      throw new IllegalArgumentException(
+        "Credentials need to be specified. Use setApiKey() or setUsernameAndPassword()");
     }
   }
 

@@ -68,6 +68,8 @@ public abstract class WatsonService {
   private static final String BASIC = "Basic ";
   private static final Logger LOG = Logger.getLogger(WatsonService.class.getName());
   private String apiKey;
+  private String username;
+  private String password;
   private String endPoint;
   private final String name;
 
@@ -244,6 +246,26 @@ public abstract class WatsonService {
   }
 
   /**
+   * Gets the username.
+   *
+   *
+   * @return the username
+   */
+  protected String getUsername() {
+    return username;
+  }
+
+  /**
+   * Gets the password.
+   *
+   *
+   * @return the password
+   */
+  protected String getPassword() {
+    return password;
+  }
+
+  /**
    * Gets the API end point.
    *
    *
@@ -308,7 +330,6 @@ public abstract class WatsonService {
     return name;
   }
 
-
   /**
    * Sets the API key.
    *
@@ -351,6 +372,8 @@ public abstract class WatsonService {
    * @param password the password
    */
   public void setUsernameAndPassword(final String username, final String password) {
+    this.username = username;
+    this.password = password;
     apiKey = Credentials.basic(username, password);
   }
 
