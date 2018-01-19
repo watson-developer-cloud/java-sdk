@@ -42,9 +42,13 @@ import okhttp3.RequestBody;
  * The IBM Watson Document Conversion service converts provided source documents (HTML, Word, PDF) into JSON Answer
  * Units, Normalized HTML, or Normalized Text.
  *
+ * @deprecated Document Conversion was retired in October 2017. The document conversion capabilities of Watson
+ *             Discovery have continued to improve along with its integrated data pipeline and information retrieval
+ *             capabilities. If you are a Document Conversion user, get started with Discovery today.
  * @version v1
  * @see <a href= "http://www.ibm.com/watson/developercloud/document-conversion.html"> Document Conversion</a>
  */
+@Deprecated
 public class DocumentConversion extends WatsonService {
 
   private static final String CONVERSION_TARGET = "conversion_target";
