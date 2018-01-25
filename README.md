@@ -121,8 +121,8 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 The examples within each service assume that you already have service credentials. If not,
 you will have to create a service in [IBM Cloud][ibm_cloud].
 
-If you are running your application in IBM Cloud, you don't need to specify the
-credentials; the library will get them for you by looking at the `VCAP_SERVICES` environment variable.
+If you are running your application in IBM Cloud (or other platforms based on Cloud Foundry), you don't need to specify the
+credentials; the library will get them for you by looking at the [`VCAP_SERVICES`][vcap_services] environment variable.
 
 ## Getting the Service Credentials
 
@@ -175,7 +175,7 @@ For more information see: [OkHTTPClient Proxy authentication how to?](https://st
 
 ## Running in IBM Cloud
 
-When running in IBM Cloud, the library will automatically get the credentials from `VCAP_SERVICES`.
+When running in IBM Cloud (or other platforms based on Cloud Foundry), the library will automatically get the credentials from [`VCAP_SERVICES`][vcap_services].
 If you have more than one plan, you can use `CredentialUtils` to get the service credentials for an specific plan.
 
 ```java
@@ -307,5 +307,6 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
+[vcap_services]: https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-4.2.0/java-sdk-4.2.1-jar-with-dependencies.jar
