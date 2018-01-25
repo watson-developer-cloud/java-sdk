@@ -176,11 +176,11 @@ For more information see: [OkHTTPClient Proxy authentication how to?](https://st
 ## Running in IBM Cloud
 
 When running in IBM Cloud, the library will automatically get the credentials from `VCAP_SERVICES`.
-If you have more than one plan, you can use `BluemixUtils` to get the service credentials for an specific plan.
+If you have more than one plan, you can use `CredentialUtils` to get the service credentials for an specific plan.
 
 ```java
 PersonalityInsights service = new PersonalityInsights();
-String apiKey = BluemixUtils.getAPIKey(service.getName(), BluemixUtils.PLAN_STANDARD);
+String apiKey = CredentialUtils.getAPIKey(service.getName(), CredentialUtils.PLAN_STANDARD);
 service.setApiKey(apiKey);
 ```
 
