@@ -902,7 +902,7 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> upgradeLanguageModel(UpgradeLanguageModelOptions upgradeLanguageModelOptions) {
     Validator.notNull(upgradeLanguageModelOptions, "upgradeLanguageModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/customizations/%s/upgrade",
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/customizations/%s/upgrade_model",
         upgradeLanguageModelOptions.customizationId()));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -1338,7 +1338,7 @@ public class SpeechToText extends WatsonService {
    */
   public ServiceCall<Void> upgradeAcousticModel(UpgradeAcousticModelOptions upgradeAcousticModelOptions) {
     Validator.notNull(upgradeAcousticModelOptions, "upgradeAcousticModelOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.post(String.format("/v1/acoustic_customizations/%s/upgrade",
+    RequestBuilder builder = RequestBuilder.post(String.format("/v1/acoustic_customizations/%s/upgrade_model",
         upgradeAcousticModelOptions.customizationId()));
     if (upgradeAcousticModelOptions.customLanguageModelId() != null) {
       builder.query("custom_language_model_id", upgradeAcousticModelOptions.customLanguageModelId());

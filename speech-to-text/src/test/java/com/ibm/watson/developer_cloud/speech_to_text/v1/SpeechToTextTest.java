@@ -19,26 +19,40 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModels;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordsOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioListing;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioResource;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioResources;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CheckJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpora;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CustomWord;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CustomWords;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteSessionOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteWordOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModels;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListAcousticModelsOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListCorporaOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListLanguageModelsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
@@ -46,6 +60,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobs;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeUsingWebSocketOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModels;
@@ -53,7 +68,10 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionA
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeAcousticModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.util.MediaTypeUtils;
@@ -105,16 +123,24 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final String PATH_CORPUS = "/v1/customizations/%s/corpora/%s";
   private static final String PATH_CUSTOMIZATION = "/v1/customizations/%s";
   private static final String PATH_CUSTOMIZATIONS = "/v1/customizations";
+  private static final String PATH_ACOUSTIC_CUSTOMIZATION = "/v1/acoustic_customizations/%s";
+  private static final String PATH_ACOUSTIC_CUSTOMIZATIONS = "/v1/acoustic_customizations";
   private static final String PATH_MODELS = "/v1/models";
   private static final String PATH_RECOGNITION = "/v1/recognitions/%s";
   private static final String PATH_RECOGNITIONS = "/v1/recognitions";
   private static final String PATH_RECOGNIZE = "/v1/recognize";
+  private static final String PATH_ACOUSTIC_RESET = "/v1/acoustic_customizations/%s/reset";
   private static final String PATH_RESET = "/v1/customizations/%s/reset";
   private static final String PATH_SESSION = "/v1/sessions/%s";
   private static final String PATH_SESSIONS = "/v1/sessions";
+  private static final String PATH_ACOUSTIC_TRAIN = "/v1/acoustic_customizations/%s/train";
   private static final String PATH_TRAIN = "/v1/customizations/%s/train";
   private static final String PATH_WORDS = "/v1/customizations/%s/words";
   private static final String PATH_WORD = "/v1/customizations/%s/words/%s";
+  private static final String PATH_ACOUSTIC_UPGRADE = "/v1/acoustic_customizations/%s/upgrade_model";
+  private static final String PATH_UPGRADE = "/v1/customizations/%s/upgrade_model";
+  private static final String PATH_ALL_AUDIO = "/v1/acoustic_customizations/%s/audio";
+  private static final String PATH_SPECIFIC_AUDIO = "/v1/acoustic_customizations/%s/audio/%s";
 
   private static final File SAMPLE_WAV = new File("src/test/resources/speech_to_text/sample1.wav");
   private static final File SAMPLE_WEBM = new File("src/test/resources/speech_to_text/sample1.webm");
@@ -650,6 +676,25 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(String.format(PATH_RESET, id), request.getPath());
   }
 
+  /**
+   * Test upgrade language model.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testUpgradeLanguageModel() throws InterruptedException {
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
+    String id = "foo";
+
+    UpgradeLanguageModelOptions upgradeOptions = new UpgradeLanguageModelOptions.Builder()
+        .customizationId(id)
+        .build();
+    service.upgradeLanguageModel(upgradeOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(String.format(PATH_UPGRADE, id), request.getPath());
+  }
 
   /**
    * Test list corpora.
@@ -971,6 +1016,259 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals("PUT", request.getMethod());
     assertEquals(String.format(PATH_WORD, id, newWord.getWord()), request.getPath());
     assertEquals(GSON.toJson(newWord), request.getBody().readUtf8());
+  }
+
+  /**
+   * Test create acoustic model.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testCreateAcousticModel() throws InterruptedException, FileNotFoundException {
+    AcousticModel model =
+        loadFixture("src/test/resources/speech_to_text/acoustic-model.json", AcousticModel.class);
+
+    server.enqueue(
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(model)));
+
+    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+        .name(model.getName())
+        .baseModelName(model.getBaseModelName())
+        .description(model.getDescription())
+        .build();
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
+        .createAcousticModel(newModel)
+        .build();
+    AcousticModel result = service.createAcousticModel(createOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(PATH_ACOUSTIC_CUSTOMIZATIONS, request.getPath());
+    assertEquals(result.toString(), model.toString());
+  }
+
+  /**
+   * Test list acoustic models.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testListAcousticModels() throws InterruptedException, FileNotFoundException {
+    String acousticModelsAsString =
+        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/acoustic-models.json"));
+    JsonObject acousticModels = new JsonParser().parse(acousticModelsAsString).getAsJsonObject();
+
+    server.enqueue(
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(acousticModelsAsString));
+
+    ListAcousticModelsOptions listOptions = new ListAcousticModelsOptions.Builder()
+        .language("en-us")
+        .build();
+    AcousticModels result = service.listAcousticModels(listOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("GET", request.getMethod());
+    assertEquals(PATH_ACOUSTIC_CUSTOMIZATIONS + "?language=en-us", request.getPath());
+    assertEquals(acousticModels.get("customizations").getAsJsonArray().size(), result.getCustomizations().size());
+    assertEquals(acousticModels.get("customizations"), GSON.toJsonTree(result.getCustomizations()));
+  }
+
+  /**
+   * Test get acoustic model.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testGetAcousticModel() throws InterruptedException, FileNotFoundException {
+    String id = "foo";
+    AcousticModel model =
+        loadFixture("src/test/resources/speech_to_text/acoustic-model.json", AcousticModel.class);
+
+    server.enqueue(
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(model)));
+
+    GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
+        .customizationId(id)
+        .build();
+    AcousticModel result = service.getAcousticModel(getOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("GET", request.getMethod());
+    assertEquals(String.format(PATH_ACOUSTIC_CUSTOMIZATION, id), request.getPath());
+    assertEquals(result.toString(), model.toString());
+  }
+
+  /**
+   * Test delete acoustic model.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testDeleteAcousticModel() throws InterruptedException {
+    String id = "foo";
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
+
+    DeleteAcousticModelOptions deleteOptions = new DeleteAcousticModelOptions.Builder()
+        .customizationId(id)
+        .build();
+    service.deleteAcousticModel(deleteOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("DELETE", request.getMethod());
+    assertEquals(String.format(PATH_ACOUSTIC_CUSTOMIZATION, id), request.getPath());
+  }
+
+  /**
+   * Test train acoustic model.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testTrainAcousticModel() throws InterruptedException, FileNotFoundException {
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
+    String id = "foo";
+    String languageModelId = "bar";
+
+    TrainAcousticModelOptions trainOptions = new TrainAcousticModelOptions.Builder()
+        .customizationId(id)
+        .customLanguageModelId(languageModelId)
+        .build();
+    service.trainAcousticModel(trainOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(String.format(PATH_ACOUSTIC_TRAIN, id) + "?custom_language_model_id=bar",
+        request.getPath());
+  }
+
+  /**
+   * Test reset acoustic model.
+   *
+   * @throws InterruptedException the interrupted exception
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testResetAcousticModel() throws InterruptedException, FileNotFoundException {
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
+    String id = "foo";
+
+    ResetAcousticModelOptions resetOptions = new ResetAcousticModelOptions.Builder()
+        .customizationId(id)
+        .build();
+    service.resetAcousticModel(resetOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(String.format(PATH_ACOUSTIC_RESET, id), request.getPath());
+  }
+
+  /**
+   * Test upgrade acoustic model.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testUpgradeAcousticModel() throws InterruptedException {
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
+    String id = "foo";
+
+    UpgradeAcousticModelOptions upgradeOptions = new UpgradeAcousticModelOptions.Builder()
+        .customizationId(id)
+        .build();
+    service.upgradeAcousticModel(upgradeOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(String.format(PATH_ACOUSTIC_UPGRADE, id), request.getPath());
+  }
+
+  @Test
+  public void testAddAudio() throws InterruptedException {
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
+    String id = "foo";
+    String audioName = "test_file";
+
+    AddAudioOptions addOptions = new AddAudioOptions.Builder()
+        .customizationId(id)
+        .audioResource(SAMPLE_WAV)
+        .contentType(AddAudioOptions.ContentType.AUDIO_WAV)
+        .audioName(audioName)
+        .build();
+    service.addAudio(addOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(String.format(PATH_SPECIFIC_AUDIO, id, audioName), request.getPath());
+  }
+
+  @Test
+  public void testListAudio() throws FileNotFoundException, InterruptedException {
+    String resourcesAsString =
+        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/audio-resources.json"));
+    JsonObject audioResources = new JsonParser().parse(resourcesAsString).getAsJsonObject();
+    String id = "foo";
+
+    server.enqueue(
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(resourcesAsString));
+
+    ListAudioOptions listOptions = new ListAudioOptions.Builder()
+        .customizationId(id)
+        .build();
+    AudioResources result = service.listAudio(listOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("GET", request.getMethod());
+    assertEquals(String.format(PATH_ALL_AUDIO, id), request.getPath());
+    assertEquals(audioResources.get("audio").getAsJsonArray().size(), result.getAudio().size());
+    assertEquals(audioResources.get("audio"), GSON.toJsonTree(result.getAudio()));
+  }
+
+  @Test
+  public void testGetAudio() throws InterruptedException, FileNotFoundException {
+    String id = "foo";
+    String audioName = "audio1";
+    AudioResource audio =
+        loadFixture("src/test/resources/speech_to_text/audio-resource.json", AudioResource.class);
+
+    server.enqueue(
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(audio)));
+
+    GetAudioOptions getOptions = new GetAudioOptions.Builder()
+        .customizationId(id)
+        .audioName(audioName)
+        .build();
+    AudioListing result = service.getAudio(getOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("GET", request.getMethod());
+    assertEquals(String.format(PATH_SPECIFIC_AUDIO, id, audioName), request.getPath());
+    assertEquals(audio.getDetails(), result.getDetails());
+    assertEquals(audio.getDuration(), result.getDuration());
+    assertEquals(audio.getName(), result.getName());
+    assertEquals(audio.getStatus(), result.getStatus());
+  }
+
+  @Test
+  public void testDeleteAudio() throws InterruptedException {
+    String id = "foo";
+    String audioName = "audio1";
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
+
+    DeleteAudioOptions deleteOptions = new DeleteAudioOptions.Builder()
+        .customizationId(id)
+        .audioName(audioName)
+        .build();
+    service.deleteAudio(deleteOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("DELETE", request.getMethod());
+    assertEquals(String.format(PATH_SPECIFIC_AUDIO, id, audioName), request.getPath());
   }
 
   @Test
