@@ -36,7 +36,7 @@ APIs and SDKs that use cognitive computing to solve complex problems.
 * [Changes for v4.0](#changes-for-v40)
 * [Using a Proxy](#using-a-proxy)
 * [Android](#android)
-* [Running in Bluemix](#running-in-bluemix)
+* [Running in IBM Cloud](#running-in-ibm-cloud)
 * [Default Headers](#default-headers)
 * [Debug](#debug)
 * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
@@ -119,21 +119,21 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 ## Usage
 
 The examples within each service assume that you already have service credentials. If not,
-you will have to create a service in [Bluemix][bluemix].
+you will have to create a service in [IBM Cloud][ibm_cloud].
 
-If you are running your application in Bluemix, you don't need to specify the
-credentials; the library will get them for you by looking at the `VCAP_SERVICES` environment variable.
+If you are running your application in IBM Cloud (or other platforms based on Cloud Foundry), you don't need to specify the
+credentials; the library will get them for you by looking at the [`VCAP_SERVICES`][vcap_services] environment variable.
 
 ## Getting the Service Credentials
 
-You will need the `username` and `password` (`api_key` for AlchemyAPI) credentials, and the API endpoint for each service. Service credentials are different from your Bluemix account username and password.
+You will need the `username` and `password` (`api_key` for AlchemyAPI) credentials, and the API endpoint for each service. Service credentials are different from your IBM Cloud account username and password.
 
 To get your service credentials, follow these steps:
 
-1. Log in to [Bluemix](https://console.bluemix.net/catalog?category=watson)
+1. Log in to [IBM Cloud](https://console.bluemix.net/catalog?category=watson)
 
 1. Create an instance of the service:
-    1. In the Bluemix **Catalog**, select the service you want to use.
+    1. In the IBM Cloud **Catalog**, select the service you want to use.
     1. Click **Create**.
 
 1. Copy your credentials:
@@ -173,14 +173,14 @@ System.out.println(workspaces);
 
 For more information see: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564)
 
-## Running in Bluemix
+## Running in IBM Cloud
 
-When running in Bluemix, the library will automatically get the credentials from `VCAP_SERVICES`.
-If you have more than one plan, you can use `BluemixUtils` to get the service credentials for an specific plan.
+When running in IBM Cloud (or other platforms based on Cloud Foundry), the library will automatically get the credentials from [`VCAP_SERVICES`][vcap_services].
+If you have more than one plan, you can use `CredentialUtils` to get the service credentials for an specific plan.
 
 ```java
 PersonalityInsights service = new PersonalityInsights();
-String apiKey = BluemixUtils.getAPIKey(service.getName(), BluemixUtils.PLAN_STANDARD);
+String apiKey = CredentialUtils.getAPIKey(service.getName(), CredentialUtils.PLAN_STANDARD);
 service.setApiKey(apiKey);
 ```
 
@@ -216,7 +216,7 @@ service.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api")
 
 ## 401 Unauthorized error
 
-Make sure you are using the service credentials and not your Bluemix account/password.
+Make sure you are using the service credentials and not your IBM Cloud account/password.
 Check the API Endpoint, you may need to update the default using `setEndPoint()`.
 
 ## Debug
@@ -301,11 +301,12 @@ or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 
 
 [wdc]: http://www.ibm.com/watson/developercloud/
-[bluemix]: https://console.bluemix.net
+[ibm_cloud]: https://console.bluemix.net
 [Gradle]: http://www.gradle.org/
 [OkHttp]: http://square.github.io/okhttp/
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
+[vcap_services]: https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-4.2.0/java-sdk-4.2.1-jar-with-dependencies.jar
