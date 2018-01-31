@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -13,29 +13,19 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
 
 /**
- * Word alternative used by {@link SpeechToText}.
+ * WordAlternativeResult.
  */
-public class WordAlternative extends GenericModel {
+public class WordAlternativeResult extends GenericModel {
 
   private Double confidence;
   private String word;
 
   /**
-   * Instantiates a new word alternative.
-   *
-   * @param confidence the confidence
-   * @param word the word
-   */
-  public WordAlternative(Double confidence, String word) {
-    this.confidence = confidence;
-    this.word = word;
-  }
-
-  /**
    * Gets the confidence.
+   *
+   * A confidence score for the word alternative hypothesis in the range of 0 to 1.
    *
    * @return the confidence
    */
@@ -44,16 +34,9 @@ public class WordAlternative extends GenericModel {
   }
 
   /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(Double confidence) {
-    this.confidence = confidence;
-  }
-
-  /**
    * Gets the word.
+   *
+   * An alternative hypothesis for a word from the input audio.
    *
    * @return the word
    */
@@ -62,11 +45,20 @@ public class WordAlternative extends GenericModel {
   }
 
   /**
+   * Sets the confidence.
+   *
+   * @param confidence the new confidence
+   */
+  public void setConfidence(final Double confidence) {
+    this.confidence = confidence;
+  }
+
+  /**
    * Sets the word.
    *
    * @param word the new word
    */
-  public void setWord(String word) {
+  public void setWord(final String word) {
     this.word = word;
   }
 }

@@ -12,29 +12,17 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
-/**
- * The recognize options.
- */
-public class RecognizeOptions extends GenericModel {
+import java.util.ArrayList;
+import java.util.List;
 
-  /**
-   * Set to `chunked` to send the audio in streaming mode; the data does not need to exist fully before being streamed
-   * to the service. MULTIPART: You must also set this header for requests with more than one audio part.
-   */
-  public interface TransferEncoding {
-    /** chunked. */
-    String CHUNKED = "chunked";
-  }
+/**
+ * The recognizeUsingWebSocket options.
+ */
+public class RecognizeUsingWebSocketOptions extends GenericModel {
 
   /**
    * The identifier of the model to be used for the recognition request. (Use `GET /v1/models` for a list of available
@@ -107,16 +95,15 @@ public class RecognizeOptions extends GenericModel {
     String MULTIPART_FORM_DATA = "multipart/form-data";
   }
 
-  private String transferEncoding;
   private String model;
   private String customizationId;
   private String acousticCustomizationId;
   private Double customizationWeight;
   private String version;
-  private File audio;
+  @SerializedName("content-type")
   private String contentType;
-  private Long sequenceId;
   private Long inactivityTimeout;
+  private Boolean interimResults;
   private List<String> keywords;
   private Float keywordsThreshold;
   private Long maxAlternatives;
@@ -126,24 +113,19 @@ public class RecognizeOptions extends GenericModel {
   private Boolean profanityFilter;
   private Boolean smartFormatting;
   private Boolean speakerLabels;
-  private InputStream upload;
-  private String uploadFilename;
-  private MultipartRecognition metadata;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private String transferEncoding;
     private String model;
     private String customizationId;
     private String acousticCustomizationId;
     private Double customizationWeight;
     private String version;
-    private File audio;
     private String contentType;
-    private Long sequenceId;
     private Long inactivityTimeout;
+    private Boolean interimResults;
     private List<String> keywords;
     private Float keywordsThreshold;
     private Long maxAlternatives;
@@ -153,33 +135,25 @@ public class RecognizeOptions extends GenericModel {
     private Boolean profanityFilter;
     private Boolean smartFormatting;
     private Boolean speakerLabels;
-    private InputStream upload;
-    private String uploadFilename;
-    private MultipartRecognition metadata;
 
-    private Builder(RecognizeOptions recognizeOptions) {
-      transferEncoding = recognizeOptions.transferEncoding;
-      model = recognizeOptions.model;
-      customizationId = recognizeOptions.customizationId;
-      acousticCustomizationId = recognizeOptions.acousticCustomizationId;
-      customizationWeight = recognizeOptions.customizationWeight;
-      version = recognizeOptions.version;
-      audio = recognizeOptions.audio;
-      contentType = recognizeOptions.contentType;
-      sequenceId = recognizeOptions.sequenceId;
-      inactivityTimeout = recognizeOptions.inactivityTimeout;
-      keywords = recognizeOptions.keywords;
-      keywordsThreshold = recognizeOptions.keywordsThreshold;
-      maxAlternatives = recognizeOptions.maxAlternatives;
-      wordAlternativesThreshold = recognizeOptions.wordAlternativesThreshold;
-      wordConfidence = recognizeOptions.wordConfidence;
-      timestamps = recognizeOptions.timestamps;
-      profanityFilter = recognizeOptions.profanityFilter;
-      smartFormatting = recognizeOptions.smartFormatting;
-      speakerLabels = recognizeOptions.speakerLabels;
-      upload = recognizeOptions.upload;
-      uploadFilename = recognizeOptions.uploadFilename;
-      metadata = recognizeOptions.metadata;
+    private Builder(RecognizeUsingWebSocketOptions recognizeUsingWebSocketOptions) {
+      model = recognizeUsingWebSocketOptions.model;
+      customizationId = recognizeUsingWebSocketOptions.customizationId;
+      acousticCustomizationId = recognizeUsingWebSocketOptions.acousticCustomizationId;
+      customizationWeight = recognizeUsingWebSocketOptions.customizationWeight;
+      version = recognizeUsingWebSocketOptions.version;
+      contentType = recognizeUsingWebSocketOptions.contentType;
+      inactivityTimeout = recognizeUsingWebSocketOptions.inactivityTimeout;
+      interimResults = recognizeUsingWebSocketOptions.interimResults;
+      keywords = recognizeUsingWebSocketOptions.keywords;
+      keywordsThreshold = recognizeUsingWebSocketOptions.keywordsThreshold;
+      maxAlternatives = recognizeUsingWebSocketOptions.maxAlternatives;
+      wordAlternativesThreshold = recognizeUsingWebSocketOptions.wordAlternativesThreshold;
+      wordConfidence = recognizeUsingWebSocketOptions.wordConfidence;
+      timestamps = recognizeUsingWebSocketOptions.timestamps;
+      profanityFilter = recognizeUsingWebSocketOptions.profanityFilter;
+      smartFormatting = recognizeUsingWebSocketOptions.smartFormatting;
+      speakerLabels = recognizeUsingWebSocketOptions.speakerLabels;
     }
 
     /**
@@ -189,19 +163,19 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Builds a RecognizeOptions.
+     * Builds a RecognizeUsingWebSocketOptions.
      *
-     * @return the recognizeOptions
+     * @return the recognizeUsingWebSocketOptions
      */
-    public RecognizeOptions build() {
-      return new RecognizeOptions(this);
+    public RecognizeUsingWebSocketOptions build() {
+      return new RecognizeUsingWebSocketOptions(this);
     }
 
     /**
      * Adds an keywords to keywords.
      *
      * @param keywords the new keywords
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder addKeywords(String keywords) {
       Validator.notNull(keywords, "keywords cannot be null");
@@ -213,21 +187,10 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Set the transferEncoding.
-     *
-     * @param transferEncoding the transferEncoding
-     * @return the RecognizeOptions builder
-     */
-    public Builder transferEncoding(String transferEncoding) {
-      this.transferEncoding = transferEncoding;
-      return this;
-    }
-
-    /**
      * Set the model.
      *
      * @param model the model
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder model(String model) {
       this.model = model;
@@ -238,7 +201,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the customizationId.
      *
      * @param customizationId the customizationId
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder customizationId(String customizationId) {
       this.customizationId = customizationId;
@@ -249,7 +212,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the acousticCustomizationId.
      *
      * @param acousticCustomizationId the acousticCustomizationId
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder acousticCustomizationId(String acousticCustomizationId) {
       this.acousticCustomizationId = acousticCustomizationId;
@@ -260,7 +223,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the customizationWeight.
      *
      * @param customizationWeight the customizationWeight
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder customizationWeight(Double customizationWeight) {
       this.customizationWeight = customizationWeight;
@@ -271,7 +234,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the version.
      *
      * @param version the version
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder version(String version) {
       this.version = version;
@@ -279,21 +242,10 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Set the audio.
-     *
-     * @param audio the audio
-     * @return the RecognizeOptions builder
-     */
-    public Builder audio(File audio) {
-      this.audio = audio;
-      return this;
-    }
-
-    /**
      * Set the contentType.
      *
      * @param contentType the contentType
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder contentType(String contentType) {
       this.contentType = contentType;
@@ -301,24 +253,24 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Set the sequenceId.
+     * Set the inactivityTimeout.
      *
-     * @param sequenceId the sequenceId
-     * @return the RecognizeOptions builder
+     * @param inactivityTimeout the inactivityTimeout
+     * @return the RecognizeUsingWebSocketOptions builder
      */
-    public Builder sequenceId(long sequenceId) {
-      this.sequenceId = sequenceId;
+    public Builder inactivityTimeout(long inactivityTimeout) {
+      this.inactivityTimeout = inactivityTimeout;
       return this;
     }
 
     /**
-     * Set the inactivityTimeout.
+     * Set the interimResults.
      *
-     * @param inactivityTimeout the inactivityTimeout
-     * @return the RecognizeOptions builder
+     * @param interimResults the interimResults
+     * @return the RecognizeUsingWebSocketOptions builder
      */
-    public Builder inactivityTimeout(long inactivityTimeout) {
-      this.inactivityTimeout = inactivityTimeout;
+    public Builder interimResults(Boolean interimResults) {
+      this.interimResults = interimResults;
       return this;
     }
 
@@ -327,7 +279,7 @@ public class RecognizeOptions extends GenericModel {
      * Existing keywords will be replaced.
      *
      * @param keywords the keywords
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder keywords(List<String> keywords) {
       this.keywords = keywords;
@@ -338,7 +290,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the keywordsThreshold.
      *
      * @param keywordsThreshold the keywordsThreshold
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder keywordsThreshold(Float keywordsThreshold) {
       this.keywordsThreshold = keywordsThreshold;
@@ -349,7 +301,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the maxAlternatives.
      *
      * @param maxAlternatives the maxAlternatives
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder maxAlternatives(long maxAlternatives) {
       this.maxAlternatives = maxAlternatives;
@@ -360,7 +312,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the wordAlternativesThreshold.
      *
      * @param wordAlternativesThreshold the wordAlternativesThreshold
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder wordAlternativesThreshold(Float wordAlternativesThreshold) {
       this.wordAlternativesThreshold = wordAlternativesThreshold;
@@ -371,7 +323,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the wordConfidence.
      *
      * @param wordConfidence the wordConfidence
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder wordConfidence(Boolean wordConfidence) {
       this.wordConfidence = wordConfidence;
@@ -382,7 +334,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the timestamps.
      *
      * @param timestamps the timestamps
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder timestamps(Boolean timestamps) {
       this.timestamps = timestamps;
@@ -393,7 +345,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the profanityFilter.
      *
      * @param profanityFilter the profanityFilter
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder profanityFilter(Boolean profanityFilter) {
       this.profanityFilter = profanityFilter;
@@ -404,7 +356,7 @@ public class RecognizeOptions extends GenericModel {
      * Set the smartFormatting.
      *
      * @param smartFormatting the smartFormatting
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder smartFormatting(Boolean smartFormatting) {
       this.smartFormatting = smartFormatting;
@@ -415,72 +367,24 @@ public class RecognizeOptions extends GenericModel {
      * Set the speakerLabels.
      *
      * @param speakerLabels the speakerLabels
-     * @return the RecognizeOptions builder
+     * @return the RecognizeUsingWebSocketOptions builder
      */
     public Builder speakerLabels(Boolean speakerLabels) {
       this.speakerLabels = speakerLabels;
       return this;
     }
-
-    /**
-     * Set the upload.
-     *
-     * @param upload the upload
-     * @return the RecognizeOptions builder
-     */
-    public Builder upload(InputStream upload) {
-      this.upload = upload;
-      return this;
-    }
-
-    /**
-     * Set the uploadFilename.
-     *
-     * @param uploadFilename the uploadFilename
-     * @return the RecognizeOptions builder
-     */
-    public Builder uploadFilename(String uploadFilename) {
-      this.uploadFilename = uploadFilename;
-      return this;
-    }
-
-    /**
-     * Set the upload.
-     *
-     * @param upload the upload
-     * @return the RecognizeOptions builder
-     *
-     * @throws FileNotFoundException if the file could not be found
-     */
-    public Builder upload(File upload) throws FileNotFoundException {
-      this.upload = new FileInputStream(upload);
-      this.uploadFilename = upload.getName();
-      return this;
-    }
-
-    /**
-     * Set the metadata.
-     *
-     * @param metadata the metadata
-     * @return the RecognizeOptions builder
-     */
-    public Builder metadata(MultipartRecognition metadata) {
-      this.metadata = metadata;
-      return this;
-    }
   }
 
-  private RecognizeOptions(Builder builder) {
-    transferEncoding = builder.transferEncoding;
+  private RecognizeUsingWebSocketOptions(Builder builder) {
+    Validator.notNull(builder.contentType, "contentType cannot be null");
     model = builder.model;
     customizationId = builder.customizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
     customizationWeight = builder.customizationWeight;
     version = builder.version;
-    audio = builder.audio;
     contentType = builder.contentType;
-    sequenceId = builder.sequenceId;
     inactivityTimeout = builder.inactivityTimeout;
+    interimResults = builder.interimResults;
     keywords = builder.keywords;
     keywordsThreshold = builder.keywordsThreshold;
     maxAlternatives = builder.maxAlternatives;
@@ -490,30 +394,15 @@ public class RecognizeOptions extends GenericModel {
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
-    upload = builder.upload;
-    uploadFilename = builder.uploadFilename;
-    metadata = builder.metadata;
   }
 
   /**
    * New builder.
    *
-   * @return a RecognizeOptions builder
+   * @return a RecognizeUsingWebSocketOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the transferEncoding.
-   *
-   * Set to `chunked` to send the audio in streaming mode; the data does not need to exist fully before being streamed
-   * to the service. MULTIPART: You must also set this header for requests with more than one audio part.
-   *
-   * @return the transferEncoding
-   */
-  public String transferEncoding() {
-    return transferEncoding;
   }
 
   /**
@@ -590,15 +479,6 @@ public class RecognizeOptions extends GenericModel {
   }
 
   /**
-   * Gets the audio.
-   *
-   * @return the audio
-   */
-  public File audio() {
-    return audio;
-  }
-
-  /**
    * Gets the contentType.
    *
    * The type of the input: audio/basic, audio/flac, audio/l16, audio/mp3, audio/mpeg, audio/mulaw, audio/ogg,
@@ -612,18 +492,6 @@ public class RecognizeOptions extends GenericModel {
   }
 
   /**
-   * Gets the sequenceId.
-   *
-   * NON-MULTIPART ONLY: Sequence ID of this recognition task in the form of a user-specified integer. If omitted, no
-   * sequence ID is associated with the recognition task.
-   *
-   * @return the sequenceId
-   */
-  public Long sequenceId() {
-    return sequenceId;
-  }
-
-  /**
    * Gets the inactivityTimeout.
    *
    * NON-MULTIPART ONLY: The time in seconds after which, if only silence (no speech) is detected in submitted audio,
@@ -634,6 +502,19 @@ public class RecognizeOptions extends GenericModel {
    */
   public Long inactivityTimeout() {
     return inactivityTimeout;
+  }
+
+  /**
+   * Gets the interimResults.
+   *
+   * Indicates whether the service is to return interim results. If true, interim results are returned as a stream of
+   * JSON {@link SpeechRecognitionResults} objects. If false (the default), the response is a single
+   * {@link SpeechRecognitionResults} object with final results only.
+   *
+   * @return the interimResults
+   */
+  public Boolean interimResults() {
+    return interimResults;
   }
 
   /**
@@ -752,41 +633,5 @@ public class RecognizeOptions extends GenericModel {
    */
   public Boolean speakerLabels() {
     return speakerLabels;
-  }
-
-  /**
-   * Gets the upload.
-   *
-   * MULTIPART ONLY: One or more audio files for the request. For multiple audio files, set `Transfer-Encoding` to
-   * `chunked`. **Required for a multipart request.**.
-   *
-   * @return the upload
-   */
-  public InputStream upload() {
-    return upload;
-  }
-
-  /**
-   * Gets the uploadFilename.
-   *
-   * The filename for upload.
-   *
-   * @return the uploadFilename
-   */
-  public String uploadFilename() {
-    return uploadFilename;
-  }
-
-  /**
-   * Gets the metadata.
-   *
-   * MULTIPART ONLY: Parameters for the multipart recognition request. This must be the first part ofvthe request and
-   * must consist of JSON-formatted data. The information describes the subsequent parts of the request, which pass
-   * the audio files to be transcribed. **Required for a multipart request.**
-   *
-   * @return the metadata
-   */
-  public MultipartRecognition metadata() {
-    return metadata;
   }
 }

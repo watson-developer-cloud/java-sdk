@@ -22,8 +22,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeUsingWebSocketOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.developer_cloud.util.GsonSingleton;
 
 import okhttp3.Response;
@@ -54,11 +54,14 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   private static final String RESULTS = "results";
   private static final String SPEAKER_LABELS = "speaker_labels";
   private static final String CUSTOMIZATION_ID = "customization_id";
+  private static final String ACOUSTIC_CUSTOMIZATION_ID = "acoustic_customization_id";
+  private static final String CUSTOMIZATION_WEIGHT = "customization_weight";
+  private static final String VERSION = "version";
 
   private static final String TIMEOUT_PREFIX = "No speech detected for";
 
   private final InputStream stream;
-  private final RecognizeOptions options;
+  private final RecognizeUsingWebSocketOptions options;
   private final RecognizeCallback callback;
   private WebSocket socket;
   private boolean socketOpen = true;
@@ -73,7 +76,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @param options the recognize options
    * @param callback the callback
    */
-  public SpeechToTextWebSocketListener(final InputStream stream, final RecognizeOptions options,
+  public SpeechToTextWebSocketListener(final InputStream stream, final RecognizeUsingWebSocketOptions options,
       final RecognizeCallback callback) {
     this.stream = stream;
     this.options = options;
@@ -119,7 +122,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
 
       // Only call onError() if a real error occurred. The STT service sends
       // {"error" : "No speech detected for 5s"} for valid timeouts, configured by
-      // RecognizeOptions.Builder.inactivityTimeout()
+      // RecognizeUsingWebSocketOptions.Builder.inactivityTimeout()
       if (!error.startsWith(TIMEOUT_PREFIX)) {
         callback.onError(new RuntimeException(error));
       } else {
@@ -127,7 +130,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
         callback.onInactivityTimeout(new RuntimeException(error));
       }
     } else if (json.has(RESULTS) || json.has(SPEAKER_LABELS)) {
-      callback.onTranscription(GSON.fromJson(message, SpeechResults.class));
+      callback.onTranscription(GSON.fromJson(message, SpeechRecognitionResults.class));
 
     } else if (json.has(STATE)) {
       // A listen state after everything has been sent over indicates everything has been processed
@@ -213,10 +216,13 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @param options the options
    * @return the request
    */
-  private String buildStartMessage(RecognizeOptions options) {
+  private String buildStartMessage(RecognizeUsingWebSocketOptions options) {
     JsonObject startMessage = new JsonParser().parse(new Gson().toJson(options)).getAsJsonObject();
     startMessage.remove(MODEL);
     startMessage.remove(CUSTOMIZATION_ID);
+    startMessage.remove(ACOUSTIC_CUSTOMIZATION_ID);
+    startMessage.remove(CUSTOMIZATION_WEIGHT);
+    startMessage.remove(VERSION);
     startMessage.addProperty(ACTION, START);
     return startMessage.toString();
   }
