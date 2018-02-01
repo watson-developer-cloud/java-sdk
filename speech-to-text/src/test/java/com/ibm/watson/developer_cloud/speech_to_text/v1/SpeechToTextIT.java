@@ -15,20 +15,31 @@ package com.ibm.watson.developer_cloud.speech_to_text.v1;
 import com.ibm.watson.developer_cloud.WatsonServiceTest;
 import com.ibm.watson.developer_cloud.http.HttpMediaType;
 import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModels;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioListing;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioResources;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CheckJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpora;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus.Status;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateSessionOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CustomWord;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteSessionOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetSessionStatusOptions;
@@ -36,6 +47,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.KeywordResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModels;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListCorporaOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
@@ -54,7 +66,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
 import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Assume;
-
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Rule;
@@ -533,7 +544,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * Test list language models.
    */
   @Test
-  public void testGetLanguageModels() {
+  public void testListLanguageModels() {
     LanguageModels models = service.listLanguageModels().execute();
     assertNotNull(models);
     assertTrue(!models.getCustomizations().isEmpty());
@@ -816,6 +827,131 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .customizationId(id)
           .build();
       service.deleteLanguageModel(deleteOptions).execute();
+    }
+  }
+
+  @Test
+  public void testCreateAcousticModel() {
+    String name = "java-sdk-temporary";
+    String description = "Temporary custom model for testing the Java SDK";
+    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+        .name(name)
+        .baseModelName(EN_BROADBAND16K)
+        .description(description)
+        .build();
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
+        .createAcousticModel(newModel)
+        .build();
+    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
+    String id = myModel.getCustomizationId();
+
+    try {
+      GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      AcousticModel model = service.getAcousticModel(getOptions).execute();
+
+      assertNotNull(model);
+      assertEquals(name, model.getName());
+      assertEquals(EN_BROADBAND16K, model.getBaseModelName());
+      assertEquals(description, model.getDescription());
+    } finally {
+      DeleteAcousticModelOptions deleteOptions = new DeleteAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      service.deleteAcousticModel(deleteOptions).execute();
+    }
+  }
+
+  @Test
+  public void testListAcousticModels() {
+    AcousticModels models = service.listAcousticModels().execute();
+    assertNotNull(models);
+  }
+
+  @Test
+  public void testGetAudio() throws InterruptedException {
+    String name = "java-sdk-temporary";
+    String description = "Temporary custom model for testing the Java SDK";
+    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+        .name(name)
+        .baseModelName(EN_BROADBAND16K)
+        .description(description)
+        .build();
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
+        .createAcousticModel(newModel)
+        .build();
+    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
+    String id = myModel.getCustomizationId();
+
+    String audioName = "sample";
+    AddAudioOptions addOptions = new AddAudioOptions.Builder()
+        .audioResource(new File(SAMPLE_WAV))
+        .contentType(AddAudioOptions.ContentType.AUDIO_WAV)
+        .audioName(audioName)
+        .customizationId(id)
+        .build();
+    service.addAudio(addOptions).execute();
+
+    try {
+      GetAudioOptions getOptions = new GetAudioOptions.Builder()
+          .customizationId(id)
+          .audioName(audioName)
+          .build();
+      AudioListing audio = service.getAudio(getOptions).execute();
+
+      assertNotNull(audio);
+      assertEquals(audioName, audio.getName());
+    } finally {
+      DeleteAudioOptions deleteAudioOptions = new DeleteAudioOptions.Builder()
+          .customizationId(id)
+          .audioName(audioName)
+          .build();
+      service.deleteAudio(deleteAudioOptions).execute();
+
+      GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      for (int x = 0;
+           x < 30 && !service.getAcousticModel(getOptions).execute().getStatus().equals(AcousticModel.Status.AVAILABLE);
+           x++) {
+        Thread.sleep(5000);
+      }
+
+      DeleteAcousticModelOptions deleteAcousticModelOptions = new DeleteAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      service.deleteAcousticModel(deleteAcousticModelOptions).execute();
+    }
+  }
+
+  @Test
+  public void testListAudio() {
+    String name = "java-sdk-temporary";
+    String description = "Temporary custom model for testing the Java SDK";
+    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+        .name(name)
+        .baseModelName(EN_BROADBAND16K)
+        .description(description)
+        .build();
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
+        .createAcousticModel(newModel)
+        .build();
+    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
+    String id = myModel.getCustomizationId();
+
+    try {
+      ListAudioOptions listOptions = new ListAudioOptions.Builder()
+          .customizationId(id)
+          .build();
+      AudioResources resources = service.listAudio(listOptions).execute();
+
+      assertNotNull(resources);
+    } finally {
+      DeleteAcousticModelOptions deleteAcousticModelOptions = new DeleteAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      service.deleteAcousticModel(deleteAcousticModelOptions).execute();
     }
   }
 }
