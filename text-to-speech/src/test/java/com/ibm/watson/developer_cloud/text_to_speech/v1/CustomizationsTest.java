@@ -18,7 +18,6 @@ import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CreateVoiceModelOptions;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomWord;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteVoiceModelOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteWordOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceModelOptions;
@@ -118,13 +117,6 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
 
   private static List<Word> instantiateWords() {
     Word word = new Word();
-    word.setWord("hodor");
-    word.setTranslation("hold the door");
-    return ImmutableList.of(word);
-  }
-
-  private static List<CustomWord> instantiateCustomWords() {
-    CustomWord word = new CustomWord();
     word.setWord("hodor");
     word.setTranslation("hold the door");
     return ImmutableList.of(word);
@@ -446,7 +438,7 @@ public class CustomizationsTest extends WatsonServiceUnitTest {
   @Test
   public void testAddWords() throws InterruptedException {
     final VoiceModel model = instantiateVoiceModel();
-    final List<CustomWord> expected = instantiateCustomWords();
+    final List<Word> expected = instantiateWords();
 
     server.enqueue(new MockResponse().setResponseCode(201));
     AddWordsOptions addOptions = new AddWordsOptions.Builder()

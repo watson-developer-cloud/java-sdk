@@ -426,7 +426,9 @@ public class TextToSpeech extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/customizations/%s/words", addWordsOptions
         .customizationId()));
     final JsonObject contentJson = new JsonObject();
-    contentJson.add("words", GsonSingleton.getGson().toJsonTree(addWordsOptions.words()));
+    if (addWordsOptions.words() != null) {
+      contentJson.add("words", GsonSingleton.getGson().toJsonTree(addWordsOptions.words()));
+    }
     builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }

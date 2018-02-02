@@ -24,14 +24,14 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class AddWordsOptions extends GenericModel {
 
   private String customizationId;
-  private List<CustomWord> words;
+  private List<Word> words;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String customizationId;
-    private List<CustomWord> words;
+    private List<Word> words;
 
     private Builder(AddWordsOptions addWordsOptions) {
       customizationId = addWordsOptions.customizationId;
@@ -48,11 +48,9 @@ public class AddWordsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param customizationId the customizationId
-     * @param words the words
      */
-    public Builder(String customizationId, List<CustomWord> words) {
+    public Builder(String customizationId) {
       this.customizationId = customizationId;
-      this.words = words;
     }
 
     /**
@@ -70,10 +68,10 @@ public class AddWordsOptions extends GenericModel {
      * @param word the new word
      * @return the AddWordsOptions builder
      */
-    public Builder addWord(CustomWord word) {
+    public Builder addWord(Word word) {
       Validator.notNull(word, "word cannot be null");
       if (this.words == null) {
-        this.words = new ArrayList<CustomWord>();
+        this.words = new ArrayList<Word>();
       }
       this.words.add(word);
       return this;
@@ -97,15 +95,25 @@ public class AddWordsOptions extends GenericModel {
      * @param words the words
      * @return the AddWordsOptions builder
      */
-    public Builder words(List<CustomWord> words) {
+    public Builder words(List<Word> words) {
       this.words = words;
+      return this;
+    }
+
+    /**
+     * Set the words.
+     *
+     * @param words the words
+     * @return the AddWordsOptions builder
+     */
+    public Builder words(Words words) {
+      this.words = words.getWords();
       return this;
     }
   }
 
   private AddWordsOptions(Builder builder) {
     Validator.notEmpty(builder.customizationId, "customizationId cannot be empty");
-    Validator.notNull(builder.words, "words cannot be null");
     customizationId = builder.customizationId;
     words = builder.words;
   }
@@ -134,12 +142,12 @@ public class AddWordsOptions extends GenericModel {
   /**
    * Gets the words.
    *
-   * An array of `CustomWord` objects that provides information about the words and their translations that are to be
-   * added or updated for the custom voice model.
+   * An array of words and their translations from the custom voice model. The words are listed in alphabetical order,
+   * with uppercase letters listed before lowercase letters. The array is empty if the custom model contains no words.
    *
    * @return the words
    */
-  public List<CustomWord> words() {
+  public List<Word> words() {
     return words;
   }
 }

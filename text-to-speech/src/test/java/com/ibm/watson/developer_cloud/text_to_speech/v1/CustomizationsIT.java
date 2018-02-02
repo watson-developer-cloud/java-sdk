@@ -18,7 +18,6 @@ import com.ibm.watson.developer_cloud.service.exception.UnauthorizedException;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AddWordsOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CreateVoiceModelOptions;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.CustomWord;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteVoiceModelOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.DeleteWordOptions;
 import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceModelOptions;
@@ -101,34 +100,12 @@ public class CustomizationsIT extends WatsonServiceTest {
     return ImmutableList.of(word1, word2);
   }
 
-  private List<CustomWord> instantiateCustomWords() {
-    CustomWord word1 = new CustomWord();
-    word1.setWord("hodor");
-    word1.setTranslation("hold the door");
-    CustomWord word2 = new CustomWord();
-    word2.setWord("shocking");
-    word2.setTranslation("<phoneme alphabet='ibm' ph='.1Sa.0kIG'></phoneme>");
-    return ImmutableList.of(word1, word2);
-  }
-
   private List<Word> instantiateWordsJapanese() {
     Word word1 = new Word();
     word1.setWord("hodor");
     word1.setTranslation("hold the door");
     word1.setPartOfSpeech(Word.PartOfSpeech.JOSI);
     Word word2 = new Word();
-    word2.setWord("clodor");
-    word2.setTranslation("close the door");
-    word2.setPartOfSpeech(Word.PartOfSpeech.HOKA);
-    return ImmutableList.of(word1, word2);
-  }
-
-  private List<CustomWord> instantiateCustomWordsJapanese() {
-    CustomWord word1 = new CustomWord();
-    word1.setWord("hodor");
-    word1.setTranslation("hold the door");
-    word1.setPartOfSpeech(Word.PartOfSpeech.JOSI);
-    CustomWord word2 = new CustomWord();
     word2.setWord("clodor");
     word2.setTranslation("close the door");
     word2.setPartOfSpeech(Word.PartOfSpeech.HOKA);
@@ -407,7 +384,7 @@ public class CustomizationsIT extends WatsonServiceTest {
   @Test
   public void testAddWords() {
     model = createVoiceModel();
-    final List<CustomWord> expected = instantiateCustomWords();
+    final List<Word> expected = instantiateWords();
 
     AddWordsOptions addOptions = new AddWordsOptions.Builder()
         .customizationId(model.getCustomizationId())
@@ -428,7 +405,7 @@ public class CustomizationsIT extends WatsonServiceTest {
   @Test
   public void testAddWordsJapanese() {
     model = createVoiceModelJapanese();
-    final List<CustomWord> expected = instantiateCustomWordsJapanese();
+    final List<Word> expected = instantiateWordsJapanese();
 
     AddWordsOptions addOptions = new AddWordsOptions.Builder()
         .customizationId(model.getCustomizationId())
@@ -449,7 +426,7 @@ public class CustomizationsIT extends WatsonServiceTest {
   @Test
   public void testGetWord() {
     model = createVoiceModel();
-    final List<CustomWord> expected = instantiateCustomWords();
+    final List<Word> expected = instantiateWords();
 
     AddWordsOptions addOptions = new AddWordsOptions.Builder()
         .customizationId(model.getCustomizationId())
@@ -471,7 +448,7 @@ public class CustomizationsIT extends WatsonServiceTest {
   @Test
   public void testGetWordJapanese() {
     model = createVoiceModelJapanese();
-    final List<CustomWord> expected = instantiateCustomWordsJapanese();
+    final List<Word> expected = instantiateWordsJapanese();
 
     AddWordsOptions addOptions = new AddWordsOptions.Builder()
         .customizationId(model.getCustomizationId())
