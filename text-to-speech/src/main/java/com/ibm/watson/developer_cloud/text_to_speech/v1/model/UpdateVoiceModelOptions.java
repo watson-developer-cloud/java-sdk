@@ -26,7 +26,7 @@ public class UpdateVoiceModelOptions extends GenericModel {
   private String customizationId;
   private String name;
   private String description;
-  private List<Word> words;
+  private List<CustomWord> words;
 
   /**
    * Builder.
@@ -35,7 +35,7 @@ public class UpdateVoiceModelOptions extends GenericModel {
     private String customizationId;
     private String name;
     private String description;
-    private List<Word> words;
+    private List<CustomWord> words;
 
     private Builder(UpdateVoiceModelOptions updateVoiceModelOptions) {
       customizationId = updateVoiceModelOptions.customizationId;
@@ -69,17 +69,17 @@ public class UpdateVoiceModelOptions extends GenericModel {
     }
 
     /**
-     * Adds an words to words.
+     * Adds an word to words.
      *
-     * @param words the new words
+     * @param word the new word
      * @return the UpdateVoiceModelOptions builder
      */
-    public Builder addWords(Word words) {
-      Validator.notNull(words, "words cannot be null");
+    public Builder addWord(CustomWord word) {
+      Validator.notNull(word, "word cannot be null");
       if (this.words == null) {
-        this.words = new ArrayList<Word>();
+        this.words = new ArrayList<CustomWord>();
       }
-      this.words.add(words);
+      this.words.add(word);
       return this;
     }
 
@@ -123,7 +123,7 @@ public class UpdateVoiceModelOptions extends GenericModel {
      * @param words the words
      * @return the UpdateVoiceModelOptions builder
      */
-    public Builder words(List<Word> words) {
+    public Builder words(List<CustomWord> words) {
       this.words = words;
       return this;
     }
@@ -188,7 +188,7 @@ public class UpdateVoiceModelOptions extends GenericModel {
    *
    * @return the words
    */
-  public List<Word> words() {
+  public List<CustomWord> words() {
     return words;
   }
 }

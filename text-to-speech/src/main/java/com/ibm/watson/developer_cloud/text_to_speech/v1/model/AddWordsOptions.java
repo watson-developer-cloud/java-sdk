@@ -65,17 +65,17 @@ public class AddWordsOptions extends GenericModel {
     }
 
     /**
-     * Adds an words to words.
+     * Adds an word to words.
      *
-     * @param words the new words
+     * @param word the new word
      * @return the AddWordsOptions builder
      */
-    public Builder addWords(CustomWord words) {
-      Validator.notNull(words, "words cannot be null");
+    public Builder addWord(CustomWord word) {
+      Validator.notNull(word, "word cannot be null");
       if (this.words == null) {
         this.words = new ArrayList<CustomWord>();
       }
-      this.words.add(words);
+      this.words.add(word);
       return this;
     }
 
