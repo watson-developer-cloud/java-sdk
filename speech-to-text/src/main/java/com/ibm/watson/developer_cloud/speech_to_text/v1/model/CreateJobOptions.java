@@ -216,17 +216,17 @@ public class CreateJobOptions extends GenericModel {
     }
 
     /**
-     * Adds an keywords to keywords.
+     * Adds an keyword to keywords.
      *
-     * @param keywords the new keywords
+     * @param keyword the new keyword
      * @return the CreateJobOptions builder
      */
-    public Builder addKeywords(String keywords) {
-      Validator.notNull(keywords, "keywords cannot be null");
+    public Builder addKeyword(String keyword) {
+      Validator.notNull(keyword, "keyword cannot be null");
       if (this.keywords == null) {
         this.keywords = new ArrayList<String>();
       }
-      this.keywords.add(keywords);
+      this.keywords.add(keyword);
       return this;
     }
 
