@@ -12,29 +12,28 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetPronunciationOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.GetVoiceOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.SynthesizeOptions;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voices;
+import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.AudioFormat;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Phoneme;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Pronunciation;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.model.Voice;
-import com.ibm.watson.developer_cloud.text_to_speech.v1.util.WaveUtils;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Text to Speech integration tests.
@@ -67,18 +66,18 @@ public class TextToSpeechIT extends WatsonServiceTest {
 
 
   /**
-   * Test get voices.
+   * Test list voices.
    */
   @Test
-  public void testGetVoices() {
-    List<Voice> voices = service.getVoices().execute();
+  public void testListVoices() {
+    Voices voices = service.listVoices().execute();
     assertNotNull(voices);
-    assertTrue(!voices.isEmpty());
-    assertNotNull(voices.get(0).getDescription());
-    assertNotNull(voices.get(0).getGender());
-    assertNotNull(voices.get(0).getLanguage());
-    assertNotNull(voices.get(0).getName());
-    assertNotNull(voices.get(0).getUrl());
+    assertTrue(!voices.getVoices().isEmpty());
+    assertNotNull(voices.getVoices().get(0).getDescription());
+    assertNotNull(voices.getVoices().get(0).getGender());
+    assertNotNull(voices.getVoices().get(0).getLanguage());
+    assertNotNull(voices.getVoices().get(0).getName());
+    assertNotNull(voices.getVoices().get(0).getUrl());
   }
 
   /**
@@ -86,7 +85,10 @@ public class TextToSpeechIT extends WatsonServiceTest {
    */
   @Test
   public void testGetVoice() {
-    Voice voice = service.getVoice(voiceName).execute();
+    GetVoiceOptions getOptions = new GetVoiceOptions.Builder()
+        .voice(voiceName)
+        .build();
+    Voice voice = service.getVoice(getOptions).execute();
     assertNotNull(voice);
     assertNotNull(voice.getDescription());
     assertNotNull(voice.getGender());
@@ -103,7 +105,12 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testSynthesize() throws IOException {
     String text = "This is an integration test; 1,2 !, @, #, $, %, ^, 20.";
-    InputStream result = service.synthesize(text, Voice.EN_LISA, AudioFormat.WAV).execute();
+    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
+        .text(text)
+        .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .build();
+    InputStream result = service.synthesize(synthesizeOptions).execute();
     writeInputStreamToFile(result, File.createTempFile("tts-audio", "wav"));
   }
 
@@ -113,19 +120,37 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testGetWordPronunciation() {
     String word = "Congressman";
-    Pronunciation pronunciation = service.getPronunciation(word, Voice.EN_MICHAEL, Phoneme.SPR).execute();
+    GetPronunciationOptions getOptions1 = new GetPronunciationOptions.Builder()
+        .text(word)
+        .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
+        .format(GetPronunciationOptions.Format.IBM)
+        .build();
+    Pronunciation pronunciation = service.getPronunciation(getOptions1).execute();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
-    pronunciation = service.getPronunciation(word, null, Phoneme.SPR).execute();
+    GetPronunciationOptions getOptions2 = new GetPronunciationOptions.Builder()
+        .text(word)
+        .format(GetPronunciationOptions.Format.IBM)
+        .build();
+    pronunciation = service.getPronunciation(getOptions2).execute();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
-    pronunciation = service.getPronunciation(word, Voice.EN_MICHAEL, null).execute();
+    GetPronunciationOptions getOptions3 = new GetPronunciationOptions.Builder()
+        .text(word)
+        .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
+        .build();
+    pronunciation = service.getPronunciation(getOptions3).execute();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
-    pronunciation = service.getPronunciation(word, Voice.EN_MICHAEL, Phoneme.IPA).execute();
+    GetPronunciationOptions getOptions4 = new GetPronunciationOptions.Builder()
+        .text(word)
+        .voice(GetPronunciationOptions.Voice.EN_US_MICHAELVOICE)
+        .format(GetPronunciationOptions.Format.IPA)
+        .build();
+    pronunciation = service.getPronunciation(getOptions4).execute();
     assertNotNull(pronunciation);
     assertNotNull(pronunciation.getPronunciation());
 
@@ -140,7 +165,12 @@ public class TextToSpeechIT extends WatsonServiceTest {
   @Test
   public void testSynthesizeAndFixHeader() throws IOException, UnsupportedAudioFileException {
     String text = "one two three four five";
-    InputStream result = service.synthesize(text, Voice.EN_LISA, AudioFormat.WAV).execute();
+    SynthesizeOptions synthesizeOptions = new SynthesizeOptions.Builder()
+        .text(text)
+        .voice(SynthesizeOptions.Voice.EN_US_LISAVOICE)
+        .accept(SynthesizeOptions.Accept.AUDIO_WAV)
+        .build();
+    InputStream result = service.synthesize(synthesizeOptions).execute();
     assertNotNull(result);
     result = WaveUtils.reWriteWaveHeader(result);
     File tempFile = File.createTempFile("output", ".wav");
