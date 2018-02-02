@@ -33,7 +33,7 @@ script:
   - '[ "${TRAVIS_PULL_REQUEST}" = "false" ] && openssl aes-256-cbc -K $encrypted_b248e84a4806_key -iv $encrypted_b248e84a4806_iv -in config.properties.enc -out core/src/test/resources/config.properties -d || true'
   - ./gradlew install -x check
   - ./gradlew checkstyleMain
-  - travis_wait ./gradlew checkstyleTest
+  - ./gradlew checkstyleTest
   - ./gradlew codeCoverageReport --continue
   - ./gradlew docs > /dev/null # build the javadoc
 

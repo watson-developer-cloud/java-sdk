@@ -447,9 +447,13 @@ public class SpeechToTextIT extends WatsonServiceTest {
   /**
    * Test create job.
    *
+   * This test is currently being ignored as it has a very long runtime and causes Travis to timeout.
+   * The ignore annotation can be removed to test this locally.
+   *
    * @throws InterruptedException the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
+  @Ignore
   @Test
   public void testCreateJob() throws InterruptedException, FileNotFoundException {
     File audio = new File(SAMPLE_WAV);
@@ -483,9 +487,13 @@ public class SpeechToTextIT extends WatsonServiceTest {
   /**
    * Test create job with a warning message.
    *
+   * This test is currently being ignored as it has a very long runtime and causes Travis to timeout.
+   * The ignore annotation can be removed to test this locally.
+   *
    * @throws InterruptedException the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
+  @Ignore
   @Test
   public void testCreateJobWarning() throws InterruptedException, FileNotFoundException {
     File audio = new File(SAMPLE_WAV);
@@ -830,6 +838,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test create acoustic model.
+   */
   @Test
   public void testCreateAcousticModel() {
     String name = "java-sdk-temporary";
@@ -863,12 +874,24 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test list acoustic models.
+   */
   @Test
   public void testListAcousticModels() {
     AcousticModels models = service.listAcousticModels().execute();
     assertNotNull(models);
   }
 
+  /**
+   * Test get audio.
+   *
+   * This test is currently being ignored as it has a very long runtime and causes Travis to timeout.
+   * The ignore annotation can be removed to test this locally.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Ignore
   @Test
   public void testGetAudio() throws InterruptedException {
     String name = "java-sdk-temporary";
@@ -925,6 +948,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
     }
   }
 
+  /**
+   * Test list audio.
+   */
   @Test
   public void testListAudio() {
     String name = "java-sdk-temporary";
