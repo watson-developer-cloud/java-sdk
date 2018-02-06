@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,28 +12,34 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
+import java.util.List;
+
+import com.ibm.watson.developer_cloud.service.model.GenericModel;
+
 /**
- * Phoneme enumeration.
+ * Voices.
  */
-public enum Phoneme {
+public class Voices extends GenericModel {
 
-  /** ipa. */
-  IPA("ipa"), /** spr. */
-  SPR("spr");
+  private List<Voice> voices;
 
-  private String phoneme;
-
-  Phoneme(String phoneme) {
-    this.phoneme = phoneme;
+  /**
+   * Gets the voices.
+   *
+   * A list of available voices.
+   *
+   * @return the voices
+   */
+  public List<Voice> getVoices() {
+    return voices;
   }
 
-  /*
-   * (non-Javadoc)
+  /**
+   * Sets the voices.
    *
-   * @see java.lang.Enum#toString()
+   * @param voices the new voices
    */
-  @Override
-  public String toString() {
-    return phoneme;
+  public void setVoices(final List<Voice> voices) {
+    this.voices = voices;
   }
 }

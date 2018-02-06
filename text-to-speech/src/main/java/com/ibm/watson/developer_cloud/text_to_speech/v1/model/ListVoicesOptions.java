@@ -15,29 +15,43 @@ package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Pronunciation.
+ * The listVoices options.
  */
-public class Pronunciation extends GenericModel {
-
-  private String pronunciation;
+public class ListVoicesOptions extends GenericModel {
 
   /**
-   * Gets the pronunciation.
-   *
-   * The pronunciation of the requested text in the specified voice and format.
-   *
-   * @return the pronunciation
+   * Builder.
    */
-  public String getPronunciation() {
-    return pronunciation;
+  public static class Builder {
+
+    private Builder(ListVoicesOptions listVoicesOptions) {
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a ListVoicesOptions.
+     *
+     * @return the listVoicesOptions
+     */
+    public ListVoicesOptions build() {
+      return new ListVoicesOptions(this);
+    }
+  }
+
+  private ListVoicesOptions(Builder builder) {
   }
 
   /**
-   * Sets the pronunciation.
+   * New builder.
    *
-   * @param pronunciation the new pronunciation
+   * @return a ListVoicesOptions builder
    */
-  public void setPronunciation(final String pronunciation) {
-    this.pronunciation = pronunciation;
+  public Builder newBuilder() {
+    return new Builder(this);
   }
 }
