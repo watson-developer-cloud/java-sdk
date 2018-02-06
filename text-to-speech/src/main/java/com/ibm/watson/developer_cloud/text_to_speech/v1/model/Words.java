@@ -12,32 +12,35 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Pronunciation.
+ * Words.
  */
-public class Pronunciation extends GenericModel {
+public class Words extends GenericModel {
 
-  private String pronunciation;
+  private List<Word> words;
 
   /**
-   * Gets the pronunciation.
+   * Gets the words.
    *
-   * The pronunciation of the requested text in the specified voice and format.
+   * An array of words and their translations from the custom voice model. The words are listed in alphabetical order,
+   * with uppercase letters listed before lowercase letters. The array is empty if the custom model contains no words.
    *
-   * @return the pronunciation
+   * @return the words
    */
-  public String getPronunciation() {
-    return pronunciation;
+  public List<Word> getWords() {
+    return words;
   }
 
   /**
-   * Sets the pronunciation.
+   * Sets the words.
    *
-   * @param pronunciation the new pronunciation
+   * @param words the new words
    */
-  public void setPronunciation(final String pronunciation) {
-    this.pronunciation = pronunciation;
+  public void setWords(final List<Word> words) {
+    this.words = words;
   }
 }

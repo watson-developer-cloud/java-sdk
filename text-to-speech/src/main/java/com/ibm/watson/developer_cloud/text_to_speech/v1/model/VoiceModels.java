@@ -12,32 +12,36 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1.model;
 
+import java.util.List;
+
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Pronunciation.
+ * VoiceModels.
  */
-public class Pronunciation extends GenericModel {
+public class VoiceModels extends GenericModel {
 
-  private String pronunciation;
+  private List<VoiceModel> customizations;
 
   /**
-   * Gets the pronunciation.
+   * Gets the customizations.
    *
-   * The pronunciation of the requested text in the specified voice and format.
+   * An array of `VoiceModel` objects that provides information about each available custom voice model. The array is
+   * empty if the requesting service credentials own no custom voice models (if no language is specified) or own no
+   * custom voice models for the specified language.
    *
-   * @return the pronunciation
+   * @return the customizations
    */
-  public String getPronunciation() {
-    return pronunciation;
+  public List<VoiceModel> getCustomizations() {
+    return customizations;
   }
 
   /**
-   * Sets the pronunciation.
+   * Sets the customizations.
    *
-   * @param pronunciation the new pronunciation
+   * @param customizations the new customizations
    */
-  public void setPronunciation(final String pronunciation) {
-    this.pronunciation = pronunciation;
+  public void setCustomizations(final List<VoiceModel> customizations) {
+    this.customizations = customizations;
   }
 }
