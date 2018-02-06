@@ -85,17 +85,6 @@ public class AddWordsOptions extends GenericModel {
     }
 
     /**
-     * Set the contentType.
-     *
-     * @param contentType the contentType
-     * @return the AddWordsOptions builder
-     */
-    public Builder contentType(String contentType) {
-      this.contentType = contentType;
-      return this;
-    }
-
-    /**
      * Set the customWords.
      *
      * @param customWords the customWords

@@ -30,20 +30,17 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModelOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateSessionOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteSessionOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetSessionStatusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModels;
@@ -56,16 +53,13 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobs;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeUsingWebSocketOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RegisterCallbackOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RegisterStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetLanguageModelOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SessionStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UnregisterCallbackOptions;
@@ -259,65 +253,50 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Sends audio and returns transcription results for a recognition request. This request can be session-based or
-   * sessionless, using a multipart or non-multipart request. Returns only the final results; to enable interim
-   * results, use the WebSocket API. The service imposes a data size limit of 100 MB. It automatically detects the
-   * endianness of the incoming audio and, for audio that includes multiple channels, downmixes the audio to
-   * one-channel mono during transcoding. (For the `audio/l16` format, you can specify the endianness.)
+   * Sends audio for speech recognition in sessionless mode.
    *
-   * ###Streaming mode
-   * For requests to transcribe live audio as it becomes available or to transcribe multiple audio files with
-   * multipart requests, you must set the `Transfer-Encoding` header to `chunked` to use streaming mode. In streaming
-   * mode, the server closes the connection (status code 408) if the service receives no data chunk for 30 seconds
-   * and the service has no audio to transcribe for 30 seconds. The server also closes the connection (status code
-   * 400) if no speech is detected for `inactivity_timeout` seconds of audio (not processing time); use the
-   * `inactivity_timeout` parameter to change the default of 30 seconds.
-   *
-   * ###Non-multipart requests
-   * For non-multipart requests, you specify all parameters of the request as a collection of request headers and
-   * query parameters, and you provide the audio as the body of the request. This is the recommended means of
-   * submitting a recognition request. Use the following parameters:
-   * * **Required:** `Content-Type` and `audio`
-   * * **Optional:** `Transfer-Encoding`, `model`, `customization_id`, `acoustic_customization_id`,
+   * Sends audio and returns transcription results for a sessionless recognition request. Returns only the final
+   * results; to enable interim results, use session-based requests or the WebSocket API. The service imposes a data
+   * size limit of 100 MB. It automatically detects the endianness of the incoming audio and, for audio that includes
+   * multiple channels, downmixes the audio to one-channel mono during transcoding. (For the `audio/l16` format, you can
+   * specify the endianness.) ###Streaming mode For requests to transcribe live audio as it becomes available or to
+   * transcribe multiple audio files with multipart requests, you must set the `Transfer-Encoding` header to `chunked`
+   * to use streaming mode. In streaming mode, the server closes the connection (status code 408) if the service
+   * receives no data chunk for 30 seconds and the service has no audio to transcribe for 30 seconds. The server also
+   * closes the connection (status code 400) if no speech is detected for `inactivity_timeout` seconds of audio (not
+   * processing time); use the `inactivity_timeout` parameter to change the default of 30 seconds. ###Non-multipart
+   * requests For non-multipart requests, you specify all parameters of the request as a collection of request headers
+   * and query parameters, and you provide the audio as the body of the request. This is the recommended means of
+   * submitting a recognition request. Use the following parameters: * **Required:** `Content-Type` and `audio` *
+   * **Optional:** `Transfer-Encoding`, `model`, `customization_id`, `acoustic_customization_id`,
    * `customization_weight`, `version`, `inactivity_timeout`, `keywords`, `keywords_threshold`, `max_alternatives`,
    * `word_alternatives_threshold`, `word_confidence`, `timestamps`, `profanity_filter`, `smart_formatting`, and
-   * `speaker_labels`
-   *
-   * ###Multipart requests
-   * For multipart requests, you specify a few parameters of the request as request headers and query parameters, but
-   * you specify most parameters as multipart form data in the form of JSON metadata, in which only
-   * `part_content_type` is required. You then specify the audio files for the request as subsequent parts of the
-   * form data. Use this approach with browsers that do not support JavaScript or when the parameters of the request
-   * are greater than the 8 KB limit imposed by most HTTP servers and proxies. Use the following parameters:
-   * * **Required:** `Content-Type`, `metadata`, and `upload`
-   * * **Optional:** `Transfer-Encoding`, `model`, `customization_id`, `acoustic_customization_id`,
-   * `customization_weight`, and `version`
-   *
-   * An example of the multipart metadata for a pair of FLAC files follows. This first part of the request is sent as
-   * JSON; the remaining parts are the audio files for the request.
-   *
-   * `metadata=\"{
-   * \\\"part_content_type\\\":\\\"audio/flac\\\",\\\"data_parts_count\\\":2,\\\"inactivity_timeout\\\"=-1
-   * }\"`
-   *
+   * `speaker_labels` ###Multipart requests For multipart requests, you specify a few parameters of the request as
+   * request headers and query parameters, but you specify most parameters as multipart form data in the form of JSON
+   * metadata, in which only `part_content_type` is required. You then specify the audio files for the request as
+   * subsequent parts of the form data. Use this approach with browsers that do not support JavaScript or when the
+   * parameters of the request are greater than the 8 KB limit imposed by most HTTP servers and proxies. Use the
+   * following parameters: * **Required:** `Content-Type`, `metadata`, and `upload` * **Optional:** `Transfer-Encoding`,
+   * `model`, `customization_id`, `acoustic_customization_id`, `customization_weight`, and `version` An example of the
+   * multipart metadata for a pair of FLAC files follows. This first part of the request is sent as JSON; the remaining
+   * parts are the audio files for the request.
+   * `metadata=\"{\\\"part_content_type\\\":\\\"audio/flac\\\",
+   * \\\"data_parts_count\\\":2,\\\"inactivity_timeout\\\"=-1}\"`
    * **Note about the Try It Out feature:** The `Try it out!` button is **not** supported for use with the the `POST
-   * /v1/recognize` method. For examples of calls to the method, see the [Speech to Text API reference](http://www
-   * .ibm.com/watson/developercloud/speech-to-text/api/v1/).
+   * /v1/recognize` method. For examples of calls to the method, see the [Speech to Text API
+   * reference](http://www.ibm.com/watson/developercloud/speech-to-text/api/v1/).
    *
-   * @param recognizeOptions the recognize options
+   * @param recognizeOptions the {@link RecognizeOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link SpeechRecognitionResults}
    */
   public ServiceCall<SpeechRecognitionResults> recognize(RecognizeOptions recognizeOptions) {
     Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
-    Validator.isTrue(((recognizeOptions.audio() != null
-            && recognizeOptions.upload() == null)
-            || (recognizeOptions.audio() == null
-            && recognizeOptions.upload() != null)),
-        "Exactly one of audio or upload must be supplied.");
     RequestBuilder builder = RequestBuilder.post("/v1/recognize");
-    builder.header("Content-Type", recognizeOptions.contentType());
     if (recognizeOptions.transferEncoding() != null) {
       builder.header("Transfer-Encoding", recognizeOptions.transferEncoding());
+    }
+    if (recognizeOptions.contentType() != null) {
+      builder.header("Content-Type", recognizeOptions.contentType());
     }
     if (recognizeOptions.model() != null) {
       builder.query("model", recognizeOptions.model());
@@ -329,52 +308,54 @@ public class SpeechToText extends WatsonService {
       builder.query("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
     }
     if (recognizeOptions.customizationWeight() != null) {
-      builder.query("customization_weight", recognizeOptions.customizationWeight());
+      builder.query("customization_weight", String.valueOf(recognizeOptions.customizationWeight()));
     }
     if (recognizeOptions.version() != null) {
       builder.query("version", recognizeOptions.version());
     }
     if (recognizeOptions.inactivityTimeout() != null) {
-      builder.query("inactivity_timeout", recognizeOptions.inactivityTimeout());
+      builder.query("inactivity_timeout", String.valueOf(recognizeOptions.inactivityTimeout()));
     }
     if (recognizeOptions.keywords() != null) {
       builder.query("keywords", RequestUtils.join(recognizeOptions.keywords(), ","));
     }
     if (recognizeOptions.keywordsThreshold() != null) {
-      builder.query("keywords_threshold", recognizeOptions.keywordsThreshold());
+      builder.query("keywords_threshold", String.valueOf(recognizeOptions.keywordsThreshold()));
     }
     if (recognizeOptions.maxAlternatives() != null) {
-      builder.query("max_alternatives", recognizeOptions.maxAlternatives());
+      builder.query("max_alternatives", String.valueOf(recognizeOptions.maxAlternatives()));
     }
     if (recognizeOptions.wordAlternativesThreshold() != null) {
-      builder.query("word_alternatives_threshold", recognizeOptions.wordAlternativesThreshold());
+      builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions
+          .wordAlternativesThreshold()));
     }
     if (recognizeOptions.wordConfidence() != null) {
-      builder.query("word_confidence", recognizeOptions.wordConfidence());
+      builder.query("word_confidence", String.valueOf(recognizeOptions.wordConfidence()));
     }
     if (recognizeOptions.timestamps() != null) {
-      builder.query("timestamps", recognizeOptions.timestamps());
+      builder.query("timestamps", String.valueOf(recognizeOptions.timestamps()));
     }
     if (recognizeOptions.profanityFilter() != null) {
-      builder.query("profanity_filter", recognizeOptions.profanityFilter());
+      builder.query("profanity_filter", String.valueOf(recognizeOptions.profanityFilter()));
     }
     if (recognizeOptions.smartFormatting() != null) {
-      builder.query("smart_formatting", recognizeOptions.smartFormatting());
+      builder.query("smart_formatting", String.valueOf(recognizeOptions.smartFormatting()));
     }
     if (recognizeOptions.speakerLabels() != null) {
-      builder.query("speaker_labels", recognizeOptions.speakerLabels());
+      builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
     }
     if (recognizeOptions.audio() != null) {
-      builder.body(RequestBody.create(MediaType.parse(recognizeOptions.contentType()), recognizeOptions.audio()));
+      builder.body(RequestBody.create(MediaType.parse(recognizeOptions.contentType()),
+          recognizeOptions.audio()));
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    if (recognizeOptions.upload() != null) {
-      RequestBody fileBody = RequestUtils.inputStreamBody(recognizeOptions.upload(), recognizeOptions
-          .contentType());
-      multipartBuilder.addFormDataPart("upload", recognizeOptions.uploadFilename(), fileBody);
-      if (recognizeOptions.metadata() != null) {
-        multipartBuilder.addFormDataPart("metadata", GsonSingleton.getGson().toJson(recognizeOptions.metadata()));
+    if (recognizeOptions.metadata() != null) {
+      multipartBuilder.addFormDataPart("metadata", GsonSingleton.getGson().toJson(recognizeOptions.metadata()));
+      if (recognizeOptions.upload() != null) {
+        RequestBody uploadBody = RequestUtils.inputStreamBody(recognizeOptions.upload(),
+            recognizeOptions.uploadContentType());
+        multipartBuilder.addFormDataPart("upload", recognizeOptions.uploadFilename(), uploadBody);
       }
       builder.body(multipartBuilder.build());
     }
@@ -392,38 +373,33 @@ public class SpeechToText extends WatsonService {
    * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
    * (For the audio/l16 format, you can specify the endianness.)
    *
-   * @param audio the audio file
-   * @param recognizeUsingWebSocketOptions the recognize options
+   * @param recognizeOptions the recognize options
    * @param callback the {@link RecognizeCallback} instance where results will be sent
    * @return the {@link WebSocket}
    */
-  public WebSocket recognizeUsingWebSocket(InputStream audio,
-                                           RecognizeUsingWebSocketOptions recognizeUsingWebSocketOptions,
-                                           RecognizeCallback callback) {
-    Validator.notNull(recognizeUsingWebSocketOptions, "recognizeUsingWebSocketOptions cannot be null");
+  public WebSocket recognizeUsingWebSocket(InputStream audio, RecognizeOptions recognizeOptions, RecognizeCallback
+      callback) {
+    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
     Validator.notNull(audio, "audio cannot be null");
     Validator.notNull(callback, "callback cannot be null");
 
     HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
 
-    if (recognizeUsingWebSocketOptions.model() != null) {
-      urlBuilder.addQueryParameter("model", recognizeUsingWebSocketOptions.model());
+    if (recognizeOptions.model() != null) {
+      urlBuilder.addQueryParameter("model", recognizeOptions.model());
     }
-    if (recognizeUsingWebSocketOptions.customizationId() != null) {
-      urlBuilder.addQueryParameter("customization_id", recognizeUsingWebSocketOptions.customizationId());
+    if (recognizeOptions.customizationId() != null) {
+      urlBuilder.addQueryParameter("customization_id", recognizeOptions.customizationId());
     }
-    if (recognizeUsingWebSocketOptions.acousticCustomizationId() != null) {
-      urlBuilder.addQueryParameter(
-          "acoustic_customization_id",
-          recognizeUsingWebSocketOptions.acousticCustomizationId()
-      );
+    if (recognizeOptions.acousticCustomizationId() != null) {
+      urlBuilder.addQueryParameter("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
     }
-    if (recognizeUsingWebSocketOptions.version() != null) {
-      urlBuilder.addQueryParameter("version", recognizeUsingWebSocketOptions.version());
+    if (recognizeOptions.version() != null) {
+      urlBuilder.addQueryParameter("version", recognizeOptions.version());
     }
-    if (recognizeUsingWebSocketOptions.customizationWeight() != null) {
+    if (recognizeOptions.customizationWeight() != null) {
       urlBuilder.addQueryParameter("customization_weight",
-          String.valueOf(recognizeUsingWebSocketOptions.customizationWeight()));
+          String.valueOf(recognizeOptions.customizationWeight()));
     }
 
     String url = urlBuilder.toString().replace("https://", "wss://");
@@ -434,94 +410,7 @@ public class SpeechToText extends WatsonService {
 
     OkHttpClient client = configureHttpClient();
     return client.newWebSocket(builder.build(),
-        new SpeechToTextWebSocketListener(audio, recognizeUsingWebSocketOptions, callback));
-  }
-
-  /**
-   * Creates a session.
-   *
-   * Creates a session and locks recognition requests to that engine. You can use the session for multiple recognition
-   * requests so that each request is processed with the same Speech to Text engine. The session expires after 30
-   * seconds of inactivity. For information about avoiding session timeouts, see
-   * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts). The method returns a
-   * cookie in the `Set-Cookie` response header. You must pass this cookie with each request that uses the session. For
-   * more information, see [Using cookies with
-   * sessions](https://console.bluemix.net/docs/services/speech-to-text/http.html#cookies).
-   *
-   * @param createSessionOptions the {@link CreateSessionOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link SpeechSession}
-   */
-  public ServiceCall<SpeechSession> createSession(CreateSessionOptions createSessionOptions) {
-    RequestBuilder builder = RequestBuilder.post("/v1/sessions");
-    if (createSessionOptions != null) {
-      if (createSessionOptions.model() != null) {
-        builder.query("model", createSessionOptions.model());
-      }
-      if (createSessionOptions.customizationId() != null) {
-        builder.query("customization_id", createSessionOptions.customizationId());
-      }
-      if (createSessionOptions.acousticCustomizationId() != null) {
-        builder.query("acoustic_customization_id", createSessionOptions.acousticCustomizationId());
-      }
-      if (createSessionOptions.customizationWeight() != null) {
-        builder.query("customization_weight", String.valueOf(createSessionOptions.customizationWeight()));
-      }
-      if (createSessionOptions.version() != null) {
-        builder.query("version", createSessionOptions.version());
-      }
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechSession.class));
-  }
-
-  /**
-   * Creates a session.
-   *
-   * Creates a session and locks recognition requests to that engine. You can use the session for multiple recognition
-   * requests so that each request is processed with the same Speech to Text engine. The session expires after 30
-   * seconds of inactivity. For information about avoiding session timeouts, see
-   * [Timeouts](https://console.bluemix.net/docs/services/speech-to-text/input.html#timeouts). The method returns a
-   * cookie in the `Set-Cookie` response header. You must pass this cookie with each request that uses the session. For
-   * more information, see [Using cookies with
-   * sessions](https://console.bluemix.net/docs/services/speech-to-text/http.html#cookies).
-   *
-   * @return a {@link ServiceCall} with a response type of {@link SpeechSession}
-   */
-  public ServiceCall<SpeechSession> createSession() {
-    return createSession(null);
-  }
-
-  /**
-   * Deletes the specified session.
-   *
-   * Deletes an existing session and its engine. The request must pass the cookie that was returned by the `POST
-   * /v1/sessions` method. You cannot send requests to a session after it is deleted. By default, a session expires
-   * after 30 seconds of inactivity if you do not delete it first.
-   *
-   * @param deleteSessionOptions the {@link DeleteSessionOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of Void
-   */
-  public ServiceCall<Void> deleteSession(DeleteSessionOptions deleteSessionOptions) {
-    Validator.notNull(deleteSessionOptions, "deleteSessionOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v1/sessions/%s", deleteSessionOptions.sessionId()));
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
-   * Checks whether a session is ready to accept a new recognition task.
-   *
-   * Checks whether a specified session can accept another recognition request. Concurrent recognition tasks during the
-   * same session are not allowed. The method blocks until the session is in the `initialized` state to indicate that
-   * you can send another recognition request. The request must pass the cookie that was returned by the `POST
-   * /v1/sessions` method.
-   *
-   * @param getSessionStatusOptions the {@link GetSessionStatusOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link SessionStatus}
-   */
-  public ServiceCall<SessionStatus> getSessionStatus(GetSessionStatusOptions getSessionStatusOptions) {
-    Validator.notNull(getSessionStatusOptions, "getSessionStatusOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.get(String.format("/v1/sessions/%s/recognize", getSessionStatusOptions
-        .sessionId()));
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SessionStatus.class));
+        new SpeechToTextWebSocketListener(audio, recognizeOptions, callback));
   }
 
   /**

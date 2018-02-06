@@ -12,24 +12,23 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import okhttp3.Response;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
+import okio.ByteString;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.SpeechToText;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeUsingWebSocketOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
-import okio.ByteString;
 
 /**
  * The listener interface for receiving {@link WebSocket} events. <br>
@@ -61,7 +60,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   private static final String TIMEOUT_PREFIX = "No speech detected for";
 
   private final InputStream stream;
-  private final RecognizeUsingWebSocketOptions options;
+  private final RecognizeOptions options;
   private final RecognizeCallback callback;
   private WebSocket socket;
   private boolean socketOpen = true;
@@ -72,12 +71,11 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   /**
    * Instantiates a new speech to text web socket listener.
    *
-   * @param stream the {@link InputStream} where the audio to recognize is
    * @param options the recognize options
    * @param callback the callback
    */
-  public SpeechToTextWebSocketListener(final InputStream stream, final RecognizeUsingWebSocketOptions options,
-      final RecognizeCallback callback) {
+  public SpeechToTextWebSocketListener(final InputStream stream, final RecognizeOptions options, final
+  RecognizeCallback callback) {
     this.stream = stream;
     this.options = options;
     this.callback = callback;
@@ -216,7 +214,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
    * @param options the options
    * @return the request
    */
-  private String buildStartMessage(RecognizeUsingWebSocketOptions options) {
+  private String buildStartMessage(RecognizeOptions options) {
     JsonObject startMessage = new JsonParser().parse(new Gson().toJson(options)).getAsJsonObject();
     startMessage.remove(MODEL);
     startMessage.remove(CUSTOMIZATION_ID);

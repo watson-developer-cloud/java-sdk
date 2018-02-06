@@ -62,17 +62,6 @@ public class CreateAcousticModelOptions extends GenericModel {
     }
 
     /**
-     * Set the contentType.
-     *
-     * @param contentType the contentType
-     * @return the CreateAcousticModelOptions builder
-     */
-    public Builder contentType(String contentType) {
-      this.contentType = contentType;
-      return this;
-    }
-
-    /**
      * Set the createAcousticModel.
      *
      * @param createAcousticModel the createAcousticModel

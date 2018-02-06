@@ -41,7 +41,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteSessionOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
@@ -59,7 +58,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobs;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeUsingWebSocketOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
@@ -67,7 +65,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionAlternative;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeAcousticModelOptions;
@@ -131,8 +128,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final String PATH_RECOGNIZE = "/v1/recognize";
   private static final String PATH_ACOUSTIC_RESET = "/v1/acoustic_customizations/%s/reset";
   private static final String PATH_RESET = "/v1/customizations/%s/reset";
-  private static final String PATH_SESSION = "/v1/sessions/%s";
-  private static final String PATH_SESSIONS = "/v1/sessions";
   private static final String PATH_ACOUSTIC_TRAIN = "/v1/acoustic_customizations/%s/train";
   private static final String PATH_TRAIN = "/v1/customizations/%s/train";
   private static final String PATH_WORDS = "/v1/customizations/%s/words";
@@ -146,7 +141,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final File SAMPLE_WEBM = new File("src/test/resources/speech_to_text/sample1.webm");
 
   private SpeechToText service;
-  private SpeechSession session;
 
   /*
    * (non-Javadoc)
@@ -158,47 +152,9 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   public void setUp() throws Exception {
     super.setUp();
 
-    session = loadFixture("src/test/resources/speech_to_text/session.json", SpeechSession.class);
-
     service = new SpeechToText();
     service.setApiKey("");
     service.setEndPoint(getMockWebServerUrl());
-  }
-
-  /**
-   * Test create and delete session.
-   *
-   * @throws InterruptedException the interrupted exception
-   */
-  @Test
-  public void testCreateAndDeleteSession() throws InterruptedException {
-    server.enqueue(new MockResponse().setBody(session.toString()).addHeader("set-cookie", "test-cookie"));
-
-    final SpeechSession response = service.createSession().execute();
-    RecordedRequest request = server.takeRequest();
-
-    assertNotNull(response);
-    assertEquals(session, response);
-    assertEquals("POST", request.getMethod());
-    assertEquals(PATH_SESSIONS, request.getPath());
-
-    server.enqueue(new MockResponse().setResponseCode(204));
-    DeleteSessionOptions deleteOptions = new DeleteSessionOptions.Builder()
-        .sessionId(response.getSessionId())
-        .build();
-    service.deleteSession(deleteOptions).execute();
-    request = server.takeRequest();
-
-    assertEquals("DELETE", request.getMethod());
-    assertEquals(String.format(PATH_SESSION, response.getSessionId()), request.getPath());
-  }
-
-  /**
-   * Test delete session with null.
-   */
-  @Test(expected = IllegalArgumentException.class)
-  public void testDeleteSessionWithNull() {
-    service.deleteSession(null).execute();
   }
 
   /**
@@ -294,7 +250,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     final SpeechRecognitionResults speechResults = new SpeechRecognitionResults();
     speechResults.setResultIndex(0);
     final SpeechRecognitionResult transcript = new SpeechRecognitionResult();
-    transcript.setFinal(true);
+    transcript.setFinalResults(true);
     final SpeechRecognitionAlternative speechAlternative = new SpeechRecognitionAlternative();
     speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
 
@@ -333,7 +289,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     final SpeechRecognitionResults speechResults = new SpeechRecognitionResults();
     speechResults.setResultIndex(0);
     final SpeechRecognitionResult transcript = new SpeechRecognitionResult();
-    transcript.setFinal(true);
+    transcript.setFinalResults(true);
     final SpeechRecognitionAlternative speechAlternative = new SpeechRecognitionAlternative();
     speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
 
@@ -1280,8 +1236,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     server.enqueue(new MockResponse().withWebSocketUpgrade(webSocketRecorder));
 
-    RecognizeUsingWebSocketOptions options = new RecognizeUsingWebSocketOptions.Builder()
-        .contentType(HttpMediaType.AUDIO_RAW + "; rate=44000")
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .contentType(HttpMediaType.createAudioRaw(44000))
         .build();
     service.recognizeUsingWebSocket(inputStream, options, callback);
 

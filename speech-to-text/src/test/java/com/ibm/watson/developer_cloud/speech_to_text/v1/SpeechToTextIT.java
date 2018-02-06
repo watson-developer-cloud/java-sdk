@@ -31,18 +31,15 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticMode
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModelOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateSessionOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CustomWord;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteSessionOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetSessionStatusOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetWordOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.KeywordResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModel;
@@ -53,13 +50,10 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobs;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeUsingWebSocketOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SessionStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModels;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordAlternativeResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
@@ -134,63 +128,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
   }
 
   /**
-   * Test create session.
-   */
-  @Test
-  public void testCreateSession() {
-    SpeechSession session = service.createSession().execute();
-    try {
-      assertNotNull(session);
-      assertNotNull(session.getSessionId());
-    } finally {
-      DeleteSessionOptions deleteOptions = new DeleteSessionOptions.Builder()
-          .sessionId(session.getSessionId())
-          .build();
-      service.deleteSession(deleteOptions).execute();
-    }
-  }
-
-  /**
-   * Test create session speech model.
-   */
-  @Test
-  public void testCreateSessionSpeechModel() {
-    CreateSessionOptions createOptions = new CreateSessionOptions.Builder()
-        .model(CreateSessionOptions.Model.EN_US_BROADBANDMODEL)
-        .build();
-    SpeechSession session = service.createSession(createOptions).execute();
-    try {
-      assertNotNull(session);
-      assertNotNull(session.getSessionId());
-    } finally {
-      DeleteSessionOptions deleteOptions = new DeleteSessionOptions.Builder()
-          .sessionId(session.getSessionId())
-          .build();
-      service.deleteSession(deleteOptions).execute();
-    }
-  }
-
-  /**
-   * Test create session string.
-   */
-  @Test
-  public void testCreateSessionString() {
-    CreateSessionOptions createOptions = new CreateSessionOptions.Builder()
-        .model(EN_BROADBAND16K)
-        .build();
-    SpeechSession session = service.createSession(createOptions).execute();
-    try {
-      assertNotNull(session);
-      assertNotNull(session.getSessionId());
-    } finally {
-      DeleteSessionOptions deleteOptions = new DeleteSessionOptions.Builder()
-          .sessionId(session.getSessionId())
-          .build();
-      service.deleteSession(deleteOptions).execute();
-    }
-  }
-
-  /**
    * Test get model.
    */
   @Test
@@ -218,32 +155,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
     SpeechModels models = service.listModels().execute();
     assertNotNull(models);
     assertTrue(!models.getModels().isEmpty());
-  }
-
-  /**
-   * Test get session status.
-   */
-  @Test
-  public void testGetSessionStatus() {
-    CreateSessionOptions createOptions = new CreateSessionOptions.Builder()
-        .model(CreateSessionOptions.Model.EN_US_BROADBANDMODEL)
-        .build();
-    SpeechSession session = service.createSession(createOptions).execute();
-    GetSessionStatusOptions getOptions = new GetSessionStatusOptions.Builder()
-        .sessionId(session.getSessionId())
-        .build();
-    SessionStatus status = service.getSessionStatus(getOptions).execute();
-    try {
-      assertNotNull(status);
-      assertNotNull(status.getSession());
-      assertNotNull(status.getSession().getModel());
-      assertNotNull(status.getSession().getState());
-    } finally {
-      DeleteSessionOptions deleteOptions = new DeleteSessionOptions.Builder()
-          .sessionId(session.getSessionId())
-          .build();
-      service.deleteSession(deleteOptions).execute();
-    }
   }
 
   /**
@@ -345,7 +256,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
-    RecognizeUsingWebSocketOptions options = new RecognizeUsingWebSocketOptions.Builder()
+    RecognizeOptions options = new RecognizeOptions.Builder()
         .interimResults(true)
         .inactivityTimeout(40)
         .timestamps(true)
@@ -384,7 +295,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       @Override
       public void onTranscription(SpeechRecognitionResults speechResults) {
         Long resultIndex = speechResults.getResultIndex();
-        if (speechResults != null && speechResults.getResults().get(resultIndex.intValue()).isFinal()) {
+        if (speechResults != null && speechResults.getResults().get(resultIndex.intValue()).isFinalResults()) {
           asyncResults = speechResults;
         }
       }
@@ -409,7 +320,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testInactivityTimeoutWithWebSocket() throws FileNotFoundException, InterruptedException {
-    RecognizeUsingWebSocketOptions options = new RecognizeUsingWebSocketOptions.Builder()
+    RecognizeOptions options = new RecognizeOptions.Builder()
         .interimResults(true)
         .inactivityTimeout(3)
         .timestamps(true)
@@ -418,8 +329,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .model(EN_BROADBAND16K)
         .contentType(HttpMediaType.AUDIO_WAV)
         .build();
-
     FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
+
     service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
 
       @Override
@@ -453,7 +364,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * @throws InterruptedException the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
-  @Ignore
   @Test
   public void testCreateJob() throws InterruptedException, FileNotFoundException {
     File audio = new File(SAMPLE_WAV);
@@ -467,7 +377,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
       CheckJobOptions checkOptions = new CheckJobOptions.Builder()
           .id(job.getId())
           .build();
-      for (int x = 0; x < 30 && job.getStatus() != RecognitionJob.Status.COMPLETED; x++) {
+      for (int x = 0; x < 30 && !job.getStatus().equals(RecognitionJob.Status.COMPLETED); x++) {
         Thread.sleep(3000);
         job = service.checkJob(checkOptions).execute();
       }

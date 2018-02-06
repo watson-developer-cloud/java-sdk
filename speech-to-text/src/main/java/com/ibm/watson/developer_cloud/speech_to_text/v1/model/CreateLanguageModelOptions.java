@@ -62,17 +62,6 @@ public class CreateLanguageModelOptions extends GenericModel {
     }
 
     /**
-     * Set the contentType.
-     *
-     * @param contentType the contentType
-     * @return the CreateLanguageModelOptions builder
-     */
-    public Builder contentType(String contentType) {
-      this.contentType = contentType;
-      return this;
-    }
-
-    /**
      * Set the createLanguageModel.
      *
      * @param createLanguageModel the createLanguageModel
