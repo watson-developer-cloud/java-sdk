@@ -373,6 +373,7 @@ public class SpeechToText extends WatsonService {
    * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
    * (For the audio/l16 format, you can specify the endianness.)
    *
+   * @param audio the audio file
    * @param recognizeOptions the recognize options
    * @param callback the {@link RecognizeCallback} instance where results will be sent
    * @return the {@link WebSocket}

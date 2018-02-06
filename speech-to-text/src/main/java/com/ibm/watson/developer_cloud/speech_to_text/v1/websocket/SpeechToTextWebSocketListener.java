@@ -71,6 +71,7 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   /**
    * Instantiates a new speech to text web socket listener.
    *
+   * @param stream the {@link InputStream} where the audio to recognize is
    * @param options the recognize options
    * @param callback the callback
    */
