@@ -47,7 +47,7 @@ import java.io.InputStream;
  * languages, dialects, and voices. The service currently synthesizes text from US English, UK English, French, German,
  * Italian, Japanese, Spanish, or Brazilian Portuguese into audio spoken in a male or female voice (the service supports
  * only a single gender for some languages). The audio is streamed back to the client with minimal delay.
- * 
+ *
  * For more information about the service and its various interfaces, see [About Text to
  * Speech](https://console.bluemix.net/docs/services/text-to-speech/index.html).
  *
