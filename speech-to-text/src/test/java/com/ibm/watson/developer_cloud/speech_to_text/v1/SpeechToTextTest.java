@@ -32,6 +32,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CheckJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpora;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CustomWord;
@@ -80,6 +81,7 @@ import okhttp3.internal.ws.WebSocketRecorder;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.RecordedRequest;
 import okio.ByteString;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -95,6 +97,7 @@ import java.io.PipedOutputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -414,6 +417,76 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertTrue(MediaTypeUtils.isValidMediaType("audio/wav"));
     assertFalse(MediaTypeUtils.isValidMediaType("image/png"));
     assertFalse(MediaTypeUtils.isValidMediaType(null));
+  }
+
+  @Test
+  public void testCreateJob() throws InterruptedException, FileNotFoundException {
+    String callbackUrl = "callback";
+    String events = CreateJobOptions.Events.RECOGNITIONS_STARTED;
+    String userToken = "token";
+    Long resultsTtl = 5L;
+    File audio = SAMPLE_WAV;
+    String contentType = CreateJobOptions.ContentType.AUDIO_WAV;
+    String model = CreateJobOptions.Model.EN_US_BROADBANDMODEL;
+    String customizationId = "customizationId";
+    Double customizationWeight = 5d;
+    String version = "version";
+    Long inactivityTimeout = 20L;
+    List<String> keywords = Arrays.asList("keyword1", "keyword2");
+    Float keywordsThreshold = 5f;
+    Boolean wordConfidence = true;
+    Boolean timestamps = true;
+    Boolean profanityFilter = true;
+    Boolean smartFormatting = true;
+    Boolean speakerLabels = true;
+
+    RecognitionJob job = loadFixture("src/test/resources/speech_to_text/job.json", RecognitionJob.class);;
+    server.enqueue(new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(job)));
+
+    CreateJobOptions createOptions = new CreateJobOptions.Builder()
+        .callbackUrl(callbackUrl)
+        .events(events)
+        .userToken(userToken)
+        .resultsTtl(resultsTtl)
+        .audio(audio)
+        .contentType(contentType)
+        .model(model)
+        .customizationId(customizationId)
+        .customizationWeight(customizationWeight)
+        .version(version)
+        .inactivityTimeout(inactivityTimeout)
+        .keywords(keywords)
+        .keywordsThreshold(keywordsThreshold)
+        .wordConfidence(wordConfidence)
+        .timestamps(timestamps)
+        .profanityFilter(profanityFilter)
+        .smartFormatting(smartFormatting)
+        .speakerLabels(speakerLabels)
+        .build();
+    service.createJob(createOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(PATH_RECOGNITIONS
+        + "?callback_url=" + callbackUrl
+        + "&events=" + events
+        + "&user_token=" + userToken
+        + "&results_ttl=" + resultsTtl
+        + "&model=" + model
+        + "&customization_id=" + customizationId
+        + "&customization_weight=" + customizationWeight
+        + "&version=" + version
+        + "&inactivity_timeout=" + inactivityTimeout
+        + "&keywords=" + StringUtils.join(keywords, ',')
+        + "&keywords_threshold=" + keywordsThreshold
+        + "&word_confidence=" + wordConfidence
+        + "&timestamps=" + timestamps
+        + "&profanity_filter=" + profanityFilter
+        + "&smart_formatting=" + smartFormatting
+        + "&speaker_labels=" + speakerLabels,
+        request.getPath());
   }
 
   /**
