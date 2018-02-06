@@ -440,7 +440,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     Boolean smartFormatting = true;
     Boolean speakerLabels = true;
 
-    RecognitionJob job = loadFixture("src/test/resources/speech_to_text/job.json", RecognitionJob.class);;
+    RecognitionJob job = loadFixture("src/test/resources/speech_to_text/job.json", RecognitionJob.class);
     server.enqueue(new MockResponse()
         .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
         .setBody(GSON.toJson(job)));
