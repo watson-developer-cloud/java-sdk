@@ -59,6 +59,8 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobs;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RegisterCallbackOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RegisterStatus;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
@@ -68,6 +70,7 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionR
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UnregisterCallbackOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.UpgradeLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
@@ -139,6 +142,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final String PATH_UPGRADE = "/v1/customizations/%s/upgrade_model";
   private static final String PATH_ALL_AUDIO = "/v1/acoustic_customizations/%s/audio";
   private static final String PATH_SPECIFIC_AUDIO = "/v1/acoustic_customizations/%s/audio/%s";
+  private static final String REGISTER_CALLBACK = "/v1/register_callback?callback_url=%s";
+  private static final String UNREGISTER_CALLBACK = "/v1/unregister_callback?callback_url=%s";
 
   private static final File SAMPLE_WAV = new File("src/test/resources/speech_to_text/sample1.wav");
   private static final File SAMPLE_WEBM = new File("src/test/resources/speech_to_text/sample1.webm");
@@ -248,7 +253,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testRecognize() throws URISyntaxException, InterruptedException {
+  public void testRecognize() throws URISyntaxException, InterruptedException, FileNotFoundException {
 
     final SpeechRecognitionResults speechResults = new SpeechRecognitionResults();
     speechResults.setResultIndex(0);
@@ -287,7 +292,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testRecognizeWebM() throws URISyntaxException, InterruptedException {
+  public void testRecognizeWebM() throws URISyntaxException, InterruptedException, FileNotFoundException {
 
     final SpeechRecognitionResults speechResults = new SpeechRecognitionResults();
     speechResults.setResultIndex(0);
@@ -1217,7 +1222,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   }
 
   @Test
-  public void testAddAudio() throws InterruptedException {
+  public void testAddAudio() throws InterruptedException, FileNotFoundException {
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
     String id = "foo";
     String audioName = "test_file";
@@ -1301,6 +1306,42 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   }
 
   @Test
+  public void testRegisterAndUnregisterCallback() throws FileNotFoundException, InterruptedException {
+    String callbackUrl = "http://testurl.com";
+    RegisterStatus registerStatus = loadFixture("src/test/resources/speech_to_text/register-status.json",
+        RegisterStatus.class);
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(registerStatus)));
+
+    RegisterCallbackOptions registerOptions = new RegisterCallbackOptions.Builder()
+        .callbackUrl(callbackUrl)
+        .build();
+    RegisterStatus result = service.registerCallback(registerOptions).execute();
+    final RecordedRequest registerRequest = server.takeRequest();
+
+    assertEquals("POST", registerRequest.getMethod());
+    assertEquals(String.format(REGISTER_CALLBACK, callbackUrl), registerRequest.getPath());
+    assertEquals(RegisterStatus.Status.CREATED, result.getStatus());
+    assertEquals(callbackUrl, result.getUrl());
+  }
+
+  @Test
+  public void testUnregisterCallback() throws InterruptedException {
+    String callbackUrl = "http://testurl.com";
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
+
+    UnregisterCallbackOptions unregisterOptions = new UnregisterCallbackOptions.Builder()
+        .callbackUrl(callbackUrl)
+        .build();
+    service.unregisterCallback(unregisterOptions).execute();
+    final RecordedRequest unregisterRequest = server.takeRequest();
+
+    assertEquals("POST", unregisterRequest.getMethod());
+    assertEquals(String.format(UNREGISTER_CALLBACK, callbackUrl), unregisterRequest.getPath());
+  }
+
+  @Test
   public void testClosingInputStreamClosesWebSocket() throws Exception {
     TestRecognizeCallback callback = new TestRecognizeCallback();
     WebSocketRecorder webSocketRecorder = new WebSocketRecorder("server");
@@ -1310,9 +1351,10 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     server.enqueue(new MockResponse().withWebSocketUpgrade(webSocketRecorder));
 
     RecognizeOptions options = new RecognizeOptions.Builder()
+        .audio(inputStream)
         .contentType(HttpMediaType.createAudioRaw(44000))
         .build();
-    service.recognizeUsingWebSocket(inputStream, options, callback);
+    service.recognizeUsingWebSocket(options, callback);
 
     WebSocket serverSocket = webSocketRecorder.assertOpen();
     serverSocket.send("{\"state\": {}}");

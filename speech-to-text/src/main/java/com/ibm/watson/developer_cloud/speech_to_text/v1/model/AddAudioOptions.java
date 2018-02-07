@@ -13,6 +13,9 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
@@ -100,7 +103,7 @@ public class AddAudioOptions extends GenericModel {
   private String audioName;
   private String containedContentType;
   private Boolean allowOverwrite;
-  private File audioResource;
+  private InputStream audioResource;
   private String contentType;
 
   /**
@@ -111,7 +114,7 @@ public class AddAudioOptions extends GenericModel {
     private String audioName;
     private String containedContentType;
     private Boolean allowOverwrite;
-    private File audioResource;
+    private InputStream audioResource;
     private String contentType;
 
     private Builder(AddAudioOptions addAudioOptions) {
@@ -199,7 +202,7 @@ public class AddAudioOptions extends GenericModel {
      * @param audioResource the audioResource
      * @return the AddAudioOptions builder
      */
-    public Builder audioResource(File audioResource) {
+    public Builder audioResource(InputStream audioResource) {
       this.audioResource = audioResource;
       return this;
     }
@@ -212,6 +215,19 @@ public class AddAudioOptions extends GenericModel {
      */
     public Builder contentType(String contentType) {
       this.contentType = contentType;
+      return this;
+    }
+
+    /**
+     * Set the audioResource.
+     *
+     * @param audioResource the audioResource
+     * @return the AddAudioOptions builder
+     *
+     * @throws FileNotFoundException if the file could not be found
+     */
+    public Builder audioResource(File audioResource) throws FileNotFoundException {
+      this.audioResource = new FileInputStream(audioResource);
       return this;
     }
   }
@@ -295,7 +311,7 @@ public class AddAudioOptions extends GenericModel {
    *
    * @return the audioResource
    */
-  public File audioResource() {
+  public InputStream audioResource() {
     return audioResource;
   }
 

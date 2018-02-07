@@ -161,7 +161,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * Test recognize audio file.
    */
   @Test
-  public void testRecognizeFileString() {
+  public void testRecognizeFileString() throws FileNotFoundException {
     File audio = new File(SAMPLE_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
         .audio(audio)
@@ -175,7 +175,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * Test recognize multiple speakers.
    */
   @Test
-  public void testRecognizeMultipleSpeakers() {
+  public void testRecognizeMultipleSpeakers() throws FileNotFoundException {
     File audio = new File(TWO_SPEAKERS_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
       .audio(audio)
@@ -193,7 +193,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * Test recognize file string recognize options.
    */
   @Test
-  public void testRecognizeFileStringRecognizeOptions() {
+  public void testRecognizeFileStringRecognizeOptions() throws FileNotFoundException {
     File audio = new File(SAMPLE_WAV);
     String contentType = HttpMediaType.AUDIO_WAV;
     RecognizeOptions options = new RecognizeOptions.Builder()
@@ -214,7 +214,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * Test keyword recognition.
    */
   @Test
-  public void testRecognizeKeywords() {
+  public void testRecognizeKeywords() throws FileNotFoundException {
     final String keyword1 = "rain";
     final String keyword2 = "tornadoes";
     final File audio = new File(SAMPLE_WAV);
@@ -256,7 +256,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
+    FileInputStream audio = new FileInputStream(SAMPLE_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
+        .audio(audio)
         .interimResults(true)
         .inactivityTimeout(40)
         .timestamps(true)
@@ -266,9 +268,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .contentType(HttpMediaType.AUDIO_WAV)
         .inactivityTimeout(120)
         .build();
-    FileInputStream audio = new FileInputStream(SAMPLE_WAV);
 
-    service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
+    service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
 
       @Override
       public void onConnected() {
@@ -320,7 +321,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testInactivityTimeoutWithWebSocket() throws FileNotFoundException, InterruptedException {
+    FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
     RecognizeOptions options = new RecognizeOptions.Builder()
+        .audio(audio)
         .interimResults(true)
         .inactivityTimeout(3)
         .timestamps(true)
@@ -329,9 +332,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .model(EN_BROADBAND16K)
         .contentType(HttpMediaType.AUDIO_WAV)
         .build();
-    FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
 
-    service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
+    service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
 
       @Override
       public void onDisconnected() {
@@ -357,9 +359,6 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
   /**
    * Test create job.
-   *
-   * This test is currently being ignored as it has a very long runtime and causes Travis to timeout.
-   * The ignore annotation can be removed to test this locally.
    *
    * @throws InterruptedException the interrupted exception
    * @throws FileNotFoundException the file not found exception
@@ -803,7 +802,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Ignore
   @Test
-  public void testGetAudio() throws InterruptedException {
+  public void testGetAudio() throws InterruptedException, FileNotFoundException {
     String name = "java-sdk-temporary";
     String description = "Temporary custom model for testing the Java SDK";
     CreateAcousticModel newModel = new CreateAcousticModel.Builder()

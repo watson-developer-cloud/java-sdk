@@ -114,7 +114,7 @@ public class RecognizeOptions extends GenericModel {
   private String acousticCustomizationId;
   private Double customizationWeight;
   private String version;
-  private File audio;
+  private transient InputStream audio;
   @SerializedName("content-type")
   private String contentType;
   private Long inactivityTimeout;
@@ -127,10 +127,10 @@ public class RecognizeOptions extends GenericModel {
   private Boolean profanityFilter;
   private Boolean smartFormatting;
   private Boolean speakerLabels;
-  private InputStream upload;
-  private String uploadFilename;
-  private String uploadContentType;
-  private MultipartRecognition metadata;
+  private transient InputStream upload;
+  private transient String uploadFilename;
+  private transient String uploadContentType;
+  private transient MultipartRecognition metadata;
   private Boolean interimResults;
 
   /**
@@ -143,7 +143,7 @@ public class RecognizeOptions extends GenericModel {
     private String acousticCustomizationId;
     private Double customizationWeight;
     private String version;
-    private File audio;
+    private InputStream audio;
     private String contentType;
     private Long inactivityTimeout;
     private List<String> keywords;
@@ -289,7 +289,7 @@ public class RecognizeOptions extends GenericModel {
      * @param audio the audio
      * @return the RecognizeOptions builder
      */
-    public Builder audio(File audio) {
+    public Builder audio(InputStream audio) {
       this.audio = audio;
       return this;
     }
@@ -446,6 +446,19 @@ public class RecognizeOptions extends GenericModel {
      */
     public Builder uploadContentType(String uploadContentType) {
       this.uploadContentType = uploadContentType;
+      return this;
+    }
+
+    /**
+     * Set the audio.
+     *
+     * @param audio the audio
+     * @return the RecognizeOptions builder
+     *
+     * @throws FileNotFoundException if the file could not be found
+     */
+    public Builder audio(File audio) throws FileNotFoundException {
+      this.audio = new FileInputStream(audio);
       return this;
     }
 
@@ -611,7 +624,7 @@ public class RecognizeOptions extends GenericModel {
    *
    * @return the audio
    */
-  public File audio() {
+  public InputStream audio() {
     return audio;
   }
 

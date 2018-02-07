@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
+import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
 import com.ibm.watson.developer_cloud.service.WatsonService;
@@ -81,106 +82,13 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.WebSocket;
 
-import java.io.InputStream;
-
 /**
- * ### Service Overview
- * The IBM Speech to Text service provides a Representational State Transfer (REST) Application Programming Interface
- * (API) that enables you to add IBM's speech transcription capabilities to your applications. The service also supports
- * an asynchronous HTTP interface for transcribing audio via non-blocking calls. And it supports a customization
- * interface that lets you expand the vocabulary of a base model with domain-specific terminology or adapt a base model
- * for the acoustic characteristics of your audio.
- *
- * The service transcribes speech from various languages and audio formats to text with low latency. The service
- * supports transcription of the following languages: Brazilian Portuguese, French, Japanese, Mandarin Chinese, Modern
- * Standard Arabic, Spanish, UK English, and US English. For most languages, the service supports two sampling rates,
- * broadband and narrowband.
- * ### API Overview
- * The Speech to Text service provides the following endpoints:
- * * `/v1/models` returns information about the language models that are available for speech recognition.
- * * `/v1/recognize` (sessionless) includes a single method that provides a simple means of transcribing audio without
- * the overhead of establishing and maintaining a session, but it lacks some of the capabilities available with
- * sessions.
- * * `/v1/sessions` provides a collection of methods that provide a mechanism for a client to maintain a long,
- * multi-turn exchange, or session, with the service or to establish multiple parallel conversations with a particular
- * instance of the service.
- * * `/v1/recognitions` (asynchronous) provides a set of non-blocking methods for submitting, querying, and deleting
- * jobs for recognition requests with the asynchronous HTTP interface. The interface includes calls to register
- * (white-list) and unregister a callback URL.
- * * `/v1/customizations` provides methods for creating and managing custom language models. Custom language models let
- * you expand the vocabulary of a base model with domain-specific terminology.
- * * `/v1/customizations/{customization_id}/corpora` provides methods for managing the corpora associated with a custom
- * language model. You add corpora to extract out-of-vocabulary (OOV) words from the corpora into the custom language
- * model's vocabulary. You can add, list, and delete corpora from a custom language model.
- * * `/v1/customizations/{customization_id}/words` includes methods for managing individual words in a custom language
- * model. You can add, modify, list, and delete words from a custom language model.
- * * `/v1/acoustic_customizations` provides methods for creating and managing custom acoustic models. The interface lets
- * you adapt a base model for the audio characteristics of your environment and speakers.
- * * `/v1/acoustic_customizations/{customization_id}/audio` provides methods for managing the audio resources associated
- * with a custom acoustic model. You add audio resources that closely match the acoustic characteristics of the audio
- * that you want to transcribe. You can add, list, and delete audio resources from a custom acoustic model.
- *
- *
- * **Note about the Try It Out feature:** The `Try it out!` button lets you experiment with the methods of the API by
- * making actual cURL calls to the service. The feature is **not** supported for use with the session-based `POST
- * /v1/sessions/{session_id}/recognize` and sessionless `POST /v1/recognize` methods. For examples of calls to these
- * methods, see the [Speech to Text API reference](http://www.ibm.com/watson/developercloud/speech-to-text/api/v1/).
- * ### API Usage
- * The following information provides details about using the service to transcribe audio:
- * * **HTTP REST interfaces:** You can use methods of the session-based, sessionless, or asynchronous HTTP interfaces to
- * pass audio data to the service. All interfaces let you send the data via the body of the request; the session-based
- * and sessionless methods also let you pass data as multipart form data. With the former approach, you control the
- * transcription via a collection of request headers and query parameters. With the latter, you control the
- * transcription primarily via JSON metadata sent as form data.
- * * **WebSocket interface:** The service also offers a WebSocket interface as an alternative to its HTTP interfaces.
- * The WebSocket interface supports efficient implementation, lower latency, and higher throughput. The interface
- * establishes a persistent connection with the service, eliminating the need for session-based calls from the HTTP
- * interface. See [The WebSocket interface](https://console.bluemix.net/docs/services/speech-to-text/websockets.html).
- * * **Audio formats:** The service supports a variety of popular audio formats. For more information, including links
- * to a number of Internet sites that provide technical and usage details about the different formats, see [Audio
- * formats](https://console.bluemix.net/docs/services/speech-to-text/audio-formats.html).
- * * **Audio transmission:** You can pass the audio to be transcribed as a one-shot delivery or in streaming mode. With
- * one-shot delivery, you pass all of the audio data to the service at one time. With streaming mode, you send audio
- * data to the service in chunks over a persistent connection. To use streaming, you must pass the `Transfer-Encoding`
- * request header with a value of `chunked`. Both forms of data transmission impose a limit of 100 MB of total data for
- * transcription. See [Audio
- * transmission](https://console.bluemix.net/docs/services/speech-to-text/input.html#transmission).
- * * **Authentication:** You authenticate to the service by using your service credentials. You can use your credentials
- * to authenticate via a proxy server that resides in IBM Cloud, or you can use your credentials to obtain a token and
- * contact the service directly. See [Service credentials for Watson
- * services](https://console.bluemix.net/docs/services/watson/getting-started-credentials.html) and [Tokens for
- * authentication](https://console.bluemix.net/docs/services/watson/getting-started-tokens.html).
- * * **Request Logging:** By default, all Watson services log requests and their results. Data is collected only to
- * improve the Watson services. If you do not want to share your data, set the header parameter
- * `X-Watson-Learning-Opt-Out` to `true` for each request. Data is collected for any request that omits this header. See
- * [Controlling request logging for Watson
- * services](https://console.bluemix.net/docs/services/watson/getting-started-logging.html).
- *
- * For more information about the service and its various interfaces, see [About Speech to
- * Text](https://console.bluemix.net/docs/services/speech-to-text/index.html).
- * ### Customization API Usage
- * The following information pertains to methods of the customization interface:
- * * Language model customization and acoustic model customization are available only for a limited set of languages.
- * They are generally available for production use for some languages but are beta offerings for other languages. For a
- * complete list of supported languages and the status of their availability, see [Language support for
- * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
- * * In all cases, you must use service credentials created for the instance of the service that owns a custom model to
- * use the methods described in this documentation with that model. For more information, see [Ownership of custom
- * language models](https://console.bluemix.net/docs/services/speech-to-text/custom.html#customOwner).
- * * How the service handles request logging for the customization interface depends on the request. The service does
- * not log data that are used to build custom models. But it does log data when a custom model is used with a
- * recognition request. For more information, see [Request logging and data
- * privacy](https://console.bluemix.net/docs/services/speech-to-text/custom.html#customLogging).
- * * Each custom model is identified by a customization ID, which is a Globally Unique Identifier (GUID). A GUID is a
- * hexadecimal string that has the same format as Watson service credentials: `xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx`.
- * You specify a custom model's GUID with the appropriate customization parameter of methods that support customization.
- *
- *
- * For more information about using the service's customization interface, see [The customization
- * interface](https://console.bluemix.net/docs/services/speech-to-text/custom.html).
+ * The Speech to Text service uses IBM's speech recognition capabilities to convert English speech into text. The
+ * transcription of incoming audio is continuously sent back to the client with minimal delay, and it is corrected as
+ * more speech is heard.
  *
  * @version v1
- * @see <a href="http://www.ibm.com/watson/developercloud/speech-to-text.html">Speech to Text</a>
+ * @see <a href= "http://www.ibm.com/watson/developercloud/speech-to-text.html"> Speech to Text</a>
  */
 public class SpeechToText extends WatsonService {
 
@@ -253,44 +161,28 @@ public class SpeechToText extends WatsonService {
   }
 
   /**
-   * Sends audio for speech recognition in sessionless mode.
+   * Recognizes an audio file and returns {@link SpeechRecognitionResults}.<br>
+   * <br>
+   * Here is an example of how to recognize an audio file:
    *
-   * Sends audio and returns transcription results for a sessionless recognition request. Returns only the final
-   * results; to enable interim results, use session-based requests or the WebSocket API. The service imposes a data
-   * size limit of 100 MB. It automatically detects the endianness of the incoming audio and, for audio that includes
-   * multiple channels, downmixes the audio to one-channel mono during transcoding. (For the `audio/l16` format, you can
-   * specify the endianness.) ###Streaming mode For requests to transcribe live audio as it becomes available or to
-   * transcribe multiple audio files with multipart requests, you must set the `Transfer-Encoding` header to `chunked`
-   * to use streaming mode. In streaming mode, the server closes the connection (status code 408) if the service
-   * receives no data chunk for 30 seconds and the service has no audio to transcribe for 30 seconds. The server also
-   * closes the connection (status code 400) if no speech is detected for `inactivity_timeout` seconds of audio (not
-   * processing time); use the `inactivity_timeout` parameter to change the default of 30 seconds. ###Non-multipart
-   * requests For non-multipart requests, you specify all parameters of the request as a collection of request headers
-   * and query parameters, and you provide the audio as the body of the request. This is the recommended means of
-   * submitting a recognition request. Use the following parameters: * **Required:** `Content-Type` and `audio` *
-   * **Optional:** `Transfer-Encoding`, `model`, `customization_id`, `acoustic_customization_id`,
-   * `customization_weight`, `version`, `inactivity_timeout`, `keywords`, `keywords_threshold`, `max_alternatives`,
-   * `word_alternatives_threshold`, `word_confidence`, `timestamps`, `profanity_filter`, `smart_formatting`, and
-   * `speaker_labels` ###Multipart requests For multipart requests, you specify a few parameters of the request as
-   * request headers and query parameters, but you specify most parameters as multipart form data in the form of JSON
-   * metadata, in which only `part_content_type` is required. You then specify the audio files for the request as
-   * subsequent parts of the form data. Use this approach with browsers that do not support JavaScript or when the
-   * parameters of the request are greater than the 8 KB limit imposed by most HTTP servers and proxies. Use the
-   * following parameters: * **Required:** `Content-Type`, `metadata`, and `upload` * **Optional:** `Transfer-Encoding`,
-   * `model`, `customization_id`, `acoustic_customization_id`, `customization_weight`, and `version` An example of the
-   * multipart metadata for a pair of FLAC files follows. This first part of the request is sent as JSON; the remaining
-   * parts are the audio files for the request.
-   * `metadata=\"{\\\"part_content_type\\\":\\\"audio/flac\\\",
-   * \\\"data_parts_count\\\":2,\\\"inactivity_timeout\\\"=-1}\"`
-   * **Note about the Try It Out feature:** The `Try it out!` button is **not** supported for use with the the `POST
-   * /v1/recognize` method. For examples of calls to the method, see the [Speech to Text API
-   * reference](http://www.ibm.com/watson/developercloud/speech-to-text/api/v1/).
+   * <pre>
+   * SpeechToText service = new SpeechToText();
+   * service.setUsernameAndPassword(&quot;USERNAME&quot;, &quot;PASSWORD&quot;);
+   * service.setEndPoint(&quot;SERVICE_URL&quot;);
    *
-   * @param recognizeOptions the {@link RecognizeOptions} containing the options for the call
-   * @return a {@link ServiceCall} with a response type of {@link SpeechRecognitionResults}
+   * RecognizeOptions options = new RecognizeOptions().maxAlternatives(3).continuous(true);
+   *
+   * File audio = new File(&quot;sample1.wav&quot;);
+   *
+   * SpeechResults results = service.recognize(audio, options).execute();
+   * System.out.println(results);
+   * </pre>
+   *
+   * @param recognizeOptions the recognize options
+   * @return the {@link SpeechRecognitionResults}
    */
   public ServiceCall<SpeechRecognitionResults> recognize(RecognizeOptions recognizeOptions) {
-    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
+    Validator.notNull(recognizeOptions, "recognizeSessionlessOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/recognize");
     if (recognizeOptions.transferEncoding() != null) {
       builder.header("Transfer-Encoding", recognizeOptions.transferEncoding());
@@ -345,7 +237,7 @@ public class SpeechToText extends WatsonService {
       builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
     }
     if (recognizeOptions.audio() != null) {
-      builder.body(RequestBody.create(MediaType.parse(recognizeOptions.contentType()),
+      builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()),
           recognizeOptions.audio()));
     }
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
@@ -373,15 +265,14 @@ public class SpeechToText extends WatsonService {
    * audio and, for audio that includes multiple channels, downmixes the audio to one-channel mono during transcoding.
    * (For the audio/l16 format, you can specify the endianness.)
    *
-   * @param audio the audio file
    * @param recognizeOptions the recognize options
    * @param callback the {@link RecognizeCallback} instance where results will be sent
    * @return the {@link WebSocket}
    */
-  public WebSocket recognizeUsingWebSocket(InputStream audio, RecognizeOptions recognizeOptions, RecognizeCallback
+  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback
       callback) {
     Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
-    Validator.notNull(audio, "audio cannot be null");
+    Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
     Validator.notNull(callback, "callback cannot be null");
 
     HttpUrl.Builder urlBuilder = HttpUrl.parse(getEndPoint() + "/v1/recognize").newBuilder();
@@ -411,7 +302,7 @@ public class SpeechToText extends WatsonService {
 
     OkHttpClient client = configureHttpClient();
     return client.newWebSocket(builder.build(),
-        new SpeechToTextWebSocketListener(audio, recognizeOptions, callback));
+        new SpeechToTextWebSocketListener(recognizeOptions, callback));
   }
 
   /**
@@ -555,7 +446,8 @@ public class SpeechToText extends WatsonService {
     if (createJobOptions.speakerLabels() != null) {
       builder.query("speaker_labels", String.valueOf(createJobOptions.speakerLabels()));
     }
-    builder.body(RequestBody.create(MediaType.parse(createJobOptions.contentType()), createJobOptions.audio()));
+    builder.body(InputStreamRequestBody.create(MediaType.parse(createJobOptions.contentType()), createJobOptions
+        .audio()));
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(RecognitionJob.class));
   }
 
@@ -1283,7 +1175,8 @@ public class SpeechToText extends WatsonService {
     if (addAudioOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addAudioOptions.allowOverwrite()));
     }
-    builder.body(RequestBody.create(MediaType.parse(addAudioOptions.contentType()), addAudioOptions.audioResource()));
+    builder.body(InputStreamRequestBody.create(MediaType.parse(addAudioOptions.contentType()), addAudioOptions
+        .audioResource()));
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 

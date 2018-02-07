@@ -71,13 +71,12 @@ public final class SpeechToTextWebSocketListener extends WebSocketListener {
   /**
    * Instantiates a new speech to text web socket listener.
    *
-   * @param stream the {@link InputStream} where the audio to recognize is
    * @param options the recognize options
    * @param callback the callback
    */
-  public SpeechToTextWebSocketListener(final InputStream stream, final RecognizeOptions options, final
+  public SpeechToTextWebSocketListener(final RecognizeOptions options, final
   RecognizeCallback callback) {
-    this.stream = stream;
+    this.stream = options.audio();
     this.options = options;
     this.callback = callback;
   }

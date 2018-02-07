@@ -13,6 +13,9 @@
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -130,7 +133,7 @@ public class CreateJobOptions extends GenericModel {
   private String userToken;
   private Long resultsTtl;
   private String transferEncoding;
-  private File audio;
+  private InputStream audio;
   private String contentType;
   private String model;
   private String customizationId;
@@ -157,7 +160,7 @@ public class CreateJobOptions extends GenericModel {
     private String userToken;
     private Long resultsTtl;
     private String transferEncoding;
-    private File audio;
+    private InputStream audio;
     private String contentType;
     private String model;
     private String customizationId;
@@ -291,7 +294,7 @@ public class CreateJobOptions extends GenericModel {
      * @param audio the audio
      * @return the CreateJobOptions builder
      */
-    public Builder audio(File audio) {
+    public Builder audio(InputStream audio) {
       this.audio = audio;
       return this;
     }
@@ -472,6 +475,19 @@ public class CreateJobOptions extends GenericModel {
       this.speakerLabels = speakerLabels;
       return this;
     }
+
+    /**
+     * Set the audio.
+     *
+     * @param audio the audio
+     * @return the CreateJobOptions builder
+     *
+     * @throws FileNotFoundException if the file could not be found
+     */
+    public Builder audio(File audio) throws FileNotFoundException {
+      this.audio = new FileInputStream(audio);
+      return this;
+    }
   }
 
   private CreateJobOptions(Builder builder) {
@@ -586,7 +602,7 @@ public class CreateJobOptions extends GenericModel {
    *
    * @return the audio
    */
-  public File audio() {
+  public InputStream audio() {
     return audio;
   }
 
