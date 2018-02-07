@@ -29,15 +29,6 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class RecognizeOptions extends GenericModel {
 
   /**
-   * Set to `chunked` to send the audio in streaming mode; the data does not need to exist fully before being streamed
-   * to the service. MULTIPART: You must also set this header for requests with more than one audio part.
-   */
-  public interface TransferEncoding {
-    /** chunked. */
-    String CHUNKED = "chunked";
-  }
-
-  /**
    * The identifier of the model to be used for the recognition request. (Use `GET /v1/models` for a list of available
    * models.).
    */
@@ -108,7 +99,6 @@ public class RecognizeOptions extends GenericModel {
     String MULTIPART_FORM_DATA = "multipart/form-data";
   }
 
-  private String transferEncoding;
   private String model;
   private String customizationId;
   private String acousticCustomizationId;
@@ -127,17 +117,12 @@ public class RecognizeOptions extends GenericModel {
   private Boolean profanityFilter;
   private Boolean smartFormatting;
   private Boolean speakerLabels;
-  private transient InputStream upload;
-  private transient String uploadFilename;
-  private transient String uploadContentType;
-  private transient MultipartRecognition metadata;
   private Boolean interimResults;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private String transferEncoding;
     private String model;
     private String customizationId;
     private String acousticCustomizationId;
@@ -155,14 +140,9 @@ public class RecognizeOptions extends GenericModel {
     private Boolean profanityFilter;
     private Boolean smartFormatting;
     private Boolean speakerLabels;
-    private InputStream upload;
-    private String uploadFilename;
-    private String uploadContentType;
-    private MultipartRecognition metadata;
     private Boolean interimResults;
 
     private Builder(RecognizeOptions recognizeOptions) {
-      transferEncoding = recognizeOptions.transferEncoding;
       model = recognizeOptions.model;
       customizationId = recognizeOptions.customizationId;
       acousticCustomizationId = recognizeOptions.acousticCustomizationId;
@@ -180,10 +160,6 @@ public class RecognizeOptions extends GenericModel {
       profanityFilter = recognizeOptions.profanityFilter;
       smartFormatting = recognizeOptions.smartFormatting;
       speakerLabels = recognizeOptions.speakerLabels;
-      upload = recognizeOptions.upload;
-      uploadFilename = recognizeOptions.uploadFilename;
-      uploadContentType = recognizeOptions.uploadContentType;
-      metadata = recognizeOptions.metadata;
       interimResults = recognizeOptions.interimResults;
     }
 
@@ -214,17 +190,6 @@ public class RecognizeOptions extends GenericModel {
         this.keywords = new ArrayList<String>();
       }
       this.keywords.add(keyword);
-      return this;
-    }
-
-    /**
-     * Set the transferEncoding.
-     *
-     * @param transferEncoding the transferEncoding
-     * @return the RecognizeOptions builder
-     */
-    public Builder transferEncoding(String transferEncoding) {
-      this.transferEncoding = transferEncoding;
       return this;
     }
 
@@ -417,39 +382,6 @@ public class RecognizeOptions extends GenericModel {
     }
 
     /**
-     * Set the upload.
-     *
-     * @param upload the upload
-     * @return the RecognizeOptions builder
-     */
-    public Builder upload(InputStream upload) {
-      this.upload = upload;
-      return this;
-    }
-
-    /**
-     * Set the uploadFilename.
-     *
-     * @param uploadFilename the uploadFilename
-     * @return the RecognizeOptions builder
-     */
-    public Builder uploadFilename(String uploadFilename) {
-      this.uploadFilename = uploadFilename;
-      return this;
-    }
-
-    /**
-     * Set the uploadContentType.
-     *
-     * @param uploadContentType the uploadContentType
-     * @return the RecognizeOptions builder
-     */
-    public Builder uploadContentType(String uploadContentType) {
-      this.uploadContentType = uploadContentType;
-      return this;
-    }
-
-    /**
      * Set the audio.
      *
      * @param audio the audio
@@ -459,31 +391,6 @@ public class RecognizeOptions extends GenericModel {
      */
     public Builder audio(File audio) throws FileNotFoundException {
       this.audio = new FileInputStream(audio);
-      return this;
-    }
-
-    /**
-     * Set the upload.
-     *
-     * @param upload the upload
-     * @return the RecognizeOptions builder
-     *
-     * @throws FileNotFoundException if the file could not be found
-     */
-    public Builder upload(File upload) throws FileNotFoundException {
-      this.upload = new FileInputStream(upload);
-      this.uploadFilename = upload.getName();
-      return this;
-    }
-
-    /**
-     * Set the metadata.
-     *
-     * @param metadata the metadata
-     * @return the RecognizeOptions builder
-     */
-    public Builder metadata(MultipartRecognition metadata) {
-      this.metadata = metadata;
       return this;
     }
 
@@ -500,7 +407,6 @@ public class RecognizeOptions extends GenericModel {
   }
 
   private RecognizeOptions(Builder builder) {
-    transferEncoding = builder.transferEncoding;
     model = builder.model;
     customizationId = builder.customizationId;
     acousticCustomizationId = builder.acousticCustomizationId;
@@ -518,10 +424,6 @@ public class RecognizeOptions extends GenericModel {
     profanityFilter = builder.profanityFilter;
     smartFormatting = builder.smartFormatting;
     speakerLabels = builder.speakerLabels;
-    upload = builder.upload;
-    uploadFilename = builder.uploadFilename;
-    uploadContentType = builder.uploadContentType;
-    metadata = builder.metadata;
     interimResults = builder.interimResults;
   }
 
@@ -532,18 +434,6 @@ public class RecognizeOptions extends GenericModel {
    */
   public Builder newBuilder() {
     return new Builder(this);
-  }
-
-  /**
-   * Gets the transferEncoding.
-   *
-   * Set to `chunked` to send the audio in streaming mode; the data does not need to exist fully before being streamed
-   * to the service. MULTIPART: You must also set this header for requests with more than one audio part.
-   *
-   * @return the transferEncoding
-   */
-  public String transferEncoding() {
-    return transferEncoding;
   }
 
   /**
@@ -770,53 +660,6 @@ public class RecognizeOptions extends GenericModel {
    */
   public Boolean speakerLabels() {
     return speakerLabels;
-  }
-
-  /**
-   * Gets the upload.
-   *
-   * MULTIPART ONLY: One or more audio files for the request. For multiple audio files, set `Transfer-Encoding` to
-   * `chunked`. **Required for a multipart request.**.
-   *
-   * @return the upload
-   */
-  public InputStream upload() {
-    return upload;
-  }
-
-  /**
-   * Gets the uploadFilename.
-   *
-   * The filename for upload.
-   *
-   * @return the uploadFilename
-   */
-  public String uploadFilename() {
-    return uploadFilename;
-  }
-
-  /**
-   * Gets the uploadContentType.
-   *
-   * The content type of upload. Values for this parameter can be obtained from the HttpMediaType class.
-   *
-   * @return the uploadContentType
-   */
-  public String uploadContentType() {
-    return uploadContentType;
-  }
-
-  /**
-   * Gets the metadata.
-   *
-   * MULTIPART ONLY: Parameters for the multipart recognition request. This must be the first part of the request and
-   * must consist of JSON-formatted data. The information describes the subsequent parts of the request, which pass
-   * the audio files to be transcribed. **Required for a multipart request.**
-   *
-   * @return the metadata
-   */
-  public MultipartRecognition metadata() {
-    return metadata;
   }
 
   /**

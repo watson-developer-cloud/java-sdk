@@ -184,9 +184,6 @@ public class SpeechToText extends WatsonService {
   public ServiceCall<SpeechRecognitionResults> recognize(RecognizeOptions recognizeOptions) {
     Validator.notNull(recognizeOptions, "recognizeSessionlessOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/recognize");
-    if (recognizeOptions.transferEncoding() != null) {
-      builder.header("Transfer-Encoding", recognizeOptions.transferEncoding());
-    }
     if (recognizeOptions.contentType() != null) {
       builder.header("Content-Type", recognizeOptions.contentType());
     }
@@ -239,17 +236,6 @@ public class SpeechToText extends WatsonService {
     if (recognizeOptions.audio() != null) {
       builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()),
           recognizeOptions.audio()));
-    }
-    MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
-    multipartBuilder.setType(MultipartBody.FORM);
-    if (recognizeOptions.metadata() != null) {
-      multipartBuilder.addFormDataPart("metadata", GsonSingleton.getGson().toJson(recognizeOptions.metadata()));
-      if (recognizeOptions.upload() != null) {
-        RequestBody uploadBody = RequestUtils.inputStreamBody(recognizeOptions.upload(),
-            recognizeOptions.uploadContentType());
-        multipartBuilder.addFormDataPart("upload", recognizeOptions.uploadFilename(), uploadBody);
-      }
-      builder.body(multipartBuilder.build());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechRecognitionResults.class));
   }
@@ -385,9 +371,6 @@ public class SpeechToText extends WatsonService {
   public ServiceCall<RecognitionJob> createJob(CreateJobOptions createJobOptions) {
     Validator.notNull(createJobOptions, "createJobOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/recognitions");
-    if (createJobOptions.transferEncoding() != null) {
-      builder.header("Transfer-Encoding", createJobOptions.transferEncoding());
-    }
     builder.header("Content-Type", createJobOptions.contentType());
     if (createJobOptions.callbackUrl() != null) {
       builder.query("callback_url", createJobOptions.callbackUrl());

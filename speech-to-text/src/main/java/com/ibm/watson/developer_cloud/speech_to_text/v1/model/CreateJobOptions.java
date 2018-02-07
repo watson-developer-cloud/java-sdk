@@ -51,15 +51,6 @@ public class CreateJobOptions extends GenericModel {
   }
 
   /**
-   * Set to `chunked` to send the audio in streaming mode. The data does not need to exist fully before being streamed
-   * to the service.
-   */
-  public interface TransferEncoding {
-    /** chunked. */
-    String CHUNKED = "chunked";
-  }
-
-  /**
    * The type of the input: audio/basic, audio/flac, audio/l16, audio/mp3, audio/mpeg, audio/mulaw, audio/ogg,
    * audio/ogg;codecs=opus, audio/ogg;codecs=vorbis, audio/wav, audio/webm, audio/webm;codecs=opus, or
    * audio/webm;codecs=vorbis.
@@ -132,7 +123,6 @@ public class CreateJobOptions extends GenericModel {
   private String events;
   private String userToken;
   private Long resultsTtl;
-  private String transferEncoding;
   private InputStream audio;
   private String contentType;
   private String model;
@@ -159,7 +149,6 @@ public class CreateJobOptions extends GenericModel {
     private String events;
     private String userToken;
     private Long resultsTtl;
-    private String transferEncoding;
     private InputStream audio;
     private String contentType;
     private String model;
@@ -183,7 +172,6 @@ public class CreateJobOptions extends GenericModel {
       events = createJobOptions.events;
       userToken = createJobOptions.userToken;
       resultsTtl = createJobOptions.resultsTtl;
-      transferEncoding = createJobOptions.transferEncoding;
       audio = createJobOptions.audio;
       contentType = createJobOptions.contentType;
       model = createJobOptions.model;
@@ -274,17 +262,6 @@ public class CreateJobOptions extends GenericModel {
      */
     public Builder resultsTtl(long resultsTtl) {
       this.resultsTtl = resultsTtl;
-      return this;
-    }
-
-    /**
-     * Set the transferEncoding.
-     *
-     * @param transferEncoding the transferEncoding
-     * @return the CreateJobOptions builder
-     */
-    public Builder transferEncoding(String transferEncoding) {
-      this.transferEncoding = transferEncoding;
       return this;
     }
 
@@ -496,7 +473,6 @@ public class CreateJobOptions extends GenericModel {
     events = builder.events;
     userToken = builder.userToken;
     resultsTtl = builder.resultsTtl;
-    transferEncoding = builder.transferEncoding;
     audio = builder.audio;
     contentType = builder.contentType;
     model = builder.model;
@@ -583,18 +559,6 @@ public class CreateJobOptions extends GenericModel {
    */
   public Long resultsTtl() {
     return resultsTtl;
-  }
-
-  /**
-   * Gets the transferEncoding.
-   *
-   * Set to `chunked` to send the audio in streaming mode. The data does not need to exist fully before being streamed
-   * to the service.
-   *
-   * @return the transferEncoding
-   */
-  public String transferEncoding() {
-    return transferEncoding;
   }
 
   /**
