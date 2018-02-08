@@ -1,47 +1,43 @@
-# Watson Developer Cloud Java SDK
+# Watson APIs Java SDK
 
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
+[![Slack](https://wdc-slack-inviter.mybluemix.net/badge.svg)](https://wdc-slack-inviter.mybluemix.net)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
 
-The Java SDK uses the [Watson Developer Cloud][wdc] services, a collection of REST
-APIs and SDKs that use cognitive computing to solve complex problems.
+Node.js client library to use the [Watson APIs][wdc].
 
-## Table of Contents
+<details>
+  <summary>Table of Contents</summary>
 
-* [Installation](#installation)
-  * [Maven](#maven)
-  * [Gradle](#gradle)
-* [Usage](#usage)
-* [Getting the Service Credentials](#getting-the-service-credentials)
-* IBM Watson Services
-  * [Alchemy Language](alchemy)
-  * [Alchemy Vision](alchemy)
-  * [Alchemy Data News](alchemy)
-  * [Concept Insights](alchemy)
-  * [Conversation](conversation)
-  * [Dialog](dialog)
-  * [Discovery](discovery)
-  * [Language Translation](language-translation)
-  * [Language Translator](language-translator)
-  * [Natural Language Classifier](natural-language-classifier)
-  * [Natural Language Understanding](natural-language-understanding)
-  * [Personality Insights](personality-insights)
-  * [Retrieve and Rank](retrieve-and-rank)
-  * [Speech to Text](speech-to-text)
-  * [Text to Speech](text-to-speech)
-  * [Tone Analyzer](tone-analyzer)
-  * [Tradeoff Analytics](tradeoff-analytics)
-  * [Visual Recognition](visual-recognition)
-* [Changes for v4.0](#changes-for-v40)
-* [Using a Proxy](#using-a-proxy)
-* [Android](#android)
-* [Running in Bluemix](#running-in-bluemix)
-* [Default Headers](#default-headers)
-* [Debug](#debug)
-* [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
-* [License](#license)
-* [Contributing](#contributing)
+  * [Installation](#installation)
+    * [Maven](#maven)
+    * [Gradle](#gradle)
+  * [Usage](#usage)
+  * [Getting the Service Credentials](#getting-the-service-credentials)
+  * IBM Watson Services
+    * [Conversation](conversation)
+    * [Discovery](discovery)
+    * [Language Translator](language-translator)
+    * [Natural Language Classifier](natural-language-classifier)
+    * [Natural Language Understanding](natural-language-understanding)
+    * [Personality Insights](personality-insights)
+    * [Speech to Text](speech-to-text)
+    * [Text to Speech](text-to-speech)
+    * [Tone Analyzer](tone-analyzer)
+    * [Tradeoff Analytics](tradeoff-analytics)
+    * [Visual Recognition](visual-recognition)
+  * [Changes for v4.0](#changes-for-v40)
+  * [Using a Proxy](#using-a-proxy)
+  * [Android](#android)
+  * [Running in IBM Cloud](#running-in-ibm-cloud)
+  * [Default Headers](#default-headers)
+  * [Debug](#debug)
+  * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
+  * [License](#license)
+  * [Contributing](#contributing)
+
+</details>
 
 ## Installation
 
@@ -75,16 +71,10 @@ All the services:
 'com.ibm.watson.developer_cloud:java-sdk:4.2.1'
 ```
 
-Only Retrieve and Rank:
+Only Conversation:
 
 ```gradle
-'com.ibm.watson.developer_cloud:retrieve-and-rank:4.2.1'
-```
-
-Only Visual Recognition:
-
-```gradle
-'com.ibm.watson.developer_cloud:visual-recognition:4.2.1'
+'com.ibm.watson.developer_cloud:conversation:4.2.1'
 ```
 
 ##### Development Snapshots
@@ -119,26 +109,22 @@ Now, you are ready to see some [examples](https://github.com/watson-developer-cl
 ## Usage
 
 The examples within each service assume that you already have service credentials. If not,
-you will have to create a service in [Bluemix][bluemix].
+you will have to create a service in [IBM Cloud][ibm_cloud].
 
-If you are running your application in Bluemix, you don't need to specify the
-credentials; the library will get them for you by looking at the `VCAP_SERVICES` environment variable.
+If you are running your application in IBM Cloud (or other platforms based on Cloud Foundry), you don't need to specify the
+credentials; the library will get them for you by looking at the [`VCAP_SERVICES`][vcap_services] environment variable.
 
 ## Getting the Service Credentials
 
-You will need the `username` and `password` (`api_key` for AlchemyAPI) credentials, and the API endpoint for each service. Service credentials are different from your Bluemix account username and password.
+You will need the `username` and `password` (`api_key` for Visual Recognition) credentials, and the API endpoint for each service. Service credentials are different from your IBM Cloud account username and password.
 
 To get your service credentials, follow these steps:
 
-1. Log in to [Bluemix](https://console.bluemix.net/catalog?category=watson)
-
-1. Create an instance of the service:
-    1. In the Bluemix **Catalog**, select the service you want to use.
-    1. Click **Create**.
-
-1. Copy your credentials:
-    1. On the left side of the page, click **Service Credentials**, and then **View credentials** to view your service credentials.
-    1. Copy `url`, `username` and `password`(`api_key` for AlchemyAPI or Visual Recognition).
+1. Log in to [IBM Cloud](https://console.bluemix.net/catalog?category=watson)
+1. In the IBM Cloud **Catalog**, select the service you want to use.
+1. Click **Create**.
+1. On the left side of the page, click **Service Credentials**, and then **View credentials** to view your service credentials.
+1. Copy `url`, `username` and `password`(`api_key` for AlchemyAPI or Visual Recognition).
 
 ## Changes for v4.0
 Version 4.0 focuses on the move to programmatically-generated code for many of the services. See the [changelog](https://github.com/watson-developer-cloud/java-sdk/wiki/Changelog) for the details.
@@ -173,14 +159,14 @@ System.out.println(workspaces);
 
 For more information see: [OkHTTPClient Proxy authentication how to?](https://stackoverflow.com/a/35567936/456564)
 
-## Running in Bluemix
+## Running in IBM Cloud
 
-When running in Bluemix, the library will automatically get the credentials from `VCAP_SERVICES`.
-If you have more than one plan, you can use `BluemixUtils` to get the service credentials for an specific plan.
+When running in IBM Cloud (or other platforms based on Cloud Foundry), the library will automatically get the credentials from [`VCAP_SERVICES`][vcap_services].
+If you have more than one plan, you can use `CredentialUtils` to get the service credentials for an specific plan.
 
 ```java
 PersonalityInsights service = new PersonalityInsights();
-String apiKey = BluemixUtils.getAPIKey(service.getName(), BluemixUtils.PLAN_STANDARD);
+String apiKey = CredentialUtils.getAPIKey(service.getName(), CredentialUtils.PLAN_STANDARD);
 service.setApiKey(apiKey);
 ```
 
@@ -205,7 +191,7 @@ service.setDefaultHeaders(headers);
 
 You can set the correct API Endpoint for your service calling `setEndPoint()`.
 
-For example, if you have the conversation service in Germany, the Endpoint may be `https://gateway-fra.watsonplatform.net/conversation/api`. 
+For example, if you have the conversation service in Germany, the Endpoint may be `https://gateway-fra.watsonplatform.net/conversation/api`.
 
 You will need to call
 
@@ -216,7 +202,7 @@ service.sentEndPoint("https://gateway-fra.watsonplatform.net/conversation/api")
 
 ## 401 Unauthorized error
 
-Make sure you are using the service credentials and not your Bluemix account/password.
+Make sure you are using the service credentials and not your IBM Cloud account/password.
 Check the API Endpoint, you may need to update the default using `setEndPoint()`.
 
 ## Debug
@@ -300,12 +286,13 @@ Watson Services, please ask a question on
 or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 
 
-[wdc]: http://www.ibm.com/watson/developercloud/
-[bluemix]: https://console.bluemix.net
+[wdc]: https://www.ibm.com/watson/developer/
+[ibm_cloud]: https://console.bluemix.net
 [Gradle]: http://www.gradle.org/
 [OkHttp]: http://square.github.io/okhttp/
 [gson]: https://github.com/google/gson
 [apache_maven]: http://maven.apache.org/
 [sonatype_snapshots]: https://oss.sonatype.org/content/repositories/snapshots/com/ibm/watson/developer_cloud/
+[vcap_services]: https://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html#VCAP-SERVICES
 
 [jar]: https://github.com/watson-developer-cloud/java-sdk/releases/download/java-sdk-4.2.0/java-sdk-4.2.1-jar-with-dependencies.jar
