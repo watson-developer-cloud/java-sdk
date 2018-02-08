@@ -91,6 +91,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private static final String SAMPLE_WAV = String.format(SPEECH_RESOURCE, "sample1.wav");
   private static final String TWO_SPEAKERS_WAV = String.format(SPEECH_RESOURCE, "twospeakers.wav");
   private static final String SAMPLE_WAV_WITH_PAUSE = String.format(SPEECH_RESOURCE, "sound-with-pause.wav");
+  private static final String WAV_ARCHIVE = String.format(SPEECH_RESOURCE, "sample-wav-archive.zip");
   private static final Logger LOG = Logger.getLogger(SpeechToTextIT.class.getName());
 
   private CountDownLatch lock = new CountDownLatch(1);
@@ -908,6 +909,55 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .customizationId(id)
           .build();
       service.deleteAcousticModel(deleteAcousticModelOptions).execute();
+    }
+  }
+
+  /**
+   * Test add audio with an archive file.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testAddAudioArchive() throws FileNotFoundException {
+    String name = "java-sdk-temporary";
+    String description = "Temporary custom model for testing the Java SDK";
+    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+        .name(name)
+        .baseModelName(EN_BROADBAND16K)
+        .description(description)
+        .build();
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
+        .createAcousticModel(newModel)
+        .build();
+    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
+    String id = myModel.getCustomizationId();
+
+    String audioName = "test-archive";
+    File audio = new File(WAV_ARCHIVE);
+    AddAudioOptions addOptions = new AddAudioOptions.Builder()
+        .customizationId(id)
+        .audioName(audioName)
+        .contentType(AddAudioOptions.ContentType.APPLICATION_ZIP)
+        .containedContentType(AddAudioOptions.ContainedContentType.AUDIO_WAV)
+        .audioResource(audio)
+        .build();
+    service.addAudio(addOptions).execute();
+
+    try {
+      GetAudioOptions getOptions = new GetAudioOptions.Builder()
+          .customizationId(id)
+          .audioName(audioName)
+          .build();
+      AudioListing listing = service.getAudio(getOptions).execute();
+
+      assertNotNull(listing);
+      assertEquals(audioName, listing.getName());
+    } finally {
+      DeleteAudioOptions deleteAudioOptions = new DeleteAudioOptions.Builder()
+          .customizationId(id)
+          .audioName(audioName)
+          .build();
+      service.deleteAudio(deleteAudioOptions).execute();
     }
   }
 }
