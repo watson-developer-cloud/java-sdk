@@ -162,13 +162,24 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeFileString() throws FileNotFoundException {
+    Long maxAlternatives = 3L;
+    Float wordAlternativesThreshold = 0.8f;
     File audio = new File(SAMPLE_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
         .audio(audio)
         .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .maxAlternatives(maxAlternatives)
+        .wordAlternativesThreshold(wordAlternativesThreshold)
+        .smartFormatting(true)
         .build();
     SpeechRecognitionResults results = service.recognize(options).execute();
+
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
+    assertTrue(results.getResults().get(0).getAlternatives().size() <= maxAlternatives);
+    List<WordAlternativeResults> wordAlternatives = results.getResults().get(0).getWordAlternatives();
+    for (WordAlternativeResults alternativeResults : wordAlternatives) {
+      assertTrue(alternativeResults.getAlternatives().get(0).getConfidence() >= wordAlternativesThreshold);
+    }
   }
 
   /**
@@ -822,6 +833,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
         .contentType(AddAudioOptions.ContentType.AUDIO_WAV)
         .audioName(audioName)
         .customizationId(id)
+        .allowOverwrite(true)
         .build();
     service.addAudio(addOptions).execute();
 

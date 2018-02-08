@@ -142,7 +142,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final String PATH_UPGRADE = "/v1/customizations/%s/upgrade_model";
   private static final String PATH_ALL_AUDIO = "/v1/acoustic_customizations/%s/audio";
   private static final String PATH_SPECIFIC_AUDIO = "/v1/acoustic_customizations/%s/audio/%s";
-  private static final String REGISTER_CALLBACK = "/v1/register_callback?callback_url=%s";
+  private static final String REGISTER_CALLBACK = "/v1/register_callback?callback_url=%s&user_secret=%s";
   private static final String UNREGISTER_CALLBACK = "/v1/unregister_callback?callback_url=%s";
 
   private static final File SAMPLE_WAV = new File("src/test/resources/speech_to_text/sample1.wav");
@@ -361,6 +361,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   @Test
   public void testRecognizeWithCustomization() throws FileNotFoundException, InterruptedException {
     String id = "foo";
+    String version = "version";
     String recString =
         getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/recognition.json"));
     JsonObject recognition = new JsonParser().parse(recString).getAsJsonObject();
@@ -371,12 +372,44 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .audio(SAMPLE_WAV)
         .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
         .customizationId(id)
+        .version(version)
         .build();
     SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
-    assertEquals(PATH_RECOGNIZE + "?customization_id=" + id, request.getPath());
+    assertEquals(PATH_RECOGNIZE + "?customization_id=" + id + "&version=" + version, request.getPath());
+    assertEquals(recognition, GSON.toJsonTree(result));
+  }
+
+  /**
+   * Test recognize with acoustic customization.
+   *
+   * @throws FileNotFoundException the file not found exception
+   * @throws InterruptedException the interrupted exception
+   */
+  @Test
+  public void testRecognizeWithAcousticCustomization() throws FileNotFoundException, InterruptedException {
+    String id = "foo";
+    String version = "version";
+    String recString =
+        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/recognition.json"));
+    JsonObject recognition = new JsonParser().parse(recString).getAsJsonObject();
+
+    server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(recString));
+
+    RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
+        .audio(SAMPLE_WAV)
+        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .acousticCustomizationId(id)
+        .version(version)
+        .build();
+    SpeechRecognitionResults result = service.recognize(recognizeOptions).execute();
+    final RecordedRequest request = server.takeRequest();
+
+    assertEquals("POST", request.getMethod());
+    assertEquals(PATH_RECOGNIZE + "?acoustic_customization_id=" + id + "&version=" + version,
+        request.getPath());
     assertEquals(recognition, GSON.toJsonTree(result));
   }
 
@@ -681,12 +714,14 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     TrainLanguageModelOptions trainOptions = new TrainLanguageModelOptions.Builder()
         .customizationId(id)
         .wordTypeToAdd(TrainLanguageModelOptions.WordTypeToAdd.ALL)
+        .customizationWeight(0.5)
         .build();
     service.trainLanguageModel(trainOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
-    assertEquals(String.format(PATH_TRAIN, id) + "?word_type_to_add=all", request.getPath());
+    assertEquals(String.format(PATH_TRAIN, id) + "?word_type_to_add=all&customization_weight=" + 0.5,
+        request.getPath());
   }
 
   /**
@@ -1210,15 +1245,18 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   public void testUpgradeAcousticModel() throws InterruptedException {
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
     String id = "foo";
+    String languageModelId = "modelId";
 
     UpgradeAcousticModelOptions upgradeOptions = new UpgradeAcousticModelOptions.Builder()
         .customizationId(id)
+        .customLanguageModelId(languageModelId)
         .build();
     service.upgradeAcousticModel(upgradeOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
-    assertEquals(String.format(PATH_ACOUSTIC_UPGRADE, id), request.getPath());
+    assertEquals(String.format(PATH_ACOUSTIC_UPGRADE, id) + "?custom_language_model_id=" + languageModelId,
+        request.getPath());
   }
 
   @Test
@@ -1232,12 +1270,14 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
         .audioResource(SAMPLE_WAV)
         .contentType(AddAudioOptions.ContentType.AUDIO_WAV)
         .audioName(audioName)
+        .allowOverwrite(true)
         .build();
     service.addAudio(addOptions).execute();
     final RecordedRequest request = server.takeRequest();
 
     assertEquals("POST", request.getMethod());
-    assertEquals(String.format(PATH_SPECIFIC_AUDIO, id, audioName), request.getPath());
+    assertEquals(String.format(PATH_SPECIFIC_AUDIO, id, audioName) + "?allow_overwrite=true",
+        request.getPath());
   }
 
   @Test
@@ -1306,8 +1346,9 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   }
 
   @Test
-  public void testRegisterAndUnregisterCallback() throws FileNotFoundException, InterruptedException {
+  public void testRegisterCallback() throws FileNotFoundException, InterruptedException {
     String callbackUrl = "http://testurl.com";
+    String secret = "secret";
     RegisterStatus registerStatus = loadFixture("src/test/resources/speech_to_text/register-status.json",
         RegisterStatus.class);
 
@@ -1316,12 +1357,13 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     RegisterCallbackOptions registerOptions = new RegisterCallbackOptions.Builder()
         .callbackUrl(callbackUrl)
+        .userSecret(secret)
         .build();
     RegisterStatus result = service.registerCallback(registerOptions).execute();
     final RecordedRequest registerRequest = server.takeRequest();
 
     assertEquals("POST", registerRequest.getMethod());
-    assertEquals(String.format(REGISTER_CALLBACK, callbackUrl), registerRequest.getPath());
+    assertEquals(String.format(REGISTER_CALLBACK, callbackUrl, secret), registerRequest.getPath());
     assertEquals(RegisterStatus.Status.CREATED, result.getStatus());
     assertEquals(callbackUrl, result.getUrl());
   }

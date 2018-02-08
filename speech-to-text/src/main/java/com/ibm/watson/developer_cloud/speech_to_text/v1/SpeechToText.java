@@ -521,8 +521,6 @@ public class SpeechToText extends WatsonService {
         CreateLanguageModelOptions.ContentType.APPLICATION_JSON)) {
       builder.bodyJson(GsonSingleton.getGson().toJsonTree(createLanguageModelOptions.createLanguageModel())
           .getAsJsonObject());
-    } else {
-      builder.bodyContent(createLanguageModelOptions.body(), createLanguageModelOptions.contentType());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LanguageModel.class));
   }
@@ -811,8 +809,6 @@ public class SpeechToText extends WatsonService {
     builder.header("Content-Type", addWordOptions.contentType());
     if (addWordOptions.contentType().equalsIgnoreCase(AddWordOptions.ContentType.APPLICATION_JSON)) {
       builder.bodyJson(GsonSingleton.getGson().toJsonTree(addWordOptions.customWord()).getAsJsonObject());
-    } else {
-      builder.bodyContent(addWordOptions.body(), addWordOptions.contentType());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -864,8 +860,6 @@ public class SpeechToText extends WatsonService {
     builder.header("Content-Type", addWordsOptions.contentType());
     if (addWordsOptions.contentType().equalsIgnoreCase(AddWordsOptions.ContentType.APPLICATION_JSON)) {
       builder.bodyJson(GsonSingleton.getGson().toJsonTree(addWordsOptions.customWords()).getAsJsonObject());
-    } else {
-      builder.bodyContent(addWordsOptions.body(), addWordsOptions.contentType());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
@@ -949,8 +943,6 @@ public class SpeechToText extends WatsonService {
         CreateAcousticModelOptions.ContentType.APPLICATION_JSON)) {
       builder.bodyJson(GsonSingleton.getGson().toJsonTree(createAcousticModelOptions.createAcousticModel())
           .getAsJsonObject());
-    } else {
-      builder.bodyContent(createAcousticModelOptions.body(), createAcousticModelOptions.contentType());
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AcousticModel.class));
   }
