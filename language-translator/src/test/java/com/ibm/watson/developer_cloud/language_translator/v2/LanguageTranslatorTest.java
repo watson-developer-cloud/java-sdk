@@ -63,8 +63,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
   private static final String IDENTITY_PATH = "/v2/identify";
   private static final String LANGUAGE_TRANSLATION_PATH = "/v2/translate";
   private static final String RESOURCE = "src/test/resources/language_translation/";
-  private static final Type TYPE_IDENTIFIED_LANGUAGES =
-      new TypeToken<Map<String, List<IdentifiableLanguage>>>() { }.getType();
+  private static final Type TYPE_IDENTIFIED_LANGUAGES = new TypeToken<Map<String, List<IdentifiableLanguage>>>() {
+  }.getType();
   private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
   private final String modelId = "foo-bar";
   private LanguageTranslator service;
@@ -79,7 +79,6 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developercloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -237,8 +236,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     final Translation t = new Translation();
     t.setTranslation(text);
 
-    final Map<String, ?> response =
-        ImmutableMap.of("word_count", 6, "character_count", 20, "translations", Collections.singletonList(t));
+    final Map<String, ?> response = ImmutableMap.of("word_count", 6, "character_count", 20, "translations", Collections
+        .singletonList(t));
 
     final Map<String, ?> requestBody = ImmutableMap.of("text", Collections.singleton(text), "model_id", modelId);
 
@@ -265,8 +264,8 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     final Translation t2 = new Translation();
     t2.setTranslation(translations.get(texts.get(1)));
 
-    final Map<String, ?> response =
-        ImmutableMap.of("word_count", 6, "character_count", 20, "translations", Arrays.asList(t1, t2));
+    final Map<String, ?> response = ImmutableMap.of("word_count", 6, "character_count", 20, "translations", Arrays
+        .asList(t1, t2));
 
     final Map<String, ?> requestBody = ImmutableMap.of("text", texts, "model_id", modelId);
 
@@ -299,7 +298,6 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
         .build();
     service.translate(translateOptions).execute();
   }
-
 
   /**
    * Test translate with null.
