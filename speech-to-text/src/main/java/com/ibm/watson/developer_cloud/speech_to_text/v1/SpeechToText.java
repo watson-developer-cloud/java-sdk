@@ -182,7 +182,7 @@ public class SpeechToText extends WatsonService {
    * @return the {@link SpeechRecognitionResults}
    */
   public ServiceCall<SpeechRecognitionResults> recognize(RecognizeOptions recognizeOptions) {
-    Validator.notNull(recognizeOptions, "recognizeSessionlessOptions cannot be null");
+    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/recognize");
     if (recognizeOptions.contentType() != null) {
       builder.header("Content-Type", recognizeOptions.contentType());
