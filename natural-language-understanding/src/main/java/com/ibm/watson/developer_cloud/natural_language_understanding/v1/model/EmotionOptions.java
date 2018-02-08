@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -109,7 +109,7 @@ public class EmotionOptions extends GenericModel {
   /**
    * Gets the document.
    *
-   * Set this to false to hide document-level emotion results
+   * Set this to false to hide document-level emotion results.
    *
    * @return the document
    */
@@ -120,7 +120,7 @@ public class EmotionOptions extends GenericModel {
   /**
    * Gets the targets.
    *
-   * Emotion results will be returned for each target string that is found in the document
+   * Emotion results will be returned for each target string that is found in the document.
    *
    * @return the targets
    */
