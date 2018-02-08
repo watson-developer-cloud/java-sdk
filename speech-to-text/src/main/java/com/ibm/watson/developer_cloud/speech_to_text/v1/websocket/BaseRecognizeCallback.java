@@ -13,10 +13,11 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1.websocket;
 
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
 
 /**
  * An empty implementation of {@link RecognizeCallback} interface.
@@ -30,9 +31,9 @@ public class BaseRecognizeCallback implements RecognizeCallback {
    *
    * @see
    * com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.RecognizeCallback#onTranscription(com.
-   * ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults)
+   * ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults)
    */
-  public void onTranscription(SpeechResults speechResults) { };
+  public void onTranscription(SpeechRecognitionResults speechResults) { };
 
   /*
    * (non-Javadoc)

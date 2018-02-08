@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -16,115 +16,161 @@ import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Speech session.
+ * SpeechSession.
  */
 public class SpeechSession extends GenericModel {
 
-  /** The new session uri. */
-  @SerializedName("new_session_uri")
-  private String newSessionUri;
-
-  /** The observe result. */
+  private String recognize;
+  private String recognizeWS;
   @SerializedName("observe_result")
   private String observeResult;
-
-  /** The recognize. */
-  private String recognize;
-
-  /** The recognize ws. */
-  private String recognizeWS;
-
-  /** The session id. */
   @SerializedName("session_id")
   private String sessionId;
-
-  /**
-   * Gets the new session uri.
-   *
-   * @return The newSessionUri
-   */
-  public String getNewSessionUri() {
-    return newSessionUri;
-  }
-
-  /**
-   * Gets the observe result.
-   *
-   * @return The observeResult
-   */
-  public String getObserveResult() {
-    return observeResult;
-  }
+  @SerializedName("new_session_uri")
+  private String newSessionUri;
+  private String state;
+  private String model;
 
   /**
    * Gets the recognize.
    *
-   * @return The recognize
+   * URI for HTTP REST recognition requests.
+   *
+   * @return the recognize
    */
   public String getRecognize() {
     return recognize;
   }
 
   /**
-   * Gets the recognize ws.
+   * Gets the recognizeWS.
    *
-   * @return The recognizeWS
+   * URI for WebSocket recognition requests. Needed only for working with the WebSocket interface.
+   *
+   * @return the recognizeWS
    */
   public String getRecognizeWS() {
     return recognizeWS;
   }
 
   /**
-   * Gets the session id.
+   * Gets the observeResult.
    *
-   * @return The sessionId
+   * URI for HTTP REST results observers.
+   *
+   * @return the observeResult
+   */
+  public String getObserveResult() {
+    return observeResult;
+  }
+
+  /**
+   * Gets the sessionId.
+   *
+   * Identifier for the new session. **Note:** This field is returned only when you create a new session.
+   *
+   * @return the sessionId
    */
   public String getSessionId() {
     return sessionId;
   }
 
   /**
-   * Sets the new session uri.
+   * Gets the newSessionUri.
    *
-   * @param newSessionUri The new_session_uri
+   * URI for the new session. **Note:** This field is returned only when you create a new session.
+   *
+   * @return the newSessionUri
    */
-  public void setNewSessionUri(final String newSessionUri) {
-    this.newSessionUri = newSessionUri;
+  public String getNewSessionUri() {
+    return newSessionUri;
   }
 
   /**
-   * Sets the observe result.
+   * Gets the state.
    *
-   * @param observeResult The observe_result
+   * State of the session. The state must be `initialized` for the session to accept another recognition request. Other
+   * internal states are possible, but they have no meaning for the user. **Note:** This field is returned only when you
+   * request the status of an existing session.
+   *
+   * @return the state
    */
-  public void setObserveResult(final String observeResult) {
-    this.observeResult = observeResult;
+  public String getState() {
+    return state;
+  }
+
+  /**
+   * Gets the model.
+   *
+   * URI for information about the model that is used with the session. **Note:** This field is returned only when you
+   * request the status of an existing session.
+   *
+   * @return the model
+   */
+  public String getModel() {
+    return model;
   }
 
   /**
    * Sets the recognize.
    *
-   * @param recognize The recognize
+   * @param recognize the new recognize
    */
   public void setRecognize(final String recognize) {
     this.recognize = recognize;
   }
 
   /**
-   * Sets the recognize ws.
+   * Sets the recognizeWS.
    *
-   * @param recognizeWS The recognizeWS
+   * @param recognizeWS the new recognizeWS
    */
   public void setRecognizeWS(final String recognizeWS) {
     this.recognizeWS = recognizeWS;
   }
 
   /**
-   * Sets the session id.
+   * Sets the observeResult.
    *
-   * @param sessionId The session_id
+   * @param observeResult the new observeResult
+   */
+  public void setObserveResult(final String observeResult) {
+    this.observeResult = observeResult;
+  }
+
+  /**
+   * Sets the sessionId.
+   *
+   * @param sessionId the new sessionId
    */
   public void setSessionId(final String sessionId) {
     this.sessionId = sessionId;
+  }
+
+  /**
+   * Sets the newSessionUri.
+   *
+   * @param newSessionUri the new newSessionUri
+   */
+  public void setNewSessionUri(final String newSessionUri) {
+    this.newSessionUri = newSessionUri;
+  }
+
+  /**
+   * Sets the state.
+   *
+   * @param state the new state
+   */
+  public void setState(final String state) {
+    this.state = state;
+  }
+
+  /**
+   * Sets the model.
+   *
+   * @param model the new model
+   */
+  public void setModel(final String model) {
+    this.model = model;
   }
 }

@@ -3,11 +3,5 @@
   "sounds_like": [
     "string"
   ],
-  "display_as": "string",
-  "source": [
-    "string"
-  ],
-  "error": [
-    {"string": "string"}
-  ]
+  "display_as": "string"
 }
