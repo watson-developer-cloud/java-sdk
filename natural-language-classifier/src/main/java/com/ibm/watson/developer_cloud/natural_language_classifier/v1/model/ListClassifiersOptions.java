@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -12,35 +12,46 @@
  */
 package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 
-import java.util.List;
-
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Classifier used by the {@link NaturalLanguageClassifier} service.
- *
+ * The listClassifiers options.
  */
-public class Classifiers extends GenericModel {
-
-  private List<Classifier> classifiers;
+public class ListClassifiersOptions extends GenericModel {
 
   /**
-   * Gets the classifiers.
-   *
-   * @return the classifiers
+   * Builder.
    */
-  public List<Classifier> getClassifiers() {
-    return classifiers;
+  public static class Builder {
+
+    private Builder(ListClassifiersOptions listClassifiersOptions) {
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a ListClassifiersOptions.
+     *
+     * @return the listClassifiersOptions
+     */
+    public ListClassifiersOptions build() {
+      return new ListClassifiersOptions(this);
+    }
+  }
+
+  private ListClassifiersOptions(Builder builder) {
   }
 
   /**
-   * Sets the classifiers.
+   * New builder.
    *
-   * @param classifiers the classifiers to set
+   * @return a ListClassifiersOptions builder
    */
-  public void setClassifiers(List<Classifier> classifiers) {
-    this.classifiers = classifiers;
+  public Builder newBuilder() {
+    return new Builder(this);
   }
-
 }

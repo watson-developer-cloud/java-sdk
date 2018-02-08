@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,76 +15,43 @@ package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 import java.util.Date;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Classifier used by the {@link NaturalLanguageClassifier} service.
- *
+ * A classifier for natural language phrases.
  */
 public class Classifier extends GenericModel {
 
-
   /**
-   * Classifier Status.
+   * The state of the classifier.
    */
-  public enum Status {
-
-    /** The available. */
-    @SerializedName("Available") AVAILABLE,
-
-    /** The failed. */
-    @SerializedName("Failed") FAILED,
-
-    /** The non existent. */
-    @SerializedName("Non Existent") NON_EXISTENT,
-
-    /** The training. */
-    @SerializedName("Training") TRAINING,
-
-    /** The unavailable. */
-    @SerializedName("Unavailable") UNAVAILABLE
+  public interface Status {
+    /** Non Existent. */
+    String NON_EXISTENT = "Non Existent";
+    /** Training. */
+    String TRAINING = "Training";
+    /** Failed. */
+    String FAILED = "Failed";
+    /** Available. */
+    String AVAILABLE = "Available";
+    /** Unavailable. */
+    String UNAVAILABLE = "Unavailable";
   }
 
-  @SerializedName("classifier_id")
-  private String id;
-  private String language;
   private String name;
-  private Status status;
+  private String url;
+  private String status;
+  @SerializedName("classifier_id")
+  private String classifierId;
   private Date created;
   @SerializedName("status_description")
   private String statusDescription;
-  private String url;
-
-  /**
-   * Gets the created.
-   *
-   * @return the created
-   */
-  public Date getCreated() {
-    return created;
-  }
-
-  /**
-   * Gets the classifier id.
-   *
-   * @return the classifier id
-   */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * Gets the language.
-   *
-   * @return the language
-   */
-  public String getLanguage() {
-    return language;
-  }
+  private String language;
 
   /**
    * Gets the name.
+   *
+   * User-supplied name for the classifier.
    *
    * @return the name
    */
@@ -93,25 +60,9 @@ public class Classifier extends GenericModel {
   }
 
   /**
-   * Gets the status.
-   *
-   * @return the status
-   */
-  public Status getStatus() {
-    return status;
-  }
-
-  /**
-   * Gets the status description.
-   *
-   * @return the status description
-   */
-  public String getStatusDescription() {
-    return statusDescription;
-  }
-
-  /**
    * Gets the url.
+   *
+   * Link to the classifier.
    *
    * @return the url
    */
@@ -120,57 +71,67 @@ public class Classifier extends GenericModel {
   }
 
   /**
-   * Sets the created.
+   * Gets the status.
    *
-   * @param created the created to set
+   * The state of the classifier.
+   *
+   * @return the status
    */
-  public void setCreated(Date created) {
-    this.created = created;
+  public String getStatus() {
+    return status;
   }
 
   /**
-   * Sets the classifier id.
+   * Gets the classifierId.
    *
-   * @param id the new classifier id
+   * Unique identifier for this classifier.
+   *
+   * @return the classifierId
    */
-  public void setId(String id) {
-    this.id = id;
+  public String getClassifierId() {
+    return classifierId;
   }
 
   /**
-   * Sets the language.
+   * Gets the created.
    *
-   * @param language the language to set
+   * Date and time (UTC) the classifier was created.
+   *
+   * @return the created
    */
-  public void setLanguage(String language) {
-    this.language = language;
+  public Date getCreated() {
+    return created;
+  }
+
+  /**
+   * Gets the statusDescription.
+   *
+   * Additional detail about the status.
+   *
+   * @return the statusDescription
+   */
+  public String getStatusDescription() {
+    return statusDescription;
+  }
+
+  /**
+   * Gets the language.
+   *
+   * The language used for the classifier.
+   *
+   * @return the language
+   */
+  public String getLanguage() {
+    return language;
   }
 
   /**
    * Sets the name.
    *
-   * @param name the name to set
+   * @param name the new name
    */
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
-  }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(Status status) {
-    this.status = status;
-  }
-
-  /**
-   * Sets the status description.
-   *
-   * @param statusDescription the new status description
-   */
-  public void setStatusDescription(String statusDescription) {
-    this.statusDescription = statusDescription;
   }
 
   /**
@@ -178,7 +139,25 @@ public class Classifier extends GenericModel {
    *
    * @param url the new url
    */
-  public void setUrl(String url) {
+  public void setUrl(final String url) {
     this.url = url;
+  }
+
+  /**
+   * Sets the classifierId.
+   *
+   * @param classifierId the new classifierId
+   */
+  public void setClassifierId(final String classifierId) {
+    this.classifierId = classifierId;
+  }
+
+  /**
+   * Sets the language.
+   *
+   * @param language the new language
+   */
+  public void setLanguage(final String language) {
+    this.language = language;
   }
 }

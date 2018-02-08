@@ -1,5 +1,5 @@
-/**
- * Copyright 2017 IBM Corp. All Rights Reserved.
+/*
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,61 +15,36 @@ package com.ibm.watson.developer_cloud.natural_language_classifier.v1.model;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.natural_language_classifier.v1.NaturalLanguageClassifier;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Classification class used by the {@link NaturalLanguageClassifier} service.
- *
+ * Response from the classifier for a phrase.
  */
 public class Classification extends GenericModel {
 
-  private List<ClassifiedClass> classes;
   @SerializedName("classifier_id")
-  private String id;
+  private String classifierId;
+  private String url;
   private String text;
   @SerializedName("top_class")
   private String topClass;
-  private String url;
+  private List<ClassifiedClass> classes;
 
   /**
-   * Gets the classes.
+   * Gets the classifierId.
    *
-   * @return the classes
-   */
-  public List<ClassifiedClass> getClasses() {
-    return classes;
-  }
-
-  /**
-   * Gets the id.
+   * Unique identifier for this classifier.
    *
-   * @return the id
+   * @return the classifierId
    */
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * Gets the text.
-   *
-   * @return the text
-   */
-  public String getText() {
-    return text;
-  }
-
-  /**
-   * Gets the top lass.
-   *
-   * @return the top class
-   */
-  public String getTopClass() {
-    return topClass;
+  public String getClassifierId() {
+    return classifierId;
   }
 
   /**
    * Gets the url.
+   *
+   * Link to the classifier.
    *
    * @return the url
    */
@@ -78,39 +53,45 @@ public class Classification extends GenericModel {
   }
 
   /**
-   * Sets the classes.
+   * Gets the text.
    *
-   * @param classes the new classes
+   * The submitted phrase.
+   *
+   * @return the text
    */
-  public void setClasses(List<ClassifiedClass> classes) {
-    this.classes = classes;
+  public String getText() {
+    return text;
   }
 
   /**
-   * Sets the id.
+   * Gets the topClass.
    *
-   * @param id the new id
+   * The class with the highest confidence.
+   *
+   * @return the topClass
    */
-  public void setId(String id) {
-    this.id = id;
+  public String getTopClass() {
+    return topClass;
   }
 
   /**
-   * Sets the text.
+   * Gets the classes.
    *
-   * @param text the new text
+   * An array of up to ten class-confidence pairs sorted in descending order of confidence.
+   *
+   * @return the classes
    */
-  public void setText(String text) {
-    this.text = text;
+  public List<ClassifiedClass> getClasses() {
+    return classes;
   }
 
   /**
-   * Sets the top class.
+   * Sets the classifierId.
    *
-   * @param topClass class the new top class
+   * @param classifierId the new classifierId
    */
-  public void setTopClass(String topClass) {
-    this.topClass = topClass;
+  public void setClassifierId(final String classifierId) {
+    this.classifierId = classifierId;
   }
 
   /**
@@ -118,7 +99,34 @@ public class Classification extends GenericModel {
    *
    * @param url the new url
    */
-  public void setUrl(String url) {
+  public void setUrl(final String url) {
     this.url = url;
+  }
+
+  /**
+   * Sets the text.
+   *
+   * @param text the new text
+   */
+  public void setText(final String text) {
+    this.text = text;
+  }
+
+  /**
+   * Sets the topClass.
+   *
+   * @param topClass the new topClass
+   */
+  public void setTopClass(final String topClass) {
+    this.topClass = topClass;
+  }
+
+  /**
+   * Sets the classes.
+   *
+   * @param classes the new classes
+   */
+  public void setClasses(final List<ClassifiedClass> classes) {
+    this.classes = classes;
   }
 }
