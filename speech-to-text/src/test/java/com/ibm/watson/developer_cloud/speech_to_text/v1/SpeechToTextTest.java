@@ -1392,9 +1392,15 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     server.enqueue(new MockResponse().withWebSocketUpgrade(webSocketRecorder));
 
+    String customizationId = "id";
+    String version = "version";
+    Double customizationWeight = 0.1;
     RecognizeOptions options = new RecognizeOptions.Builder()
         .audio(inputStream)
         .contentType(HttpMediaType.createAudioRaw(44000))
+        .customizationId(customizationId)
+        .version(version)
+        .customizationWeight(customizationWeight)
         .build();
     service.recognizeUsingWebSocket(options, callback);
 
@@ -1404,7 +1410,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     outputStream.write(ByteString.encodeUtf8("test").toByteArray());
     outputStream.close();
 
-    webSocketRecorder.assertTextMessage("{\"content-type\":\"audio/l16; rate=44000\",\"action\":\"start\"}");
+    webSocketRecorder.assertTextMessage("{\"customizationId\":\"id\","
+        + "\"customizationWeight\":0.1,\"content-type\":\"audio/l16; rate=44000\"," + "\"action\":\"start\"}");
     webSocketRecorder.assertBinaryMessage(ByteString.encodeUtf8("test"));
     webSocketRecorder.assertTextMessage("{\"action\":\"stop\"}");
     webSocketRecorder.assertExhausted();

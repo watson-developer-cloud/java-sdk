@@ -377,9 +377,13 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Test
   public void testCreateJob() throws InterruptedException, FileNotFoundException {
     File audio = new File(SAMPLE_WAV);
+    Long maxAlternatives = 3L;
+    Float wordAlternativesThreshold = 0.5f;
     CreateJobOptions createOptions = new CreateJobOptions.Builder()
         .audio(audio)
         .contentType(CreateJobOptions.ContentType.AUDIO_WAV)
+        .maxAlternatives(maxAlternatives)
+        .wordAlternativesThreshold(wordAlternativesThreshold)
         .build();
     RecognitionJob job = service.createJob(createOptions).execute();
     try {
@@ -395,6 +399,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
       assertEquals(RecognitionJob.Status.COMPLETED, job.getStatus());
 
       assertNotNull(job.getResults());
+      assertTrue(job.getResults().get(0).getResults().get(0).getAlternatives().size() <= maxAlternatives);
+      List<WordAlternativeResults> wordAlternatives = job.getResults().get(0).getResults().get(0).getWordAlternatives();
+      for (WordAlternativeResults alternativeResults : wordAlternatives) {
+        assertTrue(alternativeResults.getAlternatives().get(0).getConfidence() >= wordAlternativesThreshold);
+      }
 
     } finally {
       DeleteJobOptions deleteOptions = new DeleteJobOptions.Builder()
