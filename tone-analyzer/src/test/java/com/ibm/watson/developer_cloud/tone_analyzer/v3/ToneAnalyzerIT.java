@@ -37,23 +37,22 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
 
   /** The service. */
   private ToneAnalyzer service;
-  private static final String VERSION_DATE_2016_05_19 = "2016-05-19";
+  private static final String VERSION_DATE_VALUE = "2017-09-21";
   private String text = "I know the times are difficult! Our sales have been "
       + "disappointing for the past three quarters for our data analytics "
       + "product suite. We have a competitive data analytics product "
       + "suite in the industry. But we need to do our job selling it! ";
 
   private String[] users = { "customer", "agent", "customer", "agent" };
-  private String[] texts =
-      { "My charger isn't working.", "Thanks for reaching out. Can you give me some more detail about the issue?",
-          "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
-              + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
-              + "Which is ridiculous, it's brand new.",
-          "I'm sorry you're having issues with charging. What kind of charger are you using?" };
+  private String[] texts = { "My charger isn't working.",
+      "Thanks for reaching out. Can you give me some more detail about the issue?",
+      "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
+          + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
+          + "Which is ridiculous, it's brand new.",
+      "I'm sorry you're having issues with charging. What kind of charger are you using?" };
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -66,7 +65,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
     Assume.assumeFalse("config.properties doesn't have valid credentials.",
         (username == null) || username.equals(PLACEHOLDER));
 
-    service = new ToneAnalyzer(VERSION_DATE_2016_05_19);
+    service = new ToneAnalyzer(VERSION_DATE_VALUE);
     service.setUsernameAndPassword(username, getProperty("tone_analyzer.v3.password"));
     service.setEndPoint(getProperty("tone_analyzer.v3.url"));
     service.setDefaultHeaders(getDefaultHeaders());
@@ -155,7 +154,7 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
   private void assertToneAnalysis(ToneAnalysis tone) {
     Assert.assertNotNull(tone);
     Assert.assertNotNull(tone.getDocumentTone());
-    Assert.assertEquals(3, tone.getDocumentTone().getToneCategories().size());
+    Assert.assertEquals(2, tone.getDocumentTone().getTones().size());
     Assert.assertNotNull(tone.getSentencesTone());
     Assert.assertEquals(4, tone.getSentencesTone().size());
     Assert.assertEquals("I know the times are difficult!", tone.getSentencesTone().get(0).getText());
@@ -177,7 +176,6 @@ public class ToneAnalyzerIT extends WatsonServiceTest {
     ToneChatOptions toneChatOptions = new ToneChatOptions.Builder()
         .utterances(utterances)
         .build();
-
 
     UtteranceAnalyses utterancesTone = service.toneChat(toneChatOptions).execute();
 
