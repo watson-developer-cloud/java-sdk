@@ -1,6 +1,6 @@
 # Examples
 
-This examples shows how to use the Java SDK.
+This example shows you how to use the Java SDK.
 
 ## Installation
 
