@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -10,53 +10,43 @@
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
-
 package com.ibm.watson.developer_cloud.speech_to_text.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Customization corpus. The information includes the total number of
- * words and out-of-vocabulary (OOV) words, name, and status of each corpus.
- * Only the owner of a custom model can use this method to list the model's corpora.
+ * Corpus.
  */
 public class Corpus extends GenericModel {
 
   /**
-   * Corpus Status.
+   * The status of the corpus: * `analyzed` indicates that the service has successfully analyzed the corpus; the custom
+   * model can be trained with data from the corpus. * `being_processed` indicates that the service is still analyzing
+   * the corpus; the service cannot accept requests to add new corpora or words, or to train the custom model. *
+   * `undetermined` indicates that the service encountered an error while processing the corpus.
    */
-  public enum Status {
-
-    /** The corpus has been successfully analyzed. */
-    @SerializedName("analyzed") ANALYZED,
-
-    /** The corpus is being processed. */
-    @SerializedName("being_processed") BEING_PROCESSED,
-
-    /** The corpus analysis has encountered a problem. */
-    @SerializedName("undetermined") UNDETERMINED
+  public interface Status {
+    /** analyzed. */
+    String ANALYZED = "analyzed";
+    /** being_processed. */
+    String BEING_PROCESSED = "being_processed";
+    /** undetermined. */
+    String UNDETERMINED = "undetermined";
   }
 
-  private String error;
   private String name;
-  @SerializedName("out_of_vocabulary_words")
-  private Integer outOfVocabularyWords;
-  private Status status;
   @SerializedName("total_words")
-  private Integer totalWords;
-
-  /**
-   * Gets the error.
-   *
-   * @return the error
-   */
-  public String getError() {
-    return error;
-  }
+  private Long totalWords;
+  @SerializedName("out_of_vocabulary_words")
+  private Long outOfVocabularyWords;
+  private String status;
+  private String error;
 
   /**
    * Gets the name.
+   *
+   * The name of the corpus.
    *
    * @return the name
    */
@@ -65,39 +55,51 @@ public class Corpus extends GenericModel {
   }
 
   /**
-   * The number of OOV words in the corpus. The value is 0 while the corpus is being processed.
+   * Gets the totalWords.
    *
-   * @return the out of vocabulary words
+   * The total number of words in the corpus. The value is `0` while the corpus is being processed.
+   *
+   * @return the totalWords
    */
-  public Integer getOutOfVocabularyWords() {
+  public Long getTotalWords() {
+    return totalWords;
+  }
+
+  /**
+   * Gets the outOfVocabularyWords.
+   *
+   * The number of OOV words in the corpus. The value is `0` while the corpus is being processed.
+   *
+   * @return the outOfVocabularyWords
+   */
+  public Long getOutOfVocabularyWords() {
     return outOfVocabularyWords;
   }
 
   /**
    * Gets the status.
    *
+   * The status of the corpus: * `analyzed` indicates that the service has successfully analyzed the corpus; the custom
+   * model can be trained with data from the corpus. * `being_processed` indicates that the service is still analyzing
+   * the corpus; the service cannot accept requests to add new corpora or words, or to train the custom model. *
+   * `undetermined` indicates that the service encountered an error while processing the corpus.
+   *
    * @return the status
    */
-  public Status getStatus() {
+  public String getStatus() {
     return status;
   }
 
   /**
-   * The total number of words in the corpus. The value is 0 while the corpus is being processed.
+   * Gets the error.
    *
-   * @return the total words
-   */
-  public Integer getTotalWords() {
-    return totalWords;
-  }
-
-  /**
-   * Sets the error.
+   * If the status of the corpus is `undetermined`, the following message: `Analysis of corpus 'name' failed. Please try
+   * adding the corpus again by setting the 'allow_overwrite' flag to 'true'`.
    *
-   * @param error the new error
+   * @return the error
    */
-  public void setError(String error) {
-    this.error = error;
+  public String getError() {
+    return error;
   }
 
   /**
@@ -105,17 +107,26 @@ public class Corpus extends GenericModel {
    *
    * @param name the new name
    */
-  public void setName(String name) {
+  public void setName(final String name) {
     this.name = name;
   }
 
   /**
-   * Sets the number of OOV words in the corpus.
+   * Sets the totalWords.
    *
-   * @param outOfVocabularyWOrds the new out of vocabulary words
+   * @param totalWords the new totalWords
    */
-  public void setOutOfVocabularyWords(Integer outOfVocabularyWOrds) {
-    this.outOfVocabularyWords = outOfVocabularyWOrds;
+  public void setTotalWords(final long totalWords) {
+    this.totalWords = totalWords;
+  }
+
+  /**
+   * Sets the outOfVocabularyWords.
+   *
+   * @param outOfVocabularyWords the new outOfVocabularyWords
+   */
+  public void setOutOfVocabularyWords(final long outOfVocabularyWords) {
+    this.outOfVocabularyWords = outOfVocabularyWords;
   }
 
   /**
@@ -123,16 +134,16 @@ public class Corpus extends GenericModel {
    *
    * @param status the new status
    */
-  public void setStatus(Status status) {
+  public void setStatus(final String status) {
     this.status = status;
   }
 
   /**
-   * Sets the total words.
+   * Sets the error.
    *
-   * @param totalWords the new total words
+   * @param error the new error
    */
-  public void setTotalWords(Integer totalWords) {
-    this.totalWords = totalWords;
+  public void setError(final String error) {
+    this.error = error;
   }
 }
