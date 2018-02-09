@@ -1,39 +1,43 @@
-# Watson Developer Cloud Java SDK
+# Watson APIs Java SDK
 
 [![Build Status](https://travis-ci.org/watson-developer-cloud/java-sdk.svg?branch=master)](https://travis-ci.org/watson-developer-cloud/java-sdk)
+[![Slack](https://wdc-slack-inviter.mybluemix.net/badge.svg)](https://wdc-slack-inviter.mybluemix.net)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
 
 Java client library to use the [Watson APIs][wdc].
 
-## Table of Contents
+<details>
+  <summary>Table of Contents</summary>
 
-* [Installation](#installation)
-  * [Maven](#maven)
-  * [Gradle](#gradle)
-* [Usage](#usage)
-* [Getting the Service Credentials](#getting-the-service-credentials)
-* IBM Watson Services
-  * [Conversation](conversation)
-  * [Discovery](discovery)
-  * [Language Translation](language-translation)
-  * [Language Translator](language-translator)
-  * [Natural Language Classifier](natural-language-classifier)
-  * [Natural Language Understanding](natural-language-understanding)
-  * [Personality Insights](personality-insights)
-  * [Speech to Text](speech-to-text)
-  * [Text to Speech](text-to-speech)
-  * [Tone Analyzer](tone-analyzer)
-  * [Visual Recognition](visual-recognition)
-* [Changes for v4.0](#changes-for-v40)
-* [Using a Proxy](#using-a-proxy)
-* [Android](#android)
-* [Running in IBM Cloud](#running-in-ibm-cloud)
-* [Default Headers](#default-headers)
-* [Debug](#debug)
-* [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
-* [License](#license)
-* [Contributing](#contributing)
+  * [Installation](#installation)
+    * [Maven](#maven)
+    * [Gradle](#gradle)
+  * [Usage](#usage)
+  * [Getting the Service Credentials](#getting-the-service-credentials)
+  * IBM Watson Services
+    * [Conversation](conversation)
+    * [Discovery](discovery)
+    * [Language Translator](language-translator)
+    * [Natural Language Classifier](natural-language-classifier)
+    * [Natural Language Understanding](natural-language-understanding)
+    * [Personality Insights](personality-insights)
+    * [Speech to Text](speech-to-text)
+    * [Text to Speech](text-to-speech)
+    * [Tone Analyzer](tone-analyzer)
+    * [Tradeoff Analytics](tradeoff-analytics)
+    * [Visual Recognition](visual-recognition)
+  * [Changes for v4.0](#changes-for-v40)
+  * [Using a Proxy](#using-a-proxy)
+  * [Android](#android)
+  * [Running in IBM Cloud](#running-in-ibm-cloud)
+  * [Default Headers](#default-headers)
+  * [Debug](#debug)
+  * [Eclipse and Intellij](#working-with-eclipse-and-intellij-idea)
+  * [License](#license)
+  * [Contributing](#contributing)
+
+</details>
 
 ## Installation
 
@@ -67,16 +71,10 @@ All the services:
 'com.ibm.watson.developer_cloud:java-sdk:4.2.1'
 ```
 
-Only Discovery:
+Only Conversation:
 
 ```gradle
-'com.ibm.watson.developer_cloud:discovery:4.2.1'
-```
-
-Only Visual Recognition:
-
-```gradle
-'com.ibm.watson.developer_cloud:visual-recognition:4.2.1'
+'com.ibm.watson.developer_cloud:conversation:4.2.1'
 ```
 
 ##### Development Snapshots
@@ -118,19 +116,15 @@ credentials; the library will get them for you by looking at the [`VCAP_SERVICES
 
 ## Getting the Service Credentials
 
-You will need the `username` and `password` (`api_key` for AlchemyAPI) credentials, and the API endpoint for each service. Service credentials are different from your IBM Cloud account username and password.
+You will need the `username` and `password` (`api_key` for Visual Recognition) credentials, and the API endpoint for each service. Service credentials are different from your IBM Cloud account username and password.
 
 To get your service credentials, follow these steps:
 
 1. Log in to [IBM Cloud](https://console.bluemix.net/catalog?category=watson)
-
-1. Create an instance of the service:
-    1. In the IBM Cloud **Catalog**, select the service you want to use.
-    1. Click **Create**.
-
-1. Copy your credentials:
-    1. On the left side of the page, click **Service Credentials**, and then **View credentials** to view your service credentials.
-    1. Copy `url`, `username` and `password`(`api_key` for AlchemyAPI or Visual Recognition).
+1. In the IBM Cloud **Catalog**, select the service you want to use.
+1. Click **Create**.
+1. On the left side of the page, click **Service Credentials**, and then **View credentials** to view your service credentials.
+1. Copy `url`, `username` and `password`(`api_key` for AlchemyAPI or Visual Recognition).
 
 ## Changes for v4.0
 Version 4.0 focuses on the move to programmatically-generated code for many of the services. See the [changelog](https://github.com/watson-developer-cloud/java-sdk/wiki/Changelog) for the details.
@@ -197,7 +191,7 @@ service.setDefaultHeaders(headers);
 
 You can set the correct API Endpoint for your service calling `setEndPoint()`.
 
-For example, if you have the conversation service in Germany, the Endpoint may be `https://gateway-fra.watsonplatform.net/conversation/api`. 
+For example, if you have the conversation service in Germany, the Endpoint may be `https://gateway-fra.watsonplatform.net/conversation/api`.
 
 You will need to call
 
@@ -292,7 +286,7 @@ Watson Services, please ask a question on
 or [Stack Overflow](http://stackoverflow.com/questions/ask?tags=ibm-watson).
 
 
-[wdc]: http://www.ibm.com/watson/developercloud/
+[wdc]: https://www.ibm.com/watson/developer/
 [ibm_cloud]: https://console.bluemix.net
 [Gradle]: http://www.gradle.org/
 [OkHttp]: http://square.github.io/okhttp/
