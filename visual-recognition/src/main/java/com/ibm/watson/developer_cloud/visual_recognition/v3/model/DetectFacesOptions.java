@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -162,7 +162,8 @@ public class DetectFacesOptions extends GenericModel {
   /**
    * Gets the parameters.
    *
-   * A JSON string containing the image URL to analyze. For example: {"url": "..."}
+   * A JSON object that specifies a single image (.jpg, .png) to analyze by URL. The parameter can be sent as a string
+   * or a file. Example: `{"url":"http://www.example.com/images/myimage.jpg"}`.
    *
    * @return the parameters
    */

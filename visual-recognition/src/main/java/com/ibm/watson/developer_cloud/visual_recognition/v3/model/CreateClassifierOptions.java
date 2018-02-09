@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -53,7 +53,7 @@ public class CreateClassifierOptions extends GenericModel {
      * Instantiates a new builder.
      */
     public Builder() {
-      classnamePositiveExamples = new HashMap<String, File>();
+      classnamePositiveExamples = new HashMap<>();
     }
 
     /**
@@ -95,8 +95,8 @@ public class CreateClassifierOptions extends GenericModel {
      * @return the builder
      */
     public Builder addClass(String className, File positiveExamples) {
-      Validator.notNull(className, "'className' cannot be null");
-      Validator.notNull(positiveExamples, "'positiveExamples' cannot be null");
+      Validator.notNull(className, "className cannot be null");
+      Validator.notNull(positiveExamples, "positiveExamples cannot be null");
       classnamePositiveExamples.put(className, positiveExamples);
       return this;
     }
@@ -160,7 +160,7 @@ public class CreateClassifierOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the new classifier. Cannot contain special characters.
+   * The name of the new classifier. Encode special characters in UTF-8.
    *
    * @return the name
    */
@@ -171,9 +171,13 @@ public class CreateClassifierOptions extends GenericModel {
   /**
    * Gets the class names.
    *
-   * A compressed (.zip) file of images that depict the visual subject for a class within the new classifier. Must
-   * contain a minimum of 10 images. The swagger limits you to training only one class. To train more classes, use the
-   * API functionality.
+   * A .zip file of images that depict the visual subject of a class in the new classifier. You can include more than
+   * one positive example file in a call. Append `_positive_examples` to the form name. The prefix is used as the class
+   * name. For example, `goldenretriever_positive_examples` creates the class **goldenretriever**. Include at least 10
+   * images in .jpg or .png format. The minimum recommended image resolution is 32X32 pixels. The maximum number of
+   * images is 10,000 images or 100 MB per .zip file. Encode special characters in the file name in UTF-8. The API
+   * explorer limits you to training only one class. To train more classes, use the API functionality.
+   *
    * @return the classNames
    */
   public Set<String> classNames() {
@@ -194,7 +198,7 @@ public class CreateClassifierOptions extends GenericModel {
    * Gets the negativeExamples.
    *
    * A compressed (.zip) file of images that do not depict the visual subject of any of the classes of the new
-   * classifier. Must contain a minimum of 10 images.
+   * classifier. Must contain a minimum of 10 images. Encode special characters in the file name in UTF-8.
    *
    * @return the negativeExamples
    */

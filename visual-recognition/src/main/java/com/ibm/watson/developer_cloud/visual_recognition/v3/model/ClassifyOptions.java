@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -177,8 +177,10 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the imagesFile.
    *
-   * An image file (.jpg, .png) or .zip file with images. Include no more than 20 images and limit the .zip file to 5
-   * MB. You can also include images with the `url` property in the **parameters** object.
+   * An image file (.jpg, .png) or .zip file with images. Maximum image size is 10 MB. Include no more than 20 images
+   * and limit the .zip file to 100 MB. Encode the image and .zip file names in UTF-8 if they contain non-ASCII
+   * characters. The service assumes UTF-8 encoding if it encounters non-ASCII characters. You can also include images
+   * with the `url` property in the **parameters** object.
    *
    * @return the imagesFile
    */
@@ -200,12 +202,22 @@ public class ClassifyOptions extends GenericModel {
   /**
    * Gets the parameters.
    *
-   * Specifies input parameters. The parameter can include these inputs in a JSON object: - url: A string with the image
-   * URL to analyze. You can also include images in the **images_file** parameter. - classifier_ids: An array of
-   * classifier IDs to classify the images against. - owners: An array with the values IBM, me, or both to specify which
-   * classifiers to run. - threshold: A floating point value that specifies the minimum score a class must have to be
-   * displayed in the response. For example: {"url": "...", "classifier_ids": ["...","..."], "owners": ["IBM", "me"],
-   * "threshold": 0.4}
+   * A JSON object that specifies additional request options. The parameter can be sent as a string or a file, and can
+   * include these inputs: - **url**: A string with the image URL to analyze. Must be in .jpg, or .png format. The
+   * minimum recommended pixel density is 32X32 pixels per inch, and the maximum image size is 10 MB. You can also
+   * include images in the **images_file** parameter. - **threshold**: A floating point value that specifies the minimum
+   * score a class must have to be displayed in the response. The default threshold for returning scores from a
+   * classifier is `0.5`. Set the threshold to `0.0` to ignore the classification score and return all values. -
+   * **owners**: An array of the categories of classifiers to apply. Use `IBM` to classify against the `default` general
+   * classifier, and use `me` to classify against your custom classifiers. To analyze the image against both classifier
+   * categories, set the value to both `IBM` and `me`. The built-in `default` classifier is used if both
+   * **classifier_ids** and **owners** parameters are empty. The **classifier_ids** parameter overrides **owners**, so
+   * make sure that **classifier_ids** is empty. - **classifier_ids**: Specifies which classifiers to apply and
+   * overrides the **owners** parameter. You can specify both custom and built-in classifiers. The built-in `default`
+   * classifier is used if both **classifier_ids** and **owners** parameters are empty. The following built-in
+   * classifier IDs require no training: - `default`: Returns classes from thousands of general tags. - `food`: (Beta)
+   * Enhances specificity and accuracy for images of food items. - `explicit`: (Beta) Evaluates whether the image might
+   * be pornographic. Example: `{"classifier_ids":["CarsvsTrucks_1479118188","explicit"],"threshold":0.6}`.
    *
    * @return the parameters
    */

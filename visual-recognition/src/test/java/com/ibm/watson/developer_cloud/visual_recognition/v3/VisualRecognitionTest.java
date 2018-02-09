@@ -48,8 +48,8 @@ import org.junit.Test;
 public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   private static final String API_KEY = "alchemykey";
-  private static final String FIXTURE_CLASSIFICATION =
-      "src/test/resources/visual_recognition/visual_classification.json";
+  private static final String FIXTURE_CLASSIFICATION
+      = "src/test/resources/visual_recognition/visual_classification.json";
   private static final String FIXTURE_CLASSIFIER = "src/test/resources/visual_recognition/visual_classifier.json";
   private static final String FIXTURE_FACES = "src/test/resources/visual_recognition/detected_faces.json";
   private static final String IMAGE_FILE = "src/test/resources/visual_recognition/test.zip";
@@ -64,7 +64,6 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceUnitTest#setUp()
    */
   @Override
@@ -98,8 +97,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path =
-        PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key=" + API_KEY;
+    String path = PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key="
+        + API_KEY;
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals(serviceResponse, mockResponse);
@@ -132,8 +131,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path =
-        PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key=" + API_KEY;
+    String path = PATH_CLASSIFY + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key="
+        + API_KEY;
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
     assertEquals(serviceResponse, mockResponse);
@@ -156,8 +155,8 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     String class1 = "class1";
     String classifierId = "foo123";
 
-    UpdateClassifierOptions options =
-        new UpdateClassifierOptions.Builder(classifierId).addClass(class1, images).build();
+    UpdateClassifierOptions options = new UpdateClassifierOptions.Builder(classifierId).addClass(class1, images)
+        .build();
 
     Classifier serviceResponse = service.updateClassifier(options).execute();
 
@@ -170,13 +169,12 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     assertEquals("POST", request.getMethod());
     String body = request.getBody().readUtf8();
 
-    String contentDisposition =
-        "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
+    String contentDisposition
+        = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
     assertTrue(body.contains(contentDisposition));
     assertTrue(!body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);
   }
-
 
   /**
    * Test create classifier.
@@ -204,15 +202,15 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     // first request
     RecordedRequest request = server.takeRequest();
-    String path =
-        PATH_CLASSIFIERS + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key=" + API_KEY;
+    String path = PATH_CLASSIFIERS + "?" + VERSION_DATE + "=" + VisualRecognition.VERSION_DATE_2016_05_20 + "&api_key="
+        + API_KEY;
 
     assertEquals(path, request.getPath());
     assertEquals("POST", request.getMethod());
     String body = request.getBody().readUtf8();
 
-    String contentDisposition =
-        "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
+    String contentDisposition
+        = "Content-Disposition: form-data; name=\"class1_positive_examples\"; filename=\"test.zip\"";
     assertTrue(body.contains(contentDisposition));
     assertTrue(body.contains("Content-Disposition: form-data; name=\"name\""));
     assertEquals(serviceResponse, mockResponse);

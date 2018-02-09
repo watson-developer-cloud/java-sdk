@@ -97,7 +97,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -122,9 +121,9 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void testClassifyImagesFromBytes() throws IOException {
     InputStream imagesStream = new FileInputStream(SINGLE_IMAGE_FILE);
     ClassifyOptions options = new ClassifyOptions.Builder()
-      .imagesFile(imagesStream)
-      .imagesFilename("car.png")
-      .build();
+        .imagesFile(imagesStream)
+        .imagesFilename("car.png")
+        .build();
     ClassifiedImages result = service.classify(options).execute();
     assertClassifyImage(result, options);
   }
@@ -133,7 +132,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
    * Test classify images from zip file.
    */
   @Test
-  public void testClassifyImagesFromFile()  throws FileNotFoundException {
+  public void testClassifyImagesFromFile() throws FileNotFoundException {
     File images = new File(IMAGE_FILE);
     ClassifyOptions options = new ClassifyOptions.Builder().imagesFile(images).build();
     ClassifiedImages result = service.classify(options).execute();
@@ -193,8 +192,8 @@ public class VisualRecognitionIT extends WatsonServiceTest {
       ClassifiedImages classification = service.classify(options).execute();
       assertNotNull(classification);
     } finally {
-      DeleteClassifierOptions deleteOptions =
-          new DeleteClassifierOptions.Builder(newClassifier.getClassifierId()).build();
+      DeleteClassifierOptions deleteOptions = new DeleteClassifierOptions.Builder(newClassifier.getClassifierId())
+          .build();
       service.deleteClassifier(deleteOptions).execute();
     }
   }
@@ -264,7 +263,6 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     DetectedFaces result = service.detectFaces(options).execute();
     assertDetectedFaces(result, options);
   }
-
 
   /**
    * Test detect faces from file.
