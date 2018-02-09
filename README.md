@@ -4,8 +4,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
 
-The Java SDK uses the [Watson Developer Cloud][wdc] services, a collection of REST
-APIs and SDKs that use cognitive computing to solve complex problems.
+Java client library to use the [Watson APIs][wdc].
 
 ## Table of Contents
 
