@@ -1,5 +1,4 @@
 # Language Translator
-Formerly called Language Translation. No code changes are required to migrate.
 
 ## Installation
 
