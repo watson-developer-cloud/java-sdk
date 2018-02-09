@@ -1,10 +1,10 @@
 {
-  "result_index": 0,
   "results": [
     {
       "final": true,
       "alternatives": [
         {
+          "transcript": "thank you for calling this is Dave speaking how can I help you hi Dave I filled out an application last night and the last page it says to call and give more information I'd be more than happy to assist you with that I'll have to ask you some additional questions okay okay vehicle that you're looking to purchase are you purchasing from an individual or from a dealer I'm an individual okay all right %HESITATION any special occasion for the car purchase no I just want a new car okay and looks like you applied for twenty thousand dollars ",
           "confidence": 0.939,
           "timestamps": [
             [
@@ -178,7 +178,7 @@
               8.37
             ],
             [
-              "I\u0027d",
+              "I'd",
               8.92,
               9.08
             ],
@@ -228,7 +228,7 @@
               10.58
             ],
             [
-              "I\u0027ll",
+              "I'll",
               11.07,
               11.21
             ],
@@ -288,7 +288,7 @@
               14.85
             ],
             [
-              "you\u0027re",
+              "you're",
               14.85,
               14.97
             ],
@@ -358,7 +358,7 @@
               18.3
             ],
             [
-              "I\u0027m",
+              "I'm",
               18.5,
               18.63
             ],
@@ -512,8 +512,7 @@
               27.83,
               28.35
             ]
-          ],
-          "transcript": "thank you for calling this is Dave speaking how can I help you hi Dave I filled out an application last night and the last page it says to call and give more information I\u0027d be more than happy to assist you with that I\u0027ll have to ask you some additional questions okay okay vehicle that you\u0027re looking to purchase are you purchasing from an individual or from a dealer I\u0027m an individual okay all right %HESITATION any special occasion for the car purchase no I just want a new car okay and looks like you applied for twenty thousand dollars "
+          ]
         }
       ]
     },
@@ -521,6 +520,7 @@
       "final": true,
       "alternatives": [
         {
+          "transcript": "yes that's right okay we just want to ensure that the amount of your question is sufficient to cover the price the taxes the title and other fees yes it is ",
           "confidence": 0.951,
           "timestamps": [
             [
@@ -529,7 +529,7 @@
               29.17
             ],
             [
-              "that\u0027s",
+              "that's",
               29.17,
               29.37
             ],
@@ -678,12 +678,12 @@
               37.09,
               37.27
             ]
-          ],
-          "transcript": "yes that\u0027s right okay we just want to ensure that the amount of your question is sufficient to cover the price the taxes the title and other fees yes it is "
+          ]
         }
       ]
     }
   ],
+  "result_index": 0,
   "speaker_labels": [
     {
       "from": 0.06,

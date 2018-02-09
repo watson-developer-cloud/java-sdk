@@ -1,0 +1,33 @@
+{
+  "customizations": [
+    {
+      "customization_id": "74f4807e-b5ff-4866-824e-6bba1a84fe96",
+      "created": "2016-06-01T18:42:25.324Z",
+      "language": "en-US",
+      "versions": [
+        "en-US_BroadbandModel.v07-06082016.06202016",
+        "en-US_BroadbandModel.v2017-11-15"
+      ],
+      "owner": "297cfd08-330a-22ba-93ce-1a73f454dd98",
+      "name": "Example model one",
+      "description": "Example custom acoustic model",
+      "base_model_name": "en-US_BroadbandModel",
+      "status": "pending",
+      "progress": 0
+    },
+    {
+      "customization_id": "8391f918-3b76-e109-763c-b7732fae4829",
+      "created": "2016-06-01T18:51:37.291Z",
+      "language": "en-US",
+      "versions": [
+        "en-US_BroadbandModel.v2017-11-15"
+      ],
+      "owner": "297cfd08-330a-22ba-93ce-1a73f454dd98",
+      "name": "Example model two",
+      "description": "Example custom acoustic model two",
+      "base_model_name": "en-US_BroadbandModel",
+      "status": "available",
+      "progress": 100
+    }
+  ]
+}

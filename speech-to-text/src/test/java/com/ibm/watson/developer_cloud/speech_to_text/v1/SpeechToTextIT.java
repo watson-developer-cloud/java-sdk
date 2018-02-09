@@ -12,18 +12,53 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.List;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
-
+import com.ibm.watson.developer_cloud.WatsonServiceTest;
+import com.ibm.watson.developer_cloud.http.HttpMediaType;
+import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AcousticModels;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddAudioOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AddWordOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioListing;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioResources;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CheckJobOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpora;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus.Status;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateJobOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CustomWord;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteJobOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteLanguageModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAcousticModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetAudioOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetCorpusOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetModelOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.GetWordOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.KeywordResult;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.LanguageModels;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListAudioOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListCorporaOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ListWordsOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobs;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModels;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResult;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordAlternativeResults;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Words;
+import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
+import com.ibm.watson.developer_cloud.util.RetryRunner;
 import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -32,28 +67,18 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 
-import com.ibm.watson.developer_cloud.WatsonServiceTest;
-import com.ibm.watson.developer_cloud.http.HttpMediaType;
-import com.ibm.watson.developer_cloud.service.exception.NotFoundException;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpus.Status;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Customization;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.KeywordsResult;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJob;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognitionJobOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.RecognizeOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechResults;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSession;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechSessionStatus;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechWordAlternatives;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Transcript;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Sort;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Word.Type;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.WordData;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.websocket.BaseRecognizeCallback;
-import com.ibm.watson.developer_cloud.util.RetryRunner;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Speech to text Integration tests.
@@ -66,11 +91,12 @@ public class SpeechToTextIT extends WatsonServiceTest {
   private static final String SAMPLE_WAV = String.format(SPEECH_RESOURCE, "sample1.wav");
   private static final String TWO_SPEAKERS_WAV = String.format(SPEECH_RESOURCE, "twospeakers.wav");
   private static final String SAMPLE_WAV_WITH_PAUSE = String.format(SPEECH_RESOURCE, "sound-with-pause.wav");
+  private static final String WAV_ARCHIVE = String.format(SPEECH_RESOURCE, "sample-wav-archive.zip");
   private static final Logger LOG = Logger.getLogger(SpeechToTextIT.class.getName());
 
   private CountDownLatch lock = new CountDownLatch(1);
   private SpeechToText service;
-  private SpeechResults asyncResults;
+  private SpeechRecognitionResults asyncResults;
   private Boolean inactivityTimeoutOccurred;
   private String customizationId;
 
@@ -103,53 +129,14 @@ public class SpeechToTextIT extends WatsonServiceTest {
   }
 
   /**
-   * Test create session.
-   */
-  @Test
-  public void testCreateSession() {
-    SpeechSession session = service.createSession().execute();
-    try {
-      assertNotNull(session);
-      assertNotNull(session.getSessionId());
-    } finally {
-      service.deleteSession(session).execute();
-    }
-  }
-
-  /**
-   * Test create session speech model.
-   */
-  @Test
-  public void testCreateSessionSpeechModel() {
-    SpeechSession session = service.createSession(SpeechModel.EN_US_BROADBANDMODEL).execute();
-    try {
-      assertNotNull(session);
-      assertNotNull(session.getSessionId());
-    } finally {
-      service.deleteSession(session).execute();
-    }
-  }
-
-  /**
-   * Test create session string.
-   */
-  @Test
-  public void testCreateSessionString() {
-    SpeechSession session = service.createSession(EN_BROADBAND16K).execute();
-    try {
-      assertNotNull(session);
-      assertNotNull(session.getSessionId());
-    } finally {
-      service.deleteSession(session).execute();
-    }
-  }
-
-  /**
    * Test get model.
    */
   @Test
   public void testGetModel() {
-    SpeechModel model = service.getModel(EN_BROADBAND16K).execute();
+    GetModelOptions getOptions = new GetModelOptions.Builder()
+        .modelId(EN_BROADBAND16K)
+        .build();
+    SpeechModel model = service.getModel(getOptions).execute();
     assertNotNull(model);
     assertNotNull(model.getName());
     assertNotNull(model.getLanguage());
@@ -157,59 +144,59 @@ public class SpeechToTextIT extends WatsonServiceTest {
     assertNotNull(model.getUrl());
     assertNotNull(model.getDescription());
     assertNotNull(model.getSessions());
-    assertNotNull(model.getSupportedFeatures().getCustomLanguageModel());
-    assertNotNull(model.getSupportedFeatures().getSpeakerLabels());
+    assertNotNull(model.getSupportedFeatures().isCustomLanguageModel());
+    assertNotNull(model.getSupportedFeatures().isSpeakerLabels());
   }
 
   /**
-   * Test get models.
+   * Test list models.
    */
   @Test
-  public void testGetModels() {
-    List<SpeechModel> models = service.getModels().execute();
+  public void testListModels() {
+    SpeechModels models = service.listModels().execute();
     assertNotNull(models);
-    assertTrue(!models.isEmpty());
-  }
-
-  /**
-   * Test get recognize status.
-   */
-  @Test
-  public void testGetRecognizeStatus() {
-    SpeechSession session = service.createSession(SpeechModel.EN_US_BROADBANDMODEL).execute();
-    SpeechSessionStatus status = service.getRecognizeStatus(session).execute();
-    try {
-      assertNotNull(status);
-      assertNotNull(status.getModel());
-      assertNotNull(status.getState());
-    } finally {
-      service.deleteSession(session).execute();
-    }
+    assertTrue(!models.getModels().isEmpty());
   }
 
   /**
    * Test recognize audio file.
    */
   @Test
-  public void testRecognizeFileString() {
+  public void testRecognizeFileString() throws FileNotFoundException {
+    Long maxAlternatives = 3L;
+    Float wordAlternativesThreshold = 0.8f;
     File audio = new File(SAMPLE_WAV);
-    SpeechResults results = service.recognize(audio).execute();
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .audio(audio)
+        .contentType(RecognizeOptions.ContentType.AUDIO_WAV)
+        .maxAlternatives(maxAlternatives)
+        .wordAlternativesThreshold(wordAlternativesThreshold)
+        .smartFormatting(true)
+        .build();
+    SpeechRecognitionResults results = service.recognize(options).execute();
+
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
+    assertTrue(results.getResults().get(0).getAlternatives().size() <= maxAlternatives);
+    List<WordAlternativeResults> wordAlternatives = results.getResults().get(0).getWordAlternatives();
+    for (WordAlternativeResults alternativeResults : wordAlternatives) {
+      assertTrue(alternativeResults.getAlternatives().get(0).getConfidence() >= wordAlternativesThreshold);
+    }
   }
 
   /**
    * Test recognize multiple speakers.
    */
   @Test
-  public void testRecognizeMultipleSpeakers() {
+  public void testRecognizeMultipleSpeakers() throws FileNotFoundException {
     File audio = new File(TWO_SPEAKERS_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
+      .audio(audio)
       .speakerLabels(true)
-      .model(SpeechModel.EN_US_NARROWBANDMODEL.getName())
+      .model(RecognizeOptions.Model.EN_US_NARROWBANDMODEL)
       .contentType(HttpMediaType.AUDIO_WAV)
       .build();
 
-    SpeechResults results = service.recognize(audio, options).execute();
+    SpeechRecognitionResults results = service.recognize(options).execute();
     assertNotNull(results.getSpeakerLabels());
     assertTrue(results.getSpeakerLabels().size() > 0);
   }
@@ -218,51 +205,55 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * Test recognize file string recognize options.
    */
   @Test
-  public void testRecognizeFileStringRecognizeOptions() {
+  public void testRecognizeFileStringRecognizeOptions() throws FileNotFoundException {
     File audio = new File(SAMPLE_WAV);
     String contentType = HttpMediaType.AUDIO_WAV;
-    RecognizeOptions options = new RecognizeOptions.Builder().timestamps(true).wordConfidence(true)
-        .model(EN_BROADBAND16K).contentType(contentType).profanityFilter(false).build();
-    SpeechResults results = service.recognize(audio, options).execute();
+    RecognizeOptions options = new RecognizeOptions.Builder()
+        .audio(audio)
+        .timestamps(true)
+        .wordConfidence(true)
+        .model(EN_BROADBAND16K)
+        .contentType(contentType)
+        .profanityFilter(false)
+        .build();
+    SpeechRecognitionResults results = service.recognize(options).execute();
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTranscript());
     assertNotNull(results.getResults().get(0).getAlternatives().get(0).getTimestamps());
-    assertNotNull(results.getResults().get(0).getAlternatives().get(0).getWordConfidences());
+    assertNotNull(results.getResults().get(0).getAlternatives().get(0).getWordConfidence());
   }
 
   /**
    * Test keyword recognition.
    */
   @Test
-  public void testRecognizeKeywords() {
+  public void testRecognizeKeywords() throws FileNotFoundException {
     final String keyword1 = "rain";
     final String keyword2 = "tornadoes";
+    final File audio = new File(SAMPLE_WAV);
 
     final RecognizeOptions options = new RecognizeOptions.Builder()
+        .audio(audio)
         .contentType(HttpMediaType.AUDIO_WAV)
-        .model(SpeechModel.EN_US_NARROWBANDMODEL.getName())
+        .model(RecognizeOptions.Model.EN_US_NARROWBANDMODEL)
         .inactivityTimeout(500)
-        .keywords(keyword1, keyword2)
-        .keywordsThreshold(0.5)
+        .keywords(Arrays.asList(keyword1, keyword2))
+        .keywordsThreshold(0.5f)
         .build();
 
-    final File audio = new File(SAMPLE_WAV);
-    final SpeechResults results = service.recognize(audio, options).execute();
-    final Transcript transcript = results.getResults().get(0);
+    final SpeechRecognitionResults results = service.recognize(options).execute();
+    final SpeechRecognitionResult transcript = results.getResults().get(0);
 
     assertEquals(2, transcript.getKeywordsResult().size());
     assertTrue(transcript.getKeywordsResult().containsKey(keyword1));
     assertTrue(transcript.getKeywordsResult().containsKey(keyword2));
 
-    assertEquals(1, transcript.getKeywordsResult().get(keyword1).size());
-    assertEquals(1, transcript.getKeywordsResult().get(keyword2).size());
-
-    final KeywordsResult result1 = transcript.getKeywordsResult().get(keyword1).get(0);
+    final KeywordResult result1 = transcript.getKeywordsResult().get(keyword1).get(0);
     assertEquals(keyword1, result1.getNormalizedText());
     assertEquals(0.9, result1.getConfidence(), 0.1);
     assertEquals(5.58, result1.getStartTime(), 1.0);
     assertEquals(6.14, result1.getEndTime(), 1.0);
 
-    final KeywordsResult result2 = transcript.getKeywordsResult().get(keyword2).get(0);
+    final KeywordResult result2 = transcript.getKeywordsResult().get(keyword2).get(0);
     assertEquals(keyword2, result2.getNormalizedText());
     assertEquals(0.9, result2.getConfidence(), 0.1);
     assertEquals(4.42, result2.getStartTime(), 1.0);
@@ -277,19 +268,20 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testRecognizeWebSocket() throws FileNotFoundException, InterruptedException {
+    FileInputStream audio = new FileInputStream(SAMPLE_WAV);
     RecognizeOptions options = new RecognizeOptions.Builder()
+        .audio(audio)
         .interimResults(true)
         .inactivityTimeout(40)
         .timestamps(true)
         .maxAlternatives(2)
-        .wordAlternativesThreshold(0.5)
+        .wordAlternativesThreshold(0.5f)
         .model(EN_BROADBAND16K)
         .contentType(HttpMediaType.AUDIO_WAV)
         .inactivityTimeout(120)
         .build();
-    FileInputStream audio = new FileInputStream(SAMPLE_WAV);
 
-    service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
+    service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
 
       @Override
       public void onConnected() {
@@ -314,8 +306,9 @@ public class SpeechToTextIT extends WatsonServiceTest {
       }
 
       @Override
-      public void onTranscription(SpeechResults speechResults) {
-        if (speechResults != null && speechResults.isFinal()) {
+      public void onTranscription(SpeechRecognitionResults speechResults) {
+        Long resultIndex = speechResults.getResultIndex();
+        if (speechResults != null && speechResults.getResults().get(resultIndex.intValue()).isFinalResults()) {
           asyncResults = speechResults;
         }
       }
@@ -325,8 +318,8 @@ public class SpeechToTextIT extends WatsonServiceTest {
     lock.await(2, TimeUnit.MINUTES);
     assertNotNull(asyncResults);
 
-    List<SpeechWordAlternatives> wordAlternatives =
-        asyncResults.getResults().get(asyncResults.getResultIndex()).getWordAlternatives();
+   List<WordAlternativeResults> wordAlternatives =
+        asyncResults.getResults().get(asyncResults.getResultIndex().intValue()).getWordAlternatives();
     assertTrue(wordAlternatives != null && !wordAlternatives.isEmpty());
     assertNotNull(wordAlternatives.get(0).getAlternatives());
   }
@@ -340,18 +333,19 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test
   public void testInactivityTimeoutWithWebSocket() throws FileNotFoundException, InterruptedException {
+    FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
     RecognizeOptions options = new RecognizeOptions.Builder()
+        .audio(audio)
         .interimResults(true)
         .inactivityTimeout(3)
         .timestamps(true)
         .maxAlternatives(2)
-        .wordAlternativesThreshold(0.5)
+        .wordAlternativesThreshold(0.5f)
         .model(EN_BROADBAND16K)
         .contentType(HttpMediaType.AUDIO_WAV)
         .build();
 
-    FileInputStream audio = new FileInputStream(SAMPLE_WAV_WITH_PAUSE);
-    service.recognizeUsingWebSocket(audio, options, new BaseRecognizeCallback() {
+    service.recognizeUsingWebSocket(options, new BaseRecognizeCallback() {
 
       @Override
       public void onDisconnected() {
@@ -376,96 +370,135 @@ public class SpeechToTextIT extends WatsonServiceTest {
 
 
   /**
-   * Test create recognition job.
+   * Test create job.
    *
    * @throws InterruptedException the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
   @Test
-  public void testCreateRecognitionJob() throws InterruptedException, FileNotFoundException {
+  public void testCreateJob() throws InterruptedException, FileNotFoundException {
     File audio = new File(SAMPLE_WAV);
-    RecognitionJob job = service.createRecognitionJob(audio, null, null).execute();
+    Long maxAlternatives = 3L;
+    Float wordAlternativesThreshold = 0.5f;
+    CreateJobOptions createOptions = new CreateJobOptions.Builder()
+        .audio(audio)
+        .contentType(CreateJobOptions.ContentType.AUDIO_WAV)
+        .maxAlternatives(maxAlternatives)
+        .wordAlternativesThreshold(wordAlternativesThreshold)
+        .build();
+    RecognitionJob job = service.createJob(createOptions).execute();
     try {
       assertNotNull(job.getId());
-      for (int x = 0; x < 30 && job.getStatus() != RecognitionJob.Status.COMPLETED; x++) {
+      CheckJobOptions checkOptions = new CheckJobOptions.Builder()
+          .id(job.getId())
+          .build();
+      for (int x = 0; x < 30 && !job.getStatus().equals(RecognitionJob.Status.COMPLETED); x++) {
         Thread.sleep(3000);
-        job = service.getRecognitionJob(job.getId()).execute();
+        job = service.checkJob(checkOptions).execute();
       }
-      job = service.getRecognitionJob(job.getId()).execute();
+      job = service.checkJob(checkOptions).execute();
       assertEquals(RecognitionJob.Status.COMPLETED, job.getStatus());
 
       assertNotNull(job.getResults());
+      assertTrue(job.getResults().get(0).getResults().get(0).getAlternatives().size() <= maxAlternatives);
+      List<WordAlternativeResults> wordAlternatives = job.getResults().get(0).getResults().get(0).getWordAlternatives();
+      for (WordAlternativeResults alternativeResults : wordAlternatives) {
+        assertTrue(alternativeResults.getAlternatives().get(0).getConfidence() >= wordAlternativesThreshold);
+      }
 
     } finally {
-      service.deleteRecognitionJob(job.getId()).execute();
+      DeleteJobOptions deleteOptions = new DeleteJobOptions.Builder()
+          .id(job.getId())
+          .build();
+      service.deleteJob(deleteOptions).execute();
     }
   }
 
   /**
-   * Test create recognition job with a warning message.
+   * Test create job with a warning message.
+   *
+   * This test is currently being ignored as it has a very long runtime and causes Travis to timeout.
+   * The ignore annotation can be removed to test this locally.
    *
    * @throws InterruptedException the interrupted exception
    * @throws FileNotFoundException the file not found exception
    */
+  @Ignore
   @Test
-  public void testCreateRecognitionJobWarning() throws InterruptedException, FileNotFoundException {
+  public void testCreateJobWarning() throws InterruptedException, FileNotFoundException {
     File audio = new File(SAMPLE_WAV);
-    RecognitionJobOptions jobOptions = new RecognitionJobOptions.Builder().userToken("job").build();
-    RecognitionJob job = service.createRecognitionJob(audio, null, jobOptions).execute();
+    CreateJobOptions createOptions = new CreateJobOptions.Builder()
+        .audio(audio)
+        .contentType(CreateJobOptions.ContentType.AUDIO_WAV)
+        .userToken("job")
+        .build();
+    RecognitionJob job = service.createJob(createOptions).execute();
     try {
       assertNotNull(job.getId());
       assertNotNull(job.getWarnings());
+      CheckJobOptions checkOptions = new CheckJobOptions.Builder()
+          .id(job.getId())
+          .build();
       for (int x = 0; x < 30 && job.getStatus() != RecognitionJob.Status.COMPLETED; x++) {
         Thread.sleep(3000);
-        job = service.getRecognitionJob(job.getId()).execute();
+        job = service.checkJob(checkOptions).execute();
       }
-      job = service.getRecognitionJob(job.getId()).execute();
+      job = service.checkJob(checkOptions).execute();
       assertEquals(RecognitionJob.Status.COMPLETED, job.getStatus());
       assertNotNull(job.getResults());
     } finally {
-      service.deleteRecognitionJob(job.getId()).execute();
+      DeleteJobOptions deleteOptions = new DeleteJobOptions.Builder()
+          .id(job.getId())
+          .build();
+      service.deleteJob(deleteOptions).execute();
     }
   }
 
   /**
-   * Test get recognition job with wrong id.
+   * Test check job with wrong id.
    *
    */
   @Test
-  public void testGetRecognitionJobWithWrongId() {
+  public void testCheckJobWithWrongId() {
     expectedException.expect(NotFoundException.class);
     expectedException.expectMessage("job not found");
-    service.getRecognitionJob("foo").execute();
+    CheckJobOptions checkOptions = new CheckJobOptions.Builder()
+        .id("foo")
+        .build();
+    service.checkJob(checkOptions).execute();
   }
 
   /**
-   * Test get recognition jobs.
+   * Test check jobs.
    *
    */
   @Test
-  public void testGetRecognitionJobs() {
-    List<RecognitionJob> jobs = service.getRecognitionJobs().execute();
+  public void testCheckJobs() {
+    RecognitionJobs jobs = service.checkJobs().execute();
     assertNotNull(jobs);
   }
 
   /**
-   * Test get customizations.
+   * Test list language models.
    */
   @Test
-  public void testGetCustomizations() {
-    List<Customization> customizations = service.getCustomizations(null).execute();
-    assertNotNull(customizations);
-    assertTrue(!customizations.isEmpty());
+  public void testListLanguageModels() {
+    LanguageModels models = service.listLanguageModels().execute();
+    assertNotNull(models);
+    assertTrue(!models.getCustomizations().isEmpty());
   }
 
   /**
-   * Test get corpora.
+   * Test list corpora.
    *
    */
   @Test
   @Ignore
-  public void testGetCorpora() {
-    List<Corpus> result = service.getCorpora(customizationId).execute();
+  public void testListCorpora() {
+    ListCorporaOptions listOptions = new ListCorporaOptions.Builder()
+        .customizationId(customizationId)
+        .build();
+    Corpora result = service.listCorpora(listOptions).execute();
     assertNotNull(result);
   }
 
@@ -476,7 +509,11 @@ public class SpeechToTextIT extends WatsonServiceTest {
   @Test
   @Ignore
   public void testGetCorpus() {
-    Corpus result = service.getCorpus(customizationId, "foo3").execute();
+    GetCorpusOptions getOptions = new GetCorpusOptions.Builder()
+        .corpusName("foo3")
+        .customizationId(customizationId)
+        .build();
+    Corpus result = service.getCorpus(getOptions).execute();
     assertNotNull(result);
   }
 
@@ -486,141 +523,441 @@ public class SpeechToTextIT extends WatsonServiceTest {
    */
   @Test(expected = IllegalArgumentException.class)
   public void testAddCorpusFail() {
-      service.addCorpus(customizationId, "foo3", null, null).execute();
+    AddCorpusOptions addOptions = new AddCorpusOptions.Builder()
+        .corpusName("foo3")
+        .customizationId(customizationId)
+        .build();
+    service.addCorpus(addOptions).execute();
   }
 
   /**
-   * Test get words two-parameter version with no type.
+   * Test list words with just a customization ID.
    */
   @Test
   @Ignore
-  public void testGetWordsTwo() {
-    List<WordData> result = service.getWords(customizationId, null).execute();
+  public void testListWordsCustomizationId() {
+    ListWordsOptions listOptions = new ListWordsOptions.Builder()
+        .customizationId(customizationId)
+        .build();
+    Words result = service.listWords(listOptions).execute();
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertTrue(!result.getWords().isEmpty());
   }
 
   /**
-   * Test get words two-parameter version with type corpus.
+   * Test list words with a customization ID and word type.
    */
   @Test
   @Ignore
-  public void testGetWordsTwoType() {
-    List<WordData> result = service.getWords(customizationId, Type.CORPORA).execute();
+  public void testListWordsIdAndType() {
+    ListWordsOptions listOptions = new ListWordsOptions.Builder()
+        .customizationId(customizationId)
+        .wordType(ListWordsOptions.WordType.CORPORA)
+        .build();
+    Words result = service.listWords(listOptions).execute();
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertTrue(!result.getWords().isEmpty());
   }
 
   /**
-   * Test get words three-parameter version with no type and no sort.
+   * Test list words with type all.
    */
   @Test
   @Ignore
-  public void testGetWordsThree() {
-      List<WordData> result = service.getWords(customizationId, null, null).execute();
+  public void testListWordsTypeAll() {
+    ListWordsOptions listOptions = new ListWordsOptions.Builder()
+        .customizationId(customizationId)
+        .wordType(ListWordsOptions.WordType.ALL)
+        .build();
+    Words result = service.listWords(listOptions).execute();
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertTrue(!result.getWords().isEmpty());
   }
 
   /**
-   * Test get words three-parameter version with type all and no sort.
-   */
-  @Test
-  @Ignore
-  public void testGetWordsThreeType() {
-      List<WordData> result = service.getWords(customizationId, Type.ALL, null).execute();
-    assertNotNull(result);
-    assertTrue(!result.isEmpty());
-  }
-
-  /**
-   * Test get words three-parameter version with no type and sort plus alpha.
+   * Test list words with alphabetical sort.
    */
   @Test
   @Ignore
   public void testGetWordsThreeSort() {
-    List<WordData> result = service.getWords(customizationId, null, Sort.PLUS_ALPHA).execute();
+    ListWordsOptions listOptions = new ListWordsOptions.Builder()
+        .customizationId(customizationId)
+        .sort(ListWordsOptions.Sort.ALPHABETICAL)
+        .build();
+    Words result = service.listWords(listOptions).execute();
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertTrue(!result.getWords().isEmpty());
   }
 
   /**
-   * Test get words three-parameter version with type all and sort minus count.
+   * Test list words with type all and count sort.
    */
   @Test
   @Ignore
   public void testGetWordsThreeTypeSort() {
-      List<WordData> result = service.getWords(customizationId, Type.ALL, Sort.MINUS_COUNT).execute();
+    ListWordsOptions listOptions = new ListWordsOptions.Builder()
+        .customizationId(customizationId)
+        .wordType(ListWordsOptions.WordType.ALL)
+        .sort(ListWordsOptions.Sort.COUNT)
+        .build();
+    Words result = service.listWords(listOptions).execute();
     assertNotNull(result);
-    assertTrue(!result.isEmpty());
+    assertTrue(!result.getWords().isEmpty());
   }
 
   /**
    * Test get word.
    */
   public void testGetWord() {
-    Word result = service.getWord(customizationId, "string").execute();
+    GetWordOptions getOptions = new GetWordOptions.Builder()
+        .customizationId(customizationId)
+        .wordName("string")
+        .build();
+    Word result = service.getWord(getOptions).execute();
     assertNotNull(result);
   }
 
   /**
-   * Test customization.
+   * Test create language model.
    *
    * @throws InterruptedException the interrupted exception
    */
   @Test
-  public void testCustomization() throws InterruptedException {
-    // create customization
-    Customization myCustomization = service.createCustomization("java-sdk-temporary",
-        SpeechModel.EN_US_BROADBANDMODEL,
-        "Temporary custom model for testing the Java SDK")
-      .execute();
-    String id = myCustomization.getId();
+  public void testCreateLanguageModel() throws InterruptedException, FileNotFoundException {
+    CreateLanguageModel newModel = new CreateLanguageModel.Builder()
+        .name("java-sdk-temporary")
+        .baseModelName(EN_BROADBAND16K)
+        .description("Temporary custom model for testing the Java SDK")
+        .build();
+    CreateLanguageModelOptions createOptions = new CreateLanguageModelOptions.Builder()
+        .createLanguageModel(newModel)
+        .build();
+    LanguageModel myModel = service.createLanguageModel(createOptions).execute();
+    String id = myModel.getCustomizationId();
 
     try {
       // Add a corpus file to the model
-      service.addCorpus(id, "corpus-1", new File(String.format(SPEECH_RESOURCE, "corpus1.txt")), false)
-          .execute();
+      AddCorpusOptions addOptions = new AddCorpusOptions.Builder()
+          .customizationId(id)
+          .corpusName("corpus-1")
+          .corpusFile(new File(String.format(SPEECH_RESOURCE, "corpus1.txt")))
+          .corpusFileContentType(HttpMediaType.TEXT_PLAIN)
+          .allowOverwrite(false)
+          .build();
+      service.addCorpus(addOptions).execute();
 
       // Get corpus status
-      for (int x = 0; x < 30 && service.getCorpus(id, "corpus-1").execute().getStatus() != Status.ANALYZED; x++) {
+      GetCorpusOptions getOptions = new GetCorpusOptions.Builder()
+          .customizationId(id)
+          .corpusName("corpus-1")
+          .build();
+      for (int x = 0; x < 30 && !service.getCorpus(getOptions).execute().getStatus().equals(Status.ANALYZED); x++) {
         Thread.sleep(5000);
       }
 
-      assertTrue(service.getCorpus(id, "corpus-1").execute().getStatus() == Status.ANALYZED);
+      assertTrue(service.getCorpus(getOptions).execute().getStatus().equals(Status.ANALYZED));
 
       // Add the corpus file to the model again and allow overwrite
-      service.addCorpus(id, "corpus-1", new File(String.format(SPEECH_RESOURCE, "corpus1.txt")), true)
-          .execute();
+      AddCorpusOptions addOptionsWithOverwrite = new AddCorpusOptions.Builder()
+          .customizationId(id)
+          .corpusName("corpus-1")
+          .corpusFile(new File(String.format(SPEECH_RESOURCE, "corpus1.txt")))
+          .corpusFileContentType(HttpMediaType.TEXT_PLAIN)
+          .allowOverwrite(true)
+          .build();
+      service.addCorpus(addOptionsWithOverwrite).execute();
 
       // Get corpus status
-      for (int x = 0; x < 30 && service.getCorpus(id, "corpus-1").execute().getStatus() != Status.ANALYZED; x++) {
+      for (int x = 0; x < 30 && !service.getCorpus(getOptions).execute().getStatus().equals(Status.ANALYZED); x++) {
         Thread.sleep(5000);
       }
 
-      assertTrue(service.getCorpus(id, "corpus-1").execute().getStatus() == Status.ANALYZED);
+      assertTrue(service.getCorpus(getOptions).execute().getStatus().equals(Status.ANALYZED));
 
       // Get corpora
-      List<Corpus> corpora = service.getCorpora(id).execute();
+      ListCorporaOptions listCorporaOptions = new ListCorporaOptions.Builder()
+          .customizationId(id)
+          .build();
+      Corpora corpora = service.listCorpora(listCorporaOptions).execute();
 
       assertNotNull(corpora);
-      assertTrue(corpora.size() == 1);
+      assertTrue(corpora.getCorpora().size() == 1);
 
       // Now add some user words to the custom model
-      service.addWord(id, new Word("IEEE", "IEEE", "I. triple E.")).execute();
-      service.addWord(id, new Word("hhonors", "IEEE", "H. honors", "Hilton honors")).execute();
-      service.addWord(id, new Word("aaa", "aaa", "aaa", "bbb")).execute();
-      service.addWord(id, new Word("bbb", null, "aaa", "bbb")).execute();
-      service.addWord(id, new Word("ccc", "ccc")).execute();
-      service.addWord(id, new Word("ddd")).execute();
-      service.addWord(id, new Word("eee", null, (String[]) null)).execute();
+      service.addWord(new AddWordOptions.Builder()
+          .customizationId(id)
+          .wordName("IEEE")
+          .customWord(new CustomWord.Builder()
+              .word("IEEE")
+              .displayAs("IEEE")
+              .addSoundsLike("I. triple E.")
+              .build())
+          .build()
+      ).execute();
+      service.addWord(new AddWordOptions.Builder()
+          .customizationId(id)
+          .wordName("hhonors")
+          .customWord(new CustomWord.Builder()
+              .word("hhonors")
+              .displayAs("IEEE")
+              .addSoundsLike("H. honors")
+              .addSoundsLike("Hilton honors")
+              .build())
+          .build()
+      ).execute();
+      service.addWord(new AddWordOptions.Builder()
+          .customizationId(id)
+          .wordName("aaa")
+          .customWord(new CustomWord.Builder()
+              .word("aaa")
+              .displayAs("aaa")
+              .addSoundsLike("aaa")
+              .addSoundsLike("bbb")
+              .build())
+          .build()
+      ).execute();
+      service.addWord(new AddWordOptions.Builder()
+          .customizationId(id)
+          .wordName("bbb")
+          .customWord(new CustomWord.Builder()
+              .word("bbb")
+              .addSoundsLike("aaa")
+              .addSoundsLike("bbb")
+              .build())
+          .build()
+      ).execute();
+      service.addWord(new AddWordOptions.Builder()
+          .customizationId(id)
+          .wordName("ccc")
+          .customWord(new CustomWord.Builder()
+              .word("ccc")
+              .displayAs("ccc")
+              .build())
+          .build()
+      ).execute();
+      service.addWord(new AddWordOptions.Builder()
+          .customizationId(id)
+          .wordName("ddd")
+          .customWord(new CustomWord.Builder()
+              .word("ddd")
+              .build())
+          .build()
+      ).execute();
+      service.addWord(new AddWordOptions.Builder()
+          .customizationId(id)
+          .wordName("eee")
+          .customWord(new CustomWord.Builder()
+              .word("eee")
+              .build())
+          .build()
+      ).execute();
 
       // Display all words in the words resource (coming from OOVs from the corpus add and the new words just added)
-      List<WordData> words = service.getWords(id, Word.Type.ALL).execute();
+      ListWordsOptions listWordsOptions = new ListWordsOptions.Builder()
+          .customizationId(id)
+          .wordType(ListWordsOptions.WordType.ALL)
+          .build();
+      Words words = service.listWords(listWordsOptions).execute();
       assertNotNull(words);
 
     } finally {
-      service.deleteCustomization(id).execute();
+      DeleteLanguageModelOptions deleteOptions = new DeleteLanguageModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      service.deleteLanguageModel(deleteOptions).execute();
+    }
+  }
+
+  /**
+   * Test create acoustic model.
+   */
+  @Test
+  public void testCreateAcousticModel() {
+    String name = "java-sdk-temporary";
+    String description = "Temporary custom model for testing the Java SDK";
+    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+        .name(name)
+        .baseModelName(EN_BROADBAND16K)
+        .description(description)
+        .build();
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
+        .createAcousticModel(newModel)
+        .build();
+    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
+    String id = myModel.getCustomizationId();
+
+    try {
+      GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      AcousticModel model = service.getAcousticModel(getOptions).execute();
+
+      assertNotNull(model);
+      assertEquals(name, model.getName());
+      assertEquals(EN_BROADBAND16K, model.getBaseModelName());
+      assertEquals(description, model.getDescription());
+    } finally {
+      DeleteAcousticModelOptions deleteOptions = new DeleteAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      service.deleteAcousticModel(deleteOptions).execute();
+    }
+  }
+
+  /**
+   * Test list acoustic models.
+   */
+  @Test
+  public void testListAcousticModels() {
+    AcousticModels models = service.listAcousticModels().execute();
+    assertNotNull(models);
+  }
+
+  /**
+   * Test get audio.
+   *
+   * This test is currently being ignored as it has a very long runtime and causes Travis to timeout.
+   * The ignore annotation can be removed to test this locally.
+   *
+   * @throws InterruptedException the interrupted exception
+   */
+  @Ignore
+  @Test
+  public void testGetAudio() throws InterruptedException, FileNotFoundException {
+    String name = "java-sdk-temporary";
+    String description = "Temporary custom model for testing the Java SDK";
+    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+        .name(name)
+        .baseModelName(EN_BROADBAND16K)
+        .description(description)
+        .build();
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
+        .createAcousticModel(newModel)
+        .build();
+    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
+    String id = myModel.getCustomizationId();
+
+    String audioName = "sample";
+    AddAudioOptions addOptions = new AddAudioOptions.Builder()
+        .audioResource(new File(SAMPLE_WAV))
+        .contentType(AddAudioOptions.ContentType.AUDIO_WAV)
+        .audioName(audioName)
+        .customizationId(id)
+        .allowOverwrite(true)
+        .build();
+    service.addAudio(addOptions).execute();
+
+    try {
+      GetAudioOptions getOptions = new GetAudioOptions.Builder()
+          .customizationId(id)
+          .audioName(audioName)
+          .build();
+      AudioListing audio = service.getAudio(getOptions).execute();
+
+      assertNotNull(audio);
+      assertEquals(audioName, audio.getName());
+    } finally {
+      DeleteAudioOptions deleteAudioOptions = new DeleteAudioOptions.Builder()
+          .customizationId(id)
+          .audioName(audioName)
+          .build();
+      service.deleteAudio(deleteAudioOptions).execute();
+
+      GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      for (int x = 0;
+           x < 30 && !service.getAcousticModel(getOptions).execute().getStatus().equals(AcousticModel.Status.AVAILABLE);
+           x++) {
+        Thread.sleep(5000);
+      }
+
+      DeleteAcousticModelOptions deleteAcousticModelOptions = new DeleteAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      service.deleteAcousticModel(deleteAcousticModelOptions).execute();
+    }
+  }
+
+  /**
+   * Test list audio.
+   */
+  @Test
+  public void testListAudio() {
+    String name = "java-sdk-temporary";
+    String description = "Temporary custom model for testing the Java SDK";
+    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+        .name(name)
+        .baseModelName(EN_BROADBAND16K)
+        .description(description)
+        .build();
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
+        .createAcousticModel(newModel)
+        .build();
+    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
+    String id = myModel.getCustomizationId();
+
+    try {
+      ListAudioOptions listOptions = new ListAudioOptions.Builder()
+          .customizationId(id)
+          .build();
+      AudioResources resources = service.listAudio(listOptions).execute();
+
+      assertNotNull(resources);
+    } finally {
+      DeleteAcousticModelOptions deleteAcousticModelOptions = new DeleteAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      service.deleteAcousticModel(deleteAcousticModelOptions).execute();
+    }
+  }
+
+  /**
+   * Test add audio with an archive file.
+   *
+   * @throws FileNotFoundException the file not found exception
+   */
+  @Test
+  public void testAddAudioArchive() throws FileNotFoundException {
+    String name = "java-sdk-temporary";
+    String description = "Temporary custom model for testing the Java SDK";
+    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+        .name(name)
+        .baseModelName(EN_BROADBAND16K)
+        .description(description)
+        .build();
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
+        .createAcousticModel(newModel)
+        .build();
+    AcousticModel myModel = service.createAcousticModel(createOptions).execute();
+    String id = myModel.getCustomizationId();
+
+    String audioName = "test-archive";
+    File audio = new File(WAV_ARCHIVE);
+    AddAudioOptions addOptions = new AddAudioOptions.Builder()
+        .customizationId(id)
+        .audioName(audioName)
+        .contentType(AddAudioOptions.ContentType.APPLICATION_ZIP)
+        .containedContentType(AddAudioOptions.ContainedContentType.AUDIO_WAV)
+        .audioResource(audio)
+        .build();
+    service.addAudio(addOptions).execute();
+
+    try {
+      GetAudioOptions getOptions = new GetAudioOptions.Builder()
+          .customizationId(id)
+          .audioName(audioName)
+          .build();
+      AudioListing listing = service.getAudio(getOptions).execute();
+
+      assertNotNull(listing);
+      assertEquals(audioName, listing.getName());
+    } finally {
+      DeleteAudioOptions deleteAudioOptions = new DeleteAudioOptions.Builder()
+          .customizationId(id)
+          .audioName(audioName)
+          .build();
+      service.deleteAudio(deleteAudioOptions).execute();
     }
   }
 }

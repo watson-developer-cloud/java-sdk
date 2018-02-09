@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.junit.Assume;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.google.gson.JsonObject;
@@ -81,6 +82,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
    * Test Convert to answers unit.
    */
   @Test
+  @Ignore
   public void testConvertToAnswers() {
     for (final File file : files) {
       final Answers answers = service.convertDocumentToAnswer(file).execute();
@@ -94,6 +96,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
    * Test convert to HTML.
    */
   @Test
+  @Ignore
   public void testConvertToHtml() {
     for (final File file : files) {
       final String html = service.convertDocumentToHTML(file).execute();
@@ -106,6 +109,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
    * Test convert to Text.
    */
   @Test
+  @Ignore
   public void testConvertToText() {
     for (final File file : files) {
       final String text = service.convertDocumentToText(file).execute();
@@ -118,6 +122,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
    * Test a dry run of the index document api with document only.
    */
   @Test
+  @Ignore
   public void testIndexDocumentDryRun() {
     for (final File file : files) {
       IndexDocumentOptions indexDocumentOptions =
@@ -132,6 +137,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
    * Test a dry run of the index document api with metadata only.
    */
   @Test
+  @Ignore
   public void testIndexMetadataDryRun() {
     IndexDocumentOptions indexDocumentOptions =
         new IndexDocumentOptions.Builder().metadata(metadata).dryRun(dryRun).build();
@@ -146,6 +152,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
    * Test a dry run of the index document api with document and metadata.
    */
   @Test
+  @Ignore
   public void testIndexDocumentAndMetadataDryRun() {
     for (final File file : files) {
       IndexDocumentOptions indexDocumentOptions =
@@ -162,6 +169,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
    * Test a dry run of the index document api with document, metadata, and convert document config.
    */
   @Test
+  @Ignore
   public void testIndexDocumentAndMetadataAndConvertDocConfig() {
     for (final File file : files) {
       IndexDocumentOptions indexDocumentOptions = new IndexDocumentOptions.Builder().document(file).metadata(metadata)
@@ -178,6 +186,7 @@ public class DocumentConversionIT extends WatsonServiceTest {
    * Test a dry run of the index document api with document, metadata, convert document config, and index config.
    */
   @Test
+  @Ignore
   public void testIndexDocumentAndMetadataConvertDocConfigAndIndexConfig() {
     for (final File file : files) {
       IndexDocumentOptions indexDocumentOptions = new IndexDocumentOptions.Builder().document(file).metadata(metadata)
