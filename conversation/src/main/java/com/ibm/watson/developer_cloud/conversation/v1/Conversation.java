@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -287,6 +287,9 @@ public class Conversation extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s", updateWorkspaceOptions
         .workspaceId()));
     builder.query(VERSION, versionDate);
+    if (updateWorkspaceOptions.append() != null) {
+      builder.query("append", String.valueOf(updateWorkspaceOptions.append()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (updateWorkspaceOptions.name() != null) {
       contentJson.addProperty("name", updateWorkspaceOptions.name());
@@ -330,6 +333,9 @@ public class Conversation extends WatsonService {
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/workspaces/%s/message", messageOptions
         .workspaceId()));
     builder.query(VERSION, versionDate);
+    if (messageOptions.nodesVisitedDetails() != null) {
+      builder.query("nodes_visited_details", String.valueOf(messageOptions.nodesVisitedDetails()));
+    }
     final JsonObject contentJson = new JsonObject();
     if (messageOptions.input() != null) {
       contentJson.add("input", GsonSingleton.getGson().toJsonTree(messageOptions.input()));
@@ -1123,10 +1129,10 @@ public class Conversation extends WatsonService {
     Validator.notNull(listAllLogsOptions, "listAllLogsOptions cannot be null");
     RequestBuilder builder = RequestBuilder.get("/v1/logs");
     builder.query(VERSION, versionDate);
+    builder.query("filter", listAllLogsOptions.filter());
     if (listAllLogsOptions.sort() != null) {
       builder.query("sort", listAllLogsOptions.sort());
     }
-    builder.query("filter", listAllLogsOptions.filter());
     if (listAllLogsOptions.pageLimit() != null) {
       builder.query("page_limit", String.valueOf(listAllLogsOptions.pageLimit()));
     }

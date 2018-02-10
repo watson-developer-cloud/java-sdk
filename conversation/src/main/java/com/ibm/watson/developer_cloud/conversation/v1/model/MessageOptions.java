@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,6 +30,7 @@ public class MessageOptions extends GenericModel {
   private List<RuntimeEntity> entities;
   private List<RuntimeIntent> intents;
   private OutputData output;
+  private Boolean nodesVisitedDetails;
 
   /**
    * Builder.
@@ -42,6 +43,7 @@ public class MessageOptions extends GenericModel {
     private List<RuntimeEntity> entities;
     private List<RuntimeIntent> intents;
     private OutputData output;
+    private Boolean nodesVisitedDetails;
 
     private Builder(MessageOptions messageOptions) {
       workspaceId = messageOptions.workspaceId;
@@ -51,6 +53,7 @@ public class MessageOptions extends GenericModel {
       entities = messageOptions.entities;
       intents = messageOptions.intents;
       output = messageOptions.output;
+      nodesVisitedDetails = messageOptions.nodesVisitedDetails;
     }
 
     /**
@@ -185,6 +188,17 @@ public class MessageOptions extends GenericModel {
       this.output = output;
       return this;
     }
+
+    /**
+     * Set the nodesVisitedDetails.
+     *
+     * @param nodesVisitedDetails the nodesVisitedDetails
+     * @return the MessageOptions builder
+     */
+    public Builder nodesVisitedDetails(Boolean nodesVisitedDetails) {
+      this.nodesVisitedDetails = nodesVisitedDetails;
+      return this;
+    }
   }
 
   private MessageOptions(Builder builder) {
@@ -196,6 +210,7 @@ public class MessageOptions extends GenericModel {
     entities = builder.entities;
     intents = builder.intents;
     output = builder.output;
+    nodesVisitedDetails = builder.nodesVisitedDetails;
   }
 
   /**
@@ -286,5 +301,17 @@ public class MessageOptions extends GenericModel {
    */
   public OutputData output() {
     return output;
+  }
+
+  /**
+   * Gets the nodesVisitedDetails.
+   *
+   * Whether to include additional diagnostic information about the dialog nodes that were visited during processing of
+   * the message.
+   *
+   * @return the nodesVisitedDetails
+   */
+  public Boolean nodesVisitedDetails() {
+    return nodesVisitedDetails;
   }
 }

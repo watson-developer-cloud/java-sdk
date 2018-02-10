@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,6 +33,8 @@ public class RuntimeEntity extends DynamicModel {
   private Type confidenceType = new TypeToken<Double>() {
   }.getType();
   private Type metadataType = new TypeToken<Map>() {
+  }.getType();
+  private Type groupsType = new TypeToken<List<CaptureGroup>>() {
   }.getType();
 
   /**
@@ -81,6 +83,15 @@ public class RuntimeEntity extends DynamicModel {
   }
 
   /**
+   * Gets the groups.
+   *
+   * @return the groups
+   */
+  public List<CaptureGroup> getGroups() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("groups"), groupsType);
+  }
+
+  /**
    * Sets the entity.
    *
    * @param entity the new entity
@@ -123,5 +134,14 @@ public class RuntimeEntity extends DynamicModel {
    */
   public void setMetadata(final Map metadata) {
     this.put("metadata", metadata);
+  }
+
+  /**
+   * Sets the groups.
+   *
+   * @param groups the new groups
+   */
+  public void setGroups(final List<CaptureGroup> groups) {
+    this.put("groups", groups);
   }
 }

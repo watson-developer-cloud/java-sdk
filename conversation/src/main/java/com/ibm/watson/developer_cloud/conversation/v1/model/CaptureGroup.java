@@ -17,50 +17,50 @@ import java.util.List;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * LogCollection.
+ * CaptureGroup.
  */
-public class LogCollection extends GenericModel {
+public class CaptureGroup extends GenericModel {
 
-  private List<LogExport> logs;
-  private LogPagination pagination;
+  private String group;
+  private List<Long> location;
 
   /**
-   * Gets the logs.
+   * Gets the group.
    *
-   * An array of log events.
+   * A recognized capture group for the entity.
    *
-   * @return the logs
+   * @return the group
    */
-  public List<LogExport> getLogs() {
-    return logs;
+  public String getGroup() {
+    return group;
   }
 
   /**
-   * Gets the pagination.
+   * Gets the location.
    *
-   * An object defining the pagination data for the returned objects.
+   * Zero-based character offsets that indicate where the entity value begins and ends in the input text.
    *
-   * @return the pagination
+   * @return the location
    */
-  public LogPagination getPagination() {
-    return pagination;
+  public List<Long> getLocation() {
+    return location;
   }
 
   /**
-   * Sets the logs.
+   * Sets the group.
    *
-   * @param logs the new logs
+   * @param group the new group
    */
-  public void setLogs(final List<LogExport> logs) {
-    this.logs = logs;
+  public void setGroup(final String group) {
+    this.group = group;
   }
 
   /**
-   * Sets the pagination.
+   * Sets the location.
    *
-   * @param pagination the new pagination
+   * @param location the new location
    */
-  public void setPagination(final LogPagination pagination) {
-    this.pagination = pagination;
+  public void setLocation(final List<Long> location) {
+    this.location = location;
   }
 }
