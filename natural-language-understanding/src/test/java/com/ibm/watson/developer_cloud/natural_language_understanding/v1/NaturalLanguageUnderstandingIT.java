@@ -65,7 +65,6 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -140,8 +139,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .limit(5)
         .build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder()
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
         .url(url)
         .features(features)
         .returnAnalyzedText(true)
@@ -205,8 +203,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
     ConceptsOptions concepts = new ConceptsOptions.Builder()
         .build();
     Features features = new Features.Builder().concepts(concepts).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().html(html).features(features).returnAnalyzedText(true).build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().html(html).features(features).returnAnalyzedText(true)
+        .build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -234,8 +232,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     EmotionOptions emotion = new EmotionOptions.Builder().build();
     Features features = new Features.Builder().emotion(emotion).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
+        .build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -262,9 +260,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
    */
   @Test
   public void analyzeTextForEntitiesIsSuccessful() throws Exception {
-    String text =
-        "In 2009, Elliot Turner launched AlchemyAPI to process the written word, with all of its quirks and nuances,"
-        + " and got immediate traction.";
+    String text = "In 2009, Elliot Turner launched AlchemyAPI to process the written word, with all of its quirks "
+        + "and nuances, and got immediate traction.";
 
     EntitiesOptions entities = new EntitiesOptions.Builder()
         .limit(2)
@@ -308,8 +305,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .sentiment(true)
         .build();
     Features features = new Features.Builder().keywords(keywords).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder()
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder()
         .text(text)
         .features(features)
         .returnAnalyzedText(true)
@@ -373,8 +369,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   @Test
   public void analyzeTextForRelationsIsSuccessful() throws Exception {
     Features features = new Features.Builder().relations(new RelationsOptions.Builder().build()).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
+        .build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -392,14 +388,14 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   @Test
   public void analyzeTextForSemanticRolesIsSuccessful() throws Exception {
     SemanticRolesOptions options = new SemanticRolesOptions.Builder()
-      .limit(7)
-      .keywords(true)
-      .entities(true)
-      .build();
+        .limit(7)
+        .keywords(true)
+        .entities(true)
+        .build();
 
     Features features = new Features.Builder().semanticRoles(options).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
+        .build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -433,8 +429,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .targets(Arrays.asList("Elliot Turner", "traction"))
         .build();
     Features features = new Features.Builder().sentiment(options).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
+        .build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -462,8 +458,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
         .document(true)
         .build();
     Features features = new Features.Builder().sentiment(options).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
+        .build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -484,8 +480,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   @Test
   public void analyzeTextForCategoriesIsSuccessful() throws Exception {
     Features features = new Features.Builder().categories(new CategoriesOptions()).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true).build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
+        .build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -508,8 +504,7 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
   public void analyzeHtmlForDisambiguationIsSuccessful() throws Exception {
     EntitiesOptions entities = new EntitiesOptions.Builder().sentiment(true).limit(1).build();
     Features features = new Features.Builder().entities(entities).build();
-    AnalyzeOptions parameters =
-            new AnalyzeOptions.Builder().url("www.cnn.com").features(features).build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().url("www.cnn.com").features(features).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 
@@ -540,9 +535,8 @@ public class NaturalLanguageUnderstandingIT extends WatsonServiceTest {
 
     Long characterLimit = 10L;
     Features features = new Features.Builder().categories(new CategoriesOptions()).build();
-    AnalyzeOptions parameters =
-        new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
-            .limitTextCharacters(characterLimit).build();
+    AnalyzeOptions parameters = new AnalyzeOptions.Builder().text(text).features(features).returnAnalyzedText(true)
+        .limitTextCharacters(characterLimit).build();
 
     AnalysisResults results = service.analyze(parameters).execute();
 

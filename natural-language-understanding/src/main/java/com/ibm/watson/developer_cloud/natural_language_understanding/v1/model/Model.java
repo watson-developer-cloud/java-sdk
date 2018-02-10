@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -29,7 +29,7 @@ public class Model extends GenericModel {
   /**
    * Gets the status.
    *
-   * Shows as available if the model is ready for use
+   * Shows as available if the model is ready for use.
    *
    * @return the status
    */
@@ -40,7 +40,7 @@ public class Model extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * Unique model ID
+   * Unique model ID.
    *
    * @return the modelId
    */
@@ -51,7 +51,7 @@ public class Model extends GenericModel {
   /**
    * Gets the language.
    *
-   * ISO 639-1 code indicating the language of the model
+   * ISO 639-1 code indicating the language of the model.
    *
    * @return the language
    */
@@ -62,7 +62,7 @@ public class Model extends GenericModel {
   /**
    * Gets the description.
    *
-   * Model description
+   * Model description.
    *
    * @return the description
    */

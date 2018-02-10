@@ -89,7 +89,6 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -135,7 +134,7 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
   }
 
   /**
-   * Test analyze with null parameters.  Test different constructor
+   * Test analyze with null parameters. Test different constructor
    *
    * @throws InterruptedException the interrupted exception
    */
@@ -165,8 +164,8 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testModelOptions1() throws InterruptedException {
-    Features features = new Features.Builder().concepts(null).categories(null).emotion(null).
-        entities(null).keywords(null).metadata(null).relations(null).semanticRoles(null).sentiment(null).build();
+    Features features = new Features.Builder().concepts(null).categories(null).emotion(null).entities(null).keywords(
+        null).metadata(null).relations(null).semanticRoles(null).sentiment(null).build();
 
     // AnalysisResults
     ConceptsResult addConcept = new ConceptsResult();
@@ -309,8 +308,8 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertEquals(emotionScores.getSadness(), 14.14, 0);
 
     // EntitiesOptions
-    EntitiesOptions entitiesOptions = new EntitiesOptions.Builder().emotion(true).
-        limit(10).model("model").sentiment(false).mentions(false).build();
+    EntitiesOptions entitiesOptions = new EntitiesOptions.Builder().emotion(true).limit(10).model("model").sentiment(
+        false).mentions(false).build();
     assertEquals(entitiesOptions.emotion(), true);
     assertEquals(entitiesOptions.limit(), 10, 0);
     assertEquals(entitiesOptions.model(), "model");
@@ -507,8 +506,8 @@ public class NaturalLanguageUnderstandingTest extends WatsonServiceUnitTest {
     assertEquals(semanticRolesObject.getText(), "text");
 
     // SemanticRolesOptions
-    SemanticRolesOptions semanticRolesOptions = new SemanticRolesOptions.Builder().entities(true).
-        keywords(false).limit(10).build();
+    SemanticRolesOptions semanticRolesOptions = new SemanticRolesOptions.Builder().entities(true).keywords(false).limit(
+        10).build();
     assertEquals(semanticRolesOptions.entities(), true);
     assertEquals(semanticRolesOptions.keywords(), false);
     assertEquals(semanticRolesOptions.limit(), 10, 0);

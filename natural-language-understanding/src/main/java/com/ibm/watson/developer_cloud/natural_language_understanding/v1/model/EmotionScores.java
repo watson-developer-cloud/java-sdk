@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -28,7 +28,7 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the anger.
    *
-   * Anger score from 0 to 1. A higher score means that the text is more likely to convey anger
+   * Anger score from 0 to 1. A higher score means that the text is more likely to convey anger.
    *
    * @return the anger
    */
@@ -39,7 +39,7 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the disgust.
    *
-   * Disgust score from 0 to 1. A higher score means that the text is more likely to convey disgust
+   * Disgust score from 0 to 1. A higher score means that the text is more likely to convey disgust.
    *
    * @return the disgust
    */
@@ -50,7 +50,7 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the fear.
    *
-   * Fear score from 0 to 1. A higher score means that the text is more likely to convey fear
+   * Fear score from 0 to 1. A higher score means that the text is more likely to convey fear.
    *
    * @return the fear
    */
@@ -61,7 +61,7 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the joy.
    *
-   * Joy score from 0 to 1. A higher score means that the text is more likely to convey joy
+   * Joy score from 0 to 1. A higher score means that the text is more likely to convey joy.
    *
    * @return the joy
    */
@@ -72,7 +72,7 @@ public class EmotionScores extends GenericModel {
   /**
    * Gets the sadness.
    *
-   * Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness
+   * Sadness score from 0 to 1. A higher score means that the text is more likely to convey sadness.
    *
    * @return the sadness
    */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ public class CategoriesResult extends GenericModel {
   /**
    * Gets the label.
    *
-   * The path to the category through the taxonomy hierarchy
+   * The path to the category through the taxonomy hierarchy.
    *
    * @return the label
    */
