@@ -43,7 +43,6 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -67,8 +66,8 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
    */
   @Test
   public void testReadme() {
-//    PersonalityInsights service = new PersonalityInsights("2016-10-19");
-//    service.setUsernameAndPassword("<username>", "<password>");
+    //    PersonalityInsights service = new PersonalityInsights("2016-10-19");
+    //    service.setUsernameAndPassword("<username>", "<password>");
 
     // Demo content from Moby Dick by Hermann Melville (Chapter 1)
     String text = "Call me Ishmael. Some years ago-never mind how long precisely-having "
@@ -111,7 +110,7 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
     Assert.assertNotNull(profile.getValues());
     Assert.assertNotNull(profile.getNeeds());
     Assert.assertNotNull(profile.getPersonality());
-}
+  }
 
   /**
    * Assert profile.
