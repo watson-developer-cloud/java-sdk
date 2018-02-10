@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -91,7 +91,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the created.
    *
-   * The creation date of the document in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+   * The creation date of the document in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the created
    */
@@ -102,7 +102,7 @@ public class DocumentStatus extends GenericModel {
   /**
    * Gets the updated.
    *
-   * Date of the most recent document update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+   * Date of the most recent document update, in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the updated
    */

@@ -16,13 +16,12 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The getTrainingData options.
+ * The listExpansions options.
  */
-public class GetTrainingDataOptions extends GenericModel {
+public class ListExpansionsOptions extends GenericModel {
 
   private String environmentId;
   private String collectionId;
-  private String queryId;
 
   /**
    * Builder.
@@ -30,12 +29,10 @@ public class GetTrainingDataOptions extends GenericModel {
   public static class Builder {
     private String environmentId;
     private String collectionId;
-    private String queryId;
 
-    private Builder(GetTrainingDataOptions getTrainingDataOptions) {
-      environmentId = getTrainingDataOptions.environmentId;
-      collectionId = getTrainingDataOptions.collectionId;
-      queryId = getTrainingDataOptions.queryId;
+    private Builder(ListExpansionsOptions listExpansionsOptions) {
+      environmentId = listExpansionsOptions.environmentId;
+      collectionId = listExpansionsOptions.collectionId;
     }
 
     /**
@@ -49,28 +46,26 @@ public class GetTrainingDataOptions extends GenericModel {
      *
      * @param environmentId the environmentId
      * @param collectionId the collectionId
-     * @param queryId the queryId
      */
-    public Builder(String environmentId, String collectionId, String queryId) {
+    public Builder(String environmentId, String collectionId) {
       this.environmentId = environmentId;
       this.collectionId = collectionId;
-      this.queryId = queryId;
     }
 
     /**
-     * Builds a GetTrainingDataOptions.
+     * Builds a ListExpansionsOptions.
      *
-     * @return the getTrainingDataOptions
+     * @return the listExpansionsOptions
      */
-    public GetTrainingDataOptions build() {
-      return new GetTrainingDataOptions(this);
+    public ListExpansionsOptions build() {
+      return new ListExpansionsOptions(this);
     }
 
     /**
      * Set the environmentId.
      *
      * @param environmentId the environmentId
-     * @return the GetTrainingDataOptions builder
+     * @return the ListExpansionsOptions builder
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
@@ -81,38 +76,25 @@ public class GetTrainingDataOptions extends GenericModel {
      * Set the collectionId.
      *
      * @param collectionId the collectionId
-     * @return the GetTrainingDataOptions builder
+     * @return the ListExpansionsOptions builder
      */
     public Builder collectionId(String collectionId) {
       this.collectionId = collectionId;
       return this;
     }
-
-    /**
-     * Set the queryId.
-     *
-     * @param queryId the queryId
-     * @return the GetTrainingDataOptions builder
-     */
-    public Builder queryId(String queryId) {
-      this.queryId = queryId;
-      return this;
-    }
   }
 
-  private GetTrainingDataOptions(Builder builder) {
+  private ListExpansionsOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
-    Validator.notEmpty(builder.queryId, "queryId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
-    queryId = builder.queryId;
   }
 
   /**
    * New builder.
    *
-   * @return a GetTrainingDataOptions builder
+   * @return a ListExpansionsOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -138,16 +120,5 @@ public class GetTrainingDataOptions extends GenericModel {
    */
   public String collectionId() {
     return collectionId;
-  }
-
-  /**
-   * Gets the queryId.
-   *
-   * The ID of the query used for training.
-   *
-   * @return the queryId
-   */
-  public String queryId() {
-    return queryId;
   }
 }

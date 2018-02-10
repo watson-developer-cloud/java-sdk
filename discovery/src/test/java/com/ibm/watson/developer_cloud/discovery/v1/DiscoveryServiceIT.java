@@ -26,12 +26,14 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.Conversions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.CreateExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.CreateTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteAllTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteDocumentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteEnvironmentOptions;
+import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DeleteTrainingExampleOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentAccepted;
@@ -39,6 +41,8 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.DocumentStatus;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Enrichment;
 import com.ibm.watson.developer_cloud.discovery.v1.model.EnrichmentOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.Environment;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Expansion;
+import com.ibm.watson.developer_cloud.discovery.v1.model.Expansions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetCollectionOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetConfigurationOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.GetDocumentStatusOptions;
@@ -55,6 +59,7 @@ import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsOptio
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListConfigurationsResponse;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListEnvironmentsResponse;
+import com.ibm.watson.developer_cloud.discovery.v1.model.ListExpansionsOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.ListTrainingDataOptions;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentEmotion;
 import com.ibm.watson.developer_cloud.discovery.v1.model.NluEnrichmentEntities;
@@ -1550,6 +1555,55 @@ public class DiscoveryServiceIT extends WatsonServiceTest {
 
     assertEquals(updatedExample.getCrossReference(), newCrossReference);
     assertEquals(updatedExample.getRelevance(), new Long(newRelevance));
+  }
+
+  @Test
+  public void expansionsOperationsAreSuccessful() {
+    List<String> expansion1InputTerms = Arrays.asList("weekday", "week day");
+    List<String> expansion1ExpandedTerms = Arrays.asList("monday", "tuesday", "wednesday", "thursday", "friday");
+    List<String> expansion2InputTerms = Arrays.asList("weekend", "week end");
+    List<String> expansion2ExpandedTerms = Arrays.asList("saturday", "sunday");
+    Expansion expansion1 = new Expansion();
+    expansion1.setInputTerms(expansion1InputTerms);
+    expansion1.setExpandedTerms(expansion1ExpandedTerms);
+    Expansion expansion2 = new Expansion();
+    expansion2.setInputTerms(expansion2InputTerms);
+    expansion2.setExpandedTerms(expansion2ExpandedTerms);
+    Expansions expansions = new Expansions();
+    expansions.setExpansions(Arrays.asList(expansion1, expansion2));
+    CreateExpansionsOptions createOptions = new CreateExpansionsOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .expansions(expansions)
+        .build();
+    Expansions createResults = discovery.createExpansions(createOptions).execute();
+
+    assertEquals(createResults.getExpansions().size(), 2);
+    assertEquals(createResults.getExpansions().get(0).getInputTerms(), expansion1InputTerms);
+    assertEquals(createResults.getExpansions().get(0).getExpandedTerms(), expansion1ExpandedTerms);
+    assertEquals(createResults.getExpansions().get(1).getInputTerms(), expansion2InputTerms);
+    assertEquals(createResults.getExpansions().get(1).getExpandedTerms(), expansion2ExpandedTerms);
+
+    ListExpansionsOptions listOptions = new ListExpansionsOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .build();
+    Expansions listResults = discovery.listExpansions(listOptions).execute();
+
+    assertEquals(listResults.getExpansions().size(), 2);
+
+    DeleteExpansionsOptions deleteOptions = new DeleteExpansionsOptions.Builder()
+        .environmentId(environmentId)
+        .collectionId(collectionId)
+        .build();
+    discovery.deleteExpansions(deleteOptions).execute();
+
+    Expansions emptyListResults = discovery.listExpansions(listOptions).execute();
+
+    assertTrue(emptyListResults.getExpansions().get(0).getInputTerms() == null
+        || emptyListResults.getExpansions().get(0).getInputTerms().isEmpty());
+    assertTrue(emptyListResults.getExpansions().get(0).getExpandedTerms() == null
+        || emptyListResults.getExpansions().get(0).getExpandedTerms().get(0).isEmpty());
   }
 
   private Environment createEnvironment(CreateEnvironmentOptions createOptions) {

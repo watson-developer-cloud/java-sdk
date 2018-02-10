@@ -19,15 +19,13 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The addTrainingData options.
+ * The createExpansions options.
  */
-public class AddTrainingDataOptions extends GenericModel {
+public class CreateExpansionsOptions extends GenericModel {
 
   private String environmentId;
   private String collectionId;
-  private String naturalLanguageQuery;
-  private String filter;
-  private List<TrainingExample> examples;
+  private List<Expansion> expansions;
 
   /**
    * Builder.
@@ -35,16 +33,12 @@ public class AddTrainingDataOptions extends GenericModel {
   public static class Builder {
     private String environmentId;
     private String collectionId;
-    private String naturalLanguageQuery;
-    private String filter;
-    private List<TrainingExample> examples;
+    private List<Expansion> expansions;
 
-    private Builder(AddTrainingDataOptions addTrainingDataOptions) {
-      environmentId = addTrainingDataOptions.environmentId;
-      collectionId = addTrainingDataOptions.collectionId;
-      naturalLanguageQuery = addTrainingDataOptions.naturalLanguageQuery;
-      filter = addTrainingDataOptions.filter;
-      examples = addTrainingDataOptions.examples;
+    private Builder(CreateExpansionsOptions createExpansionsOptions) {
+      environmentId = createExpansionsOptions.environmentId;
+      collectionId = createExpansionsOptions.collectionId;
+      expansions = createExpansionsOptions.expansions;
     }
 
     /**
@@ -65,26 +59,26 @@ public class AddTrainingDataOptions extends GenericModel {
     }
 
     /**
-     * Builds a AddTrainingDataOptions.
+     * Builds a CreateExpansionsOptions.
      *
-     * @return the addTrainingDataOptions
+     * @return the createExpansionsOptions
      */
-    public AddTrainingDataOptions build() {
-      return new AddTrainingDataOptions(this);
+    public CreateExpansionsOptions build() {
+      return new CreateExpansionsOptions(this);
     }
 
     /**
-     * Adds an examples to examples.
+     * Adds an expansions to expansions.
      *
-     * @param examples the new examples
-     * @return the AddTrainingDataOptions builder
+     * @param expansions the new expansions
+     * @return the CreateExpansionsOptions builder
      */
-    public Builder addExamples(TrainingExample examples) {
-      Validator.notNull(examples, "examples cannot be null");
-      if (this.examples == null) {
-        this.examples = new ArrayList<TrainingExample>();
+    public Builder addExpansions(Expansion expansions) {
+      Validator.notNull(expansions, "expansions cannot be null");
+      if (this.expansions == null) {
+        this.expansions = new ArrayList<Expansion>();
       }
-      this.examples.add(examples);
+      this.expansions.add(expansions);
       return this;
     }
 
@@ -92,7 +86,7 @@ public class AddTrainingDataOptions extends GenericModel {
      * Set the environmentId.
      *
      * @param environmentId the environmentId
-     * @return the AddTrainingDataOptions builder
+     * @return the CreateExpansionsOptions builder
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
@@ -103,7 +97,7 @@ public class AddTrainingDataOptions extends GenericModel {
      * Set the collectionId.
      *
      * @param collectionId the collectionId
-     * @return the AddTrainingDataOptions builder
+     * @return the CreateExpansionsOptions builder
      */
     public Builder collectionId(String collectionId) {
       this.collectionId = collectionId;
@@ -111,54 +105,41 @@ public class AddTrainingDataOptions extends GenericModel {
     }
 
     /**
-     * Set the naturalLanguageQuery.
+     * Set the expansions.
+     * Existing expansions will be replaced.
      *
-     * @param naturalLanguageQuery the naturalLanguageQuery
-     * @return the AddTrainingDataOptions builder
+     * @param expansions the expansions
+     * @return the CreateExpansionsOptions builder
      */
-    public Builder naturalLanguageQuery(String naturalLanguageQuery) {
-      this.naturalLanguageQuery = naturalLanguageQuery;
+    public Builder expansions(List<Expansion> expansions) {
+      this.expansions = expansions;
       return this;
     }
 
     /**
-     * Set the filter.
+     * Set the expansions.
      *
-     * @param filter the filter
-     * @return the AddTrainingDataOptions builder
+     * @param expansions the expansions
+     * @return the CreateExpansionsOptions builder
      */
-    public Builder filter(String filter) {
-      this.filter = filter;
-      return this;
-    }
-
-    /**
-     * Set the examples.
-     * Existing examples will be replaced.
-     *
-     * @param examples the examples
-     * @return the AddTrainingDataOptions builder
-     */
-    public Builder examples(List<TrainingExample> examples) {
-      this.examples = examples;
+    public Builder expansions(Expansions expansions) {
+      this.expansions = expansions.getExpansions();
       return this;
     }
   }
 
-  private AddTrainingDataOptions(Builder builder) {
+  private CreateExpansionsOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
-    naturalLanguageQuery = builder.naturalLanguageQuery;
-    filter = builder.filter;
-    examples = builder.examples;
+    expansions = builder.expansions;
   }
 
   /**
    * New builder.
    *
-   * @return a AddTrainingDataOptions builder
+   * @return a CreateExpansionsOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -187,29 +168,20 @@ public class AddTrainingDataOptions extends GenericModel {
   }
 
   /**
-   * Gets the naturalLanguageQuery.
+   * Gets the expansions.
    *
-   * @return the naturalLanguageQuery
-   */
-  public String naturalLanguageQuery() {
-    return naturalLanguageQuery;
-  }
-
-  /**
-   * Gets the filter.
+   * An array of query expansion definitions. Each object in the `expansions` array represents a term or set of terms
+   * that will be expanded into other terms. Each expansion object can be configured so that all terms are expanded to
+   * all other terms in the object - bi-directional, or a set list of terms can be expanded into a second list of terms
+   * - uni-directional. To create a bi-directional expansion specify an `expanded_terms` array. When found in a query,
+   * all items in the `expanded_terms` array are then expanded to the other items in the same array. To create a
+   * uni-directional expansion, specify both an array of `input_terms` and an array of `expanded_terms`. When items in
+   * the `input_terms` array are present in a query, they are expanded using the items listed in the `expanded_terms`
+   * array.
    *
-   * @return the filter
+   * @return the expansions
    */
-  public String filter() {
-    return filter;
-  }
-
-  /**
-   * Gets the examples.
-   *
-   * @return the examples
-   */
-  public List<TrainingExample> examples() {
-    return examples;
+  public List<Expansion> expansions() {
+    return expansions;
   }
 }
