@@ -918,7 +918,7 @@ public class SpeechToTextIT extends WatsonServiceTest {
    * @throws FileNotFoundException the file not found exception
    */
   @Test
-  public void testAddAudioArchive() throws FileNotFoundException {
+  public void testAddAudioArchive() throws FileNotFoundException, InterruptedException {
     String name = "java-sdk-temporary";
     String description = "Temporary custom model for testing the Java SDK";
     CreateAcousticModel newModel = new CreateAcousticModel.Builder()
@@ -958,6 +958,20 @@ public class SpeechToTextIT extends WatsonServiceTest {
           .audioName(audioName)
           .build();
       service.deleteAudio(deleteAudioOptions).execute();
+
+      GetAcousticModelOptions getOptions = new GetAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      for (int x = 0;
+           x < 30 && !service.getAcousticModel(getOptions).execute().getStatus().equals(AcousticModel.Status.AVAILABLE);
+           x++) {
+        Thread.sleep(5000);
+      }
+
+      DeleteAcousticModelOptions deleteAcousticModelOptions = new DeleteAcousticModelOptions.Builder()
+          .customizationId(id)
+          .build();
+      service.deleteAcousticModel(deleteAcousticModelOptions).execute();
     }
   }
 }
