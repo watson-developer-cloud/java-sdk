@@ -1,5 +1,6 @@
 plugins {
   id 'net.researchgate.release' version '2.4.0'
+  id 'me.champeau.gradle.japicmp' version '0.2.6'
 }
 
 apply from: 'utils.gradle'
@@ -136,6 +137,15 @@ task printversion {
   doLast {
     println project.version
   }
+}
+
+task apidiff(type: me.champeau.gradle.japicmp.JapicmpTask) {
+    oldClasspath = files("$buildDir/libs/java-sdk-4.1.0-jar-with-dependencies.jar")
+    newClasspath = files("$buildDir/libs/java-sdk-4.2.1-jar-with-dependencies.jar")
+    onlyModified = true
+    failOnModification = true
+    txtOutputFile = file("$buildDir/reports/api_diff.txt")
+    htmlOutputFile = file("$buildDir/reports/api_diff.html")
 }
 
 beforeReleaseBuild.dependsOn startmessage
