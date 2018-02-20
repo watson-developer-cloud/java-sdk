@@ -80,20 +80,16 @@ artifacts {
 }
 
 dependencies {
-    compile project(':alchemy')
     compile project(':conversation')
     compile project(':core')
     compile project(':discovery')
-    compile project(':document-conversion')
     compile project(':language-translator')
     compile project(':natural-language-classifier')
     compile project(':natural-language-understanding')
     compile project(':personality-insights')
-    compile project(':retrieve-and-rank')
     compile project(':speech-to-text')
     compile project(':text-to-speech')
     compile project(':tone-analyzer')
-    compile project(':tradeoff-analytics')
     compile project(':visual-recognition')
 
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
