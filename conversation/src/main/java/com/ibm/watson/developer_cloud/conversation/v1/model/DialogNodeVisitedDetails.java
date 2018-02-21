@@ -12,55 +12,55 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.List;
-
+import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * LogCollection.
+ * DialogNodeVisitedDetails.
  */
-public class LogCollection extends GenericModel {
+public class DialogNodeVisitedDetails extends GenericModel {
 
-  private List<LogExport> logs;
-  private LogPagination pagination;
+  @SerializedName("dialog_node")
+  private String dialogNode;
+  private String title;
 
   /**
-   * Gets the logs.
+   * Gets the dialogNode.
    *
-   * An array of log events.
+   * A dialog node that was triggered during processing of the input message.
    *
-   * @return the logs
+   * @return the dialogNode
    */
-  public List<LogExport> getLogs() {
-    return logs;
+  public String getDialogNode() {
+    return dialogNode;
   }
 
   /**
-   * Gets the pagination.
+   * Gets the title.
    *
-   * An object defining the pagination data for the returned objects.
+   * The title of the dialog node.
    *
-   * @return the pagination
+   * @return the title
    */
-  public LogPagination getPagination() {
-    return pagination;
+  public String getTitle() {
+    return title;
   }
 
   /**
-   * Sets the logs.
+   * Sets the dialogNode.
    *
-   * @param logs the new logs
+   * @param dialogNode the new dialogNode
    */
-  public void setLogs(final List<LogExport> logs) {
-    this.logs = logs;
+  public void setDialogNode(final String dialogNode) {
+    this.dialogNode = dialogNode;
   }
 
   /**
-   * Sets the pagination.
+   * Sets the title.
    *
-   * @param pagination the new pagination
+   * @param title the new title
    */
-  public void setPagination(final LogPagination pagination) {
-    this.pagination = pagination;
+  public void setTitle(final String title) {
+    this.title = title;
   }
 }

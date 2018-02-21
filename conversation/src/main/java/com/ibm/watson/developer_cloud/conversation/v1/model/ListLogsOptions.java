@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -167,8 +167,7 @@ public class ListLogsOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * A cacheable parameter that limits the results to those matching the specified filter. For more information, see the
-   * [documentation](https://console.bluemix.net/docs/services/conversation/filter-reference.html#filter-query-syntax).
+   * A cacheable parameter that limits the results to those matching the specified filter. For more information, see the [documentation](https://console.bluemix.net/docs/services/conversation/filter-reference.html#filter-query-syntax).
    *
    * @return the filter
    */

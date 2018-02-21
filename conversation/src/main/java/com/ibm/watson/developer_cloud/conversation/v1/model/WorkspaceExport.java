@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -148,8 +148,7 @@ public class WorkspaceExport extends GenericModel {
   /**
    * Gets the learningOptOut.
    *
-   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates that
-   * workspace training data is not to be used.
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates that workspace training data is not to be used.
    *
    * @return the learningOptOut
    */
