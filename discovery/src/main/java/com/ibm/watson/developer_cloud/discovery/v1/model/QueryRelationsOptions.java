@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,8 +24,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class QueryRelationsOptions extends GenericModel {
 
   /**
-   * The sorting method for the relationships, can be `score` or `frequency`. `frequency` is the number of unique times
-   * each entity is identified. The default is `score`
+   * The sorting method for the relationships, can be `score` or `frequency`. `frequency` is the number of unique times each entity is identified. The default is `score`.
    */
   public interface Sort {
     /** score. */
@@ -241,8 +240,7 @@ public class QueryRelationsOptions extends GenericModel {
   /**
    * Gets the context.
    *
-   * Entity text to provide context for the queried entity and rank based on that association. For example, if you
-   * wanted to query the city of London in England your query would look for `London` with the context of `England`.
+   * Entity text to provide context for the queried entity and rank based on that association. For example, if you wanted to query the city of London in England your query would look for `London` with the context of `England`.
    *
    * @return the context
    */
@@ -253,8 +251,7 @@ public class QueryRelationsOptions extends GenericModel {
   /**
    * Gets the sort.
    *
-   * The sorting method for the relationships, can be `score` or `frequency`. `frequency` is the number of unique times
-   * each entity is identified. The default is `score`
+   * The sorting method for the relationships, can be `score` or `frequency`. `frequency` is the number of unique times each entity is identified. The default is `score`.
    *
    * @return the sort
    */
@@ -265,7 +262,7 @@ public class QueryRelationsOptions extends GenericModel {
   /**
    * Gets the filter.
    *
-   * Filters to apply to the relationship query
+   * Filters to apply to the relationship query.
    *
    * @return the filter
    */

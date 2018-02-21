@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -15,8 +15,7 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * Entity text to provide context for the queried entity and rank based on that association. For example, if you wanted
- * to query the city of London in England your query would look for `London` with the context of `England`.
+ * Entity text to provide context for the queried entity and rank based on that association. For example, if you wanted to query the city of London in England your query would look for `London` with the context of `England`.
  */
 public class QueryEntitiesContext extends GenericModel {
 
@@ -25,8 +24,7 @@ public class QueryEntitiesContext extends GenericModel {
   /**
    * Gets the text.
    *
-   * Entity text to provide context for the queried entity and rank based on that association. For example, if you
-   * wanted to query the city of London in England your query would look for `London` with the context of `England`.
+   * Entity text to provide context for the queried entity and rank based on that association. For example, if you wanted to query the city of London in England your query would look for `London` with the context of `England`.
    *
    * @return the text
    */

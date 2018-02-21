@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,6 +34,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
   private List<CreateCounterexample> counterexamples;
   private Map metadata;
   private Boolean learningOptOut;
+  private Boolean append;
 
   /**
    * Builder.
@@ -49,6 +50,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     private List<CreateCounterexample> counterexamples;
     private Map metadata;
     private Boolean learningOptOut;
+    private Boolean append;
 
     private Builder(UpdateWorkspaceOptions updateWorkspaceOptions) {
       workspaceId = updateWorkspaceOptions.workspaceId;
@@ -61,6 +63,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
       counterexamples = updateWorkspaceOptions.counterexamples;
       metadata = updateWorkspaceOptions.metadata;
       learningOptOut = updateWorkspaceOptions.learningOptOut;
+      append = updateWorkspaceOptions.append;
     }
 
     /**
@@ -260,6 +263,17 @@ public class UpdateWorkspaceOptions extends GenericModel {
       this.learningOptOut = learningOptOut;
       return this;
     }
+
+    /**
+     * Set the append.
+     *
+     * @param append the append
+     * @return the UpdateWorkspaceOptions builder
+     */
+    public Builder append(Boolean append) {
+      this.append = append;
+      return this;
+    }
   }
 
   private UpdateWorkspaceOptions(Builder builder) {
@@ -274,6 +288,7 @@ public class UpdateWorkspaceOptions extends GenericModel {
     counterexamples = builder.counterexamples;
     metadata = builder.metadata;
     learningOptOut = builder.learningOptOut;
+    append = builder.append;
   }
 
   /**
@@ -387,12 +402,22 @@ public class UpdateWorkspaceOptions extends GenericModel {
   /**
    * Gets the learningOptOut.
    *
-   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates that
-   * workspace training data is not to be used.
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates that workspace training data is not to be used.
    *
    * @return the learningOptOut
    */
   public Boolean learningOptOut() {
     return learningOptOut;
+  }
+
+  /**
+   * Gets the append.
+   *
+   * Specifies that the elements included in the request body are to be appended to the existing data in the workspace. The default value is `false`.
+   *
+   * @return the append
+   */
+  public Boolean append() {
+    return append;
   }
 }

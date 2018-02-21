@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class UpdateDialogNodeOptions extends GenericModel {
 
   /**
-   * How the node is processed.
+   * How the dialog node is processed.
    */
   public interface NodeType {
     /** standard. */
@@ -396,7 +396,7 @@ public class UpdateDialogNodeOptions extends GenericModel {
   /**
    * Gets the nodeType.
    *
-   * How the node is processed.
+   * How the dialog node is processed.
    *
    * @return the nodeType
    */

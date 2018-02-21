@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -46,9 +46,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the destinationField.
    *
-   * Field where enrichments will be stored. This field must already exist or be at most 1 level deeper than an existing
-   * field. For example, if `text` is a top-level field with no sub-fields, `text.foo` is a valid destination but
-   * `text.foo.bar` is not.
+   * Field where enrichments will be stored. This field must already exist or be at most 1 level deeper than an existing field. For example, if `text` is a top-level field with no sub-fields, `text.foo` is a valid destination but `text.foo.bar` is not.
    *
    * @return the destinationField
    */
@@ -81,8 +79,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the enrichmentName.
    *
-   * Name of the enrichment service to call. Currently the only valid value is `natural_language_understanding`.
-   * Previous API versions also supported `alchemy_language`.
+   * Name of the enrichment service to call. Current options are `natural_language_understanding` and `elements`.   When using `natual_language_understanding`, the `options` object must contain Natural Language Understanding Options.   When using `elements` the `options` object must contain Element Classification options. Additionally, when using the `elements` enrichment the configuration specified and files ingested must meet all the criteria specified in [the documentation](https://console.bluemix.net/docs/services/discovery/element-classification.html)     Previous API versions also supported `alchemy_language`.
    *
    * @return the enrichmentName
    */
@@ -93,8 +90,7 @@ public class Enrichment extends GenericModel {
   /**
    * Gets the ignoreDownstreamErrors.
    *
-   * If true, then most errors generated during the enrichment process will be treated as warnings and will not cause
-   * the document to fail processing.
+   * If true, then most errors generated during the enrichment process will be treated as warnings and will not cause the document to fail processing.
    *
    * @return the ignoreDownstreamErrors
    */

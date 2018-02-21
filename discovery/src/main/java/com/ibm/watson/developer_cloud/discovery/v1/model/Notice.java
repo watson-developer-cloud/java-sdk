@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -46,8 +46,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the noticeId.
    *
-   * Identifies the notice. Many notices might have the same ID. This field exists so that user applications can
-   * programmatically identify a notice and take automatic corrective action.
+   * Identifies the notice. Many notices might have the same ID. This field exists so that user applications can programmatically identify a notice and take automatic corrective action.
    *
    * @return the noticeId
    */
@@ -58,7 +57,7 @@ public class Notice extends GenericModel {
   /**
    * Gets the created.
    *
-   * The creation date of the collection in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+   * The creation date of the collection in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the created
    */

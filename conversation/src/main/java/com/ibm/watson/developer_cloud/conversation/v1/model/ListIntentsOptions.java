@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -171,9 +171,7 @@ public class ListIntentsOptions extends GenericModel {
   /**
    * Gets the export.
    *
-   * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
-   * information about the element itself. If export=`true`, all content, including subelements, is included. The
-   * default value is `false`.
+   * Whether to include all element content in the returned data. If export=`false`, the returned data includes only information about the element itself. If export=`true`, all content, including subelements, is included. The default value is `false`.
    *
    * @return the export
    */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -165,7 +165,7 @@ public class UpdateDocumentOptions extends GenericModel {
      *
      * @param file the file
      * @return the UpdateDocumentOptions builder
-     *
+     * 
      * @throws FileNotFoundException if the file could not be found
      */
     public Builder file(File file) throws FileNotFoundException {
@@ -179,8 +179,7 @@ public class UpdateDocumentOptions extends GenericModel {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
     Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     Validator.notEmpty(builder.documentId, "documentId cannot be empty");
-    Validator.isTrue((builder.file == null) || (builder.filename != null),
-        "filename cannot be null if file is not null.");
+    Validator.isTrue((builder.file == null)  || (builder.filename != null), "filename cannot be null if file is not null.");
     environmentId = builder.environmentId;
     collectionId = builder.collectionId;
     documentId = builder.documentId;
@@ -235,8 +234,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the file.
    *
-   * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than 50
-   * megabytes is rejected.
+   * The content of the document to ingest. The maximum supported file size is 50 megabytes. Files larger than 50 megabytes is rejected.
    *
    * @return the file
    */
@@ -258,9 +256,7 @@ public class UpdateDocumentOptions extends GenericModel {
   /**
    * Gets the metadata.
    *
-   * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata
-   * that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB
-   * are rejected. Example: ``` { "Creator": "Johnny Appleseed", "Subject": "Apples" } ```
+   * If you're using the Data Crawler to upload your documents, you can test a document against the type of metadata that the Data Crawler might send. The maximum supported metadata file size is 1 MB. Metadata parts larger than 1 MB are rejected. Example:  ``` {   "Creator": "Johnny Appleseed",   "Subject": "Apples" } ```.
    *
    * @return the metadata
    */

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -36,7 +36,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the configurationId.
    *
-   * The unique identifier of the configuration
+   * The unique identifier of the configuration.
    *
    * @return the configurationId
    */
@@ -58,7 +58,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the created.
    *
-   * The creation date of the configuration in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+   * The creation date of the configuration in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the created
    */
@@ -69,7 +69,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp of when the configuration was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+   * The timestamp of when the configuration was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the updated
    */
@@ -113,8 +113,7 @@ public class Configuration extends GenericModel {
   /**
    * Gets the normalizations.
    *
-   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are
-   * executed in the order that they appear in the array.
+   * Defines operations that can be used to transform the final output JSON into a normalized form. Operations are executed in the order that they appear in the array.
    *
    * @return the normalizations
    */
