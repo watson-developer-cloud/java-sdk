@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -55,8 +55,7 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation. Continue a conversation by including the context object from the previous
-   * response.
+   * State information for the conversation. Continue a conversation by including the context object from the previous response.
    *
    * @return the context
    */
@@ -67,8 +66,7 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Include the entities from the previous response when they do not need to change and to prevent Watson from trying
-   * to identify them.
+   * Include the entities from the previous response when they do not need to change and to prevent Watson from trying to identify them.
    *
    * @return the entities
    */
@@ -79,8 +77,7 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they do
-   * not need to change and to prevent Watson from trying to identify them.
+   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they do not need to change and to prevent Watson from trying to identify them.
    *
    * @return the intents
    */
@@ -91,8 +88,7 @@ public class MessageRequest extends GenericModel {
   /**
    * Gets the output.
    *
-   * System output. Include the output from the request when you have several requests within the same Dialog turn to
-   * pass back in the intermediate information.
+   * System output. Include the output from the request when you have several requests within the same Dialog turn to pass back in the intermediate information.
    *
    * @return the output
    */
