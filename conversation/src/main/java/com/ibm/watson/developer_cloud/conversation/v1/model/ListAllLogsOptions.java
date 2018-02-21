@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -20,8 +20,8 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class ListAllLogsOptions extends GenericModel {
 
-  private String sort;
   private String filter;
+  private String sort;
   private Long pageLimit;
   private String cursor;
 
@@ -29,14 +29,14 @@ public class ListAllLogsOptions extends GenericModel {
    * Builder.
    */
   public static class Builder {
-    private String sort;
     private String filter;
+    private String sort;
     private Long pageLimit;
     private String cursor;
 
     private Builder(ListAllLogsOptions listAllLogsOptions) {
-      sort = listAllLogsOptions.sort;
       filter = listAllLogsOptions.filter;
+      sort = listAllLogsOptions.sort;
       pageLimit = listAllLogsOptions.pageLimit;
       cursor = listAllLogsOptions.cursor;
     }
@@ -66,17 +66,6 @@ public class ListAllLogsOptions extends GenericModel {
     }
 
     /**
-     * Set the sort.
-     *
-     * @param sort the sort
-     * @return the ListAllLogsOptions builder
-     */
-    public Builder sort(String sort) {
-      this.sort = sort;
-      return this;
-    }
-
-    /**
      * Set the filter.
      *
      * @param filter the filter
@@ -84,6 +73,17 @@ public class ListAllLogsOptions extends GenericModel {
      */
     public Builder filter(String filter) {
       this.filter = filter;
+      return this;
+    }
+
+    /**
+     * Set the sort.
+     *
+     * @param sort the sort
+     * @return the ListAllLogsOptions builder
+     */
+    public Builder sort(String sort) {
+      this.sort = sort;
       return this;
     }
 
@@ -112,8 +112,8 @@ public class ListAllLogsOptions extends GenericModel {
 
   private ListAllLogsOptions(Builder builder) {
     Validator.notNull(builder.filter, "filter cannot be null");
-    sort = builder.sort;
     filter = builder.filter;
+    sort = builder.sort;
     pageLimit = builder.pageLimit;
     cursor = builder.cursor;
   }
@@ -128,6 +128,17 @@ public class ListAllLogsOptions extends GenericModel {
   }
 
   /**
+   * Gets the filter.
+   *
+   * A cacheable parameter that limits the results to those matching the specified filter. You must specify a filter query that includes a value for `language`, as well as a value for `workspace_id` or `request.context.metadata.deployment`. For more information, see the [documentation](https://console.bluemix.net/docs/services/conversation/filter-reference.html#filter-query-syntax).
+   *
+   * @return the filter
+   */
+  public String filter() {
+    return filter;
+  }
+
+  /**
    * Gets the sort.
    *
    * Sorts the response according to the value of the specified property, in ascending or descending order.
@@ -136,20 +147,6 @@ public class ListAllLogsOptions extends GenericModel {
    */
   public String sort() {
     return sort;
-  }
-
-  /**
-   * Gets the filter.
-   *
-   * A cacheable parameter that limits the results to those matching the specified filter. You must specify a filter
-   * query that includes a value for `language`, as well as a value for `workspace_id` or
-   * `request.context.metadata.deployment`. For more information, see the
-   * [documentation](https://console.bluemix.net/docs/services/conversation/filter-reference.html#filter-query-syntax).
-   *
-   * @return the filter
-   */
-  public String filter() {
-    return filter;
   }
 
   /**

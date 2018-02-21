@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -14,15 +14,12 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationDeserializer;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * An aggregation produced by the Discovery service to analyze the input provided.
  */
-@JsonAdapter(AggregationDeserializer.class)
 public class QueryAggregation extends GenericModel {
 
   private String type;

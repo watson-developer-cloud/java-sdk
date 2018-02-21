@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -222,8 +222,7 @@ public class NluEnrichmentEntities extends GenericModel {
   /**
    * Gets the sentenceLocation.
    *
-   * When `true`, a list of sentence locations for each instance of each identified entity is recorded. The default is
-   * `false`.
+   * When `true`, a list of sentence locations for each instance of each identified entity is recorded. The default is `false`.
    *
    * @return the sentenceLocation
    */
@@ -234,8 +233,7 @@ public class NluEnrichmentEntities extends GenericModel {
   /**
    * Gets the model.
    *
-   * The enrichement model to use with entity extraction. May be a custom model provided by Watson Knowledge Studio, the
-   * public model for use with Knowledge Graph `en-news`, or the default public model `alchemy`.
+   * The enrichement model to use with entity extraction. May be a custom model provided by Watson Knowledge Studio, the public model for use with Knowledge Graph `en-news`, or the default public model `alchemy`.
    *
    * @return the model
    */

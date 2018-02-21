@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,12 +23,11 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * An output object that includes the response to the user, the nodes that were hit, and messages from the log.
  */
 public class OutputData extends DynamicModel {
-  private Type logMessagesType = new TypeToken<List<LogMessage>>() {
-  }.getType();
-  private Type textType = new TypeToken<List<String>>() {
-  }.getType();
-  private Type nodesVisitedType = new TypeToken<List<String>>() {
-  }.getType();
+  private Type logMessagesType = new TypeToken<List<LogMessage>>() { } .getType();
+  private Type textType = new TypeToken<List<String>>() { } .getType();
+  private Type nodesVisitedType = new TypeToken<List<String>>() { } .getType();
+  private Type nodesVisitedDetailsType = new TypeToken<List<DialogNodeVisitedDetails>>() { } .getType();
+
 
   /**
    * Gets the logMessages.
@@ -58,6 +57,15 @@ public class OutputData extends DynamicModel {
   }
 
   /**
+   * Gets the nodesVisitedDetails.
+   *
+   * @return the nodesVisitedDetails
+   */
+  public List<DialogNodeVisitedDetails> getNodesVisitedDetails() {
+    return GsonSerializationHelper.serializeDynamicModelProperty(this.get("nodes_visited_details"), nodesVisitedDetailsType);
+  }
+
+  /**
    * Sets the logMessages.
    *
    * @param logMessages the new logMessages
@@ -83,4 +91,14 @@ public class OutputData extends DynamicModel {
   public void setNodesVisited(final List<String> nodesVisited) {
     this.put("nodes_visited", nodesVisited);
   }
+
+  /**
+   * Sets the nodesVisitedDetails.
+   *
+   * @param nodesVisitedDetails the new nodesVisitedDetails
+   */
+  public void setNodesVisitedDetails(final List<DialogNodeVisitedDetails> nodesVisitedDetails) {
+    this.put("nodes_visited_details", nodesVisitedDetails);
+  }
 }
+

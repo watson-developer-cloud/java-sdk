@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,18 +23,13 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * A response from the Conversation service.
  */
 public class MessageResponse extends DynamicModel {
-  private Type inputType = new TypeToken<MessageInput>() {
-  }.getType();
-  private Type intentsType = new TypeToken<List<RuntimeIntent>>() {
-  }.getType();
-  private Type entitiesType = new TypeToken<List<RuntimeEntity>>() {
-  }.getType();
-  private Type alternateIntentsType = new TypeToken<Boolean>() {
-  }.getType();
-  private Type contextType = new TypeToken<Context>() {
-  }.getType();
-  private Type outputType = new TypeToken<OutputData>() {
-  }.getType();
+  private Type inputType = new TypeToken<MessageInput>() { } .getType();
+  private Type intentsType = new TypeToken<List<RuntimeIntent>>() { } .getType();
+  private Type entitiesType = new TypeToken<List<RuntimeEntity>>() { } .getType();
+  private Type alternateIntentsType = new TypeToken<Boolean>() { } .getType();
+  private Type contextType = new TypeToken<Context>() { } .getType();
+  private Type outputType = new TypeToken<OutputData>() { } .getType();
+
 
   /**
    * Gets the input.
@@ -144,3 +139,4 @@ public class MessageResponse extends DynamicModel {
     this.put("output", output);
   }
 }
+

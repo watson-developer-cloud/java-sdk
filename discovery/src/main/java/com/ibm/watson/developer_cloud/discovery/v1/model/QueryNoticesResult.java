@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -23,16 +23,12 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * QueryNoticesResult.
  */
 public class QueryNoticesResult extends DynamicModel {
-  private Type idType = new TypeToken<String>() {
-  }.getType();
-  private Type scoreType = new TypeToken<Double>() {
-  }.getType();
-  private Type metadataType = new TypeToken<Map>() {
-  }.getType();
-  private Type collectionIdType = new TypeToken<String>() {
-  }.getType();
-  private Type resultMetadataType = new TypeToken<QueryResultResultMetadata>() {
-  }.getType();
+  private Type idType = new TypeToken<String>() { } .getType();
+  private Type scoreType = new TypeToken<Double>() { } .getType();
+  private Type metadataType = new TypeToken<Map>() { } .getType();
+  private Type collectionIdType = new TypeToken<String>() { } .getType();
+  private Type resultMetadataType = new TypeToken<QueryResultResultMetadata>() { } .getType();
+
 
   /**
    * Gets the id.
@@ -124,3 +120,4 @@ public class QueryNoticesResult extends DynamicModel {
     this.put("result_metadata", resultMetadata);
   }
 }
+
