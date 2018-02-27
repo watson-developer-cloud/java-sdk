@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -26,7 +26,7 @@ public class DetectFacesOptions extends GenericModel {
 
   private InputStream imagesFile;
   private String imagesFilename;
-  private String parameters;
+  private String url;
   private String imagesFileContentType;
 
   /**
@@ -35,13 +35,13 @@ public class DetectFacesOptions extends GenericModel {
   public static class Builder {
     private InputStream imagesFile;
     private String imagesFilename;
-    private String parameters;
+    private String url;
     private String imagesFileContentType;
 
     private Builder(DetectFacesOptions detectFacesOptions) {
       imagesFile = detectFacesOptions.imagesFile;
       imagesFilename = detectFacesOptions.imagesFilename;
-      parameters = detectFacesOptions.parameters;
+      url = detectFacesOptions.url;
       imagesFileContentType = detectFacesOptions.imagesFileContentType;
     }
 
@@ -83,13 +83,13 @@ public class DetectFacesOptions extends GenericModel {
     }
 
     /**
-     * Set the parameters.
+     * Set the url.
      *
-     * @param parameters the parameters
+     * @param url the url
      * @return the DetectFacesOptions builder
      */
-    public Builder parameters(String parameters) {
-      this.parameters = parameters;
+    public Builder url(String url) {
+      this.url = url;
       return this;
     }
 
@@ -122,7 +122,7 @@ public class DetectFacesOptions extends GenericModel {
   private DetectFacesOptions(Builder builder) {
     imagesFile = builder.imagesFile;
     imagesFilename = builder.imagesFilename;
-    parameters = builder.parameters;
+    url = builder.url;
     imagesFileContentType = builder.imagesFileContentType;
   }
 
@@ -160,14 +160,14 @@ public class DetectFacesOptions extends GenericModel {
   }
 
   /**
-   * Gets the parameters.
+   * Gets the url.
    *
-   * A JSON string containing the image URL to analyze. For example: {"url": "..."}
+   * A string with the image URL to analyze.
    *
-   * @return the parameters
+   * @return the url
    */
-  public String parameters() {
-    return parameters;
+  public String url() {
+    return url;
   }
 
   /**
