@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -35,7 +35,7 @@ import okhttp3.RequestBody;
 import java.io.File;
 
 /**
- * **Important**: As of September 8, 2017, the beta period for Similarity Search is closed. For more information, see
+ * **Important:** As of September 8, 2017, the beta period for Similarity Search is closed. For more information, see
  * [Visual Recognition API – Similarity Search
  * Update](https://www.ibm.com/blogs/bluemix/2017/08/visual-recognition-api-similarity-search-update).
  *
@@ -43,8 +43,8 @@ import java.io.File;
  * images you upload to the service. You can create and train a custom classifier to identify subjects that suit your
  * needs.
  *
- * **Tip**: To test calls to the **Custom classifiers** methods with the API explorer, provide your `api_key` from your
- * Bluemix service instance.
+ * **Tip:** To test calls to the **Custom classifiers** methods with the API explorer, provide your `api_key` from your
+ * IBM&reg; Cloud service instance.
  *
  * @version v3
  * @see <a href="http://www.ibm.com/watson/developercloud/visual-recognition.html">Visual Recognition</a>
@@ -58,8 +58,6 @@ public class VisualRecognition extends WatsonService {
 
   /** The Constant VERSION_DATE_2016_05_20. */
   public static final String VERSION_DATE_2016_05_20 = "2016-05-20";
-
-  private boolean endPointChanged;
 
   /**
    * Instantiates a new `VisualRecognition`.
@@ -108,20 +106,23 @@ public class VisualRecognition extends WatsonService {
       }
     } else {
       throw new IllegalArgumentException(
-        "Credentials need to be specified. Use setApiKey() or setUsernameAndPassword()");
+          "Credentials need to be specified. Use setApiKey() or setUsernameAndPassword()");
     }
   }
 
   /**
    * Classify images.
    *
+   * Classify images with built-in or custom classifiers.
+   *
    * @param classifyOptions the {@link ClassifyOptions} containing the options for the call
-   * @return the {@link ClassifiedImages} with the response
+   * @return a {@link ServiceCall} with a response type of {@link ClassifiedImages}
    */
   public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
     Validator.notNull(classifyOptions, "classifyOptions cannot be null");
-    Validator.isTrue((classifyOptions.imagesFile() != null) || (classifyOptions.parameters() != null),
-        "At least one of imagesFile or parameters must be supplied.");
+    Validator.isTrue((classifyOptions.imagesFile() != null) || (classifyOptions.url() != null) || (classifyOptions
+        .threshold() != null) || (classifyOptions.owners() != null) || (classifyOptions.classifierIds() != null),
+        "At least one of imagesFile, url, threshold, owners, or classifierIds must be supplied.");
     RequestBuilder builder = RequestBuilder.post("/v3/classify");
     builder.query(VERSION, versionDate);
     if (classifyOptions.acceptLanguage() != null) {
@@ -134,23 +135,47 @@ public class VisualRecognition extends WatsonService {
           .imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", classifyOptions.imagesFilename(), imagesFileBody);
     }
-    if (classifyOptions.parameters() != null) {
-      multipartBuilder.addFormDataPart("parameters", classifyOptions.parameters());
+    if (classifyOptions.url() != null) {
+      multipartBuilder.addFormDataPart("url", classifyOptions.url());
+    }
+    if (classifyOptions.threshold() != null) {
+      multipartBuilder.addFormDataPart("threshold", String.valueOf(classifyOptions.threshold()));
+    }
+    if (classifyOptions.owners() != null) {
+      multipartBuilder.addFormDataPart("owners", RequestUtils.join(classifyOptions.owners(), ","));
+    }
+    if (classifyOptions.classifierIds() != null) {
+      multipartBuilder.addFormDataPart("classifier_ids", RequestUtils.join(classifyOptions.classifierIds(), ","));
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(ClassifiedImages.class));
   }
 
   /**
-   * Detect faces in an image.
+   * Classify images.
+   *
+   * Classify images with built-in or custom classifiers.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link ClassifiedImages}
+   */
+  public ServiceCall<ClassifiedImages> classify() {
+    return classify(null);
+  }
+
+  /**
+   * Detect faces in images.
+   *
+   * Analyze and get data about faces in images. Responses can include estimated age and gender, and the service can
+   * identify celebrities. This feature uses a built-in classifier, so you do not train it on custom classifiers. The
+   * Detect faces method does not support general biometric facial recognition.
    *
    * @param detectFacesOptions the {@link DetectFacesOptions} containing the options for the call
-   * @return the {@link DetectedFaces} with the response
+   * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
    */
   public ServiceCall<DetectedFaces> detectFaces(DetectFacesOptions detectFacesOptions) {
     Validator.notNull(detectFacesOptions, "detectFacesOptions cannot be null");
-    Validator.isTrue((detectFacesOptions.imagesFile() != null) || (detectFacesOptions.parameters() != null),
-        "At least one of imagesFile or parameters must be supplied.");
+    Validator.isTrue((detectFacesOptions.imagesFile() != null) || (detectFacesOptions.url() != null),
+        "At least one of imagesFile or url must be supplied.");
     RequestBuilder builder = RequestBuilder.post("/v3/detect_faces");
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
@@ -160,18 +185,63 @@ public class VisualRecognition extends WatsonService {
           .imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", detectFacesOptions.imagesFilename(), imagesFileBody);
     }
-    if (detectFacesOptions.parameters() != null) {
-      multipartBuilder.addFormDataPart("parameters", detectFacesOptions.parameters());
+    if (detectFacesOptions.url() != null) {
+      multipartBuilder.addFormDataPart("url", detectFacesOptions.url());
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(DetectedFaces.class));
   }
 
   /**
+   * Detect faces in images.
+   *
+   * Analyze and get data about faces in images. Responses can include estimated age and gender, and the service can
+   * identify celebrities. This feature uses a built-in classifier, so you do not train it on custom classifiers. The
+   * Detect faces method does not support general biometric facial recognition.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link DetectedFaces}
+   */
+  public ServiceCall<DetectedFaces> detectFaces() {
+    return detectFaces(null);
+  }
+
+  /**
+   * Retrieve a list of custom classifiers.
+   *
+   * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of {@link Classifiers}
+   */
+  public ServiceCall<Classifiers> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
+    RequestBuilder builder = RequestBuilder.get("/v3/classifiers");
+    builder.query(VERSION, versionDate);
+    if (listClassifiersOptions != null) {
+      if (listClassifiersOptions.verbose() != null) {
+        builder.query("verbose", String.valueOf(listClassifiersOptions.verbose()));
+      }
+    }
+    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifiers.class));
+  }
+
+  /**
+   * Retrieve a list of custom classifiers.
+   *
+   * @return a {@link ServiceCall} with a response type of {@link Classifiers}
+   */
+  public ServiceCall<Classifiers> listClassifiers() {
+    return listClassifiers(null);
+  }
+
+  /**
    * Create a classifier.
    *
+   * Train a new multi-faceted classifier on the uploaded image data. Create your custom classifier with positive or
+   * negative examples. Include at least two sets of examples, either two positive example files or one positive and one
+   * negative file. You can upload a maximum of 256 MB per call. Encode all names in UTF-8 if they contain non-ASCII
+   * characters (.zip and image file names, and classifier and class names). The service assumes UTF-8 encoding if it
+   * encounters non-ASCII characters.
+   *
    * @param createClassifierOptions the {@link CreateClassifierOptions} containing the options for the call
-   * @return the {@link Classifier} with the response
+   * @return a {@link ServiceCall} with a response type of {@link Classifier}
    */
   public ServiceCall<Classifier> createClassifier(CreateClassifierOptions createClassifierOptions) {
     Validator.notNull(createClassifierOptions, "createClassifierOptions cannot be null");
@@ -198,24 +268,12 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Delete a custom classifier.
+   * Retrieve classifier details.
    *
-   * @param deleteClassifierOptions the {@link DeleteClassifierOptions} containing the options for the call
-   * @return the service call
-   */
-  public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
-    Validator.notNull(deleteClassifierOptions, "deleteClassifierOptions cannot be null");
-    RequestBuilder builder = RequestBuilder.delete(String.format("/v3/classifiers/%s", deleteClassifierOptions
-        .classifierId()));
-    builder.query(VERSION, versionDate);
-    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
-  }
-
-  /**
    * Retrieve information about a custom classifier.
    *
    * @param getClassifierOptions the {@link GetClassifierOptions} containing the options for the call
-   * @return the {@link Classifier} with the response
+   * @return a {@link ServiceCall} with a response type of {@link Classifier}
    */
   public ServiceCall<Classifier> getClassifier(GetClassifierOptions getClassifierOptions) {
     Validator.notNull(getClassifierOptions, "getClassifierOptions cannot be null");
@@ -226,30 +284,27 @@ public class VisualRecognition extends WatsonService {
   }
 
   /**
-   * Retrieve a list of custom classifiers.
-   *
-   * @param listClassifiersOptions the {@link ListClassifiersOptions} containing the options for the call
-   * @return the {@link Classifiers} with the response
-   */
-  public ServiceCall<Classifiers> listClassifiers(ListClassifiersOptions listClassifiersOptions) {
-    RequestBuilder builder = RequestBuilder.get("/v3/classifiers");
-    builder.query(VERSION, versionDate);
-    if (listClassifiersOptions != null) {
-      if (listClassifiersOptions.verbose() != null) {
-        builder.query("verbose", String.valueOf(listClassifiersOptions.verbose()));
-      }
-    }
-    return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifiers.class));
-  }
-
-  /**
    * Update a classifier.
    *
+   * Update a custom classifier by adding new positive or negative classes (examples) or by adding new images to
+   * existing classes. You must supply at least one set of positive or negative examples. For details, see [Updating
+   * custom classifiers]
+   * (https://console.bluemix.net/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
+   * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
+   * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters. **Important:** You can't update a
+   * custom classifier with an API key for a Lite plan. To update a custom classifer on a Lite plan, create another
+   * service instance on a Standard plan and re-create your custom classifier. **Tip:** Don't make retraining calls on a
+   * classifier until the status is ready. When you submit retraining requests in parallel, the last request overwrites
+   * the previous requests. The retrained property shows the last time the classifier retraining finished.
+   *
    * @param updateClassifierOptions the {@link UpdateClassifierOptions} containing the options for the call
-   * @return the {@link Classifier} with the response
+   * @return a {@link ServiceCall} with a response type of {@link Classifier}
    */
   public ServiceCall<Classifier> updateClassifier(UpdateClassifierOptions updateClassifierOptions) {
     Validator.notNull(updateClassifierOptions, "updateClassifierOptions cannot be null");
+    Validator.isTrue((updateClassifierOptions.classNames().size() > 0) || (updateClassifierOptions
+        .negativeExamples() != null),
+        "At least one of classnamePositiveExamples or negativeExamples must be supplied.");
     RequestBuilder builder = RequestBuilder.post(String.format("/v3/classifiers/%s", updateClassifierOptions
         .classifierId()));
     builder.query(VERSION, versionDate);
@@ -270,6 +325,20 @@ public class VisualRecognition extends WatsonService {
     }
     builder.body(multipartBuilder.build());
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(Classifier.class));
+  }
+
+  /**
+   * Delete a classifier.
+   *
+   * @param deleteClassifierOptions the {@link DeleteClassifierOptions} containing the options for the call
+   * @return a {@link ServiceCall} with a response type of Void
+   */
+  public ServiceCall<Void> deleteClassifier(DeleteClassifierOptions deleteClassifierOptions) {
+    Validator.notNull(deleteClassifierOptions, "deleteClassifierOptions cannot be null");
+    RequestBuilder builder = RequestBuilder.delete(String.format("/v3/classifiers/%s", deleteClassifierOptions
+        .classifierId()));
+    builder.query(VERSION, versionDate);
+    return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
 }

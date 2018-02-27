@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -45,11 +45,12 @@ public class Classifier extends GenericModel {
   private String explanation;
   private Date created;
   private List<Class> classes;
+  private Date retrained;
 
   /**
    * Gets the classifierId.
    *
-   * The ID of the classifier.
+   * ID of a classifier identified in the image.
    *
    * @return the classifierId
    */
@@ -60,7 +61,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the classifier.
+   * Name of the classifier.
    *
    * @return the name
    */
@@ -71,7 +72,8 @@ public class Classifier extends GenericModel {
   /**
    * Gets the owner.
    *
-   * Unique ID of the account who owns the classifier.
+   * Unique ID of the account who owns the classifier. Returned when verbose=`true`. Might not be returned by some
+   * requests.
    *
    * @return the owner
    */
@@ -93,7 +95,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the explanation.
    *
-   * If classifier training has failed, this field may explain why
+   * If classifier training has failed, this field may explain why.
    *
    * @return the explanation
    */
@@ -104,7 +106,7 @@ public class Classifier extends GenericModel {
   /**
    * Gets the created.
    *
-   * The time and date when classifier was created.
+   * Date and time in Coordinated Universal Time that the classifier was created.
    *
    * @return the created
    */
@@ -115,12 +117,24 @@ public class Classifier extends GenericModel {
   /**
    * Gets the classes.
    *
-   * An array of classes that define a classifier.
+   * Array of classes that define a classifier.
    *
    * @return the classes
    */
   public List<Class> getClasses() {
     return classes;
+  }
+
+  /**
+   * Gets the retrained.
+   *
+   * Date and time in Coordinated Universal Time that the classifier was updated. Returned when verbose=`true`. Might
+   * not be returned by some requests.
+   *
+   * @return the retrained
+   */
+  public Date getRetrained() {
+    return retrained;
   }
 
   /**
@@ -184,5 +198,14 @@ public class Classifier extends GenericModel {
    */
   public void setClasses(final List<Class> classes) {
     this.classes = classes;
+  }
+
+  /**
+   * Sets the retrained.
+   *
+   * @param retrained the new retrained
+   */
+  public void setRetrained(final Date retrained) {
+    this.retrained = retrained;
   }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -160,7 +160,7 @@ public class CreateClassifierOptions extends GenericModel {
   /**
    * Gets the name.
    *
-   * The name of the new classifier. Cannot contain special characters.
+   * The name of the new classifier. Encode special characters in UTF-8.
    *
    * @return the name
    */
@@ -171,9 +171,8 @@ public class CreateClassifierOptions extends GenericModel {
   /**
    * Gets the class names.
    *
-   * A compressed (.zip) file of images that depict the visual subject for a class within the new classifier. Must
-   * contain a minimum of 10 images. The swagger limits you to training only one class. To train more classes, use the
-   * API functionality.
+   * The class names for the positive examples.
+   *
    * @return the classNames
    */
   public Set<String> classNames() {
@@ -194,7 +193,7 @@ public class CreateClassifierOptions extends GenericModel {
    * Gets the negativeExamples.
    *
    * A compressed (.zip) file of images that do not depict the visual subject of any of the classes of the new
-   * classifier. Must contain a minimum of 10 images.
+   * classifier. Must contain a minimum of 10 images. Encode special characters in the file name in UTF-8.
    *
    * @return the negativeExamples
    */
