@@ -45,22 +45,4 @@ public class LogCollection extends GenericModel {
   public LogPagination getPagination() {
     return pagination;
   }
-
-  /**
-   * Sets the logs.
-   *
-   * @param logs the new logs
-   */
-  public void setLogs(final List<LogExport> logs) {
-    this.logs = logs;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final LogPagination pagination) {
-    this.pagination = pagination;
-  }
 }

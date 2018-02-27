@@ -26,6 +26,7 @@ public class ListEntitiesOptions extends GenericModel {
   private Boolean includeCount;
   private String sort;
   private String cursor;
+  private Boolean includeAudit;
 
   /**
    * Builder.
@@ -37,6 +38,7 @@ public class ListEntitiesOptions extends GenericModel {
     private Boolean includeCount;
     private String sort;
     private String cursor;
+    private Boolean includeAudit;
 
     private Builder(ListEntitiesOptions listEntitiesOptions) {
       workspaceId = listEntitiesOptions.workspaceId;
@@ -45,6 +47,7 @@ public class ListEntitiesOptions extends GenericModel {
       includeCount = listEntitiesOptions.includeCount;
       sort = listEntitiesOptions.sort;
       cursor = listEntitiesOptions.cursor;
+      includeAudit = listEntitiesOptions.includeAudit;
     }
 
     /**
@@ -136,6 +139,17 @@ public class ListEntitiesOptions extends GenericModel {
       this.cursor = cursor;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the ListEntitiesOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   private ListEntitiesOptions(Builder builder) {
@@ -146,6 +160,7 @@ public class ListEntitiesOptions extends GenericModel {
     includeCount = builder.includeCount;
     sort = builder.sort;
     cursor = builder.cursor;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -223,5 +238,16 @@ public class ListEntitiesOptions extends GenericModel {
    */
   public String cursor() {
     return cursor;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

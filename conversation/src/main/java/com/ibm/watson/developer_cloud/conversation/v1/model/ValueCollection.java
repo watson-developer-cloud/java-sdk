@@ -45,22 +45,4 @@ public class ValueCollection extends GenericModel {
   public Pagination getPagination() {
     return pagination;
   }
-
-  /**
-   * Sets the values.
-   *
-   * @param values the new values
-   */
-  public void setValues(final List<ValueExport> values) {
-    this.values = values;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final Pagination pagination) {
-    this.pagination = pagination;
-  }
 }

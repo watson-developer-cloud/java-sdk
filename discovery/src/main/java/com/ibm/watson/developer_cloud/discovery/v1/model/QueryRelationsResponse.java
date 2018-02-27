@@ -31,13 +31,4 @@ public class QueryRelationsResponse extends GenericModel {
   public List<QueryRelationsRelationship> getRelations() {
     return relations;
   }
-
-  /**
-   * Sets the relations.
-   *
-   * @param relations the new relations
-   */
-  public void setRelations(final List<QueryRelationsRelationship> relations) {
-    this.relations = relations;
-  }
 }

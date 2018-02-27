@@ -45,22 +45,4 @@ public class DialogNodeCollection extends GenericModel {
   public Pagination getPagination() {
     return pagination;
   }
-
-  /**
-   * Sets the dialogNodes.
-   *
-   * @param dialogNodes the new dialogNodes
-   */
-  public void setDialogNodes(final List<DialogNode> dialogNodes) {
-    this.dialogNodes = dialogNodes;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final Pagination pagination) {
-    this.pagination = pagination;
-  }
 }

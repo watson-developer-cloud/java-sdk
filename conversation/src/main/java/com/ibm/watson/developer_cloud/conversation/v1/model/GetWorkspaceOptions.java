@@ -22,6 +22,7 @@ public class GetWorkspaceOptions extends GenericModel {
 
   private String workspaceId;
   private Boolean export;
+  private Boolean includeAudit;
 
   /**
    * Builder.
@@ -29,10 +30,12 @@ public class GetWorkspaceOptions extends GenericModel {
   public static class Builder {
     private String workspaceId;
     private Boolean export;
+    private Boolean includeAudit;
 
     private Builder(GetWorkspaceOptions getWorkspaceOptions) {
       workspaceId = getWorkspaceOptions.workspaceId;
       export = getWorkspaceOptions.export;
+      includeAudit = getWorkspaceOptions.includeAudit;
     }
 
     /**
@@ -80,12 +83,24 @@ public class GetWorkspaceOptions extends GenericModel {
       this.export = export;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the GetWorkspaceOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   private GetWorkspaceOptions(Builder builder) {
     Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
     workspaceId = builder.workspaceId;
     export = builder.export;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -119,5 +134,16 @@ public class GetWorkspaceOptions extends GenericModel {
    */
   public Boolean export() {
     return export;
+  }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
   }
 }

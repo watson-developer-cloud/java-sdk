@@ -97,40 +97,4 @@ public class Entity extends GenericModel {
   public Boolean isFuzzyMatch() {
     return fuzzyMatch;
   }
-
-  /**
-   * Sets the entityName.
-   *
-   * @param entityName the new entityName
-   */
-  public void setEntityName(final String entityName) {
-    this.entityName = entityName;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map metadata) {
-    this.metadata = metadata;
-  }
-
-  /**
-   * Sets the fuzzyMatch.
-   *
-   * @param fuzzyMatch the new fuzzyMatch
-   */
-  public void setFuzzyMatch(final Boolean fuzzyMatch) {
-    this.fuzzyMatch = fuzzyMatch;
-  }
 }

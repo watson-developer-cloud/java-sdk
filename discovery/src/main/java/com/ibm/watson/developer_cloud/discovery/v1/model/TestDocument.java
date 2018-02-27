@@ -98,22 +98,4 @@ public class TestDocument extends GenericModel {
   public List<Notice> getNotices() {
     return notices;
   }
-
-  /**
-   * Sets the snapshots.
-   *
-   * @param snapshots the new snapshots
-   */
-  public void setSnapshots(final List<DocumentSnapshot> snapshots) {
-    this.snapshots = snapshots;
-  }
-
-  /**
-   * Sets the notices.
-   *
-   * @param notices the new notices
-   */
-  public void setNotices(final List<Notice> notices) {
-    this.notices = notices;
-  }
 }

@@ -45,22 +45,4 @@ public class CounterexampleCollection extends GenericModel {
   public Pagination getPagination() {
     return pagination;
   }
-
-  /**
-   * Sets the counterexamples.
-   *
-   * @param counterexamples the new counterexamples
-   */
-  public void setCounterexamples(final List<Counterexample> counterexamples) {
-    this.counterexamples = counterexamples;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final Pagination pagination) {
-    this.pagination = pagination;
-  }
 }

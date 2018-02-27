@@ -145,40 +145,4 @@ public class Environment extends GenericModel {
   public IndexCapacity getIndexCapacity() {
     return indexCapacity;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the size.
-   *
-   * @param size the new size
-   */
-  public void setSize(final long size) {
-    this.size = size;
-  }
-
-  /**
-   * Sets the indexCapacity.
-   *
-   * @param indexCapacity the new indexCapacity
-   */
-  public void setIndexCapacity(final IndexCapacity indexCapacity) {
-    this.indexCapacity = indexCapacity;
-  }
 }

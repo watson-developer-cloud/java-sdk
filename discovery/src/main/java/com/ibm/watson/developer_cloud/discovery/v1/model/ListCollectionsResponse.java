@@ -33,13 +33,4 @@ public class ListCollectionsResponse extends GenericModel {
   public List<Collection> getCollections() {
     return collections;
   }
-
-  /**
-   * Sets the collections.
-   *
-   * @param collections the new collections
-   */
-  public void setCollections(final List<Collection> collections) {
-    this.collections = collections;
-  }
 }

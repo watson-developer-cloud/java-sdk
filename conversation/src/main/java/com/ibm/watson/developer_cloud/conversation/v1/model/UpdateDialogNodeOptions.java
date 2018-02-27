@@ -130,12 +130,10 @@ public class UpdateDialogNodeOptions extends GenericModel {
      *
      * @param workspaceId the workspaceId
      * @param dialogNode the dialogNode
-     * @param newDialogNode the newDialogNode
      */
-    public Builder(String workspaceId, String dialogNode, String newDialogNode) {
+    public Builder(String workspaceId, String dialogNode) {
       this.workspaceId = workspaceId;
       this.dialogNode = dialogNode;
-      this.newDialogNode = newDialogNode;
     }
 
     /**
@@ -343,7 +341,6 @@ public class UpdateDialogNodeOptions extends GenericModel {
   private UpdateDialogNodeOptions(Builder builder) {
     Validator.notEmpty(builder.workspaceId, "workspaceId cannot be empty");
     Validator.notEmpty(builder.dialogNode, "dialogNode cannot be empty");
-    Validator.notNull(builder.newDialogNode, "newDialogNode cannot be null");
     workspaceId = builder.workspaceId;
     dialogNode = builder.dialogNode;
     nodeType = builder.nodeType;
