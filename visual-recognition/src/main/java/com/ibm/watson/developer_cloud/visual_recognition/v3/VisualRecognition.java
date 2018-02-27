@@ -32,6 +32,8 @@ import com.ibm.watson.developer_cloud.visual_recognition.v3.model.UpdateClassifi
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
+import java.io.File;
+
 /**
  * **Important:** As of September 8, 2017, the beta period for Similarity Search is closed. For more information, see
  * [Visual Recognition API – Similarity Search
@@ -248,10 +250,13 @@ public class VisualRecognition extends WatsonService {
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
     multipartBuilder.addFormDataPart("name", createClassifierOptions.name());
-    RequestBody classnamePositiveExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions
-        .classnamePositiveExamples(), "application/octet-stream");
-    multipartBuilder.addFormDataPart("classname_positive_examples", createClassifierOptions
-        .classnamePositiveExamplesFilename(), classnamePositiveExamplesBody);
+    // Classes
+    for (String className : createClassifierOptions.classNames()) {
+      String dataName = className + "_positive_examples";
+      File positiveExamples = createClassifierOptions.positiveExamplesByClassName(className);
+      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
+      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
+    }
     if (createClassifierOptions.negativeExamples() != null) {
       RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(createClassifierOptions.negativeExamples(),
           "application/octet-stream");
@@ -283,8 +288,8 @@ public class VisualRecognition extends WatsonService {
    *
    * Update a custom classifier by adding new positive or negative classes (examples) or by adding new images to
    * existing classes. You must supply at least one set of positive or negative examples. For details, see [Updating
-   * custom
-   * classifiers](https://console.bluemix.net/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
+   * custom classifiers]
+   * (https://console.bluemix.net/docs/services/visual-recognition/customizing.html#updating-custom-classifiers).
    * Encode all names in UTF-8 if they contain non-ASCII characters (.zip and image file names, and classifier and class
    * names). The service assumes UTF-8 encoding if it encounters non-ASCII characters. **Important:** You can't update a
    * custom classifier with an API key for a Lite plan. To update a custom classifer on a Lite plan, create another
@@ -297,7 +302,7 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<Classifier> updateClassifier(UpdateClassifierOptions updateClassifierOptions) {
     Validator.notNull(updateClassifierOptions, "updateClassifierOptions cannot be null");
-    Validator.isTrue((updateClassifierOptions.classnamePositiveExamples() != null) || (updateClassifierOptions
+    Validator.isTrue((updateClassifierOptions.classNames().size() > 0) || (updateClassifierOptions
         .negativeExamples() != null),
         "At least one of classnamePositiveExamples or negativeExamples must be supplied.");
     RequestBuilder builder = RequestBuilder.post(String.format("/v3/classifiers/%s", updateClassifierOptions
@@ -305,11 +310,12 @@ public class VisualRecognition extends WatsonService {
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
     multipartBuilder.setType(MultipartBody.FORM);
-    if (updateClassifierOptions.classnamePositiveExamples() != null) {
-      RequestBody classnamePositiveExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions
-          .classnamePositiveExamples(), "application/octet-stream");
-      multipartBuilder.addFormDataPart("classname_positive_examples", updateClassifierOptions
-          .classnamePositiveExamplesFilename(), classnamePositiveExamplesBody);
+    // Classes
+    for (String className : updateClassifierOptions.classNames()) {
+      String dataName = className + "_positive_examples";
+      File positiveExamples = updateClassifierOptions.positiveExamplesByClassName(className);
+      RequestBody body = RequestUtils.fileBody(positiveExamples, "application/octet-stream");
+      multipartBuilder.addFormDataPart(dataName, positiveExamples.getName(), body);
     }
     if (updateClassifierOptions.negativeExamples() != null) {
       RequestBody negativeExamplesBody = RequestUtils.inputStreamBody(updateClassifierOptions.negativeExamples(),
