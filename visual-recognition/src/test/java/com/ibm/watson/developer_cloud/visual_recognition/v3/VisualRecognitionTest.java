@@ -88,11 +88,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
     ClassifiedImages mockResponse = loadFixture(FIXTURE_CLASSIFICATION, ClassifiedImages.class);
     server.enqueue(new MockResponse().setBody(mockResponse.toString()));
 
-    String parameters = "{\"classifier_ids\":\"car\"}";
-
     // execute request
     File images = new File(IMAGE_FILE);
-    ClassifyOptions options = new ClassifyOptions.Builder().imagesFile(images).parameters(parameters).build();
+    ClassifyOptions options = new ClassifyOptions.Builder().imagesFile(images).addClassifierId("car").build();
     ClassifiedImages serviceResponse = service.classify(options).execute();
 
     // first request
@@ -121,11 +119,9 @@ public class VisualRecognitionTest extends WatsonServiceUnitTest {
 
     InputStream fileStream = new FileInputStream(images);
 
-    String parameters = "{\"classifier_ids\":\"car\"}";
-
     ClassifyOptions options = new ClassifyOptions.Builder()
         .imagesFile(fileStream)
-        .parameters(parameters)
+        .addClassifierId("car")
         .build();
     ClassifiedImages serviceResponse = service.classify(options).execute();
 

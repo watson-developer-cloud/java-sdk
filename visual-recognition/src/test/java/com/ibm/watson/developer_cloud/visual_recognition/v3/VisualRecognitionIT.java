@@ -66,7 +66,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNotNull(result.getImages().get(0).getClassifiers());
     assertTrue(!result.getImages().get(0).getClassifiers().isEmpty());
 
-    if (options.parameters() != null && options.parameters().contains("url")) {
+    if (options.url() != null) {
       assertNotNull(result.getImages().get(0).getResolvedUrl());
       assertNotNull(result.getImages().get(0).getSourceUrl());
     } else {
@@ -87,7 +87,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNull(detectedFaces.getImages().get(0).getError());
     assertNotNull(detectedFaces.getImages().get(0).getFaces());
 
-    if (options.parameters() != null && options.parameters().contains("url")) {
+    if (options.url() != null) {
       assertEquals(IMAGE_FACE_URL, detectedFaces.getImages().get(0).getResolvedUrl());
       assertEquals(IMAGE_FACE_URL, detectedFaces.getImages().get(0).getSourceUrl());
     } else {
@@ -147,9 +147,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Test
   public void testClassifyImagesFromUrl() {
 
-    String parameters = "{\"url\":\"" + IMAGE_URL + "\"}";
-
-    ClassifyOptions options = new ClassifyOptions.Builder().parameters(parameters).build();
+    ClassifyOptions options = new ClassifyOptions.Builder().url(IMAGE_URL).build();
     ClassifiedImages result = service.classify(options).execute();
     assertClassifyImage(result, options);
   }
@@ -286,9 +284,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   @Test
   public void testDetectFacesFromUrl() {
 
-    String parameters = "{\"url\":\"" + IMAGE_FACE_URL + "\"}";
-
-    DetectFacesOptions options = new DetectFacesOptions.Builder().parameters(parameters).build();
+    DetectFacesOptions options = new DetectFacesOptions.Builder().url(IMAGE_FACE_URL).build();
 
     DetectedFaces detectedFaces = service.detectFaces(options).execute();
     assertDetectedFaces(detectedFaces, options);
