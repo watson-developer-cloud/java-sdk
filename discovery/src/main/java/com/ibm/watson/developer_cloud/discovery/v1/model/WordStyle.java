@@ -41,22 +41,4 @@ public class WordStyle extends GenericModel {
   public List<String> getNames() {
     return names;
   }
-
-  /**
-   * Sets the level.
-   *
-   * @param level the new level
-   */
-  public void setLevel(final long level) {
-    this.level = level;
-  }
-
-  /**
-   * Sets the names.
-   *
-   * @param names the new names
-   */
-  public void setNames(final List<String> names) {
-    this.names = names;
-  }
 }

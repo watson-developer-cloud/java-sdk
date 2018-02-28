@@ -45,22 +45,4 @@ public class DialogNodeVisitedDetails extends GenericModel {
   public String getTitle() {
     return title;
   }
-
-  /**
-   * Sets the dialogNode.
-   *
-   * @param dialogNode the new dialogNode
-   */
-  public void setDialogNode(final String dialogNode) {
-    this.dialogNode = dialogNode;
-  }
-
-  /**
-   * Sets the title.
-   *
-   * @param title the new title
-   */
-  public void setTitle(final String title) {
-    this.title = title;
-  }
 }

@@ -14,15 +14,12 @@ package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.ibm.watson.developer_cloud.discovery.v1.query.AggregationDeserializer;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
  * An aggregation produced by the Discovery service to analyze the input provided.
  */
-@JsonAdapter(AggregationDeserializer.class)
 public class QueryAggregation extends GenericModel {
 
   private String type;
@@ -95,59 +92,5 @@ public class QueryAggregation extends GenericModel {
    */
   public List<QueryAggregation> getAggregations() {
     return aggregations;
-  }
-
-  /**
-   * Sets the type.
-   *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the field.
-   *
-   * @param field the new field
-   */
-  public void setField(final String field) {
-    this.field = field;
-  }
-
-  /**
-   * Sets the results.
-   *
-   * @param results the new results
-   */
-  public void setResults(final List<AggregationResult> results) {
-    this.results = results;
-  }
-
-  /**
-   * Sets the match.
-   *
-   * @param match the new match
-   */
-  public void setMatch(final String match) {
-    this.match = match;
-  }
-
-  /**
-   * Sets the matchingResults.
-   *
-   * @param matchingResults the new matchingResults
-   */
-  public void setMatchingResults(final long matchingResults) {
-    this.matchingResults = matchingResults;
-  }
-
-  /**
-   * Sets the aggregations.
-   *
-   * @param aggregations the new aggregations
-   */
-  public void setAggregations(final List<QueryAggregation> aggregations) {
-    this.aggregations = aggregations;
   }
 }

@@ -56,22 +56,4 @@ public class LogMessage extends DynamicModel {
   public String getMsg() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("msg"), msgType);
   }
-
-  /**
-   * Sets the level.
-   *
-   * @param level the new level
-   */
-  public void setLevel(final String level) {
-    this.put("level", level);
-  }
-
-  /**
-   * Sets the msg.
-   *
-   * @param msg the new msg
-   */
-  public void setMsg(final String msg) {
-    this.put("msg", msg);
-  }
 }

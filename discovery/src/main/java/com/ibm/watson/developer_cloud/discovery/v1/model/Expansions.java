@@ -40,13 +40,4 @@ public class Expansions extends GenericModel {
   public List<Expansion> getExpansions() {
     return expansions;
   }
-
-  /**
-   * Sets the expansions.
-   *
-   * @param expansions the new expansions
-   */
-  public void setExpansions(final List<Expansion> expansions) {
-    this.expansions = expansions;
-  }
 }

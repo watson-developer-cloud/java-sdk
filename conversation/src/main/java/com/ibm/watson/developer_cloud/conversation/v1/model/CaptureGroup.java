@@ -45,22 +45,4 @@ public class CaptureGroup extends GenericModel {
   public List<Long> getLocation() {
     return location;
   }
-
-  /**
-   * Sets the group.
-   *
-   * @param group the new group
-   */
-  public void setGroup(final String group) {
-    this.group = group;
-  }
-
-  /**
-   * Sets the location.
-   *
-   * @param location the new location
-   */
-  public void setLocation(final List<Long> location) {
-    this.location = location;
-  }
 }

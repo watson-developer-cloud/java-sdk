@@ -57,31 +57,4 @@ public class QueryRelationsRelationship extends GenericModel {
   public List<QueryRelationsArgument> getArguments() {
     return arguments;
   }
-
-  /**
-   * Sets the type.
-   *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the frequency.
-   *
-   * @param frequency the new frequency
-   */
-  public void setFrequency(final long frequency) {
-    this.frequency = frequency;
-  }
-
-  /**
-   * Sets the arguments.
-   *
-   * @param arguments the new arguments
-   */
-  public void setArguments(final List<QueryRelationsArgument> arguments) {
-    this.arguments = arguments;
-  }
 }

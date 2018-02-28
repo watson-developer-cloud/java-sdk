@@ -94,49 +94,4 @@ public class DialogNodeAction extends GenericModel {
   public String getCredentials() {
     return credentials;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the actionType.
-   *
-   * @param actionType the new actionType
-   */
-  public void setActionType(final String actionType) {
-    this.actionType = actionType;
-  }
-
-  /**
-   * Sets the parameters.
-   *
-   * @param parameters the new parameters
-   */
-  public void setParameters(final Map parameters) {
-    this.parameters = parameters;
-  }
-
-  /**
-   * Sets the resultVariable.
-   *
-   * @param resultVariable the new resultVariable
-   */
-  public void setResultVariable(final String resultVariable) {
-    this.resultVariable = resultVariable;
-  }
-
-  /**
-   * Sets the credentials.
-   *
-   * @param credentials the new credentials
-   */
-  public void setCredentials(final String credentials) {
-    this.credentials = credentials;
-  }
 }

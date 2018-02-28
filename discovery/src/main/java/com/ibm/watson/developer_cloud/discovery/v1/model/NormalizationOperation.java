@@ -102,31 +102,4 @@ public class NormalizationOperation extends GenericModel {
   public String getDestinationField() {
     return destinationField;
   }
-
-  /**
-   * Sets the operation.
-   *
-   * @param operation the new operation
-   */
-  public void setOperation(final String operation) {
-    this.operation = operation;
-  }
-
-  /**
-   * Sets the sourceField.
-   *
-   * @param sourceField the new sourceField
-   */
-  public void setSourceField(final String sourceField) {
-    this.sourceField = sourceField;
-  }
-
-  /**
-   * Sets the destinationField.
-   *
-   * @param destinationField the new destinationField
-   */
-  public void setDestinationField(final String destinationField) {
-    this.destinationField = destinationField;
-  }
 }

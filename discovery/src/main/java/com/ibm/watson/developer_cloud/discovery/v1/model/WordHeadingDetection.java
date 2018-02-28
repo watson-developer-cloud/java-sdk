@@ -41,22 +41,4 @@ public class WordHeadingDetection extends GenericModel {
   public List<WordStyle> getStyles() {
     return styles;
   }
-
-  /**
-   * Sets the fonts.
-   *
-   * @param fonts the new fonts
-   */
-  public void setFonts(final List<FontSetting> fonts) {
-    this.fonts = fonts;
-  }
-
-  /**
-   * Sets the styles.
-   *
-   * @param styles the new styles
-   */
-  public void setStyles(final List<WordStyle> styles) {
-    this.styles = styles;
-  }
 }

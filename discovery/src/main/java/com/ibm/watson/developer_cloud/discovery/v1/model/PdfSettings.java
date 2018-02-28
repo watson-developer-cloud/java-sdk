@@ -29,13 +29,4 @@ public class PdfSettings extends GenericModel {
   public PdfHeadingDetection getHeading() {
     return heading;
   }
-
-  /**
-   * Sets the heading.
-   *
-   * @param heading the new heading
-   */
-  public void setHeading(final PdfHeadingDetection heading) {
-    this.heading = heading;
-  }
 }

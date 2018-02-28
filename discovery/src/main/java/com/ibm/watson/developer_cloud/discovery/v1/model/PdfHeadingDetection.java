@@ -31,13 +31,4 @@ public class PdfHeadingDetection extends GenericModel {
   public List<FontSetting> getFonts() {
     return fonts;
   }
-
-  /**
-   * Sets the fonts.
-   *
-   * @param fonts the new fonts
-   */
-  public void setFonts(final List<FontSetting> fonts) {
-    this.fonts = fonts;
-  }
 }

@@ -79,31 +79,4 @@ public class DialogNodeNextStep extends GenericModel {
   public String getSelector() {
     return selector;
   }
-
-  /**
-   * Sets the behavior.
-   *
-   * @param behavior the new behavior
-   */
-  public void setBehavior(final String behavior) {
-    this.behavior = behavior;
-  }
-
-  /**
-   * Sets the dialogNode.
-   *
-   * @param dialogNode the new dialogNode
-   */
-  public void setDialogNode(final String dialogNode) {
-    this.dialogNode = dialogNode;
-  }
-
-  /**
-   * Sets the selector.
-   *
-   * @param selector the new selector
-   */
-  public void setSelector(final String selector) {
-    this.selector = selector;
-  }
 }

@@ -68,40 +68,4 @@ public class OutputData extends DynamicModel {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("nodes_visited_details"),
         nodesVisitedDetailsType);
   }
-
-  /**
-   * Sets the logMessages.
-   *
-   * @param logMessages the new logMessages
-   */
-  public void setLogMessages(final List<LogMessage> logMessages) {
-    this.put("log_messages", logMessages);
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final List<String> text) {
-    this.put("text", text);
-  }
-
-  /**
-   * Sets the nodesVisited.
-   *
-   * @param nodesVisited the new nodesVisited
-   */
-  public void setNodesVisited(final List<String> nodesVisited) {
-    this.put("nodes_visited", nodesVisited);
-  }
-
-  /**
-   * Sets the nodesVisitedDetails.
-   *
-   * @param nodesVisitedDetails the new nodesVisitedDetails
-   */
-  public void setNodesVisitedDetails(final List<DialogNodeVisitedDetails> nodesVisitedDetails) {
-    this.put("nodes_visited_details", nodesVisitedDetails);
-  }
 }

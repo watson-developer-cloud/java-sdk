@@ -29,13 +29,4 @@ public class WordSettings extends GenericModel {
   public WordHeadingDetection getHeading() {
     return heading;
   }
-
-  /**
-   * Sets the heading.
-   *
-   * @param heading the new heading
-   */
-  public void setHeading(final WordHeadingDetection heading) {
-    this.heading = heading;
-  }
 }

@@ -33,13 +33,4 @@ public class NluEnrichmentRelations extends GenericModel {
   public String getModel() {
     return model;
   }
-
-  /**
-   * Sets the model.
-   *
-   * @param model the new model
-   */
-  public void setModel(final String model) {
-    this.model = model;
-  }
 }

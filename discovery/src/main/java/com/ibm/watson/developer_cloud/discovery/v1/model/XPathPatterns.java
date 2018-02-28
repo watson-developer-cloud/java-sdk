@@ -31,13 +31,4 @@ public class XPathPatterns extends GenericModel {
   public List<String> getXpaths() {
     return xpaths;
   }
-
-  /**
-   * Sets the xpaths.
-   *
-   * @param xpaths the new xpaths
-   */
-  public void setXpaths(final List<String> xpaths) {
-    this.xpaths = xpaths;
-  }
 }

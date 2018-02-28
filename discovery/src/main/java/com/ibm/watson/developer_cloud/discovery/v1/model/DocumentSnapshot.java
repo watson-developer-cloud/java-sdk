@@ -56,22 +56,4 @@ public class DocumentSnapshot extends GenericModel {
   public Map getSnapshot() {
     return snapshot;
   }
-
-  /**
-   * Sets the step.
-   *
-   * @param step the new step
-   */
-  public void setStep(final String step) {
-    this.step = step;
-  }
-
-  /**
-   * Sets the snapshot.
-   *
-   * @param snapshot the new snapshot
-   */
-  public void setSnapshot(final Map snapshot) {
-    this.snapshot = snapshot;
-  }
 }

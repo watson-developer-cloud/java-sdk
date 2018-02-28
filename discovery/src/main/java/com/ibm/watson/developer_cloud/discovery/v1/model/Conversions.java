@@ -72,40 +72,4 @@ public class Conversions extends GenericModel {
   public List<NormalizationOperation> getJsonNormalizations() {
     return jsonNormalizations;
   }
-
-  /**
-   * Sets the pdf.
-   *
-   * @param pdf the new pdf
-   */
-  public void setPdf(final PdfSettings pdf) {
-    this.pdf = pdf;
-  }
-
-  /**
-   * Sets the word.
-   *
-   * @param word the new word
-   */
-  public void setWord(final WordSettings word) {
-    this.word = word;
-  }
-
-  /**
-   * Sets the html.
-   *
-   * @param html the new html
-   */
-  public void setHtml(final HtmlSettings html) {
-    this.html = html;
-  }
-
-  /**
-   * Sets the jsonNormalizations.
-   *
-   * @param jsonNormalizations the new jsonNormalizations
-   */
-  public void setJsonNormalizations(final List<NormalizationOperation> jsonNormalizations) {
-    this.jsonNormalizations = jsonNormalizations;
-  }
 }

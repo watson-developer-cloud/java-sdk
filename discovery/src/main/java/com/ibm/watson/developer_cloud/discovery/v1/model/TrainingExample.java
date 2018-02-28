@@ -52,31 +52,4 @@ public class TrainingExample extends GenericModel {
   public Long getRelevance() {
     return relevance;
   }
-
-  /**
-   * Sets the documentId.
-   *
-   * @param documentId the new documentId
-   */
-  public void setDocumentId(final String documentId) {
-    this.documentId = documentId;
-  }
-
-  /**
-   * Sets the crossReference.
-   *
-   * @param crossReference the new crossReference
-   */
-  public void setCrossReference(final String crossReference) {
-    this.crossReference = crossReference;
-  }
-
-  /**
-   * Sets the relevance.
-   *
-   * @param relevance the new relevance
-   */
-  public void setRelevance(final long relevance) {
-    this.relevance = relevance;
-  }
 }

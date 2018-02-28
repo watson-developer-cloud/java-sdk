@@ -44,22 +44,4 @@ public class RuntimeIntent extends DynamicModel {
   public Double getConfidence() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("confidence"), confidenceType);
   }
-
-  /**
-   * Sets the intent.
-   *
-   * @param intent the new intent
-   */
-  public void setIntent(final String intent) {
-    this.put("intent", intent);
-  }
-
-  /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(final Double confidence) {
-    this.put("confidence", confidence);
-  }
 }

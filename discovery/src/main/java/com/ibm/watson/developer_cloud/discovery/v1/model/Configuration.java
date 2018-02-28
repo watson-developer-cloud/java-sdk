@@ -121,49 +121,4 @@ public class Configuration extends GenericModel {
   public List<NormalizationOperation> getNormalizations() {
     return normalizations;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the conversions.
-   *
-   * @param conversions the new conversions
-   */
-  public void setConversions(final Conversions conversions) {
-    this.conversions = conversions;
-  }
-
-  /**
-   * Sets the enrichments.
-   *
-   * @param enrichments the new enrichments
-   */
-  public void setEnrichments(final List<Enrichment> enrichments) {
-    this.enrichments = enrichments;
-  }
-
-  /**
-   * Sets the normalizations.
-   *
-   * @param normalizations the new normalizations
-   */
-  public void setNormalizations(final List<NormalizationOperation> normalizations) {
-    this.normalizations = normalizations;
-  }
 }

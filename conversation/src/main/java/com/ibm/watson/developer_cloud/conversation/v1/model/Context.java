@@ -45,22 +45,4 @@ public class Context extends DynamicModel {
   public SystemResponse getSystem() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("system"), systemType);
   }
-
-  /**
-   * Sets the conversationId.
-   *
-   * @param conversationId the new conversationId
-   */
-  public void setConversationId(final String conversationId) {
-    this.put("conversation_id", conversationId);
-  }
-
-  /**
-   * Sets the system.
-   *
-   * @param system the new system
-   */
-  public void setSystem(final SystemResponse system) {
-    this.put("system", system);
-  }
 }
