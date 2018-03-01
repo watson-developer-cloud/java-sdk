@@ -28,6 +28,86 @@ public class RuntimeIntent extends DynamicModel {
   }.getType();
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String intent;
+    private Double confidence;
+
+    private Builder(RuntimeIntent runtimeIntent) {
+      intent = runtimeIntent.intent;
+      confidence = runtimeIntent.confidence;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param intent the intent
+     * @param confidence the confidence
+     */
+    public Builder(String intent, Double confidence) {
+      this.intent = intent;
+      this.confidence = confidence;
+    }
+
+    /**
+     * Builds a RuntimeIntent.
+     *
+     * @return the runtimeIntent
+     */
+    public RuntimeIntent build() {
+      RuntimeIntent runtimeIntent = new RuntimeIntent();
+      runtimeIntent.put("intent", this.intent);
+      runtimeIntent.put("confidence", this.confidence);
+      return runtimeIntent;
+    }
+
+    /**
+     * Set the intent.
+     *
+     * @param intent the intent
+     * @return the RuntimeIntent builder
+     */
+    public Builder intent(String intent) {
+      this.intent = intent;
+      return this;
+    }
+
+    /**
+     * Set the confidence.
+     *
+     * @param confidence the confidence
+     * @return the RuntimeIntent builder
+     */
+    public Builder confidence(Double confidence) {
+      this.confidence = confidence;
+      return this;
+    }
+  }
+
+  private RuntimeIntent(Builder builder) {
+    Validator.notNull(builder.intent, "intent cannot be null");
+    Validator.notNull(builder.confidence, "confidence cannot be null");
+    intent = builder.intent;
+    confidence = builder.confidence;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a RuntimeIntent builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the intent.
    *
    * @return the intent

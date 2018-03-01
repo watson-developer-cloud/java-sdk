@@ -29,6 +29,86 @@ public class Context extends DynamicModel {
   }.getType();
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String conversationId;
+    private SystemResponse system;
+
+    private Builder(Context context) {
+      conversationId = context.conversationId;
+      system = context.system;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param conversationId the conversationId
+     * @param system the system
+     */
+    public Builder(String conversationId, SystemResponse system) {
+      this.conversationId = conversationId;
+      this.system = system;
+    }
+
+    /**
+     * Builds a Context.
+     *
+     * @return the context
+     */
+    public Context build() {
+      Context context = new Context();
+      context.put("conversation_id", this.conversationId);
+      context.put("system", this.system);
+      return context;
+    }
+
+    /**
+     * Set the conversationId.
+     *
+     * @param conversationId the conversationId
+     * @return the Context builder
+     */
+    public Builder conversationId(String conversationId) {
+      this.conversationId = conversationId;
+      return this;
+    }
+
+    /**
+     * Set the system.
+     *
+     * @param system the system
+     * @return the Context builder
+     */
+    public Builder system(SystemResponse system) {
+      this.system = system;
+      return this;
+    }
+  }
+
+  private Context(Builder builder) {
+    Validator.notNull(builder.conversationId, "conversationId cannot be null");
+    Validator.notNull(builder.system, "system cannot be null");
+    conversationId = builder.conversationId;
+    system = builder.system;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Context builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the conversationId.
    *
    * @return the conversationId

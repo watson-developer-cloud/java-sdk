@@ -19,4 +19,41 @@ import com.ibm.watson.developer_cloud.service.model.DynamicModel;
  */
 public class SystemResponse extends DynamicModel {
 
+  /**
+   * Builder.
+   */
+  public static class Builder {
+
+    private Builder(SystemResponse systemResponse) {
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a SystemResponse.
+     *
+     * @return the systemResponse
+     */
+    public SystemResponse build() {
+      SystemResponse systemResponse = new SystemResponse();
+      return systemResponse;
+    }
+  }
+
+  private SystemResponse(Builder builder) {
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a SystemResponse builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
 }
