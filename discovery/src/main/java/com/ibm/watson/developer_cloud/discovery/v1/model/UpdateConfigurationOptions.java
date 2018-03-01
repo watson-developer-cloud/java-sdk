@@ -12,11 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The updateConfiguration options.
@@ -195,11 +193,11 @@ public class UpdateConfigurationOptions extends GenericModel {
      * @return the UpdateConfigurationOptions builder
      */
     public Builder configuration(Configuration configuration) {
-      this.name = configuration.getName();
-      this.description = configuration.getDescription();
-      this.conversions = configuration.getConversions();
-      this.enrichments = configuration.getEnrichments();
-      this.normalizations = configuration.getNormalizations();
+      this.name = configuration.name();
+      this.description = configuration.description();
+      this.conversions = configuration.conversions();
+      this.enrichments = configuration.enrichments();
+      this.normalizations = configuration.normalizations();
       return this;
     }
   }

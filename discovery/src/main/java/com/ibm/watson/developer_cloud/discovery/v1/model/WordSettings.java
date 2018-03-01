@@ -22,11 +22,61 @@ public class WordSettings extends GenericModel {
   private WordHeadingDetection heading;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private WordHeadingDetection heading;
+
+    private Builder(WordSettings wordSettings) {
+      heading = wordSettings.heading;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a WordSettings.
+     *
+     * @return the wordSettings
+     */
+    public WordSettings build() {
+      return new WordSettings(this);
+    }
+
+    /**
+     * Set the heading.
+     *
+     * @param heading the heading
+     * @return the WordSettings builder
+     */
+    public Builder heading(WordHeadingDetection heading) {
+      this.heading = heading;
+      return this;
+    }
+  }
+
+  private WordSettings(Builder builder) {
+    heading = builder.heading;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a WordSettings builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the heading.
    *
    * @return the heading
    */
-  public WordHeadingDetection getHeading() {
+  public WordHeadingDetection heading() {
     return heading;
   }
 }

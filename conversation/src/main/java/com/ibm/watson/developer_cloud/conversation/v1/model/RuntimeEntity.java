@@ -42,7 +42,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the entity
    */
-  public String getEntity() {
+  public String entity() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("entity"), entityType);
   }
 
@@ -51,7 +51,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the location
    */
-  public List<Long> getLocation() {
+  public List<Long> location() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("location"), locationType);
   }
 
@@ -60,7 +60,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the value
    */
-  public String getValue() {
+  public String value() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("value"), valueType);
   }
 
@@ -69,7 +69,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the confidence
    */
-  public Double getConfidence() {
+  public Double confidence() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("confidence"), confidenceType);
   }
 
@@ -78,7 +78,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the metadata
    */
-  public Map getMetadata() {
+  public Map metadata() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
   }
 
@@ -87,7 +87,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the groups
    */
-  public List<CaptureGroup> getGroups() {
+  public List<CaptureGroup> groups() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("groups"), groupsType);
   }
 }

@@ -25,11 +25,91 @@ public class WordStyle extends GenericModel {
   private List<String> names;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Long level;
+    private List<String> names;
+
+    private Builder(WordStyle wordStyle) {
+      level = wordStyle.level;
+      names = wordStyle.names;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a WordStyle.
+     *
+     * @return the wordStyle
+     */
+    public WordStyle build() {
+      return new WordStyle(this);
+    }
+
+    /**
+     * Adds an names to names.
+     *
+     * @param names the new names
+     * @return the WordStyle builder
+     */
+    public Builder addNames(String names) {
+      Validator.notNull(names, "names cannot be null");
+      if (this.names == null) {
+        this.names = new ArrayList<String>();
+      }
+      this.names.add(names);
+      return this;
+    }
+
+    /**
+     * Set the level.
+     *
+     * @param level the level
+     * @return the WordStyle builder
+     */
+    public Builder level(long level) {
+      this.level = level;
+      return this;
+    }
+
+    /**
+     * Set the names.
+     * Existing names will be replaced.
+     *
+     * @param names the names
+     * @return the WordStyle builder
+     */
+    public Builder names(List<String> names) {
+      this.names = names;
+      return this;
+    }
+  }
+
+  private WordStyle(Builder builder) {
+    level = builder.level;
+    names = builder.names;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a WordStyle builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the level.
    *
    * @return the level
    */
-  public Long getLevel() {
+  public Long level() {
     return level;
   }
 
@@ -38,7 +118,7 @@ public class WordStyle extends GenericModel {
    *
    * @return the names
    */
-  public List<String> getNames() {
+  public List<String> names() {
     return names;
   }
 }

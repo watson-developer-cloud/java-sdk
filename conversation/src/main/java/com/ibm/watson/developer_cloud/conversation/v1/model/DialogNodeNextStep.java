@@ -48,13 +48,101 @@ public class DialogNodeNextStep extends GenericModel {
   private String selector;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String behavior;
+    private String dialogNode;
+    private String selector;
+
+    private Builder(DialogNodeNextStep dialogNodeNextStep) {
+      behavior = dialogNodeNextStep.behavior;
+      dialogNode = dialogNodeNextStep.dialogNode;
+      selector = dialogNodeNextStep.selector;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param behavior the behavior
+     */
+    public Builder(String behavior) {
+      this.behavior = behavior;
+    }
+
+    /**
+     * Builds a DialogNodeNextStep.
+     *
+     * @return the dialogNodeNextStep
+     */
+    public DialogNodeNextStep build() {
+      return new DialogNodeNextStep(this);
+    }
+
+    /**
+     * Set the behavior.
+     *
+     * @param behavior the behavior
+     * @return the DialogNodeNextStep builder
+     */
+    public Builder behavior(String behavior) {
+      this.behavior = behavior;
+      return this;
+    }
+
+    /**
+     * Set the dialogNode.
+     *
+     * @param dialogNode the dialogNode
+     * @return the DialogNodeNextStep builder
+     */
+    public Builder dialogNode(String dialogNode) {
+      this.dialogNode = dialogNode;
+      return this;
+    }
+
+    /**
+     * Set the selector.
+     *
+     * @param selector the selector
+     * @return the DialogNodeNextStep builder
+     */
+    public Builder selector(String selector) {
+      this.selector = selector;
+      return this;
+    }
+  }
+
+  private DialogNodeNextStep(Builder builder) {
+    Validator.notNull(builder.behavior, "behavior cannot be null");
+    behavior = builder.behavior;
+    dialogNode = builder.dialogNode;
+    selector = builder.selector;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a DialogNodeNextStep builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the behavior.
    *
    * How the `next_step` reference is processed.
    *
    * @return the behavior
    */
-  public String getBehavior() {
+  public String behavior() {
     return behavior;
   }
 
@@ -65,7 +153,7 @@ public class DialogNodeNextStep extends GenericModel {
    *
    * @return the dialogNode
    */
-  public String getDialogNode() {
+  public String dialogNode() {
     return dialogNode;
   }
 
@@ -76,7 +164,7 @@ public class DialogNodeNextStep extends GenericModel {
    *
    * @return the selector
    */
-  public String getSelector() {
+  public String selector() {
     return selector;
   }
 }

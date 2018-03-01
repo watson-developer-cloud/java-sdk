@@ -31,13 +31,165 @@ public class MessageRequest extends GenericModel {
   private OutputData output;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private InputData input;
+    private Boolean alternateIntents;
+    private Context context;
+    private List<RuntimeEntity> entities;
+    private List<RuntimeIntent> intents;
+    private OutputData output;
+
+    private Builder(MessageRequest messageRequest) {
+      input = messageRequest.input;
+      alternateIntents = messageRequest.alternateIntents;
+      context = messageRequest.context;
+      entities = messageRequest.entities;
+      intents = messageRequest.intents;
+      output = messageRequest.output;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a MessageRequest.
+     *
+     * @return the messageRequest
+     */
+    public MessageRequest build() {
+      return new MessageRequest(this);
+    }
+
+    /**
+     * Adds an entity to entities.
+     *
+     * @param entity the new entity
+     * @return the MessageRequest builder
+     */
+    public Builder addEntity(RuntimeEntity entity) {
+      Validator.notNull(entity, "entity cannot be null");
+      if (this.entities == null) {
+        this.entities = new ArrayList<RuntimeEntity>();
+      }
+      this.entities.add(entity);
+      return this;
+    }
+
+    /**
+     * Adds an intent to intents.
+     *
+     * @param intent the new intent
+     * @return the MessageRequest builder
+     */
+    public Builder addIntent(RuntimeIntent intent) {
+      Validator.notNull(intent, "intent cannot be null");
+      if (this.intents == null) {
+        this.intents = new ArrayList<RuntimeIntent>();
+      }
+      this.intents.add(intent);
+      return this;
+    }
+
+    /**
+     * Set the input.
+     *
+     * @param input the input
+     * @return the MessageRequest builder
+     */
+    public Builder input(InputData input) {
+      this.input = input;
+      return this;
+    }
+
+    /**
+     * Set the alternateIntents.
+     *
+     * @param alternateIntents the alternateIntents
+     * @return the MessageRequest builder
+     */
+    public Builder alternateIntents(Boolean alternateIntents) {
+      this.alternateIntents = alternateIntents;
+      return this;
+    }
+
+    /**
+     * Set the context.
+     *
+     * @param context the context
+     * @return the MessageRequest builder
+     */
+    public Builder context(Context context) {
+      this.context = context;
+      return this;
+    }
+
+    /**
+     * Set the entities.
+     * Existing entities will be replaced.
+     *
+     * @param entities the entities
+     * @return the MessageRequest builder
+     */
+    public Builder entities(List<RuntimeEntity> entities) {
+      this.entities = entities;
+      return this;
+    }
+
+    /**
+     * Set the intents.
+     * Existing intents will be replaced.
+     *
+     * @param intents the intents
+     * @return the MessageRequest builder
+     */
+    public Builder intents(List<RuntimeIntent> intents) {
+      this.intents = intents;
+      return this;
+    }
+
+    /**
+     * Set the output.
+     *
+     * @param output the output
+     * @return the MessageRequest builder
+     */
+    public Builder output(OutputData output) {
+      this.output = output;
+      return this;
+    }
+  }
+
+  private MessageRequest(Builder builder) {
+    input = builder.input;
+    alternateIntents = builder.alternateIntents;
+    context = builder.context;
+    entities = builder.entities;
+    intents = builder.intents;
+    output = builder.output;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a MessageRequest builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the input.
    *
    * An input object that includes the input text.
    *
    * @return the input
    */
-  public InputData getInput() {
+  public InputData input() {
     return input;
   }
 
@@ -48,7 +200,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the alternateIntents
    */
-  public Boolean isAlternateIntents() {
+  public Boolean alternateIntents() {
     return alternateIntents;
   }
 
@@ -60,7 +212,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the context
    */
-  public Context getContext() {
+  public Context context() {
     return context;
   }
 
@@ -72,7 +224,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the entities
    */
-  public List<RuntimeEntity> getEntities() {
+  public List<RuntimeEntity> entities() {
     return entities;
   }
 
@@ -84,7 +236,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the intents
    */
-  public List<RuntimeIntent> getIntents() {
+  public List<RuntimeIntent> intents() {
     return intents;
   }
 
@@ -96,7 +248,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the output
    */
-  public OutputData getOutput() {
+  public OutputData output() {
     return output;
   }
 }

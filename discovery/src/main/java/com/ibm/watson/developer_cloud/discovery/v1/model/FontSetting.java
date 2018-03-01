@@ -30,11 +30,131 @@ public class FontSetting extends GenericModel {
   private String name;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private Long level;
+    private Long minSize;
+    private Long maxSize;
+    private Boolean bold;
+    private Boolean italic;
+    private String name;
+
+    private Builder(FontSetting fontSetting) {
+      level = fontSetting.level;
+      minSize = fontSetting.minSize;
+      maxSize = fontSetting.maxSize;
+      bold = fontSetting.bold;
+      italic = fontSetting.italic;
+      name = fontSetting.name;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a FontSetting.
+     *
+     * @return the fontSetting
+     */
+    public FontSetting build() {
+      return new FontSetting(this);
+    }
+
+    /**
+     * Set the level.
+     *
+     * @param level the level
+     * @return the FontSetting builder
+     */
+    public Builder level(long level) {
+      this.level = level;
+      return this;
+    }
+
+    /**
+     * Set the minSize.
+     *
+     * @param minSize the minSize
+     * @return the FontSetting builder
+     */
+    public Builder minSize(long minSize) {
+      this.minSize = minSize;
+      return this;
+    }
+
+    /**
+     * Set the maxSize.
+     *
+     * @param maxSize the maxSize
+     * @return the FontSetting builder
+     */
+    public Builder maxSize(long maxSize) {
+      this.maxSize = maxSize;
+      return this;
+    }
+
+    /**
+     * Set the bold.
+     *
+     * @param bold the bold
+     * @return the FontSetting builder
+     */
+    public Builder bold(Boolean bold) {
+      this.bold = bold;
+      return this;
+    }
+
+    /**
+     * Set the italic.
+     *
+     * @param italic the italic
+     * @return the FontSetting builder
+     */
+    public Builder italic(Boolean italic) {
+      this.italic = italic;
+      return this;
+    }
+
+    /**
+     * Set the name.
+     *
+     * @param name the name
+     * @return the FontSetting builder
+     */
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+  }
+
+  private FontSetting(Builder builder) {
+    level = builder.level;
+    minSize = builder.minSize;
+    maxSize = builder.maxSize;
+    bold = builder.bold;
+    italic = builder.italic;
+    name = builder.name;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a FontSetting builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the level.
    *
    * @return the level
    */
-  public Long getLevel() {
+  public Long level() {
     return level;
   }
 
@@ -43,7 +163,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the minSize
    */
-  public Long getMinSize() {
+  public Long minSize() {
     return minSize;
   }
 
@@ -52,7 +172,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the maxSize
    */
-  public Long getMaxSize() {
+  public Long maxSize() {
     return maxSize;
   }
 
@@ -61,7 +181,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the bold
    */
-  public Boolean isBold() {
+  public Boolean bold() {
     return bold;
   }
 
@@ -70,7 +190,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the italic
    */
-  public Boolean isItalic() {
+  public Boolean italic() {
     return italic;
   }
 
@@ -79,7 +199,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the name
    */
-  public String getName() {
+  public String name() {
     return name;
   }
 }

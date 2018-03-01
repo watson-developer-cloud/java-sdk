@@ -37,7 +37,7 @@ public class OutputData extends DynamicModel {
    *
    * @return the logMessages
    */
-  public List<LogMessage> getLogMessages() {
+  public List<LogMessage> logMessages() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("log_messages"), logMessagesType);
   }
 
@@ -46,7 +46,7 @@ public class OutputData extends DynamicModel {
    *
    * @return the text
    */
-  public List<String> getText() {
+  public List<String> text() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("text"), textType);
   }
 
@@ -55,7 +55,7 @@ public class OutputData extends DynamicModel {
    *
    * @return the nodesVisited
    */
-  public List<String> getNodesVisited() {
+  public List<String> nodesVisited() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("nodes_visited"), nodesVisitedType);
   }
 
@@ -64,7 +64,7 @@ public class OutputData extends DynamicModel {
    *
    * @return the nodesVisitedDetails
    */
-  public List<DialogNodeVisitedDetails> getNodesVisitedDetails() {
+  public List<DialogNodeVisitedDetails> nodesVisitedDetails() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("nodes_visited_details"),
         nodesVisitedDetailsType);
   }

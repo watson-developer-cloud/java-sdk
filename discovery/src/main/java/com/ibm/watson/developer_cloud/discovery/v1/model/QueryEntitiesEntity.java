@@ -23,13 +23,77 @@ public class QueryEntitiesEntity extends GenericModel {
   private String type;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String text;
+    private String type;
+
+    private Builder(QueryEntitiesEntity queryEntitiesEntity) {
+      text = queryEntitiesEntity.text;
+      type = queryEntitiesEntity.type;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a QueryEntitiesEntity.
+     *
+     * @return the queryEntitiesEntity
+     */
+    public QueryEntitiesEntity build() {
+      return new QueryEntitiesEntity(this);
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the QueryEntitiesEntity builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
+    }
+
+    /**
+     * Set the type.
+     *
+     * @param type the type
+     * @return the QueryEntitiesEntity builder
+     */
+    public Builder type(String type) {
+      this.type = type;
+      return this;
+    }
+  }
+
+  private QueryEntitiesEntity(Builder builder) {
+    text = builder.text;
+    type = builder.type;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a QueryEntitiesEntity builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the text.
    *
    * Entity text content.
    *
    * @return the text
    */
-  public String getText() {
+  public String text() {
     return text;
   }
 
@@ -40,7 +104,7 @@ public class QueryEntitiesEntity extends GenericModel {
    *
    * @return the type
    */
-  public String getType() {
+  public String type() {
     return type;
   }
 }

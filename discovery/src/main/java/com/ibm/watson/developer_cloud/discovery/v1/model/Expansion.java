@@ -29,13 +29,119 @@ public class Expansion extends GenericModel {
   private List<String> expandedTerms;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private List<String> inputTerms;
+    private List<String> expandedTerms;
+
+    private Builder(Expansion expansion) {
+      inputTerms = expansion.inputTerms;
+      expandedTerms = expansion.expandedTerms;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param expandedTerms the expandedTerms
+     */
+    public Builder(List<String> expandedTerms) {
+      this.expandedTerms = expandedTerms;
+    }
+
+    /**
+     * Builds a Expansion.
+     *
+     * @return the expansion
+     */
+    public Expansion build() {
+      return new Expansion(this);
+    }
+
+    /**
+     * Adds an inputTerms to inputTerms.
+     *
+     * @param inputTerms the new inputTerms
+     * @return the Expansion builder
+     */
+    public Builder addInputTerms(String inputTerms) {
+      Validator.notNull(inputTerms, "inputTerms cannot be null");
+      if (this.inputTerms == null) {
+        this.inputTerms = new ArrayList<String>();
+      }
+      this.inputTerms.add(inputTerms);
+      return this;
+    }
+
+    /**
+     * Adds an expandedTerms to expandedTerms.
+     *
+     * @param expandedTerms the new expandedTerms
+     * @return the Expansion builder
+     */
+    public Builder addExpandedTerms(String expandedTerms) {
+      Validator.notNull(expandedTerms, "expandedTerms cannot be null");
+      if (this.expandedTerms == null) {
+        this.expandedTerms = new ArrayList<String>();
+      }
+      this.expandedTerms.add(expandedTerms);
+      return this;
+    }
+
+    /**
+     * Set the inputTerms.
+     * Existing inputTerms will be replaced.
+     *
+     * @param inputTerms the inputTerms
+     * @return the Expansion builder
+     */
+    public Builder inputTerms(List<String> inputTerms) {
+      this.inputTerms = inputTerms;
+      return this;
+    }
+
+    /**
+     * Set the expandedTerms.
+     * Existing expandedTerms will be replaced.
+     *
+     * @param expandedTerms the expandedTerms
+     * @return the Expansion builder
+     */
+    public Builder expandedTerms(List<String> expandedTerms) {
+      this.expandedTerms = expandedTerms;
+      return this;
+    }
+  }
+
+  private Expansion(Builder builder) {
+    Validator.notNull(builder.expandedTerms, "expandedTerms cannot be null");
+    inputTerms = builder.inputTerms;
+    expandedTerms = builder.expandedTerms;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Expansion builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the inputTerms.
    *
    * A list of terms that will be expanded for this expansion. If specified, only the items in this list are expanded.
    *
    * @return the inputTerms
    */
-  public List<String> getInputTerms() {
+  public List<String> inputTerms() {
     return inputTerms;
   }
 
@@ -47,25 +153,7 @@ public class Expansion extends GenericModel {
    *
    * @return the expandedTerms
    */
-  public List<String> getExpandedTerms() {
+  public List<String> expandedTerms() {
     return expandedTerms;
-  }
-
-  /**
-   * Sets the inputTerms.
-   *
-   * @param inputTerms the new inputTerms
-   */
-  public void setInputTerms(final List<String> inputTerms) {
-    this.inputTerms = inputTerms;
-  }
-
-  /**
-   * Sets the expandedTerms.
-   *
-   * @param expandedTerms the new expandedTerms
-   */
-  public void setExpandedTerms(final List<String> expandedTerms) {
-    this.expandedTerms = expandedTerms;
   }
 }

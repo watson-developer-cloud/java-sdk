@@ -32,7 +32,7 @@ public class RuntimeIntent extends DynamicModel {
    *
    * @return the intent
    */
-  public String getIntent() {
+  public String intent() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("intent"), intentType);
   }
 
@@ -41,7 +41,7 @@ public class RuntimeIntent extends DynamicModel {
    *
    * @return the confidence
    */
-  public Double getConfidence() {
+  public Double confidence() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("confidence"), confidenceType);
   }
 }

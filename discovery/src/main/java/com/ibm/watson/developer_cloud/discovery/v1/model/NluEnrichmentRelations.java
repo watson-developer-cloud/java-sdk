@@ -22,6 +22,56 @@ public class NluEnrichmentRelations extends GenericModel {
   private String model;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String model;
+
+    private Builder(NluEnrichmentRelations nluEnrichmentRelations) {
+      model = nluEnrichmentRelations.model;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NluEnrichmentRelations.
+     *
+     * @return the nluEnrichmentRelations
+     */
+    public NluEnrichmentRelations build() {
+      return new NluEnrichmentRelations(this);
+    }
+
+    /**
+     * Set the model.
+     *
+     * @param model the model
+     * @return the NluEnrichmentRelations builder
+     */
+    public Builder model(String model) {
+      this.model = model;
+      return this;
+    }
+  }
+
+  private NluEnrichmentRelations(Builder builder) {
+    model = builder.model;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a NluEnrichmentRelations builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the model.
    *
    * *For use with `natural_language_understanding` enrichments only.* The enrichement model to use with relationship
@@ -30,7 +80,7 @@ public class NluEnrichmentRelations extends GenericModel {
    *
    * @return the model
    */
-  public String getModel() {
+  public String model() {
     return model;
   }
 }

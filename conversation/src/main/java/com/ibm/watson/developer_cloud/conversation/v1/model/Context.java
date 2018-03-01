@@ -33,7 +33,7 @@ public class Context extends DynamicModel {
    *
    * @return the conversationId
    */
-  public String getConversationId() {
+  public String conversationId() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("conversation_id"), conversationIdType);
   }
 
@@ -42,7 +42,7 @@ public class Context extends DynamicModel {
    *
    * @return the system
    */
-  public SystemResponse getSystem() {
+  public SystemResponse system() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("system"), systemType);
   }
 }

@@ -24,6 +24,72 @@ public class Expansions extends GenericModel {
   private List<Expansion> expansions;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private List<Expansion> expansions;
+
+    private Builder(Expansions expansions) {
+      expansions = expansions.expansions;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a Expansions.
+     *
+     * @return the expansions
+     */
+    public Expansions build() {
+      return new Expansions(this);
+    }
+
+    /**
+     * Adds an expansions to expansions.
+     *
+     * @param expansions the new expansions
+     * @return the Expansions builder
+     */
+    public Builder addExpansions(Expansion expansions) {
+      Validator.notNull(expansions, "expansions cannot be null");
+      if (this.expansions == null) {
+        this.expansions = new ArrayList<Expansion>();
+      }
+      this.expansions.add(expansions);
+      return this;
+    }
+
+    /**
+     * Set the expansions.
+     * Existing expansions will be replaced.
+     *
+     * @param expansions the expansions
+     * @return the Expansions builder
+     */
+    public Builder expansions(List<Expansion> expansions) {
+      this.expansions = expansions;
+      return this;
+    }
+  }
+
+  private Expansions(Builder builder) {
+    expansions = builder.expansions;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a Expansions builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the expansions.
    *
    * An array of query expansion definitions. Each object in the `expansions` array represents a term or set of terms
@@ -37,7 +103,7 @@ public class Expansions extends GenericModel {
    *
    * @return the expansions
    */
-  public List<Expansion> getExpansions() {
+  public List<Expansion> expansions() {
     return expansions;
   }
 }

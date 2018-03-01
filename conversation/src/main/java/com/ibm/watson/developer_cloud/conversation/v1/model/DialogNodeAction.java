@@ -41,13 +41,132 @@ public class DialogNodeAction extends GenericModel {
   private String credentials;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String name;
+    private String actionType;
+    private Map parameters;
+    private String resultVariable;
+    private String credentials;
+
+    private Builder(DialogNodeAction dialogNodeAction) {
+      name = dialogNodeAction.name;
+      actionType = dialogNodeAction.actionType;
+      parameters = dialogNodeAction.parameters;
+      resultVariable = dialogNodeAction.resultVariable;
+      credentials = dialogNodeAction.credentials;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param name the name
+     * @param resultVariable the resultVariable
+     */
+    public Builder(String name, String resultVariable) {
+      this.name = name;
+      this.resultVariable = resultVariable;
+    }
+
+    /**
+     * Builds a DialogNodeAction.
+     *
+     * @return the dialogNodeAction
+     */
+    public DialogNodeAction build() {
+      return new DialogNodeAction(this);
+    }
+
+    /**
+     * Set the name.
+     *
+     * @param name the name
+     * @return the DialogNodeAction builder
+     */
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    /**
+     * Set the actionType.
+     *
+     * @param actionType the actionType
+     * @return the DialogNodeAction builder
+     */
+    public Builder actionType(String actionType) {
+      this.actionType = actionType;
+      return this;
+    }
+
+    /**
+     * Set the parameters.
+     *
+     * @param parameters the parameters
+     * @return the DialogNodeAction builder
+     */
+    public Builder parameters(Map parameters) {
+      this.parameters = parameters;
+      return this;
+    }
+
+    /**
+     * Set the resultVariable.
+     *
+     * @param resultVariable the resultVariable
+     * @return the DialogNodeAction builder
+     */
+    public Builder resultVariable(String resultVariable) {
+      this.resultVariable = resultVariable;
+      return this;
+    }
+
+    /**
+     * Set the credentials.
+     *
+     * @param credentials the credentials
+     * @return the DialogNodeAction builder
+     */
+    public Builder credentials(String credentials) {
+      this.credentials = credentials;
+      return this;
+    }
+  }
+
+  private DialogNodeAction(Builder builder) {
+    Validator.notNull(builder.name, "name cannot be null");
+    Validator.notNull(builder.resultVariable, "resultVariable cannot be null");
+    name = builder.name;
+    actionType = builder.actionType;
+    parameters = builder.parameters;
+    resultVariable = builder.resultVariable;
+    credentials = builder.credentials;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a DialogNodeAction builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the name.
    *
    * The name of the action.
    *
    * @return the name
    */
-  public String getName() {
+  public String name() {
     return name;
   }
 
@@ -58,7 +177,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the actionType
    */
-  public String getActionType() {
+  public String actionType() {
     return actionType;
   }
 
@@ -69,7 +188,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the parameters
    */
-  public Map getParameters() {
+  public Map parameters() {
     return parameters;
   }
 
@@ -80,7 +199,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the resultVariable
    */
-  public String getResultVariable() {
+  public String resultVariable() {
     return resultVariable;
   }
 
@@ -91,7 +210,7 @@ public class DialogNodeAction extends GenericModel {
    *
    * @return the credentials
    */
-  public String getCredentials() {
+  public String credentials() {
     return credentials;
   }
 }

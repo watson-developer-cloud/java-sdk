@@ -44,7 +44,7 @@ public class LogMessage extends DynamicModel {
    *
    * @return the level
    */
-  public String getLevel() {
+  public String level() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("level"), levelType);
   }
 
@@ -53,7 +53,7 @@ public class LogMessage extends DynamicModel {
    *
    * @return the msg
    */
-  public String getMsg() {
+  public String msg() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("msg"), msgType);
   }
 }

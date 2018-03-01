@@ -30,13 +30,107 @@ public class QueryRelationsFilter extends GenericModel {
   private List<String> documentIds;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private QueryFilterType relationTypes;
+    private QueryFilterType entityTypes;
+    private List<String> documentIds;
+
+    private Builder(QueryRelationsFilter queryRelationsFilter) {
+      relationTypes = queryRelationsFilter.relationTypes;
+      entityTypes = queryRelationsFilter.entityTypes;
+      documentIds = queryRelationsFilter.documentIds;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a QueryRelationsFilter.
+     *
+     * @return the queryRelationsFilter
+     */
+    public QueryRelationsFilter build() {
+      return new QueryRelationsFilter(this);
+    }
+
+    /**
+     * Adds an documentIds to documentIds.
+     *
+     * @param documentIds the new documentIds
+     * @return the QueryRelationsFilter builder
+     */
+    public Builder addDocumentIds(String documentIds) {
+      Validator.notNull(documentIds, "documentIds cannot be null");
+      if (this.documentIds == null) {
+        this.documentIds = new ArrayList<String>();
+      }
+      this.documentIds.add(documentIds);
+      return this;
+    }
+
+    /**
+     * Set the relationTypes.
+     *
+     * @param relationTypes the relationTypes
+     * @return the QueryRelationsFilter builder
+     */
+    public Builder relationTypes(QueryFilterType relationTypes) {
+      this.relationTypes = relationTypes;
+      return this;
+    }
+
+    /**
+     * Set the entityTypes.
+     *
+     * @param entityTypes the entityTypes
+     * @return the QueryRelationsFilter builder
+     */
+    public Builder entityTypes(QueryFilterType entityTypes) {
+      this.entityTypes = entityTypes;
+      return this;
+    }
+
+    /**
+     * Set the documentIds.
+     * Existing documentIds will be replaced.
+     *
+     * @param documentIds the documentIds
+     * @return the QueryRelationsFilter builder
+     */
+    public Builder documentIds(List<String> documentIds) {
+      this.documentIds = documentIds;
+      return this;
+    }
+  }
+
+  private QueryRelationsFilter(Builder builder) {
+    relationTypes = builder.relationTypes;
+    entityTypes = builder.entityTypes;
+    documentIds = builder.documentIds;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a QueryRelationsFilter builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the relationTypes.
    *
    * A list of relation types to include or exclude from the query.
    *
    * @return the relationTypes
    */
-  public QueryFilterType getRelationTypes() {
+  public QueryFilterType relationTypes() {
     return relationTypes;
   }
 
@@ -47,7 +141,7 @@ public class QueryRelationsFilter extends GenericModel {
    *
    * @return the entityTypes
    */
-  public QueryFilterType getEntityTypes() {
+  public QueryFilterType entityTypes() {
     return entityTypes;
   }
 
@@ -58,34 +152,7 @@ public class QueryRelationsFilter extends GenericModel {
    *
    * @return the documentIds
    */
-  public List<String> getDocumentIds() {
+  public List<String> documentIds() {
     return documentIds;
-  }
-
-  /**
-   * Sets the relationTypes.
-   *
-   * @param relationTypes the new relationTypes
-   */
-  public void setRelationTypes(final QueryFilterType relationTypes) {
-    this.relationTypes = relationTypes;
-  }
-
-  /**
-   * Sets the entityTypes.
-   *
-   * @param entityTypes the new entityTypes
-   */
-  public void setEntityTypes(final QueryFilterType entityTypes) {
-    this.entityTypes = entityTypes;
-  }
-
-  /**
-   * Sets the documentIds.
-   *
-   * @param documentIds the new documentIds
-   */
-  public void setDocumentIds(final List<String> documentIds) {
-    this.documentIds = documentIds;
   }
 }

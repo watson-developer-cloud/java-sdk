@@ -57,6 +57,84 @@ public class NormalizationOperation extends GenericModel {
   private String destinationField;
 
   /**
+   * Builder.
+   */
+  public static class Builder {
+    private String operation;
+    private String sourceField;
+    private String destinationField;
+
+    private Builder(NormalizationOperation normalizationOperation) {
+      operation = normalizationOperation.operation;
+      sourceField = normalizationOperation.sourceField;
+      destinationField = normalizationOperation.destinationField;
+    }
+
+    /**
+     * Instantiates a new builder.
+     */
+    public Builder() {
+    }
+
+    /**
+     * Builds a NormalizationOperation.
+     *
+     * @return the normalizationOperation
+     */
+    public NormalizationOperation build() {
+      return new NormalizationOperation(this);
+    }
+
+    /**
+     * Set the operation.
+     *
+     * @param operation the operation
+     * @return the NormalizationOperation builder
+     */
+    public Builder operation(String operation) {
+      this.operation = operation;
+      return this;
+    }
+
+    /**
+     * Set the sourceField.
+     *
+     * @param sourceField the sourceField
+     * @return the NormalizationOperation builder
+     */
+    public Builder sourceField(String sourceField) {
+      this.sourceField = sourceField;
+      return this;
+    }
+
+    /**
+     * Set the destinationField.
+     *
+     * @param destinationField the destinationField
+     * @return the NormalizationOperation builder
+     */
+    public Builder destinationField(String destinationField) {
+      this.destinationField = destinationField;
+      return this;
+    }
+  }
+
+  private NormalizationOperation(Builder builder) {
+    operation = builder.operation;
+    sourceField = builder.sourceField;
+    destinationField = builder.destinationField;
+  }
+
+  /**
+   * New builder.
+   *
+   * @return a NormalizationOperation builder
+   */
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+  /**
    * Gets the operation.
    *
    * Identifies what type of operation to perform. **copy** - Copies the value of the `source_field` to the
@@ -77,7 +155,7 @@ public class NormalizationOperation extends GenericModel {
    *
    * @return the operation
    */
-  public String getOperation() {
+  public String operation() {
     return operation;
   }
 
@@ -88,7 +166,7 @@ public class NormalizationOperation extends GenericModel {
    *
    * @return the sourceField
    */
-  public String getSourceField() {
+  public String sourceField() {
     return sourceField;
   }
 
@@ -99,7 +177,7 @@ public class NormalizationOperation extends GenericModel {
    *
    * @return the destinationField
    */
-  public String getDestinationField() {
+  public String destinationField() {
     return destinationField;
   }
 }

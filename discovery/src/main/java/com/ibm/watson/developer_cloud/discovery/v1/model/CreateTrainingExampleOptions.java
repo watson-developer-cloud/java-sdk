@@ -13,7 +13,6 @@
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The createTrainingExample options.
@@ -148,9 +147,9 @@ public class CreateTrainingExampleOptions extends GenericModel {
      * @return the CreateTrainingExampleOptions builder
      */
     public Builder trainingExample(TrainingExample trainingExample) {
-      this.documentId = trainingExample.getDocumentId();
-      this.crossReference = trainingExample.getCrossReference();
-      this.relevance = trainingExample.getRelevance();
+      this.documentId = trainingExample.documentId();
+      this.crossReference = trainingExample.crossReference();
+      this.relevance = trainingExample.relevance();
       return this;
     }
   }
