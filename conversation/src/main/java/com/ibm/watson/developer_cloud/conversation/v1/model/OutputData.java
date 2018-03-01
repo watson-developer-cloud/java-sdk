@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import java.util.ArrayList;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -19,7 +20,6 @@ import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 import com.ibm.watson.developer_cloud.util.Validator;
-import java.util.ArrayList;
 
 /**
  * An output object that includes the response to the user, the nodes that were hit, and messages from the log.

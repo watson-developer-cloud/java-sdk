@@ -12,12 +12,12 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
-import java.util.ArrayList;
 
 /**
  * The createEntity options.

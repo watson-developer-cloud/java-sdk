@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
+import java.util.ArrayList;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +21,6 @@ import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 import com.ibm.watson.developer_cloud.util.Validator;
-import java.util.ArrayList;
 
 /**
  * A term from the request that was identified as an entity.

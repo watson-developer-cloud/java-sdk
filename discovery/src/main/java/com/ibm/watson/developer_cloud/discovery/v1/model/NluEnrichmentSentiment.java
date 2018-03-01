@@ -12,11 +12,11 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
-import java.util.ArrayList;
 
 /**
  * An object specifying the sentiment extraction enrichment and related parameters.
