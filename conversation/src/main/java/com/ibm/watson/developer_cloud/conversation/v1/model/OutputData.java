@@ -18,6 +18,8 @@ import java.util.List;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
+import com.ibm.watson.developer_cloud.util.Validator;
+import java.util.ArrayList;
 
 /**
  * An output object that includes the response to the user, the nodes that were hit, and messages from the log.

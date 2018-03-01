@@ -15,6 +15,8 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
+import java.util.ArrayList;
 
 /**
  * The updateIntent options.

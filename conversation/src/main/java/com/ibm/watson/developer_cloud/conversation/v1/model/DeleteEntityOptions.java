@@ -13,6 +13,7 @@
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The deleteEntity options.

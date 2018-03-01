@@ -17,6 +17,7 @@ import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
+import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * An intent identified in the user input.

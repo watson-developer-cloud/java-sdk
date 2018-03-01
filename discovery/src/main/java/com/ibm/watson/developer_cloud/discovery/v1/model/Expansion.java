@@ -16,6 +16,8 @@ import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
+import java.util.ArrayList;
 
 /**
  * An expansion definition. Each object respresents one set of expandable strings. For example, you could have

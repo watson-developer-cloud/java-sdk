@@ -16,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
+import com.ibm.watson.developer_cloud.util.Validator;
+import java.util.ArrayList;
 
 /**
  * The UpdateDialogNode options.
