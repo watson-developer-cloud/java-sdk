@@ -57,13 +57,4 @@ public class Counterexample extends GenericModel {
   public Date getUpdated() {
     return updated;
   }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
 }

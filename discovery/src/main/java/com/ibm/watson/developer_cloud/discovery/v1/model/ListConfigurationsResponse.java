@@ -33,13 +33,4 @@ public class ListConfigurationsResponse extends GenericModel {
   public List<Configuration> getConfigurations() {
     return configurations;
   }
-
-  /**
-   * Sets the configurations.
-   *
-   * @param configurations the new configurations
-   */
-  public void setConfigurations(final List<Configuration> configurations) {
-    this.configurations = configurations;
-  }
 }

@@ -70,40 +70,4 @@ public class IndexCapacity extends GenericModel {
   public MemoryUsage getMemoryUsage() {
     return memoryUsage;
   }
-
-  /**
-   * Sets the documents.
-   *
-   * @param documents the new documents
-   */
-  public void setDocuments(final EnvironmentDocuments documents) {
-    this.documents = documents;
-  }
-
-  /**
-   * Sets the diskUsage.
-   *
-   * @param diskUsage the new diskUsage
-   */
-  public void setDiskUsage(final DiskUsage diskUsage) {
-    this.diskUsage = diskUsage;
-  }
-
-  /**
-   * Sets the collections.
-   *
-   * @param collections the new collections
-   */
-  public void setCollections(final CollectionUsage collections) {
-    this.collections = collections;
-  }
-
-  /**
-   * Sets the memoryUsage.
-   *
-   * @param memoryUsage the new memoryUsage
-   */
-  public void setMemoryUsage(final MemoryUsage memoryUsage) {
-    this.memoryUsage = memoryUsage;
-  }
 }

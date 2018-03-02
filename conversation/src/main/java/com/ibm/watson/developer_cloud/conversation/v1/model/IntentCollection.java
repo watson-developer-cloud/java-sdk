@@ -45,22 +45,4 @@ public class IntentCollection extends GenericModel {
   public Pagination getPagination() {
     return pagination;
   }
-
-  /**
-   * Sets the intents.
-   *
-   * @param intents the new intents
-   */
-  public void setIntents(final List<IntentExport> intents) {
-    this.intents = intents;
-  }
-
-  /**
-   * Sets the pagination.
-   *
-   * @param pagination the new pagination
-   */
-  public void setPagination(final Pagination pagination) {
-    this.pagination = pagination;
-  }
 }

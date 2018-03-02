@@ -1709,8 +1709,12 @@ public class ConversationServiceIT extends ConversationServiceTest {
       String dialogNodeDescription2 = "Updated description of " + dialogNodeName;
       Date start = new Date();
       UpdateDialogNodeOptions updateOptions =
-              new UpdateDialogNodeOptions.Builder(workspaceId, dialogNodeName, dialogNodeName2)
-                      .newDescription(dialogNodeDescription2).build();
+              new UpdateDialogNodeOptions.Builder()
+                  .workspaceId(workspaceId)
+                  .dialogNode(dialogNodeName)
+                  .newDialogNode(dialogNodeName2)
+                  .newDescription(dialogNodeDescription2)
+                  .build();
       DialogNode response = service.updateDialogNode(updateOptions).execute();
       assertNotNull(response);
       assertNotNull(response.getDialogNodeId());

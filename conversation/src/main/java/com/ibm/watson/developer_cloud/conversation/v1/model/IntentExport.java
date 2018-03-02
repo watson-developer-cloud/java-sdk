@@ -84,31 +84,4 @@ public class IntentExport extends GenericModel {
   public List<Example> getExamples() {
     return examples;
   }
-
-  /**
-   * Sets the intentName.
-   *
-   * @param intentName the new intentName
-   */
-  public void setIntentName(final String intentName) {
-    this.intentName = intentName;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the examples.
-   *
-   * @param examples the new examples
-   */
-  public void setExamples(final List<Example> examples) {
-    this.examples = examples;
-  }
 }
