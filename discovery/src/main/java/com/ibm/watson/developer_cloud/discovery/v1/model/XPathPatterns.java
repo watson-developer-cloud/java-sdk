@@ -12,11 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * XPathPatterns.
@@ -26,77 +24,20 @@ public class XPathPatterns extends GenericModel {
   private List<String> xpaths;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private List<String> xpaths;
-
-    private Builder(XPathPatterns xPathPatterns) {
-      xpaths = xPathPatterns.xpaths;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a XPathPatterns.
-     *
-     * @return the xPathPatterns
-     */
-    public XPathPatterns build() {
-      return new XPathPatterns(this);
-    }
-
-    /**
-     * Adds an xpaths to xpaths.
-     *
-     * @param xpaths the new xpaths
-     * @return the XPathPatterns builder
-     */
-    public Builder addXpaths(String xpaths) {
-      Validator.notNull(xpaths, "xpaths cannot be null");
-      if (this.xpaths == null) {
-        this.xpaths = new ArrayList<String>();
-      }
-      this.xpaths.add(xpaths);
-      return this;
-    }
-
-    /**
-     * Set the xpaths.
-     * Existing xpaths will be replaced.
-     *
-     * @param xpaths the xpaths
-     * @return the XPathPatterns builder
-     */
-    public Builder xpaths(List<String> xpaths) {
-      this.xpaths = xpaths;
-      return this;
-    }
-  }
-
-  private XPathPatterns(Builder builder) {
-    xpaths = builder.xpaths;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a XPathPatterns builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the xpaths.
    *
    * @return the xpaths
    */
-  public List<String> xpaths() {
+  public List<String> getXpaths() {
     return xpaths;
+  }
+
+  /**
+   * Sets the xpaths.
+   *
+   * @param xpaths the new xpaths
+   */
+  public void setXpaths(final List<String> xpaths) {
+    this.xpaths = xpaths;
   }
 }

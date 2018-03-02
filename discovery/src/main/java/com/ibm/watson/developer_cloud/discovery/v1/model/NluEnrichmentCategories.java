@@ -19,41 +19,4 @@ import com.ibm.watson.developer_cloud.service.model.DynamicModel;
  */
 public class NluEnrichmentCategories extends DynamicModel {
 
-  /**
-   * Builder.
-   */
-  public static class Builder {
-
-    private Builder(NluEnrichmentCategories nluEnrichmentCategories) {
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a NluEnrichmentCategories.
-     *
-     * @return the nluEnrichmentCategories
-     */
-    public NluEnrichmentCategories build() {
-      NluEnrichmentCategories nluEnrichmentCategories = new NluEnrichmentCategories();
-      return nluEnrichmentCategories;
-    }
-  }
-
-  private NluEnrichmentCategories(Builder builder) {
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a NluEnrichmentCategories builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
 }

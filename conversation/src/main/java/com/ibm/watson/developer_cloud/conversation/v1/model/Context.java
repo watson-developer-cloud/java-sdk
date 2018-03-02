@@ -17,7 +17,6 @@ import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Context information for the message. Include the context from the previous response to maintain state for the
@@ -30,91 +29,11 @@ public class Context extends DynamicModel {
   }.getType();
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private String conversationId;
-    private SystemResponse system;
-
-    private Builder(Context context) {
-      conversationId = context.conversationId;
-      system = context.system;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param conversationId the conversationId
-     * @param system the system
-     */
-    public Builder(String conversationId, SystemResponse system) {
-      this.conversationId = conversationId;
-      this.system = system;
-    }
-
-    /**
-     * Builds a Context.
-     *
-     * @return the context
-     */
-    public Context build() {
-      Context context = new Context();
-      context.put("conversation_id", this.conversationId);
-      context.put("system", this.system);
-      return context;
-    }
-
-    /**
-     * Set the conversationId.
-     *
-     * @param conversationId the conversationId
-     * @return the Context builder
-     */
-    public Builder conversationId(String conversationId) {
-      this.conversationId = conversationId;
-      return this;
-    }
-
-    /**
-     * Set the system.
-     *
-     * @param system the system
-     * @return the Context builder
-     */
-    public Builder system(SystemResponse system) {
-      this.system = system;
-      return this;
-    }
-  }
-
-  private Context(Builder builder) {
-    Validator.notNull(builder.conversationId, "conversationId cannot be null");
-    Validator.notNull(builder.system, "system cannot be null");
-    conversationId = builder.conversationId;
-    system = builder.system;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a Context builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the conversationId.
    *
    * @return the conversationId
    */
-  public String conversationId() {
+  public String getConversationId() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("conversation_id"), conversationIdType);
   }
 
@@ -123,7 +42,25 @@ public class Context extends DynamicModel {
    *
    * @return the system
    */
-  public SystemResponse system() {
+  public SystemResponse getSystem() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("system"), systemType);
+  }
+
+  /**
+   * Sets the conversationId.
+   *
+   * @param conversationId the new conversationId
+   */
+  public void setConversationId(final String conversationId) {
+    this.put("conversation_id", conversationId);
+  }
+
+  /**
+   * Sets the system.
+   *
+   * @param system the new system
+   */
+  public void setSystem(final SystemResponse system) {
+    this.put("system", system);
   }
 }

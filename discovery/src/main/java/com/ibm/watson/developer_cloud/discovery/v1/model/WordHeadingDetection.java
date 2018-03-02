@@ -12,11 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * WordHeadingDetection.
@@ -27,107 +25,11 @@ public class WordHeadingDetection extends GenericModel {
   private List<WordStyle> styles;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private List<FontSetting> fonts;
-    private List<WordStyle> styles;
-
-    private Builder(WordHeadingDetection wordHeadingDetection) {
-      fonts = wordHeadingDetection.fonts;
-      styles = wordHeadingDetection.styles;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a WordHeadingDetection.
-     *
-     * @return the wordHeadingDetection
-     */
-    public WordHeadingDetection build() {
-      return new WordHeadingDetection(this);
-    }
-
-    /**
-     * Adds an fonts to fonts.
-     *
-     * @param fonts the new fonts
-     * @return the WordHeadingDetection builder
-     */
-    public Builder addFonts(FontSetting fonts) {
-      Validator.notNull(fonts, "fonts cannot be null");
-      if (this.fonts == null) {
-        this.fonts = new ArrayList<FontSetting>();
-      }
-      this.fonts.add(fonts);
-      return this;
-    }
-
-    /**
-     * Adds an styles to styles.
-     *
-     * @param styles the new styles
-     * @return the WordHeadingDetection builder
-     */
-    public Builder addStyles(WordStyle styles) {
-      Validator.notNull(styles, "styles cannot be null");
-      if (this.styles == null) {
-        this.styles = new ArrayList<WordStyle>();
-      }
-      this.styles.add(styles);
-      return this;
-    }
-
-    /**
-     * Set the fonts.
-     * Existing fonts will be replaced.
-     *
-     * @param fonts the fonts
-     * @return the WordHeadingDetection builder
-     */
-    public Builder fonts(List<FontSetting> fonts) {
-      this.fonts = fonts;
-      return this;
-    }
-
-    /**
-     * Set the styles.
-     * Existing styles will be replaced.
-     *
-     * @param styles the styles
-     * @return the WordHeadingDetection builder
-     */
-    public Builder styles(List<WordStyle> styles) {
-      this.styles = styles;
-      return this;
-    }
-  }
-
-  private WordHeadingDetection(Builder builder) {
-    fonts = builder.fonts;
-    styles = builder.styles;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a WordHeadingDetection builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the fonts.
    *
    * @return the fonts
    */
-  public List<FontSetting> fonts() {
+  public List<FontSetting> getFonts() {
     return fonts;
   }
 
@@ -136,7 +38,25 @@ public class WordHeadingDetection extends GenericModel {
    *
    * @return the styles
    */
-  public List<WordStyle> styles() {
+  public List<WordStyle> getStyles() {
     return styles;
+  }
+
+  /**
+   * Sets the fonts.
+   *
+   * @param fonts the new fonts
+   */
+  public void setFonts(final List<FontSetting> fonts) {
+    this.fonts = fonts;
+  }
+
+  /**
+   * Sets the styles.
+   *
+   * @param styles the new styles
+   */
+  public void setStyles(final List<WordStyle> styles) {
+    this.styles = styles;
   }
 }

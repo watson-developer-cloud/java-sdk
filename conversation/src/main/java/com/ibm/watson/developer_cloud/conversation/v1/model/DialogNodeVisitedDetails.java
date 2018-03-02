@@ -25,77 +25,13 @@ public class DialogNodeVisitedDetails extends GenericModel {
   private String title;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private String dialogNode;
-    private String title;
-
-    private Builder(DialogNodeVisitedDetails dialogNodeVisitedDetails) {
-      dialogNode = dialogNodeVisitedDetails.dialogNode;
-      title = dialogNodeVisitedDetails.title;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a DialogNodeVisitedDetails.
-     *
-     * @return the dialogNodeVisitedDetails
-     */
-    public DialogNodeVisitedDetails build() {
-      return new DialogNodeVisitedDetails(this);
-    }
-
-    /**
-     * Set the dialogNode.
-     *
-     * @param dialogNode the dialogNode
-     * @return the DialogNodeVisitedDetails builder
-     */
-    public Builder dialogNode(String dialogNode) {
-      this.dialogNode = dialogNode;
-      return this;
-    }
-
-    /**
-     * Set the title.
-     *
-     * @param title the title
-     * @return the DialogNodeVisitedDetails builder
-     */
-    public Builder title(String title) {
-      this.title = title;
-      return this;
-    }
-  }
-
-  private DialogNodeVisitedDetails(Builder builder) {
-    dialogNode = builder.dialogNode;
-    title = builder.title;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a DialogNodeVisitedDetails builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the dialogNode.
    *
    * A dialog node that was triggered during processing of the input message.
    *
    * @return the dialogNode
    */
-  public String dialogNode() {
+  public String getDialogNode() {
     return dialogNode;
   }
 
@@ -106,7 +42,25 @@ public class DialogNodeVisitedDetails extends GenericModel {
    *
    * @return the title
    */
-  public String title() {
+  public String getTitle() {
     return title;
+  }
+
+  /**
+   * Sets the dialogNode.
+   *
+   * @param dialogNode the new dialogNode
+   */
+  public void setDialogNode(final String dialogNode) {
+    this.dialogNode = dialogNode;
+  }
+
+  /**
+   * Sets the title.
+   *
+   * @param title the new title
+   */
+  public void setTitle(final String title) {
+    this.title = title;
   }
 }

@@ -12,12 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Document conversion settings.
@@ -31,121 +29,13 @@ public class Conversions extends GenericModel {
   private List<NormalizationOperation> jsonNormalizations;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private PdfSettings pdf;
-    private WordSettings word;
-    private HtmlSettings html;
-    private List<NormalizationOperation> jsonNormalizations;
-
-    private Builder(Conversions conversions) {
-      pdf = conversions.pdf;
-      word = conversions.word;
-      html = conversions.html;
-      jsonNormalizations = conversions.jsonNormalizations;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a Conversions.
-     *
-     * @return the conversions
-     */
-    public Conversions build() {
-      return new Conversions(this);
-    }
-
-    /**
-     * Adds an jsonNormalizations to jsonNormalizations.
-     *
-     * @param jsonNormalizations the new jsonNormalizations
-     * @return the Conversions builder
-     */
-    public Builder addJsonNormalizations(NormalizationOperation jsonNormalizations) {
-      Validator.notNull(jsonNormalizations, "jsonNormalizations cannot be null");
-      if (this.jsonNormalizations == null) {
-        this.jsonNormalizations = new ArrayList<NormalizationOperation>();
-      }
-      this.jsonNormalizations.add(jsonNormalizations);
-      return this;
-    }
-
-    /**
-     * Set the pdf.
-     *
-     * @param pdf the pdf
-     * @return the Conversions builder
-     */
-    public Builder pdf(PdfSettings pdf) {
-      this.pdf = pdf;
-      return this;
-    }
-
-    /**
-     * Set the word.
-     *
-     * @param word the word
-     * @return the Conversions builder
-     */
-    public Builder word(WordSettings word) {
-      this.word = word;
-      return this;
-    }
-
-    /**
-     * Set the html.
-     *
-     * @param html the html
-     * @return the Conversions builder
-     */
-    public Builder html(HtmlSettings html) {
-      this.html = html;
-      return this;
-    }
-
-    /**
-     * Set the jsonNormalizations.
-     * Existing jsonNormalizations will be replaced.
-     *
-     * @param jsonNormalizations the jsonNormalizations
-     * @return the Conversions builder
-     */
-    public Builder jsonNormalizations(List<NormalizationOperation> jsonNormalizations) {
-      this.jsonNormalizations = jsonNormalizations;
-      return this;
-    }
-  }
-
-  private Conversions(Builder builder) {
-    pdf = builder.pdf;
-    word = builder.word;
-    html = builder.html;
-    jsonNormalizations = builder.jsonNormalizations;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a Conversions builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the pdf.
    *
    * A list of PDF conversion settings.
    *
    * @return the pdf
    */
-  public PdfSettings pdf() {
+  public PdfSettings getPdf() {
     return pdf;
   }
 
@@ -156,7 +46,7 @@ public class Conversions extends GenericModel {
    *
    * @return the word
    */
-  public WordSettings word() {
+  public WordSettings getWord() {
     return word;
   }
 
@@ -167,7 +57,7 @@ public class Conversions extends GenericModel {
    *
    * @return the html
    */
-  public HtmlSettings html() {
+  public HtmlSettings getHtml() {
     return html;
   }
 
@@ -179,7 +69,43 @@ public class Conversions extends GenericModel {
    *
    * @return the jsonNormalizations
    */
-  public List<NormalizationOperation> jsonNormalizations() {
+  public List<NormalizationOperation> getJsonNormalizations() {
     return jsonNormalizations;
+  }
+
+  /**
+   * Sets the pdf.
+   *
+   * @param pdf the new pdf
+   */
+  public void setPdf(final PdfSettings pdf) {
+    this.pdf = pdf;
+  }
+
+  /**
+   * Sets the word.
+   *
+   * @param word the new word
+   */
+  public void setWord(final WordSettings word) {
+    this.word = word;
+  }
+
+  /**
+   * Sets the html.
+   *
+   * @param html the new html
+   */
+  public void setHtml(final HtmlSettings html) {
+    this.html = html;
+  }
+
+  /**
+   * Sets the jsonNormalizations.
+   *
+   * @param jsonNormalizations the new jsonNormalizations
+   */
+  public void setJsonNormalizations(final List<NormalizationOperation> jsonNormalizations) {
+    this.jsonNormalizations = jsonNormalizations;
   }
 }

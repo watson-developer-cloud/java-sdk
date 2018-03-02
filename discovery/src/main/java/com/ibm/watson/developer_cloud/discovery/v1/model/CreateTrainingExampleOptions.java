@@ -148,9 +148,9 @@ public class CreateTrainingExampleOptions extends GenericModel {
      * @return the CreateTrainingExampleOptions builder
      */
     public Builder trainingExample(TrainingExample trainingExample) {
-      this.documentId = trainingExample.documentId();
-      this.crossReference = trainingExample.crossReference();
-      this.relevance = trainingExample.relevance();
+      this.documentId = trainingExample.getDocumentId();
+      this.crossReference = trainingExample.getCrossReference();
+      this.relevance = trainingExample.getRelevance();
       return this;
     }
   }

@@ -17,7 +17,6 @@ import java.lang.reflect.Type;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * Log message details.
@@ -41,91 +40,11 @@ public class LogMessage extends DynamicModel {
   }.getType();
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private String level;
-    private String msg;
-
-    private Builder(LogMessage logMessage) {
-      level = logMessage.level;
-      msg = logMessage.msg;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param level the level
-     * @param msg the msg
-     */
-    public Builder(String level, String msg) {
-      this.level = level;
-      this.msg = msg;
-    }
-
-    /**
-     * Builds a LogMessage.
-     *
-     * @return the logMessage
-     */
-    public LogMessage build() {
-      LogMessage logMessage = new LogMessage();
-      logMessage.put("level", this.level);
-      logMessage.put("msg", this.msg);
-      return logMessage;
-    }
-
-    /**
-     * Set the level.
-     *
-     * @param level the level
-     * @return the LogMessage builder
-     */
-    public Builder level(String level) {
-      this.level = level;
-      return this;
-    }
-
-    /**
-     * Set the msg.
-     *
-     * @param msg the msg
-     * @return the LogMessage builder
-     */
-    public Builder msg(String msg) {
-      this.msg = msg;
-      return this;
-    }
-  }
-
-  private LogMessage(Builder builder) {
-    Validator.notNull(builder.level, "level cannot be null");
-    Validator.notNull(builder.msg, "msg cannot be null");
-    level = builder.level;
-    msg = builder.msg;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a LogMessage builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the level.
    *
    * @return the level
    */
-  public String level() {
+  public String getLevel() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("level"), levelType);
   }
 
@@ -134,7 +53,25 @@ public class LogMessage extends DynamicModel {
    *
    * @return the msg
    */
-  public String msg() {
+  public String getMsg() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("msg"), msgType);
+  }
+
+  /**
+   * Sets the level.
+   *
+   * @param level the new level
+   */
+  public void setLevel(final String level) {
+    this.put("level", level);
+  }
+
+  /**
+   * Sets the msg.
+   *
+   * @param msg the new msg
+   */
+  public void setMsg(final String msg) {
+    this.put("msg", msg);
   }
 }

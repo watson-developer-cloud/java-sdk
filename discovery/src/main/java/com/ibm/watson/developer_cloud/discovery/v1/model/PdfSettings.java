@@ -22,61 +22,20 @@ public class PdfSettings extends GenericModel {
   private PdfHeadingDetection heading;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private PdfHeadingDetection heading;
-
-    private Builder(PdfSettings pdfSettings) {
-      heading = pdfSettings.heading;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a PdfSettings.
-     *
-     * @return the pdfSettings
-     */
-    public PdfSettings build() {
-      return new PdfSettings(this);
-    }
-
-    /**
-     * Set the heading.
-     *
-     * @param heading the heading
-     * @return the PdfSettings builder
-     */
-    public Builder heading(PdfHeadingDetection heading) {
-      this.heading = heading;
-      return this;
-    }
-  }
-
-  private PdfSettings(Builder builder) {
-    heading = builder.heading;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a PdfSettings builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the heading.
    *
    * @return the heading
    */
-  public PdfHeadingDetection heading() {
+  public PdfHeadingDetection getHeading() {
     return heading;
+  }
+
+  /**
+   * Sets the heading.
+   *
+   * @param heading the new heading
+   */
+  public void setHeading(final PdfHeadingDetection heading) {
+    this.heading = heading;
   }
 }

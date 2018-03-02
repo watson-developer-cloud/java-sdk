@@ -12,7 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.ArrayList;
 import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
@@ -20,7 +19,6 @@ import java.util.Map;
 import com.google.gson.reflect.TypeToken;
 import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * A term from the request that was identified as an entity.
@@ -40,186 +38,11 @@ public class RuntimeEntity extends DynamicModel {
   }.getType();
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private String entity;
-    private List<Long> location;
-    private String value;
-    private Double confidence;
-    private Map metadata;
-    private List<CaptureGroup> groups;
-
-    private Builder(RuntimeEntity runtimeEntity) {
-      entity = runtimeEntity.entity;
-      location = runtimeEntity.location;
-      value = runtimeEntity.value;
-      confidence = runtimeEntity.confidence;
-      metadata = runtimeEntity.metadata;
-      groups = runtimeEntity.groups;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param entity the entity
-     * @param location the location
-     * @param value the value
-     */
-    public Builder(String entity, List<Long> location, String value) {
-      this.entity = entity;
-      this.location = location;
-      this.value = value;
-    }
-
-    /**
-     * Builds a RuntimeEntity.
-     *
-     * @return the runtimeEntity
-     */
-    public RuntimeEntity build() {
-      RuntimeEntity runtimeEntity = new RuntimeEntity();
-      runtimeEntity.put("entity", this.entity);
-      runtimeEntity.put("location", this.location);
-      runtimeEntity.put("value", this.value);
-      runtimeEntity.put("confidence", this.confidence);
-      runtimeEntity.put("metadata", this.metadata);
-      runtimeEntity.put("groups", this.groups);
-      return runtimeEntity;
-    }
-
-    /**
-     * Adds an location to location.
-     *
-     * @param location the new location
-     * @return the RuntimeEntity builder
-     */
-    public Builder addLocation(Long location) {
-      Validator.notNull(location, "location cannot be null");
-      if (this.location == null) {
-        this.location = new ArrayList<Long>();
-      }
-      this.location.add(location);
-      return this;
-    }
-
-    /**
-     * Adds an groups to groups.
-     *
-     * @param groups the new groups
-     * @return the RuntimeEntity builder
-     */
-    public Builder addGroups(CaptureGroup groups) {
-      Validator.notNull(groups, "groups cannot be null");
-      if (this.groups == null) {
-        this.groups = new ArrayList<CaptureGroup>();
-      }
-      this.groups.add(groups);
-      return this;
-    }
-
-    /**
-     * Set the entity.
-     *
-     * @param entity the entity
-     * @return the RuntimeEntity builder
-     */
-    public Builder entity(String entity) {
-      this.entity = entity;
-      return this;
-    }
-
-    /**
-     * Set the location.
-     * Existing location will be replaced.
-     *
-     * @param location the location
-     * @return the RuntimeEntity builder
-     */
-    public Builder location(List<Long> location) {
-      this.location = location;
-      return this;
-    }
-
-    /**
-     * Set the value.
-     *
-     * @param value the value
-     * @return the RuntimeEntity builder
-     */
-    public Builder value(String value) {
-      this.value = value;
-      return this;
-    }
-
-    /**
-     * Set the confidence.
-     *
-     * @param confidence the confidence
-     * @return the RuntimeEntity builder
-     */
-    public Builder confidence(Double confidence) {
-      this.confidence = confidence;
-      return this;
-    }
-
-    /**
-     * Set the metadata.
-     *
-     * @param metadata the metadata
-     * @return the RuntimeEntity builder
-     */
-    public Builder metadata(Map metadata) {
-      this.metadata = metadata;
-      return this;
-    }
-
-    /**
-     * Set the groups.
-     * Existing groups will be replaced.
-     *
-     * @param groups the groups
-     * @return the RuntimeEntity builder
-     */
-    public Builder groups(List<CaptureGroup> groups) {
-      this.groups = groups;
-      return this;
-    }
-  }
-
-  private RuntimeEntity(Builder builder) {
-    Validator.notNull(builder.entity, "entity cannot be null");
-    Validator.notNull(builder.location, "location cannot be null");
-    Validator.notNull(builder.value, "value cannot be null");
-    entity = builder.entity;
-    location = builder.location;
-    value = builder.value;
-    confidence = builder.confidence;
-    metadata = builder.metadata;
-    groups = builder.groups;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a RuntimeEntity builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the entity.
    *
    * @return the entity
    */
-  public String entity() {
+  public String getEntity() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("entity"), entityType);
   }
 
@@ -228,7 +51,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the location
    */
-  public List<Long> location() {
+  public List<Long> getLocation() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("location"), locationType);
   }
 
@@ -237,7 +60,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the value
    */
-  public String value() {
+  public String getValue() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("value"), valueType);
   }
 
@@ -246,7 +69,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the confidence
    */
-  public Double confidence() {
+  public Double getConfidence() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("confidence"), confidenceType);
   }
 
@@ -255,7 +78,7 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the metadata
    */
-  public Map metadata() {
+  public Map getMetadata() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("metadata"), metadataType);
   }
 
@@ -264,7 +87,61 @@ public class RuntimeEntity extends DynamicModel {
    *
    * @return the groups
    */
-  public List<CaptureGroup> groups() {
+  public List<CaptureGroup> getGroups() {
     return GsonSerializationHelper.serializeDynamicModelProperty(this.get("groups"), groupsType);
+  }
+
+  /**
+   * Sets the entity.
+   *
+   * @param entity the new entity
+   */
+  public void setEntity(final String entity) {
+    this.put("entity", entity);
+  }
+
+  /**
+   * Sets the location.
+   *
+   * @param location the new location
+   */
+  public void setLocation(final List<Long> location) {
+    this.put("location", location);
+  }
+
+  /**
+   * Sets the value.
+   *
+   * @param value the new value
+   */
+  public void setValue(final String value) {
+    this.put("value", value);
+  }
+
+  /**
+   * Sets the confidence.
+   *
+   * @param confidence the new confidence
+   */
+  public void setConfidence(final Double confidence) {
+    this.put("confidence", confidence);
+  }
+
+  /**
+   * Sets the metadata.
+   *
+   * @param metadata the new metadata
+   */
+  public void setMetadata(final Map metadata) {
+    this.put("metadata", metadata);
+  }
+
+  /**
+   * Sets the groups.
+   *
+   * @param groups the new groups
+   */
+  public void setGroups(final List<CaptureGroup> groups) {
+    this.put("groups", groups);
   }
 }

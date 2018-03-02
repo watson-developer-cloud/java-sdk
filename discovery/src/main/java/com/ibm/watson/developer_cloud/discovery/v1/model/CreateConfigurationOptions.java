@@ -179,11 +179,11 @@ public class CreateConfigurationOptions extends GenericModel {
      * @return the CreateConfigurationOptions builder
      */
     public Builder configuration(Configuration configuration) {
-      this.name = configuration.name();
-      this.description = configuration.description();
-      this.conversions = configuration.conversions();
-      this.enrichments = configuration.enrichments();
-      this.normalizations = configuration.normalizations();
+      this.name = configuration.getName();
+      this.description = configuration.getDescription();
+      this.conversions = configuration.getConversions();
+      this.enrichments = configuration.getEnrichments();
+      this.normalizations = configuration.getNormalizations();
       return this;
     }
   }

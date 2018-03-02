@@ -123,7 +123,7 @@ public class CreateExpansionsOptions extends GenericModel {
      * @return the CreateExpansionsOptions builder
      */
     public Builder expansions(Expansions expansions) {
-      this.expansions = expansions.expansions();
+      this.expansions = expansions.getExpansions();
       return this;
     }
   }

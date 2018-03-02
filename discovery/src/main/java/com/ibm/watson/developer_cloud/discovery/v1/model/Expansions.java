@@ -12,11 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The query expansion definitions for the specified collection.
@@ -24,72 +22,6 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class Expansions extends GenericModel {
 
   private List<Expansion> expansions;
-
-  /**
-   * Builder.
-   */
-  public static class Builder {
-    private List<Expansion> expansions;
-
-    private Builder(Expansions expansions) {
-      expansions = expansions.expansions;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a Expansions.
-     *
-     * @return the expansions
-     */
-    public Expansions build() {
-      return new Expansions(this);
-    }
-
-    /**
-     * Adds an expansions to expansions.
-     *
-     * @param expansions the new expansions
-     * @return the Expansions builder
-     */
-    public Builder addExpansions(Expansion expansions) {
-      Validator.notNull(expansions, "expansions cannot be null");
-      if (this.expansions == null) {
-        this.expansions = new ArrayList<Expansion>();
-      }
-      this.expansions.add(expansions);
-      return this;
-    }
-
-    /**
-     * Set the expansions.
-     * Existing expansions will be replaced.
-     *
-     * @param expansions the expansions
-     * @return the Expansions builder
-     */
-    public Builder expansions(List<Expansion> expansions) {
-      this.expansions = expansions;
-      return this;
-    }
-  }
-
-  private Expansions(Builder builder) {
-    expansions = builder.expansions;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a Expansions builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
 
   /**
    * Gets the expansions.
@@ -105,7 +37,16 @@ public class Expansions extends GenericModel {
    *
    * @return the expansions
    */
-  public List<Expansion> expansions() {
+  public List<Expansion> getExpansions() {
     return expansions;
+  }
+
+  /**
+   * Sets the expansions.
+   *
+   * @param expansions the new expansions
+   */
+  public void setExpansions(final List<Expansion> expansions) {
+    this.expansions = expansions;
   }
 }

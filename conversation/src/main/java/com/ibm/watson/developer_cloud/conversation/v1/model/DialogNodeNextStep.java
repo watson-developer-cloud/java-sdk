@@ -14,7 +14,6 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * The next step to execute following this dialog node.
@@ -22,11 +21,22 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class DialogNodeNextStep extends GenericModel {
 
   /**
-   * How the `next_step` reference is processed.
+   * How the `next_step` reference is processed. If you specify `jump_to`, then you must also specify a value for the
+   * `dialog_node` property.
    */
   public interface Behavior {
+    /** get_user_input. */
+    String GET_USER_INPUT = "get_user_input";
+    /** skip_user_input. */
+    String SKIP_USER_INPUT = "skip_user_input";
     /** jump_to. */
     String JUMP_TO = "jump_to";
+    /** reprompt. */
+    String REPROMPT = "reprompt";
+    /** skip_slot. */
+    String SKIP_SLOT = "skip_slot";
+    /** skip_all_slots. */
+    String SKIP_ALL_SLOTS = "skip_all_slots";
   }
 
   /**
@@ -49,112 +59,25 @@ public class DialogNodeNextStep extends GenericModel {
   private String selector;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private String behavior;
-    private String dialogNode;
-    private String selector;
-
-    private Builder(DialogNodeNextStep dialogNodeNextStep) {
-      behavior = dialogNodeNextStep.behavior;
-      dialogNode = dialogNodeNextStep.dialogNode;
-      selector = dialogNodeNextStep.selector;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param behavior the behavior
-     */
-    public Builder(String behavior) {
-      this.behavior = behavior;
-    }
-
-    /**
-     * Builds a DialogNodeNextStep.
-     *
-     * @return the dialogNodeNextStep
-     */
-    public DialogNodeNextStep build() {
-      return new DialogNodeNextStep(this);
-    }
-
-    /**
-     * Set the behavior.
-     *
-     * @param behavior the behavior
-     * @return the DialogNodeNextStep builder
-     */
-    public Builder behavior(String behavior) {
-      this.behavior = behavior;
-      return this;
-    }
-
-    /**
-     * Set the dialogNode.
-     *
-     * @param dialogNode the dialogNode
-     * @return the DialogNodeNextStep builder
-     */
-    public Builder dialogNode(String dialogNode) {
-      this.dialogNode = dialogNode;
-      return this;
-    }
-
-    /**
-     * Set the selector.
-     *
-     * @param selector the selector
-     * @return the DialogNodeNextStep builder
-     */
-    public Builder selector(String selector) {
-      this.selector = selector;
-      return this;
-    }
-  }
-
-  private DialogNodeNextStep(Builder builder) {
-    Validator.notNull(builder.behavior, "behavior cannot be null");
-    behavior = builder.behavior;
-    dialogNode = builder.dialogNode;
-    selector = builder.selector;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a DialogNodeNextStep builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the behavior.
    *
-   * How the `next_step` reference is processed.
+   * How the `next_step` reference is processed. If you specify `jump_to`, then you must also specify a value for the
+   * `dialog_node` property.
    *
    * @return the behavior
    */
-  public String behavior() {
+  public String getBehavior() {
     return behavior;
   }
 
   /**
    * Gets the dialogNode.
    *
-   * The ID of the dialog node to process next.
+   * The ID of the dialog node to process next. This parameter is required if `behavior`=`jump_to`.
    *
    * @return the dialogNode
    */
-  public String dialogNode() {
+  public String getDialogNode() {
     return dialogNode;
   }
 
@@ -165,7 +88,34 @@ public class DialogNodeNextStep extends GenericModel {
    *
    * @return the selector
    */
-  public String selector() {
+  public String getSelector() {
     return selector;
+  }
+
+  /**
+   * Sets the behavior.
+   *
+   * @param behavior the new behavior
+   */
+  public void setBehavior(final String behavior) {
+    this.behavior = behavior;
+  }
+
+  /**
+   * Sets the dialogNode.
+   *
+   * @param dialogNode the new dialogNode
+   */
+  public void setDialogNode(final String dialogNode) {
+    this.dialogNode = dialogNode;
+  }
+
+  /**
+   * Sets the selector.
+   *
+   * @param selector the new selector
+   */
+  public void setSelector(final String selector) {
+    this.selector = selector;
   }
 }

@@ -12,12 +12,10 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * A request formatted for the Conversation service.
@@ -33,165 +31,13 @@ public class MessageRequest extends GenericModel {
   private OutputData output;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private InputData input;
-    private Boolean alternateIntents;
-    private Context context;
-    private List<RuntimeEntity> entities;
-    private List<RuntimeIntent> intents;
-    private OutputData output;
-
-    private Builder(MessageRequest messageRequest) {
-      input = messageRequest.input;
-      alternateIntents = messageRequest.alternateIntents;
-      context = messageRequest.context;
-      entities = messageRequest.entities;
-      intents = messageRequest.intents;
-      output = messageRequest.output;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a MessageRequest.
-     *
-     * @return the messageRequest
-     */
-    public MessageRequest build() {
-      return new MessageRequest(this);
-    }
-
-    /**
-     * Adds an entity to entities.
-     *
-     * @param entity the new entity
-     * @return the MessageRequest builder
-     */
-    public Builder addEntity(RuntimeEntity entity) {
-      Validator.notNull(entity, "entity cannot be null");
-      if (this.entities == null) {
-        this.entities = new ArrayList<RuntimeEntity>();
-      }
-      this.entities.add(entity);
-      return this;
-    }
-
-    /**
-     * Adds an intent to intents.
-     *
-     * @param intent the new intent
-     * @return the MessageRequest builder
-     */
-    public Builder addIntent(RuntimeIntent intent) {
-      Validator.notNull(intent, "intent cannot be null");
-      if (this.intents == null) {
-        this.intents = new ArrayList<RuntimeIntent>();
-      }
-      this.intents.add(intent);
-      return this;
-    }
-
-    /**
-     * Set the input.
-     *
-     * @param input the input
-     * @return the MessageRequest builder
-     */
-    public Builder input(InputData input) {
-      this.input = input;
-      return this;
-    }
-
-    /**
-     * Set the alternateIntents.
-     *
-     * @param alternateIntents the alternateIntents
-     * @return the MessageRequest builder
-     */
-    public Builder alternateIntents(Boolean alternateIntents) {
-      this.alternateIntents = alternateIntents;
-      return this;
-    }
-
-    /**
-     * Set the context.
-     *
-     * @param context the context
-     * @return the MessageRequest builder
-     */
-    public Builder context(Context context) {
-      this.context = context;
-      return this;
-    }
-
-    /**
-     * Set the entities.
-     * Existing entities will be replaced.
-     *
-     * @param entities the entities
-     * @return the MessageRequest builder
-     */
-    public Builder entities(List<RuntimeEntity> entities) {
-      this.entities = entities;
-      return this;
-    }
-
-    /**
-     * Set the intents.
-     * Existing intents will be replaced.
-     *
-     * @param intents the intents
-     * @return the MessageRequest builder
-     */
-    public Builder intents(List<RuntimeIntent> intents) {
-      this.intents = intents;
-      return this;
-    }
-
-    /**
-     * Set the output.
-     *
-     * @param output the output
-     * @return the MessageRequest builder
-     */
-    public Builder output(OutputData output) {
-      this.output = output;
-      return this;
-    }
-  }
-
-  private MessageRequest(Builder builder) {
-    input = builder.input;
-    alternateIntents = builder.alternateIntents;
-    context = builder.context;
-    entities = builder.entities;
-    intents = builder.intents;
-    output = builder.output;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a MessageRequest builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the input.
    *
    * An input object that includes the input text.
    *
    * @return the input
    */
-  public InputData input() {
+  public InputData getInput() {
     return input;
   }
 
@@ -202,7 +48,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the alternateIntents
    */
-  public Boolean alternateIntents() {
+  public Boolean isAlternateIntents() {
     return alternateIntents;
   }
 
@@ -214,7 +60,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the context
    */
-  public Context context() {
+  public Context getContext() {
     return context;
   }
 
@@ -226,7 +72,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the entities
    */
-  public List<RuntimeEntity> entities() {
+  public List<RuntimeEntity> getEntities() {
     return entities;
   }
 
@@ -238,7 +84,7 @@ public class MessageRequest extends GenericModel {
    *
    * @return the intents
    */
-  public List<RuntimeIntent> intents() {
+  public List<RuntimeIntent> getIntents() {
     return intents;
   }
 
@@ -250,7 +96,61 @@ public class MessageRequest extends GenericModel {
    *
    * @return the output
    */
-  public OutputData output() {
+  public OutputData getOutput() {
     return output;
+  }
+
+  /**
+   * Sets the input.
+   *
+   * @param input the new input
+   */
+  public void setInput(final InputData input) {
+    this.input = input;
+  }
+
+  /**
+   * Sets the alternateIntents.
+   *
+   * @param alternateIntents the new alternateIntents
+   */
+  public void setAlternateIntents(final Boolean alternateIntents) {
+    this.alternateIntents = alternateIntents;
+  }
+
+  /**
+   * Sets the context.
+   *
+   * @param context the new context
+   */
+  public void setContext(final Context context) {
+    this.context = context;
+  }
+
+  /**
+   * Sets the entities.
+   *
+   * @param entities the new entities
+   */
+  public void setEntities(final List<RuntimeEntity> entities) {
+    this.entities = entities;
+  }
+
+  /**
+   * Sets the intents.
+   *
+   * @param intents the new intents
+   */
+  public void setIntents(final List<RuntimeIntent> intents) {
+    this.intents = intents;
+  }
+
+  /**
+   * Sets the output.
+   *
+   * @param output the new output
+   */
+  public void setOutput(final OutputData output) {
+    this.output = output;
   }
 }

@@ -30,131 +30,11 @@ public class FontSetting extends GenericModel {
   private String name;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private Long level;
-    private Long minSize;
-    private Long maxSize;
-    private Boolean bold;
-    private Boolean italic;
-    private String name;
-
-    private Builder(FontSetting fontSetting) {
-      level = fontSetting.level;
-      minSize = fontSetting.minSize;
-      maxSize = fontSetting.maxSize;
-      bold = fontSetting.bold;
-      italic = fontSetting.italic;
-      name = fontSetting.name;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a FontSetting.
-     *
-     * @return the fontSetting
-     */
-    public FontSetting build() {
-      return new FontSetting(this);
-    }
-
-    /**
-     * Set the level.
-     *
-     * @param level the level
-     * @return the FontSetting builder
-     */
-    public Builder level(long level) {
-      this.level = level;
-      return this;
-    }
-
-    /**
-     * Set the minSize.
-     *
-     * @param minSize the minSize
-     * @return the FontSetting builder
-     */
-    public Builder minSize(long minSize) {
-      this.minSize = minSize;
-      return this;
-    }
-
-    /**
-     * Set the maxSize.
-     *
-     * @param maxSize the maxSize
-     * @return the FontSetting builder
-     */
-    public Builder maxSize(long maxSize) {
-      this.maxSize = maxSize;
-      return this;
-    }
-
-    /**
-     * Set the bold.
-     *
-     * @param bold the bold
-     * @return the FontSetting builder
-     */
-    public Builder bold(Boolean bold) {
-      this.bold = bold;
-      return this;
-    }
-
-    /**
-     * Set the italic.
-     *
-     * @param italic the italic
-     * @return the FontSetting builder
-     */
-    public Builder italic(Boolean italic) {
-      this.italic = italic;
-      return this;
-    }
-
-    /**
-     * Set the name.
-     *
-     * @param name the name
-     * @return the FontSetting builder
-     */
-    public Builder name(String name) {
-      this.name = name;
-      return this;
-    }
-  }
-
-  private FontSetting(Builder builder) {
-    level = builder.level;
-    minSize = builder.minSize;
-    maxSize = builder.maxSize;
-    bold = builder.bold;
-    italic = builder.italic;
-    name = builder.name;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a FontSetting builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the level.
    *
    * @return the level
    */
-  public Long level() {
+  public Long getLevel() {
     return level;
   }
 
@@ -163,7 +43,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the minSize
    */
-  public Long minSize() {
+  public Long getMinSize() {
     return minSize;
   }
 
@@ -172,7 +52,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the maxSize
    */
-  public Long maxSize() {
+  public Long getMaxSize() {
     return maxSize;
   }
 
@@ -181,7 +61,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the bold
    */
-  public Boolean bold() {
+  public Boolean isBold() {
     return bold;
   }
 
@@ -190,7 +70,7 @@ public class FontSetting extends GenericModel {
    *
    * @return the italic
    */
-  public Boolean italic() {
+  public Boolean isItalic() {
     return italic;
   }
 
@@ -199,7 +79,61 @@ public class FontSetting extends GenericModel {
    *
    * @return the name
    */
-  public String name() {
+  public String getName() {
     return name;
+  }
+
+  /**
+   * Sets the level.
+   *
+   * @param level the new level
+   */
+  public void setLevel(final long level) {
+    this.level = level;
+  }
+
+  /**
+   * Sets the minSize.
+   *
+   * @param minSize the new minSize
+   */
+  public void setMinSize(final long minSize) {
+    this.minSize = minSize;
+  }
+
+  /**
+   * Sets the maxSize.
+   *
+   * @param maxSize the new maxSize
+   */
+  public void setMaxSize(final long maxSize) {
+    this.maxSize = maxSize;
+  }
+
+  /**
+   * Sets the bold.
+   *
+   * @param bold the new bold
+   */
+  public void setBold(final Boolean bold) {
+    this.bold = bold;
+  }
+
+  /**
+   * Sets the italic.
+   *
+   * @param italic the new italic
+   */
+  public void setItalic(final Boolean italic) {
+    this.italic = italic;
+  }
+
+  /**
+   * Sets the name.
+   *
+   * @param name the new name
+   */
+  public void setName(final String name) {
+    this.name = name;
   }
 }

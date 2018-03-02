@@ -27,89 +27,11 @@ public class TrainingExample extends GenericModel {
   private Long relevance;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private String documentId;
-    private String crossReference;
-    private Long relevance;
-
-    private Builder(TrainingExample trainingExample) {
-      documentId = trainingExample.documentId;
-      crossReference = trainingExample.crossReference;
-      relevance = trainingExample.relevance;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a TrainingExample.
-     *
-     * @return the trainingExample
-     */
-    public TrainingExample build() {
-      return new TrainingExample(this);
-    }
-
-    /**
-     * Set the documentId.
-     *
-     * @param documentId the documentId
-     * @return the TrainingExample builder
-     */
-    public Builder documentId(String documentId) {
-      this.documentId = documentId;
-      return this;
-    }
-
-    /**
-     * Set the crossReference.
-     *
-     * @param crossReference the crossReference
-     * @return the TrainingExample builder
-     */
-    public Builder crossReference(String crossReference) {
-      this.crossReference = crossReference;
-      return this;
-    }
-
-    /**
-     * Set the relevance.
-     *
-     * @param relevance the relevance
-     * @return the TrainingExample builder
-     */
-    public Builder relevance(long relevance) {
-      this.relevance = relevance;
-      return this;
-    }
-  }
-
-  private TrainingExample(Builder builder) {
-    documentId = builder.documentId;
-    crossReference = builder.crossReference;
-    relevance = builder.relevance;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a TrainingExample builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the documentId.
    *
    * @return the documentId
    */
-  public String documentId() {
+  public String getDocumentId() {
     return documentId;
   }
 
@@ -118,7 +40,7 @@ public class TrainingExample extends GenericModel {
    *
    * @return the crossReference
    */
-  public String crossReference() {
+  public String getCrossReference() {
     return crossReference;
   }
 
@@ -127,7 +49,34 @@ public class TrainingExample extends GenericModel {
    *
    * @return the relevance
    */
-  public Long relevance() {
+  public Long getRelevance() {
     return relevance;
+  }
+
+  /**
+   * Sets the documentId.
+   *
+   * @param documentId the new documentId
+   */
+  public void setDocumentId(final String documentId) {
+    this.documentId = documentId;
+  }
+
+  /**
+   * Sets the crossReference.
+   *
+   * @param crossReference the new crossReference
+   */
+  public void setCrossReference(final String crossReference) {
+    this.crossReference = crossReference;
+  }
+
+  /**
+   * Sets the relevance.
+   *
+   * @param relevance the new relevance
+   */
+  public void setRelevance(final long relevance) {
+    this.relevance = relevance;
   }
 }

@@ -12,11 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * CaptureGroup.
@@ -27,103 +25,13 @@ public class CaptureGroup extends GenericModel {
   private List<Long> location;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private String group;
-    private List<Long> location;
-
-    private Builder(CaptureGroup captureGroup) {
-      group = captureGroup.group;
-      location = captureGroup.location;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Instantiates a new builder with required properties.
-     *
-     * @param group the group
-     */
-    public Builder(String group) {
-      this.group = group;
-    }
-
-    /**
-     * Builds a CaptureGroup.
-     *
-     * @return the captureGroup
-     */
-    public CaptureGroup build() {
-      return new CaptureGroup(this);
-    }
-
-    /**
-     * Adds an location to location.
-     *
-     * @param location the new location
-     * @return the CaptureGroup builder
-     */
-    public Builder addLocation(Long location) {
-      Validator.notNull(location, "location cannot be null");
-      if (this.location == null) {
-        this.location = new ArrayList<Long>();
-      }
-      this.location.add(location);
-      return this;
-    }
-
-    /**
-     * Set the group.
-     *
-     * @param group the group
-     * @return the CaptureGroup builder
-     */
-    public Builder group(String group) {
-      this.group = group;
-      return this;
-    }
-
-    /**
-     * Set the location.
-     * Existing location will be replaced.
-     *
-     * @param location the location
-     * @return the CaptureGroup builder
-     */
-    public Builder location(List<Long> location) {
-      this.location = location;
-      return this;
-    }
-  }
-
-  private CaptureGroup(Builder builder) {
-    Validator.notNull(builder.group, "group cannot be null");
-    group = builder.group;
-    location = builder.location;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a CaptureGroup builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the group.
    *
    * A recognized capture group for the entity.
    *
    * @return the group
    */
-  public String group() {
+  public String getGroup() {
     return group;
   }
 
@@ -134,7 +42,25 @@ public class CaptureGroup extends GenericModel {
    *
    * @return the location
    */
-  public List<Long> location() {
+  public List<Long> getLocation() {
     return location;
+  }
+
+  /**
+   * Sets the group.
+   *
+   * @param group the new group
+   */
+  public void setGroup(final String group) {
+    this.group = group;
+  }
+
+  /**
+   * Sets the location.
+   *
+   * @param location the new location
+   */
+  public void setLocation(final List<Long> location) {
+    this.location = location;
   }
 }

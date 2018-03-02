@@ -12,11 +12,9 @@
  */
 package com.ibm.watson.developer_cloud.discovery.v1.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
-import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
  * QueryFilterType.
@@ -27,109 +25,13 @@ public class QueryFilterType extends GenericModel {
   private List<String> include;
 
   /**
-   * Builder.
-   */
-  public static class Builder {
-    private List<String> exclude;
-    private List<String> include;
-
-    private Builder(QueryFilterType queryFilterType) {
-      exclude = queryFilterType.exclude;
-      include = queryFilterType.include;
-    }
-
-    /**
-     * Instantiates a new builder.
-     */
-    public Builder() {
-    }
-
-    /**
-     * Builds a QueryFilterType.
-     *
-     * @return the queryFilterType
-     */
-    public QueryFilterType build() {
-      return new QueryFilterType(this);
-    }
-
-    /**
-     * Adds an exclude to exclude.
-     *
-     * @param exclude the new exclude
-     * @return the QueryFilterType builder
-     */
-    public Builder addExclude(String exclude) {
-      Validator.notNull(exclude, "exclude cannot be null");
-      if (this.exclude == null) {
-        this.exclude = new ArrayList<String>();
-      }
-      this.exclude.add(exclude);
-      return this;
-    }
-
-    /**
-     * Adds an include to include.
-     *
-     * @param include the new include
-     * @return the QueryFilterType builder
-     */
-    public Builder addInclude(String include) {
-      Validator.notNull(include, "include cannot be null");
-      if (this.include == null) {
-        this.include = new ArrayList<String>();
-      }
-      this.include.add(include);
-      return this;
-    }
-
-    /**
-     * Set the exclude.
-     * Existing exclude will be replaced.
-     *
-     * @param exclude the exclude
-     * @return the QueryFilterType builder
-     */
-    public Builder exclude(List<String> exclude) {
-      this.exclude = exclude;
-      return this;
-    }
-
-    /**
-     * Set the include.
-     * Existing include will be replaced.
-     *
-     * @param include the include
-     * @return the QueryFilterType builder
-     */
-    public Builder include(List<String> include) {
-      this.include = include;
-      return this;
-    }
-  }
-
-  private QueryFilterType(Builder builder) {
-    exclude = builder.exclude;
-    include = builder.include;
-  }
-
-  /**
-   * New builder.
-   *
-   * @return a QueryFilterType builder
-   */
-  public Builder newBuilder() {
-    return new Builder(this);
-  }
-
-  /**
    * Gets the exclude.
    *
    * A comma-separated list of types to exclude.
    *
    * @return the exclude
    */
-  public List<String> exclude() {
+  public List<String> getExclude() {
     return exclude;
   }
 
@@ -140,7 +42,25 @@ public class QueryFilterType extends GenericModel {
    *
    * @return the include
    */
-  public List<String> include() {
+  public List<String> getInclude() {
     return include;
+  }
+
+  /**
+   * Sets the exclude.
+   *
+   * @param exclude the new exclude
+   */
+  public void setExclude(final List<String> exclude) {
+    this.exclude = exclude;
+  }
+
+  /**
+   * Sets the include.
+   *
+   * @param include the new include
+   */
+  public void setInclude(final List<String> include) {
+    this.include = include;
   }
 }
