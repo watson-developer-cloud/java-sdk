@@ -14,36 +14,54 @@ package com.ibm.watson.developer_cloud.conversation.v1.model;
 
 import java.util.List;
 
-import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DialogNodeCollection.
+ * CaptureGroup.
  */
-public class DialogNodeCollection extends GenericModel {
+public class CaptureGroup extends GenericModel {
 
-  @SerializedName("dialog_nodes")
-  private List<DialogNode> dialogNodes;
-  private Pagination pagination;
+  private String group;
+  private List<Long> location;
 
   /**
-   * Gets the dialogNodes.
+   * Gets the group.
    *
-   * @return the dialogNodes
+   * A recognized capture group for the entity.
+   *
+   * @return the group
    */
-  public List<DialogNode> getDialogNodes() {
-    return dialogNodes;
+  public String getGroup() {
+    return group;
   }
 
   /**
-   * Gets the pagination.
+   * Gets the location.
    *
-   * An object defining the pagination data for the returned objects.
+   * Zero-based character offsets that indicate where the entity value begins and ends in the input text.
    *
-   * @return the pagination
+   * @return the location
    */
-  public Pagination getPagination() {
-    return pagination;
+  public List<Long> getLocation() {
+    return location;
+  }
+
+  /**
+   * Sets the group.
+   *
+   * @param group the new group
+   */
+  public void setGroup(final String group) {
+    this.group = group;
+  }
+
+  /**
+   * Sets the location.
+   *
+   * @param location the new location
+   */
+  public void setLocation(final List<Long> location) {
+    this.location = location;
   }
 }
 

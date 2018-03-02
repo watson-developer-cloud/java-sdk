@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -19,14 +19,12 @@ import com.ibm.watson.developer_cloud.service.model.DynamicModel;
 import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
 
 /**
- * Context information for the message. Include the context from the previous response to maintain state for the
- * conversation.
+ * Context information for the message. Include the context from the previous response to maintain state for the conversation.
  */
 public class Context extends DynamicModel {
-  private Type conversationIdType = new TypeToken<String>() {
-  }.getType();
-  private Type systemType = new TypeToken<SystemResponse>() {
-  }.getType();
+  private Type conversationIdType = new TypeToken<String>() { } .getType();
+  private Type systemType = new TypeToken<SystemResponse>() { } .getType();
+
 
   /**
    * Gets the conversationId.
@@ -64,3 +62,4 @@ public class Context extends DynamicModel {
     this.put("system", system);
   }
 }
+
