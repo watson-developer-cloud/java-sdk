@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -87,7 +87,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the created.
    *
-   * The creation date of the collection in the format yyyy-MM-dd'T'HH:mmcon:ss.SSS'Z'
+   * The creation date of the collection in the format yyyy-MM-dd'T'HH:mmcon:ss.SSS'Z'.
    *
    * @return the created
    */
@@ -98,7 +98,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the updated.
    *
-   * The timestamp of when the collection was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+   * The timestamp of when the collection was last updated in the format yyyy-MM-dd'T'HH:mm:ss.SSS'Z'.
    *
    * @return the updated
    */
@@ -131,8 +131,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the language.
    *
-   * The language of the documents stored in the collection. Permitted values include `en_us` (U.S. English), `de`
-   * (German), and `es` (Spanish).
+   * The language of the documents stored in the collection. Permitted values include `en` (English), `de` (German), and `es` (Spanish).
    *
    * @return the language
    */
@@ -143,8 +142,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the documentCounts.
    *
-   * The object providing information about the documents in the collection. Present only when retrieving details of a
-   * collection.
+   * The object providing information about the documents in the collection. Present only when retrieving details of a collection.
    *
    * @return the documentCounts
    */
@@ -155,8 +153,7 @@ public class Collection extends GenericModel {
   /**
    * Gets the diskUsage.
    *
-   * The object providing information about the disk usage of the collection. Present only when retrieving details of a
-   * collection.
+   * The object providing information about the disk usage of the collection. Present only when retrieving details of a collection.
    *
    * @return the diskUsage
    */
@@ -174,67 +171,5 @@ public class Collection extends GenericModel {
   public TrainingStatus getTrainingStatus() {
     return trainingStatus;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the configurationId.
-   *
-   * @param configurationId the new configurationId
-   */
-  public void setConfigurationId(final String configurationId) {
-    this.configurationId = configurationId;
-  }
-
-  /**
-   * Sets the language.
-   *
-   * @param language the new language
-   */
-  public void setLanguage(final String language) {
-    this.language = language;
-  }
-
-  /**
-   * Sets the documentCounts.
-   *
-   * @param documentCounts the new documentCounts
-   */
-  public void setDocumentCounts(final DocumentCounts documentCounts) {
-    this.documentCounts = documentCounts;
-  }
-
-  /**
-   * Sets the diskUsage.
-   *
-   * @param diskUsage the new diskUsage
-   */
-  public void setDiskUsage(final CollectionDiskUsage diskUsage) {
-    this.diskUsage = diskUsage;
-  }
-
-  /**
-   * Sets the trainingStatus.
-   *
-   * @param trainingStatus the new trainingStatus
-   */
-  public void setTrainingStatus(final TrainingStatus trainingStatus) {
-    this.trainingStatus = trainingStatus;
-  }
 }
+

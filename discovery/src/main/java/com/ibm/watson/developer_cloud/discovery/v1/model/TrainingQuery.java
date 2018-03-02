@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -64,40 +64,5 @@ public class TrainingQuery extends GenericModel {
   public List<TrainingExample> getExamples() {
     return examples;
   }
-
-  /**
-   * Sets the queryId.
-   *
-   * @param queryId the new queryId
-   */
-  public void setQueryId(final String queryId) {
-    this.queryId = queryId;
-  }
-
-  /**
-   * Sets the naturalLanguageQuery.
-   *
-   * @param naturalLanguageQuery the new naturalLanguageQuery
-   */
-  public void setNaturalLanguageQuery(final String naturalLanguageQuery) {
-    this.naturalLanguageQuery = naturalLanguageQuery;
-  }
-
-  /**
-   * Sets the filter.
-   *
-   * @param filter the new filter
-   */
-  public void setFilter(final String filter) {
-    this.filter = filter;
-  }
-
-  /**
-   * Sets the examples.
-   *
-   * @param examples the new examples
-   */
-  public void setExamples(final List<TrainingExample> examples) {
-    this.examples = examples;
-  }
 }
+
