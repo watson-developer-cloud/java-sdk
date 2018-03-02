@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -24,6 +24,7 @@ public class GetValueOptions extends GenericModel {
   private String entity;
   private String value;
   private Boolean export;
+  private Boolean includeAudit;
 
   /**
    * Builder.
@@ -33,12 +34,14 @@ public class GetValueOptions extends GenericModel {
     private String entity;
     private String value;
     private Boolean export;
+    private Boolean includeAudit;
 
     private Builder(GetValueOptions getValueOptions) {
       workspaceId = getValueOptions.workspaceId;
       entity = getValueOptions.entity;
       value = getValueOptions.value;
       export = getValueOptions.export;
+      includeAudit = getValueOptions.includeAudit;
     }
 
     /**
@@ -112,6 +115,17 @@ public class GetValueOptions extends GenericModel {
       this.export = export;
       return this;
     }
+
+    /**
+     * Set the includeAudit.
+     *
+     * @param includeAudit the includeAudit
+     * @return the GetValueOptions builder
+     */
+    public Builder includeAudit(Boolean includeAudit) {
+      this.includeAudit = includeAudit;
+      return this;
+    }
   }
 
   private GetValueOptions(Builder builder) {
@@ -122,6 +136,7 @@ public class GetValueOptions extends GenericModel {
     entity = builder.entity;
     value = builder.value;
     export = builder.export;
+    includeAudit = builder.includeAudit;
   }
 
   /**
@@ -169,13 +184,23 @@ public class GetValueOptions extends GenericModel {
   /**
    * Gets the export.
    *
-   * Whether to include all element content in the returned data. If export=`false`, the returned data includes only
-   * information about the element itself. If export=`true`, all content, including subelements, is included. The
-   * default value is `false`.
+   * Whether to include all element content in the returned data. If export=`false`, the returned data includes only information about the element itself. If export=`true`, all content, including subelements, is included. The default value is `false`.
    *
    * @return the export
    */
   public Boolean export() {
     return export;
   }
+
+  /**
+   * Gets the includeAudit.
+   *
+   * Whether to include the audit properties (`created` and `updated` timestamps) in the response.
+   *
+   * @return the includeAudit
+   */
+  public Boolean includeAudit() {
+    return includeAudit;
+  }
 }
+

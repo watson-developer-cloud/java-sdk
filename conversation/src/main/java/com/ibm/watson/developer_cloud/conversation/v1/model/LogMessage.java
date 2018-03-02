@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -34,10 +34,9 @@ public class LogMessage extends DynamicModel {
     String WARN = "warn";
   }
 
-  private Type levelType = new TypeToken<String>() {
-  }.getType();
-  private Type msgType = new TypeToken<String>() {
-  }.getType();
+  private Type levelType = new TypeToken<String>() { } .getType();
+  private Type msgType = new TypeToken<String>() { } .getType();
+
 
   /**
    * Gets the level.
@@ -75,3 +74,4 @@ public class LogMessage extends DynamicModel {
     this.put("msg", msg);
   }
 }
+

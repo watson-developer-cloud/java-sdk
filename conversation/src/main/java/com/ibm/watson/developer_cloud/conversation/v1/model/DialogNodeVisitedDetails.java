@@ -12,38 +12,56 @@
  */
 package com.ibm.watson.developer_cloud.conversation.v1.model;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 import com.ibm.watson.developer_cloud.service.model.GenericModel;
 
 /**
- * DialogNodeCollection.
+ * DialogNodeVisitedDetails.
  */
-public class DialogNodeCollection extends GenericModel {
+public class DialogNodeVisitedDetails extends GenericModel {
 
-  @SerializedName("dialog_nodes")
-  private List<DialogNode> dialogNodes;
-  private Pagination pagination;
+  @SerializedName("dialog_node")
+  private String dialogNode;
+  private String title;
 
   /**
-   * Gets the dialogNodes.
+   * Gets the dialogNode.
    *
-   * @return the dialogNodes
+   * A dialog node that was triggered during processing of the input message.
+   *
+   * @return the dialogNode
    */
-  public List<DialogNode> getDialogNodes() {
-    return dialogNodes;
+  public String getDialogNode() {
+    return dialogNode;
   }
 
   /**
-   * Gets the pagination.
+   * Gets the title.
    *
-   * An object defining the pagination data for the returned objects.
+   * The title of the dialog node.
    *
-   * @return the pagination
+   * @return the title
    */
-  public Pagination getPagination() {
-    return pagination;
+  public String getTitle() {
+    return title;
+  }
+
+  /**
+   * Sets the dialogNode.
+   *
+   * @param dialogNode the new dialogNode
+   */
+  public void setDialogNode(final String dialogNode) {
+    this.dialogNode = dialogNode;
+  }
+
+  /**
+   * Sets the title.
+   *
+   * @param title the new title
+   */
+  public void setTitle(final String title) {
+    this.title = title;
   }
 }
 

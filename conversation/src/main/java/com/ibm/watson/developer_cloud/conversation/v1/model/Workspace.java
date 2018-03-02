@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -114,57 +114,12 @@ public class Workspace extends GenericModel {
   /**
    * Gets the learningOptOut.
    *
-   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates that
-   * workspace training data is not to be used.
+   * Whether training data from the workspace can be used by IBM for general service improvements. `true` indicates that workspace training data is not to be used.
    *
    * @return the learningOptOut
    */
   public Boolean isLearningOptOut() {
     return learningOptOut;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the language.
-   *
-   * @param language the new language
-   */
-  public void setLanguage(final String language) {
-    this.language = language;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map metadata) {
-    this.metadata = metadata;
-  }
-
-  /**
-   * Sets the learningOptOut.
-   *
-   * @param learningOptOut the new learningOptOut
-   */
-  public void setLearningOptOut(final Boolean learningOptOut) {
-    this.learningOptOut = learningOptOut;
-  }
 }
+

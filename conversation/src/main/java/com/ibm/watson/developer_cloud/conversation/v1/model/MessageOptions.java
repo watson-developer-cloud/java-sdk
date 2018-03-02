@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -30,6 +30,7 @@ public class MessageOptions extends GenericModel {
   private List<RuntimeEntity> entities;
   private List<RuntimeIntent> intents;
   private OutputData output;
+  private Boolean nodesVisitedDetails;
 
   /**
    * Builder.
@@ -42,6 +43,7 @@ public class MessageOptions extends GenericModel {
     private List<RuntimeEntity> entities;
     private List<RuntimeIntent> intents;
     private OutputData output;
+    private Boolean nodesVisitedDetails;
 
     private Builder(MessageOptions messageOptions) {
       workspaceId = messageOptions.workspaceId;
@@ -51,6 +53,7 @@ public class MessageOptions extends GenericModel {
       entities = messageOptions.entities;
       intents = messageOptions.intents;
       output = messageOptions.output;
+      nodesVisitedDetails = messageOptions.nodesVisitedDetails;
     }
 
     /**
@@ -185,6 +188,17 @@ public class MessageOptions extends GenericModel {
       this.output = output;
       return this;
     }
+
+    /**
+     * Set the nodesVisitedDetails.
+     *
+     * @param nodesVisitedDetails the nodesVisitedDetails
+     * @return the MessageOptions builder
+     */
+    public Builder nodesVisitedDetails(Boolean nodesVisitedDetails) {
+      this.nodesVisitedDetails = nodesVisitedDetails;
+      return this;
+    }
   }
 
   private MessageOptions(Builder builder) {
@@ -196,6 +210,7 @@ public class MessageOptions extends GenericModel {
     entities = builder.entities;
     intents = builder.intents;
     output = builder.output;
+    nodesVisitedDetails = builder.nodesVisitedDetails;
   }
 
   /**
@@ -243,8 +258,7 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the context.
    *
-   * State information for the conversation. Continue a conversation by including the context object from the previous
-   * response.
+   * State information for the conversation. Continue a conversation by including the context object from the previous response.
    *
    * @return the context
    */
@@ -255,8 +269,7 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the entities.
    *
-   * Include the entities from the previous response when they do not need to change and to prevent Watson from trying
-   * to identify them.
+   * Include the entities from the previous response when they do not need to change and to prevent Watson from trying to identify them.
    *
    * @return the entities
    */
@@ -267,8 +280,7 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the intents.
    *
-   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they do
-   * not need to change and to prevent Watson from trying to identify them.
+   * An array of name-confidence pairs for the user input. Include the intents from the previous response when they do not need to change and to prevent Watson from trying to identify them.
    *
    * @return the intents
    */
@@ -279,12 +291,23 @@ public class MessageOptions extends GenericModel {
   /**
    * Gets the output.
    *
-   * System output. Include the output from the request when you have several requests within the same Dialog turn to
-   * pass back in the intermediate information.
+   * System output. Include the output from the request when you have several requests within the same Dialog turn to pass back in the intermediate information.
    *
    * @return the output
    */
   public OutputData output() {
     return output;
   }
+
+  /**
+   * Gets the nodesVisitedDetails.
+   *
+   * Whether to include additional diagnostic information about the dialog nodes that were visited during processing of the message.
+   *
+   * @return the nodesVisitedDetails
+   */
+  public Boolean nodesVisitedDetails() {
+    return nodesVisitedDetails;
+  }
 }
+

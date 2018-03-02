@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -22,10 +22,9 @@ import com.ibm.watson.developer_cloud.util.GsonSerializationHelper;
  * An intent identified in the user input.
  */
 public class RuntimeIntent extends DynamicModel {
-  private Type intentType = new TypeToken<String>() {
-  }.getType();
-  private Type confidenceType = new TypeToken<Double>() {
-  }.getType();
+  private Type intentType = new TypeToken<String>() { } .getType();
+  private Type confidenceType = new TypeToken<Double>() { } .getType();
+
 
   /**
    * Gets the intent.
@@ -63,3 +62,4 @@ public class RuntimeIntent extends DynamicModel {
     this.put("confidence", confidence);
   }
 }
+
