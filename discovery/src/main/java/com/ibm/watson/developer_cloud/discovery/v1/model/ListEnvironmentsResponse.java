@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -33,13 +33,5 @@ public class ListEnvironmentsResponse extends GenericModel {
   public List<Environment> getEnvironments() {
     return environments;
   }
-
-  /**
-   * Sets the environments.
-   *
-   * @param environments the new environments
-   */
-  public void setEnvironments(final List<Environment> environments) {
-    this.environments = environments;
-  }
 }
+

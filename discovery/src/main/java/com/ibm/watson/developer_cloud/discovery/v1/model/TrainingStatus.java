@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -118,85 +118,5 @@ public class TrainingStatus extends GenericModel {
   public Date getDataUpdated() {
     return dataUpdated;
   }
-
-  /**
-   * Sets the totalExamples.
-   *
-   * @param totalExamples the new totalExamples
-   */
-  public void setTotalExamples(final long totalExamples) {
-    this.totalExamples = totalExamples;
-  }
-
-  /**
-   * Sets the available.
-   *
-   * @param available the new available
-   */
-  public void setAvailable(final Boolean available) {
-    this.available = available;
-  }
-
-  /**
-   * Sets the processing.
-   *
-   * @param processing the new processing
-   */
-  public void setProcessing(final Boolean processing) {
-    this.processing = processing;
-  }
-
-  /**
-   * Sets the minimumQueriesAdded.
-   *
-   * @param minimumQueriesAdded the new minimumQueriesAdded
-   */
-  public void setMinimumQueriesAdded(final Boolean minimumQueriesAdded) {
-    this.minimumQueriesAdded = minimumQueriesAdded;
-  }
-
-  /**
-   * Sets the minimumExamplesAdded.
-   *
-   * @param minimumExamplesAdded the new minimumExamplesAdded
-   */
-  public void setMinimumExamplesAdded(final Boolean minimumExamplesAdded) {
-    this.minimumExamplesAdded = minimumExamplesAdded;
-  }
-
-  /**
-   * Sets the sufficientLabelDiversity.
-   *
-   * @param sufficientLabelDiversity the new sufficientLabelDiversity
-   */
-  public void setSufficientLabelDiversity(final Boolean sufficientLabelDiversity) {
-    this.sufficientLabelDiversity = sufficientLabelDiversity;
-  }
-
-  /**
-   * Sets the notices.
-   *
-   * @param notices the new notices
-   */
-  public void setNotices(final long notices) {
-    this.notices = notices;
-  }
-
-  /**
-   * Sets the successfullyTrained.
-   *
-   * @param successfullyTrained the new successfullyTrained
-   */
-  public void setSuccessfullyTrained(final Date successfullyTrained) {
-    this.successfullyTrained = successfullyTrained;
-  }
-
-  /**
-   * Sets the dataUpdated.
-   *
-   * @param dataUpdated the new dataUpdated
-   */
-  public void setDataUpdated(final Date dataUpdated) {
-    this.dataUpdated = dataUpdated;
-  }
 }
+

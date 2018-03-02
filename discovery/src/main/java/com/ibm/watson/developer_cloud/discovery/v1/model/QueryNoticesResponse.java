@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -74,49 +74,5 @@ public class QueryNoticesResponse extends GenericModel {
   public Long getDuplicatesRemoved() {
     return duplicatesRemoved;
   }
-
-  /**
-   * Sets the matchingResults.
-   *
-   * @param matchingResults the new matchingResults
-   */
-  public void setMatchingResults(final long matchingResults) {
-    this.matchingResults = matchingResults;
-  }
-
-  /**
-   * Sets the results.
-   *
-   * @param results the new results
-   */
-  public void setResults(final List<QueryNoticesResult> results) {
-    this.results = results;
-  }
-
-  /**
-   * Sets the aggregations.
-   *
-   * @param aggregations the new aggregations
-   */
-  public void setAggregations(final List<QueryAggregation> aggregations) {
-    this.aggregations = aggregations;
-  }
-
-  /**
-   * Sets the passages.
-   *
-   * @param passages the new passages
-   */
-  public void setPassages(final List<QueryPassages> passages) {
-    this.passages = passages;
-  }
-
-  /**
-   * Sets the duplicatesRemoved.
-   *
-   * @param duplicatesRemoved the new duplicatesRemoved
-   */
-  public void setDuplicatesRemoved(final long duplicatesRemoved) {
-    this.duplicatesRemoved = duplicatesRemoved;
-  }
 }
+

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -59,31 +59,5 @@ public class AggregationResult extends GenericModel {
   public List<QueryAggregation> getAggregations() {
     return aggregations;
   }
-
-  /**
-   * Sets the key.
-   *
-   * @param key the new key
-   */
-  public void setKey(final String key) {
-    this.key = key;
-  }
-
-  /**
-   * Sets the matchingResults.
-   *
-   * @param matchingResults the new matchingResults
-   */
-  public void setMatchingResults(final long matchingResults) {
-    this.matchingResults = matchingResults;
-  }
-
-  /**
-   * Sets the aggregations.
-   *
-   * @param aggregations the new aggregations
-   */
-  public void setAggregations(final List<QueryAggregation> aggregations) {
-    this.aggregations = aggregations;
-  }
 }
+

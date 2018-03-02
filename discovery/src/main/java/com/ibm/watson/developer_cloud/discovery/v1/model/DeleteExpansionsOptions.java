@@ -16,23 +16,23 @@ import com.ibm.watson.developer_cloud.service.model.GenericModel;
 import com.ibm.watson.developer_cloud.util.Validator;
 
 /**
- * The listConfigurations options.
+ * The deleteExpansions options.
  */
-public class ListConfigurationsOptions extends GenericModel {
+public class DeleteExpansionsOptions extends GenericModel {
 
   private String environmentId;
-  private String name;
+  private String collectionId;
 
   /**
    * Builder.
    */
   public static class Builder {
     private String environmentId;
-    private String name;
+    private String collectionId;
 
-    private Builder(ListConfigurationsOptions listConfigurationsOptions) {
-      environmentId = listConfigurationsOptions.environmentId;
-      name = listConfigurationsOptions.name;
+    private Builder(DeleteExpansionsOptions deleteExpansionsOptions) {
+      environmentId = deleteExpansionsOptions.environmentId;
+      collectionId = deleteExpansionsOptions.collectionId;
     }
 
     /**
@@ -45,25 +45,27 @@ public class ListConfigurationsOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param environmentId the environmentId
+     * @param collectionId the collectionId
      */
-    public Builder(String environmentId) {
+    public Builder(String environmentId, String collectionId) {
       this.environmentId = environmentId;
+      this.collectionId = collectionId;
     }
 
     /**
-     * Builds a ListConfigurationsOptions.
+     * Builds a DeleteExpansionsOptions.
      *
-     * @return the listConfigurationsOptions
+     * @return the deleteExpansionsOptions
      */
-    public ListConfigurationsOptions build() {
-      return new ListConfigurationsOptions(this);
+    public DeleteExpansionsOptions build() {
+      return new DeleteExpansionsOptions(this);
     }
 
     /**
      * Set the environmentId.
      *
      * @param environmentId the environmentId
-     * @return the ListConfigurationsOptions builder
+     * @return the DeleteExpansionsOptions builder
      */
     public Builder environmentId(String environmentId) {
       this.environmentId = environmentId;
@@ -71,27 +73,28 @@ public class ListConfigurationsOptions extends GenericModel {
     }
 
     /**
-     * Set the name.
+     * Set the collectionId.
      *
-     * @param name the name
-     * @return the ListConfigurationsOptions builder
+     * @param collectionId the collectionId
+     * @return the DeleteExpansionsOptions builder
      */
-    public Builder name(String name) {
-      this.name = name;
+    public Builder collectionId(String collectionId) {
+      this.collectionId = collectionId;
       return this;
     }
   }
 
-  private ListConfigurationsOptions(Builder builder) {
+  private DeleteExpansionsOptions(Builder builder) {
     Validator.notEmpty(builder.environmentId, "environmentId cannot be empty");
+    Validator.notEmpty(builder.collectionId, "collectionId cannot be empty");
     environmentId = builder.environmentId;
-    name = builder.name;
+    collectionId = builder.collectionId;
   }
 
   /**
    * New builder.
    *
-   * @return a ListConfigurationsOptions builder
+   * @return a DeleteExpansionsOptions builder
    */
   public Builder newBuilder() {
     return new Builder(this);
@@ -109,14 +112,14 @@ public class ListConfigurationsOptions extends GenericModel {
   }
 
   /**
-   * Gets the name.
+   * Gets the collectionId.
    *
-   * Find configurations with the given name.
+   * The ID of the collection.
    *
-   * @return the name
+   * @return the collectionId
    */
-  public String name() {
-    return name;
+  public String collectionId() {
+    return collectionId;
   }
 }
 
