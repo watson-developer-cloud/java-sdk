@@ -59,13 +59,4 @@ public class Synonym extends GenericModel {
   public Date getUpdated() {
     return updated;
   }
-
-  /**
-   * Sets the synonymText.
-   *
-   * @param synonymText the new synonymText
-   */
-  public void setSynonymText(final String synonymText) {
-    this.synonymText = synonymText;
-  }
 }

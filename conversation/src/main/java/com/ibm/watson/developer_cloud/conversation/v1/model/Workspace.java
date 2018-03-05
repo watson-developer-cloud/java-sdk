@@ -122,49 +122,4 @@ public class Workspace extends GenericModel {
   public Boolean isLearningOptOut() {
     return learningOptOut;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the language.
-   *
-   * @param language the new language
-   */
-  public void setLanguage(final String language) {
-    this.language = language;
-  }
-
-  /**
-   * Sets the description.
-   *
-   * @param description the new description
-   */
-  public void setDescription(final String description) {
-    this.description = description;
-  }
-
-  /**
-   * Sets the metadata.
-   *
-   * @param metadata the new metadata
-   */
-  public void setMetadata(final Map metadata) {
-    this.metadata = metadata;
-  }
-
-  /**
-   * Sets the learningOptOut.
-   *
-   * @param learningOptOut the new learningOptOut
-   */
-  public void setLearningOptOut(final Boolean learningOptOut) {
-    this.learningOptOut = learningOptOut;
-  }
 }
