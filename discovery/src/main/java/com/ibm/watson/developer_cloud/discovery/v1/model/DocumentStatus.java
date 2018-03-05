@@ -175,40 +175,4 @@ public class DocumentStatus extends GenericModel {
   public List<Notice> getNotices() {
     return notices;
   }
-
-  /**
-   * Sets the filename.
-   *
-   * @param filename the new filename
-   */
-  public void setFilename(final String filename) {
-    this.filename = filename;
-  }
-
-  /**
-   * Sets the fileType.
-   *
-   * @param fileType the new fileType
-   */
-  public void setFileType(final String fileType) {
-    this.fileType = fileType;
-  }
-
-  /**
-   * Sets the sha1.
-   *
-   * @param sha1 the new sha1
-   */
-  public void setSha1(final String sha1) {
-    this.sha1 = sha1;
-  }
-
-  /**
-   * Sets the notices.
-   *
-   * @param notices the new notices
-   */
-  public void setNotices(final List<Notice> notices) {
-    this.notices = notices;
-  }
 }

@@ -59,31 +59,4 @@ public class AggregationResult extends GenericModel {
   public List<QueryAggregation> getAggregations() {
     return aggregations;
   }
-
-  /**
-   * Sets the key.
-   *
-   * @param key the new key
-   */
-  public void setKey(final String key) {
-    this.key = key;
-  }
-
-  /**
-   * Sets the matchingResults.
-   *
-   * @param matchingResults the new matchingResults
-   */
-  public void setMatchingResults(final long matchingResults) {
-    this.matchingResults = matchingResults;
-  }
-
-  /**
-   * Sets the aggregations.
-   *
-   * @param aggregations the new aggregations
-   */
-  public void setAggregations(final List<QueryAggregation> aggregations) {
-    this.aggregations = aggregations;
-  }
 }

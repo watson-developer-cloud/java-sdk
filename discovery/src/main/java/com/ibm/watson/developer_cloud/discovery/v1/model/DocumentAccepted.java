@@ -67,31 +67,4 @@ public class DocumentAccepted extends GenericModel {
   public List<Notice> getNotices() {
     return notices;
   }
-
-  /**
-   * Sets the documentId.
-   *
-   * @param documentId the new documentId
-   */
-  public void setDocumentId(final String documentId) {
-    this.documentId = documentId;
-  }
-
-  /**
-   * Sets the status.
-   *
-   * @param status the new status
-   */
-  public void setStatus(final String status) {
-    this.status = status;
-  }
-
-  /**
-   * Sets the notices.
-   *
-   * @param notices the new notices
-   */
-  public void setNotices(final List<Notice> notices) {
-    this.notices = notices;
-  }
 }

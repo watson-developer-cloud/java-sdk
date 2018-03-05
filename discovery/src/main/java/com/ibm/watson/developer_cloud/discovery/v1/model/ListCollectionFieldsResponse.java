@@ -38,13 +38,4 @@ public class ListCollectionFieldsResponse extends GenericModel {
   public List<Field> getFields() {
     return fields;
   }
-
-  /**
-   * Sets the fields.
-   *
-   * @param fields the new fields
-   */
-  public void setFields(final List<Field> fields) {
-    this.fields = fields;
-  }
 }

@@ -99,19 +99,6 @@ public class Discovery extends WatsonService {
 
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2017_11_07. */
-  public static final String VERSION_DATE_2017_11_07 = "2017-11-07";
-  /** The Constant VERSION_DATE_2017_09_01. */
-  public static final String VERSION_DATE_2017_09_01 = "2017-09-01";
-  /** The Constant VERSION_DATE_2017_08_01. */
-  public static final String VERSION_DATE_2017_08_01 = "2017-08-01";
-  /** The Constant VERSION_DATE_2017_07_19. */
-  public static final String VERSION_DATE_2017_07_19 = "2017-07-19";
-  /** The Constant VERSION_DATE_2017_06_25. */
-  public static final String VERSION_DATE_2017_06_25 = "2017-06-25";
-  /** The Constant VERSION_DATE_2016_12_01. */
-  public static final String VERSION_DATE_2016_12_01 = "2016-12-01";
-
   /**
    * Instantiates a new `Discovery`.
    *
@@ -124,8 +111,7 @@ public class Discovery extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2017_11_07);
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }
@@ -227,9 +213,9 @@ public class Discovery extends WatsonService {
   }
 
   /**
-   * List fields in specified collecitons.
+   * List fields in specified collections.
    *
-   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collecitons.
+   * Gets a list of the unique fields (and their types) stored in the indexes of the specified collections.
    *
    * @param listFieldsOptions the {@link ListFieldsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link ListCollectionFieldsResponse}

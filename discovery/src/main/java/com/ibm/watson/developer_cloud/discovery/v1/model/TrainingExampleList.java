@@ -31,13 +31,4 @@ public class TrainingExampleList extends GenericModel {
   public List<TrainingExample> getExamples() {
     return examples;
   }
-
-  /**
-   * Sets the examples.
-   *
-   * @param examples the new examples
-   */
-  public void setExamples(final List<TrainingExample> examples) {
-    this.examples = examples;
-  }
 }

@@ -54,31 +54,4 @@ public class TrainingDataSet extends GenericModel {
   public List<TrainingQuery> getQueries() {
     return queries;
   }
-
-  /**
-   * Sets the environmentId.
-   *
-   * @param environmentId the new environmentId
-   */
-  public void setEnvironmentId(final String environmentId) {
-    this.environmentId = environmentId;
-  }
-
-  /**
-   * Sets the collectionId.
-   *
-   * @param collectionId the new collectionId
-   */
-  public void setCollectionId(final String collectionId) {
-    this.collectionId = collectionId;
-  }
-
-  /**
-   * Sets the queries.
-   *
-   * @param queries the new queries
-   */
-  public void setQueries(final List<TrainingQuery> queries) {
-    this.queries = queries;
-  }
 }
