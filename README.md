@@ -5,7 +5,7 @@
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.ibm.watson.developer_cloud/java-sdk)
 [![CLA assistant](https://cla-assistant.io/readme/badge/watson-developer-cloud/java-sdk)](https://cla-assistant.io/watson-developer-cloud/java-sdk)
 
-Node.js client library to use the [Watson APIs][wdc].
+Java client library to use the [Watson APIs][wdc].
 
 <details>
   <summary>Table of Contents</summary>
@@ -53,12 +53,12 @@ All the services:
 </dependency>
 ```
 
-Only Retrieve and Rank:
+Only Discovery:
 
 ```xml
 <dependency>
 	<groupId>com.ibm.watson.developer_cloud</groupId>
-	<artifactId>retrieve-and-rank</artifactId>
+	<artifactId>discovery</artifactId>
 	<version>4.2.1</version>
 </dependency>
 ```
@@ -97,7 +97,7 @@ And then reference the snapshot version on your app module gradle
 Only Speech to Text:
 
 ```gradle
-'com.ibm.watson.developer_cloud:speech-to-text:3.8.1-SNAPSHOT'
+'com.ibm.watson.developer_cloud:speech-to-text:4.2.1-SNAPSHOT'
 ```
 
 ##### JAR
@@ -143,7 +143,7 @@ Override the `configureHttpClient()` method and add the proxy using the `OkHttpC
 For example:
 
 ```java
-ConversationService service = new ConversationService("2017-05-26") {
+Conversation service = new Conversation(Conversation.VERSION_DATE_2017_05_26) {
   @Override
   protected OkHttpClient configureHttpClient() {
     Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("proxyHost", 8080));
@@ -153,7 +153,7 @@ ConversationService service = new ConversationService("2017-05-26") {
 
 service.setUsernameAndPassword("<username>", "<password>");
 
-WorkspaceCollectionResponse workspaces = service.listWorkspaces(null, null, null, null).execute();
+WorkspaceCollection workspaces = service.listWorkspaces().execute();
 System.out.println(workspaces);
 ```
 

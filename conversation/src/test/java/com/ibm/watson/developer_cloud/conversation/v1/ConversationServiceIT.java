@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.ibm.watson.developer_cloud.conversation.v1.model.RuntimeEntity;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -202,8 +203,12 @@ public class ConversationServiceIT extends ConversationServiceTest {
     final String[] messages = new String[]{"turn ac on", "turn right", "no", "yes"};
     Context context = null;
     for (final String message : messages) {
-      MessageOptions request = new MessageOptions.Builder(workspaceId).input(new InputData.Builder(message).build())
-              .alternateIntents(true).context(context).build();
+      MessageOptions request = new MessageOptions.Builder(workspaceId)
+          .input(new InputData.Builder(message).build())
+          .alternateIntents(true)
+          .context(context)
+          .nodesVisitedDetails(true)
+          .build();
 
       if (message.equals("yes")) {
         RuntimeIntent offTopic = new RuntimeIntent();
@@ -214,6 +219,10 @@ public class ConversationServiceIT extends ConversationServiceTest {
       MessageResponse response = service.message(request).execute();
 
       assertMessageFromService(response);
+      assertNotNull(response.getOutput().getNodesVisitedDetails());
+      for (RuntimeEntity entity : response.getEntities()) {
+        assertNotNull(entity.getGroups());
+      }
       context = new Context();
       context.putAll(response.getContext());
       Thread.sleep(500);
@@ -1371,8 +1380,10 @@ public class ConversationServiceIT extends ConversationServiceTest {
 
       String counterExampleText = "What are you drinking";
       CreateCounterexample counterexample2 = new CreateCounterexample.Builder(counterExampleText).build();
-      UpdateWorkspaceOptions updateOptions =
-              new UpdateWorkspaceOptions.Builder(workspaceId).addCounterexample(counterexample2).build();
+      UpdateWorkspaceOptions updateOptions = new UpdateWorkspaceOptions.Builder(workspaceId)
+          .addCounterexample(counterexample2)
+          .append(false)
+          .build();
 
       Workspace updateResponse = service.updateWorkspace(updateOptions).execute();
 

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -40,7 +40,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the sentence.
    *
-   * The sentence that contains the relation
+   * The sentence that contains the relation.
    *
    * @return the sentence
    */
@@ -51,7 +51,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the type.
    *
-   * The type of the relation
+   * The type of the relation.
    *
    * @return the type
    */
@@ -62,7 +62,7 @@ public class RelationsResult extends GenericModel {
   /**
    * Gets the arguments.
    *
-   * The extracted relation objects from the text
+   * The extracted relation objects from the text.
    *
    * @return the arguments
    */

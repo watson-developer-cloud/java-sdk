@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 IBM Corp. All Rights Reserved.
+ * Copyright 2018 IBM Corp. All Rights Reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License. You may obtain a copy of the License at
@@ -25,7 +25,7 @@ public class TargetedSentimentResults extends GenericModel {
   /**
    * Gets the text.
    *
-   * Targeted text
+   * Targeted text.
    *
    * @return the text
    */
@@ -36,7 +36,7 @@ public class TargetedSentimentResults extends GenericModel {
   /**
    * Gets the score.
    *
-   * Sentiment score from -1 (negative) to 1 (positive)
+   * Sentiment score from -1 (negative) to 1 (positive).
    *
    * @return the score
    */

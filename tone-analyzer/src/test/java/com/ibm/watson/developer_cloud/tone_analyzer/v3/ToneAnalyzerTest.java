@@ -48,18 +48,17 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
 
   /** The service. */
   private ToneAnalyzer service;
-  private static final String VERSION_DATE_2016_05_19 = "2016-05-19";
+  private static final String VERSION_DATE_VALUE = "2017-09-21";
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
   @Before
   public void setUp() throws Exception {
     super.setUp();
-    service = new ToneAnalyzer(VERSION_DATE_2016_05_19);
+    service = new ToneAnalyzer(VERSION_DATE_VALUE);
     service.setApiKey("");
     service.setEndPoint(getMockWebServerUrl());
 
@@ -71,7 +70,6 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   @Test
   public void testReadme() throws InterruptedException, IOException {
 
-//    final String VERSION_DATE = "2016-05-19";
     ToneAnalyzer service = new ToneAnalyzer(VERSION_DATE);
     service.setUsernameAndPassword("<username>", "<password>");
 
@@ -79,17 +77,16 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     ToneAnalysis mockResponse = loadFixture(FIXTURE, ToneAnalysis.class); // exclude
     server.enqueue(jsonResponse(mockResponse)); // exclude
 
-    String text =
-        "I know the times are difficult! Our sales have been "
-            + "disappointing for the past three quarters for our data analytics "
-            + "product suite. We have a competitive data analytics product "
-            + "suite in the industry. But we need to do our job selling it! "
-            + "We need to acknowledge and fix our sales challenges. "
-            + "We can’t blame the economy for our lack of execution! "
-            + "We are missing critical sales opportunities. "
-            + "Our product is in no way inferior to the competitor products. "
-            + "Our clients are hungry for analytical tools to improve their "
-            + "business outcomes. Economy has nothing to do with it.";
+    String text = "I know the times are difficult! Our sales have been "
+        + "disappointing for the past three quarters for our data analytics "
+        + "product suite. We have a competitive data analytics product "
+        + "suite in the industry. But we need to do our job selling it! "
+        + "We need to acknowledge and fix our sales challenges. "
+        + "We can’t blame the economy for our lack of execution! "
+        + "We are missing critical sales opportunities. "
+        + "Our product is in no way inferior to the competitor products. "
+        + "Our clients are hungry for analytical tools to improve their "
+        + "business outcomes. Economy has nothing to do with it.";
 
     // Call the service and get the tone
     ToneOptions toneOptions = new ToneOptions.Builder().html(text).build();
@@ -104,7 +101,6 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
   public void testtoneWithNull() {
     service.tone(null);
   }
-
 
   /**
    * Test get tones.
@@ -131,7 +127,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(TONE_PATH, "?", VERSION_DATE, "=", VERSION_DATE_2016_05_19);
+    String path = StringUtils.join(TONE_PATH, "?", VERSION_DATE, "=", VERSION_DATE_VALUE);
     assertEquals(path, request.getPath());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertEquals(serviceResponse, mockResponse);
@@ -168,13 +164,13 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     String[] users = { "customer", "agent", "customer", "agent" };
 
     String[] texts = {
-            "My charger isn't working.",
-            "Thanks for reaching out. Can you give me some more detail about the issue?",
-            "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
+        "My charger isn't working.",
+        "Thanks for reaching out. Can you give me some more detail about the issue?",
+        "I put my charger in my tablet to charge it up last night and it keeps saying it isn't"
             + " charging. The charging icon comes on, but it stays on even when I take the charger out. "
             + "Which is ridiculous, it's brand new.",
-            "I'm sorry you're having issues with charging. What kind of charger are you using?"
-            };
+        "I'm sorry you're having issues with charging. What kind of charger are you using?"
+    };
 
     List<Utterance> utterances = new ArrayList<>();
     for (int i = 0; i < texts.length; i++) {
@@ -200,7 +196,7 @@ public class ToneAnalyzerTest extends WatsonServiceUnitTest {
     // first request
     RecordedRequest request = server.takeRequest();
 
-    String path = StringUtils.join(CHAT_TONE_PATH, "?", VERSION_DATE, "=", VERSION_DATE_2016_05_19);
+    String path = StringUtils.join(CHAT_TONE_PATH, "?", VERSION_DATE, "=", VERSION_DATE_VALUE);
     assertEquals(path, request.getPath());
     assertNotNull(request.getHeader(HttpHeaders.AUTHORIZATION));
     assertEquals(serviceResponse, mockResponse);

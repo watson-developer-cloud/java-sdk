@@ -61,7 +61,6 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developercloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -85,8 +84,8 @@ public class LanguageTranslatorIT extends WatsonServiceTest {
    */
   @Test
   public void testReadme() throws InterruptedException, IOException {
-//    LanguageTranslator service = new LanguageTranslator();
-//    service.setUsernameAndPassword("<username>", "<password>");
+    //    LanguageTranslator service = new LanguageTranslator();
+    //    service.setUsernameAndPassword("<username>", "<password>");
 
     TranslateOptions translateOptions = new TranslateOptions.Builder()
         .addText("hello").source(Language.ENGLISH).target(Language.SPANISH).build();
