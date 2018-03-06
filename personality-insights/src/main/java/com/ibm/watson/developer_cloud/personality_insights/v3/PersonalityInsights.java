@@ -77,8 +77,7 @@ public class PersonalityInsights extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null.");
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }
@@ -157,8 +156,9 @@ public class PersonalityInsights extends WatsonService {
     }
 
     builder.header(HttpHeaders.ACCEPT, HttpMediaType.TEXT_CSV);
-    builder.query("headers", includeHeaders);
+    builder.query("csv_headers", includeHeaders);
 
     return createServiceCall(builder.build(), ResponseConverterUtils.getString());
   }
+
 }

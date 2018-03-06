@@ -61,31 +61,4 @@ public class ConsumptionPreferencesCategory extends GenericModel {
   public List<ConsumptionPreferences> getConsumptionPreferences() {
     return consumptionPreferences;
   }
-
-  /**
-   * Sets the consumptionPreferenceCategoryId.
-   *
-   * @param consumptionPreferenceCategoryId the new consumptionPreferenceCategoryId
-   */
-  public void setConsumptionPreferenceCategoryId(final String consumptionPreferenceCategoryId) {
-    this.consumptionPreferenceCategoryId = consumptionPreferenceCategoryId;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the consumptionPreferences.
-   *
-   * @param consumptionPreferences the new consumptionPreferences
-   */
-  public void setConsumptionPreferences(final List<ConsumptionPreferences> consumptionPreferences) {
-    this.consumptionPreferences = consumptionPreferences;
-  }
 }
