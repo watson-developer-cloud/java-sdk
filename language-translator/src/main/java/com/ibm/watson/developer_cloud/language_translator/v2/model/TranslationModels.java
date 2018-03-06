@@ -33,13 +33,4 @@ public class TranslationModels extends GenericModel {
   public List<TranslationModel> getModels() {
     return models;
   }
-
-  /**
-   * Sets the models.
-   *
-   * @param models the new models
-   */
-  public void setModels(final List<TranslationModel> models) {
-    this.models = models;
-  }
 }

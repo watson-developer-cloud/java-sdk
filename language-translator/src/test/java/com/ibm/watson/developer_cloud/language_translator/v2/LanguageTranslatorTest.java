@@ -12,9 +12,28 @@
  */
 package com.ibm.watson.developer_cloud.language_translator.v2;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.CreateModelOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.GetModelOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiableLanguage;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiedLanguage;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiedLanguages;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifyOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.ListModelsOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModel;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModels;
+import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
+import com.ibm.watson.developer_cloud.language_translator.v2.util.Language;
+import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
+import com.ibm.watson.developer_cloud.util.GsonSingleton;
+import okhttp3.mockwebserver.RecordedRequest;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -22,36 +41,13 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.CreateModelOptions;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.GetModelOptions;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiableLanguage;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifiedLanguage;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.IdentifyOptions;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.ListModelsOptions;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslateOptions;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.Translation;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModel;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationModels;
-import com.ibm.watson.developer_cloud.language_translator.v2.model.TranslationResult;
-import com.ibm.watson.developer_cloud.language_translator.v2.util.Language;
-import com.ibm.watson.developer_cloud.service.exception.BadRequestException;
-import com.ibm.watson.developer_cloud.util.GsonSingleton;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import okhttp3.mockwebserver.RecordedRequest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * Language Translator V2 Unit tests.
@@ -75,6 +71,9 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
   private TranslationModel model;
   private TranslationModels models;
+  private IdentifiedLanguages identifiedLanguages;
+  private TranslationResult singleTranslation;
+  private TranslationResult multipleTranslations;
   private Map<String, Object> identifiableLanguages;
 
   /*
@@ -96,6 +95,9 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
 
     model = loadFixture(RESOURCE + "model.json", TranslationModel.class);
     models = loadFixture(RESOURCE + "models.json", TranslationModels.class);
+    identifiedLanguages = loadFixture(RESOURCE + "identify_response.json", IdentifiedLanguages.class);
+    singleTranslation = loadFixture(RESOURCE + "single_translation.json", TranslationResult.class);
+    multipleTranslations = loadFixture(RESOURCE + "multiple_translations.json", TranslationResult.class);
   }
 
   /**
@@ -201,18 +203,9 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testIdentify() throws InterruptedException {
-    IdentifiedLanguage val1 = new IdentifiedLanguage();
-    val1.setLanguage(Language.ENGLISH);
-    val1.setConfidence(0.877159);
-    IdentifiedLanguage val2 = new IdentifiedLanguage();
-    val1.setLanguage(Language.AFRIKAANS);
-    val1.setConfidence(0.0752636);
-    final List<IdentifiedLanguage> langs = Arrays.asList(val1, val2);
-    final Map<String, ?> response = ImmutableMap.of("languages", langs);
+    server.enqueue(jsonResponse(identifiedLanguages));
+
     final String text = texts.get(0);
-
-    server.enqueue(jsonResponse(response));
-
     IdentifyOptions identifyOptions = new IdentifyOptions.Builder(text).build();
     final List<IdentifiedLanguage> identifiedLanguages = service.identify(identifyOptions).execute().getLanguages();
     final RecordedRequest request = server.takeRequest();
@@ -222,7 +215,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
     assertEquals(text, request.getBody().readUtf8());
     assertNotNull(identifiedLanguages);
     assertFalse(identifiedLanguages.isEmpty());
-    assertNotNull(identifiedLanguages.containsAll(langs));
+    assertEquals(identifiedLanguages.get(0).getLanguage(), Language.ENGLISH);
+    assertEquals(identifiedLanguages.get(0).getConfidence(), 0.877159, 0.05);
+    assertEquals(identifiedLanguages.get(1).getLanguage(), Language.AFRIKAANS);
+    assertEquals(identifiedLanguages.get(1).getConfidence(), 0.0752636, 0.05);
+
   }
 
   /**
@@ -232,16 +229,11 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testTranslate() throws InterruptedException {
+    server.enqueue(jsonResponse(singleTranslation));
+
     final String text = texts.get(0);
-    final Translation t = new Translation();
-    t.setTranslation(text);
-
-    final Map<String, ?> response = ImmutableMap.of("word_count", 6, "character_count", 20, "translations", Collections
-        .singletonList(t));
-
     final Map<String, ?> requestBody = ImmutableMap.of("text", Collections.singleton(text), "model_id", modelId);
 
-    server.enqueue(jsonResponse(response));
     TranslateOptions translateOptions = new TranslateOptions.Builder().addText(text).modelId(modelId).build();
     TranslationResult translationResult = service.translate(translateOptions).execute();
     final RecordedRequest request = server.takeRequest();
@@ -259,17 +251,10 @@ public class LanguageTranslatorTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testTranslateMultiple() throws InterruptedException {
-    final Translation t1 = new Translation();
-    t1.setTranslation(translations.get(texts.get(0)));
-    final Translation t2 = new Translation();
-    t2.setTranslation(translations.get(texts.get(1)));
-
-    final Map<String, ?> response = ImmutableMap.of("word_count", 6, "character_count", 20, "translations", Arrays
-        .asList(t1, t2));
+    server.enqueue(jsonResponse(multipleTranslations));
 
     final Map<String, ?> requestBody = ImmutableMap.of("text", texts, "model_id", modelId);
 
-    server.enqueue(jsonResponse(response));
     TranslateOptions translateOptions = new TranslateOptions.Builder()
         .text(texts)
         .modelId(modelId)

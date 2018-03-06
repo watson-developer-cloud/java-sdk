@@ -33,13 +33,4 @@ public class IdentifiedLanguages extends GenericModel {
   public List<IdentifiedLanguage> getLanguages() {
     return languages;
   }
-
-  /**
-   * Sets the languages.
-   *
-   * @param languages the new languages
-   */
-  public void setLanguages(final List<IdentifiedLanguage> languages) {
-    this.languages = languages;
-  }
 }
