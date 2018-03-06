@@ -43,22 +43,4 @@ public class SemanticRolesEntity extends GenericModel {
   public String getText() {
     return text;
   }
-
-  /**
-   * Sets the type.
-   *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
 }

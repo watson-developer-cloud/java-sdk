@@ -43,22 +43,4 @@ public class TargetedEmotionResults extends GenericModel {
   public EmotionScores getEmotion() {
     return emotion;
   }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the emotion.
-   *
-   * @param emotion the new emotion
-   */
-  public void setEmotion(final EmotionScores emotion) {
-    this.emotion = emotion;
-  }
 }

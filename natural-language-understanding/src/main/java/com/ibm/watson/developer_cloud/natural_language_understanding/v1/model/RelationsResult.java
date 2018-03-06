@@ -69,40 +69,4 @@ public class RelationsResult extends GenericModel {
   public List<RelationArgument> getArguments() {
     return arguments;
   }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Double score) {
-    this.score = score;
-  }
-
-  /**
-   * Sets the sentence.
-   *
-   * @param sentence the new sentence
-   */
-  public void setSentence(final String sentence) {
-    this.sentence = sentence;
-  }
-
-  /**
-   * Sets the type.
-   *
-   * @param type the new type
-   */
-  public void setType(final String type) {
-    this.type = type;
-  }
-
-  /**
-   * Sets the arguments.
-   *
-   * @param arguments the new arguments
-   */
-  public void setArguments(final List<RelationArgument> arguments) {
-    this.arguments = arguments;
-  }
 }

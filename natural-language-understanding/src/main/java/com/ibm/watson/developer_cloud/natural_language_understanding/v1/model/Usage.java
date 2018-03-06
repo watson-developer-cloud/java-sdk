@@ -58,31 +58,4 @@ public class Usage extends GenericModel {
   public Long getTextUnits() {
     return textUnits;
   }
-
-  /**
-   * Sets the features.
-   *
-   * @param features the new features
-   */
-  public void setFeatures(final long features) {
-    this.features = features;
-  }
-
-  /**
-   * Sets the textCharacters.
-   *
-   * @param textCharacters the new textCharacters
-   */
-  public void setTextCharacters(final long textCharacters) {
-    this.textCharacters = textCharacters;
-  }
-
-  /**
-   * Sets the textUnits.
-   *
-   * @param textUnits the new textUnits
-   */
-  public void setTextUnits(final long textUnits) {
-    this.textUnits = textUnits;
-  }
 }

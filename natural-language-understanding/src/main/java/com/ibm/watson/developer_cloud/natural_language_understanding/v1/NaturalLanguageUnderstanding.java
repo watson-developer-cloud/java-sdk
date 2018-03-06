@@ -78,9 +78,6 @@ public class NaturalLanguageUnderstanding extends WatsonService {
 
   private String versionDate;
 
-  /** The Constant VERSION_DATE_2017_02_27. */
-  public static final String VERSION_DATE_2017_02_27 = "2017-02-27";
-
   /**
    * Instantiates a new `NaturalLanguageUnderstanding`.
    *
@@ -93,8 +90,7 @@ public class NaturalLanguageUnderstanding extends WatsonService {
       setEndPoint(URL);
     }
 
-    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(),
-        "'version cannot be null. Use " + VERSION_DATE_2017_02_27);
+    Validator.isTrue((versionDate != null) && !versionDate.isEmpty(), "version cannot be null.");
 
     this.versionDate = versionDate;
   }

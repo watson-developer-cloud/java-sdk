@@ -45,22 +45,4 @@ public class EntityMention extends GenericModel {
   public List<Long> getLocation() {
     return location;
   }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the location.
-   *
-   * @param location the new location
-   */
-  public void setLocation(final List<Long> location) {
-    this.location = location;
-  }
 }

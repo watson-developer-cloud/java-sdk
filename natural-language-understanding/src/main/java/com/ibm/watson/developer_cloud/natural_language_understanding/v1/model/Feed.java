@@ -31,13 +31,4 @@ public class Feed extends GenericModel {
   public String getLink() {
     return link;
   }
-
-  /**
-   * Sets the link.
-   *
-   * @param link the new link
-   */
-  public void setLink(final String link) {
-    this.link = link;
-  }
 }

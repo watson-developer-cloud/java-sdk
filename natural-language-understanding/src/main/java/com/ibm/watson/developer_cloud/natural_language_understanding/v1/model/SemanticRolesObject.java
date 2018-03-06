@@ -43,22 +43,4 @@ public class SemanticRolesObject extends GenericModel {
   public List<SemanticRolesKeyword> getKeywords() {
     return keywords;
   }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the keywords.
-   *
-   * @param keywords the new keywords
-   */
-  public void setKeywords(final List<SemanticRolesKeyword> keywords) {
-    this.keywords = keywords;
-  }
 }

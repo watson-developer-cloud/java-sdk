@@ -67,40 +67,4 @@ public class SemanticRolesResult extends GenericModel {
   public SemanticRolesObject getObject() {
     return object;
   }
-
-  /**
-   * Sets the sentence.
-   *
-   * @param sentence the new sentence
-   */
-  public void setSentence(final String sentence) {
-    this.sentence = sentence;
-  }
-
-  /**
-   * Sets the subject.
-   *
-   * @param subject the new subject
-   */
-  public void setSubject(final SemanticRolesSubject subject) {
-    this.subject = subject;
-  }
-
-  /**
-   * Sets the action.
-   *
-   * @param action the new action
-   */
-  public void setAction(final SemanticRolesAction action) {
-    this.action = action;
-  }
-
-  /**
-   * Sets the object.
-   *
-   * @param object the new object
-   */
-  public void setObject(final SemanticRolesObject object) {
-    this.object = object;
-  }
 }

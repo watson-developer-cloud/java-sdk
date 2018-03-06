@@ -83,49 +83,4 @@ public class MetadataResult extends GenericModel {
   public List<Feed> getFeeds() {
     return feeds;
   }
-
-  /**
-   * Sets the authors.
-   *
-   * @param authors the new authors
-   */
-  public void setAuthors(final List<Author> authors) {
-    this.authors = authors;
-  }
-
-  /**
-   * Sets the publicationDate.
-   *
-   * @param publicationDate the new publicationDate
-   */
-  public void setPublicationDate(final String publicationDate) {
-    this.publicationDate = publicationDate;
-  }
-
-  /**
-   * Sets the title.
-   *
-   * @param title the new title
-   */
-  public void setTitle(final String title) {
-    this.title = title;
-  }
-
-  /**
-   * Sets the image.
-   *
-   * @param image the new image
-   */
-  public void setImage(final String image) {
-    this.image = image;
-  }
-
-  /**
-   * Sets the feeds.
-   *
-   * @param feeds the new feeds
-   */
-  public void setFeeds(final List<Feed> feeds) {
-    this.feeds = feeds;
-  }
 }
