@@ -167,8 +167,7 @@ public class CreateClassifierOptions extends GenericModel {
    * Gets the metadata.
    *
    * Metadata in JSON format. The metadata identifies the language of the data, and an optional name to identify the
-   * classifier. For details, see the [API
-   * reference](https://www.ibm.com/watson/developercloud/natural-language-classifier/api/v1/#create_classifier).
+   * classifier.
    *
    * @return the metadata
    */
@@ -192,7 +191,7 @@ public class CreateClassifierOptions extends GenericModel {
    *
    * Training data in CSV format. Each text value must have at least one class. The data can include up to 15,000
    * records. For details, see [Using your own
-   * data](https://www.ibm.com/watson/developercloud/doc/natural-language-classifier/using-your-data.html).
+   * data](https://console.bluemix.net/docs/services/natural-language-classifier/using-your-data.html).
    *
    * @return the trainingData
    */

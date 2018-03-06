@@ -46,22 +46,4 @@ public class ClassifiedClass extends GenericModel {
   public String getClassName() {
     return className;
   }
-
-  /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(final Double confidence) {
-    this.confidence = confidence;
-  }
-
-  /**
-   * Sets the className.
-   *
-   * @param className the new className
-   */
-  public void setClassName(final String className) {
-    this.className = className;
-  }
 }

@@ -67,10 +67,10 @@ public class NaturalLanguageClassifier extends WatsonService {
   }
 
   /**
-   * Classify.
+   * Classify a phrase.
    *
    * Returns label information for the input. The status must be `Available` before you can use the classifier to
-   * classify text. Use `Get information about a classifier` to retrieve the status.
+   * classify text.
    *
    * @param classifyOptions the {@link ClassifyOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link Classification}

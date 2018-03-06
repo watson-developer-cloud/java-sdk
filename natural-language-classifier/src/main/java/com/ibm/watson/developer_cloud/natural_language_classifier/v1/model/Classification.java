@@ -84,49 +84,4 @@ public class Classification extends GenericModel {
   public List<ClassifiedClass> getClasses() {
     return classes;
   }
-
-  /**
-   * Sets the classifierId.
-   *
-   * @param classifierId the new classifierId
-   */
-  public void setClassifierId(final String classifierId) {
-    this.classifierId = classifierId;
-  }
-
-  /**
-   * Sets the url.
-   *
-   * @param url the new url
-   */
-  public void setUrl(final String url) {
-    this.url = url;
-  }
-
-  /**
-   * Sets the text.
-   *
-   * @param text the new text
-   */
-  public void setText(final String text) {
-    this.text = text;
-  }
-
-  /**
-   * Sets the topClass.
-   *
-   * @param topClass the new topClass
-   */
-  public void setTopClass(final String topClass) {
-    this.topClass = topClass;
-  }
-
-  /**
-   * Sets the classes.
-   *
-   * @param classes the new classes
-   */
-  public void setClasses(final List<ClassifiedClass> classes) {
-    this.classes = classes;
-  }
 }

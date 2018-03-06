@@ -124,40 +124,4 @@ public class Classifier extends GenericModel {
   public String getLanguage() {
     return language;
   }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the url.
-   *
-   * @param url the new url
-   */
-  public void setUrl(final String url) {
-    this.url = url;
-  }
-
-  /**
-   * Sets the classifierId.
-   *
-   * @param classifierId the new classifierId
-   */
-  public void setClassifierId(final String classifierId) {
-    this.classifierId = classifierId;
-  }
-
-  /**
-   * Sets the language.
-   *
-   * @param language the new language
-   */
-  public void setLanguage(final String language) {
-    this.language = language;
-  }
 }
