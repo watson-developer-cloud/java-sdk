@@ -239,7 +239,7 @@ public class ClassifyOptions extends GenericModel {
     }
 
     /**
-     * Set the parameters
+     * Set the parameters.
      *
      * @param parameters the parameters
      * @return the ClassifyOptions builder

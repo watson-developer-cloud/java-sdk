@@ -116,9 +116,13 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<ClassifiedImages> classify(ClassifyOptions classifyOptions) {
     Validator.notNull(classifyOptions, "classifyOptions cannot be null");
-    Validator.isTrue((classifyOptions.imagesFile() != null) || (classifyOptions.url() != null) || (classifyOptions
-        .threshold() != null) || (classifyOptions.owners() != null) || (classifyOptions.classifierIds() != null),
-        "At least one of imagesFile, url, threshold, owners, or classifierIds must be supplied.");
+    Validator.isTrue((classifyOptions.imagesFile() != null)
+            || (classifyOptions.url() != null)
+            || (classifyOptions.threshold() != null)
+            || (classifyOptions.owners() != null)
+            || (classifyOptions.classifierIds() != null)
+            || (classifyOptions.parameters() != null),
+        "At least one of imagesFile, url, threshold, owners, classifierIds, or parameters must be supplied.");
     RequestBuilder builder = RequestBuilder.post("/v3/classify");
     builder.query(VERSION, versionDate);
     if (classifyOptions.acceptLanguage() != null) {
@@ -130,6 +134,9 @@ public class VisualRecognition extends WatsonService {
       RequestBody imagesFileBody = RequestUtils.inputStreamBody(classifyOptions.imagesFile(), classifyOptions
           .imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", classifyOptions.imagesFilename(), imagesFileBody);
+    }
+    if (classifyOptions.parameters() != null) {
+      multipartBuilder.addFormDataPart("parameters", classifyOptions.parameters());
     }
     if (classifyOptions.url() != null) {
       multipartBuilder.addFormDataPart("url", classifyOptions.url());
@@ -170,8 +177,10 @@ public class VisualRecognition extends WatsonService {
    */
   public ServiceCall<DetectedFaces> detectFaces(DetectFacesOptions detectFacesOptions) {
     Validator.notNull(detectFacesOptions, "detectFacesOptions cannot be null");
-    Validator.isTrue((detectFacesOptions.imagesFile() != null) || (detectFacesOptions.url() != null),
-        "At least one of imagesFile or url must be supplied.");
+    Validator.isTrue((detectFacesOptions.imagesFile() != null)
+            || (detectFacesOptions.url() != null)
+            || (detectFacesOptions.parameters() != null),
+        "At least one of imagesFile, url, or parameters must be supplied.");
     RequestBuilder builder = RequestBuilder.post("/v3/detect_faces");
     builder.query(VERSION, versionDate);
     MultipartBody.Builder multipartBuilder = new MultipartBody.Builder();
@@ -180,6 +189,9 @@ public class VisualRecognition extends WatsonService {
       RequestBody imagesFileBody = RequestUtils.inputStreamBody(detectFacesOptions.imagesFile(), detectFacesOptions
           .imagesFileContentType());
       multipartBuilder.addFormDataPart("images_file", detectFacesOptions.imagesFilename(), imagesFileBody);
+    }
+    if (detectFacesOptions.parameters() != null) {
+      multipartBuilder.addFormDataPart("parameters", detectFacesOptions.parameters());
     }
     if (detectFacesOptions.url() != null) {
       multipartBuilder.addFormDataPart("url", detectFacesOptions.url());

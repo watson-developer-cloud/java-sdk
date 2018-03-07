@@ -65,7 +65,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNotNull(result.getImages().get(0).getClassifiers());
     assertTrue(!result.getImages().get(0).getClassifiers().isEmpty());
 
-    if (options.url() != null) {
+    if (options.url() != null || (options.parameters() != null && options.parameters().contains("url"))) {
       assertNotNull(result.getImages().get(0).getResolvedUrl());
       assertNotNull(result.getImages().get(0).getSourceUrl());
     } else {
@@ -86,7 +86,7 @@ public class VisualRecognitionIT extends WatsonServiceTest {
     assertNull(detectedFaces.getImages().get(0).getError());
     assertNotNull(detectedFaces.getImages().get(0).getFaces());
 
-    if (options.url() != null) {
+    if (options.url() != null || (options.parameters() != null && options.parameters().contains("url"))) {
       assertEquals(IMAGE_FACE_URL, detectedFaces.getImages().get(0).getResolvedUrl());
       assertEquals(IMAGE_FACE_URL, detectedFaces.getImages().get(0).getSourceUrl());
     } else {
@@ -146,6 +146,20 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void testClassifyImagesFromUrl() {
     ClassifyOptions options = new ClassifyOptions.Builder()
         .url(IMAGE_URL)
+        .build();
+    ClassifiedImages result = service.classify(options).execute();
+    assertClassifyImage(result, options);
+  }
+
+  /**
+   * Test classify images from url using the deprecated parameters option.
+   */
+  @Test
+  public void testClassifyImagesFromUrlUsingParameters() {
+    String parameters = "{\"url\":\"" + IMAGE_URL + "\"}";
+
+    ClassifyOptions options = new ClassifyOptions.Builder()
+        .parameters(parameters)
         .build();
     ClassifiedImages result = service.classify(options).execute();
     assertClassifyImage(result, options);
@@ -283,6 +297,21 @@ public class VisualRecognitionIT extends WatsonServiceTest {
   public void testDetectFacesFromUrl() {
     DetectFacesOptions options = new DetectFacesOptions.Builder()
         .url(IMAGE_FACE_URL)
+        .build();
+
+    DetectedFaces detectedFaces = service.detectFaces(options).execute();
+    assertDetectedFaces(detectedFaces, options);
+  }
+
+  /**
+   * Test detect faces from url using the deprecated parameters option.
+   */
+  @Test
+  public void testDetectFacesFromUrlUsingParameters() {
+    String parameters = "{\"url\":\"" + IMAGE_FACE_URL + "\"}";
+
+    DetectFacesOptions options = new DetectFacesOptions.Builder()
+        .parameters(parameters)
         .build();
 
     DetectedFaces detectedFaces = service.detectFaces(options).execute();
