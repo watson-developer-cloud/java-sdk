@@ -21,9 +21,9 @@ import com.ibm.watson.developer_cloud.util.Validator;
 public class SynthesizeOptions extends GenericModel {
 
   /**
-   * The requested audio format (MIME type) of the audio. You can use this header or the `accept` query parameter to
-   * specify the audio format. (For the `audio/l16` format, you can optionally specify `endianness=big-endian` or
-   * `endianness=little-endian`; the default is little endian.).
+   * The type of the response: audio/basic, audio/flac, audio/l16;rate=nnnn, audio/ogg, audio/ogg;codecs=opus,
+   * audio/ogg;codecs=vorbis, audio/mp3, audio/mpeg, audio/mulaw;rate=nnnn, audio/wav, audio/webm,
+   * audio/webm;codecs=opus, or audio/webm;codecs=vorbis.
    */
   public interface Accept {
     /** audio/basic. */
@@ -48,10 +48,10 @@ public class SynthesizeOptions extends GenericModel {
     String AUDIO_WAV = "audio/wav";
     /** audio/webm. */
     String AUDIO_WEBM = "audio/webm";
-    /** audio/webm:codecs=opus. */
-    String AUDIO_WEBM_CODECS_OPUS = "audio/webm:codecs=opus";
-    /** audio/webm:codecs=vorbis. */
-    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm:codecs=vorbis";
+    /** audio/webm;codecs=opus. */
+    String AUDIO_WEBM_CODECS_OPUS = "audio/webm;codecs=opus";
+    /** audio/webm;codecs=vorbis. */
+    String AUDIO_WEBM_CODECS_VORBIS = "audio/webm;codecs=vorbis";
   }
 
   /**
@@ -88,25 +88,25 @@ public class SynthesizeOptions extends GenericModel {
     String PT_BR_ISABELAVOICE = "pt-BR_IsabelaVoice";
   }
 
+  private String text;
   private String accept;
   private String voice;
   private String customizationId;
-  private String text;
 
   /**
    * Builder.
    */
   public static class Builder {
+    private String text;
     private String accept;
     private String voice;
     private String customizationId;
-    private String text;
 
     private Builder(SynthesizeOptions synthesizeOptions) {
+      text = synthesizeOptions.text;
       accept = synthesizeOptions.accept;
       voice = synthesizeOptions.voice;
       customizationId = synthesizeOptions.customizationId;
-      text = synthesizeOptions.text;
     }
 
     /**
@@ -119,9 +119,11 @@ public class SynthesizeOptions extends GenericModel {
      * Instantiates a new builder with required properties.
      *
      * @param text the text
+     * @param accept the accept
      */
-    public Builder(String text) {
+    public Builder(String text, String accept) {
       this.text = text;
+      this.accept = accept;
     }
 
     /**
@@ -131,6 +133,17 @@ public class SynthesizeOptions extends GenericModel {
      */
     public SynthesizeOptions build() {
       return new SynthesizeOptions(this);
+    }
+
+    /**
+     * Set the text.
+     *
+     * @param text the text
+     * @return the SynthesizeOptions builder
+     */
+    public Builder text(String text) {
+      this.text = text;
+      return this;
     }
 
     /**
@@ -165,25 +178,15 @@ public class SynthesizeOptions extends GenericModel {
       this.customizationId = customizationId;
       return this;
     }
-
-    /**
-     * Set the text.
-     *
-     * @param text the text
-     * @return the SynthesizeOptions builder
-     */
-    public Builder text(String text) {
-      this.text = text;
-      return this;
-    }
   }
 
   private SynthesizeOptions(Builder builder) {
     Validator.notNull(builder.text, "text cannot be null");
+    Validator.notNull(builder.accept, "accept cannot be null");
+    text = builder.text;
     accept = builder.accept;
     voice = builder.voice;
     customizationId = builder.customizationId;
-    text = builder.text;
   }
 
   /**
@@ -196,11 +199,22 @@ public class SynthesizeOptions extends GenericModel {
   }
 
   /**
+   * Gets the text.
+   *
+   * The text to synthesize.
+   *
+   * @return the text
+   */
+  public String text() {
+    return text;
+  }
+
+  /**
    * Gets the accept.
    *
-   * The requested audio format (MIME type) of the audio. You can use this header or the `accept` query parameter to
-   * specify the audio format. (For the `audio/l16` format, you can optionally specify `endianness=big-endian` or
-   * `endianness=little-endian`; the default is little endian.).
+   * The type of the response: audio/basic, audio/flac, audio/l16;rate=nnnn, audio/ogg, audio/ogg;codecs=opus,
+   * audio/ogg;codecs=vorbis, audio/mp3, audio/mpeg, audio/mulaw;rate=nnnn, audio/wav, audio/webm,
+   * audio/webm;codecs=opus, or audio/webm;codecs=vorbis.
    *
    * @return the accept
    */
@@ -231,16 +245,5 @@ public class SynthesizeOptions extends GenericModel {
    */
   public String customizationId() {
     return customizationId;
-  }
-
-  /**
-   * Gets the text.
-   *
-   * The text to synthesize.
-   *
-   * @return the text
-   */
-  public String text() {
-    return text;
   }
 }

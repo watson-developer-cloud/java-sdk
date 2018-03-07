@@ -1,0 +1,7 @@
+{
+  "url": "http://ibm.watson.com/text-to-speech/voices/en-US_TestMaleVoice",
+  "name": "en-US_TestMaleVoice",
+  "gender": "male",
+  "language": "en-US",
+  "description": "TestMale"
+}

@@ -33,13 +33,4 @@ public class Voices extends GenericModel {
   public List<Voice> getVoices() {
     return voices;
   }
-
-  /**
-   * Sets the voices.
-   *
-   * @param voices the new voices
-   */
-  public void setVoices(final List<Voice> voices) {
-    this.voices = voices;
-  }
 }

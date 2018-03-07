@@ -46,7 +46,6 @@ public class TextToSpeechIT extends WatsonServiceTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -63,7 +62,6 @@ public class TextToSpeechIT extends WatsonServiceTest {
     service.setDefaultHeaders(getDefaultHeaders());
     voiceName = getProperty("text_to_speech.voice_name");
   }
-
 
   /**
    * Test list voices.

@@ -12,9 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.text_to_speech.v1;
 
-
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.common.io.Files;
 import com.google.gson.Gson;
 import com.ibm.watson.developer_cloud.WatsonServiceUnitTest;
@@ -45,8 +42,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -61,6 +56,9 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
   private static final Gson GSON = GsonSingleton.getGsonWithoutPrettyPrinting();
   private static final String GET_VOICES_PATH = "/v1/voices";
   private static final String SYNTHESIZE_PATH = "/v1/synthesize";
+
+  private Voice getVoiceResponse;
+  private Voices listVoicesResponse;
 
   /**
    * Write input stream to output stream.
@@ -98,7 +96,6 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -109,6 +106,9 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     service = new TextToSpeech();
     service.setApiKey("");
     service.setEndPoint(getMockWebServerUrl());
+
+    getVoiceResponse = loadFixture("src/test/resources/text_to_speech/get_voice_response.json", Voice.class);
+    listVoicesResponse = loadFixture("src/test/resources/text_to_speech/list_voices_response.json", Voices.class);
   }
 
   /**
@@ -118,25 +118,9 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testListVoices() throws InterruptedException {
-    final Voice voice = new Voice();
-    voice.setUrl("http://ibm.watson.com/text-to-speech/voices/en-US_TestMaleVoice");
-    voice.setName("en-US_TestMaleVoice");
-    voice.setGender("male");
-    voice.setLanguage("en-US");
-    voice.setDescription("TestMale");
-
-    final Voice voice1 = new Voice();
-    voice1.setUrl("http://ibm.watson.com/text-to-speech/voices/en-US_TestFemaleVoice");
-    voice1.setName("en-US_TestFemaleVoice");
-    voice1.setGender("female");
-    voice1.setLanguage("en-US");
-    voice1.setDescription("TestFemale");
-
-    final List<Voice> voices = ImmutableList.of(voice, voice1);
-    final Map<String, ?> response = ImmutableMap.of("voices", voices);
-
-    server.enqueue(
-        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(response)));
+    server.enqueue(new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(listVoicesResponse)));
 
     final Voices result = service.listVoices().execute();
     final RecordedRequest request = server.takeRequest();
@@ -144,7 +128,7 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
     assertEquals(GET_VOICES_PATH, request.getPath());
     assertNotNull(result);
     assertFalse(result.getVoices().isEmpty());
-    assertEquals(voices, result.getVoices());
+    assertEquals(listVoicesResponse.getVoices(), result.getVoices());
   }
 
   /**
@@ -152,22 +136,16 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetVoice() {
-    final Voice voice = new Voice();
-    voice.setUrl("http://ibm.watson.com/text-to-speech/voices/en-US_TestMaleVoice");
-    voice.setName("en-US_TestMaleVoice");
-    voice.setGender("male");
-    voice.setLanguage("en-US");
-    voice.setDescription("TestMale");
-
-    server.enqueue(
-        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(voice)));
+    server.enqueue(new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(getVoiceResponse)));
 
     GetVoiceOptions getOptions = new GetVoiceOptions.Builder()
-        .voice(voice.getName())
+        .voice("en-US_TestMaleVoice")
         .build();
     Voice result = service.getVoice(getOptions).execute();
     assertNotNull(result);
-    assertEquals(result, voice);
+    assertEquals(result, getVoiceResponse);
 
     try {
       TestUtils.assertNoExceptionsOnGetters(result);
@@ -207,7 +185,6 @@ public class TextToSpeechTest extends WatsonServiceUnitTest {
 
     writeInputStreamToOutputStream(in, new FileOutputStream("build/output.wav"));
   }
-
 
   /**
    * Test synthesize for WebM.
