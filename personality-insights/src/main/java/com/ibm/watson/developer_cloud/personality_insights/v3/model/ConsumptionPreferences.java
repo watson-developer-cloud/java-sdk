@@ -60,31 +60,4 @@ public class ConsumptionPreferences extends GenericModel {
   public Double getScore() {
     return score;
   }
-
-  /**
-   * Sets the consumptionPreferenceId.
-   *
-   * @param consumptionPreferenceId the new consumptionPreferenceId
-   */
-  public void setConsumptionPreferenceId(final String consumptionPreferenceId) {
-    this.consumptionPreferenceId = consumptionPreferenceId;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
-  }
-
-  /**
-   * Sets the score.
-   *
-   * @param score the new score
-   */
-  public void setScore(final Double score) {
-    this.score = score;
-  }
 }

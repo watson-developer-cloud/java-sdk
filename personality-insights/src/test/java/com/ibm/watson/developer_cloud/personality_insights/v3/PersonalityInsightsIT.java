@@ -113,6 +113,40 @@ public class PersonalityInsightsIT extends WatsonServiceTest {
   }
 
   /**
+   * Gets the profile with text as a CSV string without headers.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void getProfileWithTextAsCSVNoHeaders() throws Exception {
+    File file = new File(RESOURCE + "en.txt");
+    String englishText = getStringFromInputStream(new FileInputStream(file));
+
+    ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
+    String profileString = service.getProfileAsCSV(options, false).execute();
+
+    Assert.assertNotNull(profileString);
+    Assert.assertTrue(profileString.split("\n").length == 1);
+  }
+
+  /**
+   * Gets the profile with text as a CSV string with headers.
+   *
+   * @throws Exception the exception
+   */
+  @Test
+  public void getProfileWithTextAsCSVWithHeaders() throws Exception {
+    File file = new File(RESOURCE + "en.txt");
+    String englishText = getStringFromInputStream(new FileInputStream(file));
+
+    ProfileOptions options = new ProfileOptions.Builder().text(englishText).build();
+    String profileString = service.getProfileAsCSV(options, true).execute();
+
+    Assert.assertNotNull(profileString);
+    Assert.assertTrue(profileString.split("\n").length == 2);
+  }
+
+  /**
    * Assert profile.
    *
    * @param profile the profile
