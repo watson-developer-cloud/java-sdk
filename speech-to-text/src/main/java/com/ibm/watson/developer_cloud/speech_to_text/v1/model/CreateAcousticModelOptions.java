@@ -20,36 +20,39 @@ import com.ibm.watson.developer_cloud.util.Validator;
  */
 public class CreateAcousticModelOptions extends GenericModel {
 
-  /**
-   * The type of the input.
-   */
-  public interface ContentType {
-    /** application/json. */
-    String APPLICATION_JSON = "application/json";
-  }
-
-  private String contentType;
-  private CreateAcousticModel createAcousticModel;
-  private String body;
+  private String name;
+  private String baseModelName;
+  private String description;
 
   /**
    * Builder.
    */
   public static class Builder {
-    private String contentType;
-    private CreateAcousticModel createAcousticModel;
-    private String body;
+    private String name;
+    private String baseModelName;
+    private String description;
 
     private Builder(CreateAcousticModelOptions createAcousticModelOptions) {
-      contentType = createAcousticModelOptions.contentType;
-      createAcousticModel = createAcousticModelOptions.createAcousticModel;
-      body = createAcousticModelOptions.body;
+      name = createAcousticModelOptions.name;
+      baseModelName = createAcousticModelOptions.baseModelName;
+      description = createAcousticModelOptions.description;
     }
 
     /**
      * Instantiates a new builder.
      */
     public Builder() {
+    }
+
+    /**
+     * Instantiates a new builder with required properties.
+     *
+     * @param name the name
+     * @param baseModelName the baseModelName
+     */
+    public Builder(String name, String baseModelName) {
+      this.name = name;
+      this.baseModelName = baseModelName;
     }
 
     /**
@@ -62,23 +65,45 @@ public class CreateAcousticModelOptions extends GenericModel {
     }
 
     /**
-     * Set the createAcousticModel.
+     * Set the name.
      *
-     * @param createAcousticModel the createAcousticModel
+     * @param name the name
      * @return the CreateAcousticModelOptions builder
      */
-    public Builder createAcousticModel(CreateAcousticModel createAcousticModel) {
-      this.createAcousticModel = createAcousticModel;
-      this.contentType = CreateAcousticModelOptions.ContentType.APPLICATION_JSON;
+    public Builder name(String name) {
+      this.name = name;
+      return this;
+    }
+
+    /**
+     * Set the baseModelName.
+     *
+     * @param baseModelName the baseModelName
+     * @return the CreateAcousticModelOptions builder
+     */
+    public Builder baseModelName(String baseModelName) {
+      this.baseModelName = baseModelName;
+      return this;
+    }
+
+    /**
+     * Set the description.
+     *
+     * @param description the description
+     * @return the CreateAcousticModelOptions builder
+     */
+    public Builder description(String description) {
+      this.description = description;
       return this;
     }
   }
 
   private CreateAcousticModelOptions(Builder builder) {
-    Validator.isTrue(builder.contentType != null, "contentType cannot be null");
-    contentType = builder.contentType;
-    createAcousticModel = builder.createAcousticModel;
-    body = builder.body;
+    Validator.notNull(builder.name, "name cannot be null");
+    Validator.notNull(builder.baseModelName, "baseModelName cannot be null");
+    name = builder.name;
+    baseModelName = builder.baseModelName;
+    description = builder.description;
   }
 
   /**
@@ -91,35 +116,41 @@ public class CreateAcousticModelOptions extends GenericModel {
   }
 
   /**
-   * Gets the contentType.
+   * Gets the name.
    *
-   * The type of the input.
+   * A user-defined name for the new custom acoustic model. Use a name that is unique among all custom acoustic models
+   * that you own. Use a localized name that matches the language of the custom model. Use a name that describes the
+   * acoustic environment of the custom model, such as `Mobile custom model` or `Noisy car custom model`.
    *
-   * @return the contentType
+   * @return the name
    */
-  public String contentType() {
-    return contentType;
+  public String name() {
+    return name;
   }
 
   /**
-   * Gets the createAcousticModel.
+   * Gets the baseModelName.
    *
-   * A `CreateAcousticModel` object that provides basic information about the new custom acoustic model.
+   * The name of the base language model that is to be customized by the new custom acoustic model. The new custom model
+   * can be used only with the base model that it customizes. To determine whether a base model supports acoustic model
+   * customization, refer to [Language support for
+   * customization](https://console.bluemix.net/docs/services/speech-to-text/custom.html#languageSupport).
    *
-   * @return the createAcousticModel
+   * @return the baseModelName
    */
-  public CreateAcousticModel createAcousticModel() {
-    return createAcousticModel;
+  public String baseModelName() {
+    return baseModelName;
   }
 
   /**
-   * Gets the body.
+   * Gets the description.
    *
-   * A `CreateAcousticModel` object that provides basic information about the new custom acoustic model.
+   * A description of the new custom acoustic model. Use a localized description that matches the language of the custom
+   * model.
    *
-   * @return the body
+   * @return the description
    */
-  public String body() {
-    return body;
+  public String description() {
+    return description;
   }
 }

@@ -33,379 +33,407 @@ import okhttp3.internal.platform.Platform;
 import okio.ByteString;
 
 public final class WebSocketRecorder extends WebSocketListener {
-    private final String name;
-    private final BlockingQueue<Object> events = new LinkedBlockingQueue<>();
-    private WebSocketListener delegate;
+  private final String name;
+  private final BlockingQueue<Object> events = new LinkedBlockingQueue<>();
+  private WebSocketListener delegate;
 
-    public WebSocketRecorder(String name) {
-        this.name = name;
+  public WebSocketRecorder(String name) {
+    this.name = name;
+  }
+
+  /**
+   * Sets a delegate for handling the next callback to this listener. Cleared after invoked.
+   *
+   * @param delegate the delegate to be set
+   */
+  public void setNextEventDelegate(WebSocketListener delegate) {
+    this.delegate = delegate;
+  }
+
+  @Override
+  public void onOpen(WebSocket webSocket, Response response) {
+    Platform.get().log(Platform.INFO, "[WS " + name + "] onOpen", null);
+
+    WebSocketListener delegate = this.delegate;
+    if (delegate != null) {
+      this.delegate = null;
+      delegate.onOpen(webSocket, response);
+    } else {
+      events.add(new Open(webSocket, response));
+    }
+  }
+
+  @Override
+  public void onMessage(WebSocket webSocket, ByteString bytes) {
+    Platform.get().log(Platform.INFO, "[WS " + name + "] onMessage", null);
+
+    WebSocketListener delegate = this.delegate;
+    if (delegate != null) {
+      this.delegate = null;
+      delegate.onMessage(webSocket, bytes);
+    } else {
+      Message event = new Message(bytes);
+      events.add(event);
+    }
+  }
+
+  @Override
+  public void onMessage(WebSocket webSocket, String text) {
+    Platform.get().log(Platform.INFO, "[WS " + name + "] onMessage", null);
+
+    WebSocketListener delegate = this.delegate;
+    if (delegate != null) {
+      this.delegate = null;
+      delegate.onMessage(webSocket, text);
+    } else {
+      Message event = new Message(text);
+      events.add(event);
+    }
+  }
+
+  @Override
+  public void onClosing(WebSocket webSocket, int code, String reason) {
+    Platform.get().log(Platform.INFO, "[WS " + name + "] onClose " + code, null);
+
+    WebSocketListener delegate = this.delegate;
+    if (delegate != null) {
+      this.delegate = null;
+      delegate.onClosing(webSocket, code, reason);
+    } else {
+      events.add(new Closing(code, reason));
+    }
+  }
+
+  @Override
+  public void onClosed(WebSocket webSocket, int code, String reason) {
+    Platform.get().log(Platform.INFO, "[WS " + name + "] onClose " + code, null);
+
+    WebSocketListener delegate = this.delegate;
+    if (delegate != null) {
+      this.delegate = null;
+      delegate.onClosed(webSocket, code, reason);
+    } else {
+      events.add(new Closed(code, reason));
+    }
+  }
+
+  @Override
+  public void onFailure(WebSocket webSocket, Throwable t, Response response) {
+    Platform.get().log(Platform.INFO, "[WS " + name + "] onFailure", t);
+
+    WebSocketListener delegate = this.delegate;
+    if (delegate != null) {
+      this.delegate = null;
+      delegate.onFailure(webSocket, t, response);
+    } else {
+      events.add(new Failure(t, response));
+    }
+  }
+
+  private Object nextEvent() {
+    try {
+      Object event = events.poll(10, TimeUnit.SECONDS);
+      if (event == null) {
+        throw new AssertionError("Timed out waiting for event.");
+      }
+      return event;
+    } catch (InterruptedException e) {
+      throw new AssertionError(e);
+    }
+  }
+
+  public void assertTextMessage(String payload) {
+    Object actual = nextEvent();
+    assertEquals(new Message(payload), actual);
+  }
+
+  public void assertBinaryMessage(ByteString payload) {
+    Object actual = nextEvent();
+    assertEquals(new Message(payload), actual);
+  }
+
+  public void assertPing(ByteString payload) {
+    Object actual = nextEvent();
+    assertEquals(new Ping(payload), actual);
+  }
+
+  public void assertPong(ByteString payload) {
+    Object actual = nextEvent();
+    assertEquals(new Pong(payload), actual);
+  }
+
+  public void assertClosing(int code, String reason) {
+    Object actual = nextEvent();
+    assertEquals(new Closing(code, reason), actual);
+  }
+
+  public void assertClosed(int code, String reason) {
+    Object actual = nextEvent();
+    assertEquals(new Closed(code, reason), actual);
+  }
+
+  public void assertExhausted() {
+    assertTrue("Remaining events: " + events, events.isEmpty());
+  }
+
+  public WebSocket assertOpen() {
+    Object event = nextEvent();
+    if (!(event instanceof Open)) {
+      throw new AssertionError("Expected Open but was " + event);
+    }
+    return ((Open) event).webSocket;
+  }
+
+  public void assertFailure(Throwable t) {
+    Object event = nextEvent();
+    if (!(event instanceof Failure)) {
+      throw new AssertionError("Expected Failure but was " + event);
+    }
+    Failure failure = (Failure) event;
+    assertNull(failure.response);
+    assertSame(t, failure.t);
+  }
+
+  public void assertFailure(Class<? extends IOException> cls, String message) {
+    Object event = nextEvent();
+    if (!(event instanceof Failure)) {
+      throw new AssertionError("Expected Failure but was " + event);
+    }
+    Failure failure = (Failure) event;
+    assertNull(failure.response);
+    assertEquals(cls, failure.t.getClass());
+    assertEquals(message, failure.t.getMessage());
+  }
+
+  public void assertFailure() {
+    Object event = nextEvent();
+    if (!(event instanceof Failure)) {
+      throw new AssertionError("Expected Failure but was " + event);
+    }
+  }
+
+  public void assertFailure(int code, String body, Class<? extends IOException> cls, String message)
+      throws IOException {
+    Object event = nextEvent();
+    if (!(event instanceof Failure)) {
+      throw new AssertionError("Expected Failure but was " + event);
+    }
+    Failure failure = (Failure) event;
+    assertEquals(code, failure.response.code());
+    if (body != null) {
+      assertEquals(body, failure.responseBody);
+    }
+    assertEquals(cls, failure.t.getClass());
+    assertEquals(message, failure.t.getMessage());
+  }
+
+  /**
+   * Expose this recorder as a frame callback and shim in "ping" events.
+   *
+   * @return the frame callback for the WebSocket reader
+   */
+  public WebSocketReader.FrameCallback asFrameCallback() {
+    return new WebSocketReader.FrameCallback() {
+      @Override
+      public void onReadMessage(String text) throws IOException {
+        onMessage(null, text);
+      }
+
+      @Override
+      public void onReadMessage(ByteString bytes) throws IOException {
+        onMessage(null, bytes);
+      }
+
+      @Override
+      public void onReadPing(ByteString payload) {
+        events.add(new Ping(payload));
+      }
+
+      @Override
+      public void onReadPong(ByteString payload) {
+        events.add(new Pong(payload));
+      }
+
+      @Override
+      public void onReadClose(int code, String reason) {
+        onClosing(null, code, reason);
+      }
+    };
+  }
+
+  static final class Open {
+    final WebSocket webSocket;
+    final Response response;
+
+    Open(WebSocket webSocket, Response response) {
+      this.webSocket = webSocket;
+      this.response = response;
     }
 
-    /**
-     * Sets a delegate for handling the next callback to this listener. Cleared after invoked.
-     *
-     * @param delegate the delegate to be set
-     */
-    public void setNextEventDelegate(WebSocketListener delegate) {
-        this.delegate = delegate;
+    @Override
+    public String toString() {
+      return "Open[" + response + "]";
     }
+  }
 
-    @Override public void onOpen(WebSocket webSocket, Response response) {
-        Platform.get().log(Platform.INFO, "[WS " + name + "] onOpen", null);
+  static final class Failure {
+    final Throwable t;
+    final Response response;
+    final String responseBody;
 
-        WebSocketListener delegate = this.delegate;
-        if (delegate != null) {
-            this.delegate = null;
-            delegate.onOpen(webSocket, response);
-        } else {
-            events.add(new Open(webSocket, response));
-        }
-    }
-
-    @Override public void onMessage(WebSocket webSocket, ByteString bytes) {
-        Platform.get().log(Platform.INFO, "[WS " + name + "] onMessage", null);
-
-        WebSocketListener delegate = this.delegate;
-        if (delegate != null) {
-            this.delegate = null;
-            delegate.onMessage(webSocket, bytes);
-        } else {
-            Message event = new Message(bytes);
-            events.add(event);
-        }
-    }
-
-    @Override public void onMessage(WebSocket webSocket, String text) {
-        Platform.get().log(Platform.INFO, "[WS " + name + "] onMessage", null);
-
-        WebSocketListener delegate = this.delegate;
-        if (delegate != null) {
-            this.delegate = null;
-            delegate.onMessage(webSocket, text);
-        } else {
-            Message event = new Message(text);
-            events.add(event);
-        }
-    }
-
-    @Override public void onClosing(WebSocket webSocket, int code, String reason) {
-        Platform.get().log(Platform.INFO, "[WS " + name + "] onClose " + code, null);
-
-        WebSocketListener delegate = this.delegate;
-        if (delegate != null) {
-            this.delegate = null;
-            delegate.onClosing(webSocket, code, reason);
-        } else {
-            events.add(new Closing(code, reason));
-        }
-    }
-
-    @Override public void onClosed(WebSocket webSocket, int code, String reason) {
-        Platform.get().log(Platform.INFO, "[WS " + name + "] onClose " + code, null);
-
-        WebSocketListener delegate = this.delegate;
-        if (delegate != null) {
-            this.delegate = null;
-            delegate.onClosed(webSocket, code, reason);
-        } else {
-            events.add(new Closed(code, reason));
-        }
-    }
-
-    @Override public void onFailure(WebSocket webSocket, Throwable t, Response response)  {
-        Platform.get().log(Platform.INFO, "[WS " + name + "] onFailure", t);
-
-        WebSocketListener delegate = this.delegate;
-        if (delegate != null) {
-            this.delegate = null;
-            delegate.onFailure(webSocket, t, response);
-        } else {
-            events.add(new Failure(t, response));
-        }
-    }
-
-    private Object nextEvent() {
+    Failure(Throwable t, Response response) {
+      this.t = t;
+      this.response = response;
+      String responseBody = null;
+      if (response != null) {
         try {
-            Object event = events.poll(10, TimeUnit.SECONDS);
-            if (event == null) {
-                throw new AssertionError("Timed out waiting for event.");
-            }
-            return event;
-        } catch (InterruptedException e) {
-            throw new AssertionError(e);
+          responseBody = response.body().string();
+        } catch (IOException ignored) {
         }
+      }
+      this.responseBody = responseBody;
     }
 
-    public void assertTextMessage(String payload) {
-        Object actual = nextEvent();
-        assertEquals(new Message(payload), actual);
+    @Override
+    public String toString() {
+      if (response == null) {
+        return "Failure[" + t + "]";
+      }
+      return "Failure[" + response + "]";
+    }
+  }
+
+  static final class Message {
+    public final ByteString bytes;
+    public final String string;
+
+    Message(ByteString bytes) {
+      this.bytes = bytes;
+      this.string = null;
     }
 
-    public void assertBinaryMessage(ByteString payload) {
-        Object actual = nextEvent();
-        assertEquals(new Message(payload), actual);
+    Message(String string) {
+      this.bytes = null;
+      this.string = string;
     }
 
-    public void assertPing(ByteString payload) {
-        Object actual = nextEvent();
-        assertEquals(new Ping(payload), actual);
+    @Override
+    public String toString() {
+      return "Message[" + (bytes != null ? bytes : string) + "]";
     }
 
-    public void assertPong(ByteString payload) {
-        Object actual = nextEvent();
-        assertEquals(new Pong(payload), actual);
+    @Override
+    public int hashCode() {
+      return (bytes != null ? bytes : string).hashCode();
     }
 
-    public void assertClosing(int code, String reason) {
-        Object actual = nextEvent();
-        assertEquals(new Closing(code, reason), actual);
+    @Override
+    public boolean equals(Object other) {
+      return other instanceof Message
+          && Util.equal(((Message) other).bytes, bytes)
+          && Util.equal(((Message) other).string, string);
+    }
+  }
+
+  static final class Ping {
+    public final ByteString payload;
+
+    Ping(ByteString payload) {
+      this.payload = payload;
     }
 
-    public void assertClosed(int code, String reason) {
-        Object actual = nextEvent();
-        assertEquals(new Closed(code, reason), actual);
+    @Override
+    public String toString() {
+      return "Ping[" + payload + "]";
     }
 
-    public void assertExhausted() {
-        assertTrue("Remaining events: " + events, events.isEmpty());
+    @Override
+    public int hashCode() {
+      return payload.hashCode();
     }
 
-    public WebSocket assertOpen() {
-        Object event = nextEvent();
-        if (!(event instanceof Open)) {
-            throw new AssertionError("Expected Open but was " + event);
-        }
-        return ((Open) event).webSocket;
+    @Override
+    public boolean equals(Object other) {
+      return other instanceof Ping
+          && ((Ping) other).payload.equals(payload);
+    }
+  }
+
+  static final class Pong {
+    public final ByteString payload;
+
+    Pong(ByteString payload) {
+      this.payload = payload;
     }
 
-    public void assertFailure(Throwable t) {
-        Object event = nextEvent();
-        if (!(event instanceof Failure)) {
-            throw new AssertionError("Expected Failure but was " + event);
-        }
-        Failure failure = (Failure) event;
-        assertNull(failure.response);
-        assertSame(t, failure.t);
+    @Override
+    public String toString() {
+      return "Pong[" + payload + "]";
     }
 
-    public void assertFailure(Class<? extends IOException> cls, String message) {
-        Object event = nextEvent();
-        if (!(event instanceof Failure)) {
-            throw new AssertionError("Expected Failure but was " + event);
-        }
-        Failure failure = (Failure) event;
-        assertNull(failure.response);
-        assertEquals(cls, failure.t.getClass());
-        assertEquals(message, failure.t.getMessage());
+    @Override
+    public int hashCode() {
+      return payload.hashCode();
     }
 
-    public void assertFailure() {
-        Object event = nextEvent();
-        if (!(event instanceof Failure)) {
-            throw new AssertionError("Expected Failure but was " + event);
-        }
+    @Override
+    public boolean equals(Object other) {
+      return other instanceof Pong
+          && ((Pong) other).payload.equals(payload);
+    }
+  }
+
+  static final class Closing {
+    public final int code;
+    public final String reason;
+
+    Closing(int code, String reason) {
+      this.code = code;
+      this.reason = reason;
     }
 
-    public void assertFailure(int code, String body, Class<? extends IOException> cls, String message)
-            throws IOException {
-        Object event = nextEvent();
-        if (!(event instanceof Failure)) {
-            throw new AssertionError("Expected Failure but was " + event);
-        }
-        Failure failure = (Failure) event;
-        assertEquals(code, failure.response.code());
-        if (body != null) {
-            assertEquals(body, failure.responseBody);
-        }
-        assertEquals(cls, failure.t.getClass());
-        assertEquals(message, failure.t.getMessage());
+    @Override
+    public String toString() {
+      return "Closing[" + code + " " + reason + "]";
     }
 
-    /**
-     * Expose this recorder as a frame callback and shim in "ping" events.
-     *
-     * @return the frame callback for the WebSocket reader
-     */
-    public WebSocketReader.FrameCallback asFrameCallback() {
-        return new WebSocketReader.FrameCallback() {
-            @Override public void onReadMessage(String text) throws IOException {
-                onMessage(null, text);
-            }
-
-            @Override public void onReadMessage(ByteString bytes) throws IOException {
-                onMessage(null, bytes);
-            }
-
-            @Override public void onReadPing(ByteString payload) {
-                events.add(new Ping(payload));
-            }
-
-            @Override public void onReadPong(ByteString payload) {
-                events.add(new Pong(payload));
-            }
-
-            @Override public void onReadClose(int code, String reason) {
-                onClosing(null, code, reason);
-            }
-        };
+    @Override
+    public int hashCode() {
+      return code * 37 + reason.hashCode();
     }
 
-    static final class Open {
-        final WebSocket webSocket;
-        final Response response;
+    @Override
+    public boolean equals(Object other) {
+      return other instanceof Closing
+          && ((Closing) other).code == code
+          && ((Closing) other).reason.equals(reason);
+    }
+  }
 
-        Open(WebSocket webSocket, Response response) {
-            this.webSocket = webSocket;
-            this.response = response;
-        }
+  static final class Closed {
+    public final int code;
+    public final String reason;
 
-        @Override public String toString() {
-            return "Open[" + response + "]";
-        }
+    Closed(int code, String reason) {
+      this.code = code;
+      this.reason = reason;
     }
 
-    static final class Failure {
-        final Throwable t;
-        final Response response;
-        final String responseBody;
-
-        Failure(Throwable t, Response response) {
-            this.t = t;
-            this.response = response;
-            String responseBody = null;
-            if (response != null) {
-                try {
-                    responseBody = response.body().string();
-                } catch (IOException ignored) {
-                }
-            }
-            this.responseBody = responseBody;
-        }
-
-        @Override public String toString() {
-            if (response == null) {
-                return "Failure[" + t + "]";
-            }
-            return "Failure[" + response + "]";
-        }
+    @Override
+    public String toString() {
+      return "Closed[" + code + " " + reason + "]";
     }
 
-    static final class Message {
-        public final ByteString bytes;
-        public final String string;
-
-        Message(ByteString bytes) {
-            this.bytes = bytes;
-            this.string = null;
-        }
-
-        Message(String string) {
-            this.bytes = null;
-            this.string = string;
-        }
-
-        @Override public String toString() {
-            return "Message[" + (bytes != null ? bytes : string) + "]";
-        }
-
-        @Override public int hashCode() {
-            return (bytes != null ? bytes : string).hashCode();
-        }
-
-        @Override public boolean equals(Object other) {
-            return other instanceof Message
-                    && Util.equal(((Message) other).bytes, bytes)
-                    && Util.equal(((Message) other).string, string);
-        }
+    @Override
+    public int hashCode() {
+      return code * 37 + reason.hashCode();
     }
 
-    static final class Ping {
-        public final ByteString payload;
-
-        Ping(ByteString payload) {
-            this.payload = payload;
-        }
-
-        @Override public String toString() {
-            return "Ping[" + payload + "]";
-        }
-
-        @Override public int hashCode() {
-            return payload.hashCode();
-        }
-
-        @Override public boolean equals(Object other) {
-            return other instanceof Ping
-                    && ((Ping) other).payload.equals(payload);
-        }
+    @Override
+    public boolean equals(Object other) {
+      return other instanceof Closed
+          && ((Closed) other).code == code
+          && ((Closed) other).reason.equals(reason);
     }
-
-    static final class Pong {
-        public final ByteString payload;
-
-        Pong(ByteString payload) {
-            this.payload = payload;
-        }
-
-        @Override public String toString() {
-            return "Pong[" + payload + "]";
-        }
-
-        @Override public int hashCode() {
-            return payload.hashCode();
-        }
-
-        @Override public boolean equals(Object other) {
-            return other instanceof Pong
-                    && ((Pong) other).payload.equals(payload);
-        }
-    }
-
-    static final class Closing {
-        public final int code;
-        public final String reason;
-
-        Closing(int code, String reason) {
-            this.code = code;
-            this.reason = reason;
-        }
-
-        @Override public String toString() {
-            return "Closing[" + code + " " + reason + "]";
-        }
-
-        @Override public int hashCode() {
-            return code * 37 + reason.hashCode();
-        }
-
-        @Override public boolean equals(Object other) {
-            return other instanceof Closing
-                    && ((Closing) other).code == code
-                    && ((Closing) other).reason.equals(reason);
-        }
-    }
-
-    static final class Closed {
-        public final int code;
-        public final String reason;
-
-        Closed(int code, String reason) {
-            this.code = code;
-            this.reason = reason;
-        }
-
-        @Override public String toString() {
-            return "Closed[" + code + " " + reason + "]";
-        }
-
-        @Override public int hashCode() {
-            return code * 37 + reason.hashCode();
-        }
-
-        @Override public boolean equals(Object other) {
-            return other instanceof Closed
-                    && ((Closed) other).code == code
-                    && ((Closed) other).reason.equals(reason);
-        }
-    }
+  }
 }

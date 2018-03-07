@@ -27,9 +27,9 @@ public class AddCorpusOptions extends GenericModel {
 
   private String customizationId;
   private String corpusName;
-  private Boolean allowOverwrite;
   private InputStream corpusFile;
   private String corpusFilename;
+  private Boolean allowOverwrite;
   private String corpusFileContentType;
 
   /**
@@ -38,17 +38,17 @@ public class AddCorpusOptions extends GenericModel {
   public static class Builder {
     private String customizationId;
     private String corpusName;
-    private Boolean allowOverwrite;
     private InputStream corpusFile;
     private String corpusFilename;
+    private Boolean allowOverwrite;
     private String corpusFileContentType;
 
     private Builder(AddCorpusOptions addCorpusOptions) {
       customizationId = addCorpusOptions.customizationId;
       corpusName = addCorpusOptions.corpusName;
-      allowOverwrite = addCorpusOptions.allowOverwrite;
       corpusFile = addCorpusOptions.corpusFile;
       corpusFilename = addCorpusOptions.corpusFilename;
+      allowOverwrite = addCorpusOptions.allowOverwrite;
       corpusFileContentType = addCorpusOptions.corpusFileContentType;
     }
 
@@ -103,17 +103,6 @@ public class AddCorpusOptions extends GenericModel {
     }
 
     /**
-     * Set the allowOverwrite.
-     *
-     * @param allowOverwrite the allowOverwrite
-     * @return the AddCorpusOptions builder
-     */
-    public Builder allowOverwrite(Boolean allowOverwrite) {
-      this.allowOverwrite = allowOverwrite;
-      return this;
-    }
-
-    /**
      * Set the corpusFile.
      *
      * @param corpusFile the corpusFile
@@ -132,6 +121,17 @@ public class AddCorpusOptions extends GenericModel {
      */
     public Builder corpusFilename(String corpusFilename) {
       this.corpusFilename = corpusFilename;
+      return this;
+    }
+
+    /**
+     * Set the allowOverwrite.
+     *
+     * @param allowOverwrite the allowOverwrite
+     * @return the AddCorpusOptions builder
+     */
+    public Builder allowOverwrite(Boolean allowOverwrite) {
+      this.allowOverwrite = allowOverwrite;
       return this;
     }
 
@@ -167,9 +167,9 @@ public class AddCorpusOptions extends GenericModel {
     Validator.notNull(builder.corpusFile, "corpusFile cannot be null");
     customizationId = builder.customizationId;
     corpusName = builder.corpusName;
-    allowOverwrite = builder.allowOverwrite;
     corpusFile = builder.corpusFile;
     corpusFilename = builder.corpusFilename;
+    allowOverwrite = builder.allowOverwrite;
     corpusFileContentType = builder.corpusFileContentType;
   }
 
@@ -208,19 +208,6 @@ public class AddCorpusOptions extends GenericModel {
   }
 
   /**
-   * Gets the allowOverwrite.
-   *
-   * Indicates whether the specified corpus is to overwrite an existing corpus with the same name. If a corpus with the
-   * same name already exists, the request fails unless `allow_overwrite` is set to `true`; by default, the parameter is
-   * `false`. The parameter has no effect if a corpus with the same name does not already exist.
-   *
-   * @return the allowOverwrite
-   */
-  public Boolean allowOverwrite() {
-    return allowOverwrite;
-  }
-
-  /**
    * Gets the corpusFile.
    *
    * A plain text file that contains the training data for the corpus. Encode the file in UTF-8 if it contains non-ASCII
@@ -242,6 +229,19 @@ public class AddCorpusOptions extends GenericModel {
    */
   public String corpusFilename() {
     return corpusFilename;
+  }
+
+  /**
+   * Gets the allowOverwrite.
+   *
+   * Indicates whether the specified corpus is to overwrite an existing corpus with the same name. If a corpus with the
+   * same name already exists, the request fails unless `allow_overwrite` is set to `true`; by default, the parameter is
+   * `false`. The parameter has no effect if a corpus with the same name does not already exist.
+   *
+   * @return the allowOverwrite
+   */
+  public Boolean allowOverwrite() {
+    return allowOverwrite;
   }
 
   /**

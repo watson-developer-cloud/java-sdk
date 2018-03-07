@@ -47,22 +47,4 @@ public class SupportedFeatures extends GenericModel {
   public Boolean isSpeakerLabels() {
     return speakerLabels;
   }
-
-  /**
-   * Sets the customLanguageModel.
-   *
-   * @param customLanguageModel the new customLanguageModel
-   */
-  public void setCustomLanguageModel(final Boolean customLanguageModel) {
-    this.customLanguageModel = customLanguageModel;
-  }
-
-  /**
-   * Sets the speakerLabels.
-   *
-   * @param speakerLabels the new speakerLabels
-   */
-  public void setSpeakerLabels(final Boolean speakerLabels) {
-    this.speakerLabels = speakerLabels;
-  }
 }

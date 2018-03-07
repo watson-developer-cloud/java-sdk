@@ -71,40 +71,4 @@ public class KeywordResult extends GenericModel {
   public Double getConfidence() {
     return confidence;
   }
-
-  /**
-   * Sets the normalizedText.
-   *
-   * @param normalizedText the new normalizedText
-   */
-  public void setNormalizedText(final String normalizedText) {
-    this.normalizedText = normalizedText;
-  }
-
-  /**
-   * Sets the startTime.
-   *
-   * @param startTime the new startTime
-   */
-  public void setStartTime(final Double startTime) {
-    this.startTime = startTime;
-  }
-
-  /**
-   * Sets the endTime.
-   *
-   * @param endTime the new endTime
-   */
-  public void setEndTime(final Double endTime) {
-    this.endTime = endTime;
-  }
-
-  /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(final Double confidence) {
-    this.confidence = confidence;
-  }
 }

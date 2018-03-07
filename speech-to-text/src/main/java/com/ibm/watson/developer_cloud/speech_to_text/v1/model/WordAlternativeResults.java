@@ -60,31 +60,4 @@ public class WordAlternativeResults extends GenericModel {
   public List<WordAlternativeResult> getAlternatives() {
     return alternatives;
   }
-
-  /**
-   * Sets the startTime.
-   *
-   * @param startTime the new startTime
-   */
-  public void setStartTime(final Double startTime) {
-    this.startTime = startTime;
-  }
-
-  /**
-   * Sets the endTime.
-   *
-   * @param endTime the new endTime
-   */
-  public void setEndTime(final Double endTime) {
-    this.endTime = endTime;
-  }
-
-  /**
-   * Sets the alternatives.
-   *
-   * @param alternatives the new alternatives
-   */
-  public void setAlternatives(final List<WordAlternativeResult> alternatives) {
-    this.alternatives = alternatives;
-  }
 }

@@ -12,8 +12,6 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -30,13 +28,10 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioResource;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.AudioResources;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CheckJobOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.Corpora;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateJobOptions;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CreateLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CustomWord;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.CustomWords;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteAudioOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.DeleteCorpusOptions;
@@ -65,8 +60,6 @@ import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetAcousticModel
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.ResetLanguageModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModel;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechModels;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionAlternative;
-import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResult;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.SpeechRecognitionResults;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainAcousticModelOptions;
 import com.ibm.watson.developer_cloud.speech_to_text.v1.model.TrainLanguageModelOptions;
@@ -148,11 +141,14 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   private static final File SAMPLE_WAV = new File("src/test/resources/speech_to_text/sample1.wav");
   private static final File SAMPLE_WEBM = new File("src/test/resources/speech_to_text/sample1.webm");
 
+  private SpeechModel speechModel;
+  private SpeechModels speechModels;
+  private SpeechRecognitionResults recognitionResults;
+
   private SpeechToText service;
 
   /*
    * (non-Javadoc)
-   *
    * @see com.ibm.watson.developer_cloud.WatsonServiceTest#setUp()
    */
   @Override
@@ -163,6 +159,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     service = new SpeechToText();
     service.setApiKey("");
     service.setEndPoint(getMockWebServerUrl());
+
+    speechModel = loadFixture("src/test/resources/speech_to_text/speech-model.json", SpeechModel.class);
+    speechModels = loadFixture("src/test/resources/speech_to_text/speech-models.json", SpeechModels.class);
+    recognitionResults = loadFixture("src/test/resources/speech_to_text/recognition-results.json",
+        SpeechRecognitionResults.class);
   }
 
   /**
@@ -172,12 +173,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetModel() throws Exception {
-    final SpeechModel speechModel = new SpeechModel();
-    speechModel.setName("not-a-real-Model");
-    speechModel.setRate(8000);
-
-    final MockResponse mockResponse =
-        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(speechModel));
+    final MockResponse mockResponse = new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(speechModel));
 
     server.enqueue(mockResponse);
     GetModelOptions getOptionsString = new GetModelOptions.Builder()
@@ -188,18 +185,18 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     assertNotNull(model);
     assertEquals(model, speechModel);
-    assertEquals(PATH_MODELS + "/" + speechModel.getName(), request.getPath());
+    assertEquals(GET, request.getMethod());
 
     server.enqueue(mockResponse);
     GetModelOptions getOptionsGetter = new GetModelOptions.Builder()
-        .modelId(speechModel.getName())
+        .modelId("not-a-real-Model")
         .build();
     model = service.getModel(getOptionsGetter).execute();
     request = server.takeRequest();
 
     assertNotNull(model);
     assertEquals(model, speechModel);
-    assertEquals(PATH_MODELS + "/" + speechModel.getName(), request.getPath());
+    assertEquals(GET, request.getMethod());
 
     TestUtils.assertNoExceptionsOnGetters(model);
   }
@@ -211,30 +208,15 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testGetModels() throws InterruptedException {
-    final SpeechModel speechModel = new SpeechModel();
-    speechModel.setName("not-a-real-Model");
-    speechModel.setRate(8000);
-
-    final SpeechModel speechModel1 = new SpeechModel();
-    speechModel.setName("not-a-real-Model1");
-    speechModel1.setRate(1600);
-
-    final SpeechModel speechModel2 = new SpeechModel();
-    speechModel.setName("not-a-real-Model2");
-    speechModel2.setRate(8000);
-
-    final List<SpeechModel> speechModels = ImmutableList.of(speechModel, speechModel1, speechModel2);
-    final Map<String, ?> response = ImmutableMap.of("models", speechModels);
-
     server.enqueue(
-        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(response)));
+        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(speechModels)));
 
     final SpeechModels models = service.listModels().execute();
     final RecordedRequest request = server.takeRequest();
 
     assertNotNull(models);
     assertFalse(models.getModels().isEmpty());
-    assertEquals(models.getModels(), response.get("models"));
+    assertEquals(models.getModels(), speechModels.getModels());
     assertEquals(PATH_MODELS, request.getPath());
   }
 
@@ -254,22 +236,9 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testRecognize() throws URISyntaxException, InterruptedException, FileNotFoundException {
-
-    final SpeechRecognitionResults speechResults = new SpeechRecognitionResults();
-    speechResults.setResultIndex(0);
-    final SpeechRecognitionResult transcript = new SpeechRecognitionResult();
-    transcript.setFinalResults(true);
-    final SpeechRecognitionAlternative speechAlternative = new SpeechRecognitionAlternative();
-    speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
-
-    final List<SpeechRecognitionAlternative> speechAlternatives = ImmutableList.of(speechAlternative);
-    transcript.setAlternatives(speechAlternatives);
-
-    final List<SpeechRecognitionResult> transcripts = ImmutableList.of(transcript);
-    speechResults.setResults(transcripts);
-
-    server.enqueue(
-        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(speechResults)));
+    server.enqueue(new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(recognitionResults)));
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WAV)
@@ -279,7 +248,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     final RecordedRequest request = server.takeRequest();
 
     assertNotNull(result);
-    assertEquals(result, speechResults);
+    assertEquals(result, recognitionResults);
     assertEquals("POST", request.getMethod());
     assertEquals(PATH_RECOGNIZE, request.getPath());
     assertEquals(HttpMediaType.AUDIO_WAV, request.getHeader(CONTENT_TYPE));
@@ -293,22 +262,9 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testRecognizeWebM() throws URISyntaxException, InterruptedException, FileNotFoundException {
-
-    final SpeechRecognitionResults speechResults = new SpeechRecognitionResults();
-    speechResults.setResultIndex(0);
-    final SpeechRecognitionResult transcript = new SpeechRecognitionResult();
-    transcript.setFinalResults(true);
-    final SpeechRecognitionAlternative speechAlternative = new SpeechRecognitionAlternative();
-    speechAlternative.setTranscript("thunderstorms could produce large hail isolated tornadoes and heavy rain");
-
-    final List<SpeechRecognitionAlternative> speechAlternatives = ImmutableList.of(speechAlternative);
-    transcript.setAlternatives(speechAlternatives);
-
-    final List<SpeechRecognitionResult> transcripts = ImmutableList.of(transcript);
-    speechResults.setResults(transcripts);
-
-    server.enqueue(
-        new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(speechResults)));
+    server.enqueue(new MockResponse()
+        .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
+        .setBody(GSON.toJson(recognitionResults)));
 
     RecognizeOptions recognizeOptions = new RecognizeOptions.Builder()
         .audio(SAMPLE_WEBM)
@@ -318,7 +274,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     final RecordedRequest request = server.takeRequest();
 
     assertNotNull(result);
-    assertEquals(result, speechResults);
+    assertEquals(result, recognitionResults);
     assertEquals("POST", request.getMethod());
     assertEquals(PATH_RECOGNIZE, request.getPath());
     assertEquals(HttpMediaType.AUDIO_WEBM, request.getHeader(CONTENT_TYPE));
@@ -362,8 +318,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   public void testRecognizeWithCustomization() throws FileNotFoundException, InterruptedException {
     String id = "foo";
     String version = "version";
-    String recString =
-        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/recognition.json"));
+    String recString = getStringFromInputStream(new FileInputStream(
+        "src/test/resources/speech_to_text/recognition.json"));
     JsonObject recognition = new JsonParser().parse(recString).getAsJsonObject();
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(recString));
@@ -392,8 +348,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   public void testRecognizeWithAcousticCustomization() throws FileNotFoundException, InterruptedException {
     String id = "foo";
     String version = "version";
-    String recString =
-        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/recognition.json"));
+    String recString = getStringFromInputStream(new FileInputStream(
+        "src/test/resources/speech_to_text/recognition.json"));
     JsonObject recognition = new JsonParser().parse(recString).getAsJsonObject();
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(recString));
@@ -413,7 +369,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(recognition, GSON.toJsonTree(result));
   }
 
-    /**
+  /**
    * Test recognize with customization weight.
    *
    * @throws FileNotFoundException the file not found exception
@@ -422,8 +378,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   @Test
   public void testRecognizeWithCustomizationWeight() throws FileNotFoundException, InterruptedException {
     String id = "foo";
-    String recString =
-        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/recognition.json"));
+    String recString = getStringFromInputStream(new FileInputStream(
+        "src/test/resources/speech_to_text/recognition.json"));
     JsonObject recognition = new JsonParser().parse(recString).getAsJsonObject();
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(recString));
@@ -508,11 +464,11 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     assertEquals("POST", request.getMethod());
     assertEquals(PATH_RECOGNITIONS
-        + "?callback_url=" + callbackUrl
+        + "?model=" + model
+        + "&callback_url=" + callbackUrl
         + "&events=" + events
         + "&user_token=" + userToken
         + "&results_ttl=" + resultsTtl
-        + "&model=" + model
         + "&customization_id=" + customizationId
         + "&customization_weight=" + customizationWeight
         + "&version=" + version
@@ -561,8 +517,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
     server.enqueue(new MockResponse()
         .addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON)
-        .setBody(GSON.toJson(job))
-    );
+        .setBody(GSON.toJson(job)));
 
     CheckJobOptions checkOptions = new CheckJobOptions.Builder()
         .id(id)
@@ -604,8 +559,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testListLanguageModels() throws InterruptedException, FileNotFoundException {
-    String customizationsAsString =
-        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/customizations.json"));
+    String customizationsAsString = getStringFromInputStream(new FileInputStream(
+        "src/test/resources/speech_to_text/customizations.json"));
     JsonObject customizations = new JsonParser().parse(customizationsAsString).getAsJsonObject();
 
     server.enqueue(
@@ -632,8 +587,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   @Test
   public void testGetLanguageModel() throws InterruptedException, FileNotFoundException {
     String id = "foo";
-    LanguageModel model =
-        loadFixture("src/test/resources/speech_to_text/customization.json", LanguageModel.class);
+    LanguageModel model = loadFixture("src/test/resources/speech_to_text/customization.json", LanguageModel.class);
 
     server.enqueue(
         new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(model)));
@@ -657,19 +611,15 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testCreateLanguageModel() throws InterruptedException, FileNotFoundException {
-    LanguageModel model =
-        loadFixture("src/test/resources/speech_to_text/customization.json", LanguageModel.class);
+    LanguageModel model = loadFixture("src/test/resources/speech_to_text/customization.json", LanguageModel.class);
 
     server.enqueue(
         new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(model)));
 
-    CreateLanguageModel newModel = new CreateLanguageModel.Builder()
+    CreateLanguageModelOptions createOptions = new CreateLanguageModelOptions.Builder()
         .name(model.getName())
         .baseModelName("en-GB_BroadbandModel")
         .description(model.getDescription())
-        .build();
-    CreateLanguageModelOptions createOptions = new CreateLanguageModelOptions.Builder()
-        .createLanguageModel(newModel)
         .build();
     LanguageModel result = service.createLanguageModel(createOptions).execute();
     final RecordedRequest request = server.takeRequest();
@@ -774,8 +724,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   @Test
   public void testListCorpora() throws InterruptedException, FileNotFoundException {
     String id = "foo";
-    String corporaAsString =
-        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/corpora.json"));
+    String corporaAsString = getStringFromInputStream(new FileInputStream(
+        "src/test/resources/speech_to_text/corpora.json"));
     JsonObject corpora = new JsonParser().parse(corporaAsString).getAsJsonObject();
 
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(corporaAsString));
@@ -1024,8 +974,6 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     assertEquals(String.format(PATH_WORD, id, wordName), request.getPath());
   }
 
-
-
   /**
    * Test add words.
    *
@@ -1037,18 +985,17 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     String id = "foo";
     Word newWord = loadFixture("src/test/resources/speech_to_text/word.json", Word.class);
     Map<String, Object> wordsAsMap = new HashMap<String, Object>();
-    wordsAsMap.put("words", new Word[] {newWord});
+    wordsAsMap.put("words", new Word[] { newWord });
     server.enqueue(new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody("{}"));
+
+    CustomWord word = new CustomWord();
+    word.setWord(newWord.getWord());
+    word.setDisplayAs(newWord.getDisplayAs());
+    word.setSoundsLike(newWord.getSoundsLike());
 
     AddWordsOptions addOptions = new AddWordsOptions.Builder()
         .customizationId(id)
-        .customWords(new CustomWords.Builder()
-            .addWords(new CustomWord.Builder()
-                .word(newWord.getWord())
-                .displayAs(newWord.getDisplayAs())
-                .soundsLike(newWord.getSoundsLike())
-                .build())
-            .build())
+        .addWords(word)
         .build();
     service.addWords(addOptions).execute();
     final RecordedRequest request = server.takeRequest();
@@ -1073,11 +1020,9 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     AddWordOptions addOptions = new AddWordOptions.Builder()
         .wordName(newWord.getWord())
         .customizationId(id)
-        .customWord(new CustomWord.Builder()
-            .word(newWord.getWord())
-            .displayAs(newWord.getDisplayAs())
-            .soundsLike(newWord.getSoundsLike())
-            .build())
+        .word(newWord.getWord())
+        .displayAs(newWord.getDisplayAs())
+        .soundsLike(newWord.getSoundsLike())
         .build();
     service.addWord(addOptions).execute();
     final RecordedRequest request = server.takeRequest();
@@ -1095,19 +1040,15 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testCreateAcousticModel() throws InterruptedException, FileNotFoundException {
-    AcousticModel model =
-        loadFixture("src/test/resources/speech_to_text/acoustic-model.json", AcousticModel.class);
+    AcousticModel model = loadFixture("src/test/resources/speech_to_text/acoustic-model.json", AcousticModel.class);
 
     server.enqueue(
         new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(model)));
 
-    CreateAcousticModel newModel = new CreateAcousticModel.Builder()
+    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
         .name(model.getName())
         .baseModelName(model.getBaseModelName())
         .description(model.getDescription())
-        .build();
-    CreateAcousticModelOptions createOptions = new CreateAcousticModelOptions.Builder()
-        .createAcousticModel(newModel)
         .build();
     AcousticModel result = service.createAcousticModel(createOptions).execute();
     final RecordedRequest request = server.takeRequest();
@@ -1125,8 +1066,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
    */
   @Test
   public void testListAcousticModels() throws InterruptedException, FileNotFoundException {
-    String acousticModelsAsString =
-        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/acoustic-models.json"));
+    String acousticModelsAsString = getStringFromInputStream(new FileInputStream(
+        "src/test/resources/speech_to_text/acoustic-models.json"));
     JsonObject acousticModels = new JsonParser().parse(acousticModelsAsString).getAsJsonObject();
 
     server.enqueue(
@@ -1153,8 +1094,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   @Test
   public void testGetAcousticModel() throws InterruptedException, FileNotFoundException {
     String id = "foo";
-    AcousticModel model =
-        loadFixture("src/test/resources/speech_to_text/acoustic-model.json", AcousticModel.class);
+    AcousticModel model = loadFixture("src/test/resources/speech_to_text/acoustic-model.json", AcousticModel.class);
 
     server.enqueue(
         new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(model)));
@@ -1282,8 +1222,8 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
 
   @Test
   public void testListAudio() throws FileNotFoundException, InterruptedException {
-    String resourcesAsString =
-        getStringFromInputStream(new FileInputStream("src/test/resources/speech_to_text/audio-resources.json"));
+    String resourcesAsString = getStringFromInputStream(new FileInputStream(
+        "src/test/resources/speech_to_text/audio-resources.json"));
     JsonObject audioResources = new JsonParser().parse(resourcesAsString).getAsJsonObject();
     String id = "foo";
 
@@ -1306,8 +1246,7 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
   public void testGetAudio() throws InterruptedException, FileNotFoundException {
     String id = "foo";
     String audioName = "audio1";
-    AudioResource audio =
-        loadFixture("src/test/resources/speech_to_text/audio-resource.json", AudioResource.class);
+    AudioResource audio = loadFixture("src/test/resources/speech_to_text/audio-resource.json", AudioResource.class);
 
     server.enqueue(
         new MockResponse().addHeader(CONTENT_TYPE, HttpMediaType.APPLICATION_JSON).setBody(GSON.toJson(audio)));
@@ -1491,10 +1430,12 @@ public class SpeechToTextTest extends WatsonServiceUnitTest {
     }
 
     @Override
-    public void onInactivityTimeout(RuntimeException runtimeException) { }
+    public void onInactivityTimeout(RuntimeException runtimeException) {
+    }
 
     @Override
-    public void onListening() { }
+    public void onListening() {
+    }
 
     @Override
     public void onTranscriptionComplete() {

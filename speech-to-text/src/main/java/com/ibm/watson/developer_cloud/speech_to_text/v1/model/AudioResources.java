@@ -49,22 +49,4 @@ public class AudioResources extends GenericModel {
   public List<AudioResource> getAudio() {
     return audio;
   }
-
-  /**
-   * Sets the totalMinutesOfAudio.
-   *
-   * @param totalMinutesOfAudio the new totalMinutesOfAudio
-   */
-  public void setTotalMinutesOfAudio(final Double totalMinutesOfAudio) {
-    this.totalMinutesOfAudio = totalMinutesOfAudio;
-  }
-
-  /**
-   * Sets the audio.
-   *
-   * @param audio the new audio
-   */
-  public void setAudio(final List<AudioResource> audio) {
-    this.audio = audio;
-  }
 }

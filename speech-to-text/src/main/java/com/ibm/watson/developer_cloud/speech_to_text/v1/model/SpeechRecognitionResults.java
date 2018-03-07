@@ -85,40 +85,4 @@ public class SpeechRecognitionResults extends GenericModel {
   public List<String> getWarnings() {
     return warnings;
   }
-
-  /**
-   * Sets the results.
-   *
-   * @param results the new results
-   */
-  public void setResults(final List<SpeechRecognitionResult> results) {
-    this.results = results;
-  }
-
-  /**
-   * Sets the resultIndex.
-   *
-   * @param resultIndex the new resultIndex
-   */
-  public void setResultIndex(final long resultIndex) {
-    this.resultIndex = resultIndex;
-  }
-
-  /**
-   * Sets the speakerLabels.
-   *
-   * @param speakerLabels the new speakerLabels
-   */
-  public void setSpeakerLabels(final List<SpeakerLabelsResult> speakerLabels) {
-    this.speakerLabels = speakerLabels;
-  }
-
-  /**
-   * Sets the warnings.
-   *
-   * @param warnings the new warnings
-   */
-  public void setWarnings(final List<String> warnings) {
-    this.warnings = warnings;
-  }
 }

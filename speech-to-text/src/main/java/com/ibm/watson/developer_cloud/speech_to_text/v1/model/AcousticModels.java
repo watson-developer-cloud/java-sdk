@@ -35,13 +35,4 @@ public class AcousticModels extends GenericModel {
   public List<AcousticModel> getCustomizations() {
     return customizations;
   }
-
-  /**
-   * Sets the customizations.
-   *
-   * @param customizations the new customizations
-   */
-  public void setCustomizations(final List<AcousticModel> customizations) {
-    this.customizations = customizations;
-  }
 }

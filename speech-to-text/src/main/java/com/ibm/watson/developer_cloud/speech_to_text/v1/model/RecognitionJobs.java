@@ -34,13 +34,4 @@ public class RecognitionJobs extends GenericModel {
   public List<RecognitionJob> getRecognitions() {
     return recognitions;
   }
-
-  /**
-   * Sets the recognitions.
-   *
-   * @param recognitions the new recognitions
-   */
-  public void setRecognitions(final List<RecognitionJob> recognitions) {
-    this.recognitions = recognitions;
-  }
 }

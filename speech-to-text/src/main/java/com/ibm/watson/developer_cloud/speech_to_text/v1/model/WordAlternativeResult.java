@@ -43,22 +43,4 @@ public class WordAlternativeResult extends GenericModel {
   public String getWord() {
     return word;
   }
-
-  /**
-   * Sets the confidence.
-   *
-   * @param confidence the new confidence
-   */
-  public void setConfidence(final Double confidence) {
-    this.confidence = confidence;
-  }
-
-  /**
-   * Sets the word.
-   *
-   * @param word the new word
-   */
-  public void setWord(final String word) {
-    this.word = word;
-  }
 }

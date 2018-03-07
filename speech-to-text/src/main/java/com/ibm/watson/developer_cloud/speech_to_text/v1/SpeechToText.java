@@ -12,6 +12,7 @@
  */
 package com.ibm.watson.developer_cloud.speech_to_text.v1;
 
+import com.google.gson.JsonObject;
 import com.ibm.watson.developer_cloud.http.InputStreamRequestBody;
 import com.ibm.watson.developer_cloud.http.RequestBuilder;
 import com.ibm.watson.developer_cloud.http.ServiceCall;
@@ -88,7 +89,7 @@ import okhttp3.WebSocket;
  * more speech is heard.
  *
  * @version v1
- * @see <a href= "http://www.ibm.com/watson/developercloud/speech-to-text.html"> Speech to Text</a>
+ * @see <a href="http://www.ibm.com/watson/developercloud/speech-to-text.html">Speech to Text</a>
  */
 public class SpeechToText extends WatsonService {
 
@@ -182,60 +183,61 @@ public class SpeechToText extends WatsonService {
    * @return the {@link SpeechRecognitionResults}
    */
   public ServiceCall<SpeechRecognitionResults> recognize(RecognizeOptions recognizeOptions) {
-    Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/recognize");
-    if (recognizeOptions.contentType() != null) {
-      builder.header("Content-Type", recognizeOptions.contentType());
-    }
-    if (recognizeOptions.model() != null) {
-      builder.query("model", recognizeOptions.model());
-    }
-    if (recognizeOptions.customizationId() != null) {
-      builder.query("customization_id", recognizeOptions.customizationId());
-    }
-    if (recognizeOptions.acousticCustomizationId() != null) {
-      builder.query("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
-    }
-    if (recognizeOptions.customizationWeight() != null) {
-      builder.query("customization_weight", String.valueOf(recognizeOptions.customizationWeight()));
-    }
-    if (recognizeOptions.version() != null) {
-      builder.query("version", recognizeOptions.version());
-    }
-    if (recognizeOptions.inactivityTimeout() != null) {
-      builder.query("inactivity_timeout", String.valueOf(recognizeOptions.inactivityTimeout()));
-    }
-    if (recognizeOptions.keywords() != null) {
-      builder.query("keywords", RequestUtils.join(recognizeOptions.keywords(), ","));
-    }
-    if (recognizeOptions.keywordsThreshold() != null) {
-      builder.query("keywords_threshold", String.valueOf(recognizeOptions.keywordsThreshold()));
-    }
-    if (recognizeOptions.maxAlternatives() != null) {
-      builder.query("max_alternatives", String.valueOf(recognizeOptions.maxAlternatives()));
-    }
-    if (recognizeOptions.wordAlternativesThreshold() != null) {
-      builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions
-          .wordAlternativesThreshold()));
-    }
-    if (recognizeOptions.wordConfidence() != null) {
-      builder.query("word_confidence", String.valueOf(recognizeOptions.wordConfidence()));
-    }
-    if (recognizeOptions.timestamps() != null) {
-      builder.query("timestamps", String.valueOf(recognizeOptions.timestamps()));
-    }
-    if (recognizeOptions.profanityFilter() != null) {
-      builder.query("profanity_filter", String.valueOf(recognizeOptions.profanityFilter()));
-    }
-    if (recognizeOptions.smartFormatting() != null) {
-      builder.query("smart_formatting", String.valueOf(recognizeOptions.smartFormatting()));
-    }
-    if (recognizeOptions.speakerLabels() != null) {
-      builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
-    }
-    if (recognizeOptions.audio() != null) {
-      builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()),
-          recognizeOptions.audio()));
+    if (recognizeOptions != null) {
+      if (recognizeOptions.contentType() != null) {
+        builder.header("Content-Type", recognizeOptions.contentType());
+      }
+      if (recognizeOptions.model() != null) {
+        builder.query("model", recognizeOptions.model());
+      }
+      if (recognizeOptions.customizationId() != null) {
+        builder.query("customization_id", recognizeOptions.customizationId());
+      }
+      if (recognizeOptions.acousticCustomizationId() != null) {
+        builder.query("acoustic_customization_id", recognizeOptions.acousticCustomizationId());
+      }
+      if (recognizeOptions.customizationWeight() != null) {
+        builder.query("customization_weight", String.valueOf(recognizeOptions.customizationWeight()));
+      }
+      if (recognizeOptions.version() != null) {
+        builder.query("version", recognizeOptions.version());
+      }
+      if (recognizeOptions.inactivityTimeout() != null) {
+        builder.query("inactivity_timeout", String.valueOf(recognizeOptions.inactivityTimeout()));
+      }
+      if (recognizeOptions.keywords() != null) {
+        builder.query("keywords", RequestUtils.join(recognizeOptions.keywords(), ","));
+      }
+      if (recognizeOptions.keywordsThreshold() != null) {
+        builder.query("keywords_threshold", String.valueOf(recognizeOptions.keywordsThreshold()));
+      }
+      if (recognizeOptions.maxAlternatives() != null) {
+        builder.query("max_alternatives", String.valueOf(recognizeOptions.maxAlternatives()));
+      }
+      if (recognizeOptions.wordAlternativesThreshold() != null) {
+        builder.query("word_alternatives_threshold", String.valueOf(recognizeOptions
+            .wordAlternativesThreshold()));
+      }
+      if (recognizeOptions.wordConfidence() != null) {
+        builder.query("word_confidence", String.valueOf(recognizeOptions.wordConfidence()));
+      }
+      if (recognizeOptions.timestamps() != null) {
+        builder.query("timestamps", String.valueOf(recognizeOptions.timestamps()));
+      }
+      if (recognizeOptions.profanityFilter() != null) {
+        builder.query("profanity_filter", String.valueOf(recognizeOptions.profanityFilter()));
+      }
+      if (recognizeOptions.smartFormatting() != null) {
+        builder.query("smart_formatting", String.valueOf(recognizeOptions.smartFormatting()));
+      }
+      if (recognizeOptions.speakerLabels() != null) {
+        builder.query("speaker_labels", String.valueOf(recognizeOptions.speakerLabels()));
+      }
+      if (recognizeOptions.audio() != null) {
+        builder.body(InputStreamRequestBody.create(MediaType.parse(recognizeOptions.contentType()),
+            recognizeOptions.audio()));
+      }
     }
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(SpeechRecognitionResults.class));
   }
@@ -255,8 +257,7 @@ public class SpeechToText extends WatsonService {
    * @param callback the {@link RecognizeCallback} instance where results will be sent
    * @return the {@link WebSocket}
    */
-  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback
-      callback) {
+  public WebSocket recognizeUsingWebSocket(RecognizeOptions recognizeOptions, RecognizeCallback callback) {
     Validator.notNull(recognizeOptions, "recognizeOptions cannot be null");
     Validator.notNull(recognizeOptions.audio(), "audio cannot be null");
     Validator.notNull(callback, "callback cannot be null");
@@ -313,11 +314,12 @@ public class SpeechToText extends WatsonService {
   /**
    * Checks the status of all asynchronous jobs.
    *
-   * Returns the ID and status of all outstanding jobs associated with the service credentials with which it is called.
-   * The method also returns the creation and update times of each job, and, if a job was created with a callback URL
-   * and a user token, the user token for the job. To obtain the results for a job whose status is `completed`, use the
-   * `GET /v1/recognitions/{id}` method. A job and its results remain available until you delete them with the `DELETE
-   * /v1/recognitions/{id}` method or until the job's time to live expires, whichever comes first.
+   * Returns the ID and status of the latest 100 outstanding jobs associated with the service credentials with which it
+   * is called. The method also returns the creation and update times of each job, and, if a job was created with a
+   * callback URL and a user token, the user token for the job. To obtain the results for a job whose status is
+   * `completed` or not one of the latest 100 outstanding jobs, use the `GET /v1/recognitions/{id}` method. A job and
+   * its results remain available until you delete them with the `DELETE /v1/recognitions/{id}` method or until the
+   * job's time to live expires, whichever comes first.
    *
    * @param checkJobsOptions the {@link CheckJobsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJobs}
@@ -332,11 +334,12 @@ public class SpeechToText extends WatsonService {
   /**
    * Checks the status of all asynchronous jobs.
    *
-   * Returns the ID and status of all outstanding jobs associated with the service credentials with which it is called.
-   * The method also returns the creation and update times of each job, and, if a job was created with a callback URL
-   * and a user token, the user token for the job. To obtain the results for a job whose status is `completed`, use the
-   * `GET /v1/recognitions/{id}` method. A job and its results remain available until you delete them with the `DELETE
-   * /v1/recognitions/{id}` method or until the job's time to live expires, whichever comes first.
+   * Returns the ID and status of the latest 100 outstanding jobs associated with the service credentials with which it
+   * is called. The method also returns the creation and update times of each job, and, if a job was created with a
+   * callback URL and a user token, the user token for the job. To obtain the results for a job whose status is
+   * `completed` or not one of the latest 100 outstanding jobs, use the `GET /v1/recognitions/{id}` method. A job and
+   * its results remain available until you delete them with the `DELETE /v1/recognitions/{id}` method or until the
+   * job's time to live expires, whichever comes first.
    *
    * @return a {@link ServiceCall} with a response type of {@link RecognitionJobs}
    */
@@ -372,6 +375,9 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(createJobOptions, "createJobOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/recognitions");
     builder.header("Content-Type", createJobOptions.contentType());
+    if (createJobOptions.model() != null) {
+      builder.query("model", createJobOptions.model());
+    }
     if (createJobOptions.callbackUrl() != null) {
       builder.query("callback_url", createJobOptions.callbackUrl());
     }
@@ -383,9 +389,6 @@ public class SpeechToText extends WatsonService {
     }
     if (createJobOptions.resultsTtl() != null) {
       builder.query("results_ttl", String.valueOf(createJobOptions.resultsTtl()));
-    }
-    if (createJobOptions.model() != null) {
-      builder.query("model", createJobOptions.model());
     }
     if (createJobOptions.customizationId() != null) {
       builder.query("customization_id", createJobOptions.customizationId());
@@ -516,12 +519,16 @@ public class SpeechToText extends WatsonService {
   public ServiceCall<LanguageModel> createLanguageModel(CreateLanguageModelOptions createLanguageModelOptions) {
     Validator.notNull(createLanguageModelOptions, "createLanguageModelOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/customizations");
-    builder.header("Content-Type", createLanguageModelOptions.contentType());
-    if (createLanguageModelOptions.contentType().equalsIgnoreCase(
-        CreateLanguageModelOptions.ContentType.APPLICATION_JSON)) {
-      builder.bodyJson(GsonSingleton.getGson().toJsonTree(createLanguageModelOptions.createLanguageModel())
-          .getAsJsonObject());
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createLanguageModelOptions.name());
+    contentJson.addProperty("base_model_name", createLanguageModelOptions.baseModelName());
+    if (createLanguageModelOptions.dialect() != null) {
+      contentJson.addProperty("dialect", createLanguageModelOptions.dialect());
     }
+    if (createLanguageModelOptions.description() != null) {
+      contentJson.addProperty("description", createLanguageModelOptions.description());
+    }
+    builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(LanguageModel.class));
   }
 
@@ -806,10 +813,17 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(addWordOptions, "addWordOptions cannot be null");
     RequestBuilder builder = RequestBuilder.put(String.format("/v1/customizations/%s/words/%s", addWordOptions
         .customizationId(), addWordOptions.wordName()));
-    builder.header("Content-Type", addWordOptions.contentType());
-    if (addWordOptions.contentType().equalsIgnoreCase(AddWordOptions.ContentType.APPLICATION_JSON)) {
-      builder.bodyJson(GsonSingleton.getGson().toJsonTree(addWordOptions.customWord()).getAsJsonObject());
+    final JsonObject contentJson = new JsonObject();
+    if (addWordOptions.word() != null) {
+      contentJson.addProperty("word", addWordOptions.word());
     }
+    if (addWordOptions.soundsLike() != null) {
+      contentJson.add("sounds_like", GsonSingleton.getGson().toJsonTree(addWordOptions.soundsLike()));
+    }
+    if (addWordOptions.displayAs() != null) {
+      contentJson.addProperty("display_as", addWordOptions.displayAs());
+    }
+    builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -857,10 +871,9 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(addWordsOptions, "addWordsOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/customizations/%s/words", addWordsOptions
         .customizationId()));
-    builder.header("Content-Type", addWordsOptions.contentType());
-    if (addWordsOptions.contentType().equalsIgnoreCase(AddWordsOptions.ContentType.APPLICATION_JSON)) {
-      builder.bodyJson(GsonSingleton.getGson().toJsonTree(addWordsOptions.customWords()).getAsJsonObject());
-    }
+    final JsonObject contentJson = new JsonObject();
+    contentJson.add("words", GsonSingleton.getGson().toJsonTree(addWordsOptions.words()));
+    builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getVoid());
   }
 
@@ -938,12 +951,13 @@ public class SpeechToText extends WatsonService {
   public ServiceCall<AcousticModel> createAcousticModel(CreateAcousticModelOptions createAcousticModelOptions) {
     Validator.notNull(createAcousticModelOptions, "createAcousticModelOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post("/v1/acoustic_customizations");
-    builder.header("Content-Type", createAcousticModelOptions.contentType());
-    if (createAcousticModelOptions.contentType().equalsIgnoreCase(
-        CreateAcousticModelOptions.ContentType.APPLICATION_JSON)) {
-      builder.bodyJson(GsonSingleton.getGson().toJsonTree(createAcousticModelOptions.createAcousticModel())
-          .getAsJsonObject());
+    final JsonObject contentJson = new JsonObject();
+    contentJson.addProperty("name", createAcousticModelOptions.name());
+    contentJson.addProperty("base_model_name", createAcousticModelOptions.baseModelName());
+    if (createAcousticModelOptions.description() != null) {
+      contentJson.addProperty("description", createAcousticModelOptions.description());
     }
+    builder.bodyJson(contentJson);
     return createServiceCall(builder.build(), ResponseConverterUtils.getObject(AcousticModel.class));
   }
 
@@ -1041,9 +1055,10 @@ public class SpeechToText extends WatsonService {
    * latest audio data. The custom acoustic model does not reflect its changed data until you train it. You must use
    * credentials for the instance of the service that owns a model to train it. The training method is asynchronous. It
    * can take on the order of minutes or hours to complete depending on the total amount of audio data on which the
-   * model is being trained and the current load on the service. Typically, training takes approximately twice the
-   * length of the total audio contained in the custom model. The method returns an HTTP 200 response code to indicate
-   * that the training process has begun. You can monitor the status of the training by using the `GET
+   * model is being trained and the current load on the service. Typically, training takes approximately two to four
+   * times the length of its audio data. The range of time depends on the model being trained and the nature of the
+   * audio, such as whether the audio is clean or noisy. The method returns an HTTP 200 response code to indicate that
+   * the training process has begun. You can monitor the status of the training by using the `GET
    * /v1/acoustic_customizations/{customization_id}` method to poll the model's status. Use a loop to check the status
    * once a minute. The method returns an `Customization` object that includes `status` and `progress` fields. A status
    * of `available` indicates that the custom model is trained and ready to use. The service cannot accept subsequent
@@ -1143,10 +1158,10 @@ public class SpeechToText extends WatsonService {
     Validator.notNull(addAudioOptions, "addAudioOptions cannot be null");
     RequestBuilder builder = RequestBuilder.post(String.format("/v1/acoustic_customizations/%s/audio/%s",
         addAudioOptions.customizationId(), addAudioOptions.audioName()));
+    builder.header("Content-Type", addAudioOptions.contentType());
     if (addAudioOptions.containedContentType() != null) {
       builder.header("Contained-Content-Type", addAudioOptions.containedContentType());
     }
-    builder.header("Content-Type", addAudioOptions.contentType());
     if (addAudioOptions.allowOverwrite() != null) {
       builder.query("allow_overwrite", String.valueOf(addAudioOptions.allowOverwrite()));
     }
