@@ -104,7 +104,7 @@ public class ListModelsOptions extends GenericModel {
   /**
    * Gets the source.
    *
-   * Filter models by source language.
+   * Specify a language code to filter results by source language.
    *
    * @return the source
    */
@@ -115,7 +115,7 @@ public class ListModelsOptions extends GenericModel {
   /**
    * Gets the target.
    *
-   * Filter models by target language.
+   * Specify a language code to filter results by target language.
    *
    * @return the target
    */
@@ -126,9 +126,9 @@ public class ListModelsOptions extends GenericModel {
   /**
    * Gets the defaultModels.
    *
-   * Valid values are leaving it unset, `true`, and `false`. When `true`, it filters models to return the default model
-   * or models. When `false`, it returns the non-default model or models. If not set, it returns all models, default and
-   * non-default.
+   * If the default parameter isn't specified, the service will return all models (default and non-default) for each
+   * language pair. To return only default models, set this to `true`. To return only non-default models, set this to
+   * `false`.
    *
    * @return the defaultModels
    */

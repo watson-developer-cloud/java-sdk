@@ -31,13 +31,4 @@ public class Translation extends GenericModel {
   public String getTranslation() {
     return translation;
   }
-
-  /**
-   * Sets the translation.
-   *
-   * @param translation the new translation
-   */
-  public void setTranslation(final String translation) {
-    this.translation = translation;
-  }
 }

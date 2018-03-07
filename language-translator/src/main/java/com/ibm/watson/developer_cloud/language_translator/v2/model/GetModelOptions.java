@@ -85,7 +85,7 @@ public class GetModelOptions extends GenericModel {
   /**
    * Gets the modelId.
    *
-   * Model ID to use.
+   * Model ID of the model to get.
    *
    * @return the modelId
    */

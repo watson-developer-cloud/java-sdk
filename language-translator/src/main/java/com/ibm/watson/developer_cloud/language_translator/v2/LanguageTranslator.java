@@ -71,6 +71,8 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
+   * Translate.
+   *
    * Translates the input text from the source language to the target language.
    *
    * @param translateOptions the {@link TranslateOptions} containing the options for the call
@@ -95,6 +97,8 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
+   * Identify language.
+   *
    * Identifies the language of the input text.
    *
    * @param identifyOptions the {@link IdentifyOptions} containing the options for the call
@@ -108,10 +112,10 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
-   * Lists all languages that can be identified by the API.
+   * List identifiable languages.
    *
-   * Lists all languages that the service can identify. Returns the two-letter code (for example, `en` for English or
-   * `es` for Spanish) and name of each language.
+   * Lists the languages that the service can identify. Returns the language code (for example, `en` for English or `es`
+   * for Spanish) and name of each language.
    *
    * @param listIdentifiableLanguagesOptions the {@link ListIdentifiableLanguagesOptions} containing the options for the
    *          call
@@ -126,10 +130,10 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
-   * Lists all languages that can be identified by the API.
+   * List identifiable languages.
    *
-   * Lists all languages that the service can identify. Returns the two-letter code (for example, `en` for English or
-   * `es` for Spanish) and name of each language.
+   * Lists the languages that the service can identify. Returns the language code (for example, `en` for English or `es`
+   * for Spanish) and name of each language.
    *
    * @return a {@link ServiceCall} with a response type of {@link IdentifiableLanguages}
    */
@@ -138,11 +142,11 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
-   * Uploads a TMX glossary file on top of a domain to customize a translation model.
+   * Create model.
    *
-   * Depending on the size of the file, training can range from minutes for a glossary to several hours for a large
-   * parallel corpus. Glossary files must be less than 10 MB. The cumulative file size of all uploaded glossary and
-   * corpus files is limited to 250 MB.
+   * Uploads a TMX glossary file on top of a domain to customize a translation model. Depending on the size of the file,
+   * training can range from minutes for a glossary to several hours for a large parallel corpus. Glossary files must be
+   * less than 10 MB. The cumulative file size of all uploaded glossary and corpus files is limited to 250 MB.
    *
    * @param createModelOptions the {@link CreateModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TranslationModel}
@@ -182,6 +186,8 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
+   * Delete model.
+   *
    * Deletes a custom translation model.
    *
    * @param deleteModelOptions the {@link DeleteModelOptions} containing the options for the call
@@ -194,7 +200,9 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
-   * Get information about the given translation model, including training status.
+   * Get model details.
+   *
+   * Gets information about a translation model, including training status for custom models.
    *
    * @param getModelOptions the {@link GetModelOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TranslationModel}
@@ -206,7 +214,9 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
-   * Lists available standard and custom models by source or target language.
+   * List models.
+   *
+   * Lists available translation models.
    *
    * @param listModelsOptions the {@link ListModelsOptions} containing the options for the call
    * @return a {@link ServiceCall} with a response type of {@link TranslationModels}
@@ -228,7 +238,9 @@ public class LanguageTranslator extends WatsonService {
   }
 
   /**
-   * Lists available standard and custom models by source or target language.
+   * List models.
+   *
+   * Lists available translation models.
    *
    * @return a {@link ServiceCall} with a response type of {@link TranslationModels}
    */

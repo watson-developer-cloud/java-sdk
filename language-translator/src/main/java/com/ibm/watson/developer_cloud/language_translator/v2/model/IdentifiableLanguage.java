@@ -25,7 +25,7 @@ public class IdentifiableLanguage extends GenericModel {
   /**
    * Gets the language.
    *
-   * The code for an identifiable language.
+   * The language code for an identifiable language.
    *
    * @return the language
    */
@@ -42,23 +42,5 @@ public class IdentifiableLanguage extends GenericModel {
    */
   public String getName() {
     return name;
-  }
-
-  /**
-   * Sets the language.
-   *
-   * @param language the new language
-   */
-  public void setLanguage(final String language) {
-    this.language = language;
-  }
-
-  /**
-   * Sets the name.
-   *
-   * @param name the new name
-   */
-  public void setName(final String name) {
-    this.name = name;
   }
 }
